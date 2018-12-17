@@ -5,6 +5,12 @@ import java.util.Set;
 
 import com.terapico.caf.baseelement.LoginForm;
 
+
+
+
+
+
+
 public class AuthencationService {
 	
 	public static boolean matchInternalToken(String inputToken)

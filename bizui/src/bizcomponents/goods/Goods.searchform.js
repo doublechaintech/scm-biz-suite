@@ -1,0 +1,450 @@
+
+
+import React, { PureComponent } from 'react'
+import { connect } from 'dva'
+import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, InputNumber, DatePicker, Modal, message } from 'antd'
+
+import styles from './Goods.search.less'
+import GlobalComponents from '../../custcomponents'
+import SelectObject from '../../components/SelectObject'
+const FormItem = Form.Item
+const { Option } = Select
+const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
+
+const pushIfNotNull=(holder,value)=>{
+  if(value==null){
+    return
+  }
+  holder.push(value)
+
+}
+
+const overrideValue=(values,defaultValue)=>{
+  
+  const result = _.findLast(values,it=>!_.isUndefined(it)&&!_.isNull(it))
+  if(_.isUndefined(result)){
+    return defaultValue
+  }
+  return result
+}
+
+
+const filterObjectKeys=(targetObject)=>{
+
+  const filteredValues = {}
+  for(var key in targetObject){
+      const value = targetObject[key]
+      if(!value){
+        continue
+      }
+      filteredValues[key] = value
+     
+  }
+  return filteredValues
+
+}
+
+class GoodsSearchForm extends PureComponent {
+  state = {
+    // addInputValue: '',
+    // modalVisible: false,
+    expandForm: false,
+    // selectedRows: [],
+    // formValues: {},
+  }
+componentDidMount() {
+    // const { dispatch } = this.props
+    // console.log(this.props)
+    // const { getFieldDecorator, setFieldsValue } = this.props.form
+    const { setFieldsValue,setFieldValue } = this.props.form
+    const { expandForm } = this.props
+    
+    const { searchFormParameters } = this.props
+    if (!searchFormParameters) {
+      return
+    }
+    console.log("searchFormParameters", searchFormParameters)
+
+    setFieldsValue(searchFormParameters)
+    if(_.isUndefined(expandForm)){
+      this.setState({searchParams:searchFormParameters,expandForm:false})
+      return
+    }
+    this.setState({searchParams:searchFormParameters,expandForm})
+    
+  }
+  toggleForm = () => {
+    this.setState({
+      expandForm: !this.state.expandForm,
+    })
+  }
+  handleFormReset = () => {
+    const { form, dispatch } = this.props
+    form.resetFields()
+    dispatch({
+      type: 'rule/fetch',
+      payload: {},
+    })
+  }
+  /*
+  buildStringSearchParameters = (formValues, fieldName) => {
+    const fieldValue = formValues[fieldName]
+    if (!fieldValue) {
+      console.log('NO VALUE')
+      return {}
+    }
+    return {
+      goodsList: 1,
+      'goodsList.searchField': fieldName,
+      'goodsList.searchVerb': 'startsWith',
+      'goodsList.searchValue': fieldValue,
+    }
+  }
+  */
+  buildStringSearchParameters = (formValues, searchVerb, fieldName) => {
+    const fieldValue = formValues[fieldName]
+    if (!fieldValue) {
+      return null
+    }
+    
+    //paramHolder.length
+    const value = {}
+
+    value[`goodsList.searchField`] = fieldName
+    value[`goodsList.searchVerb`] =  searchVerb
+    value[`goodsList.searchValue`] = fieldValue
+    
+    return value
+
+  }
+  
+  
+  
+  handleSearch = (e) => {
+    e.preventDefault()
+    const { dispatch, form } = this.props
+    form.validateFields((err, fieldsValue) => {
+      if (err) return
+      const paramList = []
+      
+     
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'id'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'name'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'rfid'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'uom'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'sku'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'receivingSpace'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'goodsAllocation'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'smartPallet'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'shippingSpace'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'transportTask'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'retailStore'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'bizOrder'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'retailStoreOrder'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'currentStatus'))
+
+     
+      console.log("the final parameter", paramList)
+      
+      const params = {}
+      
+     
+      for(var i=0;i<paramList.length;i++){
+        const element = paramList[i];
+        for (var key in element) {
+          params[key+"."+i]=element[key]
+        }
+
+      }
+     
+      params['goodsList'] = 1
+      params['goodsList.orderBy.0'] = "id"
+      params['goodsList.descOrAsc.0'] = "desc"
+      
+      const { owner } = this.props
+      const expandForm = overrideValue([this.state.expandForm],false)
+      dispatch({
+        type: `${owner.type}/load`,
+        payload: { id: owner.id, parameters: params, 
+        goodsSearchFormParameters: filterObjectKeys(fieldsValue),
+        searchParameters: params,
+        expandForm },
+      })
+    })
+  }
+      
+  renderSimpleForm() {
+    const { getFieldDecorator } = this.props.form
+    const {GoodsService} = GlobalComponents
+    const tryinit  = (fieldName) => {
+      const { owner } = this.props
+      const { referenceName } = owner
+      if(referenceName!=fieldName){
+        return null
+      }
+      return owner.id
+    }
+    const availableForEdit = (fieldName) =>{
+      const { owner } = this.props
+      const { referenceName } = owner
+      if(referenceName!=fieldName){
+        return true
+      }
+      return false
+    }
+    
+    return (
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+
+       <Col md={8} sm={24}>
+         <FormItem label="序号">
+           {getFieldDecorator('id')(
+             <Input placeholder="请输入序号" />
+           )}
+         </FormItem>
+       </Col>
+
+       <Col md={8} sm={24}>
+         <FormItem label="名称">
+           {getFieldDecorator('name')(
+             <Input placeholder="请输入名称" />
+           )}
+         </FormItem>
+       </Col>
+
+          <Col md={8} sm={24}>
+            <span className={styles.submitButtons}>
+              <Button type="primary" htmlType="submit">查询</Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
+              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> 展开 <Icon type="down" /> </a>
+            </span>
+          </Col>
+        </Row>
+      </Form>
+    )
+  }
+  renderAdvancedForm() {
+  	const {GoodsService} = GlobalComponents
+    const { getFieldDecorator } = this.props.form
+    
+    const tryinit  = (fieldName) => {
+      const { owner } = this.props
+      const { referenceName } = owner
+      if(referenceName!=fieldName){
+        return null
+      }
+      return owner.id
+    }
+    
+    const availableForEdit= (fieldName) =>{
+      const { owner } = this.props
+      const { referenceName } = owner
+      if(referenceName!=fieldName){
+        return true
+      }
+      return false
+    
+    }
+    
+    
+    return (
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+
+          <Col md={8} sm={24}>
+            <FormItem label="序号">
+              {getFieldDecorator('id')(
+                <Input placeholder="请输入序号" />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="名称">
+              {getFieldDecorator('name')(
+                <Input placeholder="请输入名称" />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="RFID">
+              {getFieldDecorator('rfid')(
+                <Input placeholder="请输入RFID" />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="计量单位">
+              {getFieldDecorator('uom')(
+                <Input placeholder="请输入计量单位" />
+              )}
+            </FormItem>
+          </Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="SKU">
+                  {getFieldDecorator('sku', {
+                    initialValue: tryinit('sku'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('sku')}
+                    targetType={"sku"} 
+                    requestFunction={GoodsService.requestCandidateSku}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="收货区">
+                  {getFieldDecorator('receivingSpace', {
+                    initialValue: tryinit('receivingSpace'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('receivingSpace')}
+                    targetType={"receivingSpace"} 
+                    requestFunction={GoodsService.requestCandidateReceivingSpace}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="货位">
+                  {getFieldDecorator('goodsAllocation', {
+                    initialValue: tryinit('goodsAllocation'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('goodsAllocation')}
+                    targetType={"goodsAllocation"} 
+                    requestFunction={GoodsService.requestCandidateGoodsAllocation}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="智能托盘">
+                  {getFieldDecorator('smartPallet', {
+                    initialValue: tryinit('smartPallet'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('smartPallet')}
+                    targetType={"smartPallet"} 
+                    requestFunction={GoodsService.requestCandidateSmartPallet}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="发货区">
+                  {getFieldDecorator('shippingSpace', {
+                    initialValue: tryinit('shippingSpace'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('shippingSpace')}
+                    targetType={"shippingSpace"} 
+                    requestFunction={GoodsService.requestCandidateShippingSpace}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="运输任务">
+                  {getFieldDecorator('transportTask', {
+                    initialValue: tryinit('transportTask'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('transportTask')}
+                    targetType={"transportTask"} 
+                    requestFunction={GoodsService.requestCandidateTransportTask}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="双链小超">
+                  {getFieldDecorator('retailStore', {
+                    initialValue: tryinit('retailStore'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('retailStore')}
+                    targetType={"retailStore"} 
+                    requestFunction={GoodsService.requestCandidateRetailStore}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="订单">
+                  {getFieldDecorator('bizOrder', {
+                    initialValue: tryinit('bizOrder'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('bizOrder')}
+                    targetType={"bizOrder"} 
+                    requestFunction={GoodsService.requestCandidateBizOrder}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label="生超的订单">
+                  {getFieldDecorator('retailStoreOrder', {
+                    initialValue: tryinit('retailStoreOrder'),
+                   
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('retailStoreOrder')}
+                    targetType={"retailStoreOrder"} 
+                    requestFunction={GoodsService.requestCandidateRetailStoreOrder}/>
+                  
+                 
+                  )}
+                </Form.Item></Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="当前状态">
+              {getFieldDecorator('currentStatus')(
+                <Input placeholder="请输入当前状态" />
+              )}
+            </FormItem>
+          </Col>
+
+        </Row>
+        <div style={{ overflow: 'hidden' }}>
+          <span style={{ float: 'right', marginBottom: 24 }}>
+            <Button type="primary" htmlType="submit">查询</Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
+            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>收起 <Icon type="up" /></a>
+          </span>
+        </div>
+      </Form>
+    )
+  }
+
+  render() {
+  	const expandForm = overrideValue([this.state.expandForm],false)
+    return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()
+  }
+}
+
+export default Form.create()(GoodsSearchForm)
+
+

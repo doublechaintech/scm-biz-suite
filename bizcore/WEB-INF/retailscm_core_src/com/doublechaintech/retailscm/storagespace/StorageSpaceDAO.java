@@ -1,0 +1,71 @@
+
+package com.doublechaintech.retailscm.storagespace;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import com.doublechaintech.retailscm.BaseEntity;
+import com.doublechaintech.retailscm.SmartList;
+import com.doublechaintech.retailscm.MultipleAccessKey;
+import com.doublechaintech.retailscm.RetailscmUserContext;
+import com.doublechaintech.retailscm.warehouse.WarehouseDAO;
+import com.doublechaintech.retailscm.goodsshelf.GoodsShelfDAO;
+
+
+public interface StorageSpaceDAO{
+
+	
+	public StorageSpace load(String id, Map<String,Object> options) throws Exception;
+	public void enhanceList(List<StorageSpace> storageSpaceList);
+	public void collectAndEnhance(BaseEntity ownerEntity);
+	
+	public void alias(List<BaseEntity> entityList);
+	
+	
+	
+	
+	public StorageSpace present(StorageSpace storageSpace,Map<String,Object> options) throws Exception;
+	public StorageSpace clone(String id, Map<String,Object> options) throws Exception;
+	
+	
+	
+	public StorageSpace save(StorageSpace storageSpace,Map<String,Object> options);
+	public SmartList<StorageSpace> saveStorageSpaceList(SmartList<StorageSpace> storageSpaceList,Map<String,Object> options);
+	public SmartList<StorageSpace> removeStorageSpaceList(SmartList<StorageSpace> storageSpaceList,Map<String,Object> options);
+	public SmartList<StorageSpace> findStorageSpaceWithKey(MultipleAccessKey key,Map<String, Object> options);
+	public int countStorageSpaceWithKey(MultipleAccessKey key,Map<String, Object> options);
+	public Map<String, Integer> countStorageSpaceWithGroupKey(String groupKey, MultipleAccessKey filterKey,
+			Map<String, Object> options);
+	public void delete(String storageSpaceId, int version) throws Exception;
+	public StorageSpace disconnectFromAll(String storageSpaceId, int version) throws Exception;
+	public int deleteAll() throws Exception;
+
+	public GoodsShelfDAO getGoodsShelfDAO();
+		
+	
+ 	public SmartList<StorageSpace> requestCandidateStorageSpaceForGoodsShelf(RetailscmUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception;
+		
+	
+	public StorageSpace planToRemoveGoodsShelfList(StorageSpace storageSpace, String goodsShelfIds[], Map<String,Object> options)throws Exception;
+
+
+	//disconnect StorageSpace with supplier_space in GoodsShelf
+	public StorageSpace planToRemoveGoodsShelfListWithSupplierSpace(StorageSpace storageSpace, String supplierSpaceId, Map<String,Object> options)throws Exception;
+	public int countGoodsShelfListWithSupplierSpace(String storageSpaceId, String supplierSpaceId, Map<String,Object> options)throws Exception;
+	
+	//disconnect StorageSpace with damage_space in GoodsShelf
+	public StorageSpace planToRemoveGoodsShelfListWithDamageSpace(StorageSpace storageSpace, String damageSpaceId, Map<String,Object> options)throws Exception;
+	public int countGoodsShelfListWithDamageSpace(String storageSpaceId, String damageSpaceId, Map<String,Object> options)throws Exception;
+	
+	
+	public SmartList<StorageSpace> queryList(String sql, Object ... parmeters);
+ 
+ 	public SmartList<StorageSpace> findStorageSpaceByWarehouse(String warehouseId, Map<String,Object> options);
+ 	public int countStorageSpaceByWarehouse(String warehouseId, Map<String,Object> options);
+ 	public Map<String, Integer> countStorageSpaceByWarehouseIds(String[] ids, Map<String,Object> options);
+ 	public SmartList<StorageSpace> findStorageSpaceByWarehouse(String warehouseId, int start, int count, Map<String,Object> options);
+ 	public void analyzeStorageSpaceByWarehouse(SmartList<StorageSpace> resultList, String warehouseId, Map<String,Object> options);
+
+ 
+ }
+
+

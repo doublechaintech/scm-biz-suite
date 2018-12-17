@@ -43,15 +43,15 @@ const topColResponsiveProps = {
   }
 
   
-  const renderForNumbers=(mainObject)=>{
+  const renderForNumbers=(aggregatedData)=>{
 
-    if(!mainObject){
+    if(!aggregatedData){
       return null;
     }
     //scan all property ends with stats info
    
   
-    const data = aggregateDataset(mainObject)
+    const data = aggregatedData
     if(!data.dataArray){
       return null
     }
@@ -90,19 +90,19 @@ const topColResponsiveProps = {
           })
 
           
-          if(itemTotal<100){
+          if(itemTotal<5){
             return null
           }
 
-          if(visitData.length<10){
+          if(visitData.length<5){
             return null
           }
           var ChartComp=MiniArea
 
-          if(visitData.length<20){
+          if(visitData.length<3){
             ChartComp = MiniBar
           }
-
+          
 
           return <Col key={item} {...topColResponsiveProps}>
           <ChartCard
@@ -140,14 +140,14 @@ const topColResponsiveProps = {
 
   }
 
-  const renderForTimeLine = (mainObject)=>{
-    if(!mainObject){
+  const renderForTimeLine = (aggregatedData)=>{
+    if(!aggregatedData){
       return null;
     }
     //scan all property ends with stats info
-   
+    console.log("aggregatedData",aggregatedData)
   
-    const data = aggregateDataset(mainObject)
+    const data = aggregatedData
     if(!data.dataArray){
       return null
     }
@@ -183,7 +183,7 @@ const topColResponsiveProps = {
             type: 'slider',
             show: true,
             xAxisIndex: [0],
-            start: 76,
+            start: 1,
             end: 100
         }],
     
@@ -206,15 +206,15 @@ const topColResponsiveProps = {
   
     }
     const onEvents={'click':click,'legendselectchanged': legend,'datazoom':datazoom }
-  
-    return (<ReactEcharts
+   
+    return (<Card><ReactEcharts
       option={option}
       height={600}
       theme="bizTheme2"
       
       style={{height: '400px'}}
       onEvents={onEvents}
-    />);
+    /></Card>);
   
   
   }  
@@ -513,7 +513,22 @@ const aggregateDataset=(mainObject)=>{
 
 
 const defaultRenderExtraHeader = (mainObject) =>{
-      return null
+   
+  const data = aggregateDataset(mainObject)
+  if(!data.dataArray){
+    return null
+  }
+  if(data.dataArray.length==0){
+    return null
+  }
+    return (<div>
+      {renderForNumbers(data)}
+      {renderForTimeLine(data)}
+    </div>)
+  
+  
+  
+  
 }
     
 const defaultRenderExtraFooter = (mainObject) =>{

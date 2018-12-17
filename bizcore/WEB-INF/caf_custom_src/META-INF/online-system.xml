@@ -14,7 +14,7 @@
 	
 	
 	 -->
-	<import resource="classpath*:/META-INF/shuxiang_custom.xml" />
+	<import resource="classpath*:/META-INF/retailscm_custom.xml" />
 	
 	
 	
@@ -34,19 +34,5 @@
 	<import resource="classpath*:/META-INF/manu_scm_custom.xml" />
 	
 	 -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

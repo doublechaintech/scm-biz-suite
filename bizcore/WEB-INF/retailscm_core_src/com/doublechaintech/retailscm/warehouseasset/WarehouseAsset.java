@@ -1,0 +1,270 @@
+
+package com.doublechaintech.retailscm.warehouseasset;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.math.BigDecimal;
+import com.terapico.caf.DateTime;
+import com.doublechaintech.retailscm.BaseEntity;
+import com.doublechaintech.retailscm.SmartList;
+import com.doublechaintech.retailscm.KeyValuePair;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.doublechaintech.retailscm.warehouse.Warehouse;
+
+@JsonSerialize(using = WarehouseAssetSerializer.class)
+public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
+
+	
+	public static final String ID_PROPERTY                    = "id"                ;
+	public static final String NAME_PROPERTY                  = "name"              ;
+	public static final String POSITION_PROPERTY              = "position"          ;
+	public static final String OWNER_PROPERTY                 = "owner"             ;
+	public static final String VERSION_PROPERTY               = "version"           ;
+
+
+	public static final String INTERNAL_TYPE="WarehouseAsset";
+	public String getInternalType(){
+		return INTERNAL_TYPE;
+	}
+	
+	public String getDisplayName(){
+	
+		String displayName = getName();
+		if(displayName!=null){
+			return displayName;
+		}
+		
+		return super.getDisplayName();
+		
+	}
+
+	private static final long serialVersionUID = 1L;
+	
+
+	protected		String              	mId                 ;
+	protected		String              	mName               ;
+	protected		String              	mPosition           ;
+	protected		Warehouse           	mOwner              ;
+	protected		int                 	mVersion            ;
+	
+	
+	
+		
+	public 	WarehouseAsset(){
+		//lazy load for all the properties
+	}
+	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	public 	void clearFromAll(){
+		setOwner( null );
+
+		this.changed = true;
+	}
+	
+	public 	WarehouseAsset(String name, String position, Warehouse owner)
+	{
+		setName(name);
+		setPosition(position);
+		setOwner(owner);
+	
+	}
+	
+	//Support for changing the property
+	
+	public void changeProperty(String property, String newValueExpr) {
+     	
+		if(NAME_PROPERTY.equals(property)){
+			changeNameProperty(newValueExpr);
+		}
+		if(POSITION_PROPERTY.equals(property)){
+			changePositionProperty(newValueExpr);
+		}
+
+      
+	}
+    
+    
+	protected void changeNameProperty(String newValueExpr){
+		String oldValue = getName();
+		String newValue = parseString(newValueExpr);
+		if(equalsString(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateName(newValue);
+		this.onChangeProperty(NAME_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+	protected void changePositionProperty(String newValueExpr){
+		String oldValue = getPosition();
+		String newValue = parseString(newValueExpr);
+		if(equalsString(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updatePosition(newValue);
+		this.onChangeProperty(POSITION_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+
+
+	
+	
+	
+	public void setId(String id){
+		this.mId = trimString(id);;
+	}
+	public String getId(){
+		return this.mId;
+	}
+	public WarehouseAsset updateId(String id){
+		this.mId = trimString(id);;
+		this.changed = true;
+		return this;
+	}
+	
+	
+	public void setName(String name){
+		this.mName = trimString(name);;
+	}
+	public String getName(){
+		return this.mName;
+	}
+	public WarehouseAsset updateName(String name){
+		this.mName = trimString(name);;
+		this.changed = true;
+		return this;
+	}
+	
+	
+	public void setPosition(String position){
+		this.mPosition = trimString(position);;
+	}
+	public String getPosition(){
+		return this.mPosition;
+	}
+	public WarehouseAsset updatePosition(String position){
+		this.mPosition = trimString(position);;
+		this.changed = true;
+		return this;
+	}
+	
+	
+	public void setOwner(Warehouse owner){
+		this.mOwner = owner;;
+	}
+	public Warehouse getOwner(){
+		return this.mOwner;
+	}
+	public WarehouseAsset updateOwner(Warehouse owner){
+		this.mOwner = owner;;
+		this.changed = true;
+		return this;
+	}
+	
+	
+	public void clearOwner(){
+		setOwner ( null );
+		this.changed = true;
+	}
+	
+	public void setVersion(int version){
+		this.mVersion = version;;
+	}
+	public int getVersion(){
+		return this.mVersion;
+	}
+	public WarehouseAsset updateVersion(int version){
+		this.mVersion = version;;
+		this.changed = true;
+		return this;
+	}
+	
+	
+
+	public void collectRefercences(BaseEntity owner, List<BaseEntity> entityList, String internalType){
+
+		addToEntityList(this, entityList, getOwner(), internalType);
+
+		
+	}
+	
+	public List<BaseEntity>  collectRefercencesFromLists(String internalType){
+		
+		List<BaseEntity> entityList = new ArrayList<BaseEntity>();
+
+		return entityList;
+	}
+	
+	public  List<SmartList<?>> getAllRelatedLists() {
+		List<SmartList<?>> listOfList = new ArrayList<SmartList<?>>();
+		
+			
+
+		return listOfList;
+	}
+
+	
+	public List<KeyValuePair> keyValuePairOf(){
+		List<KeyValuePair> result =  super.keyValuePairOf();
+
+		appendKeyValuePair(result, ID_PROPERTY, getId());
+		appendKeyValuePair(result, NAME_PROPERTY, getName());
+		appendKeyValuePair(result, POSITION_PROPERTY, getPosition());
+		appendKeyValuePair(result, OWNER_PROPERTY, getOwner());
+		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
+
+		
+		return result;
+	}
+	
+	
+	public BaseEntity copyTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof WarehouseAsset){
+		
+		
+			WarehouseAsset dest =(WarehouseAsset)baseDest;
+		
+			dest.setId(getId());
+			dest.setName(getName());
+			dest.setPosition(getPosition());
+			dest.setOwner(getOwner());
+			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public String toString(){
+		StringBuilder stringBuilder=new StringBuilder(128);
+
+		stringBuilder.append("WarehouseAsset{");
+		stringBuilder.append("\tid='"+getId()+"';");
+		stringBuilder.append("\tname='"+getName()+"';");
+		stringBuilder.append("\tposition='"+getPosition()+"';");
+		if(getOwner() != null ){
+ 			stringBuilder.append("\towner='Warehouse("+getOwner().getId()+")';");
+ 		}
+		stringBuilder.append("\tversion='"+getVersion()+"';");
+		stringBuilder.append("}");
+
+		return stringBuilder.toString();
+	}
+	
+	//provide number calculation function
+	
+
+}
+

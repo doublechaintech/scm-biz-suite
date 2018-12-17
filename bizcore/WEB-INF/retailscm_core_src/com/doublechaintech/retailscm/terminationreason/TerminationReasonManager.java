@@ -1,0 +1,45 @@
+
+package com.doublechaintech.retailscm.terminationreason;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Map;
+import com.terapico.caf.DateTime;
+import com.doublechaintech.retailscm.RetailscmUserContext;
+import com.doublechaintech.retailscm.BaseEntity;
+import com.doublechaintech.retailscm.SmartList;
+
+public interface TerminationReasonManager{
+
+		
+
+	public TerminationReason createTerminationReason(RetailscmUserContext userContext, String code, String companyId, String description) throws Exception;	
+	public TerminationReason updateTerminationReason(RetailscmUserContext userContext,String terminationReasonId, int terminationReasonVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
+	public TerminationReason loadTerminationReason(RetailscmUserContext userContext, String terminationReasonId, String [] tokensExpr) throws Exception;
+	public TerminationReason internalSaveTerminationReason(RetailscmUserContext userContext, TerminationReason terminationReason) throws Exception;
+	public TerminationReason internalSaveTerminationReason(RetailscmUserContext userContext, TerminationReason terminationReason,Map<String,Object>option) throws Exception;
+	
+	public TerminationReason transferToAnotherCompany(RetailscmUserContext userContext, String terminationReasonId, String anotherCompanyId)  throws Exception;
+ 
+
+	public void delete(RetailscmUserContext userContext, String terminationReasonId, int version) throws Exception;
+	public int deleteAll(RetailscmUserContext userContext, String secureCode ) throws Exception;
+	public void onNewInstanceCreated(RetailscmUserContext userContext, TerminationReason newCreated)throws Exception;
+
+	/*======================================================DATA MAINTENANCE===========================================================*/
+	
+
+	//public  TerminationManager getTerminationManager(RetailscmUserContext userContext, String terminationReasonId, String typeId, String comment ,String [] tokensExpr)  throws Exception;
+	
+	public  TerminationReason addTermination(RetailscmUserContext userContext, String terminationReasonId, String typeId, String comment , String [] tokensExpr)  throws Exception;
+	public  TerminationReason removeTermination(RetailscmUserContext userContext, String terminationReasonId, String terminationId, int terminationVersion,String [] tokensExpr)  throws Exception;
+	public  TerminationReason updateTermination(RetailscmUserContext userContext, String terminationReasonId, String terminationId, int terminationVersion, String property, String newValueExpr,String [] tokensExpr)  throws Exception;
+
+	/*
+
+	*/
+
+
+
+}
+
+

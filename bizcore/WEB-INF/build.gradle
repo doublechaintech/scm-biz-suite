@@ -1,0 +1,91 @@
+group 'com.doublechain'
+version '1.0.0'
+
+apply plugin: 'war'
+
+apply plugin: 'java'
+
+[compileJava,compileTestJava,javadoc]*.options*.encoding = "UTF-8"
+[compileJava,compileTestJava]*.options*.compilerArgs = ["-parameters"]
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src', 'WEB-INF/shuxiang_core_src', 'WEB-INF/shuxiang_custom_src']
+        }
+        resources {
+            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src', 'WEB-INF/shuxiang_core_src', 'WEB-INF/shuxiang_custom_src']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['WEB-INF/unittesting']
+        }
+        resources {
+            srcDirs = ['WEB-INF/unittesting']
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+
+    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+    compile group: 'cglib', name: 'cglib', version: '3.2.6'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '3.3.1'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '3.5.1'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-dysmsapi', version: '1.0.0'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-sts', version: '3.0.0'
+    compile group: 'com.aliyun.mns', name: 'aliyun-sdk-mns', version: '1.1.8'
+    compile group: 'com.aliyun.oss', name: 'aliyun-sdk-oss', version: '2.8.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
+    compile group: 'com.github.binarywang', name: 'weixin-java-miniapp', version: '3.0.0'
+    compile group: 'com.github.binarywang', name: 'weixin-java-pay', version: '3.0.0'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+    compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '1.1.0'
+    compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '5.6.3'
+    compile group: 'org.neo4j.driver', name: 'neo4j-java-driver', version: '1.5.2'
+    compile group: 'org.ow2.asm', name: 'asm-all', version: '5.2'
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.0'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.16.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context-support', version: '4.3.16.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.16.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version: '4.3.16.RELEASE'
+    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    compile fileTree(dir: 'WEB-INF/lib', include: '*.jar')
+
+    providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+war {
+    from 'viewlayers'
+    archiveName = 'shuxiang.war'
+    webXml = file('WEB-INF/web.xml')
+}
+
+task copyJars(type: Copy) {
+  from configurations.runtime
+  into 'WEB-INF/lib' // 目标位置
+}
+
+
+
+
+

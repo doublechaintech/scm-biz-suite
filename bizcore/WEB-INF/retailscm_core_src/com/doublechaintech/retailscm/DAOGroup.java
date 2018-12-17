@@ -1,0 +1,4258 @@
+package com.doublechaintech.retailscm;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterDAO;
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterTokens;
+import com.doublechaintech.retailscm.catalog.Catalog;
+import com.doublechaintech.retailscm.catalog.CatalogDAO;
+import com.doublechaintech.retailscm.catalog.CatalogTokens;
+import com.doublechaintech.retailscm.levelonecategory.LevelOneCategory;
+import com.doublechaintech.retailscm.levelonecategory.LevelOneCategoryDAO;
+import com.doublechaintech.retailscm.levelonecategory.LevelOneCategoryTokens;
+import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategory;
+import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategoryDAO;
+import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategoryTokens;
+import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategory;
+import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategoryDAO;
+import com.doublechaintech.retailscm.levelthreecategory.LevelThreeCategoryTokens;
+import com.doublechaintech.retailscm.product.Product;
+import com.doublechaintech.retailscm.product.ProductDAO;
+import com.doublechaintech.retailscm.product.ProductTokens;
+import com.doublechaintech.retailscm.sku.Sku;
+import com.doublechaintech.retailscm.sku.SkuDAO;
+import com.doublechaintech.retailscm.sku.SkuTokens;
+import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenter;
+import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenterDAO;
+import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenterTokens;
+import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartment;
+import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartmentDAO;
+import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartmentTokens;
+import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmployee;
+import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmployeeDAO;
+import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmployeeTokens;
+import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
+import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenterDAO;
+import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenterTokens;
+import com.doublechaintech.retailscm.citypartner.CityPartner;
+import com.doublechaintech.retailscm.citypartner.CityPartnerDAO;
+import com.doublechaintech.retailscm.citypartner.CityPartnerTokens;
+import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;
+import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerDAO;
+import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerTokens;
+import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPerson;
+import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPersonDAO;
+import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPersonTokens;
+import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContact;
+import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContactDAO;
+import com.doublechaintech.retailscm.potentialcustomercontact.PotentialCustomerContactTokens;
+import com.doublechaintech.retailscm.cityevent.CityEvent;
+import com.doublechaintech.retailscm.cityevent.CityEventDAO;
+import com.doublechaintech.retailscm.cityevent.CityEventTokens;
+import com.doublechaintech.retailscm.eventattendance.EventAttendance;
+import com.doublechaintech.retailscm.eventattendance.EventAttendanceDAO;
+import com.doublechaintech.retailscm.eventattendance.EventAttendanceTokens;
+import com.doublechaintech.retailscm.retailstore.RetailStore;
+import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
+import com.doublechaintech.retailscm.retailstore.RetailStoreTokens;
+import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreation;
+import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreationDAO;
+import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreationTokens;
+import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;
+import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitationDAO;
+import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitationTokens;
+import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;
+import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchisingDAO;
+import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchisingTokens;
+import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecoration;
+import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecorationDAO;
+import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecorationTokens;
+import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpening;
+import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpeningDAO;
+import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpeningTokens;
+import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;
+import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosingDAO;
+import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosingTokens;
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberTokens;
+import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
+import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
+import com.doublechaintech.retailscm.consumerorder.ConsumerOrderTokens;
+import com.doublechaintech.retailscm.consumerorderconfirmation.ConsumerOrderConfirmation;
+import com.doublechaintech.retailscm.consumerorderconfirmation.ConsumerOrderConfirmationDAO;
+import com.doublechaintech.retailscm.consumerorderconfirmation.ConsumerOrderConfirmationTokens;
+import com.doublechaintech.retailscm.consumerorderapproval.ConsumerOrderApproval;
+import com.doublechaintech.retailscm.consumerorderapproval.ConsumerOrderApprovalDAO;
+import com.doublechaintech.retailscm.consumerorderapproval.ConsumerOrderApprovalTokens;
+import com.doublechaintech.retailscm.consumerorderprocessing.ConsumerOrderProcessing;
+import com.doublechaintech.retailscm.consumerorderprocessing.ConsumerOrderProcessingDAO;
+import com.doublechaintech.retailscm.consumerorderprocessing.ConsumerOrderProcessingTokens;
+import com.doublechaintech.retailscm.consumerordershipment.ConsumerOrderShipment;
+import com.doublechaintech.retailscm.consumerordershipment.ConsumerOrderShipmentDAO;
+import com.doublechaintech.retailscm.consumerordershipment.ConsumerOrderShipmentTokens;
+import com.doublechaintech.retailscm.consumerorderdelivery.ConsumerOrderDelivery;
+import com.doublechaintech.retailscm.consumerorderdelivery.ConsumerOrderDeliveryDAO;
+import com.doublechaintech.retailscm.consumerorderdelivery.ConsumerOrderDeliveryTokens;
+import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItem;
+import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItemDAO;
+import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItemTokens;
+import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroup;
+import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroupDAO;
+import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroupTokens;
+import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroup;
+import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroupDAO;
+import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroupTokens;
+import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustment;
+import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustmentDAO;
+import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustmentTokens;
+import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCoupon;
+import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCouponDAO;
+import com.doublechaintech.retailscm.retailstoremembercoupon.RetailStoreMemberCouponTokens;
+import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;
+import com.doublechaintech.retailscm.memberwishlist.MemberWishlistDAO;
+import com.doublechaintech.retailscm.memberwishlist.MemberWishlistTokens;
+import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPoint;
+import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPointDAO;
+import com.doublechaintech.retailscm.memberrewardpoint.MemberRewardPointTokens;
+import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemption;
+import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemptionDAO;
+import com.doublechaintech.retailscm.memberrewardpointredemption.MemberRewardPointRedemptionTokens;
+import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProduct;
+import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProductDAO;
+import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProductTokens;
+import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddress;
+import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddressDAO;
+import com.doublechaintech.retailscm.retailstorememberaddress.RetailStoreMemberAddressTokens;
+import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;
+import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCardDAO;
+import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCardTokens;
+import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecord;
+import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecordDAO;
+import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecordTokens;
+import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
+import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierDAO;
+import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierTokens;
+import com.doublechaintech.retailscm.supplierproduct.SupplierProduct;
+import com.doublechaintech.retailscm.supplierproduct.SupplierProductDAO;
+import com.doublechaintech.retailscm.supplierproduct.SupplierProductTokens;
+import com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDuration;
+import com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDurationDAO;
+import com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDurationTokens;
+import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
+import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
+import com.doublechaintech.retailscm.supplyorder.SupplyOrderTokens;
+import com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmation;
+import com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmationDAO;
+import com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmationTokens;
+import com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApproval;
+import com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApprovalDAO;
+import com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApprovalTokens;
+import com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessing;
+import com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessingDAO;
+import com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessingTokens;
+import com.doublechaintech.retailscm.supplyorderpicking.SupplyOrderPicking;
+import com.doublechaintech.retailscm.supplyorderpicking.SupplyOrderPickingDAO;
+import com.doublechaintech.retailscm.supplyorderpicking.SupplyOrderPickingTokens;
+import com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipment;
+import com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipmentDAO;
+import com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipmentTokens;
+import com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDelivery;
+import com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDeliveryDAO;
+import com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDeliveryTokens;
+import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItem;
+import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemDAO;
+import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemTokens;
+import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroup;
+import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroupDAO;
+import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroupTokens;
+import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroup;
+import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroupDAO;
+import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroupTokens;
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderDAO;
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderTokens;
+import com.doublechaintech.retailscm.retailstoreorderconfirmation.RetailStoreOrderConfirmation;
+import com.doublechaintech.retailscm.retailstoreorderconfirmation.RetailStoreOrderConfirmationDAO;
+import com.doublechaintech.retailscm.retailstoreorderconfirmation.RetailStoreOrderConfirmationTokens;
+import com.doublechaintech.retailscm.retailstoreorderapproval.RetailStoreOrderApproval;
+import com.doublechaintech.retailscm.retailstoreorderapproval.RetailStoreOrderApprovalDAO;
+import com.doublechaintech.retailscm.retailstoreorderapproval.RetailStoreOrderApprovalTokens;
+import com.doublechaintech.retailscm.retailstoreorderprocessing.RetailStoreOrderProcessing;
+import com.doublechaintech.retailscm.retailstoreorderprocessing.RetailStoreOrderProcessingDAO;
+import com.doublechaintech.retailscm.retailstoreorderprocessing.RetailStoreOrderProcessingTokens;
+import com.doublechaintech.retailscm.retailstoreorderpicking.RetailStoreOrderPicking;
+import com.doublechaintech.retailscm.retailstoreorderpicking.RetailStoreOrderPickingDAO;
+import com.doublechaintech.retailscm.retailstoreorderpicking.RetailStoreOrderPickingTokens;
+import com.doublechaintech.retailscm.retailstoreordershipment.RetailStoreOrderShipment;
+import com.doublechaintech.retailscm.retailstoreordershipment.RetailStoreOrderShipmentDAO;
+import com.doublechaintech.retailscm.retailstoreordershipment.RetailStoreOrderShipmentTokens;
+import com.doublechaintech.retailscm.retailstoreorderdelivery.RetailStoreOrderDelivery;
+import com.doublechaintech.retailscm.retailstoreorderdelivery.RetailStoreOrderDeliveryDAO;
+import com.doublechaintech.retailscm.retailstoreorderdelivery.RetailStoreOrderDeliveryTokens;
+import com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItem;
+import com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItemDAO;
+import com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItemTokens;
+import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroup;
+import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroupDAO;
+import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroupTokens;
+import com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroup;
+import com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroupDAO;
+import com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroupTokens;
+import com.doublechaintech.retailscm.warehouse.Warehouse;
+import com.doublechaintech.retailscm.warehouse.WarehouseDAO;
+import com.doublechaintech.retailscm.warehouse.WarehouseTokens;
+import com.doublechaintech.retailscm.storagespace.StorageSpace;
+import com.doublechaintech.retailscm.storagespace.StorageSpaceDAO;
+import com.doublechaintech.retailscm.storagespace.StorageSpaceTokens;
+import com.doublechaintech.retailscm.smartpallet.SmartPallet;
+import com.doublechaintech.retailscm.smartpallet.SmartPalletDAO;
+import com.doublechaintech.retailscm.smartpallet.SmartPalletTokens;
+import com.doublechaintech.retailscm.goodsshelf.GoodsShelf;
+import com.doublechaintech.retailscm.goodsshelf.GoodsShelfDAO;
+import com.doublechaintech.retailscm.goodsshelf.GoodsShelfTokens;
+import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCount;
+import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountDAO;
+import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountTokens;
+import com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrack;
+import com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrackDAO;
+import com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrackTokens;
+import com.doublechaintech.retailscm.goodsallocation.GoodsAllocation;
+import com.doublechaintech.retailscm.goodsallocation.GoodsAllocationDAO;
+import com.doublechaintech.retailscm.goodsallocation.GoodsAllocationTokens;
+import com.doublechaintech.retailscm.goods.Goods;
+import com.doublechaintech.retailscm.goods.GoodsDAO;
+import com.doublechaintech.retailscm.goods.GoodsTokens;
+import com.doublechaintech.retailscm.goodspackaging.GoodsPackaging;
+import com.doublechaintech.retailscm.goodspackaging.GoodsPackagingDAO;
+import com.doublechaintech.retailscm.goodspackaging.GoodsPackagingTokens;
+import com.doublechaintech.retailscm.goodsmovement.GoodsMovement;
+import com.doublechaintech.retailscm.goodsmovement.GoodsMovementDAO;
+import com.doublechaintech.retailscm.goodsmovement.GoodsMovementTokens;
+import com.doublechaintech.retailscm.supplierspace.SupplierSpace;
+import com.doublechaintech.retailscm.supplierspace.SupplierSpaceDAO;
+import com.doublechaintech.retailscm.supplierspace.SupplierSpaceTokens;
+import com.doublechaintech.retailscm.receivingspace.ReceivingSpace;
+import com.doublechaintech.retailscm.receivingspace.ReceivingSpaceDAO;
+import com.doublechaintech.retailscm.receivingspace.ReceivingSpaceTokens;
+import com.doublechaintech.retailscm.shippingspace.ShippingSpace;
+import com.doublechaintech.retailscm.shippingspace.ShippingSpaceDAO;
+import com.doublechaintech.retailscm.shippingspace.ShippingSpaceTokens;
+import com.doublechaintech.retailscm.damagespace.DamageSpace;
+import com.doublechaintech.retailscm.damagespace.DamageSpaceDAO;
+import com.doublechaintech.retailscm.damagespace.DamageSpaceTokens;
+import com.doublechaintech.retailscm.warehouseasset.WarehouseAsset;
+import com.doublechaintech.retailscm.warehouseasset.WarehouseAssetDAO;
+import com.doublechaintech.retailscm.warehouseasset.WarehouseAssetTokens;
+import com.doublechaintech.retailscm.transportfleet.TransportFleet;
+import com.doublechaintech.retailscm.transportfleet.TransportFleetDAO;
+import com.doublechaintech.retailscm.transportfleet.TransportFleetTokens;
+import com.doublechaintech.retailscm.transporttruck.TransportTruck;
+import com.doublechaintech.retailscm.transporttruck.TransportTruckDAO;
+import com.doublechaintech.retailscm.transporttruck.TransportTruckTokens;
+import com.doublechaintech.retailscm.truckdriver.TruckDriver;
+import com.doublechaintech.retailscm.truckdriver.TruckDriverDAO;
+import com.doublechaintech.retailscm.truckdriver.TruckDriverTokens;
+import com.doublechaintech.retailscm.transporttask.TransportTask;
+import com.doublechaintech.retailscm.transporttask.TransportTaskDAO;
+import com.doublechaintech.retailscm.transporttask.TransportTaskTokens;
+import com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrack;
+import com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrackDAO;
+import com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrackTokens;
+import com.doublechaintech.retailscm.accountset.AccountSet;
+import com.doublechaintech.retailscm.accountset.AccountSetDAO;
+import com.doublechaintech.retailscm.accountset.AccountSetTokens;
+import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;
+import com.doublechaintech.retailscm.accountingsubject.AccountingSubjectDAO;
+import com.doublechaintech.retailscm.accountingsubject.AccountingSubjectTokens;
+import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
+import com.doublechaintech.retailscm.accountingperiod.AccountingPeriodDAO;
+import com.doublechaintech.retailscm.accountingperiod.AccountingPeriodTokens;
+import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType;
+import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTypeDAO;
+import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTypeTokens;
+import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
+import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
+import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentTokens;
+import com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreation;
+import com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreationDAO;
+import com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreationTokens;
+import com.doublechaintech.retailscm.accountingdocumentconfirmation.AccountingDocumentConfirmation;
+import com.doublechaintech.retailscm.accountingdocumentconfirmation.AccountingDocumentConfirmationDAO;
+import com.doublechaintech.retailscm.accountingdocumentconfirmation.AccountingDocumentConfirmationTokens;
+import com.doublechaintech.retailscm.accountingdocumentauditing.AccountingDocumentAuditing;
+import com.doublechaintech.retailscm.accountingdocumentauditing.AccountingDocumentAuditingDAO;
+import com.doublechaintech.retailscm.accountingdocumentauditing.AccountingDocumentAuditingTokens;
+import com.doublechaintech.retailscm.accountingdocumentposting.AccountingDocumentPosting;
+import com.doublechaintech.retailscm.accountingdocumentposting.AccountingDocumentPostingDAO;
+import com.doublechaintech.retailscm.accountingdocumentposting.AccountingDocumentPostingTokens;
+import com.doublechaintech.retailscm.originalvoucher.OriginalVoucher;
+import com.doublechaintech.retailscm.originalvoucher.OriginalVoucherDAO;
+import com.doublechaintech.retailscm.originalvoucher.OriginalVoucherTokens;
+import com.doublechaintech.retailscm.originalvouchercreation.OriginalVoucherCreation;
+import com.doublechaintech.retailscm.originalvouchercreation.OriginalVoucherCreationDAO;
+import com.doublechaintech.retailscm.originalvouchercreation.OriginalVoucherCreationTokens;
+import com.doublechaintech.retailscm.originalvoucherconfirmation.OriginalVoucherConfirmation;
+import com.doublechaintech.retailscm.originalvoucherconfirmation.OriginalVoucherConfirmationDAO;
+import com.doublechaintech.retailscm.originalvoucherconfirmation.OriginalVoucherConfirmationTokens;
+import com.doublechaintech.retailscm.originalvoucherauditing.OriginalVoucherAuditing;
+import com.doublechaintech.retailscm.originalvoucherauditing.OriginalVoucherAuditingDAO;
+import com.doublechaintech.retailscm.originalvoucherauditing.OriginalVoucherAuditingTokens;
+import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;
+import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLineDAO;
+import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLineTokens;
+import com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartment;
+import com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartmentDAO;
+import com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartmentTokens;
+import com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartment;
+import com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartmentDAO;
+import com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartmentTokens;
+import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartment;
+import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartmentDAO;
+import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartmentTokens;
+import com.doublechaintech.retailscm.skilltype.SkillType;
+import com.doublechaintech.retailscm.skilltype.SkillTypeDAO;
+import com.doublechaintech.retailscm.skilltype.SkillTypeTokens;
+import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityType;
+import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityTypeDAO;
+import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityTypeTokens;
+import com.doublechaintech.retailscm.terminationreason.TerminationReason;
+import com.doublechaintech.retailscm.terminationreason.TerminationReasonDAO;
+import com.doublechaintech.retailscm.terminationreason.TerminationReasonTokens;
+import com.doublechaintech.retailscm.terminationtype.TerminationType;
+import com.doublechaintech.retailscm.terminationtype.TerminationTypeDAO;
+import com.doublechaintech.retailscm.terminationtype.TerminationTypeTokens;
+import com.doublechaintech.retailscm.occupationtype.OccupationType;
+import com.doublechaintech.retailscm.occupationtype.OccupationTypeDAO;
+import com.doublechaintech.retailscm.occupationtype.OccupationTypeTokens;
+import com.doublechaintech.retailscm.leavetype.LeaveType;
+import com.doublechaintech.retailscm.leavetype.LeaveTypeDAO;
+import com.doublechaintech.retailscm.leavetype.LeaveTypeTokens;
+import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
+import com.doublechaintech.retailscm.salarygrade.SalaryGradeDAO;
+import com.doublechaintech.retailscm.salarygrade.SalaryGradeTokens;
+import com.doublechaintech.retailscm.interviewtype.InterviewType;
+import com.doublechaintech.retailscm.interviewtype.InterviewTypeDAO;
+import com.doublechaintech.retailscm.interviewtype.InterviewTypeTokens;
+import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;
+import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseTypeDAO;
+import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseTypeTokens;
+import com.doublechaintech.retailscm.publicholiday.PublicHoliday;
+import com.doublechaintech.retailscm.publicholiday.PublicHolidayDAO;
+import com.doublechaintech.retailscm.publicholiday.PublicHolidayTokens;
+import com.doublechaintech.retailscm.termination.Termination;
+import com.doublechaintech.retailscm.termination.TerminationDAO;
+import com.doublechaintech.retailscm.termination.TerminationTokens;
+import com.doublechaintech.retailscm.view.View;
+import com.doublechaintech.retailscm.view.ViewDAO;
+import com.doublechaintech.retailscm.view.ViewTokens;
+import com.doublechaintech.retailscm.employee.Employee;
+import com.doublechaintech.retailscm.employee.EmployeeDAO;
+import com.doublechaintech.retailscm.employee.EmployeeTokens;
+import com.doublechaintech.retailscm.jobapplication.JobApplication;
+import com.doublechaintech.retailscm.jobapplication.JobApplicationDAO;
+import com.doublechaintech.retailscm.jobapplication.JobApplicationTokens;
+import com.doublechaintech.retailscm.professioninterview.ProfessionInterview;
+import com.doublechaintech.retailscm.professioninterview.ProfessionInterviewDAO;
+import com.doublechaintech.retailscm.professioninterview.ProfessionInterviewTokens;
+import com.doublechaintech.retailscm.hrinterview.HrInterview;
+import com.doublechaintech.retailscm.hrinterview.HrInterviewDAO;
+import com.doublechaintech.retailscm.hrinterview.HrInterviewTokens;
+import com.doublechaintech.retailscm.offerapproval.OfferApproval;
+import com.doublechaintech.retailscm.offerapproval.OfferApprovalDAO;
+import com.doublechaintech.retailscm.offerapproval.OfferApprovalTokens;
+import com.doublechaintech.retailscm.offeracceptance.OfferAcceptance;
+import com.doublechaintech.retailscm.offeracceptance.OfferAcceptanceDAO;
+import com.doublechaintech.retailscm.offeracceptance.OfferAcceptanceTokens;
+import com.doublechaintech.retailscm.employeeboarding.EmployeeBoarding;
+import com.doublechaintech.retailscm.employeeboarding.EmployeeBoardingDAO;
+import com.doublechaintech.retailscm.employeeboarding.EmployeeBoardingTokens;
+import com.doublechaintech.retailscm.instructor.Instructor;
+import com.doublechaintech.retailscm.instructor.InstructorDAO;
+import com.doublechaintech.retailscm.instructor.InstructorTokens;
+import com.doublechaintech.retailscm.companytraining.CompanyTraining;
+import com.doublechaintech.retailscm.companytraining.CompanyTrainingDAO;
+import com.doublechaintech.retailscm.companytraining.CompanyTrainingTokens;
+import com.doublechaintech.retailscm.scoring.Scoring;
+import com.doublechaintech.retailscm.scoring.ScoringDAO;
+import com.doublechaintech.retailscm.scoring.ScoringTokens;
+import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTraining;
+import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrainingDAO;
+import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTrainingTokens;
+import com.doublechaintech.retailscm.employeeskill.EmployeeSkill;
+import com.doublechaintech.retailscm.employeeskill.EmployeeSkillDAO;
+import com.doublechaintech.retailscm.employeeskill.EmployeeSkillTokens;
+import com.doublechaintech.retailscm.employeeperformance.EmployeePerformance;
+import com.doublechaintech.retailscm.employeeperformance.EmployeePerformanceDAO;
+import com.doublechaintech.retailscm.employeeperformance.EmployeePerformanceTokens;
+import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperience;
+import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperienceDAO;
+import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperienceTokens;
+import com.doublechaintech.retailscm.employeeleave.EmployeeLeave;
+import com.doublechaintech.retailscm.employeeleave.EmployeeLeaveDAO;
+import com.doublechaintech.retailscm.employeeleave.EmployeeLeaveTokens;
+import com.doublechaintech.retailscm.employeeinterview.EmployeeInterview;
+import com.doublechaintech.retailscm.employeeinterview.EmployeeInterviewDAO;
+import com.doublechaintech.retailscm.employeeinterview.EmployeeInterviewTokens;
+import com.doublechaintech.retailscm.employeeattendance.EmployeeAttendance;
+import com.doublechaintech.retailscm.employeeattendance.EmployeeAttendanceDAO;
+import com.doublechaintech.retailscm.employeeattendance.EmployeeAttendanceTokens;
+import com.doublechaintech.retailscm.employeequalifier.EmployeeQualifier;
+import com.doublechaintech.retailscm.employeequalifier.EmployeeQualifierDAO;
+import com.doublechaintech.retailscm.employeequalifier.EmployeeQualifierTokens;
+import com.doublechaintech.retailscm.employeeeducation.EmployeeEducation;
+import com.doublechaintech.retailscm.employeeeducation.EmployeeEducationDAO;
+import com.doublechaintech.retailscm.employeeeducation.EmployeeEducationTokens;
+import com.doublechaintech.retailscm.employeeaward.EmployeeAward;
+import com.doublechaintech.retailscm.employeeaward.EmployeeAwardDAO;
+import com.doublechaintech.retailscm.employeeaward.EmployeeAwardTokens;
+import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheet;
+import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheetDAO;
+import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheetTokens;
+import com.doublechaintech.retailscm.payingoff.PayingOff;
+import com.doublechaintech.retailscm.payingoff.PayingOffDAO;
+import com.doublechaintech.retailscm.payingoff.PayingOffTokens;
+import com.doublechaintech.retailscm.userdomain.UserDomain;
+import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
+import com.doublechaintech.retailscm.userdomain.UserDomainTokens;
+import com.doublechaintech.retailscm.userwhitelist.UserWhiteList;
+import com.doublechaintech.retailscm.userwhitelist.UserWhiteListDAO;
+import com.doublechaintech.retailscm.userwhitelist.UserWhiteListTokens;
+import com.doublechaintech.retailscm.secuser.SecUser;
+import com.doublechaintech.retailscm.secuser.SecUserDAO;
+import com.doublechaintech.retailscm.secuser.SecUserTokens;
+import com.doublechaintech.retailscm.secuserblocking.SecUserBlocking;
+import com.doublechaintech.retailscm.secuserblocking.SecUserBlockingDAO;
+import com.doublechaintech.retailscm.secuserblocking.SecUserBlockingTokens;
+import com.doublechaintech.retailscm.userapp.UserApp;
+import com.doublechaintech.retailscm.userapp.UserAppDAO;
+import com.doublechaintech.retailscm.userapp.UserAppTokens;
+import com.doublechaintech.retailscm.listaccess.ListAccess;
+import com.doublechaintech.retailscm.listaccess.ListAccessDAO;
+import com.doublechaintech.retailscm.listaccess.ListAccessTokens;
+import com.doublechaintech.retailscm.objectaccess.ObjectAccess;
+import com.doublechaintech.retailscm.objectaccess.ObjectAccessDAO;
+import com.doublechaintech.retailscm.objectaccess.ObjectAccessTokens;
+import com.doublechaintech.retailscm.loginhistory.LoginHistory;
+import com.doublechaintech.retailscm.loginhistory.LoginHistoryDAO;
+import com.doublechaintech.retailscm.loginhistory.LoginHistoryTokens;
+import com.doublechaintech.retailscm.genericform.GenericForm;
+import com.doublechaintech.retailscm.genericform.GenericFormDAO;
+import com.doublechaintech.retailscm.genericform.GenericFormTokens;
+import com.doublechaintech.retailscm.formmessage.FormMessage;
+import com.doublechaintech.retailscm.formmessage.FormMessageDAO;
+import com.doublechaintech.retailscm.formmessage.FormMessageTokens;
+import com.doublechaintech.retailscm.formfieldmessage.FormFieldMessage;
+import com.doublechaintech.retailscm.formfieldmessage.FormFieldMessageDAO;
+import com.doublechaintech.retailscm.formfieldmessage.FormFieldMessageTokens;
+import com.doublechaintech.retailscm.formfield.FormField;
+import com.doublechaintech.retailscm.formfield.FormFieldDAO;
+import com.doublechaintech.retailscm.formfield.FormFieldTokens;
+import com.doublechaintech.retailscm.formaction.FormAction;
+import com.doublechaintech.retailscm.formaction.FormActionDAO;
+import com.doublechaintech.retailscm.formaction.FormActionTokens;
+
+public class DAOGroup {
+
+	protected RetailStoreCountryCenterDAO retailStoreCountryCenterDAO;
+
+	protected CatalogDAO catalogDAO;
+
+	protected LevelOneCategoryDAO levelOneCategoryDAO;
+
+	protected LevelTwoCategoryDAO levelTwoCategoryDAO;
+
+	protected LevelThreeCategoryDAO levelThreeCategoryDAO;
+
+	protected ProductDAO productDAO;
+
+	protected SkuDAO skuDAO;
+
+	protected RetailStoreProvinceCenterDAO retailStoreProvinceCenterDAO;
+
+	protected ProvinceCenterDepartmentDAO provinceCenterDepartmentDAO;
+
+	protected ProvinceCenterEmployeeDAO provinceCenterEmployeeDAO;
+
+	protected RetailStoreCityServiceCenterDAO retailStoreCityServiceCenterDAO;
+
+	protected CityPartnerDAO cityPartnerDAO;
+
+	protected PotentialCustomerDAO potentialCustomerDAO;
+
+	protected PotentialCustomerContactPersonDAO potentialCustomerContactPersonDAO;
+
+	protected PotentialCustomerContactDAO potentialCustomerContactDAO;
+
+	protected CityEventDAO cityEventDAO;
+
+	protected EventAttendanceDAO eventAttendanceDAO;
+
+	protected RetailStoreDAO retailStoreDAO;
+
+	protected RetailStoreCreationDAO retailStoreCreationDAO;
+
+	protected RetailStoreInvestmentInvitationDAO retailStoreInvestmentInvitationDAO;
+
+	protected RetailStoreFranchisingDAO retailStoreFranchisingDAO;
+
+	protected RetailStoreDecorationDAO retailStoreDecorationDAO;
+
+	protected RetailStoreOpeningDAO retailStoreOpeningDAO;
+
+	protected RetailStoreClosingDAO retailStoreClosingDAO;
+
+	protected RetailStoreMemberDAO retailStoreMemberDAO;
+
+	protected ConsumerOrderDAO consumerOrderDAO;
+
+	protected ConsumerOrderConfirmationDAO consumerOrderConfirmationDAO;
+
+	protected ConsumerOrderApprovalDAO consumerOrderApprovalDAO;
+
+	protected ConsumerOrderProcessingDAO consumerOrderProcessingDAO;
+
+	protected ConsumerOrderShipmentDAO consumerOrderShipmentDAO;
+
+	protected ConsumerOrderDeliveryDAO consumerOrderDeliveryDAO;
+
+	protected ConsumerOrderLineItemDAO consumerOrderLineItemDAO;
+
+	protected ConsumerOrderShippingGroupDAO consumerOrderShippingGroupDAO;
+
+	protected ConsumerOrderPaymentGroupDAO consumerOrderPaymentGroupDAO;
+
+	protected ConsumerOrderPriceAdjustmentDAO consumerOrderPriceAdjustmentDAO;
+
+	protected RetailStoreMemberCouponDAO retailStoreMemberCouponDAO;
+
+	protected MemberWishlistDAO memberWishlistDAO;
+
+	protected MemberRewardPointDAO memberRewardPointDAO;
+
+	protected MemberRewardPointRedemptionDAO memberRewardPointRedemptionDAO;
+
+	protected MemberWishlistProductDAO memberWishlistProductDAO;
+
+	protected RetailStoreMemberAddressDAO retailStoreMemberAddressDAO;
+
+	protected RetailStoreMemberGiftCardDAO retailStoreMemberGiftCardDAO;
+
+	protected RetailStoreMemberGiftCardConsumeRecordDAO retailStoreMemberGiftCardConsumeRecordDAO;
+
+	protected GoodsSupplierDAO goodsSupplierDAO;
+
+	protected SupplierProductDAO supplierProductDAO;
+
+	protected ProductSupplyDurationDAO productSupplyDurationDAO;
+
+	protected SupplyOrderDAO supplyOrderDAO;
+
+	protected SupplyOrderConfirmationDAO supplyOrderConfirmationDAO;
+
+	protected SupplyOrderApprovalDAO supplyOrderApprovalDAO;
+
+	protected SupplyOrderProcessingDAO supplyOrderProcessingDAO;
+
+	protected SupplyOrderPickingDAO supplyOrderPickingDAO;
+
+	protected SupplyOrderShipmentDAO supplyOrderShipmentDAO;
+
+	protected SupplyOrderDeliveryDAO supplyOrderDeliveryDAO;
+
+	protected SupplyOrderLineItemDAO supplyOrderLineItemDAO;
+
+	protected SupplyOrderShippingGroupDAO supplyOrderShippingGroupDAO;
+
+	protected SupplyOrderPaymentGroupDAO supplyOrderPaymentGroupDAO;
+
+	protected RetailStoreOrderDAO retailStoreOrderDAO;
+
+	protected RetailStoreOrderConfirmationDAO retailStoreOrderConfirmationDAO;
+
+	protected RetailStoreOrderApprovalDAO retailStoreOrderApprovalDAO;
+
+	protected RetailStoreOrderProcessingDAO retailStoreOrderProcessingDAO;
+
+	protected RetailStoreOrderPickingDAO retailStoreOrderPickingDAO;
+
+	protected RetailStoreOrderShipmentDAO retailStoreOrderShipmentDAO;
+
+	protected RetailStoreOrderDeliveryDAO retailStoreOrderDeliveryDAO;
+
+	protected RetailStoreOrderLineItemDAO retailStoreOrderLineItemDAO;
+
+	protected RetailStoreOrderShippingGroupDAO retailStoreOrderShippingGroupDAO;
+
+	protected RetailStoreOrderPaymentGroupDAO retailStoreOrderPaymentGroupDAO;
+
+	protected WarehouseDAO warehouseDAO;
+
+	protected StorageSpaceDAO storageSpaceDAO;
+
+	protected SmartPalletDAO smartPalletDAO;
+
+	protected GoodsShelfDAO goodsShelfDAO;
+
+	protected GoodsShelfStockCountDAO goodsShelfStockCountDAO;
+
+	protected StockCountIssueTrackDAO stockCountIssueTrackDAO;
+
+	protected GoodsAllocationDAO goodsAllocationDAO;
+
+	protected GoodsDAO goodsDAO;
+
+	protected GoodsPackagingDAO goodsPackagingDAO;
+
+	protected GoodsMovementDAO goodsMovementDAO;
+
+	protected SupplierSpaceDAO supplierSpaceDAO;
+
+	protected ReceivingSpaceDAO receivingSpaceDAO;
+
+	protected ShippingSpaceDAO shippingSpaceDAO;
+
+	protected DamageSpaceDAO damageSpaceDAO;
+
+	protected WarehouseAssetDAO warehouseAssetDAO;
+
+	protected TransportFleetDAO transportFleetDAO;
+
+	protected TransportTruckDAO transportTruckDAO;
+
+	protected TruckDriverDAO truckDriverDAO;
+
+	protected TransportTaskDAO transportTaskDAO;
+
+	protected TransportTaskTrackDAO transportTaskTrackDAO;
+
+	protected AccountSetDAO accountSetDAO;
+
+	protected AccountingSubjectDAO accountingSubjectDAO;
+
+	protected AccountingPeriodDAO accountingPeriodDAO;
+
+	protected AccountingDocumentTypeDAO accountingDocumentTypeDAO;
+
+	protected AccountingDocumentDAO accountingDocumentDAO;
+
+	protected AccountingDocumentCreationDAO accountingDocumentCreationDAO;
+
+	protected AccountingDocumentConfirmationDAO accountingDocumentConfirmationDAO;
+
+	protected AccountingDocumentAuditingDAO accountingDocumentAuditingDAO;
+
+	protected AccountingDocumentPostingDAO accountingDocumentPostingDAO;
+
+	protected OriginalVoucherDAO originalVoucherDAO;
+
+	protected OriginalVoucherCreationDAO originalVoucherCreationDAO;
+
+	protected OriginalVoucherConfirmationDAO originalVoucherConfirmationDAO;
+
+	protected OriginalVoucherAuditingDAO originalVoucherAuditingDAO;
+
+	protected AccountingDocumentLineDAO accountingDocumentLineDAO;
+
+	protected LevelOneDepartmentDAO levelOneDepartmentDAO;
+
+	protected LevelTwoDepartmentDAO levelTwoDepartmentDAO;
+
+	protected LevelThreeDepartmentDAO levelThreeDepartmentDAO;
+
+	protected SkillTypeDAO skillTypeDAO;
+
+	protected ResponsibilityTypeDAO responsibilityTypeDAO;
+
+	protected TerminationReasonDAO terminationReasonDAO;
+
+	protected TerminationTypeDAO terminationTypeDAO;
+
+	protected OccupationTypeDAO occupationTypeDAO;
+
+	protected LeaveTypeDAO leaveTypeDAO;
+
+	protected SalaryGradeDAO salaryGradeDAO;
+
+	protected InterviewTypeDAO interviewTypeDAO;
+
+	protected TrainingCourseTypeDAO trainingCourseTypeDAO;
+
+	protected PublicHolidayDAO publicHolidayDAO;
+
+	protected TerminationDAO terminationDAO;
+
+	protected ViewDAO viewDAO;
+
+	protected EmployeeDAO employeeDAO;
+
+	protected JobApplicationDAO jobApplicationDAO;
+
+	protected ProfessionInterviewDAO professionInterviewDAO;
+
+	protected HrInterviewDAO hrInterviewDAO;
+
+	protected OfferApprovalDAO offerApprovalDAO;
+
+	protected OfferAcceptanceDAO offerAcceptanceDAO;
+
+	protected EmployeeBoardingDAO employeeBoardingDAO;
+
+	protected InstructorDAO instructorDAO;
+
+	protected CompanyTrainingDAO companyTrainingDAO;
+
+	protected ScoringDAO scoringDAO;
+
+	protected EmployeeCompanyTrainingDAO employeeCompanyTrainingDAO;
+
+	protected EmployeeSkillDAO employeeSkillDAO;
+
+	protected EmployeePerformanceDAO employeePerformanceDAO;
+
+	protected EmployeeWorkExperienceDAO employeeWorkExperienceDAO;
+
+	protected EmployeeLeaveDAO employeeLeaveDAO;
+
+	protected EmployeeInterviewDAO employeeInterviewDAO;
+
+	protected EmployeeAttendanceDAO employeeAttendanceDAO;
+
+	protected EmployeeQualifierDAO employeeQualifierDAO;
+
+	protected EmployeeEducationDAO employeeEducationDAO;
+
+	protected EmployeeAwardDAO employeeAwardDAO;
+
+	protected EmployeeSalarySheetDAO employeeSalarySheetDAO;
+
+	protected PayingOffDAO payingOffDAO;
+
+	protected UserDomainDAO userDomainDAO;
+
+	protected UserWhiteListDAO userWhiteListDAO;
+
+	protected SecUserDAO secUserDAO;
+
+	protected SecUserBlockingDAO secUserBlockingDAO;
+
+	protected UserAppDAO userAppDAO;
+
+	protected ListAccessDAO listAccessDAO;
+
+	protected ObjectAccessDAO objectAccessDAO;
+
+	protected LoginHistoryDAO loginHistoryDAO;
+
+	protected GenericFormDAO genericFormDAO;
+
+	protected FormMessageDAO formMessageDAO;
+
+	protected FormFieldMessageDAO formFieldMessageDAO;
+
+	protected FormFieldDAO formFieldDAO;
+
+	protected FormActionDAO formActionDAO;
+
+	
+
+	public RetailStoreCountryCenterDAO getRetailStoreCountryCenterDAO(){
+		return this.retailStoreCountryCenterDAO;
+	}
+	public void setRetailStoreCountryCenterDAO(RetailStoreCountryCenterDAO dao){
+		this.retailStoreCountryCenterDAO = dao;
+	}
+
+
+	public CatalogDAO getCatalogDAO(){
+		return this.catalogDAO;
+	}
+	public void setCatalogDAO(CatalogDAO dao){
+		this.catalogDAO = dao;
+	}
+
+
+	public LevelOneCategoryDAO getLevelOneCategoryDAO(){
+		return this.levelOneCategoryDAO;
+	}
+	public void setLevelOneCategoryDAO(LevelOneCategoryDAO dao){
+		this.levelOneCategoryDAO = dao;
+	}
+
+
+	public LevelTwoCategoryDAO getLevelTwoCategoryDAO(){
+		return this.levelTwoCategoryDAO;
+	}
+	public void setLevelTwoCategoryDAO(LevelTwoCategoryDAO dao){
+		this.levelTwoCategoryDAO = dao;
+	}
+
+
+	public LevelThreeCategoryDAO getLevelThreeCategoryDAO(){
+		return this.levelThreeCategoryDAO;
+	}
+	public void setLevelThreeCategoryDAO(LevelThreeCategoryDAO dao){
+		this.levelThreeCategoryDAO = dao;
+	}
+
+
+	public ProductDAO getProductDAO(){
+		return this.productDAO;
+	}
+	public void setProductDAO(ProductDAO dao){
+		this.productDAO = dao;
+	}
+
+
+	public SkuDAO getSkuDAO(){
+		return this.skuDAO;
+	}
+	public void setSkuDAO(SkuDAO dao){
+		this.skuDAO = dao;
+	}
+
+
+	public RetailStoreProvinceCenterDAO getRetailStoreProvinceCenterDAO(){
+		return this.retailStoreProvinceCenterDAO;
+	}
+	public void setRetailStoreProvinceCenterDAO(RetailStoreProvinceCenterDAO dao){
+		this.retailStoreProvinceCenterDAO = dao;
+	}
+
+
+	public ProvinceCenterDepartmentDAO getProvinceCenterDepartmentDAO(){
+		return this.provinceCenterDepartmentDAO;
+	}
+	public void setProvinceCenterDepartmentDAO(ProvinceCenterDepartmentDAO dao){
+		this.provinceCenterDepartmentDAO = dao;
+	}
+
+
+	public ProvinceCenterEmployeeDAO getProvinceCenterEmployeeDAO(){
+		return this.provinceCenterEmployeeDAO;
+	}
+	public void setProvinceCenterEmployeeDAO(ProvinceCenterEmployeeDAO dao){
+		this.provinceCenterEmployeeDAO = dao;
+	}
+
+
+	public RetailStoreCityServiceCenterDAO getRetailStoreCityServiceCenterDAO(){
+		return this.retailStoreCityServiceCenterDAO;
+	}
+	public void setRetailStoreCityServiceCenterDAO(RetailStoreCityServiceCenterDAO dao){
+		this.retailStoreCityServiceCenterDAO = dao;
+	}
+
+
+	public CityPartnerDAO getCityPartnerDAO(){
+		return this.cityPartnerDAO;
+	}
+	public void setCityPartnerDAO(CityPartnerDAO dao){
+		this.cityPartnerDAO = dao;
+	}
+
+
+	public PotentialCustomerDAO getPotentialCustomerDAO(){
+		return this.potentialCustomerDAO;
+	}
+	public void setPotentialCustomerDAO(PotentialCustomerDAO dao){
+		this.potentialCustomerDAO = dao;
+	}
+
+
+	public PotentialCustomerContactPersonDAO getPotentialCustomerContactPersonDAO(){
+		return this.potentialCustomerContactPersonDAO;
+	}
+	public void setPotentialCustomerContactPersonDAO(PotentialCustomerContactPersonDAO dao){
+		this.potentialCustomerContactPersonDAO = dao;
+	}
+
+
+	public PotentialCustomerContactDAO getPotentialCustomerContactDAO(){
+		return this.potentialCustomerContactDAO;
+	}
+	public void setPotentialCustomerContactDAO(PotentialCustomerContactDAO dao){
+		this.potentialCustomerContactDAO = dao;
+	}
+
+
+	public CityEventDAO getCityEventDAO(){
+		return this.cityEventDAO;
+	}
+	public void setCityEventDAO(CityEventDAO dao){
+		this.cityEventDAO = dao;
+	}
+
+
+	public EventAttendanceDAO getEventAttendanceDAO(){
+		return this.eventAttendanceDAO;
+	}
+	public void setEventAttendanceDAO(EventAttendanceDAO dao){
+		this.eventAttendanceDAO = dao;
+	}
+
+
+	public RetailStoreDAO getRetailStoreDAO(){
+		return this.retailStoreDAO;
+	}
+	public void setRetailStoreDAO(RetailStoreDAO dao){
+		this.retailStoreDAO = dao;
+	}
+
+
+	public RetailStoreCreationDAO getRetailStoreCreationDAO(){
+		return this.retailStoreCreationDAO;
+	}
+	public void setRetailStoreCreationDAO(RetailStoreCreationDAO dao){
+		this.retailStoreCreationDAO = dao;
+	}
+
+
+	public RetailStoreInvestmentInvitationDAO getRetailStoreInvestmentInvitationDAO(){
+		return this.retailStoreInvestmentInvitationDAO;
+	}
+	public void setRetailStoreInvestmentInvitationDAO(RetailStoreInvestmentInvitationDAO dao){
+		this.retailStoreInvestmentInvitationDAO = dao;
+	}
+
+
+	public RetailStoreFranchisingDAO getRetailStoreFranchisingDAO(){
+		return this.retailStoreFranchisingDAO;
+	}
+	public void setRetailStoreFranchisingDAO(RetailStoreFranchisingDAO dao){
+		this.retailStoreFranchisingDAO = dao;
+	}
+
+
+	public RetailStoreDecorationDAO getRetailStoreDecorationDAO(){
+		return this.retailStoreDecorationDAO;
+	}
+	public void setRetailStoreDecorationDAO(RetailStoreDecorationDAO dao){
+		this.retailStoreDecorationDAO = dao;
+	}
+
+
+	public RetailStoreOpeningDAO getRetailStoreOpeningDAO(){
+		return this.retailStoreOpeningDAO;
+	}
+	public void setRetailStoreOpeningDAO(RetailStoreOpeningDAO dao){
+		this.retailStoreOpeningDAO = dao;
+	}
+
+
+	public RetailStoreClosingDAO getRetailStoreClosingDAO(){
+		return this.retailStoreClosingDAO;
+	}
+	public void setRetailStoreClosingDAO(RetailStoreClosingDAO dao){
+		this.retailStoreClosingDAO = dao;
+	}
+
+
+	public RetailStoreMemberDAO getRetailStoreMemberDAO(){
+		return this.retailStoreMemberDAO;
+	}
+	public void setRetailStoreMemberDAO(RetailStoreMemberDAO dao){
+		this.retailStoreMemberDAO = dao;
+	}
+
+
+	public ConsumerOrderDAO getConsumerOrderDAO(){
+		return this.consumerOrderDAO;
+	}
+	public void setConsumerOrderDAO(ConsumerOrderDAO dao){
+		this.consumerOrderDAO = dao;
+	}
+
+
+	public ConsumerOrderConfirmationDAO getConsumerOrderConfirmationDAO(){
+		return this.consumerOrderConfirmationDAO;
+	}
+	public void setConsumerOrderConfirmationDAO(ConsumerOrderConfirmationDAO dao){
+		this.consumerOrderConfirmationDAO = dao;
+	}
+
+
+	public ConsumerOrderApprovalDAO getConsumerOrderApprovalDAO(){
+		return this.consumerOrderApprovalDAO;
+	}
+	public void setConsumerOrderApprovalDAO(ConsumerOrderApprovalDAO dao){
+		this.consumerOrderApprovalDAO = dao;
+	}
+
+
+	public ConsumerOrderProcessingDAO getConsumerOrderProcessingDAO(){
+		return this.consumerOrderProcessingDAO;
+	}
+	public void setConsumerOrderProcessingDAO(ConsumerOrderProcessingDAO dao){
+		this.consumerOrderProcessingDAO = dao;
+	}
+
+
+	public ConsumerOrderShipmentDAO getConsumerOrderShipmentDAO(){
+		return this.consumerOrderShipmentDAO;
+	}
+	public void setConsumerOrderShipmentDAO(ConsumerOrderShipmentDAO dao){
+		this.consumerOrderShipmentDAO = dao;
+	}
+
+
+	public ConsumerOrderDeliveryDAO getConsumerOrderDeliveryDAO(){
+		return this.consumerOrderDeliveryDAO;
+	}
+	public void setConsumerOrderDeliveryDAO(ConsumerOrderDeliveryDAO dao){
+		this.consumerOrderDeliveryDAO = dao;
+	}
+
+
+	public ConsumerOrderLineItemDAO getConsumerOrderLineItemDAO(){
+		return this.consumerOrderLineItemDAO;
+	}
+	public void setConsumerOrderLineItemDAO(ConsumerOrderLineItemDAO dao){
+		this.consumerOrderLineItemDAO = dao;
+	}
+
+
+	public ConsumerOrderShippingGroupDAO getConsumerOrderShippingGroupDAO(){
+		return this.consumerOrderShippingGroupDAO;
+	}
+	public void setConsumerOrderShippingGroupDAO(ConsumerOrderShippingGroupDAO dao){
+		this.consumerOrderShippingGroupDAO = dao;
+	}
+
+
+	public ConsumerOrderPaymentGroupDAO getConsumerOrderPaymentGroupDAO(){
+		return this.consumerOrderPaymentGroupDAO;
+	}
+	public void setConsumerOrderPaymentGroupDAO(ConsumerOrderPaymentGroupDAO dao){
+		this.consumerOrderPaymentGroupDAO = dao;
+	}
+
+
+	public ConsumerOrderPriceAdjustmentDAO getConsumerOrderPriceAdjustmentDAO(){
+		return this.consumerOrderPriceAdjustmentDAO;
+	}
+	public void setConsumerOrderPriceAdjustmentDAO(ConsumerOrderPriceAdjustmentDAO dao){
+		this.consumerOrderPriceAdjustmentDAO = dao;
+	}
+
+
+	public RetailStoreMemberCouponDAO getRetailStoreMemberCouponDAO(){
+		return this.retailStoreMemberCouponDAO;
+	}
+	public void setRetailStoreMemberCouponDAO(RetailStoreMemberCouponDAO dao){
+		this.retailStoreMemberCouponDAO = dao;
+	}
+
+
+	public MemberWishlistDAO getMemberWishlistDAO(){
+		return this.memberWishlistDAO;
+	}
+	public void setMemberWishlistDAO(MemberWishlistDAO dao){
+		this.memberWishlistDAO = dao;
+	}
+
+
+	public MemberRewardPointDAO getMemberRewardPointDAO(){
+		return this.memberRewardPointDAO;
+	}
+	public void setMemberRewardPointDAO(MemberRewardPointDAO dao){
+		this.memberRewardPointDAO = dao;
+	}
+
+
+	public MemberRewardPointRedemptionDAO getMemberRewardPointRedemptionDAO(){
+		return this.memberRewardPointRedemptionDAO;
+	}
+	public void setMemberRewardPointRedemptionDAO(MemberRewardPointRedemptionDAO dao){
+		this.memberRewardPointRedemptionDAO = dao;
+	}
+
+
+	public MemberWishlistProductDAO getMemberWishlistProductDAO(){
+		return this.memberWishlistProductDAO;
+	}
+	public void setMemberWishlistProductDAO(MemberWishlistProductDAO dao){
+		this.memberWishlistProductDAO = dao;
+	}
+
+
+	public RetailStoreMemberAddressDAO getRetailStoreMemberAddressDAO(){
+		return this.retailStoreMemberAddressDAO;
+	}
+	public void setRetailStoreMemberAddressDAO(RetailStoreMemberAddressDAO dao){
+		this.retailStoreMemberAddressDAO = dao;
+	}
+
+
+	public RetailStoreMemberGiftCardDAO getRetailStoreMemberGiftCardDAO(){
+		return this.retailStoreMemberGiftCardDAO;
+	}
+	public void setRetailStoreMemberGiftCardDAO(RetailStoreMemberGiftCardDAO dao){
+		this.retailStoreMemberGiftCardDAO = dao;
+	}
+
+
+	public RetailStoreMemberGiftCardConsumeRecordDAO getRetailStoreMemberGiftCardConsumeRecordDAO(){
+		return this.retailStoreMemberGiftCardConsumeRecordDAO;
+	}
+	public void setRetailStoreMemberGiftCardConsumeRecordDAO(RetailStoreMemberGiftCardConsumeRecordDAO dao){
+		this.retailStoreMemberGiftCardConsumeRecordDAO = dao;
+	}
+
+
+	public GoodsSupplierDAO getGoodsSupplierDAO(){
+		return this.goodsSupplierDAO;
+	}
+	public void setGoodsSupplierDAO(GoodsSupplierDAO dao){
+		this.goodsSupplierDAO = dao;
+	}
+
+
+	public SupplierProductDAO getSupplierProductDAO(){
+		return this.supplierProductDAO;
+	}
+	public void setSupplierProductDAO(SupplierProductDAO dao){
+		this.supplierProductDAO = dao;
+	}
+
+
+	public ProductSupplyDurationDAO getProductSupplyDurationDAO(){
+		return this.productSupplyDurationDAO;
+	}
+	public void setProductSupplyDurationDAO(ProductSupplyDurationDAO dao){
+		this.productSupplyDurationDAO = dao;
+	}
+
+
+	public SupplyOrderDAO getSupplyOrderDAO(){
+		return this.supplyOrderDAO;
+	}
+	public void setSupplyOrderDAO(SupplyOrderDAO dao){
+		this.supplyOrderDAO = dao;
+	}
+
+
+	public SupplyOrderConfirmationDAO getSupplyOrderConfirmationDAO(){
+		return this.supplyOrderConfirmationDAO;
+	}
+	public void setSupplyOrderConfirmationDAO(SupplyOrderConfirmationDAO dao){
+		this.supplyOrderConfirmationDAO = dao;
+	}
+
+
+	public SupplyOrderApprovalDAO getSupplyOrderApprovalDAO(){
+		return this.supplyOrderApprovalDAO;
+	}
+	public void setSupplyOrderApprovalDAO(SupplyOrderApprovalDAO dao){
+		this.supplyOrderApprovalDAO = dao;
+	}
+
+
+	public SupplyOrderProcessingDAO getSupplyOrderProcessingDAO(){
+		return this.supplyOrderProcessingDAO;
+	}
+	public void setSupplyOrderProcessingDAO(SupplyOrderProcessingDAO dao){
+		this.supplyOrderProcessingDAO = dao;
+	}
+
+
+	public SupplyOrderPickingDAO getSupplyOrderPickingDAO(){
+		return this.supplyOrderPickingDAO;
+	}
+	public void setSupplyOrderPickingDAO(SupplyOrderPickingDAO dao){
+		this.supplyOrderPickingDAO = dao;
+	}
+
+
+	public SupplyOrderShipmentDAO getSupplyOrderShipmentDAO(){
+		return this.supplyOrderShipmentDAO;
+	}
+	public void setSupplyOrderShipmentDAO(SupplyOrderShipmentDAO dao){
+		this.supplyOrderShipmentDAO = dao;
+	}
+
+
+	public SupplyOrderDeliveryDAO getSupplyOrderDeliveryDAO(){
+		return this.supplyOrderDeliveryDAO;
+	}
+	public void setSupplyOrderDeliveryDAO(SupplyOrderDeliveryDAO dao){
+		this.supplyOrderDeliveryDAO = dao;
+	}
+
+
+	public SupplyOrderLineItemDAO getSupplyOrderLineItemDAO(){
+		return this.supplyOrderLineItemDAO;
+	}
+	public void setSupplyOrderLineItemDAO(SupplyOrderLineItemDAO dao){
+		this.supplyOrderLineItemDAO = dao;
+	}
+
+
+	public SupplyOrderShippingGroupDAO getSupplyOrderShippingGroupDAO(){
+		return this.supplyOrderShippingGroupDAO;
+	}
+	public void setSupplyOrderShippingGroupDAO(SupplyOrderShippingGroupDAO dao){
+		this.supplyOrderShippingGroupDAO = dao;
+	}
+
+
+	public SupplyOrderPaymentGroupDAO getSupplyOrderPaymentGroupDAO(){
+		return this.supplyOrderPaymentGroupDAO;
+	}
+	public void setSupplyOrderPaymentGroupDAO(SupplyOrderPaymentGroupDAO dao){
+		this.supplyOrderPaymentGroupDAO = dao;
+	}
+
+
+	public RetailStoreOrderDAO getRetailStoreOrderDAO(){
+		return this.retailStoreOrderDAO;
+	}
+	public void setRetailStoreOrderDAO(RetailStoreOrderDAO dao){
+		this.retailStoreOrderDAO = dao;
+	}
+
+
+	public RetailStoreOrderConfirmationDAO getRetailStoreOrderConfirmationDAO(){
+		return this.retailStoreOrderConfirmationDAO;
+	}
+	public void setRetailStoreOrderConfirmationDAO(RetailStoreOrderConfirmationDAO dao){
+		this.retailStoreOrderConfirmationDAO = dao;
+	}
+
+
+	public RetailStoreOrderApprovalDAO getRetailStoreOrderApprovalDAO(){
+		return this.retailStoreOrderApprovalDAO;
+	}
+	public void setRetailStoreOrderApprovalDAO(RetailStoreOrderApprovalDAO dao){
+		this.retailStoreOrderApprovalDAO = dao;
+	}
+
+
+	public RetailStoreOrderProcessingDAO getRetailStoreOrderProcessingDAO(){
+		return this.retailStoreOrderProcessingDAO;
+	}
+	public void setRetailStoreOrderProcessingDAO(RetailStoreOrderProcessingDAO dao){
+		this.retailStoreOrderProcessingDAO = dao;
+	}
+
+
+	public RetailStoreOrderPickingDAO getRetailStoreOrderPickingDAO(){
+		return this.retailStoreOrderPickingDAO;
+	}
+	public void setRetailStoreOrderPickingDAO(RetailStoreOrderPickingDAO dao){
+		this.retailStoreOrderPickingDAO = dao;
+	}
+
+
+	public RetailStoreOrderShipmentDAO getRetailStoreOrderShipmentDAO(){
+		return this.retailStoreOrderShipmentDAO;
+	}
+	public void setRetailStoreOrderShipmentDAO(RetailStoreOrderShipmentDAO dao){
+		this.retailStoreOrderShipmentDAO = dao;
+	}
+
+
+	public RetailStoreOrderDeliveryDAO getRetailStoreOrderDeliveryDAO(){
+		return this.retailStoreOrderDeliveryDAO;
+	}
+	public void setRetailStoreOrderDeliveryDAO(RetailStoreOrderDeliveryDAO dao){
+		this.retailStoreOrderDeliveryDAO = dao;
+	}
+
+
+	public RetailStoreOrderLineItemDAO getRetailStoreOrderLineItemDAO(){
+		return this.retailStoreOrderLineItemDAO;
+	}
+	public void setRetailStoreOrderLineItemDAO(RetailStoreOrderLineItemDAO dao){
+		this.retailStoreOrderLineItemDAO = dao;
+	}
+
+
+	public RetailStoreOrderShippingGroupDAO getRetailStoreOrderShippingGroupDAO(){
+		return this.retailStoreOrderShippingGroupDAO;
+	}
+	public void setRetailStoreOrderShippingGroupDAO(RetailStoreOrderShippingGroupDAO dao){
+		this.retailStoreOrderShippingGroupDAO = dao;
+	}
+
+
+	public RetailStoreOrderPaymentGroupDAO getRetailStoreOrderPaymentGroupDAO(){
+		return this.retailStoreOrderPaymentGroupDAO;
+	}
+	public void setRetailStoreOrderPaymentGroupDAO(RetailStoreOrderPaymentGroupDAO dao){
+		this.retailStoreOrderPaymentGroupDAO = dao;
+	}
+
+
+	public WarehouseDAO getWarehouseDAO(){
+		return this.warehouseDAO;
+	}
+	public void setWarehouseDAO(WarehouseDAO dao){
+		this.warehouseDAO = dao;
+	}
+
+
+	public StorageSpaceDAO getStorageSpaceDAO(){
+		return this.storageSpaceDAO;
+	}
+	public void setStorageSpaceDAO(StorageSpaceDAO dao){
+		this.storageSpaceDAO = dao;
+	}
+
+
+	public SmartPalletDAO getSmartPalletDAO(){
+		return this.smartPalletDAO;
+	}
+	public void setSmartPalletDAO(SmartPalletDAO dao){
+		this.smartPalletDAO = dao;
+	}
+
+
+	public GoodsShelfDAO getGoodsShelfDAO(){
+		return this.goodsShelfDAO;
+	}
+	public void setGoodsShelfDAO(GoodsShelfDAO dao){
+		this.goodsShelfDAO = dao;
+	}
+
+
+	public GoodsShelfStockCountDAO getGoodsShelfStockCountDAO(){
+		return this.goodsShelfStockCountDAO;
+	}
+	public void setGoodsShelfStockCountDAO(GoodsShelfStockCountDAO dao){
+		this.goodsShelfStockCountDAO = dao;
+	}
+
+
+	public StockCountIssueTrackDAO getStockCountIssueTrackDAO(){
+		return this.stockCountIssueTrackDAO;
+	}
+	public void setStockCountIssueTrackDAO(StockCountIssueTrackDAO dao){
+		this.stockCountIssueTrackDAO = dao;
+	}
+
+
+	public GoodsAllocationDAO getGoodsAllocationDAO(){
+		return this.goodsAllocationDAO;
+	}
+	public void setGoodsAllocationDAO(GoodsAllocationDAO dao){
+		this.goodsAllocationDAO = dao;
+	}
+
+
+	public GoodsDAO getGoodsDAO(){
+		return this.goodsDAO;
+	}
+	public void setGoodsDAO(GoodsDAO dao){
+		this.goodsDAO = dao;
+	}
+
+
+	public GoodsPackagingDAO getGoodsPackagingDAO(){
+		return this.goodsPackagingDAO;
+	}
+	public void setGoodsPackagingDAO(GoodsPackagingDAO dao){
+		this.goodsPackagingDAO = dao;
+	}
+
+
+	public GoodsMovementDAO getGoodsMovementDAO(){
+		return this.goodsMovementDAO;
+	}
+	public void setGoodsMovementDAO(GoodsMovementDAO dao){
+		this.goodsMovementDAO = dao;
+	}
+
+
+	public SupplierSpaceDAO getSupplierSpaceDAO(){
+		return this.supplierSpaceDAO;
+	}
+	public void setSupplierSpaceDAO(SupplierSpaceDAO dao){
+		this.supplierSpaceDAO = dao;
+	}
+
+
+	public ReceivingSpaceDAO getReceivingSpaceDAO(){
+		return this.receivingSpaceDAO;
+	}
+	public void setReceivingSpaceDAO(ReceivingSpaceDAO dao){
+		this.receivingSpaceDAO = dao;
+	}
+
+
+	public ShippingSpaceDAO getShippingSpaceDAO(){
+		return this.shippingSpaceDAO;
+	}
+	public void setShippingSpaceDAO(ShippingSpaceDAO dao){
+		this.shippingSpaceDAO = dao;
+	}
+
+
+	public DamageSpaceDAO getDamageSpaceDAO(){
+		return this.damageSpaceDAO;
+	}
+	public void setDamageSpaceDAO(DamageSpaceDAO dao){
+		this.damageSpaceDAO = dao;
+	}
+
+
+	public WarehouseAssetDAO getWarehouseAssetDAO(){
+		return this.warehouseAssetDAO;
+	}
+	public void setWarehouseAssetDAO(WarehouseAssetDAO dao){
+		this.warehouseAssetDAO = dao;
+	}
+
+
+	public TransportFleetDAO getTransportFleetDAO(){
+		return this.transportFleetDAO;
+	}
+	public void setTransportFleetDAO(TransportFleetDAO dao){
+		this.transportFleetDAO = dao;
+	}
+
+
+	public TransportTruckDAO getTransportTruckDAO(){
+		return this.transportTruckDAO;
+	}
+	public void setTransportTruckDAO(TransportTruckDAO dao){
+		this.transportTruckDAO = dao;
+	}
+
+
+	public TruckDriverDAO getTruckDriverDAO(){
+		return this.truckDriverDAO;
+	}
+	public void setTruckDriverDAO(TruckDriverDAO dao){
+		this.truckDriverDAO = dao;
+	}
+
+
+	public TransportTaskDAO getTransportTaskDAO(){
+		return this.transportTaskDAO;
+	}
+	public void setTransportTaskDAO(TransportTaskDAO dao){
+		this.transportTaskDAO = dao;
+	}
+
+
+	public TransportTaskTrackDAO getTransportTaskTrackDAO(){
+		return this.transportTaskTrackDAO;
+	}
+	public void setTransportTaskTrackDAO(TransportTaskTrackDAO dao){
+		this.transportTaskTrackDAO = dao;
+	}
+
+
+	public AccountSetDAO getAccountSetDAO(){
+		return this.accountSetDAO;
+	}
+	public void setAccountSetDAO(AccountSetDAO dao){
+		this.accountSetDAO = dao;
+	}
+
+
+	public AccountingSubjectDAO getAccountingSubjectDAO(){
+		return this.accountingSubjectDAO;
+	}
+	public void setAccountingSubjectDAO(AccountingSubjectDAO dao){
+		this.accountingSubjectDAO = dao;
+	}
+
+
+	public AccountingPeriodDAO getAccountingPeriodDAO(){
+		return this.accountingPeriodDAO;
+	}
+	public void setAccountingPeriodDAO(AccountingPeriodDAO dao){
+		this.accountingPeriodDAO = dao;
+	}
+
+
+	public AccountingDocumentTypeDAO getAccountingDocumentTypeDAO(){
+		return this.accountingDocumentTypeDAO;
+	}
+	public void setAccountingDocumentTypeDAO(AccountingDocumentTypeDAO dao){
+		this.accountingDocumentTypeDAO = dao;
+	}
+
+
+	public AccountingDocumentDAO getAccountingDocumentDAO(){
+		return this.accountingDocumentDAO;
+	}
+	public void setAccountingDocumentDAO(AccountingDocumentDAO dao){
+		this.accountingDocumentDAO = dao;
+	}
+
+
+	public AccountingDocumentCreationDAO getAccountingDocumentCreationDAO(){
+		return this.accountingDocumentCreationDAO;
+	}
+	public void setAccountingDocumentCreationDAO(AccountingDocumentCreationDAO dao){
+		this.accountingDocumentCreationDAO = dao;
+	}
+
+
+	public AccountingDocumentConfirmationDAO getAccountingDocumentConfirmationDAO(){
+		return this.accountingDocumentConfirmationDAO;
+	}
+	public void setAccountingDocumentConfirmationDAO(AccountingDocumentConfirmationDAO dao){
+		this.accountingDocumentConfirmationDAO = dao;
+	}
+
+
+	public AccountingDocumentAuditingDAO getAccountingDocumentAuditingDAO(){
+		return this.accountingDocumentAuditingDAO;
+	}
+	public void setAccountingDocumentAuditingDAO(AccountingDocumentAuditingDAO dao){
+		this.accountingDocumentAuditingDAO = dao;
+	}
+
+
+	public AccountingDocumentPostingDAO getAccountingDocumentPostingDAO(){
+		return this.accountingDocumentPostingDAO;
+	}
+	public void setAccountingDocumentPostingDAO(AccountingDocumentPostingDAO dao){
+		this.accountingDocumentPostingDAO = dao;
+	}
+
+
+	public OriginalVoucherDAO getOriginalVoucherDAO(){
+		return this.originalVoucherDAO;
+	}
+	public void setOriginalVoucherDAO(OriginalVoucherDAO dao){
+		this.originalVoucherDAO = dao;
+	}
+
+
+	public OriginalVoucherCreationDAO getOriginalVoucherCreationDAO(){
+		return this.originalVoucherCreationDAO;
+	}
+	public void setOriginalVoucherCreationDAO(OriginalVoucherCreationDAO dao){
+		this.originalVoucherCreationDAO = dao;
+	}
+
+
+	public OriginalVoucherConfirmationDAO getOriginalVoucherConfirmationDAO(){
+		return this.originalVoucherConfirmationDAO;
+	}
+	public void setOriginalVoucherConfirmationDAO(OriginalVoucherConfirmationDAO dao){
+		this.originalVoucherConfirmationDAO = dao;
+	}
+
+
+	public OriginalVoucherAuditingDAO getOriginalVoucherAuditingDAO(){
+		return this.originalVoucherAuditingDAO;
+	}
+	public void setOriginalVoucherAuditingDAO(OriginalVoucherAuditingDAO dao){
+		this.originalVoucherAuditingDAO = dao;
+	}
+
+
+	public AccountingDocumentLineDAO getAccountingDocumentLineDAO(){
+		return this.accountingDocumentLineDAO;
+	}
+	public void setAccountingDocumentLineDAO(AccountingDocumentLineDAO dao){
+		this.accountingDocumentLineDAO = dao;
+	}
+
+
+	public LevelOneDepartmentDAO getLevelOneDepartmentDAO(){
+		return this.levelOneDepartmentDAO;
+	}
+	public void setLevelOneDepartmentDAO(LevelOneDepartmentDAO dao){
+		this.levelOneDepartmentDAO = dao;
+	}
+
+
+	public LevelTwoDepartmentDAO getLevelTwoDepartmentDAO(){
+		return this.levelTwoDepartmentDAO;
+	}
+	public void setLevelTwoDepartmentDAO(LevelTwoDepartmentDAO dao){
+		this.levelTwoDepartmentDAO = dao;
+	}
+
+
+	public LevelThreeDepartmentDAO getLevelThreeDepartmentDAO(){
+		return this.levelThreeDepartmentDAO;
+	}
+	public void setLevelThreeDepartmentDAO(LevelThreeDepartmentDAO dao){
+		this.levelThreeDepartmentDAO = dao;
+	}
+
+
+	public SkillTypeDAO getSkillTypeDAO(){
+		return this.skillTypeDAO;
+	}
+	public void setSkillTypeDAO(SkillTypeDAO dao){
+		this.skillTypeDAO = dao;
+	}
+
+
+	public ResponsibilityTypeDAO getResponsibilityTypeDAO(){
+		return this.responsibilityTypeDAO;
+	}
+	public void setResponsibilityTypeDAO(ResponsibilityTypeDAO dao){
+		this.responsibilityTypeDAO = dao;
+	}
+
+
+	public TerminationReasonDAO getTerminationReasonDAO(){
+		return this.terminationReasonDAO;
+	}
+	public void setTerminationReasonDAO(TerminationReasonDAO dao){
+		this.terminationReasonDAO = dao;
+	}
+
+
+	public TerminationTypeDAO getTerminationTypeDAO(){
+		return this.terminationTypeDAO;
+	}
+	public void setTerminationTypeDAO(TerminationTypeDAO dao){
+		this.terminationTypeDAO = dao;
+	}
+
+
+	public OccupationTypeDAO getOccupationTypeDAO(){
+		return this.occupationTypeDAO;
+	}
+	public void setOccupationTypeDAO(OccupationTypeDAO dao){
+		this.occupationTypeDAO = dao;
+	}
+
+
+	public LeaveTypeDAO getLeaveTypeDAO(){
+		return this.leaveTypeDAO;
+	}
+	public void setLeaveTypeDAO(LeaveTypeDAO dao){
+		this.leaveTypeDAO = dao;
+	}
+
+
+	public SalaryGradeDAO getSalaryGradeDAO(){
+		return this.salaryGradeDAO;
+	}
+	public void setSalaryGradeDAO(SalaryGradeDAO dao){
+		this.salaryGradeDAO = dao;
+	}
+
+
+	public InterviewTypeDAO getInterviewTypeDAO(){
+		return this.interviewTypeDAO;
+	}
+	public void setInterviewTypeDAO(InterviewTypeDAO dao){
+		this.interviewTypeDAO = dao;
+	}
+
+
+	public TrainingCourseTypeDAO getTrainingCourseTypeDAO(){
+		return this.trainingCourseTypeDAO;
+	}
+	public void setTrainingCourseTypeDAO(TrainingCourseTypeDAO dao){
+		this.trainingCourseTypeDAO = dao;
+	}
+
+
+	public PublicHolidayDAO getPublicHolidayDAO(){
+		return this.publicHolidayDAO;
+	}
+	public void setPublicHolidayDAO(PublicHolidayDAO dao){
+		this.publicHolidayDAO = dao;
+	}
+
+
+	public TerminationDAO getTerminationDAO(){
+		return this.terminationDAO;
+	}
+	public void setTerminationDAO(TerminationDAO dao){
+		this.terminationDAO = dao;
+	}
+
+
+	public ViewDAO getViewDAO(){
+		return this.viewDAO;
+	}
+	public void setViewDAO(ViewDAO dao){
+		this.viewDAO = dao;
+	}
+
+
+	public EmployeeDAO getEmployeeDAO(){
+		return this.employeeDAO;
+	}
+	public void setEmployeeDAO(EmployeeDAO dao){
+		this.employeeDAO = dao;
+	}
+
+
+	public JobApplicationDAO getJobApplicationDAO(){
+		return this.jobApplicationDAO;
+	}
+	public void setJobApplicationDAO(JobApplicationDAO dao){
+		this.jobApplicationDAO = dao;
+	}
+
+
+	public ProfessionInterviewDAO getProfessionInterviewDAO(){
+		return this.professionInterviewDAO;
+	}
+	public void setProfessionInterviewDAO(ProfessionInterviewDAO dao){
+		this.professionInterviewDAO = dao;
+	}
+
+
+	public HrInterviewDAO getHrInterviewDAO(){
+		return this.hrInterviewDAO;
+	}
+	public void setHrInterviewDAO(HrInterviewDAO dao){
+		this.hrInterviewDAO = dao;
+	}
+
+
+	public OfferApprovalDAO getOfferApprovalDAO(){
+		return this.offerApprovalDAO;
+	}
+	public void setOfferApprovalDAO(OfferApprovalDAO dao){
+		this.offerApprovalDAO = dao;
+	}
+
+
+	public OfferAcceptanceDAO getOfferAcceptanceDAO(){
+		return this.offerAcceptanceDAO;
+	}
+	public void setOfferAcceptanceDAO(OfferAcceptanceDAO dao){
+		this.offerAcceptanceDAO = dao;
+	}
+
+
+	public EmployeeBoardingDAO getEmployeeBoardingDAO(){
+		return this.employeeBoardingDAO;
+	}
+	public void setEmployeeBoardingDAO(EmployeeBoardingDAO dao){
+		this.employeeBoardingDAO = dao;
+	}
+
+
+	public InstructorDAO getInstructorDAO(){
+		return this.instructorDAO;
+	}
+	public void setInstructorDAO(InstructorDAO dao){
+		this.instructorDAO = dao;
+	}
+
+
+	public CompanyTrainingDAO getCompanyTrainingDAO(){
+		return this.companyTrainingDAO;
+	}
+	public void setCompanyTrainingDAO(CompanyTrainingDAO dao){
+		this.companyTrainingDAO = dao;
+	}
+
+
+	public ScoringDAO getScoringDAO(){
+		return this.scoringDAO;
+	}
+	public void setScoringDAO(ScoringDAO dao){
+		this.scoringDAO = dao;
+	}
+
+
+	public EmployeeCompanyTrainingDAO getEmployeeCompanyTrainingDAO(){
+		return this.employeeCompanyTrainingDAO;
+	}
+	public void setEmployeeCompanyTrainingDAO(EmployeeCompanyTrainingDAO dao){
+		this.employeeCompanyTrainingDAO = dao;
+	}
+
+
+	public EmployeeSkillDAO getEmployeeSkillDAO(){
+		return this.employeeSkillDAO;
+	}
+	public void setEmployeeSkillDAO(EmployeeSkillDAO dao){
+		this.employeeSkillDAO = dao;
+	}
+
+
+	public EmployeePerformanceDAO getEmployeePerformanceDAO(){
+		return this.employeePerformanceDAO;
+	}
+	public void setEmployeePerformanceDAO(EmployeePerformanceDAO dao){
+		this.employeePerformanceDAO = dao;
+	}
+
+
+	public EmployeeWorkExperienceDAO getEmployeeWorkExperienceDAO(){
+		return this.employeeWorkExperienceDAO;
+	}
+	public void setEmployeeWorkExperienceDAO(EmployeeWorkExperienceDAO dao){
+		this.employeeWorkExperienceDAO = dao;
+	}
+
+
+	public EmployeeLeaveDAO getEmployeeLeaveDAO(){
+		return this.employeeLeaveDAO;
+	}
+	public void setEmployeeLeaveDAO(EmployeeLeaveDAO dao){
+		this.employeeLeaveDAO = dao;
+	}
+
+
+	public EmployeeInterviewDAO getEmployeeInterviewDAO(){
+		return this.employeeInterviewDAO;
+	}
+	public void setEmployeeInterviewDAO(EmployeeInterviewDAO dao){
+		this.employeeInterviewDAO = dao;
+	}
+
+
+	public EmployeeAttendanceDAO getEmployeeAttendanceDAO(){
+		return this.employeeAttendanceDAO;
+	}
+	public void setEmployeeAttendanceDAO(EmployeeAttendanceDAO dao){
+		this.employeeAttendanceDAO = dao;
+	}
+
+
+	public EmployeeQualifierDAO getEmployeeQualifierDAO(){
+		return this.employeeQualifierDAO;
+	}
+	public void setEmployeeQualifierDAO(EmployeeQualifierDAO dao){
+		this.employeeQualifierDAO = dao;
+	}
+
+
+	public EmployeeEducationDAO getEmployeeEducationDAO(){
+		return this.employeeEducationDAO;
+	}
+	public void setEmployeeEducationDAO(EmployeeEducationDAO dao){
+		this.employeeEducationDAO = dao;
+	}
+
+
+	public EmployeeAwardDAO getEmployeeAwardDAO(){
+		return this.employeeAwardDAO;
+	}
+	public void setEmployeeAwardDAO(EmployeeAwardDAO dao){
+		this.employeeAwardDAO = dao;
+	}
+
+
+	public EmployeeSalarySheetDAO getEmployeeSalarySheetDAO(){
+		return this.employeeSalarySheetDAO;
+	}
+	public void setEmployeeSalarySheetDAO(EmployeeSalarySheetDAO dao){
+		this.employeeSalarySheetDAO = dao;
+	}
+
+
+	public PayingOffDAO getPayingOffDAO(){
+		return this.payingOffDAO;
+	}
+	public void setPayingOffDAO(PayingOffDAO dao){
+		this.payingOffDAO = dao;
+	}
+
+
+	public UserDomainDAO getUserDomainDAO(){
+		return this.userDomainDAO;
+	}
+	public void setUserDomainDAO(UserDomainDAO dao){
+		this.userDomainDAO = dao;
+	}
+
+
+	public UserWhiteListDAO getUserWhiteListDAO(){
+		return this.userWhiteListDAO;
+	}
+	public void setUserWhiteListDAO(UserWhiteListDAO dao){
+		this.userWhiteListDAO = dao;
+	}
+
+
+	public SecUserDAO getSecUserDAO(){
+		return this.secUserDAO;
+	}
+	public void setSecUserDAO(SecUserDAO dao){
+		this.secUserDAO = dao;
+	}
+
+
+	public SecUserBlockingDAO getSecUserBlockingDAO(){
+		return this.secUserBlockingDAO;
+	}
+	public void setSecUserBlockingDAO(SecUserBlockingDAO dao){
+		this.secUserBlockingDAO = dao;
+	}
+
+
+	public UserAppDAO getUserAppDAO(){
+		return this.userAppDAO;
+	}
+	public void setUserAppDAO(UserAppDAO dao){
+		this.userAppDAO = dao;
+	}
+
+
+	public ListAccessDAO getListAccessDAO(){
+		return this.listAccessDAO;
+	}
+	public void setListAccessDAO(ListAccessDAO dao){
+		this.listAccessDAO = dao;
+	}
+
+
+	public ObjectAccessDAO getObjectAccessDAO(){
+		return this.objectAccessDAO;
+	}
+	public void setObjectAccessDAO(ObjectAccessDAO dao){
+		this.objectAccessDAO = dao;
+	}
+
+
+	public LoginHistoryDAO getLoginHistoryDAO(){
+		return this.loginHistoryDAO;
+	}
+	public void setLoginHistoryDAO(LoginHistoryDAO dao){
+		this.loginHistoryDAO = dao;
+	}
+
+
+	public GenericFormDAO getGenericFormDAO(){
+		return this.genericFormDAO;
+	}
+	public void setGenericFormDAO(GenericFormDAO dao){
+		this.genericFormDAO = dao;
+	}
+
+
+	public FormMessageDAO getFormMessageDAO(){
+		return this.formMessageDAO;
+	}
+	public void setFormMessageDAO(FormMessageDAO dao){
+		this.formMessageDAO = dao;
+	}
+
+
+	public FormFieldMessageDAO getFormFieldMessageDAO(){
+		return this.formFieldMessageDAO;
+	}
+	public void setFormFieldMessageDAO(FormFieldMessageDAO dao){
+		this.formFieldMessageDAO = dao;
+	}
+
+
+	public FormFieldDAO getFormFieldDAO(){
+		return this.formFieldDAO;
+	}
+	public void setFormFieldDAO(FormFieldDAO dao){
+		this.formFieldDAO = dao;
+	}
+
+
+	public FormActionDAO getFormActionDAO(){
+		return this.formActionDAO;
+	}
+	public void setFormActionDAO(FormActionDAO dao){
+		this.formActionDAO = dao;
+	}
+
+
+	private interface BasicLoader{
+	    BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception;
+	    BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception;
+	    BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception;
+	}
+	private static Map<String, BasicLoader> internalLoaderMap;
+	static {
+		internalLoaderMap = new HashMap<String, BasicLoader>();
+
+		internalLoaderMap.put("RetailStoreCountryCenter", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreCountryCenterDAO().load(id, RetailStoreCountryCenterTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreCountryCenterDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreCountryCenterDAO().present((RetailStoreCountryCenter)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Catalog", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getCatalogDAO().load(id, CatalogTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCatalogDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCatalogDAO().present((Catalog)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LevelOneCategory", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLevelOneCategoryDAO().load(id, LevelOneCategoryTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelOneCategoryDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelOneCategoryDAO().present((LevelOneCategory)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LevelTwoCategory", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLevelTwoCategoryDAO().load(id, LevelTwoCategoryTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelTwoCategoryDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelTwoCategoryDAO().present((LevelTwoCategory)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LevelThreeCategory", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLevelThreeCategoryDAO().load(id, LevelThreeCategoryTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelThreeCategoryDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelThreeCategoryDAO().present((LevelThreeCategory)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Product", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getProductDAO().load(id, ProductTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProductDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProductDAO().present((Product)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Sku", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSkuDAO().load(id, SkuTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSkuDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSkuDAO().present((Sku)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreProvinceCenter", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreProvinceCenterDAO().load(id, RetailStoreProvinceCenterTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreProvinceCenterDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreProvinceCenterDAO().present((RetailStoreProvinceCenter)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ProvinceCenterDepartment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getProvinceCenterDepartmentDAO().load(id, ProvinceCenterDepartmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProvinceCenterDepartmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProvinceCenterDepartmentDAO().present((ProvinceCenterDepartment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ProvinceCenterEmployee", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getProvinceCenterEmployeeDAO().load(id, ProvinceCenterEmployeeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProvinceCenterEmployeeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProvinceCenterEmployeeDAO().present((ProvinceCenterEmployee)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreCityServiceCenter", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreCityServiceCenterDAO().load(id, RetailStoreCityServiceCenterTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreCityServiceCenterDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreCityServiceCenterDAO().present((RetailStoreCityServiceCenter)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("CityPartner", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getCityPartnerDAO().load(id, CityPartnerTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCityPartnerDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCityPartnerDAO().present((CityPartner)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("PotentialCustomer", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getPotentialCustomerDAO().load(id, PotentialCustomerTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPotentialCustomerDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPotentialCustomerDAO().present((PotentialCustomer)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("PotentialCustomerContactPerson", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getPotentialCustomerContactPersonDAO().load(id, PotentialCustomerContactPersonTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPotentialCustomerContactPersonDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPotentialCustomerContactPersonDAO().present((PotentialCustomerContactPerson)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("PotentialCustomerContact", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getPotentialCustomerContactDAO().load(id, PotentialCustomerContactTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPotentialCustomerContactDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPotentialCustomerContactDAO().present((PotentialCustomerContact)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("CityEvent", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getCityEventDAO().load(id, CityEventTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCityEventDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCityEventDAO().present((CityEvent)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EventAttendance", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEventAttendanceDAO().load(id, EventAttendanceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEventAttendanceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEventAttendanceDAO().present((EventAttendance)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStore", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreDAO().load(id, RetailStoreTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreDAO().present((RetailStore)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreCreation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreCreationDAO().load(id, RetailStoreCreationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreCreationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreCreationDAO().present((RetailStoreCreation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreInvestmentInvitation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreInvestmentInvitationDAO().load(id, RetailStoreInvestmentInvitationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreInvestmentInvitationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreInvestmentInvitationDAO().present((RetailStoreInvestmentInvitation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreFranchising", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreFranchisingDAO().load(id, RetailStoreFranchisingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreFranchisingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreFranchisingDAO().present((RetailStoreFranchising)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreDecoration", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreDecorationDAO().load(id, RetailStoreDecorationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreDecorationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreDecorationDAO().present((RetailStoreDecoration)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOpening", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOpeningDAO().load(id, RetailStoreOpeningTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOpeningDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOpeningDAO().present((RetailStoreOpening)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreClosing", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreClosingDAO().load(id, RetailStoreClosingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreClosingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreClosingDAO().present((RetailStoreClosing)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreMember", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreMemberDAO().load(id, RetailStoreMemberTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberDAO().present((RetailStoreMember)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrder", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderDAO().load(id, ConsumerOrderTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderDAO().present((ConsumerOrder)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderConfirmation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderConfirmationDAO().load(id, ConsumerOrderConfirmationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderConfirmationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderConfirmationDAO().present((ConsumerOrderConfirmation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderApproval", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderApprovalDAO().load(id, ConsumerOrderApprovalTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderApprovalDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderApprovalDAO().present((ConsumerOrderApproval)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderProcessing", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderProcessingDAO().load(id, ConsumerOrderProcessingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderProcessingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderProcessingDAO().present((ConsumerOrderProcessing)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderShipment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderShipmentDAO().load(id, ConsumerOrderShipmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderShipmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderShipmentDAO().present((ConsumerOrderShipment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderDelivery", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderDeliveryDAO().load(id, ConsumerOrderDeliveryTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderDeliveryDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderDeliveryDAO().present((ConsumerOrderDelivery)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderLineItem", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderLineItemDAO().load(id, ConsumerOrderLineItemTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderLineItemDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderLineItemDAO().present((ConsumerOrderLineItem)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderShippingGroup", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderShippingGroupDAO().load(id, ConsumerOrderShippingGroupTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderShippingGroupDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderShippingGroupDAO().present((ConsumerOrderShippingGroup)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderPaymentGroup", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderPaymentGroupDAO().load(id, ConsumerOrderPaymentGroupTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderPaymentGroupDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderPaymentGroupDAO().present((ConsumerOrderPaymentGroup)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ConsumerOrderPriceAdjustment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getConsumerOrderPriceAdjustmentDAO().load(id, ConsumerOrderPriceAdjustmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderPriceAdjustmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getConsumerOrderPriceAdjustmentDAO().present((ConsumerOrderPriceAdjustment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreMemberCoupon", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreMemberCouponDAO().load(id, RetailStoreMemberCouponTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberCouponDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberCouponDAO().present((RetailStoreMemberCoupon)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("MemberWishlist", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getMemberWishlistDAO().load(id, MemberWishlistTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberWishlistDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberWishlistDAO().present((MemberWishlist)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("MemberRewardPoint", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getMemberRewardPointDAO().load(id, MemberRewardPointTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberRewardPointDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberRewardPointDAO().present((MemberRewardPoint)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("MemberRewardPointRedemption", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getMemberRewardPointRedemptionDAO().load(id, MemberRewardPointRedemptionTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberRewardPointRedemptionDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberRewardPointRedemptionDAO().present((MemberRewardPointRedemption)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("MemberWishlistProduct", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getMemberWishlistProductDAO().load(id, MemberWishlistProductTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberWishlistProductDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getMemberWishlistProductDAO().present((MemberWishlistProduct)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreMemberAddress", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreMemberAddressDAO().load(id, RetailStoreMemberAddressTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberAddressDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberAddressDAO().present((RetailStoreMemberAddress)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreMemberGiftCard", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreMemberGiftCardDAO().load(id, RetailStoreMemberGiftCardTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberGiftCardDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberGiftCardDAO().present((RetailStoreMemberGiftCard)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreMemberGiftCardConsumeRecord", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreMemberGiftCardConsumeRecordDAO().load(id, RetailStoreMemberGiftCardConsumeRecordTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberGiftCardConsumeRecordDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreMemberGiftCardConsumeRecordDAO().present((RetailStoreMemberGiftCardConsumeRecord)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("GoodsSupplier", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGoodsSupplierDAO().load(id, GoodsSupplierTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsSupplierDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsSupplierDAO().present((GoodsSupplier)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplierProduct", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplierProductDAO().load(id, SupplierProductTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplierProductDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplierProductDAO().present((SupplierProduct)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ProductSupplyDuration", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getProductSupplyDurationDAO().load(id, ProductSupplyDurationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProductSupplyDurationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProductSupplyDurationDAO().present((ProductSupplyDuration)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrder", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderDAO().load(id, SupplyOrderTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderDAO().present((SupplyOrder)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderConfirmation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderConfirmationDAO().load(id, SupplyOrderConfirmationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderConfirmationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderConfirmationDAO().present((SupplyOrderConfirmation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderApproval", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderApprovalDAO().load(id, SupplyOrderApprovalTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderApprovalDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderApprovalDAO().present((SupplyOrderApproval)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderProcessing", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderProcessingDAO().load(id, SupplyOrderProcessingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderProcessingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderProcessingDAO().present((SupplyOrderProcessing)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderPicking", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderPickingDAO().load(id, SupplyOrderPickingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderPickingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderPickingDAO().present((SupplyOrderPicking)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderShipment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderShipmentDAO().load(id, SupplyOrderShipmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderShipmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderShipmentDAO().present((SupplyOrderShipment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderDelivery", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderDeliveryDAO().load(id, SupplyOrderDeliveryTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderDeliveryDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderDeliveryDAO().present((SupplyOrderDelivery)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderLineItem", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderLineItemDAO().load(id, SupplyOrderLineItemTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderLineItemDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderLineItemDAO().present((SupplyOrderLineItem)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderShippingGroup", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderShippingGroupDAO().load(id, SupplyOrderShippingGroupTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderShippingGroupDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderShippingGroupDAO().present((SupplyOrderShippingGroup)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplyOrderPaymentGroup", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplyOrderPaymentGroupDAO().load(id, SupplyOrderPaymentGroupTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderPaymentGroupDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplyOrderPaymentGroupDAO().present((SupplyOrderPaymentGroup)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrder", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderDAO().load(id, RetailStoreOrderTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderDAO().present((RetailStoreOrder)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderConfirmation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderConfirmationDAO().load(id, RetailStoreOrderConfirmationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderConfirmationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderConfirmationDAO().present((RetailStoreOrderConfirmation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderApproval", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderApprovalDAO().load(id, RetailStoreOrderApprovalTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderApprovalDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderApprovalDAO().present((RetailStoreOrderApproval)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderProcessing", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderProcessingDAO().load(id, RetailStoreOrderProcessingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderProcessingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderProcessingDAO().present((RetailStoreOrderProcessing)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderPicking", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderPickingDAO().load(id, RetailStoreOrderPickingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderPickingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderPickingDAO().present((RetailStoreOrderPicking)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderShipment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderShipmentDAO().load(id, RetailStoreOrderShipmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderShipmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderShipmentDAO().present((RetailStoreOrderShipment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderDelivery", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderDeliveryDAO().load(id, RetailStoreOrderDeliveryTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderDeliveryDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderDeliveryDAO().present((RetailStoreOrderDelivery)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderLineItem", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderLineItemDAO().load(id, RetailStoreOrderLineItemTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderLineItemDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderLineItemDAO().present((RetailStoreOrderLineItem)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderShippingGroup", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderShippingGroupDAO().load(id, RetailStoreOrderShippingGroupTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderShippingGroupDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderShippingGroupDAO().present((RetailStoreOrderShippingGroup)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("RetailStoreOrderPaymentGroup", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getRetailStoreOrderPaymentGroupDAO().load(id, RetailStoreOrderPaymentGroupTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderPaymentGroupDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getRetailStoreOrderPaymentGroupDAO().present((RetailStoreOrderPaymentGroup)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Warehouse", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getWarehouseDAO().load(id, WarehouseTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getWarehouseDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getWarehouseDAO().present((Warehouse)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("StorageSpace", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getStorageSpaceDAO().load(id, StorageSpaceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getStorageSpaceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getStorageSpaceDAO().present((StorageSpace)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SmartPallet", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSmartPalletDAO().load(id, SmartPalletTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSmartPalletDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSmartPalletDAO().present((SmartPallet)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("GoodsShelf", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGoodsShelfDAO().load(id, GoodsShelfTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsShelfDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsShelfDAO().present((GoodsShelf)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("GoodsShelfStockCount", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGoodsShelfStockCountDAO().load(id, GoodsShelfStockCountTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsShelfStockCountDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsShelfStockCountDAO().present((GoodsShelfStockCount)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("StockCountIssueTrack", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getStockCountIssueTrackDAO().load(id, StockCountIssueTrackTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getStockCountIssueTrackDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getStockCountIssueTrackDAO().present((StockCountIssueTrack)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("GoodsAllocation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGoodsAllocationDAO().load(id, GoodsAllocationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsAllocationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsAllocationDAO().present((GoodsAllocation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Goods", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGoodsDAO().load(id, GoodsTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsDAO().present((Goods)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("GoodsPackaging", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGoodsPackagingDAO().load(id, GoodsPackagingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsPackagingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsPackagingDAO().present((GoodsPackaging)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("GoodsMovement", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGoodsMovementDAO().load(id, GoodsMovementTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsMovementDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGoodsMovementDAO().present((GoodsMovement)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SupplierSpace", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSupplierSpaceDAO().load(id, SupplierSpaceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplierSpaceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSupplierSpaceDAO().present((SupplierSpace)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ReceivingSpace", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getReceivingSpaceDAO().load(id, ReceivingSpaceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getReceivingSpaceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getReceivingSpaceDAO().present((ReceivingSpace)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ShippingSpace", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getShippingSpaceDAO().load(id, ShippingSpaceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getShippingSpaceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getShippingSpaceDAO().present((ShippingSpace)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("DamageSpace", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getDamageSpaceDAO().load(id, DamageSpaceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getDamageSpaceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getDamageSpaceDAO().present((DamageSpace)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("WarehouseAsset", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getWarehouseAssetDAO().load(id, WarehouseAssetTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getWarehouseAssetDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getWarehouseAssetDAO().present((WarehouseAsset)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TransportFleet", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTransportFleetDAO().load(id, TransportFleetTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportFleetDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportFleetDAO().present((TransportFleet)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TransportTruck", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTransportTruckDAO().load(id, TransportTruckTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportTruckDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportTruckDAO().present((TransportTruck)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TruckDriver", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTruckDriverDAO().load(id, TruckDriverTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTruckDriverDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTruckDriverDAO().present((TruckDriver)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TransportTask", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTransportTaskDAO().load(id, TransportTaskTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportTaskDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportTaskDAO().present((TransportTask)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TransportTaskTrack", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTransportTaskTrackDAO().load(id, TransportTaskTrackTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportTaskTrackDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTransportTaskTrackDAO().present((TransportTaskTrack)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountSet", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountSetDAO().load(id, AccountSetTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountSetDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountSetDAO().present((AccountSet)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingSubject", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingSubjectDAO().load(id, AccountingSubjectTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingSubjectDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingSubjectDAO().present((AccountingSubject)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingPeriod", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingPeriodDAO().load(id, AccountingPeriodTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingPeriodDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingPeriodDAO().present((AccountingPeriod)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingDocumentType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingDocumentTypeDAO().load(id, AccountingDocumentTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentTypeDAO().present((AccountingDocumentType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingDocument", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingDocumentDAO().load(id, AccountingDocumentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentDAO().present((AccountingDocument)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingDocumentCreation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingDocumentCreationDAO().load(id, AccountingDocumentCreationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentCreationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentCreationDAO().present((AccountingDocumentCreation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingDocumentConfirmation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingDocumentConfirmationDAO().load(id, AccountingDocumentConfirmationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentConfirmationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentConfirmationDAO().present((AccountingDocumentConfirmation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingDocumentAuditing", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingDocumentAuditingDAO().load(id, AccountingDocumentAuditingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentAuditingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentAuditingDAO().present((AccountingDocumentAuditing)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingDocumentPosting", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingDocumentPostingDAO().load(id, AccountingDocumentPostingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentPostingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentPostingDAO().present((AccountingDocumentPosting)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("OriginalVoucher", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getOriginalVoucherDAO().load(id, OriginalVoucherTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherDAO().present((OriginalVoucher)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("OriginalVoucherCreation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getOriginalVoucherCreationDAO().load(id, OriginalVoucherCreationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherCreationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherCreationDAO().present((OriginalVoucherCreation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("OriginalVoucherConfirmation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getOriginalVoucherConfirmationDAO().load(id, OriginalVoucherConfirmationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherConfirmationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherConfirmationDAO().present((OriginalVoucherConfirmation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("OriginalVoucherAuditing", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getOriginalVoucherAuditingDAO().load(id, OriginalVoucherAuditingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherAuditingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOriginalVoucherAuditingDAO().present((OriginalVoucherAuditing)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("AccountingDocumentLine", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getAccountingDocumentLineDAO().load(id, AccountingDocumentLineTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentLineDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getAccountingDocumentLineDAO().present((AccountingDocumentLine)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LevelOneDepartment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLevelOneDepartmentDAO().load(id, LevelOneDepartmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelOneDepartmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelOneDepartmentDAO().present((LevelOneDepartment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LevelTwoDepartment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLevelTwoDepartmentDAO().load(id, LevelTwoDepartmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelTwoDepartmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelTwoDepartmentDAO().present((LevelTwoDepartment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LevelThreeDepartment", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLevelThreeDepartmentDAO().load(id, LevelThreeDepartmentTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelThreeDepartmentDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLevelThreeDepartmentDAO().present((LevelThreeDepartment)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SkillType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSkillTypeDAO().load(id, SkillTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSkillTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSkillTypeDAO().present((SkillType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ResponsibilityType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getResponsibilityTypeDAO().load(id, ResponsibilityTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getResponsibilityTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getResponsibilityTypeDAO().present((ResponsibilityType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TerminationReason", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTerminationReasonDAO().load(id, TerminationReasonTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTerminationReasonDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTerminationReasonDAO().present((TerminationReason)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TerminationType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTerminationTypeDAO().load(id, TerminationTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTerminationTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTerminationTypeDAO().present((TerminationType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("OccupationType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getOccupationTypeDAO().load(id, OccupationTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOccupationTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOccupationTypeDAO().present((OccupationType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LeaveType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLeaveTypeDAO().load(id, LeaveTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLeaveTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLeaveTypeDAO().present((LeaveType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SalaryGrade", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSalaryGradeDAO().load(id, SalaryGradeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSalaryGradeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSalaryGradeDAO().present((SalaryGrade)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("InterviewType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getInterviewTypeDAO().load(id, InterviewTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getInterviewTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getInterviewTypeDAO().present((InterviewType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("TrainingCourseType", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTrainingCourseTypeDAO().load(id, TrainingCourseTypeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTrainingCourseTypeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTrainingCourseTypeDAO().present((TrainingCourseType)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("PublicHoliday", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getPublicHolidayDAO().load(id, PublicHolidayTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPublicHolidayDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPublicHolidayDAO().present((PublicHoliday)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Termination", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getTerminationDAO().load(id, TerminationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTerminationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getTerminationDAO().present((Termination)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("View", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getViewDAO().load(id, ViewTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getViewDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getViewDAO().present((View)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Employee", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeDAO().load(id, EmployeeTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeDAO().present((Employee)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("JobApplication", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getJobApplicationDAO().load(id, JobApplicationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getJobApplicationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getJobApplicationDAO().present((JobApplication)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ProfessionInterview", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getProfessionInterviewDAO().load(id, ProfessionInterviewTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProfessionInterviewDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getProfessionInterviewDAO().present((ProfessionInterview)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("HrInterview", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getHrInterviewDAO().load(id, HrInterviewTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getHrInterviewDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getHrInterviewDAO().present((HrInterview)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("OfferApproval", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getOfferApprovalDAO().load(id, OfferApprovalTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOfferApprovalDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOfferApprovalDAO().present((OfferApproval)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("OfferAcceptance", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getOfferAcceptanceDAO().load(id, OfferAcceptanceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOfferAcceptanceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getOfferAcceptanceDAO().present((OfferAcceptance)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeBoarding", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeBoardingDAO().load(id, EmployeeBoardingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeBoardingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeBoardingDAO().present((EmployeeBoarding)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Instructor", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getInstructorDAO().load(id, InstructorTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getInstructorDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getInstructorDAO().present((Instructor)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("CompanyTraining", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getCompanyTrainingDAO().load(id, CompanyTrainingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCompanyTrainingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getCompanyTrainingDAO().present((CompanyTraining)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("Scoring", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getScoringDAO().load(id, ScoringTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getScoringDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getScoringDAO().present((Scoring)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeCompanyTraining", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeCompanyTrainingDAO().load(id, EmployeeCompanyTrainingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeCompanyTrainingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeCompanyTrainingDAO().present((EmployeeCompanyTraining)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeSkill", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeSkillDAO().load(id, EmployeeSkillTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeSkillDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeSkillDAO().present((EmployeeSkill)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeePerformance", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeePerformanceDAO().load(id, EmployeePerformanceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeePerformanceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeePerformanceDAO().present((EmployeePerformance)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeWorkExperience", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeWorkExperienceDAO().load(id, EmployeeWorkExperienceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeWorkExperienceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeWorkExperienceDAO().present((EmployeeWorkExperience)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeLeave", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeLeaveDAO().load(id, EmployeeLeaveTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeLeaveDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeLeaveDAO().present((EmployeeLeave)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeInterview", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeInterviewDAO().load(id, EmployeeInterviewTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeInterviewDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeInterviewDAO().present((EmployeeInterview)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeAttendance", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeAttendanceDAO().load(id, EmployeeAttendanceTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeAttendanceDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeAttendanceDAO().present((EmployeeAttendance)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeQualifier", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeQualifierDAO().load(id, EmployeeQualifierTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeQualifierDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeQualifierDAO().present((EmployeeQualifier)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeEducation", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeEducationDAO().load(id, EmployeeEducationTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeEducationDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeEducationDAO().present((EmployeeEducation)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeAward", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeAwardDAO().load(id, EmployeeAwardTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeAwardDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeAwardDAO().present((EmployeeAward)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("EmployeeSalarySheet", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getEmployeeSalarySheetDAO().load(id, EmployeeSalarySheetTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeSalarySheetDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getEmployeeSalarySheetDAO().present((EmployeeSalarySheet)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("PayingOff", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getPayingOffDAO().load(id, PayingOffTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPayingOffDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getPayingOffDAO().present((PayingOff)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("UserDomain", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getUserDomainDAO().load(id, UserDomainTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getUserDomainDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getUserDomainDAO().present((UserDomain)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("UserWhiteList", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getUserWhiteListDAO().load(id, UserWhiteListTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getUserWhiteListDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getUserWhiteListDAO().present((UserWhiteList)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SecUser", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSecUserDAO().load(id, SecUserTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSecUserDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSecUserDAO().present((SecUser)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("SecUserBlocking", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getSecUserBlockingDAO().load(id, SecUserBlockingTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSecUserBlockingDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getSecUserBlockingDAO().present((SecUserBlocking)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("UserApp", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getUserAppDAO().load(id, UserAppTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getUserAppDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getUserAppDAO().present((UserApp)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ListAccess", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getListAccessDAO().load(id, ListAccessTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getListAccessDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getListAccessDAO().present((ListAccess)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("ObjectAccess", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getObjectAccessDAO().load(id, ObjectAccessTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getObjectAccessDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getObjectAccessDAO().present((ObjectAccess)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("LoginHistory", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getLoginHistoryDAO().load(id, LoginHistoryTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLoginHistoryDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getLoginHistoryDAO().present((LoginHistory)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("GenericForm", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getGenericFormDAO().load(id, GenericFormTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGenericFormDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getGenericFormDAO().present((GenericForm)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("FormMessage", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getFormMessageDAO().load(id, FormMessageTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormMessageDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormMessageDAO().present((FormMessage)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("FormFieldMessage", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getFormFieldMessageDAO().load(id, FormFieldMessageTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormFieldMessageDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormFieldMessageDAO().present((FormFieldMessage)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("FormField", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getFormFieldDAO().load(id, FormFieldTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormFieldDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormFieldDAO().present((FormField)data, tokens);
+			}
+		});
+
+		internalLoaderMap.put("FormAction", new BasicLoader() {
+			@Override
+			public BaseEntity loadBasicData(DAOGroup daoGoup, String id) throws Exception {
+				return daoGoup.getFormActionDAO().load(id, FormActionTokens.withoutLists());
+			}
+			@Override
+			public BaseEntity loadBasicDataWithToken(DAOGroup daoGoup, String id, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormActionDAO().load(id, tokens);
+			}
+			@Override
+			public BaseEntity present(DAOGroup daoGoup, BaseEntity data, Map<String, Object> tokens) throws Exception {
+				return daoGoup.getFormActionDAO().present((FormAction)data, tokens);
+			}
+		});
+
+	}
+	public BaseEntity loadBasicData(String type, String id){
+	    BasicLoader loader = internalLoaderMap.get(type);
+	    if (loader == null) {
+	    	return null;
+	    }
+	    try{
+	    	return loader.loadBasicData(this, id);
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    	return null;
+	    }
+	}
+	public BaseEntity loadBasicDataWithTokens(String type, String id, Map<String, Object> tokens){
+	    BasicLoader loader = internalLoaderMap.get(type);
+	    if (loader == null) {
+	    	return null;
+	    }
+	    try{
+	    	return loader.loadBasicDataWithToken(this, id, tokens);
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    	return null;
+	    }
+	}
+	public BaseEntity present(BaseEntity data, Map<String, Object> tokens){
+	    BasicLoader loader = internalLoaderMap.get(data.getInternalType());
+	    if (loader == null || data == null) {
+	    	return null;
+	    }
+	    try{
+	    	return loader.present(this, data, tokens);
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    	return null;
+	    }
+	}
+}
+

@@ -48,12 +48,11 @@ const hasItemReadPermission=(item)=>{
   if(!item){
     return false
   }
-  
-  if(!item.metaInfo){
-    return true //for old code
-  }
   if(!item.addFunction){
     return false
+  }
+  if(!item.metaInfo){
+    return true //for old code
   }
   if(!item.metaInfo.accessInfo){
     return false 

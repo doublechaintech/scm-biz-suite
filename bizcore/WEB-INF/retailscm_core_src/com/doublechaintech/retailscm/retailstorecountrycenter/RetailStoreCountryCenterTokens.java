@@ -1,0 +1,1458 @@
+
+package com.doublechaintech.retailscm.retailstorecountrycenter;
+import com.doublechaintech.retailscm.CommonTokens;
+import java.util.Map;
+public class RetailStoreCountryCenterTokens extends CommonTokens{
+
+	static final String ALL="__all__"; //do not assign this to common users.
+	static final String SELF="__self__";
+	static final String OWNER_OBJECT_NAME="retailStoreCountryCenter";
+	
+	public static boolean checkOptions(Map<String,Object> options, String optionToCheck){
+		
+		if(options==null){
+ 			return false; //completely no option here
+ 		}
+ 		if(options.containsKey(ALL)){
+ 			//danger, debug only, might load the entire database!, really terrible
+ 			return true;
+ 		}
+		String ownerKey = getOwnerObjectKey();
+		Object ownerObject =(String) options.get(ownerKey);
+		if(ownerObject ==  null){
+			return false;
+		}
+		if(!ownerObject.equals(OWNER_OBJECT_NAME)){ //is the owner? 
+			return false; 
+		}
+		
+ 		if(options.containsKey(optionToCheck)){
+ 			//options.remove(optionToCheck);
+ 			//consume the key, can not use any more to extract the data with the same token.			
+ 			return true;
+ 		}
+ 		
+ 		return false;
+	
+	}
+	protected RetailStoreCountryCenterTokens(){
+		//ensure not initialized outside the class
+	}
+	
+	public RetailStoreCountryCenterTokens merge(String [] tokens){
+		this.parseTokens(tokens);
+		return this;
+	}
+	
+	public static RetailStoreCountryCenterTokens mergeAll(String [] tokens){
+		
+		return allTokens().merge(tokens);
+	}
+	
+	protected RetailStoreCountryCenterTokens setOwnerObject(String objectName){
+		ensureOptions();
+		addSimpleOptions(getOwnerObjectKey(), objectName);
+		return this;
+	}
+	
+	
+	public static RetailStoreCountryCenterTokens start(){
+		return new RetailStoreCountryCenterTokens().setOwnerObject(OWNER_OBJECT_NAME);
+	}
+	
+	protected static RetailStoreCountryCenterTokens allTokens(){
+		
+		return start()
+			.withCatalogList()
+			.withRetailStoreProvinceCenterList()
+			.withRetailStoreList()
+			.withRetailStoreMemberList()
+			.withGoodsSupplierList()
+			.withSupplyOrderList()
+			.withRetailStoreOrderList()
+			.withWarehouseList()
+			.withTransportFleetList()
+			.withAccountSetList()
+			.withLevelOneDepartmentList()
+			.withSkillTypeList()
+			.withResponsibilityTypeList()
+			.withTerminationReasonList()
+			.withTerminationTypeList()
+			.withOccupationTypeList()
+			.withLeaveTypeList()
+			.withSalaryGradeList()
+			.withInterviewTypeList()
+			.withTrainingCourseTypeList()
+			.withPublicHolidayList()
+			.withEmployeeList()
+			.withInstructorList()
+			.withCompanyTrainingList();
+	
+	}
+	public static RetailStoreCountryCenterTokens withoutListsTokens(){
+		
+		return start();
+	
+	}
+	
+	public static Map <String,Object> all(){
+		return allTokens().done();
+	}
+	public static Map <String,Object> withoutLists(){
+		return withoutListsTokens().done();
+	}
+	public static Map <String,Object> empty(){
+		return start().done();
+	}
+
+	protected static final String CATALOG_LIST = "catalogList";
+	public String getCatalogList(){
+		return CATALOG_LIST;
+	}
+	public RetailStoreCountryCenterTokens withCatalogList(){		
+		addSimpleOptions(CATALOG_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromCatalogList(String idsSeperatedWithComma){		
+		addSimpleOptions(CATALOG_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int catalogListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortCatalogListWith(String field, String descOrAsc){		
+		addSortMoreOptions(CATALOG_LIST,catalogListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int catalogListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchCatalogListWith(String field, String verb, String value){		
+		addSearchMoreOptions(CATALOG_LIST,catalogListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfCatalogList(String verb, String value){	
+		String field = "id|name";
+		addSearchMoreOptions(CATALOG_LIST,catalogListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfCatalogList(int rowsPerPage){		
+		addSimpleOptions(CATALOG_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfCatalogList(int currentPageNumber){		
+		addSimpleOptions(CATALOG_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfCatalogList(String[] columns){		
+		addSimpleOptions(CATALOG_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfCatalogList(String[] columns){		
+		addSimpleOptions(CATALOG_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String RETAIL_STORE_PROVINCE_CENTER_LIST = "retailStoreProvinceCenterList";
+	public String getRetailStoreProvinceCenterList(){
+		return RETAIL_STORE_PROVINCE_CENTER_LIST;
+	}
+	public RetailStoreCountryCenterTokens withRetailStoreProvinceCenterList(){		
+		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreProvinceCenterList(String idsSeperatedWithComma){		
+		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int retailStoreProvinceCenterListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortRetailStoreProvinceCenterListWith(String field, String descOrAsc){		
+		addSortMoreOptions(RETAIL_STORE_PROVINCE_CENTER_LIST,retailStoreProvinceCenterListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int retailStoreProvinceCenterListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchRetailStoreProvinceCenterListWith(String field, String verb, String value){		
+		addSearchMoreOptions(RETAIL_STORE_PROVINCE_CENTER_LIST,retailStoreProvinceCenterListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfRetailStoreProvinceCenterList(String verb, String value){	
+		String field = "id|name";
+		addSearchMoreOptions(RETAIL_STORE_PROVINCE_CENTER_LIST,retailStoreProvinceCenterListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfRetailStoreProvinceCenterList(int rowsPerPage){		
+		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfRetailStoreProvinceCenterList(int currentPageNumber){		
+		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfRetailStoreProvinceCenterList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfRetailStoreProvinceCenterList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String RETAIL_STORE_LIST = "retailStoreList";
+	public String getRetailStoreList(){
+		return RETAIL_STORE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withRetailStoreList(){		
+		addSimpleOptions(RETAIL_STORE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
+		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int retailStoreListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortRetailStoreListWith(String field, String descOrAsc){		
+		addSortMoreOptions(RETAIL_STORE_LIST,retailStoreListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int retailStoreListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchRetailStoreListWith(String field, String verb, String value){		
+		addSearchMoreOptions(RETAIL_STORE_LIST,retailStoreListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfRetailStoreList(String verb, String value){	
+		String field = "id|name|telephone|owner|description|currentStatus";
+		addSearchMoreOptions(RETAIL_STORE_LIST,retailStoreListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfRetailStoreList(int rowsPerPage){		
+		addSimpleOptions(RETAIL_STORE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfRetailStoreList(int currentPageNumber){		
+		addSimpleOptions(RETAIL_STORE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfRetailStoreList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfRetailStoreList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String RETAIL_STORE_MEMBER_LIST = "retailStoreMemberList";
+	public String getRetailStoreMemberList(){
+		return RETAIL_STORE_MEMBER_LIST;
+	}
+	public RetailStoreCountryCenterTokens withRetailStoreMemberList(){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreMemberList(String idsSeperatedWithComma){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int retailStoreMemberListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortRetailStoreMemberListWith(String field, String descOrAsc){		
+		addSortMoreOptions(RETAIL_STORE_MEMBER_LIST,retailStoreMemberListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int retailStoreMemberListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchRetailStoreMemberListWith(String field, String verb, String value){		
+		addSearchMoreOptions(RETAIL_STORE_MEMBER_LIST,retailStoreMemberListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfRetailStoreMemberList(String verb, String value){	
+		String field = "id|name|mobilePhone";
+		addSearchMoreOptions(RETAIL_STORE_MEMBER_LIST,retailStoreMemberListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfRetailStoreMemberList(int rowsPerPage){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfRetailStoreMemberList(int currentPageNumber){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfRetailStoreMemberList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfRetailStoreMemberList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String GOODS_SUPPLIER_LIST = "goodsSupplierList";
+	public String getGoodsSupplierList(){
+		return GOODS_SUPPLIER_LIST;
+	}
+	public RetailStoreCountryCenterTokens withGoodsSupplierList(){		
+		addSimpleOptions(GOODS_SUPPLIER_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromGoodsSupplierList(String idsSeperatedWithComma){		
+		addSimpleOptions(GOODS_SUPPLIER_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int goodsSupplierListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortGoodsSupplierListWith(String field, String descOrAsc){		
+		addSortMoreOptions(GOODS_SUPPLIER_LIST,goodsSupplierListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int goodsSupplierListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchGoodsSupplierListWith(String field, String verb, String value){		
+		addSearchMoreOptions(GOODS_SUPPLIER_LIST,goodsSupplierListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfGoodsSupplierList(String verb, String value){	
+		String field = "id|name|supplyProduct|contactNumber|description";
+		addSearchMoreOptions(GOODS_SUPPLIER_LIST,goodsSupplierListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfGoodsSupplierList(int rowsPerPage){		
+		addSimpleOptions(GOODS_SUPPLIER_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfGoodsSupplierList(int currentPageNumber){		
+		addSimpleOptions(GOODS_SUPPLIER_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfGoodsSupplierList(String[] columns){		
+		addSimpleOptions(GOODS_SUPPLIER_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfGoodsSupplierList(String[] columns){		
+		addSimpleOptions(GOODS_SUPPLIER_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String SUPPLY_ORDER_LIST = "supplyOrderList";
+	public String getSupplyOrderList(){
+		return SUPPLY_ORDER_LIST;
+	}
+	public RetailStoreCountryCenterTokens withSupplyOrderList(){		
+		addSimpleOptions(SUPPLY_ORDER_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int supplyOrderListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortSupplyOrderListWith(String field, String descOrAsc){		
+		addSortMoreOptions(SUPPLY_ORDER_LIST,supplyOrderListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int supplyOrderListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchSupplyOrderListWith(String field, String verb, String value){		
+		addSearchMoreOptions(SUPPLY_ORDER_LIST,supplyOrderListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfSupplyOrderList(String verb, String value){	
+		String field = "id|title|currentStatus";
+		addSearchMoreOptions(SUPPLY_ORDER_LIST,supplyOrderListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfSupplyOrderList(int rowsPerPage){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfSupplyOrderList(int currentPageNumber){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfSupplyOrderList(String[] columns){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfSupplyOrderList(String[] columns){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String RETAIL_STORE_ORDER_LIST = "retailStoreOrderList";
+	public String getRetailStoreOrderList(){
+		return RETAIL_STORE_ORDER_LIST;
+	}
+	public RetailStoreCountryCenterTokens withRetailStoreOrderList(){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreOrderList(String idsSeperatedWithComma){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int retailStoreOrderListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortRetailStoreOrderListWith(String field, String descOrAsc){		
+		addSortMoreOptions(RETAIL_STORE_ORDER_LIST,retailStoreOrderListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int retailStoreOrderListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchRetailStoreOrderListWith(String field, String verb, String value){		
+		addSearchMoreOptions(RETAIL_STORE_ORDER_LIST,retailStoreOrderListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfRetailStoreOrderList(String verb, String value){	
+		String field = "id|title|currentStatus";
+		addSearchMoreOptions(RETAIL_STORE_ORDER_LIST,retailStoreOrderListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfRetailStoreOrderList(int rowsPerPage){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfRetailStoreOrderList(int currentPageNumber){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfRetailStoreOrderList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfRetailStoreOrderList(String[] columns){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String WAREHOUSE_LIST = "warehouseList";
+	public String getWarehouseList(){
+		return WAREHOUSE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withWarehouseList(){		
+		addSimpleOptions(WAREHOUSE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromWarehouseList(String idsSeperatedWithComma){		
+		addSimpleOptions(WAREHOUSE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int warehouseListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortWarehouseListWith(String field, String descOrAsc){		
+		addSortMoreOptions(WAREHOUSE_LIST,warehouseListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int warehouseListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchWarehouseListWith(String field, String verb, String value){		
+		addSearchMoreOptions(WAREHOUSE_LIST,warehouseListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfWarehouseList(String verb, String value){	
+		String field = "id|location|contactNumber|totalArea";
+		addSearchMoreOptions(WAREHOUSE_LIST,warehouseListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfWarehouseList(int rowsPerPage){		
+		addSimpleOptions(WAREHOUSE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfWarehouseList(int currentPageNumber){		
+		addSimpleOptions(WAREHOUSE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfWarehouseList(String[] columns){		
+		addSimpleOptions(WAREHOUSE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfWarehouseList(String[] columns){		
+		addSimpleOptions(WAREHOUSE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String TRANSPORT_FLEET_LIST = "transportFleetList";
+	public String getTransportFleetList(){
+		return TRANSPORT_FLEET_LIST;
+	}
+	public RetailStoreCountryCenterTokens withTransportFleetList(){		
+		addSimpleOptions(TRANSPORT_FLEET_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromTransportFleetList(String idsSeperatedWithComma){		
+		addSimpleOptions(TRANSPORT_FLEET_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int transportFleetListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortTransportFleetListWith(String field, String descOrAsc){		
+		addSortMoreOptions(TRANSPORT_FLEET_LIST,transportFleetListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int transportFleetListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchTransportFleetListWith(String field, String verb, String value){		
+		addSearchMoreOptions(TRANSPORT_FLEET_LIST,transportFleetListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfTransportFleetList(String verb, String value){	
+		String field = "id|name|contactNumber";
+		addSearchMoreOptions(TRANSPORT_FLEET_LIST,transportFleetListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfTransportFleetList(int rowsPerPage){		
+		addSimpleOptions(TRANSPORT_FLEET_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfTransportFleetList(int currentPageNumber){		
+		addSimpleOptions(TRANSPORT_FLEET_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfTransportFleetList(String[] columns){		
+		addSimpleOptions(TRANSPORT_FLEET_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfTransportFleetList(String[] columns){		
+		addSimpleOptions(TRANSPORT_FLEET_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String ACCOUNT_SET_LIST = "accountSetList";
+	public String getAccountSetList(){
+		return ACCOUNT_SET_LIST;
+	}
+	public RetailStoreCountryCenterTokens withAccountSetList(){		
+		addSimpleOptions(ACCOUNT_SET_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromAccountSetList(String idsSeperatedWithComma){		
+		addSimpleOptions(ACCOUNT_SET_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int accountSetListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortAccountSetListWith(String field, String descOrAsc){		
+		addSortMoreOptions(ACCOUNT_SET_LIST,accountSetListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int accountSetListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchAccountSetListWith(String field, String verb, String value){		
+		addSearchMoreOptions(ACCOUNT_SET_LIST,accountSetListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfAccountSetList(String verb, String value){	
+		String field = "id|name|yearSet|accountingSystem|domesticCurrencyCode|domesticCurrencyName|openingBank|accountNumber";
+		addSearchMoreOptions(ACCOUNT_SET_LIST,accountSetListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfAccountSetList(int rowsPerPage){		
+		addSimpleOptions(ACCOUNT_SET_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfAccountSetList(int currentPageNumber){		
+		addSimpleOptions(ACCOUNT_SET_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfAccountSetList(String[] columns){		
+		addSimpleOptions(ACCOUNT_SET_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfAccountSetList(String[] columns){		
+		addSimpleOptions(ACCOUNT_SET_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String LEVEL_ONE_DEPARTMENT_LIST = "levelOneDepartmentList";
+	public String getLevelOneDepartmentList(){
+		return LEVEL_ONE_DEPARTMENT_LIST;
+	}
+	public RetailStoreCountryCenterTokens withLevelOneDepartmentList(){		
+		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromLevelOneDepartmentList(String idsSeperatedWithComma){		
+		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int levelOneDepartmentListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortLevelOneDepartmentListWith(String field, String descOrAsc){		
+		addSortMoreOptions(LEVEL_ONE_DEPARTMENT_LIST,levelOneDepartmentListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int levelOneDepartmentListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchLevelOneDepartmentListWith(String field, String verb, String value){		
+		addSearchMoreOptions(LEVEL_ONE_DEPARTMENT_LIST,levelOneDepartmentListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfLevelOneDepartmentList(String verb, String value){	
+		String field = "id|name|description|manager";
+		addSearchMoreOptions(LEVEL_ONE_DEPARTMENT_LIST,levelOneDepartmentListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfLevelOneDepartmentList(int rowsPerPage){		
+		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfLevelOneDepartmentList(int currentPageNumber){		
+		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfLevelOneDepartmentList(String[] columns){		
+		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfLevelOneDepartmentList(String[] columns){		
+		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String SKILL_TYPE_LIST = "skillTypeList";
+	public String getSkillTypeList(){
+		return SKILL_TYPE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withSkillTypeList(){		
+		addSimpleOptions(SKILL_TYPE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromSkillTypeList(String idsSeperatedWithComma){		
+		addSimpleOptions(SKILL_TYPE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int skillTypeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortSkillTypeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(SKILL_TYPE_LIST,skillTypeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int skillTypeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchSkillTypeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(SKILL_TYPE_LIST,skillTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfSkillTypeList(String verb, String value){	
+		String field = "id|code|description";
+		addSearchMoreOptions(SKILL_TYPE_LIST,skillTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfSkillTypeList(int rowsPerPage){		
+		addSimpleOptions(SKILL_TYPE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfSkillTypeList(int currentPageNumber){		
+		addSimpleOptions(SKILL_TYPE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfSkillTypeList(String[] columns){		
+		addSimpleOptions(SKILL_TYPE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfSkillTypeList(String[] columns){		
+		addSimpleOptions(SKILL_TYPE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String RESPONSIBILITY_TYPE_LIST = "responsibilityTypeList";
+	public String getResponsibilityTypeList(){
+		return RESPONSIBILITY_TYPE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withResponsibilityTypeList(){		
+		addSimpleOptions(RESPONSIBILITY_TYPE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromResponsibilityTypeList(String idsSeperatedWithComma){		
+		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int responsibilityTypeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortResponsibilityTypeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(RESPONSIBILITY_TYPE_LIST,responsibilityTypeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int responsibilityTypeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchResponsibilityTypeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(RESPONSIBILITY_TYPE_LIST,responsibilityTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfResponsibilityTypeList(String verb, String value){	
+		String field = "id|code|baseDescription|detailDescription";
+		addSearchMoreOptions(RESPONSIBILITY_TYPE_LIST,responsibilityTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfResponsibilityTypeList(int rowsPerPage){		
+		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfResponsibilityTypeList(int currentPageNumber){		
+		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfResponsibilityTypeList(String[] columns){		
+		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfResponsibilityTypeList(String[] columns){		
+		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String TERMINATION_REASON_LIST = "terminationReasonList";
+	public String getTerminationReasonList(){
+		return TERMINATION_REASON_LIST;
+	}
+	public RetailStoreCountryCenterTokens withTerminationReasonList(){		
+		addSimpleOptions(TERMINATION_REASON_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromTerminationReasonList(String idsSeperatedWithComma){		
+		addSimpleOptions(TERMINATION_REASON_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int terminationReasonListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortTerminationReasonListWith(String field, String descOrAsc){		
+		addSortMoreOptions(TERMINATION_REASON_LIST,terminationReasonListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int terminationReasonListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchTerminationReasonListWith(String field, String verb, String value){		
+		addSearchMoreOptions(TERMINATION_REASON_LIST,terminationReasonListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfTerminationReasonList(String verb, String value){	
+		String field = "id|code|description";
+		addSearchMoreOptions(TERMINATION_REASON_LIST,terminationReasonListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfTerminationReasonList(int rowsPerPage){		
+		addSimpleOptions(TERMINATION_REASON_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfTerminationReasonList(int currentPageNumber){		
+		addSimpleOptions(TERMINATION_REASON_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfTerminationReasonList(String[] columns){		
+		addSimpleOptions(TERMINATION_REASON_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfTerminationReasonList(String[] columns){		
+		addSimpleOptions(TERMINATION_REASON_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String TERMINATION_TYPE_LIST = "terminationTypeList";
+	public String getTerminationTypeList(){
+		return TERMINATION_TYPE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withTerminationTypeList(){		
+		addSimpleOptions(TERMINATION_TYPE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromTerminationTypeList(String idsSeperatedWithComma){		
+		addSimpleOptions(TERMINATION_TYPE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int terminationTypeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortTerminationTypeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(TERMINATION_TYPE_LIST,terminationTypeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int terminationTypeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchTerminationTypeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(TERMINATION_TYPE_LIST,terminationTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfTerminationTypeList(String verb, String value){	
+		String field = "id|code|baseDescription|detailDescription";
+		addSearchMoreOptions(TERMINATION_TYPE_LIST,terminationTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfTerminationTypeList(int rowsPerPage){		
+		addSimpleOptions(TERMINATION_TYPE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfTerminationTypeList(int currentPageNumber){		
+		addSimpleOptions(TERMINATION_TYPE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfTerminationTypeList(String[] columns){		
+		addSimpleOptions(TERMINATION_TYPE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfTerminationTypeList(String[] columns){		
+		addSimpleOptions(TERMINATION_TYPE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String OCCUPATION_TYPE_LIST = "occupationTypeList";
+	public String getOccupationTypeList(){
+		return OCCUPATION_TYPE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withOccupationTypeList(){		
+		addSimpleOptions(OCCUPATION_TYPE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromOccupationTypeList(String idsSeperatedWithComma){		
+		addSimpleOptions(OCCUPATION_TYPE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int occupationTypeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortOccupationTypeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(OCCUPATION_TYPE_LIST,occupationTypeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int occupationTypeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchOccupationTypeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(OCCUPATION_TYPE_LIST,occupationTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfOccupationTypeList(String verb, String value){	
+		String field = "id|code|description|detailDescription";
+		addSearchMoreOptions(OCCUPATION_TYPE_LIST,occupationTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfOccupationTypeList(int rowsPerPage){		
+		addSimpleOptions(OCCUPATION_TYPE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfOccupationTypeList(int currentPageNumber){		
+		addSimpleOptions(OCCUPATION_TYPE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfOccupationTypeList(String[] columns){		
+		addSimpleOptions(OCCUPATION_TYPE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfOccupationTypeList(String[] columns){		
+		addSimpleOptions(OCCUPATION_TYPE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String LEAVE_TYPE_LIST = "leaveTypeList";
+	public String getLeaveTypeList(){
+		return LEAVE_TYPE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withLeaveTypeList(){		
+		addSimpleOptions(LEAVE_TYPE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromLeaveTypeList(String idsSeperatedWithComma){		
+		addSimpleOptions(LEAVE_TYPE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int leaveTypeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortLeaveTypeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(LEAVE_TYPE_LIST,leaveTypeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int leaveTypeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchLeaveTypeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(LEAVE_TYPE_LIST,leaveTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfLeaveTypeList(String verb, String value){	
+		String field = "id|code|description|detailDescription";
+		addSearchMoreOptions(LEAVE_TYPE_LIST,leaveTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfLeaveTypeList(int rowsPerPage){		
+		addSimpleOptions(LEAVE_TYPE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfLeaveTypeList(int currentPageNumber){		
+		addSimpleOptions(LEAVE_TYPE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfLeaveTypeList(String[] columns){		
+		addSimpleOptions(LEAVE_TYPE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfLeaveTypeList(String[] columns){		
+		addSimpleOptions(LEAVE_TYPE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String SALARY_GRADE_LIST = "salaryGradeList";
+	public String getSalaryGradeList(){
+		return SALARY_GRADE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withSalaryGradeList(){		
+		addSimpleOptions(SALARY_GRADE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromSalaryGradeList(String idsSeperatedWithComma){		
+		addSimpleOptions(SALARY_GRADE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int salaryGradeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortSalaryGradeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(SALARY_GRADE_LIST,salaryGradeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int salaryGradeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchSalaryGradeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(SALARY_GRADE_LIST,salaryGradeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfSalaryGradeList(String verb, String value){	
+		String field = "id|code|name|detailDescription";
+		addSearchMoreOptions(SALARY_GRADE_LIST,salaryGradeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfSalaryGradeList(int rowsPerPage){		
+		addSimpleOptions(SALARY_GRADE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfSalaryGradeList(int currentPageNumber){		
+		addSimpleOptions(SALARY_GRADE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfSalaryGradeList(String[] columns){		
+		addSimpleOptions(SALARY_GRADE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfSalaryGradeList(String[] columns){		
+		addSimpleOptions(SALARY_GRADE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String INTERVIEW_TYPE_LIST = "interviewTypeList";
+	public String getInterviewTypeList(){
+		return INTERVIEW_TYPE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withInterviewTypeList(){		
+		addSimpleOptions(INTERVIEW_TYPE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromInterviewTypeList(String idsSeperatedWithComma){		
+		addSimpleOptions(INTERVIEW_TYPE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int interviewTypeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortInterviewTypeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(INTERVIEW_TYPE_LIST,interviewTypeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int interviewTypeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchInterviewTypeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(INTERVIEW_TYPE_LIST,interviewTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfInterviewTypeList(String verb, String value){	
+		String field = "id|code|description|detailDescription";
+		addSearchMoreOptions(INTERVIEW_TYPE_LIST,interviewTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfInterviewTypeList(int rowsPerPage){		
+		addSimpleOptions(INTERVIEW_TYPE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfInterviewTypeList(int currentPageNumber){		
+		addSimpleOptions(INTERVIEW_TYPE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfInterviewTypeList(String[] columns){		
+		addSimpleOptions(INTERVIEW_TYPE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfInterviewTypeList(String[] columns){		
+		addSimpleOptions(INTERVIEW_TYPE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String TRAINING_COURSE_TYPE_LIST = "trainingCourseTypeList";
+	public String getTrainingCourseTypeList(){
+		return TRAINING_COURSE_TYPE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withTrainingCourseTypeList(){		
+		addSimpleOptions(TRAINING_COURSE_TYPE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromTrainingCourseTypeList(String idsSeperatedWithComma){		
+		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int trainingCourseTypeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortTrainingCourseTypeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(TRAINING_COURSE_TYPE_LIST,trainingCourseTypeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int trainingCourseTypeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchTrainingCourseTypeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(TRAINING_COURSE_TYPE_LIST,trainingCourseTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfTrainingCourseTypeList(String verb, String value){	
+		String field = "id|code|name|description";
+		addSearchMoreOptions(TRAINING_COURSE_TYPE_LIST,trainingCourseTypeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfTrainingCourseTypeList(int rowsPerPage){		
+		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfTrainingCourseTypeList(int currentPageNumber){		
+		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfTrainingCourseTypeList(String[] columns){		
+		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfTrainingCourseTypeList(String[] columns){		
+		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String PUBLIC_HOLIDAY_LIST = "publicHolidayList";
+	public String getPublicHolidayList(){
+		return PUBLIC_HOLIDAY_LIST;
+	}
+	public RetailStoreCountryCenterTokens withPublicHolidayList(){		
+		addSimpleOptions(PUBLIC_HOLIDAY_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromPublicHolidayList(String idsSeperatedWithComma){		
+		addSimpleOptions(PUBLIC_HOLIDAY_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int publicHolidayListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortPublicHolidayListWith(String field, String descOrAsc){		
+		addSortMoreOptions(PUBLIC_HOLIDAY_LIST,publicHolidayListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int publicHolidayListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchPublicHolidayListWith(String field, String verb, String value){		
+		addSearchMoreOptions(PUBLIC_HOLIDAY_LIST,publicHolidayListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfPublicHolidayList(String verb, String value){	
+		String field = "id|code|name|description";
+		addSearchMoreOptions(PUBLIC_HOLIDAY_LIST,publicHolidayListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfPublicHolidayList(int rowsPerPage){		
+		addSimpleOptions(PUBLIC_HOLIDAY_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfPublicHolidayList(int currentPageNumber){		
+		addSimpleOptions(PUBLIC_HOLIDAY_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfPublicHolidayList(String[] columns){		
+		addSimpleOptions(PUBLIC_HOLIDAY_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfPublicHolidayList(String[] columns){		
+		addSimpleOptions(PUBLIC_HOLIDAY_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String EMPLOYEE_LIST = "employeeList";
+	public String getEmployeeList(){
+		return EMPLOYEE_LIST;
+	}
+	public RetailStoreCountryCenterTokens withEmployeeList(){		
+		addSimpleOptions(EMPLOYEE_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
+		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int employeeListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortEmployeeListWith(String field, String descOrAsc){		
+		addSortMoreOptions(EMPLOYEE_LIST,employeeListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int employeeListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchEmployeeListWith(String field, String verb, String value){		
+		addSearchMoreOptions(EMPLOYEE_LIST,employeeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfEmployeeList(String verb, String value){	
+		String field = "id|title|familyName|givenName|email|city|address|cellPhone|salaryAccount|currentStatus";
+		addSearchMoreOptions(EMPLOYEE_LIST,employeeListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfEmployeeList(int rowsPerPage){		
+		addSimpleOptions(EMPLOYEE_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfEmployeeList(int currentPageNumber){		
+		addSimpleOptions(EMPLOYEE_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfEmployeeList(String[] columns){		
+		addSimpleOptions(EMPLOYEE_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfEmployeeList(String[] columns){		
+		addSimpleOptions(EMPLOYEE_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String INSTRUCTOR_LIST = "instructorList";
+	public String getInstructorList(){
+		return INSTRUCTOR_LIST;
+	}
+	public RetailStoreCountryCenterTokens withInstructorList(){		
+		addSimpleOptions(INSTRUCTOR_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromInstructorList(String idsSeperatedWithComma){		
+		addSimpleOptions(INSTRUCTOR_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int instructorListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortInstructorListWith(String field, String descOrAsc){		
+		addSortMoreOptions(INSTRUCTOR_LIST,instructorListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int instructorListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchInstructorListWith(String field, String verb, String value){		
+		addSearchMoreOptions(INSTRUCTOR_LIST,instructorListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfInstructorList(String verb, String value){	
+		String field = "id|title|familyName|givenName|cellPhone|email|introduction";
+		addSearchMoreOptions(INSTRUCTOR_LIST,instructorListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfInstructorList(int rowsPerPage){		
+		addSimpleOptions(INSTRUCTOR_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfInstructorList(int currentPageNumber){		
+		addSimpleOptions(INSTRUCTOR_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfInstructorList(String[] columns){		
+		addSimpleOptions(INSTRUCTOR_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfInstructorList(String[] columns){		
+		addSimpleOptions(INSTRUCTOR_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	protected static final String COMPANY_TRAINING_LIST = "companyTrainingList";
+	public String getCompanyTrainingList(){
+		return COMPANY_TRAINING_LIST;
+	}
+	public RetailStoreCountryCenterTokens withCompanyTrainingList(){		
+		addSimpleOptions(COMPANY_TRAINING_LIST);
+		return this;
+	}
+
+	public RetailStoreCountryCenterTokens extractMoreFromCompanyTrainingList(String idsSeperatedWithComma){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
+		return this;
+	}
+	
+	
+	
+	
+	private int companyTrainingListSortCounter = 0;
+	public RetailStoreCountryCenterTokens sortCompanyTrainingListWith(String field, String descOrAsc){		
+		addSortMoreOptions(COMPANY_TRAINING_LIST,companyTrainingListSortCounter++, field, descOrAsc);
+		return this;
+	}
+	private int companyTrainingListSearchCounter = 0;
+	public RetailStoreCountryCenterTokens searchCompanyTrainingListWith(String field, String verb, String value){		
+		addSearchMoreOptions(COMPANY_TRAINING_LIST,companyTrainingListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	public RetailStoreCountryCenterTokens searchAllTextOfCompanyTrainingList(String verb, String value){	
+		String field = "id|title";
+		addSearchMoreOptions(COMPANY_TRAINING_LIST,companyTrainingListSearchCounter++, field, verb, value);
+		return this;
+	}
+	
+	
+	
+	public RetailStoreCountryCenterTokens rowsPerPageOfCompanyTrainingList(int rowsPerPage){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+"RowsPerPage",rowsPerPage);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens currentPageNumberOfCompanyTrainingList(int currentPageNumber){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+"CurrentPage",currentPageNumber);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens retainColumnsOfCompanyTrainingList(String[] columns){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+"RetainColumns",columns);
+		return this;
+	}
+	public RetailStoreCountryCenterTokens excludeColumnsOfCompanyTrainingList(String[] columns){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+"ExcludeColumns",columns);
+		return this;
+	}
+	
+	
+		
+	
+	public  RetailStoreCountryCenterTokens searchEntireObjectText(String verb, String value){
+		
+		searchAllTextOfCatalogList(verb, value);	
+		searchAllTextOfRetailStoreProvinceCenterList(verb, value);	
+		searchAllTextOfRetailStoreList(verb, value);	
+		searchAllTextOfRetailStoreMemberList(verb, value);	
+		searchAllTextOfGoodsSupplierList(verb, value);	
+		searchAllTextOfSupplyOrderList(verb, value);	
+		searchAllTextOfRetailStoreOrderList(verb, value);	
+		searchAllTextOfWarehouseList(verb, value);	
+		searchAllTextOfTransportFleetList(verb, value);	
+		searchAllTextOfAccountSetList(verb, value);	
+		searchAllTextOfLevelOneDepartmentList(verb, value);	
+		searchAllTextOfSkillTypeList(verb, value);	
+		searchAllTextOfResponsibilityTypeList(verb, value);	
+		searchAllTextOfTerminationReasonList(verb, value);	
+		searchAllTextOfTerminationTypeList(verb, value);	
+		searchAllTextOfOccupationTypeList(verb, value);	
+		searchAllTextOfLeaveTypeList(verb, value);	
+		searchAllTextOfSalaryGradeList(verb, value);	
+		searchAllTextOfInterviewTypeList(verb, value);	
+		searchAllTextOfTrainingCourseTypeList(verb, value);	
+		searchAllTextOfPublicHolidayList(verb, value);	
+		searchAllTextOfEmployeeList(verb, value);	
+		searchAllTextOfInstructorList(verb, value);	
+		searchAllTextOfCompanyTrainingList(verb, value);	
+		return this;
+	}
+}
+
