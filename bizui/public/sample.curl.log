@@ -1,0 +1,30 @@
+curl 'https://www.doublechaintech.com/mss/upload.html' -H 'Pragma: no-cache' -H 'Origin: https://www.doublechaintech.com' -H 'Accept-Encoding: gzip, deflate, br' -H 'Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,es-419;q=0.6,es;q=0.5,zh-TW;q=0.4' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36' -H 'Content-Type: multipart/form-data; boundary=----WebKitFormBoundary4IVC9ZIFVKI1h4pk' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8' -H 'Cache-Control: no-cache' -H 'Referer: https://www.doublechaintech.com/mss/help/example_form.html' -H 'Connection: keep-alive' --data-binary $'------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="appKey"\r\n\r\nexample\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="verifyCode"\r\n\r\nbett1230987038y0934-029i-92384-\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="needAuth[0]"\r\n\r\nfalse\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="category[0]"\r\n\r\n/product/shores/girls/pid456/skuid456\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="resourceKey[0]"\r\n\r\np456s456main.picture\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="comments[0]"\r\n\r\nThe main picture with large size for a women\'s shoes\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="file[0]"; filename="Screenshot 2018-03-07 14.48.16.png"\r\nContent-Type: image/png\r\n\r\n\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="needAuth[1]"\r\n\r\nfalse\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="category[1]"\r\n\r\n/product/shores/girls/pid123/skuid123\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="resourceKey[1]"\r\n\r\np123s123main.picture\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="comments[1]"\r\n\r\nThe main picture with large size for a women\'s shoes\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk\r\nContent-Disposition: form-data; name="file[1]"; filename=""\r\nContent-Type: application/octet-stream\r\n\r\n\r\n------WebKitFormBoundary4IVC9ZIFVKI1h4pk--\r\n' --compressed
+
+
+curl 'https://www.doublechaintech.com/mss/upload.html' -H 'Pragma: no-cache' -H 'Origin: http://localhost:8000' -H 'Accept-Encoding: gzip, deflate, br' -H 'Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,es-419;q=0.6,es;q=0.5,zh-TW;q=0.4' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36' -H 'Content-Type: multipart/form-data; boundary=----WebKitFormBoundarycTwYKRFSiAnFizQ7' -H 'Accept: */*' -H 'Cache-Control: no-cache' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' -H 'Referer: http://localhost:8000/' --data-binary $'------WebKitFormBoundarycTwYKRFSiAnFizQ7\r\nContent-Disposition: form-data; name="file"; filename="Screenshot 2018-03-07 14.48.16.png"\r\nContent-Type: image/png\r\n\r\n\r\n------WebKitFormBoundarycTwYKRFSiAnFizQ7--\r\n' --compressed
+
+
+
+select 'ThreadHiding' as class_name, id, who as display_name from thread_hiding_data 
+ union select 'CommunityUser' as class_name, id, mobile as display_name from community_user_data 
+ union select 'Community' as class_name, id, name as display_name from community_data 
+ union select 'HomePage' as class_name, id, title as display_name from home_page_data
+ union select 'Task' as class_name, id, title as display_name from task_data
+ union select 'TaskPage' as class_name, id, title as display_name from task_page_data
+ union select 'Thread' as class_name, id, title as display_name from thread_data
+ union select 'ThreadReply' as class_name, id, content as display_name from thread_reply_data 
+ union select 'TaskReply' as class_name, id, content as display_name from task_reply_data 
+ union select 'GroupPage' as class_name, id, title as display_name from group_page_data 
+
+ select 'ThreadHiding' as class_name, id, who as display_name from thread_hiding_data 
+ union select 'CommunityUser' as class_name, id, mobile as display_name from community_user_data 
+ union select 'Community' as class_name, id, name as display_name from community_data 
+ union select 'HomePage' as class_name, id, title as display_name from home_page_data
+ union select 'Task' as class_name, id, title as display_name from task_data
+ union select 'TaskPage' as class_name, id, title as display_name from task_page_data
+ union select 'Thread' as class_name, id, title as display_name from thread_data
+ union select 'ThreadReply' as class_name, id, content as display_name from thread_reply_data 
+ union select 'TaskReply' as class_name, id, content as display_name from task_reply_data 
+ union select 'GroupPage' as class_name, id, title as display_name from group_page_data 
+
+ 

@@ -1,0 +1,22 @@
+CisUserContext userContext, 
+String carInspectionPlatformId, 
+String id,
+String companyName,
+String operatingStatus,
+String addressDetail,
+boolean availableStoreService,
+boolean availableHomeService,
+String openingTime,
+double longitude,
+double latitude,
+String contactPhone,
+String companyImage1,
+String companyImage2
+,String companyImage3,
+String companyImage4,
+String companyImage5,
+String promoteQrcodeImage,
+String orderContact,
+String orderContactPhone, 
+String [] tokensExpr) throws Exception
+	

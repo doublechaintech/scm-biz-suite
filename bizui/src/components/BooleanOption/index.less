@@ -1,0 +1,59 @@
+@import '~antd/lib/style/themes/default.less';
+
+.result {
+  text-align: center;
+  display: inline-block;
+  margin: 70 auto;
+  width: 25%;
+  @media screen and (max-width: @screen-xs) {
+    width: 100%;
+  }
+
+  .icon {
+    font-size: 52px;
+    line-height: 52px;
+    margin-bottom: 24px;
+
+    & > .success {
+      color: @success-color;
+    }
+
+    & > .error {
+      color: gray;
+    }
+  }
+
+  .title {
+    font-size: 14px;
+    color: @heading-color;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 16px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 22px;
+    color: @text-color-secondary;
+    margin-bottom: 24px;
+  }
+
+  .extra {
+    background: #fafafa;
+    padding: 24px 40px;
+    border-radius: @border-radius-sm;
+    text-align: left;
+
+    @media screen and (max-width: @screen-xs) {
+      padding: 18px 20px;
+    }
+  }
+
+  .actions {
+    margin-top: 32px;
+
+    button:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+}

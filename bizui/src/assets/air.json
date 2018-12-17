@@ -1,0 +1,2088 @@
+{
+    "moduleversion": "0.5.1.3",
+    "armstatus": 0,
+    "msgid": "1516328102.7831",
+    "subaction": "getdeviceconfig",
+    "configdata": [
+        {
+            "cubebase": [
+                {
+                    "_id": 1,
+                    "conf_value": "001F552A0582",
+                    "conf_name": "CUBE_ID"
+                },
+                {
+                    "_id": 2,
+                    "conf_value": "12345",
+                    "conf_name": "CUBE_PWD"
+                },
+                {
+                    "_id": 3,
+                    "conf_value": "homesystem",
+                    "conf_name": "WIFI_SSID"
+                },
+                {
+                    "_id": 4,
+                    "conf_value": "123456",
+                    "conf_name": "WIFI_PWD"
+                },
+                {
+                    "_id": 5,
+                    "conf_value": "WEP2",
+                    "conf_name": "WIFI_ENC_TYPE"
+                },
+                {
+                    "_id": 6,
+                    "conf_value": "192.168.0.100",
+                    "conf_name": "WIFI_IP"
+                },
+                {
+                    "_id": 7,
+                    "conf_value": "255.255.255.0",
+                    "conf_name": "WIFI_MASK"
+                },
+                {
+                    "_id": 8,
+                    "conf_value": "192.168.0.254",
+                    "conf_name": "WIFI_GW"
+                },
+                {
+                    "_id": 9,
+                    "conf_value": "172.16.1.100",
+                    "conf_name": "LAN_IP"
+                },
+                {
+                    "_id": 10,
+                    "conf_value": "255.255.0.0",
+                    "conf_name": "LAN_MASK"
+                },
+                {
+                    "_id": 11,
+                    "conf_value": "172.16.1.254",
+                    "conf_name": "LAN_GW"
+                },
+                {
+                    "_id": 12,
+                    "conf_value": "8.8.8.8",
+                    "conf_name": "DNS_SERVER1"
+                },
+                {
+                    "_id": 13,
+                    "conf_value": "6.6.6.6",
+                    "conf_name": "DNS_SERVER2"
+                },
+                {
+                    "_id": 14,
+                    "conf_value": "192.168.3.102",
+                    "conf_name": "HNS_SERVER_IP"
+                },
+                {
+                    "_id": 15,
+                    "conf_value": "https:\/\/www.",
+                    "conf_name": "CLOUD_SERV1"
+                },
+                {
+                    "_id": 16,
+                    "conf_value": "1409_Cube",
+                    "conf_name": "NICK_NAME"
+                },
+                {
+                    "_id": 17,
+                    "conf_value": "123",
+                    "conf_name": "BACNET_ID"
+                },
+                {
+                    "_id": 18,
+                    "conf_value": "1723",
+                    "conf_name": "CONFIG_VER"
+                },
+                {
+                    "_id": 19,
+                    "conf_value": "123456",
+                    "conf_name": "SECURITYPWD"
+                },
+                {
+                    "_id": 20,
+                    "conf_value": "1",
+                    "conf_name": "CURSCENARIOID"
+                },
+                {
+                    "_id": 21,
+                    "conf_value": "manual",
+                    "conf_name": "ETHMODE"
+                },
+                {
+                    "_id": 22,
+                    "conf_value": "eth1",
+                    "conf_name": "ETHNAME"
+                },
+                {
+                    "_id": 23,
+                    "conf_value": "192.168.9.53",
+                    "conf_name": "ETHIP"
+                },
+                {
+                    "_id": 24,
+                    "conf_value": "255.0.0.0",
+                    "conf_name": "ETHMASK"
+                },
+                {
+                    "_id": 25,
+                    "conf_value": "192.168.9.1",
+                    "conf_name": "ETHGW"
+                },
+                {
+                    "_id": 26,
+                    "conf_value": "",
+                    "conf_name": "ETHDNS1"
+                },
+                {
+                    "_id": 27,
+                    "conf_value": "",
+                    "conf_name": "ETHDNS2"
+                }
+            ]
+        },
+        {
+            "peripheraldevice": [
+                {
+                    "port": 9000,
+                    "brandname": "",
+                    "isonline": 1,
+                    "isconfig": 1,
+                    "mac_addr": "00:1F:55:2A:02:D4",
+                    "ip_addr": "192.168.3.133",
+                    "_id": 1,
+                    "mask_id": 0,
+                    "name": "1播放器2空调02D4",
+                    "uuid": "0073277e791-f8f9-4e5b-98e1-8e556f737ad3",
+                    "bacnetid": 0,
+                    "type": 7,
+                    "version": "0.1.7.3110"
+                },
+                {
+                    "port": 9000,
+                    "brandname": "",
+                    "isonline": 1,
+                    "isconfig": 1,
+                    "mac_addr": "00:1F:55:2A:01:A7",
+                    "ip_addr": "192.168.3.191",
+                    "_id": 2,
+                    "mask_id": 0,
+                    "name": "hejrelay42a01A7",
+                    "uuid": "006d5e98c25-b271-4414-a1e9-d988be44e894",
+                    "bacnetid": 0,
+                    "type": 6,
+                    "version": "0.1.7.3110"
+                },
+                {
+                    "port": 9000,
+                    "brandname": "",
+                    "isonline": 1,
+                    "isconfig": 1,
+                    "mac_addr": "00:1F:55:2A:03:F8",
+                    "ip_addr": "192.168.3.66",
+                    "_id": 3,
+                    "mask_id": 0,
+                    "name": "HEJ-ALARM-8_2A03F8",
+                    "uuid": "008d79f57ef-c67e-43d1-9b67-9913c3c725e0",
+                    "bacnetid": 0,
+                    "type": 8,
+                    "version": "0.1.7.3110"
+                },
+                {
+                    "port": 9000,
+                    "brandname": "",
+                    "isonline": 1,
+                    "isconfig": 1,
+                    "mac_addr": "00:1F:55:2A:02:BA",
+                    "ip_addr": "192.168.3.107",
+                    "_id": 4,
+                    "mask_id": 0,
+                    "name": "1矩阵2投影02BA",
+                    "uuid": "007875bac41-6b8f-442d-a90c-9661d812251a",
+                    "bacnetid": 0,
+                    "type": 7,
+                    "version": "0.1.7.3110"
+                },
+                {
+                    "port": 9000,
+                    "brandname": "",
+                    "isonline": 1,
+                    "isconfig": 1,
+                    "mac_addr": "00:1F:55:2A:02:D6",
+                    "ip_addr": "192.168.3.135",
+                    "_id": 5,
+                    "mask_id": 0,
+                    "name": "1贞明2空闲02D6",
+                    "uuid": "007021b94be-67c3-4879-9a82-e063ec20b3ab",
+                    "bacnetid": 0,
+                    "type": 7,
+                    "version": "0.1.7.3110"
+                },
+                {
+                    "port": 9000,
+                    "brandname": "",
+                    "isonline": 1,
+                    "isconfig": 1,
+                    "mac_addr": "fca0fcca-4938-480c-9563-68abce0b30ea",
+                    "ip_addr": "192.168.9.50",
+                    "_id": 6,
+                    "mask_id": 0,
+                    "name": "IPVDP",
+                    "uuid": "012bfdd619c-d5c7-426d-8aff-ba8c88b34302",
+                    "bacnetid": 0,
+                    "type": 12,
+                    "version": "0.0.1"
+                },
+                {
+                    "port": 9000,
+                    "brandname": "",
+                    "isonline": 1,
+                    "isconfig": 1,
+                    "mac_addr": "",
+                    "ip_addr": "192.168.3.250",
+                    "_id": 9,
+                    "mask_id": 1,
+                    "name": "Spark Lighting",
+                    "uuid": "001186d6ad4-3ca8-410d-9f5f-25d329f31adb",
+                    "bacnetid": 0,
+                    "type": 1,
+                    "version": "0.0.1"
+                }
+            ]
+        },
+        {
+            "ipvdpinfo": [
+                {
+                    "_id": 1,
+                    "dev_id": 6,
+                    "hnsserveraddr": "192.168.3.102",
+                    "deviceid": 8
+                }
+            ]
+        },
+        {
+            "backaudiodevice": [
+                {
+                    "isonline": 1,
+                    "serialnumber": "424166024e6c009e",
+                    "_id": 2,
+                    "machinetype": 104,
+                    "loopnumber": 4,
+                    "name": "Server"
+                }
+            ]
+        },
+        {
+            "ipvdproomloop": [
+                {
+                    "roomid": 6,
+                    "_id": 1,
+                    "room_name": "客厅",
+                    "ipvdpname": "ipvdp0"
+                }
+            ]
+        },
+        {
+            "sparklightingloopmap": [
+                {
+                    "loop_type": 1,
+                    "sub_dev_id": 2,
+                    "roomid": 9,
+                    "loop_id": 1,
+                    "sub_dev_type": "HBLS-D0403",
+                    "_id": 9,
+                    "dev_id": 9,
+                    "room_name": "门厅",
+                    "loop_name": "投影灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 1,
+                    "sub_dev_id": 2,
+                    "roomid": 6,
+                    "loop_id": 2,
+                    "sub_dev_type": "HBLS-D0403",
+                    "_id": 10,
+                    "dev_id": 9,
+                    "room_name": "客厅",
+                    "loop_name": "客厅筒灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 1,
+                    "sub_dev_id": 2,
+                    "roomid": 9,
+                    "loop_id": 3,
+                    "sub_dev_type": "HBLS-D0403",
+                    "_id": 11,
+                    "dev_id": 9,
+                    "room_name": "门厅",
+                    "loop_name": "门厅筒灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 1,
+                    "sub_dev_id": 2,
+                    "roomid": 1,
+                    "loop_id": 4,
+                    "sub_dev_type": "HBLS-D0403",
+                    "_id": 12,
+                    "dev_id": 9,
+                    "room_name": "主卧",
+                    "loop_name": "卧室灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 2,
+                    "sub_dev_id": 5,
+                    "roomid": 6,
+                    "loop_id": 1,
+                    "sub_dev_type": "HBLS-C02",
+                    "_id": 13,
+                    "dev_id": 9,
+                    "room_name": "客厅",
+                    "loop_name": "客厅窗帘",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 2,
+                    "sub_dev_id": 5,
+                    "roomid": 1,
+                    "loop_id": 2,
+                    "sub_dev_type": "HBLS-C02",
+                    "_id": 14,
+                    "dev_id": 9,
+                    "room_name": "主卧",
+                    "loop_name": "榻榻米",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 3,
+                    "roomid": 9,
+                    "loop_id": 1,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 15,
+                    "dev_id": 9,
+                    "room_name": "门厅",
+                    "loop_name": "走廊灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 3,
+                    "roomid": 7,
+                    "loop_id": 2,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 16,
+                    "dev_id": 9,
+                    "room_name": "主卫生间",
+                    "loop_name": "卫生间灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 3,
+                    "roomid": 7,
+                    "loop_id": 3,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 17,
+                    "dev_id": 9,
+                    "room_name": "主卫生间",
+                    "loop_name": "卫生间排风",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 3,
+                    "roomid": 4,
+                    "loop_id": 4,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 18,
+                    "dev_id": 9,
+                    "room_name": "厨房",
+                    "loop_name": "厨房灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 3,
+                    "roomid": 1,
+                    "loop_id": 5,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 19,
+                    "dev_id": 9,
+                    "room_name": "主卧",
+                    "loop_name": "卧室门口灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 3,
+                    "roomid": 9,
+                    "loop_id": 6,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 20,
+                    "dev_id": 9,
+                    "room_name": "门厅",
+                    "loop_name": "落地台灯",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 3,
+                    "roomid": 9,
+                    "loop_id": 7,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 21,
+                    "dev_id": 9,
+                    "room_name": "门厅",
+                    "loop_name": "门厅灯带",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 3,
+                    "sub_dev_id": 3,
+                    "roomid": 6,
+                    "loop_id": 8,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 22,
+                    "dev_id": 9,
+                    "room_name": "客厅",
+                    "loop_name": "监控",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 4,
+                    "roomid": 6,
+                    "loop_id": 1,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 23,
+                    "dev_id": 9,
+                    "room_name": "客厅",
+                    "loop_name": "装饰灯条",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 4,
+                    "sub_dev_id": 4,
+                    "roomid": 6,
+                    "loop_id": 2,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 24,
+                    "dev_id": 9,
+                    "room_name": "客厅",
+                    "loop_name": "展柜灯条",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 3,
+                    "sub_dev_id": 4,
+                    "roomid": 1,
+                    "loop_id": 4,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 25,
+                    "dev_id": 9,
+                    "room_name": "主卧",
+                    "loop_name": "卧室门",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 3,
+                    "sub_dev_id": 4,
+                    "roomid": 6,
+                    "loop_id": 5,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 26,
+                    "dev_id": 9,
+                    "room_name": "客厅",
+                    "loop_name": "画布门",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 3,
+                    "sub_dev_id": 4,
+                    "roomid": 6,
+                    "loop_id": 6,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 27,
+                    "dev_id": 9,
+                    "room_name": "客厅",
+                    "loop_name": "展柜门",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 3,
+                    "sub_dev_id": 4,
+                    "roomid": 4,
+                    "loop_id": 7,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 28,
+                    "dev_id": 9,
+                    "room_name": "厨房",
+                    "loop_name": "厨房门",
+                    "is_enable": 1
+                },
+                {
+                    "loop_type": 3,
+                    "sub_dev_id": 4,
+                    "roomid": 1,
+                    "loop_id": 8,
+                    "sub_dev_type": "HBLS-R0810",
+                    "_id": 29,
+                    "dev_id": 9,
+                    "room_name": "主卧",
+                    "loop_name": "床柜门",
+                    "is_enable": 1
+                }
+            ]
+        },
+        {
+            "wiredzoneloopmap": [
+                {
+                    "roomid": 7,
+                    "alarm_timer": 0,
+                    "loop_id": 1,
+                    "_id": 1,
+                    "alarm_type": "help",
+                    "dev_id": 3,
+                    "loop_name": "卫生间紧急",
+                    "is_enable": 1,
+                    "zone_type": "24hours"
+                },
+                {
+                    "roomid": 6,
+                    "alarm_timer": 0,
+                    "loop_id": 2,
+                    "_id": 2,
+                    "alarm_type": "thief",
+                    "dev_id": 3,
+                    "loop_name": "红外幕帘",
+                    "is_enable": 1,
+                    "zone_type": "instant"
+                },
+                {
+                    "roomid": 4,
+                    "alarm_timer": 0,
+                    "loop_id": 8,
+                    "_id": 3,
+                    "alarm_type": "gas",
+                    "dev_id": 3,
+                    "loop_name": "媒气泄漏",
+                    "is_enable": 1,
+                    "zone_type": "24hours"
+                }
+            ]
+        },
+        {
+            "ipvdpzoneloopmap": [
+                {
+                    "roomid": 1,
+                    "alarm_timer": 0,
+                    "loop_id": 8,
+                    "_id": 1,
+                    "alarm_type": "help",
+                    "dev_id": 6,
+                    "loop_name": "安防 8",
+                    "is_enable": 1,
+                    "zone_type": "24hours"
+                }
+            ]
+        },
+        {
+            "backaudioloopmap": [
+                {
+                    "roomid": 6,
+                    "loop_name": "客厅音乐",
+                    "loop_id": 3,
+                    "_id": 4,
+                    "dev_id": 2
+                },
+                {
+                    "roomid": 1,
+                    "loop_name": "卧室音乐",
+                    "loop_id": 4,
+                    "_id": 5,
+                    "dev_id": 2
+                }
+            ]
+        },
+        {
+            "scenarioloopmap": [
+                {
+                    "moduletype": 12,
+                    "_id": 1,
+                    "dev_id": 1,
+                    "scenario_name": "全布防",
+                    "scenario_id": 3,
+                    "isarm": 1,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 12,
+                    "_id": 2,
+                    "dev_id": 1,
+                    "scenario_name": "全撤防",
+                    "scenario_id": 4,
+                    "isarm": 0,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 12,
+                    "_id": 3,
+                    "dev_id": 2,
+                    "scenario_name": "全布防",
+                    "scenario_id": 3,
+                    "isarm": 1,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 12,
+                    "_id": 4,
+                    "dev_id": 2,
+                    "scenario_name": "全撤防",
+                    "scenario_id": 4,
+                    "isarm": 0,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 12,
+                    "_id": 5,
+                    "dev_id": 3,
+                    "scenario_name": "全布防",
+                    "scenario_id": 3,
+                    "isarm": 1,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 12,
+                    "_id": 6,
+                    "dev_id": 3,
+                    "scenario_name": "全撤防",
+                    "scenario_id": 4,
+                    "isarm": 0,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 8,
+                    "_id": 7,
+                    "dev_id": 1,
+                    "scenario_name": "全布防",
+                    "scenario_id": 3,
+                    "isarm": 1,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 8,
+                    "_id": 8,
+                    "dev_id": 1,
+                    "scenario_name": "全撤防",
+                    "scenario_id": 4,
+                    "isarm": 0,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 8,
+                    "_id": 9,
+                    "dev_id": 2,
+                    "scenario_name": "全布防",
+                    "scenario_id": 3,
+                    "isarm": 1,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 8,
+                    "_id": 10,
+                    "dev_id": 2,
+                    "scenario_name": "全撤防",
+                    "scenario_id": 4,
+                    "isarm": 0,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 8,
+                    "_id": 11,
+                    "dev_id": 3,
+                    "scenario_name": "全布防",
+                    "scenario_id": 3,
+                    "isarm": 1,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 8,
+                    "_id": 12,
+                    "dev_id": 3,
+                    "scenario_name": "全撤防",
+                    "scenario_id": 4,
+                    "isarm": 0,
+                    "actioninfo": "",
+                    "uuid": "",
+                    "imagename": ""
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 17,
+                    "dev_id": 23,
+                    "scenario_name": "欢迎",
+                    "scenario_id": 102,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00123",
+                    "imagename": "cj_romantic.png"
+                },
+                {
+                    "moduletype": 10,
+                    "_id": 18,
+                    "dev_id": 4,
+                    "scenario_name": "欢迎",
+                    "scenario_id": 102,
+                    "isarm": 0,
+                    "actioninfo": "{\"controlmap\":[{\"keyvalue\":\"\",\"keytype\":\"playstatus\"},{\"keyvalue\":\"10\",\"keytype\":\"volume\"},{\"keyvalue\":\"mp3\",\"keytype\":\"source\"}]}",
+                    "uuid": "0104",
+                    "imagename": "cj_romantic.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 45,
+                    "dev_id": 9,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"60.273972\",\"status\":\"on\"}",
+                    "uuid": "0019",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 46,
+                    "dev_id": 10,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"60.078278\",\"status\":\"on\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 47,
+                    "dev_id": 11,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"63.405087\",\"status\":\"on\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 48,
+                    "dev_id": 15,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00115",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 49,
+                    "dev_id": 20,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00120",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 50,
+                    "dev_id": 21,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00121",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 51,
+                    "dev_id": 23,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00123",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 52,
+                    "dev_id": 24,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00124",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 53,
+                    "dev_id": 13,
+                    "scenario_name": "灯全开",
+                    "scenario_id": 104,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"opening\"}",
+                    "uuid": "00113",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 54,
+                    "dev_id": 9,
+                    "scenario_name": "演示灯暗淡",
+                    "scenario_id": 105,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"16.822430\",\"status\":\"on\"}",
+                    "uuid": "0019",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 55,
+                    "dev_id": 10,
+                    "scenario_name": "演示灯暗淡",
+                    "scenario_id": 105,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"18.691589\",\"status\":\"on\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 56,
+                    "dev_id": 11,
+                    "scenario_name": "演示灯暗淡",
+                    "scenario_id": 105,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"20.794392\",\"status\":\"on\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 57,
+                    "dev_id": 9,
+                    "scenario_name": "演示灯明亮",
+                    "scenario_id": 106,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"100.000000\",\"status\":\"on\"}",
+                    "uuid": "0019",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 58,
+                    "dev_id": 10,
+                    "scenario_name": "演示灯明亮",
+                    "scenario_id": 106,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"100.000000\",\"status\":\"on\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 59,
+                    "dev_id": 11,
+                    "scenario_name": "演示灯明亮",
+                    "scenario_id": 106,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"100.000000\",\"status\":\"on\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 60,
+                    "dev_id": 10,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 61,
+                    "dev_id": 9,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"11.350293\",\"status\":\"off\"}",
+                    "uuid": "0019",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 62,
+                    "dev_id": 11,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 63,
+                    "dev_id": 15,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00115",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 64,
+                    "dev_id": 16,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00116",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 65,
+                    "dev_id": 18,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00118",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 66,
+                    "dev_id": 19,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00119",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 67,
+                    "dev_id": 21,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00121",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 68,
+                    "dev_id": 23,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00123",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 69,
+                    "dev_id": 24,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00124",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 70,
+                    "dev_id": 13,
+                    "scenario_name": "灯全关",
+                    "scenario_id": 107,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"closing\"}",
+                    "uuid": "00113",
+                    "imagename": "cj_light_alloff.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 71,
+                    "dev_id": 9,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"41.682976\",\"status\":\"on\"}",
+                    "uuid": "0019",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 72,
+                    "dev_id": 10,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"68.297455\",\"status\":\"on\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 73,
+                    "dev_id": 11,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"75.538162\",\"status\":\"on\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 74,
+                    "dev_id": 20,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00120",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 75,
+                    "dev_id": 21,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00121",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 76,
+                    "dev_id": 23,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00123",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 78,
+                    "dev_id": 13,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"opening\"}",
+                    "uuid": "00113",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 79,
+                    "dev_id": 25,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00125",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 80,
+                    "dev_id": 28,
+                    "scenario_name": "会客",
+                    "scenario_id": 108,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00128",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 10,
+                    "_id": 81,
+                    "dev_id": 4,
+                    "scenario_name": "投影转电脑",
+                    "scenario_id": 109,
+                    "isarm": 0,
+                    "actioninfo": "{\"controlmap\":[{\"keyvalue\":\"pause\",\"keytype\":\"playstatus\"},{\"keyvalue\":\"0\",\"keytype\":\"volume\"},{\"keyvalue\":\"mp3\",\"keytype\":\"source\"}]}",
+                    "uuid": "0104",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 82,
+                    "dev_id": 9,
+                    "scenario_name": "投影转电脑",
+                    "scenario_id": 109,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"on\",\"fanspeed\":\"low\",\"mode\":\"auto\"}",
+                    "uuid": "0079",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 83,
+                    "dev_id": 11,
+                    "scenario_name": "投影转电脑",
+                    "scenario_id": 109,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"16\",\"status\":\"on\",\"fanspeed\":\"auto\",\"mode\":\"ventilation\"}",
+                    "uuid": "00711",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 84,
+                    "dev_id": 11,
+                    "scenario_name": "电影静音",
+                    "scenario_id": 110,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"16\",\"status\":\"on\",\"fanspeed\":\"middle\",\"mode\":\"auto\"}",
+                    "uuid": "00711",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 85,
+                    "dev_id": 11,
+                    "scenario_name": "电影下一曲",
+                    "scenario_id": 111,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"16\",\"status\":\"on\",\"fanspeed\":\"auto\",\"mode\":\"heating\"}",
+                    "uuid": "00711",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 86,
+                    "dev_id": 11,
+                    "scenario_name": "电影上一曲",
+                    "scenario_id": 112,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"16\",\"status\":\"on\",\"fanspeed\":\"auto\",\"mode\":\"cooling\"}",
+                    "uuid": "00711",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 87,
+                    "dev_id": 9,
+                    "scenario_name": "监控场景",
+                    "scenario_id": 113,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"on\",\"fanspeed\":\"low\",\"mode\":\"cooling\"}",
+                    "uuid": "0079",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 88,
+                    "dev_id": 9,
+                    "scenario_name": "电脑场景",
+                    "scenario_id": 114,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"on\",\"fanspeed\":\"low\",\"mode\":\"auto\"}",
+                    "uuid": "0079",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 89,
+                    "dev_id": 10,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 90,
+                    "dev_id": 11,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 91,
+                    "dev_id": 20,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00120",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 92,
+                    "dev_id": 21,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00121",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 93,
+                    "dev_id": 23,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00123",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 94,
+                    "dev_id": 24,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00124",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 95,
+                    "dev_id": 13,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"closing\"}",
+                    "uuid": "00113",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 96,
+                    "dev_id": 25,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00125",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 97,
+                    "dev_id": 26,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00126",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 98,
+                    "dev_id": 27,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00127",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 99,
+                    "dev_id": 28,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00128",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 10,
+                    "_id": 100,
+                    "dev_id": 4,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"controlmap\":[{\"keyvalue\":\"\",\"keytype\":\"playstatus\"},{\"keyvalue\":\"11\",\"keytype\":\"volume\"},{\"keyvalue\":\"dvd\",\"keytype\":\"source\"}]}",
+                    "uuid": "0104",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 101,
+                    "dev_id": 9,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"on\",\"fanspeed\":\"high\",\"mode\":\"ventilation\"}",
+                    "uuid": "0079",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 102,
+                    "dev_id": 10,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"on\",\"fanspeed\":\"low\",\"mode\":\"cooling\"}",
+                    "uuid": "00710",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 103,
+                    "dev_id": 11,
+                    "scenario_name": "投影",
+                    "scenario_id": 115,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"16\",\"status\":\"on\",\"fanspeed\":\"auto\",\"mode\":\"ventilation\"}",
+                    "uuid": "00711",
+                    "imagename": "cj_movie.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 104,
+                    "dev_id": 9,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"62.850468\",\"status\":\"on\"}",
+                    "uuid": "0019",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 105,
+                    "dev_id": 10,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"53.504673\",\"status\":\"on\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 106,
+                    "dev_id": 11,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"53.504673\",\"status\":\"on\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 107,
+                    "dev_id": 15,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00115",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 108,
+                    "dev_id": 13,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"closing\"}",
+                    "uuid": "00113",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 109,
+                    "dev_id": 26,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00126",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 110,
+                    "dev_id": 27,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00127",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 10,
+                    "_id": 111,
+                    "dev_id": 4,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"controlmap\":[{\"keyvalue\":\"pause\",\"keytype\":\"playstatus\"},{\"keyvalue\":\"0\",\"keytype\":\"volume\"},{\"keyvalue\":\"mp3\",\"keytype\":\"source\"}]}",
+                    "uuid": "0104",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 112,
+                    "dev_id": 10,
+                    "scenario_name": "投影关",
+                    "scenario_id": 116,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"off\",\"fanspeed\":\"low\",\"mode\":\"cooling\"}",
+                    "uuid": "00710",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 113,
+                    "dev_id": 12,
+                    "scenario_name": "卧室明亮",
+                    "scenario_id": 117,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"80.039139\",\"status\":\"on\"}",
+                    "uuid": "00112",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 114,
+                    "dev_id": 14,
+                    "scenario_name": "卧室明亮",
+                    "scenario_id": 117,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"opening\"}",
+                    "uuid": "00114",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 115,
+                    "dev_id": 25,
+                    "scenario_name": "卧室明亮",
+                    "scenario_id": 117,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00125",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 116,
+                    "dev_id": 27,
+                    "scenario_name": "卧室明亮",
+                    "scenario_id": 117,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00127",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 117,
+                    "dev_id": 29,
+                    "scenario_name": "卧室明亮",
+                    "scenario_id": 117,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"on\"}",
+                    "uuid": "00129",
+                    "imagename": "cj_light_allon.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 118,
+                    "dev_id": 12,
+                    "scenario_name": "卧室离开",
+                    "scenario_id": 118,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00112",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 119,
+                    "dev_id": 14,
+                    "scenario_name": "卧室离开",
+                    "scenario_id": 118,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"closing\"}",
+                    "uuid": "00114",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 120,
+                    "dev_id": 8,
+                    "scenario_name": "卧室离开",
+                    "scenario_id": 118,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"off\",\"fanspeed\":\"high\",\"mode\":\"cooling\"}",
+                    "uuid": "0078",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 121,
+                    "dev_id": 25,
+                    "scenario_name": "卧室离开",
+                    "scenario_id": 118,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00125",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 122,
+                    "dev_id": 27,
+                    "scenario_name": "卧室离开",
+                    "scenario_id": 118,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00127",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 123,
+                    "dev_id": 29,
+                    "scenario_name": "卧室离开",
+                    "scenario_id": 118,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00129",
+                    "imagename": "cj_athome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 136,
+                    "dev_id": 6,
+                    "scenario_name": "回家",
+                    "scenario_id": 1,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":12,\"status\":\"on\",\"fanspeed\":\"middle\",\"mode\":\"cooling\"}",
+                    "uuid": "0076",
+                    "imagename": "scenario_home"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 137,
+                    "dev_id": 10,
+                    "scenario_name": "回家",
+                    "scenario_id": 1,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":36,\"status\":\"on\"}",
+                    "uuid": "00110",
+                    "imagename": "scenario_home"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 138,
+                    "dev_id": 13,
+                    "scenario_name": "回家",
+                    "scenario_id": 1,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":0,\"status\":\"opening\"}",
+                    "uuid": "00113",
+                    "imagename": "scenario_home"
+                },
+                {
+                    "moduletype": 10,
+                    "_id": 139,
+                    "dev_id": 4,
+                    "scenario_name": "回家",
+                    "scenario_id": 1,
+                    "isarm": 0,
+                    "actioninfo": "{\"controlmap\":[{\"keyvalue\":\"on\",\"keytype\":\"power\"},{\"keyvalue\":\"play\",\"keytype\":\"playstatus\"},{\"keyvalue\":9,\"keytype\":\"volume\"}]}",
+                    "uuid": "0104",
+                    "imagename": "scenario_home"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 152,
+                    "dev_id": 9,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "0019",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 153,
+                    "dev_id": 10,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00110",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 154,
+                    "dev_id": 11,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00111",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 155,
+                    "dev_id": 12,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00112",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 156,
+                    "dev_id": 15,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00115",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 157,
+                    "dev_id": 16,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00116",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 158,
+                    "dev_id": 17,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00117",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 159,
+                    "dev_id": 18,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00118",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 160,
+                    "dev_id": 19,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00119",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 161,
+                    "dev_id": 21,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00121",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 162,
+                    "dev_id": 20,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00120",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 163,
+                    "dev_id": 23,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00123",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 164,
+                    "dev_id": 24,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00124",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 165,
+                    "dev_id": 13,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"closing\"}",
+                    "uuid": "00113",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 166,
+                    "dev_id": 14,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"closing\"}",
+                    "uuid": "00114",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 167,
+                    "dev_id": 6,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"24\",\"status\":\"off\",\"fanspeed\":\"low\",\"mode\":\"cooling\"}",
+                    "uuid": "0076",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 168,
+                    "dev_id": 8,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"24\",\"status\":\"off\",\"fanspeed\":\"low\",\"mode\":\"cooling\"}",
+                    "uuid": "0078",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 169,
+                    "dev_id": 25,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00125",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 170,
+                    "dev_id": 26,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00126",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 171,
+                    "dev_id": 27,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00127",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 172,
+                    "dev_id": 28,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00128",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 1,
+                    "_id": 173,
+                    "dev_id": 29,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"openclosepercent\":\"0\",\"status\":\"off\"}",
+                    "uuid": "00129",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 10,
+                    "_id": 174,
+                    "dev_id": 4,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"controlmap\":[{\"keyvalue\":\"pause\",\"keytype\":\"playstatus\"},{\"keyvalue\":\"13\",\"keytype\":\"volume\"}]}",
+                    "uuid": "0104",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 10,
+                    "_id": 175,
+                    "dev_id": 5,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"controlmap\":[{\"keyvalue\":\"pause\",\"keytype\":\"playstatus\"},{\"keyvalue\":\"13\",\"keytype\":\"volume\"}]}",
+                    "uuid": "0105",
+                    "imagename": "cj_leavehome.png"
+                },
+                {
+                    "moduletype": 7,
+                    "_id": 176,
+                    "dev_id": 10,
+                    "scenario_name": "离家",
+                    "scenario_id": 2,
+                    "isarm": 0,
+                    "actioninfo": "{\"settemp\":\"12\",\"status\":\"off\",\"fanspeed\":\"low\",\"mode\":\"cooling\"}",
+                    "uuid": "00710",
+                    "imagename": "cj_leavehome.png"
+                }
+            ]
+        },
+        {
+            "conditionloopmap": [
+                {
+                    "actioninfo": "{\"keyvalue\":\"trigger\",\"type\":\"event\",\"keytype\":\"dooropen\"}",
+                    "uuid": "0122",
+                    "moduletype": 12,
+                    "triggerid": 1,
+                    "_id": 1,
+                    "primaryid": 2
+                },
+                {
+                    "actioninfo": "{\"keyvalue\":\"trigger\",\"type\":\"event\",\"keytype\":\"dooropen\"}",
+                    "uuid": "0123",
+                    "moduletype": 12,
+                    "triggerid": 2,
+                    "_id": 2,
+                    "primaryid": 3
+                }
+            ]
+        },
+        {
+            "triggerscenarioloopmap": [
+                {
+                    "_id": 1,
+                    "actioninfo": "{\"scenarioid\":1,\"securitypwd\":\"123456\"}",
+                    "triggerid": 1
+                },
+                {
+                    "_id": 2,
+                    "actioninfo": "{\"scenarioid\":1,\"securitypwd\":\"123456\"}",
+                    "triggerid": 2
+                }
+            ]
+        },
+        {
+            "roomloopmap": [
+                {
+                    "_id": 1,
+                    "imagename": "master_bedroom",
+                    "room_name": "主卧"
+                },
+                {
+                    "_id": 4,
+                    "imagename": "kitchen",
+                    "room_name": "厨房"
+                },
+                {
+                    "_id": 6,
+                    "imagename": "living_room",
+                    "room_name": "客厅"
+                },
+                {
+                    "_id": 7,
+                    "imagename": "master_bathroom",
+                    "room_name": "主卫生间"
+                },
+                {
+                    "_id": 9,
+                    "imagename": "master_bedroom",
+                    "room_name": "门厅"
+                }
+            ]
+        },
+        {
+            "commondeviceloopmap": [
+                {
+                    "roomid": 6,
+                    "moduleuuid": "007021b94be-67c3-4879-9a82-e063ec20b3ab",
+                    "_id": 1,
+                    "commonname": "HaiLinPm25iaq251",
+                    "devicetype": "iaq25",
+                    "loop_name": "贞明探测器",
+                    "uuid": "0071",
+                    "imagename": ""
+                },
+                {
+                    "roomid": 6,
+                    "moduleuuid": "0073277e791-f8f9-4e5b-98e1-8e556f737ad3",
+                    "_id": 6,
+                    "commonname": "空调2",
+                    "devicetype": "aircondition",
+                    "loop_name": "客厅空调",
+                    "uuid": "0076",
+                    "imagename": ""
+                },
+                {
+                    "roomid": 1,
+                    "moduleuuid": "0073277e791-f8f9-4e5b-98e1-8e556f737ad3",
+                    "_id": 8,
+                    "commonname": "空调1",
+                    "devicetype": "aircondition",
+                    "loop_name": "主卧空调",
+                    "uuid": "0078",
+                    "imagename": ""
+                },
+                {
+                    "roomid": 6,
+                    "moduleuuid": "007875bac41-6b8f-442d-a90c-9661d812251a",
+                    "_id": 9,
+                    "commonname": "矩阵A1",
+                    "devicetype": "aircondition",
+                    "loop_name": "矩阵",
+                    "uuid": "0079",
+                    "imagename": ""
+                },
+                {
+                    "roomid": 6,
+                    "moduleuuid": "007875bac41-6b8f-442d-a90c-9661d812251a",
+                    "_id": 10,
+                    "commonname": "投影1",
+                    "devicetype": "aircondition",
+                    "loop_name": "投影",
+                    "uuid": "00710",
+                    "imagename": ""
+                },
+                {
+                    "roomid": 6,
+                    "moduleuuid": "0073277e791-f8f9-4e5b-98e1-8e556f737ad3",
+                    "_id": 11,
+                    "commonname": "播放器1",
+                    "devicetype": "aircondition",
+                    "loop_name": "播放器",
+                    "uuid": "00711",
+                    "imagename": ""
+                }
+            ]
+        }
+    ],
+    "moduleipaddr": "192.168.3.104",
+    "version": "1723",
+    "modulemacaddr": "00:1F:55:2A:05:82",
+    "securitypwd": "123456",
+    "moduletype": "cube",
+    "aliasname": "1409_Cube",
+    "action": "response",
+    "errorcode": 0,
+    "ethip": "192.168.9.53",
+    "scenarioid": 1,
+    "voicerecognizestatus": "1",
+    "securityscenarioid": 4
+}

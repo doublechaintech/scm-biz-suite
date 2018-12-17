@@ -1,0 +1,34 @@
+html, body{
+    height: 100%;
+    background-color: #f8f8f8;
+}
+body{
+    font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+}
+.item{
+    padding: 10px 0;
+}
+.item__title{
+    margin-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #999;
+    font-weight: normal;
+    font-size: 14px;
+}
+.item__ctn{
+    padding: 0 15px;
+}
+.page_feedback{
+    padding: 15px;
+    overflow: auto;
+    background-color: #FFFFFF;
+}
+/*fix fastclick很难点中的bug*/
+label > * { pointer-events: none; }
+/* weui需要fix的 */
+.weui-picker__item{
+    padding: 0;
+    height: 34px;
+    line-height: 34px;
+}
