@@ -1,0 +1,35 @@
+version: "3"
+services:
+  resin:
+    image: dockerhub.doublechaintech.cn/basic/resin:3.1
+    container_name: demo_resin
+    networks:
+      - app_net
+      - mysql_net
+    volumes:
+      - ~/sky/webapps:/root/resin/webapps
+  nginx:
+    image: nginx:alpine
+    container_name: demo_nginx
+    networks:
+      - app_net
+    ports:
+      - "18080:80"
+    volumes:
+      - ~/sky/statics:/usr/share/nginx/html
+      - ./app_nginx.conf:/etc/nginx/conf.d/app_nginx.conf
+  redis:
+    image: redis:3-alpine
+    container_name: demo_redis
+    networks:
+      - app_net
+    ports:
+      - "6379:6379"
+    volumes:
+      - ~/sky/redis-data:/data
+networks:
+  app_net:
+    driver: bridge
+  mysql_net:
+    external: true
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:property-placeholder location="${prj_config_file:classpath*:/META-INF/infra.properties}"/>
+
+    <!-- to use environment property file, make sure you have defined ‘env_conf_file’
+        in your resin.conf. for example: <jvm-arg>-Denv_conf_file=/bettbio_env_conf/dev/bettbio_ad_env.properties</jvm-arg> -->
+
+
+    <bean id="cacheService" class="com.skynet.infrastructure.RedisCacheService">
+        <property name="host" value="${app.redis.host}"/>
+        <property name="port" value="${app.redis.port}"/>
+        <property name="timeout" value="${app.redis.timeout}"/>
+        <property name="password" value="${app.redis.password}" />
+    </bean>
+
+
+    <!--
+        <bean id="cacheService" class="com.skynet.infrastructure.PooledRedisCacheService">
+            <property name="host" value="${app.redis.host}"/>
+            <property name="port" value="${app.redis.port}"/>
+            <property name="timeout" value="${app.redis.timeout}"/>
+            <property name="database" value="${app.redis.database}"/>
+            <property name="password" value="${app.redis.password}"/>
+        </bean>
+    -->
+
+    <!--
+    <bean id="cacheService" class="com.skynet.infrastructure.InMemoryCacheService" />
+    -->
+
+    <bean id="smtpService" class="com.skynet.infrastructure.SecureSMTPService">
+
+    </bean>
+
+    <bean id="graphService" class="com.skynet.infrastructure.graphservice.GraphServiceImpl">
+        <property name="protocol" value="http"/>
+        <property name="host" value="127.0.0.1"/>
+        <property name="port" value="8480"/>
+    </bean>
+    <bean id="dummygraphService" class="com.skynet.infrastructure.graphservice.AlwaysTrueGraphService">
+    </bean>
+
+    <bean id="messageService" class="com.skynet.infrastructure.AliyunMessageService">
+
+    </bean>
+
+    <bean id="elasticsearchClient" class="com.skynet.infrastructure.ElasticsearchClient5_6_3">
+        <property name="clusterHostList" value="127.0.0.1"/>
+        <property name="clusterHostPort" value="9200"/>
+    </bean>
+    <bean id="dummyEventService" class="com.skynet.infrastructure.kafkaservice.DummyEventService">
+    </bean>
+
+    <bean id="sensitiveWordsProvider" class="com.skynet.infrastructure.FileSensitiveWordsProvider">
+        <property name="filePath" value="classpath:/META-INF/sensitive-words.txt" />
+    </bean>
+
+    <bean id="stopWordsProvider" class="com.skynet.infrastructure.FileSensitiveWordsProvider">
+        <property name="filePath" value="classpath:/META-INF/stop-words.txt" />
+    </bean>
+
+    <bean id="sensitiveWordFilterService" class="com.skynet.infrastructure.SensitiveWordFilterService">
+        <property name="sensitiveWordsProvider" ref="sensitiveWordsProvider"/>
+        <property name="stopWordsProvider" ref="stopWordsProvider"/>
+    </bean>
+
+    <bean id="kafkaMessageEventService" class="com.skynet.infrastructure.kafkaservice.KafkaMessageEventService">
+        <property name="producerProperties">
+            <props>
+                <prop key="bootstrap.servers">${app.eventkafka.servers}</prop>
+                <prop key="acks">all</prop>
+                <prop key="key.serializer">org.apache.kafka.common.serialization.StringSerializer</prop>
+                <prop key="key.deserializer">org.apache.kafka.common.serialization.StringDeserializer</prop>
+                <prop key="value.serializer">org.apache.kafka.common.serialization.StringSerializer</prop>
+                <prop key="value.deserializer">org.apache.kafka.common.serialization.StringDeserializer</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
+
+
+
+
+

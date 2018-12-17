@@ -1,0 +1,7 @@
+create table community3_data (
+	id                  	varchar(64)          not null            comment '序号',
+	name                	varchar(24)                              comment '名称',
+	description         	varchar(24)                              comment '描述',
+	
+	primary key community3_pk (id)
+)

@@ -1,0 +1,56 @@
+
+<html>
+	<head>
+		<style>
+			body{
+				background: black;
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<canvas id="paper"></canvas>
+		<script>
+			var canvas = document.getElementById("paper");
+			var c = canvas.getContext("2d");
+			canvas.height = window.innerHeight;
+			canvas.width = window.innerWidth;
+			
+			var symbols = "int main(char **argv, int argc)";
+			//symbols = symbols.split("");
+			var font_size = 10;
+			var columns = canvas.height / font_size;
+			var lines = [];
+			
+			for (var i=0; i<columns;i++)
+				lines[i] = 1;
+			
+			function draw() {
+				c.fillStyle = "rgba(0,0,0,0.05)";
+				c.fillRect(0,0,canvas.width,canvas.height);
+                c.fillStyle = "#0F0";
+                
+				for (var i=0;i<columns;i++){
+					var symbol = symbols[Math.floor(Math.random()*symbols.length)];
+					c.fillText(symbol, i*font_size, lines[i]*font_size);
+					lines[i]++;
+					
+					if (lines[i]*font_size > canvas.height && Math.random() > 0.975)
+						lines[i] = 1;                
+                }
+                /*
+                var symbol = symbols[Math.floor(Math.random()*symbols.length)];
+					c.fillText(symbol, i*font_size, lines[i]*font_size);
+					lines[i]++;
+					
+					if (lines[i]*font_size > canvas.height && Math.random() > 0.975)
+						lines[i] = 1;
+                
+                */
+			}
+			setInterval(draw, 30);
+		</script>
+	</body>
+</html>

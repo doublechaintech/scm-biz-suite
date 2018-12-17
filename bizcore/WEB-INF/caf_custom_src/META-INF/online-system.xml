@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<import resource="classpath*:/META-INF/infra.xml" />
+	
+	<!-- 
+	
+	****************************************************************************
+	*						HELP YOU GET FAST CODE                             *
+	****************************************************************************
+	
+	
+	 -->
+	<import resource="classpath*:/META-INF/shuxiang_custom.xml" />
+	
+	
+	
+</beans>
+
+
+	<!-- 
+	
+	caf_custom_src/META-INF/online-system.xml
+	<import resource="classpath*:/META-INF/b2b2c_custom.xml" />
+	
+	<import resource="classpath*:/META-INF/scm_custom.xml" />
+	<import resource="classpath*:/META-INF/scm_custom.xml" />
+	<import resource="classpath*:/META-INF/bettbio_ad_custom.xml" />
+	<import resource="classpath*:/META-INF/bbt_custom.xml" />
+	<import resource="classpath*:/META-INF/b2b2c_custom.xml" />
+	<import resource="classpath*:/META-INF/manu_scm_custom.xml" />
+	
+	 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

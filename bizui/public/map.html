@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>加载闪烁点</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<style type="text/css">
+    html,body{
+        margin:0;
+        width:100%;
+        height:100%;
+        background:#333;
+    }
+    #map{
+        width:100%;
+        height:100%;
+    }
+    #panel {
+        position: absolute;
+        top:30px;
+        left:10px;
+        z-index: 999;
+        color: #fff;
+    }
+    #login{
+        position:absolute;
+        width:300px;
+        height:40px;
+        left:50%;
+        top:50%;
+        margin:-40px 0 0 -150px;
+    }
+    #login input[type=password]{
+        width:200px;
+        height:30px;
+        padding:3px;
+        line-height:30px;
+        border:1px solid #000;
+    }
+    #login input[type=submit]{
+        width:80px;
+        height:38px;
+        display:inline-block;
+        line-height:38px;
+    }
+	</style>
+	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=uDclFm6CfNo71lnjkKmNzRB2vrx1zF1U"></script>
+</head>
+<body>
+    <div id="map"></div>
+    <script type="text/javascript">
+		var map = new BMap.Map("map", {});                        // 创建Map实例
+		map.centerAndZoom("成都", 12);     // 初始化地图,设置中心点坐标和地图级别
+        
+        map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+        
+        map.addControl(new BMap.NavigationControl()); 
+        map.addControl(new BMap.ScaleControl()); 
+        map.addControl(new BMap.OverviewMapControl()); 
+        map.enableScrollWheelZoom(true); 
+        map.addControl(new BMap.MapTypeControl()); 
+        map.setCurrentCity("成都"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+        var traffic = new BMap.TrafficLayer(); // 创建交通流量图层实例 
+        map.addTileLayer(traffic); // 将图层添加到地图上
+        var ctrl = new BMapLib.TrafficControl();
+        map.addControl(ctrl);
+
+	</script>
+</body>
+</html>
+

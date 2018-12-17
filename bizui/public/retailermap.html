@@ -1,0 +1,600 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{width:100%;height:100%;}
+		p{margin-left:5px; font-size:14px;}
+	</style>
+	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=uDclFm6CfNo71lnjkKmNzRB2vrx1zF1U"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+   
+	<title>百图生超全国中心 RSCC000001 </title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	
+	map.centerAndZoom(new BMap.Point(104.0622,30.5771), 5);
+	map.addControl(new BMap.MapTypeControl());
+	map.enableScrollWheelZoom();
+	// 复杂的自定义覆盖物
+    function ComplexCustomOverlay(point, text, mouseoverText){
+      this._point = point;
+      this._text = text;
+      this._overText = mouseoverText;
+    }
+    ComplexCustomOverlay.prototype = new BMap.Overlay();
+    ComplexCustomOverlay.prototype.initialize = function(map){
+      this._map = map;
+      var div = this._div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+      div.style.backgroundColor = this._text.indexOf("仓库")>=0? "blue":"#EE5D5B";
+      div.style.border = "1px solid #BC3B3A";
+      div.style.color = "white";
+      div.style.height = "18px";
+      div.style.padding = "2px";
+      div.style.lineHeight = "18px";
+      div.style.whiteSpace = "nowrap";
+      div.style.MozUserSelect = "none";
+      div.style.fontSize = "12px"
+      var span = this._span = document.createElement("span");
+      div.appendChild(span);
+      //span.appendChild(document.createTextNode("<i class='fa fa-database' aria-hidden='true'></i>"));   
+      //span.appendChild(document.createTextNode(this._text));   
+      var warehouseHTML = "<i class='fa fa-database' aria-hidden='true'></i>"+this._text;
+      var retailStoreHTML = "<i class='fa fa-university' aria-hidden='true'></i>"+this._text;
+      var finalValue = this._text.indexOf("仓库")>=0? warehouseHTML:retailStoreHTML;
+      span.innerHTML = finalValue
+      
+      var that = this;
+
+      var arrow = this._arrow = document.createElement("div");
+      arrow.style.background = "url(//map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png) no-repeat";
+      arrow.style.position = "absolute";
+      arrow.style.width = "11px";
+      arrow.style.height = "10px";
+      arrow.style.top = "22px";
+      arrow.style.left = "10px";
+      arrow.style.overflow = "hidden";
+      div.appendChild(arrow);
+     
+      div.onmouseover = function(){
+        //this.style.backgroundColor = "#6BADCA";
+        //this.style.borderColor = "#0000ff";
+        var warehouseHTML = "<i class='fa fa-database fa-2x' aria-hidden='true'></i>" +this._text;
+      	var retailStoreHTML = "<i class='fa fa-university fa-2x' aria-hidden='true'></i>" + this._text;
+     	var finalValue = this._text.indexOf("仓库")>=0? warehouseHTML:retailStoreHTML;
+        this.getElementsByTagName("span")[0].innerHTML = this._overText;
+        arrow.style.backgroundPosition = "0px -20px";
+      }
+
+      div.onmouseout = function(){
+        //this.style.backgroundColor = "#EE5D5B";
+        //this.style.borderColor = "#BC3B3A";
+        var warehouseHTML = "<i class='fa fa-database fa-2x' aria-hidden='true'></i>" +this._text;
+      	var retailStoreHTML = "<i class='fa fa-university fa-2x' aria-hidden='true'></i>" + this._text;
+     	var finalValue = this._text.indexOf("仓库")>=0? warehouseHTML:retailStoreHTML;
+      
+        this.getElementsByTagName("span")[0].innerHTML = this._text;
+        arrow.style.backgroundPosition = "0px 0px";
+      }
+
+      map.getPanes().labelPane.appendChild(div);
+      
+      return div;
+    }
+    ComplexCustomOverlay.prototype.draw = function(){
+      var map = this._map;
+      var pixel = map.pointToOverlayPixel(this._point);
+      this._div.style.left = pixel.x - parseInt(this._arrow.style.left) + "px";
+      this._div.style.top  = pixel.y - 30 + "px";
+    }
+  
+    var txt="";
+    var myCompOverlay="";
+    var mouseoverTxt="";
+    var longtitude =  0;
+    var latitude=0;
+    
+	
+	
+	longtitude =  104.98;
+	latitude = 35.78;
+     txt = "仓库： W000001";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  118.91;
+	latitude = 34.97;
+     txt = "仓库： W000002";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0002 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  129.7;
+	latitude = 30.36;
+     txt = "仓库： W000003";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0003 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  101.71;
+	latitude = 31.76;
+     txt = "仓库： W000004";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0004 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  97.55;
+	latitude = 35.66;
+     txt = "仓库： W000005";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0005 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  127.73;
+	latitude = 33.36;
+     txt = "仓库： W000006";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0006 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  114.03;
+	latitude = 29.95;
+     txt = "仓库： W000007";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0007 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  129.65;
+	latitude = 35.28;
+     txt = "仓库： W000008";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0008 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  109.34;
+	latitude = 39.57;
+     txt = "仓库： W000009";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0009 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  97.75;
+	latitude = 33.44;
+     txt = "仓库： W000010";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0010 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  118.13;
+	latitude = 36.28;
+     txt = "仓库： W000011";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0011 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  108.94;
+	latitude = 37.26;
+     txt = "仓库： W000012";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0012 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  105.68;
+	latitude = 33.97;
+     txt = "仓库： W000013";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0013 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  111.83;
+	latitude = 37.26;
+     txt = "仓库： W000014";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0014 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  109.69;
+	latitude = 38.15;
+     txt = "仓库： W000015";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0015 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  104.95;
+	latitude = 39.83;
+     txt = "仓库： W000016";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0016 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  102.64;
+	latitude = 30.72;
+     txt = "仓库： W000017";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0017 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  121.19;
+	latitude = 30.01;
+     txt = "仓库： W000018";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0018 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  114.95;
+	latitude = 29.91;
+     txt = "仓库： W000019";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0019 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  102.84;
+	latitude = 30.53;
+     txt = "仓库： W000020";
+     mouseoverTxt = txt + " 成都龙泉驿飞鹤路20号0020 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+    
+    
+	
+	longtitude =  97.78;
+	latitude = 37.83;
+     txt = "小超 RS000001";
+     mouseoverTxt = txt + " 中和社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  104.18;
+	latitude = 30.77;
+     txt = "小超 RS000002";
+     mouseoverTxt = txt + " 华阳社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  94.47;
+	latitude = 38.92;
+     txt = "小超 RS000003";
+     mouseoverTxt = txt + " 大源社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  98.69;
+	latitude = 31.93;
+     txt = "小超 RS000004";
+     mouseoverTxt = txt + " 中和社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  105.63;
+	latitude = 37.57;
+     txt = "小超 RS000005";
+     mouseoverTxt = txt + " 华阳社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  115.14;
+	latitude = 36.82;
+     txt = "小超 RS000006";
+     mouseoverTxt = txt + " 大源社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  129.83;
+	latitude = 40.29;
+     txt = "小超 RS000007";
+     mouseoverTxt = txt + " 中和社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  104.8;
+	latitude = 31.46;
+     txt = "小超 RS000008";
+     mouseoverTxt = txt + " 华阳社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  101.85;
+	latitude = 34.66;
+     txt = "小超 RS000009";
+     mouseoverTxt = txt + " 大源社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  126.55;
+	latitude = 37.74;
+     txt = "小超 RS000010";
+     mouseoverTxt = txt + " 中和社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  91.44;
+	latitude = 30.76;
+     txt = "小超 RS000011";
+     mouseoverTxt = txt + " 华阳社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  118.9;
+	latitude = 37.77;
+     txt = "小超 RS000012";
+     mouseoverTxt = txt + " 大源社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  125.26;
+	latitude = 39.76;
+     txt = "小超 RS000013";
+     mouseoverTxt = txt + " 中和社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  92.72;
+	latitude = 34.49;
+     txt = "小超 RS000014";
+     mouseoverTxt = txt + " 华阳社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  112.82;
+	latitude = 33.1;
+     txt = "小超 RS000015";
+     mouseoverTxt = txt + " 大源社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  118.71;
+	latitude = 40.27;
+     txt = "小超 RS000016";
+     mouseoverTxt = txt + " 中和社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  126.93;
+	latitude = 38.05;
+     txt = "小超 RS000017";
+     mouseoverTxt = txt + " 华阳社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  107.01;
+	latitude = 32.37;
+     txt = "小超 RS000018";
+     mouseoverTxt = txt + " 大源社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  94.23;
+	latitude = 32.49;
+     txt = "小超 RS000019";
+     mouseoverTxt = txt + " 中和社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+	
+	longtitude =  114.19;
+	latitude = 39.66;
+     txt = "小超 RS000020";
+     mouseoverTxt = txt + " 华阳社区小超 " ;
+    
+     myCompOverlay = new ComplexCustomOverlay(new BMap.Point( longtitude,latitude), txt , mouseoverTxt);
+
+     map.addOverlay(myCompOverlay);
+	
+
+	
+
+
+</script>

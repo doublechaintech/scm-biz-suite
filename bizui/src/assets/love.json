@@ -1,0 +1,13 @@
+{
+    "name": "帮帮兔社区运营中心",
+    "children": [
+        {
+            "name": "UserDomain",
+            "children": [
+                {
+                    "name": "SecUser"
+                }
+            ]
+        }
+    ]
+}

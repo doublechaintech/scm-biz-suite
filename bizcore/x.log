@@ -1,0 +1,19 @@
+其是以前版本的主流共识算法，也就是拜占庭共识算法。拜占庭算法支持（3f+1）的节点集群，f代表恶意节点的数量。恶意节点可能会做一些恶意伪造时序或者返回相反的错误的结果等，注意这里与上面失效的区别。
+
+
+
+
+
+select 'CommunityUser' as class_name, id, mobile as display_name from community_user_data 
+union select 'Community' as class_name, id, name as display_name from community_data 
+union select 'HomePage' as class_name, id, title as display_name from home_page_data 
+union select 'Task' as class_name, id, title as display_name from task_data 
+union select 'TaskPage' as class_name, id, title as display_name from task_page_data 
+union select 'Thread' as class_name, id, title as display_name from thread_data
+union select 'ThreadReply' as class_name, id, content as display_name from thread_reply_data 
+
+
+select 'CommunityUser' as class_name, id, mobile as display_name from community_user_data 
+union select 'Community' as class_name, id, name as display_name from community_data 
+union select 'HomePage' as class_name, id, title as display_name from home_page_data 
+union select 'Task' as class_name, id, title as display_name from task_data ;

@@ -1,0 +1,50 @@
+group 'com.doublechain'
+version '1.0.0'
+
+apply plugin: 'java'
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src']
+        }
+        resources {
+            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src']
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'WEB-INF/lib', include: '*.jar')
+    compile group: 'org.ow2.asm', name: 'asm-all', version: '5.2'
+    compile group: 'org.neo4j.driver', name: 'neo4j-java-driver', version: '1.5.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.16.RELEASE'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '5.6.3'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-core', version: '3.5.1'
+    compile group: 'com.aliyun', name: 'aliyun-java-sdk-sts', version: '3.0.0'
+    compile group: 'com.aliyun.mns', name: 'aliyun-sdk-mns', version: '1.1.8'
+    compile group: 'com.aliyun.oss', name: 'aliyun-sdk-oss', version: '2.8.3'
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '1.1.0'
+
+    providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+}
+
