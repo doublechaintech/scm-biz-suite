@@ -14,7 +14,7 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 
 ## bizcore: 服务器端核心代码项目， Business Core
 
-![ScreenShot](/doc/loginscreen.png)
+
 ![ScreenShot](/doc/homescreen.png)
 ![ScreenShot](/doc/rootapp.png)
 
