@@ -10,6 +10,12 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 
 ## bizcore: 服务器端核心代码项目， Business Core
 
+![ScreenShot](/doc/loginscrren.png)
+![ScreenShot](/doc/homescreen.png)
+![ScreenShot](/doc/rootapp.png)
+
+
+
 
 ## bizui：中台集成界面项目， Business UI，不是闭嘴！
 ## datavisual: 数据大屏前台项目， Data Visual
