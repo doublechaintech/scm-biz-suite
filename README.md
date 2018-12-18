@@ -1,5 +1,9 @@
 # retailscm-biz-suite
-Retail Supply Chain Management Suite Template
+Retail Supply Chain Management Suite
+
+前端React/dvajs/antd/echarts
+后端Java/Spring/Redis/MySQL/ArrangoDB/Kafka
+
 
 ##演示地址
 
