@@ -14,6 +14,9 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 ## bizcore: 服务器端核心代码项目， Business Core
 
 后端 Java/Spring/Redis/MySQL/ArrangoDB/Kafka
+Java 源代码在bizcore/WEB-INF/ 下
+
+![ScreenShot](/doc/backend.png)
 
 
 ## bizui：中台集成界面项目， Business UI，不是闭嘴！
