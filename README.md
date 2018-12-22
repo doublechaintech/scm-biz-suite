@@ -10,31 +10,31 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 
 | 角色        | 用户名           | 密码         |
 | ------------- |:-------------:|:-------------------:|
-|双链小超全国运营中心|SU000001|DoubleChain!y1|
-|双链小超省中心|SU000002|DoubleChain!y1|
-|双链小超城市服务中心|SU000003|DoubleChain!y1|
-|城市合伙人|SU000004|DoubleChain!y1|
-|潜在的客户|SU000005|DoubleChain!y1|
-|双链小超|SU000006|DoubleChain!y1|
-|生超会员|SU000007|DoubleChain!y1|
-|消费者订单|SU000008|DoubleChain!y1|
-|产品供应商|SU000009|DoubleChain!y1|
-|供应订单|SU000010|DoubleChain!y1|
-|供应订单确认|SU000011|DoubleChain!y1|
-|供应订单审批|SU000012|DoubleChain!y1|
-|供应订单处理|SU000013|DoubleChain!y1|
-|供应货|SU000014|DoubleChain!y1|
-|供应订单交货|SU000015|DoubleChain!y1|
-|生超的订单|SU000016|DoubleChain!y1|
-|仓库|SU000017|DoubleChain!y1|
-|货架|SU000018|DoubleChain!y1|
-|运输车队|SU000019|DoubleChain!y1|
-|运输任务|SU000020|DoubleChain!y1|
-|账套|SU000021|DoubleChain!y1|
-|会计凭证|SU000022|DoubleChain!y1|
-|工资等级|SU000023|DoubleChain!y1|
-|员工|SU000024|DoubleChain!y1|
-|用户域|SU000025|DoubleChain!y1|
+|双链小超全国运营中心|13900000001|DoubleChain!y1|
+|双链小超省中心|13900000002|DoubleChain!y1|
+|双链小超城市服务中心|13900000003|DoubleChain!y1|
+|城市合伙人|13900000004|DoubleChain!y1|
+|潜在的客户|13900000005|DoubleChain!y1|
+|双链小超|13900000006|DoubleChain!y1|
+|生超会员|13900000007|DoubleChain!y1|
+|消费者订单|13900000008|DoubleChain!y1|
+|产品供应商|13900000009|DoubleChain!y1|
+|供应订单|13900000010|DoubleChain!y1|
+|供应订单确认|13900000011|DoubleChain!y1|
+|供应订单审批|13900000012|DoubleChain!y1|
+|供应订单处理|13900000013|DoubleChain!y1|
+|供应货|13900000014|DoubleChain!y1|
+|供应订单交货|13900000015|DoubleChain!y1|
+|生超的订单|13900000016|DoubleChain!y1|
+|仓库|13900000017|DoubleChain!y1|
+|货架|13900000018|DoubleChain!y1|
+|运输车队|13900000019|DoubleChain!y1|
+|运输任务|13900000020|DoubleChain!y1|
+|账套|13900000021|DoubleChain!y1|
+|会计凭证|13900000022|DoubleChain!y1|
+|工资等级|13900000023|DoubleChain!y1|
+|员工|13900000024|DoubleChain!y1|
+|用户域|13900000025|DoubleChain!y1|
 
 
 ## bizcore: 服务器端核心代码项目， Business Core
