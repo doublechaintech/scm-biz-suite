@@ -35,8 +35,7 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 |工资等级|SU000023|DoubleChain!y1|
 |员工|SU000024|DoubleChain!y1|
 |用户域|SU000025|DoubleChain!y1|
-|SEC的用户|SU000026|DoubleChain!y1|
-|用户应用程序|SU000027|DoubleChain!y1|
+
 
 ## bizcore: 服务器端核心代码项目， Business Core
 
