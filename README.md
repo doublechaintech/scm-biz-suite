@@ -10,7 +10,6 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 
 | 角色        | 用户名           | 密码         |
 | ------------- |:-------------:|:-------------------:|
-
 |双链小超全国运营中心|SU000001|DoubleChain!y1|
 |双链小超省中心|SU000002|DoubleChain!y1|
 |双链小超城市服务中心|SU000003|DoubleChain!y1|
