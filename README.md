@@ -1,7 +1,5 @@
 # retailscm-biz-suite
-Retail Supply Chain Management Suite
-
-
+零售供应链套件基础版，一共大约130万行代码，管理界面通过javascript高阶函数定制，Java后台主要通过增加方法或者重写已经存在的大量方法来灵活定制。
 
 
 ## 演示地址
