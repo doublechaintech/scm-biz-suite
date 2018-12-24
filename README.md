@@ -8,7 +8,7 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 
 下面为25钟角色建立了演示账户，每种角色都可以登录。
 
-| 角色        | 用户名           | 密码         |
+| 角色        | 用户名                            | 密码                                |
 | ------------- |:-------------------------------------------:|:-----------------------------------------:|
 |双链小超全国运营中心|13900000001|DoubleChain!y1|
 |双链小超省中心|13900000002|DoubleChain!y1|
@@ -17,19 +17,10 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 |潜在的客户|13900000005|DoubleChain!y1|
 |双链小超|13900000006|DoubleChain!y1|
 |生超会员|13900000007|DoubleChain!y1|
-|消费者订单|13900000008|DoubleChain!y1|
 |产品供应商|13900000009|DoubleChain!y1|
-|供应订单|13900000010|DoubleChain!y1|
-|供应订单确认|13900000011|DoubleChain!y1|
-|供应订单审批|13900000012|DoubleChain!y1|
-|供应订单处理|13900000013|DoubleChain!y1|
-|供应货|13900000014|DoubleChain!y1|
-|供应订单交货|13900000015|DoubleChain!y1|
-|生超的订单|13900000016|DoubleChain!y1|
 |仓库|13900000017|DoubleChain!y1|
 |货架|13900000018|DoubleChain!y1|
 |运输车队|13900000019|DoubleChain!y1|
-|运输任务|13900000020|DoubleChain!y1|
 |账套|13900000021|DoubleChain!y1|
 |会计凭证|13900000022|DoubleChain!y1|
 |工资等级|13900000023|DoubleChain!y1|
