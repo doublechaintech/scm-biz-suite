@@ -24,20 +24,23 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 		
 		Object result = super.login(userContext, email, password);
 		String content="FYI";
-		String title = "Login Error with "+email+"/"+password;
+		String title = "Fail with "+email+"/"+password+"@retailscm";
 		if(result instanceof LoginForm) {
 
 			sendMail(userContext, title, content);
 			return result;
 		}
-		title = "Login Success with "+email+"/"+password;
+		title = "Success with "+email+"/"+password+"@retailscm";
 		sendMail(userContext, title, content);
 		return result;
 	}
 	
 	protected void sendMail(RetailscmUserContext userContext, String title, String content) {
 		try {
-			userContext.sendEmail("zhangxilai@doublechaintech.com", title, "from: "+userContext.getRemoteIP());
+			userContext.sendEmail("zhangxilai@doublechaintech.com,liuli@doublechaintech.com", 
+					title, 
+					"from: "+userContext.getRemoteIP()+" with "+ userContext.getUserAgent());
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,7 +48,13 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 	}
 
 
-
+	public Object changeCurUserPassword(RetailscmUserContext userContext, String currentPassword, String newPassword)
+			throws Exception {
+		this.throwExceptionWithMessage("这是演示系统，你改了密码别人怎么玩呢？");
+		
+		return "OK"; //never used
+	}
+	
 
 
 }
