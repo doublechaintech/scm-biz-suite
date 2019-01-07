@@ -21,6 +21,4 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-bizcore/WEB-INFO/caf*
 
-bizcore/WEB-INF/caf_core_src/com/skynet/infrastructure/*
