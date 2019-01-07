@@ -1,0 +1,68 @@
+package com.skynet.infrastructure;
+
+import com.arangodb.ArangoCursor;
+import com.arangodb.ArangoDB;
+import com.arangodb.velocypack.VPackSlice;
+import com.arangodb.velocypack.module.jdk8.VPackJdk8Module;
+
+import java.util.*;
+
+/**
+ * Created by gg07 on 2017/12/12.
+ */
+public class ArangoDBGraphService extends BaseGraphService implements GraphService{
+
+    private ArangoDB arangoDB;
+    private String databaseName;
+    private String graphName;
+
+    public ArangoDBGraphService(String databaseName, String graphName) {
+        this.arangoDB = new ArangoDB.Builder().host("localhost", 8529).user("root").password("").registerModule(new VPackJdk8Module()).build();
+        this.databaseName = databaseName;
+        this.graphName = graphName;
+    }
+
+    public List<String[]> relationsOf(String fromLabel, String fromKey,
+                                      String toLable, String toKey) {
+        String query = "FOR target, unused, path IN 1..5 OUTBOUND @source GRAPH @graph\n" +
+                "  FILTER target._id == @target\n" +
+                "  RETURN path";
+        Map<String, Object> bindVars = new HashMap<>();
+        bindVars.put("graph", this.graphName);
+        bindVars.put("source", fromLabel + "/" + fromKey);
+        bindVars.put("target", toLable + "/" + toKey);
+        ArangoCursor<VPackSlice> cursor = arangoDB.db(databaseName).query(query, bindVars, null, VPackSlice.class);
+        List<String[]> relationList = new ArrayList();
+        while (cursor.hasNext()) {
+            VPackSlice obj = cursor.next();
+            final VPackSlice edges = obj.get("edges");
+            final Iterator<VPackSlice> iterator = edges.arrayIterator();
+            String[] relationArray = new String[edges.size()];
+            int index = 0;
+            while (iterator.hasNext()) {
+                final VPackSlice slice = iterator.next();
+                relationArray[index] = slice.get("type").getAsString();
+                index++;
+            }
+            relationList.add(relationArray);
+        }
+        //some thing like ["R", "R", "R", "R", "R", "R"]
+        return relationList;
+    }
+
+
+    public static void main(String[] args) {
+
+        ArangoDBGraphService service = new ArangoDBGraphService("test", "social");
+
+        List<String[]> relationList = service.relationsOf("person", "gabry", "person", "killy");
+
+        for (String[] strArray : relationList) {
+            for (String ele : strArray) {
+                System.out.print(ele + ", ");
+            }
+            System.out.println();
+        }
+
+    }
+}

@@ -16,6 +16,7 @@ import java.util.Date;
 
 import com.doublechaintech.retailscm.LoginForm;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+import com.doublechaintech.retailscm.userapp.UserApp;
 
 public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 
@@ -30,7 +31,19 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 			sendMail(userContext, title, content);
 			return result;
 		}
-		title = "Success with "+email+"/"+password+"@retailscm";
+		
+		//SecUser user  = this.currentApp(baseUserContext);
+	
+		title = email+"/"+password+"@retailscm";
+		
+		if(result instanceof SecUser) {
+			SecUser user = (SecUser)result;
+			UserApp app = user.getUserAppList().first();
+			
+			title =(app==null?"":app.getDisplayName())+""+title;
+			
+		}
+		
 		sendMail(userContext, title, content);
 		return result;
 	}
