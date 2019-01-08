@@ -445,14 +445,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromProduct(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("product.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -627,14 +627,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromRetailStoreProvinceCenter(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("retail_store_province_center.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -848,14 +848,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromRetailStoreCityServiceCenter(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("retail_store_city_service_center.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -926,14 +926,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromCityPartner(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("city_partner.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -1017,14 +1017,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromPotentialCustomer(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("potential_customer.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -1199,14 +1199,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromPotentialCustomerContact(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("potential_customer_contact.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -1277,14 +1277,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromCityEvent(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("city_event.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -1537,14 +1537,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromRetailStore(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("retail_store.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -1563,14 +1563,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromRetailStore(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("retail_store.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -1914,14 +1914,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromConsumerOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("consumer_order.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -2915,14 +2915,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromGoodsSupplier(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("goods_supplier.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -3201,14 +3201,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromSupplyOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("supply_order.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -3799,14 +3799,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromRetailStoreOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("retail_store_order.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -4332,27 +4332,27 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromWarehouse(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("warehouse.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
 	protected FormField lastUpdateTimeFromWarehouse(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("warehouse.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -4436,14 +4436,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromStorageSpace(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("storage_space.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -4514,14 +4514,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromSmartPallet(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("smart_pallet.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -4774,14 +4774,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromGoodsAllocation(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("goods_allocation.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -5190,14 +5190,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromGoodsMovement(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("goods_movement.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -5294,14 +5294,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromSupplierSpace(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("supplier_space.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -5398,14 +5398,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromReceivingSpace(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("receiving_space.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -5489,14 +5489,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromShippingSpace(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("shipping_space.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -5580,14 +5580,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromDamageSpace(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("damage_space.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -5632,14 +5632,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField positionFromWarehouseAsset(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("位置");
+		field.setLabel("Position");
 		field.setLocaleKey("warehouse_asset.position");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("text");
 		field.setRequired(true);
-		field.setPlaceholder("请填写位置");
+		field.setPlaceholder("请填写Position");
 		return field;
 	}
 
@@ -5710,14 +5710,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromTransportFleet(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("transport_fleet.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -6035,14 +6035,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromTransportTask(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("transport_task.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -6087,14 +6087,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField longitudeFromTransportTaskTrack(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("经度");
+		field.setLabel("Longitude");
 		field.setLocaleKey("transport_task_track.longitude");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("number");
 		field.setRequired(true);
-		field.setPlaceholder("请填写经度");
+		field.setPlaceholder("请填写Longitude");
 		return field;
 	}
 
@@ -6152,14 +6152,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField effectiveDateFromAccountSet(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("生效日期");
+		field.setLabel("Effective Date");
 		field.setLocaleKey("account_set.effective_date");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date");
 		field.setRequired(true);
-		field.setPlaceholder("请填写生效日期");
+		field.setPlaceholder("请填写Effective Date");
 		return field;
 	}
 
@@ -6269,14 +6269,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromAccountSet(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("account_set.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -8414,14 +8414,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("employee.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -8856,14 +8856,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromInstructor(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("instructor.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -8960,14 +8960,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField lastUpdateTimeFromCompanyTraining(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最后更新时间");
+		field.setLabel("Last Update Time");
 		field.setLocaleKey("company_training.last_update_time");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("date_time");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最后更新时间");
+		field.setPlaceholder("请填写Last Update Time");
 		return field;
 	}
 
@@ -9922,27 +9922,27 @@ public class BaseForm extends GenericForm{
 
 	protected FormField userIdentityFromUserWhiteList(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("用户身份");
+		field.setLabel("User Identity");
 		field.setLocaleKey("user_white_list.user_identity");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("text");
 		field.setRequired(true);
-		field.setPlaceholder("请填写用户身份");
+		field.setPlaceholder("请填写User Identity");
 		return field;
 	}
 
 	protected FormField userSpecialFunctionsFromUserWhiteList(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("用户特殊功能");
+		field.setLabel("User Special Functions");
 		field.setLocaleKey("user_white_list.user_special_functions");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("text");
 		field.setRequired(true);
-		field.setPlaceholder("请填写用户特殊功能");
+		field.setPlaceholder("请填写User Special Functions");
 		return field;
 	}
 
@@ -10299,79 +10299,79 @@ public class BaseForm extends GenericForm{
 
 	protected FormField internalNameFromListAccess(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("内部名称");
+		field.setLabel("Internal Name");
 		field.setLocaleKey("list_access.internal_name");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("text");
 		field.setRequired(true);
-		field.setPlaceholder("请填写内部名称");
+		field.setPlaceholder("请填写Internal Name");
 		return field;
 	}
 
 	protected FormField readPermissionFromListAccess(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("读权限");
+		field.setLabel("Read Permission");
 		field.setLocaleKey("list_access.read_permission");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("switch");
 		field.setRequired(true);
-		field.setPlaceholder("请填写读权限");
+		field.setPlaceholder("请填写Read Permission");
 		return field;
 	}
 
 	protected FormField createPermissionFromListAccess(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("创建权限");
+		field.setLabel("Create Permission");
 		field.setLocaleKey("list_access.create_permission");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("switch");
 		field.setRequired(true);
-		field.setPlaceholder("请填写创建权限");
+		field.setPlaceholder("请填写Create Permission");
 		return field;
 	}
 
 	protected FormField deletePermissionFromListAccess(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("删除权限");
+		field.setLabel("Delete Permission");
 		field.setLocaleKey("list_access.delete_permission");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("switch");
 		field.setRequired(true);
-		field.setPlaceholder("请填写删除权限");
+		field.setPlaceholder("请填写Delete Permission");
 		return field;
 	}
 
 	protected FormField updatePermissionFromListAccess(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("更新许可");
+		field.setLabel("Update Permission");
 		field.setLocaleKey("list_access.update_permission");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("switch");
 		field.setRequired(true);
-		field.setPlaceholder("请填写更新许可");
+		field.setPlaceholder("请填写Update Permission");
 		return field;
 	}
 
 	protected FormField executionPermissionFromListAccess(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("执行权限");
+		field.setLabel("Execution Permission");
 		field.setLocaleKey("list_access.execution_permission");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("switch");
 		field.setRequired(true);
-		field.setPlaceholder("请填写执行权限");
+		field.setPlaceholder("请填写Execution Permission");
 		return field;
 	}
 
@@ -10910,27 +10910,27 @@ public class BaseForm extends GenericForm{
 
 	protected FormField minimumValueFromFormField(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最小值");
+		field.setLabel("Minimum Value");
 		field.setLocaleKey("form_field.minimum_value");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("text");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最小值");
+		field.setPlaceholder("请填写Minimum Value");
 		return field;
 	}
 
 	protected FormField maximumValueFromFormField(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("最大值");
+		field.setLabel("Maximum Value");
 		field.setLocaleKey("form_field.maximum_value");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("text");
 		field.setRequired(true);
-		field.setPlaceholder("请填写最大值");
+		field.setPlaceholder("请填写Maximum Value");
 		return field;
 	}
 
@@ -10949,14 +10949,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField disabledFromFormField(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("禁用");
+		field.setLabel("Disabled");
 		field.setLocaleKey("form_field.disabled");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("switch");
 		field.setRequired(true);
-		field.setPlaceholder("请填写禁用");
+		field.setPlaceholder("请填写Disabled");
 		return field;
 	}
 
@@ -11040,14 +11040,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField actionKeyFromFormAction(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("行动的关键");
+		field.setLabel("Action Key");
 		field.setLocaleKey("form_action.action_key");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("text");
 		field.setRequired(true);
-		field.setPlaceholder("请填写行动的关键");
+		field.setPlaceholder("请填写Action Key");
 		return field;
 	}
 

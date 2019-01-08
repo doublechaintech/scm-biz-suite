@@ -102,7 +102,14 @@ public class TerminationTypeTokens extends CommonTokens{
 		addSimpleOptions(TERMINATION_LIST);
 		return this;
 	}
-
+	public TerminationTypeTokens analyzeTerminationList(){		
+		addSimpleOptions(TERMINATION_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTerminationListEnabled(){		
+		
+		return checkOptions(this.options(), TERMINATION_LIST+".anaylze");
+	}
 	public TerminationTypeTokens extractMoreFromTerminationList(String idsSeperatedWithComma){		
 		addSimpleOptions(TERMINATION_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

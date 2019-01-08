@@ -680,7 +680,7 @@ public class EmployeeSalarySheetForm extends BaseForm {
  	
  	public EmployeeSalarySheetForm  payOffAction(){
 		FormAction action = new FormAction();
-		action.setLabel("回报");
+		action.setLabel("PayOff");
 		action.setLocaleKey("employee_salary_sheet.payOff");
 		action.setUrl("employeeSalarySheetManager/payOff/employeeSalarySheetId/who/paidForIdpaidTime/amount/");
 		this.addFormAction(action);

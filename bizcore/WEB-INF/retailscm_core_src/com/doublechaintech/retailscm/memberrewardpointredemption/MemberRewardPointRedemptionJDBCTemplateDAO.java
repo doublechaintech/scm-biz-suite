@@ -224,10 +224,6 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmNamingS
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected MemberRewardPointRedemption extractOwner(MemberRewardPointRedemption memberRewardPointRedemption, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmNamingS
  	public SmartList<MemberRewardPointRedemption> findMemberRewardPointRedemptionByOwner(String retailStoreMemberId,Map<String,Object> options){
  	
   		SmartList<MemberRewardPointRedemption> resultList = queryWith(MemberRewardPointRedemptionTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointRedemptionMapper());
-		analyzeMemberRewardPointRedemptionByOwner(resultList, retailStoreMemberId, options);
+		// analyzeMemberRewardPointRedemptionByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmNamingS
  	public SmartList<MemberRewardPointRedemption> findMemberRewardPointRedemptionByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
  		
  		SmartList<MemberRewardPointRedemption> resultList =  queryWithRange(MemberRewardPointRedemptionTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointRedemptionMapper(), start, count);
- 		analyzeMemberRewardPointRedemptionByOwner(resultList, retailStoreMemberId, options);
+ 		//analyzeMemberRewardPointRedemptionByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
  		
  	}
  	public void analyzeMemberRewardPointRedemptionByOwner(SmartList<MemberRewardPointRedemption> resultList, String retailStoreMemberId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -224,10 +224,6 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmNamingService
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected ProductSupplyDuration extractProduct(ProductSupplyDuration productSupplyDuration, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmNamingService
  	public SmartList<ProductSupplyDuration> findProductSupplyDurationByProduct(String supplierProductId,Map<String,Object> options){
  	
   		SmartList<ProductSupplyDuration> resultList = queryWith(ProductSupplyDurationTable.COLUMN_PRODUCT, supplierProductId, options, getProductSupplyDurationMapper());
-		analyzeProductSupplyDurationByProduct(resultList, supplierProductId, options);
+		// analyzeProductSupplyDurationByProduct(resultList, supplierProductId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmNamingService
  	public SmartList<ProductSupplyDuration> findProductSupplyDurationByProduct(String supplierProductId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ProductSupplyDuration> resultList =  queryWithRange(ProductSupplyDurationTable.COLUMN_PRODUCT, supplierProductId, options, getProductSupplyDurationMapper(), start, count);
- 		analyzeProductSupplyDurationByProduct(resultList, supplierProductId, options);
+ 		//analyzeProductSupplyDurationByProduct(resultList, supplierProductId, options);
  		return resultList;
  		
  	}
  	public void analyzeProductSupplyDurationByProduct(SmartList<ProductSupplyDuration> resultList, String supplierProductId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

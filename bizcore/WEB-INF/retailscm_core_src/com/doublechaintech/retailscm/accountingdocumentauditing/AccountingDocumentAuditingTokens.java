@@ -90,7 +90,14 @@ public class AccountingDocumentAuditingTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LIST);
 		return this;
 	}
-
+	public AccountingDocumentAuditingTokens analyzeAccountingDocumentList(){		
+		addSimpleOptions(ACCOUNTING_DOCUMENT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountingDocumentListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_LIST+".anaylze");
+	}
 	public AccountingDocumentAuditingTokens extractMoreFromAccountingDocumentList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

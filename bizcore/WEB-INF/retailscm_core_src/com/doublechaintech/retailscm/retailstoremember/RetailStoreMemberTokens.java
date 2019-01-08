@@ -108,7 +108,14 @@ public class RetailStoreMemberTokens extends CommonTokens{
 		addSimpleOptions(CONSUMER_ORDER_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberTokens analyzeConsumerOrderList(){		
+		addSimpleOptions(CONSUMER_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeConsumerOrderListEnabled(){		
+		
+		return checkOptions(this.options(), CONSUMER_ORDER_LIST+".anaylze");
+	}
 	public RetailStoreMemberTokens extractMoreFromConsumerOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -163,7 +170,14 @@ public class RetailStoreMemberTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_MEMBER_COUPON_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberTokens analyzeRetailStoreMemberCouponList(){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_COUPON_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreMemberCouponListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_MEMBER_COUPON_LIST+".anaylze");
+	}
 	public RetailStoreMemberTokens extractMoreFromRetailStoreMemberCouponList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_COUPON_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -218,7 +232,14 @@ public class RetailStoreMemberTokens extends CommonTokens{
 		addSimpleOptions(MEMBER_WISHLIST_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberTokens analyzeMemberWishlistList(){		
+		addSimpleOptions(MEMBER_WISHLIST_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeMemberWishlistListEnabled(){		
+		
+		return checkOptions(this.options(), MEMBER_WISHLIST_LIST+".anaylze");
+	}
 	public RetailStoreMemberTokens extractMoreFromMemberWishlistList(String idsSeperatedWithComma){		
 		addSimpleOptions(MEMBER_WISHLIST_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -273,7 +294,14 @@ public class RetailStoreMemberTokens extends CommonTokens{
 		addSimpleOptions(MEMBER_REWARD_POINT_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberTokens analyzeMemberRewardPointList(){		
+		addSimpleOptions(MEMBER_REWARD_POINT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeMemberRewardPointListEnabled(){		
+		
+		return checkOptions(this.options(), MEMBER_REWARD_POINT_LIST+".anaylze");
+	}
 	public RetailStoreMemberTokens extractMoreFromMemberRewardPointList(String idsSeperatedWithComma){		
 		addSimpleOptions(MEMBER_REWARD_POINT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -328,7 +356,14 @@ public class RetailStoreMemberTokens extends CommonTokens{
 		addSimpleOptions(MEMBER_REWARD_POINT_REDEMPTION_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberTokens analyzeMemberRewardPointRedemptionList(){		
+		addSimpleOptions(MEMBER_REWARD_POINT_REDEMPTION_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeMemberRewardPointRedemptionListEnabled(){		
+		
+		return checkOptions(this.options(), MEMBER_REWARD_POINT_REDEMPTION_LIST+".anaylze");
+	}
 	public RetailStoreMemberTokens extractMoreFromMemberRewardPointRedemptionList(String idsSeperatedWithComma){		
 		addSimpleOptions(MEMBER_REWARD_POINT_REDEMPTION_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -383,7 +418,14 @@ public class RetailStoreMemberTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_MEMBER_ADDRESS_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberTokens analyzeRetailStoreMemberAddressList(){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_ADDRESS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreMemberAddressListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_MEMBER_ADDRESS_LIST+".anaylze");
+	}
 	public RetailStoreMemberTokens extractMoreFromRetailStoreMemberAddressList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_ADDRESS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -438,7 +480,14 @@ public class RetailStoreMemberTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberTokens analyzeRetailStoreMemberGiftCardList(){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreMemberGiftCardListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".anaylze");
+	}
 	public RetailStoreMemberTokens extractMoreFromRetailStoreMemberGiftCardList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

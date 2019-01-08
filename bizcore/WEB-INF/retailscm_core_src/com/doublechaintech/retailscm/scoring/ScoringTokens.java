@@ -90,7 +90,14 @@ public class ScoringTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST);
 		return this;
 	}
-
+	public ScoringTokens analyzeEmployeeCompanyTrainingList(){		
+		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeCompanyTrainingListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+	}
 	public ScoringTokens extractMoreFromEmployeeCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

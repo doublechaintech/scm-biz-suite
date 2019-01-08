@@ -102,7 +102,14 @@ public class MemberWishlistTokens extends CommonTokens{
 		addSimpleOptions(MEMBER_WISHLIST_PRODUCT_LIST);
 		return this;
 	}
-
+	public MemberWishlistTokens analyzeMemberWishlistProductList(){		
+		addSimpleOptions(MEMBER_WISHLIST_PRODUCT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeMemberWishlistProductListEnabled(){		
+		
+		return checkOptions(this.options(), MEMBER_WISHLIST_PRODUCT_LIST+".anaylze");
+	}
 	public MemberWishlistTokens extractMoreFromMemberWishlistProductList(String idsSeperatedWithComma){		
 		addSimpleOptions(MEMBER_WISHLIST_PRODUCT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

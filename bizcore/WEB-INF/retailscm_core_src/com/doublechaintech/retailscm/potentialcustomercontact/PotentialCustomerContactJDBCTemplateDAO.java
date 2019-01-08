@@ -282,10 +282,6 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected PotentialCustomerContact extractPotentialCustomer(PotentialCustomerContact potentialCustomerContact, Map<String,Object> options) throws Exception{
@@ -353,7 +349,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
  	
   		SmartList<PotentialCustomerContact> resultList = queryWith(PotentialCustomerContactTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactMapper());
-		analyzePotentialCustomerContactByPotentialCustomer(resultList, potentialCustomerId, options);
+		// analyzePotentialCustomerContactByPotentialCustomer(resultList, potentialCustomerId, options);
 		return resultList;
  	}
  	 
@@ -361,12 +357,14 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByPotentialCustomer(String potentialCustomerId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PotentialCustomerContact> resultList =  queryWithRange(PotentialCustomerContactTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactMapper(), start, count);
- 		analyzePotentialCustomerContactByPotentialCustomer(resultList, potentialCustomerId, options);
+ 		//analyzePotentialCustomerContactByPotentialCustomer(resultList, potentialCustomerId, options);
  		return resultList;
  		
  	}
  	public void analyzePotentialCustomerContactByPotentialCustomer(SmartList<PotentialCustomerContact> resultList, String potentialCustomerId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomerContact.POTENTIAL_CUSTOMER_PROPERTY, potentialCustomerId);
@@ -401,7 +399,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByCityPartner(String cityPartnerId,Map<String,Object> options){
  	
   		SmartList<PotentialCustomerContact> resultList = queryWith(PotentialCustomerContactTable.COLUMN_CITY_PARTNER, cityPartnerId, options, getPotentialCustomerContactMapper());
-		analyzePotentialCustomerContactByCityPartner(resultList, cityPartnerId, options);
+		// analyzePotentialCustomerContactByCityPartner(resultList, cityPartnerId, options);
 		return resultList;
  	}
  	 
@@ -409,12 +407,14 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByCityPartner(String cityPartnerId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PotentialCustomerContact> resultList =  queryWithRange(PotentialCustomerContactTable.COLUMN_CITY_PARTNER, cityPartnerId, options, getPotentialCustomerContactMapper(), start, count);
- 		analyzePotentialCustomerContactByCityPartner(resultList, cityPartnerId, options);
+ 		//analyzePotentialCustomerContactByCityPartner(resultList, cityPartnerId, options);
  		return resultList;
  		
  	}
  	public void analyzePotentialCustomerContactByCityPartner(SmartList<PotentialCustomerContact> resultList, String cityPartnerId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomerContact.CITY_PARTNER_PROPERTY, cityPartnerId);
@@ -449,7 +449,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByContactTo(String potentialCustomerContactPersonId,Map<String,Object> options){
  	
   		SmartList<PotentialCustomerContact> resultList = queryWith(PotentialCustomerContactTable.COLUMN_CONTACT_TO, potentialCustomerContactPersonId, options, getPotentialCustomerContactMapper());
-		analyzePotentialCustomerContactByContactTo(resultList, potentialCustomerContactPersonId, options);
+		// analyzePotentialCustomerContactByContactTo(resultList, potentialCustomerContactPersonId, options);
 		return resultList;
  	}
  	 
@@ -457,12 +457,14 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<PotentialCustomerContact> findPotentialCustomerContactByContactTo(String potentialCustomerContactPersonId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PotentialCustomerContact> resultList =  queryWithRange(PotentialCustomerContactTable.COLUMN_CONTACT_TO, potentialCustomerContactPersonId, options, getPotentialCustomerContactMapper(), start, count);
- 		analyzePotentialCustomerContactByContactTo(resultList, potentialCustomerContactPersonId, options);
+ 		//analyzePotentialCustomerContactByContactTo(resultList, potentialCustomerContactPersonId, options);
  		return resultList;
  		
  	}
  	public void analyzePotentialCustomerContactByContactTo(SmartList<PotentialCustomerContact> resultList, String potentialCustomerContactPersonId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomerContact.CONTACT_TO_PROPERTY, potentialCustomerContactPersonId);

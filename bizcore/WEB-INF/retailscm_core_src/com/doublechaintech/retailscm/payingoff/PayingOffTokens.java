@@ -102,7 +102,14 @@ public class PayingOffTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST);
 		return this;
 	}
-
+	public PayingOffTokens analyzeEmployeeSalarySheetList(){		
+		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeSalarySheetListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+	}
 	public PayingOffTokens extractMoreFromEmployeeSalarySheetList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

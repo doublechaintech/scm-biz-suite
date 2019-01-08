@@ -218,10 +218,11 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	
-	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TrainingCourseTypeTokens.COMPANY_TRAINING_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TrainingCourseTypeTokens.COMPANY_TRAINING_LIST+".analyze");
  	}
 
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 		if(isExtractCompanyTrainingListEnabled(loadOptions)){
 	 		extractCompanyTrainingList(trainingCourseType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeCompanyTrainingListEnabled(loadOptions)){
+	 		// analyzeCompanyTrainingList(trainingCourseType, loadOptions);
+ 		}
+ 		
 		
 		return trainingCourseType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected TrainingCourseType extractCompany(TrainingCourseType trainingCourseType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	protected void enhanceCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TrainingCourseType extractCompanyTrainingList(TrainingCourseType trainingCourseType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return trainingCourseType;
 	
 	}	
+	
+	protected TrainingCourseType analyzeCompanyTrainingList(TrainingCourseType trainingCourseType, Map<String,Object> options){
+		
+		
+		if(trainingCourseType == null){
+			return null;
+		}
+		if(trainingCourseType.getId() == null){
+			return trainingCourseType;
+		}
+
+		
+		
+		SmartList<CompanyTraining> companyTrainingList = trainingCourseType.getCompanyTrainingList();
+		if(companyTrainingList != null){
+			getCompanyTrainingDAO().analyzeCompanyTrainingByTrainingCourseType(companyTrainingList, trainingCourseType.getId(), options);
+			
+		}
+		
+		return trainingCourseType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<TrainingCourseType> findTrainingCourseTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<TrainingCourseType> resultList = queryWith(TrainingCourseTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTrainingCourseTypeMapper());
-		analyzeTrainingCourseTypeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeTrainingCourseTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<TrainingCourseType> findTrainingCourseTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TrainingCourseType> resultList =  queryWithRange(TrainingCourseTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTrainingCourseTypeMapper(), start, count);
- 		analyzeTrainingCourseTypeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeTrainingCourseTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeTrainingCourseTypeByCompany(SmartList<TrainingCourseType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

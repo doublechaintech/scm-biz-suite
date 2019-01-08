@@ -193,10 +193,11 @@ public class RetailStoreOrderShipmentJDBCTemplateDAO extends RetailscmNamingServ
 
 		
 	
-	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreOrderShipmentJDBCTemplateDAO extends RetailscmNamingServ
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreOrderShipmentJDBCTemplateDAO extends RetailscmNamingServ
 		
 		if(isExtractRetailStoreOrderListEnabled(loadOptions)){
 	 		extractRetailStoreOrderList(retailStoreOrderShipment, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderList(retailStoreOrderShipment, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreOrderShipment;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrderShipment extractRetailStoreOrderList(RetailStoreOrderShipment retailStoreOrderShipment, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreOrderShipmentJDBCTemplateDAO extends RetailscmNamingServ
 		return retailStoreOrderShipment;
 	
 	}	
+	
+	protected RetailStoreOrderShipment analyzeRetailStoreOrderList(RetailStoreOrderShipment retailStoreOrderShipment, Map<String,Object> options){
+		
+		
+		if(retailStoreOrderShipment == null){
+			return null;
+		}
+		if(retailStoreOrderShipment.getId() == null){
+			return retailStoreOrderShipment;
+		}
+
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();
+		if(retailStoreOrderList != null){
+			getRetailStoreOrderDAO().analyzeRetailStoreOrderByShipment(retailStoreOrderList, retailStoreOrderShipment.getId(), options);
+			
+		}
+		
+		return retailStoreOrderShipment;
+	
+	}	
+	
 		
 		
  	

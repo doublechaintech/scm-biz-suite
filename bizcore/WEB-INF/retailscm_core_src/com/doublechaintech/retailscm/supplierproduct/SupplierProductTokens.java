@@ -102,7 +102,14 @@ public class SupplierProductTokens extends CommonTokens{
 		addSimpleOptions(PRODUCT_SUPPLY_DURATION_LIST);
 		return this;
 	}
-
+	public SupplierProductTokens analyzeProductSupplyDurationList(){		
+		addSimpleOptions(PRODUCT_SUPPLY_DURATION_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeProductSupplyDurationListEnabled(){		
+		
+		return checkOptions(this.options(), PRODUCT_SUPPLY_DURATION_LIST+".anaylze");
+	}
 	public SupplierProductTokens extractMoreFromProductSupplyDurationList(String idsSeperatedWithComma){		
 		addSimpleOptions(PRODUCT_SUPPLY_DURATION_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

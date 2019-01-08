@@ -193,10 +193,11 @@ public class AccountingDocumentPostingJDBCTemplateDAO extends RetailscmNamingSer
 
 		
 	
-	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentPostingTokens.ACCOUNTING_DOCUMENT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingDocumentPostingTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class AccountingDocumentPostingJDBCTemplateDAO extends RetailscmNamingSer
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class AccountingDocumentPostingJDBCTemplateDAO extends RetailscmNamingSer
 		
 		if(isExtractAccountingDocumentListEnabled(loadOptions)){
 	 		extractAccountingDocumentList(accountingDocumentPosting, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentList(accountingDocumentPosting, loadOptions);
+ 		}
+ 		
 		
 		return accountingDocumentPosting;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingDocumentPosting extractAccountingDocumentList(AccountingDocumentPosting accountingDocumentPosting, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class AccountingDocumentPostingJDBCTemplateDAO extends RetailscmNamingSer
 		return accountingDocumentPosting;
 	
 	}	
+	
+	protected AccountingDocumentPosting analyzeAccountingDocumentList(AccountingDocumentPosting accountingDocumentPosting, Map<String,Object> options){
+		
+		
+		if(accountingDocumentPosting == null){
+			return null;
+		}
+		if(accountingDocumentPosting.getId() == null){
+			return accountingDocumentPosting;
+		}
+
+		
+		
+		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentPosting.getAccountingDocumentList();
+		if(accountingDocumentList != null){
+			getAccountingDocumentDAO().analyzeAccountingDocumentByPosting(accountingDocumentList, accountingDocumentPosting.getId(), options);
+			
+		}
+		
+		return accountingDocumentPosting;
+	
+	}	
+	
 		
 		
  	

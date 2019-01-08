@@ -218,10 +218,11 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		
 	
-	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST+".analyze");
  	}
 
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
 		if(isExtractCompanyTrainingListEnabled(loadOptions)){
 	 		extractCompanyTrainingList(instructor, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeCompanyTrainingListEnabled(loadOptions)){
+	 		// analyzeCompanyTrainingList(instructor, loadOptions);
+ 		}
+ 		
 		
 		return instructor;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected Instructor extractCompany(Instructor instructor, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		
 	protected void enhanceCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Instructor extractCompanyTrainingList(Instructor instructor, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return instructor;
 	
 	}	
+	
+	protected Instructor analyzeCompanyTrainingList(Instructor instructor, Map<String,Object> options){
+		
+		
+		if(instructor == null){
+			return null;
+		}
+		if(instructor.getId() == null){
+			return instructor;
+		}
+
+		
+		
+		SmartList<CompanyTraining> companyTrainingList = instructor.getCompanyTrainingList();
+		if(companyTrainingList != null){
+			getCompanyTrainingDAO().analyzeCompanyTrainingByInstructor(companyTrainingList, instructor.getId(), options);
+			
+		}
+		
+		return instructor;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<Instructor> findInstructorByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<Instructor> resultList = queryWith(InstructorTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInstructorMapper());
-		analyzeInstructorByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeInstructorByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<Instructor> findInstructorByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Instructor> resultList =  queryWithRange(InstructorTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInstructorMapper(), start, count);
- 		analyzeInstructorByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeInstructorByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeInstructorByCompany(SmartList<Instructor> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Instructor.COMPANY_PROPERTY, retailStoreCountryCenterId);

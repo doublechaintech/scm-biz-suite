@@ -477,10 +477,11 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	
-	protected boolean isExtractSupplyOrderLineItemListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSupplyOrderLineItemListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_LINE_ITEM_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSupplyOrderLineItemListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_LINE_ITEM_LIST+".analyze");
  	}
 
 	protected boolean isSaveSupplyOrderLineItemListEnabled(Map<String,Object> options){
@@ -488,14 +489,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractSupplyOrderShippingGroupListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSupplyOrderShippingGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_SHIPPING_GROUP_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSupplyOrderShippingGroupListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_SHIPPING_GROUP_LIST+".analyze");
  	}
 
 	protected boolean isSaveSupplyOrderShippingGroupListEnabled(Map<String,Object> options){
@@ -503,14 +503,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_PAYMENT_GROUP_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_PAYMENT_GROUP_LIST+".analyze");
  	}
 
 	protected boolean isSaveSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){
@@ -518,14 +517,13 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.GOODS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderTokens.GOODS_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -533,8 +531,6 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -597,28 +593,40 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
 		if(isExtractSupplyOrderLineItemListEnabled(loadOptions)){
 	 		extractSupplyOrderLineItemList(supplyOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSupplyOrderLineItemListEnabled(loadOptions)){
+	 		// analyzeSupplyOrderLineItemList(supplyOrder, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractSupplyOrderShippingGroupListEnabled(loadOptions)){
 	 		extractSupplyOrderShippingGroupList(supplyOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSupplyOrderShippingGroupListEnabled(loadOptions)){
+	 		// analyzeSupplyOrderShippingGroupList(supplyOrder, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractSupplyOrderPaymentGroupListEnabled(loadOptions)){
 	 		extractSupplyOrderPaymentGroupList(supplyOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSupplyOrderPaymentGroupListEnabled(loadOptions)){
+	 		// analyzeSupplyOrderPaymentGroupList(supplyOrder, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(supplyOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsListEnabled(loadOptions)){
+	 		// analyzeGoodsList(supplyOrder, loadOptions);
+ 		}
+ 		
 		
 		return supplyOrder;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected SupplyOrder extractBuyer(SupplyOrder supplyOrder, Map<String,Object> options) throws Exception{
@@ -782,13 +790,10 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	protected void enhanceSupplyOrderLineItemList(SmartList<SupplyOrderLineItem> supplyOrderLineItemList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrder extractSupplyOrderLineItemList(SupplyOrder supplyOrder, Map<String,Object> options){
 		
 		
@@ -810,15 +815,35 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return supplyOrder;
 	
 	}	
+	
+	protected SupplyOrder analyzeSupplyOrderLineItemList(SupplyOrder supplyOrder, Map<String,Object> options){
+		
+		
+		if(supplyOrder == null){
+			return null;
+		}
+		if(supplyOrder.getId() == null){
+			return supplyOrder;
+		}
+
+		
+		
+		SmartList<SupplyOrderLineItem> supplyOrderLineItemList = supplyOrder.getSupplyOrderLineItemList();
+		if(supplyOrderLineItemList != null){
+			getSupplyOrderLineItemDAO().analyzeSupplyOrderLineItemByBizOrder(supplyOrderLineItemList, supplyOrder.getId(), options);
+			
+		}
+		
+		return supplyOrder;
+	
+	}	
+	
 		
 	protected void enhanceSupplyOrderShippingGroupList(SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrder extractSupplyOrderShippingGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
 		
 		
@@ -840,15 +865,35 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return supplyOrder;
 	
 	}	
+	
+	protected SupplyOrder analyzeSupplyOrderShippingGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
+		
+		
+		if(supplyOrder == null){
+			return null;
+		}
+		if(supplyOrder.getId() == null){
+			return supplyOrder;
+		}
+
+		
+		
+		SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList = supplyOrder.getSupplyOrderShippingGroupList();
+		if(supplyOrderShippingGroupList != null){
+			getSupplyOrderShippingGroupDAO().analyzeSupplyOrderShippingGroupByBizOrder(supplyOrderShippingGroupList, supplyOrder.getId(), options);
+			
+		}
+		
+		return supplyOrder;
+	
+	}	
+	
 		
 	protected void enhanceSupplyOrderPaymentGroupList(SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrder extractSupplyOrderPaymentGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
 		
 		
@@ -870,15 +915,35 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return supplyOrder;
 	
 	}	
+	
+	protected SupplyOrder analyzeSupplyOrderPaymentGroupList(SupplyOrder supplyOrder, Map<String,Object> options){
+		
+		
+		if(supplyOrder == null){
+			return null;
+		}
+		if(supplyOrder.getId() == null){
+			return supplyOrder;
+		}
+
+		
+		
+		SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList = supplyOrder.getSupplyOrderPaymentGroupList();
+		if(supplyOrderPaymentGroupList != null){
+			getSupplyOrderPaymentGroupDAO().analyzeSupplyOrderPaymentGroupByBizOrder(supplyOrderPaymentGroupList, supplyOrder.getId(), options);
+			
+		}
+		
+		return supplyOrder;
+	
+	}	
+	
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrder extractGoodsList(SupplyOrder supplyOrder, Map<String,Object> options){
 		
 		
@@ -900,13 +965,36 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return supplyOrder;
 	
 	}	
+	
+	protected SupplyOrder analyzeGoodsList(SupplyOrder supplyOrder, Map<String,Object> options){
+		
+		
+		if(supplyOrder == null){
+			return null;
+		}
+		if(supplyOrder.getId() == null){
+			return supplyOrder;
+		}
+
+		
+		
+		SmartList<Goods> goodsList = supplyOrder.getGoodsList();
+		if(goodsList != null){
+			getGoodsDAO().analyzeGoodsByBizOrder(goodsList, supplyOrder.getId(), options);
+			
+		}
+		
+		return supplyOrder;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<SupplyOrder> findSupplyOrderByBuyer(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_BUYER, retailStoreCountryCenterId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderByBuyer(resultList, retailStoreCountryCenterId, options);
+		// analyzeSupplyOrderByBuyer(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -914,12 +1002,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByBuyer(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_BUYER, retailStoreCountryCenterId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderByBuyer(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeSupplyOrderByBuyer(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderByBuyer(SmartList<SupplyOrder> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.BUYER_PROPERTY, retailStoreCountryCenterId);
@@ -954,7 +1044,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderBySeller(String goodsSupplierId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_SELLER, goodsSupplierId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderBySeller(resultList, goodsSupplierId, options);
+		// analyzeSupplyOrderBySeller(resultList, goodsSupplierId, options);
 		return resultList;
  	}
  	 
@@ -962,12 +1052,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderBySeller(String goodsSupplierId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_SELLER, goodsSupplierId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderBySeller(resultList, goodsSupplierId, options);
+ 		//analyzeSupplyOrderBySeller(resultList, goodsSupplierId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderBySeller(SmartList<SupplyOrder> resultList, String goodsSupplierId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.SELLER_PROPERTY, goodsSupplierId);
@@ -1002,7 +1094,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByConfirmation(String supplyOrderConfirmationId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_CONFIRMATION, supplyOrderConfirmationId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderByConfirmation(resultList, supplyOrderConfirmationId, options);
+		// analyzeSupplyOrderByConfirmation(resultList, supplyOrderConfirmationId, options);
 		return resultList;
  	}
  	 
@@ -1010,12 +1102,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByConfirmation(String supplyOrderConfirmationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_CONFIRMATION, supplyOrderConfirmationId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderByConfirmation(resultList, supplyOrderConfirmationId, options);
+ 		//analyzeSupplyOrderByConfirmation(resultList, supplyOrderConfirmationId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderByConfirmation(SmartList<SupplyOrder> resultList, String supplyOrderConfirmationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.CONFIRMATION_PROPERTY, supplyOrderConfirmationId);
@@ -1050,7 +1144,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByApproval(String supplyOrderApprovalId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_APPROVAL, supplyOrderApprovalId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderByApproval(resultList, supplyOrderApprovalId, options);
+		// analyzeSupplyOrderByApproval(resultList, supplyOrderApprovalId, options);
 		return resultList;
  	}
  	 
@@ -1058,12 +1152,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByApproval(String supplyOrderApprovalId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_APPROVAL, supplyOrderApprovalId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderByApproval(resultList, supplyOrderApprovalId, options);
+ 		//analyzeSupplyOrderByApproval(resultList, supplyOrderApprovalId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderByApproval(SmartList<SupplyOrder> resultList, String supplyOrderApprovalId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.APPROVAL_PROPERTY, supplyOrderApprovalId);
@@ -1098,7 +1194,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByProcessing(String supplyOrderProcessingId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_PROCESSING, supplyOrderProcessingId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderByProcessing(resultList, supplyOrderProcessingId, options);
+		// analyzeSupplyOrderByProcessing(resultList, supplyOrderProcessingId, options);
 		return resultList;
  	}
  	 
@@ -1106,12 +1202,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByProcessing(String supplyOrderProcessingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_PROCESSING, supplyOrderProcessingId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderByProcessing(resultList, supplyOrderProcessingId, options);
+ 		//analyzeSupplyOrderByProcessing(resultList, supplyOrderProcessingId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderByProcessing(SmartList<SupplyOrder> resultList, String supplyOrderProcessingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.PROCESSING_PROPERTY, supplyOrderProcessingId);
@@ -1146,7 +1244,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByPicking(String supplyOrderPickingId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_PICKING, supplyOrderPickingId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderByPicking(resultList, supplyOrderPickingId, options);
+		// analyzeSupplyOrderByPicking(resultList, supplyOrderPickingId, options);
 		return resultList;
  	}
  	 
@@ -1154,12 +1252,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByPicking(String supplyOrderPickingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_PICKING, supplyOrderPickingId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderByPicking(resultList, supplyOrderPickingId, options);
+ 		//analyzeSupplyOrderByPicking(resultList, supplyOrderPickingId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderByPicking(SmartList<SupplyOrder> resultList, String supplyOrderPickingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.PICKING_PROPERTY, supplyOrderPickingId);
@@ -1194,7 +1294,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByShipment(String supplyOrderShipmentId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_SHIPMENT, supplyOrderShipmentId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderByShipment(resultList, supplyOrderShipmentId, options);
+		// analyzeSupplyOrderByShipment(resultList, supplyOrderShipmentId, options);
 		return resultList;
  	}
  	 
@@ -1202,12 +1302,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByShipment(String supplyOrderShipmentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_SHIPMENT, supplyOrderShipmentId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderByShipment(resultList, supplyOrderShipmentId, options);
+ 		//analyzeSupplyOrderByShipment(resultList, supplyOrderShipmentId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderByShipment(SmartList<SupplyOrder> resultList, String supplyOrderShipmentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.SHIPMENT_PROPERTY, supplyOrderShipmentId);
@@ -1242,7 +1344,7 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByDelivery(String supplyOrderDeliveryId,Map<String,Object> options){
  	
   		SmartList<SupplyOrder> resultList = queryWith(SupplyOrderTable.COLUMN_DELIVERY, supplyOrderDeliveryId, options, getSupplyOrderMapper());
-		analyzeSupplyOrderByDelivery(resultList, supplyOrderDeliveryId, options);
+		// analyzeSupplyOrderByDelivery(resultList, supplyOrderDeliveryId, options);
 		return resultList;
  	}
  	 
@@ -1250,12 +1352,14 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SupplyOrder> findSupplyOrderByDelivery(String supplyOrderDeliveryId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrder> resultList =  queryWithRange(SupplyOrderTable.COLUMN_DELIVERY, supplyOrderDeliveryId, options, getSupplyOrderMapper(), start, count);
- 		analyzeSupplyOrderByDelivery(resultList, supplyOrderDeliveryId, options);
+ 		//analyzeSupplyOrderByDelivery(resultList, supplyOrderDeliveryId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderByDelivery(SmartList<SupplyOrder> resultList, String supplyOrderDeliveryId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SupplyOrder.DELIVERY_PROPERTY, supplyOrderDeliveryId);

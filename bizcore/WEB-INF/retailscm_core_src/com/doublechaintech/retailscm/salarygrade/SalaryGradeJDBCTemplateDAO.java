@@ -246,10 +246,11 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SalaryGradeTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SalaryGradeTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -257,14 +258,13 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SalaryGradeTokens.EMPLOYEE_SALARY_SHEET_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SalaryGradeTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){
@@ -272,8 +272,6 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -308,20 +306,24 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(salaryGrade, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(salaryGrade, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeSalarySheetListEnabled(loadOptions)){
 	 		extractEmployeeSalarySheetList(salaryGrade, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeSalarySheetListEnabled(loadOptions)){
+	 		// analyzeEmployeeSalarySheetList(salaryGrade, loadOptions);
+ 		}
+ 		
 		
 		return salaryGrade;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected SalaryGrade extractCompany(SalaryGrade salaryGrade, Map<String,Object> options) throws Exception{
@@ -345,13 +347,10 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SalaryGrade extractEmployeeList(SalaryGrade salaryGrade, Map<String,Object> options){
 		
 		
@@ -373,15 +372,35 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return salaryGrade;
 	
 	}	
+	
+	protected SalaryGrade analyzeEmployeeList(SalaryGrade salaryGrade, Map<String,Object> options){
+		
+		
+		if(salaryGrade == null){
+			return null;
+		}
+		if(salaryGrade.getId() == null){
+			return salaryGrade;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = salaryGrade.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByCurrentSalaryGrade(employeeList, salaryGrade.getId(), options);
+			
+		}
+		
+		return salaryGrade;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SalaryGrade extractEmployeeSalarySheetList(SalaryGrade salaryGrade, Map<String,Object> options){
 		
 		
@@ -403,13 +422,36 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return salaryGrade;
 	
 	}	
+	
+	protected SalaryGrade analyzeEmployeeSalarySheetList(SalaryGrade salaryGrade, Map<String,Object> options){
+		
+		
+		if(salaryGrade == null){
+			return null;
+		}
+		if(salaryGrade.getId() == null){
+			return salaryGrade;
+		}
+
+		
+		
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = salaryGrade.getEmployeeSalarySheetList();
+		if(employeeSalarySheetList != null){
+			getEmployeeSalarySheetDAO().analyzeEmployeeSalarySheetByCurrentSalaryGrade(employeeSalarySheetList, salaryGrade.getId(), options);
+			
+		}
+		
+		return salaryGrade;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<SalaryGrade> findSalaryGradeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<SalaryGrade> resultList = queryWith(SalaryGradeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getSalaryGradeMapper());
-		analyzeSalaryGradeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeSalaryGradeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -417,12 +459,14 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SalaryGrade> findSalaryGradeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SalaryGrade> resultList =  queryWithRange(SalaryGradeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getSalaryGradeMapper(), start, count);
- 		analyzeSalaryGradeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeSalaryGradeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeSalaryGradeByCompany(SmartList<SalaryGrade> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

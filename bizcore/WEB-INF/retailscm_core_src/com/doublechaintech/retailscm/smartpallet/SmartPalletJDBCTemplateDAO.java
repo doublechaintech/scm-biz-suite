@@ -218,10 +218,11 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SmartPalletTokens.GOODS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SmartPalletTokens.GOODS_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(smartPallet, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsListEnabled(loadOptions)){
+	 		// analyzeGoodsList(smartPallet, loadOptions);
+ 		}
+ 		
 		
 		return smartPallet;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected SmartPallet extractWarehouse(SmartPallet smartPallet, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SmartPallet extractGoodsList(SmartPallet smartPallet, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return smartPallet;
 	
 	}	
+	
+	protected SmartPallet analyzeGoodsList(SmartPallet smartPallet, Map<String,Object> options){
+		
+		
+		if(smartPallet == null){
+			return null;
+		}
+		if(smartPallet.getId() == null){
+			return smartPallet;
+		}
+
+		
+		
+		SmartList<Goods> goodsList = smartPallet.getGoodsList();
+		if(goodsList != null){
+			getGoodsDAO().analyzeGoodsBySmartPallet(goodsList, smartPallet.getId(), options);
+			
+		}
+		
+		return smartPallet;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<SmartPallet> findSmartPalletByWarehouse(String warehouseId,Map<String,Object> options){
  	
   		SmartList<SmartPallet> resultList = queryWith(SmartPalletTable.COLUMN_WAREHOUSE, warehouseId, options, getSmartPalletMapper());
-		analyzeSmartPalletByWarehouse(resultList, warehouseId, options);
+		// analyzeSmartPalletByWarehouse(resultList, warehouseId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<SmartPallet> findSmartPalletByWarehouse(String warehouseId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SmartPallet> resultList =  queryWithRange(SmartPalletTable.COLUMN_WAREHOUSE, warehouseId, options, getSmartPalletMapper(), start, count);
- 		analyzeSmartPalletByWarehouse(resultList, warehouseId, options);
+ 		//analyzeSmartPalletByWarehouse(resultList, warehouseId, options);
  		return resultList;
  		
  	}
  	public void analyzeSmartPalletByWarehouse(SmartList<SmartPallet> resultList, String warehouseId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

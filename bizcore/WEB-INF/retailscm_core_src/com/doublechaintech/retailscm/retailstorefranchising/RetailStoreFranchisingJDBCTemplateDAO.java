@@ -193,10 +193,11 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmNamingServic
 
 		
 	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmNamingServic
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmNamingServic
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreFranchising, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
+	 		// analyzeRetailStoreList(retailStoreFranchising, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreFranchising;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreFranchising extractRetailStoreList(RetailStoreFranchising retailStoreFranchising, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmNamingServic
 		return retailStoreFranchising;
 	
 	}	
+	
+	protected RetailStoreFranchising analyzeRetailStoreList(RetailStoreFranchising retailStoreFranchising, Map<String,Object> options){
+		
+		
+		if(retailStoreFranchising == null){
+			return null;
+		}
+		if(retailStoreFranchising.getId() == null){
+			return retailStoreFranchising;
+		}
+
+		
+		
+		SmartList<RetailStore> retailStoreList = retailStoreFranchising.getRetailStoreList();
+		if(retailStoreList != null){
+			getRetailStoreDAO().analyzeRetailStoreByFranchising(retailStoreList, retailStoreFranchising.getId(), options);
+			
+		}
+		
+		return retailStoreFranchising;
+	
+	}	
+	
 		
 		
  	

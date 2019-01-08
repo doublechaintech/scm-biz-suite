@@ -274,10 +274,11 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		
 	
-	protected boolean isExtractTransportTruckListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractTransportTruckListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeTransportTruckListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST+".analyze");
  	}
 
 	protected boolean isSaveTransportTruckListEnabled(Map<String,Object> options){
@@ -285,14 +286,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractTruckDriverListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractTruckDriverListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeTruckDriverListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST+".analyze");
  	}
 
 	protected boolean isSaveTruckDriverListEnabled(Map<String,Object> options){
@@ -300,14 +300,13 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST+".analyze");
  	}
 
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){
@@ -315,8 +314,6 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -351,24 +348,32 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
 		if(isExtractTransportTruckListEnabled(loadOptions)){
 	 		extractTransportTruckList(transportFleet, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeTransportTruckListEnabled(loadOptions)){
+	 		// analyzeTransportTruckList(transportFleet, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractTruckDriverListEnabled(loadOptions)){
 	 		extractTruckDriverList(transportFleet, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeTruckDriverListEnabled(loadOptions)){
+	 		// analyzeTruckDriverList(transportFleet, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractTransportTaskListEnabled(loadOptions)){
 	 		extractTransportTaskList(transportFleet, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeTransportTaskListEnabled(loadOptions)){
+	 		// analyzeTransportTaskList(transportFleet, loadOptions);
+ 		}
+ 		
 		
 		return transportFleet;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected TransportFleet extractOwner(TransportFleet transportFleet, Map<String,Object> options) throws Exception{
@@ -392,13 +397,10 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		
 	protected void enhanceTransportTruckList(SmartList<TransportTruck> transportTruckList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TransportFleet extractTransportTruckList(TransportFleet transportFleet, Map<String,Object> options){
 		
 		
@@ -420,15 +422,35 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		return transportFleet;
 	
 	}	
+	
+	protected TransportFleet analyzeTransportTruckList(TransportFleet transportFleet, Map<String,Object> options){
+		
+		
+		if(transportFleet == null){
+			return null;
+		}
+		if(transportFleet.getId() == null){
+			return transportFleet;
+		}
+
+		
+		
+		SmartList<TransportTruck> transportTruckList = transportFleet.getTransportTruckList();
+		if(transportTruckList != null){
+			getTransportTruckDAO().analyzeTransportTruckByOwner(transportTruckList, transportFleet.getId(), options);
+			
+		}
+		
+		return transportFleet;
+	
+	}	
+	
 		
 	protected void enhanceTruckDriverList(SmartList<TruckDriver> truckDriverList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TransportFleet extractTruckDriverList(TransportFleet transportFleet, Map<String,Object> options){
 		
 		
@@ -450,15 +472,35 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		return transportFleet;
 	
 	}	
+	
+	protected TransportFleet analyzeTruckDriverList(TransportFleet transportFleet, Map<String,Object> options){
+		
+		
+		if(transportFleet == null){
+			return null;
+		}
+		if(transportFleet.getId() == null){
+			return transportFleet;
+		}
+
+		
+		
+		SmartList<TruckDriver> truckDriverList = transportFleet.getTruckDriverList();
+		if(truckDriverList != null){
+			getTruckDriverDAO().analyzeTruckDriverByBelongsTo(truckDriverList, transportFleet.getId(), options);
+			
+		}
+		
+		return transportFleet;
+	
+	}	
+	
 		
 	protected void enhanceTransportTaskList(SmartList<TransportTask> transportTaskList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TransportFleet extractTransportTaskList(TransportFleet transportFleet, Map<String,Object> options){
 		
 		
@@ -480,13 +522,36 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		return transportFleet;
 	
 	}	
+	
+	protected TransportFleet analyzeTransportTaskList(TransportFleet transportFleet, Map<String,Object> options){
+		
+		
+		if(transportFleet == null){
+			return null;
+		}
+		if(transportFleet.getId() == null){
+			return transportFleet;
+		}
+
+		
+		
+		SmartList<TransportTask> transportTaskList = transportFleet.getTransportTaskList();
+		if(transportTaskList != null){
+			getTransportTaskDAO().analyzeTransportTaskByBelongsTo(transportTaskList, transportFleet.getId(), options);
+			
+		}
+		
+		return transportFleet;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<TransportFleet> findTransportFleetByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<TransportFleet> resultList = queryWith(TransportFleetTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getTransportFleetMapper());
-		analyzeTransportFleetByOwner(resultList, retailStoreCountryCenterId, options);
+		// analyzeTransportFleetByOwner(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -494,12 +559,14 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  	public SmartList<TransportFleet> findTransportFleetByOwner(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TransportFleet> resultList =  queryWithRange(TransportFleetTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getTransportFleetMapper(), start, count);
- 		analyzeTransportFleetByOwner(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeTransportFleetByOwner(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeTransportFleetByOwner(SmartList<TransportFleet> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportFleet.OWNER_PROPERTY, retailStoreCountryCenterId);

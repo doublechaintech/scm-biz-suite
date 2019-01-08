@@ -102,7 +102,14 @@ public class InterviewTypeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST);
 		return this;
 	}
-
+	public InterviewTypeTokens analyzeEmployeeInterviewList(){		
+		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeInterviewListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_INTERVIEW_LIST+".anaylze");
+	}
 	public InterviewTypeTokens extractMoreFromEmployeeInterviewList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

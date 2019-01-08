@@ -102,7 +102,14 @@ public class TransportTruckTokens extends CommonTokens{
 		addSimpleOptions(TRANSPORT_TASK_LIST);
 		return this;
 	}
-
+	public TransportTruckTokens analyzeTransportTaskList(){		
+		addSimpleOptions(TRANSPORT_TASK_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTransportTaskListEnabled(){		
+		
+		return checkOptions(this.options(), TRANSPORT_TASK_LIST+".anaylze");
+	}
 	public TransportTruckTokens extractMoreFromTransportTaskList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TASK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

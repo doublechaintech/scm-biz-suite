@@ -218,10 +218,11 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	
-	protected boolean isExtractProductListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractProductListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelThreeCategoryTokens.PRODUCT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeProductListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,LevelThreeCategoryTokens.PRODUCT_LIST+".analyze");
  	}
 
 	protected boolean isSaveProductListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 		if(isExtractProductListEnabled(loadOptions)){
 	 		extractProductList(levelThreeCategory, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeProductListEnabled(loadOptions)){
+	 		// analyzeProductList(levelThreeCategory, loadOptions);
+ 		}
+ 		
 		
 		return levelThreeCategory;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected LevelThreeCategory extractParentCategory(LevelThreeCategory levelThreeCategory, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	protected void enhanceProductList(SmartList<Product> productList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected LevelThreeCategory extractProductList(LevelThreeCategory levelThreeCategory, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return levelThreeCategory;
 	
 	}	
+	
+	protected LevelThreeCategory analyzeProductList(LevelThreeCategory levelThreeCategory, Map<String,Object> options){
+		
+		
+		if(levelThreeCategory == null){
+			return null;
+		}
+		if(levelThreeCategory.getId() == null){
+			return levelThreeCategory;
+		}
+
+		
+		
+		SmartList<Product> productList = levelThreeCategory.getProductList();
+		if(productList != null){
+			getProductDAO().analyzeProductByParentCategory(productList, levelThreeCategory.getId(), options);
+			
+		}
+		
+		return levelThreeCategory;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<LevelThreeCategory> findLevelThreeCategoryByParentCategory(String levelTwoCategoryId,Map<String,Object> options){
  	
   		SmartList<LevelThreeCategory> resultList = queryWith(LevelThreeCategoryTable.COLUMN_PARENT_CATEGORY, levelTwoCategoryId, options, getLevelThreeCategoryMapper());
-		analyzeLevelThreeCategoryByParentCategory(resultList, levelTwoCategoryId, options);
+		// analyzeLevelThreeCategoryByParentCategory(resultList, levelTwoCategoryId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<LevelThreeCategory> findLevelThreeCategoryByParentCategory(String levelTwoCategoryId, int start, int count,Map<String,Object> options){
  		
  		SmartList<LevelThreeCategory> resultList =  queryWithRange(LevelThreeCategoryTable.COLUMN_PARENT_CATEGORY, levelTwoCategoryId, options, getLevelThreeCategoryMapper(), start, count);
- 		analyzeLevelThreeCategoryByParentCategory(resultList, levelTwoCategoryId, options);
+ 		//analyzeLevelThreeCategoryByParentCategory(resultList, levelTwoCategoryId, options);
  		return resultList;
  		
  	}
  	public void analyzeLevelThreeCategoryByParentCategory(SmartList<LevelThreeCategory> resultList, String levelTwoCategoryId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

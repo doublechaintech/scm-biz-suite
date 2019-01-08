@@ -218,10 +218,11 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	
-	protected boolean isExtractLevelOneCategoryListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractLevelOneCategoryListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CatalogTokens.LEVEL_ONE_CATEGORY_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeLevelOneCategoryListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,CatalogTokens.LEVEL_ONE_CATEGORY_LIST+".analyze");
  	}
 
 	protected boolean isSaveLevelOneCategoryListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
 		if(isExtractLevelOneCategoryListEnabled(loadOptions)){
 	 		extractLevelOneCategoryList(catalog, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeLevelOneCategoryListEnabled(loadOptions)){
+	 		// analyzeLevelOneCategoryList(catalog, loadOptions);
+ 		}
+ 		
 		
 		return catalog;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected Catalog extractOwner(Catalog catalog, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	protected void enhanceLevelOneCategoryList(SmartList<LevelOneCategory> levelOneCategoryList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Catalog extractLevelOneCategoryList(Catalog catalog, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		return catalog;
 	
 	}	
+	
+	protected Catalog analyzeLevelOneCategoryList(Catalog catalog, Map<String,Object> options){
+		
+		
+		if(catalog == null){
+			return null;
+		}
+		if(catalog.getId() == null){
+			return catalog;
+		}
+
+		
+		
+		SmartList<LevelOneCategory> levelOneCategoryList = catalog.getLevelOneCategoryList();
+		if(levelOneCategoryList != null){
+			getLevelOneCategoryDAO().analyzeLevelOneCategoryByCatalog(levelOneCategoryList, catalog.getId(), options);
+			
+		}
+		
+		return catalog;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<Catalog> findCatalogByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<Catalog> resultList = queryWith(CatalogTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getCatalogMapper());
-		analyzeCatalogByOwner(resultList, retailStoreCountryCenterId, options);
+		// analyzeCatalogByOwner(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  	public SmartList<Catalog> findCatalogByOwner(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Catalog> resultList =  queryWithRange(CatalogTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getCatalogMapper(), start, count);
- 		analyzeCatalogByOwner(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeCatalogByOwner(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeCatalogByOwner(SmartList<Catalog> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

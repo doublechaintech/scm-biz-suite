@@ -178,7 +178,14 @@ public class ConsumerOrderTokens extends CommonTokens{
 		addSimpleOptions(CONSUMER_ORDER_LINE_ITEM_LIST);
 		return this;
 	}
-
+	public ConsumerOrderTokens analyzeConsumerOrderLineItemList(){		
+		addSimpleOptions(CONSUMER_ORDER_LINE_ITEM_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeConsumerOrderLineItemListEnabled(){		
+		
+		return checkOptions(this.options(), CONSUMER_ORDER_LINE_ITEM_LIST+".anaylze");
+	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderLineItemList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_LINE_ITEM_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -233,7 +240,14 @@ public class ConsumerOrderTokens extends CommonTokens{
 		addSimpleOptions(CONSUMER_ORDER_SHIPPING_GROUP_LIST);
 		return this;
 	}
-
+	public ConsumerOrderTokens analyzeConsumerOrderShippingGroupList(){		
+		addSimpleOptions(CONSUMER_ORDER_SHIPPING_GROUP_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeConsumerOrderShippingGroupListEnabled(){		
+		
+		return checkOptions(this.options(), CONSUMER_ORDER_SHIPPING_GROUP_LIST+".anaylze");
+	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderShippingGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_SHIPPING_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -288,7 +302,14 @@ public class ConsumerOrderTokens extends CommonTokens{
 		addSimpleOptions(CONSUMER_ORDER_PAYMENT_GROUP_LIST);
 		return this;
 	}
-
+	public ConsumerOrderTokens analyzeConsumerOrderPaymentGroupList(){		
+		addSimpleOptions(CONSUMER_ORDER_PAYMENT_GROUP_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeConsumerOrderPaymentGroupListEnabled(){		
+		
+		return checkOptions(this.options(), CONSUMER_ORDER_PAYMENT_GROUP_LIST+".anaylze");
+	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderPaymentGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_PAYMENT_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -343,7 +364,14 @@ public class ConsumerOrderTokens extends CommonTokens{
 		addSimpleOptions(CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST);
 		return this;
 	}
-
+	public ConsumerOrderTokens analyzeConsumerOrderPriceAdjustmentList(){		
+		addSimpleOptions(CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeConsumerOrderPriceAdjustmentListEnabled(){		
+		
+		return checkOptions(this.options(), CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".anaylze");
+	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderPriceAdjustmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -398,7 +426,14 @@ public class ConsumerOrderTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST);
 		return this;
 	}
-
+	public ConsumerOrderTokens analyzeRetailStoreMemberGiftCardConsumeRecordList(){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".anaylze");
+	}
 	public ConsumerOrderTokens extractMoreFromRetailStoreMemberGiftCardConsumeRecordList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

@@ -90,7 +90,14 @@ public class EmployeeBoardingTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_LIST);
 		return this;
 	}
-
+	public EmployeeBoardingTokens analyzeEmployeeList(){		
+		addSimpleOptions(EMPLOYEE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+	}
 	public EmployeeBoardingTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

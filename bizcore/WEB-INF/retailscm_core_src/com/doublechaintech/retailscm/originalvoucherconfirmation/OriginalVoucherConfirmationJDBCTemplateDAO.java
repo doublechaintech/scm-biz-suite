@@ -193,10 +193,11 @@ public class OriginalVoucherConfirmationJDBCTemplateDAO extends RetailscmNamingS
 
 		
 	
-	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){		
  		return checkOptions(options,OriginalVoucherConfirmationTokens.ORIGINAL_VOUCHER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,OriginalVoucherConfirmationTokens.ORIGINAL_VOUCHER_LIST+".analyze");
  	}
 
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class OriginalVoucherConfirmationJDBCTemplateDAO extends RetailscmNamingS
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class OriginalVoucherConfirmationJDBCTemplateDAO extends RetailscmNamingS
 		
 		if(isExtractOriginalVoucherListEnabled(loadOptions)){
 	 		extractOriginalVoucherList(originalVoucherConfirmation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeOriginalVoucherListEnabled(loadOptions)){
+	 		// analyzeOriginalVoucherList(originalVoucherConfirmation, loadOptions);
+ 		}
+ 		
 		
 		return originalVoucherConfirmation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceOriginalVoucherList(SmartList<OriginalVoucher> originalVoucherList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected OriginalVoucherConfirmation extractOriginalVoucherList(OriginalVoucherConfirmation originalVoucherConfirmation, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class OriginalVoucherConfirmationJDBCTemplateDAO extends RetailscmNamingS
 		return originalVoucherConfirmation;
 	
 	}	
+	
+	protected OriginalVoucherConfirmation analyzeOriginalVoucherList(OriginalVoucherConfirmation originalVoucherConfirmation, Map<String,Object> options){
+		
+		
+		if(originalVoucherConfirmation == null){
+			return null;
+		}
+		if(originalVoucherConfirmation.getId() == null){
+			return originalVoucherConfirmation;
+		}
+
+		
+		
+		SmartList<OriginalVoucher> originalVoucherList = originalVoucherConfirmation.getOriginalVoucherList();
+		if(originalVoucherList != null){
+			getOriginalVoucherDAO().analyzeOriginalVoucherByConfirmation(originalVoucherList, originalVoucherConfirmation.getId(), options);
+			
+		}
+		
+		return originalVoucherConfirmation;
+	
+	}	
+	
 		
 		
  	

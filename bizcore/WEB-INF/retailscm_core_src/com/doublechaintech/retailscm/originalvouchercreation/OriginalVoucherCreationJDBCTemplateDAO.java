@@ -193,10 +193,11 @@ public class OriginalVoucherCreationJDBCTemplateDAO extends RetailscmNamingServi
 
 		
 	
-	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){		
  		return checkOptions(options,OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST+".analyze");
  	}
 
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class OriginalVoucherCreationJDBCTemplateDAO extends RetailscmNamingServi
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class OriginalVoucherCreationJDBCTemplateDAO extends RetailscmNamingServi
 		
 		if(isExtractOriginalVoucherListEnabled(loadOptions)){
 	 		extractOriginalVoucherList(originalVoucherCreation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeOriginalVoucherListEnabled(loadOptions)){
+	 		// analyzeOriginalVoucherList(originalVoucherCreation, loadOptions);
+ 		}
+ 		
 		
 		return originalVoucherCreation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceOriginalVoucherList(SmartList<OriginalVoucher> originalVoucherList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected OriginalVoucherCreation extractOriginalVoucherList(OriginalVoucherCreation originalVoucherCreation, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class OriginalVoucherCreationJDBCTemplateDAO extends RetailscmNamingServi
 		return originalVoucherCreation;
 	
 	}	
+	
+	protected OriginalVoucherCreation analyzeOriginalVoucherList(OriginalVoucherCreation originalVoucherCreation, Map<String,Object> options){
+		
+		
+		if(originalVoucherCreation == null){
+			return null;
+		}
+		if(originalVoucherCreation.getId() == null){
+			return originalVoucherCreation;
+		}
+
+		
+		
+		SmartList<OriginalVoucher> originalVoucherList = originalVoucherCreation.getOriginalVoucherList();
+		if(originalVoucherList != null){
+			getOriginalVoucherDAO().analyzeOriginalVoucherByCreation(originalVoucherList, originalVoucherCreation.getId(), options);
+			
+		}
+		
+		return originalVoucherCreation;
+	
+	}	
+	
 		
 		
  	

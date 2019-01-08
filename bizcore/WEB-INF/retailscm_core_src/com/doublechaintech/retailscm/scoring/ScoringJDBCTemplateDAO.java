@@ -193,10 +193,11 @@ public class ScoringJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 
 		
 	
-	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class ScoringJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class ScoringJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
 		if(isExtractEmployeeCompanyTrainingListEnabled(loadOptions)){
 	 		extractEmployeeCompanyTrainingList(scoring, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeCompanyTrainingListEnabled(loadOptions)){
+	 		// analyzeEmployeeCompanyTrainingList(scoring, loadOptions);
+ 		}
+ 		
 		
 		return scoring;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Scoring extractEmployeeCompanyTrainingList(Scoring scoring, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class ScoringJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		return scoring;
 	
 	}	
+	
+	protected Scoring analyzeEmployeeCompanyTrainingList(Scoring scoring, Map<String,Object> options){
+		
+		
+		if(scoring == null){
+			return null;
+		}
+		if(scoring.getId() == null){
+			return scoring;
+		}
+
+		
+		
+		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = scoring.getEmployeeCompanyTrainingList();
+		if(employeeCompanyTrainingList != null){
+			getEmployeeCompanyTrainingDAO().analyzeEmployeeCompanyTrainingByScoring(employeeCompanyTrainingList, scoring.getId(), options);
+			
+		}
+		
+		return scoring;
+	
+	}	
+	
 		
 		
  	

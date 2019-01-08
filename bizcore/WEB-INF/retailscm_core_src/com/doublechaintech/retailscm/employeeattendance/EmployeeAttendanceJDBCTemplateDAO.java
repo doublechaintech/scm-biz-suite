@@ -224,10 +224,6 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeAttendance extractEmployee(EmployeeAttendance employeeAttendance, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<EmployeeAttendance> findEmployeeAttendanceByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeAttendance> resultList = queryWith(EmployeeAttendanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAttendanceMapper());
-		analyzeEmployeeAttendanceByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeAttendanceByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<EmployeeAttendance> findEmployeeAttendanceByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeAttendance> resultList =  queryWithRange(EmployeeAttendanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAttendanceMapper(), start, count);
- 		analyzeEmployeeAttendanceByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeAttendanceByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeAttendanceByEmployee(SmartList<EmployeeAttendance> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -224,10 +224,6 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServic
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeWorkExperience extractEmployee(EmployeeWorkExperience employeeWorkExperience, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<EmployeeWorkExperience> findEmployeeWorkExperienceByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeWorkExperience> resultList = queryWith(EmployeeWorkExperienceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeWorkExperienceMapper());
-		analyzeEmployeeWorkExperienceByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeWorkExperienceByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<EmployeeWorkExperience> findEmployeeWorkExperienceByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeWorkExperience> resultList =  queryWithRange(EmployeeWorkExperienceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeWorkExperienceMapper(), start, count);
- 		analyzeEmployeeWorkExperienceByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeWorkExperienceByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeWorkExperienceByEmployee(SmartList<EmployeeWorkExperience> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -218,10 +218,11 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
  
 		
 	
-	protected boolean isExtractProvinceCenterEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveProvinceCenterEmployeeListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 		
 		if(isExtractProvinceCenterEmployeeListEnabled(loadOptions)){
 	 		extractProvinceCenterEmployeeList(provinceCenterDepartment, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeProvinceCenterEmployeeListEnabled(loadOptions)){
+	 		// analyzeProvinceCenterEmployeeList(provinceCenterDepartment, loadOptions);
+ 		}
+ 		
 		
 		return provinceCenterDepartment;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected ProvinceCenterDepartment extractProvinceCenter(ProvinceCenterDepartment provinceCenterDepartment, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
  
 		
 	protected void enhanceProvinceCenterEmployeeList(SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected ProvinceCenterDepartment extractProvinceCenterEmployeeList(ProvinceCenterDepartment provinceCenterDepartment, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 		return provinceCenterDepartment;
 	
 	}	
+	
+	protected ProvinceCenterDepartment analyzeProvinceCenterEmployeeList(ProvinceCenterDepartment provinceCenterDepartment, Map<String,Object> options){
+		
+		
+		if(provinceCenterDepartment == null){
+			return null;
+		}
+		if(provinceCenterDepartment.getId() == null){
+			return provinceCenterDepartment;
+		}
+
+		
+		
+		SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList = provinceCenterDepartment.getProvinceCenterEmployeeList();
+		if(provinceCenterEmployeeList != null){
+			getProvinceCenterEmployeeDAO().analyzeProvinceCenterEmployeeByDepartment(provinceCenterEmployeeList, provinceCenterDepartment.getId(), options);
+			
+		}
+		
+		return provinceCenterDepartment;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<ProvinceCenterDepartment> findProvinceCenterDepartmentByProvinceCenter(String retailStoreProvinceCenterId,Map<String,Object> options){
  	
   		SmartList<ProvinceCenterDepartment> resultList = queryWith(ProvinceCenterDepartmentTable.COLUMN_PROVINCE_CENTER, retailStoreProvinceCenterId, options, getProvinceCenterDepartmentMapper());
-		analyzeProvinceCenterDepartmentByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
+		// analyzeProvinceCenterDepartmentByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<ProvinceCenterDepartment> findProvinceCenterDepartmentByProvinceCenter(String retailStoreProvinceCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ProvinceCenterDepartment> resultList =  queryWithRange(ProvinceCenterDepartmentTable.COLUMN_PROVINCE_CENTER, retailStoreProvinceCenterId, options, getProvinceCenterDepartmentMapper(), start, count);
- 		analyzeProvinceCenterDepartmentByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
+ 		//analyzeProvinceCenterDepartmentByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeProvinceCenterDepartmentByProvinceCenter(SmartList<ProvinceCenterDepartment> resultList, String retailStoreProvinceCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

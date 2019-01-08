@@ -218,10 +218,11 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	
-	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LeaveTypeTokens.EMPLOYEE_LEAVE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,LeaveTypeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeLeaveListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
 		if(isExtractEmployeeLeaveListEnabled(loadOptions)){
 	 		extractEmployeeLeaveList(leaveType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeLeaveListEnabled(loadOptions)){
+	 		// analyzeEmployeeLeaveList(leaveType, loadOptions);
+ 		}
+ 		
 		
 		return leaveType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected LeaveType extractCompany(LeaveType leaveType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	protected void enhanceEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected LeaveType extractEmployeeLeaveList(LeaveType leaveType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return leaveType;
 	
 	}	
+	
+	protected LeaveType analyzeEmployeeLeaveList(LeaveType leaveType, Map<String,Object> options){
+		
+		
+		if(leaveType == null){
+			return null;
+		}
+		if(leaveType.getId() == null){
+			return leaveType;
+		}
+
+		
+		
+		SmartList<EmployeeLeave> employeeLeaveList = leaveType.getEmployeeLeaveList();
+		if(employeeLeaveList != null){
+			getEmployeeLeaveDAO().analyzeEmployeeLeaveByType(employeeLeaveList, leaveType.getId(), options);
+			
+		}
+		
+		return leaveType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<LeaveType> findLeaveTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<LeaveType> resultList = queryWith(LeaveTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getLeaveTypeMapper());
-		analyzeLeaveTypeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeLeaveTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  	public SmartList<LeaveType> findLeaveTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<LeaveType> resultList =  queryWithRange(LeaveTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getLeaveTypeMapper(), start, count);
- 		analyzeLeaveTypeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeLeaveTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeLeaveTypeByCompany(SmartList<LeaveType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

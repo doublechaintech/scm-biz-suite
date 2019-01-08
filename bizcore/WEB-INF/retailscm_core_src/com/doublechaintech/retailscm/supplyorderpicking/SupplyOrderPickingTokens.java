@@ -90,7 +90,14 @@ public class SupplyOrderPickingTokens extends CommonTokens{
 		addSimpleOptions(SUPPLY_ORDER_LIST);
 		return this;
 	}
-
+	public SupplyOrderPickingTokens analyzeSupplyOrderList(){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplyOrderListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze");
+	}
 	public SupplyOrderPickingTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

@@ -102,7 +102,14 @@ public class RetailStoreMemberGiftCardTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST);
 		return this;
 	}
-
+	public RetailStoreMemberGiftCardTokens analyzeRetailStoreMemberGiftCardConsumeRecordList(){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".anaylze");
+	}
 	public RetailStoreMemberGiftCardTokens extractMoreFromRetailStoreMemberGiftCardConsumeRecordList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

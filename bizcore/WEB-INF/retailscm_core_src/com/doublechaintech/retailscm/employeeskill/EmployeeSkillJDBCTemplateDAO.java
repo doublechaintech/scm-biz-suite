@@ -253,10 +253,6 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeSkill extractEmployee(EmployeeSkill employeeSkill, Map<String,Object> options) throws Exception{
@@ -304,7 +300,7 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeSkill> findEmployeeSkillByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeSkill> resultList = queryWith(EmployeeSkillTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSkillMapper());
-		analyzeEmployeeSkillByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeSkillByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -312,12 +308,14 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeSkill> findEmployeeSkillByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeSkill> resultList =  queryWithRange(EmployeeSkillTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSkillMapper(), start, count);
- 		analyzeEmployeeSkillByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeSkillByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeSkillByEmployee(SmartList<EmployeeSkill> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSkill.EMPLOYEE_PROPERTY, employeeId);
@@ -345,7 +343,7 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeSkill> findEmployeeSkillBySkillType(String skillTypeId,Map<String,Object> options){
  	
   		SmartList<EmployeeSkill> resultList = queryWith(EmployeeSkillTable.COLUMN_SKILL_TYPE, skillTypeId, options, getEmployeeSkillMapper());
-		analyzeEmployeeSkillBySkillType(resultList, skillTypeId, options);
+		// analyzeEmployeeSkillBySkillType(resultList, skillTypeId, options);
 		return resultList;
  	}
  	 
@@ -353,12 +351,14 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeSkill> findEmployeeSkillBySkillType(String skillTypeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeSkill> resultList =  queryWithRange(EmployeeSkillTable.COLUMN_SKILL_TYPE, skillTypeId, options, getEmployeeSkillMapper(), start, count);
- 		analyzeEmployeeSkillBySkillType(resultList, skillTypeId, options);
+ 		//analyzeEmployeeSkillBySkillType(resultList, skillTypeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeSkillBySkillType(SmartList<EmployeeSkill> resultList, String skillTypeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSkill.SKILL_TYPE_PROPERTY, skillTypeId);

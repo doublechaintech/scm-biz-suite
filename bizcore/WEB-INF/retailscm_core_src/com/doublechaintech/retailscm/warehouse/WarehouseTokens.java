@@ -108,7 +108,14 @@ public class WarehouseTokens extends CommonTokens{
 		addSimpleOptions(STORAGE_SPACE_LIST);
 		return this;
 	}
-
+	public WarehouseTokens analyzeStorageSpaceList(){		
+		addSimpleOptions(STORAGE_SPACE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeStorageSpaceListEnabled(){		
+		
+		return checkOptions(this.options(), STORAGE_SPACE_LIST+".anaylze");
+	}
 	public WarehouseTokens extractMoreFromStorageSpaceList(String idsSeperatedWithComma){		
 		addSimpleOptions(STORAGE_SPACE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -163,7 +170,14 @@ public class WarehouseTokens extends CommonTokens{
 		addSimpleOptions(SMART_PALLET_LIST);
 		return this;
 	}
-
+	public WarehouseTokens analyzeSmartPalletList(){		
+		addSimpleOptions(SMART_PALLET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSmartPalletListEnabled(){		
+		
+		return checkOptions(this.options(), SMART_PALLET_LIST+".anaylze");
+	}
 	public WarehouseTokens extractMoreFromSmartPalletList(String idsSeperatedWithComma){		
 		addSimpleOptions(SMART_PALLET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -218,7 +232,14 @@ public class WarehouseTokens extends CommonTokens{
 		addSimpleOptions(SUPPLIER_SPACE_LIST);
 		return this;
 	}
-
+	public WarehouseTokens analyzeSupplierSpaceList(){		
+		addSimpleOptions(SUPPLIER_SPACE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplierSpaceListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLIER_SPACE_LIST+".anaylze");
+	}
 	public WarehouseTokens extractMoreFromSupplierSpaceList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLIER_SPACE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -273,7 +294,14 @@ public class WarehouseTokens extends CommonTokens{
 		addSimpleOptions(RECEIVING_SPACE_LIST);
 		return this;
 	}
-
+	public WarehouseTokens analyzeReceivingSpaceList(){		
+		addSimpleOptions(RECEIVING_SPACE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeReceivingSpaceListEnabled(){		
+		
+		return checkOptions(this.options(), RECEIVING_SPACE_LIST+".anaylze");
+	}
 	public WarehouseTokens extractMoreFromReceivingSpaceList(String idsSeperatedWithComma){		
 		addSimpleOptions(RECEIVING_SPACE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -328,7 +356,14 @@ public class WarehouseTokens extends CommonTokens{
 		addSimpleOptions(SHIPPING_SPACE_LIST);
 		return this;
 	}
-
+	public WarehouseTokens analyzeShippingSpaceList(){		
+		addSimpleOptions(SHIPPING_SPACE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeShippingSpaceListEnabled(){		
+		
+		return checkOptions(this.options(), SHIPPING_SPACE_LIST+".anaylze");
+	}
 	public WarehouseTokens extractMoreFromShippingSpaceList(String idsSeperatedWithComma){		
 		addSimpleOptions(SHIPPING_SPACE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -383,7 +418,14 @@ public class WarehouseTokens extends CommonTokens{
 		addSimpleOptions(DAMAGE_SPACE_LIST);
 		return this;
 	}
-
+	public WarehouseTokens analyzeDamageSpaceList(){		
+		addSimpleOptions(DAMAGE_SPACE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeDamageSpaceListEnabled(){		
+		
+		return checkOptions(this.options(), DAMAGE_SPACE_LIST+".anaylze");
+	}
 	public WarehouseTokens extractMoreFromDamageSpaceList(String idsSeperatedWithComma){		
 		addSimpleOptions(DAMAGE_SPACE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -438,7 +480,14 @@ public class WarehouseTokens extends CommonTokens{
 		addSimpleOptions(WAREHOUSE_ASSET_LIST);
 		return this;
 	}
-
+	public WarehouseTokens analyzeWarehouseAssetList(){		
+		addSimpleOptions(WAREHOUSE_ASSET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeWarehouseAssetListEnabled(){		
+		
+		return checkOptions(this.options(), WAREHOUSE_ASSET_LIST+".anaylze");
+	}
 	public WarehouseTokens extractMoreFromWarehouseAssetList(String idsSeperatedWithComma){		
 		addSimpleOptions(WAREHOUSE_ASSET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

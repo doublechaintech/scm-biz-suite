@@ -90,7 +90,14 @@ public class SecUserBlockingTokens extends CommonTokens{
 		addSimpleOptions(SEC_USER_LIST);
 		return this;
 	}
-
+	public SecUserBlockingTokens analyzeSecUserList(){		
+		addSimpleOptions(SEC_USER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSecUserListEnabled(){		
+		
+		return checkOptions(this.options(), SEC_USER_LIST+".anaylze");
+	}
 	public SecUserBlockingTokens extractMoreFromSecUserList(String idsSeperatedWithComma){		
 		addSimpleOptions(SEC_USER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

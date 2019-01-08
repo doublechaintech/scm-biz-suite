@@ -253,10 +253,6 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeInterview extractEmployee(EmployeeInterview employeeInterview, Map<String,Object> options) throws Exception{
@@ -304,7 +300,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeInterview> findEmployeeInterviewByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeInterview> resultList = queryWith(EmployeeInterviewTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeInterviewMapper());
-		analyzeEmployeeInterviewByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeInterviewByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -312,12 +308,14 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeInterview> findEmployeeInterviewByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeInterview> resultList =  queryWithRange(EmployeeInterviewTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeInterviewMapper(), start, count);
- 		analyzeEmployeeInterviewByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeInterviewByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeInterviewByEmployee(SmartList<EmployeeInterview> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeInterview.EMPLOYEE_PROPERTY, employeeId);
@@ -345,7 +343,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeInterview> findEmployeeInterviewByInterviewType(String interviewTypeId,Map<String,Object> options){
  	
   		SmartList<EmployeeInterview> resultList = queryWith(EmployeeInterviewTable.COLUMN_INTERVIEW_TYPE, interviewTypeId, options, getEmployeeInterviewMapper());
-		analyzeEmployeeInterviewByInterviewType(resultList, interviewTypeId, options);
+		// analyzeEmployeeInterviewByInterviewType(resultList, interviewTypeId, options);
 		return resultList;
  	}
  	 
@@ -353,12 +351,14 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeInterview> findEmployeeInterviewByInterviewType(String interviewTypeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeInterview> resultList =  queryWithRange(EmployeeInterviewTable.COLUMN_INTERVIEW_TYPE, interviewTypeId, options, getEmployeeInterviewMapper(), start, count);
- 		analyzeEmployeeInterviewByInterviewType(resultList, interviewTypeId, options);
+ 		//analyzeEmployeeInterviewByInterviewType(resultList, interviewTypeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeInterviewByInterviewType(SmartList<EmployeeInterview> resultList, String interviewTypeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeInterview.INTERVIEW_TYPE_PROPERTY, interviewTypeId);

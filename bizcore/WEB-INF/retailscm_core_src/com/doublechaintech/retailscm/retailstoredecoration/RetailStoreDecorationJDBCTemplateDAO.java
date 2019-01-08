@@ -193,10 +193,11 @@ public class RetailStoreDecorationJDBCTemplateDAO extends RetailscmNamingService
 
 		
 	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreDecorationTokens.RETAIL_STORE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreDecorationTokens.RETAIL_STORE_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreDecorationJDBCTemplateDAO extends RetailscmNamingService
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreDecorationJDBCTemplateDAO extends RetailscmNamingService
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreDecoration, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
+	 		// analyzeRetailStoreList(retailStoreDecoration, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreDecoration;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreDecoration extractRetailStoreList(RetailStoreDecoration retailStoreDecoration, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreDecorationJDBCTemplateDAO extends RetailscmNamingService
 		return retailStoreDecoration;
 	
 	}	
+	
+	protected RetailStoreDecoration analyzeRetailStoreList(RetailStoreDecoration retailStoreDecoration, Map<String,Object> options){
+		
+		
+		if(retailStoreDecoration == null){
+			return null;
+		}
+		if(retailStoreDecoration.getId() == null){
+			return retailStoreDecoration;
+		}
+
+		
+		
+		SmartList<RetailStore> retailStoreList = retailStoreDecoration.getRetailStoreList();
+		if(retailStoreList != null){
+			getRetailStoreDAO().analyzeRetailStoreByDecoration(retailStoreList, retailStoreDecoration.getId(), options);
+			
+		}
+		
+		return retailStoreDecoration;
+	
+	}	
+	
 		
 		
  	

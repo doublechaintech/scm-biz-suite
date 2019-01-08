@@ -324,10 +324,11 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		
 	
-	protected boolean isExtractAccountingSubjectListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingSubjectListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_SUBJECT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingSubjectListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountSetTokens.ACCOUNTING_SUBJECT_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingSubjectListEnabled(Map<String,Object> options){
@@ -335,14 +336,13 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractAccountingPeriodListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingPeriodListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_PERIOD_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingPeriodListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountSetTokens.ACCOUNTING_PERIOD_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingPeriodListEnabled(Map<String,Object> options){
@@ -350,14 +350,13 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractAccountingDocumentTypeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentTypeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentTypeListEnabled(Map<String,Object> options){
@@ -365,8 +364,6 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -409,24 +406,32 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
 		if(isExtractAccountingSubjectListEnabled(loadOptions)){
 	 		extractAccountingSubjectList(accountSet, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingSubjectListEnabled(loadOptions)){
+	 		// analyzeAccountingSubjectList(accountSet, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractAccountingPeriodListEnabled(loadOptions)){
 	 		extractAccountingPeriodList(accountSet, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingPeriodListEnabled(loadOptions)){
+	 		// analyzeAccountingPeriodList(accountSet, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractAccountingDocumentTypeListEnabled(loadOptions)){
 	 		extractAccountingDocumentTypeList(accountSet, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentTypeListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentTypeList(accountSet, loadOptions);
+ 		}
+ 		
 		
 		return accountSet;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected AccountSet extractCountryCenter(AccountSet accountSet, Map<String,Object> options) throws Exception{
@@ -490,13 +495,10 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		
 	protected void enhanceAccountingSubjectList(SmartList<AccountingSubject> accountingSubjectList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountSet extractAccountingSubjectList(AccountSet accountSet, Map<String,Object> options){
 		
 		
@@ -518,15 +520,35 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return accountSet;
 	
 	}	
+	
+	protected AccountSet analyzeAccountingSubjectList(AccountSet accountSet, Map<String,Object> options){
+		
+		
+		if(accountSet == null){
+			return null;
+		}
+		if(accountSet.getId() == null){
+			return accountSet;
+		}
+
+		
+		
+		SmartList<AccountingSubject> accountingSubjectList = accountSet.getAccountingSubjectList();
+		if(accountingSubjectList != null){
+			getAccountingSubjectDAO().analyzeAccountingSubjectByAccountSet(accountingSubjectList, accountSet.getId(), options);
+			
+		}
+		
+		return accountSet;
+	
+	}	
+	
 		
 	protected void enhanceAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountSet extractAccountingPeriodList(AccountSet accountSet, Map<String,Object> options){
 		
 		
@@ -548,15 +570,35 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return accountSet;
 	
 	}	
+	
+	protected AccountSet analyzeAccountingPeriodList(AccountSet accountSet, Map<String,Object> options){
+		
+		
+		if(accountSet == null){
+			return null;
+		}
+		if(accountSet.getId() == null){
+			return accountSet;
+		}
+
+		
+		
+		SmartList<AccountingPeriod> accountingPeriodList = accountSet.getAccountingPeriodList();
+		if(accountingPeriodList != null){
+			getAccountingPeriodDAO().analyzeAccountingPeriodByAccountSet(accountingPeriodList, accountSet.getId(), options);
+			
+		}
+		
+		return accountSet;
+	
+	}	
+	
 		
 	protected void enhanceAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountSet extractAccountingDocumentTypeList(AccountSet accountSet, Map<String,Object> options){
 		
 		
@@ -578,13 +620,36 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return accountSet;
 	
 	}	
+	
+	protected AccountSet analyzeAccountingDocumentTypeList(AccountSet accountSet, Map<String,Object> options){
+		
+		
+		if(accountSet == null){
+			return null;
+		}
+		if(accountSet.getId() == null){
+			return accountSet;
+		}
+
+		
+		
+		SmartList<AccountingDocumentType> accountingDocumentTypeList = accountSet.getAccountingDocumentTypeList();
+		if(accountingDocumentTypeList != null){
+			getAccountingDocumentTypeDAO().analyzeAccountingDocumentTypeByAccountingPeriod(accountingDocumentTypeList, accountSet.getId(), options);
+			
+		}
+		
+		return accountSet;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<AccountSet> findAccountSetByCountryCenter(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<AccountSet> resultList = queryWith(AccountSetTable.COLUMN_COUNTRY_CENTER, retailStoreCountryCenterId, options, getAccountSetMapper());
-		analyzeAccountSetByCountryCenter(resultList, retailStoreCountryCenterId, options);
+		// analyzeAccountSetByCountryCenter(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -592,12 +657,14 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<AccountSet> findAccountSetByCountryCenter(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountSet> resultList =  queryWithRange(AccountSetTable.COLUMN_COUNTRY_CENTER, retailStoreCountryCenterId, options, getAccountSetMapper(), start, count);
- 		analyzeAccountSetByCountryCenter(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeAccountSetByCountryCenter(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountSetByCountryCenter(SmartList<AccountSet> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountSet.COUNTRY_CENTER_PROPERTY, retailStoreCountryCenterId);
@@ -632,7 +699,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<AccountSet> findAccountSetByRetailStore(String retailStoreId,Map<String,Object> options){
  	
   		SmartList<AccountSet> resultList = queryWith(AccountSetTable.COLUMN_RETAIL_STORE, retailStoreId, options, getAccountSetMapper());
-		analyzeAccountSetByRetailStore(resultList, retailStoreId, options);
+		// analyzeAccountSetByRetailStore(resultList, retailStoreId, options);
 		return resultList;
  	}
  	 
@@ -640,12 +707,14 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<AccountSet> findAccountSetByRetailStore(String retailStoreId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountSet> resultList =  queryWithRange(AccountSetTable.COLUMN_RETAIL_STORE, retailStoreId, options, getAccountSetMapper(), start, count);
- 		analyzeAccountSetByRetailStore(resultList, retailStoreId, options);
+ 		//analyzeAccountSetByRetailStore(resultList, retailStoreId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountSetByRetailStore(SmartList<AccountSet> resultList, String retailStoreId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountSet.RETAIL_STORE_PROPERTY, retailStoreId);
@@ -680,7 +749,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<AccountSet> findAccountSetByGoodsSupplier(String goodsSupplierId,Map<String,Object> options){
  	
   		SmartList<AccountSet> resultList = queryWith(AccountSetTable.COLUMN_GOODS_SUPPLIER, goodsSupplierId, options, getAccountSetMapper());
-		analyzeAccountSetByGoodsSupplier(resultList, goodsSupplierId, options);
+		// analyzeAccountSetByGoodsSupplier(resultList, goodsSupplierId, options);
 		return resultList;
  	}
  	 
@@ -688,12 +757,14 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<AccountSet> findAccountSetByGoodsSupplier(String goodsSupplierId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountSet> resultList =  queryWithRange(AccountSetTable.COLUMN_GOODS_SUPPLIER, goodsSupplierId, options, getAccountSetMapper(), start, count);
- 		analyzeAccountSetByGoodsSupplier(resultList, goodsSupplierId, options);
+ 		//analyzeAccountSetByGoodsSupplier(resultList, goodsSupplierId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountSetByGoodsSupplier(SmartList<AccountSet> resultList, String goodsSupplierId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountSet.GOODS_SUPPLIER_PROPERTY, goodsSupplierId);

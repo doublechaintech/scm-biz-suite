@@ -105,7 +105,14 @@ public class RetailStoreCityServiceCenterTokens extends CommonTokens{
 		addSimpleOptions(CITY_PARTNER_LIST);
 		return this;
 	}
-
+	public RetailStoreCityServiceCenterTokens analyzeCityPartnerList(){		
+		addSimpleOptions(CITY_PARTNER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeCityPartnerListEnabled(){		
+		
+		return checkOptions(this.options(), CITY_PARTNER_LIST+".anaylze");
+	}
 	public RetailStoreCityServiceCenterTokens extractMoreFromCityPartnerList(String idsSeperatedWithComma){		
 		addSimpleOptions(CITY_PARTNER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -160,7 +167,14 @@ public class RetailStoreCityServiceCenterTokens extends CommonTokens{
 		addSimpleOptions(POTENTIAL_CUSTOMER_LIST);
 		return this;
 	}
-
+	public RetailStoreCityServiceCenterTokens analyzePotentialCustomerList(){		
+		addSimpleOptions(POTENTIAL_CUSTOMER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePotentialCustomerListEnabled(){		
+		
+		return checkOptions(this.options(), POTENTIAL_CUSTOMER_LIST+".anaylze");
+	}
 	public RetailStoreCityServiceCenterTokens extractMoreFromPotentialCustomerList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -215,7 +229,14 @@ public class RetailStoreCityServiceCenterTokens extends CommonTokens{
 		addSimpleOptions(CITY_EVENT_LIST);
 		return this;
 	}
-
+	public RetailStoreCityServiceCenterTokens analyzeCityEventList(){		
+		addSimpleOptions(CITY_EVENT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeCityEventListEnabled(){		
+		
+		return checkOptions(this.options(), CITY_EVENT_LIST+".anaylze");
+	}
 	public RetailStoreCityServiceCenterTokens extractMoreFromCityEventList(String idsSeperatedWithComma){		
 		addSimpleOptions(CITY_EVENT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -270,7 +291,14 @@ public class RetailStoreCityServiceCenterTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_LIST);
 		return this;
 	}
-
+	public RetailStoreCityServiceCenterTokens analyzeRetailStoreList(){		
+		addSimpleOptions(RETAIL_STORE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+	}
 	public RetailStoreCityServiceCenterTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

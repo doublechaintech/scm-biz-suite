@@ -224,10 +224,6 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeEducation extractEmployee(EmployeeEducation employeeEducation, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeEducation> findEmployeeEducationByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeEducation> resultList = queryWith(EmployeeEducationTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeEducationMapper());
-		analyzeEmployeeEducationByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeEducationByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeEducation> findEmployeeEducationByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeEducation> resultList =  queryWithRange(EmployeeEducationTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeEducationMapper(), start, count);
- 		analyzeEmployeeEducationByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeEducationByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeEducationByEmployee(SmartList<EmployeeEducation> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

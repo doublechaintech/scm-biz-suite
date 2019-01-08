@@ -193,10 +193,11 @@ public class RetailStoreClosingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 
 		
 	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreClosingTokens.RETAIL_STORE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreClosingTokens.RETAIL_STORE_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreClosingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreClosingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreClosing, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
+	 		// analyzeRetailStoreList(retailStoreClosing, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreClosing;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreClosing extractRetailStoreList(RetailStoreClosing retailStoreClosing, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreClosingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return retailStoreClosing;
 	
 	}	
+	
+	protected RetailStoreClosing analyzeRetailStoreList(RetailStoreClosing retailStoreClosing, Map<String,Object> options){
+		
+		
+		if(retailStoreClosing == null){
+			return null;
+		}
+		if(retailStoreClosing.getId() == null){
+			return retailStoreClosing;
+		}
+
+		
+		
+		SmartList<RetailStore> retailStoreList = retailStoreClosing.getRetailStoreList();
+		if(retailStoreList != null){
+			getRetailStoreDAO().analyzeRetailStoreByClosing(retailStoreList, retailStoreClosing.getId(), options);
+			
+		}
+		
+		return retailStoreClosing;
+	
+	}	
+	
 		
 		
  	

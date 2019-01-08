@@ -139,7 +139,14 @@ public class TransportTaskTokens extends CommonTokens{
 		addSimpleOptions(GOODS_LIST);
 		return this;
 	}
-
+	public TransportTaskTokens analyzeGoodsList(){		
+		addSimpleOptions(GOODS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+	}
 	public TransportTaskTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -194,7 +201,14 @@ public class TransportTaskTokens extends CommonTokens{
 		addSimpleOptions(TRANSPORT_TASK_TRACK_LIST);
 		return this;
 	}
-
+	public TransportTaskTokens analyzeTransportTaskTrackList(){		
+		addSimpleOptions(TRANSPORT_TASK_TRACK_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTransportTaskTrackListEnabled(){		
+		
+		return checkOptions(this.options(), TRANSPORT_TASK_TRACK_LIST+".anaylze");
+	}
 	public TransportTaskTokens extractMoreFromTransportTaskTrackList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TASK_TRACK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

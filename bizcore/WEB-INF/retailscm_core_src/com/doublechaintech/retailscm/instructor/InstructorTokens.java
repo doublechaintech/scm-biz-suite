@@ -102,7 +102,14 @@ public class InstructorTokens extends CommonTokens{
 		addSimpleOptions(COMPANY_TRAINING_LIST);
 		return this;
 	}
-
+	public InstructorTokens analyzeCompanyTrainingList(){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeCompanyTrainingListEnabled(){		
+		
+		return checkOptions(this.options(), COMPANY_TRAINING_LIST+".anaylze");
+	}
 	public InstructorTokens extractMoreFromCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

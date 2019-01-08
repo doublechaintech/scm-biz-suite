@@ -189,7 +189,14 @@ public class RetailStoreOrderTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_ORDER_LINE_ITEM_LIST);
 		return this;
 	}
-
+	public RetailStoreOrderTokens analyzeRetailStoreOrderLineItemList(){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LINE_ITEM_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreOrderLineItemListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_ORDER_LINE_ITEM_LIST+".anaylze");
+	}
 	public RetailStoreOrderTokens extractMoreFromRetailStoreOrderLineItemList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_LINE_ITEM_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -244,7 +251,14 @@ public class RetailStoreOrderTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST);
 		return this;
 	}
-
+	public RetailStoreOrderTokens analyzeRetailStoreOrderShippingGroupList(){		
+		addSimpleOptions(RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreOrderShippingGroupListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST+".anaylze");
+	}
 	public RetailStoreOrderTokens extractMoreFromRetailStoreOrderShippingGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -299,7 +313,14 @@ public class RetailStoreOrderTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST);
 		return this;
 	}
-
+	public RetailStoreOrderTokens analyzeRetailStoreOrderPaymentGroupList(){		
+		addSimpleOptions(RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreOrderPaymentGroupListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST+".anaylze");
+	}
 	public RetailStoreOrderTokens extractMoreFromRetailStoreOrderPaymentGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -354,7 +375,14 @@ public class RetailStoreOrderTokens extends CommonTokens{
 		addSimpleOptions(GOODS_LIST);
 		return this;
 	}
-
+	public RetailStoreOrderTokens analyzeGoodsList(){		
+		addSimpleOptions(GOODS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+	}
 	public RetailStoreOrderTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

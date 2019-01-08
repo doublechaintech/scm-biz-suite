@@ -193,10 +193,11 @@ public class JobApplicationJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,JobApplicationTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,JobApplicationTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class JobApplicationJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class JobApplicationJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(jobApplication, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(jobApplication, loadOptions);
+ 		}
+ 		
 		
 		return jobApplication;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected JobApplication extractEmployeeList(JobApplication jobApplication, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class JobApplicationJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		return jobApplication;
 	
 	}	
+	
+	protected JobApplication analyzeEmployeeList(JobApplication jobApplication, Map<String,Object> options){
+		
+		
+		if(jobApplication == null){
+			return null;
+		}
+		if(jobApplication.getId() == null){
+			return jobApplication;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = jobApplication.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByJobApplication(employeeList, jobApplication.getId(), options);
+			
+		}
+		
+		return jobApplication;
+	
+	}	
+	
 		
 		
  	

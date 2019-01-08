@@ -195,10 +195,6 @@ public class ConsumerOrderDeliveryJDBCTemplateDAO extends RetailscmNamingService
 		
 	}
 
-
-
-	
-	
 	
 		
 		

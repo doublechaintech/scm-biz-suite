@@ -102,7 +102,14 @@ public class LeaveTypeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_LEAVE_LIST);
 		return this;
 	}
-
+	public LeaveTypeTokens analyzeEmployeeLeaveList(){		
+		addSimpleOptions(EMPLOYEE_LEAVE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeLeaveListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_LEAVE_LIST+".anaylze");
+	}
 	public LeaveTypeTokens extractMoreFromEmployeeLeaveList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LEAVE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

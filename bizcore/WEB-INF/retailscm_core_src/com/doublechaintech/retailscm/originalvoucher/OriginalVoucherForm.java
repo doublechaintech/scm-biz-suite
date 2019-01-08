@@ -502,7 +502,7 @@ public class OriginalVoucherForm extends BaseForm {
  	
  	public OriginalVoucherForm  createAction(){
 		FormAction action = new FormAction();
-		action.setLabel("创建");
+		action.setLabel("Create");
 		action.setLocaleKey("original_voucher.create");
 		action.setUrl("originalVoucherManager/create/originalVoucherId/who/comments/makeDate/");
 		this.addFormAction(action);
@@ -510,7 +510,7 @@ public class OriginalVoucherForm extends BaseForm {
 	}	
  	public OriginalVoucherForm  confirmAction(){
 		FormAction action = new FormAction();
-		action.setLabel("确认");
+		action.setLabel("Confirm");
 		action.setLocaleKey("original_voucher.confirm");
 		action.setUrl("originalVoucherManager/confirm/originalVoucherId/who/comments/makeDate/");
 		this.addFormAction(action);
@@ -518,7 +518,7 @@ public class OriginalVoucherForm extends BaseForm {
 	}	
  	public OriginalVoucherForm  auditAction(){
 		FormAction action = new FormAction();
-		action.setLabel("审计");
+		action.setLabel("Audit");
 		action.setLocaleKey("original_voucher.audit");
 		action.setUrl("originalVoucherManager/audit/originalVoucherId/who/comments/makeDate/");
 		this.addFormAction(action);

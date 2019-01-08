@@ -102,7 +102,14 @@ public class PotentialCustomerContactPersonTokens extends CommonTokens{
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST);
 		return this;
 	}
-
+	public PotentialCustomerContactPersonTokens analyzePotentialCustomerContactList(){		
+		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePotentialCustomerContactListEnabled(){		
+		
+		return checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+	}
 	public PotentialCustomerContactPersonTokens extractMoreFromPotentialCustomerContactList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

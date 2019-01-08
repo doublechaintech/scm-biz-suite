@@ -193,10 +193,11 @@ public class RetailStoreOrderPickingJDBCTemplateDAO extends RetailscmNamingServi
 
 		
 	
-	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderPickingTokens.RETAIL_STORE_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderPickingTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreOrderPickingJDBCTemplateDAO extends RetailscmNamingServi
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreOrderPickingJDBCTemplateDAO extends RetailscmNamingServi
 		
 		if(isExtractRetailStoreOrderListEnabled(loadOptions)){
 	 		extractRetailStoreOrderList(retailStoreOrderPicking, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderList(retailStoreOrderPicking, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreOrderPicking;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrderPicking extractRetailStoreOrderList(RetailStoreOrderPicking retailStoreOrderPicking, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreOrderPickingJDBCTemplateDAO extends RetailscmNamingServi
 		return retailStoreOrderPicking;
 	
 	}	
+	
+	protected RetailStoreOrderPicking analyzeRetailStoreOrderList(RetailStoreOrderPicking retailStoreOrderPicking, Map<String,Object> options){
+		
+		
+		if(retailStoreOrderPicking == null){
+			return null;
+		}
+		if(retailStoreOrderPicking.getId() == null){
+			return retailStoreOrderPicking;
+		}
+
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderPicking.getRetailStoreOrderList();
+		if(retailStoreOrderList != null){
+			getRetailStoreOrderDAO().analyzeRetailStoreOrderByPicking(retailStoreOrderList, retailStoreOrderPicking.getId(), options);
+			
+		}
+		
+		return retailStoreOrderPicking;
+	
+	}	
+	
 		
 		
  	

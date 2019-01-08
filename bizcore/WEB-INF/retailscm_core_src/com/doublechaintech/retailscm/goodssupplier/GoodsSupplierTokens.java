@@ -104,7 +104,14 @@ public class GoodsSupplierTokens extends CommonTokens{
 		addSimpleOptions(SUPPLIER_PRODUCT_LIST);
 		return this;
 	}
-
+	public GoodsSupplierTokens analyzeSupplierProductList(){		
+		addSimpleOptions(SUPPLIER_PRODUCT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplierProductListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLIER_PRODUCT_LIST+".anaylze");
+	}
 	public GoodsSupplierTokens extractMoreFromSupplierProductList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLIER_PRODUCT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -159,7 +166,14 @@ public class GoodsSupplierTokens extends CommonTokens{
 		addSimpleOptions(SUPPLY_ORDER_LIST);
 		return this;
 	}
-
+	public GoodsSupplierTokens analyzeSupplyOrderList(){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplyOrderListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze");
+	}
 	public GoodsSupplierTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -214,7 +228,14 @@ public class GoodsSupplierTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNT_SET_LIST);
 		return this;
 	}
-
+	public GoodsSupplierTokens analyzeAccountSetList(){		
+		addSimpleOptions(ACCOUNT_SET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountSetListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNT_SET_LIST+".anaylze");
+	}
 	public GoodsSupplierTokens extractMoreFromAccountSetList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNT_SET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

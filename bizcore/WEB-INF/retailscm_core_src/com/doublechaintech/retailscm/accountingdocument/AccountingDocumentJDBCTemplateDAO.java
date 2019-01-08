@@ -371,10 +371,11 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	
-	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST+".analyze");
  	}
 
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){
@@ -382,14 +383,13 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentLineListEnabled(Map<String,Object> options){
@@ -397,8 +397,6 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -453,20 +451,24 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 		if(isExtractOriginalVoucherListEnabled(loadOptions)){
 	 		extractOriginalVoucherList(accountingDocument, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeOriginalVoucherListEnabled(loadOptions)){
+	 		// analyzeOriginalVoucherList(accountingDocument, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractAccountingDocumentLineListEnabled(loadOptions)){
 	 		extractAccountingDocumentLineList(accountingDocument, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentLineListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentLineList(accountingDocument, loadOptions);
+ 		}
+ 		
 		
 		return accountingDocument;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected AccountingDocument extractAccountingPeriod(AccountingDocument accountingDocument, Map<String,Object> options) throws Exception{
@@ -590,13 +592,10 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	protected void enhanceOriginalVoucherList(SmartList<OriginalVoucher> originalVoucherList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingDocument extractOriginalVoucherList(AccountingDocument accountingDocument, Map<String,Object> options){
 		
 		
@@ -618,15 +617,35 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return accountingDocument;
 	
 	}	
+	
+	protected AccountingDocument analyzeOriginalVoucherList(AccountingDocument accountingDocument, Map<String,Object> options){
+		
+		
+		if(accountingDocument == null){
+			return null;
+		}
+		if(accountingDocument.getId() == null){
+			return accountingDocument;
+		}
+
+		
+		
+		SmartList<OriginalVoucher> originalVoucherList = accountingDocument.getOriginalVoucherList();
+		if(originalVoucherList != null){
+			getOriginalVoucherDAO().analyzeOriginalVoucherByBelongsTo(originalVoucherList, accountingDocument.getId(), options);
+			
+		}
+		
+		return accountingDocument;
+	
+	}	
+	
 		
 	protected void enhanceAccountingDocumentLineList(SmartList<AccountingDocumentLine> accountingDocumentLineList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingDocument extractAccountingDocumentLineList(AccountingDocument accountingDocument, Map<String,Object> options){
 		
 		
@@ -648,13 +667,36 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return accountingDocument;
 	
 	}	
+	
+	protected AccountingDocument analyzeAccountingDocumentLineList(AccountingDocument accountingDocument, Map<String,Object> options){
+		
+		
+		if(accountingDocument == null){
+			return null;
+		}
+		if(accountingDocument.getId() == null){
+			return accountingDocument;
+		}
+
+		
+		
+		SmartList<AccountingDocumentLine> accountingDocumentLineList = accountingDocument.getAccountingDocumentLineList();
+		if(accountingDocumentLineList != null){
+			getAccountingDocumentLineDAO().analyzeAccountingDocumentLineByBelongsTo(accountingDocumentLineList, accountingDocument.getId(), options);
+			
+		}
+		
+		return accountingDocument;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<AccountingDocument> findAccountingDocumentByAccountingPeriod(String accountingPeriodId,Map<String,Object> options){
  	
   		SmartList<AccountingDocument> resultList = queryWith(AccountingDocumentTable.COLUMN_ACCOUNTING_PERIOD, accountingPeriodId, options, getAccountingDocumentMapper());
-		analyzeAccountingDocumentByAccountingPeriod(resultList, accountingPeriodId, options);
+		// analyzeAccountingDocumentByAccountingPeriod(resultList, accountingPeriodId, options);
 		return resultList;
  	}
  	 
@@ -662,12 +704,14 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByAccountingPeriod(String accountingPeriodId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocument> resultList =  queryWithRange(AccountingDocumentTable.COLUMN_ACCOUNTING_PERIOD, accountingPeriodId, options, getAccountingDocumentMapper(), start, count);
- 		analyzeAccountingDocumentByAccountingPeriod(resultList, accountingPeriodId, options);
+ 		//analyzeAccountingDocumentByAccountingPeriod(resultList, accountingPeriodId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentByAccountingPeriod(SmartList<AccountingDocument> resultList, String accountingPeriodId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocument.ACCOUNTING_PERIOD_PROPERTY, accountingPeriodId);
@@ -695,7 +739,7 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByDocumentType(String accountingDocumentTypeId,Map<String,Object> options){
  	
   		SmartList<AccountingDocument> resultList = queryWith(AccountingDocumentTable.COLUMN_DOCUMENT_TYPE, accountingDocumentTypeId, options, getAccountingDocumentMapper());
-		analyzeAccountingDocumentByDocumentType(resultList, accountingDocumentTypeId, options);
+		// analyzeAccountingDocumentByDocumentType(resultList, accountingDocumentTypeId, options);
 		return resultList;
  	}
  	 
@@ -703,12 +747,14 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByDocumentType(String accountingDocumentTypeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocument> resultList =  queryWithRange(AccountingDocumentTable.COLUMN_DOCUMENT_TYPE, accountingDocumentTypeId, options, getAccountingDocumentMapper(), start, count);
- 		analyzeAccountingDocumentByDocumentType(resultList, accountingDocumentTypeId, options);
+ 		//analyzeAccountingDocumentByDocumentType(resultList, accountingDocumentTypeId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentByDocumentType(SmartList<AccountingDocument> resultList, String accountingDocumentTypeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocument.DOCUMENT_TYPE_PROPERTY, accountingDocumentTypeId);
@@ -736,7 +782,7 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByCreation(String accountingDocumentCreationId,Map<String,Object> options){
  	
   		SmartList<AccountingDocument> resultList = queryWith(AccountingDocumentTable.COLUMN_CREATION, accountingDocumentCreationId, options, getAccountingDocumentMapper());
-		analyzeAccountingDocumentByCreation(resultList, accountingDocumentCreationId, options);
+		// analyzeAccountingDocumentByCreation(resultList, accountingDocumentCreationId, options);
 		return resultList;
  	}
  	 
@@ -744,12 +790,14 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByCreation(String accountingDocumentCreationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocument> resultList =  queryWithRange(AccountingDocumentTable.COLUMN_CREATION, accountingDocumentCreationId, options, getAccountingDocumentMapper(), start, count);
- 		analyzeAccountingDocumentByCreation(resultList, accountingDocumentCreationId, options);
+ 		//analyzeAccountingDocumentByCreation(resultList, accountingDocumentCreationId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentByCreation(SmartList<AccountingDocument> resultList, String accountingDocumentCreationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocument.CREATION_PROPERTY, accountingDocumentCreationId);
@@ -777,7 +825,7 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByConfirmation(String accountingDocumentConfirmationId,Map<String,Object> options){
  	
   		SmartList<AccountingDocument> resultList = queryWith(AccountingDocumentTable.COLUMN_CONFIRMATION, accountingDocumentConfirmationId, options, getAccountingDocumentMapper());
-		analyzeAccountingDocumentByConfirmation(resultList, accountingDocumentConfirmationId, options);
+		// analyzeAccountingDocumentByConfirmation(resultList, accountingDocumentConfirmationId, options);
 		return resultList;
  	}
  	 
@@ -785,12 +833,14 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByConfirmation(String accountingDocumentConfirmationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocument> resultList =  queryWithRange(AccountingDocumentTable.COLUMN_CONFIRMATION, accountingDocumentConfirmationId, options, getAccountingDocumentMapper(), start, count);
- 		analyzeAccountingDocumentByConfirmation(resultList, accountingDocumentConfirmationId, options);
+ 		//analyzeAccountingDocumentByConfirmation(resultList, accountingDocumentConfirmationId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentByConfirmation(SmartList<AccountingDocument> resultList, String accountingDocumentConfirmationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocument.CONFIRMATION_PROPERTY, accountingDocumentConfirmationId);
@@ -818,7 +868,7 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByAuditing(String accountingDocumentAuditingId,Map<String,Object> options){
  	
   		SmartList<AccountingDocument> resultList = queryWith(AccountingDocumentTable.COLUMN_AUDITING, accountingDocumentAuditingId, options, getAccountingDocumentMapper());
-		analyzeAccountingDocumentByAuditing(resultList, accountingDocumentAuditingId, options);
+		// analyzeAccountingDocumentByAuditing(resultList, accountingDocumentAuditingId, options);
 		return resultList;
  	}
  	 
@@ -826,12 +876,14 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByAuditing(String accountingDocumentAuditingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocument> resultList =  queryWithRange(AccountingDocumentTable.COLUMN_AUDITING, accountingDocumentAuditingId, options, getAccountingDocumentMapper(), start, count);
- 		analyzeAccountingDocumentByAuditing(resultList, accountingDocumentAuditingId, options);
+ 		//analyzeAccountingDocumentByAuditing(resultList, accountingDocumentAuditingId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentByAuditing(SmartList<AccountingDocument> resultList, String accountingDocumentAuditingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocument.AUDITING_PROPERTY, accountingDocumentAuditingId);
@@ -859,7 +911,7 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByPosting(String accountingDocumentPostingId,Map<String,Object> options){
  	
   		SmartList<AccountingDocument> resultList = queryWith(AccountingDocumentTable.COLUMN_POSTING, accountingDocumentPostingId, options, getAccountingDocumentMapper());
-		analyzeAccountingDocumentByPosting(resultList, accountingDocumentPostingId, options);
+		// analyzeAccountingDocumentByPosting(resultList, accountingDocumentPostingId, options);
 		return resultList;
  	}
  	 
@@ -867,12 +919,14 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<AccountingDocument> findAccountingDocumentByPosting(String accountingDocumentPostingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocument> resultList =  queryWithRange(AccountingDocumentTable.COLUMN_POSTING, accountingDocumentPostingId, options, getAccountingDocumentMapper(), start, count);
- 		analyzeAccountingDocumentByPosting(resultList, accountingDocumentPostingId, options);
+ 		//analyzeAccountingDocumentByPosting(resultList, accountingDocumentPostingId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentByPosting(SmartList<AccountingDocument> resultList, String accountingDocumentPostingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocument.POSTING_PROPERTY, accountingDocumentPostingId);

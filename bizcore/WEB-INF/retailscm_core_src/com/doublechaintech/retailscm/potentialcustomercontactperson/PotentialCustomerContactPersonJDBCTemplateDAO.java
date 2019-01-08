@@ -218,10 +218,11 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
  
 		
 	
-	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
  	}
 
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
 		
 		if(isExtractPotentialCustomerContactListEnabled(loadOptions)){
 	 		extractPotentialCustomerContactList(potentialCustomerContactPerson, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
+	 		// analyzePotentialCustomerContactList(potentialCustomerContactPerson, loadOptions);
+ 		}
+ 		
 		
 		return potentialCustomerContactPerson;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected PotentialCustomerContactPerson extractPotentialCustomer(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
  
 		
 	protected void enhancePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected PotentialCustomerContactPerson extractPotentialCustomerContactList(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
 		return potentialCustomerContactPerson;
 	
 	}	
+	
+	protected PotentialCustomerContactPerson analyzePotentialCustomerContactList(PotentialCustomerContactPerson potentialCustomerContactPerson, Map<String,Object> options){
+		
+		
+		if(potentialCustomerContactPerson == null){
+			return null;
+		}
+		if(potentialCustomerContactPerson.getId() == null){
+			return potentialCustomerContactPerson;
+		}
+
+		
+		
+		SmartList<PotentialCustomerContact> potentialCustomerContactList = potentialCustomerContactPerson.getPotentialCustomerContactList();
+		if(potentialCustomerContactList != null){
+			getPotentialCustomerContactDAO().analyzePotentialCustomerContactByContactTo(potentialCustomerContactList, potentialCustomerContactPerson.getId(), options);
+			
+		}
+		
+		return potentialCustomerContactPerson;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<PotentialCustomerContactPerson> findPotentialCustomerContactPersonByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
  	
   		SmartList<PotentialCustomerContactPerson> resultList = queryWith(PotentialCustomerContactPersonTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactPersonMapper());
-		analyzePotentialCustomerContactPersonByPotentialCustomer(resultList, potentialCustomerId, options);
+		// analyzePotentialCustomerContactPersonByPotentialCustomer(resultList, potentialCustomerId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
  	public SmartList<PotentialCustomerContactPerson> findPotentialCustomerContactPersonByPotentialCustomer(String potentialCustomerId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PotentialCustomerContactPerson> resultList =  queryWithRange(PotentialCustomerContactPersonTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getPotentialCustomerContactPersonMapper(), start, count);
- 		analyzePotentialCustomerContactPersonByPotentialCustomer(resultList, potentialCustomerId, options);
+ 		//analyzePotentialCustomerContactPersonByPotentialCustomer(resultList, potentialCustomerId, options);
  		return resultList;
  		
  	}
  	public void analyzePotentialCustomerContactPersonByPotentialCustomer(SmartList<PotentialCustomerContactPerson> resultList, String potentialCustomerId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

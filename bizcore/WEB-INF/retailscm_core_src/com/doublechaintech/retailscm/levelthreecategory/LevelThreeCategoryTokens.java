@@ -102,7 +102,14 @@ public class LevelThreeCategoryTokens extends CommonTokens{
 		addSimpleOptions(PRODUCT_LIST);
 		return this;
 	}
-
+	public LevelThreeCategoryTokens analyzeProductList(){		
+		addSimpleOptions(PRODUCT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeProductListEnabled(){		
+		
+		return checkOptions(this.options(), PRODUCT_LIST+".anaylze");
+	}
 	public LevelThreeCategoryTokens extractMoreFromProductList(String idsSeperatedWithComma){		
 		addSimpleOptions(PRODUCT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

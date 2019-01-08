@@ -224,10 +224,6 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected GoodsMovement extractGoods(GoodsMovement goodsMovement, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<GoodsMovement> findGoodsMovementByGoods(String goodsId,Map<String,Object> options){
  	
   		SmartList<GoodsMovement> resultList = queryWith(GoodsMovementTable.COLUMN_GOODS, goodsId, options, getGoodsMovementMapper());
-		analyzeGoodsMovementByGoods(resultList, goodsId, options);
+		// analyzeGoodsMovementByGoods(resultList, goodsId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<GoodsMovement> findGoodsMovementByGoods(String goodsId, int start, int count,Map<String,Object> options){
  		
  		SmartList<GoodsMovement> resultList =  queryWithRange(GoodsMovementTable.COLUMN_GOODS, goodsId, options, getGoodsMovementMapper(), start, count);
- 		analyzeGoodsMovementByGoods(resultList, goodsId, options);
+ 		//analyzeGoodsMovementByGoods(resultList, goodsId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsMovementByGoods(SmartList<GoodsMovement> resultList, String goodsId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsMovement.GOODS_PROPERTY, goodsId);

@@ -224,10 +224,6 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmNamingServ
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected RetailStoreOrderLineItem extractBizOrder(RetailStoreOrderLineItem retailStoreOrderLineItem, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrderLineItem> resultList = queryWith(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options, getRetailStoreOrderLineItemMapper());
-		analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
+		// analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class RetailStoreOrderLineItemJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<RetailStoreOrderLineItem> findRetailStoreOrderLineItemByBizOrder(String retailStoreOrderId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrderLineItem> resultList =  queryWithRange(RetailStoreOrderLineItemTable.COLUMN_BIZ_ORDER, retailStoreOrderId, options, getRetailStoreOrderLineItemMapper(), start, count);
- 		analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
+ 		//analyzeRetailStoreOrderLineItemByBizOrder(resultList, retailStoreOrderId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderLineItemByBizOrder(SmartList<RetailStoreOrderLineItem> resultList, String retailStoreOrderId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -90,7 +90,14 @@ public class RetailStoreDecorationTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_LIST);
 		return this;
 	}
-
+	public RetailStoreDecorationTokens analyzeRetailStoreList(){		
+		addSimpleOptions(RETAIL_STORE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+	}
 	public RetailStoreDecorationTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

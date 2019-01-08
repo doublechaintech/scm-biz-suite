@@ -224,10 +224,6 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected FormField extractForm(FormField formField, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  	public SmartList<FormField> findFormFieldByForm(String genericFormId,Map<String,Object> options){
  	
   		SmartList<FormField> resultList = queryWith(FormFieldTable.COLUMN_FORM, genericFormId, options, getFormFieldMapper());
-		analyzeFormFieldByForm(resultList, genericFormId, options);
+		// analyzeFormFieldByForm(resultList, genericFormId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  	public SmartList<FormField> findFormFieldByForm(String genericFormId, int start, int count,Map<String,Object> options){
  		
  		SmartList<FormField> resultList =  queryWithRange(FormFieldTable.COLUMN_FORM, genericFormId, options, getFormFieldMapper(), start, count);
- 		analyzeFormFieldByForm(resultList, genericFormId, options);
+ 		//analyzeFormFieldByForm(resultList, genericFormId, options);
  		return resultList;
  		
  	}
  	public void analyzeFormFieldByForm(SmartList<FormField> resultList, String genericFormId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

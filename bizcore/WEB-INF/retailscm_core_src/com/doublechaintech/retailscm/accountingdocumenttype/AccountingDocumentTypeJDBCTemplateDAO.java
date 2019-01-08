@@ -218,10 +218,11 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmNamingServic
  
 		
 	
-	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentTypeTokens.ACCOUNTING_DOCUMENT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingDocumentTypeTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmNamingServic
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmNamingServic
 		
 		if(isExtractAccountingDocumentListEnabled(loadOptions)){
 	 		extractAccountingDocumentList(accountingDocumentType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentList(accountingDocumentType, loadOptions);
+ 		}
+ 		
 		
 		return accountingDocumentType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected AccountingDocumentType extractAccountingPeriod(AccountingDocumentType accountingDocumentType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmNamingServic
  
 		
 	protected void enhanceAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingDocumentType extractAccountingDocumentList(AccountingDocumentType accountingDocumentType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmNamingServic
 		return accountingDocumentType;
 	
 	}	
+	
+	protected AccountingDocumentType analyzeAccountingDocumentList(AccountingDocumentType accountingDocumentType, Map<String,Object> options){
+		
+		
+		if(accountingDocumentType == null){
+			return null;
+		}
+		if(accountingDocumentType.getId() == null){
+			return accountingDocumentType;
+		}
+
+		
+		
+		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentType.getAccountingDocumentList();
+		if(accountingDocumentList != null){
+			getAccountingDocumentDAO().analyzeAccountingDocumentByDocumentType(accountingDocumentList, accountingDocumentType.getId(), options);
+			
+		}
+		
+		return accountingDocumentType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<AccountingDocumentType> findAccountingDocumentTypeByAccountingPeriod(String accountSetId,Map<String,Object> options){
  	
   		SmartList<AccountingDocumentType> resultList = queryWith(AccountingDocumentTypeTable.COLUMN_ACCOUNTING_PERIOD, accountSetId, options, getAccountingDocumentTypeMapper());
-		analyzeAccountingDocumentTypeByAccountingPeriod(resultList, accountSetId, options);
+		// analyzeAccountingDocumentTypeByAccountingPeriod(resultList, accountSetId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class AccountingDocumentTypeJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<AccountingDocumentType> findAccountingDocumentTypeByAccountingPeriod(String accountSetId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocumentType> resultList =  queryWithRange(AccountingDocumentTypeTable.COLUMN_ACCOUNTING_PERIOD, accountSetId, options, getAccountingDocumentTypeMapper(), start, count);
- 		analyzeAccountingDocumentTypeByAccountingPeriod(resultList, accountSetId, options);
+ 		//analyzeAccountingDocumentTypeByAccountingPeriod(resultList, accountSetId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentTypeByAccountingPeriod(SmartList<AccountingDocumentType> resultList, String accountSetId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

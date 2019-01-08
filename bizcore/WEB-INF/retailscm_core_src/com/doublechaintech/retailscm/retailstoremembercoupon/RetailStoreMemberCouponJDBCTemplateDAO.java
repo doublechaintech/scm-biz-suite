@@ -224,10 +224,6 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected RetailStoreMemberCoupon extractOwner(RetailStoreMemberCoupon retailStoreMemberCoupon, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<RetailStoreMemberCoupon> findRetailStoreMemberCouponByOwner(String retailStoreMemberId,Map<String,Object> options){
  	
   		SmartList<RetailStoreMemberCoupon> resultList = queryWith(RetailStoreMemberCouponTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberCouponMapper());
-		analyzeRetailStoreMemberCouponByOwner(resultList, retailStoreMemberId, options);
+		// analyzeRetailStoreMemberCouponByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<RetailStoreMemberCoupon> findRetailStoreMemberCouponByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreMemberCoupon> resultList =  queryWithRange(RetailStoreMemberCouponTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberCouponMapper(), start, count);
- 		analyzeRetailStoreMemberCouponByOwner(resultList, retailStoreMemberId, options);
+ 		//analyzeRetailStoreMemberCouponByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreMemberCouponByOwner(SmartList<RetailStoreMemberCoupon> resultList, String retailStoreMemberId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

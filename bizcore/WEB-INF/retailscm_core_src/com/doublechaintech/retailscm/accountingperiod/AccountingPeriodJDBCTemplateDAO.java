@@ -218,10 +218,11 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	
-	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
 		if(isExtractAccountingDocumentListEnabled(loadOptions)){
 	 		extractAccountingDocumentList(accountingPeriod, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentList(accountingPeriod, loadOptions);
+ 		}
+ 		
 		
 		return accountingPeriod;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected AccountingPeriod extractAccountSet(AccountingPeriod accountingPeriod, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	protected void enhanceAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingPeriod extractAccountingDocumentList(AccountingPeriod accountingPeriod, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return accountingPeriod;
 	
 	}	
+	
+	protected AccountingPeriod analyzeAccountingDocumentList(AccountingPeriod accountingPeriod, Map<String,Object> options){
+		
+		
+		if(accountingPeriod == null){
+			return null;
+		}
+		if(accountingPeriod.getId() == null){
+			return accountingPeriod;
+		}
+
+		
+		
+		SmartList<AccountingDocument> accountingDocumentList = accountingPeriod.getAccountingDocumentList();
+		if(accountingDocumentList != null){
+			getAccountingDocumentDAO().analyzeAccountingDocumentByAccountingPeriod(accountingDocumentList, accountingPeriod.getId(), options);
+			
+		}
+		
+		return accountingPeriod;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<AccountingPeriod> findAccountingPeriodByAccountSet(String accountSetId,Map<String,Object> options){
  	
   		SmartList<AccountingPeriod> resultList = queryWith(AccountingPeriodTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingPeriodMapper());
-		analyzeAccountingPeriodByAccountSet(resultList, accountSetId, options);
+		// analyzeAccountingPeriodByAccountSet(resultList, accountSetId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<AccountingPeriod> findAccountingPeriodByAccountSet(String accountSetId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingPeriod> resultList =  queryWithRange(AccountingPeriodTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingPeriodMapper(), start, count);
- 		analyzeAccountingPeriodByAccountSet(resultList, accountSetId, options);
+ 		//analyzeAccountingPeriodByAccountSet(resultList, accountSetId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingPeriodByAccountSet(SmartList<AccountingPeriod> resultList, String accountSetId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -253,10 +253,6 @@ public class RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO extends Retai
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected RetailStoreMemberGiftCardConsumeRecord extractOwner(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecord, Map<String,Object> options) throws Exception{
@@ -304,7 +300,7 @@ public class RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO extends Retai
  	public SmartList<RetailStoreMemberGiftCardConsumeRecord> findRetailStoreMemberGiftCardConsumeRecordByOwner(String retailStoreMemberGiftCardId,Map<String,Object> options){
  	
   		SmartList<RetailStoreMemberGiftCardConsumeRecord> resultList = queryWith(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_OWNER, retailStoreMemberGiftCardId, options, getRetailStoreMemberGiftCardConsumeRecordMapper());
-		analyzeRetailStoreMemberGiftCardConsumeRecordByOwner(resultList, retailStoreMemberGiftCardId, options);
+		// analyzeRetailStoreMemberGiftCardConsumeRecordByOwner(resultList, retailStoreMemberGiftCardId, options);
 		return resultList;
  	}
  	 
@@ -312,12 +308,14 @@ public class RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO extends Retai
  	public SmartList<RetailStoreMemberGiftCardConsumeRecord> findRetailStoreMemberGiftCardConsumeRecordByOwner(String retailStoreMemberGiftCardId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreMemberGiftCardConsumeRecord> resultList =  queryWithRange(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_OWNER, retailStoreMemberGiftCardId, options, getRetailStoreMemberGiftCardConsumeRecordMapper(), start, count);
- 		analyzeRetailStoreMemberGiftCardConsumeRecordByOwner(resultList, retailStoreMemberGiftCardId, options);
+ 		//analyzeRetailStoreMemberGiftCardConsumeRecordByOwner(resultList, retailStoreMemberGiftCardId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreMemberGiftCardConsumeRecordByOwner(SmartList<RetailStoreMemberGiftCardConsumeRecord> resultList, String retailStoreMemberGiftCardId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreMemberGiftCardConsumeRecord.OWNER_PROPERTY, retailStoreMemberGiftCardId);
@@ -345,7 +343,7 @@ public class RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO extends Retai
  	public SmartList<RetailStoreMemberGiftCardConsumeRecord> findRetailStoreMemberGiftCardConsumeRecordByBizOrder(String consumerOrderId,Map<String,Object> options){
  	
   		SmartList<RetailStoreMemberGiftCardConsumeRecord> resultList = queryWith(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getRetailStoreMemberGiftCardConsumeRecordMapper());
-		analyzeRetailStoreMemberGiftCardConsumeRecordByBizOrder(resultList, consumerOrderId, options);
+		// analyzeRetailStoreMemberGiftCardConsumeRecordByBizOrder(resultList, consumerOrderId, options);
 		return resultList;
  	}
  	 
@@ -353,12 +351,14 @@ public class RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO extends Retai
  	public SmartList<RetailStoreMemberGiftCardConsumeRecord> findRetailStoreMemberGiftCardConsumeRecordByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreMemberGiftCardConsumeRecord> resultList =  queryWithRange(RetailStoreMemberGiftCardConsumeRecordTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getRetailStoreMemberGiftCardConsumeRecordMapper(), start, count);
- 		analyzeRetailStoreMemberGiftCardConsumeRecordByBizOrder(resultList, consumerOrderId, options);
+ 		//analyzeRetailStoreMemberGiftCardConsumeRecordByBizOrder(resultList, consumerOrderId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreMemberGiftCardConsumeRecordByBizOrder(SmartList<RetailStoreMemberGiftCardConsumeRecord> resultList, String consumerOrderId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreMemberGiftCardConsumeRecord.BIZ_ORDER_PROPERTY, consumerOrderId);

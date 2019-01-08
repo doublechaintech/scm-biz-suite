@@ -102,7 +102,14 @@ public class StorageSpaceTokens extends CommonTokens{
 		addSimpleOptions(GOODS_SHELF_LIST);
 		return this;
 	}
-
+	public StorageSpaceTokens analyzeGoodsShelfList(){		
+		addSimpleOptions(GOODS_SHELF_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsShelfListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_SHELF_LIST+".anaylze");
+	}
 	public StorageSpaceTokens extractMoreFromGoodsShelfList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_SHELF_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

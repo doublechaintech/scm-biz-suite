@@ -189,7 +189,14 @@ public class SupplyOrderTokens extends CommonTokens{
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST);
 		return this;
 	}
-
+	public SupplyOrderTokens analyzeSupplyOrderLineItemList(){		
+		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplyOrderLineItemListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLY_ORDER_LINE_ITEM_LIST+".anaylze");
+	}
 	public SupplyOrderTokens extractMoreFromSupplyOrderLineItemList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LINE_ITEM_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -244,7 +251,14 @@ public class SupplyOrderTokens extends CommonTokens{
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST);
 		return this;
 	}
-
+	public SupplyOrderTokens analyzeSupplyOrderShippingGroupList(){		
+		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplyOrderShippingGroupListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLY_ORDER_SHIPPING_GROUP_LIST+".anaylze");
+	}
 	public SupplyOrderTokens extractMoreFromSupplyOrderShippingGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_SHIPPING_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -299,7 +313,14 @@ public class SupplyOrderTokens extends CommonTokens{
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST);
 		return this;
 	}
-
+	public SupplyOrderTokens analyzeSupplyOrderPaymentGroupList(){		
+		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplyOrderPaymentGroupListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLY_ORDER_PAYMENT_GROUP_LIST+".anaylze");
+	}
 	public SupplyOrderTokens extractMoreFromSupplyOrderPaymentGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_PAYMENT_GROUP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -354,7 +375,14 @@ public class SupplyOrderTokens extends CommonTokens{
 		addSimpleOptions(GOODS_LIST);
 		return this;
 	}
-
+	public SupplyOrderTokens analyzeGoodsList(){		
+		addSimpleOptions(GOODS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+	}
 	public SupplyOrderTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

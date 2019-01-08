@@ -218,10 +218,11 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
  
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelThreeDepartmentTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,LevelThreeDepartmentTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(levelThreeDepartment, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(levelThreeDepartment, loadOptions);
+ 		}
+ 		
 		
 		return levelThreeDepartment;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected LevelThreeDepartment extractBelongsTo(LevelThreeDepartment levelThreeDepartment, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
  
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected LevelThreeDepartment extractEmployeeList(LevelThreeDepartment levelThreeDepartment, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
 		return levelThreeDepartment;
 	
 	}	
+	
+	protected LevelThreeDepartment analyzeEmployeeList(LevelThreeDepartment levelThreeDepartment, Map<String,Object> options){
+		
+		
+		if(levelThreeDepartment == null){
+			return null;
+		}
+		if(levelThreeDepartment.getId() == null){
+			return levelThreeDepartment;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = levelThreeDepartment.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByDepartment(employeeList, levelThreeDepartment.getId(), options);
+			
+		}
+		
+		return levelThreeDepartment;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<LevelThreeDepartment> findLevelThreeDepartmentByBelongsTo(String levelTwoDepartmentId,Map<String,Object> options){
  	
   		SmartList<LevelThreeDepartment> resultList = queryWith(LevelThreeDepartmentTable.COLUMN_BELONGS_TO, levelTwoDepartmentId, options, getLevelThreeDepartmentMapper());
-		analyzeLevelThreeDepartmentByBelongsTo(resultList, levelTwoDepartmentId, options);
+		// analyzeLevelThreeDepartmentByBelongsTo(resultList, levelTwoDepartmentId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
  	public SmartList<LevelThreeDepartment> findLevelThreeDepartmentByBelongsTo(String levelTwoDepartmentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<LevelThreeDepartment> resultList =  queryWithRange(LevelThreeDepartmentTable.COLUMN_BELONGS_TO, levelTwoDepartmentId, options, getLevelThreeDepartmentMapper(), start, count);
- 		analyzeLevelThreeDepartmentByBelongsTo(resultList, levelTwoDepartmentId, options);
+ 		//analyzeLevelThreeDepartmentByBelongsTo(resultList, levelTwoDepartmentId, options);
  		return resultList;
  		
  	}
  	public void analyzeLevelThreeDepartmentByBelongsTo(SmartList<LevelThreeDepartment> resultList, String levelTwoDepartmentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -193,10 +193,11 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 
 		
 	
-	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderPickingTokens.SUPPLY_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderPickingTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 		if(isExtractSupplyOrderListEnabled(loadOptions)){
 	 		extractSupplyOrderList(supplyOrderPicking, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
+	 		// analyzeSupplyOrderList(supplyOrderPicking, loadOptions);
+ 		}
+ 		
 		
 		return supplyOrderPicking;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceSupplyOrderList(SmartList<SupplyOrder> supplyOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrderPicking extractSupplyOrderList(SupplyOrderPicking supplyOrderPicking, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return supplyOrderPicking;
 	
 	}	
+	
+	protected SupplyOrderPicking analyzeSupplyOrderList(SupplyOrderPicking supplyOrderPicking, Map<String,Object> options){
+		
+		
+		if(supplyOrderPicking == null){
+			return null;
+		}
+		if(supplyOrderPicking.getId() == null){
+			return supplyOrderPicking;
+		}
+
+		
+		
+		SmartList<SupplyOrder> supplyOrderList = supplyOrderPicking.getSupplyOrderList();
+		if(supplyOrderList != null){
+			getSupplyOrderDAO().analyzeSupplyOrderByPicking(supplyOrderList, supplyOrderPicking.getId(), options);
+			
+		}
+		
+		return supplyOrderPicking;
+	
+	}	
+	
 		
 		
  	

@@ -224,10 +224,6 @@ public class UserWhiteListJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected UserWhiteList extractDomain(UserWhiteList userWhiteList, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class UserWhiteListJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<UserWhiteList> findUserWhiteListByDomain(String userDomainId,Map<String,Object> options){
  	
   		SmartList<UserWhiteList> resultList = queryWith(UserWhiteListTable.COLUMN_DOMAIN, userDomainId, options, getUserWhiteListMapper());
-		analyzeUserWhiteListByDomain(resultList, userDomainId, options);
+		// analyzeUserWhiteListByDomain(resultList, userDomainId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class UserWhiteListJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<UserWhiteList> findUserWhiteListByDomain(String userDomainId, int start, int count,Map<String,Object> options){
  		
  		SmartList<UserWhiteList> resultList =  queryWithRange(UserWhiteListTable.COLUMN_DOMAIN, userDomainId, options, getUserWhiteListMapper(), start, count);
- 		analyzeUserWhiteListByDomain(resultList, userDomainId, options);
+ 		//analyzeUserWhiteListByDomain(resultList, userDomainId, options);
  		return resultList;
  		
  	}
  	public void analyzeUserWhiteListByDomain(SmartList<UserWhiteList> resultList, String userDomainId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

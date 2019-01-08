@@ -218,10 +218,11 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		
 	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsAllocationTokens.GOODS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GoodsAllocationTokens.GOODS_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(goodsAllocation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsListEnabled(loadOptions)){
+	 		// analyzeGoodsList(goodsAllocation, loadOptions);
+ 		}
+ 		
 		
 		return goodsAllocation;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected GoodsAllocation extractGoodsShelf(GoodsAllocation goodsAllocation, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GoodsAllocation extractGoodsList(GoodsAllocation goodsAllocation, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		return goodsAllocation;
 	
 	}	
+	
+	protected GoodsAllocation analyzeGoodsList(GoodsAllocation goodsAllocation, Map<String,Object> options){
+		
+		
+		if(goodsAllocation == null){
+			return null;
+		}
+		if(goodsAllocation.getId() == null){
+			return goodsAllocation;
+		}
+
+		
+		
+		SmartList<Goods> goodsList = goodsAllocation.getGoodsList();
+		if(goodsList != null){
+			getGoodsDAO().analyzeGoodsByGoodsAllocation(goodsList, goodsAllocation.getId(), options);
+			
+		}
+		
+		return goodsAllocation;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<GoodsAllocation> findGoodsAllocationByGoodsShelf(String goodsShelfId,Map<String,Object> options){
  	
   		SmartList<GoodsAllocation> resultList = queryWith(GoodsAllocationTable.COLUMN_GOODS_SHELF, goodsShelfId, options, getGoodsAllocationMapper());
-		analyzeGoodsAllocationByGoodsShelf(resultList, goodsShelfId, options);
+		// analyzeGoodsAllocationByGoodsShelf(resultList, goodsShelfId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<GoodsAllocation> findGoodsAllocationByGoodsShelf(String goodsShelfId, int start, int count,Map<String,Object> options){
  		
  		SmartList<GoodsAllocation> resultList =  queryWithRange(GoodsAllocationTable.COLUMN_GOODS_SHELF, goodsShelfId, options, getGoodsAllocationMapper(), start, count);
- 		analyzeGoodsAllocationByGoodsShelf(resultList, goodsShelfId, options);
+ 		//analyzeGoodsAllocationByGoodsShelf(resultList, goodsShelfId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsAllocationByGoodsShelf(SmartList<GoodsAllocation> resultList, String goodsShelfId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

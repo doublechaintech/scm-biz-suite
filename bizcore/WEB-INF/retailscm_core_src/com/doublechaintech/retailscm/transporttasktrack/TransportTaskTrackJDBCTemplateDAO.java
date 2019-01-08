@@ -224,10 +224,6 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected TransportTaskTrack extractMovement(TransportTaskTrack transportTaskTrack, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<TransportTaskTrack> findTransportTaskTrackByMovement(String transportTaskId,Map<String,Object> options){
  	
   		SmartList<TransportTaskTrack> resultList = queryWith(TransportTaskTrackTable.COLUMN_MOVEMENT, transportTaskId, options, getTransportTaskTrackMapper());
-		analyzeTransportTaskTrackByMovement(resultList, transportTaskId, options);
+		// analyzeTransportTaskTrackByMovement(resultList, transportTaskId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<TransportTaskTrack> findTransportTaskTrackByMovement(String transportTaskId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TransportTaskTrack> resultList =  queryWithRange(TransportTaskTrackTable.COLUMN_MOVEMENT, transportTaskId, options, getTransportTaskTrackMapper(), start, count);
- 		analyzeTransportTaskTrackByMovement(resultList, transportTaskId, options);
+ 		//analyzeTransportTaskTrackByMovement(resultList, transportTaskId, options);
  		return resultList;
  		
  	}
  	public void analyzeTransportTaskTrackByMovement(SmartList<TransportTaskTrack> resultList, String transportTaskId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

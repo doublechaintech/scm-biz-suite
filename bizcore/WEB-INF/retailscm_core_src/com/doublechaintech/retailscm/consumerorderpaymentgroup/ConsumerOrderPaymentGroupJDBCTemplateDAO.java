@@ -224,10 +224,6 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmNamingSer
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected ConsumerOrderPaymentGroup extractBizOrder(ConsumerOrderPaymentGroup consumerOrderPaymentGroup, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmNamingSer
  	public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(String consumerOrderId,Map<String,Object> options){
  	
   		SmartList<ConsumerOrderPaymentGroup> resultList = queryWith(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPaymentGroupMapper());
-		analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
+		// analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class ConsumerOrderPaymentGroupJDBCTemplateDAO extends RetailscmNamingSer
  	public SmartList<ConsumerOrderPaymentGroup> findConsumerOrderPaymentGroupByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ConsumerOrderPaymentGroup> resultList =  queryWithRange(ConsumerOrderPaymentGroupTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPaymentGroupMapper(), start, count);
- 		analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
+ 		//analyzeConsumerOrderPaymentGroupByBizOrder(resultList, consumerOrderId, options);
  		return resultList;
  		
  	}
  	public void analyzeConsumerOrderPaymentGroupByBizOrder(SmartList<ConsumerOrderPaymentGroup> resultList, String consumerOrderId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

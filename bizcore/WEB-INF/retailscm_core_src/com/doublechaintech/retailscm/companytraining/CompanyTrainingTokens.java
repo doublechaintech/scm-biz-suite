@@ -126,7 +126,14 @@ public class CompanyTrainingTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST);
 		return this;
 	}
-
+	public CompanyTrainingTokens analyzeEmployeeCompanyTrainingList(){		
+		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeCompanyTrainingListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+	}
 	public CompanyTrainingTokens extractMoreFromEmployeeCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

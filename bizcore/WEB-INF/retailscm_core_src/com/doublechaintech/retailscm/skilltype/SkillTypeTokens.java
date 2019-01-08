@@ -102,7 +102,14 @@ public class SkillTypeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_SKILL_LIST);
 		return this;
 	}
-
+	public SkillTypeTokens analyzeEmployeeSkillList(){		
+		addSimpleOptions(EMPLOYEE_SKILL_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeSkillListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_SKILL_LIST+".anaylze");
+	}
 	public SkillTypeTokens extractMoreFromEmployeeSkillList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SKILL_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

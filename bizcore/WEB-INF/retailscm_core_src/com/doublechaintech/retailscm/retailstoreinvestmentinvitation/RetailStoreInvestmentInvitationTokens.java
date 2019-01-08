@@ -90,7 +90,14 @@ public class RetailStoreInvestmentInvitationTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_LIST);
 		return this;
 	}
-
+	public RetailStoreInvestmentInvitationTokens analyzeRetailStoreList(){		
+		addSimpleOptions(RETAIL_STORE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+	}
 	public RetailStoreInvestmentInvitationTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

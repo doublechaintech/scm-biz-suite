@@ -224,10 +224,6 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmNamingServ
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected SupplyOrderShippingGroup extractBizOrder(SupplyOrderShippingGroup supplyOrderShippingGroup, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<SupplyOrderShippingGroup> findSupplyOrderShippingGroupByBizOrder(String supplyOrderId,Map<String,Object> options){
  	
   		SmartList<SupplyOrderShippingGroup> resultList = queryWith(SupplyOrderShippingGroupTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getSupplyOrderShippingGroupMapper());
-		analyzeSupplyOrderShippingGroupByBizOrder(resultList, supplyOrderId, options);
+		// analyzeSupplyOrderShippingGroupByBizOrder(resultList, supplyOrderId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class SupplyOrderShippingGroupJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<SupplyOrderShippingGroup> findSupplyOrderShippingGroupByBizOrder(String supplyOrderId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplyOrderShippingGroup> resultList =  queryWithRange(SupplyOrderShippingGroupTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getSupplyOrderShippingGroupMapper(), start, count);
- 		analyzeSupplyOrderShippingGroupByBizOrder(resultList, supplyOrderId, options);
+ 		//analyzeSupplyOrderShippingGroupByBizOrder(resultList, supplyOrderId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplyOrderShippingGroupByBizOrder(SmartList<SupplyOrderShippingGroup> resultList, String supplyOrderId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

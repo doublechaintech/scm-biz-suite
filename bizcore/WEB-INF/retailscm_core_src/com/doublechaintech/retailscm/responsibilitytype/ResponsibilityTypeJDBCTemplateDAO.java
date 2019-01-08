@@ -218,10 +218,11 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ResponsibilityTypeTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,ResponsibilityTypeTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(responsibilityType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(responsibilityType, loadOptions);
+ 		}
+ 		
 		
 		return responsibilityType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected ResponsibilityType extractCompany(ResponsibilityType responsibilityType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected ResponsibilityType extractEmployeeList(ResponsibilityType responsibilityType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return responsibilityType;
 	
 	}	
+	
+	protected ResponsibilityType analyzeEmployeeList(ResponsibilityType responsibilityType, Map<String,Object> options){
+		
+		
+		if(responsibilityType == null){
+			return null;
+		}
+		if(responsibilityType.getId() == null){
+			return responsibilityType;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = responsibilityType.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByResponsibleFor(employeeList, responsibilityType.getId(), options);
+			
+		}
+		
+		return responsibilityType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<ResponsibilityType> resultList = queryWith(ResponsibilityTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getResponsibilityTypeMapper());
-		analyzeResponsibilityTypeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeResponsibilityTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<ResponsibilityType> findResponsibilityTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ResponsibilityType> resultList =  queryWithRange(ResponsibilityTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getResponsibilityTypeMapper(), start, count);
- 		analyzeResponsibilityTypeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeResponsibilityTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeResponsibilityTypeByCompany(SmartList<ResponsibilityType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -218,10 +218,11 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		
 	
-	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){		
  		return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 		if(isExtractEmployeeInterviewListEnabled(loadOptions)){
 	 		extractEmployeeInterviewList(interviewType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeInterviewListEnabled(loadOptions)){
+	 		// analyzeEmployeeInterviewList(interviewType, loadOptions);
+ 		}
+ 		
 		
 		return interviewType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected InterviewType extractCompany(InterviewType interviewType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		
 	protected void enhanceEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected InterviewType extractEmployeeInterviewList(InterviewType interviewType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		return interviewType;
 	
 	}	
+	
+	protected InterviewType analyzeEmployeeInterviewList(InterviewType interviewType, Map<String,Object> options){
+		
+		
+		if(interviewType == null){
+			return null;
+		}
+		if(interviewType.getId() == null){
+			return interviewType;
+		}
+
+		
+		
+		SmartList<EmployeeInterview> employeeInterviewList = interviewType.getEmployeeInterviewList();
+		if(employeeInterviewList != null){
+			getEmployeeInterviewDAO().analyzeEmployeeInterviewByInterviewType(employeeInterviewList, interviewType.getId(), options);
+			
+		}
+		
+		return interviewType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<InterviewType> findInterviewTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<InterviewType> resultList = queryWith(InterviewTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInterviewTypeMapper());
-		analyzeInterviewTypeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeInterviewTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<InterviewType> findInterviewTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<InterviewType> resultList =  queryWithRange(InterviewTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getInterviewTypeMapper(), start, count);
- 		analyzeInterviewTypeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeInterviewTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeInterviewTypeByCompany(SmartList<InterviewType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

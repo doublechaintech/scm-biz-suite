@@ -102,7 +102,14 @@ public class GoodsShelfStockCountTokens extends CommonTokens{
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST);
 		return this;
 	}
-
+	public GoodsShelfStockCountTokens analyzeStockCountIssueTrackList(){		
+		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeStockCountIssueTrackListEnabled(){		
+		
+		return checkOptions(this.options(), STOCK_COUNT_ISSUE_TRACK_LIST+".anaylze");
+	}
 	public GoodsShelfStockCountTokens extractMoreFromStockCountIssueTrackList(String idsSeperatedWithComma){		
 		addSimpleOptions(STOCK_COUNT_ISSUE_TRACK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

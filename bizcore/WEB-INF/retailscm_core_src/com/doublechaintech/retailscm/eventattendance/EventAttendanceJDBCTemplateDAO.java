@@ -253,10 +253,6 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EventAttendance extractPotentialCustomer(EventAttendance eventAttendance, Map<String,Object> options) throws Exception{
@@ -304,7 +300,7 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<EventAttendance> findEventAttendanceByPotentialCustomer(String potentialCustomerId,Map<String,Object> options){
  	
   		SmartList<EventAttendance> resultList = queryWith(EventAttendanceTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getEventAttendanceMapper());
-		analyzeEventAttendanceByPotentialCustomer(resultList, potentialCustomerId, options);
+		// analyzeEventAttendanceByPotentialCustomer(resultList, potentialCustomerId, options);
 		return resultList;
  	}
  	 
@@ -312,12 +308,14 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<EventAttendance> findEventAttendanceByPotentialCustomer(String potentialCustomerId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EventAttendance> resultList =  queryWithRange(EventAttendanceTable.COLUMN_POTENTIAL_CUSTOMER, potentialCustomerId, options, getEventAttendanceMapper(), start, count);
- 		analyzeEventAttendanceByPotentialCustomer(resultList, potentialCustomerId, options);
+ 		//analyzeEventAttendanceByPotentialCustomer(resultList, potentialCustomerId, options);
  		return resultList;
  		
  	}
  	public void analyzeEventAttendanceByPotentialCustomer(SmartList<EventAttendance> resultList, String potentialCustomerId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EventAttendance.POTENTIAL_CUSTOMER_PROPERTY, potentialCustomerId);
@@ -345,7 +343,7 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<EventAttendance> findEventAttendanceByCityEvent(String cityEventId,Map<String,Object> options){
  	
   		SmartList<EventAttendance> resultList = queryWith(EventAttendanceTable.COLUMN_CITY_EVENT, cityEventId, options, getEventAttendanceMapper());
-		analyzeEventAttendanceByCityEvent(resultList, cityEventId, options);
+		// analyzeEventAttendanceByCityEvent(resultList, cityEventId, options);
 		return resultList;
  	}
  	 
@@ -353,12 +351,14 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<EventAttendance> findEventAttendanceByCityEvent(String cityEventId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EventAttendance> resultList =  queryWithRange(EventAttendanceTable.COLUMN_CITY_EVENT, cityEventId, options, getEventAttendanceMapper(), start, count);
- 		analyzeEventAttendanceByCityEvent(resultList, cityEventId, options);
+ 		//analyzeEventAttendanceByCityEvent(resultList, cityEventId, options);
  		return resultList;
  		
  	}
  	public void analyzeEventAttendanceByCityEvent(SmartList<EventAttendance> resultList, String cityEventId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EventAttendance.CITY_EVENT_PROPERTY, cityEventId);

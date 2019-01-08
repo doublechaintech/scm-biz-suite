@@ -102,7 +102,14 @@ public class TerminationReasonTokens extends CommonTokens{
 		addSimpleOptions(TERMINATION_LIST);
 		return this;
 	}
-
+	public TerminationReasonTokens analyzeTerminationList(){		
+		addSimpleOptions(TERMINATION_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTerminationListEnabled(){		
+		
+		return checkOptions(this.options(), TERMINATION_LIST+".anaylze");
+	}
 	public TerminationReasonTokens extractMoreFromTerminationList(String idsSeperatedWithComma){		
 		addSimpleOptions(TERMINATION_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

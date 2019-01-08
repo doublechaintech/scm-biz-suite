@@ -104,7 +104,14 @@ public class TransportFleetTokens extends CommonTokens{
 		addSimpleOptions(TRANSPORT_TRUCK_LIST);
 		return this;
 	}
-
+	public TransportFleetTokens analyzeTransportTruckList(){		
+		addSimpleOptions(TRANSPORT_TRUCK_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTransportTruckListEnabled(){		
+		
+		return checkOptions(this.options(), TRANSPORT_TRUCK_LIST+".anaylze");
+	}
 	public TransportFleetTokens extractMoreFromTransportTruckList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TRUCK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -159,7 +166,14 @@ public class TransportFleetTokens extends CommonTokens{
 		addSimpleOptions(TRUCK_DRIVER_LIST);
 		return this;
 	}
-
+	public TransportFleetTokens analyzeTruckDriverList(){		
+		addSimpleOptions(TRUCK_DRIVER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTruckDriverListEnabled(){		
+		
+		return checkOptions(this.options(), TRUCK_DRIVER_LIST+".anaylze");
+	}
 	public TransportFleetTokens extractMoreFromTruckDriverList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRUCK_DRIVER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -214,7 +228,14 @@ public class TransportFleetTokens extends CommonTokens{
 		addSimpleOptions(TRANSPORT_TASK_LIST);
 		return this;
 	}
-
+	public TransportFleetTokens analyzeTransportTaskList(){		
+		addSimpleOptions(TRANSPORT_TASK_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTransportTaskListEnabled(){		
+		
+		return checkOptions(this.options(), TRANSPORT_TASK_LIST+".anaylze");
+	}
 	public TransportFleetTokens extractMoreFromTransportTaskList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TASK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

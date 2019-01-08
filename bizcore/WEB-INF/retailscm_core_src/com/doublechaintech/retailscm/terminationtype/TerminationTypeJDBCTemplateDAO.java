@@ -218,10 +218,11 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		
 	
-	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TerminationTypeTokens.TERMINATION_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TerminationTypeTokens.TERMINATION_LIST+".analyze");
  	}
 
 	protected boolean isSaveTerminationListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
 		if(isExtractTerminationListEnabled(loadOptions)){
 	 		extractTerminationList(terminationType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeTerminationListEnabled(loadOptions)){
+	 		// analyzeTerminationList(terminationType, loadOptions);
+ 		}
+ 		
 		
 		return terminationType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected TerminationType extractCompany(TerminationType terminationType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		
 	protected void enhanceTerminationList(SmartList<Termination> terminationList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TerminationType extractTerminationList(TerminationType terminationType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		return terminationType;
 	
 	}	
+	
+	protected TerminationType analyzeTerminationList(TerminationType terminationType, Map<String,Object> options){
+		
+		
+		if(terminationType == null){
+			return null;
+		}
+		if(terminationType.getId() == null){
+			return terminationType;
+		}
+
+		
+		
+		SmartList<Termination> terminationList = terminationType.getTerminationList();
+		if(terminationList != null){
+			getTerminationDAO().analyzeTerminationByType(terminationList, terminationType.getId(), options);
+			
+		}
+		
+		return terminationType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<TerminationType> findTerminationTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<TerminationType> resultList = queryWith(TerminationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationTypeMapper());
-		analyzeTerminationTypeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeTerminationTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<TerminationType> findTerminationTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TerminationType> resultList =  queryWithRange(TerminationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationTypeMapper(), start, count);
- 		analyzeTerminationTypeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeTerminationTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeTerminationTypeByCompany(SmartList<TerminationType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

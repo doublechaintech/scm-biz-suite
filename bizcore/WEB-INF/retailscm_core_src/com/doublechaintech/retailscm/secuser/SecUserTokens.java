@@ -115,7 +115,14 @@ public class SecUserTokens extends CommonTokens{
 		addSimpleOptions(USER_APP_LIST);
 		return this;
 	}
-
+	public SecUserTokens analyzeUserAppList(){		
+		addSimpleOptions(USER_APP_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeUserAppListEnabled(){		
+		
+		return checkOptions(this.options(), USER_APP_LIST+".anaylze");
+	}
 	public SecUserTokens extractMoreFromUserAppList(String idsSeperatedWithComma){		
 		addSimpleOptions(USER_APP_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -170,7 +177,14 @@ public class SecUserTokens extends CommonTokens{
 		addSimpleOptions(LOGIN_HISTORY_LIST);
 		return this;
 	}
-
+	public SecUserTokens analyzeLoginHistoryList(){		
+		addSimpleOptions(LOGIN_HISTORY_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeLoginHistoryListEnabled(){		
+		
+		return checkOptions(this.options(), LOGIN_HISTORY_LIST+".anaylze");
+	}
 	public SecUserTokens extractMoreFromLoginHistoryList(String idsSeperatedWithComma){		
 		addSimpleOptions(LOGIN_HISTORY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

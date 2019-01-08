@@ -102,7 +102,14 @@ public class AccountingSubjectTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST);
 		return this;
 	}
-
+	public AccountingSubjectTokens analyzeAccountingDocumentLineList(){		
+		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountingDocumentLineListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze");
+	}
 	public AccountingSubjectTokens extractMoreFromAccountingDocumentLineList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

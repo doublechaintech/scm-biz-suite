@@ -210,7 +210,14 @@ public class GoodsTokens extends CommonTokens{
 		addSimpleOptions(GOODS_MOVEMENT_LIST);
 		return this;
 	}
-
+	public GoodsTokens analyzeGoodsMovementList(){		
+		addSimpleOptions(GOODS_MOVEMENT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsMovementListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_MOVEMENT_LIST+".anaylze");
+	}
 	public GoodsTokens extractMoreFromGoodsMovementList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_MOVEMENT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

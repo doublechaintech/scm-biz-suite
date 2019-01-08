@@ -218,10 +218,11 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		
 	
-	protected boolean isExtractProductSupplyDurationListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractProductSupplyDurationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeProductSupplyDurationListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST+".analyze");
  	}
 
 	protected boolean isSaveProductSupplyDurationListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
 		if(isExtractProductSupplyDurationListEnabled(loadOptions)){
 	 		extractProductSupplyDurationList(supplierProduct, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeProductSupplyDurationListEnabled(loadOptions)){
+	 		// analyzeProductSupplyDurationList(supplierProduct, loadOptions);
+ 		}
+ 		
 		
 		return supplierProduct;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected SupplierProduct extractSupplier(SupplierProduct supplierProduct, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		
 	protected void enhanceProductSupplyDurationList(SmartList<ProductSupplyDuration> productSupplyDurationList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplierProduct extractProductSupplyDurationList(SupplierProduct supplierProduct, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		return supplierProduct;
 	
 	}	
+	
+	protected SupplierProduct analyzeProductSupplyDurationList(SupplierProduct supplierProduct, Map<String,Object> options){
+		
+		
+		if(supplierProduct == null){
+			return null;
+		}
+		if(supplierProduct.getId() == null){
+			return supplierProduct;
+		}
+
+		
+		
+		SmartList<ProductSupplyDuration> productSupplyDurationList = supplierProduct.getProductSupplyDurationList();
+		if(productSupplyDurationList != null){
+			getProductSupplyDurationDAO().analyzeProductSupplyDurationByProduct(productSupplyDurationList, supplierProduct.getId(), options);
+			
+		}
+		
+		return supplierProduct;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<SupplierProduct> findSupplierProductBySupplier(String goodsSupplierId,Map<String,Object> options){
  	
   		SmartList<SupplierProduct> resultList = queryWith(SupplierProductTable.COLUMN_SUPPLIER, goodsSupplierId, options, getSupplierProductMapper());
-		analyzeSupplierProductBySupplier(resultList, goodsSupplierId, options);
+		// analyzeSupplierProductBySupplier(resultList, goodsSupplierId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<SupplierProduct> findSupplierProductBySupplier(String goodsSupplierId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SupplierProduct> resultList =  queryWithRange(SupplierProductTable.COLUMN_SUPPLIER, goodsSupplierId, options, getSupplierProductMapper(), start, count);
- 		analyzeSupplierProductBySupplier(resultList, goodsSupplierId, options);
+ 		//analyzeSupplierProductBySupplier(resultList, goodsSupplierId, options);
  		return resultList;
  		
  	}
  	public void analyzeSupplierProductBySupplier(SmartList<SupplierProduct> resultList, String goodsSupplierId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

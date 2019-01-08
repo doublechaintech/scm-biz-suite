@@ -90,7 +90,14 @@ public class RetailStoreFranchisingTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_LIST);
 		return this;
 	}
-
+	public RetailStoreFranchisingTokens analyzeRetailStoreList(){		
+		addSimpleOptions(RETAIL_STORE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+	}
 	public RetailStoreFranchisingTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

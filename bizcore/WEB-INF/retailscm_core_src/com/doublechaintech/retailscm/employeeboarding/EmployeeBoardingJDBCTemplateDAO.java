@@ -193,10 +193,11 @@ public class EmployeeBoardingJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeBoardingTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeBoardingTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class EmployeeBoardingJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class EmployeeBoardingJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(employeeBoarding, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(employeeBoarding, loadOptions);
+ 		}
+ 		
 		
 		return employeeBoarding;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected EmployeeBoarding extractEmployeeList(EmployeeBoarding employeeBoarding, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class EmployeeBoardingJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return employeeBoarding;
 	
 	}	
+	
+	protected EmployeeBoarding analyzeEmployeeList(EmployeeBoarding employeeBoarding, Map<String,Object> options){
+		
+		
+		if(employeeBoarding == null){
+			return null;
+		}
+		if(employeeBoarding.getId() == null){
+			return employeeBoarding;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = employeeBoarding.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByEmployeeBoarding(employeeList, employeeBoarding.getId(), options);
+			
+		}
+		
+		return employeeBoarding;
+	
+	}	
+	
 		
 		
  	

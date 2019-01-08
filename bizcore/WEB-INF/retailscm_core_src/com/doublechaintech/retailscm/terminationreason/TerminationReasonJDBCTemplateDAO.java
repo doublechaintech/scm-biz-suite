@@ -218,10 +218,11 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		
 	
-	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST+".analyze");
  	}
 
 	protected boolean isSaveTerminationListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
 		if(isExtractTerminationListEnabled(loadOptions)){
 	 		extractTerminationList(terminationReason, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeTerminationListEnabled(loadOptions)){
+	 		// analyzeTerminationList(terminationReason, loadOptions);
+ 		}
+ 		
 		
 		return terminationReason;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected TerminationReason extractCompany(TerminationReason terminationReason, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		
 	protected void enhanceTerminationList(SmartList<Termination> terminationList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TerminationReason extractTerminationList(TerminationReason terminationReason, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		return terminationReason;
 	
 	}	
+	
+	protected TerminationReason analyzeTerminationList(TerminationReason terminationReason, Map<String,Object> options){
+		
+		
+		if(terminationReason == null){
+			return null;
+		}
+		if(terminationReason.getId() == null){
+			return terminationReason;
+		}
+
+		
+		
+		SmartList<Termination> terminationList = terminationReason.getTerminationList();
+		if(terminationList != null){
+			getTerminationDAO().analyzeTerminationByReason(terminationList, terminationReason.getId(), options);
+			
+		}
+		
+		return terminationReason;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<TerminationReason> findTerminationReasonByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<TerminationReason> resultList = queryWith(TerminationReasonTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationReasonMapper());
-		analyzeTerminationReasonByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeTerminationReasonByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<TerminationReason> findTerminationReasonByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TerminationReason> resultList =  queryWithRange(TerminationReasonTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getTerminationReasonMapper(), start, count);
- 		analyzeTerminationReasonByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeTerminationReasonByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeTerminationReasonByCompany(SmartList<TerminationReason> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

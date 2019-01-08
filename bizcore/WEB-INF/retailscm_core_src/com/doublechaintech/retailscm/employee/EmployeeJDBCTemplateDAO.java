@@ -801,10 +801,11 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		
 	
-	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
@@ -812,14 +813,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeSkillListEnabled(Map<String,Object> options){
@@ -827,14 +827,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeePerformanceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeePerformanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeePerformanceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeePerformanceListEnabled(Map<String,Object> options){
@@ -842,14 +841,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeWorkExperienceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeWorkExperienceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeWorkExperienceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeWorkExperienceListEnabled(Map<String,Object> options){
@@ -857,14 +855,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeLeaveListEnabled(Map<String,Object> options){
@@ -872,14 +869,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){
@@ -887,14 +883,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeAttendanceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeAttendanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeAttendanceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeAttendanceListEnabled(Map<String,Object> options){
@@ -902,14 +897,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeQualifierListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeQualifierListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeQualifierListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeQualifierListEnabled(Map<String,Object> options){
@@ -917,14 +911,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeEducationListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeEducationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeEducationListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeEducationListEnabled(Map<String,Object> options){
@@ -932,14 +925,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeAwardListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeAwardListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeAwardListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeAwardListEnabled(Map<String,Object> options){
@@ -947,14 +939,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){
@@ -962,14 +953,13 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractPayingOffListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractPayingOffListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzePayingOffListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST+".analyze");
  	}
 
 	protected boolean isSavePayingOffListEnabled(Map<String,Object> options){
@@ -977,8 +967,6 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -1057,60 +1045,104 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		
 		if(isExtractEmployeeCompanyTrainingListEnabled(loadOptions)){
 	 		extractEmployeeCompanyTrainingList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeCompanyTrainingListEnabled(loadOptions)){
+	 		// analyzeEmployeeCompanyTrainingList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeSkillListEnabled(loadOptions)){
 	 		extractEmployeeSkillList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeSkillListEnabled(loadOptions)){
+	 		// analyzeEmployeeSkillList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeePerformanceListEnabled(loadOptions)){
 	 		extractEmployeePerformanceList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeePerformanceListEnabled(loadOptions)){
+	 		// analyzeEmployeePerformanceList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeWorkExperienceListEnabled(loadOptions)){
 	 		extractEmployeeWorkExperienceList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeWorkExperienceListEnabled(loadOptions)){
+	 		// analyzeEmployeeWorkExperienceList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeLeaveListEnabled(loadOptions)){
 	 		extractEmployeeLeaveList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeLeaveListEnabled(loadOptions)){
+	 		// analyzeEmployeeLeaveList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeInterviewListEnabled(loadOptions)){
 	 		extractEmployeeInterviewList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeInterviewListEnabled(loadOptions)){
+	 		// analyzeEmployeeInterviewList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeAttendanceListEnabled(loadOptions)){
 	 		extractEmployeeAttendanceList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeAttendanceListEnabled(loadOptions)){
+	 		// analyzeEmployeeAttendanceList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeQualifierListEnabled(loadOptions)){
 	 		extractEmployeeQualifierList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeQualifierListEnabled(loadOptions)){
+	 		// analyzeEmployeeQualifierList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeEducationListEnabled(loadOptions)){
 	 		extractEmployeeEducationList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeEducationListEnabled(loadOptions)){
+	 		// analyzeEmployeeEducationList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeAwardListEnabled(loadOptions)){
 	 		extractEmployeeAwardList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeAwardListEnabled(loadOptions)){
+	 		// analyzeEmployeeAwardList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEmployeeSalarySheetListEnabled(loadOptions)){
 	 		extractEmployeeSalarySheetList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeSalarySheetListEnabled(loadOptions)){
+	 		// analyzeEmployeeSalarySheetList(employee, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractPayingOffListEnabled(loadOptions)){
 	 		extractPayingOffList(employee, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzePayingOffListEnabled(loadOptions)){
+	 		// analyzePayingOffList(employee, loadOptions);
+ 		}
+ 		
 		
 		return employee;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected Employee extractCompany(Employee employee, Map<String,Object> options) throws Exception{
@@ -1354,13 +1386,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		
 	protected void enhanceEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeCompanyTrainingList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1382,15 +1411,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeCompanyTrainingList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList = employee.getEmployeeCompanyTrainingList();
+		if(employeeCompanyTrainingList != null){
+			getEmployeeCompanyTrainingDAO().analyzeEmployeeCompanyTrainingByEmployee(employeeCompanyTrainingList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeSkillList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1412,15 +1461,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeSkillList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeSkill> employeeSkillList = employee.getEmployeeSkillList();
+		if(employeeSkillList != null){
+			getEmployeeSkillDAO().analyzeEmployeeSkillByEmployee(employeeSkillList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeePerformanceList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1442,15 +1511,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeePerformanceList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeePerformance> employeePerformanceList = employee.getEmployeePerformanceList();
+		if(employeePerformanceList != null){
+			getEmployeePerformanceDAO().analyzeEmployeePerformanceByEmployee(employeePerformanceList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeWorkExperienceList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1472,15 +1561,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeWorkExperienceList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeWorkExperience> employeeWorkExperienceList = employee.getEmployeeWorkExperienceList();
+		if(employeeWorkExperienceList != null){
+			getEmployeeWorkExperienceDAO().analyzeEmployeeWorkExperienceByEmployee(employeeWorkExperienceList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeLeaveList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1502,15 +1611,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeLeaveList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeLeave> employeeLeaveList = employee.getEmployeeLeaveList();
+		if(employeeLeaveList != null){
+			getEmployeeLeaveDAO().analyzeEmployeeLeaveByWho(employeeLeaveList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeInterviewList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1532,15 +1661,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeInterviewList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeInterview> employeeInterviewList = employee.getEmployeeInterviewList();
+		if(employeeInterviewList != null){
+			getEmployeeInterviewDAO().analyzeEmployeeInterviewByEmployee(employeeInterviewList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeAttendanceList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1562,15 +1711,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeAttendanceList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeAttendance> employeeAttendanceList = employee.getEmployeeAttendanceList();
+		if(employeeAttendanceList != null){
+			getEmployeeAttendanceDAO().analyzeEmployeeAttendanceByEmployee(employeeAttendanceList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeQualifierList(SmartList<EmployeeQualifier> employeeQualifierList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeQualifierList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1592,15 +1761,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeQualifierList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeQualifier> employeeQualifierList = employee.getEmployeeQualifierList();
+		if(employeeQualifierList != null){
+			getEmployeeQualifierDAO().analyzeEmployeeQualifierByEmployee(employeeQualifierList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeEducationList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1622,15 +1811,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeEducationList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeEducation> employeeEducationList = employee.getEmployeeEducationList();
+		if(employeeEducationList != null){
+			getEmployeeEducationDAO().analyzeEmployeeEducationByEmployee(employeeEducationList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeAwardList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1652,15 +1861,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeAwardList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeAward> employeeAwardList = employee.getEmployeeAwardList();
+		if(employeeAwardList != null){
+			getEmployeeAwardDAO().analyzeEmployeeAwardByEmployee(employeeAwardList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhanceEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractEmployeeSalarySheetList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1682,15 +1911,35 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzeEmployeeSalarySheetList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = employee.getEmployeeSalarySheetList();
+		if(employeeSalarySheetList != null){
+			getEmployeeSalarySheetDAO().analyzeEmployeeSalarySheetByEmployee(employeeSalarySheetList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 	protected void enhancePayingOffList(SmartList<PayingOff> payingOffList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Employee extractPayingOffList(Employee employee, Map<String,Object> options){
 		
 		
@@ -1712,13 +1961,36 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 		return employee;
 	
 	}	
+	
+	protected Employee analyzePayingOffList(Employee employee, Map<String,Object> options){
+		
+		
+		if(employee == null){
+			return null;
+		}
+		if(employee.getId() == null){
+			return employee;
+		}
+
+		
+		
+		SmartList<PayingOff> payingOffList = employee.getPayingOffList();
+		if(payingOffList != null){
+			getPayingOffDAO().analyzePayingOffByPaidFor(payingOffList, employee.getId(), options);
+			
+		}
+		
+		return employee;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<Employee> findEmployeeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getEmployeeMapper());
-		analyzeEmployeeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeEmployeeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -1726,12 +1998,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeEmployeeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByCompany(SmartList<Employee> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.COMPANY_PROPERTY, retailStoreCountryCenterId);
@@ -1766,7 +2040,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByDepartment(String levelThreeDepartmentId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_DEPARTMENT, levelThreeDepartmentId, options, getEmployeeMapper());
-		analyzeEmployeeByDepartment(resultList, levelThreeDepartmentId, options);
+		// analyzeEmployeeByDepartment(resultList, levelThreeDepartmentId, options);
 		return resultList;
  	}
  	 
@@ -1774,12 +2048,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByDepartment(String levelThreeDepartmentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_DEPARTMENT, levelThreeDepartmentId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByDepartment(resultList, levelThreeDepartmentId, options);
+ 		//analyzeEmployeeByDepartment(resultList, levelThreeDepartmentId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByDepartment(SmartList<Employee> resultList, String levelThreeDepartmentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.DEPARTMENT_PROPERTY, levelThreeDepartmentId);
@@ -1814,7 +2090,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByOccupation(String occupationTypeId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_OCCUPATION, occupationTypeId, options, getEmployeeMapper());
-		analyzeEmployeeByOccupation(resultList, occupationTypeId, options);
+		// analyzeEmployeeByOccupation(resultList, occupationTypeId, options);
 		return resultList;
  	}
  	 
@@ -1822,12 +2098,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByOccupation(String occupationTypeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_OCCUPATION, occupationTypeId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByOccupation(resultList, occupationTypeId, options);
+ 		//analyzeEmployeeByOccupation(resultList, occupationTypeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByOccupation(SmartList<Employee> resultList, String occupationTypeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.OCCUPATION_PROPERTY, occupationTypeId);
@@ -1862,7 +2140,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByResponsibleFor(String responsibilityTypeId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_RESPONSIBLE_FOR, responsibilityTypeId, options, getEmployeeMapper());
-		analyzeEmployeeByResponsibleFor(resultList, responsibilityTypeId, options);
+		// analyzeEmployeeByResponsibleFor(resultList, responsibilityTypeId, options);
 		return resultList;
  	}
  	 
@@ -1870,12 +2148,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByResponsibleFor(String responsibilityTypeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_RESPONSIBLE_FOR, responsibilityTypeId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByResponsibleFor(resultList, responsibilityTypeId, options);
+ 		//analyzeEmployeeByResponsibleFor(resultList, responsibilityTypeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByResponsibleFor(SmartList<Employee> resultList, String responsibilityTypeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.RESPONSIBLE_FOR_PROPERTY, responsibilityTypeId);
@@ -1910,7 +2190,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByCurrentSalaryGrade(String salaryGradeId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeMapper());
-		analyzeEmployeeByCurrentSalaryGrade(resultList, salaryGradeId, options);
+		// analyzeEmployeeByCurrentSalaryGrade(resultList, salaryGradeId, options);
 		return resultList;
  	}
  	 
@@ -1918,12 +2198,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByCurrentSalaryGrade(String salaryGradeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByCurrentSalaryGrade(resultList, salaryGradeId, options);
+ 		//analyzeEmployeeByCurrentSalaryGrade(resultList, salaryGradeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByCurrentSalaryGrade(SmartList<Employee> resultList, String salaryGradeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
@@ -1958,7 +2240,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByJobApplication(String jobApplicationId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_JOB_APPLICATION, jobApplicationId, options, getEmployeeMapper());
-		analyzeEmployeeByJobApplication(resultList, jobApplicationId, options);
+		// analyzeEmployeeByJobApplication(resultList, jobApplicationId, options);
 		return resultList;
  	}
  	 
@@ -1966,12 +2248,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByJobApplication(String jobApplicationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_JOB_APPLICATION, jobApplicationId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByJobApplication(resultList, jobApplicationId, options);
+ 		//analyzeEmployeeByJobApplication(resultList, jobApplicationId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByJobApplication(SmartList<Employee> resultList, String jobApplicationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.JOB_APPLICATION_PROPERTY, jobApplicationId);
@@ -2006,7 +2290,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByProfessionInterview(String professionInterviewId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_PROFESSION_INTERVIEW, professionInterviewId, options, getEmployeeMapper());
-		analyzeEmployeeByProfessionInterview(resultList, professionInterviewId, options);
+		// analyzeEmployeeByProfessionInterview(resultList, professionInterviewId, options);
 		return resultList;
  	}
  	 
@@ -2014,12 +2298,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByProfessionInterview(String professionInterviewId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_PROFESSION_INTERVIEW, professionInterviewId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByProfessionInterview(resultList, professionInterviewId, options);
+ 		//analyzeEmployeeByProfessionInterview(resultList, professionInterviewId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByProfessionInterview(SmartList<Employee> resultList, String professionInterviewId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.PROFESSION_INTERVIEW_PROPERTY, professionInterviewId);
@@ -2054,7 +2340,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByHrInterview(String hrInterviewId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_HR_INTERVIEW, hrInterviewId, options, getEmployeeMapper());
-		analyzeEmployeeByHrInterview(resultList, hrInterviewId, options);
+		// analyzeEmployeeByHrInterview(resultList, hrInterviewId, options);
 		return resultList;
  	}
  	 
@@ -2062,12 +2348,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByHrInterview(String hrInterviewId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_HR_INTERVIEW, hrInterviewId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByHrInterview(resultList, hrInterviewId, options);
+ 		//analyzeEmployeeByHrInterview(resultList, hrInterviewId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByHrInterview(SmartList<Employee> resultList, String hrInterviewId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.HR_INTERVIEW_PROPERTY, hrInterviewId);
@@ -2102,7 +2390,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByOfferApproval(String offerApprovalId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_OFFER_APPROVAL, offerApprovalId, options, getEmployeeMapper());
-		analyzeEmployeeByOfferApproval(resultList, offerApprovalId, options);
+		// analyzeEmployeeByOfferApproval(resultList, offerApprovalId, options);
 		return resultList;
  	}
  	 
@@ -2110,12 +2398,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByOfferApproval(String offerApprovalId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_OFFER_APPROVAL, offerApprovalId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByOfferApproval(resultList, offerApprovalId, options);
+ 		//analyzeEmployeeByOfferApproval(resultList, offerApprovalId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByOfferApproval(SmartList<Employee> resultList, String offerApprovalId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.OFFER_APPROVAL_PROPERTY, offerApprovalId);
@@ -2150,7 +2440,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByOfferAcceptance(String offerAcceptanceId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_OFFER_ACCEPTANCE, offerAcceptanceId, options, getEmployeeMapper());
-		analyzeEmployeeByOfferAcceptance(resultList, offerAcceptanceId, options);
+		// analyzeEmployeeByOfferAcceptance(resultList, offerAcceptanceId, options);
 		return resultList;
  	}
  	 
@@ -2158,12 +2448,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByOfferAcceptance(String offerAcceptanceId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_OFFER_ACCEPTANCE, offerAcceptanceId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByOfferAcceptance(resultList, offerAcceptanceId, options);
+ 		//analyzeEmployeeByOfferAcceptance(resultList, offerAcceptanceId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByOfferAcceptance(SmartList<Employee> resultList, String offerAcceptanceId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.OFFER_ACCEPTANCE_PROPERTY, offerAcceptanceId);
@@ -2198,7 +2490,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByEmployeeBoarding(String employeeBoardingId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_EMPLOYEE_BOARDING, employeeBoardingId, options, getEmployeeMapper());
-		analyzeEmployeeByEmployeeBoarding(resultList, employeeBoardingId, options);
+		// analyzeEmployeeByEmployeeBoarding(resultList, employeeBoardingId, options);
 		return resultList;
  	}
  	 
@@ -2206,12 +2498,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByEmployeeBoarding(String employeeBoardingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_EMPLOYEE_BOARDING, employeeBoardingId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByEmployeeBoarding(resultList, employeeBoardingId, options);
+ 		//analyzeEmployeeByEmployeeBoarding(resultList, employeeBoardingId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByEmployeeBoarding(SmartList<Employee> resultList, String employeeBoardingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.EMPLOYEE_BOARDING_PROPERTY, employeeBoardingId);
@@ -2246,7 +2540,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByTermination(String terminationId,Map<String,Object> options){
  	
   		SmartList<Employee> resultList = queryWith(EmployeeTable.COLUMN_TERMINATION, terminationId, options, getEmployeeMapper());
-		analyzeEmployeeByTermination(resultList, terminationId, options);
+		// analyzeEmployeeByTermination(resultList, terminationId, options);
 		return resultList;
  	}
  	 
@@ -2254,12 +2548,14 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  	public SmartList<Employee> findEmployeeByTermination(String terminationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Employee> resultList =  queryWithRange(EmployeeTable.COLUMN_TERMINATION, terminationId, options, getEmployeeMapper(), start, count);
- 		analyzeEmployeeByTermination(resultList, terminationId, options);
+ 		//analyzeEmployeeByTermination(resultList, terminationId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeByTermination(SmartList<Employee> resultList, String terminationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Employee.TERMINATION_PROPERTY, terminationId);

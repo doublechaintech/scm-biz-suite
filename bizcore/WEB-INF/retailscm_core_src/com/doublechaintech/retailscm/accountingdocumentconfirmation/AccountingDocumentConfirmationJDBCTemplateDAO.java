@@ -193,10 +193,11 @@ public class AccountingDocumentConfirmationJDBCTemplateDAO extends RetailscmNami
 
 		
 	
-	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentConfirmationTokens.ACCOUNTING_DOCUMENT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingDocumentConfirmationTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class AccountingDocumentConfirmationJDBCTemplateDAO extends RetailscmNami
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class AccountingDocumentConfirmationJDBCTemplateDAO extends RetailscmNami
 		
 		if(isExtractAccountingDocumentListEnabled(loadOptions)){
 	 		extractAccountingDocumentList(accountingDocumentConfirmation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentList(accountingDocumentConfirmation, loadOptions);
+ 		}
+ 		
 		
 		return accountingDocumentConfirmation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingDocumentConfirmation extractAccountingDocumentList(AccountingDocumentConfirmation accountingDocumentConfirmation, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class AccountingDocumentConfirmationJDBCTemplateDAO extends RetailscmNami
 		return accountingDocumentConfirmation;
 	
 	}	
+	
+	protected AccountingDocumentConfirmation analyzeAccountingDocumentList(AccountingDocumentConfirmation accountingDocumentConfirmation, Map<String,Object> options){
+		
+		
+		if(accountingDocumentConfirmation == null){
+			return null;
+		}
+		if(accountingDocumentConfirmation.getId() == null){
+			return accountingDocumentConfirmation;
+		}
+
+		
+		
+		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentConfirmation.getAccountingDocumentList();
+		if(accountingDocumentList != null){
+			getAccountingDocumentDAO().analyzeAccountingDocumentByConfirmation(accountingDocumentList, accountingDocumentConfirmation.getId(), options);
+			
+		}
+		
+		return accountingDocumentConfirmation;
+	
+	}	
+	
 		
 		
  	

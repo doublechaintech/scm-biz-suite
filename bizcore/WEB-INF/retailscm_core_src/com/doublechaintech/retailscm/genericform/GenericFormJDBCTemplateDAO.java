@@ -277,10 +277,11 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 
 		
 	
-	protected boolean isExtractFormMessageListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractFormMessageListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_MESSAGE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeFormMessageListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GenericFormTokens.FORM_MESSAGE_LIST+".analyze");
  	}
 
 	protected boolean isSaveFormMessageListEnabled(Map<String,Object> options){
@@ -288,14 +289,13 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractFormFieldMessageListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractFormFieldMessageListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_FIELD_MESSAGE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeFormFieldMessageListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GenericFormTokens.FORM_FIELD_MESSAGE_LIST+".analyze");
  	}
 
 	protected boolean isSaveFormFieldMessageListEnabled(Map<String,Object> options){
@@ -303,14 +303,13 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractFormFieldListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractFormFieldListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_FIELD_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeFormFieldListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GenericFormTokens.FORM_FIELD_LIST+".analyze");
  	}
 
 	protected boolean isSaveFormFieldListEnabled(Map<String,Object> options){
@@ -318,14 +317,13 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractFormActionListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractFormActionListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_ACTION_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeFormActionListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GenericFormTokens.FORM_ACTION_LIST+".analyze");
  	}
 
 	protected boolean isSaveFormActionListEnabled(Map<String,Object> options){
@@ -333,8 +331,6 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -365,38 +361,47 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
 		if(isExtractFormMessageListEnabled(loadOptions)){
 	 		extractFormMessageList(genericForm, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeFormMessageListEnabled(loadOptions)){
+	 		// analyzeFormMessageList(genericForm, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractFormFieldMessageListEnabled(loadOptions)){
 	 		extractFormFieldMessageList(genericForm, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeFormFieldMessageListEnabled(loadOptions)){
+	 		// analyzeFormFieldMessageList(genericForm, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractFormFieldListEnabled(loadOptions)){
 	 		extractFormFieldList(genericForm, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeFormFieldListEnabled(loadOptions)){
+	 		// analyzeFormFieldList(genericForm, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractFormActionListEnabled(loadOptions)){
 	 		extractFormActionList(genericForm, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeFormActionListEnabled(loadOptions)){
+	 		// analyzeFormActionList(genericForm, loadOptions);
+ 		}
+ 		
 		
 		return genericForm;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceFormMessageList(SmartList<FormMessage> formMessageList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GenericForm extractFormMessageList(GenericForm genericForm, Map<String,Object> options){
 		
 		
@@ -418,15 +423,35 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return genericForm;
 	
 	}	
+	
+	protected GenericForm analyzeFormMessageList(GenericForm genericForm, Map<String,Object> options){
+		
+		
+		if(genericForm == null){
+			return null;
+		}
+		if(genericForm.getId() == null){
+			return genericForm;
+		}
+
+		
+		
+		SmartList<FormMessage> formMessageList = genericForm.getFormMessageList();
+		if(formMessageList != null){
+			getFormMessageDAO().analyzeFormMessageByForm(formMessageList, genericForm.getId(), options);
+			
+		}
+		
+		return genericForm;
+	
+	}	
+	
 		
 	protected void enhanceFormFieldMessageList(SmartList<FormFieldMessage> formFieldMessageList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GenericForm extractFormFieldMessageList(GenericForm genericForm, Map<String,Object> options){
 		
 		
@@ -448,15 +473,35 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return genericForm;
 	
 	}	
+	
+	protected GenericForm analyzeFormFieldMessageList(GenericForm genericForm, Map<String,Object> options){
+		
+		
+		if(genericForm == null){
+			return null;
+		}
+		if(genericForm.getId() == null){
+			return genericForm;
+		}
+
+		
+		
+		SmartList<FormFieldMessage> formFieldMessageList = genericForm.getFormFieldMessageList();
+		if(formFieldMessageList != null){
+			getFormFieldMessageDAO().analyzeFormFieldMessageByForm(formFieldMessageList, genericForm.getId(), options);
+			
+		}
+		
+		return genericForm;
+	
+	}	
+	
 		
 	protected void enhanceFormFieldList(SmartList<FormField> formFieldList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GenericForm extractFormFieldList(GenericForm genericForm, Map<String,Object> options){
 		
 		
@@ -478,15 +523,35 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return genericForm;
 	
 	}	
+	
+	protected GenericForm analyzeFormFieldList(GenericForm genericForm, Map<String,Object> options){
+		
+		
+		if(genericForm == null){
+			return null;
+		}
+		if(genericForm.getId() == null){
+			return genericForm;
+		}
+
+		
+		
+		SmartList<FormField> formFieldList = genericForm.getFormFieldList();
+		if(formFieldList != null){
+			getFormFieldDAO().analyzeFormFieldByForm(formFieldList, genericForm.getId(), options);
+			
+		}
+		
+		return genericForm;
+	
+	}	
+	
 		
 	protected void enhanceFormActionList(SmartList<FormAction> formActionList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GenericForm extractFormActionList(GenericForm genericForm, Map<String,Object> options){
 		
 		
@@ -508,6 +573,29 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return genericForm;
 	
 	}	
+	
+	protected GenericForm analyzeFormActionList(GenericForm genericForm, Map<String,Object> options){
+		
+		
+		if(genericForm == null){
+			return null;
+		}
+		if(genericForm.getId() == null){
+			return genericForm;
+		}
+
+		
+		
+		SmartList<FormAction> formActionList = genericForm.getFormActionList();
+		if(formActionList != null){
+			getFormActionDAO().analyzeFormActionByForm(formActionList, genericForm.getId(), options);
+			
+		}
+		
+		return genericForm;
+	
+	}	
+	
 		
 		
  	

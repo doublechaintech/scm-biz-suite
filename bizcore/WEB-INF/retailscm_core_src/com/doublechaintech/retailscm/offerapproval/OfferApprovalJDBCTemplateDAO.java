@@ -193,10 +193,11 @@ public class OfferApprovalJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,OfferApprovalTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,OfferApprovalTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class OfferApprovalJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class OfferApprovalJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(offerApproval, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(offerApproval, loadOptions);
+ 		}
+ 		
 		
 		return offerApproval;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected OfferApproval extractEmployeeList(OfferApproval offerApproval, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class OfferApprovalJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		return offerApproval;
 	
 	}	
+	
+	protected OfferApproval analyzeEmployeeList(OfferApproval offerApproval, Map<String,Object> options){
+		
+		
+		if(offerApproval == null){
+			return null;
+		}
+		if(offerApproval.getId() == null){
+			return offerApproval;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = offerApproval.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByOfferApproval(employeeList, offerApproval.getId(), options);
+			
+		}
+		
+		return offerApproval;
+	
+	}	
+	
 		
 		
  	

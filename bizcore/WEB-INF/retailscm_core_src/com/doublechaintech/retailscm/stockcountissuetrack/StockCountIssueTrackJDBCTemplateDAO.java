@@ -224,10 +224,6 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceD
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected StockCountIssueTrack extractStockCount(StockCountIssueTrack stockCountIssueTrack, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceD
  	public SmartList<StockCountIssueTrack> findStockCountIssueTrackByStockCount(String goodsShelfStockCountId,Map<String,Object> options){
  	
   		SmartList<StockCountIssueTrack> resultList = queryWith(StockCountIssueTrackTable.COLUMN_STOCK_COUNT, goodsShelfStockCountId, options, getStockCountIssueTrackMapper());
-		analyzeStockCountIssueTrackByStockCount(resultList, goodsShelfStockCountId, options);
+		// analyzeStockCountIssueTrackByStockCount(resultList, goodsShelfStockCountId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceD
  	public SmartList<StockCountIssueTrack> findStockCountIssueTrackByStockCount(String goodsShelfStockCountId, int start, int count,Map<String,Object> options){
  		
  		SmartList<StockCountIssueTrack> resultList =  queryWithRange(StockCountIssueTrackTable.COLUMN_STOCK_COUNT, goodsShelfStockCountId, options, getStockCountIssueTrackMapper(), start, count);
- 		analyzeStockCountIssueTrackByStockCount(resultList, goodsShelfStockCountId, options);
+ 		//analyzeStockCountIssueTrackByStockCount(resultList, goodsShelfStockCountId, options);
  		return resultList;
  		
  	}
  	public void analyzeStockCountIssueTrackByStockCount(SmartList<StockCountIssueTrack> resultList, String goodsShelfStockCountId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

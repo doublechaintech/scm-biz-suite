@@ -218,10 +218,11 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	
-	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SkillTypeTokens.EMPLOYEE_SKILL_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SkillTypeTokens.EMPLOYEE_SKILL_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeSkillListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
 		if(isExtractEmployeeSkillListEnabled(loadOptions)){
 	 		extractEmployeeSkillList(skillType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeSkillListEnabled(loadOptions)){
+	 		// analyzeEmployeeSkillList(skillType, loadOptions);
+ 		}
+ 		
 		
 		return skillType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected SkillType extractCompany(SkillType skillType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	protected void enhanceEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SkillType extractEmployeeSkillList(SkillType skillType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return skillType;
 	
 	}	
+	
+	protected SkillType analyzeEmployeeSkillList(SkillType skillType, Map<String,Object> options){
+		
+		
+		if(skillType == null){
+			return null;
+		}
+		if(skillType.getId() == null){
+			return skillType;
+		}
+
+		
+		
+		SmartList<EmployeeSkill> employeeSkillList = skillType.getEmployeeSkillList();
+		if(employeeSkillList != null){
+			getEmployeeSkillDAO().analyzeEmployeeSkillBySkillType(employeeSkillList, skillType.getId(), options);
+			
+		}
+		
+		return skillType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<SkillType> findSkillTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<SkillType> resultList = queryWith(SkillTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getSkillTypeMapper());
-		analyzeSkillTypeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeSkillTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  	public SmartList<SkillType> findSkillTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SkillType> resultList =  queryWithRange(SkillTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getSkillTypeMapper(), start, count);
- 		analyzeSkillTypeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeSkillTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeSkillTypeByCompany(SmartList<SkillType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

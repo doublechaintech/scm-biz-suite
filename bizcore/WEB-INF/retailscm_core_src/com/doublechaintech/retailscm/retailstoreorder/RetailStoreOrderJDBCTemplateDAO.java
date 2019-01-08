@@ -477,10 +477,11 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	
-	protected boolean isExtractRetailStoreOrderLineItemListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderLineItemListEnabled(Map<String,Object> options){
@@ -488,14 +489,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){
@@ -503,14 +503,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){
@@ -518,14 +517,13 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -533,8 +531,6 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -597,28 +593,40 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
 		if(isExtractRetailStoreOrderLineItemListEnabled(loadOptions)){
 	 		extractRetailStoreOrderLineItemList(retailStoreOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderLineItemListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderLineItemList(retailStoreOrder, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractRetailStoreOrderShippingGroupListEnabled(loadOptions)){
 	 		extractRetailStoreOrderShippingGroupList(retailStoreOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderShippingGroupListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderShippingGroupList(retailStoreOrder, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractRetailStoreOrderPaymentGroupListEnabled(loadOptions)){
 	 		extractRetailStoreOrderPaymentGroupList(retailStoreOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderPaymentGroupListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderPaymentGroupList(retailStoreOrder, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(retailStoreOrder, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsListEnabled(loadOptions)){
+	 		// analyzeGoodsList(retailStoreOrder, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreOrder;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected RetailStoreOrder extractBuyer(RetailStoreOrder retailStoreOrder, Map<String,Object> options) throws Exception{
@@ -782,13 +790,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	protected void enhanceRetailStoreOrderLineItemList(SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrder extractRetailStoreOrderLineItemList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
 		
 		
@@ -810,15 +815,35 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return retailStoreOrder;
 	
 	}	
+	
+	protected RetailStoreOrder analyzeRetailStoreOrderLineItemList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
+		
+		
+		if(retailStoreOrder == null){
+			return null;
+		}
+		if(retailStoreOrder.getId() == null){
+			return retailStoreOrder;
+		}
+
+		
+		
+		SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList = retailStoreOrder.getRetailStoreOrderLineItemList();
+		if(retailStoreOrderLineItemList != null){
+			getRetailStoreOrderLineItemDAO().analyzeRetailStoreOrderLineItemByBizOrder(retailStoreOrderLineItemList, retailStoreOrder.getId(), options);
+			
+		}
+		
+		return retailStoreOrder;
+	
+	}	
+	
 		
 	protected void enhanceRetailStoreOrderShippingGroupList(SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrder extractRetailStoreOrderShippingGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
 		
 		
@@ -840,15 +865,35 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return retailStoreOrder;
 	
 	}	
+	
+	protected RetailStoreOrder analyzeRetailStoreOrderShippingGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
+		
+		
+		if(retailStoreOrder == null){
+			return null;
+		}
+		if(retailStoreOrder.getId() == null){
+			return retailStoreOrder;
+		}
+
+		
+		
+		SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList = retailStoreOrder.getRetailStoreOrderShippingGroupList();
+		if(retailStoreOrderShippingGroupList != null){
+			getRetailStoreOrderShippingGroupDAO().analyzeRetailStoreOrderShippingGroupByBizOrder(retailStoreOrderShippingGroupList, retailStoreOrder.getId(), options);
+			
+		}
+		
+		return retailStoreOrder;
+	
+	}	
+	
 		
 	protected void enhanceRetailStoreOrderPaymentGroupList(SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrder extractRetailStoreOrderPaymentGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
 		
 		
@@ -870,15 +915,35 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return retailStoreOrder;
 	
 	}	
+	
+	protected RetailStoreOrder analyzeRetailStoreOrderPaymentGroupList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
+		
+		
+		if(retailStoreOrder == null){
+			return null;
+		}
+		if(retailStoreOrder.getId() == null){
+			return retailStoreOrder;
+		}
+
+		
+		
+		SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList = retailStoreOrder.getRetailStoreOrderPaymentGroupList();
+		if(retailStoreOrderPaymentGroupList != null){
+			getRetailStoreOrderPaymentGroupDAO().analyzeRetailStoreOrderPaymentGroupByBizOrder(retailStoreOrderPaymentGroupList, retailStoreOrder.getId(), options);
+			
+		}
+		
+		return retailStoreOrder;
+	
+	}	
+	
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrder extractGoodsList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
 		
 		
@@ -900,13 +965,36 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return retailStoreOrder;
 	
 	}	
+	
+	protected RetailStoreOrder analyzeGoodsList(RetailStoreOrder retailStoreOrder, Map<String,Object> options){
+		
+		
+		if(retailStoreOrder == null){
+			return null;
+		}
+		if(retailStoreOrder.getId() == null){
+			return retailStoreOrder;
+		}
+
+		
+		
+		SmartList<Goods> goodsList = retailStoreOrder.getGoodsList();
+		if(goodsList != null){
+			getGoodsDAO().analyzeGoodsByRetailStoreOrder(goodsList, retailStoreOrder.getId(), options);
+			
+		}
+		
+		return retailStoreOrder;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByBuyer(String retailStoreId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_BUYER, retailStoreId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderByBuyer(resultList, retailStoreId, options);
+		// analyzeRetailStoreOrderByBuyer(resultList, retailStoreId, options);
 		return resultList;
  	}
  	 
@@ -914,12 +1002,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByBuyer(String retailStoreId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_BUYER, retailStoreId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderByBuyer(resultList, retailStoreId, options);
+ 		//analyzeRetailStoreOrderByBuyer(resultList, retailStoreId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderByBuyer(SmartList<RetailStoreOrder> resultList, String retailStoreId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.BUYER_PROPERTY, retailStoreId);
@@ -954,7 +1044,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderBySeller(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_SELLER, retailStoreCountryCenterId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderBySeller(resultList, retailStoreCountryCenterId, options);
+		// analyzeRetailStoreOrderBySeller(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -962,12 +1052,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderBySeller(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_SELLER, retailStoreCountryCenterId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderBySeller(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeRetailStoreOrderBySeller(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderBySeller(SmartList<RetailStoreOrder> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.SELLER_PROPERTY, retailStoreCountryCenterId);
@@ -1002,7 +1094,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByConfirmation(String retailStoreOrderConfirmationId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_CONFIRMATION, retailStoreOrderConfirmationId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderByConfirmation(resultList, retailStoreOrderConfirmationId, options);
+		// analyzeRetailStoreOrderByConfirmation(resultList, retailStoreOrderConfirmationId, options);
 		return resultList;
  	}
  	 
@@ -1010,12 +1102,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByConfirmation(String retailStoreOrderConfirmationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_CONFIRMATION, retailStoreOrderConfirmationId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderByConfirmation(resultList, retailStoreOrderConfirmationId, options);
+ 		//analyzeRetailStoreOrderByConfirmation(resultList, retailStoreOrderConfirmationId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderByConfirmation(SmartList<RetailStoreOrder> resultList, String retailStoreOrderConfirmationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.CONFIRMATION_PROPERTY, retailStoreOrderConfirmationId);
@@ -1050,7 +1144,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByApproval(String retailStoreOrderApprovalId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_APPROVAL, retailStoreOrderApprovalId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderByApproval(resultList, retailStoreOrderApprovalId, options);
+		// analyzeRetailStoreOrderByApproval(resultList, retailStoreOrderApprovalId, options);
 		return resultList;
  	}
  	 
@@ -1058,12 +1152,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByApproval(String retailStoreOrderApprovalId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_APPROVAL, retailStoreOrderApprovalId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderByApproval(resultList, retailStoreOrderApprovalId, options);
+ 		//analyzeRetailStoreOrderByApproval(resultList, retailStoreOrderApprovalId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderByApproval(SmartList<RetailStoreOrder> resultList, String retailStoreOrderApprovalId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.APPROVAL_PROPERTY, retailStoreOrderApprovalId);
@@ -1098,7 +1194,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByProcessing(String retailStoreOrderProcessingId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_PROCESSING, retailStoreOrderProcessingId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderByProcessing(resultList, retailStoreOrderProcessingId, options);
+		// analyzeRetailStoreOrderByProcessing(resultList, retailStoreOrderProcessingId, options);
 		return resultList;
  	}
  	 
@@ -1106,12 +1202,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByProcessing(String retailStoreOrderProcessingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_PROCESSING, retailStoreOrderProcessingId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderByProcessing(resultList, retailStoreOrderProcessingId, options);
+ 		//analyzeRetailStoreOrderByProcessing(resultList, retailStoreOrderProcessingId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderByProcessing(SmartList<RetailStoreOrder> resultList, String retailStoreOrderProcessingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.PROCESSING_PROPERTY, retailStoreOrderProcessingId);
@@ -1146,7 +1244,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByPicking(String retailStoreOrderPickingId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_PICKING, retailStoreOrderPickingId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderByPicking(resultList, retailStoreOrderPickingId, options);
+		// analyzeRetailStoreOrderByPicking(resultList, retailStoreOrderPickingId, options);
 		return resultList;
  	}
  	 
@@ -1154,12 +1252,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByPicking(String retailStoreOrderPickingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_PICKING, retailStoreOrderPickingId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderByPicking(resultList, retailStoreOrderPickingId, options);
+ 		//analyzeRetailStoreOrderByPicking(resultList, retailStoreOrderPickingId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderByPicking(SmartList<RetailStoreOrder> resultList, String retailStoreOrderPickingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.PICKING_PROPERTY, retailStoreOrderPickingId);
@@ -1194,7 +1294,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByShipment(String retailStoreOrderShipmentId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_SHIPMENT, retailStoreOrderShipmentId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderByShipment(resultList, retailStoreOrderShipmentId, options);
+		// analyzeRetailStoreOrderByShipment(resultList, retailStoreOrderShipmentId, options);
 		return resultList;
  	}
  	 
@@ -1202,12 +1302,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByShipment(String retailStoreOrderShipmentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_SHIPMENT, retailStoreOrderShipmentId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderByShipment(resultList, retailStoreOrderShipmentId, options);
+ 		//analyzeRetailStoreOrderByShipment(resultList, retailStoreOrderShipmentId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderByShipment(SmartList<RetailStoreOrder> resultList, String retailStoreOrderShipmentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
@@ -1242,7 +1344,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByDelivery(String retailStoreOrderDeliveryId,Map<String,Object> options){
  	
   		SmartList<RetailStoreOrder> resultList = queryWith(RetailStoreOrderTable.COLUMN_DELIVERY, retailStoreOrderDeliveryId, options, getRetailStoreOrderMapper());
-		analyzeRetailStoreOrderByDelivery(resultList, retailStoreOrderDeliveryId, options);
+		// analyzeRetailStoreOrderByDelivery(resultList, retailStoreOrderDeliveryId, options);
 		return resultList;
  	}
  	 
@@ -1250,12 +1352,14 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<RetailStoreOrder> findRetailStoreOrderByDelivery(String retailStoreOrderDeliveryId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreOrder> resultList =  queryWithRange(RetailStoreOrderTable.COLUMN_DELIVERY, retailStoreOrderDeliveryId, options, getRetailStoreOrderMapper(), start, count);
- 		analyzeRetailStoreOrderByDelivery(resultList, retailStoreOrderDeliveryId, options);
+ 		//analyzeRetailStoreOrderByDelivery(resultList, retailStoreOrderDeliveryId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreOrderByDelivery(SmartList<RetailStoreOrder> resultList, String retailStoreOrderDeliveryId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(RetailStoreOrder.DELIVERY_PROPERTY, retailStoreOrderDeliveryId);

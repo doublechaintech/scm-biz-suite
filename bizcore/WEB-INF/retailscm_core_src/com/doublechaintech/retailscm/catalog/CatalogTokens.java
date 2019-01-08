@@ -102,7 +102,14 @@ public class CatalogTokens extends CommonTokens{
 		addSimpleOptions(LEVEL_ONE_CATEGORY_LIST);
 		return this;
 	}
-
+	public CatalogTokens analyzeLevelOneCategoryList(){		
+		addSimpleOptions(LEVEL_ONE_CATEGORY_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeLevelOneCategoryListEnabled(){		
+		
+		return checkOptions(this.options(), LEVEL_ONE_CATEGORY_LIST+".anaylze");
+	}
 	public CatalogTokens extractMoreFromLevelOneCategoryList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEVEL_ONE_CATEGORY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

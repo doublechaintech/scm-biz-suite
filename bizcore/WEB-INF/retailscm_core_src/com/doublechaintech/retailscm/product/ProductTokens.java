@@ -102,7 +102,14 @@ public class ProductTokens extends CommonTokens{
 		addSimpleOptions(SKU_LIST);
 		return this;
 	}
-
+	public ProductTokens analyzeSkuList(){		
+		addSimpleOptions(SKU_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSkuListEnabled(){		
+		
+		return checkOptions(this.options(), SKU_LIST+".anaylze");
+	}
 	public ProductTokens extractMoreFromSkuList(String idsSeperatedWithComma){		
 		addSimpleOptions(SKU_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

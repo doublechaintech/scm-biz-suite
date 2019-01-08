@@ -218,10 +218,11 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		
 	
-	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentLineListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
 		if(isExtractAccountingDocumentLineListEnabled(loadOptions)){
 	 		extractAccountingDocumentLineList(accountingSubject, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentLineListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentLineList(accountingSubject, loadOptions);
+ 		}
+ 		
 		
 		return accountingSubject;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected AccountingSubject extractAccountSet(AccountingSubject accountingSubject, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		
 	protected void enhanceAccountingDocumentLineList(SmartList<AccountingDocumentLine> accountingDocumentLineList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingSubject extractAccountingDocumentLineList(AccountingSubject accountingSubject, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		return accountingSubject;
 	
 	}	
+	
+	protected AccountingSubject analyzeAccountingDocumentLineList(AccountingSubject accountingSubject, Map<String,Object> options){
+		
+		
+		if(accountingSubject == null){
+			return null;
+		}
+		if(accountingSubject.getId() == null){
+			return accountingSubject;
+		}
+
+		
+		
+		SmartList<AccountingDocumentLine> accountingDocumentLineList = accountingSubject.getAccountingDocumentLineList();
+		if(accountingDocumentLineList != null){
+			getAccountingDocumentLineDAO().analyzeAccountingDocumentLineByAccountingSubject(accountingDocumentLineList, accountingSubject.getId(), options);
+			
+		}
+		
+		return accountingSubject;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<AccountingSubject> findAccountingSubjectByAccountSet(String accountSetId,Map<String,Object> options){
  	
   		SmartList<AccountingSubject> resultList = queryWith(AccountingSubjectTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingSubjectMapper());
-		analyzeAccountingSubjectByAccountSet(resultList, accountSetId, options);
+		// analyzeAccountingSubjectByAccountSet(resultList, accountSetId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<AccountingSubject> findAccountingSubjectByAccountSet(String accountSetId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingSubject> resultList =  queryWithRange(AccountingSubjectTable.COLUMN_ACCOUNT_SET, accountSetId, options, getAccountingSubjectMapper(), start, count);
- 		analyzeAccountingSubjectByAccountSet(resultList, accountSetId, options);
+ 		//analyzeAccountingSubjectByAccountSet(resultList, accountSetId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingSubjectByAccountSet(SmartList<AccountingSubject> resultList, String accountSetId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -218,10 +218,11 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	
-	protected boolean isExtractLevelThreeCategoryListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractLevelThreeCategoryListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelTwoCategoryTokens.LEVEL_THREE_CATEGORY_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeLevelThreeCategoryListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,LevelTwoCategoryTokens.LEVEL_THREE_CATEGORY_LIST+".analyze");
  	}
 
 	protected boolean isSaveLevelThreeCategoryListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
 		if(isExtractLevelThreeCategoryListEnabled(loadOptions)){
 	 		extractLevelThreeCategoryList(levelTwoCategory, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeLevelThreeCategoryListEnabled(loadOptions)){
+	 		// analyzeLevelThreeCategoryList(levelTwoCategory, loadOptions);
+ 		}
+ 		
 		
 		return levelTwoCategory;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected LevelTwoCategory extractParentCategory(LevelTwoCategory levelTwoCategory, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	protected void enhanceLevelThreeCategoryList(SmartList<LevelThreeCategory> levelThreeCategoryList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected LevelTwoCategory extractLevelThreeCategoryList(LevelTwoCategory levelTwoCategory, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return levelTwoCategory;
 	
 	}	
+	
+	protected LevelTwoCategory analyzeLevelThreeCategoryList(LevelTwoCategory levelTwoCategory, Map<String,Object> options){
+		
+		
+		if(levelTwoCategory == null){
+			return null;
+		}
+		if(levelTwoCategory.getId() == null){
+			return levelTwoCategory;
+		}
+
+		
+		
+		SmartList<LevelThreeCategory> levelThreeCategoryList = levelTwoCategory.getLevelThreeCategoryList();
+		if(levelThreeCategoryList != null){
+			getLevelThreeCategoryDAO().analyzeLevelThreeCategoryByParentCategory(levelThreeCategoryList, levelTwoCategory.getId(), options);
+			
+		}
+		
+		return levelTwoCategory;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<LevelTwoCategory> findLevelTwoCategoryByParentCategory(String levelOneCategoryId,Map<String,Object> options){
  	
   		SmartList<LevelTwoCategory> resultList = queryWith(LevelTwoCategoryTable.COLUMN_PARENT_CATEGORY, levelOneCategoryId, options, getLevelTwoCategoryMapper());
-		analyzeLevelTwoCategoryByParentCategory(resultList, levelOneCategoryId, options);
+		// analyzeLevelTwoCategoryByParentCategory(resultList, levelOneCategoryId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<LevelTwoCategory> findLevelTwoCategoryByParentCategory(String levelOneCategoryId, int start, int count,Map<String,Object> options){
  		
  		SmartList<LevelTwoCategory> resultList =  queryWithRange(LevelTwoCategoryTable.COLUMN_PARENT_CATEGORY, levelOneCategoryId, options, getLevelTwoCategoryMapper(), start, count);
- 		analyzeLevelTwoCategoryByParentCategory(resultList, levelOneCategoryId, options);
+ 		//analyzeLevelTwoCategoryByParentCategory(resultList, levelOneCategoryId, options);
  		return resultList;
  		
  	}
  	public void analyzeLevelTwoCategoryByParentCategory(SmartList<LevelTwoCategory> resultList, String levelOneCategoryId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

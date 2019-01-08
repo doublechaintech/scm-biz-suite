@@ -218,10 +218,11 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,OccupationTypeTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,OccupationTypeTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(occupationType, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(occupationType, loadOptions);
+ 		}
+ 		
 		
 		return occupationType;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected OccupationType extractCompany(OccupationType occupationType, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected OccupationType extractEmployeeList(OccupationType occupationType, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		return occupationType;
 	
 	}	
+	
+	protected OccupationType analyzeEmployeeList(OccupationType occupationType, Map<String,Object> options){
+		
+		
+		if(occupationType == null){
+			return null;
+		}
+		if(occupationType.getId() == null){
+			return occupationType;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = occupationType.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByOccupation(employeeList, occupationType.getId(), options);
+			
+		}
+		
+		return occupationType;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<OccupationType> findOccupationTypeByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<OccupationType> resultList = queryWith(OccupationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getOccupationTypeMapper());
-		analyzeOccupationTypeByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzeOccupationTypeByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  	public SmartList<OccupationType> findOccupationTypeByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<OccupationType> resultList =  queryWithRange(OccupationTypeTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getOccupationTypeMapper(), start, count);
- 		analyzeOccupationTypeByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeOccupationTypeByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeOccupationTypeByCompany(SmartList<OccupationType> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

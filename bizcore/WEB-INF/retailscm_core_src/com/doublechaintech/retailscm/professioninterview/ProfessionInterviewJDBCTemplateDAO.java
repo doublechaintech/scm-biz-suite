@@ -193,10 +193,11 @@ public class ProfessionInterviewJDBCTemplateDAO extends RetailscmNamingServiceDA
 
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ProfessionInterviewTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,ProfessionInterviewTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class ProfessionInterviewJDBCTemplateDAO extends RetailscmNamingServiceDA
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class ProfessionInterviewJDBCTemplateDAO extends RetailscmNamingServiceDA
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(professionInterview, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(professionInterview, loadOptions);
+ 		}
+ 		
 		
 		return professionInterview;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected ProfessionInterview extractEmployeeList(ProfessionInterview professionInterview, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class ProfessionInterviewJDBCTemplateDAO extends RetailscmNamingServiceDA
 		return professionInterview;
 	
 	}	
+	
+	protected ProfessionInterview analyzeEmployeeList(ProfessionInterview professionInterview, Map<String,Object> options){
+		
+		
+		if(professionInterview == null){
+			return null;
+		}
+		if(professionInterview.getId() == null){
+			return professionInterview;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = professionInterview.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByProfessionInterview(employeeList, professionInterview.getId(), options);
+			
+		}
+		
+		return professionInterview;
+	
+	}	
+	
 		
 		
  	

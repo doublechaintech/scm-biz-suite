@@ -296,10 +296,11 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		
 	
-	protected boolean isExtractGoodsShelfStockCountListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsShelfStockCountListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsShelfTokens.GOODS_SHELF_STOCK_COUNT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsShelfStockCountListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GoodsShelfTokens.GOODS_SHELF_STOCK_COUNT_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsShelfStockCountListEnabled(Map<String,Object> options){
@@ -307,14 +308,13 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractGoodsAllocationListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsAllocationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsShelfTokens.GOODS_ALLOCATION_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsAllocationListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GoodsShelfTokens.GOODS_ALLOCATION_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsAllocationListEnabled(Map<String,Object> options){
@@ -322,8 +322,6 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -366,20 +364,24 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
 		if(isExtractGoodsShelfStockCountListEnabled(loadOptions)){
 	 		extractGoodsShelfStockCountList(goodsShelf, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsShelfStockCountListEnabled(loadOptions)){
+	 		// analyzeGoodsShelfStockCountList(goodsShelf, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractGoodsAllocationListEnabled(loadOptions)){
 	 		extractGoodsAllocationList(goodsShelf, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsAllocationListEnabled(loadOptions)){
+	 		// analyzeGoodsAllocationList(goodsShelf, loadOptions);
+ 		}
+ 		
 		
 		return goodsShelf;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected GoodsShelf extractStorageSpace(GoodsShelf goodsShelf, Map<String,Object> options) throws Exception{
@@ -443,13 +445,10 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		
 	protected void enhanceGoodsShelfStockCountList(SmartList<GoodsShelfStockCount> goodsShelfStockCountList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GoodsShelf extractGoodsShelfStockCountList(GoodsShelf goodsShelf, Map<String,Object> options){
 		
 		
@@ -471,15 +470,35 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return goodsShelf;
 	
 	}	
+	
+	protected GoodsShelf analyzeGoodsShelfStockCountList(GoodsShelf goodsShelf, Map<String,Object> options){
+		
+		
+		if(goodsShelf == null){
+			return null;
+		}
+		if(goodsShelf.getId() == null){
+			return goodsShelf;
+		}
+
+		
+		
+		SmartList<GoodsShelfStockCount> goodsShelfStockCountList = goodsShelf.getGoodsShelfStockCountList();
+		if(goodsShelfStockCountList != null){
+			getGoodsShelfStockCountDAO().analyzeGoodsShelfStockCountByShelf(goodsShelfStockCountList, goodsShelf.getId(), options);
+			
+		}
+		
+		return goodsShelf;
+	
+	}	
+	
 		
 	protected void enhanceGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GoodsShelf extractGoodsAllocationList(GoodsShelf goodsShelf, Map<String,Object> options){
 		
 		
@@ -501,13 +520,36 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return goodsShelf;
 	
 	}	
+	
+	protected GoodsShelf analyzeGoodsAllocationList(GoodsShelf goodsShelf, Map<String,Object> options){
+		
+		
+		if(goodsShelf == null){
+			return null;
+		}
+		if(goodsShelf.getId() == null){
+			return goodsShelf;
+		}
+
+		
+		
+		SmartList<GoodsAllocation> goodsAllocationList = goodsShelf.getGoodsAllocationList();
+		if(goodsAllocationList != null){
+			getGoodsAllocationDAO().analyzeGoodsAllocationByGoodsShelf(goodsAllocationList, goodsShelf.getId(), options);
+			
+		}
+		
+		return goodsShelf;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<GoodsShelf> findGoodsShelfByStorageSpace(String storageSpaceId,Map<String,Object> options){
  	
   		SmartList<GoodsShelf> resultList = queryWith(GoodsShelfTable.COLUMN_STORAGE_SPACE, storageSpaceId, options, getGoodsShelfMapper());
-		analyzeGoodsShelfByStorageSpace(resultList, storageSpaceId, options);
+		// analyzeGoodsShelfByStorageSpace(resultList, storageSpaceId, options);
 		return resultList;
  	}
  	 
@@ -515,12 +557,14 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<GoodsShelf> findGoodsShelfByStorageSpace(String storageSpaceId, int start, int count,Map<String,Object> options){
  		
  		SmartList<GoodsShelf> resultList =  queryWithRange(GoodsShelfTable.COLUMN_STORAGE_SPACE, storageSpaceId, options, getGoodsShelfMapper(), start, count);
- 		analyzeGoodsShelfByStorageSpace(resultList, storageSpaceId, options);
+ 		//analyzeGoodsShelfByStorageSpace(resultList, storageSpaceId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsShelfByStorageSpace(SmartList<GoodsShelf> resultList, String storageSpaceId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsShelf.STORAGE_SPACE_PROPERTY, storageSpaceId);
@@ -548,7 +592,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<GoodsShelf> findGoodsShelfBySupplierSpace(String supplierSpaceId,Map<String,Object> options){
  	
   		SmartList<GoodsShelf> resultList = queryWith(GoodsShelfTable.COLUMN_SUPPLIER_SPACE, supplierSpaceId, options, getGoodsShelfMapper());
-		analyzeGoodsShelfBySupplierSpace(resultList, supplierSpaceId, options);
+		// analyzeGoodsShelfBySupplierSpace(resultList, supplierSpaceId, options);
 		return resultList;
  	}
  	 
@@ -556,12 +600,14 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<GoodsShelf> findGoodsShelfBySupplierSpace(String supplierSpaceId, int start, int count,Map<String,Object> options){
  		
  		SmartList<GoodsShelf> resultList =  queryWithRange(GoodsShelfTable.COLUMN_SUPPLIER_SPACE, supplierSpaceId, options, getGoodsShelfMapper(), start, count);
- 		analyzeGoodsShelfBySupplierSpace(resultList, supplierSpaceId, options);
+ 		//analyzeGoodsShelfBySupplierSpace(resultList, supplierSpaceId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsShelfBySupplierSpace(SmartList<GoodsShelf> resultList, String supplierSpaceId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsShelf.SUPPLIER_SPACE_PROPERTY, supplierSpaceId);
@@ -589,7 +635,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<GoodsShelf> findGoodsShelfByDamageSpace(String damageSpaceId,Map<String,Object> options){
  	
   		SmartList<GoodsShelf> resultList = queryWith(GoodsShelfTable.COLUMN_DAMAGE_SPACE, damageSpaceId, options, getGoodsShelfMapper());
-		analyzeGoodsShelfByDamageSpace(resultList, damageSpaceId, options);
+		// analyzeGoodsShelfByDamageSpace(resultList, damageSpaceId, options);
 		return resultList;
  	}
  	 
@@ -597,12 +643,14 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<GoodsShelf> findGoodsShelfByDamageSpace(String damageSpaceId, int start, int count,Map<String,Object> options){
  		
  		SmartList<GoodsShelf> resultList =  queryWithRange(GoodsShelfTable.COLUMN_DAMAGE_SPACE, damageSpaceId, options, getGoodsShelfMapper(), start, count);
- 		analyzeGoodsShelfByDamageSpace(resultList, damageSpaceId, options);
+ 		//analyzeGoodsShelfByDamageSpace(resultList, damageSpaceId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsShelfByDamageSpace(SmartList<GoodsShelf> resultList, String damageSpaceId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(GoodsShelf.DAMAGE_SPACE_PROPERTY, damageSpaceId);

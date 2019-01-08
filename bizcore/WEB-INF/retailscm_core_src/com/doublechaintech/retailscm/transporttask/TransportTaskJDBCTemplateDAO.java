@@ -321,10 +321,11 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		
 	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportTaskTokens.GOODS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TransportTaskTokens.GOODS_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -332,14 +333,13 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractTransportTaskTrackListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractTransportTaskTrackListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeTransportTaskTrackListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST+".analyze");
  	}
 
 	protected boolean isSaveTransportTaskTrackListEnabled(Map<String,Object> options){
@@ -347,8 +347,6 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -395,20 +393,24 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(transportTask, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsListEnabled(loadOptions)){
+	 		// analyzeGoodsList(transportTask, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractTransportTaskTrackListEnabled(loadOptions)){
 	 		extractTransportTaskTrackList(transportTask, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeTransportTaskTrackListEnabled(loadOptions)){
+	 		// analyzeTransportTaskTrackList(transportTask, loadOptions);
+ 		}
+ 		
 		
 		return transportTask;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected TransportTask extractEnd(TransportTask transportTask, Map<String,Object> options) throws Exception{
@@ -492,13 +494,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TransportTask extractGoodsList(TransportTask transportTask, Map<String,Object> options){
 		
 		
@@ -520,15 +519,35 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		return transportTask;
 	
 	}	
+	
+	protected TransportTask analyzeGoodsList(TransportTask transportTask, Map<String,Object> options){
+		
+		
+		if(transportTask == null){
+			return null;
+		}
+		if(transportTask.getId() == null){
+			return transportTask;
+		}
+
+		
+		
+		SmartList<Goods> goodsList = transportTask.getGoodsList();
+		if(goodsList != null){
+			getGoodsDAO().analyzeGoodsByTransportTask(goodsList, transportTask.getId(), options);
+			
+		}
+		
+		return transportTask;
+	
+	}	
+	
 		
 	protected void enhanceTransportTaskTrackList(SmartList<TransportTaskTrack> transportTaskTrackList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TransportTask extractTransportTaskTrackList(TransportTask transportTask, Map<String,Object> options){
 		
 		
@@ -550,13 +569,36 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		return transportTask;
 	
 	}	
+	
+	protected TransportTask analyzeTransportTaskTrackList(TransportTask transportTask, Map<String,Object> options){
+		
+		
+		if(transportTask == null){
+			return null;
+		}
+		if(transportTask.getId() == null){
+			return transportTask;
+		}
+
+		
+		
+		SmartList<TransportTaskTrack> transportTaskTrackList = transportTask.getTransportTaskTrackList();
+		if(transportTaskTrackList != null){
+			getTransportTaskTrackDAO().analyzeTransportTaskTrackByMovement(transportTaskTrackList, transportTask.getId(), options);
+			
+		}
+		
+		return transportTask;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<TransportTask> findTransportTaskByEnd(String retailStoreId,Map<String,Object> options){
  	
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_END, retailStoreId, options, getTransportTaskMapper());
-		analyzeTransportTaskByEnd(resultList, retailStoreId, options);
+		// analyzeTransportTaskByEnd(resultList, retailStoreId, options);
 		return resultList;
  	}
  	 
@@ -564,12 +606,14 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<TransportTask> findTransportTaskByEnd(String retailStoreId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_END, retailStoreId, options, getTransportTaskMapper(), start, count);
- 		analyzeTransportTaskByEnd(resultList, retailStoreId, options);
+ 		//analyzeTransportTaskByEnd(resultList, retailStoreId, options);
  		return resultList;
  		
  	}
  	public void analyzeTransportTaskByEnd(SmartList<TransportTask> resultList, String retailStoreId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.END_PROPERTY, retailStoreId);
@@ -597,7 +641,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<TransportTask> findTransportTaskByDriver(String truckDriverId,Map<String,Object> options){
  	
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_DRIVER, truckDriverId, options, getTransportTaskMapper());
-		analyzeTransportTaskByDriver(resultList, truckDriverId, options);
+		// analyzeTransportTaskByDriver(resultList, truckDriverId, options);
 		return resultList;
  	}
  	 
@@ -605,12 +649,14 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<TransportTask> findTransportTaskByDriver(String truckDriverId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_DRIVER, truckDriverId, options, getTransportTaskMapper(), start, count);
- 		analyzeTransportTaskByDriver(resultList, truckDriverId, options);
+ 		//analyzeTransportTaskByDriver(resultList, truckDriverId, options);
  		return resultList;
  		
  	}
  	public void analyzeTransportTaskByDriver(SmartList<TransportTask> resultList, String truckDriverId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.DRIVER_PROPERTY, truckDriverId);
@@ -638,7 +684,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<TransportTask> findTransportTaskByTruck(String transportTruckId,Map<String,Object> options){
  	
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_TRUCK, transportTruckId, options, getTransportTaskMapper());
-		analyzeTransportTaskByTruck(resultList, transportTruckId, options);
+		// analyzeTransportTaskByTruck(resultList, transportTruckId, options);
 		return resultList;
  	}
  	 
@@ -646,12 +692,14 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<TransportTask> findTransportTaskByTruck(String transportTruckId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_TRUCK, transportTruckId, options, getTransportTaskMapper(), start, count);
- 		analyzeTransportTaskByTruck(resultList, transportTruckId, options);
+ 		//analyzeTransportTaskByTruck(resultList, transportTruckId, options);
  		return resultList;
  		
  	}
  	public void analyzeTransportTaskByTruck(SmartList<TransportTask> resultList, String transportTruckId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.TRUCK_PROPERTY, transportTruckId);
@@ -679,7 +727,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<TransportTask> findTransportTaskByBelongsTo(String transportFleetId,Map<String,Object> options){
  	
   		SmartList<TransportTask> resultList = queryWith(TransportTaskTable.COLUMN_BELONGS_TO, transportFleetId, options, getTransportTaskMapper());
-		analyzeTransportTaskByBelongsTo(resultList, transportFleetId, options);
+		// analyzeTransportTaskByBelongsTo(resultList, transportFleetId, options);
 		return resultList;
  	}
  	 
@@ -687,12 +735,14 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<TransportTask> findTransportTaskByBelongsTo(String transportFleetId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TransportTask> resultList =  queryWithRange(TransportTaskTable.COLUMN_BELONGS_TO, transportFleetId, options, getTransportTaskMapper(), start, count);
- 		analyzeTransportTaskByBelongsTo(resultList, transportFleetId, options);
+ 		//analyzeTransportTaskByBelongsTo(resultList, transportFleetId, options);
  		return resultList;
  		
  	}
  	public void analyzeTransportTaskByBelongsTo(SmartList<TransportTask> resultList, String transportFleetId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(TransportTask.BELONGS_TO_PROPERTY, transportFleetId);

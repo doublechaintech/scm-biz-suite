@@ -102,7 +102,14 @@ public class TruckDriverTokens extends CommonTokens{
 		addSimpleOptions(TRANSPORT_TASK_LIST);
 		return this;
 	}
-
+	public TruckDriverTokens analyzeTransportTaskList(){		
+		addSimpleOptions(TRANSPORT_TASK_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTransportTaskListEnabled(){		
+		
+		return checkOptions(this.options(), TRANSPORT_TASK_LIST+".anaylze");
+	}
 	public TruckDriverTokens extractMoreFromTransportTaskList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TASK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

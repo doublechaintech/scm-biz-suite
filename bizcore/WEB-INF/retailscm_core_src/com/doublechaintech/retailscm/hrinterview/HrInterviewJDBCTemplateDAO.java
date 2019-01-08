@@ -193,10 +193,11 @@ public class HrInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,HrInterviewTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,HrInterviewTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class HrInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class HrInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(hrInterview, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(hrInterview, loadOptions);
+ 		}
+ 		
 		
 		return hrInterview;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected HrInterview extractEmployeeList(HrInterview hrInterview, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class HrInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return hrInterview;
 	
 	}	
+	
+	protected HrInterview analyzeEmployeeList(HrInterview hrInterview, Map<String,Object> options){
+		
+		
+		if(hrInterview == null){
+			return null;
+		}
+		if(hrInterview.getId() == null){
+			return hrInterview;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = hrInterview.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByHrInterview(employeeList, hrInterview.getId(), options);
+			
+		}
+		
+		return hrInterview;
+	
+	}	
+	
 		
 		
  	

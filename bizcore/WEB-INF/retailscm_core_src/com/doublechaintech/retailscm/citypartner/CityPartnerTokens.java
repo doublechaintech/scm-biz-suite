@@ -103,7 +103,14 @@ public class CityPartnerTokens extends CommonTokens{
 		addSimpleOptions(POTENTIAL_CUSTOMER_LIST);
 		return this;
 	}
-
+	public CityPartnerTokens analyzePotentialCustomerList(){		
+		addSimpleOptions(POTENTIAL_CUSTOMER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePotentialCustomerListEnabled(){		
+		
+		return checkOptions(this.options(), POTENTIAL_CUSTOMER_LIST+".anaylze");
+	}
 	public CityPartnerTokens extractMoreFromPotentialCustomerList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -158,7 +165,14 @@ public class CityPartnerTokens extends CommonTokens{
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST);
 		return this;
 	}
-
+	public CityPartnerTokens analyzePotentialCustomerContactList(){		
+		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePotentialCustomerContactListEnabled(){		
+		
+		return checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+	}
 	public CityPartnerTokens extractMoreFromPotentialCustomerContactList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

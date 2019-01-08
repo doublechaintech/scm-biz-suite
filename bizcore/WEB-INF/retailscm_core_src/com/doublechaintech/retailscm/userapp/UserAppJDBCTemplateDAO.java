@@ -246,10 +246,11 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	
-	protected boolean isExtractListAccessListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractListAccessListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserAppTokens.LIST_ACCESS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeListAccessListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,UserAppTokens.LIST_ACCESS_LIST+".analyze");
  	}
 
 	protected boolean isSaveListAccessListEnabled(Map<String,Object> options){
@@ -257,14 +258,13 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractObjectAccessListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractObjectAccessListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserAppTokens.OBJECT_ACCESS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeObjectAccessListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,UserAppTokens.OBJECT_ACCESS_LIST+".analyze");
  	}
 
 	protected boolean isSaveObjectAccessListEnabled(Map<String,Object> options){
@@ -272,8 +272,6 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -308,20 +306,24 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
 		if(isExtractListAccessListEnabled(loadOptions)){
 	 		extractListAccessList(userApp, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeListAccessListEnabled(loadOptions)){
+	 		// analyzeListAccessList(userApp, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractObjectAccessListEnabled(loadOptions)){
 	 		extractObjectAccessList(userApp, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeObjectAccessListEnabled(loadOptions)){
+	 		// analyzeObjectAccessList(userApp, loadOptions);
+ 		}
+ 		
 		
 		return userApp;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected UserApp extractSecUser(UserApp userApp, Map<String,Object> options) throws Exception{
@@ -345,13 +347,10 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	protected void enhanceListAccessList(SmartList<ListAccess> listAccessList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected UserApp extractListAccessList(UserApp userApp, Map<String,Object> options){
 		
 		
@@ -373,15 +372,35 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		return userApp;
 	
 	}	
+	
+	protected UserApp analyzeListAccessList(UserApp userApp, Map<String,Object> options){
+		
+		
+		if(userApp == null){
+			return null;
+		}
+		if(userApp.getId() == null){
+			return userApp;
+		}
+
+		
+		
+		SmartList<ListAccess> listAccessList = userApp.getListAccessList();
+		if(listAccessList != null){
+			getListAccessDAO().analyzeListAccessByApp(listAccessList, userApp.getId(), options);
+			
+		}
+		
+		return userApp;
+	
+	}	
+	
 		
 	protected void enhanceObjectAccessList(SmartList<ObjectAccess> objectAccessList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected UserApp extractObjectAccessList(UserApp userApp, Map<String,Object> options){
 		
 		
@@ -403,13 +422,36 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		return userApp;
 	
 	}	
+	
+	protected UserApp analyzeObjectAccessList(UserApp userApp, Map<String,Object> options){
+		
+		
+		if(userApp == null){
+			return null;
+		}
+		if(userApp.getId() == null){
+			return userApp;
+		}
+
+		
+		
+		SmartList<ObjectAccess> objectAccessList = userApp.getObjectAccessList();
+		if(objectAccessList != null){
+			getObjectAccessDAO().analyzeObjectAccessByApp(objectAccessList, userApp.getId(), options);
+			
+		}
+		
+		return userApp;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<UserApp> findUserAppBySecUser(String secUserId,Map<String,Object> options){
  	
   		SmartList<UserApp> resultList = queryWith(UserAppTable.COLUMN_SEC_USER, secUserId, options, getUserAppMapper());
-		analyzeUserAppBySecUser(resultList, secUserId, options);
+		// analyzeUserAppBySecUser(resultList, secUserId, options);
 		return resultList;
  	}
  	 
@@ -417,12 +459,14 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  	public SmartList<UserApp> findUserAppBySecUser(String secUserId, int start, int count,Map<String,Object> options){
  		
  		SmartList<UserApp> resultList =  queryWithRange(UserAppTable.COLUMN_SEC_USER, secUserId, options, getUserAppMapper(), start, count);
- 		analyzeUserAppBySecUser(resultList, secUserId, options);
+ 		//analyzeUserAppBySecUser(resultList, secUserId, options);
  		return resultList;
  		
  	}
  	public void analyzeUserAppBySecUser(SmartList<UserApp> resultList, String secUserId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

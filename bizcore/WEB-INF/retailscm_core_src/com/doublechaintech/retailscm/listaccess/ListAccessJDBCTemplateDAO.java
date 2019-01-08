@@ -224,10 +224,6 @@ public class ListAccessJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected ListAccess extractApp(ListAccess listAccess, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class ListAccessJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<ListAccess> findListAccessByApp(String userAppId,Map<String,Object> options){
  	
   		SmartList<ListAccess> resultList = queryWith(ListAccessTable.COLUMN_APP, userAppId, options, getListAccessMapper());
-		analyzeListAccessByApp(resultList, userAppId, options);
+		// analyzeListAccessByApp(resultList, userAppId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class ListAccessJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<ListAccess> findListAccessByApp(String userAppId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ListAccess> resultList =  queryWithRange(ListAccessTable.COLUMN_APP, userAppId, options, getListAccessMapper(), start, count);
- 		analyzeListAccessByApp(resultList, userAppId, options);
+ 		//analyzeListAccessByApp(resultList, userAppId, options);
  		return resultList;
  		
  	}
  	public void analyzeListAccessByApp(SmartList<ListAccess> resultList, String userAppId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

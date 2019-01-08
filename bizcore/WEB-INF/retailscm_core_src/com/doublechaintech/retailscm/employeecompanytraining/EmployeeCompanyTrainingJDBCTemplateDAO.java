@@ -282,10 +282,6 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmNamingServi
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeCompanyTraining extractEmployee(EmployeeCompanyTraining employeeCompanyTraining, Map<String,Object> options) throws Exception{
@@ -353,7 +349,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeCompanyTraining> resultList = queryWith(EmployeeCompanyTrainingTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeCompanyTrainingMapper());
-		analyzeEmployeeCompanyTrainingByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeCompanyTrainingByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -361,12 +357,14 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeCompanyTraining> resultList =  queryWithRange(EmployeeCompanyTrainingTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeCompanyTrainingMapper(), start, count);
- 		analyzeEmployeeCompanyTrainingByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeCompanyTrainingByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeCompanyTrainingByEmployee(SmartList<EmployeeCompanyTraining> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, employeeId);
@@ -394,7 +392,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByTraining(String companyTrainingId,Map<String,Object> options){
  	
   		SmartList<EmployeeCompanyTraining> resultList = queryWith(EmployeeCompanyTrainingTable.COLUMN_TRAINING, companyTrainingId, options, getEmployeeCompanyTrainingMapper());
-		analyzeEmployeeCompanyTrainingByTraining(resultList, companyTrainingId, options);
+		// analyzeEmployeeCompanyTrainingByTraining(resultList, companyTrainingId, options);
 		return resultList;
  	}
  	 
@@ -402,12 +400,14 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByTraining(String companyTrainingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeCompanyTraining> resultList =  queryWithRange(EmployeeCompanyTrainingTable.COLUMN_TRAINING, companyTrainingId, options, getEmployeeCompanyTrainingMapper(), start, count);
- 		analyzeEmployeeCompanyTrainingByTraining(resultList, companyTrainingId, options);
+ 		//analyzeEmployeeCompanyTrainingByTraining(resultList, companyTrainingId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeCompanyTrainingByTraining(SmartList<EmployeeCompanyTraining> resultList, String companyTrainingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeCompanyTraining.TRAINING_PROPERTY, companyTrainingId);
@@ -435,7 +435,7 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByScoring(String scoringId,Map<String,Object> options){
  	
   		SmartList<EmployeeCompanyTraining> resultList = queryWith(EmployeeCompanyTrainingTable.COLUMN_SCORING, scoringId, options, getEmployeeCompanyTrainingMapper());
-		analyzeEmployeeCompanyTrainingByScoring(resultList, scoringId, options);
+		// analyzeEmployeeCompanyTrainingByScoring(resultList, scoringId, options);
 		return resultList;
  	}
  	 
@@ -443,12 +443,14 @@ public class EmployeeCompanyTrainingJDBCTemplateDAO extends RetailscmNamingServi
  	public SmartList<EmployeeCompanyTraining> findEmployeeCompanyTrainingByScoring(String scoringId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeCompanyTraining> resultList =  queryWithRange(EmployeeCompanyTrainingTable.COLUMN_SCORING, scoringId, options, getEmployeeCompanyTrainingMapper(), start, count);
- 		analyzeEmployeeCompanyTrainingByScoring(resultList, scoringId, options);
+ 		//analyzeEmployeeCompanyTrainingByScoring(resultList, scoringId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeCompanyTrainingByScoring(SmartList<EmployeeCompanyTraining> resultList, String scoringId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeCompanyTraining.SCORING_PROPERTY, scoringId);

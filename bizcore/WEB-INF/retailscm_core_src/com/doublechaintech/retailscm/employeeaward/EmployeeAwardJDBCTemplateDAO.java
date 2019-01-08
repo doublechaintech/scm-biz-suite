@@ -224,10 +224,6 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeAward extractEmployee(EmployeeAward employeeAward, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeAward> findEmployeeAwardByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeAward> resultList = queryWith(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAwardMapper());
-		analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeAward> findEmployeeAwardByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeAward> resultList =  queryWithRange(EmployeeAwardTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeAwardMapper(), start, count);
- 		analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeAwardByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeAwardByEmployee(SmartList<EmployeeAward> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

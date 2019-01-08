@@ -224,10 +224,6 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected PublicHoliday extractCompany(PublicHoliday publicHoliday, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<PublicHoliday> findPublicHolidayByCompany(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<PublicHoliday> resultList = queryWith(PublicHolidayTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getPublicHolidayMapper());
-		analyzePublicHolidayByCompany(resultList, retailStoreCountryCenterId, options);
+		// analyzePublicHolidayByCompany(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<PublicHoliday> findPublicHolidayByCompany(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PublicHoliday> resultList =  queryWithRange(PublicHolidayTable.COLUMN_COMPANY, retailStoreCountryCenterId, options, getPublicHolidayMapper(), start, count);
- 		analyzePublicHolidayByCompany(resultList, retailStoreCountryCenterId, options);
+ 		//analyzePublicHolidayByCompany(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzePublicHolidayByCompany(SmartList<PublicHoliday> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

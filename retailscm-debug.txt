@@ -38,7 +38,7 @@ Origin|产地
 Remark|备注
 Brand|品牌
 Picture|图片
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Sku|SKU
 Id|序号
@@ -56,7 +56,7 @@ Id|序号
 Name|名称
 Founded|成立
 Country|国
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Province Center Department|省中心
 Id|序号
@@ -79,7 +79,7 @@ Id|序号
 Name|名称
 Founded|成立
 Belongs To|属于
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 City Partner|城市合伙人
 Id|序号
@@ -87,7 +87,7 @@ Name|名称
 Mobile|手机
 City Service Center|城市服务中心
 Description|描述
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Potential Customer|潜在的客户
 Id|序号
@@ -96,7 +96,7 @@ Mobile|手机
 City Service Center|城市服务中心
 City Partner|城市合伙人
 Description|描述
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Potential Customer Contact Person|潜在客户联络人
 Id|序号
@@ -114,7 +114,7 @@ Potential Customer|潜在的客户
 City Partner|城市合伙人
 Contact To|接触
 Description|描述
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 City Event|城市活动
 Id|序号
@@ -122,7 +122,7 @@ Name|名称
 Mobile|手机
 City Service Center|城市服务中心
 Description|描述
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Event Attendance|活动的参与情况
 Id|序号
@@ -139,22 +139,22 @@ Owner|业主
 Retail Store Country Center|双链小超全国运营中心
 City Service Center|城市服务中心
 Creation|创建
-Create|创建
+Create|Create
 Investment Invitation|招商
-Invite Investment|邀请投资
+Invite Investment|Invite Investment
 Franchising|加盟
-Franchise|特许经营
+Franchise|Franchise
 Decoration|装修
-Decorate|装修
+Decorate|Decorate
 Opening|开业
-Open|开放
+Open|Open
 Closing|关闭
-Close|关闭
+Close|Close
 Founded|成立
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Description|描述
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Current Status|当前状态
 Version|版本
 Retail Store Creation|双链小超的创作
@@ -192,17 +192,17 @@ Id|序号
 Title|头衔
 Consumer|消费者
 Confirmation|确认
-Confirm|确认
+Confirm|Confirm
 Approval|验收
-Approve|批准
+Approve|Approve
 Processing|处理
-Process|过程
+Process|Process
 Shipment|装运
-Ship|船
+Ship|Ship
 Delivery|送货
-Deliver|交付
+Deliver|Deliver
 Store|商场
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Current Status|当前状态
 Version|版本
 Consumer Order Confirmation|客户订单确认
@@ -315,7 +315,7 @@ Supply Product|供应产品
 Belong To|属于
 Contact Number|联系电话
 Description|描述
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Supplier Product|供应商的产品
 Id|序号
@@ -338,18 +338,18 @@ Seller|卖方
 Title|头衔
 Total Amount|总金额
 Confirmation|确认
-Confirm|确认
+Confirm|Confirm
 Approval|验收
-Approve|批准
+Approve|Approve
 Processing|处理
-Process|过程
+Process|Process
 Picking|捡货
-Pick|选择
+Pick|Pick
 Shipment|装运
-Ship|船
+Ship|Ship
 Delivery|送货
-Deliver|交付
-Last Update Time|最后更新时间
+Deliver|Deliver
+Last Update Time|Last Update Time
 Current Status|当前状态
 Version|版本
 Supply Order Confirmation|供应订单确认
@@ -410,18 +410,18 @@ Seller|卖方
 Title|头衔
 Total Amount|总金额
 Confirmation|确认
-Confirm|确认
+Confirm|Confirm
 Approval|验收
-Approve|批准
+Approve|Approve
 Processing|处理
-Process|过程
+Process|Process
 Picking|捡货
-Pick|选择
+Pick|Pick
 Shipment|装运
-Ship|船
+Ship|Ship
 Delivery|送货
-Deliver|交付
-Last Update Time|最后更新时间
+Deliver|Deliver
+Last Update Time|Last Update Time
 Current Status|当前状态
 Version|版本
 Retail Store Order Confirmation|生超订单确认
@@ -482,8 +482,8 @@ Contact Number|联系电话
 Total Area|总面积
 Owner|业主
 Latitude|纬度
-Longitude|经度
-Last Update Time|最后更新时间
+Longitude|Longitude
+Last Update Time|Last Update Time
 Version|版本
 Storage Space|存货区
 Id|序号
@@ -492,7 +492,7 @@ Contact Number|联系电话
 Total Area|总面积
 Warehouse|仓库
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Version|版本
 Smart Pallet|智能托盘
 Id|序号
@@ -500,7 +500,7 @@ Location|位置
 Contact Number|联系电话
 Total Area|总面积
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Warehouse|仓库
 Version|版本
 Goods Shelf|货架
@@ -528,7 +528,7 @@ Goods Allocation|货位
 Id|序号
 Location|位置
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Goods Shelf|货架
 Version|版本
 Goods|货物
@@ -548,7 +548,7 @@ Retail Store|双链小超
 Biz Order|订单
 Retail Store Order|生超的订单
 Packaging|包装
-Pack|包
+Pack|Pack
 Current Status|当前状态
 Version|版本
 Goods Packaging|货物包装
@@ -567,7 +567,7 @@ From Ip|从IP
 User Agent|用户代理
 Session Id|会话ID
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Goods|货物
 Version|版本
 Supplier Space|供应商的空间
@@ -577,7 +577,7 @@ Contact Number|联系电话
 Total Area|总面积
 Warehouse|仓库
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Version|版本
 Receiving Space|收货区
 Id|序号
@@ -587,7 +587,7 @@ Description|描述
 Total Area|总面积
 Warehouse|仓库
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Version|版本
 Shipping Space|发货区
 Id|序号
@@ -596,7 +596,7 @@ Contact Number|联系电话
 Total Area|总面积
 Warehouse|仓库
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Description|描述
 Version|版本
 Damage Space|残次货物存放区
@@ -605,13 +605,13 @@ Location|位置
 Contact Number|联系电话
 Total Area|总面积
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Warehouse|仓库
 Version|版本
 Warehouse Asset|仓库资产
 Id|序号
 Name|名称
-Position|位置
+Position|Position
 Owner|业主
 Version|版本
 Transport Fleet|运输车队
@@ -619,7 +619,7 @@ Id|序号
 Name|名称
 Contact Number|联系电话
 Owner|业主
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Transport Truck|运输车
 Id|序号
@@ -650,20 +650,20 @@ Driver|司机
 Truck|卡车
 Belongs To|属于
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Version|版本
 Transport Task Track|运输任务跟踪
 Id|序号
 Track Time|跟踪时间
 Latitude|纬度
-Longitude|经度
+Longitude|Longitude
 Movement|运动
 Version|版本
 Account Set|账套
 Id|序号
 Name|名称
 Year Set|年组
-Effective Date|生效日期
+Effective Date|Effective Date
 Accounting System|会计制度
 Domestic Currency Code|本币代码
 Domestic Currency Name|本币名称
@@ -672,7 +672,7 @@ Account Number|帐户号码
 Country Center|全国运营中心
 Retail Store|双链小超
 Goods Supplier|产品供应商
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Accounting Subject|会计科目
 Id|序号
@@ -702,13 +702,13 @@ Accounting Document Date|会计凭证日期
 Accounting Period|会计期间
 Document Type|文档类型
 Creation|创建
-Create|创建
+Create|Create
 Confirmation|确认
-Confirm|确认
+Confirm|Confirm
 Auditing|审计
-Audit|审计
+Audit|Audit
 Posting|过账
-Post|帖子
+Post|Post
 Current Status|当前状态
 Version|版本
 Accounting Document Creation|会计文件的创建
@@ -744,11 +744,11 @@ Voucher Type|凭证类型
 Voucher Image|凭证图像
 Belongs To|属于
 Creation|创建
-Create|创建
+Create|Create
 Confirmation|确认
-Confirm|确认
+Confirm|Confirm
 Auditing|审计
-Audit|审计
+Audit|Audit
 Current Status|当前状态
 Version|版本
 Original Voucher Creation|原始凭证制作
@@ -896,20 +896,20 @@ Responsible For|负责
 Current Salary Grade|目前工资等级
 Salary Account|工资账户
 Job Application|工作申请
-Apply Job|申请的工作
+Apply Job|Apply Job
 Profession Interview|专业面试
-Interview With Profession|采访的职业
+Interview With Profession|Interview With Profession
 Hr Interview|人力资源部面试
-Interview By Hr|面试由人力资源
+Interview By Hr|Interview By Hr
 Offer Approval|审批工作要约
-Approve Offer|通过提供
+Approve Offer|Approve Offer
 Offer Acceptance|接受工作要约
-Accept Offer|接受报价
+Accept Offer|Accept Offer
 Employee Boarding|员工入职
-Board Employee|董事会员工
+Board Employee|Board Employee
 Termination|雇佣终止
-Terminate|终止
-Last Update Time|最后更新时间
+Terminate|Terminate
+Last Update Time|Last Update Time
 Current Status|当前状态
 Version|版本
 Job Application|工作申请
@@ -957,7 +957,7 @@ Cell Phone|手机
 Email|电子邮件
 Company|公司
 Introduction|介绍
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Company Training|公司培训
 Id|序号
@@ -967,7 +967,7 @@ Instructor|讲师
 Training Course Type|培训课程类型
 Time Start|时间开始
 Duration Hours|持续时间
-Last Update Time|最后更新时间
+Last Update Time|Last Update Time
 Version|版本
 Scoring|评分
 Id|序号
@@ -1057,7 +1057,7 @@ Social Security|社会保险
 Housing Found|住房公积金
 Job Insurance|失业保险
 Paying Off|工资支付
-PayOff|回报
+PayOff|PayOff
 Current Status|当前状态
 Version|版本
 Paying Off|工资支付
@@ -1071,10 +1071,10 @@ User Domain|用户域
 Id|序号
 Name|名称
 Version|版本
-User White List|用户白名单
+User White List|User White List
 Id|序号
-User Identity|用户身份
-User Special Functions|用户特殊功能
+User Identity|User Identity
+User Special Functions|User Special Functions
 Domain|域
 Version|版本
 Sec User|SEC的用户
@@ -1108,15 +1108,15 @@ Object Type|对象类型
 Object Id|对象ID
 Location|位置
 Version|版本
-List Access|访问列表
+List Access|List Access
 Id|序号
 Name|名称
-Internal Name|内部名称
-Read Permission|读权限
-Create Permission|创建权限
-Delete Permission|删除权限
-Update Permission|更新许可
-Execution Permission|执行权限
+Internal Name|Internal Name
+Read Permission|Read Permission
+Create Permission|Create Permission
+Delete Permission|Delete Permission
+Update Permission|Update Permission
+Execution Permission|Execution Permission
 App|应用程序
 Version|版本
 Object Access|对象访问
@@ -1170,10 +1170,10 @@ Placeholder|占位符
 Default Value|默认值
 Description|描述
 Field Group|字段组
-Minimum Value|最小值
-Maximum Value|最大值
+Minimum Value|Minimum Value
+Maximum Value|Maximum Value
 Required|要求
-Disabled|禁用
+Disabled|Disabled
 Custom Rendering|自定义渲染
 Candidate Values|候选人的价值观
 Suggest Values|建议值
@@ -1182,7 +1182,7 @@ Form Action|表单动作
 Id|序号
 Label|标签
 Locale Key|语言环境的关键
-Action Key|行动的关键
+Action Key|Action Key
 Level|水平
 Url|url
 Form|形式
@@ -1325,11 +1325,11 @@ Transfer to Another Employee Award|转让给另一员工奖
 Transfer to Another Employee Salary Sheet|转移到另一员工工资单
 Transfer to Another Paying Off|转移到另一个支付
 Transfer to Another User Domain|传输到另一个用户域
-Transfer to Another User White List|转移到另一个用户白名单
+Transfer to Another User White List|Transfer to Another User White List
 Transfer to Another Sec User|转移到另一个SEC用户
 Transfer to Another Sec User Blocking|转移到另一个SEC用户阻塞
 Transfer to Another User App|转移到另一个用户应用程序
-Transfer to Another List Access|转移到另一个列表访问
+Transfer to Another List Access|Transfer to Another List Access
 Transfer to Another Object Access|转移到另一个对象访问
 Transfer to Another Login History|转移到另一个登录历史
 Transfer to Another Generic Form|转移到另一个通用表单

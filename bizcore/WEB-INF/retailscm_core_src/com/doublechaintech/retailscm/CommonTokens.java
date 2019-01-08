@@ -10,6 +10,10 @@ public class CommonTokens {
 	Map <String,Object> options;
 	public Map <String,Object> done()
 	{
+		return this.options();
+	}
+	public Map <String,Object> options()
+	{
 		ensureOptions();
 		return options;
 	}

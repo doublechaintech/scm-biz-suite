@@ -102,7 +102,14 @@ public class LevelTwoDepartmentTokens extends CommonTokens{
 		addSimpleOptions(LEVEL_THREE_DEPARTMENT_LIST);
 		return this;
 	}
-
+	public LevelTwoDepartmentTokens analyzeLevelThreeDepartmentList(){		
+		addSimpleOptions(LEVEL_THREE_DEPARTMENT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeLevelThreeDepartmentListEnabled(){		
+		
+		return checkOptions(this.options(), LEVEL_THREE_DEPARTMENT_LIST+".anaylze");
+	}
 	public LevelTwoDepartmentTokens extractMoreFromLevelThreeDepartmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEVEL_THREE_DEPARTMENT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

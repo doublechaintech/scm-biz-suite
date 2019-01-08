@@ -224,10 +224,6 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected WarehouseAsset extractOwner(WarehouseAsset warehouseAsset, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  	public SmartList<WarehouseAsset> findWarehouseAssetByOwner(String warehouseId,Map<String,Object> options){
  	
   		SmartList<WarehouseAsset> resultList = queryWith(WarehouseAssetTable.COLUMN_OWNER, warehouseId, options, getWarehouseAssetMapper());
-		analyzeWarehouseAssetByOwner(resultList, warehouseId, options);
+		// analyzeWarehouseAssetByOwner(resultList, warehouseId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  	public SmartList<WarehouseAsset> findWarehouseAssetByOwner(String warehouseId, int start, int count,Map<String,Object> options){
  		
  		SmartList<WarehouseAsset> resultList =  queryWithRange(WarehouseAssetTable.COLUMN_OWNER, warehouseId, options, getWarehouseAssetMapper(), start, count);
- 		analyzeWarehouseAssetByOwner(resultList, warehouseId, options);
+ 		//analyzeWarehouseAssetByOwner(resultList, warehouseId, options);
  		return resultList;
  		
  	}
  	public void analyzeWarehouseAssetByOwner(SmartList<WarehouseAsset> resultList, String warehouseId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

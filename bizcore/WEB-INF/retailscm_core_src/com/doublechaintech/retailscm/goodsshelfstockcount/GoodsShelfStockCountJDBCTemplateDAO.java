@@ -218,10 +218,11 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
  
 		
 	
-	protected boolean isExtractStockCountIssueTrackListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractStockCountIssueTrackListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeStockCountIssueTrackListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST+".analyze");
  	}
 
 	protected boolean isSaveStockCountIssueTrackListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
 		
 		if(isExtractStockCountIssueTrackListEnabled(loadOptions)){
 	 		extractStockCountIssueTrackList(goodsShelfStockCount, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeStockCountIssueTrackListEnabled(loadOptions)){
+	 		// analyzeStockCountIssueTrackList(goodsShelfStockCount, loadOptions);
+ 		}
+ 		
 		
 		return goodsShelfStockCount;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected GoodsShelfStockCount extractShelf(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
  
 		
 	protected void enhanceStockCountIssueTrackList(SmartList<StockCountIssueTrack> stockCountIssueTrackList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GoodsShelfStockCount extractStockCountIssueTrackList(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
 		return goodsShelfStockCount;
 	
 	}	
+	
+	protected GoodsShelfStockCount analyzeStockCountIssueTrackList(GoodsShelfStockCount goodsShelfStockCount, Map<String,Object> options){
+		
+		
+		if(goodsShelfStockCount == null){
+			return null;
+		}
+		if(goodsShelfStockCount.getId() == null){
+			return goodsShelfStockCount;
+		}
+
+		
+		
+		SmartList<StockCountIssueTrack> stockCountIssueTrackList = goodsShelfStockCount.getStockCountIssueTrackList();
+		if(stockCountIssueTrackList != null){
+			getStockCountIssueTrackDAO().analyzeStockCountIssueTrackByStockCount(stockCountIssueTrackList, goodsShelfStockCount.getId(), options);
+			
+		}
+		
+		return goodsShelfStockCount;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<GoodsShelfStockCount> findGoodsShelfStockCountByShelf(String goodsShelfId,Map<String,Object> options){
  	
   		SmartList<GoodsShelfStockCount> resultList = queryWith(GoodsShelfStockCountTable.COLUMN_SHELF, goodsShelfId, options, getGoodsShelfStockCountMapper());
-		analyzeGoodsShelfStockCountByShelf(resultList, goodsShelfId, options);
+		// analyzeGoodsShelfStockCountByShelf(resultList, goodsShelfId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
  	public SmartList<GoodsShelfStockCount> findGoodsShelfStockCountByShelf(String goodsShelfId, int start, int count,Map<String,Object> options){
  		
  		SmartList<GoodsShelfStockCount> resultList =  queryWithRange(GoodsShelfStockCountTable.COLUMN_SHELF, goodsShelfId, options, getGoodsShelfStockCountMapper(), start, count);
- 		analyzeGoodsShelfStockCountByShelf(resultList, goodsShelfId, options);
+ 		//analyzeGoodsShelfStockCountByShelf(resultList, goodsShelfId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsShelfStockCountByShelf(SmartList<GoodsShelfStockCount> resultList, String goodsShelfId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

@@ -2124,7 +2124,7 @@ public class EmployeeForm extends BaseForm {
  	
  	public EmployeeForm  applyJobAction(){
 		FormAction action = new FormAction();
-		action.setLabel("申请的工作");
+		action.setLabel("Apply Job");
 		action.setLocaleKey("employee.applyJob");
 		action.setUrl("employeeManager/applyJob/employeeId/applicationTime/who/comments/");
 		this.addFormAction(action);
@@ -2132,7 +2132,7 @@ public class EmployeeForm extends BaseForm {
 	}	
  	public EmployeeForm  interviewWithProfessionAction(){
 		FormAction action = new FormAction();
-		action.setLabel("采访的职业");
+		action.setLabel("Interview With Profession");
 		action.setLocaleKey("employee.interviewWithProfession");
 		action.setUrl("employeeManager/interviewWithProfession/employeeId/who/interviewTime/comments/");
 		this.addFormAction(action);
@@ -2140,7 +2140,7 @@ public class EmployeeForm extends BaseForm {
 	}	
  	public EmployeeForm  interviewByHrAction(){
 		FormAction action = new FormAction();
-		action.setLabel("面试由人力资源");
+		action.setLabel("Interview By Hr");
 		action.setLocaleKey("employee.interviewByHr");
 		action.setUrl("employeeManager/interviewByHr/employeeId/who/interviewTime/comments/");
 		this.addFormAction(action);
@@ -2148,7 +2148,7 @@ public class EmployeeForm extends BaseForm {
 	}	
  	public EmployeeForm  approveOfferAction(){
 		FormAction action = new FormAction();
-		action.setLabel("通过提供");
+		action.setLabel("Approve Offer");
 		action.setLocaleKey("employee.approveOffer");
 		action.setUrl("employeeManager/approveOffer/employeeId/who/approveTime/comments/");
 		this.addFormAction(action);
@@ -2156,7 +2156,7 @@ public class EmployeeForm extends BaseForm {
 	}	
  	public EmployeeForm  acceptOfferAction(){
 		FormAction action = new FormAction();
-		action.setLabel("接受报价");
+		action.setLabel("Accept Offer");
 		action.setLocaleKey("employee.acceptOffer");
 		action.setUrl("employeeManager/acceptOffer/employeeId/who/acceptTime/comments/");
 		this.addFormAction(action);
@@ -2164,7 +2164,7 @@ public class EmployeeForm extends BaseForm {
 	}	
  	public EmployeeForm  boardEmployeeAction(){
 		FormAction action = new FormAction();
-		action.setLabel("董事会员工");
+		action.setLabel("Board Employee");
 		action.setLocaleKey("employee.boardEmployee");
 		action.setUrl("employeeManager/boardEmployee/employeeId/who/employTime/comments/");
 		this.addFormAction(action);
@@ -2172,7 +2172,7 @@ public class EmployeeForm extends BaseForm {
 	}	
  	public EmployeeForm  terminateAction(){
 		FormAction action = new FormAction();
-		action.setLabel("终止");
+		action.setLabel("Terminate");
 		action.setLocaleKey("employee.terminate");
 		action.setUrl("employeeManager/terminate/employeeId/reasonIdtypeIdcomment/");
 		this.addFormAction(action);

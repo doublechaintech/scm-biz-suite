@@ -218,10 +218,11 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	
-	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
 		if(isExtractEmployeeSalarySheetListEnabled(loadOptions)){
 	 		extractEmployeeSalarySheetList(payingOff, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeSalarySheetListEnabled(loadOptions)){
+	 		// analyzeEmployeeSalarySheetList(payingOff, loadOptions);
+ 		}
+ 		
 		
 		return payingOff;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected PayingOff extractPaidFor(PayingOff payingOff, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	protected void enhanceEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected PayingOff extractEmployeeSalarySheetList(PayingOff payingOff, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return payingOff;
 	
 	}	
+	
+	protected PayingOff analyzeEmployeeSalarySheetList(PayingOff payingOff, Map<String,Object> options){
+		
+		
+		if(payingOff == null){
+			return null;
+		}
+		if(payingOff.getId() == null){
+			return payingOff;
+		}
+
+		
+		
+		SmartList<EmployeeSalarySheet> employeeSalarySheetList = payingOff.getEmployeeSalarySheetList();
+		if(employeeSalarySheetList != null){
+			getEmployeeSalarySheetDAO().analyzeEmployeeSalarySheetByPayingOff(employeeSalarySheetList, payingOff.getId(), options);
+			
+		}
+		
+		return payingOff;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<PayingOff> findPayingOffByPaidFor(String employeeId,Map<String,Object> options){
  	
   		SmartList<PayingOff> resultList = queryWith(PayingOffTable.COLUMN_PAID_FOR, employeeId, options, getPayingOffMapper());
-		analyzePayingOffByPaidFor(resultList, employeeId, options);
+		// analyzePayingOffByPaidFor(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  	public SmartList<PayingOff> findPayingOffByPaidFor(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PayingOff> resultList =  queryWithRange(PayingOffTable.COLUMN_PAID_FOR, employeeId, options, getPayingOffMapper(), start, count);
- 		analyzePayingOffByPaidFor(resultList, employeeId, options);
+ 		//analyzePayingOffByPaidFor(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzePayingOffByPaidFor(SmartList<PayingOff> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

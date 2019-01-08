@@ -102,7 +102,14 @@ public class ShippingSpaceTokens extends CommonTokens{
 		addSimpleOptions(GOODS_LIST);
 		return this;
 	}
-
+	public ShippingSpaceTokens analyzeGoodsList(){		
+		addSimpleOptions(GOODS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+	}
 	public ShippingSpaceTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

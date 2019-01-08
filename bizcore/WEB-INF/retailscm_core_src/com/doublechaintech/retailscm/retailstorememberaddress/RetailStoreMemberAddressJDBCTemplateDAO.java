@@ -224,10 +224,6 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmNamingServ
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected RetailStoreMemberAddress extractOwner(RetailStoreMemberAddress retailStoreMemberAddress, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<RetailStoreMemberAddress> findRetailStoreMemberAddressByOwner(String retailStoreMemberId,Map<String,Object> options){
  	
   		SmartList<RetailStoreMemberAddress> resultList = queryWith(RetailStoreMemberAddressTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberAddressMapper());
-		analyzeRetailStoreMemberAddressByOwner(resultList, retailStoreMemberId, options);
+		// analyzeRetailStoreMemberAddressByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmNamingServ
  	public SmartList<RetailStoreMemberAddress> findRetailStoreMemberAddressByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreMemberAddress> resultList =  queryWithRange(RetailStoreMemberAddressTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberAddressMapper(), start, count);
- 		analyzeRetailStoreMemberAddressByOwner(resultList, retailStoreMemberId, options);
+ 		//analyzeRetailStoreMemberAddressByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreMemberAddressByOwner(SmartList<RetailStoreMemberAddress> resultList, String retailStoreMemberId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

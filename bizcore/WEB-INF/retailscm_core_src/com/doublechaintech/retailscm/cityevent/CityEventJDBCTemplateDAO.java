@@ -218,10 +218,11 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	
-	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEventAttendanceListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
 		if(isExtractEventAttendanceListEnabled(loadOptions)){
 	 		extractEventAttendanceList(cityEvent, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEventAttendanceListEnabled(loadOptions)){
+	 		// analyzeEventAttendanceList(cityEvent, loadOptions);
+ 		}
+ 		
 		
 		return cityEvent;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected CityEvent extractCityServiceCenter(CityEvent cityEvent, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	protected void enhanceEventAttendanceList(SmartList<EventAttendance> eventAttendanceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected CityEvent extractEventAttendanceList(CityEvent cityEvent, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return cityEvent;
 	
 	}	
+	
+	protected CityEvent analyzeEventAttendanceList(CityEvent cityEvent, Map<String,Object> options){
+		
+		
+		if(cityEvent == null){
+			return null;
+		}
+		if(cityEvent.getId() == null){
+			return cityEvent;
+		}
+
+		
+		
+		SmartList<EventAttendance> eventAttendanceList = cityEvent.getEventAttendanceList();
+		if(eventAttendanceList != null){
+			getEventAttendanceDAO().analyzeEventAttendanceByCityEvent(eventAttendanceList, cityEvent.getId(), options);
+			
+		}
+		
+		return cityEvent;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<CityEvent> findCityEventByCityServiceCenter(String retailStoreCityServiceCenterId,Map<String,Object> options){
  	
   		SmartList<CityEvent> resultList = queryWith(CityEventTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityEventMapper());
-		analyzeCityEventByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
+		// analyzeCityEventByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  	public SmartList<CityEvent> findCityEventByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<CityEvent> resultList =  queryWithRange(CityEventTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityEventMapper(), start, count);
- 		analyzeCityEventByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
+ 		//analyzeCityEventByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeCityEventByCityServiceCenter(SmartList<CityEvent> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(CityEvent.CITY_SERVICE_CENTER_PROPERTY, retailStoreCityServiceCenterId);

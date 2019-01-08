@@ -102,7 +102,14 @@ public class CityEventTokens extends CommonTokens{
 		addSimpleOptions(EVENT_ATTENDANCE_LIST);
 		return this;
 	}
-
+	public CityEventTokens analyzeEventAttendanceList(){		
+		addSimpleOptions(EVENT_ATTENDANCE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEventAttendanceListEnabled(){		
+		
+		return checkOptions(this.options(), EVENT_ATTENDANCE_LIST+".anaylze");
+	}
 	public CityEventTokens extractMoreFromEventAttendanceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EVENT_ATTENDANCE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

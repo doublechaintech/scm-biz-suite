@@ -224,10 +224,6 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmNamingService
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected MemberWishlistProduct extractOwner(MemberWishlistProduct memberWishlistProduct, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmNamingService
  	public SmartList<MemberWishlistProduct> findMemberWishlistProductByOwner(String memberWishlistId,Map<String,Object> options){
  	
   		SmartList<MemberWishlistProduct> resultList = queryWith(MemberWishlistProductTable.COLUMN_OWNER, memberWishlistId, options, getMemberWishlistProductMapper());
-		analyzeMemberWishlistProductByOwner(resultList, memberWishlistId, options);
+		// analyzeMemberWishlistProductByOwner(resultList, memberWishlistId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmNamingService
  	public SmartList<MemberWishlistProduct> findMemberWishlistProductByOwner(String memberWishlistId, int start, int count,Map<String,Object> options){
  		
  		SmartList<MemberWishlistProduct> resultList =  queryWithRange(MemberWishlistProductTable.COLUMN_OWNER, memberWishlistId, options, getMemberWishlistProductMapper(), start, count);
- 		analyzeMemberWishlistProductByOwner(resultList, memberWishlistId, options);
+ 		//analyzeMemberWishlistProductByOwner(resultList, memberWishlistId, options);
  		return resultList;
  		
  	}
  	public void analyzeMemberWishlistProductByOwner(SmartList<MemberWishlistProduct> resultList, String memberWishlistId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

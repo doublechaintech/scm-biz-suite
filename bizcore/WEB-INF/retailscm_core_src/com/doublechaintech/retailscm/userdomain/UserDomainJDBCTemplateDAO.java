@@ -221,10 +221,11 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 
 		
 	
-	protected boolean isExtractUserWhiteListListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractUserWhiteListListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserDomainTokens.USER_WHITE_LIST_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeUserWhiteListListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,UserDomainTokens.USER_WHITE_LIST_LIST+".analyze");
  	}
 
 	protected boolean isSaveUserWhiteListListEnabled(Map<String,Object> options){
@@ -232,14 +233,13 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserDomainTokens.SEC_USER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,UserDomainTokens.SEC_USER_LIST+".analyze");
  	}
 
 	protected boolean isSaveSecUserListEnabled(Map<String,Object> options){
@@ -247,8 +247,6 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -279,30 +277,31 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
 		if(isExtractUserWhiteListListEnabled(loadOptions)){
 	 		extractUserWhiteListList(userDomain, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeUserWhiteListListEnabled(loadOptions)){
+	 		// analyzeUserWhiteListList(userDomain, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractSecUserListEnabled(loadOptions)){
 	 		extractSecUserList(userDomain, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSecUserListEnabled(loadOptions)){
+	 		// analyzeSecUserList(userDomain, loadOptions);
+ 		}
+ 		
 		
 		return userDomain;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceUserWhiteListList(SmartList<UserWhiteList> userWhiteListList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected UserDomain extractUserWhiteListList(UserDomain userDomain, Map<String,Object> options){
 		
 		
@@ -324,15 +323,35 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return userDomain;
 	
 	}	
+	
+	protected UserDomain analyzeUserWhiteListList(UserDomain userDomain, Map<String,Object> options){
+		
+		
+		if(userDomain == null){
+			return null;
+		}
+		if(userDomain.getId() == null){
+			return userDomain;
+		}
+
+		
+		
+		SmartList<UserWhiteList> userWhiteListList = userDomain.getUserWhiteListList();
+		if(userWhiteListList != null){
+			getUserWhiteListDAO().analyzeUserWhiteListByDomain(userWhiteListList, userDomain.getId(), options);
+			
+		}
+		
+		return userDomain;
+	
+	}	
+	
 		
 	protected void enhanceSecUserList(SmartList<SecUser> secUserList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected UserDomain extractSecUserList(UserDomain userDomain, Map<String,Object> options){
 		
 		
@@ -354,6 +373,29 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		return userDomain;
 	
 	}	
+	
+	protected UserDomain analyzeSecUserList(UserDomain userDomain, Map<String,Object> options){
+		
+		
+		if(userDomain == null){
+			return null;
+		}
+		if(userDomain.getId() == null){
+			return userDomain;
+		}
+
+		
+		
+		SmartList<SecUser> secUserList = userDomain.getSecUserList();
+		if(secUserList != null){
+			getSecUserDAO().analyzeSecUserByDomain(secUserList, userDomain.getId(), options);
+			
+		}
+		
+		return userDomain;
+	
+	}	
+	
 		
 		
  	

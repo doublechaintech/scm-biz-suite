@@ -224,10 +224,6 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmNaming
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected ConsumerOrderPriceAdjustment extractBizOrder(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustment, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmNaming
  	public SmartList<ConsumerOrderPriceAdjustment> findConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId,Map<String,Object> options){
  	
   		SmartList<ConsumerOrderPriceAdjustment> resultList = queryWith(ConsumerOrderPriceAdjustmentTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPriceAdjustmentMapper());
-		analyzeConsumerOrderPriceAdjustmentByBizOrder(resultList, consumerOrderId, options);
+		// analyzeConsumerOrderPriceAdjustmentByBizOrder(resultList, consumerOrderId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmNaming
  	public SmartList<ConsumerOrderPriceAdjustment> findConsumerOrderPriceAdjustmentByBizOrder(String consumerOrderId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ConsumerOrderPriceAdjustment> resultList =  queryWithRange(ConsumerOrderPriceAdjustmentTable.COLUMN_BIZ_ORDER, consumerOrderId, options, getConsumerOrderPriceAdjustmentMapper(), start, count);
- 		analyzeConsumerOrderPriceAdjustmentByBizOrder(resultList, consumerOrderId, options);
+ 		//analyzeConsumerOrderPriceAdjustmentByBizOrder(resultList, consumerOrderId, options);
  		return resultList;
  		
  	}
  	public void analyzeConsumerOrderPriceAdjustmentByBizOrder(SmartList<ConsumerOrderPriceAdjustment> resultList, String consumerOrderId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

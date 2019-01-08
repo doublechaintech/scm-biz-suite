@@ -221,10 +221,11 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 
 		
 	
-	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
@@ -232,14 +233,13 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
@@ -247,8 +247,6 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -279,30 +277,31 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 		
 		if(isExtractConsumerOrderListEnabled(loadOptions)){
 	 		extractConsumerOrderList(supplyOrderConfirmation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeConsumerOrderListEnabled(loadOptions)){
+	 		// analyzeConsumerOrderList(supplyOrderConfirmation, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractSupplyOrderListEnabled(loadOptions)){
 	 		extractSupplyOrderList(supplyOrderConfirmation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
+	 		// analyzeSupplyOrderList(supplyOrderConfirmation, loadOptions);
+ 		}
+ 		
 		
 		return supplyOrderConfirmation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrderConfirmation extractConsumerOrderList(SupplyOrderConfirmation supplyOrderConfirmation, Map<String,Object> options){
 		
 		
@@ -324,15 +323,35 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 		return supplyOrderConfirmation;
 	
 	}	
+	
+	protected SupplyOrderConfirmation analyzeConsumerOrderList(SupplyOrderConfirmation supplyOrderConfirmation, Map<String,Object> options){
+		
+		
+		if(supplyOrderConfirmation == null){
+			return null;
+		}
+		if(supplyOrderConfirmation.getId() == null){
+			return supplyOrderConfirmation;
+		}
+
+		
+		
+		SmartList<ConsumerOrder> consumerOrderList = supplyOrderConfirmation.getConsumerOrderList();
+		if(consumerOrderList != null){
+			getConsumerOrderDAO().analyzeConsumerOrderByConfirmation(consumerOrderList, supplyOrderConfirmation.getId(), options);
+			
+		}
+		
+		return supplyOrderConfirmation;
+	
+	}	
+	
 		
 	protected void enhanceSupplyOrderList(SmartList<SupplyOrder> supplyOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrderConfirmation extractSupplyOrderList(SupplyOrderConfirmation supplyOrderConfirmation, Map<String,Object> options){
 		
 		
@@ -354,6 +373,29 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 		return supplyOrderConfirmation;
 	
 	}	
+	
+	protected SupplyOrderConfirmation analyzeSupplyOrderList(SupplyOrderConfirmation supplyOrderConfirmation, Map<String,Object> options){
+		
+		
+		if(supplyOrderConfirmation == null){
+			return null;
+		}
+		if(supplyOrderConfirmation.getId() == null){
+			return supplyOrderConfirmation;
+		}
+
+		
+		
+		SmartList<SupplyOrder> supplyOrderList = supplyOrderConfirmation.getSupplyOrderList();
+		if(supplyOrderList != null){
+			getSupplyOrderDAO().analyzeSupplyOrderByConfirmation(supplyOrderList, supplyOrderConfirmation.getId(), options);
+			
+		}
+		
+		return supplyOrderConfirmation;
+	
+	}	
+	
 		
 		
  	

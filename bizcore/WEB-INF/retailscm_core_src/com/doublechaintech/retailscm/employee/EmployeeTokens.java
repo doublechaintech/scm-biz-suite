@@ -245,7 +245,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeCompanyTrainingList(){		
+		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeCompanyTrainingListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -300,7 +307,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_SKILL_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeSkillList(){		
+		addSimpleOptions(EMPLOYEE_SKILL_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeSkillListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_SKILL_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeSkillList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SKILL_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -355,7 +369,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_PERFORMANCE_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeePerformanceList(){		
+		addSimpleOptions(EMPLOYEE_PERFORMANCE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeePerformanceListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_PERFORMANCE_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeePerformanceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_PERFORMANCE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -410,7 +431,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_WORK_EXPERIENCE_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeWorkExperienceList(){		
+		addSimpleOptions(EMPLOYEE_WORK_EXPERIENCE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeWorkExperienceListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_WORK_EXPERIENCE_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeWorkExperienceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_WORK_EXPERIENCE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -465,7 +493,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_LEAVE_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeLeaveList(){		
+		addSimpleOptions(EMPLOYEE_LEAVE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeLeaveListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_LEAVE_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeLeaveList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LEAVE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -520,7 +555,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeInterviewList(){		
+		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeInterviewListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_INTERVIEW_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeInterviewList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -575,7 +617,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_ATTENDANCE_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeAttendanceList(){		
+		addSimpleOptions(EMPLOYEE_ATTENDANCE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeAttendanceListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_ATTENDANCE_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeAttendanceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_ATTENDANCE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -630,7 +679,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_QUALIFIER_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeQualifierList(){		
+		addSimpleOptions(EMPLOYEE_QUALIFIER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeQualifierListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_QUALIFIER_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeQualifierList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_QUALIFIER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -685,7 +741,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_EDUCATION_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeEducationList(){		
+		addSimpleOptions(EMPLOYEE_EDUCATION_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeEducationListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_EDUCATION_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeEducationList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_EDUCATION_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -740,7 +803,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_AWARD_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeAwardList(){		
+		addSimpleOptions(EMPLOYEE_AWARD_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeAwardListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_AWARD_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeAwardList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_AWARD_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -795,7 +865,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzeEmployeeSalarySheetList(){		
+		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeSalarySheetListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromEmployeeSalarySheetList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -850,7 +927,14 @@ public class EmployeeTokens extends CommonTokens{
 		addSimpleOptions(PAYING_OFF_LIST);
 		return this;
 	}
-
+	public EmployeeTokens analyzePayingOffList(){		
+		addSimpleOptions(PAYING_OFF_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePayingOffListEnabled(){		
+		
+		return checkOptions(this.options(), PAYING_OFF_LIST+".anaylze");
+	}
 	public EmployeeTokens extractMoreFromPayingOffList(String idsSeperatedWithComma){		
 		addSimpleOptions(PAYING_OFF_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

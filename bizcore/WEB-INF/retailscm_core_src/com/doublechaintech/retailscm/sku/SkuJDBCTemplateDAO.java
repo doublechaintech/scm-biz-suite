@@ -218,10 +218,11 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
  
 		
 	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SkuTokens.GOODS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SkuTokens.GOODS_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(sku, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsListEnabled(loadOptions)){
+	 		// analyzeGoodsList(sku, loadOptions);
+ 		}
+ 		
 		
 		return sku;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected Sku extractProduct(Sku sku, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
  
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Sku extractGoodsList(Sku sku, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 		return sku;
 	
 	}	
+	
+	protected Sku analyzeGoodsList(Sku sku, Map<String,Object> options){
+		
+		
+		if(sku == null){
+			return null;
+		}
+		if(sku.getId() == null){
+			return sku;
+		}
+
+		
+		
+		SmartList<Goods> goodsList = sku.getGoodsList();
+		if(goodsList != null){
+			getGoodsDAO().analyzeGoodsBySku(goodsList, sku.getId(), options);
+			
+		}
+		
+		return sku;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<Sku> findSkuByProduct(String productId,Map<String,Object> options){
  	
   		SmartList<Sku> resultList = queryWith(SkuTable.COLUMN_PRODUCT, productId, options, getSkuMapper());
-		analyzeSkuByProduct(resultList, productId, options);
+		// analyzeSkuByProduct(resultList, productId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
  	public SmartList<Sku> findSkuByProduct(String productId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Sku> resultList =  queryWithRange(SkuTable.COLUMN_PRODUCT, productId, options, getSkuMapper(), start, count);
- 		analyzeSkuByProduct(resultList, productId, options);
+ 		//analyzeSkuByProduct(resultList, productId, options);
  		return resultList;
  		
  	}
  	public void analyzeSkuByProduct(SmartList<Sku> resultList, String productId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

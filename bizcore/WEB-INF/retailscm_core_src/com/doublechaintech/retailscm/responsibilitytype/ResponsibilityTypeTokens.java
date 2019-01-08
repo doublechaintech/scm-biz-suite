@@ -102,7 +102,14 @@ public class ResponsibilityTypeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_LIST);
 		return this;
 	}
-
+	public ResponsibilityTypeTokens analyzeEmployeeList(){		
+		addSimpleOptions(EMPLOYEE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+	}
 	public ResponsibilityTypeTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

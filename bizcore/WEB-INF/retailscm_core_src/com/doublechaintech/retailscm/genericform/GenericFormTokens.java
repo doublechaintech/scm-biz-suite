@@ -93,7 +93,14 @@ public class GenericFormTokens extends CommonTokens{
 		addSimpleOptions(FORM_MESSAGE_LIST);
 		return this;
 	}
-
+	public GenericFormTokens analyzeFormMessageList(){		
+		addSimpleOptions(FORM_MESSAGE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeFormMessageListEnabled(){		
+		
+		return checkOptions(this.options(), FORM_MESSAGE_LIST+".anaylze");
+	}
 	public GenericFormTokens extractMoreFromFormMessageList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_MESSAGE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -148,7 +155,14 @@ public class GenericFormTokens extends CommonTokens{
 		addSimpleOptions(FORM_FIELD_MESSAGE_LIST);
 		return this;
 	}
-
+	public GenericFormTokens analyzeFormFieldMessageList(){		
+		addSimpleOptions(FORM_FIELD_MESSAGE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeFormFieldMessageListEnabled(){		
+		
+		return checkOptions(this.options(), FORM_FIELD_MESSAGE_LIST+".anaylze");
+	}
 	public GenericFormTokens extractMoreFromFormFieldMessageList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_FIELD_MESSAGE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -203,7 +217,14 @@ public class GenericFormTokens extends CommonTokens{
 		addSimpleOptions(FORM_FIELD_LIST);
 		return this;
 	}
-
+	public GenericFormTokens analyzeFormFieldList(){		
+		addSimpleOptions(FORM_FIELD_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeFormFieldListEnabled(){		
+		
+		return checkOptions(this.options(), FORM_FIELD_LIST+".anaylze");
+	}
 	public GenericFormTokens extractMoreFromFormFieldList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_FIELD_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -258,7 +279,14 @@ public class GenericFormTokens extends CommonTokens{
 		addSimpleOptions(FORM_ACTION_LIST);
 		return this;
 	}
-
+	public GenericFormTokens analyzeFormActionList(){		
+		addSimpleOptions(FORM_ACTION_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeFormActionListEnabled(){		
+		
+		return checkOptions(this.options(), FORM_ACTION_LIST+".anaylze");
+	}
 	public GenericFormTokens extractMoreFromFormActionList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_ACTION_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

@@ -91,7 +91,14 @@ public class SupplyOrderProcessingTokens extends CommonTokens{
 		addSimpleOptions(CONSUMER_ORDER_LIST);
 		return this;
 	}
-
+	public SupplyOrderProcessingTokens analyzeConsumerOrderList(){		
+		addSimpleOptions(CONSUMER_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeConsumerOrderListEnabled(){		
+		
+		return checkOptions(this.options(), CONSUMER_ORDER_LIST+".anaylze");
+	}
 	public SupplyOrderProcessingTokens extractMoreFromConsumerOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -146,7 +153,14 @@ public class SupplyOrderProcessingTokens extends CommonTokens{
 		addSimpleOptions(SUPPLY_ORDER_LIST);
 		return this;
 	}
-
+	public SupplyOrderProcessingTokens analyzeSupplyOrderList(){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplyOrderListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze");
+	}
 	public SupplyOrderProcessingTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

@@ -246,10 +246,11 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	
-	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST+".analyze");
  	}
 
 	protected boolean isSavePotentialCustomerListEnabled(Map<String,Object> options){
@@ -257,14 +258,13 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
  	}
 
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
@@ -272,8 +272,6 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -308,20 +306,24 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
 		if(isExtractPotentialCustomerListEnabled(loadOptions)){
 	 		extractPotentialCustomerList(cityPartner, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzePotentialCustomerListEnabled(loadOptions)){
+	 		// analyzePotentialCustomerList(cityPartner, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractPotentialCustomerContactListEnabled(loadOptions)){
 	 		extractPotentialCustomerContactList(cityPartner, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
+	 		// analyzePotentialCustomerContactList(cityPartner, loadOptions);
+ 		}
+ 		
 		
 		return cityPartner;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected CityPartner extractCityServiceCenter(CityPartner cityPartner, Map<String,Object> options) throws Exception{
@@ -345,13 +347,10 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	protected void enhancePotentialCustomerList(SmartList<PotentialCustomer> potentialCustomerList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected CityPartner extractPotentialCustomerList(CityPartner cityPartner, Map<String,Object> options){
 		
 		
@@ -373,15 +372,35 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return cityPartner;
 	
 	}	
+	
+	protected CityPartner analyzePotentialCustomerList(CityPartner cityPartner, Map<String,Object> options){
+		
+		
+		if(cityPartner == null){
+			return null;
+		}
+		if(cityPartner.getId() == null){
+			return cityPartner;
+		}
+
+		
+		
+		SmartList<PotentialCustomer> potentialCustomerList = cityPartner.getPotentialCustomerList();
+		if(potentialCustomerList != null){
+			getPotentialCustomerDAO().analyzePotentialCustomerByCityPartner(potentialCustomerList, cityPartner.getId(), options);
+			
+		}
+		
+		return cityPartner;
+	
+	}	
+	
 		
 	protected void enhancePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected CityPartner extractPotentialCustomerContactList(CityPartner cityPartner, Map<String,Object> options){
 		
 		
@@ -403,13 +422,36 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return cityPartner;
 	
 	}	
+	
+	protected CityPartner analyzePotentialCustomerContactList(CityPartner cityPartner, Map<String,Object> options){
+		
+		
+		if(cityPartner == null){
+			return null;
+		}
+		if(cityPartner.getId() == null){
+			return cityPartner;
+		}
+
+		
+		
+		SmartList<PotentialCustomerContact> potentialCustomerContactList = cityPartner.getPotentialCustomerContactList();
+		if(potentialCustomerContactList != null){
+			getPotentialCustomerContactDAO().analyzePotentialCustomerContactByCityPartner(potentialCustomerContactList, cityPartner.getId(), options);
+			
+		}
+		
+		return cityPartner;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<CityPartner> findCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId,Map<String,Object> options){
  	
   		SmartList<CityPartner> resultList = queryWith(CityPartnerTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityPartnerMapper());
-		analyzeCityPartnerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
+		// analyzeCityPartnerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
 		return resultList;
  	}
  	 
@@ -417,12 +459,14 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<CityPartner> findCityPartnerByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<CityPartner> resultList =  queryWithRange(CityPartnerTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getCityPartnerMapper(), start, count);
- 		analyzeCityPartnerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
+ 		//analyzeCityPartnerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeCityPartnerByCityServiceCenter(SmartList<CityPartner> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(CityPartner.CITY_SERVICE_CENTER_PROPERTY, retailStoreCityServiceCenterId);

@@ -224,10 +224,6 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected LoginHistory extractSecUser(LoginHistory loginHistory, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  	public SmartList<LoginHistory> findLoginHistoryBySecUser(String secUserId,Map<String,Object> options){
  	
   		SmartList<LoginHistory> resultList = queryWith(LoginHistoryTable.COLUMN_SEC_USER, secUserId, options, getLoginHistoryMapper());
-		analyzeLoginHistoryBySecUser(resultList, secUserId, options);
+		// analyzeLoginHistoryBySecUser(resultList, secUserId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  	public SmartList<LoginHistory> findLoginHistoryBySecUser(String secUserId, int start, int count,Map<String,Object> options){
  		
  		SmartList<LoginHistory> resultList =  queryWithRange(LoginHistoryTable.COLUMN_SEC_USER, secUserId, options, getLoginHistoryMapper(), start, count);
- 		analyzeLoginHistoryBySecUser(resultList, secUserId, options);
+ 		//analyzeLoginHistoryBySecUser(resultList, secUserId, options);
  		return resultList;
  		
  	}
  	public void analyzeLoginHistoryBySecUser(SmartList<LoginHistory> resultList, String secUserId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(LoginHistory.SEC_USER_PROPERTY, secUserId);

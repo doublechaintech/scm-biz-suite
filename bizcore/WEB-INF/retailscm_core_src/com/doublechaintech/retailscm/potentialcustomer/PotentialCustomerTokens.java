@@ -116,7 +116,14 @@ public class PotentialCustomerTokens extends CommonTokens{
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST);
 		return this;
 	}
-
+	public PotentialCustomerTokens analyzePotentialCustomerContactPersonList(){		
+		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePotentialCustomerContactPersonListEnabled(){		
+		
+		return checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".anaylze");
+	}
 	public PotentialCustomerTokens extractMoreFromPotentialCustomerContactPersonList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -171,7 +178,14 @@ public class PotentialCustomerTokens extends CommonTokens{
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST);
 		return this;
 	}
-
+	public PotentialCustomerTokens analyzePotentialCustomerContactList(){		
+		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePotentialCustomerContactListEnabled(){		
+		
+		return checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+	}
 	public PotentialCustomerTokens extractMoreFromPotentialCustomerContactList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -226,7 +240,14 @@ public class PotentialCustomerTokens extends CommonTokens{
 		addSimpleOptions(EVENT_ATTENDANCE_LIST);
 		return this;
 	}
-
+	public PotentialCustomerTokens analyzeEventAttendanceList(){		
+		addSimpleOptions(EVENT_ATTENDANCE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEventAttendanceListEnabled(){		
+		
+		return checkOptions(this.options(), EVENT_ATTENDANCE_LIST+".anaylze");
+	}
 	public PotentialCustomerTokens extractMoreFromEventAttendanceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EVENT_ATTENDANCE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

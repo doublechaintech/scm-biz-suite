@@ -193,10 +193,11 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmNam
 
 		
 	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreInvestmentInvitationTokens.RETAIL_STORE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreInvestmentInvitationTokens.RETAIL_STORE_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmNam
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmNam
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreInvestmentInvitation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
+	 		// analyzeRetailStoreList(retailStoreInvestmentInvitation, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreInvestmentInvitation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreInvestmentInvitation extractRetailStoreList(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmNam
 		return retailStoreInvestmentInvitation;
 	
 	}	
+	
+	protected RetailStoreInvestmentInvitation analyzeRetailStoreList(RetailStoreInvestmentInvitation retailStoreInvestmentInvitation, Map<String,Object> options){
+		
+		
+		if(retailStoreInvestmentInvitation == null){
+			return null;
+		}
+		if(retailStoreInvestmentInvitation.getId() == null){
+			return retailStoreInvestmentInvitation;
+		}
+
+		
+		
+		SmartList<RetailStore> retailStoreList = retailStoreInvestmentInvitation.getRetailStoreList();
+		if(retailStoreList != null){
+			getRetailStoreDAO().analyzeRetailStoreByInvestmentInvitation(retailStoreList, retailStoreInvestmentInvitation.getId(), options);
+			
+		}
+		
+		return retailStoreInvestmentInvitation;
+	
+	}	
+	
 		
 		
  	

@@ -90,7 +90,14 @@ public class RetailStoreOrderShipmentTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST);
 		return this;
 	}
-
+	public RetailStoreOrderShipmentTokens analyzeRetailStoreOrderList(){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreOrderListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze");
+	}
 	public RetailStoreOrderShipmentTokens extractMoreFromRetailStoreOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

@@ -195,10 +195,6 @@ public class ViewJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Vi
 		
 	}
 
-
-
-	
-	
 	
 		
 		

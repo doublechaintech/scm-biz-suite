@@ -193,10 +193,11 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 
 		
 	
-	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsPackagingTokens.GOODS_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GoodsPackagingTokens.GOODS_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
 		if(isExtractGoodsListEnabled(loadOptions)){
 	 		extractGoodsList(goodsPackaging, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsListEnabled(loadOptions)){
+	 		// analyzeGoodsList(goodsPackaging, loadOptions);
+ 		}
+ 		
 		
 		return goodsPackaging;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceGoodsList(SmartList<Goods> goodsList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected GoodsPackaging extractGoodsList(GoodsPackaging goodsPackaging, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		return goodsPackaging;
 	
 	}	
+	
+	protected GoodsPackaging analyzeGoodsList(GoodsPackaging goodsPackaging, Map<String,Object> options){
+		
+		
+		if(goodsPackaging == null){
+			return null;
+		}
+		if(goodsPackaging.getId() == null){
+			return goodsPackaging;
+		}
+
+		
+		
+		SmartList<Goods> goodsList = goodsPackaging.getGoodsList();
+		if(goodsList != null){
+			getGoodsDAO().analyzeGoodsByPackaging(goodsList, goodsPackaging.getId(), options);
+			
+		}
+		
+		return goodsPackaging;
+	
+	}	
+	
 		
 		
  	

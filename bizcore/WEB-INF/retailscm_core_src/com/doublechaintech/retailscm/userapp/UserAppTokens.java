@@ -103,7 +103,14 @@ public class UserAppTokens extends CommonTokens{
 		addSimpleOptions(LIST_ACCESS_LIST);
 		return this;
 	}
-
+	public UserAppTokens analyzeListAccessList(){		
+		addSimpleOptions(LIST_ACCESS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeListAccessListEnabled(){		
+		
+		return checkOptions(this.options(), LIST_ACCESS_LIST+".anaylze");
+	}
 	public UserAppTokens extractMoreFromListAccessList(String idsSeperatedWithComma){		
 		addSimpleOptions(LIST_ACCESS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -158,7 +165,14 @@ public class UserAppTokens extends CommonTokens{
 		addSimpleOptions(OBJECT_ACCESS_LIST);
 		return this;
 	}
-
+	public UserAppTokens analyzeObjectAccessList(){		
+		addSimpleOptions(OBJECT_ACCESS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeObjectAccessListEnabled(){		
+		
+		return checkOptions(this.options(), OBJECT_ACCESS_LIST+".anaylze");
+	}
 	public UserAppTokens extractMoreFromObjectAccessList(String idsSeperatedWithComma){		
 		addSimpleOptions(OBJECT_ACCESS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

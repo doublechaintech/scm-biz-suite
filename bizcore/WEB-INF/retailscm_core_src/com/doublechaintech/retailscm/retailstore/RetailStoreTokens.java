@@ -190,7 +190,14 @@ public class RetailStoreTokens extends CommonTokens{
 		addSimpleOptions(CONSUMER_ORDER_LIST);
 		return this;
 	}
-
+	public RetailStoreTokens analyzeConsumerOrderList(){		
+		addSimpleOptions(CONSUMER_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeConsumerOrderListEnabled(){		
+		
+		return checkOptions(this.options(), CONSUMER_ORDER_LIST+".anaylze");
+	}
 	public RetailStoreTokens extractMoreFromConsumerOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -245,7 +252,14 @@ public class RetailStoreTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST);
 		return this;
 	}
-
+	public RetailStoreTokens analyzeRetailStoreOrderList(){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreOrderListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze");
+	}
 	public RetailStoreTokens extractMoreFromRetailStoreOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -300,7 +314,14 @@ public class RetailStoreTokens extends CommonTokens{
 		addSimpleOptions(GOODS_LIST);
 		return this;
 	}
-
+	public RetailStoreTokens analyzeGoodsList(){		
+		addSimpleOptions(GOODS_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+	}
 	public RetailStoreTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -355,7 +376,14 @@ public class RetailStoreTokens extends CommonTokens{
 		addSimpleOptions(TRANSPORT_TASK_LIST);
 		return this;
 	}
-
+	public RetailStoreTokens analyzeTransportTaskList(){		
+		addSimpleOptions(TRANSPORT_TASK_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTransportTaskListEnabled(){		
+		
+		return checkOptions(this.options(), TRANSPORT_TASK_LIST+".anaylze");
+	}
 	public RetailStoreTokens extractMoreFromTransportTaskList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TASK_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -410,7 +438,14 @@ public class RetailStoreTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNT_SET_LIST);
 		return this;
 	}
-
+	public RetailStoreTokens analyzeAccountSetList(){		
+		addSimpleOptions(ACCOUNT_SET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountSetListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNT_SET_LIST+".anaylze");
+	}
 	public RetailStoreTokens extractMoreFromAccountSetList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNT_SET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

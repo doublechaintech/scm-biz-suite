@@ -193,10 +193,11 @@ public class RetailStoreCreationJDBCTemplateDAO extends RetailscmNamingServiceDA
 
 		
 	
-	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCreationTokens.RETAIL_STORE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreCreationTokens.RETAIL_STORE_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreCreationJDBCTemplateDAO extends RetailscmNamingServiceDA
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreCreationJDBCTemplateDAO extends RetailscmNamingServiceDA
 		
 		if(isExtractRetailStoreListEnabled(loadOptions)){
 	 		extractRetailStoreList(retailStoreCreation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
+	 		// analyzeRetailStoreList(retailStoreCreation, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreCreation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreList(SmartList<RetailStore> retailStoreList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreCreation extractRetailStoreList(RetailStoreCreation retailStoreCreation, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreCreationJDBCTemplateDAO extends RetailscmNamingServiceDA
 		return retailStoreCreation;
 	
 	}	
+	
+	protected RetailStoreCreation analyzeRetailStoreList(RetailStoreCreation retailStoreCreation, Map<String,Object> options){
+		
+		
+		if(retailStoreCreation == null){
+			return null;
+		}
+		if(retailStoreCreation.getId() == null){
+			return retailStoreCreation;
+		}
+
+		
+		
+		SmartList<RetailStore> retailStoreList = retailStoreCreation.getRetailStoreList();
+		if(retailStoreList != null){
+			getRetailStoreDAO().analyzeRetailStoreByCreation(retailStoreList, retailStoreCreation.getId(), options);
+			
+		}
+		
+		return retailStoreCreation;
+	
+	}	
+	
 		
 		
  	

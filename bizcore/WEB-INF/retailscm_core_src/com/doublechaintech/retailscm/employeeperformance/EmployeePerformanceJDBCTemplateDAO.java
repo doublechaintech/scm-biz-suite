@@ -224,10 +224,6 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeePerformance extractEmployee(EmployeePerformance employeePerformance, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeePerformance> resultList = queryWith(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeePerformanceMapper());
-		analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
+		// analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeePerformance> findEmployeePerformanceByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeePerformance> resultList =  queryWithRange(EmployeePerformanceTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeePerformanceMapper(), start, count);
- 		analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeePerformanceByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeePerformanceByEmployee(SmartList<EmployeePerformance> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

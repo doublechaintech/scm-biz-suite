@@ -193,10 +193,11 @@ public class AccountingDocumentCreationJDBCTemplateDAO extends RetailscmNamingSe
 
 		
 	
-	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentCreationTokens.ACCOUNTING_DOCUMENT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,AccountingDocumentCreationTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
 
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class AccountingDocumentCreationJDBCTemplateDAO extends RetailscmNamingSe
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class AccountingDocumentCreationJDBCTemplateDAO extends RetailscmNamingSe
 		
 		if(isExtractAccountingDocumentListEnabled(loadOptions)){
 	 		extractAccountingDocumentList(accountingDocumentCreation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
+	 		// analyzeAccountingDocumentList(accountingDocumentCreation, loadOptions);
+ 		}
+ 		
 		
 		return accountingDocumentCreation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected AccountingDocumentCreation extractAccountingDocumentList(AccountingDocumentCreation accountingDocumentCreation, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class AccountingDocumentCreationJDBCTemplateDAO extends RetailscmNamingSe
 		return accountingDocumentCreation;
 	
 	}	
+	
+	protected AccountingDocumentCreation analyzeAccountingDocumentList(AccountingDocumentCreation accountingDocumentCreation, Map<String,Object> options){
+		
+		
+		if(accountingDocumentCreation == null){
+			return null;
+		}
+		if(accountingDocumentCreation.getId() == null){
+			return accountingDocumentCreation;
+		}
+
+		
+		
+		SmartList<AccountingDocument> accountingDocumentList = accountingDocumentCreation.getAccountingDocumentList();
+		if(accountingDocumentList != null){
+			getAccountingDocumentDAO().analyzeAccountingDocumentByCreation(accountingDocumentList, accountingDocumentCreation.getId(), options);
+			
+		}
+		
+		return accountingDocumentCreation;
+	
+	}	
+	
 		
 		
  	

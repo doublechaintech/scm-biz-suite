@@ -386,10 +386,11 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	
-	protected boolean isExtractStorageSpaceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractStorageSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeStorageSpaceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST+".analyze");
  	}
 
 	protected boolean isSaveStorageSpaceListEnabled(Map<String,Object> options){
@@ -397,14 +398,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractSmartPalletListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSmartPalletListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSmartPalletListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST+".analyze");
  	}
 
 	protected boolean isSaveSmartPalletListEnabled(Map<String,Object> options){
@@ -412,14 +412,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractSupplierSpaceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSupplierSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSupplierSpaceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST+".analyze");
  	}
 
 	protected boolean isSaveSupplierSpaceListEnabled(Map<String,Object> options){
@@ -427,14 +426,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractReceivingSpaceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractReceivingSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeReceivingSpaceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST+".analyze");
  	}
 
 	protected boolean isSaveReceivingSpaceListEnabled(Map<String,Object> options){
@@ -442,14 +440,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractShippingSpaceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractShippingSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeShippingSpaceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST+".analyze");
  	}
 
 	protected boolean isSaveShippingSpaceListEnabled(Map<String,Object> options){
@@ -457,14 +454,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractDamageSpaceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractDamageSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeDamageSpaceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST+".analyze");
  	}
 
 	protected boolean isSaveDamageSpaceListEnabled(Map<String,Object> options){
@@ -472,14 +468,13 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractWarehouseAssetListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractWarehouseAssetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeWarehouseAssetListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST+".analyze");
  	}
 
 	protected boolean isSaveWarehouseAssetListEnabled(Map<String,Object> options){
@@ -487,8 +482,6 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -523,40 +516,64 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		
 		if(isExtractStorageSpaceListEnabled(loadOptions)){
 	 		extractStorageSpaceList(warehouse, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeStorageSpaceListEnabled(loadOptions)){
+	 		// analyzeStorageSpaceList(warehouse, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractSmartPalletListEnabled(loadOptions)){
 	 		extractSmartPalletList(warehouse, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSmartPalletListEnabled(loadOptions)){
+	 		// analyzeSmartPalletList(warehouse, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractSupplierSpaceListEnabled(loadOptions)){
 	 		extractSupplierSpaceList(warehouse, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSupplierSpaceListEnabled(loadOptions)){
+	 		// analyzeSupplierSpaceList(warehouse, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractReceivingSpaceListEnabled(loadOptions)){
 	 		extractReceivingSpaceList(warehouse, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeReceivingSpaceListEnabled(loadOptions)){
+	 		// analyzeReceivingSpaceList(warehouse, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractShippingSpaceListEnabled(loadOptions)){
 	 		extractShippingSpaceList(warehouse, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeShippingSpaceListEnabled(loadOptions)){
+	 		// analyzeShippingSpaceList(warehouse, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractDamageSpaceListEnabled(loadOptions)){
 	 		extractDamageSpaceList(warehouse, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeDamageSpaceListEnabled(loadOptions)){
+	 		// analyzeDamageSpaceList(warehouse, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractWarehouseAssetListEnabled(loadOptions)){
 	 		extractWarehouseAssetList(warehouse, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeWarehouseAssetListEnabled(loadOptions)){
+	 		// analyzeWarehouseAssetList(warehouse, loadOptions);
+ 		}
+ 		
 		
 		return warehouse;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected Warehouse extractOwner(Warehouse warehouse, Map<String,Object> options) throws Exception{
@@ -580,13 +597,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		
 	protected void enhanceStorageSpaceList(SmartList<StorageSpace> storageSpaceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Warehouse extractStorageSpaceList(Warehouse warehouse, Map<String,Object> options){
 		
 		
@@ -608,15 +622,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return warehouse;
 	
 	}	
+	
+	protected Warehouse analyzeStorageSpaceList(Warehouse warehouse, Map<String,Object> options){
+		
+		
+		if(warehouse == null){
+			return null;
+		}
+		if(warehouse.getId() == null){
+			return warehouse;
+		}
+
+		
+		
+		SmartList<StorageSpace> storageSpaceList = warehouse.getStorageSpaceList();
+		if(storageSpaceList != null){
+			getStorageSpaceDAO().analyzeStorageSpaceByWarehouse(storageSpaceList, warehouse.getId(), options);
+			
+		}
+		
+		return warehouse;
+	
+	}	
+	
 		
 	protected void enhanceSmartPalletList(SmartList<SmartPallet> smartPalletList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Warehouse extractSmartPalletList(Warehouse warehouse, Map<String,Object> options){
 		
 		
@@ -638,15 +672,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return warehouse;
 	
 	}	
+	
+	protected Warehouse analyzeSmartPalletList(Warehouse warehouse, Map<String,Object> options){
+		
+		
+		if(warehouse == null){
+			return null;
+		}
+		if(warehouse.getId() == null){
+			return warehouse;
+		}
+
+		
+		
+		SmartList<SmartPallet> smartPalletList = warehouse.getSmartPalletList();
+		if(smartPalletList != null){
+			getSmartPalletDAO().analyzeSmartPalletByWarehouse(smartPalletList, warehouse.getId(), options);
+			
+		}
+		
+		return warehouse;
+	
+	}	
+	
 		
 	protected void enhanceSupplierSpaceList(SmartList<SupplierSpace> supplierSpaceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Warehouse extractSupplierSpaceList(Warehouse warehouse, Map<String,Object> options){
 		
 		
@@ -668,15 +722,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return warehouse;
 	
 	}	
+	
+	protected Warehouse analyzeSupplierSpaceList(Warehouse warehouse, Map<String,Object> options){
+		
+		
+		if(warehouse == null){
+			return null;
+		}
+		if(warehouse.getId() == null){
+			return warehouse;
+		}
+
+		
+		
+		SmartList<SupplierSpace> supplierSpaceList = warehouse.getSupplierSpaceList();
+		if(supplierSpaceList != null){
+			getSupplierSpaceDAO().analyzeSupplierSpaceByWarehouse(supplierSpaceList, warehouse.getId(), options);
+			
+		}
+		
+		return warehouse;
+	
+	}	
+	
 		
 	protected void enhanceReceivingSpaceList(SmartList<ReceivingSpace> receivingSpaceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Warehouse extractReceivingSpaceList(Warehouse warehouse, Map<String,Object> options){
 		
 		
@@ -698,15 +772,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return warehouse;
 	
 	}	
+	
+	protected Warehouse analyzeReceivingSpaceList(Warehouse warehouse, Map<String,Object> options){
+		
+		
+		if(warehouse == null){
+			return null;
+		}
+		if(warehouse.getId() == null){
+			return warehouse;
+		}
+
+		
+		
+		SmartList<ReceivingSpace> receivingSpaceList = warehouse.getReceivingSpaceList();
+		if(receivingSpaceList != null){
+			getReceivingSpaceDAO().analyzeReceivingSpaceByWarehouse(receivingSpaceList, warehouse.getId(), options);
+			
+		}
+		
+		return warehouse;
+	
+	}	
+	
 		
 	protected void enhanceShippingSpaceList(SmartList<ShippingSpace> shippingSpaceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Warehouse extractShippingSpaceList(Warehouse warehouse, Map<String,Object> options){
 		
 		
@@ -728,15 +822,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return warehouse;
 	
 	}	
+	
+	protected Warehouse analyzeShippingSpaceList(Warehouse warehouse, Map<String,Object> options){
+		
+		
+		if(warehouse == null){
+			return null;
+		}
+		if(warehouse.getId() == null){
+			return warehouse;
+		}
+
+		
+		
+		SmartList<ShippingSpace> shippingSpaceList = warehouse.getShippingSpaceList();
+		if(shippingSpaceList != null){
+			getShippingSpaceDAO().analyzeShippingSpaceByWarehouse(shippingSpaceList, warehouse.getId(), options);
+			
+		}
+		
+		return warehouse;
+	
+	}	
+	
 		
 	protected void enhanceDamageSpaceList(SmartList<DamageSpace> damageSpaceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Warehouse extractDamageSpaceList(Warehouse warehouse, Map<String,Object> options){
 		
 		
@@ -758,15 +872,35 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return warehouse;
 	
 	}	
+	
+	protected Warehouse analyzeDamageSpaceList(Warehouse warehouse, Map<String,Object> options){
+		
+		
+		if(warehouse == null){
+			return null;
+		}
+		if(warehouse.getId() == null){
+			return warehouse;
+		}
+
+		
+		
+		SmartList<DamageSpace> damageSpaceList = warehouse.getDamageSpaceList();
+		if(damageSpaceList != null){
+			getDamageSpaceDAO().analyzeDamageSpaceByWarehouse(damageSpaceList, warehouse.getId(), options);
+			
+		}
+		
+		return warehouse;
+	
+	}	
+	
 		
 	protected void enhanceWarehouseAssetList(SmartList<WarehouseAsset> warehouseAssetList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Warehouse extractWarehouseAssetList(Warehouse warehouse, Map<String,Object> options){
 		
 		
@@ -788,13 +922,36 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 		return warehouse;
 	
 	}	
+	
+	protected Warehouse analyzeWarehouseAssetList(Warehouse warehouse, Map<String,Object> options){
+		
+		
+		if(warehouse == null){
+			return null;
+		}
+		if(warehouse.getId() == null){
+			return warehouse;
+		}
+
+		
+		
+		SmartList<WarehouseAsset> warehouseAssetList = warehouse.getWarehouseAssetList();
+		if(warehouseAssetList != null){
+			getWarehouseAssetDAO().analyzeWarehouseAssetByOwner(warehouseAssetList, warehouse.getId(), options);
+			
+		}
+		
+		return warehouse;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<Warehouse> findWarehouseByOwner(String retailStoreCountryCenterId,Map<String,Object> options){
  	
   		SmartList<Warehouse> resultList = queryWith(WarehouseTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getWarehouseMapper());
-		analyzeWarehouseByOwner(resultList, retailStoreCountryCenterId, options);
+		// analyzeWarehouseByOwner(resultList, retailStoreCountryCenterId, options);
 		return resultList;
  	}
  	 
@@ -802,12 +959,14 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  	public SmartList<Warehouse> findWarehouseByOwner(String retailStoreCountryCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Warehouse> resultList =  queryWithRange(WarehouseTable.COLUMN_OWNER, retailStoreCountryCenterId, options, getWarehouseMapper(), start, count);
- 		analyzeWarehouseByOwner(resultList, retailStoreCountryCenterId, options);
+ 		//analyzeWarehouseByOwner(resultList, retailStoreCountryCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeWarehouseByOwner(SmartList<Warehouse> resultList, String retailStoreCountryCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Warehouse.OWNER_PROPERTY, retailStoreCountryCenterId);

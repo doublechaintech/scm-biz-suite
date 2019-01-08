@@ -218,10 +218,11 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	
-	protected boolean isExtractLevelTwoCategoryListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractLevelTwoCategoryListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelOneCategoryTokens.LEVEL_TWO_CATEGORY_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeLevelTwoCategoryListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,LevelOneCategoryTokens.LEVEL_TWO_CATEGORY_LIST+".analyze");
  	}
 
 	protected boolean isSaveLevelTwoCategoryListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
 		if(isExtractLevelTwoCategoryListEnabled(loadOptions)){
 	 		extractLevelTwoCategoryList(levelOneCategory, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeLevelTwoCategoryListEnabled(loadOptions)){
+	 		// analyzeLevelTwoCategoryList(levelOneCategory, loadOptions);
+ 		}
+ 		
 		
 		return levelOneCategory;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected LevelOneCategory extractCatalog(LevelOneCategory levelOneCategory, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		
 	protected void enhanceLevelTwoCategoryList(SmartList<LevelTwoCategory> levelTwoCategoryList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected LevelOneCategory extractLevelTwoCategoryList(LevelOneCategory levelOneCategory, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		return levelOneCategory;
 	
 	}	
+	
+	protected LevelOneCategory analyzeLevelTwoCategoryList(LevelOneCategory levelOneCategory, Map<String,Object> options){
+		
+		
+		if(levelOneCategory == null){
+			return null;
+		}
+		if(levelOneCategory.getId() == null){
+			return levelOneCategory;
+		}
+
+		
+		
+		SmartList<LevelTwoCategory> levelTwoCategoryList = levelOneCategory.getLevelTwoCategoryList();
+		if(levelTwoCategoryList != null){
+			getLevelTwoCategoryDAO().analyzeLevelTwoCategoryByParentCategory(levelTwoCategoryList, levelOneCategory.getId(), options);
+			
+		}
+		
+		return levelOneCategory;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<LevelOneCategory> findLevelOneCategoryByCatalog(String catalogId,Map<String,Object> options){
  	
   		SmartList<LevelOneCategory> resultList = queryWith(LevelOneCategoryTable.COLUMN_CATALOG, catalogId, options, getLevelOneCategoryMapper());
-		analyzeLevelOneCategoryByCatalog(resultList, catalogId, options);
+		// analyzeLevelOneCategoryByCatalog(resultList, catalogId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<LevelOneCategory> findLevelOneCategoryByCatalog(String catalogId, int start, int count,Map<String,Object> options){
  		
  		SmartList<LevelOneCategory> resultList =  queryWithRange(LevelOneCategoryTable.COLUMN_CATALOG, catalogId, options, getLevelOneCategoryMapper(), start, count);
- 		analyzeLevelOneCategoryByCatalog(resultList, catalogId, options);
+ 		//analyzeLevelOneCategoryByCatalog(resultList, catalogId, options);
  		return resultList;
  		
  	}
  	public void analyzeLevelOneCategoryByCatalog(SmartList<LevelOneCategory> resultList, String catalogId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

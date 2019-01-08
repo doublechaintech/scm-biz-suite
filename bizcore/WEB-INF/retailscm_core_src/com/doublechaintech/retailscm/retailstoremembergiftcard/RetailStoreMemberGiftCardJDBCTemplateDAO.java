@@ -218,10 +218,11 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
  
 		
 	
-	protected boolean isExtractRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberGiftCardTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreMemberGiftCardTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
 		
 		if(isExtractRetailStoreMemberGiftCardConsumeRecordListEnabled(loadOptions)){
 	 		extractRetailStoreMemberGiftCardConsumeRecordList(retailStoreMemberGiftCard, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(loadOptions)){
+	 		// analyzeRetailStoreMemberGiftCardConsumeRecordList(retailStoreMemberGiftCard, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreMemberGiftCard;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected RetailStoreMemberGiftCard extractOwner(RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
  
 		
 	protected void enhanceRetailStoreMemberGiftCardConsumeRecordList(SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreMemberGiftCard extractRetailStoreMemberGiftCardConsumeRecordList(RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
 		return retailStoreMemberGiftCard;
 	
 	}	
+	
+	protected RetailStoreMemberGiftCard analyzeRetailStoreMemberGiftCardConsumeRecordList(RetailStoreMemberGiftCard retailStoreMemberGiftCard, Map<String,Object> options){
+		
+		
+		if(retailStoreMemberGiftCard == null){
+			return null;
+		}
+		if(retailStoreMemberGiftCard.getId() == null){
+			return retailStoreMemberGiftCard;
+		}
+
+		
+		
+		SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = retailStoreMemberGiftCard.getRetailStoreMemberGiftCardConsumeRecordList();
+		if(retailStoreMemberGiftCardConsumeRecordList != null){
+			getRetailStoreMemberGiftCardConsumeRecordDAO().analyzeRetailStoreMemberGiftCardConsumeRecordByOwner(retailStoreMemberGiftCardConsumeRecordList, retailStoreMemberGiftCard.getId(), options);
+			
+		}
+		
+		return retailStoreMemberGiftCard;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardByOwner(String retailStoreMemberId,Map<String,Object> options){
  	
   		SmartList<RetailStoreMemberGiftCard> resultList = queryWith(RetailStoreMemberGiftCardTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberGiftCardMapper());
-		analyzeRetailStoreMemberGiftCardByOwner(resultList, retailStoreMemberId, options);
+		// analyzeRetailStoreMemberGiftCardByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
  	public SmartList<RetailStoreMemberGiftCard> findRetailStoreMemberGiftCardByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
  		
  		SmartList<RetailStoreMemberGiftCard> resultList =  queryWithRange(RetailStoreMemberGiftCardTable.COLUMN_OWNER, retailStoreMemberId, options, getRetailStoreMemberGiftCardMapper(), start, count);
- 		analyzeRetailStoreMemberGiftCardByOwner(resultList, retailStoreMemberId, options);
+ 		//analyzeRetailStoreMemberGiftCardByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
  		
  	}
  	public void analyzeRetailStoreMemberGiftCardByOwner(SmartList<RetailStoreMemberGiftCard> resultList, String retailStoreMemberId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

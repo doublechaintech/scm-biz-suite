@@ -218,10 +218,11 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	
-	protected boolean isExtractLevelThreeDepartmentListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractLevelThreeDepartmentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelTwoDepartmentTokens.LEVEL_THREE_DEPARTMENT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeLevelThreeDepartmentListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,LevelTwoDepartmentTokens.LEVEL_THREE_DEPARTMENT_LIST+".analyze");
  	}
 
 	protected boolean isSaveLevelThreeDepartmentListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		
 		if(isExtractLevelThreeDepartmentListEnabled(loadOptions)){
 	 		extractLevelThreeDepartmentList(levelTwoDepartment, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeLevelThreeDepartmentListEnabled(loadOptions)){
+	 		// analyzeLevelThreeDepartmentList(levelTwoDepartment, loadOptions);
+ 		}
+ 		
 		
 		return levelTwoDepartment;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected LevelTwoDepartment extractBelongsTo(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  
 		
 	protected void enhanceLevelThreeDepartmentList(SmartList<LevelThreeDepartment> levelThreeDepartmentList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected LevelTwoDepartment extractLevelThreeDepartmentList(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 		return levelTwoDepartment;
 	
 	}	
+	
+	protected LevelTwoDepartment analyzeLevelThreeDepartmentList(LevelTwoDepartment levelTwoDepartment, Map<String,Object> options){
+		
+		
+		if(levelTwoDepartment == null){
+			return null;
+		}
+		if(levelTwoDepartment.getId() == null){
+			return levelTwoDepartment;
+		}
+
+		
+		
+		SmartList<LevelThreeDepartment> levelThreeDepartmentList = levelTwoDepartment.getLevelThreeDepartmentList();
+		if(levelThreeDepartmentList != null){
+			getLevelThreeDepartmentDAO().analyzeLevelThreeDepartmentByBelongsTo(levelThreeDepartmentList, levelTwoDepartment.getId(), options);
+			
+		}
+		
+		return levelTwoDepartment;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<LevelTwoDepartment> findLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId,Map<String,Object> options){
  	
   		SmartList<LevelTwoDepartment> resultList = queryWith(LevelTwoDepartmentTable.COLUMN_BELONGS_TO, levelOneDepartmentId, options, getLevelTwoDepartmentMapper());
-		analyzeLevelTwoDepartmentByBelongsTo(resultList, levelOneDepartmentId, options);
+		// analyzeLevelTwoDepartmentByBelongsTo(resultList, levelOneDepartmentId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  	public SmartList<LevelTwoDepartment> findLevelTwoDepartmentByBelongsTo(String levelOneDepartmentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<LevelTwoDepartment> resultList =  queryWithRange(LevelTwoDepartmentTable.COLUMN_BELONGS_TO, levelOneDepartmentId, options, getLevelTwoDepartmentMapper(), start, count);
- 		analyzeLevelTwoDepartmentByBelongsTo(resultList, levelOneDepartmentId, options);
+ 		//analyzeLevelTwoDepartmentByBelongsTo(resultList, levelOneDepartmentId, options);
  		return resultList;
  		
  	}
  	public void analyzeLevelTwoDepartmentByBelongsTo(SmartList<LevelTwoDepartment> resultList, String levelOneDepartmentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

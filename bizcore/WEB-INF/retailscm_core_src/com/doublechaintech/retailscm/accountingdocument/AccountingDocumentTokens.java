@@ -163,7 +163,14 @@ public class AccountingDocumentTokens extends CommonTokens{
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST);
 		return this;
 	}
-
+	public AccountingDocumentTokens analyzeOriginalVoucherList(){		
+		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeOriginalVoucherListEnabled(){		
+		
+		return checkOptions(this.options(), ORIGINAL_VOUCHER_LIST+".anaylze");
+	}
 	public AccountingDocumentTokens extractMoreFromOriginalVoucherList(String idsSeperatedWithComma){		
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -218,7 +225,14 @@ public class AccountingDocumentTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST);
 		return this;
 	}
-
+	public AccountingDocumentTokens analyzeAccountingDocumentLineList(){		
+		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountingDocumentLineListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze");
+	}
 	public AccountingDocumentTokens extractMoreFromAccountingDocumentLineList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

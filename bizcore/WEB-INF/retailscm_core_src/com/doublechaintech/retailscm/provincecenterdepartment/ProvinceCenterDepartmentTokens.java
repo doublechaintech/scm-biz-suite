@@ -102,7 +102,14 @@ public class ProvinceCenterDepartmentTokens extends CommonTokens{
 		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST);
 		return this;
 	}
-
+	public ProvinceCenterDepartmentTokens analyzeProvinceCenterEmployeeList(){		
+		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeProvinceCenterEmployeeListEnabled(){		
+		
+		return checkOptions(this.options(), PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze");
+	}
 	public ProvinceCenterDepartmentTokens extractMoreFromProvinceCenterEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

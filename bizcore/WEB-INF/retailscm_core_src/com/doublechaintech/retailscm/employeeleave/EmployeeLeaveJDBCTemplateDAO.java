@@ -253,10 +253,6 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeLeave extractWho(EmployeeLeave employeeLeave, Map<String,Object> options) throws Exception{
@@ -304,7 +300,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeLeave> findEmployeeLeaveByWho(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeLeave> resultList = queryWith(EmployeeLeaveTable.COLUMN_WHO, employeeId, options, getEmployeeLeaveMapper());
-		analyzeEmployeeLeaveByWho(resultList, employeeId, options);
+		// analyzeEmployeeLeaveByWho(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -312,12 +308,14 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeLeave> findEmployeeLeaveByWho(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeLeave> resultList =  queryWithRange(EmployeeLeaveTable.COLUMN_WHO, employeeId, options, getEmployeeLeaveMapper(), start, count);
- 		analyzeEmployeeLeaveByWho(resultList, employeeId, options);
+ 		//analyzeEmployeeLeaveByWho(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeLeaveByWho(SmartList<EmployeeLeave> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeLeave.WHO_PROPERTY, employeeId);
@@ -345,7 +343,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeLeave> findEmployeeLeaveByType(String leaveTypeId,Map<String,Object> options){
  	
   		SmartList<EmployeeLeave> resultList = queryWith(EmployeeLeaveTable.COLUMN_TYPE, leaveTypeId, options, getEmployeeLeaveMapper());
-		analyzeEmployeeLeaveByType(resultList, leaveTypeId, options);
+		// analyzeEmployeeLeaveByType(resultList, leaveTypeId, options);
 		return resultList;
  	}
  	 
@@ -353,12 +351,14 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  	public SmartList<EmployeeLeave> findEmployeeLeaveByType(String leaveTypeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeLeave> resultList =  queryWithRange(EmployeeLeaveTable.COLUMN_TYPE, leaveTypeId, options, getEmployeeLeaveMapper(), start, count);
- 		analyzeEmployeeLeaveByType(resultList, leaveTypeId, options);
+ 		//analyzeEmployeeLeaveByType(resultList, leaveTypeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeLeaveByType(SmartList<EmployeeLeave> resultList, String leaveTypeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeLeave.TYPE_PROPERTY, leaveTypeId);

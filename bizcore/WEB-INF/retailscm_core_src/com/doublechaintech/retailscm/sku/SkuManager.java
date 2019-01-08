@@ -10,7 +10,7 @@ import com.doublechaintech.retailscm.SmartList;
 
 public interface SkuManager{
 
-		
+	
 
 	public Sku createSku(RetailscmUserContext userContext, String name, String size, String productId, String barcode, String packageType, String netContent, BigDecimal price, String picture) throws Exception;	
 	public Sku updateSku(RetailscmUserContext userContext,String skuId, int skuVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;

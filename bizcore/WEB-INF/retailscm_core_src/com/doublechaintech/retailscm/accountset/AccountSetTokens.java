@@ -128,7 +128,14 @@ public class AccountSetTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNTING_SUBJECT_LIST);
 		return this;
 	}
-
+	public AccountSetTokens analyzeAccountingSubjectList(){		
+		addSimpleOptions(ACCOUNTING_SUBJECT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountingSubjectListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNTING_SUBJECT_LIST+".anaylze");
+	}
 	public AccountSetTokens extractMoreFromAccountingSubjectList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_SUBJECT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -183,7 +190,14 @@ public class AccountSetTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNTING_PERIOD_LIST);
 		return this;
 	}
-
+	public AccountSetTokens analyzeAccountingPeriodList(){		
+		addSimpleOptions(ACCOUNTING_PERIOD_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountingPeriodListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNTING_PERIOD_LIST+".anaylze");
+	}
 	public AccountSetTokens extractMoreFromAccountingPeriodList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_PERIOD_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -238,7 +252,14 @@ public class AccountSetTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNTING_DOCUMENT_TYPE_LIST);
 		return this;
 	}
-
+	public AccountSetTokens analyzeAccountingDocumentTypeList(){		
+		addSimpleOptions(ACCOUNTING_DOCUMENT_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountingDocumentTypeListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_TYPE_LIST+".anaylze");
+	}
 	public AccountSetTokens extractMoreFromAccountingDocumentTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

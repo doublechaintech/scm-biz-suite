@@ -221,10 +221,11 @@ public class SupplyOrderProcessingJDBCTemplateDAO extends RetailscmNamingService
 
 		
 	
-	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderProcessingTokens.CONSUMER_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderProcessingTokens.CONSUMER_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
@@ -232,14 +233,13 @@ public class SupplyOrderProcessingJDBCTemplateDAO extends RetailscmNamingService
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderProcessingTokens.SUPPLY_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SupplyOrderProcessingTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
@@ -247,8 +247,6 @@ public class SupplyOrderProcessingJDBCTemplateDAO extends RetailscmNamingService
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -279,30 +277,31 @@ public class SupplyOrderProcessingJDBCTemplateDAO extends RetailscmNamingService
 		
 		if(isExtractConsumerOrderListEnabled(loadOptions)){
 	 		extractConsumerOrderList(supplyOrderProcessing, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeConsumerOrderListEnabled(loadOptions)){
+	 		// analyzeConsumerOrderList(supplyOrderProcessing, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractSupplyOrderListEnabled(loadOptions)){
 	 		extractSupplyOrderList(supplyOrderProcessing, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
+	 		// analyzeSupplyOrderList(supplyOrderProcessing, loadOptions);
+ 		}
+ 		
 		
 		return supplyOrderProcessing;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrderProcessing extractConsumerOrderList(SupplyOrderProcessing supplyOrderProcessing, Map<String,Object> options){
 		
 		
@@ -324,15 +323,35 @@ public class SupplyOrderProcessingJDBCTemplateDAO extends RetailscmNamingService
 		return supplyOrderProcessing;
 	
 	}	
+	
+	protected SupplyOrderProcessing analyzeConsumerOrderList(SupplyOrderProcessing supplyOrderProcessing, Map<String,Object> options){
+		
+		
+		if(supplyOrderProcessing == null){
+			return null;
+		}
+		if(supplyOrderProcessing.getId() == null){
+			return supplyOrderProcessing;
+		}
+
+		
+		
+		SmartList<ConsumerOrder> consumerOrderList = supplyOrderProcessing.getConsumerOrderList();
+		if(consumerOrderList != null){
+			getConsumerOrderDAO().analyzeConsumerOrderByProcessing(consumerOrderList, supplyOrderProcessing.getId(), options);
+			
+		}
+		
+		return supplyOrderProcessing;
+	
+	}	
+	
 		
 	protected void enhanceSupplyOrderList(SmartList<SupplyOrder> supplyOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SupplyOrderProcessing extractSupplyOrderList(SupplyOrderProcessing supplyOrderProcessing, Map<String,Object> options){
 		
 		
@@ -354,6 +373,29 @@ public class SupplyOrderProcessingJDBCTemplateDAO extends RetailscmNamingService
 		return supplyOrderProcessing;
 	
 	}	
+	
+	protected SupplyOrderProcessing analyzeSupplyOrderList(SupplyOrderProcessing supplyOrderProcessing, Map<String,Object> options){
+		
+		
+		if(supplyOrderProcessing == null){
+			return null;
+		}
+		if(supplyOrderProcessing.getId() == null){
+			return supplyOrderProcessing;
+		}
+
+		
+		
+		SmartList<SupplyOrder> supplyOrderList = supplyOrderProcessing.getSupplyOrderList();
+		if(supplyOrderList != null){
+			getSupplyOrderDAO().analyzeSupplyOrderByProcessing(supplyOrderList, supplyOrderProcessing.getId(), options);
+			
+		}
+		
+		return supplyOrderProcessing;
+	
+	}	
+	
 		
 		
  	

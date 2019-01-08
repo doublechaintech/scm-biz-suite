@@ -193,10 +193,11 @@ public class RetailStoreOrderProcessingJDBCTemplateDAO extends RetailscmNamingSe
 
 		
 	
-	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderProcessingTokens.RETAIL_STORE_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderProcessingTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreOrderProcessingJDBCTemplateDAO extends RetailscmNamingSe
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreOrderProcessingJDBCTemplateDAO extends RetailscmNamingSe
 		
 		if(isExtractRetailStoreOrderListEnabled(loadOptions)){
 	 		extractRetailStoreOrderList(retailStoreOrderProcessing, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderList(retailStoreOrderProcessing, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreOrderProcessing;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrderProcessing extractRetailStoreOrderList(RetailStoreOrderProcessing retailStoreOrderProcessing, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreOrderProcessingJDBCTemplateDAO extends RetailscmNamingSe
 		return retailStoreOrderProcessing;
 	
 	}	
+	
+	protected RetailStoreOrderProcessing analyzeRetailStoreOrderList(RetailStoreOrderProcessing retailStoreOrderProcessing, Map<String,Object> options){
+		
+		
+		if(retailStoreOrderProcessing == null){
+			return null;
+		}
+		if(retailStoreOrderProcessing.getId() == null){
+			return retailStoreOrderProcessing;
+		}
+
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderProcessing.getRetailStoreOrderList();
+		if(retailStoreOrderList != null){
+			getRetailStoreOrderDAO().analyzeRetailStoreOrderByProcessing(retailStoreOrderList, retailStoreOrderProcessing.getId(), options);
+			
+		}
+		
+		return retailStoreOrderProcessing;
+	
+	}	
+	
 		
 		
  	

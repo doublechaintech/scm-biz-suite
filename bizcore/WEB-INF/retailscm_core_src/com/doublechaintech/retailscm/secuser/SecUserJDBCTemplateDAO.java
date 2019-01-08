@@ -301,10 +301,11 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	
-	protected boolean isExtractUserAppListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractUserAppListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SecUserTokens.USER_APP_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeUserAppListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SecUserTokens.USER_APP_LIST+".analyze");
  	}
 
 	protected boolean isSaveUserAppListEnabled(Map<String,Object> options){
@@ -312,14 +313,13 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractLoginHistoryListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractLoginHistoryListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeLoginHistoryListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST+".analyze");
  	}
 
 	protected boolean isSaveLoginHistoryListEnabled(Map<String,Object> options){
@@ -327,8 +327,6 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -367,20 +365,24 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
 		if(isExtractUserAppListEnabled(loadOptions)){
 	 		extractUserAppList(secUser, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeUserAppListEnabled(loadOptions)){
+	 		// analyzeUserAppList(secUser, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractLoginHistoryListEnabled(loadOptions)){
 	 		extractLoginHistoryList(secUser, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeLoginHistoryListEnabled(loadOptions)){
+	 		// analyzeLoginHistoryList(secUser, loadOptions);
+ 		}
+ 		
 		
 		return secUser;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected SecUser extractDomain(SecUser secUser, Map<String,Object> options) throws Exception{
@@ -424,13 +426,10 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	protected void enhanceUserAppList(SmartList<UserApp> userAppList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SecUser extractUserAppList(SecUser secUser, Map<String,Object> options){
 		
 		
@@ -452,15 +451,35 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		return secUser;
 	
 	}	
+	
+	protected SecUser analyzeUserAppList(SecUser secUser, Map<String,Object> options){
+		
+		
+		if(secUser == null){
+			return null;
+		}
+		if(secUser.getId() == null){
+			return secUser;
+		}
+
+		
+		
+		SmartList<UserApp> userAppList = secUser.getUserAppList();
+		if(userAppList != null){
+			getUserAppDAO().analyzeUserAppBySecUser(userAppList, secUser.getId(), options);
+			
+		}
+		
+		return secUser;
+	
+	}	
+	
 		
 	protected void enhanceLoginHistoryList(SmartList<LoginHistory> loginHistoryList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SecUser extractLoginHistoryList(SecUser secUser, Map<String,Object> options){
 		
 		
@@ -482,13 +501,36 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		return secUser;
 	
 	}	
+	
+	protected SecUser analyzeLoginHistoryList(SecUser secUser, Map<String,Object> options){
+		
+		
+		if(secUser == null){
+			return null;
+		}
+		if(secUser.getId() == null){
+			return secUser;
+		}
+
+		
+		
+		SmartList<LoginHistory> loginHistoryList = secUser.getLoginHistoryList();
+		if(loginHistoryList != null){
+			getLoginHistoryDAO().analyzeLoginHistoryBySecUser(loginHistoryList, secUser.getId(), options);
+			
+		}
+		
+		return secUser;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<SecUser> findSecUserByDomain(String userDomainId,Map<String,Object> options){
  	
   		SmartList<SecUser> resultList = queryWith(SecUserTable.COLUMN_DOMAIN, userDomainId, options, getSecUserMapper());
-		analyzeSecUserByDomain(resultList, userDomainId, options);
+		// analyzeSecUserByDomain(resultList, userDomainId, options);
 		return resultList;
  	}
  	 
@@ -496,12 +538,14 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  	public SmartList<SecUser> findSecUserByDomain(String userDomainId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SecUser> resultList =  queryWithRange(SecUserTable.COLUMN_DOMAIN, userDomainId, options, getSecUserMapper(), start, count);
- 		analyzeSecUserByDomain(resultList, userDomainId, options);
+ 		//analyzeSecUserByDomain(resultList, userDomainId, options);
  		return resultList;
  		
  	}
  	public void analyzeSecUserByDomain(SmartList<SecUser> resultList, String userDomainId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SecUser.DOMAIN_PROPERTY, userDomainId);
@@ -536,7 +580,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  	public SmartList<SecUser> findSecUserByBlocking(String secUserBlockingId,Map<String,Object> options){
  	
   		SmartList<SecUser> resultList = queryWith(SecUserTable.COLUMN_BLOCKING, secUserBlockingId, options, getSecUserMapper());
-		analyzeSecUserByBlocking(resultList, secUserBlockingId, options);
+		// analyzeSecUserByBlocking(resultList, secUserBlockingId, options);
 		return resultList;
  	}
  	 
@@ -544,12 +588,14 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  	public SmartList<SecUser> findSecUserByBlocking(String secUserBlockingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<SecUser> resultList =  queryWithRange(SecUserTable.COLUMN_BLOCKING, secUserBlockingId, options, getSecUserMapper(), start, count);
- 		analyzeSecUserByBlocking(resultList, secUserBlockingId, options);
+ 		//analyzeSecUserByBlocking(resultList, secUserBlockingId, options);
  		return resultList;
  		
  	}
  	public void analyzeSecUserByBlocking(SmartList<SecUser> resultList, String secUserBlockingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(SecUser.BLOCKING_PROPERTY, secUserBlockingId);

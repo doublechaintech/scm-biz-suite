@@ -102,7 +102,14 @@ public class LevelTwoCategoryTokens extends CommonTokens{
 		addSimpleOptions(LEVEL_THREE_CATEGORY_LIST);
 		return this;
 	}
-
+	public LevelTwoCategoryTokens analyzeLevelThreeCategoryList(){		
+		addSimpleOptions(LEVEL_THREE_CATEGORY_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeLevelThreeCategoryListEnabled(){		
+		
+		return checkOptions(this.options(), LEVEL_THREE_CATEGORY_LIST+".anaylze");
+	}
 	public LevelTwoCategoryTokens extractMoreFromLevelThreeCategoryList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEVEL_THREE_CATEGORY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

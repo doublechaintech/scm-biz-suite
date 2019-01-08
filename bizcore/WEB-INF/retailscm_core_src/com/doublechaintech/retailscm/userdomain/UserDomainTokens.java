@@ -91,7 +91,14 @@ public class UserDomainTokens extends CommonTokens{
 		addSimpleOptions(USER_WHITE_LIST_LIST);
 		return this;
 	}
-
+	public UserDomainTokens analyzeUserWhiteListList(){		
+		addSimpleOptions(USER_WHITE_LIST_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeUserWhiteListListEnabled(){		
+		
+		return checkOptions(this.options(), USER_WHITE_LIST_LIST+".anaylze");
+	}
 	public UserDomainTokens extractMoreFromUserWhiteListList(String idsSeperatedWithComma){		
 		addSimpleOptions(USER_WHITE_LIST_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -146,7 +153,14 @@ public class UserDomainTokens extends CommonTokens{
 		addSimpleOptions(SEC_USER_LIST);
 		return this;
 	}
-
+	public UserDomainTokens analyzeSecUserList(){		
+		addSimpleOptions(SEC_USER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSecUserListEnabled(){		
+		
+		return checkOptions(this.options(), SEC_USER_LIST+".anaylze");
+	}
 	public UserDomainTokens extractMoreFromSecUserList(String idsSeperatedWithComma){		
 		addSimpleOptions(SEC_USER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

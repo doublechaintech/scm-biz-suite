@@ -443,10 +443,11 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  
 		
 	
-	protected boolean isExtractGoodsMovementListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsMovementListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsTokens.GOODS_MOVEMENT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsMovementListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,GoodsTokens.GOODS_MOVEMENT_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsMovementListEnabled(Map<String,Object> options){
@@ -454,8 +455,6 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -526,16 +525,16 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 		
 		if(isExtractGoodsMovementListEnabled(loadOptions)){
 	 		extractGoodsMovementList(goods, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsMovementListEnabled(loadOptions)){
+	 		// analyzeGoodsMovementList(goods, loadOptions);
+ 		}
+ 		
 		
 		return goods;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected Goods extractSku(Goods goods, Map<String,Object> options) throws Exception{
@@ -739,13 +738,10 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  
 		
 	protected void enhanceGoodsMovementList(SmartList<GoodsMovement> goodsMovementList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Goods extractGoodsMovementList(Goods goods, Map<String,Object> options){
 		
 		
@@ -767,13 +763,36 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 		return goods;
 	
 	}	
+	
+	protected Goods analyzeGoodsMovementList(Goods goods, Map<String,Object> options){
+		
+		
+		if(goods == null){
+			return null;
+		}
+		if(goods.getId() == null){
+			return goods;
+		}
+
+		
+		
+		SmartList<GoodsMovement> goodsMovementList = goods.getGoodsMovementList();
+		if(goodsMovementList != null){
+			getGoodsMovementDAO().analyzeGoodsMovementByGoods(goodsMovementList, goods.getId(), options);
+			
+		}
+		
+		return goods;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<Goods> findGoodsBySku(String skuId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_SKU, skuId, options, getGoodsMapper());
-		analyzeGoodsBySku(resultList, skuId, options);
+		// analyzeGoodsBySku(resultList, skuId, options);
 		return resultList;
  	}
  	 
@@ -781,12 +800,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsBySku(String skuId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_SKU, skuId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsBySku(resultList, skuId, options);
+ 		//analyzeGoodsBySku(resultList, skuId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsBySku(SmartList<Goods> resultList, String skuId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.SKU_PROPERTY, skuId);
@@ -814,7 +835,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByReceivingSpace(String receivingSpaceId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_RECEIVING_SPACE, receivingSpaceId, options, getGoodsMapper());
-		analyzeGoodsByReceivingSpace(resultList, receivingSpaceId, options);
+		// analyzeGoodsByReceivingSpace(resultList, receivingSpaceId, options);
 		return resultList;
  	}
  	 
@@ -822,12 +843,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByReceivingSpace(String receivingSpaceId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_RECEIVING_SPACE, receivingSpaceId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByReceivingSpace(resultList, receivingSpaceId, options);
+ 		//analyzeGoodsByReceivingSpace(resultList, receivingSpaceId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByReceivingSpace(SmartList<Goods> resultList, String receivingSpaceId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.RECEIVING_SPACE_PROPERTY, receivingSpaceId);
@@ -855,7 +878,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByGoodsAllocation(String goodsAllocationId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_GOODS_ALLOCATION, goodsAllocationId, options, getGoodsMapper());
-		analyzeGoodsByGoodsAllocation(resultList, goodsAllocationId, options);
+		// analyzeGoodsByGoodsAllocation(resultList, goodsAllocationId, options);
 		return resultList;
  	}
  	 
@@ -863,12 +886,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByGoodsAllocation(String goodsAllocationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_GOODS_ALLOCATION, goodsAllocationId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByGoodsAllocation(resultList, goodsAllocationId, options);
+ 		//analyzeGoodsByGoodsAllocation(resultList, goodsAllocationId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByGoodsAllocation(SmartList<Goods> resultList, String goodsAllocationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.GOODS_ALLOCATION_PROPERTY, goodsAllocationId);
@@ -896,7 +921,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsBySmartPallet(String smartPalletId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_SMART_PALLET, smartPalletId, options, getGoodsMapper());
-		analyzeGoodsBySmartPallet(resultList, smartPalletId, options);
+		// analyzeGoodsBySmartPallet(resultList, smartPalletId, options);
 		return resultList;
  	}
  	 
@@ -904,12 +929,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsBySmartPallet(String smartPalletId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_SMART_PALLET, smartPalletId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsBySmartPallet(resultList, smartPalletId, options);
+ 		//analyzeGoodsBySmartPallet(resultList, smartPalletId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsBySmartPallet(SmartList<Goods> resultList, String smartPalletId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.SMART_PALLET_PROPERTY, smartPalletId);
@@ -937,7 +964,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByShippingSpace(String shippingSpaceId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_SHIPPING_SPACE, shippingSpaceId, options, getGoodsMapper());
-		analyzeGoodsByShippingSpace(resultList, shippingSpaceId, options);
+		// analyzeGoodsByShippingSpace(resultList, shippingSpaceId, options);
 		return resultList;
  	}
  	 
@@ -945,12 +972,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByShippingSpace(String shippingSpaceId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_SHIPPING_SPACE, shippingSpaceId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByShippingSpace(resultList, shippingSpaceId, options);
+ 		//analyzeGoodsByShippingSpace(resultList, shippingSpaceId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByShippingSpace(SmartList<Goods> resultList, String shippingSpaceId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.SHIPPING_SPACE_PROPERTY, shippingSpaceId);
@@ -978,7 +1007,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByTransportTask(String transportTaskId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_TRANSPORT_TASK, transportTaskId, options, getGoodsMapper());
-		analyzeGoodsByTransportTask(resultList, transportTaskId, options);
+		// analyzeGoodsByTransportTask(resultList, transportTaskId, options);
 		return resultList;
  	}
  	 
@@ -986,12 +1015,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByTransportTask(String transportTaskId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_TRANSPORT_TASK, transportTaskId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByTransportTask(resultList, transportTaskId, options);
+ 		//analyzeGoodsByTransportTask(resultList, transportTaskId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByTransportTask(SmartList<Goods> resultList, String transportTaskId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.TRANSPORT_TASK_PROPERTY, transportTaskId);
@@ -1019,7 +1050,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByRetailStore(String retailStoreId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_RETAIL_STORE, retailStoreId, options, getGoodsMapper());
-		analyzeGoodsByRetailStore(resultList, retailStoreId, options);
+		// analyzeGoodsByRetailStore(resultList, retailStoreId, options);
 		return resultList;
  	}
  	 
@@ -1027,12 +1058,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByRetailStore(String retailStoreId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_RETAIL_STORE, retailStoreId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByRetailStore(resultList, retailStoreId, options);
+ 		//analyzeGoodsByRetailStore(resultList, retailStoreId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByRetailStore(SmartList<Goods> resultList, String retailStoreId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.RETAIL_STORE_PROPERTY, retailStoreId);
@@ -1060,7 +1093,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByBizOrder(String supplyOrderId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getGoodsMapper());
-		analyzeGoodsByBizOrder(resultList, supplyOrderId, options);
+		// analyzeGoodsByBizOrder(resultList, supplyOrderId, options);
 		return resultList;
  	}
  	 
@@ -1068,12 +1101,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByBizOrder(String supplyOrderId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_BIZ_ORDER, supplyOrderId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByBizOrder(resultList, supplyOrderId, options);
+ 		//analyzeGoodsByBizOrder(resultList, supplyOrderId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByBizOrder(SmartList<Goods> resultList, String supplyOrderId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.BIZ_ORDER_PROPERTY, supplyOrderId);
@@ -1101,7 +1136,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByRetailStoreOrder(String retailStoreOrderId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_RETAIL_STORE_ORDER, retailStoreOrderId, options, getGoodsMapper());
-		analyzeGoodsByRetailStoreOrder(resultList, retailStoreOrderId, options);
+		// analyzeGoodsByRetailStoreOrder(resultList, retailStoreOrderId, options);
 		return resultList;
  	}
  	 
@@ -1109,12 +1144,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByRetailStoreOrder(String retailStoreOrderId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_RETAIL_STORE_ORDER, retailStoreOrderId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByRetailStoreOrder(resultList, retailStoreOrderId, options);
+ 		//analyzeGoodsByRetailStoreOrder(resultList, retailStoreOrderId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByRetailStoreOrder(SmartList<Goods> resultList, String retailStoreOrderId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.RETAIL_STORE_ORDER_PROPERTY, retailStoreOrderId);
@@ -1142,7 +1179,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByPackaging(String goodsPackagingId,Map<String,Object> options){
  	
   		SmartList<Goods> resultList = queryWith(GoodsTable.COLUMN_PACKAGING, goodsPackagingId, options, getGoodsMapper());
-		analyzeGoodsByPackaging(resultList, goodsPackagingId, options);
+		// analyzeGoodsByPackaging(resultList, goodsPackagingId, options);
 		return resultList;
  	}
  	 
@@ -1150,12 +1187,14 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  	public SmartList<Goods> findGoodsByPackaging(String goodsPackagingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Goods> resultList =  queryWithRange(GoodsTable.COLUMN_PACKAGING, goodsPackagingId, options, getGoodsMapper(), start, count);
- 		analyzeGoodsByPackaging(resultList, goodsPackagingId, options);
+ 		//analyzeGoodsByPackaging(resultList, goodsPackagingId, options);
  		return resultList;
  		
  	}
  	public void analyzeGoodsByPackaging(SmartList<Goods> resultList, String goodsPackagingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Goods.PACKAGING_PROPERTY, goodsPackagingId);

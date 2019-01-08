@@ -103,7 +103,14 @@ public class SalaryGradeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_LIST);
 		return this;
 	}
-
+	public SalaryGradeTokens analyzeEmployeeList(){		
+		addSimpleOptions(EMPLOYEE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+	}
 	public SalaryGradeTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -158,7 +165,14 @@ public class SalaryGradeTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST);
 		return this;
 	}
-
+	public SalaryGradeTokens analyzeEmployeeSalarySheetList(){		
+		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeSalarySheetListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+	}
 	public SalaryGradeTokens extractMoreFromEmployeeSalarySheetList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

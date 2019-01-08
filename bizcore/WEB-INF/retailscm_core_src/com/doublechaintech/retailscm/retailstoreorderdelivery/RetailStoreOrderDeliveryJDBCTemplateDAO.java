@@ -193,10 +193,11 @@ public class RetailStoreOrderDeliveryJDBCTemplateDAO extends RetailscmNamingServ
 
 		
 	
-	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderDeliveryTokens.RETAIL_STORE_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderDeliveryTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreOrderDeliveryJDBCTemplateDAO extends RetailscmNamingServ
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreOrderDeliveryJDBCTemplateDAO extends RetailscmNamingServ
 		
 		if(isExtractRetailStoreOrderListEnabled(loadOptions)){
 	 		extractRetailStoreOrderList(retailStoreOrderDelivery, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderList(retailStoreOrderDelivery, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreOrderDelivery;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrderDelivery extractRetailStoreOrderList(RetailStoreOrderDelivery retailStoreOrderDelivery, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreOrderDeliveryJDBCTemplateDAO extends RetailscmNamingServ
 		return retailStoreOrderDelivery;
 	
 	}	
+	
+	protected RetailStoreOrderDelivery analyzeRetailStoreOrderList(RetailStoreOrderDelivery retailStoreOrderDelivery, Map<String,Object> options){
+		
+		
+		if(retailStoreOrderDelivery == null){
+			return null;
+		}
+		if(retailStoreOrderDelivery.getId() == null){
+			return retailStoreOrderDelivery;
+		}
+
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderDelivery.getRetailStoreOrderList();
+		if(retailStoreOrderList != null){
+			getRetailStoreOrderDAO().analyzeRetailStoreOrderByDelivery(retailStoreOrderList, retailStoreOrderDelivery.getId(), options);
+			
+		}
+		
+		return retailStoreOrderDelivery;
+	
+	}	
+	
 		
 		
  	

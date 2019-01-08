@@ -193,10 +193,11 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 
 		
 	
-	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SecUserBlockingTokens.SEC_USER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,SecUserBlockingTokens.SEC_USER_LIST+".analyze");
  	}
 
 	protected boolean isSaveSecUserListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
 		if(isExtractSecUserListEnabled(loadOptions)){
 	 		extractSecUserList(secUserBlocking, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSecUserListEnabled(loadOptions)){
+	 		// analyzeSecUserList(secUserBlocking, loadOptions);
+ 		}
+ 		
 		
 		return secUserBlocking;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceSecUserList(SmartList<SecUser> secUserList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected SecUserBlocking extractSecUserList(SecUserBlocking secUserBlocking, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		return secUserBlocking;
 	
 	}	
+	
+	protected SecUserBlocking analyzeSecUserList(SecUserBlocking secUserBlocking, Map<String,Object> options){
+		
+		
+		if(secUserBlocking == null){
+			return null;
+		}
+		if(secUserBlocking.getId() == null){
+			return secUserBlocking;
+		}
+
+		
+		
+		SmartList<SecUser> secUserList = secUserBlocking.getSecUserList();
+		if(secUserList != null){
+			getSecUserDAO().analyzeSecUserByBlocking(secUserList, secUserBlocking.getId(), options);
+			
+		}
+		
+		return secUserBlocking;
+	
+	}	
+	
 		
 		
  	

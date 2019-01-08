@@ -224,10 +224,6 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected FormFieldMessage extractForm(FormFieldMessage formFieldMessage, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<FormFieldMessage> findFormFieldMessageByForm(String genericFormId,Map<String,Object> options){
  	
   		SmartList<FormFieldMessage> resultList = queryWith(FormFieldMessageTable.COLUMN_FORM, genericFormId, options, getFormFieldMessageMapper());
-		analyzeFormFieldMessageByForm(resultList, genericFormId, options);
+		// analyzeFormFieldMessageByForm(resultList, genericFormId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  	public SmartList<FormFieldMessage> findFormFieldMessageByForm(String genericFormId, int start, int count,Map<String,Object> options){
  		
  		SmartList<FormFieldMessage> resultList =  queryWithRange(FormFieldMessageTable.COLUMN_FORM, genericFormId, options, getFormFieldMessageMapper(), start, count);
- 		analyzeFormFieldMessageByForm(resultList, genericFormId, options);
+ 		//analyzeFormFieldMessageByForm(resultList, genericFormId, options);
  		return resultList;
  		
  	}
  	public void analyzeFormFieldMessageByForm(SmartList<FormFieldMessage> resultList, String genericFormId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

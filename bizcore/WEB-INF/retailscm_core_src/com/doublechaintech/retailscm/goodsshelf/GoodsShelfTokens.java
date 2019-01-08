@@ -127,7 +127,14 @@ public class GoodsShelfTokens extends CommonTokens{
 		addSimpleOptions(GOODS_SHELF_STOCK_COUNT_LIST);
 		return this;
 	}
-
+	public GoodsShelfTokens analyzeGoodsShelfStockCountList(){		
+		addSimpleOptions(GOODS_SHELF_STOCK_COUNT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsShelfStockCountListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_SHELF_STOCK_COUNT_LIST+".anaylze");
+	}
 	public GoodsShelfTokens extractMoreFromGoodsShelfStockCountList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_SHELF_STOCK_COUNT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -182,7 +189,14 @@ public class GoodsShelfTokens extends CommonTokens{
 		addSimpleOptions(GOODS_ALLOCATION_LIST);
 		return this;
 	}
-
+	public GoodsShelfTokens analyzeGoodsAllocationList(){		
+		addSimpleOptions(GOODS_ALLOCATION_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsAllocationListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_ALLOCATION_LIST+".anaylze");
+	}
 	public GoodsShelfTokens extractMoreFromGoodsAllocationList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_ALLOCATION_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

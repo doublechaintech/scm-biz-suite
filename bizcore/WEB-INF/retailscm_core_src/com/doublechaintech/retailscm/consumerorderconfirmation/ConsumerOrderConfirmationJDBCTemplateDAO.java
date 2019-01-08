@@ -195,10 +195,6 @@ public class ConsumerOrderConfirmationJDBCTemplateDAO extends RetailscmNamingSer
 		
 	}
 
-
-
-	
-	
 	
 		
 		

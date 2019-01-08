@@ -113,7 +113,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(CATALOG_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeCatalogList(){		
+		addSimpleOptions(CATALOG_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeCatalogListEnabled(){		
+		
+		return checkOptions(this.options(), CATALOG_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromCatalogList(String idsSeperatedWithComma){		
 		addSimpleOptions(CATALOG_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -168,7 +175,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeRetailStoreProvinceCenterList(){		
+		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreProvinceCenterListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_PROVINCE_CENTER_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreProvinceCenterList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -223,7 +237,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeRetailStoreList(){		
+		addSimpleOptions(RETAIL_STORE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -278,7 +299,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_MEMBER_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeRetailStoreMemberList(){		
+		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreMemberListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_MEMBER_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreMemberList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -333,7 +361,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(GOODS_SUPPLIER_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeGoodsSupplierList(){		
+		addSimpleOptions(GOODS_SUPPLIER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeGoodsSupplierListEnabled(){		
+		
+		return checkOptions(this.options(), GOODS_SUPPLIER_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromGoodsSupplierList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_SUPPLIER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -388,7 +423,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(SUPPLY_ORDER_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeSupplyOrderList(){		
+		addSimpleOptions(SUPPLY_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSupplyOrderListEnabled(){		
+		
+		return checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -443,7 +485,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeRetailStoreOrderList(){		
+		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreOrderListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -498,7 +547,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(WAREHOUSE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeWarehouseList(){		
+		addSimpleOptions(WAREHOUSE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeWarehouseListEnabled(){		
+		
+		return checkOptions(this.options(), WAREHOUSE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromWarehouseList(String idsSeperatedWithComma){		
 		addSimpleOptions(WAREHOUSE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -553,7 +609,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(TRANSPORT_FLEET_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeTransportFleetList(){		
+		addSimpleOptions(TRANSPORT_FLEET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTransportFleetListEnabled(){		
+		
+		return checkOptions(this.options(), TRANSPORT_FLEET_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromTransportFleetList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_FLEET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -608,7 +671,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(ACCOUNT_SET_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeAccountSetList(){		
+		addSimpleOptions(ACCOUNT_SET_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeAccountSetListEnabled(){		
+		
+		return checkOptions(this.options(), ACCOUNT_SET_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromAccountSetList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNT_SET_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -663,7 +733,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeLevelOneDepartmentList(){		
+		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeLevelOneDepartmentListEnabled(){		
+		
+		return checkOptions(this.options(), LEVEL_ONE_DEPARTMENT_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromLevelOneDepartmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -718,7 +795,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(SKILL_TYPE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeSkillTypeList(){		
+		addSimpleOptions(SKILL_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSkillTypeListEnabled(){		
+		
+		return checkOptions(this.options(), SKILL_TYPE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromSkillTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(SKILL_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -773,7 +857,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(RESPONSIBILITY_TYPE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeResponsibilityTypeList(){		
+		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeResponsibilityTypeListEnabled(){		
+		
+		return checkOptions(this.options(), RESPONSIBILITY_TYPE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromResponsibilityTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -828,7 +919,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(TERMINATION_REASON_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeTerminationReasonList(){		
+		addSimpleOptions(TERMINATION_REASON_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTerminationReasonListEnabled(){		
+		
+		return checkOptions(this.options(), TERMINATION_REASON_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromTerminationReasonList(String idsSeperatedWithComma){		
 		addSimpleOptions(TERMINATION_REASON_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -883,7 +981,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(TERMINATION_TYPE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeTerminationTypeList(){		
+		addSimpleOptions(TERMINATION_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTerminationTypeListEnabled(){		
+		
+		return checkOptions(this.options(), TERMINATION_TYPE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromTerminationTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(TERMINATION_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -938,7 +1043,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(OCCUPATION_TYPE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeOccupationTypeList(){		
+		addSimpleOptions(OCCUPATION_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeOccupationTypeListEnabled(){		
+		
+		return checkOptions(this.options(), OCCUPATION_TYPE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromOccupationTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(OCCUPATION_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -993,7 +1105,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(LEAVE_TYPE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeLeaveTypeList(){		
+		addSimpleOptions(LEAVE_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeLeaveTypeListEnabled(){		
+		
+		return checkOptions(this.options(), LEAVE_TYPE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromLeaveTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEAVE_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -1048,7 +1167,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(SALARY_GRADE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeSalaryGradeList(){		
+		addSimpleOptions(SALARY_GRADE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeSalaryGradeListEnabled(){		
+		
+		return checkOptions(this.options(), SALARY_GRADE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromSalaryGradeList(String idsSeperatedWithComma){		
 		addSimpleOptions(SALARY_GRADE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -1103,7 +1229,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(INTERVIEW_TYPE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeInterviewTypeList(){		
+		addSimpleOptions(INTERVIEW_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeInterviewTypeListEnabled(){		
+		
+		return checkOptions(this.options(), INTERVIEW_TYPE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromInterviewTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(INTERVIEW_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -1158,7 +1291,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(TRAINING_COURSE_TYPE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeTrainingCourseTypeList(){		
+		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeTrainingCourseTypeListEnabled(){		
+		
+		return checkOptions(this.options(), TRAINING_COURSE_TYPE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromTrainingCourseTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -1213,7 +1353,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(PUBLIC_HOLIDAY_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzePublicHolidayList(){		
+		addSimpleOptions(PUBLIC_HOLIDAY_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzePublicHolidayListEnabled(){		
+		
+		return checkOptions(this.options(), PUBLIC_HOLIDAY_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromPublicHolidayList(String idsSeperatedWithComma){		
 		addSimpleOptions(PUBLIC_HOLIDAY_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -1268,7 +1415,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(EMPLOYEE_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeEmployeeList(){		
+		addSimpleOptions(EMPLOYEE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeEmployeeListEnabled(){		
+		
+		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -1323,7 +1477,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(INSTRUCTOR_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeInstructorList(){		
+		addSimpleOptions(INSTRUCTOR_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeInstructorListEnabled(){		
+		
+		return checkOptions(this.options(), INSTRUCTOR_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromInstructorList(String idsSeperatedWithComma){		
 		addSimpleOptions(INSTRUCTOR_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -1378,7 +1539,14 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 		addSimpleOptions(COMPANY_TRAINING_LIST);
 		return this;
 	}
-
+	public RetailStoreCountryCenterTokens analyzeCompanyTrainingList(){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeCompanyTrainingListEnabled(){		
+		
+		return checkOptions(this.options(), COMPANY_TRAINING_LIST+".anaylze");
+	}
 	public RetailStoreCountryCenterTokens extractMoreFromCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

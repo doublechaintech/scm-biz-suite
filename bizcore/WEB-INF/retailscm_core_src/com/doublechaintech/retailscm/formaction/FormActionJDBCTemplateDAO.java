@@ -224,10 +224,6 @@ public class FormActionJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected FormAction extractForm(FormAction formAction, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class FormActionJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<FormAction> findFormActionByForm(String genericFormId,Map<String,Object> options){
  	
   		SmartList<FormAction> resultList = queryWith(FormActionTable.COLUMN_FORM, genericFormId, options, getFormActionMapper());
-		analyzeFormActionByForm(resultList, genericFormId, options);
+		// analyzeFormActionByForm(resultList, genericFormId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class FormActionJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  	public SmartList<FormAction> findFormActionByForm(String genericFormId, int start, int count,Map<String,Object> options){
  		
  		SmartList<FormAction> resultList =  queryWithRange(FormActionTable.COLUMN_FORM, genericFormId, options, getFormActionMapper(), start, count);
- 		analyzeFormActionByForm(resultList, genericFormId, options);
+ 		//analyzeFormActionByForm(resultList, genericFormId, options);
  		return resultList;
  		
  	}
  	public void analyzeFormActionByForm(SmartList<FormAction> resultList, String genericFormId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		
@@ -553,10 +551,6 @@ public class FormActionJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	    return this.queryForList(sql, parameters, this.getFormActionMapper());
 	}
 }
-
-
-
-
 
 
 

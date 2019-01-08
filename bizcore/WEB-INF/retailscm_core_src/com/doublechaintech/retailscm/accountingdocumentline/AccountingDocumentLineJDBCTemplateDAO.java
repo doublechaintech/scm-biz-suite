@@ -253,10 +253,6 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected AccountingDocumentLine extractBelongsTo(AccountingDocumentLine accountingDocumentLine, Map<String,Object> options) throws Exception{
@@ -304,7 +300,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByBelongsTo(String accountingDocumentId,Map<String,Object> options){
  	
   		SmartList<AccountingDocumentLine> resultList = queryWith(AccountingDocumentLineTable.COLUMN_BELONGS_TO, accountingDocumentId, options, getAccountingDocumentLineMapper());
-		analyzeAccountingDocumentLineByBelongsTo(resultList, accountingDocumentId, options);
+		// analyzeAccountingDocumentLineByBelongsTo(resultList, accountingDocumentId, options);
 		return resultList;
  	}
  	 
@@ -312,12 +308,14 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByBelongsTo(String accountingDocumentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocumentLine> resultList =  queryWithRange(AccountingDocumentLineTable.COLUMN_BELONGS_TO, accountingDocumentId, options, getAccountingDocumentLineMapper(), start, count);
- 		analyzeAccountingDocumentLineByBelongsTo(resultList, accountingDocumentId, options);
+ 		//analyzeAccountingDocumentLineByBelongsTo(resultList, accountingDocumentId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentLineByBelongsTo(SmartList<AccountingDocumentLine> resultList, String accountingDocumentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocumentLine.BELONGS_TO_PROPERTY, accountingDocumentId);
@@ -345,7 +343,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByAccountingSubject(String accountingSubjectId,Map<String,Object> options){
  	
   		SmartList<AccountingDocumentLine> resultList = queryWith(AccountingDocumentLineTable.COLUMN_ACCOUNTING_SUBJECT, accountingSubjectId, options, getAccountingDocumentLineMapper());
-		analyzeAccountingDocumentLineByAccountingSubject(resultList, accountingSubjectId, options);
+		// analyzeAccountingDocumentLineByAccountingSubject(resultList, accountingSubjectId, options);
 		return resultList;
  	}
  	 
@@ -353,12 +351,14 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<AccountingDocumentLine> findAccountingDocumentLineByAccountingSubject(String accountingSubjectId, int start, int count,Map<String,Object> options){
  		
  		SmartList<AccountingDocumentLine> resultList =  queryWithRange(AccountingDocumentLineTable.COLUMN_ACCOUNTING_SUBJECT, accountingSubjectId, options, getAccountingDocumentLineMapper(), start, count);
- 		analyzeAccountingDocumentLineByAccountingSubject(resultList, accountingSubjectId, options);
+ 		//analyzeAccountingDocumentLineByAccountingSubject(resultList, accountingSubjectId, options);
  		return resultList;
  		
  	}
  	public void analyzeAccountingDocumentLineByAccountingSubject(SmartList<AccountingDocumentLine> resultList, String accountingSubjectId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(AccountingDocumentLine.ACCOUNTING_SUBJECT_PROPERTY, accountingSubjectId);

@@ -282,10 +282,6 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmNamingServiceDA
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeSalarySheet extractEmployee(EmployeeSalarySheet employeeSalarySheet, Map<String,Object> options) throws Exception{
@@ -353,7 +349,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeSalarySheet> resultList = queryWith(EmployeeSalarySheetTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSalarySheetMapper());
-		analyzeEmployeeSalarySheetByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeSalarySheetByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -361,12 +357,14 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeSalarySheet> resultList =  queryWithRange(EmployeeSalarySheetTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeSalarySheetMapper(), start, count);
- 		analyzeEmployeeSalarySheetByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeSalarySheetByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeSalarySheetByEmployee(SmartList<EmployeeSalarySheet> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, employeeId);
@@ -394,7 +392,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByCurrentSalaryGrade(String salaryGradeId,Map<String,Object> options){
  	
   		SmartList<EmployeeSalarySheet> resultList = queryWith(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeSalarySheetMapper());
-		analyzeEmployeeSalarySheetByCurrentSalaryGrade(resultList, salaryGradeId, options);
+		// analyzeEmployeeSalarySheetByCurrentSalaryGrade(resultList, salaryGradeId, options);
 		return resultList;
  	}
  	 
@@ -402,12 +400,14 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByCurrentSalaryGrade(String salaryGradeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeSalarySheet> resultList =  queryWithRange(EmployeeSalarySheetTable.COLUMN_CURRENT_SALARY_GRADE, salaryGradeId, options, getEmployeeSalarySheetMapper(), start, count);
- 		analyzeEmployeeSalarySheetByCurrentSalaryGrade(resultList, salaryGradeId, options);
+ 		//analyzeEmployeeSalarySheetByCurrentSalaryGrade(resultList, salaryGradeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeSalarySheetByCurrentSalaryGrade(SmartList<EmployeeSalarySheet> resultList, String salaryGradeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, salaryGradeId);
@@ -435,7 +435,7 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByPayingOff(String payingOffId,Map<String,Object> options){
  	
   		SmartList<EmployeeSalarySheet> resultList = queryWith(EmployeeSalarySheetTable.COLUMN_PAYING_OFF, payingOffId, options, getEmployeeSalarySheetMapper());
-		analyzeEmployeeSalarySheetByPayingOff(resultList, payingOffId, options);
+		// analyzeEmployeeSalarySheetByPayingOff(resultList, payingOffId, options);
 		return resultList;
  	}
  	 
@@ -443,12 +443,14 @@ public class EmployeeSalarySheetJDBCTemplateDAO extends RetailscmNamingServiceDA
  	public SmartList<EmployeeSalarySheet> findEmployeeSalarySheetByPayingOff(String payingOffId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeSalarySheet> resultList =  queryWithRange(EmployeeSalarySheetTable.COLUMN_PAYING_OFF, payingOffId, options, getEmployeeSalarySheetMapper(), start, count);
- 		analyzeEmployeeSalarySheetByPayingOff(resultList, payingOffId, options);
+ 		//analyzeEmployeeSalarySheetByPayingOff(resultList, payingOffId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeSalarySheetByPayingOff(SmartList<EmployeeSalarySheet> resultList, String payingOffId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, payingOffId);

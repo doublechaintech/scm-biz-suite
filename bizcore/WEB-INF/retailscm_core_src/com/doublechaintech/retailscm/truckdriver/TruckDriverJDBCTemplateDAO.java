@@ -218,10 +218,11 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	
-	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TruckDriverTokens.TRANSPORT_TASK_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,TruckDriverTokens.TRANSPORT_TASK_LIST+".analyze");
  	}
 
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		
 		if(isExtractTransportTaskListEnabled(loadOptions)){
 	 		extractTransportTaskList(truckDriver, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeTransportTaskListEnabled(loadOptions)){
+	 		// analyzeTransportTaskList(truckDriver, loadOptions);
+ 		}
+ 		
 		
 		return truckDriver;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected TruckDriver extractBelongsTo(TruckDriver truckDriver, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		
 	protected void enhanceTransportTaskList(SmartList<TransportTask> transportTaskList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected TruckDriver extractTransportTaskList(TruckDriver truckDriver, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		return truckDriver;
 	
 	}	
+	
+	protected TruckDriver analyzeTransportTaskList(TruckDriver truckDriver, Map<String,Object> options){
+		
+		
+		if(truckDriver == null){
+			return null;
+		}
+		if(truckDriver.getId() == null){
+			return truckDriver;
+		}
+
+		
+		
+		SmartList<TransportTask> transportTaskList = truckDriver.getTransportTaskList();
+		if(transportTaskList != null){
+			getTransportTaskDAO().analyzeTransportTaskByDriver(transportTaskList, truckDriver.getId(), options);
+			
+		}
+		
+		return truckDriver;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<TruckDriver> findTruckDriverByBelongsTo(String transportFleetId,Map<String,Object> options){
  	
   		SmartList<TruckDriver> resultList = queryWith(TruckDriverTable.COLUMN_BELONGS_TO, transportFleetId, options, getTruckDriverMapper());
-		analyzeTruckDriverByBelongsTo(resultList, transportFleetId, options);
+		// analyzeTruckDriverByBelongsTo(resultList, transportFleetId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  	public SmartList<TruckDriver> findTruckDriverByBelongsTo(String transportFleetId, int start, int count,Map<String,Object> options){
  		
  		SmartList<TruckDriver> resultList =  queryWithRange(TruckDriverTable.COLUMN_BELONGS_TO, transportFleetId, options, getTruckDriverMapper(), start, count);
- 		analyzeTruckDriverByBelongsTo(resultList, transportFleetId, options);
+ 		//analyzeTruckDriverByBelongsTo(resultList, transportFleetId, options);
  		return resultList;
  		
  	}
  	public void analyzeTruckDriverByBelongsTo(SmartList<TruckDriver> resultList, String transportFleetId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

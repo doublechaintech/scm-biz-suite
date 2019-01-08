@@ -311,10 +311,6 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected OriginalVoucher extractBelongsTo(OriginalVoucher originalVoucher, Map<String,Object> options) throws Exception{
@@ -402,7 +398,7 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByBelongsTo(String accountingDocumentId,Map<String,Object> options){
  	
   		SmartList<OriginalVoucher> resultList = queryWith(OriginalVoucherTable.COLUMN_BELONGS_TO, accountingDocumentId, options, getOriginalVoucherMapper());
-		analyzeOriginalVoucherByBelongsTo(resultList, accountingDocumentId, options);
+		// analyzeOriginalVoucherByBelongsTo(resultList, accountingDocumentId, options);
 		return resultList;
  	}
  	 
@@ -410,12 +406,14 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByBelongsTo(String accountingDocumentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<OriginalVoucher> resultList =  queryWithRange(OriginalVoucherTable.COLUMN_BELONGS_TO, accountingDocumentId, options, getOriginalVoucherMapper(), start, count);
- 		analyzeOriginalVoucherByBelongsTo(resultList, accountingDocumentId, options);
+ 		//analyzeOriginalVoucherByBelongsTo(resultList, accountingDocumentId, options);
  		return resultList;
  		
  	}
  	public void analyzeOriginalVoucherByBelongsTo(SmartList<OriginalVoucher> resultList, String accountingDocumentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(OriginalVoucher.BELONGS_TO_PROPERTY, accountingDocumentId);
@@ -443,7 +441,7 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByCreation(String originalVoucherCreationId,Map<String,Object> options){
  	
   		SmartList<OriginalVoucher> resultList = queryWith(OriginalVoucherTable.COLUMN_CREATION, originalVoucherCreationId, options, getOriginalVoucherMapper());
-		analyzeOriginalVoucherByCreation(resultList, originalVoucherCreationId, options);
+		// analyzeOriginalVoucherByCreation(resultList, originalVoucherCreationId, options);
 		return resultList;
  	}
  	 
@@ -451,12 +449,14 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByCreation(String originalVoucherCreationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<OriginalVoucher> resultList =  queryWithRange(OriginalVoucherTable.COLUMN_CREATION, originalVoucherCreationId, options, getOriginalVoucherMapper(), start, count);
- 		analyzeOriginalVoucherByCreation(resultList, originalVoucherCreationId, options);
+ 		//analyzeOriginalVoucherByCreation(resultList, originalVoucherCreationId, options);
  		return resultList;
  		
  	}
  	public void analyzeOriginalVoucherByCreation(SmartList<OriginalVoucher> resultList, String originalVoucherCreationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(OriginalVoucher.CREATION_PROPERTY, originalVoucherCreationId);
@@ -484,7 +484,7 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByConfirmation(String originalVoucherConfirmationId,Map<String,Object> options){
  	
   		SmartList<OriginalVoucher> resultList = queryWith(OriginalVoucherTable.COLUMN_CONFIRMATION, originalVoucherConfirmationId, options, getOriginalVoucherMapper());
-		analyzeOriginalVoucherByConfirmation(resultList, originalVoucherConfirmationId, options);
+		// analyzeOriginalVoucherByConfirmation(resultList, originalVoucherConfirmationId, options);
 		return resultList;
  	}
  	 
@@ -492,12 +492,14 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByConfirmation(String originalVoucherConfirmationId, int start, int count,Map<String,Object> options){
  		
  		SmartList<OriginalVoucher> resultList =  queryWithRange(OriginalVoucherTable.COLUMN_CONFIRMATION, originalVoucherConfirmationId, options, getOriginalVoucherMapper(), start, count);
- 		analyzeOriginalVoucherByConfirmation(resultList, originalVoucherConfirmationId, options);
+ 		//analyzeOriginalVoucherByConfirmation(resultList, originalVoucherConfirmationId, options);
  		return resultList;
  		
  	}
  	public void analyzeOriginalVoucherByConfirmation(SmartList<OriginalVoucher> resultList, String originalVoucherConfirmationId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(OriginalVoucher.CONFIRMATION_PROPERTY, originalVoucherConfirmationId);
@@ -525,7 +527,7 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByAuditing(String originalVoucherAuditingId,Map<String,Object> options){
  	
   		SmartList<OriginalVoucher> resultList = queryWith(OriginalVoucherTable.COLUMN_AUDITING, originalVoucherAuditingId, options, getOriginalVoucherMapper());
-		analyzeOriginalVoucherByAuditing(resultList, originalVoucherAuditingId, options);
+		// analyzeOriginalVoucherByAuditing(resultList, originalVoucherAuditingId, options);
 		return resultList;
  	}
  	 
@@ -533,12 +535,14 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  	public SmartList<OriginalVoucher> findOriginalVoucherByAuditing(String originalVoucherAuditingId, int start, int count,Map<String,Object> options){
  		
  		SmartList<OriginalVoucher> resultList =  queryWithRange(OriginalVoucherTable.COLUMN_AUDITING, originalVoucherAuditingId, options, getOriginalVoucherMapper(), start, count);
- 		analyzeOriginalVoucherByAuditing(resultList, originalVoucherAuditingId, options);
+ 		//analyzeOriginalVoucherByAuditing(resultList, originalVoucherAuditingId, options);
  		return resultList;
  		
  	}
  	public void analyzeOriginalVoucherByAuditing(SmartList<OriginalVoucher> resultList, String originalVoucherAuditingId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(OriginalVoucher.AUDITING_PROPERTY, originalVoucherAuditingId);

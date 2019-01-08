@@ -102,7 +102,14 @@ public class TrainingCourseTypeTokens extends CommonTokens{
 		addSimpleOptions(COMPANY_TRAINING_LIST);
 		return this;
 	}
-
+	public TrainingCourseTypeTokens analyzeCompanyTrainingList(){		
+		addSimpleOptions(COMPANY_TRAINING_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeCompanyTrainingListEnabled(){		
+		
+		return checkOptions(this.options(), COMPANY_TRAINING_LIST+".anaylze");
+	}
 	public TrainingCourseTypeTokens extractMoreFromCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

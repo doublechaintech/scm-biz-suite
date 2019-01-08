@@ -90,7 +90,14 @@ public class OriginalVoucherAuditingTokens extends CommonTokens{
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST);
 		return this;
 	}
-
+	public OriginalVoucherAuditingTokens analyzeOriginalVoucherList(){		
+		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeOriginalVoucherListEnabled(){		
+		
+		return checkOptions(this.options(), ORIGINAL_VOUCHER_LIST+".anaylze");
+	}
 	public OriginalVoucherAuditingTokens extractMoreFromOriginalVoucherList(String idsSeperatedWithComma){		
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

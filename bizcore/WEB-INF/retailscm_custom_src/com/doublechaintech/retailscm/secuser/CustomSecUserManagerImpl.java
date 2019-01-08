@@ -782,7 +782,7 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 	}
 
 	protected void resetListAccess(ListAccess access) {
-		
+		// TODO Auto-generated method stub
 		access.updateReadPermission(false);
 		access.updateCreatePermission(false);
 		access.updateUpdatePermission(false);
@@ -890,6 +890,16 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
 		curUser.updatePwd(newPassword);
 		this.saveSecUser(userContext, curUser, SecUserTokens.withoutLists());
 		return "OK";
+	}
+	
+	public String testIfHasManagementAccess(RetailscmUserContext userContext,String objectType,String objectId) {
+		try {
+			this.checkUserHasManagementAccess(userContext, objectType, objectId);
+			return "OK";
+		}catch(Exception e){
+			return "FAIL";
+		}
+		
 	}
     
 

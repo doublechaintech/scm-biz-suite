@@ -218,10 +218,11 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  
 		
 	
-	protected boolean isExtractGoodsShelfListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractGoodsShelfListEnabled(Map<String,Object> options){		
  		return checkOptions(options,StorageSpaceTokens.GOODS_SHELF_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,StorageSpaceTokens.GOODS_SHELF_LIST+".analyze");
  	}
 
 	protected boolean isSaveGoodsShelfListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 		
 		if(isExtractGoodsShelfListEnabled(loadOptions)){
 	 		extractGoodsShelfList(storageSpace, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeGoodsShelfListEnabled(loadOptions)){
+	 		// analyzeGoodsShelfList(storageSpace, loadOptions);
+ 		}
+ 		
 		
 		return storageSpace;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected StorageSpace extractWarehouse(StorageSpace storageSpace, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  
 		
 	protected void enhanceGoodsShelfList(SmartList<GoodsShelf> goodsShelfList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected StorageSpace extractGoodsShelfList(StorageSpace storageSpace, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 		return storageSpace;
 	
 	}	
+	
+	protected StorageSpace analyzeGoodsShelfList(StorageSpace storageSpace, Map<String,Object> options){
+		
+		
+		if(storageSpace == null){
+			return null;
+		}
+		if(storageSpace.getId() == null){
+			return storageSpace;
+		}
+
+		
+		
+		SmartList<GoodsShelf> goodsShelfList = storageSpace.getGoodsShelfList();
+		if(goodsShelfList != null){
+			getGoodsShelfDAO().analyzeGoodsShelfByStorageSpace(goodsShelfList, storageSpace.getId(), options);
+			
+		}
+		
+		return storageSpace;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<StorageSpace> findStorageSpaceByWarehouse(String warehouseId,Map<String,Object> options){
  	
   		SmartList<StorageSpace> resultList = queryWith(StorageSpaceTable.COLUMN_WAREHOUSE, warehouseId, options, getStorageSpaceMapper());
-		analyzeStorageSpaceByWarehouse(resultList, warehouseId, options);
+		// analyzeStorageSpaceByWarehouse(resultList, warehouseId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  	public SmartList<StorageSpace> findStorageSpaceByWarehouse(String warehouseId, int start, int count,Map<String,Object> options){
  		
  		SmartList<StorageSpace> resultList =  queryWithRange(StorageSpaceTable.COLUMN_WAREHOUSE, warehouseId, options, getStorageSpaceMapper(), start, count);
- 		analyzeStorageSpaceByWarehouse(resultList, warehouseId, options);
+ 		//analyzeStorageSpaceByWarehouse(resultList, warehouseId, options);
  		return resultList;
  		
  	}
  	public void analyzeStorageSpaceByWarehouse(SmartList<StorageSpace> resultList, String warehouseId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

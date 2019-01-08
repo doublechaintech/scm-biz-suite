@@ -193,10 +193,11 @@ public class OfferAcceptanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 
 		
 	
-	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,OfferAcceptanceTokens.EMPLOYEE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,OfferAcceptanceTokens.EMPLOYEE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class OfferAcceptanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class OfferAcceptanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		
 		if(isExtractEmployeeListEnabled(loadOptions)){
 	 		extractEmployeeList(offerAcceptance, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEmployeeListEnabled(loadOptions)){
+	 		// analyzeEmployeeList(offerAcceptance, loadOptions);
+ 		}
+ 		
 		
 		return offerAcceptance;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceEmployeeList(SmartList<Employee> employeeList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected OfferAcceptance extractEmployeeList(OfferAcceptance offerAcceptance, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class OfferAcceptanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 		return offerAcceptance;
 	
 	}	
+	
+	protected OfferAcceptance analyzeEmployeeList(OfferAcceptance offerAcceptance, Map<String,Object> options){
+		
+		
+		if(offerAcceptance == null){
+			return null;
+		}
+		if(offerAcceptance.getId() == null){
+			return offerAcceptance;
+		}
+
+		
+		
+		SmartList<Employee> employeeList = offerAcceptance.getEmployeeList();
+		if(employeeList != null){
+			getEmployeeDAO().analyzeEmployeeByOfferAcceptance(employeeList, offerAcceptance.getId(), options);
+			
+		}
+		
+		return offerAcceptance;
+	
+	}	
+	
 		
 		
  	

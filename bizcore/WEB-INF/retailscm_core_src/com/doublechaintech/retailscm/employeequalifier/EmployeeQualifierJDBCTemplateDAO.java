@@ -224,10 +224,6 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected EmployeeQualifier extractEmployee(EmployeeQualifier employeeQualifier, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeQualifier> findEmployeeQualifierByEmployee(String employeeId,Map<String,Object> options){
  	
   		SmartList<EmployeeQualifier> resultList = queryWith(EmployeeQualifierTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeQualifierMapper());
-		analyzeEmployeeQualifierByEmployee(resultList, employeeId, options);
+		// analyzeEmployeeQualifierByEmployee(resultList, employeeId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<EmployeeQualifier> findEmployeeQualifierByEmployee(String employeeId, int start, int count,Map<String,Object> options){
  		
  		SmartList<EmployeeQualifier> resultList =  queryWithRange(EmployeeQualifierTable.COLUMN_EMPLOYEE, employeeId, options, getEmployeeQualifierMapper(), start, count);
- 		analyzeEmployeeQualifierByEmployee(resultList, employeeId, options);
+ 		//analyzeEmployeeQualifierByEmployee(resultList, employeeId, options);
  		return resultList;
  		
  	}
  	public void analyzeEmployeeQualifierByEmployee(SmartList<EmployeeQualifier> resultList, String employeeId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

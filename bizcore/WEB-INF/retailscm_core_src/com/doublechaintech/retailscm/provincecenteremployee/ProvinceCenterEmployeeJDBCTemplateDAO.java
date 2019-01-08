@@ -253,10 +253,6 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmNamingServic
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected ProvinceCenterEmployee extractDepartment(ProvinceCenterEmployee provinceCenterEmployee, Map<String,Object> options) throws Exception{
@@ -304,7 +300,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByDepartment(String provinceCenterDepartmentId,Map<String,Object> options){
  	
   		SmartList<ProvinceCenterEmployee> resultList = queryWith(ProvinceCenterEmployeeTable.COLUMN_DEPARTMENT, provinceCenterDepartmentId, options, getProvinceCenterEmployeeMapper());
-		analyzeProvinceCenterEmployeeByDepartment(resultList, provinceCenterDepartmentId, options);
+		// analyzeProvinceCenterEmployeeByDepartment(resultList, provinceCenterDepartmentId, options);
 		return resultList;
  	}
  	 
@@ -312,12 +308,14 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByDepartment(String provinceCenterDepartmentId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ProvinceCenterEmployee> resultList =  queryWithRange(ProvinceCenterEmployeeTable.COLUMN_DEPARTMENT, provinceCenterDepartmentId, options, getProvinceCenterEmployeeMapper(), start, count);
- 		analyzeProvinceCenterEmployeeByDepartment(resultList, provinceCenterDepartmentId, options);
+ 		//analyzeProvinceCenterEmployeeByDepartment(resultList, provinceCenterDepartmentId, options);
  		return resultList;
  		
  	}
  	public void analyzeProvinceCenterEmployeeByDepartment(SmartList<ProvinceCenterEmployee> resultList, String provinceCenterDepartmentId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(ProvinceCenterEmployee.DEPARTMENT_PROPERTY, provinceCenterDepartmentId);
@@ -345,7 +343,7 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByProvinceCenter(String retailStoreProvinceCenterId,Map<String,Object> options){
  	
   		SmartList<ProvinceCenterEmployee> resultList = queryWith(ProvinceCenterEmployeeTable.COLUMN_PROVINCE_CENTER, retailStoreProvinceCenterId, options, getProvinceCenterEmployeeMapper());
-		analyzeProvinceCenterEmployeeByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
+		// analyzeProvinceCenterEmployeeByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
 		return resultList;
  	}
  	 
@@ -353,12 +351,14 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmNamingServic
  	public SmartList<ProvinceCenterEmployee> findProvinceCenterEmployeeByProvinceCenter(String retailStoreProvinceCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<ProvinceCenterEmployee> resultList =  queryWithRange(ProvinceCenterEmployeeTable.COLUMN_PROVINCE_CENTER, retailStoreProvinceCenterId, options, getProvinceCenterEmployeeMapper(), start, count);
- 		analyzeProvinceCenterEmployeeByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
+ 		//analyzeProvinceCenterEmployeeByProvinceCenter(resultList, retailStoreProvinceCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzeProvinceCenterEmployeeByProvinceCenter(SmartList<ProvinceCenterEmployee> resultList, String retailStoreProvinceCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(ProvinceCenterEmployee.PROVINCE_CENTER_PROPERTY, retailStoreProvinceCenterId);

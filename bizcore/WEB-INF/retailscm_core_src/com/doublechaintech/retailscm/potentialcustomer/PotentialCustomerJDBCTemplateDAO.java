@@ -299,10 +299,11 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		
 	
-	protected boolean isExtractPotentialCustomerContactPersonListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractPotentialCustomerContactPersonListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzePotentialCustomerContactPersonListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".analyze");
  	}
 
 	protected boolean isSavePotentialCustomerContactPersonListEnabled(Map<String,Object> options){
@@ -310,14 +311,13 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
  	}
 
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
@@ -325,14 +325,13 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
  	}
  	
- 	
-			
 		
 	
-	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerTokens.EVENT_ATTENDANCE_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,PotentialCustomerTokens.EVENT_ATTENDANCE_LIST+".analyze");
  	}
 
 	protected boolean isSaveEventAttendanceListEnabled(Map<String,Object> options){
@@ -340,8 +339,6 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -380,24 +377,32 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
 		if(isExtractPotentialCustomerContactPersonListEnabled(loadOptions)){
 	 		extractPotentialCustomerContactPersonList(potentialCustomer, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzePotentialCustomerContactPersonListEnabled(loadOptions)){
+	 		// analyzePotentialCustomerContactPersonList(potentialCustomer, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractPotentialCustomerContactListEnabled(loadOptions)){
 	 		extractPotentialCustomerContactList(potentialCustomer, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
+	 		// analyzePotentialCustomerContactList(potentialCustomer, loadOptions);
+ 		}
+ 		
 		
 		if(isExtractEventAttendanceListEnabled(loadOptions)){
 	 		extractEventAttendanceList(potentialCustomer, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeEventAttendanceListEnabled(loadOptions)){
+	 		// analyzeEventAttendanceList(potentialCustomer, loadOptions);
+ 		}
+ 		
 		
 		return potentialCustomer;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected PotentialCustomer extractCityServiceCenter(PotentialCustomer potentialCustomer, Map<String,Object> options) throws Exception{
@@ -441,13 +446,10 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		
 	protected void enhancePotentialCustomerContactPersonList(SmartList<PotentialCustomerContactPerson> potentialCustomerContactPersonList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected PotentialCustomer extractPotentialCustomerContactPersonList(PotentialCustomer potentialCustomer, Map<String,Object> options){
 		
 		
@@ -469,15 +471,35 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		return potentialCustomer;
 	
 	}	
+	
+	protected PotentialCustomer analyzePotentialCustomerContactPersonList(PotentialCustomer potentialCustomer, Map<String,Object> options){
+		
+		
+		if(potentialCustomer == null){
+			return null;
+		}
+		if(potentialCustomer.getId() == null){
+			return potentialCustomer;
+		}
+
+		
+		
+		SmartList<PotentialCustomerContactPerson> potentialCustomerContactPersonList = potentialCustomer.getPotentialCustomerContactPersonList();
+		if(potentialCustomerContactPersonList != null){
+			getPotentialCustomerContactPersonDAO().analyzePotentialCustomerContactPersonByPotentialCustomer(potentialCustomerContactPersonList, potentialCustomer.getId(), options);
+			
+		}
+		
+		return potentialCustomer;
+	
+	}	
+	
 		
 	protected void enhancePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected PotentialCustomer extractPotentialCustomerContactList(PotentialCustomer potentialCustomer, Map<String,Object> options){
 		
 		
@@ -499,15 +521,35 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		return potentialCustomer;
 	
 	}	
+	
+	protected PotentialCustomer analyzePotentialCustomerContactList(PotentialCustomer potentialCustomer, Map<String,Object> options){
+		
+		
+		if(potentialCustomer == null){
+			return null;
+		}
+		if(potentialCustomer.getId() == null){
+			return potentialCustomer;
+		}
+
+		
+		
+		SmartList<PotentialCustomerContact> potentialCustomerContactList = potentialCustomer.getPotentialCustomerContactList();
+		if(potentialCustomerContactList != null){
+			getPotentialCustomerContactDAO().analyzePotentialCustomerContactByPotentialCustomer(potentialCustomerContactList, potentialCustomer.getId(), options);
+			
+		}
+		
+		return potentialCustomer;
+	
+	}	
+	
 		
 	protected void enhanceEventAttendanceList(SmartList<EventAttendance> eventAttendanceList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected PotentialCustomer extractEventAttendanceList(PotentialCustomer potentialCustomer, Map<String,Object> options){
 		
 		
@@ -529,13 +571,36 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		return potentialCustomer;
 	
 	}	
+	
+	protected PotentialCustomer analyzeEventAttendanceList(PotentialCustomer potentialCustomer, Map<String,Object> options){
+		
+		
+		if(potentialCustomer == null){
+			return null;
+		}
+		if(potentialCustomer.getId() == null){
+			return potentialCustomer;
+		}
+
+		
+		
+		SmartList<EventAttendance> eventAttendanceList = potentialCustomer.getEventAttendanceList();
+		if(eventAttendanceList != null){
+			getEventAttendanceDAO().analyzeEventAttendanceByPotentialCustomer(eventAttendanceList, potentialCustomer.getId(), options);
+			
+		}
+		
+		return potentialCustomer;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityServiceCenter(String retailStoreCityServiceCenterId,Map<String,Object> options){
  	
   		SmartList<PotentialCustomer> resultList = queryWith(PotentialCustomerTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getPotentialCustomerMapper());
-		analyzePotentialCustomerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
+		// analyzePotentialCustomerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
 		return resultList;
  	}
  	 
@@ -543,12 +608,14 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityServiceCenter(String retailStoreCityServiceCenterId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PotentialCustomer> resultList =  queryWithRange(PotentialCustomerTable.COLUMN_CITY_SERVICE_CENTER, retailStoreCityServiceCenterId, options, getPotentialCustomerMapper(), start, count);
- 		analyzePotentialCustomerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
+ 		//analyzePotentialCustomerByCityServiceCenter(resultList, retailStoreCityServiceCenterId, options);
  		return resultList;
  		
  	}
  	public void analyzePotentialCustomerByCityServiceCenter(SmartList<PotentialCustomer> resultList, String retailStoreCityServiceCenterId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomer.CITY_SERVICE_CENTER_PROPERTY, retailStoreCityServiceCenterId);
@@ -583,7 +650,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityPartner(String cityPartnerId,Map<String,Object> options){
  	
   		SmartList<PotentialCustomer> resultList = queryWith(PotentialCustomerTable.COLUMN_CITY_PARTNER, cityPartnerId, options, getPotentialCustomerMapper());
-		analyzePotentialCustomerByCityPartner(resultList, cityPartnerId, options);
+		// analyzePotentialCustomerByCityPartner(resultList, cityPartnerId, options);
 		return resultList;
  	}
  	 
@@ -591,12 +658,14 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<PotentialCustomer> findPotentialCustomerByCityPartner(String cityPartnerId, int start, int count,Map<String,Object> options){
  		
  		SmartList<PotentialCustomer> resultList =  queryWithRange(PotentialCustomerTable.COLUMN_CITY_PARTNER, cityPartnerId, options, getPotentialCustomerMapper(), start, count);
- 		analyzePotentialCustomerByCityPartner(resultList, cityPartnerId, options);
+ 		//analyzePotentialCustomerByCityPartner(resultList, cityPartnerId, options);
  		return resultList;
  		
  	}
  	public void analyzePotentialCustomerByCityPartner(SmartList<PotentialCustomer> resultList, String cityPartnerId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(PotentialCustomer.CITY_PARTNER_PROPERTY, cityPartnerId);

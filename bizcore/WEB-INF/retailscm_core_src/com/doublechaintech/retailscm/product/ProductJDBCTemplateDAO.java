@@ -218,10 +218,11 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	
-	protected boolean isExtractSkuListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractSkuListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ProductTokens.SKU_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeSkuListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,ProductTokens.SKU_LIST+".analyze");
  	}
 
 	protected boolean isSaveSkuListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		
 		if(isExtractSkuListEnabled(loadOptions)){
 	 		extractSkuList(product, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeSkuListEnabled(loadOptions)){
+	 		// analyzeSkuList(product, loadOptions);
+ 		}
+ 		
 		
 		return product;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected Product extractParentCategory(Product product, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		
 	protected void enhanceSkuList(SmartList<Sku> skuList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected Product extractSkuList(Product product, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 		return product;
 	
 	}	
+	
+	protected Product analyzeSkuList(Product product, Map<String,Object> options){
+		
+		
+		if(product == null){
+			return null;
+		}
+		if(product.getId() == null){
+			return product;
+		}
+
+		
+		
+		SmartList<Sku> skuList = product.getSkuList();
+		if(skuList != null){
+			getSkuDAO().analyzeSkuByProduct(skuList, product.getId(), options);
+			
+		}
+		
+		return product;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<Product> findProductByParentCategory(String levelThreeCategoryId,Map<String,Object> options){
  	
   		SmartList<Product> resultList = queryWith(ProductTable.COLUMN_PARENT_CATEGORY, levelThreeCategoryId, options, getProductMapper());
-		analyzeProductByParentCategory(resultList, levelThreeCategoryId, options);
+		// analyzeProductByParentCategory(resultList, levelThreeCategoryId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  	public SmartList<Product> findProductByParentCategory(String levelThreeCategoryId, int start, int count,Map<String,Object> options){
  		
  		SmartList<Product> resultList =  queryWithRange(ProductTable.COLUMN_PARENT_CATEGORY, levelThreeCategoryId, options, getProductMapper(), start, count);
- 		analyzeProductByParentCategory(resultList, levelThreeCategoryId, options);
+ 		//analyzeProductByParentCategory(resultList, levelThreeCategoryId, options);
  		return resultList;
  		
  	}
  	public void analyzeProductByParentCategory(SmartList<Product> resultList, String levelThreeCategoryId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 		
  		MultipleAccessKey filterKey = new MultipleAccessKey();
  		filterKey.put(Product.PARENT_CATEGORY_PROPERTY, levelThreeCategoryId);

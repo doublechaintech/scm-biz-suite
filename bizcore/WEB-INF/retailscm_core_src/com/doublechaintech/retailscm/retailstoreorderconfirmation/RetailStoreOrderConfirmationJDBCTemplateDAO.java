@@ -193,10 +193,11 @@ public class RetailStoreOrderConfirmationJDBCTemplateDAO extends RetailscmNaming
 
 		
 	
-	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderConfirmationTokens.RETAIL_STORE_ORDER_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderConfirmationTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
 
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
@@ -204,8 +205,6 @@ public class RetailStoreOrderConfirmationJDBCTemplateDAO extends RetailscmNaming
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -236,26 +235,23 @@ public class RetailStoreOrderConfirmationJDBCTemplateDAO extends RetailscmNaming
 		
 		if(isExtractRetailStoreOrderListEnabled(loadOptions)){
 	 		extractRetailStoreOrderList(retailStoreOrderConfirmation, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
+	 		// analyzeRetailStoreOrderList(retailStoreOrderConfirmation, loadOptions);
+ 		}
+ 		
 		
 		return retailStoreOrderConfirmation;
 		
 	}
 
-
-
-	
-	
 	
 		
 	protected void enhanceRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected RetailStoreOrderConfirmation extractRetailStoreOrderList(RetailStoreOrderConfirmation retailStoreOrderConfirmation, Map<String,Object> options){
 		
 		
@@ -277,6 +273,29 @@ public class RetailStoreOrderConfirmationJDBCTemplateDAO extends RetailscmNaming
 		return retailStoreOrderConfirmation;
 	
 	}	
+	
+	protected RetailStoreOrderConfirmation analyzeRetailStoreOrderList(RetailStoreOrderConfirmation retailStoreOrderConfirmation, Map<String,Object> options){
+		
+		
+		if(retailStoreOrderConfirmation == null){
+			return null;
+		}
+		if(retailStoreOrderConfirmation.getId() == null){
+			return retailStoreOrderConfirmation;
+		}
+
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderConfirmation.getRetailStoreOrderList();
+		if(retailStoreOrderList != null){
+			getRetailStoreOrderDAO().analyzeRetailStoreOrderByConfirmation(retailStoreOrderList, retailStoreOrderConfirmation.getId(), options);
+			
+		}
+		
+		return retailStoreOrderConfirmation;
+	
+	}	
+	
 		
 		
  	

@@ -224,10 +224,6 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected MemberRewardPoint extractOwner(MemberRewardPoint memberRewardPoint, Map<String,Object> options) throws Exception{
@@ -255,7 +251,7 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<MemberRewardPoint> findMemberRewardPointByOwner(String retailStoreMemberId,Map<String,Object> options){
  	
   		SmartList<MemberRewardPoint> resultList = queryWith(MemberRewardPointTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointMapper());
-		analyzeMemberRewardPointByOwner(resultList, retailStoreMemberId, options);
+		// analyzeMemberRewardPointByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
  	 
@@ -263,12 +259,14 @@ public class MemberRewardPointJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  	public SmartList<MemberRewardPoint> findMemberRewardPointByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
  		
  		SmartList<MemberRewardPoint> resultList =  queryWithRange(MemberRewardPointTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberRewardPointMapper(), start, count);
- 		analyzeMemberRewardPointByOwner(resultList, retailStoreMemberId, options);
+ 		//analyzeMemberRewardPointByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
  		
  	}
  	public void analyzeMemberRewardPointByOwner(SmartList<MemberRewardPoint> resultList, String retailStoreMemberId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		

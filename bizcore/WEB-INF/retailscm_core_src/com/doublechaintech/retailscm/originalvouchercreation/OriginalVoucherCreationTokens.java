@@ -90,7 +90,14 @@ public class OriginalVoucherCreationTokens extends CommonTokens{
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST);
 		return this;
 	}
-
+	public OriginalVoucherCreationTokens analyzeOriginalVoucherList(){		
+		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeOriginalVoucherListEnabled(){		
+		
+		return checkOptions(this.options(), ORIGINAL_VOUCHER_LIST+".anaylze");
+	}
 	public OriginalVoucherCreationTokens extractMoreFromOriginalVoucherList(String idsSeperatedWithComma){		
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

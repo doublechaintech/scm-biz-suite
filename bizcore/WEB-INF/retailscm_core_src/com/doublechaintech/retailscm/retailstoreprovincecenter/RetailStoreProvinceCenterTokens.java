@@ -104,7 +104,14 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 		addSimpleOptions(PROVINCE_CENTER_DEPARTMENT_LIST);
 		return this;
 	}
-
+	public RetailStoreProvinceCenterTokens analyzeProvinceCenterDepartmentList(){		
+		addSimpleOptions(PROVINCE_CENTER_DEPARTMENT_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeProvinceCenterDepartmentListEnabled(){		
+		
+		return checkOptions(this.options(), PROVINCE_CENTER_DEPARTMENT_LIST+".anaylze");
+	}
 	public RetailStoreProvinceCenterTokens extractMoreFromProvinceCenterDepartmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(PROVINCE_CENTER_DEPARTMENT_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -159,7 +166,14 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST);
 		return this;
 	}
-
+	public RetailStoreProvinceCenterTokens analyzeProvinceCenterEmployeeList(){		
+		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeProvinceCenterEmployeeListEnabled(){		
+		
+		return checkOptions(this.options(), PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze");
+	}
 	public RetailStoreProvinceCenterTokens extractMoreFromProvinceCenterEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
 		return this;
@@ -214,7 +228,14 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 		addSimpleOptions(RETAIL_STORE_CITY_SERVICE_CENTER_LIST);
 		return this;
 	}
-
+	public RetailStoreProvinceCenterTokens analyzeRetailStoreCityServiceCenterList(){		
+		addSimpleOptions(RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".anaylze");
+		return this;
+	}
+	public boolean analyzeRetailStoreCityServiceCenterListEnabled(){		
+		
+		return checkOptions(this.options(), RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".anaylze");
+	}
 	public RetailStoreProvinceCenterTokens extractMoreFromRetailStoreCityServiceCenterList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".extractIds", idsSeperatedWithComma);
 		return this;

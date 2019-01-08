@@ -218,10 +218,11 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		
 	
-	protected boolean isExtractMemberWishlistProductListEnabled(Map<String,Object> options){
-		
+	protected boolean isExtractMemberWishlistProductListEnabled(Map<String,Object> options){		
  		return checkOptions(options,MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST);
-		
+ 	}
+ 	protected boolean isAnalyzeMemberWishlistProductListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST+".analyze");
  	}
 
 	protected boolean isSaveMemberWishlistProductListEnabled(Map<String,Object> options){
@@ -229,8 +230,6 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
  	}
  	
- 	
-			
 		
 
 	
@@ -265,16 +264,16 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		
 		if(isExtractMemberWishlistProductListEnabled(loadOptions)){
 	 		extractMemberWishlistProductList(memberWishlist, loadOptions);
- 		}		
+ 		}	
+ 		if(isAnalyzeMemberWishlistProductListEnabled(loadOptions)){
+	 		// analyzeMemberWishlistProductList(memberWishlist, loadOptions);
+ 		}
+ 		
 		
 		return memberWishlist;
 		
 	}
 
-
-
-	
-	
 	 
 
  	protected MemberWishlist extractOwner(MemberWishlist memberWishlist, Map<String,Object> options) throws Exception{
@@ -298,13 +297,10 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		
 	protected void enhanceMemberWishlistProductList(SmartList<MemberWishlistProduct> memberWishlistProductList,Map<String,Object> options){
-		
-		//extract multiple list from difference 
+		//extract multiple list from difference sources
 		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
-		
-		
-		
 	}
+	
 	protected MemberWishlist extractMemberWishlistProductList(MemberWishlist memberWishlist, Map<String,Object> options){
 		
 		
@@ -326,13 +322,36 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		return memberWishlist;
 	
 	}	
+	
+	protected MemberWishlist analyzeMemberWishlistProductList(MemberWishlist memberWishlist, Map<String,Object> options){
+		
+		
+		if(memberWishlist == null){
+			return null;
+		}
+		if(memberWishlist.getId() == null){
+			return memberWishlist;
+		}
+
+		
+		
+		SmartList<MemberWishlistProduct> memberWishlistProductList = memberWishlist.getMemberWishlistProductList();
+		if(memberWishlistProductList != null){
+			getMemberWishlistProductDAO().analyzeMemberWishlistProductByOwner(memberWishlistProductList, memberWishlist.getId(), options);
+			
+		}
+		
+		return memberWishlist;
+	
+	}	
+	
 		
 		
   	
  	public SmartList<MemberWishlist> findMemberWishlistByOwner(String retailStoreMemberId,Map<String,Object> options){
  	
   		SmartList<MemberWishlist> resultList = queryWith(MemberWishlistTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberWishlistMapper());
-		analyzeMemberWishlistByOwner(resultList, retailStoreMemberId, options);
+		// analyzeMemberWishlistByOwner(resultList, retailStoreMemberId, options);
 		return resultList;
  	}
  	 
@@ -340,12 +359,14 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  	public SmartList<MemberWishlist> findMemberWishlistByOwner(String retailStoreMemberId, int start, int count,Map<String,Object> options){
  		
  		SmartList<MemberWishlist> resultList =  queryWithRange(MemberWishlistTable.COLUMN_OWNER, retailStoreMemberId, options, getMemberWishlistMapper(), start, count);
- 		analyzeMemberWishlistByOwner(resultList, retailStoreMemberId, options);
+ 		//analyzeMemberWishlistByOwner(resultList, retailStoreMemberId, options);
  		return resultList;
  		
  	}
  	public void analyzeMemberWishlistByOwner(SmartList<MemberWishlist> resultList, String retailStoreMemberId, Map<String,Object> options){
-	
+		if(resultList==null){
+			return;//do nothing when the list is null.
+		}
 
  	
  		
