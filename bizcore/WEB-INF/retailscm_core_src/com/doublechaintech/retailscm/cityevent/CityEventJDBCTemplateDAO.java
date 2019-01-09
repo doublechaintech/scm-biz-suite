@@ -377,7 +377,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityEvent.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("城市活动");
+		lastUpdateTimeStatsItem.setDisplayName("City Event");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityEvent.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityEvent.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

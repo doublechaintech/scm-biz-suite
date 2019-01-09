@@ -23,7 +23,6 @@ public class CommonTokens {
 		Iterator<Entry<String, Object>> it = entrySet.iterator();
 		while(it.hasNext()){
 			Entry<String, Object> entry = it.next();
-
 			addMapOptions(entry.getKey(), entry.getValue());
 		}
 		return this;

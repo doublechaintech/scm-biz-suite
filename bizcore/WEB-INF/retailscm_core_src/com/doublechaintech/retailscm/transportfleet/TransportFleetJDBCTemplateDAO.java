@@ -577,7 +577,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//TransportFleet.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("运输车队");
+		lastUpdateTimeStatsItem.setDisplayName("Transport Fleet");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(TransportFleet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(TransportFleet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

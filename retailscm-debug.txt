@@ -1,1340 +1,1340 @@
 Summary|概览
-Retail Store Country Center|双链小超全国运营中心
-Id|序号
-Name|名称
-Service Number|服务号码
-Founded|成立
-Web Site|网站
-Address|地址
-Operated By|由
-Legal Representative|法定代表人
-Description|描述
-Version|版本
-Catalog|目录
-Id|序号
-Name|名称
-Owner|业主
-Version|版本
-Level One Category|一级分类
-Id|序号
-Catalog|目录
-Name|名称
-Version|版本
-Level Two Category|二级分类
-Id|序号
-Parent Category|父类
-Name|名称
-Version|版本
-Level Three Category|三级分类
-Id|序号
-Parent Category|父类
-Name|名称
-Version|版本
-Product|产品
-Id|序号
-Name|名称
-Parent Category|父类
-Origin|产地
-Remark|备注
-Brand|品牌
-Picture|图片
+Retail Store Country Center|Retail Store Country Center
+Id|Id
+Name|Name
+Service Number|Service Number
+Founded|Founded
+Web Site|Web Site
+Address|Address
+Operated By|Operated By
+Legal Representative|Legal Representative
+Description|Description
+Version|Version
+Catalog|Catalog
+Id|Id
+Name|Name
+Owner|Owner
+Version|Version
+Level One Category|Level One Category
+Id|Id
+Catalog|Catalog
+Name|Name
+Version|Version
+Level Two Category|Level Two Category
+Id|Id
+Parent Category|Parent Category
+Name|Name
+Version|Version
+Level Three Category|Level Three Category
+Id|Id
+Parent Category|Parent Category
+Name|Name
+Version|Version
+Product|Product
+Id|Id
+Name|Name
+Parent Category|Parent Category
+Origin|Origin
+Remark|Remark
+Brand|Brand
+Picture|Picture
 Last Update Time|Last Update Time
-Version|版本
-Sku|SKU
-Id|序号
-Name|名称
-Size|大小
-Product|产品
-Barcode|条码
-Package Type|包装类型
-Net Content|净含量
-Price|价格
-Picture|图片
-Version|版本
-Retail Store Province Center|双链小超省中心
-Id|序号
-Name|名称
-Founded|成立
-Country|国
+Version|Version
+Sku|Sku
+Id|Id
+Name|Name
+Size|Size
+Product|Product
+Barcode|Barcode
+Package Type|Package Type
+Net Content|Net Content
+Price|Price
+Picture|Picture
+Version|Version
+Retail Store Province Center|Retail Store Province Center
+Id|Id
+Name|Name
+Founded|Founded
+Country|Country
 Last Update Time|Last Update Time
-Version|版本
-Province Center Department|省中心
-Id|序号
-Name|名称
-Founded|成立
-Province Center|省中心
-Manager|经理
-Version|版本
-Province Center Employee|省中心员工
-Id|序号
-Name|名称
-Mobile|手机
-Email|电子邮件
-Founded|成立
-Department|部门
-Province Center|省中心
-Version|版本
-Retail Store City Service Center|双链小超城市服务中心
-Id|序号
-Name|名称
-Founded|成立
-Belongs To|属于
+Version|Version
+Province Center Department|Province Center Department
+Id|Id
+Name|Name
+Founded|Founded
+Province Center|Province Center
+Manager|Manager
+Version|Version
+Province Center Employee|Province Center Employee
+Id|Id
+Name|Name
+Mobile|Mobile
+Email|Email
+Founded|Founded
+Department|Department
+Province Center|Province Center
+Version|Version
+Retail Store City Service Center|Retail Store City Service Center
+Id|Id
+Name|Name
+Founded|Founded
+Belongs To|Belongs To
 Last Update Time|Last Update Time
-Version|版本
-City Partner|城市合伙人
-Id|序号
-Name|名称
-Mobile|手机
-City Service Center|城市服务中心
-Description|描述
+Version|Version
+City Partner|City Partner
+Id|Id
+Name|Name
+Mobile|Mobile
+City Service Center|City Service Center
+Description|Description
 Last Update Time|Last Update Time
-Version|版本
-Potential Customer|潜在的客户
-Id|序号
-Name|名称
-Mobile|手机
-City Service Center|城市服务中心
-City Partner|城市合伙人
-Description|描述
+Version|Version
+Potential Customer|Potential Customer
+Id|Id
+Name|Name
+Mobile|Mobile
+City Service Center|City Service Center
+City Partner|City Partner
+Description|Description
 Last Update Time|Last Update Time
-Version|版本
-Potential Customer Contact Person|潜在客户联络人
-Id|序号
-Name|名称
-Mobile|手机
-Potential Customer|潜在的客户
-Description|描述
-Version|版本
-Potential Customer Contact|潜在客户联系
-Id|序号
-Name|名称
-Contact Date|接触日期
-Contact Method|接触法
-Potential Customer|潜在的客户
-City Partner|城市合伙人
-Contact To|接触
-Description|描述
+Version|Version
+Potential Customer Contact Person|Potential Customer Contact Person
+Id|Id
+Name|Name
+Mobile|Mobile
+Potential Customer|Potential Customer
+Description|Description
+Version|Version
+Potential Customer Contact|Potential Customer Contact
+Id|Id
+Name|Name
+Contact Date|Contact Date
+Contact Method|Contact Method
+Potential Customer|Potential Customer
+City Partner|City Partner
+Contact To|Contact To
+Description|Description
 Last Update Time|Last Update Time
-Version|版本
-City Event|城市活动
-Id|序号
-Name|名称
-Mobile|手机
-City Service Center|城市服务中心
-Description|描述
+Version|Version
+City Event|City Event
+Id|Id
+Name|Name
+Mobile|Mobile
+City Service Center|City Service Center
+Description|Description
 Last Update Time|Last Update Time
-Version|版本
-Event Attendance|活动的参与情况
-Id|序号
-Name|名称
-Potential Customer|潜在的客户
-City Event|城市活动
-Description|描述
-Version|版本
-Retail Store|双链小超
-Id|序号
-Name|名称
-Telephone|电话
-Owner|业主
-Retail Store Country Center|双链小超全国运营中心
-City Service Center|城市服务中心
-Creation|创建
+Version|Version
+Event Attendance|Event Attendance
+Id|Id
+Name|Name
+Potential Customer|Potential Customer
+City Event|City Event
+Description|Description
+Version|Version
+Retail Store|Retail Store
+Id|Id
+Name|Name
+Telephone|Telephone
+Owner|Owner
+Retail Store Country Center|Retail Store Country Center
+City Service Center|City Service Center
+Creation|Creation
 Create|Create
-Investment Invitation|招商
+Investment Invitation|Investment Invitation
 Invite Investment|Invite Investment
-Franchising|加盟
+Franchising|Franchising
 Franchise|Franchise
-Decoration|装修
+Decoration|Decoration
 Decorate|Decorate
-Opening|开业
+Opening|Opening
 Open|Open
-Closing|关闭
+Closing|Closing
 Close|Close
-Founded|成立
-Latitude|纬度
+Founded|Founded
+Latitude|Latitude
 Longitude|Longitude
-Description|描述
+Description|Description
 Last Update Time|Last Update Time
-Current Status|当前状态
-Version|版本
-Retail Store Creation|双链小超的创作
-Id|序号
-Comment|评论
-Version|版本
-Retail Store Investment Invitation|生超招商
-Id|序号
-Comment|评论
-Version|版本
-Retail Store Franchising|生超的特许经营
-Id|序号
-Comment|评论
-Version|版本
-Retail Store Decoration|生超装修
-Id|序号
-Comment|评论
-Version|版本
-Retail Store Opening|生超开业
-Id|序号
-Comment|评论
-Version|版本
-Retail Store Closing|商店关闭
-Id|序号
-Comment|评论
-Version|版本
-Retail Store Member|生超会员
-Id|序号
-Name|名称
-Mobile Phone|移动电话
-Owner|业主
-Version|版本
-Consumer Order|消费者订单
-Id|序号
-Title|头衔
-Consumer|消费者
-Confirmation|确认
+Current Status|Current Status
+Version|Version
+Retail Store Creation|Retail Store Creation
+Id|Id
+Comment|Comment
+Version|Version
+Retail Store Investment Invitation|Retail Store Investment Invitation
+Id|Id
+Comment|Comment
+Version|Version
+Retail Store Franchising|Retail Store Franchising
+Id|Id
+Comment|Comment
+Version|Version
+Retail Store Decoration|Retail Store Decoration
+Id|Id
+Comment|Comment
+Version|Version
+Retail Store Opening|Retail Store Opening
+Id|Id
+Comment|Comment
+Version|Version
+Retail Store Closing|Retail Store Closing
+Id|Id
+Comment|Comment
+Version|Version
+Retail Store Member|Retail Store Member
+Id|Id
+Name|Name
+Mobile Phone|Mobile Phone
+Owner|Owner
+Version|Version
+Consumer Order|Consumer Order
+Id|Id
+Title|Title
+Consumer|Consumer
+Confirmation|Confirmation
 Confirm|Confirm
-Approval|验收
+Approval|Approval
 Approve|Approve
-Processing|处理
+Processing|Processing
 Process|Process
-Shipment|装运
+Shipment|Shipment
 Ship|Ship
-Delivery|送货
+Delivery|Delivery
 Deliver|Deliver
-Store|商场
+Store|Store
 Last Update Time|Last Update Time
-Current Status|当前状态
-Version|版本
-Consumer Order Confirmation|客户订单确认
-Id|序号
-Who|谁
-Confirm Time|确认时间
-Version|版本
-Consumer Order Approval|消费者的订单审批
-Id|序号
-Who|谁
-Approve Time|批准时间
-Version|版本
-Consumer Order Processing|消费者的订单处理
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Consumer Order Shipment|消费者的订单发货
-Id|序号
-Who|谁
-Ship Time|船的时间
-Version|版本
-Consumer Order Delivery|消费者订单交货
-Id|序号
-Who|谁
-Delivery Time|交货时间
-Version|版本
-Consumer Order Line Item|消费者订单行项目
-Id|序号
-Biz Order|订单
-Sku Id|产品ID
-Sku Name|产品名称
-Price|价格
-Quantity|数量
-Amount|金额
-Version|版本
-Consumer Order Shipping Group|消费订单送货分组
-Id|序号
-Name|名称
-Biz Order|订单
-Amount|金额
-Version|版本
-Consumer Order Payment Group|消费者订单付款组
-Id|序号
-Name|名称
-Biz Order|订单
-Card Number|卡号码
-Version|版本
-Consumer Order Price Adjustment|消费品价格调整
-Id|序号
-Name|名称
-Biz Order|订单
-Amount|金额
-Provider|供应商
-Version|版本
-Retail Store Member Coupon|生超会员优惠券
-Id|序号
-Name|名称
-Owner|业主
-Number|数
-Version|版本
-Member Wishlist|会员收藏
-Id|序号
-Name|名称
-Owner|业主
-Version|版本
-Member Reward Point|会员奖励点
-Id|序号
-Name|名称
-Point|点
-Owner|业主
-Version|版本
-Member Reward Point Redemption|会员奖励点赎回
-Id|序号
-Name|名称
-Point|点
-Owner|业主
-Version|版本
-Member Wishlist Product|会员收藏产品
-Id|序号
-Name|名称
-Owner|业主
-Version|版本
-Retail Store Member Address|零售店会员地址
-Id|序号
-Name|名称
-Owner|业主
-Mobile Phone|移动电话
-Address|地址
-Version|版本
-Retail Store Member Gift Card|零售店会员礼品卡
-Id|序号
-Name|名称
-Owner|业主
-Number|数
-Remain|保持
-Version|版本
-Retail Store Member Gift Card Consume Record|零售商店会员卡消费记录
-Id|序号
-Occure Time|发生时间
-Owner|业主
-Biz Order|订单
-Number|数
-Amount|金额
-Version|版本
-Goods Supplier|产品供应商
-Id|序号
-Name|名称
-Supply Product|供应产品
-Belong To|属于
-Contact Number|联系电话
-Description|描述
+Current Status|Current Status
+Version|Version
+Consumer Order Confirmation|Consumer Order Confirmation
+Id|Id
+Who|Who
+Confirm Time|Confirm Time
+Version|Version
+Consumer Order Approval|Consumer Order Approval
+Id|Id
+Who|Who
+Approve Time|Approve Time
+Version|Version
+Consumer Order Processing|Consumer Order Processing
+Id|Id
+Who|Who
+Process Time|Process Time
+Version|Version
+Consumer Order Shipment|Consumer Order Shipment
+Id|Id
+Who|Who
+Ship Time|Ship Time
+Version|Version
+Consumer Order Delivery|Consumer Order Delivery
+Id|Id
+Who|Who
+Delivery Time|Delivery Time
+Version|Version
+Consumer Order Line Item|Consumer Order Line Item
+Id|Id
+Biz Order|Biz Order
+Sku Id|Sku Id
+Sku Name|Sku Name
+Price|Price
+Quantity|Quantity
+Amount|Amount
+Version|Version
+Consumer Order Shipping Group|Consumer Order Shipping Group
+Id|Id
+Name|Name
+Biz Order|Biz Order
+Amount|Amount
+Version|Version
+Consumer Order Payment Group|Consumer Order Payment Group
+Id|Id
+Name|Name
+Biz Order|Biz Order
+Card Number|Card Number
+Version|Version
+Consumer Order Price Adjustment|Consumer Order Price Adjustment
+Id|Id
+Name|Name
+Biz Order|Biz Order
+Amount|Amount
+Provider|Provider
+Version|Version
+Retail Store Member Coupon|Retail Store Member Coupon
+Id|Id
+Name|Name
+Owner|Owner
+Number|Number
+Version|Version
+Member Wishlist|Member Wishlist
+Id|Id
+Name|Name
+Owner|Owner
+Version|Version
+Member Reward Point|Member Reward Point
+Id|Id
+Name|Name
+Point|Point
+Owner|Owner
+Version|Version
+Member Reward Point Redemption|Member Reward Point Redemption
+Id|Id
+Name|Name
+Point|Point
+Owner|Owner
+Version|Version
+Member Wishlist Product|Member Wishlist Product
+Id|Id
+Name|Name
+Owner|Owner
+Version|Version
+Retail Store Member Address|Retail Store Member Address
+Id|Id
+Name|Name
+Owner|Owner
+Mobile Phone|Mobile Phone
+Address|Address
+Version|Version
+Retail Store Member Gift Card|Retail Store Member Gift Card
+Id|Id
+Name|Name
+Owner|Owner
+Number|Number
+Remain|Remain
+Version|Version
+Retail Store Member Gift Card Consume Record|Retail Store Member Gift Card Consume Record
+Id|Id
+Occure Time|Occure Time
+Owner|Owner
+Biz Order|Biz Order
+Number|Number
+Amount|Amount
+Version|Version
+Goods Supplier|Goods Supplier
+Id|Id
+Name|Name
+Supply Product|Supply Product
+Belong To|Belong To
+Contact Number|Contact Number
+Description|Description
 Last Update Time|Last Update Time
-Version|版本
-Supplier Product|供应商的产品
-Id|序号
-Product Name|品名
-Product Description|产品描述
-Product Unit|产品单元
-Supplier|供应商
-Version|版本
-Product Supply Duration|产品供应时间
-Id|序号
-Quantity|数量
-Duration|持续时间
-Price|价格
-Product|产品
-Version|版本
-Supply Order|供应订单
-Id|序号
-Buyer|买方
-Seller|卖方
-Title|头衔
-Total Amount|总金额
-Confirmation|确认
+Version|Version
+Supplier Product|Supplier Product
+Id|Id
+Product Name|Product Name
+Product Description|Product Description
+Product Unit|Product Unit
+Supplier|Supplier
+Version|Version
+Product Supply Duration|Product Supply Duration
+Id|Id
+Quantity|Quantity
+Duration|Duration
+Price|Price
+Product|Product
+Version|Version
+Supply Order|Supply Order
+Id|Id
+Buyer|Buyer
+Seller|Seller
+Title|Title
+Total Amount|Total Amount
+Confirmation|Confirmation
 Confirm|Confirm
-Approval|验收
+Approval|Approval
 Approve|Approve
-Processing|处理
+Processing|Processing
 Process|Process
-Picking|捡货
+Picking|Picking
 Pick|Pick
-Shipment|装运
+Shipment|Shipment
 Ship|Ship
-Delivery|送货
+Delivery|Delivery
 Deliver|Deliver
 Last Update Time|Last Update Time
-Current Status|当前状态
-Version|版本
-Supply Order Confirmation|供应订单确认
-Id|序号
-Who|谁
-Confirm Time|确认时间
-Version|版本
-Supply Order Approval|供应订单审批
-Id|序号
-Who|谁
-Approve Time|批准时间
-Version|版本
-Supply Order Processing|供应订单处理
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Supply Order Picking|供应订单拣货
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Supply Order Shipment|供应货
-Id|序号
-Who|谁
-Ship Time|船的时间
-Version|版本
-Supply Order Delivery|供应订单交货
-Id|序号
-Who|谁
-Delivery Time|交货时间
-Version|版本
-Supply Order Line Item|供应订单行项目
-Id|序号
-Biz Order|订单
-Sku Id|产品ID
-Sku Name|产品名称
-Amount|金额
-Quantity|数量
-Unit Of Measurement|测量单位
-Version|版本
-Supply Order Shipping Group|供应订单送货分组
-Id|序号
-Name|名称
-Biz Order|订单
-Amount|金额
-Version|版本
-Supply Order Payment Group|供应订单付款组
-Id|序号
-Name|名称
-Biz Order|订单
-Card Number|卡号码
-Version|版本
-Retail Store Order|生超的订单
-Id|序号
-Buyer|买方
-Seller|卖方
-Title|头衔
-Total Amount|总金额
-Confirmation|确认
+Current Status|Current Status
+Version|Version
+Supply Order Confirmation|Supply Order Confirmation
+Id|Id
+Who|Who
+Confirm Time|Confirm Time
+Version|Version
+Supply Order Approval|Supply Order Approval
+Id|Id
+Who|Who
+Approve Time|Approve Time
+Version|Version
+Supply Order Processing|Supply Order Processing
+Id|Id
+Who|Who
+Process Time|Process Time
+Version|Version
+Supply Order Picking|Supply Order Picking
+Id|Id
+Who|Who
+Process Time|Process Time
+Version|Version
+Supply Order Shipment|Supply Order Shipment
+Id|Id
+Who|Who
+Ship Time|Ship Time
+Version|Version
+Supply Order Delivery|Supply Order Delivery
+Id|Id
+Who|Who
+Delivery Time|Delivery Time
+Version|Version
+Supply Order Line Item|Supply Order Line Item
+Id|Id
+Biz Order|Biz Order
+Sku Id|Sku Id
+Sku Name|Sku Name
+Amount|Amount
+Quantity|Quantity
+Unit Of Measurement|Unit Of Measurement
+Version|Version
+Supply Order Shipping Group|Supply Order Shipping Group
+Id|Id
+Name|Name
+Biz Order|Biz Order
+Amount|Amount
+Version|Version
+Supply Order Payment Group|Supply Order Payment Group
+Id|Id
+Name|Name
+Biz Order|Biz Order
+Card Number|Card Number
+Version|Version
+Retail Store Order|Retail Store Order
+Id|Id
+Buyer|Buyer
+Seller|Seller
+Title|Title
+Total Amount|Total Amount
+Confirmation|Confirmation
 Confirm|Confirm
-Approval|验收
+Approval|Approval
 Approve|Approve
-Processing|处理
+Processing|Processing
 Process|Process
-Picking|捡货
+Picking|Picking
 Pick|Pick
-Shipment|装运
+Shipment|Shipment
 Ship|Ship
-Delivery|送货
+Delivery|Delivery
 Deliver|Deliver
 Last Update Time|Last Update Time
-Current Status|当前状态
-Version|版本
-Retail Store Order Confirmation|生超订单确认
-Id|序号
-Who|谁
-Confirm Time|确认时间
-Version|版本
-Retail Store Order Approval|生超订单批准
-Id|序号
-Who|谁
-Approve Time|批准时间
-Version|版本
-Retail Store Order Processing|生超订单处理
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Retail Store Order Picking|生超订单拣货
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Retail Store Order Shipment|生超订单出货
-Id|序号
-Who|谁
-Ship Time|船的时间
-Version|版本
-Retail Store Order Delivery|生超订单交付
-Id|序号
-Who|谁
-Delivery Time|交货时间
-Version|版本
-Retail Store Order Line Item|双链小超订单行项目
-Id|序号
-Biz Order|订单
-Sku Id|产品ID
-Sku Name|产品名称
-Amount|金额
-Quantity|数量
-Unit Of Measurement|测量单位
-Version|版本
-Retail Store Order Shipping Group|生超订单送货分组
-Id|序号
-Name|名称
-Biz Order|订单
-Amount|金额
-Version|版本
-Retail Store Order Payment Group|生超订单付款组
-Id|序号
-Name|名称
-Biz Order|订单
-Card Number|卡号码
-Version|版本
-Warehouse|仓库
-Id|序号
-Location|位置
-Contact Number|联系电话
-Total Area|总面积
-Owner|业主
-Latitude|纬度
+Current Status|Current Status
+Version|Version
+Retail Store Order Confirmation|Retail Store Order Confirmation
+Id|Id
+Who|Who
+Confirm Time|Confirm Time
+Version|Version
+Retail Store Order Approval|Retail Store Order Approval
+Id|Id
+Who|Who
+Approve Time|Approve Time
+Version|Version
+Retail Store Order Processing|Retail Store Order Processing
+Id|Id
+Who|Who
+Process Time|Process Time
+Version|Version
+Retail Store Order Picking|Retail Store Order Picking
+Id|Id
+Who|Who
+Process Time|Process Time
+Version|Version
+Retail Store Order Shipment|Retail Store Order Shipment
+Id|Id
+Who|Who
+Ship Time|Ship Time
+Version|Version
+Retail Store Order Delivery|Retail Store Order Delivery
+Id|Id
+Who|Who
+Delivery Time|Delivery Time
+Version|Version
+Retail Store Order Line Item|Retail Store Order Line Item
+Id|Id
+Biz Order|Biz Order
+Sku Id|Sku Id
+Sku Name|Sku Name
+Amount|Amount
+Quantity|Quantity
+Unit Of Measurement|Unit Of Measurement
+Version|Version
+Retail Store Order Shipping Group|Retail Store Order Shipping Group
+Id|Id
+Name|Name
+Biz Order|Biz Order
+Amount|Amount
+Version|Version
+Retail Store Order Payment Group|Retail Store Order Payment Group
+Id|Id
+Name|Name
+Biz Order|Biz Order
+Card Number|Card Number
+Version|Version
+Warehouse|Warehouse
+Id|Id
+Location|Location
+Contact Number|Contact Number
+Total Area|Total Area
+Owner|Owner
+Latitude|Latitude
 Longitude|Longitude
 Last Update Time|Last Update Time
-Version|版本
-Storage Space|存货区
-Id|序号
-Location|位置
-Contact Number|联系电话
-Total Area|总面积
-Warehouse|仓库
-Latitude|纬度
+Version|Version
+Storage Space|Storage Space
+Id|Id
+Location|Location
+Contact Number|Contact Number
+Total Area|Total Area
+Warehouse|Warehouse
+Latitude|Latitude
 Longitude|Longitude
-Version|版本
-Smart Pallet|智能托盘
-Id|序号
-Location|位置
-Contact Number|联系电话
-Total Area|总面积
-Latitude|纬度
+Version|Version
+Smart Pallet|Smart Pallet
+Id|Id
+Location|Location
+Contact Number|Contact Number
+Total Area|Total Area
+Latitude|Latitude
 Longitude|Longitude
-Warehouse|仓库
-Version|版本
-Goods Shelf|货架
-Id|序号
-Location|位置
-Storage Space|存货区
-Supplier Space|供应商的空间
-Damage Space|残次货物存放区
-Version|版本
-Goods Shelf Stock Count|货架库存盘点
-Id|序号
-Title|头衔
-Count Time|计数时间
-Summary|概览
-Shelf|架
-Version|版本
-Stock Count Issue Track|库存计数问题跟踪
-Id|序号
-Title|头衔
-Count Time|计数时间
-Summary|概览
-Stock Count|盘点
-Version|版本
-Goods Allocation|货位
-Id|序号
-Location|位置
-Latitude|纬度
+Warehouse|Warehouse
+Version|Version
+Goods Shelf|Goods Shelf
+Id|Id
+Location|Location
+Storage Space|Storage Space
+Supplier Space|Supplier Space
+Damage Space|Damage Space
+Version|Version
+Goods Shelf Stock Count|Goods Shelf Stock Count
+Id|Id
+Title|Title
+Count Time|Count Time
+Summary|Summary
+Shelf|Shelf
+Version|Version
+Stock Count Issue Track|Stock Count Issue Track
+Id|Id
+Title|Title
+Count Time|Count Time
+Summary|Summary
+Stock Count|Stock Count
+Version|Version
+Goods Allocation|Goods Allocation
+Id|Id
+Location|Location
+Latitude|Latitude
 Longitude|Longitude
-Goods Shelf|货架
-Version|版本
-Goods|货物
-Id|序号
-Name|名称
-Rfid|RFID
-Uom|计量单位
-Max Package|最大包装
-Expire Time|到期时间
-Sku|SKU
-Receiving Space|收货区
-Goods Allocation|货位
-Smart Pallet|智能托盘
-Shipping Space|发货区
-Transport Task|运输任务
-Retail Store|双链小超
-Biz Order|订单
-Retail Store Order|生超的订单
-Packaging|包装
+Goods Shelf|Goods Shelf
+Version|Version
+Goods|Goods
+Id|Id
+Name|Name
+Rfid|Rfid
+Uom|Uom
+Max Package|Max Package
+Expire Time|Expire Time
+Sku|Sku
+Receiving Space|Receiving Space
+Goods Allocation|Goods Allocation
+Smart Pallet|Smart Pallet
+Shipping Space|Shipping Space
+Transport Task|Transport Task
+Retail Store|Retail Store
+Biz Order|Biz Order
+Retail Store Order|Retail Store Order
+Packaging|Packaging
 Pack|Pack
-Current Status|当前状态
-Version|版本
-Goods Packaging|货物包装
-Id|序号
-Package Name|包的名字
-Rfid|RFID
-Package Time|包的时间
-Description|描述
-Version|版本
-Goods Movement|货物移动
-Id|序号
-Move Time|移动时间
-Facility|设施
-Facility Id|设备ID
-From Ip|从IP
-User Agent|用户代理
-Session Id|会话ID
-Latitude|纬度
+Current Status|Current Status
+Version|Version
+Goods Packaging|Goods Packaging
+Id|Id
+Package Name|Package Name
+Rfid|Rfid
+Package Time|Package Time
+Description|Description
+Version|Version
+Goods Movement|Goods Movement
+Id|Id
+Move Time|Move Time
+Facility|Facility
+Facility Id|Facility Id
+From Ip|From Ip
+User Agent|User Agent
+Session Id|Session Id
+Latitude|Latitude
 Longitude|Longitude
-Goods|货物
-Version|版本
-Supplier Space|供应商的空间
-Id|序号
-Location|位置
-Contact Number|联系电话
-Total Area|总面积
-Warehouse|仓库
-Latitude|纬度
+Goods|Goods
+Version|Version
+Supplier Space|Supplier Space
+Id|Id
+Location|Location
+Contact Number|Contact Number
+Total Area|Total Area
+Warehouse|Warehouse
+Latitude|Latitude
 Longitude|Longitude
-Version|版本
-Receiving Space|收货区
-Id|序号
-Location|位置
-Contact Number|联系电话
-Description|描述
-Total Area|总面积
-Warehouse|仓库
-Latitude|纬度
+Version|Version
+Receiving Space|Receiving Space
+Id|Id
+Location|Location
+Contact Number|Contact Number
+Description|Description
+Total Area|Total Area
+Warehouse|Warehouse
+Latitude|Latitude
 Longitude|Longitude
-Version|版本
-Shipping Space|发货区
-Id|序号
-Location|位置
-Contact Number|联系电话
-Total Area|总面积
-Warehouse|仓库
-Latitude|纬度
+Version|Version
+Shipping Space|Shipping Space
+Id|Id
+Location|Location
+Contact Number|Contact Number
+Total Area|Total Area
+Warehouse|Warehouse
+Latitude|Latitude
 Longitude|Longitude
-Description|描述
-Version|版本
-Damage Space|残次货物存放区
-Id|序号
-Location|位置
-Contact Number|联系电话
-Total Area|总面积
-Latitude|纬度
+Description|Description
+Version|Version
+Damage Space|Damage Space
+Id|Id
+Location|Location
+Contact Number|Contact Number
+Total Area|Total Area
+Latitude|Latitude
 Longitude|Longitude
-Warehouse|仓库
-Version|版本
-Warehouse Asset|仓库资产
-Id|序号
-Name|名称
+Warehouse|Warehouse
+Version|Version
+Warehouse Asset|Warehouse Asset
+Id|Id
+Name|Name
 Position|Position
-Owner|业主
-Version|版本
-Transport Fleet|运输车队
-Id|序号
-Name|名称
-Contact Number|联系电话
-Owner|业主
+Owner|Owner
+Version|Version
+Transport Fleet|Transport Fleet
+Id|Id
+Name|Name
+Contact Number|Contact Number
+Owner|Owner
 Last Update Time|Last Update Time
-Version|版本
-Transport Truck|运输车
-Id|序号
-Name|名称
-Plate Number|车牌号码
-Contact Number|联系电话
-Vehicle License Number|汽车牌照号码
-Engine Number|发动机号
-Make Date|制造日期
-Mileage|里程
-Body Color|车身颜色
-Owner|业主
-Version|版本
-Truck Driver|卡车司机
-Id|序号
-Name|名称
-Driver License Number|驾驶执照号码
-Contact Number|联系电话
-Belongs To|属于
-Version|版本
-Transport Task|运输任务
-Id|序号
-Name|名称
-Start|开始
-Begin Time|开始时间
-End|结束
-Driver|司机
-Truck|卡车
-Belongs To|属于
-Latitude|纬度
+Version|Version
+Transport Truck|Transport Truck
+Id|Id
+Name|Name
+Plate Number|Plate Number
+Contact Number|Contact Number
+Vehicle License Number|Vehicle License Number
+Engine Number|Engine Number
+Make Date|Make Date
+Mileage|Mileage
+Body Color|Body Color
+Owner|Owner
+Version|Version
+Truck Driver|Truck Driver
+Id|Id
+Name|Name
+Driver License Number|Driver License Number
+Contact Number|Contact Number
+Belongs To|Belongs To
+Version|Version
+Transport Task|Transport Task
+Id|Id
+Name|Name
+Start|Start
+Begin Time|Begin Time
+End|End
+Driver|Driver
+Truck|Truck
+Belongs To|Belongs To
+Latitude|Latitude
 Longitude|Longitude
-Version|版本
-Transport Task Track|运输任务跟踪
-Id|序号
-Track Time|跟踪时间
-Latitude|纬度
+Version|Version
+Transport Task Track|Transport Task Track
+Id|Id
+Track Time|Track Time
+Latitude|Latitude
 Longitude|Longitude
-Movement|运动
-Version|版本
-Account Set|账套
-Id|序号
-Name|名称
-Year Set|年组
+Movement|Movement
+Version|Version
+Account Set|Account Set
+Id|Id
+Name|Name
+Year Set|Year Set
 Effective Date|Effective Date
-Accounting System|会计制度
-Domestic Currency Code|本币代码
-Domestic Currency Name|本币名称
-Opening Bank|开户银行
-Account Number|帐户号码
-Country Center|全国运营中心
-Retail Store|双链小超
-Goods Supplier|产品供应商
+Accounting System|Accounting System
+Domestic Currency Code|Domestic Currency Code
+Domestic Currency Name|Domestic Currency Name
+Opening Bank|Opening Bank
+Account Number|Account Number
+Country Center|Country Center
+Retail Store|Retail Store
+Goods Supplier|Goods Supplier
 Last Update Time|Last Update Time
-Version|版本
-Accounting Subject|会计科目
-Id|序号
-Accounting Subject Code|会计科目代码
-Accounting Subject Name|会计科目名称
-Accounting Subject Class Code|会计科目类别代码
-Accounting Subject Class Name|会计科目类别名称
-Account Set|账套
-Version|版本
-Accounting Period|会计期间
-Id|序号
-Name|名称
-Start Date|开始日期
-End Date|结束日期
-Account Set|账套
-Version|版本
-Accounting Document Type|会计凭证类型
-Id|序号
-Name|名称
-Description|描述
-Accounting Period|会计期间
-Version|版本
-Accounting Document|会计凭证
-Id|序号
-Name|名称
-Accounting Document Date|会计凭证日期
-Accounting Period|会计期间
-Document Type|文档类型
-Creation|创建
+Version|Version
+Accounting Subject|Accounting Subject
+Id|Id
+Accounting Subject Code|Accounting Subject Code
+Accounting Subject Name|Accounting Subject Name
+Accounting Subject Class Code|Accounting Subject Class Code
+Accounting Subject Class Name|Accounting Subject Class Name
+Account Set|Account Set
+Version|Version
+Accounting Period|Accounting Period
+Id|Id
+Name|Name
+Start Date|Start Date
+End Date|End Date
+Account Set|Account Set
+Version|Version
+Accounting Document Type|Accounting Document Type
+Id|Id
+Name|Name
+Description|Description
+Accounting Period|Accounting Period
+Version|Version
+Accounting Document|Accounting Document
+Id|Id
+Name|Name
+Accounting Document Date|Accounting Document Date
+Accounting Period|Accounting Period
+Document Type|Document Type
+Creation|Creation
 Create|Create
-Confirmation|确认
+Confirmation|Confirmation
 Confirm|Confirm
-Auditing|审计
+Auditing|Auditing
 Audit|Audit
-Posting|过账
+Posting|Posting
 Post|Post
-Current Status|当前状态
-Version|版本
-Accounting Document Creation|会计文件的创建
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Accounting Document Confirmation|会计的确认文件
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Accounting Document Auditing|会计凭证的审核
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Accounting Document Posting|会计凭证过帐
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Original Voucher|原始凭证
-Id|序号
-Title|头衔
-Made By|由
-Received By|受
-Voucher Type|凭证类型
-Voucher Image|凭证图像
-Belongs To|属于
-Creation|创建
+Current Status|Current Status
+Version|Version
+Accounting Document Creation|Accounting Document Creation
+Id|Id
+Who|Who
+Comments|Comments
+Make Date|Make Date
+Version|Version
+Accounting Document Confirmation|Accounting Document Confirmation
+Id|Id
+Who|Who
+Comments|Comments
+Make Date|Make Date
+Version|Version
+Accounting Document Auditing|Accounting Document Auditing
+Id|Id
+Who|Who
+Comments|Comments
+Make Date|Make Date
+Version|Version
+Accounting Document Posting|Accounting Document Posting
+Id|Id
+Who|Who
+Comments|Comments
+Make Date|Make Date
+Version|Version
+Original Voucher|Original Voucher
+Id|Id
+Title|Title
+Made By|Made By
+Received By|Received By
+Voucher Type|Voucher Type
+Voucher Image|Voucher Image
+Belongs To|Belongs To
+Creation|Creation
 Create|Create
-Confirmation|确认
+Confirmation|Confirmation
 Confirm|Confirm
-Auditing|审计
+Auditing|Auditing
 Audit|Audit
-Current Status|当前状态
-Version|版本
-Original Voucher Creation|原始凭证制作
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Original Voucher Confirmation|原始凭证的确认
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Original Voucher Auditing|原始凭证的审核
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Accounting Document Line|会计凭证行
-Id|序号
-Name|名称
-Code|代码
-Direct|直接
-Amount|金额
-Belongs To|属于
-Accounting Subject|会计科目
-Version|版本
-Level One Department|一级部门
-Id|序号
-Belongs To|属于
-Name|名称
-Description|描述
-Manager|经理
-Founded|成立
-Version|版本
-Level Two Department|二级部门
-Id|序号
-Belongs To|属于
-Name|名称
-Description|描述
-Founded|成立
-Version|版本
-Level Three Department|三级部门
-Id|序号
-Belongs To|属于
-Name|名称
-Description|描述
-Founded|成立
-Version|版本
-Skill Type|技能类型
-Id|序号
-Code|代码
-Company|公司
-Description|描述
-Version|版本
-Responsibility Type|责任类型
-Id|序号
-Code|代码
-Company|公司
-Base Description|基本描述
-Detail Description|详细描述
-Version|版本
-Termination Reason|雇佣终止的原因
-Id|序号
-Code|代码
-Company|公司
-Description|描述
-Version|版本
-Termination Type|雇佣终止类型
-Id|序号
-Code|代码
-Company|公司
-Base Description|基本描述
-Detail Description|详细描述
-Version|版本
-Occupation Type|职位类型
-Id|序号
-Code|代码
-Company|公司
-Description|描述
-Detail Description|详细描述
-Version|版本
-Leave Type|请假类型
-Id|序号
-Code|代码
-Company|公司
-Description|描述
-Detail Description|详细描述
-Version|版本
-Salary Grade|工资等级
-Id|序号
-Code|代码
-Company|公司
-Name|名称
-Detail Description|详细描述
-Version|版本
-Interview Type|面试类型
-Id|序号
-Code|代码
-Company|公司
-Description|描述
-Detail Description|详细描述
-Version|版本
-Training Course Type|培训课程类型
-Id|序号
-Code|代码
-Company|公司
-Name|名称
-Description|描述
-Version|版本
-Public Holiday|公共假日
-Id|序号
-Code|代码
-Company|公司
-Name|名称
-Description|描述
-Version|版本
-Termination|雇佣终止
-Id|序号
-Reason|原因
-Type|类型
-Comment|评论
-Version|版本
-View|观
-Id|序号
-Who|谁
-Assessment|评估
-Interview Time|面试时间
-Version|版本
-Employee|员工
-Id|序号
-Company|公司
-Title|头衔
-Department|部门
-Family Name|姓
-Given Name|名
-Email|电子邮件
-City|城市
-Address|地址
-Cell Phone|手机
-Occupation|职业
-Responsible For|负责
-Current Salary Grade|目前工资等级
-Salary Account|工资账户
-Job Application|工作申请
+Current Status|Current Status
+Version|Version
+Original Voucher Creation|Original Voucher Creation
+Id|Id
+Who|Who
+Comments|Comments
+Make Date|Make Date
+Version|Version
+Original Voucher Confirmation|Original Voucher Confirmation
+Id|Id
+Who|Who
+Comments|Comments
+Make Date|Make Date
+Version|Version
+Original Voucher Auditing|Original Voucher Auditing
+Id|Id
+Who|Who
+Comments|Comments
+Make Date|Make Date
+Version|Version
+Accounting Document Line|Accounting Document Line
+Id|Id
+Name|Name
+Code|Code
+Direct|Direct
+Amount|Amount
+Belongs To|Belongs To
+Accounting Subject|Accounting Subject
+Version|Version
+Level One Department|Level One Department
+Id|Id
+Belongs To|Belongs To
+Name|Name
+Description|Description
+Manager|Manager
+Founded|Founded
+Version|Version
+Level Two Department|Level Two Department
+Id|Id
+Belongs To|Belongs To
+Name|Name
+Description|Description
+Founded|Founded
+Version|Version
+Level Three Department|Level Three Department
+Id|Id
+Belongs To|Belongs To
+Name|Name
+Description|Description
+Founded|Founded
+Version|Version
+Skill Type|Skill Type
+Id|Id
+Code|Code
+Company|Company
+Description|Description
+Version|Version
+Responsibility Type|Responsibility Type
+Id|Id
+Code|Code
+Company|Company
+Base Description|Base Description
+Detail Description|Detail Description
+Version|Version
+Termination Reason|Termination Reason
+Id|Id
+Code|Code
+Company|Company
+Description|Description
+Version|Version
+Termination Type|Termination Type
+Id|Id
+Code|Code
+Company|Company
+Base Description|Base Description
+Detail Description|Detail Description
+Version|Version
+Occupation Type|Occupation Type
+Id|Id
+Code|Code
+Company|Company
+Description|Description
+Detail Description|Detail Description
+Version|Version
+Leave Type|Leave Type
+Id|Id
+Code|Code
+Company|Company
+Description|Description
+Detail Description|Detail Description
+Version|Version
+Salary Grade|Salary Grade
+Id|Id
+Code|Code
+Company|Company
+Name|Name
+Detail Description|Detail Description
+Version|Version
+Interview Type|Interview Type
+Id|Id
+Code|Code
+Company|Company
+Description|Description
+Detail Description|Detail Description
+Version|Version
+Training Course Type|Training Course Type
+Id|Id
+Code|Code
+Company|Company
+Name|Name
+Description|Description
+Version|Version
+Public Holiday|Public Holiday
+Id|Id
+Code|Code
+Company|Company
+Name|Name
+Description|Description
+Version|Version
+Termination|Termination
+Id|Id
+Reason|Reason
+Type|Type
+Comment|Comment
+Version|Version
+View|View
+Id|Id
+Who|Who
+Assessment|Assessment
+Interview Time|Interview Time
+Version|Version
+Employee|Employee
+Id|Id
+Company|Company
+Title|Title
+Department|Department
+Family Name|Family Name
+Given Name|Given Name
+Email|Email
+City|City
+Address|Address
+Cell Phone|Cell Phone
+Occupation|Occupation
+Responsible For|Responsible For
+Current Salary Grade|Current Salary Grade
+Salary Account|Salary Account
+Job Application|Job Application
 Apply Job|Apply Job
-Profession Interview|专业面试
+Profession Interview|Profession Interview
 Interview With Profession|Interview With Profession
-Hr Interview|人力资源部面试
+Hr Interview|Hr Interview
 Interview By Hr|Interview By Hr
-Offer Approval|审批工作要约
+Offer Approval|Offer Approval
 Approve Offer|Approve Offer
-Offer Acceptance|接受工作要约
+Offer Acceptance|Offer Acceptance
 Accept Offer|Accept Offer
-Employee Boarding|员工入职
+Employee Boarding|Employee Boarding
 Board Employee|Board Employee
-Termination|雇佣终止
+Termination|Termination
 Terminate|Terminate
 Last Update Time|Last Update Time
-Current Status|当前状态
-Version|版本
-Job Application|工作申请
-Id|序号
-Application Time|申请时间
-Who|谁
-Comments|评论
-Version|版本
-Profession Interview|专业面试
-Id|序号
-Who|谁
-Interview Time|面试时间
-Comments|评论
-Version|版本
-Hr Interview|人力资源部面试
-Id|序号
-Who|谁
-Interview Time|面试时间
-Comments|评论
-Version|版本
-Offer Approval|审批工作要约
-Id|序号
-Who|谁
-Approve Time|批准时间
-Comments|评论
-Version|版本
-Offer Acceptance|接受工作要约
-Id|序号
-Who|谁
-Accept Time|接受时间
-Comments|评论
-Version|版本
-Employee Boarding|员工入职
-Id|序号
-Who|谁
-Employ Time|使用时间
-Comments|评论
-Version|版本
-Instructor|讲师
-Id|序号
-Title|头衔
-Family Name|姓
-Given Name|名
-Cell Phone|手机
-Email|电子邮件
-Company|公司
-Introduction|介绍
+Current Status|Current Status
+Version|Version
+Job Application|Job Application
+Id|Id
+Application Time|Application Time
+Who|Who
+Comments|Comments
+Version|Version
+Profession Interview|Profession Interview
+Id|Id
+Who|Who
+Interview Time|Interview Time
+Comments|Comments
+Version|Version
+Hr Interview|Hr Interview
+Id|Id
+Who|Who
+Interview Time|Interview Time
+Comments|Comments
+Version|Version
+Offer Approval|Offer Approval
+Id|Id
+Who|Who
+Approve Time|Approve Time
+Comments|Comments
+Version|Version
+Offer Acceptance|Offer Acceptance
+Id|Id
+Who|Who
+Accept Time|Accept Time
+Comments|Comments
+Version|Version
+Employee Boarding|Employee Boarding
+Id|Id
+Who|Who
+Employ Time|Employ Time
+Comments|Comments
+Version|Version
+Instructor|Instructor
+Id|Id
+Title|Title
+Family Name|Family Name
+Given Name|Given Name
+Cell Phone|Cell Phone
+Email|Email
+Company|Company
+Introduction|Introduction
 Last Update Time|Last Update Time
-Version|版本
-Company Training|公司培训
-Id|序号
-Title|头衔
-Company|公司
-Instructor|讲师
-Training Course Type|培训课程类型
-Time Start|时间开始
-Duration Hours|持续时间
+Version|Version
+Company Training|Company Training
+Id|Id
+Title|Title
+Company|Company
+Instructor|Instructor
+Training Course Type|Training Course Type
+Time Start|Time Start
+Duration Hours|Duration Hours
 Last Update Time|Last Update Time
-Version|版本
-Scoring|评分
-Id|序号
-Scored By|由谁打分
-Score|分数
-Comment|评论
-Version|版本
-Employee Company Training|员工参与的公司培训
-Id|序号
-Employee|员工
-Training|训练
-Scoring|评分
-Score|分数
-Current Status|当前状态
-Version|版本
-Employee Skill|员工技能
-Id|序号
-Employee|员工
-Skill Type|技能类型
-Description|描述
-Version|版本
-Employee Performance|员工绩效
-Id|序号
-Employee|员工
-Performance Comment|绩效评价
-Version|版本
-Employee Work Experience|员工工作经验
-Id|序号
-Employee|员工
-Start|开始
-End|结束
-Company|公司
-Description|描述
-Version|版本
-Employee Leave|请假记录
-Id|序号
-Who|谁
-Type|类型
-Leave Duration Hour|请假时长
-Remark|备注
-Version|版本
-Employee Interview|员工面试
-Id|序号
-Employee|员工
-Interview Type|面试类型
-Remark|备注
-Version|版本
-Employee Attendance|员工考勤
-Id|序号
-Employee|员工
-Enter Time|进入时间
-Leave Time|离开的时候
-Duration Hours|持续时间
-Remark|备注
-Version|版本
-Employee Qualifier|员工资质
-Id|序号
-Employee|员工
-Qualified Time|合格的时间
-Type|类型
-Level|水平
-Remark|备注
-Version|版本
-Employee Education|员工教育
-Id|序号
-Employee|员工
-Complete Time|完成时间
-Type|类型
-Remark|备注
-Version|版本
-Employee Award|员工嘉奖
-Id|序号
-Employee|员工
-Complete Time|完成时间
-Type|类型
-Remark|备注
-Version|版本
-Employee Salary Sheet|工资单
-Id|序号
-Employee|员工
-Current Salary Grade|目前工资等级
-Base Salary|基本工资
-Bonus|奖金
-Reward|奖励
-Personal Tax|个人所得税
-Social Security|社会保险
-Housing Found|住房公积金
-Job Insurance|失业保险
-Paying Off|工资支付
+Version|Version
+Scoring|Scoring
+Id|Id
+Scored By|Scored By
+Score|Score
+Comment|Comment
+Version|Version
+Employee Company Training|Employee Company Training
+Id|Id
+Employee|Employee
+Training|Training
+Scoring|Scoring
+Score|Score
+Current Status|Current Status
+Version|Version
+Employee Skill|Employee Skill
+Id|Id
+Employee|Employee
+Skill Type|Skill Type
+Description|Description
+Version|Version
+Employee Performance|Employee Performance
+Id|Id
+Employee|Employee
+Performance Comment|Performance Comment
+Version|Version
+Employee Work Experience|Employee Work Experience
+Id|Id
+Employee|Employee
+Start|Start
+End|End
+Company|Company
+Description|Description
+Version|Version
+Employee Leave|Employee Leave
+Id|Id
+Who|Who
+Type|Type
+Leave Duration Hour|Leave Duration Hour
+Remark|Remark
+Version|Version
+Employee Interview|Employee Interview
+Id|Id
+Employee|Employee
+Interview Type|Interview Type
+Remark|Remark
+Version|Version
+Employee Attendance|Employee Attendance
+Id|Id
+Employee|Employee
+Enter Time|Enter Time
+Leave Time|Leave Time
+Duration Hours|Duration Hours
+Remark|Remark
+Version|Version
+Employee Qualifier|Employee Qualifier
+Id|Id
+Employee|Employee
+Qualified Time|Qualified Time
+Type|Type
+Level|Level
+Remark|Remark
+Version|Version
+Employee Education|Employee Education
+Id|Id
+Employee|Employee
+Complete Time|Complete Time
+Type|Type
+Remark|Remark
+Version|Version
+Employee Award|Employee Award
+Id|Id
+Employee|Employee
+Complete Time|Complete Time
+Type|Type
+Remark|Remark
+Version|Version
+Employee Salary Sheet|Employee Salary Sheet
+Id|Id
+Employee|Employee
+Current Salary Grade|Current Salary Grade
+Base Salary|Base Salary
+Bonus|Bonus
+Reward|Reward
+Personal Tax|Personal Tax
+Social Security|Social Security
+Housing Found|Housing Found
+Job Insurance|Job Insurance
+Paying Off|Paying Off
 PayOff|PayOff
-Current Status|当前状态
-Version|版本
-Paying Off|工资支付
-Id|序号
-Who|谁
-Paid For|支付
-Paid Time|支付时间
-Amount|金额
-Version|版本
-User Domain|用户域
-Id|序号
-Name|名称
-Version|版本
+Current Status|Current Status
+Version|Version
+Paying Off|Paying Off
+Id|Id
+Who|Who
+Paid For|Paid For
+Paid Time|Paid Time
+Amount|Amount
+Version|Version
+User Domain|User Domain
+Id|Id
+Name|Name
+Version|Version
 User White List|User White List
-Id|序号
+Id|Id
 User Identity|User Identity
 User Special Functions|User Special Functions
-Domain|域
-Version|版本
-Sec User|SEC的用户
-Id|序号
-Login|登录
-Mobile|手机
-Email|电子邮件
-Pwd|PWD
-Verification Code|验证码
-Verification Code Expire|验证码过期
-Last Login Time|最后登录时间
-Domain|域
-Blocking|屏蔽
-Block|屏蔽
-Current Status|当前状态
-Version|版本
-Sec User Blocking|用户屏蔽
-Id|序号
-Who|谁
-Block Time|块时间
-Comments|评论
-Version|版本
-User App|用户应用程序
-Id|序号
-Title|头衔
-Sec User|SEC的用户
-App Icon|应用程序图标
-Full Access|完全访问
-Permission|许可
-Object Type|对象类型
-Object Id|对象ID
-Location|位置
-Version|版本
+Domain|Domain
+Version|Version
+Sec User|Sec User
+Id|Id
+Login|Login
+Mobile|Mobile
+Email|Email
+Pwd|Pwd
+Verification Code|Verification Code
+Verification Code Expire|Verification Code Expire
+Last Login Time|Last Login Time
+Domain|Domain
+Blocking|Blocking
+Block|Block
+Current Status|Current Status
+Version|Version
+Sec User Blocking|Sec User Blocking
+Id|Id
+Who|Who
+Block Time|Block Time
+Comments|Comments
+Version|Version
+User App|User App
+Id|Id
+Title|Title
+Sec User|Sec User
+App Icon|App Icon
+Full Access|Full Access
+Permission|Permission
+Object Type|Object Type
+Object Id|Object Id
+Location|Location
+Version|Version
 List Access|List Access
-Id|序号
-Name|名称
+Id|Id
+Name|Name
 Internal Name|Internal Name
 Read Permission|Read Permission
 Create Permission|Create Permission
 Delete Permission|Delete Permission
 Update Permission|Update Permission
 Execution Permission|Execution Permission
-App|应用程序
-Version|版本
-Object Access|对象访问
-Id|序号
-Name|名称
-Object Type|对象类型
-List1|表
-List2|清单
-List3|目录3
-List4|清单
-List5|列表6
-List6|list6
-List7|list7
-List8|list8
-List9|list9
-App|应用程序
-Version|版本
-Login History|登录历史
-Id|序号
-Login Time|登录时间
-From Ip|从IP
-Description|描述
-Sec User|SEC的用户
-Version|版本
-Generic Form|通用的形式
-Id|序号
-Title|头衔
-Description|描述
-Version|版本
-Form Message|表单信息
-Id|序号
-Title|头衔
-Form|形式
-Level|水平
-Version|版本
-Form Field Message|表单字段的信息
-Id|序号
-Title|头衔
-Parameter Name|参数名称
-Form|形式
-Level|水平
-Version|版本
-Form Field|表单字段
-Id|序号
-Label|标签
-Locale Key|语言环境的关键
-Parameter Name|参数名称
-Type|类型
-Form|形式
-Placeholder|占位符
-Default Value|默认值
-Description|描述
-Field Group|字段组
+App|App
+Version|Version
+Object Access|Object Access
+Id|Id
+Name|Name
+Object Type|Object Type
+List1|List1
+List2|List2
+List3|List3
+List4|List4
+List5|List5
+List6|List6
+List7|List7
+List8|List8
+List9|List9
+App|App
+Version|Version
+Login History|Login History
+Id|Id
+Login Time|Login Time
+From Ip|From Ip
+Description|Description
+Sec User|Sec User
+Version|Version
+Generic Form|Generic Form
+Id|Id
+Title|Title
+Description|Description
+Version|Version
+Form Message|Form Message
+Id|Id
+Title|Title
+Form|Form
+Level|Level
+Version|Version
+Form Field Message|Form Field Message
+Id|Id
+Title|Title
+Parameter Name|Parameter Name
+Form|Form
+Level|Level
+Version|Version
+Form Field|Form Field
+Id|Id
+Label|Label
+Locale Key|Locale Key
+Parameter Name|Parameter Name
+Type|Type
+Form|Form
+Placeholder|Placeholder
+Default Value|Default Value
+Description|Description
+Field Group|Field Group
 Minimum Value|Minimum Value
 Maximum Value|Maximum Value
-Required|要求
+Required|Required
 Disabled|Disabled
-Custom Rendering|自定义渲染
-Candidate Values|候选人的价值观
-Suggest Values|建议值
-Version|版本
-Form Action|表单动作
-Id|序号
-Label|标签
-Locale Key|语言环境的关键
+Custom Rendering|Custom Rendering
+Candidate Values|Candidate Values
+Suggest Values|Suggest Values
+Version|Version
+Form Action|Form Action
+Id|Id
+Label|Label
+Locale Key|Locale Key
 Action Key|Action Key
-Level|水平
-Url|url
-Form|形式
-Version|版本
-Transfer to Another Retail Store Country Center|转移到另一零售商店全国运营中心
-Transfer to Another Catalog|转移到另一目录
-Transfer to Another Level One Category|转移到另一级一类
-Transfer to Another Level Two Category|转移到另一级两类
-Transfer to Another Level Three Category|转移到另一级三类
-Transfer to Another Product|转移到另一产品
-Transfer to Another Sku|转移到另一个SKU
-Transfer to Another Retail Store Province Center|转移到另一零售商店省中心
-Transfer to Another Province Center Department|转移到另一个省中心部
-Transfer to Another Province Center Employee|转移到另一个省中心员工
-Transfer to Another Retail Store City Service Center|转移到另一零售商店城市服务中心
-Transfer to Another City Partner|转让给另一城市的合作伙伴
-Transfer to Another Potential Customer|转移到另一个潜在客户
-Transfer to Another Potential Customer Contact Person|转移到另一个潜在的客户联络人
-Transfer to Another Potential Customer Contact|转移到另一个潜在的客户联系
-Transfer to Another City Event|转移到另一个城市活动
-Transfer to Another Event Attendance|转移到另一事件出席
-Transfer to Another Retail Store|转移到另一零售商店
-Transfer to Another Retail Store Creation|转移到另一零售商店创建
-Transfer to Another Retail Store Investment Invitation|转让给另一家零售店招商
-Transfer to Another Retail Store Franchising|转移到另一家零售店特许经营
-Transfer to Another Retail Store Decoration|转移到另一零售商店装修
-Transfer to Another Retail Store Opening|转移到另一零售店开幕
-Transfer to Another Retail Store Closing|转移到另一零售商店关闭
-Transfer to Another Retail Store Member|转移到另一零售商店成员
-Transfer to Another Consumer Order|转移到另一个消费秩序
-Transfer to Another Consumer Order Confirmation|转移到另一个消费订单确认
-Transfer to Another Consumer Order Approval|转移到另一消费者订单批准
-Transfer to Another Consumer Order Processing|转移到另一个消费者订单处理
-Transfer to Another Consumer Order Shipment|转移到另一个消费订单装运
-Transfer to Another Consumer Order Delivery|转移到另一个消费订单交付
-Transfer to Another Consumer Order Line Item|转移到另一个消费订单行项目
-Transfer to Another Consumer Order Shipping Group|转移到另一个消费秩序运输组
-Transfer to Another Consumer Order Payment Group|转移到另一消费者订单付款组
-Transfer to Another Consumer Order Price Adjustment|转移到另一个消费秩序的价格调整
-Transfer to Another Retail Store Member Coupon|转移到另一零售商店会员优惠券
-Transfer to Another Member Wishlist|转移到另一个成员的心愿
-Transfer to Another Member Reward Point|转移到另一成员奖励点
-Transfer to Another Member Reward Point Redemption|转让给另一成员奖励点赎回
-Transfer to Another Member Wishlist Product|转移到另一个成员想要的产品
-Transfer to Another Retail Store Member Address|转移到另一零售商店会员地址
-Transfer to Another Retail Store Member Gift Card|转移到另一零售店会员礼品卡
-Transfer to Another Retail Store Member Gift Card Consume Record|转移到另一零售商店会员卡消费记录
-Transfer to Another Goods Supplier|转移到另一商品供应商
-Transfer to Another Supplier Product|转移到另一供应商产品
-Transfer to Another Product Supply Duration|转移到另一个产品供应期限
-Transfer to Another Supply Order|转移到另一供应订单
-Transfer to Another Supply Order Confirmation|转移到另一个供应订单确认
-Transfer to Another Supply Order Approval|转移到另一个供应订单批准
-Transfer to Another Supply Order Processing|转移到另一个供应订单处理
-Transfer to Another Supply Order Picking|转移到另一个供应订单捡货
-Transfer to Another Supply Order Shipment|转移到另一个供应订单装运
-Transfer to Another Supply Order Delivery|转移到另一个供应订单交货
-Transfer to Another Supply Order Line Item|转移到另一个供应订单行项目
-Transfer to Another Supply Order Shipping Group|转移到另一个供应订单运输组
-Transfer to Another Supply Order Payment Group|转移到另一个供应订单付款组
-Transfer to Another Retail Store Order|转移到另一零售店订单
-Transfer to Another Retail Store Order Confirmation|转移到另一零售店订单确认
-Transfer to Another Retail Store Order Approval|转移到另一零售店订单批准
-Transfer to Another Retail Store Order Processing|转移到另一零售店订单处理
-Transfer to Another Retail Store Order Picking|转移到另一零售商店订单捡货
-Transfer to Another Retail Store Order Shipment|转移到另一零售商店订单装运
-Transfer to Another Retail Store Order Delivery|转移到另一零售商店订单交付
-Transfer to Another Retail Store Order Line Item|转移到另一零售商店订单行项目
-Transfer to Another Retail Store Order Shipping Group|转移到另一零售商店订单运输组
-Transfer to Another Retail Store Order Payment Group|转移到另一零售商店订单付款组
-Transfer to Another Warehouse|转移到另一仓库
-Transfer to Another Storage Space|转移到另一个存储空间
-Transfer to Another Smart Pallet|转移到另一个智能托盘
-Transfer to Another Goods Shelf|转移到另一个货架
-Transfer to Another Goods Shelf Stock Count|转移到另一个货架库存盘点
-Transfer to Another Stock Count Issue Track|转移到另一个股票计数问题轨道
-Transfer to Another Goods Allocation|转移到另一货位
-Transfer to Another Goods|转移到另一货物
-Transfer to Another Goods Packaging|转移到另一个货物包装
-Transfer to Another Goods Movement|转移到另一货物移动
-Transfer to Another Supplier Space|转移到另一供应商空间
-Transfer to Another Receiving Space|转移到另一个收货区
-Transfer to Another Shipping Space|转移到另一个发货区
-Transfer to Another Damage Space|转移到另一个损伤空间
-Transfer to Another Warehouse Asset|转移到另一仓库资产
-Transfer to Another Transport Fleet|转移到另一运输车队
-Transfer to Another Transport Truck|转移到另一运输卡车
-Transfer to Another Truck Driver|转移到另一卡车司机
-Transfer to Another Transport Task|传输到另一传输任务
-Transfer to Another Transport Task Track|传输到另一个运输任务跟踪
-Transfer to Another Account Set|转移到另一个账套
-Transfer to Another Accounting Subject|转移到另一会计科目
-Transfer to Another Accounting Period|转移至另一会计期间
-Transfer to Another Accounting Document Type|转移到另一种会计凭证类型
-Transfer to Another Accounting Document|转移到另一会计凭证
-Transfer to Another Accounting Document Creation|转移到另一个会计凭证的创建
-Transfer to Another Accounting Document Confirmation|转移到另一会计凭证确认
-Transfer to Another Accounting Document Auditing|转移到另一个会计凭证审计
-Transfer to Another Accounting Document Posting|转移到另一会计凭证过帐
-Transfer to Another Original Voucher|转移到另一正本凭证
-Transfer to Another Original Voucher Creation|转移到另一个原始凭证创建
-Transfer to Another Original Voucher Confirmation|转移到另一个原始凭证确认
-Transfer to Another Original Voucher Auditing|转移到另一正本凭证审核
-Transfer to Another Accounting Document Line|转移到另一会计凭证行
-Transfer to Another Level One Department|转移到另一级一部门
-Transfer to Another Level Two Department|转移到另一级两部门
-Transfer to Another Level Three Department|转移到另一个级别三部门
-Transfer to Another Skill Type|转移到另一种技能类型
-Transfer to Another Responsibility Type|转移到另一种责任类型
-Transfer to Another Termination Reason|转移到另一个终止原因
-Transfer to Another Termination Type|传输到另一个终止类型
-Transfer to Another Occupation Type|转移到另一职业类型
-Transfer to Another Leave Type|转移到另一个休假类型
-Transfer to Another Salary Grade|转移到另一个工资等级
-Transfer to Another Interview Type|转移到另一个面试类型
-Transfer to Another Training Course Type|转移到另一个培训课程类型
-Transfer to Another Public Holiday|转移到另一个公众假期
-Transfer to Another Termination|转移到另一端
-Transfer to Another View|转移到另一个视图
-Transfer to Another Employee|转移给另一名员工
-Transfer to Another Job Application|转移到另一个工作申请
-Transfer to Another Profession Interview|转会到另一个行业面试
-Transfer to Another Hr Interview|转移到另一个人力资源面试
-Transfer to Another Offer Approval|转让给另一个要约批准
-Transfer to Another Offer Acceptance|转移到另一个要约接受
-Transfer to Another Employee Boarding|转移到另一员工登机
-Transfer to Another Instructor|转移到另一位教练
-Transfer to Another Company Training|转移到另一家公司培训
-Transfer to Another Scoring|转移到另一个得分
-Transfer to Another Employee Company Training|转移到另一员工公司培训
-Transfer to Another Employee Skill|转移到另一个员工技能
-Transfer to Another Employee Performance|转移到另一员工的表现
-Transfer to Another Employee Work Experience|转移到其他员工的工作经验
-Transfer to Another Employee Leave|转移到另一员工离开
-Transfer to Another Employee Interview|转移到另一个员工面试
-Transfer to Another Employee Attendance|转移到另一名员工出席
-Transfer to Another Employee Qualifier|转移到另一员工资格
-Transfer to Another Employee Education|转移到另一个员工教育
-Transfer to Another Employee Award|转让给另一员工奖
-Transfer to Another Employee Salary Sheet|转移到另一员工工资单
-Transfer to Another Paying Off|转移到另一个支付
-Transfer to Another User Domain|传输到另一个用户域
+Level|Level
+Url|Url
+Form|Form
+Version|Version
+Transfer to Another Retail Store Country Center|Transfer to Another Retail Store Country Center
+Transfer to Another Catalog|Transfer to Another Catalog
+Transfer to Another Level One Category|Transfer to Another Level One Category
+Transfer to Another Level Two Category|Transfer to Another Level Two Category
+Transfer to Another Level Three Category|Transfer to Another Level Three Category
+Transfer to Another Product|Transfer to Another Product
+Transfer to Another Sku|Transfer to Another Sku
+Transfer to Another Retail Store Province Center|Transfer to Another Retail Store Province Center
+Transfer to Another Province Center Department|Transfer to Another Province Center Department
+Transfer to Another Province Center Employee|Transfer to Another Province Center Employee
+Transfer to Another Retail Store City Service Center|Transfer to Another Retail Store City Service Center
+Transfer to Another City Partner|Transfer to Another City Partner
+Transfer to Another Potential Customer|Transfer to Another Potential Customer
+Transfer to Another Potential Customer Contact Person|Transfer to Another Potential Customer Contact Person
+Transfer to Another Potential Customer Contact|Transfer to Another Potential Customer Contact
+Transfer to Another City Event|Transfer to Another City Event
+Transfer to Another Event Attendance|Transfer to Another Event Attendance
+Transfer to Another Retail Store|Transfer to Another Retail Store
+Transfer to Another Retail Store Creation|Transfer to Another Retail Store Creation
+Transfer to Another Retail Store Investment Invitation|Transfer to Another Retail Store Investment Invitation
+Transfer to Another Retail Store Franchising|Transfer to Another Retail Store Franchising
+Transfer to Another Retail Store Decoration|Transfer to Another Retail Store Decoration
+Transfer to Another Retail Store Opening|Transfer to Another Retail Store Opening
+Transfer to Another Retail Store Closing|Transfer to Another Retail Store Closing
+Transfer to Another Retail Store Member|Transfer to Another Retail Store Member
+Transfer to Another Consumer Order|Transfer to Another Consumer Order
+Transfer to Another Consumer Order Confirmation|Transfer to Another Consumer Order Confirmation
+Transfer to Another Consumer Order Approval|Transfer to Another Consumer Order Approval
+Transfer to Another Consumer Order Processing|Transfer to Another Consumer Order Processing
+Transfer to Another Consumer Order Shipment|Transfer to Another Consumer Order Shipment
+Transfer to Another Consumer Order Delivery|Transfer to Another Consumer Order Delivery
+Transfer to Another Consumer Order Line Item|Transfer to Another Consumer Order Line Item
+Transfer to Another Consumer Order Shipping Group|Transfer to Another Consumer Order Shipping Group
+Transfer to Another Consumer Order Payment Group|Transfer to Another Consumer Order Payment Group
+Transfer to Another Consumer Order Price Adjustment|Transfer to Another Consumer Order Price Adjustment
+Transfer to Another Retail Store Member Coupon|Transfer to Another Retail Store Member Coupon
+Transfer to Another Member Wishlist|Transfer to Another Member Wishlist
+Transfer to Another Member Reward Point|Transfer to Another Member Reward Point
+Transfer to Another Member Reward Point Redemption|Transfer to Another Member Reward Point Redemption
+Transfer to Another Member Wishlist Product|Transfer to Another Member Wishlist Product
+Transfer to Another Retail Store Member Address|Transfer to Another Retail Store Member Address
+Transfer to Another Retail Store Member Gift Card|Transfer to Another Retail Store Member Gift Card
+Transfer to Another Retail Store Member Gift Card Consume Record|Transfer to Another Retail Store Member Gift Card Consume Record
+Transfer to Another Goods Supplier|Transfer to Another Goods Supplier
+Transfer to Another Supplier Product|Transfer to Another Supplier Product
+Transfer to Another Product Supply Duration|Transfer to Another Product Supply Duration
+Transfer to Another Supply Order|Transfer to Another Supply Order
+Transfer to Another Supply Order Confirmation|Transfer to Another Supply Order Confirmation
+Transfer to Another Supply Order Approval|Transfer to Another Supply Order Approval
+Transfer to Another Supply Order Processing|Transfer to Another Supply Order Processing
+Transfer to Another Supply Order Picking|Transfer to Another Supply Order Picking
+Transfer to Another Supply Order Shipment|Transfer to Another Supply Order Shipment
+Transfer to Another Supply Order Delivery|Transfer to Another Supply Order Delivery
+Transfer to Another Supply Order Line Item|Transfer to Another Supply Order Line Item
+Transfer to Another Supply Order Shipping Group|Transfer to Another Supply Order Shipping Group
+Transfer to Another Supply Order Payment Group|Transfer to Another Supply Order Payment Group
+Transfer to Another Retail Store Order|Transfer to Another Retail Store Order
+Transfer to Another Retail Store Order Confirmation|Transfer to Another Retail Store Order Confirmation
+Transfer to Another Retail Store Order Approval|Transfer to Another Retail Store Order Approval
+Transfer to Another Retail Store Order Processing|Transfer to Another Retail Store Order Processing
+Transfer to Another Retail Store Order Picking|Transfer to Another Retail Store Order Picking
+Transfer to Another Retail Store Order Shipment|Transfer to Another Retail Store Order Shipment
+Transfer to Another Retail Store Order Delivery|Transfer to Another Retail Store Order Delivery
+Transfer to Another Retail Store Order Line Item|Transfer to Another Retail Store Order Line Item
+Transfer to Another Retail Store Order Shipping Group|Transfer to Another Retail Store Order Shipping Group
+Transfer to Another Retail Store Order Payment Group|Transfer to Another Retail Store Order Payment Group
+Transfer to Another Warehouse|Transfer to Another Warehouse
+Transfer to Another Storage Space|Transfer to Another Storage Space
+Transfer to Another Smart Pallet|Transfer to Another Smart Pallet
+Transfer to Another Goods Shelf|Transfer to Another Goods Shelf
+Transfer to Another Goods Shelf Stock Count|Transfer to Another Goods Shelf Stock Count
+Transfer to Another Stock Count Issue Track|Transfer to Another Stock Count Issue Track
+Transfer to Another Goods Allocation|Transfer to Another Goods Allocation
+Transfer to Another Goods|Transfer to Another Goods
+Transfer to Another Goods Packaging|Transfer to Another Goods Packaging
+Transfer to Another Goods Movement|Transfer to Another Goods Movement
+Transfer to Another Supplier Space|Transfer to Another Supplier Space
+Transfer to Another Receiving Space|Transfer to Another Receiving Space
+Transfer to Another Shipping Space|Transfer to Another Shipping Space
+Transfer to Another Damage Space|Transfer to Another Damage Space
+Transfer to Another Warehouse Asset|Transfer to Another Warehouse Asset
+Transfer to Another Transport Fleet|Transfer to Another Transport Fleet
+Transfer to Another Transport Truck|Transfer to Another Transport Truck
+Transfer to Another Truck Driver|Transfer to Another Truck Driver
+Transfer to Another Transport Task|Transfer to Another Transport Task
+Transfer to Another Transport Task Track|Transfer to Another Transport Task Track
+Transfer to Another Account Set|Transfer to Another Account Set
+Transfer to Another Accounting Subject|Transfer to Another Accounting Subject
+Transfer to Another Accounting Period|Transfer to Another Accounting Period
+Transfer to Another Accounting Document Type|Transfer to Another Accounting Document Type
+Transfer to Another Accounting Document|Transfer to Another Accounting Document
+Transfer to Another Accounting Document Creation|Transfer to Another Accounting Document Creation
+Transfer to Another Accounting Document Confirmation|Transfer to Another Accounting Document Confirmation
+Transfer to Another Accounting Document Auditing|Transfer to Another Accounting Document Auditing
+Transfer to Another Accounting Document Posting|Transfer to Another Accounting Document Posting
+Transfer to Another Original Voucher|Transfer to Another Original Voucher
+Transfer to Another Original Voucher Creation|Transfer to Another Original Voucher Creation
+Transfer to Another Original Voucher Confirmation|Transfer to Another Original Voucher Confirmation
+Transfer to Another Original Voucher Auditing|Transfer to Another Original Voucher Auditing
+Transfer to Another Accounting Document Line|Transfer to Another Accounting Document Line
+Transfer to Another Level One Department|Transfer to Another Level One Department
+Transfer to Another Level Two Department|Transfer to Another Level Two Department
+Transfer to Another Level Three Department|Transfer to Another Level Three Department
+Transfer to Another Skill Type|Transfer to Another Skill Type
+Transfer to Another Responsibility Type|Transfer to Another Responsibility Type
+Transfer to Another Termination Reason|Transfer to Another Termination Reason
+Transfer to Another Termination Type|Transfer to Another Termination Type
+Transfer to Another Occupation Type|Transfer to Another Occupation Type
+Transfer to Another Leave Type|Transfer to Another Leave Type
+Transfer to Another Salary Grade|Transfer to Another Salary Grade
+Transfer to Another Interview Type|Transfer to Another Interview Type
+Transfer to Another Training Course Type|Transfer to Another Training Course Type
+Transfer to Another Public Holiday|Transfer to Another Public Holiday
+Transfer to Another Termination|Transfer to Another Termination
+Transfer to Another View|Transfer to Another View
+Transfer to Another Employee|Transfer to Another Employee
+Transfer to Another Job Application|Transfer to Another Job Application
+Transfer to Another Profession Interview|Transfer to Another Profession Interview
+Transfer to Another Hr Interview|Transfer to Another Hr Interview
+Transfer to Another Offer Approval|Transfer to Another Offer Approval
+Transfer to Another Offer Acceptance|Transfer to Another Offer Acceptance
+Transfer to Another Employee Boarding|Transfer to Another Employee Boarding
+Transfer to Another Instructor|Transfer to Another Instructor
+Transfer to Another Company Training|Transfer to Another Company Training
+Transfer to Another Scoring|Transfer to Another Scoring
+Transfer to Another Employee Company Training|Transfer to Another Employee Company Training
+Transfer to Another Employee Skill|Transfer to Another Employee Skill
+Transfer to Another Employee Performance|Transfer to Another Employee Performance
+Transfer to Another Employee Work Experience|Transfer to Another Employee Work Experience
+Transfer to Another Employee Leave|Transfer to Another Employee Leave
+Transfer to Another Employee Interview|Transfer to Another Employee Interview
+Transfer to Another Employee Attendance|Transfer to Another Employee Attendance
+Transfer to Another Employee Qualifier|Transfer to Another Employee Qualifier
+Transfer to Another Employee Education|Transfer to Another Employee Education
+Transfer to Another Employee Award|Transfer to Another Employee Award
+Transfer to Another Employee Salary Sheet|Transfer to Another Employee Salary Sheet
+Transfer to Another Paying Off|Transfer to Another Paying Off
+Transfer to Another User Domain|Transfer to Another User Domain
 Transfer to Another User White List|Transfer to Another User White List
-Transfer to Another Sec User|转移到另一个SEC用户
-Transfer to Another Sec User Blocking|转移到另一个SEC用户阻塞
-Transfer to Another User App|转移到另一个用户应用程序
+Transfer to Another Sec User|Transfer to Another Sec User
+Transfer to Another Sec User Blocking|Transfer to Another Sec User Blocking
+Transfer to Another User App|Transfer to Another User App
 Transfer to Another List Access|Transfer to Another List Access
-Transfer to Another Object Access|转移到另一个对象访问
-Transfer to Another Login History|转移到另一个登录历史
-Transfer to Another Generic Form|转移到另一个通用表单
-Transfer to Another Form Message|转到另一个表单消息
-Transfer to Another Form Field Message|转到另一个表单字段消息
-Transfer to Another Form Field|转到另一个表单字段
-Transfer to Another Form Action|转移到另一个表单动作
+Transfer to Another Object Access|Transfer to Another Object Access
+Transfer to Another Login History|Transfer to Another Login History
+Transfer to Another Generic Form|Transfer to Another Generic Form
+Transfer to Another Form Message|Transfer to Another Form Message
+Transfer to Another Form Field Message|Transfer to Another Form Field Message
+Transfer to Another Form Field|Transfer to Another Form Field
+Transfer to Another Form Action|Transfer to Another Form Action
 

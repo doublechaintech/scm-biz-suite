@@ -677,7 +677,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超城市服务中心");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store City Service Center");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

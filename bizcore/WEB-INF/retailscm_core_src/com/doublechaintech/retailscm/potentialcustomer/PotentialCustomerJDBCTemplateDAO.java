@@ -626,7 +626,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomer.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("潜在的客户");
+		lastUpdateTimeStatsItem.setDisplayName("Potential Customer");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -676,7 +676,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomer.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("潜在的客户");
+		lastUpdateTimeStatsItem.setDisplayName("Potential Customer");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

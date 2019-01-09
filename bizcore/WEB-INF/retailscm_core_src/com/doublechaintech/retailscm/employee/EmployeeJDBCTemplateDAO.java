@@ -2016,7 +2016,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2066,7 +2066,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2116,7 +2116,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2166,7 +2166,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2216,7 +2216,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2266,7 +2266,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2316,7 +2316,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2366,7 +2366,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2416,7 +2416,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2466,7 +2466,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2516,7 +2516,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2566,7 +2566,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("员工");
+		lastUpdateTimeStatsItem.setDisplayName("Employee");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

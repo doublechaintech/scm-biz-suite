@@ -1020,7 +1020,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1070,7 +1070,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1120,7 +1120,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1170,7 +1170,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1220,7 +1220,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1270,7 +1270,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1320,7 +1320,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1370,7 +1370,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

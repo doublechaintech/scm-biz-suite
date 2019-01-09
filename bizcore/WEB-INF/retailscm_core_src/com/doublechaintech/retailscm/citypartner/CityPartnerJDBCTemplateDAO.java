@@ -477,7 +477,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityPartner.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("城市合伙人");
+		lastUpdateTimeStatsItem.setDisplayName("City Partner");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityPartner.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityPartner.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

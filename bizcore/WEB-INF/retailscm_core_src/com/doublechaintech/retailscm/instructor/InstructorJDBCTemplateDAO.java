@@ -377,7 +377,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Instructor.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("讲师");
+		lastUpdateTimeStatsItem.setDisplayName("Instructor");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Instructor.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Instructor.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

@@ -277,7 +277,7 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem moveTimeStatsItem = new StatsItem();
 		//GoodsMovement.MOVE_TIME_PROPERTY
-		moveTimeStatsItem.setDisplayName("货物移动");
+		moveTimeStatsItem.setDisplayName("Goods Movement");
 		moveTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsMovement.MOVE_TIME_PROPERTY));
 		moveTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsMovement.MOVE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(moveTimeStatsItem);

@@ -377,7 +377,7 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Product.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("产品");
+		lastUpdateTimeStatsItem.setDisplayName("Product");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Product.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Product.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
