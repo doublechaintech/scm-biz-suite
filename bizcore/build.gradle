@@ -81,7 +81,7 @@ dependencies {
 
 war {
     from 'viewlayers'
-    archiveName = 'iam.war'
+    archiveName = 'retailscm.war'
     webXml = file('WEB-INF/web.xml')
 }
 
