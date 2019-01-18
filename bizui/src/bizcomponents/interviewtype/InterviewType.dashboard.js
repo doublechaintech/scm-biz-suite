@@ -57,18 +57,20 @@ const internalLargeTextOf = (interviewType) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (interviewType,targetComponent) =>{
 	
@@ -115,7 +117,10 @@ class InterviewTypeDashboard extends Component {
     if(!this.props.interviewType.class){
       return null
     }
-    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",cardsSource: this.props.interviewType,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",
+    	cardsSource: this.props.interviewType,returnURL,displayName,
   		subItems: [
 {name: 'employeeInterviewList', displayName:'员工面试',type:'employeeInterview',count:employeeInterviewCount,addFunction: true, role: 'employeeInterview', metaInfo: employeeInterviewListMetaInfo},
     
@@ -129,11 +134,12 @@ class InterviewTypeDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -152,5 +158,7 @@ class InterviewTypeDashboard extends Component {
 
 export default connect(state => ({
   interviewType: state._interviewType,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(InterviewTypeDashboard))
 

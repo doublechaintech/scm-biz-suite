@@ -75,6 +75,7 @@ const displayColumns = [
   { title: '培训课程类型', dataIndex: 'trainingCourseType', render: (text, record) => renderReferenceCell(text, record)},
   { title: '时间开始', dataIndex: 'timeStart', render: (text, record) =>renderDateCell(text,record) },
   { title: '持续时间', debugtype: 'int', dataIndex: 'durationHours', width: '5',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -86,6 +87,7 @@ const fieldLabels = {
   trainingCourseType: '培训课程类型',
   timeStart: '时间开始',
   durationHours: '持续时间',
+  lastUpdateTime: '最后更新时间',
 
 }
 

@@ -57,18 +57,20 @@ const internalLargeTextOf = (scoring) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (scoring,targetComponent) =>{
 	
@@ -115,7 +117,10 @@ class ScoringDashboard extends Component {
     if(!this.props.scoring.class){
       return null
     }
-    const cardsData = {cardsName:"评分",cardsFor: "scoring",cardsSource: this.props.scoring,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"评分",cardsFor: "scoring",
+    	cardsSource: this.props.scoring,returnURL,displayName,
   		subItems: [
 {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo},
     
@@ -129,11 +134,12 @@ class ScoringDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -152,5 +158,7 @@ class ScoringDashboard extends Component {
 
 export default connect(state => ({
   scoring: state._scoring,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(ScoringDashboard))
 

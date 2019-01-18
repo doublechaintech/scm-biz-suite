@@ -81,6 +81,7 @@ const displayColumns = [
   { title: '装运', dataIndex: 'shipment', render: (text, record) => renderReferenceCell(text, record)},
   { title: '送货', dataIndex: 'delivery', render: (text, record) => renderReferenceCell(text, record)},
   { title: '商场', dataIndex: 'store', render: (text, record) => renderReferenceCell(text, record)},
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
   { title: '当前状态', debugtype: 'string', dataIndex: 'currentStatus', width: '13',render: (text, record)=>renderTextCell(text,record) },
 
 ]
@@ -95,6 +96,7 @@ const fieldLabels = {
   shipment: '装运',
   delivery: '送货',
   store: '商场',
+  lastUpdateTime: '最后更新时间',
   currentStatus: '当前状态',
 
 }

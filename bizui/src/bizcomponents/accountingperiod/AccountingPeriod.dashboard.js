@@ -57,18 +57,20 @@ const internalLargeTextOf = (accountingPeriod) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (accountingPeriod,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class AccountingPeriodDashboard extends Component {
     if(!this.props.accountingPeriod.class){
       return null
     }
-    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",cardsSource: this.props.accountingPeriod,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",
+    	cardsSource: this.props.accountingPeriod,returnURL,displayName,
   		subItems: [
 {name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo},
     
@@ -135,11 +140,12 @@ class AccountingPeriodDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class AccountingPeriodDashboard extends Component {
 
 export default connect(state => ({
   accountingPeriod: state._accountingPeriod,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(AccountingPeriodDashboard))
 

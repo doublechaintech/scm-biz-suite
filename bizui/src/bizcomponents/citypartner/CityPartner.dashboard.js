@@ -57,18 +57,20 @@ const internalLargeTextOf = (cityPartner) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (cityPartner,targetComponent) =>{
 	
@@ -87,6 +89,7 @@ const internalSummaryOf = (cityPartner,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{cityPartner.description}</Description> 
+<Description term="最后更新时间">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(cityPartner,targetComponent)}
       </DescriptionList>
@@ -121,7 +124,10 @@ class CityPartnerDashboard extends Component {
     if(!this.props.cityPartner.class){
       return null
     }
-    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",cardsSource: this.props.cityPartner,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",
+    	cardsSource: this.props.cityPartner,returnURL,displayName,
   		subItems: [
 {name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo},
 {name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo},
@@ -136,11 +142,12 @@ class CityPartnerDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -159,5 +166,7 @@ class CityPartnerDashboard extends Component {
 
 export default connect(state => ({
   cityPartner: state._cityPartner,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(CityPartnerDashboard))
 

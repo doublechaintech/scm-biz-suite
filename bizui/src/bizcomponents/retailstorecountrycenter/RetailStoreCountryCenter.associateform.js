@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
-  founded: '2018-06-03',
+  founded: '2016-12-28',
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',
@@ -77,7 +77,6 @@ class RetailStoreCountryCenterAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {RetailStoreCountryCenterService} = GlobalComponents
- const {ReportModalTable} = GlobalComponents;
  const {CatalogModalTable} = GlobalComponents;
  const {RetailStoreProvinceCenterModalTable} = GlobalComponents;
  const {RetailStoreModalTable} = GlobalComponents;
@@ -263,7 +262,6 @@ class RetailStoreCountryCenterAssociateForm extends Component {
 			
         </Card>
         
-	<ReportModalTable data={data.reportList} owner={owner} />
 	<CatalogModalTable data={data.catalogList} owner={owner} />
 	<RetailStoreProvinceCenterModalTable data={data.retailStoreProvinceCenterList} owner={owner} />
 	<RetailStoreModalTable data={data.retailStoreList} owner={owner} />

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
-  score: '72',
+  score: '80',
   comment: '这个题做的真不错啊',
 }
 */

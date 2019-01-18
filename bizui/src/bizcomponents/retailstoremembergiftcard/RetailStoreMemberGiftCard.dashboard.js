@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreMemberGiftCard) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreMemberGiftCard,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class RetailStoreMemberGiftCardDashboard extends Component {
     if(!this.props.retailStoreMemberGiftCard.class){
       return null
     }
-    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",cardsSource: this.props.retailStoreMemberGiftCard,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",
+    	cardsSource: this.props.retailStoreMemberGiftCard,returnURL,displayName,
   		subItems: [
 {name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo},
     
@@ -135,11 +140,12 @@ class RetailStoreMemberGiftCardDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class RetailStoreMemberGiftCardDashboard extends Component {
 
 export default connect(state => ({
   retailStoreMemberGiftCard: state._retailStoreMemberGiftCard,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreMemberGiftCardDashboard))
 

@@ -76,6 +76,7 @@ const displayColumns = [
   { title: '电子邮件', debugtype: 'string_email', dataIndex: 'email', width: '24',render: (text, record)=>renderTextCell(text,record) },
   { title: '公司', dataIndex: 'company', render: (text, record) => renderReferenceCell(text, record)},
   { title: '介绍', debugtype: 'string', dataIndex: 'introduction', width: '19',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -88,6 +89,7 @@ const fieldLabels = {
   email: '电子邮件',
   company: '公司',
   introduction: '介绍',
+  lastUpdateTime: '最后更新时间',
 
 }
 

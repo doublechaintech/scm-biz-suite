@@ -57,18 +57,20 @@ const internalLargeTextOf = (payingOff) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (payingOff,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class PayingOffDashboard extends Component {
     if(!this.props.payingOff.class){
       return null
     }
-    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",cardsSource: this.props.payingOff,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",
+    	cardsSource: this.props.payingOff,returnURL,displayName,
   		subItems: [
 {name: 'employeeSalarySheetList', displayName:'工资单',type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo},
     
@@ -135,11 +140,12 @@ class PayingOffDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class PayingOffDashboard extends Component {
 
 export default connect(state => ({
   payingOff: state._payingOff,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(PayingOffDashboard))
 

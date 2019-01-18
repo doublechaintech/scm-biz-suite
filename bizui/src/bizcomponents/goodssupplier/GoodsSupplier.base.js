@@ -76,6 +76,7 @@ const displayColumns = [
   { title: '属于', dataIndex: 'belongTo', render: (text, record) => renderReferenceCell(text, record)},
   { title: '联系电话', debugtype: 'string_china_mobile_phone', dataIndex: 'contactNumber', width: '15',render: (text, record)=>renderTextCell(text,record) },
   { title: '描述', debugtype: 'string', dataIndex: 'description', width: '22',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -86,6 +87,7 @@ const fieldLabels = {
   belongTo: '属于',
   contactNumber: '联系电话',
   description: '描述',
+  lastUpdateTime: '最后更新时间',
 
 }
 

@@ -158,52 +158,6 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
 
 
 
-  getReportSearch = () => {
-    const {ReportSearch} = GlobalComponents;
-    return connect(state => ({
-      rule: state.rule,
-      name: "报告",
-      role: "report",
-      data: state._retailStoreCountryCenter.reportList,
-      metaInfo: state._retailStoreCountryCenter.reportListMetaInfo,
-      count: state._retailStoreCountryCenter.reportCount,
-      currentPage: state._retailStoreCountryCenter.reportCurrentPageNumber,
-      searchFormParameters: state._retailStoreCountryCenter.reportSearchFormParameters,
-      searchParameters: {...state._retailStoreCountryCenter.searchParameters},
-      expandForm: state._retailStoreCountryCenter.expandForm,
-      loading: state._retailStoreCountryCenter.loading,
-      partialList: state._retailStoreCountryCenter.partialList,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
-      referenceName: 'owner', 
-      listName: 'reportList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '报告列表' }, // this is for model namespace and
-    }))(ReportSearch)
-  }
-  getReportCreateForm = () => {
-   	const {ReportCreateForm} = GlobalComponents;
-    return connect(state => ({
-      rule: state.rule,
-      role: "report",
-      data: state._retailStoreCountryCenter.reportList,
-      metaInfo: state._retailStoreCountryCenter.reportListMetaInfo,
-      count: state._retailStoreCountryCenter.reportCount,
-      currentPage: state._retailStoreCountryCenter.reportCurrentPageNumber,
-      searchFormParameters: state._retailStoreCountryCenter.reportSearchFormParameters,
-      loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'reportList', ref:state._retailStoreCountryCenter, listDisplayName: '报告列表'}, // this is for model namespace and
-    }))(ReportCreateForm)
-  }
-  
-  getReportUpdateForm = () => {
-  	const {ReportUpdateForm} = GlobalComponents;
-    return connect(state => ({
-      selectedRows: state._retailStoreCountryCenter.selectedRows,
-      role: "report",
-      currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'reportList', ref:state._retailStoreCountryCenter, listDisplayName: '报告列表' }, // this is for model namespace and
-    }))(ReportUpdateForm)
-  }
-
   getCatalogSearch = () => {
     const {CatalogSearch} = GlobalComponents;
     return connect(state => ({
@@ -1321,10 +1275,6 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
   	
   	
   	
-  	{path:"/retailStoreCountryCenter/:id/list/reportList", component: this.getReportSearch()},
-  	{path:"/retailStoreCountryCenter/:id/list/reportCreateForm", component: this.getReportCreateForm()},
-  	{path:"/retailStoreCountryCenter/:id/list/reportUpdateForm", component: this.getReportUpdateForm()},
-   	
   	{path:"/retailStoreCountryCenter/:id/list/catalogList", component: this.getCatalogSearch()},
   	{path:"/retailStoreCountryCenter/:id/list/catalogCreateForm", component: this.getCatalogCreateForm()},
   	{path:"/retailStoreCountryCenter/:id/list/catalogUpdateForm", component: this.getCatalogUpdateForm()},

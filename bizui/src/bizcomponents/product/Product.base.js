@@ -75,6 +75,7 @@ const displayColumns = [
   { title: '备注', debugtype: 'string', dataIndex: 'remark', width: '26',render: (text, record)=>renderTextCell(text,record) },
   { title: '品牌', debugtype: 'string', dataIndex: 'brand', width: '27',render: (text, record)=>renderTextCell(text,record) },
   { title: '图片', dataIndex: 'picture', render: (text, record) => renderImageCell(text,record,'图片') },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -86,6 +87,7 @@ const fieldLabels = {
   remark: '备注',
   brand: '品牌',
   picture: '图片',
+  lastUpdateTime: '最后更新时间',
 
 }
 

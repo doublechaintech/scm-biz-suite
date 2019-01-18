@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStore) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStore,targetComponent) =>{
 	
@@ -91,6 +93,7 @@ const internalSummaryOf = (retailStore,targetComponent) =>{
 <Description term="纬度">{retailStore.latitude}</Description> 
 <Description term="经度">{retailStore.longitude}</Description> 
 <Description term="描述">{retailStore.description}</Description> 
+<Description term="最后更新时间">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{retailStore.currentStatus}</Description> 
 	
         {buildTransferModal(retailStore,targetComponent)}
@@ -126,7 +129,10 @@ class RetailStoreDashboard extends Component {
     if(!this.props.retailStore.class){
       return null
     }
-    const cardsData = {cardsName:"双链小超",cardsFor: "retailStore",cardsSource: this.props.retailStore,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"双链小超",cardsFor: "retailStore",
+    	cardsSource: this.props.retailStore,returnURL,displayName,
   		subItems: [
 {name: 'consumerOrderList', displayName:'消费者订单',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo},
 {name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo},
@@ -144,11 +150,12 @@ class RetailStoreDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -167,5 +174,7 @@ class RetailStoreDashboard extends Component {
 
 export default connect(state => ({
   retailStore: state._retailStore,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreDashboard))
 

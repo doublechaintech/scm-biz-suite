@@ -57,18 +57,20 @@ const internalLargeTextOf = (terminationReason) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (terminationReason,targetComponent) =>{
 	
@@ -114,7 +116,10 @@ class TerminationReasonDashboard extends Component {
     if(!this.props.terminationReason.class){
       return null
     }
-    const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",cardsSource: this.props.terminationReason,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",
+    	cardsSource: this.props.terminationReason,returnURL,displayName,
   		subItems: [
 {name: 'terminationList', displayName:'雇佣终止',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo},
     
@@ -128,11 +133,12 @@ class TerminationReasonDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -151,5 +157,7 @@ class TerminationReasonDashboard extends Component {
 
 export default connect(state => ({
   terminationReason: state._terminationReason,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(TerminationReasonDashboard))
 

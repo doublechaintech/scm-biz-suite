@@ -267,6 +267,7 @@ const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
 </Description>
 <Description term="头衔">{retailStoreOrder.title}</Description> 
 <Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
 	
         {buildTransferModal(retailStoreOrder,targetComponent)}

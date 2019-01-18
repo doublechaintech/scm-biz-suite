@@ -272,6 +272,7 @@ const internalSummaryOf = (consumerOrder,targetComponent) =>{
 	      "transferToAnotherStore","anotherStoreId",consumerOrder.store?consumerOrder.store.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{consumerOrder.currentStatus}</Description> 
 	
         {buildTransferModal(consumerOrder,targetComponent)}

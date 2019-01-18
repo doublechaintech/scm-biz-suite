@@ -265,6 +265,7 @@ const internalSummaryOf = (instructor,targetComponent) =>{
 <Description term="手机">{instructor.cellPhone}</Description> 
 <Description term="电子邮件">{instructor.email}</Description> 
 <Description term="介绍">{instructor.introduction}</Description> 
+<Description term="最后更新时间">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(instructor,targetComponent)}
       </DescriptionList>

@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreOrderConfirmation) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreOrderConfirmation,targetComponent) =>{
 	
@@ -114,7 +116,10 @@ class RetailStoreOrderConfirmationDashboard extends Component {
     if(!this.props.retailStoreOrderConfirmation.class){
       return null
     }
-    const cardsData = {cardsName:"生超订单确认",cardsFor: "retailStoreOrderConfirmation",cardsSource: this.props.retailStoreOrderConfirmation,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"生超订单确认",cardsFor: "retailStoreOrderConfirmation",
+    	cardsSource: this.props.retailStoreOrderConfirmation,returnURL,displayName,
   		subItems: [
 {name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo},
     
@@ -128,11 +133,12 @@ class RetailStoreOrderConfirmationDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -151,5 +157,7 @@ class RetailStoreOrderConfirmationDashboard extends Component {
 
 export default connect(state => ({
   retailStoreOrderConfirmation: state._retailStoreOrderConfirmation,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreOrderConfirmationDashboard))
 

@@ -274,6 +274,7 @@ const internalSummaryOf = (companyTraining,targetComponent) =>{
 </Description>
 <Description term="时间开始">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
 <Description term="持续时间">{companyTraining.durationHours}</Description> 
+<Description term="最后更新时间">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(companyTraining,targetComponent)}
       </DescriptionList>

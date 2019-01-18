@@ -57,18 +57,20 @@ const internalLargeTextOf = (salaryGrade) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (salaryGrade,targetComponent) =>{
 	
@@ -115,7 +117,10 @@ class SalaryGradeDashboard extends Component {
     if(!this.props.salaryGrade.class){
       return null
     }
-    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",cardsSource: this.props.salaryGrade,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",
+    	cardsSource: this.props.salaryGrade,returnURL,displayName,
   		subItems: [
 {name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo},
 {name: 'employeeSalarySheetList', displayName:'工资单',type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo},
@@ -130,11 +135,12 @@ class SalaryGradeDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -153,5 +159,7 @@ class SalaryGradeDashboard extends Component {
 
 export default connect(state => ({
   salaryGrade: state._salaryGrade,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(SalaryGradeDashboard))
 

@@ -37,6 +37,11 @@ export default {
       if(cachedData.class){
         //yield put({ type: 'breadcrumb/gotoLink', payload: { displayName:cachedData.displayName,link }} )
         yield put({ type: 'updateState', payload: cachedData })
+        
+        if(payload.useCache){
+        	return //use cache for returning page
+        }
+        
       }else{
         yield put({ type: 'showLoading', payload })
       }

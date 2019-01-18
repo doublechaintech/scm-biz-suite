@@ -57,18 +57,20 @@ const internalLargeTextOf = (supplyOrder) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (supplyOrder,targetComponent) =>{
 	
@@ -86,6 +88,7 @@ const internalSummaryOf = (supplyOrder,targetComponent) =>{
 </Description>
 <Description term="头衔">{supplyOrder.title}</Description> 
 <Description term="总金额">{supplyOrder.totalAmount}</Description> 
+<Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{supplyOrder.currentStatus}</Description> 
 	
         {buildTransferModal(supplyOrder,targetComponent)}
@@ -121,7 +124,10 @@ class SupplyOrderDashboard extends Component {
     if(!this.props.supplyOrder.class){
       return null
     }
-    const cardsData = {cardsName:"供应订单",cardsFor: "supplyOrder",cardsSource: this.props.supplyOrder,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"供应订单",cardsFor: "supplyOrder",
+    	cardsSource: this.props.supplyOrder,returnURL,displayName,
   		subItems: [
 {name: 'supplyOrderLineItemList', displayName:'供应订单行项目',type:'supplyOrderLineItem',count:supplyOrderLineItemCount,addFunction: true, role: 'supplyOrderLineItem', metaInfo: supplyOrderLineItemListMetaInfo},
 {name: 'supplyOrderShippingGroupList', displayName:'供应订单送货分组',type:'supplyOrderShippingGroup',count:supplyOrderShippingGroupCount,addFunction: true, role: 'supplyOrderShippingGroup', metaInfo: supplyOrderShippingGroupListMetaInfo},
@@ -138,11 +144,12 @@ class SupplyOrderDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -161,5 +168,7 @@ class SupplyOrderDashboard extends Component {
 
 export default connect(state => ({
   supplyOrder: state._supplyOrder,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(SupplyOrderDashboard))
 

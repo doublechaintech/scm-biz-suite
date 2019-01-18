@@ -268,6 +268,7 @@ const internalSummaryOf = (cityEvent,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{cityEvent.description}</Description> 
+<Description term="最后更新时间">{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(cityEvent,targetComponent)}
       </DescriptionList>

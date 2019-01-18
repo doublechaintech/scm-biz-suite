@@ -82,6 +82,7 @@ const displayColumns = [
   { title: '全国运营中心', dataIndex: 'countryCenter', render: (text, record) => renderReferenceCell(text, record)},
   { title: '双链小超', dataIndex: 'retailStore', render: (text, record) => renderReferenceCell(text, record)},
   { title: '产品供应商', dataIndex: 'goodsSupplier', render: (text, record) => renderReferenceCell(text, record)},
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -98,6 +99,7 @@ const fieldLabels = {
   countryCenter: '全国运营中心',
   retailStore: '双链小超',
   goodsSupplier: '产品供应商',
+  lastUpdateTime: '最后更新时间',
 
 }
 

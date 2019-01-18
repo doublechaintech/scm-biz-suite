@@ -261,6 +261,7 @@ const internalSummaryOf = (transportFleet,targetComponent) =>{
 <Description term="序号">{transportFleet.id}</Description> 
 <Description term="名称">{transportFleet.name}</Description> 
 <Description term="联系电话">{transportFleet.contactNumber}</Description> 
+<Description term="最后更新时间">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(transportFleet,targetComponent)}
       </DescriptionList>

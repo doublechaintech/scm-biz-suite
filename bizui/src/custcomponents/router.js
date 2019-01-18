@@ -14,8 +14,6 @@ import GlobalComponents from './'
 function RouterConfig({ history }) {
 
 	const {RetailStoreCountryCenterBizApp} = GlobalComponents
-	const {ReportBizApp} = GlobalComponents
-	const {ReportLineBizApp} = GlobalComponents
 	const {CatalogBizApp} = GlobalComponents
 	const {LevelOneCategoryBizApp} = GlobalComponents
 	const {LevelTwoCategoryBizApp} = GlobalComponents
@@ -170,8 +168,6 @@ function RouterConfig({ history }) {
          <Route path="/home" component={Launcher} />
          <Route path="/forgetpass" component={ForgetPasswordForm} />
           <Route path="/retailStoreCountryCenter/" component={RetailStoreCountryCenterBizApp} />
-          <Route path="/report/" component={ReportBizApp} />
-          <Route path="/reportLine/" component={ReportLineBizApp} />
           <Route path="/catalog/" component={CatalogBizApp} />
           <Route path="/levelOneCategory/" component={LevelOneCategoryBizApp} />
           <Route path="/levelTwoCategory/" component={LevelTwoCategoryBizApp} />

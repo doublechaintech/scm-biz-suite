@@ -57,18 +57,20 @@ const internalLargeTextOf = (levelThreeCategory) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (levelThreeCategory,targetComponent) =>{
 	
@@ -119,7 +121,10 @@ class LevelThreeCategoryDashboard extends Component {
     if(!this.props.levelThreeCategory.class){
       return null
     }
-    const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",cardsSource: this.props.levelThreeCategory,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",
+    	cardsSource: this.props.levelThreeCategory,returnURL,displayName,
   		subItems: [
 {name: 'productList', displayName:'产品',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo},
     
@@ -133,11 +138,12 @@ class LevelThreeCategoryDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -156,5 +162,7 @@ class LevelThreeCategoryDashboard extends Component {
 
 export default connect(state => ({
   levelThreeCategory: state._levelThreeCategory,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(LevelThreeCategoryDashboard))
 

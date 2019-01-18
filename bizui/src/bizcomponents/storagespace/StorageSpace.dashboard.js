@@ -57,18 +57,20 @@ const internalLargeTextOf = (storageSpace) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (storageSpace,targetComponent) =>{
 	
@@ -123,7 +125,10 @@ class StorageSpaceDashboard extends Component {
     if(!this.props.storageSpace.class){
       return null
     }
-    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",cardsSource: this.props.storageSpace,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",
+    	cardsSource: this.props.storageSpace,returnURL,displayName,
   		subItems: [
 {name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo},
     
@@ -137,11 +142,12 @@ class StorageSpaceDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -160,5 +166,7 @@ class StorageSpaceDashboard extends Component {
 
 export default connect(state => ({
   storageSpace: state._storageSpace,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(StorageSpaceDashboard))
 

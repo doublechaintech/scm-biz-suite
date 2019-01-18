@@ -74,6 +74,7 @@ const displayColumns = [
   { title: '手机', debugtype: 'string_china_mobile_phone', dataIndex: 'mobile', width: '15',render: (text, record)=>renderTextCell(text,record) },
   { title: '城市服务中心', dataIndex: 'cityServiceCenter', render: (text, record) => renderReferenceCell(text, record)},
   { title: '描述', debugtype: 'string', dataIndex: 'description', width: '20',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -83,6 +84,7 @@ const fieldLabels = {
   mobile: '手机',
   cityServiceCenter: '城市服务中心',
   description: '描述',
+  lastUpdateTime: '最后更新时间',
 
 }
 

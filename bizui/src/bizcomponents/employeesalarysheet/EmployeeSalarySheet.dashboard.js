@@ -57,18 +57,20 @@ const internalLargeTextOf = (employeeSalarySheet) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 	
@@ -138,7 +140,10 @@ class EmployeeSalarySheetDashboard extends Component {
     if(!this.props.employeeSalarySheet.class){
       return null
     }
-    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",cardsSource: this.props.employeeSalarySheet,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",
+    	cardsSource: this.props.employeeSalarySheet,returnURL,displayName,
   		subItems: [
     
       	],
@@ -151,11 +156,12 @@ class EmployeeSalarySheetDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -174,5 +180,7 @@ class EmployeeSalarySheetDashboard extends Component {
 
 export default connect(state => ({
   employeeSalarySheet: state._employeeSalarySheet,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(EmployeeSalarySheetDashboard))
 

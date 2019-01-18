@@ -57,18 +57,20 @@ const internalLargeTextOf = (memberWishlist) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (memberWishlist,targetComponent) =>{
 	
@@ -119,7 +121,10 @@ class MemberWishlistDashboard extends Component {
     if(!this.props.memberWishlist.class){
       return null
     }
-    const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",cardsSource: this.props.memberWishlist,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",
+    	cardsSource: this.props.memberWishlist,returnURL,displayName,
   		subItems: [
 {name: 'memberWishlistProductList', displayName:'会员收藏产品',type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo},
     
@@ -133,11 +138,12 @@ class MemberWishlistDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -156,5 +162,7 @@ class MemberWishlistDashboard extends Component {
 
 export default connect(state => ({
   memberWishlist: state._memberWishlist,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(MemberWishlistDashboard))
 

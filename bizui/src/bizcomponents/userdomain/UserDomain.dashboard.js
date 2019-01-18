@@ -57,18 +57,20 @@ const internalLargeTextOf = (userDomain) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (userDomain,targetComponent) =>{
 	
@@ -113,7 +115,10 @@ class UserDomainDashboard extends Component {
     if(!this.props.userDomain.class){
       return null
     }
-    const cardsData = {cardsName:"用户域",cardsFor: "userDomain",cardsSource: this.props.userDomain,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"用户域",cardsFor: "userDomain",
+    	cardsSource: this.props.userDomain,returnURL,displayName,
   		subItems: [
 {name: 'secUserList', displayName:'SEC的用户',type:'secUser',count:secUserCount,addFunction: true, role: 'secUser', metaInfo: secUserListMetaInfo},
     
@@ -127,11 +132,12 @@ class UserDomainDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -150,5 +156,7 @@ class UserDomainDashboard extends Component {
 
 export default connect(state => ({
   userDomain: state._userDomain,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(UserDomainDashboard))
 

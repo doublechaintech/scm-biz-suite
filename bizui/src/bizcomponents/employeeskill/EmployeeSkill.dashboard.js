@@ -57,18 +57,20 @@ const internalLargeTextOf = (employeeSkill) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (employeeSkill,targetComponent) =>{
 	
@@ -125,7 +127,10 @@ class EmployeeSkillDashboard extends Component {
     if(!this.props.employeeSkill.class){
       return null
     }
-    const cardsData = {cardsName:"员工技能",cardsFor: "employeeSkill",cardsSource: this.props.employeeSkill,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"员工技能",cardsFor: "employeeSkill",
+    	cardsSource: this.props.employeeSkill,returnURL,displayName,
   		subItems: [
     
       	],
@@ -138,11 +143,12 @@ class EmployeeSkillDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -161,5 +167,7 @@ class EmployeeSkillDashboard extends Component {
 
 export default connect(state => ({
   employeeSkill: state._employeeSkill,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(EmployeeSkillDashboard))
 

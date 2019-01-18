@@ -57,18 +57,20 @@ const internalLargeTextOf = (originalVoucherAuditing) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (originalVoucherAuditing,targetComponent) =>{
 	
@@ -115,7 +117,10 @@ class OriginalVoucherAuditingDashboard extends Component {
     if(!this.props.originalVoucherAuditing.class){
       return null
     }
-    const cardsData = {cardsName:"原始凭证的审核",cardsFor: "originalVoucherAuditing",cardsSource: this.props.originalVoucherAuditing,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"原始凭证的审核",cardsFor: "originalVoucherAuditing",
+    	cardsSource: this.props.originalVoucherAuditing,returnURL,displayName,
   		subItems: [
 {name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo},
     
@@ -129,11 +134,12 @@ class OriginalVoucherAuditingDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -152,5 +158,7 @@ class OriginalVoucherAuditingDashboard extends Component {
 
 export default connect(state => ({
   originalVoucherAuditing: state._originalVoucherAuditing,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(OriginalVoucherAuditingDashboard))
 

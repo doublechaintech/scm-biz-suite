@@ -263,6 +263,7 @@ const internalSummaryOf = (goodsSupplier,targetComponent) =>{
 <Description term="供应产品">{goodsSupplier.supplyProduct}</Description> 
 <Description term="联系电话">{goodsSupplier.contactNumber}</Description> 
 <Description term="描述">{goodsSupplier.description}</Description> 
+<Description term="最后更新时间">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(goodsSupplier,targetComponent)}
       </DescriptionList>

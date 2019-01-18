@@ -261,6 +261,7 @@ const internalSummaryOf = (retailStoreProvinceCenter,targetComponent) =>{
 <Description term="序号">{retailStoreProvinceCenter.id}</Description> 
 <Description term="名称">{retailStoreProvinceCenter.name}</Description> 
 <Description term="成立">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreProvinceCenter,targetComponent)}
       </DescriptionList>

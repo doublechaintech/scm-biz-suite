@@ -264,6 +264,7 @@ const internalSummaryOf = (warehouse,targetComponent) =>{
 <Description term="总面积">{warehouse.totalArea}</Description> 
 <Description term="纬度">{warehouse.latitude}</Description> 
 <Description term="经度">{warehouse.longitude}</Description> 
+<Description term="最后更新时间">{ moment(warehouse.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(warehouse,targetComponent)}
       </DescriptionList>

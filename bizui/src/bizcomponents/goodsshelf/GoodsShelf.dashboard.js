@@ -57,18 +57,20 @@ const internalLargeTextOf = (goodsShelf) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (goodsShelf,targetComponent) =>{
 	
@@ -131,7 +133,10 @@ class GoodsShelfDashboard extends Component {
     if(!this.props.goodsShelf.class){
       return null
     }
-    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",cardsSource: this.props.goodsShelf,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",
+    	cardsSource: this.props.goodsShelf,returnURL,displayName,
   		subItems: [
 {name: 'goodsShelfStockCountList', displayName:'货架库存盘点',type:'goodsShelfStockCount',count:goodsShelfStockCountCount,addFunction: true, role: 'goodsShelfStockCount', metaInfo: goodsShelfStockCountListMetaInfo},
 {name: 'goodsAllocationList', displayName:'货位',type:'goodsAllocation',count:goodsAllocationCount,addFunction: true, role: 'goodsAllocation', metaInfo: goodsAllocationListMetaInfo},
@@ -146,11 +151,12 @@ class GoodsShelfDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -169,5 +175,7 @@ class GoodsShelfDashboard extends Component {
 
 export default connect(state => ({
   goodsShelf: state._goodsShelf,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(GoodsShelfDashboard))
 

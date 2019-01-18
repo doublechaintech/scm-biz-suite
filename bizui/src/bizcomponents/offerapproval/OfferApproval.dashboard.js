@@ -57,18 +57,20 @@ const internalLargeTextOf = (offerApproval) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (offerApproval,targetComponent) =>{
 	
@@ -115,7 +117,10 @@ class OfferApprovalDashboard extends Component {
     if(!this.props.offerApproval.class){
       return null
     }
-    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",cardsSource: this.props.offerApproval,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",
+    	cardsSource: this.props.offerApproval,returnURL,displayName,
   		subItems: [
 {name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo},
     
@@ -129,11 +134,12 @@ class OfferApprovalDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -152,5 +158,7 @@ class OfferApprovalDashboard extends Component {
 
 export default connect(state => ({
   offerApproval: state._offerApproval,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(OfferApprovalDashboard))
 
