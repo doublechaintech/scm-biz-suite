@@ -250,9 +250,10 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST);
  	}
  	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePotentialCustomerListEnabled(Map<String,Object> options){
 		return checkOptions(options, CityPartnerTokens.POTENTIAL_CUSTOMER_LIST);
 		
@@ -264,9 +265,10 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
  	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
 		return checkOptions(options, CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
 		
@@ -308,7 +310,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractPotentialCustomerList(cityPartner, loadOptions);
  		}	
  		if(isAnalyzePotentialCustomerListEnabled(loadOptions)){
-	 		// analyzePotentialCustomerList(cityPartner, loadOptions);
+	 		analyzePotentialCustomerList(cityPartner, loadOptions);
  		}
  		
 		
@@ -316,7 +318,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractPotentialCustomerContactList(cityPartner, loadOptions);
  		}	
  		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
-	 		// analyzePotentialCustomerContactList(cityPartner, loadOptions);
+	 		analyzePotentialCustomerContactList(cityPartner, loadOptions);
  		}
  		
 		
@@ -477,7 +479,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityPartner.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("City Partner");
+		lastUpdateTimeStatsItem.setDisplayName("城市合伙人");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityPartner.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityPartner.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

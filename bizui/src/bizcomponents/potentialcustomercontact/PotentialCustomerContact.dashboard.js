@@ -57,18 +57,20 @@ const internalLargeTextOf = (potentialCustomerContact) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
 	
@@ -100,6 +102,7 @@ const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{potentialCustomerContact.description}</Description> 
+<Description term="最后更新时间">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(potentialCustomerContact,targetComponent)}
       </DescriptionList>
@@ -134,7 +137,10 @@ class PotentialCustomerContactDashboard extends Component {
     if(!this.props.potentialCustomerContact.class){
       return null
     }
-    const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",cardsSource: this.props.potentialCustomerContact,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",
+    	cardsSource: this.props.potentialCustomerContact,returnURL,displayName,
   		subItems: [
     
       	],
@@ -147,11 +153,12 @@ class PotentialCustomerContactDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -170,5 +177,7 @@ class PotentialCustomerContactDashboard extends Component {
 
 export default connect(state => ({
   potentialCustomerContact: state._potentialCustomerContact,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(PotentialCustomerContactDashboard))
 

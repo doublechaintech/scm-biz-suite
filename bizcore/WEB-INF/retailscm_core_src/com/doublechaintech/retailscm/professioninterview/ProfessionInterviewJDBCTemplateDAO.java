@@ -197,9 +197,10 @@ public class ProfessionInterviewJDBCTemplateDAO extends RetailscmNamingServiceDA
  		return checkOptions(options,ProfessionInterviewTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ProfessionInterviewTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ProfessionInterviewTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, ProfessionInterviewTokens.EMPLOYEE_LIST);
 		
@@ -237,7 +238,7 @@ public class ProfessionInterviewJDBCTemplateDAO extends RetailscmNamingServiceDA
 	 		extractEmployeeList(professionInterview, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(professionInterview, loadOptions);
+	 		analyzeEmployeeList(professionInterview, loadOptions);
  		}
  		
 		

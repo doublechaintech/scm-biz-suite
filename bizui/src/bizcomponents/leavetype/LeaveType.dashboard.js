@@ -57,18 +57,20 @@ const internalLargeTextOf = (leaveType) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (leaveType,targetComponent) =>{
 	
@@ -115,7 +117,10 @@ class LeaveTypeDashboard extends Component {
     if(!this.props.leaveType.class){
       return null
     }
-    const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",cardsSource: this.props.leaveType,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",
+    	cardsSource: this.props.leaveType,returnURL,displayName,
   		subItems: [
 {name: 'employeeLeaveList', displayName:'请假记录',type:'employeeLeave',count:employeeLeaveCount,addFunction: true, role: 'employeeLeave', metaInfo: employeeLeaveListMetaInfo},
     
@@ -129,11 +134,12 @@ class LeaveTypeDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -152,5 +158,7 @@ class LeaveTypeDashboard extends Component {
 
 export default connect(state => ({
   leaveType: state._leaveType,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(LeaveTypeDashboard))
 

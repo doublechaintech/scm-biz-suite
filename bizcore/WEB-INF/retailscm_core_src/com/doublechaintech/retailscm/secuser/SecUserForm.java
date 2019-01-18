@@ -474,7 +474,7 @@ public class SecUserForm extends BaseForm {
  	
  	public SecUserForm  blockAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Block");
+		action.setLabel("屏蔽");
 		action.setLocaleKey("sec_user.block");
 		action.setUrl("secUserManager/block/secUserId/who/comments/");
 		this.addFormAction(action);

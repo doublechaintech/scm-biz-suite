@@ -305,9 +305,10 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  		return checkOptions(options,SecUserTokens.USER_APP_LIST);
  	}
  	protected boolean isAnalyzeUserAppListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SecUserTokens.USER_APP_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SecUserTokens.USER_APP_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveUserAppListEnabled(Map<String,Object> options){
 		return checkOptions(options, SecUserTokens.USER_APP_LIST);
 		
@@ -319,9 +320,10 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  		return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST);
  	}
  	protected boolean isAnalyzeLoginHistoryListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveLoginHistoryListEnabled(Map<String,Object> options){
 		return checkOptions(options, SecUserTokens.LOGIN_HISTORY_LIST);
 		
@@ -367,7 +369,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	 		extractUserAppList(secUser, loadOptions);
  		}	
  		if(isAnalyzeUserAppListEnabled(loadOptions)){
-	 		// analyzeUserAppList(secUser, loadOptions);
+	 		analyzeUserAppList(secUser, loadOptions);
  		}
  		
 		
@@ -375,7 +377,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	 		extractLoginHistoryList(secUser, loadOptions);
  		}	
  		if(isAnalyzeLoginHistoryListEnabled(loadOptions)){
-	 		// analyzeLoginHistoryList(secUser, loadOptions);
+	 		analyzeLoginHistoryList(secUser, loadOptions);
  		}
  		
 		
@@ -556,7 +558,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		StatsItem verificationCodeExpireStatsItem = new StatsItem();
 		//SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY
-		verificationCodeExpireStatsItem.setDisplayName("Sec User");
+		verificationCodeExpireStatsItem.setDisplayName("SEC的用户");
 		verificationCodeExpireStatsItem.setInternalName(formatKeyForDateLine(SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY));
 		verificationCodeExpireStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY),filterKey,emptyOptions));
 		info.addItem(verificationCodeExpireStatsItem);
@@ -606,7 +608,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		StatsItem verificationCodeExpireStatsItem = new StatsItem();
 		//SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY
-		verificationCodeExpireStatsItem.setDisplayName("Sec User");
+		verificationCodeExpireStatsItem.setDisplayName("SEC的用户");
 		verificationCodeExpireStatsItem.setInternalName(formatKeyForDateLine(SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY));
 		verificationCodeExpireStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SecUser.VERIFICATION_CODE_EXPIRE_PROPERTY),filterKey,emptyOptions));
 		info.addItem(verificationCodeExpireStatsItem);

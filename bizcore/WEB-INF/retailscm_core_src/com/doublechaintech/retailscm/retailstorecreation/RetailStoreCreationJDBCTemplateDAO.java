@@ -197,9 +197,10 @@ public class RetailStoreCreationJDBCTemplateDAO extends RetailscmNamingServiceDA
  		return checkOptions(options,RetailStoreCreationTokens.RETAIL_STORE_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCreationTokens.RETAIL_STORE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCreationTokens.RETAIL_STORE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCreationTokens.RETAIL_STORE_LIST);
 		
@@ -237,7 +238,7 @@ public class RetailStoreCreationJDBCTemplateDAO extends RetailscmNamingServiceDA
 	 		extractRetailStoreList(retailStoreCreation, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
-	 		// analyzeRetailStoreList(retailStoreCreation, loadOptions);
+	 		analyzeRetailStoreList(retailStoreCreation, loadOptions);
  		}
  		
 		

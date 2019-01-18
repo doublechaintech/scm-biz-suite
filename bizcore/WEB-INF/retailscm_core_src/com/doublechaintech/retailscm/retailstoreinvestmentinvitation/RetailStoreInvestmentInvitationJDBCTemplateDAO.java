@@ -197,9 +197,10 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmNam
  		return checkOptions(options,RetailStoreInvestmentInvitationTokens.RETAIL_STORE_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreInvestmentInvitationTokens.RETAIL_STORE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreInvestmentInvitationTokens.RETAIL_STORE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreInvestmentInvitationTokens.RETAIL_STORE_LIST);
 		
@@ -237,7 +238,7 @@ public class RetailStoreInvestmentInvitationJDBCTemplateDAO extends RetailscmNam
 	 		extractRetailStoreList(retailStoreInvestmentInvitation, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
-	 		// analyzeRetailStoreList(retailStoreInvestmentInvitation, loadOptions);
+	 		analyzeRetailStoreList(retailStoreInvestmentInvitation, loadOptions);
  		}
  		
 		

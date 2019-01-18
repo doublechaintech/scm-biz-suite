@@ -100,6 +100,7 @@ const displayColumns = [
   { title: '接受工作要约', dataIndex: 'offerAcceptance', render: (text, record) => renderReferenceCell(text, record)},
   { title: '员工入职', dataIndex: 'employeeBoarding', render: (text, record) => renderReferenceCell(text, record)},
   { title: '雇佣终止', dataIndex: 'termination', render: (text, record) => renderReferenceCell(text, record)},
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
   { title: '当前状态', debugtype: 'string', dataIndex: 'currentStatus', width: '26',render: (text, record)=>renderTextCell(text,record) },
 
 ]
@@ -126,6 +127,7 @@ const fieldLabels = {
   offerAcceptance: '接受工作要约',
   employeeBoarding: '员工入职',
   termination: '雇佣终止',
+  lastUpdateTime: '最后更新时间',
   currentStatus: '当前状态',
 
 }

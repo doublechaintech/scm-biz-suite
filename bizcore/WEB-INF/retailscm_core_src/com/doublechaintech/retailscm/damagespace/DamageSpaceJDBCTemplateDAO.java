@@ -222,9 +222,10 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,DamageSpaceTokens.GOODS_SHELF_LIST);
  	}
  	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,DamageSpaceTokens.GOODS_SHELF_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,DamageSpaceTokens.GOODS_SHELF_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsShelfListEnabled(Map<String,Object> options){
 		return checkOptions(options, DamageSpaceTokens.GOODS_SHELF_LIST);
 		
@@ -266,7 +267,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractGoodsShelfList(damageSpace, loadOptions);
  		}	
  		if(isAnalyzeGoodsShelfListEnabled(loadOptions)){
-	 		// analyzeGoodsShelfList(damageSpace, loadOptions);
+	 		analyzeGoodsShelfList(damageSpace, loadOptions);
  		}
  		
 		

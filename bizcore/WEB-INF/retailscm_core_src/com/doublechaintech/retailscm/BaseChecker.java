@@ -424,6 +424,10 @@ public class BaseChecker {
 	protected void checkMoneyAmount(BigDecimal amount, double min, double max, String propertyKey) {
 		this.checkBigDecimalRange(amount, min, max, propertyKey);
 	}
+	protected void checkCountryCode(String countryCode, int min, int max, String propertyKey) {
+		checkStringLengthRange(countryCode, min, max, propertyKey);
+	}
+	
 }
 
 

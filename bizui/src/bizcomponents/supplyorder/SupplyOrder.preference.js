@@ -267,6 +267,7 @@ const internalSummaryOf = (supplyOrder,targetComponent) =>{
 </Description>
 <Description term="头衔">{supplyOrder.title}</Description> 
 <Description term="总金额">{supplyOrder.totalAmount}</Description> 
+<Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{supplyOrder.currentStatus}</Description> 
 	
         {buildTransferModal(supplyOrder,targetComponent)}

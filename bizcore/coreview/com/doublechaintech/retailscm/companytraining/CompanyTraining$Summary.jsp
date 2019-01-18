@@ -48,6 +48,10 @@
 <span class="summary-label">${userContext.localeMap['company_training.duration_hours']}</span>
 <span >${result.durationHours}</span>
 </div>
+<div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['company_training.last_update_time']}</span>
+<span ><fmt:formatDate pattern="yyyy-MM-dd" value="${result.lastUpdateTime}" /></span>
+</div>
 
 	</div>
 	

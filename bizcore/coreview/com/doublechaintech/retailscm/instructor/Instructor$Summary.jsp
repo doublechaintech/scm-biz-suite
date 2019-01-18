@@ -60,6 +60,10 @@
 <span class="summary-label">${userContext.localeMap['instructor.introduction']}</span>
 <span >${result.introduction}</span>
 </div>
+<div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['instructor.last_update_time']}</span>
+<span ><fmt:formatDate pattern="yyyy-MM-dd" value="${result.lastUpdateTime}" /></span>
+</div>
 
 	</div>
 	

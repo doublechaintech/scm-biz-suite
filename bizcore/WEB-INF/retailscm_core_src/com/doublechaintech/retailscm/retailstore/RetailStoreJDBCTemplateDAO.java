@@ -509,9 +509,10 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,RetailStoreTokens.CONSUMER_ORDER_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreTokens.CONSUMER_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreTokens.CONSUMER_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreTokens.CONSUMER_ORDER_LIST);
 		
@@ -523,9 +524,10 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,RetailStoreTokens.RETAIL_STORE_ORDER_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreTokens.RETAIL_STORE_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreTokens.RETAIL_STORE_ORDER_LIST);
 		
@@ -537,9 +539,10 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,RetailStoreTokens.GOODS_LIST);
  	}
  	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreTokens.GOODS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreTokens.GOODS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreTokens.GOODS_LIST);
 		
@@ -551,9 +554,10 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,RetailStoreTokens.TRANSPORT_TASK_LIST);
  	}
  	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreTokens.TRANSPORT_TASK_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreTokens.TRANSPORT_TASK_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreTokens.TRANSPORT_TASK_LIST);
 		
@@ -565,9 +569,10 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,RetailStoreTokens.ACCOUNT_SET_LIST);
  	}
  	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreTokens.ACCOUNT_SET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreTokens.ACCOUNT_SET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreTokens.ACCOUNT_SET_LIST);
 		
@@ -637,7 +642,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractConsumerOrderList(retailStore, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderList(retailStore, loadOptions);
+	 		analyzeConsumerOrderList(retailStore, loadOptions);
  		}
  		
 		
@@ -645,7 +650,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractRetailStoreOrderList(retailStore, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
-	 		// analyzeRetailStoreOrderList(retailStore, loadOptions);
+	 		analyzeRetailStoreOrderList(retailStore, loadOptions);
  		}
  		
 		
@@ -653,7 +658,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractGoodsList(retailStore, loadOptions);
  		}	
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
-	 		// analyzeGoodsList(retailStore, loadOptions);
+	 		analyzeGoodsList(retailStore, loadOptions);
  		}
  		
 		
@@ -661,7 +666,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractTransportTaskList(retailStore, loadOptions);
  		}	
  		if(isAnalyzeTransportTaskListEnabled(loadOptions)){
-	 		// analyzeTransportTaskList(retailStore, loadOptions);
+	 		analyzeTransportTaskList(retailStore, loadOptions);
  		}
  		
 		
@@ -669,7 +674,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractAccountSetList(retailStore, loadOptions);
  		}	
  		if(isAnalyzeAccountSetListEnabled(loadOptions)){
-	 		// analyzeAccountSetList(retailStore, loadOptions);
+	 		analyzeAccountSetList(retailStore, loadOptions);
  		}
  		
 		
@@ -1120,7 +1125,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1170,7 +1175,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1220,7 +1225,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1270,7 +1275,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1320,7 +1325,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1370,7 +1375,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1420,7 +1425,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1470,7 +1475,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

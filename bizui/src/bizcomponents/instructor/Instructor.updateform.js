@@ -58,6 +58,7 @@ class InstructorUpdateForm extends Component {
     const convertiedValues = selectedRows.map((item) => {
       return {
         ...item,
+        lastUpdateTime: moment(item.lastUpdateTime),
 
       }
     })
@@ -354,10 +355,10 @@ class InstructorUpdateForm extends Component {
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
             更新并装载下一个
           </Button>
-          <Button type="info" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
             略过
           </Button>
-          <Button type="info" onClick={goback} loading={submitting}>
+          <Button type="default" onClick={goback} loading={submitting}>
             取消
           </Button>
         </FooterToolbar>

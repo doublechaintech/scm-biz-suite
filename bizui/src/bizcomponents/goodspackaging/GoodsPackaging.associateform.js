@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
-  packageTime: '2017-05-24',
+  packageTime: '2016-06-20',
   description: '打包完成，准备起运',
 }
 */

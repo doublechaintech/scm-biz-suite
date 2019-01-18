@@ -24,6 +24,7 @@
 <li><span>${userContext.localeMap['potential_customer_contact.contact_date']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${potentialCustomerContact.contactDate}" /></li>
 <li><span>${userContext.localeMap['potential_customer_contact.contact_method']}</span> ${potentialCustomerContact.contactMethod}</li>
 <li><span>${userContext.localeMap['potential_customer_contact.description']}</span> ${potentialCustomerContact.description}</li>
+<li><span>${userContext.localeMap['potential_customer_contact.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${potentialCustomerContact.lastUpdateTime}" /></li>
 
 	
 	</ul>

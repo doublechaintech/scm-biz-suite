@@ -22,6 +22,7 @@
 <li><span>${userContext.localeMap['goods_supplier.supply_product']}</span> ${goodsSupplier.supplyProduct}</li>
 <li><span>${userContext.localeMap['goods_supplier.contact_number']}</span> ${goodsSupplier.maskedContactNumber}</li>
 <li><span>${userContext.localeMap['goods_supplier.description']}</span> ${goodsSupplier.description}</li>
+<li><span>${userContext.localeMap['goods_supplier.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${goodsSupplier.lastUpdateTime}" /></li>
 
 	
 	</ul>

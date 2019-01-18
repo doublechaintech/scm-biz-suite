@@ -222,9 +222,10 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,LeaveTypeTokens.EMPLOYEE_LEAVE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,LeaveTypeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,LeaveTypeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeLeaveListEnabled(Map<String,Object> options){
 		return checkOptions(options, LeaveTypeTokens.EMPLOYEE_LEAVE_LIST);
 		
@@ -266,7 +267,7 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractEmployeeLeaveList(leaveType, loadOptions);
  		}	
  		if(isAnalyzeEmployeeLeaveListEnabled(loadOptions)){
-	 		// analyzeEmployeeLeaveList(leaveType, loadOptions);
+	 		analyzeEmployeeLeaveList(leaveType, loadOptions);
  		}
  		
 		

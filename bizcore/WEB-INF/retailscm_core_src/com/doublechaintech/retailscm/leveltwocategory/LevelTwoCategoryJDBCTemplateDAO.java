@@ -222,9 +222,10 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  		return checkOptions(options,LevelTwoCategoryTokens.LEVEL_THREE_CATEGORY_LIST);
  	}
  	protected boolean isAnalyzeLevelThreeCategoryListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,LevelTwoCategoryTokens.LEVEL_THREE_CATEGORY_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,LevelTwoCategoryTokens.LEVEL_THREE_CATEGORY_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveLevelThreeCategoryListEnabled(Map<String,Object> options){
 		return checkOptions(options, LevelTwoCategoryTokens.LEVEL_THREE_CATEGORY_LIST);
 		
@@ -266,7 +267,7 @@ public class LevelTwoCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	 		extractLevelThreeCategoryList(levelTwoCategory, loadOptions);
  		}	
  		if(isAnalyzeLevelThreeCategoryListEnabled(loadOptions)){
-	 		// analyzeLevelThreeCategoryList(levelTwoCategory, loadOptions);
+	 		analyzeLevelThreeCategoryList(levelTwoCategory, loadOptions);
  		}
  		
 		

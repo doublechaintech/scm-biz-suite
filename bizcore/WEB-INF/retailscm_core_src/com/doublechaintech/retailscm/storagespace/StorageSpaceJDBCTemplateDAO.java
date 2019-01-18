@@ -222,9 +222,10 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  		return checkOptions(options,StorageSpaceTokens.GOODS_SHELF_LIST);
  	}
  	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,StorageSpaceTokens.GOODS_SHELF_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,StorageSpaceTokens.GOODS_SHELF_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsShelfListEnabled(Map<String,Object> options){
 		return checkOptions(options, StorageSpaceTokens.GOODS_SHELF_LIST);
 		
@@ -266,7 +267,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	 		extractGoodsShelfList(storageSpace, loadOptions);
  		}	
  		if(isAnalyzeGoodsShelfListEnabled(loadOptions)){
-	 		// analyzeGoodsShelfList(storageSpace, loadOptions);
+	 		analyzeGoodsShelfList(storageSpace, loadOptions);
  		}
  		
 		

@@ -306,9 +306,10 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST);
  	}
  	protected boolean isAnalyzeCityPartnerListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveCityPartnerListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST);
 		
@@ -320,9 +321,10 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST);
  	}
  	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePotentialCustomerListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST);
 		
@@ -334,9 +336,10 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST);
  	}
  	protected boolean isAnalyzeCityEventListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveCityEventListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST);
 		
@@ -348,9 +351,10 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST);
 		
@@ -392,7 +396,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	 		extractCityPartnerList(retailStoreCityServiceCenter, loadOptions);
  		}	
  		if(isAnalyzeCityPartnerListEnabled(loadOptions)){
-	 		// analyzeCityPartnerList(retailStoreCityServiceCenter, loadOptions);
+	 		analyzeCityPartnerList(retailStoreCityServiceCenter, loadOptions);
  		}
  		
 		
@@ -400,7 +404,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	 		extractPotentialCustomerList(retailStoreCityServiceCenter, loadOptions);
  		}	
  		if(isAnalyzePotentialCustomerListEnabled(loadOptions)){
-	 		// analyzePotentialCustomerList(retailStoreCityServiceCenter, loadOptions);
+	 		analyzePotentialCustomerList(retailStoreCityServiceCenter, loadOptions);
  		}
  		
 		
@@ -408,7 +412,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	 		extractCityEventList(retailStoreCityServiceCenter, loadOptions);
  		}	
  		if(isAnalyzeCityEventListEnabled(loadOptions)){
-	 		// analyzeCityEventList(retailStoreCityServiceCenter, loadOptions);
+	 		analyzeCityEventList(retailStoreCityServiceCenter, loadOptions);
  		}
  		
 		
@@ -416,7 +420,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	 		extractRetailStoreList(retailStoreCityServiceCenter, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
-	 		// analyzeRetailStoreList(retailStoreCityServiceCenter, loadOptions);
+	 		analyzeRetailStoreList(retailStoreCityServiceCenter, loadOptions);
  		}
  		
 		
@@ -677,7 +681,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store City Service Center");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超城市服务中心");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreCityServiceCenter.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

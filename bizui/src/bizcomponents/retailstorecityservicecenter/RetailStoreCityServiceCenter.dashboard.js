@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreCityServiceCenter) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreCityServiceCenter,targetComponent) =>{
 	
@@ -86,6 +88,7 @@ const internalSummaryOf = (retailStoreCityServiceCenter,targetComponent) =>{
 	      RetailStoreCityServiceCenterService.transferToAnotherBelongsTo,"anotherBelongsToId",retailStoreCityServiceCenter.belongsTo?retailStoreCityServiceCenter.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(retailStoreCityServiceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreCityServiceCenter,targetComponent)}
       </DescriptionList>
@@ -120,7 +123,10 @@ class RetailStoreCityServiceCenterDashboard extends Component {
     if(!this.props.retailStoreCityServiceCenter.class){
       return null
     }
-    const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",cardsSource: this.props.retailStoreCityServiceCenter,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",
+    	cardsSource: this.props.retailStoreCityServiceCenter,returnURL,displayName,
   		subItems: [
 {name: 'cityPartnerList', displayName:'城市合伙人',type:'cityPartner',count:cityPartnerCount,addFunction: true, role: 'cityPartner', metaInfo: cityPartnerListMetaInfo},
 {name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo},
@@ -137,11 +143,12 @@ class RetailStoreCityServiceCenterDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -160,5 +167,7 @@ class RetailStoreCityServiceCenterDashboard extends Component {
 
 export default connect(state => ({
   retailStoreCityServiceCenter: state._retailStoreCityServiceCenter,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreCityServiceCenterDashboard))
 

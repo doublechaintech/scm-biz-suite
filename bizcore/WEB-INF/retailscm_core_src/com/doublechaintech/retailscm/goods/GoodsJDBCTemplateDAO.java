@@ -447,9 +447,10 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
  		return checkOptions(options,GoodsTokens.GOODS_MOVEMENT_LIST);
  	}
  	protected boolean isAnalyzeGoodsMovementListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GoodsTokens.GOODS_MOVEMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GoodsTokens.GOODS_MOVEMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsMovementListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsTokens.GOODS_MOVEMENT_LIST);
 		
@@ -527,7 +528,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 	 		extractGoodsMovementList(goods, loadOptions);
  		}	
  		if(isAnalyzeGoodsMovementListEnabled(loadOptions)){
-	 		// analyzeGoodsMovementList(goods, loadOptions);
+	 		analyzeGoodsMovementList(goods, loadOptions);
  		}
  		
 		

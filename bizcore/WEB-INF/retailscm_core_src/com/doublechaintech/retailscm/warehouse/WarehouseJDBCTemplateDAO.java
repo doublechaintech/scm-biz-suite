@@ -390,9 +390,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST);
  	}
  	protected boolean isAnalyzeStorageSpaceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveStorageSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.STORAGE_SPACE_LIST);
 		
@@ -404,9 +405,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST);
  	}
  	protected boolean isAnalyzeSmartPalletListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSmartPalletListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.SMART_PALLET_LIST);
 		
@@ -418,9 +420,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST);
  	}
  	protected boolean isAnalyzeSupplierSpaceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSupplierSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.SUPPLIER_SPACE_LIST);
 		
@@ -432,9 +435,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST);
  	}
  	protected boolean isAnalyzeReceivingSpaceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveReceivingSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.RECEIVING_SPACE_LIST);
 		
@@ -446,9 +450,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST);
  	}
  	protected boolean isAnalyzeShippingSpaceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveShippingSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.SHIPPING_SPACE_LIST);
 		
@@ -460,9 +465,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST);
  	}
  	protected boolean isAnalyzeDamageSpaceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveDamageSpaceListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.DAMAGE_SPACE_LIST);
 		
@@ -474,9 +480,10 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST);
  	}
  	protected boolean isAnalyzeWarehouseAssetListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveWarehouseAssetListEnabled(Map<String,Object> options){
 		return checkOptions(options, WarehouseTokens.WAREHOUSE_ASSET_LIST);
 		
@@ -518,7 +525,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractStorageSpaceList(warehouse, loadOptions);
  		}	
  		if(isAnalyzeStorageSpaceListEnabled(loadOptions)){
-	 		// analyzeStorageSpaceList(warehouse, loadOptions);
+	 		analyzeStorageSpaceList(warehouse, loadOptions);
  		}
  		
 		
@@ -526,7 +533,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractSmartPalletList(warehouse, loadOptions);
  		}	
  		if(isAnalyzeSmartPalletListEnabled(loadOptions)){
-	 		// analyzeSmartPalletList(warehouse, loadOptions);
+	 		analyzeSmartPalletList(warehouse, loadOptions);
  		}
  		
 		
@@ -534,7 +541,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractSupplierSpaceList(warehouse, loadOptions);
  		}	
  		if(isAnalyzeSupplierSpaceListEnabled(loadOptions)){
-	 		// analyzeSupplierSpaceList(warehouse, loadOptions);
+	 		analyzeSupplierSpaceList(warehouse, loadOptions);
  		}
  		
 		
@@ -542,7 +549,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractReceivingSpaceList(warehouse, loadOptions);
  		}	
  		if(isAnalyzeReceivingSpaceListEnabled(loadOptions)){
-	 		// analyzeReceivingSpaceList(warehouse, loadOptions);
+	 		analyzeReceivingSpaceList(warehouse, loadOptions);
  		}
  		
 		
@@ -550,7 +557,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractShippingSpaceList(warehouse, loadOptions);
  		}	
  		if(isAnalyzeShippingSpaceListEnabled(loadOptions)){
-	 		// analyzeShippingSpaceList(warehouse, loadOptions);
+	 		analyzeShippingSpaceList(warehouse, loadOptions);
  		}
  		
 		
@@ -558,7 +565,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractDamageSpaceList(warehouse, loadOptions);
  		}	
  		if(isAnalyzeDamageSpaceListEnabled(loadOptions)){
-	 		// analyzeDamageSpaceList(warehouse, loadOptions);
+	 		analyzeDamageSpaceList(warehouse, loadOptions);
  		}
  		
 		
@@ -566,7 +573,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractWarehouseAssetList(warehouse, loadOptions);
  		}	
  		if(isAnalyzeWarehouseAssetListEnabled(loadOptions)){
-	 		// analyzeWarehouseAssetList(warehouse, loadOptions);
+	 		analyzeWarehouseAssetList(warehouse, loadOptions);
  		}
  		
 		
@@ -977,7 +984,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Warehouse.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Warehouse");
+		lastUpdateTimeStatsItem.setDisplayName("仓库");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Warehouse.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Warehouse.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

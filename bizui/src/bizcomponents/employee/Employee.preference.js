@@ -297,6 +297,7 @@ const internalSummaryOf = (employee,targetComponent) =>{
 	      "transferToAnotherTermination","anotherTerminationId",employee.termination?employee.termination.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{employee.currentStatus}</Description> 
 	
         {buildTransferModal(employee,targetComponent)}

@@ -375,7 +375,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Potential Customer Contact");
+		lastUpdateTimeStatsItem.setDisplayName("潜在客户联系");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -425,7 +425,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Potential Customer Contact");
+		lastUpdateTimeStatsItem.setDisplayName("潜在客户联系");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -475,7 +475,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Potential Customer Contact");
+		lastUpdateTimeStatsItem.setDisplayName("潜在客户联系");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

@@ -197,9 +197,10 @@ public class ScoringJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  		return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
  	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
 		
@@ -237,7 +238,7 @@ public class ScoringJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	 		extractEmployeeCompanyTrainingList(scoring, loadOptions);
  		}	
  		if(isAnalyzeEmployeeCompanyTrainingListEnabled(loadOptions)){
-	 		// analyzeEmployeeCompanyTrainingList(scoring, loadOptions);
+	 		analyzeEmployeeCompanyTrainingList(scoring, loadOptions);
  		}
  		
 		

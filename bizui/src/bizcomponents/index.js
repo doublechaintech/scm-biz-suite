@@ -15,32 +15,6 @@ import RetailStoreCountryCenterAssociateForm from './retailstorecountrycenter/Re
 import RetailStoreCountryCenterTable from './retailstorecountrycenter/RetailStoreCountryCenter.table';
 import RetailStoreCountryCenterService from './retailstorecountrycenter/RetailStoreCountryCenter.service';
 import RetailStoreCountryCenterUpdateForm from './retailstorecountrycenter/RetailStoreCountryCenter.updateform';
-import ReportBase from './report/Report.base';
-import ReportBizApp from './report/Report.app';
-import ReportModel from './report/Report.model';
-import ReportDashboard from './report/Report.dashboard';
-import ReportPreference from './report/Report.preference';
-import ReportModalTable from './report/Report.modaltable';
-import ReportSearch from './report/Report.search';
-import ReportSearchForm from './report/Report.searchform';
-import ReportCreateForm from './report/Report.createform';
-import ReportAssociateForm from './report/Report.associateform';
-import ReportTable from './report/Report.table';
-import ReportService from './report/Report.service';
-import ReportUpdateForm from './report/Report.updateform';
-import ReportLineBase from './reportline/ReportLine.base';
-import ReportLineBizApp from './reportline/ReportLine.app';
-import ReportLineModel from './reportline/ReportLine.model';
-import ReportLineDashboard from './reportline/ReportLine.dashboard';
-import ReportLinePreference from './reportline/ReportLine.preference';
-import ReportLineModalTable from './reportline/ReportLine.modaltable';
-import ReportLineSearch from './reportline/ReportLine.search';
-import ReportLineSearchForm from './reportline/ReportLine.searchform';
-import ReportLineCreateForm from './reportline/ReportLine.createform';
-import ReportLineAssociateForm from './reportline/ReportLine.associateform';
-import ReportLineTable from './reportline/ReportLine.table';
-import ReportLineService from './reportline/ReportLine.service';
-import ReportLineUpdateForm from './reportline/ReportLine.updateform';
 import CatalogBase from './catalog/Catalog.base';
 import CatalogBizApp from './catalog/Catalog.app';
 import CatalogModel from './catalog/Catalog.model';
@@ -1917,8 +1891,6 @@ import LoginHistoryUpdateForm from './loginhistory/LoginHistory.updateform';
 
 const BizModels = [
 	RetailStoreCountryCenterModel,
-	ReportModel,
-	ReportLineModel,
 	CatalogModel,
 	LevelOneCategoryModel,
 	LevelTwoCategoryModel,
@@ -2081,8 +2053,6 @@ const unbindBizModels = (app) =>{
 const menuLibrary = []
 
 menuLibrary['retailStoreCountryCenter'] = RetailStoreCountryCenterBase.menuData
-menuLibrary['report'] = ReportBase.menuData
-menuLibrary['reportLine'] = ReportLineBase.menuData
 menuLibrary['catalog'] = CatalogBase.menuData
 menuLibrary['levelOneCategory'] = LevelOneCategoryBase.menuData
 menuLibrary['levelTwoCategory'] = LevelTwoCategoryBase.menuData
@@ -2248,8 +2218,6 @@ const ViewMapping = {
 
 
   'com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter': {name:'retailStoreCountryCenter'},
-  'com.doublechaintech.retailscm.report.Report': {name:'report'},
-  'com.doublechaintech.retailscm.reportline.ReportLine': {name:'reportLine'},
   'com.doublechaintech.retailscm.catalog.Catalog': {name:'catalog'},
   'com.doublechaintech.retailscm.levelonecategory.LevelOneCategory': {name:'levelOneCategory'},
   'com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategory': {name:'levelTwoCategory'},
@@ -2452,32 +2420,6 @@ const OOTBComponents={
     RetailStoreCountryCenterTable,
     RetailStoreCountryCenterService,
     RetailStoreCountryCenterUpdateForm,
-    ReportBase,
-    ReportBizApp,
-    ReportModel,
-    ReportDashboard,
-    ReportPreference,
-    ReportModalTable,
-    ReportSearch,
-    ReportSearchForm,
-    ReportCreateForm,
-    ReportAssociateForm,
-    ReportTable,
-    ReportService,
-    ReportUpdateForm,
-    ReportLineBase,
-    ReportLineBizApp,
-    ReportLineModel,
-    ReportLineDashboard,
-    ReportLinePreference,
-    ReportLineModalTable,
-    ReportLineSearch,
-    ReportLineSearchForm,
-    ReportLineCreateForm,
-    ReportLineAssociateForm,
-    ReportLineTable,
-    ReportLineService,
-    ReportLineUpdateForm,
     CatalogBase,
     CatalogBizApp,
     CatalogModel,

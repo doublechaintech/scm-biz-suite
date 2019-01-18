@@ -22,6 +22,7 @@
 	<li><span>ID</span><a class="link-action-removed" href="./retailStoreProvinceCenterManager/view/${retailStoreProvinceCenter.id}/"> ${retailStoreProvinceCenter.id}</a></li>
 <li><span>${userContext.localeMap['retail_store_province_center.name']}</span> ${retailStoreProvinceCenter.name}</li>
 <li><span>${userContext.localeMap['retail_store_province_center.founded']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${retailStoreProvinceCenter.founded}" /></li>
+<li><span>${userContext.localeMap['retail_store_province_center.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${retailStoreProvinceCenter.lastUpdateTime}" /></li>
 
 	
 	</ul>

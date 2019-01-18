@@ -57,18 +57,20 @@ const internalLargeTextOf = (supplyOrderLineItem) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (supplyOrderLineItem,targetComponent) =>{
 	
@@ -123,7 +125,10 @@ class SupplyOrderLineItemDashboard extends Component {
     if(!this.props.supplyOrderLineItem.class){
       return null
     }
-    const cardsData = {cardsName:"供应订单行项目",cardsFor: "supplyOrderLineItem",cardsSource: this.props.supplyOrderLineItem,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"供应订单行项目",cardsFor: "supplyOrderLineItem",
+    	cardsSource: this.props.supplyOrderLineItem,returnURL,displayName,
   		subItems: [
     
       	],
@@ -136,11 +141,12 @@ class SupplyOrderLineItemDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -159,5 +165,7 @@ class SupplyOrderLineItemDashboard extends Component {
 
 export default connect(state => ({
   supplyOrderLineItem: state._supplyOrderLineItem,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(SupplyOrderLineItemDashboard))
 

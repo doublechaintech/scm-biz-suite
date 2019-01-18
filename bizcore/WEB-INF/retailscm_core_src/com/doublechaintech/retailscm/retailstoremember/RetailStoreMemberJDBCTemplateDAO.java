@@ -390,9 +390,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,RetailStoreMemberTokens.CONSUMER_ORDER_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreMemberTokens.CONSUMER_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreMemberTokens.CONSUMER_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.CONSUMER_ORDER_LIST);
 		
@@ -404,9 +405,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreMemberCouponListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreMemberCouponListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST);
 		
@@ -418,9 +420,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_WISHLIST_LIST);
  	}
  	protected boolean isAnalyzeMemberWishlistListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreMemberTokens.MEMBER_WISHLIST_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreMemberTokens.MEMBER_WISHLIST_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveMemberWishlistListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.MEMBER_WISHLIST_LIST);
 		
@@ -432,9 +435,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST);
  	}
  	protected boolean isAnalyzeMemberRewardPointListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveMemberRewardPointListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST);
 		
@@ -446,9 +450,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST);
  	}
  	protected boolean isAnalyzeMemberRewardPointRedemptionListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveMemberRewardPointRedemptionListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST);
 		
@@ -460,9 +465,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreMemberAddressListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreMemberAddressListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST);
 		
@@ -474,9 +480,10 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST);
 		
@@ -518,7 +525,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractConsumerOrderList(retailStoreMember, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderList(retailStoreMember, loadOptions);
+	 		analyzeConsumerOrderList(retailStoreMember, loadOptions);
  		}
  		
 		
@@ -526,7 +533,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractRetailStoreMemberCouponList(retailStoreMember, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreMemberCouponListEnabled(loadOptions)){
-	 		// analyzeRetailStoreMemberCouponList(retailStoreMember, loadOptions);
+	 		analyzeRetailStoreMemberCouponList(retailStoreMember, loadOptions);
  		}
  		
 		
@@ -534,7 +541,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractMemberWishlistList(retailStoreMember, loadOptions);
  		}	
  		if(isAnalyzeMemberWishlistListEnabled(loadOptions)){
-	 		// analyzeMemberWishlistList(retailStoreMember, loadOptions);
+	 		analyzeMemberWishlistList(retailStoreMember, loadOptions);
  		}
  		
 		
@@ -542,7 +549,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractMemberRewardPointList(retailStoreMember, loadOptions);
  		}	
  		if(isAnalyzeMemberRewardPointListEnabled(loadOptions)){
-	 		// analyzeMemberRewardPointList(retailStoreMember, loadOptions);
+	 		analyzeMemberRewardPointList(retailStoreMember, loadOptions);
  		}
  		
 		
@@ -550,7 +557,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractMemberRewardPointRedemptionList(retailStoreMember, loadOptions);
  		}	
  		if(isAnalyzeMemberRewardPointRedemptionListEnabled(loadOptions)){
-	 		// analyzeMemberRewardPointRedemptionList(retailStoreMember, loadOptions);
+	 		analyzeMemberRewardPointRedemptionList(retailStoreMember, loadOptions);
  		}
  		
 		
@@ -558,7 +565,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractRetailStoreMemberAddressList(retailStoreMember, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreMemberAddressListEnabled(loadOptions)){
-	 		// analyzeRetailStoreMemberAddressList(retailStoreMember, loadOptions);
+	 		analyzeRetailStoreMemberAddressList(retailStoreMember, loadOptions);
  		}
  		
 		
@@ -566,7 +573,7 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractRetailStoreMemberGiftCardList(retailStoreMember, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreMemberGiftCardListEnabled(loadOptions)){
-	 		// analyzeRetailStoreMemberGiftCardList(retailStoreMember, loadOptions);
+	 		analyzeRetailStoreMemberGiftCardList(retailStoreMember, loadOptions);
  		}
  		
 		

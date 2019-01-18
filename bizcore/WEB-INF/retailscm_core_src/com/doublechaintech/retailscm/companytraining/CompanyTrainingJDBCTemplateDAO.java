@@ -272,9 +272,10 @@ public class CompanyTrainingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  		return checkOptions(options,CompanyTrainingTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
  	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,CompanyTrainingTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,CompanyTrainingTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, CompanyTrainingTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
 		
@@ -324,7 +325,7 @@ public class CompanyTrainingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	 		extractEmployeeCompanyTrainingList(companyTraining, loadOptions);
  		}	
  		if(isAnalyzeEmployeeCompanyTrainingListEnabled(loadOptions)){
-	 		// analyzeEmployeeCompanyTrainingList(companyTraining, loadOptions);
+	 		analyzeEmployeeCompanyTrainingList(companyTraining, loadOptions);
  		}
  		
 		
@@ -475,7 +476,7 @@ public class CompanyTrainingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CompanyTraining.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Company Training");
+		lastUpdateTimeStatsItem.setDisplayName("公司培训");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CompanyTraining.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CompanyTraining.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -525,7 +526,7 @@ public class CompanyTrainingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CompanyTraining.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Company Training");
+		lastUpdateTimeStatsItem.setDisplayName("公司培训");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CompanyTraining.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CompanyTraining.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -575,7 +576,7 @@ public class CompanyTrainingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CompanyTraining.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Company Training");
+		lastUpdateTimeStatsItem.setDisplayName("公司培训");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CompanyTraining.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CompanyTraining.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

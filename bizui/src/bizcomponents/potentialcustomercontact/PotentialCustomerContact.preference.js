@@ -281,6 +281,7 @@ const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{potentialCustomerContact.description}</Description> 
+<Description term="最后更新时间">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(potentialCustomerContact,targetComponent)}
       </DescriptionList>

@@ -88,6 +88,7 @@ const displayColumns = [
   { title: '纬度', debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record) },
   { title: '经度', debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record) },
   { title: '描述', debugtype: 'string', dataIndex: 'description', width: '25',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
   { title: '当前状态', debugtype: 'string', dataIndex: 'currentStatus', width: '22',render: (text, record)=>renderTextCell(text,record) },
 
 ]
@@ -109,6 +110,7 @@ const fieldLabels = {
   latitude: '纬度',
   longitude: '经度',
   description: '描述',
+  lastUpdateTime: '最后更新时间',
   currentStatus: '当前状态',
 
 }

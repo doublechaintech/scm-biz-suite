@@ -197,9 +197,10 @@ public class OriginalVoucherCreationJDBCTemplateDAO extends RetailscmNamingServi
  		return checkOptions(options,OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST);
  	}
  	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){
 		return checkOptions(options, OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST);
 		
@@ -237,7 +238,7 @@ public class OriginalVoucherCreationJDBCTemplateDAO extends RetailscmNamingServi
 	 		extractOriginalVoucherList(originalVoucherCreation, loadOptions);
  		}	
  		if(isAnalyzeOriginalVoucherListEnabled(loadOptions)){
-	 		// analyzeOriginalVoucherList(originalVoucherCreation, loadOptions);
+	 		analyzeOriginalVoucherList(originalVoucherCreation, loadOptions);
  		}
  		
 		

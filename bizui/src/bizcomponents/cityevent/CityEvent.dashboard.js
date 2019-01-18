@@ -57,18 +57,20 @@ const internalLargeTextOf = (cityEvent) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (cityEvent,targetComponent) =>{
 	
@@ -87,6 +89,7 @@ const internalSummaryOf = (cityEvent,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{cityEvent.description}</Description> 
+<Description term="最后更新时间">{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(cityEvent,targetComponent)}
       </DescriptionList>
@@ -121,7 +124,10 @@ class CityEventDashboard extends Component {
     if(!this.props.cityEvent.class){
       return null
     }
-    const cardsData = {cardsName:"城市活动",cardsFor: "cityEvent",cardsSource: this.props.cityEvent,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"城市活动",cardsFor: "cityEvent",
+    	cardsSource: this.props.cityEvent,returnURL,displayName,
   		subItems: [
 {name: 'eventAttendanceList', displayName:'活动的参与情况',type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo},
     
@@ -135,11 +141,12 @@ class CityEventDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +165,7 @@ class CityEventDashboard extends Component {
 
 export default connect(state => ({
   cityEvent: state._cityEvent,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(CityEventDashboard))
 

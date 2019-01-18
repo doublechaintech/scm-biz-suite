@@ -481,9 +481,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreOrderLineItemListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST);
 		
@@ -495,9 +496,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST);
 		
@@ -509,9 +511,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST);
 		
@@ -523,9 +526,10 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  		return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST);
  	}
  	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderTokens.GOODS_LIST);
 		
@@ -595,7 +599,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	 		extractRetailStoreOrderLineItemList(retailStoreOrder, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreOrderLineItemListEnabled(loadOptions)){
-	 		// analyzeRetailStoreOrderLineItemList(retailStoreOrder, loadOptions);
+	 		analyzeRetailStoreOrderLineItemList(retailStoreOrder, loadOptions);
  		}
  		
 		
@@ -603,7 +607,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	 		extractRetailStoreOrderShippingGroupList(retailStoreOrder, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreOrderShippingGroupListEnabled(loadOptions)){
-	 		// analyzeRetailStoreOrderShippingGroupList(retailStoreOrder, loadOptions);
+	 		analyzeRetailStoreOrderShippingGroupList(retailStoreOrder, loadOptions);
  		}
  		
 		
@@ -611,7 +615,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	 		extractRetailStoreOrderPaymentGroupList(retailStoreOrder, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreOrderPaymentGroupListEnabled(loadOptions)){
-	 		// analyzeRetailStoreOrderPaymentGroupList(retailStoreOrder, loadOptions);
+	 		analyzeRetailStoreOrderPaymentGroupList(retailStoreOrder, loadOptions);
  		}
  		
 		
@@ -619,7 +623,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	 		extractGoodsList(retailStoreOrder, loadOptions);
  		}	
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
-	 		// analyzeGoodsList(retailStoreOrder, loadOptions);
+	 		analyzeGoodsList(retailStoreOrder, loadOptions);
  		}
  		
 		
@@ -1020,7 +1024,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1070,7 +1074,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1120,7 +1124,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1170,7 +1174,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1220,7 +1224,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1270,7 +1274,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1320,7 +1324,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1370,7 +1374,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Order");
+		lastUpdateTimeStatsItem.setDisplayName("生超的订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

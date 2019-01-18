@@ -197,9 +197,10 @@ public class AccountingDocumentConfirmationJDBCTemplateDAO extends RetailscmNami
  		return checkOptions(options,AccountingDocumentConfirmationTokens.ACCOUNTING_DOCUMENT_LIST);
  	}
  	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountingDocumentConfirmationTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountingDocumentConfirmationTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingDocumentConfirmationTokens.ACCOUNTING_DOCUMENT_LIST);
 		
@@ -237,7 +238,7 @@ public class AccountingDocumentConfirmationJDBCTemplateDAO extends RetailscmNami
 	 		extractAccountingDocumentList(accountingDocumentConfirmation, loadOptions);
  		}	
  		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
-	 		// analyzeAccountingDocumentList(accountingDocumentConfirmation, loadOptions);
+	 		analyzeAccountingDocumentList(accountingDocumentConfirmation, loadOptions);
  		}
  		
 		

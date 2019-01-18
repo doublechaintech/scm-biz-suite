@@ -57,18 +57,20 @@ const internalLargeTextOf = (consumerOrder) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (consumerOrder,targetComponent) =>{
 	
@@ -91,6 +93,7 @@ const internalSummaryOf = (consumerOrder,targetComponent) =>{
 	      ConsumerOrderService.transferToAnotherStore,"anotherStoreId",consumerOrder.store?consumerOrder.store.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{consumerOrder.currentStatus}</Description> 
 	
         {buildTransferModal(consumerOrder,targetComponent)}
@@ -126,7 +129,10 @@ class ConsumerOrderDashboard extends Component {
     if(!this.props.consumerOrder.class){
       return null
     }
-    const cardsData = {cardsName:"消费者订单",cardsFor: "consumerOrder",cardsSource: this.props.consumerOrder,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"消费者订单",cardsFor: "consumerOrder",
+    	cardsSource: this.props.consumerOrder,returnURL,displayName,
   		subItems: [
 {name: 'consumerOrderLineItemList', displayName:'消费者订单行项目',type:'consumerOrderLineItem',count:consumerOrderLineItemCount,addFunction: true, role: 'consumerOrderLineItem', metaInfo: consumerOrderLineItemListMetaInfo},
 {name: 'consumerOrderShippingGroupList', displayName:'消费订单送货分组',type:'consumerOrderShippingGroup',count:consumerOrderShippingGroupCount,addFunction: true, role: 'consumerOrderShippingGroup', metaInfo: consumerOrderShippingGroupListMetaInfo},
@@ -144,11 +150,12 @@ class ConsumerOrderDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -167,5 +174,7 @@ class ConsumerOrderDashboard extends Component {
 
 export default connect(state => ({
   consumerOrder: state._consumerOrder,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(ConsumerOrderDashboard))
 

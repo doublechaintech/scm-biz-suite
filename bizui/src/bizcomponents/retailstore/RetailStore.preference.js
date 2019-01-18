@@ -272,6 +272,7 @@ const internalSummaryOf = (retailStore,targetComponent) =>{
 <Description term="纬度">{retailStore.latitude}</Description> 
 <Description term="经度">{retailStore.longitude}</Description> 
 <Description term="描述">{retailStore.description}</Description> 
+<Description term="最后更新时间">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{retailStore.currentStatus}</Description> 
 	
         {buildTransferModal(retailStore,targetComponent)}

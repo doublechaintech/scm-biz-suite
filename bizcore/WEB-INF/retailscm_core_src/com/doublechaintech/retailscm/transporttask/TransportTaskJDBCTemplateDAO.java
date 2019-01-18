@@ -325,9 +325,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,TransportTaskTokens.GOODS_LIST);
  	}
  	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TransportTaskTokens.GOODS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TransportTaskTokens.GOODS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportTaskTokens.GOODS_LIST);
 		
@@ -339,9 +340,10 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST);
  	}
  	protected boolean isAnalyzeTransportTaskTrackListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTransportTaskTrackListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST);
 		
@@ -395,7 +397,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractGoodsList(transportTask, loadOptions);
  		}	
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
-	 		// analyzeGoodsList(transportTask, loadOptions);
+	 		analyzeGoodsList(transportTask, loadOptions);
  		}
  		
 		
@@ -403,7 +405,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractTransportTaskTrackList(transportTask, loadOptions);
  		}	
  		if(isAnalyzeTransportTaskTrackListEnabled(loadOptions)){
-	 		// analyzeTransportTaskTrackList(transportTask, loadOptions);
+	 		analyzeTransportTaskTrackList(transportTask, loadOptions);
  		}
  		
 		

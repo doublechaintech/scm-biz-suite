@@ -57,18 +57,20 @@ const internalLargeTextOf = (accountSet) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (accountSet,targetComponent) =>{
 	
@@ -98,6 +100,7 @@ const internalSummaryOf = (accountSet,targetComponent) =>{
 	      AccountSetService.transferToAnotherGoodsSupplier,"anotherGoodsSupplierId",accountSet.goodsSupplier?accountSet.goodsSupplier.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(accountSet,targetComponent)}
       </DescriptionList>
@@ -132,7 +135,10 @@ class AccountSetDashboard extends Component {
     if(!this.props.accountSet.class){
       return null
     }
-    const cardsData = {cardsName:"账套",cardsFor: "accountSet",cardsSource: this.props.accountSet,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"账套",cardsFor: "accountSet",
+    	cardsSource: this.props.accountSet,returnURL,displayName,
   		subItems: [
 {name: 'accountingSubjectList', displayName:'会计科目',type:'accountingSubject',count:accountingSubjectCount,addFunction: true, role: 'accountingSubject', metaInfo: accountingSubjectListMetaInfo},
 {name: 'accountingPeriodList', displayName:'会计期间',type:'accountingPeriod',count:accountingPeriodCount,addFunction: true, role: 'accountingPeriod', metaInfo: accountingPeriodListMetaInfo},
@@ -148,11 +154,12 @@ class AccountSetDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -171,5 +178,7 @@ class AccountSetDashboard extends Component {
 
 export default connect(state => ({
   accountSet: state._accountSet,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(AccountSetDashboard))
 

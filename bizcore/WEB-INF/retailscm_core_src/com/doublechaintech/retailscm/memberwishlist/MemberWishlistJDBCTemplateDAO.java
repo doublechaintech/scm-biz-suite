@@ -222,9 +222,10 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return checkOptions(options,MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST);
  	}
  	protected boolean isAnalyzeMemberWishlistProductListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveMemberWishlistProductListEnabled(Map<String,Object> options){
 		return checkOptions(options, MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST);
 		
@@ -266,7 +267,7 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	 		extractMemberWishlistProductList(memberWishlist, loadOptions);
  		}	
  		if(isAnalyzeMemberWishlistProductListEnabled(loadOptions)){
-	 		// analyzeMemberWishlistProductList(memberWishlist, loadOptions);
+	 		analyzeMemberWishlistProductList(memberWishlist, loadOptions);
  		}
  		
 		

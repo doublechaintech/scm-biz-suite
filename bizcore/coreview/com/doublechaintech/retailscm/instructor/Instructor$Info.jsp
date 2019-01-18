@@ -26,6 +26,7 @@
 <li><span>${userContext.localeMap['instructor.cell_phone']}</span> ${instructor.maskedCellPhone}</li>
 <li><span>${userContext.localeMap['instructor.email']}</span> ${instructor.email}</li>
 <li><span>${userContext.localeMap['instructor.introduction']}</span> ${instructor.introduction}</li>
+<li><span>${userContext.localeMap['instructor.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${instructor.lastUpdateTime}" /></li>
 
 	
 	</ul>

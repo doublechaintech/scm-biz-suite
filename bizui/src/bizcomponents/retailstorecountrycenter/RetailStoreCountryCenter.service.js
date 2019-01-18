@@ -22,28 +22,6 @@ const load = (targetObjectId, parameters) => {
 
 
 
-const addReport = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addReport/retailStoreCountryCenterId/name/createdBy/tokensExpr/`
-  const retailStoreCountryCenterId = targetObjectId
-  const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const updateReport = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateReportProperties/retailStoreCountryCenterId/id/name/createdBy/tokensExpr/`
-  const retailStoreCountryCenterId = targetObjectId
-  const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const removeReportList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/removeReportList/retailStoreCountryCenterId/reportIds/tokensExpr/`
-  const requestParameters = { ...parameters, retailStoreCountryCenterId: targetObjectId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-
-
 const addCatalog = (targetObjectId, parameters) => {
   const url = `${PREFIX}retailStoreCountryCenterManager/addCatalog/retailStoreCountryCenterId/name/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
@@ -573,7 +551,6 @@ const removeCompanyTrainingList = (targetObjectId, parameters) => {
 
 const RetailStoreCountryCenterService = { view,
   load,
-  addReport,
   addCatalog,
   addRetailStoreProvinceCenter,
   addRetailStore,
@@ -598,7 +575,6 @@ const RetailStoreCountryCenterService = { view,
   addEmployee,
   addInstructor,
   addCompanyTraining,
-  updateReport,
   updateCatalog,
   updateRetailStoreProvinceCenter,
   updateRetailStore,
@@ -623,7 +599,6 @@ const RetailStoreCountryCenterService = { view,
   updateEmployee,
   updateInstructor,
   updateCompanyTraining,
-  removeReportList,
   removeCatalogList,
   removeRetailStoreProvinceCenterList,
   removeRetailStoreList,

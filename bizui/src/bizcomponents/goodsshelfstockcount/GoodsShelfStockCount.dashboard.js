@@ -57,18 +57,20 @@ const internalLargeTextOf = (goodsShelfStockCount) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (goodsShelfStockCount,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class GoodsShelfStockCountDashboard extends Component {
     if(!this.props.goodsShelfStockCount.class){
       return null
     }
-    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",cardsSource: this.props.goodsShelfStockCount,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",
+    	cardsSource: this.props.goodsShelfStockCount,returnURL,displayName,
   		subItems: [
 {name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo},
     
@@ -135,11 +140,12 @@ class GoodsShelfStockCountDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class GoodsShelfStockCountDashboard extends Component {
 
 export default connect(state => ({
   goodsShelfStockCount: state._goodsShelfStockCount,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(GoodsShelfStockCountDashboard))
 

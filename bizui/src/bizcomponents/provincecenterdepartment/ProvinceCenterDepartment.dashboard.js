@@ -57,18 +57,20 @@ const internalLargeTextOf = (provinceCenterDepartment) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class ProvinceCenterDepartmentDashboard extends Component {
     if(!this.props.provinceCenterDepartment.class){
       return null
     }
-    const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",cardsSource: this.props.provinceCenterDepartment,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",
+    	cardsSource: this.props.provinceCenterDepartment,returnURL,displayName,
   		subItems: [
 {name: 'provinceCenterEmployeeList', displayName:'省中心员工',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo},
     
@@ -135,11 +140,12 @@ class ProvinceCenterDepartmentDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class ProvinceCenterDepartmentDashboard extends Component {
 
 export default connect(state => ({
   provinceCenterDepartment: state._provinceCenterDepartment,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(ProvinceCenterDepartmentDashboard))
 

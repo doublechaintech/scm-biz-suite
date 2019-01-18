@@ -128,6 +128,9 @@
 <c:if test="${param.referName ne 'delivery'}">
 	<th>${userContext.localeMap['retail_store_order.delivery']}</th>
 </c:if>
+<c:if test="${param.referName ne 'lastUpdateTime'}">
+	<th>${userContext.localeMap['retail_store_order.last_update_time']}</th>
+</c:if>
 <c:if test="${param.referName ne 'currentStatus'}">
 	<th>${userContext.localeMap['retail_store_order.current_status']}</th>
 </c:if>
@@ -291,7 +294,8 @@
 		</div>
 	</td>
 </c:if>
-<c:if test="${param.referName ne 'currentStatus'}">	<td contenteditable='true' class='edit-value'  propertyToChange='currentStatus' storedCellValue='${item.currentStatus}' prefix='${ownerBeanName}Manager/updateRetailStoreOrder/${result.id}/${item.id}/'>${item.currentStatus}</td>
+<c:if test="${param.referName ne 'lastUpdateTime'}">	<td contenteditable='true' class='edit-value'  propertyToChange='lastUpdateTime' storedCellValue='${item.lastUpdateTime}' prefix='${ownerBeanName}Manager/updateRetailStoreOrder/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.lastUpdateTime}" /></td>
+</c:if><c:if test="${param.referName ne 'currentStatus'}">	<td contenteditable='true' class='edit-value'  propertyToChange='currentStatus' storedCellValue='${item.currentStatus}' prefix='${ownerBeanName}Manager/updateRetailStoreOrder/${result.id}/${item.id}/'>${item.currentStatus}</td>
 </c:if>
 				<td>
 

@@ -1310,7 +1310,7 @@ public class RetailStoreOrderForm extends BaseForm {
  	
  	public RetailStoreOrderForm  confirmAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Confirm");
+		action.setLabel("确认");
 		action.setLocaleKey("retail_store_order.confirm");
 		action.setUrl("retailStoreOrderManager/confirm/retailStoreOrderId/who/confirmTime/");
 		this.addFormAction(action);
@@ -1318,7 +1318,7 @@ public class RetailStoreOrderForm extends BaseForm {
 	}	
  	public RetailStoreOrderForm  approveAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Approve");
+		action.setLabel("批准");
 		action.setLocaleKey("retail_store_order.approve");
 		action.setUrl("retailStoreOrderManager/approve/retailStoreOrderId/who/approveTime/");
 		this.addFormAction(action);
@@ -1326,7 +1326,7 @@ public class RetailStoreOrderForm extends BaseForm {
 	}	
  	public RetailStoreOrderForm  processAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Process");
+		action.setLabel("过程");
 		action.setLocaleKey("retail_store_order.process");
 		action.setUrl("retailStoreOrderManager/process/retailStoreOrderId/who/processTime/");
 		this.addFormAction(action);
@@ -1334,7 +1334,7 @@ public class RetailStoreOrderForm extends BaseForm {
 	}	
  	public RetailStoreOrderForm  pickAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Pick");
+		action.setLabel("选择");
 		action.setLocaleKey("retail_store_order.pick");
 		action.setUrl("retailStoreOrderManager/pick/retailStoreOrderId/who/processTime/");
 		this.addFormAction(action);
@@ -1342,7 +1342,7 @@ public class RetailStoreOrderForm extends BaseForm {
 	}	
  	public RetailStoreOrderForm  shipAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Ship");
+		action.setLabel("船");
 		action.setLocaleKey("retail_store_order.ship");
 		action.setUrl("retailStoreOrderManager/ship/retailStoreOrderId/who/shipTime/");
 		this.addFormAction(action);
@@ -1350,7 +1350,7 @@ public class RetailStoreOrderForm extends BaseForm {
 	}	
  	public RetailStoreOrderForm  deliverAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Deliver");
+		action.setLabel("交付");
 		action.setLocaleKey("retail_store_order.deliver");
 		action.setUrl("retailStoreOrderManager/deliver/retailStoreOrderId/who/deliveryTime/");
 		this.addFormAction(action);

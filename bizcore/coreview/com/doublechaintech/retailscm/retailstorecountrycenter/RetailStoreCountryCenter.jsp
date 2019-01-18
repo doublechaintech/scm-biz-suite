@@ -101,7 +101,6 @@
 	  <li class="active"><a data-toggle="tab" href="#summary" class="disabled"><i class="fa  fa-home"></i> ${userContext.localeMap['@summary']}</a></li>
 	 
 	<% RetailStoreCountryCenter result = (RetailStoreCountryCenter)request.getAttribute("result");  %>
-			<li><a data-toggle="tab" href="#reportList" class="disabled"> ${userContext.localeMap['report']}</a></li>
 			<li><a data-toggle="tab" href="#catalogList" class="disabled"> ${userContext.localeMap['catalog']}</a></li>
 			<li><a data-toggle="tab" href="#retailStoreProvinceCenterList" class="disabled"> ${userContext.localeMap['retail_store_province_center']}</a></li>
 			<li><a data-toggle="tab" href="#retailStoreList" class="disabled"> ${userContext.localeMap['retail_store']}</a></li>
@@ -169,15 +168,7 @@
 
 	
 
-		<c:if test='${not empty userContext.accessTokens["reportList"] or ignoreListAccessControl}'>
-		<c:set var="reportList" value="${result.reportList}" scope="request"/>
-		<c:set var="reportListName" value="reportList" scope="request"/>
-		<div id="reportList" class="tab-pane fade sublist" refer-name="owner">
-			<sky:include page="com/doublechaintech/retailscm/report/Report$List.jsp"
-					referName="owner"/>
-		</div>
-	</c:if>
-	<c:if test='${not empty userContext.accessTokens["catalogList"] or ignoreListAccessControl}'>
+		<c:if test='${not empty userContext.accessTokens["catalogList"] or ignoreListAccessControl}'>
 		<c:set var="catalogList" value="${result.catalogList}" scope="request"/>
 		<c:set var="catalogListName" value="catalogList" scope="request"/>
 		<div id="catalogList" class="tab-pane fade sublist" refer-name="owner">

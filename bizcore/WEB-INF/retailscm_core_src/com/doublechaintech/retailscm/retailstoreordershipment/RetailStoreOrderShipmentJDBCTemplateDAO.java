@@ -197,9 +197,10 @@ public class RetailStoreOrderShipmentJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST);
 		
@@ -237,7 +238,7 @@ public class RetailStoreOrderShipmentJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractRetailStoreOrderList(retailStoreOrderShipment, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
-	 		// analyzeRetailStoreOrderList(retailStoreOrderShipment, loadOptions);
+	 		analyzeRetailStoreOrderList(retailStoreOrderShipment, loadOptions);
  		}
  		
 		

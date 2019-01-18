@@ -197,9 +197,10 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmNamingServic
  		return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreFranchisingTokens.RETAIL_STORE_LIST);
 		
@@ -237,7 +238,7 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmNamingServic
 	 		extractRetailStoreList(retailStoreFranchising, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
-	 		// analyzeRetailStoreList(retailStoreFranchising, loadOptions);
+	 		analyzeRetailStoreList(retailStoreFranchising, loadOptions);
  		}
  		
 		

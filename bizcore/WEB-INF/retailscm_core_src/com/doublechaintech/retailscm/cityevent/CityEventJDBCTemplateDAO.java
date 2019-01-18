@@ -222,9 +222,10 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST);
  	}
  	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEventAttendanceListEnabled(Map<String,Object> options){
 		return checkOptions(options, CityEventTokens.EVENT_ATTENDANCE_LIST);
 		
@@ -266,7 +267,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractEventAttendanceList(cityEvent, loadOptions);
  		}	
  		if(isAnalyzeEventAttendanceListEnabled(loadOptions)){
-	 		// analyzeEventAttendanceList(cityEvent, loadOptions);
+	 		analyzeEventAttendanceList(cityEvent, loadOptions);
  		}
  		
 		
@@ -377,7 +378,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityEvent.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("City Event");
+		lastUpdateTimeStatsItem.setDisplayName("城市活动");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityEvent.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityEvent.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

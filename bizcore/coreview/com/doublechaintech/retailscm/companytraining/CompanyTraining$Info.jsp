@@ -23,6 +23,7 @@
 <li><span>${userContext.localeMap['company_training.title']}</span> ${companyTraining.title}</li>
 <li><span>${userContext.localeMap['company_training.time_start']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${companyTraining.timeStart}" /></li>
 <li><span>${userContext.localeMap['company_training.duration_hours']}</span> ${companyTraining.durationHours}</li>
+<li><span>${userContext.localeMap['company_training.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${companyTraining.lastUpdateTime}" /></li>
 
 	
 	</ul>

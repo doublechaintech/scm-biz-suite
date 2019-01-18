@@ -57,18 +57,20 @@ const internalLargeTextOf = (potentialCustomerContactPerson) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (potentialCustomerContactPerson,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class PotentialCustomerContactPersonDashboard extends Component {
     if(!this.props.potentialCustomerContactPerson.class){
       return null
     }
-    const cardsData = {cardsName:"潜在客户联络人",cardsFor: "potentialCustomerContactPerson",cardsSource: this.props.potentialCustomerContactPerson,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"潜在客户联络人",cardsFor: "potentialCustomerContactPerson",
+    	cardsSource: this.props.potentialCustomerContactPerson,returnURL,displayName,
   		subItems: [
 {name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo},
     
@@ -135,11 +140,12 @@ class PotentialCustomerContactPersonDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class PotentialCustomerContactPersonDashboard extends Component {
 
 export default connect(state => ({
   potentialCustomerContactPerson: state._potentialCustomerContactPerson,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(PotentialCustomerContactPersonDashboard))
 

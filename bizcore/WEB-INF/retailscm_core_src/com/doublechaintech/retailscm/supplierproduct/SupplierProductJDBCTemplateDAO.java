@@ -222,9 +222,10 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  		return checkOptions(options,SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST);
  	}
  	protected boolean isAnalyzeProductSupplyDurationListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveProductSupplyDurationListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST);
 		
@@ -266,7 +267,7 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	 		extractProductSupplyDurationList(supplierProduct, loadOptions);
  		}	
  		if(isAnalyzeProductSupplyDurationListEnabled(loadOptions)){
-	 		// analyzeProductSupplyDurationList(supplierProduct, loadOptions);
+	 		analyzeProductSupplyDurationList(supplierProduct, loadOptions);
  		}
  		
 		

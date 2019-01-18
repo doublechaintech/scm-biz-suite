@@ -197,9 +197,10 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  		return checkOptions(options,SecUserBlockingTokens.SEC_USER_LIST);
  	}
  	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SecUserBlockingTokens.SEC_USER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SecUserBlockingTokens.SEC_USER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSecUserListEnabled(Map<String,Object> options){
 		return checkOptions(options, SecUserBlockingTokens.SEC_USER_LIST);
 		
@@ -237,7 +238,7 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	 		extractSecUserList(secUserBlocking, loadOptions);
  		}	
  		if(isAnalyzeSecUserListEnabled(loadOptions)){
-	 		// analyzeSecUserList(secUserBlocking, loadOptions);
+	 		analyzeSecUserList(secUserBlocking, loadOptions);
  		}
  		
 		

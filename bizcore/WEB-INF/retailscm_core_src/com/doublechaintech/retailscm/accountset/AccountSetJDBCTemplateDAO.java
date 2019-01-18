@@ -328,9 +328,10 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_SUBJECT_LIST);
  	}
  	protected boolean isAnalyzeAccountingSubjectListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountSetTokens.ACCOUNTING_SUBJECT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountSetTokens.ACCOUNTING_SUBJECT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingSubjectListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountSetTokens.ACCOUNTING_SUBJECT_LIST);
 		
@@ -342,9 +343,10 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_PERIOD_LIST);
  	}
  	protected boolean isAnalyzeAccountingPeriodListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountSetTokens.ACCOUNTING_PERIOD_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountSetTokens.ACCOUNTING_PERIOD_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingPeriodListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountSetTokens.ACCOUNTING_PERIOD_LIST);
 		
@@ -356,9 +358,10 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST);
  	}
  	protected boolean isAnalyzeAccountingDocumentTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingDocumentTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST);
 		
@@ -408,7 +411,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	 		extractAccountingSubjectList(accountSet, loadOptions);
  		}	
  		if(isAnalyzeAccountingSubjectListEnabled(loadOptions)){
-	 		// analyzeAccountingSubjectList(accountSet, loadOptions);
+	 		analyzeAccountingSubjectList(accountSet, loadOptions);
  		}
  		
 		
@@ -416,7 +419,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	 		extractAccountingPeriodList(accountSet, loadOptions);
  		}	
  		if(isAnalyzeAccountingPeriodListEnabled(loadOptions)){
-	 		// analyzeAccountingPeriodList(accountSet, loadOptions);
+	 		analyzeAccountingPeriodList(accountSet, loadOptions);
  		}
  		
 		
@@ -424,7 +427,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	 		extractAccountingDocumentTypeList(accountSet, loadOptions);
  		}	
  		if(isAnalyzeAccountingDocumentTypeListEnabled(loadOptions)){
-	 		// analyzeAccountingDocumentTypeList(accountSet, loadOptions);
+	 		analyzeAccountingDocumentTypeList(accountSet, loadOptions);
  		}
  		
 		
@@ -675,7 +678,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//AccountSet.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Account Set");
+		lastUpdateTimeStatsItem.setDisplayName("账套");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(AccountSet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(AccountSet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -725,7 +728,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//AccountSet.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Account Set");
+		lastUpdateTimeStatsItem.setDisplayName("账套");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(AccountSet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(AccountSet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -775,7 +778,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//AccountSet.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Account Set");
+		lastUpdateTimeStatsItem.setDisplayName("账套");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(AccountSet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(AccountSet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

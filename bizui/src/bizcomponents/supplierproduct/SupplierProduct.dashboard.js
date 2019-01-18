@@ -57,18 +57,20 @@ const internalLargeTextOf = (supplierProduct) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (supplierProduct,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class SupplierProductDashboard extends Component {
     if(!this.props.supplierProduct.class){
       return null
     }
-    const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",cardsSource: this.props.supplierProduct,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",
+    	cardsSource: this.props.supplierProduct,returnURL,displayName,
   		subItems: [
 {name: 'productSupplyDurationList', displayName:'产品供应时间',type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo},
     
@@ -135,11 +140,12 @@ class SupplierProductDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class SupplierProductDashboard extends Component {
 
 export default connect(state => ({
   supplierProduct: state._supplierProduct,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(SupplierProductDashboard))
 

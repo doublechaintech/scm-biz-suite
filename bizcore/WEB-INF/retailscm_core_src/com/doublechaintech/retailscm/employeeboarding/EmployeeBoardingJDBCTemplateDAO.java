@@ -197,9 +197,10 @@ public class EmployeeBoardingJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  		return checkOptions(options,EmployeeBoardingTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeBoardingTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeBoardingTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeBoardingTokens.EMPLOYEE_LIST);
 		
@@ -237,7 +238,7 @@ public class EmployeeBoardingJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	 		extractEmployeeList(employeeBoarding, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(employeeBoarding, loadOptions);
+	 		analyzeEmployeeList(employeeBoarding, loadOptions);
  		}
  		
 		

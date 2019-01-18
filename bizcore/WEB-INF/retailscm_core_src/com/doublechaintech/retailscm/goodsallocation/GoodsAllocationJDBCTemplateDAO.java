@@ -222,9 +222,10 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
  		return checkOptions(options,GoodsAllocationTokens.GOODS_LIST);
  	}
  	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GoodsAllocationTokens.GOODS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GoodsAllocationTokens.GOODS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsAllocationTokens.GOODS_LIST);
 		
@@ -266,7 +267,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	 		extractGoodsList(goodsAllocation, loadOptions);
  		}	
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
-	 		// analyzeGoodsList(goodsAllocation, loadOptions);
+	 		analyzeGoodsList(goodsAllocation, loadOptions);
  		}
  		
 		

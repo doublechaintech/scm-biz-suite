@@ -222,9 +222,10 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
  		return checkOptions(options,SkuTokens.GOODS_LIST);
  	}
  	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SkuTokens.GOODS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SkuTokens.GOODS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, SkuTokens.GOODS_LIST);
 		
@@ -266,7 +267,7 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 	 		extractGoodsList(sku, loadOptions);
  		}	
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
-	 		// analyzeGoodsList(sku, loadOptions);
+	 		analyzeGoodsList(sku, loadOptions);
  		}
  		
 		

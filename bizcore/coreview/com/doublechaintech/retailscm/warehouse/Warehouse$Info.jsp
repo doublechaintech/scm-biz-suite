@@ -25,6 +25,7 @@
 <li><span>${userContext.localeMap['warehouse.total_area']}</span> ${warehouse.totalArea}</li>
 <li><span>${userContext.localeMap['warehouse.latitude']}</span> ${warehouse.latitude}</li>
 <li><span>${userContext.localeMap['warehouse.longitude']}</span> ${warehouse.longitude}</li>
+<li><span>${userContext.localeMap['warehouse.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${warehouse.lastUpdateTime}" /></li>
 
 	
 	</ul>

@@ -197,9 +197,10 @@ public class HrInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,HrInterviewTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,HrInterviewTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,HrInterviewTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, HrInterviewTokens.EMPLOYEE_LIST);
 		
@@ -237,7 +238,7 @@ public class HrInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractEmployeeList(hrInterview, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(hrInterview, loadOptions);
+	 		analyzeEmployeeList(hrInterview, loadOptions);
  		}
  		
 		

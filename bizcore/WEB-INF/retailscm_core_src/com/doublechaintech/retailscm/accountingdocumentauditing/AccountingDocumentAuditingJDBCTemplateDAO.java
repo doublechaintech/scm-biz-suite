@@ -197,9 +197,10 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
  		return checkOptions(options,AccountingDocumentAuditingTokens.ACCOUNTING_DOCUMENT_LIST);
  	}
  	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountingDocumentAuditingTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountingDocumentAuditingTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingDocumentAuditingTokens.ACCOUNTING_DOCUMENT_LIST);
 		
@@ -237,7 +238,7 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
 	 		extractAccountingDocumentList(accountingDocumentAuditing, loadOptions);
  		}	
  		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
-	 		// analyzeAccountingDocumentList(accountingDocumentAuditing, loadOptions);
+	 		analyzeAccountingDocumentList(accountingDocumentAuditing, loadOptions);
  		}
  		
 		

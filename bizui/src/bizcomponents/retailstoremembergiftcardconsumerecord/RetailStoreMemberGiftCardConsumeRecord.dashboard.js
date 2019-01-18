@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreMemberGiftCardConsumeRecord) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreMemberGiftCardConsumeRecord,targetComponent) =>{
 	
@@ -127,7 +129,10 @@ class RetailStoreMemberGiftCardConsumeRecordDashboard extends Component {
     if(!this.props.retailStoreMemberGiftCardConsumeRecord.class){
       return null
     }
-    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: this.props.retailStoreMemberGiftCardConsumeRecord,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",
+    	cardsSource: this.props.retailStoreMemberGiftCardConsumeRecord,returnURL,displayName,
   		subItems: [
     
       	],
@@ -140,11 +145,12 @@ class RetailStoreMemberGiftCardConsumeRecordDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -163,5 +169,7 @@ class RetailStoreMemberGiftCardConsumeRecordDashboard extends Component {
 
 export default connect(state => ({
   retailStoreMemberGiftCardConsumeRecord: state._retailStoreMemberGiftCardConsumeRecord,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreMemberGiftCardConsumeRecordDashboard))
 

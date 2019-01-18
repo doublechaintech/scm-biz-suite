@@ -222,9 +222,10 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveProvinceCenterEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
 		
@@ -266,7 +267,7 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractProvinceCenterEmployeeList(provinceCenterDepartment, loadOptions);
  		}	
  		if(isAnalyzeProvinceCenterEmployeeListEnabled(loadOptions)){
-	 		// analyzeProvinceCenterEmployeeList(provinceCenterDepartment, loadOptions);
+	 		analyzeProvinceCenterEmployeeList(provinceCenterDepartment, loadOptions);
  		}
  		
 		

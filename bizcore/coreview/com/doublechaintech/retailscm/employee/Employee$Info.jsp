@@ -28,6 +28,7 @@
 <li><span>${userContext.localeMap['employee.address']}</span> ${employee.address}</li>
 <li><span>${userContext.localeMap['employee.cell_phone']}</span> ${employee.maskedCellPhone}</li>
 <li><span>${userContext.localeMap['employee.salary_account']}</span> ${employee.salaryAccount}</li>
+<li><span>${userContext.localeMap['employee.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${employee.lastUpdateTime}" /></li>
 <li><span>${userContext.localeMap['employee.current_status']}</span> ${employee.currentStatus}</li>
 
 	

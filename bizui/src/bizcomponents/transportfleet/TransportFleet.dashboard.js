@@ -57,18 +57,20 @@ const internalLargeTextOf = (transportFleet) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (transportFleet,targetComponent) =>{
 	
@@ -80,6 +82,7 @@ const internalSummaryOf = (transportFleet,targetComponent) =>{
 <Description term="序号">{transportFleet.id}</Description> 
 <Description term="名称">{transportFleet.name}</Description> 
 <Description term="联系电话">{transportFleet.contactNumber}</Description> 
+<Description term="最后更新时间">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(transportFleet,targetComponent)}
       </DescriptionList>
@@ -114,7 +117,10 @@ class TransportFleetDashboard extends Component {
     if(!this.props.transportFleet.class){
       return null
     }
-    const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",cardsSource: this.props.transportFleet,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",
+    	cardsSource: this.props.transportFleet,returnURL,displayName,
   		subItems: [
 {name: 'transportTruckList', displayName:'运输车',type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo},
 {name: 'truckDriverList', displayName:'卡车司机',type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo},
@@ -130,11 +136,12 @@ class TransportFleetDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -153,5 +160,7 @@ class TransportFleetDashboard extends Component {
 
 export default connect(state => ({
   transportFleet: state._transportFleet,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(TransportFleetDashboard))
 

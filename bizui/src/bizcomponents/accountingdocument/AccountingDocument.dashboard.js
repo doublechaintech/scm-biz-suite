@@ -57,18 +57,20 @@ const internalLargeTextOf = (accountingDocument) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (accountingDocument,targetComponent) =>{
 	
@@ -127,7 +129,10 @@ class AccountingDocumentDashboard extends Component {
     if(!this.props.accountingDocument.class){
       return null
     }
-    const cardsData = {cardsName:"会计凭证",cardsFor: "accountingDocument",cardsSource: this.props.accountingDocument,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"会计凭证",cardsFor: "accountingDocument",
+    	cardsSource: this.props.accountingDocument,returnURL,displayName,
   		subItems: [
 {name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo},
 {name: 'accountingDocumentLineList', displayName:'会计凭证行',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo},
@@ -142,11 +147,12 @@ class AccountingDocumentDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -165,5 +171,7 @@ class AccountingDocumentDashboard extends Component {
 
 export default connect(state => ({
   accountingDocument: state._accountingDocument,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(AccountingDocumentDashboard))
 

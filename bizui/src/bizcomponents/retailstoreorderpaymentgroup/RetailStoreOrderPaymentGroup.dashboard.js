@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreOrderPaymentGroup) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreOrderPaymentGroup,targetComponent) =>{
 	
@@ -120,7 +122,10 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
     if(!this.props.retailStoreOrderPaymentGroup.class){
       return null
     }
-    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: this.props.retailStoreOrderPaymentGroup,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",
+    	cardsSource: this.props.retailStoreOrderPaymentGroup,returnURL,displayName,
   		subItems: [
     
       	],
@@ -133,11 +138,12 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -156,5 +162,7 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
 
 export default connect(state => ({
   retailStoreOrderPaymentGroup: state._retailStoreOrderPaymentGroup,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreOrderPaymentGroupDashboard))
 

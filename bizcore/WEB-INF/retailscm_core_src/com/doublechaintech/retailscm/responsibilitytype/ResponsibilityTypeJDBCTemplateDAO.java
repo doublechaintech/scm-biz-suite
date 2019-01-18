@@ -222,9 +222,10 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,ResponsibilityTypeTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ResponsibilityTypeTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ResponsibilityTypeTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, ResponsibilityTypeTokens.EMPLOYEE_LIST);
 		
@@ -266,7 +267,7 @@ public class ResponsibilityTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractEmployeeList(responsibilityType, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(responsibilityType, loadOptions);
+	 		analyzeEmployeeList(responsibilityType, loadOptions);
  		}
  		
 		

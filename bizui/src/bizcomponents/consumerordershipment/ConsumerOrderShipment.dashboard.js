@@ -57,18 +57,20 @@ const internalLargeTextOf = (consumerOrderShipment) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (consumerOrderShipment,targetComponent) =>{
 	
@@ -114,7 +116,10 @@ class ConsumerOrderShipmentDashboard extends Component {
     if(!this.props.consumerOrderShipment.class){
       return null
     }
-    const cardsData = {cardsName:"消费者的订单发货",cardsFor: "consumerOrderShipment",cardsSource: this.props.consumerOrderShipment,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"消费者的订单发货",cardsFor: "consumerOrderShipment",
+    	cardsSource: this.props.consumerOrderShipment,returnURL,displayName,
   		subItems: [
     
       	],
@@ -127,11 +132,12 @@ class ConsumerOrderShipmentDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -150,5 +156,7 @@ class ConsumerOrderShipmentDashboard extends Component {
 
 export default connect(state => ({
   consumerOrderShipment: state._consumerOrderShipment,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(ConsumerOrderShipmentDashboard))
 

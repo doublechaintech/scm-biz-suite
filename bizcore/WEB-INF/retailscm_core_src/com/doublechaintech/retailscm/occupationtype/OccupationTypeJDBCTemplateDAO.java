@@ -222,9 +222,10 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return checkOptions(options,OccupationTypeTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,OccupationTypeTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,OccupationTypeTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, OccupationTypeTokens.EMPLOYEE_LIST);
 		
@@ -266,7 +267,7 @@ public class OccupationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	 		extractEmployeeList(occupationType, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(occupationType, loadOptions);
+	 		analyzeEmployeeList(occupationType, loadOptions);
  		}
  		
 		

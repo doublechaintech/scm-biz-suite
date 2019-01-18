@@ -222,9 +222,10 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,ShippingSpaceTokens.GOODS_LIST);
  	}
  	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ShippingSpaceTokens.GOODS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ShippingSpaceTokens.GOODS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, ShippingSpaceTokens.GOODS_LIST);
 		
@@ -266,7 +267,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractGoodsList(shippingSpace, loadOptions);
  		}	
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
-	 		// analyzeGoodsList(shippingSpace, loadOptions);
+	 		analyzeGoodsList(shippingSpace, loadOptions);
  		}
  		
 		

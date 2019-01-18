@@ -20,7 +20,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '827503.25',
+  amount: '862913.94',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }

@@ -77,7 +77,7 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
 	public Map<String,String> getLocaleMap(){
 		
 		init();
-		return chineseMap;
+		return englishMap;
 		
 	}
 	

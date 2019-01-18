@@ -222,9 +222,10 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
  		return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST);
  	}
  	protected boolean isAnalyzeStockCountIssueTrackListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveStockCountIssueTrackListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST);
 		
@@ -266,7 +267,7 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
 	 		extractStockCountIssueTrackList(goodsShelfStockCount, loadOptions);
  		}	
  		if(isAnalyzeStockCountIssueTrackListEnabled(loadOptions)){
-	 		// analyzeStockCountIssueTrackList(goodsShelfStockCount, loadOptions);
+	 		analyzeStockCountIssueTrackList(goodsShelfStockCount, loadOptions);
  		}
  		
 		

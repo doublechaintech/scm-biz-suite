@@ -28,6 +28,7 @@
 <li><span>${userContext.localeMap['account_set.domestic_currency_name']}</span> ${accountSet.domesticCurrencyName}</li>
 <li><span>${userContext.localeMap['account_set.opening_bank']}</span> ${accountSet.openingBank}</li>
 <li><span>${userContext.localeMap['account_set.account_number']}</span> ${accountSet.accountNumber}</li>
+<li><span>${userContext.localeMap['account_set.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${accountSet.lastUpdateTime}" /></li>
 
 	
 	</ul>

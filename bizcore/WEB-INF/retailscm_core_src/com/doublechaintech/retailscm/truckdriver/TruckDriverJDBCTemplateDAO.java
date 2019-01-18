@@ -222,9 +222,10 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,TruckDriverTokens.TRANSPORT_TASK_LIST);
  	}
  	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TruckDriverTokens.TRANSPORT_TASK_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TruckDriverTokens.TRANSPORT_TASK_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){
 		return checkOptions(options, TruckDriverTokens.TRANSPORT_TASK_LIST);
 		
@@ -266,7 +267,7 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractTransportTaskList(truckDriver, loadOptions);
  		}	
  		if(isAnalyzeTransportTaskListEnabled(loadOptions)){
-	 		// analyzeTransportTaskList(truckDriver, loadOptions);
+	 		analyzeTransportTaskList(truckDriver, loadOptions);
  		}
  		
 		

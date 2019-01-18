@@ -792,7 +792,7 @@ public class AccountingDocumentForm extends BaseForm {
  	
  	public AccountingDocumentForm  createAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Create");
+		action.setLabel("创建");
 		action.setLocaleKey("accounting_document.create");
 		action.setUrl("accountingDocumentManager/create/accountingDocumentId/who/comments/makeDate/");
 		this.addFormAction(action);
@@ -800,7 +800,7 @@ public class AccountingDocumentForm extends BaseForm {
 	}	
  	public AccountingDocumentForm  confirmAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Confirm");
+		action.setLabel("确认");
 		action.setLocaleKey("accounting_document.confirm");
 		action.setUrl("accountingDocumentManager/confirm/accountingDocumentId/who/comments/makeDate/");
 		this.addFormAction(action);
@@ -808,7 +808,7 @@ public class AccountingDocumentForm extends BaseForm {
 	}	
  	public AccountingDocumentForm  auditAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Audit");
+		action.setLabel("审计");
 		action.setLocaleKey("accounting_document.audit");
 		action.setUrl("accountingDocumentManager/audit/accountingDocumentId/who/comments/makeDate/");
 		this.addFormAction(action);
@@ -816,7 +816,7 @@ public class AccountingDocumentForm extends BaseForm {
 	}	
  	public AccountingDocumentForm  postAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Post");
+		action.setLabel("帖子");
 		action.setLocaleKey("accounting_document.post");
 		action.setUrl("accountingDocumentManager/post/accountingDocumentId/who/comments/makeDate/");
 		this.addFormAction(action);

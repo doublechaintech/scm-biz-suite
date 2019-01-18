@@ -281,9 +281,10 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,GenericFormTokens.FORM_MESSAGE_LIST);
  	}
  	protected boolean isAnalyzeFormMessageListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GenericFormTokens.FORM_MESSAGE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GenericFormTokens.FORM_MESSAGE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveFormMessageListEnabled(Map<String,Object> options){
 		return checkOptions(options, GenericFormTokens.FORM_MESSAGE_LIST);
 		
@@ -295,9 +296,10 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,GenericFormTokens.FORM_FIELD_MESSAGE_LIST);
  	}
  	protected boolean isAnalyzeFormFieldMessageListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GenericFormTokens.FORM_FIELD_MESSAGE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GenericFormTokens.FORM_FIELD_MESSAGE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveFormFieldMessageListEnabled(Map<String,Object> options){
 		return checkOptions(options, GenericFormTokens.FORM_FIELD_MESSAGE_LIST);
 		
@@ -309,9 +311,10 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,GenericFormTokens.FORM_FIELD_LIST);
  	}
  	protected boolean isAnalyzeFormFieldListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GenericFormTokens.FORM_FIELD_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GenericFormTokens.FORM_FIELD_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveFormFieldListEnabled(Map<String,Object> options){
 		return checkOptions(options, GenericFormTokens.FORM_FIELD_LIST);
 		
@@ -323,9 +326,10 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,GenericFormTokens.FORM_ACTION_LIST);
  	}
  	protected boolean isAnalyzeFormActionListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GenericFormTokens.FORM_ACTION_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GenericFormTokens.FORM_ACTION_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveFormActionListEnabled(Map<String,Object> options){
 		return checkOptions(options, GenericFormTokens.FORM_ACTION_LIST);
 		
@@ -363,7 +367,7 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractFormMessageList(genericForm, loadOptions);
  		}	
  		if(isAnalyzeFormMessageListEnabled(loadOptions)){
-	 		// analyzeFormMessageList(genericForm, loadOptions);
+	 		analyzeFormMessageList(genericForm, loadOptions);
  		}
  		
 		
@@ -371,7 +375,7 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractFormFieldMessageList(genericForm, loadOptions);
  		}	
  		if(isAnalyzeFormFieldMessageListEnabled(loadOptions)){
-	 		// analyzeFormFieldMessageList(genericForm, loadOptions);
+	 		analyzeFormFieldMessageList(genericForm, loadOptions);
  		}
  		
 		
@@ -379,7 +383,7 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractFormFieldList(genericForm, loadOptions);
  		}	
  		if(isAnalyzeFormFieldListEnabled(loadOptions)){
-	 		// analyzeFormFieldList(genericForm, loadOptions);
+	 		analyzeFormFieldList(genericForm, loadOptions);
  		}
  		
 		
@@ -387,7 +391,7 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractFormActionList(genericForm, loadOptions);
  		}	
  		if(isAnalyzeFormActionListEnabled(loadOptions)){
-	 		// analyzeFormActionList(genericForm, loadOptions);
+	 		analyzeFormActionList(genericForm, loadOptions);
  		}
  		
 		

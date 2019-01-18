@@ -48,6 +48,10 @@
 <span class="summary-label">${userContext.localeMap['city_event.description']}</span>
 <span >${result.description}</span>
 </div>
+<div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['city_event.last_update_time']}</span>
+<span ><fmt:formatDate pattern="yyyy-MM-dd" value="${result.lastUpdateTime}" /></span>
+</div>
 
 	</div>
 	

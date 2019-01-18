@@ -278,9 +278,10 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST);
  	}
  	protected boolean isAnalyzeTransportTruckListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTransportTruckListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportFleetTokens.TRANSPORT_TRUCK_LIST);
 		
@@ -292,9 +293,10 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST);
  	}
  	protected boolean isAnalyzeTruckDriverListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTruckDriverListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportFleetTokens.TRUCK_DRIVER_LIST);
 		
@@ -306,9 +308,10 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST);
  	}
  	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){
 		return checkOptions(options, TransportFleetTokens.TRANSPORT_TASK_LIST);
 		
@@ -350,7 +353,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	 		extractTransportTruckList(transportFleet, loadOptions);
  		}	
  		if(isAnalyzeTransportTruckListEnabled(loadOptions)){
-	 		// analyzeTransportTruckList(transportFleet, loadOptions);
+	 		analyzeTransportTruckList(transportFleet, loadOptions);
  		}
  		
 		
@@ -358,7 +361,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	 		extractTruckDriverList(transportFleet, loadOptions);
  		}	
  		if(isAnalyzeTruckDriverListEnabled(loadOptions)){
-	 		// analyzeTruckDriverList(transportFleet, loadOptions);
+	 		analyzeTruckDriverList(transportFleet, loadOptions);
  		}
  		
 		
@@ -366,7 +369,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	 		extractTransportTaskList(transportFleet, loadOptions);
  		}	
  		if(isAnalyzeTransportTaskListEnabled(loadOptions)){
-	 		// analyzeTransportTaskList(transportFleet, loadOptions);
+	 		analyzeTransportTaskList(transportFleet, loadOptions);
  		}
  		
 		
@@ -577,7 +580,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//TransportFleet.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Transport Fleet");
+		lastUpdateTimeStatsItem.setDisplayName("运输车队");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(TransportFleet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(TransportFleet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

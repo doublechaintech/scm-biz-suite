@@ -116,6 +116,9 @@
 <c:if test="${param.referName ne 'picture'}">
 	<th>${userContext.localeMap['product.picture']}</th>
 </c:if>
+<c:if test="${param.referName ne 'lastUpdateTime'}">
+	<th>${userContext.localeMap['product.last_update_time']}</th>
+</c:if>
 <th>${userContext.localeMap['@action']}</th>
 		</tr></thead>
 		<tbody>
@@ -146,6 +149,7 @@
 </c:if><c:if test="${param.referName ne 'remark'}">	<td contenteditable='true' class='edit-value'  propertyToChange='remark' storedCellValue='${item.remark}' prefix='${ownerBeanName}Manager/updateProduct/${result.id}/${item.id}/'>${item.remark}</td>
 </c:if><c:if test="${param.referName ne 'brand'}">	<td contenteditable='true' class='edit-value'  propertyToChange='brand' storedCellValue='${item.brand}' prefix='${ownerBeanName}Manager/updateProduct/${result.id}/${item.id}/'>${item.brand}</td>
 </c:if><c:if test="${param.referName ne 'picture'}">	<td contenteditable='true' class='edit-value'  propertyToChange='picture' storedCellValue='${item.picture}' prefix='${ownerBeanName}Manager/updateProduct/${result.id}/${item.id}/'>${item.picture}</td>
+</c:if><c:if test="${param.referName ne 'lastUpdateTime'}">	<td contenteditable='true' class='edit-value'  propertyToChange='lastUpdateTime' storedCellValue='${item.lastUpdateTime}' prefix='${ownerBeanName}Manager/updateProduct/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.lastUpdateTime}" /></td>
 </c:if>
 				<td>
 

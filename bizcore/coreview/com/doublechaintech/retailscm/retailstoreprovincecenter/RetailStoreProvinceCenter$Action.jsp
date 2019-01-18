@@ -20,6 +20,7 @@
 	<li><span>${userContext.localeMap['retail_store_province_center.id']}</span> ${retailStoreProvinceCenter.id}</li>
 <li><span>${userContext.localeMap['retail_store_province_center.name']}</span> ${retailStoreProvinceCenter.name}</li>
 <li><span>${userContext.localeMap['retail_store_province_center.founded']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${retailStoreProvinceCenter.founded}" /></li>
+<li><span>${userContext.localeMap['retail_store_province_center.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${retailStoreProvinceCenter.lastUpdateTime}" /></li>
 
 	
 	</ul>

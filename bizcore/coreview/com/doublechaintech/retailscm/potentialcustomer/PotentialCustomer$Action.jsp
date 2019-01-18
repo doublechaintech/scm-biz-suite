@@ -21,6 +21,7 @@
 <li><span>${userContext.localeMap['potential_customer.name']}</span> ${potentialCustomer.name}</li>
 <li><span>${userContext.localeMap['potential_customer.mobile']}</span> ${potentialCustomer.maskedMobile}</li>
 <li><span>${userContext.localeMap['potential_customer.description']}</span> ${potentialCustomer.description}</li>
+<li><span>${userContext.localeMap['potential_customer.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${potentialCustomer.lastUpdateTime}" /></li>
 
 	
 	</ul>

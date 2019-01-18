@@ -20,6 +20,7 @@
 	<li><span>${userContext.localeMap['transport_fleet.id']}</span> ${transportFleet.id}</li>
 <li><span>${userContext.localeMap['transport_fleet.name']}</span> ${transportFleet.name}</li>
 <li><span>${userContext.localeMap['transport_fleet.contact_number']}</span> ${transportFleet.contactNumber}</li>
+<li><span>${userContext.localeMap['transport_fleet.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${transportFleet.lastUpdateTime}" /></li>
 
 	
 	</ul>

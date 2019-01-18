@@ -222,9 +222,10 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
  		return checkOptions(options,LevelThreeDepartmentTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,LevelThreeDepartmentTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,LevelThreeDepartmentTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, LevelThreeDepartmentTokens.EMPLOYEE_LIST);
 		
@@ -266,7 +267,7 @@ public class LevelThreeDepartmentJDBCTemplateDAO extends RetailscmNamingServiceD
 	 		extractEmployeeList(levelThreeDepartment, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(levelThreeDepartment, loadOptions);
+	 		analyzeEmployeeList(levelThreeDepartment, loadOptions);
  		}
  		
 		

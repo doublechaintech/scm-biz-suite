@@ -57,18 +57,20 @@ const internalLargeTextOf = (goodsSupplier) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (goodsSupplier,targetComponent) =>{
 	
@@ -82,6 +84,7 @@ const internalSummaryOf = (goodsSupplier,targetComponent) =>{
 <Description term="供应产品">{goodsSupplier.supplyProduct}</Description> 
 <Description term="联系电话">{goodsSupplier.contactNumber}</Description> 
 <Description term="描述">{goodsSupplier.description}</Description> 
+<Description term="最后更新时间">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(goodsSupplier,targetComponent)}
       </DescriptionList>
@@ -116,7 +119,10 @@ class GoodsSupplierDashboard extends Component {
     if(!this.props.goodsSupplier.class){
       return null
     }
-    const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",cardsSource: this.props.goodsSupplier,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",
+    	cardsSource: this.props.goodsSupplier,returnURL,displayName,
   		subItems: [
 {name: 'supplierProductList', displayName:'供应商的产品',type:'supplierProduct',count:supplierProductCount,addFunction: true, role: 'supplierProduct', metaInfo: supplierProductListMetaInfo},
 {name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo},
@@ -132,11 +138,12 @@ class GoodsSupplierDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -155,5 +162,7 @@ class GoodsSupplierDashboard extends Component {
 
 export default connect(state => ({
   goodsSupplier: state._goodsSupplier,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(GoodsSupplierDashboard))
 

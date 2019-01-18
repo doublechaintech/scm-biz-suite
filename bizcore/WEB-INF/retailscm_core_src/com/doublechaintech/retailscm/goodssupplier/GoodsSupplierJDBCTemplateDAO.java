@@ -278,9 +278,10 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST);
  	}
  	protected boolean isAnalyzeSupplierProductListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSupplierProductListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST);
 		
@@ -292,9 +293,10 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,GoodsSupplierTokens.SUPPLY_ORDER_LIST);
  	}
  	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GoodsSupplierTokens.SUPPLY_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GoodsSupplierTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsSupplierTokens.SUPPLY_ORDER_LIST);
 		
@@ -306,9 +308,10 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,GoodsSupplierTokens.ACCOUNT_SET_LIST);
  	}
  	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,GoodsSupplierTokens.ACCOUNT_SET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,GoodsSupplierTokens.ACCOUNT_SET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){
 		return checkOptions(options, GoodsSupplierTokens.ACCOUNT_SET_LIST);
 		
@@ -350,7 +353,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractSupplierProductList(goodsSupplier, loadOptions);
  		}	
  		if(isAnalyzeSupplierProductListEnabled(loadOptions)){
-	 		// analyzeSupplierProductList(goodsSupplier, loadOptions);
+	 		analyzeSupplierProductList(goodsSupplier, loadOptions);
  		}
  		
 		
@@ -358,7 +361,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractSupplyOrderList(goodsSupplier, loadOptions);
  		}	
  		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
-	 		// analyzeSupplyOrderList(goodsSupplier, loadOptions);
+	 		analyzeSupplyOrderList(goodsSupplier, loadOptions);
  		}
  		
 		
@@ -366,7 +369,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractAccountSetList(goodsSupplier, loadOptions);
  		}	
  		if(isAnalyzeAccountSetListEnabled(loadOptions)){
-	 		// analyzeAccountSetList(goodsSupplier, loadOptions);
+	 		analyzeAccountSetList(goodsSupplier, loadOptions);
  		}
  		
 		
@@ -577,7 +580,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsSupplier.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Goods Supplier");
+		lastUpdateTimeStatsItem.setDisplayName("产品供应商");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsSupplier.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsSupplier.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

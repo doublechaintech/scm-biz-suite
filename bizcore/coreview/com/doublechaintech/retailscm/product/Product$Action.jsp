@@ -23,6 +23,7 @@
 <li><span>${userContext.localeMap['product.remark']}</span> ${product.remark}</li>
 <li><span>${userContext.localeMap['product.brand']}</span> ${product.brand}</li>
 <li><span>${userContext.localeMap['product.picture']}</span> ${product.picture}</li>
+<li><span>${userContext.localeMap['product.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${product.lastUpdateTime}" /></li>
 
 	
 	</ul>

@@ -222,9 +222,10 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
  		return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
  	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
 		return checkOptions(options, PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
 		
@@ -266,7 +267,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
 	 		extractPotentialCustomerContactList(potentialCustomerContactPerson, loadOptions);
  		}	
  		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
-	 		// analyzePotentialCustomerContactList(potentialCustomerContactPerson, loadOptions);
+	 		analyzePotentialCustomerContactList(potentialCustomerContactPerson, loadOptions);
  		}
  		
 		

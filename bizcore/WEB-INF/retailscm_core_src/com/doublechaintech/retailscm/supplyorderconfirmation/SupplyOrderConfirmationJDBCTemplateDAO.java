@@ -225,9 +225,10 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
  		return checkOptions(options,SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST);
 		
@@ -239,9 +240,10 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
  		return checkOptions(options,SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST);
  	}
  	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST);
 		
@@ -279,7 +281,7 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 	 		extractConsumerOrderList(supplyOrderConfirmation, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderList(supplyOrderConfirmation, loadOptions);
+	 		analyzeConsumerOrderList(supplyOrderConfirmation, loadOptions);
  		}
  		
 		
@@ -287,7 +289,7 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 	 		extractSupplyOrderList(supplyOrderConfirmation, loadOptions);
  		}	
  		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
-	 		// analyzeSupplyOrderList(supplyOrderConfirmation, loadOptions);
+	 		analyzeSupplyOrderList(supplyOrderConfirmation, loadOptions);
  		}
  		
 		

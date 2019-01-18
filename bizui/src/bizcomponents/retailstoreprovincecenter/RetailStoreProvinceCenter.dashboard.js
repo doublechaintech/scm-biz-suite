@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreProvinceCenter) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreProvinceCenter,targetComponent) =>{
 	
@@ -80,6 +82,7 @@ const internalSummaryOf = (retailStoreProvinceCenter,targetComponent) =>{
 <Description term="序号">{retailStoreProvinceCenter.id}</Description> 
 <Description term="名称">{retailStoreProvinceCenter.name}</Description> 
 <Description term="成立">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreProvinceCenter,targetComponent)}
       </DescriptionList>
@@ -114,7 +117,10 @@ class RetailStoreProvinceCenterDashboard extends Component {
     if(!this.props.retailStoreProvinceCenter.class){
       return null
     }
-    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",cardsSource: this.props.retailStoreProvinceCenter,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",
+    	cardsSource: this.props.retailStoreProvinceCenter,returnURL,displayName,
   		subItems: [
 {name: 'provinceCenterEmployeeList', displayName:'省中心员工',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo},
 {name: 'retailStoreCityServiceCenterList', displayName:'双链小超城市服务中心',type:'retailStoreCityServiceCenter',count:retailStoreCityServiceCenterCount,addFunction: true, role: 'retailStoreCityServiceCenter', metaInfo: retailStoreCityServiceCenterListMetaInfo},
@@ -129,11 +135,12 @@ class RetailStoreProvinceCenterDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -152,5 +159,7 @@ class RetailStoreProvinceCenterDashboard extends Component {
 
 export default connect(state => ({
   retailStoreProvinceCenter: state._retailStoreProvinceCenter,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreProvinceCenterDashboard))
 

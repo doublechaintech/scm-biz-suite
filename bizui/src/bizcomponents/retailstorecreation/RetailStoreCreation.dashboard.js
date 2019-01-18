@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreCreation) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreCreation,targetComponent) =>{
 	
@@ -113,7 +115,10 @@ class RetailStoreCreationDashboard extends Component {
     if(!this.props.retailStoreCreation.class){
       return null
     }
-    const cardsData = {cardsName:"双链小超的创作",cardsFor: "retailStoreCreation",cardsSource: this.props.retailStoreCreation,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"双链小超的创作",cardsFor: "retailStoreCreation",
+    	cardsSource: this.props.retailStoreCreation,returnURL,displayName,
   		subItems: [
 {name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo},
     
@@ -127,11 +132,12 @@ class RetailStoreCreationDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -150,5 +156,7 @@ class RetailStoreCreationDashboard extends Component {
 
 export default connect(state => ({
   retailStoreCreation: state._retailStoreCreation,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreCreationDashboard))
 

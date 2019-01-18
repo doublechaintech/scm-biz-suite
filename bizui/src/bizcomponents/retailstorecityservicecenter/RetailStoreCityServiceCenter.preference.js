@@ -267,6 +267,7 @@ const internalSummaryOf = (retailStoreCityServiceCenter,targetComponent) =>{
 	      "transferToAnotherBelongsTo","anotherBelongsToId",retailStoreCityServiceCenter.belongsTo?retailStoreCityServiceCenter.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(retailStoreCityServiceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreCityServiceCenter,targetComponent)}
       </DescriptionList>

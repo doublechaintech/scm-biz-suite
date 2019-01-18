@@ -197,9 +197,10 @@ public class RetailStoreClosingJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,RetailStoreClosingTokens.RETAIL_STORE_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreClosingTokens.RETAIL_STORE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreClosingTokens.RETAIL_STORE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreClosingTokens.RETAIL_STORE_LIST);
 		
@@ -237,7 +238,7 @@ public class RetailStoreClosingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractRetailStoreList(retailStoreClosing, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
-	 		// analyzeRetailStoreList(retailStoreClosing, loadOptions);
+	 		analyzeRetailStoreList(retailStoreClosing, loadOptions);
  		}
  		
 		

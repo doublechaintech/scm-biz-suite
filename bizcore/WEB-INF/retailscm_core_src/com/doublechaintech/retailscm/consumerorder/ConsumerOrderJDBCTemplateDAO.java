@@ -484,9 +484,10 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_LINE_ITEM_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderLineItemListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_LINE_ITEM_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_LINE_ITEM_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderLineItemListEnabled(Map<String,Object> options){
 		return checkOptions(options, ConsumerOrderTokens.CONSUMER_ORDER_LINE_ITEM_LIST);
 		
@@ -498,9 +499,10 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_SHIPPING_GROUP_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderShippingGroupListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_SHIPPING_GROUP_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_SHIPPING_GROUP_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderShippingGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, ConsumerOrderTokens.CONSUMER_ORDER_SHIPPING_GROUP_LIST);
 		
@@ -512,9 +514,10 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PAYMENT_GROUP_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderPaymentGroupListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PAYMENT_GROUP_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PAYMENT_GROUP_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderPaymentGroupListEnabled(Map<String,Object> options){
 		return checkOptions(options, ConsumerOrderTokens.CONSUMER_ORDER_PAYMENT_GROUP_LIST);
 		
@@ -526,9 +529,10 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderPriceAdjustmentListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderPriceAdjustmentListEnabled(Map<String,Object> options){
 		return checkOptions(options, ConsumerOrderTokens.CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST);
 		
@@ -540,9 +544,10 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,ConsumerOrderTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ConsumerOrderTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ConsumerOrderTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){
 		return checkOptions(options, ConsumerOrderTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST);
 		
@@ -608,7 +613,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractConsumerOrderLineItemList(consumerOrder, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderLineItemListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderLineItemList(consumerOrder, loadOptions);
+	 		analyzeConsumerOrderLineItemList(consumerOrder, loadOptions);
  		}
  		
 		
@@ -616,7 +621,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractConsumerOrderShippingGroupList(consumerOrder, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderShippingGroupListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderShippingGroupList(consumerOrder, loadOptions);
+	 		analyzeConsumerOrderShippingGroupList(consumerOrder, loadOptions);
  		}
  		
 		
@@ -624,7 +629,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractConsumerOrderPaymentGroupList(consumerOrder, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderPaymentGroupListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderPaymentGroupList(consumerOrder, loadOptions);
+	 		analyzeConsumerOrderPaymentGroupList(consumerOrder, loadOptions);
  		}
  		
 		
@@ -632,7 +637,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractConsumerOrderPriceAdjustmentList(consumerOrder, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderPriceAdjustmentListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderPriceAdjustmentList(consumerOrder, loadOptions);
+	 		analyzeConsumerOrderPriceAdjustmentList(consumerOrder, loadOptions);
  		}
  		
 		
@@ -640,7 +645,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractRetailStoreMemberGiftCardConsumeRecordList(consumerOrder, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(loadOptions)){
-	 		// analyzeRetailStoreMemberGiftCardConsumeRecordList(consumerOrder, loadOptions);
+	 		analyzeRetailStoreMemberGiftCardConsumeRecordList(consumerOrder, loadOptions);
  		}
  		
 		
@@ -1071,7 +1076,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Consumer Order");
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1121,7 +1126,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Consumer Order");
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1171,7 +1176,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Consumer Order");
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1221,7 +1226,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Consumer Order");
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1271,7 +1276,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Consumer Order");
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1321,7 +1326,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Consumer Order");
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1371,7 +1376,7 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrder.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Consumer Order");
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrder.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

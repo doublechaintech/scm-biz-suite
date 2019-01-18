@@ -197,9 +197,10 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,SupplyOrderPickingTokens.SUPPLY_ORDER_LIST);
  	}
  	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SupplyOrderPickingTokens.SUPPLY_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SupplyOrderPickingTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderPickingTokens.SUPPLY_ORDER_LIST);
 		
@@ -237,7 +238,7 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractSupplyOrderList(supplyOrderPicking, loadOptions);
  		}	
  		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
-	 		// analyzeSupplyOrderList(supplyOrderPicking, loadOptions);
+	 		analyzeSupplyOrderList(supplyOrderPicking, loadOptions);
  		}
  		
 		

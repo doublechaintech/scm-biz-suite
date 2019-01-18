@@ -222,9 +222,10 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST);
  	}
  	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, InstructorTokens.COMPANY_TRAINING_LIST);
 		
@@ -266,7 +267,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	 		extractCompanyTrainingList(instructor, loadOptions);
  		}	
  		if(isAnalyzeCompanyTrainingListEnabled(loadOptions)){
-	 		// analyzeCompanyTrainingList(instructor, loadOptions);
+	 		analyzeCompanyTrainingList(instructor, loadOptions);
  		}
  		
 		
@@ -377,7 +378,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Instructor.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Instructor");
+		lastUpdateTimeStatsItem.setDisplayName("讲师");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Instructor.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Instructor.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

@@ -222,9 +222,10 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST);
  	}
  	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){
 		return checkOptions(options, InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST);
 		
@@ -266,7 +267,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractEmployeeInterviewList(interviewType, loadOptions);
  		}	
  		if(isAnalyzeEmployeeInterviewListEnabled(loadOptions)){
-	 		// analyzeEmployeeInterviewList(interviewType, loadOptions);
+	 		analyzeEmployeeInterviewList(interviewType, loadOptions);
  		}
  		
 		

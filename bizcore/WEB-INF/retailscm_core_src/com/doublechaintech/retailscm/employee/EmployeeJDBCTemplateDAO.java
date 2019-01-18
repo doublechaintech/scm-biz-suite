@@ -805,9 +805,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
  	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
 		
@@ -819,9 +820,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST);
  	}
  	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeSkillListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_SKILL_LIST);
 		
@@ -833,9 +835,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST);
  	}
  	protected boolean isAnalyzeEmployeePerformanceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeePerformanceListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST);
 		
@@ -847,9 +850,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeWorkExperienceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeWorkExperienceListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST);
 		
@@ -861,9 +865,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeLeaveListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_LEAVE_LIST);
 		
@@ -875,9 +880,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST);
  	}
  	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_INTERVIEW_LIST);
 		
@@ -889,9 +895,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeAttendanceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeAttendanceListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST);
 		
@@ -903,9 +910,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST);
  	}
  	protected boolean isAnalyzeEmployeeQualifierListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeQualifierListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_QUALIFIER_LIST);
 		
@@ -917,9 +925,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST);
  	}
  	protected boolean isAnalyzeEmployeeEducationListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeEducationListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_EDUCATION_LIST);
 		
@@ -931,9 +940,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST);
  	}
  	protected boolean isAnalyzeEmployeeAwardListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeAwardListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_AWARD_LIST);
 		
@@ -945,9 +955,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST);
  	}
  	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST);
 		
@@ -959,9 +970,10 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  		return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST);
  	}
  	protected boolean isAnalyzePayingOffListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePayingOffListEnabled(Map<String,Object> options){
 		return checkOptions(options, EmployeeTokens.PAYING_OFF_LIST);
 		
@@ -1047,7 +1059,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeCompanyTrainingList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeCompanyTrainingListEnabled(loadOptions)){
-	 		// analyzeEmployeeCompanyTrainingList(employee, loadOptions);
+	 		analyzeEmployeeCompanyTrainingList(employee, loadOptions);
  		}
  		
 		
@@ -1055,7 +1067,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeSkillList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeSkillListEnabled(loadOptions)){
-	 		// analyzeEmployeeSkillList(employee, loadOptions);
+	 		analyzeEmployeeSkillList(employee, loadOptions);
  		}
  		
 		
@@ -1063,7 +1075,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeePerformanceList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeePerformanceListEnabled(loadOptions)){
-	 		// analyzeEmployeePerformanceList(employee, loadOptions);
+	 		analyzeEmployeePerformanceList(employee, loadOptions);
  		}
  		
 		
@@ -1071,7 +1083,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeWorkExperienceList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeWorkExperienceListEnabled(loadOptions)){
-	 		// analyzeEmployeeWorkExperienceList(employee, loadOptions);
+	 		analyzeEmployeeWorkExperienceList(employee, loadOptions);
  		}
  		
 		
@@ -1079,7 +1091,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeLeaveList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeLeaveListEnabled(loadOptions)){
-	 		// analyzeEmployeeLeaveList(employee, loadOptions);
+	 		analyzeEmployeeLeaveList(employee, loadOptions);
  		}
  		
 		
@@ -1087,7 +1099,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeInterviewList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeInterviewListEnabled(loadOptions)){
-	 		// analyzeEmployeeInterviewList(employee, loadOptions);
+	 		analyzeEmployeeInterviewList(employee, loadOptions);
  		}
  		
 		
@@ -1095,7 +1107,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeAttendanceList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeAttendanceListEnabled(loadOptions)){
-	 		// analyzeEmployeeAttendanceList(employee, loadOptions);
+	 		analyzeEmployeeAttendanceList(employee, loadOptions);
  		}
  		
 		
@@ -1103,7 +1115,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeQualifierList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeQualifierListEnabled(loadOptions)){
-	 		// analyzeEmployeeQualifierList(employee, loadOptions);
+	 		analyzeEmployeeQualifierList(employee, loadOptions);
  		}
  		
 		
@@ -1111,7 +1123,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeEducationList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeEducationListEnabled(loadOptions)){
-	 		// analyzeEmployeeEducationList(employee, loadOptions);
+	 		analyzeEmployeeEducationList(employee, loadOptions);
  		}
  		
 		
@@ -1119,7 +1131,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeAwardList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeAwardListEnabled(loadOptions)){
-	 		// analyzeEmployeeAwardList(employee, loadOptions);
+	 		analyzeEmployeeAwardList(employee, loadOptions);
  		}
  		
 		
@@ -1127,7 +1139,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractEmployeeSalarySheetList(employee, loadOptions);
  		}	
  		if(isAnalyzeEmployeeSalarySheetListEnabled(loadOptions)){
-	 		// analyzeEmployeeSalarySheetList(employee, loadOptions);
+	 		analyzeEmployeeSalarySheetList(employee, loadOptions);
  		}
  		
 		
@@ -1135,7 +1147,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	 		extractPayingOffList(employee, loadOptions);
  		}	
  		if(isAnalyzePayingOffListEnabled(loadOptions)){
-	 		// analyzePayingOffList(employee, loadOptions);
+	 		analyzePayingOffList(employee, loadOptions);
  		}
  		
 		
@@ -2016,7 +2028,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2066,7 +2078,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2116,7 +2128,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2166,7 +2178,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2216,7 +2228,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2266,7 +2278,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2316,7 +2328,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2366,7 +2378,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2416,7 +2428,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2466,7 +2478,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2516,7 +2528,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -2566,7 +2578,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Employee.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Employee");
+		lastUpdateTimeStatsItem.setDisplayName("员工");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Employee.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Employee.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

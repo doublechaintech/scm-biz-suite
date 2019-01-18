@@ -222,9 +222,10 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return checkOptions(options,ReceivingSpaceTokens.GOODS_LIST);
  	}
  	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ReceivingSpaceTokens.GOODS_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ReceivingSpaceTokens.GOODS_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
 		return checkOptions(options, ReceivingSpaceTokens.GOODS_LIST);
 		
@@ -266,7 +267,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	 		extractGoodsList(receivingSpace, loadOptions);
  		}	
  		if(isAnalyzeGoodsListEnabled(loadOptions)){
-	 		// analyzeGoodsList(receivingSpace, loadOptions);
+	 		analyzeGoodsList(receivingSpace, loadOptions);
  		}
  		
 		

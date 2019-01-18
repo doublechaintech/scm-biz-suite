@@ -57,18 +57,20 @@ const internalLargeTextOf = (companyTraining) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (companyTraining,targetComponent) =>{
 	
@@ -93,6 +95,7 @@ const internalSummaryOf = (companyTraining,targetComponent) =>{
 </Description>
 <Description term="时间开始">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
 <Description term="持续时间">{companyTraining.durationHours}</Description> 
+<Description term="最后更新时间">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(companyTraining,targetComponent)}
       </DescriptionList>
@@ -127,7 +130,10 @@ class CompanyTrainingDashboard extends Component {
     if(!this.props.companyTraining.class){
       return null
     }
-    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",cardsSource: this.props.companyTraining,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",
+    	cardsSource: this.props.companyTraining,returnURL,displayName,
   		subItems: [
 {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo},
     
@@ -141,11 +147,12 @@ class CompanyTrainingDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -164,5 +171,7 @@ class CompanyTrainingDashboard extends Component {
 
 export default connect(state => ({
   companyTraining: state._companyTraining,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(CompanyTrainingDashboard))
 

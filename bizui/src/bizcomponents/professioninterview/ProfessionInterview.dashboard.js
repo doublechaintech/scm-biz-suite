@@ -57,18 +57,20 @@ const internalLargeTextOf = (professionInterview) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (professionInterview,targetComponent) =>{
 	
@@ -115,7 +117,10 @@ class ProfessionInterviewDashboard extends Component {
     if(!this.props.professionInterview.class){
       return null
     }
-    const cardsData = {cardsName:"专业面试",cardsFor: "professionInterview",cardsSource: this.props.professionInterview,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"专业面试",cardsFor: "professionInterview",
+    	cardsSource: this.props.professionInterview,returnURL,displayName,
   		subItems: [
 {name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo},
     
@@ -129,11 +134,12 @@ class ProfessionInterviewDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -152,5 +158,7 @@ class ProfessionInterviewDashboard extends Component {
 
 export default connect(state => ({
   professionInterview: state._professionInterview,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(ProfessionInterviewDashboard))
 

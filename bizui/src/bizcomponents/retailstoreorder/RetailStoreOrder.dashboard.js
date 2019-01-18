@@ -57,18 +57,20 @@ const internalLargeTextOf = (retailStoreOrder) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
 	
@@ -86,6 +88,7 @@ const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
 </Description>
 <Description term="头衔">{retailStoreOrder.title}</Description> 
 <Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
 	
         {buildTransferModal(retailStoreOrder,targetComponent)}
@@ -121,7 +124,10 @@ class RetailStoreOrderDashboard extends Component {
     if(!this.props.retailStoreOrder.class){
       return null
     }
-    const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",cardsSource: this.props.retailStoreOrder,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",
+    	cardsSource: this.props.retailStoreOrder,returnURL,displayName,
   		subItems: [
 {name: 'retailStoreOrderLineItemList', displayName:'双链小超订单行项目',type:'retailStoreOrderLineItem',count:retailStoreOrderLineItemCount,addFunction: true, role: 'retailStoreOrderLineItem', metaInfo: retailStoreOrderLineItemListMetaInfo},
 {name: 'retailStoreOrderShippingGroupList', displayName:'生超订单送货分组',type:'retailStoreOrderShippingGroup',count:retailStoreOrderShippingGroupCount,addFunction: true, role: 'retailStoreOrderShippingGroup', metaInfo: retailStoreOrderShippingGroupListMetaInfo},
@@ -138,11 +144,12 @@ class RetailStoreOrderDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -161,5 +168,7 @@ class RetailStoreOrderDashboard extends Component {
 
 export default connect(state => ({
   retailStoreOrder: state._retailStoreOrder,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(RetailStoreOrderDashboard))
 

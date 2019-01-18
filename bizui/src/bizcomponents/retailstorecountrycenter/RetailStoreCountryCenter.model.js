@@ -37,6 +37,11 @@ export default {
       if(cachedData.class){
         //yield put({ type: 'breadcrumb/gotoLink', payload: { displayName:cachedData.displayName,link }} )
         yield put({ type: 'updateState', payload: cachedData })
+        
+        if(payload.useCache){
+        	return //use cache for returning page
+        }
+        
       }else{
         yield put({ type: 'showLoading', payload })
       }
@@ -97,84 +102,6 @@ export default {
     *goback({ payload }, { put }) {
       const { id, type,listName } = payload
       yield put(routerRedux.push(`/retailStoreCountryCenter/${id}/list/${type}List/${listName}`))
-    },
-
-
-
-
-    *addReport({ payload }, { call, put }) {
-      const {RetailStoreCountryCenterService} = GlobalComponents;
-
-      const { id, role, parameters, continueNext } = payload
-      console.log('get form parameters', parameters)
-      const data = yield call(RetailStoreCountryCenterService.addReport, id, parameters)
-      if (hasError(data)) {
-        handleServerError(data)
-        return
-      }
-      const newPlayload = { ...payload, ...data }
-      yield put({ type: 'updateState', payload: newPlayload })
-      // yield put(routerRedux.push(`/retailStoreCountryCenter/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-      if (continueNext) {
-        return
-      }
-      const partialList = true
-      const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/\ReportList/报告列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateReport({ payload }, { call, put }) {
-      const {RetailStoreCountryCenterService} = GlobalComponents;      
-      const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
-      console.log('get form parameters', parameters)
-      const data = yield call(RetailStoreCountryCenterService.updateReport, id, parameters)
-      if (hasError(data)) {
-        handleServerError(data)
-        return
-      }
-      const partialList = true
-      
-      const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
-      yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-      
-      if (continueNext) {
-        return
-      }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/\ReportList/报告列表`, state: newPlayload }
-      yield put(routerRedux.push(location))
-    },
-    *gotoNextReportUpdateRow({ payload }, { call, put }) {
-      const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
-      const newPlayload = { ...payload, selectedRows, currentUpdateIndex }
-      yield put({ type: 'updateState', payload: newPlayload })
-    },
-    *removeReportList({ payload }, { call, put }) {
-      const {RetailStoreCountryCenterService} = GlobalComponents; 
-      const { id, role, parameters, continueNext } = payload
-      console.log('get form parameters', parameters)
-      const data = yield call(RetailStoreCountryCenterService.removeReportList, id, parameters)
-      if (hasError(data)) {
-        handleServerError(data)
-        return
-      }
-      const newPlayload = { ...payload, ...data }
-
-      yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
     },
 
 

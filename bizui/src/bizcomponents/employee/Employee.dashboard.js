@@ -57,18 +57,20 @@ const internalLargeTextOf = (employee) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (employee,targetComponent) =>{
 	
@@ -116,6 +118,7 @@ const internalSummaryOf = (employee,targetComponent) =>{
 	      EmployeeService.transferToAnotherTermination,"anotherTerminationId",employee.termination?employee.termination.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{employee.currentStatus}</Description> 
 	
         {buildTransferModal(employee,targetComponent)}
@@ -151,7 +154,10 @@ class EmployeeDashboard extends Component {
     if(!this.props.employee.class){
       return null
     }
-    const cardsData = {cardsName:"员工",cardsFor: "employee",cardsSource: this.props.employee,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"员工",cardsFor: "employee",
+    	cardsSource: this.props.employee,returnURL,displayName,
   		subItems: [
 {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo},
 {name: 'employeeSkillList', displayName:'员工技能',type:'employeeSkill',count:employeeSkillCount,addFunction: true, role: 'employeeSkill', metaInfo: employeeSkillListMetaInfo},
@@ -176,11 +182,12 @@ class EmployeeDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -199,5 +206,7 @@ class EmployeeDashboard extends Component {
 
 export default connect(state => ({
   employee: state._employee,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(EmployeeDashboard))
 

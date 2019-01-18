@@ -75,6 +75,7 @@ const displayColumns = [
   { title: '城市合伙人', dataIndex: 'cityPartner', render: (text, record) => renderReferenceCell(text, record)},
   { title: '接触', dataIndex: 'contactTo', render: (text, record) => renderReferenceCell(text, record)},
   { title: '描述', debugtype: 'string', dataIndex: 'description', width: '10',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -87,6 +88,7 @@ const fieldLabels = {
   cityPartner: '城市合伙人',
   contactTo: '接触',
   description: '描述',
+  lastUpdateTime: '最后更新时间',
 
 }
 

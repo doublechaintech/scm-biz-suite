@@ -303,9 +303,10 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST);
  	}
  	protected boolean isAnalyzePotentialCustomerContactPersonListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePotentialCustomerContactPersonListEnabled(Map<String,Object> options){
 		return checkOptions(options, PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST);
 		
@@ -317,9 +318,10 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
  	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
 		return checkOptions(options, PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
 		
@@ -331,9 +333,10 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,PotentialCustomerTokens.EVENT_ATTENDANCE_LIST);
  	}
  	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,PotentialCustomerTokens.EVENT_ATTENDANCE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,PotentialCustomerTokens.EVENT_ATTENDANCE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEventAttendanceListEnabled(Map<String,Object> options){
 		return checkOptions(options, PotentialCustomerTokens.EVENT_ATTENDANCE_LIST);
 		
@@ -379,7 +382,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractPotentialCustomerContactPersonList(potentialCustomer, loadOptions);
  		}	
  		if(isAnalyzePotentialCustomerContactPersonListEnabled(loadOptions)){
-	 		// analyzePotentialCustomerContactPersonList(potentialCustomer, loadOptions);
+	 		analyzePotentialCustomerContactPersonList(potentialCustomer, loadOptions);
  		}
  		
 		
@@ -387,7 +390,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractPotentialCustomerContactList(potentialCustomer, loadOptions);
  		}	
  		if(isAnalyzePotentialCustomerContactListEnabled(loadOptions)){
-	 		// analyzePotentialCustomerContactList(potentialCustomer, loadOptions);
+	 		analyzePotentialCustomerContactList(potentialCustomer, loadOptions);
  		}
  		
 		
@@ -395,7 +398,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractEventAttendanceList(potentialCustomer, loadOptions);
  		}	
  		if(isAnalyzeEventAttendanceListEnabled(loadOptions)){
-	 		// analyzeEventAttendanceList(potentialCustomer, loadOptions);
+	 		analyzeEventAttendanceList(potentialCustomer, loadOptions);
  		}
  		
 		
@@ -626,7 +629,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomer.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Potential Customer");
+		lastUpdateTimeStatsItem.setDisplayName("潜在的客户");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -676,7 +679,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomer.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Potential Customer");
+		lastUpdateTimeStatsItem.setDisplayName("潜在的客户");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomer.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

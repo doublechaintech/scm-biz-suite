@@ -1842,7 +1842,7 @@ public class GoodsForm extends BaseForm {
  	
  	public GoodsForm  packAction(){
 		FormAction action = new FormAction();
-		action.setLabel("Pack");
+		action.setLabel("包");
 		action.setLocaleKey("goods.pack");
 		action.setUrl("goodsManager/pack/goodsId/packageName/rfid/packageTime/description/");
 		this.addFormAction(action);

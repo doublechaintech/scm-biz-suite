@@ -375,9 +375,10 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST);
  	}
  	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST);
 		
@@ -389,9 +390,10 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
  	}
  	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingDocumentLineListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
 		
@@ -453,7 +455,7 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractOriginalVoucherList(accountingDocument, loadOptions);
  		}	
  		if(isAnalyzeOriginalVoucherListEnabled(loadOptions)){
-	 		// analyzeOriginalVoucherList(accountingDocument, loadOptions);
+	 		analyzeOriginalVoucherList(accountingDocument, loadOptions);
  		}
  		
 		
@@ -461,7 +463,7 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractAccountingDocumentLineList(accountingDocument, loadOptions);
  		}	
  		if(isAnalyzeAccountingDocumentLineListEnabled(loadOptions)){
-	 		// analyzeAccountingDocumentLineList(accountingDocument, loadOptions);
+	 		analyzeAccountingDocumentLineList(accountingDocument, loadOptions);
  		}
  		
 		

@@ -49,6 +49,11 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 	}
 	
 	protected void sendMail(RetailscmUserContext userContext, String title, String content) {
+		
+		if("103.229.212.96".equals(userContext.getRemoteIP())) {
+			return;//do not send when the access from local service public ip
+		}
+		
 		try {
 			userContext.sendEmail("zhangxilai@doublechaintech.com,liuli@doublechaintech.com", 
 					title, 
@@ -63,6 +68,9 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 
 	public Object changeCurUserPassword(RetailscmUserContext userContext, String currentPassword, String newPassword)
 			throws Exception {
+		
+		this.sendMail(userContext, "试图修改密码@retailscm", "");
+		
 		this.throwExceptionWithMessage("这是演示系统，你改了密码别人怎么玩呢？");
 		
 		return "OK"; //never used

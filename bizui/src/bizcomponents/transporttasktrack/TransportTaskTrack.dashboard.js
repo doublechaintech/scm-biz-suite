@@ -57,18 +57,20 @@ const internalLargeTextOf = (transportTaskTrack) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (transportTaskTrack,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class TransportTaskTrackDashboard extends Component {
     if(!this.props.transportTaskTrack.class){
       return null
     }
-    const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",cardsSource: this.props.transportTaskTrack,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",
+    	cardsSource: this.props.transportTaskTrack,returnURL,displayName,
   		subItems: [
     
       	],
@@ -134,11 +139,12 @@ class TransportTaskTrackDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -157,5 +163,7 @@ class TransportTaskTrackDashboard extends Component {
 
 export default connect(state => ({
   transportTaskTrack: state._transportTaskTrack,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(TransportTaskTrackDashboard))
 

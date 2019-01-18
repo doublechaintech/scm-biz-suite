@@ -278,9 +278,10 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
  		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST);
  	}
  	protected boolean isAnalyzeProvinceCenterDepartmentListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveProvinceCenterDepartmentListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST);
 		
@@ -292,9 +293,10 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
  		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveProvinceCenterEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
 		
@@ -306,9 +308,10 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
  		return checkOptions(options,RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST);
 		
@@ -350,7 +353,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
 	 		extractProvinceCenterDepartmentList(retailStoreProvinceCenter, loadOptions);
  		}	
  		if(isAnalyzeProvinceCenterDepartmentListEnabled(loadOptions)){
-	 		// analyzeProvinceCenterDepartmentList(retailStoreProvinceCenter, loadOptions);
+	 		analyzeProvinceCenterDepartmentList(retailStoreProvinceCenter, loadOptions);
  		}
  		
 		
@@ -358,7 +361,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
 	 		extractProvinceCenterEmployeeList(retailStoreProvinceCenter, loadOptions);
  		}	
  		if(isAnalyzeProvinceCenterEmployeeListEnabled(loadOptions)){
-	 		// analyzeProvinceCenterEmployeeList(retailStoreProvinceCenter, loadOptions);
+	 		analyzeProvinceCenterEmployeeList(retailStoreProvinceCenter, loadOptions);
  		}
  		
 		
@@ -366,7 +369,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
 	 		extractRetailStoreCityServiceCenterList(retailStoreProvinceCenter, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreCityServiceCenterListEnabled(loadOptions)){
-	 		// analyzeRetailStoreCityServiceCenterList(retailStoreProvinceCenter, loadOptions);
+	 		analyzeRetailStoreCityServiceCenterList(retailStoreProvinceCenter, loadOptions);
  		}
  		
 		
@@ -577,7 +580,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Retail Store Province Center");
+		lastUpdateTimeStatsItem.setDisplayName("双链小超省中心");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

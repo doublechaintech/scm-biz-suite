@@ -197,9 +197,10 @@ public class OfferApprovalJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return checkOptions(options,OfferApprovalTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,OfferApprovalTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,OfferApprovalTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, OfferApprovalTokens.EMPLOYEE_LIST);
 		
@@ -237,7 +238,7 @@ public class OfferApprovalJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	 		extractEmployeeList(offerApproval, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(offerApproval, loadOptions);
+	 		analyzeEmployeeList(offerApproval, loadOptions);
  		}
  		
 		

@@ -222,9 +222,10 @@ public class LevelOneDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,LevelOneDepartmentTokens.LEVEL_TWO_DEPARTMENT_LIST);
  	}
  	protected boolean isAnalyzeLevelTwoDepartmentListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,LevelOneDepartmentTokens.LEVEL_TWO_DEPARTMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,LevelOneDepartmentTokens.LEVEL_TWO_DEPARTMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveLevelTwoDepartmentListEnabled(Map<String,Object> options){
 		return checkOptions(options, LevelOneDepartmentTokens.LEVEL_TWO_DEPARTMENT_LIST);
 		
@@ -266,7 +267,7 @@ public class LevelOneDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractLevelTwoDepartmentList(levelOneDepartment, loadOptions);
  		}	
  		if(isAnalyzeLevelTwoDepartmentListEnabled(loadOptions)){
-	 		// analyzeLevelTwoDepartmentList(levelOneDepartment, loadOptions);
+	 		analyzeLevelTwoDepartmentList(levelOneDepartment, loadOptions);
  		}
  		
 		

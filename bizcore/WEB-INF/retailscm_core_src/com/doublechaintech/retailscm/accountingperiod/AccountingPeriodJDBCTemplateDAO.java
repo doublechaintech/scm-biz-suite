@@ -222,9 +222,10 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
  		return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST);
  	}
  	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST);
 		
@@ -266,7 +267,7 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	 		extractAccountingDocumentList(accountingPeriod, loadOptions);
  		}	
  		if(isAnalyzeAccountingDocumentListEnabled(loadOptions)){
-	 		// analyzeAccountingDocumentList(accountingPeriod, loadOptions);
+	 		analyzeAccountingDocumentList(accountingPeriod, loadOptions);
  		}
  		
 		

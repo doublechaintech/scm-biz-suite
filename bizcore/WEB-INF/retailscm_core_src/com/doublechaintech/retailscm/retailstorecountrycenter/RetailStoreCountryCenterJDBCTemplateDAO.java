@@ -841,9 +841,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.CATALOG_LIST);
  	}
  	protected boolean isAnalyzeCatalogListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.CATALOG_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.CATALOG_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveCatalogListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.CATALOG_LIST);
 		
@@ -855,9 +856,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreProvinceCenterListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreProvinceCenterListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST);
 		
@@ -869,9 +871,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_LIST);
 		
@@ -883,9 +886,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreMemberListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreMemberListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST);
 		
@@ -897,9 +901,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST);
  	}
  	protected boolean isAnalyzeGoodsSupplierListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveGoodsSupplierListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST);
 		
@@ -911,9 +916,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST);
  	}
  	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST);
 		
@@ -925,9 +931,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST);
  	}
  	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST);
 		
@@ -939,9 +946,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.WAREHOUSE_LIST);
  	}
  	protected boolean isAnalyzeWarehouseListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.WAREHOUSE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.WAREHOUSE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveWarehouseListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.WAREHOUSE_LIST);
 		
@@ -953,9 +961,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST);
  	}
  	protected boolean isAnalyzeTransportFleetListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTransportFleetListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST);
 		
@@ -967,9 +976,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST);
  	}
  	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST);
 		
@@ -981,9 +991,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST);
  	}
  	protected boolean isAnalyzeLevelOneDepartmentListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveLevelOneDepartmentListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST);
 		
@@ -995,9 +1006,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.SKILL_TYPE_LIST);
  	}
  	protected boolean isAnalyzeSkillTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.SKILL_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.SKILL_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSkillTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.SKILL_TYPE_LIST);
 		
@@ -1009,9 +1021,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST);
  	}
  	protected boolean isAnalyzeResponsibilityTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveResponsibilityTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST);
 		
@@ -1023,9 +1036,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST);
  	}
  	protected boolean isAnalyzeTerminationReasonListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTerminationReasonListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST);
 		
@@ -1037,9 +1051,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST);
  	}
  	protected boolean isAnalyzeTerminationTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTerminationTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST);
 		
@@ -1051,9 +1066,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST);
  	}
  	protected boolean isAnalyzeOccupationTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveOccupationTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST);
 		
@@ -1065,9 +1081,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST);
  	}
  	protected boolean isAnalyzeLeaveTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveLeaveTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST);
 		
@@ -1079,9 +1096,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.SALARY_GRADE_LIST);
  	}
  	protected boolean isAnalyzeSalaryGradeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.SALARY_GRADE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.SALARY_GRADE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSalaryGradeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.SALARY_GRADE_LIST);
 		
@@ -1093,9 +1111,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST);
  	}
  	protected boolean isAnalyzeInterviewTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveInterviewTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST);
 		
@@ -1107,9 +1126,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST);
  	}
  	protected boolean isAnalyzeTrainingCourseTypeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTrainingCourseTypeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST);
 		
@@ -1121,9 +1141,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST);
  	}
  	protected boolean isAnalyzePublicHolidayListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST+".analyze");
  	}
-
+	
 	protected boolean isSavePublicHolidayListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST);
 		
@@ -1135,9 +1156,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.EMPLOYEE_LIST);
 		
@@ -1149,9 +1171,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.INSTRUCTOR_LIST);
  	}
  	protected boolean isAnalyzeInstructorListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.INSTRUCTOR_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.INSTRUCTOR_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveInstructorListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.INSTRUCTOR_LIST);
 		
@@ -1163,9 +1186,10 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
  		return checkOptions(options,RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST);
  	}
  	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST);
 		
@@ -1203,7 +1227,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractCatalogList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeCatalogListEnabled(loadOptions)){
-	 		// analyzeCatalogList(retailStoreCountryCenter, loadOptions);
+	 		analyzeCatalogList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1211,7 +1235,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractRetailStoreProvinceCenterList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreProvinceCenterListEnabled(loadOptions)){
-	 		// analyzeRetailStoreProvinceCenterList(retailStoreCountryCenter, loadOptions);
+	 		analyzeRetailStoreProvinceCenterList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1219,7 +1243,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractRetailStoreList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreListEnabled(loadOptions)){
-	 		// analyzeRetailStoreList(retailStoreCountryCenter, loadOptions);
+	 		analyzeRetailStoreList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1227,7 +1251,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractRetailStoreMemberList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreMemberListEnabled(loadOptions)){
-	 		// analyzeRetailStoreMemberList(retailStoreCountryCenter, loadOptions);
+	 		analyzeRetailStoreMemberList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1235,7 +1259,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractGoodsSupplierList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeGoodsSupplierListEnabled(loadOptions)){
-	 		// analyzeGoodsSupplierList(retailStoreCountryCenter, loadOptions);
+	 		analyzeGoodsSupplierList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1243,7 +1267,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractSupplyOrderList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
-	 		// analyzeSupplyOrderList(retailStoreCountryCenter, loadOptions);
+	 		analyzeSupplyOrderList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1251,7 +1275,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractRetailStoreOrderList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
-	 		// analyzeRetailStoreOrderList(retailStoreCountryCenter, loadOptions);
+	 		analyzeRetailStoreOrderList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1259,7 +1283,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractWarehouseList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeWarehouseListEnabled(loadOptions)){
-	 		// analyzeWarehouseList(retailStoreCountryCenter, loadOptions);
+	 		analyzeWarehouseList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1267,7 +1291,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractTransportFleetList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeTransportFleetListEnabled(loadOptions)){
-	 		// analyzeTransportFleetList(retailStoreCountryCenter, loadOptions);
+	 		analyzeTransportFleetList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1275,7 +1299,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractAccountSetList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeAccountSetListEnabled(loadOptions)){
-	 		// analyzeAccountSetList(retailStoreCountryCenter, loadOptions);
+	 		analyzeAccountSetList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1283,7 +1307,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractLevelOneDepartmentList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeLevelOneDepartmentListEnabled(loadOptions)){
-	 		// analyzeLevelOneDepartmentList(retailStoreCountryCenter, loadOptions);
+	 		analyzeLevelOneDepartmentList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1291,7 +1315,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractSkillTypeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeSkillTypeListEnabled(loadOptions)){
-	 		// analyzeSkillTypeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeSkillTypeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1299,7 +1323,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractResponsibilityTypeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeResponsibilityTypeListEnabled(loadOptions)){
-	 		// analyzeResponsibilityTypeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeResponsibilityTypeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1307,7 +1331,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractTerminationReasonList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeTerminationReasonListEnabled(loadOptions)){
-	 		// analyzeTerminationReasonList(retailStoreCountryCenter, loadOptions);
+	 		analyzeTerminationReasonList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1315,7 +1339,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractTerminationTypeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeTerminationTypeListEnabled(loadOptions)){
-	 		// analyzeTerminationTypeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeTerminationTypeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1323,7 +1347,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractOccupationTypeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeOccupationTypeListEnabled(loadOptions)){
-	 		// analyzeOccupationTypeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeOccupationTypeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1331,7 +1355,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractLeaveTypeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeLeaveTypeListEnabled(loadOptions)){
-	 		// analyzeLeaveTypeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeLeaveTypeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1339,7 +1363,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractSalaryGradeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeSalaryGradeListEnabled(loadOptions)){
-	 		// analyzeSalaryGradeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeSalaryGradeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1347,7 +1371,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractInterviewTypeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeInterviewTypeListEnabled(loadOptions)){
-	 		// analyzeInterviewTypeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeInterviewTypeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1355,7 +1379,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractTrainingCourseTypeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeTrainingCourseTypeListEnabled(loadOptions)){
-	 		// analyzeTrainingCourseTypeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeTrainingCourseTypeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1363,7 +1387,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractPublicHolidayList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzePublicHolidayListEnabled(loadOptions)){
-	 		// analyzePublicHolidayList(retailStoreCountryCenter, loadOptions);
+	 		analyzePublicHolidayList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1371,7 +1395,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractEmployeeList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(retailStoreCountryCenter, loadOptions);
+	 		analyzeEmployeeList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1379,7 +1403,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractInstructorList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeInstructorListEnabled(loadOptions)){
-	 		// analyzeInstructorList(retailStoreCountryCenter, loadOptions);
+	 		analyzeInstructorList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		
@@ -1387,7 +1411,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	 		extractCompanyTrainingList(retailStoreCountryCenter, loadOptions);
  		}	
  		if(isAnalyzeCompanyTrainingListEnabled(loadOptions)){
-	 		// analyzeCompanyTrainingList(retailStoreCountryCenter, loadOptions);
+	 		analyzeCompanyTrainingList(retailStoreCountryCenter, loadOptions);
  		}
  		
 		

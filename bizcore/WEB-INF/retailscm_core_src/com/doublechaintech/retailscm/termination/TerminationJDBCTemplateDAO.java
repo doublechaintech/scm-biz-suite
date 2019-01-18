@@ -247,9 +247,10 @@ public class TerminationJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return checkOptions(options,TerminationTokens.EMPLOYEE_LIST);
  	}
  	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TerminationTokens.EMPLOYEE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TerminationTokens.EMPLOYEE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
 		return checkOptions(options, TerminationTokens.EMPLOYEE_LIST);
 		
@@ -295,7 +296,7 @@ public class TerminationJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	 		extractEmployeeList(termination, loadOptions);
  		}	
  		if(isAnalyzeEmployeeListEnabled(loadOptions)){
-	 		// analyzeEmployeeList(termination, loadOptions);
+	 		analyzeEmployeeList(termination, loadOptions);
  		}
  		
 		

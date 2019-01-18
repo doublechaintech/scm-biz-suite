@@ -57,18 +57,20 @@ const internalLargeTextOf = (skillType) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (skillType,targetComponent) =>{
 	
@@ -114,7 +116,10 @@ class SkillTypeDashboard extends Component {
     if(!this.props.skillType.class){
       return null
     }
-    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",cardsSource: this.props.skillType,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",
+    	cardsSource: this.props.skillType,returnURL,displayName,
   		subItems: [
 {name: 'employeeSkillList', displayName:'员工技能',type:'employeeSkill',count:employeeSkillCount,addFunction: true, role: 'employeeSkill', metaInfo: employeeSkillListMetaInfo},
     
@@ -128,11 +133,12 @@ class SkillTypeDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -151,5 +157,7 @@ class SkillTypeDashboard extends Component {
 
 export default connect(state => ({
   skillType: state._skillType,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(SkillTypeDashboard))
 

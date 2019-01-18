@@ -225,9 +225,10 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		return checkOptions(options,UserDomainTokens.USER_WHITE_LIST_LIST);
  	}
  	protected boolean isAnalyzeUserWhiteListListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,UserDomainTokens.USER_WHITE_LIST_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,UserDomainTokens.USER_WHITE_LIST_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveUserWhiteListListEnabled(Map<String,Object> options){
 		return checkOptions(options, UserDomainTokens.USER_WHITE_LIST_LIST);
 		
@@ -239,9 +240,10 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		return checkOptions(options,UserDomainTokens.SEC_USER_LIST);
  	}
  	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,UserDomainTokens.SEC_USER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,UserDomainTokens.SEC_USER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSecUserListEnabled(Map<String,Object> options){
 		return checkOptions(options, UserDomainTokens.SEC_USER_LIST);
 		
@@ -279,7 +281,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	 		extractUserWhiteListList(userDomain, loadOptions);
  		}	
  		if(isAnalyzeUserWhiteListListEnabled(loadOptions)){
-	 		// analyzeUserWhiteListList(userDomain, loadOptions);
+	 		analyzeUserWhiteListList(userDomain, loadOptions);
  		}
  		
 		
@@ -287,7 +289,7 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	 		extractSecUserList(userDomain, loadOptions);
  		}	
  		if(isAnalyzeSecUserListEnabled(loadOptions)){
-	 		// analyzeSecUserList(userDomain, loadOptions);
+	 		analyzeSecUserList(userDomain, loadOptions);
  		}
  		
 		

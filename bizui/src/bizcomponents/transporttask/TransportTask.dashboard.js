@@ -57,18 +57,20 @@ const internalLargeTextOf = (transportTask) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (transportTask,targetComponent) =>{
 	
@@ -141,7 +143,10 @@ class TransportTaskDashboard extends Component {
     if(!this.props.transportTask.class){
       return null
     }
-    const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",cardsSource: this.props.transportTask,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",
+    	cardsSource: this.props.transportTask,returnURL,displayName,
   		subItems: [
 {name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo},
 {name: 'transportTaskTrackList', displayName:'运输任务跟踪',type:'transportTaskTrack',count:transportTaskTrackCount,addFunction: true, role: 'transportTaskTrack', metaInfo: transportTaskTrackListMetaInfo},
@@ -156,11 +161,12 @@ class TransportTaskDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -179,5 +185,7 @@ class TransportTaskDashboard extends Component {
 
 export default connect(state => ({
   transportTask: state._transportTask,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(TransportTaskDashboard))
 

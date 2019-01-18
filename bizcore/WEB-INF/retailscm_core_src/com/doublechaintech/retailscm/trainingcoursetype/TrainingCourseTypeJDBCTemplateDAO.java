@@ -222,9 +222,10 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,TrainingCourseTypeTokens.COMPANY_TRAINING_LIST);
  	}
  	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TrainingCourseTypeTokens.COMPANY_TRAINING_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TrainingCourseTypeTokens.COMPANY_TRAINING_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){
 		return checkOptions(options, TrainingCourseTypeTokens.COMPANY_TRAINING_LIST);
 		
@@ -266,7 +267,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractCompanyTrainingList(trainingCourseType, loadOptions);
  		}	
  		if(isAnalyzeCompanyTrainingListEnabled(loadOptions)){
-	 		// analyzeCompanyTrainingList(trainingCourseType, loadOptions);
+	 		analyzeCompanyTrainingList(trainingCourseType, loadOptions);
  		}
  		
 		

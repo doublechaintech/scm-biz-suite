@@ -222,9 +222,10 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  		return checkOptions(options,ProductTokens.SKU_LIST);
  	}
  	protected boolean isAnalyzeSkuListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,ProductTokens.SKU_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,ProductTokens.SKU_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSkuListEnabled(Map<String,Object> options){
 		return checkOptions(options, ProductTokens.SKU_LIST);
 		
@@ -266,7 +267,7 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	 		extractSkuList(product, loadOptions);
  		}	
  		if(isAnalyzeSkuListEnabled(loadOptions)){
-	 		// analyzeSkuList(product, loadOptions);
+	 		analyzeSkuList(product, loadOptions);
  		}
  		
 		
@@ -377,7 +378,7 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Product.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("Product");
+		lastUpdateTimeStatsItem.setDisplayName("产品");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Product.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Product.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

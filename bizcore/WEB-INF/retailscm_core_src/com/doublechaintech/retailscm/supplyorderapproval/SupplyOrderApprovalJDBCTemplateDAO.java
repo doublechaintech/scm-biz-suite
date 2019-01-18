@@ -225,9 +225,10 @@ public class SupplyOrderApprovalJDBCTemplateDAO extends RetailscmNamingServiceDA
  		return checkOptions(options,SupplyOrderApprovalTokens.CONSUMER_ORDER_LIST);
  	}
  	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SupplyOrderApprovalTokens.CONSUMER_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SupplyOrderApprovalTokens.CONSUMER_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderApprovalTokens.CONSUMER_ORDER_LIST);
 		
@@ -239,9 +240,10 @@ public class SupplyOrderApprovalJDBCTemplateDAO extends RetailscmNamingServiceDA
  		return checkOptions(options,SupplyOrderApprovalTokens.SUPPLY_ORDER_LIST);
  	}
  	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SupplyOrderApprovalTokens.SUPPLY_ORDER_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SupplyOrderApprovalTokens.SUPPLY_ORDER_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
 		return checkOptions(options, SupplyOrderApprovalTokens.SUPPLY_ORDER_LIST);
 		
@@ -279,7 +281,7 @@ public class SupplyOrderApprovalJDBCTemplateDAO extends RetailscmNamingServiceDA
 	 		extractConsumerOrderList(supplyOrderApproval, loadOptions);
  		}	
  		if(isAnalyzeConsumerOrderListEnabled(loadOptions)){
-	 		// analyzeConsumerOrderList(supplyOrderApproval, loadOptions);
+	 		analyzeConsumerOrderList(supplyOrderApproval, loadOptions);
  		}
  		
 		
@@ -287,7 +289,7 @@ public class SupplyOrderApprovalJDBCTemplateDAO extends RetailscmNamingServiceDA
 	 		extractSupplyOrderList(supplyOrderApproval, loadOptions);
  		}	
  		if(isAnalyzeSupplyOrderListEnabled(loadOptions)){
-	 		// analyzeSupplyOrderList(supplyOrderApproval, loadOptions);
+	 		analyzeSupplyOrderList(supplyOrderApproval, loadOptions);
  		}
  		
 		

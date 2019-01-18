@@ -57,18 +57,20 @@ const internalLargeTextOf = (levelOneCategory) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (levelOneCategory,targetComponent) =>{
 	
@@ -119,7 +121,10 @@ class LevelOneCategoryDashboard extends Component {
     if(!this.props.levelOneCategory.class){
       return null
     }
-    const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",cardsSource: this.props.levelOneCategory,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",
+    	cardsSource: this.props.levelOneCategory,returnURL,displayName,
   		subItems: [
 {name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo},
     
@@ -133,11 +138,12 @@ class LevelOneCategoryDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -156,5 +162,7 @@ class LevelOneCategoryDashboard extends Component {
 
 export default connect(state => ({
   levelOneCategory: state._levelOneCategory,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(LevelOneCategoryDashboard))
 

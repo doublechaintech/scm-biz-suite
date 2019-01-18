@@ -69,6 +69,10 @@
 <span >${result.salaryAccount}</span>
 </div>
 <div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['employee.last_update_time']}</span>
+<span ><fmt:formatDate pattern="yyyy-MM-dd" value="${result.lastUpdateTime}" /></span>
+</div>
+<div class="col-xs-12 col-md-3 summary-section">
 <span class="summary-label">${userContext.localeMap['employee.current_status']}</span>
 <span >${result.currentStatus}</span>
 </div>

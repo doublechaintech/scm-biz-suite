@@ -222,9 +222,10 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST);
  	}
  	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){
 		return checkOptions(options, PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST);
 		
@@ -266,7 +267,7 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractEmployeeSalarySheetList(payingOff, loadOptions);
  		}	
  		if(isAnalyzeEmployeeSalarySheetListEnabled(loadOptions)){
-	 		// analyzeEmployeeSalarySheetList(payingOff, loadOptions);
+	 		analyzeEmployeeSalarySheetList(payingOff, loadOptions);
  		}
  		
 		

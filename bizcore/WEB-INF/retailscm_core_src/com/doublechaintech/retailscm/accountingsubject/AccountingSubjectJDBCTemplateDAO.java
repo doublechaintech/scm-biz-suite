@@ -222,9 +222,10 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
  	}
  	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveAccountingDocumentLineListEnabled(Map<String,Object> options){
 		return checkOptions(options, AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
 		
@@ -266,7 +267,7 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractAccountingDocumentLineList(accountingSubject, loadOptions);
  		}	
  		if(isAnalyzeAccountingDocumentLineListEnabled(loadOptions)){
-	 		// analyzeAccountingDocumentLineList(accountingSubject, loadOptions);
+	 		analyzeAccountingDocumentLineList(accountingSubject, loadOptions);
  		}
  		
 		

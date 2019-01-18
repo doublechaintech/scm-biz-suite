@@ -222,9 +222,10 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
  		return checkOptions(options,LevelThreeCategoryTokens.PRODUCT_LIST);
  	}
  	protected boolean isAnalyzeProductListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,LevelThreeCategoryTokens.PRODUCT_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,LevelThreeCategoryTokens.PRODUCT_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveProductListEnabled(Map<String,Object> options){
 		return checkOptions(options, LevelThreeCategoryTokens.PRODUCT_LIST);
 		
@@ -266,7 +267,7 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	 		extractProductList(levelThreeCategory, loadOptions);
  		}	
  		if(isAnalyzeProductListEnabled(loadOptions)){
-	 		// analyzeProductList(levelThreeCategory, loadOptions);
+	 		analyzeProductList(levelThreeCategory, loadOptions);
  		}
  		
 		

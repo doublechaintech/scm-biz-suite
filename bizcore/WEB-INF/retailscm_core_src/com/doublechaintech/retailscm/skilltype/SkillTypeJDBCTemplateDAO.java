@@ -222,9 +222,10 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  		return checkOptions(options,SkillTypeTokens.EMPLOYEE_SKILL_LIST);
  	}
  	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,SkillTypeTokens.EMPLOYEE_SKILL_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,SkillTypeTokens.EMPLOYEE_SKILL_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveEmployeeSkillListEnabled(Map<String,Object> options){
 		return checkOptions(options, SkillTypeTokens.EMPLOYEE_SKILL_LIST);
 		
@@ -266,7 +267,7 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	 		extractEmployeeSkillList(skillType, loadOptions);
  		}	
  		if(isAnalyzeEmployeeSkillListEnabled(loadOptions)){
-	 		// analyzeEmployeeSkillList(skillType, loadOptions);
+	 		analyzeEmployeeSkillList(skillType, loadOptions);
  		}
  		
 		

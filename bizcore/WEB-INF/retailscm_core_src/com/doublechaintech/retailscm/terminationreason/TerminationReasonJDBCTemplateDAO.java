@@ -222,9 +222,10 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
  		return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST);
  	}
  	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveTerminationListEnabled(Map<String,Object> options){
 		return checkOptions(options, TerminationReasonTokens.TERMINATION_LIST);
 		
@@ -266,7 +267,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	 		extractTerminationList(terminationReason, loadOptions);
  		}	
  		if(isAnalyzeTerminationListEnabled(loadOptions)){
-	 		// analyzeTerminationList(terminationReason, loadOptions);
+	 		analyzeTerminationList(terminationReason, loadOptions);
  		}
  		
 		

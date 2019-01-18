@@ -21,6 +21,7 @@
 	
 	<li><span>ID</span><a class="link-action-removed" href="./consumerOrderManager/view/${consumerOrder.id}/"> ${consumerOrder.id}</a></li>
 <li><span>${userContext.localeMap['consumer_order.title']}</span> ${consumerOrder.title}</li>
+<li><span>${userContext.localeMap['consumer_order.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${consumerOrder.lastUpdateTime}" /></li>
 <li><span>${userContext.localeMap['consumer_order.current_status']}</span> ${consumerOrder.currentStatus}</li>
 
 	

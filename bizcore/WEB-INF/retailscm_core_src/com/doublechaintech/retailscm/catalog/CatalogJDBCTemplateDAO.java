@@ -222,9 +222,10 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  		return checkOptions(options,CatalogTokens.LEVEL_ONE_CATEGORY_LIST);
  	}
  	protected boolean isAnalyzeLevelOneCategoryListEnabled(Map<String,Object> options){		
- 		return checkOptions(options,CatalogTokens.LEVEL_ONE_CATEGORY_LIST+".analyze");
+ 		return true;
+ 		//return checkOptions(options,CatalogTokens.LEVEL_ONE_CATEGORY_LIST+".analyze");
  	}
-
+	
 	protected boolean isSaveLevelOneCategoryListEnabled(Map<String,Object> options){
 		return checkOptions(options, CatalogTokens.LEVEL_ONE_CATEGORY_LIST);
 		
@@ -266,7 +267,7 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	 		extractLevelOneCategoryList(catalog, loadOptions);
  		}	
  		if(isAnalyzeLevelOneCategoryListEnabled(loadOptions)){
-	 		// analyzeLevelOneCategoryList(catalog, loadOptions);
+	 		analyzeLevelOneCategoryList(catalog, loadOptions);
  		}
  		
 		

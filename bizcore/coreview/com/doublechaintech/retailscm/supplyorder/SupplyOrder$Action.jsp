@@ -20,6 +20,7 @@
 	<li><span>${userContext.localeMap['supply_order.id']}</span> ${supplyOrder.id}</li>
 <li><span>${userContext.localeMap['supply_order.title']}</span> ${supplyOrder.title}</li>
 <li><span>${userContext.localeMap['supply_order.total_amount']}</span> <fmt:formatNumber type="currency"  value="${supplyOrder.totalAmount}" /></li>
+<li><span>${userContext.localeMap['supply_order.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${supplyOrder.lastUpdateTime}" /></li>
 <li><span>${userContext.localeMap['supply_order.current_status']}</span> ${supplyOrder.currentStatus}</li>
 
 	

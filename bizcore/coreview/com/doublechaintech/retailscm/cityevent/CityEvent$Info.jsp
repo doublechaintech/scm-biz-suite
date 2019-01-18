@@ -23,6 +23,7 @@
 <li><span>${userContext.localeMap['city_event.name']}</span> ${cityEvent.name}</li>
 <li><span>${userContext.localeMap['city_event.mobile']}</span> ${cityEvent.maskedMobile}</li>
 <li><span>${userContext.localeMap['city_event.description']}</span> ${cityEvent.description}</li>
+<li><span>${userContext.localeMap['city_event.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${cityEvent.lastUpdateTime}" /></li>
 
 	
 	</ul>

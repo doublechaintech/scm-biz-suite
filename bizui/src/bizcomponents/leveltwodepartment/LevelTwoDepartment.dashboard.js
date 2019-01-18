@@ -57,18 +57,20 @@ const internalLargeTextOf = (levelTwoDepartment) =>{
 }
 
 
-
-
-
-
-
 const internalRenderExtraHeader = defaultRenderExtraHeader
-
-
-
 
 const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
+
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+
+}
+
 
 const internalSummaryOf = (levelTwoDepartment,targetComponent) =>{
 	
@@ -121,7 +123,10 @@ class LevelTwoDepartmentDashboard extends Component {
     if(!this.props.levelTwoDepartment.class){
       return null
     }
-    const cardsData = {cardsName:"二级部门",cardsFor: "levelTwoDepartment",cardsSource: this.props.levelTwoDepartment,
+    const returnURL = this.props.returnURL
+    
+    const cardsData = {cardsName:"二级部门",cardsFor: "levelTwoDepartment",
+    	cardsSource: this.props.levelTwoDepartment,returnURL,displayName,
   		subItems: [
 {name: 'levelThreeDepartmentList', displayName:'三级部门',type:'levelThreeDepartment',count:levelThreeDepartmentCount,addFunction: true, role: 'levelThreeDepartment', metaInfo: levelThreeDepartmentListMetaInfo},
     
@@ -135,11 +140,12 @@ class LevelTwoDepartmentDashboard extends Component {
     const subListsOf = this.props.subListsOf || internalSubListsOf
     const largeTextOf = this.props.largeTextOf ||internalLargeTextOf
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={renderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
@@ -158,5 +164,7 @@ class LevelTwoDepartmentDashboard extends Component {
 
 export default connect(state => ({
   levelTwoDepartment: state._levelTwoDepartment,
+  returnURL: state.breadcrumb.returnURL,
+  
 }))(Form.create()(LevelTwoDepartmentDashboard))
 
