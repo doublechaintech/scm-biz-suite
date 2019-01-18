@@ -4,6 +4,9 @@
 本系统目前大约有130万行代码，是用自研知识图谱和因果网络处理系统生成高可维护源代码。集成了阿里云OSS服务和短信服务。
 
 
+概念和关系请请见：https://demo.doublechaintech.com/admin/retailscm/entities.html , 图比较大，需要拖动
+
+
 ## 演示地址
 
 https://demo.doublechaintech.com/admin/retailscm/#/home
