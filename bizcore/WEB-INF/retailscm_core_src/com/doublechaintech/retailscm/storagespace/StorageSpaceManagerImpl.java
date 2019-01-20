@@ -197,6 +197,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		
 		storageSpace.setLatitude(latitude);
 		storageSpace.setLongitude(longitude);
+		storageSpace.setLastUpdateTime(userContext.now());
 
 		storageSpace = saveStorageSpace(userContext, storageSpace, emptyOptions());
 		
@@ -289,7 +290,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			//will be good when the storageSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to StorageSpace.
-			
+			storageSpace.updateLastUpdateTime(userContext.now());
 			storageSpace.changeProperty(property, newValueExpr);
 			storageSpace = saveStorageSpace(userContext, storageSpace, tokens().done());
 			return present(userContext,storageSpace, mergedAllTokens(tokensExpr));
@@ -313,7 +314,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			//make changes to StorageSpace.
 			
 			storageSpace.changeProperty(property, newValueExpr);
-			
+			storageSpace.updateLastUpdateTime(userContext.now());
 			storageSpace = saveStorageSpace(userContext, storageSpace, tokens().done());
 			return present(userContext,storageSpace, mergedAllTokens(tokensExpr));
 			//return saveStorageSpace(userContext, storageSpace, tokens().done());
@@ -571,7 +572,8 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 		goodsShelf.setSupplierSpace(supplierSpace);		
 		DamageSpace  damageSpace = new DamageSpace();
 		damageSpace.setId(damageSpaceId);		
-		goodsShelf.setDamageSpace(damageSpace);
+		goodsShelf.setDamageSpace(damageSpace);		
+		goodsShelf.setLastUpdateTime(userContext.now());
 	
 		
 		return goodsShelf;
@@ -663,7 +665,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			//Will be good when the storageSpace loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			
 			storageSpace.copyGoodsShelfFrom( goodsShelf );		
 			storageSpace = saveStorageSpace(userContext, storageSpace, tokens().withGoodsShelfList().done());
@@ -716,7 +718,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			}
 			
 			goodsShelf.changeProperty(property, newValueExpr);
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			storageSpace = saveStorageSpace(userContext, storageSpace, tokens().withGoodsShelfList().done());
 			return present(userContext,storageSpace, mergedAllTokens(tokensExpr));
 		}

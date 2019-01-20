@@ -16,6 +16,7 @@ public class RetailStoreMemberCouponMapper extends BaseRowMapper<RetailStoreMemb
  		setName(retailStoreMemberCoupon, rs, rowNumber); 		
  		setOwner(retailStoreMemberCoupon, rs, rowNumber); 		
  		setNumber(retailStoreMemberCoupon, rs, rowNumber); 		
+ 		setLastUpdateTime(retailStoreMemberCoupon, rs, rowNumber); 		
  		setVersion(retailStoreMemberCoupon, rs, rowNumber);
 
 		return retailStoreMemberCoupon;
@@ -77,6 +78,18 @@ public class RetailStoreMemberCouponMapper extends BaseRowMapper<RetailStoreMemb
 		}
 		
 		retailStoreMemberCoupon.setNumber(number);
+	}
+		
+	protected void setLastUpdateTime(RetailStoreMemberCoupon retailStoreMemberCoupon, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(RetailStoreMemberCouponTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		retailStoreMemberCoupon.setLastUpdateTime(convertToDateTime(lastUpdateTime));
 	}
 		
 	protected void setVersion(RetailStoreMemberCoupon retailStoreMemberCoupon, ResultSet rs, int rowNumber) throws SQLException{

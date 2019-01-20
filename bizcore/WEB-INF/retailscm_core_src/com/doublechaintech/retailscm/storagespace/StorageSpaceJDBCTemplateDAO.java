@@ -368,6 +368,22 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(StorageSpace.WAREHOUSE_PROPERTY, warehouseId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//StorageSpace.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("存货区");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(StorageSpace.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(StorageSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -524,7 +540,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  		return prepareStorageSpaceCreateParameters(storageSpace);
  	}
  	protected Object[] prepareStorageSpaceUpdateParameters(StorageSpace storageSpace){
- 		Object[] parameters = new Object[9];
+ 		Object[] parameters = new Object[10];
  
  		parameters[0] = storageSpace.getLocation();
  		parameters[1] = storageSpace.getContactNumber();
@@ -534,15 +550,16 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  		}
  
  		parameters[4] = storageSpace.getLatitude();
- 		parameters[5] = storageSpace.getLongitude();		
- 		parameters[6] = storageSpace.nextVersion();
- 		parameters[7] = storageSpace.getId();
- 		parameters[8] = storageSpace.getVersion();
+ 		parameters[5] = storageSpace.getLongitude();
+ 		parameters[6] = storageSpace.getLastUpdateTime();		
+ 		parameters[7] = storageSpace.nextVersion();
+ 		parameters[8] = storageSpace.getId();
+ 		parameters[9] = storageSpace.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareStorageSpaceCreateParameters(StorageSpace storageSpace){
-		Object[] parameters = new Object[7];
+		Object[] parameters = new Object[8];
 		String newStorageSpaceId=getNextId();
 		storageSpace.setId(newStorageSpaceId);
 		parameters[0] =  storageSpace.getId();
@@ -556,7 +573,8 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  		}
  		
  		parameters[5] = storageSpace.getLatitude();
- 		parameters[6] = storageSpace.getLongitude();		
+ 		parameters[6] = storageSpace.getLongitude();
+ 		parameters[7] = storageSpace.getLastUpdateTime();		
  				
  		return parameters;
  	}

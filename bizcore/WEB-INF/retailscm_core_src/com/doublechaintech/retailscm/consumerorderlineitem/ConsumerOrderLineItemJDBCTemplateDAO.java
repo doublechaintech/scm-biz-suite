@@ -267,6 +267,22 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmNamingService
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(ConsumerOrderLineItem.BIZ_ORDER_PROPERTY, consumerOrderId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("消费者订单行项目");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -423,7 +439,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmNamingService
  		return prepareConsumerOrderLineItemCreateParameters(consumerOrderLineItem);
  	}
  	protected Object[] prepareConsumerOrderLineItemUpdateParameters(ConsumerOrderLineItem consumerOrderLineItem){
- 		Object[] parameters = new Object[9];
+ 		Object[] parameters = new Object[10];
   	
  		if(consumerOrderLineItem.getBizOrder() != null){
  			parameters[0] = consumerOrderLineItem.getBizOrder().getId();
@@ -433,15 +449,16 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmNamingService
  		parameters[2] = consumerOrderLineItem.getSkuName();
  		parameters[3] = consumerOrderLineItem.getPrice();
  		parameters[4] = consumerOrderLineItem.getQuantity();
- 		parameters[5] = consumerOrderLineItem.getAmount();		
- 		parameters[6] = consumerOrderLineItem.nextVersion();
- 		parameters[7] = consumerOrderLineItem.getId();
- 		parameters[8] = consumerOrderLineItem.getVersion();
+ 		parameters[5] = consumerOrderLineItem.getAmount();
+ 		parameters[6] = consumerOrderLineItem.getLastUpdateTime();		
+ 		parameters[7] = consumerOrderLineItem.nextVersion();
+ 		parameters[8] = consumerOrderLineItem.getId();
+ 		parameters[9] = consumerOrderLineItem.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareConsumerOrderLineItemCreateParameters(ConsumerOrderLineItem consumerOrderLineItem){
-		Object[] parameters = new Object[7];
+		Object[] parameters = new Object[8];
 		String newConsumerOrderLineItemId=getNextId();
 		consumerOrderLineItem.setId(newConsumerOrderLineItemId);
 		parameters[0] =  consumerOrderLineItem.getId();
@@ -455,7 +472,8 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmNamingService
  		parameters[3] = consumerOrderLineItem.getSkuName();
  		parameters[4] = consumerOrderLineItem.getPrice();
  		parameters[5] = consumerOrderLineItem.getQuantity();
- 		parameters[6] = consumerOrderLineItem.getAmount();		
+ 		parameters[6] = consumerOrderLineItem.getAmount();
+ 		parameters[7] = consumerOrderLineItem.getLastUpdateTime();		
  				
  		return parameters;
  	}

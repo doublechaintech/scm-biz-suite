@@ -26,6 +26,7 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 	public static final String LATITUDE_PROPERTY              = "latitude"          ;
 	public static final String LONGITUDE_PROPERTY             = "longitude"         ;
 	public static final String DESCRIPTION_PROPERTY           = "description"       ;
+	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
 	public static final String GOODS_LIST                               = "goodsList"         ;
@@ -57,6 +58,7 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 	protected		BigDecimal          	mLatitude           ;
 	protected		BigDecimal          	mLongitude          ;
 	protected		String              	mDescription        ;
+	protected		DateTime            	mLastUpdateTime     ;
 	protected		int                 	mVersion            ;
 	
 	
@@ -73,7 +75,7 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 	}
 	
-	public 	ShippingSpace(String location, String contactNumber, String totalArea, Warehouse warehouse, BigDecimal latitude, BigDecimal longitude, String description)
+	public 	ShippingSpace(String location, String contactNumber, String totalArea, Warehouse warehouse, BigDecimal latitude, BigDecimal longitude, String description, DateTime lastUpdateTime)
 	{
 		setLocation(location);
 		setContactNumber(contactNumber);
@@ -82,6 +84,7 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 		setLatitude(latitude);
 		setLongitude(longitude);
 		setDescription(description);
+		setLastUpdateTime(lastUpdateTime);
 
 		this.mGoodsList = new SmartList<Goods>();	
 	}
@@ -107,6 +110,9 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 		}
 		if(DESCRIPTION_PROPERTY.equals(property)){
 			changeDescriptionProperty(newValueExpr);
+		}
+		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
+			changeLastUpdateTimeProperty(newValueExpr);
 		}
 
       
@@ -197,6 +203,21 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 		//they are surely different each other
 		updateDescription(newValue);
 		this.onChangeProperty(DESCRIPTION_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+	protected void changeLastUpdateTimeProperty(String newValueExpr){
+		DateTime oldValue = getLastUpdateTime();
+		DateTime newValue = parseTimestamp(newValueExpr);
+		if(equalsTimestamp(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateLastUpdateTime(newValue);
+		this.onChangeProperty(LAST_UPDATE_TIME_PROPERTY, oldValue, newValue);
 		return;
   
 	}
@@ -312,6 +333,19 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 	}
 	public ShippingSpace updateDescription(String description){
 		this.mDescription = trimString(description);;
+		this.changed = true;
+		return this;
+	}
+	
+	
+	public void setLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+	}
+	public DateTime getLastUpdateTime(){
+		return this.mLastUpdateTime;
+	}
+	public ShippingSpace updateLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
 		this.changed = true;
 		return this;
 	}
@@ -465,6 +499,7 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 		appendKeyValuePair(result, LATITUDE_PROPERTY, getLatitude());
 		appendKeyValuePair(result, LONGITUDE_PROPERTY, getLongitude());
 		appendKeyValuePair(result, DESCRIPTION_PROPERTY, getDescription());
+		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 		appendKeyValuePair(result, GOODS_LIST, getGoodsList());
 		if(!getGoodsList().isEmpty()){
@@ -493,6 +528,7 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 			dest.setLatitude(getLatitude());
 			dest.setLongitude(getLongitude());
 			dest.setDescription(getDescription());
+			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setGoodsList(getGoodsList());
 
@@ -515,6 +551,7 @@ public class ShippingSpace extends BaseEntity implements  java.io.Serializable{
 		stringBuilder.append("\tlatitude='"+getLatitude()+"';");
 		stringBuilder.append("\tlongitude='"+getLongitude()+"';");
 		stringBuilder.append("\tdescription='"+getDescription()+"';");
+		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");
 

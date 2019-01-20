@@ -116,6 +116,9 @@
 <c:if test="${param.referName ne 'amount'}">
 	<th>${userContext.localeMap['consumer_order_line_item.amount']}</th>
 </c:if>
+<c:if test="${param.referName ne 'lastUpdateTime'}">
+	<th>${userContext.localeMap['consumer_order_line_item.last_update_time']}</th>
+</c:if>
 <th>${userContext.localeMap['@action']}</th>
 		</tr></thead>
 		<tbody>
@@ -146,6 +149,7 @@
 </c:if><c:if test="${param.referName ne 'price'}">	<td contenteditable='true' class='edit-value money'  propertyToChange='price' storedCellValue='${item.price}' prefix='${ownerBeanName}Manager/updateConsumerOrderLineItem/${result.id}/${item.id}/'><fmt:formatNumber type="currency"  value="${item.price}" /></td>
 </c:if><c:if test="${param.referName ne 'quantity'}">	<td contenteditable='true' class='edit-value'  propertyToChange='quantity' storedCellValue='${item.quantity}' prefix='${ownerBeanName}Manager/updateConsumerOrderLineItem/${result.id}/${item.id}/'>${item.quantity}</td>
 </c:if><c:if test="${param.referName ne 'amount'}">	<td contenteditable='true' class='edit-value money'  propertyToChange='amount' storedCellValue='${item.amount}' prefix='${ownerBeanName}Manager/updateConsumerOrderLineItem/${result.id}/${item.id}/'><fmt:formatNumber type="currency"  value="${item.amount}" /></td>
+</c:if><c:if test="${param.referName ne 'lastUpdateTime'}">	<td contenteditable='true' class='edit-value'  propertyToChange='lastUpdateTime' storedCellValue='${item.lastUpdateTime}' prefix='${ownerBeanName}Manager/updateConsumerOrderLineItem/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.lastUpdateTime}" /></td>
 </c:if>
 				<td>
 

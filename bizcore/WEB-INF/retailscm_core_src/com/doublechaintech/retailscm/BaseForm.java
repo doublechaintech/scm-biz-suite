@@ -2224,6 +2224,19 @@ public class BaseForm extends GenericForm{
 		return field;
 	}
 
+	protected FormField lastUpdateTimeFromConsumerOrderLineItem(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("consumer_order_line_item.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
+		return field;
+	}
+
 	protected FormField idFromConsumerOrderShippingGroup(String parameterName, String initValue){
 		FormField field = new FormField();
 		field.setLabel("序号");
@@ -2442,6 +2455,19 @@ public class BaseForm extends GenericForm{
 		field.setType("text");
 		field.setRequired(true);
 		field.setPlaceholder("请填写数");
+		return field;
+	}
+
+	protected FormField lastUpdateTimeFromRetailStoreMemberCoupon(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("retail_store_member_coupon.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
 		return field;
 	}
 
@@ -4447,6 +4473,19 @@ public class BaseForm extends GenericForm{
 		return field;
 	}
 
+	protected FormField lastUpdateTimeFromStorageSpace(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("storage_space.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
+		return field;
+	}
+
 	protected FormField idFromSmartPallet(String parameterName, String initValue){
 		FormField field = new FormField();
 		field.setLabel("序号");
@@ -4538,6 +4577,19 @@ public class BaseForm extends GenericForm{
 		return field;
 	}
 
+	protected FormField lastUpdateTimeFromSmartPallet(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("smart_pallet.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
+		return field;
+	}
+
 	protected FormField idFromGoodsShelf(String parameterName, String initValue){
 		FormField field = new FormField();
 		field.setLabel("序号");
@@ -4600,6 +4652,19 @@ public class BaseForm extends GenericForm{
 		field.setType("DamageSpace");
 		field.setRequired(true);
 		field.setPlaceholder("请填写残次货物存放区");
+		return field;
+	}
+
+	protected FormField lastUpdateTimeFromGoodsShelf(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("goods_shelf.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
 		return field;
 	}
 
@@ -5305,6 +5370,19 @@ public class BaseForm extends GenericForm{
 		return field;
 	}
 
+	protected FormField lastUpdateTimeFromSupplierSpace(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("supplier_space.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
+		return field;
+	}
+
 	protected FormField idFromReceivingSpace(String parameterName, String initValue){
 		FormField field = new FormField();
 		field.setLabel("序号");
@@ -5406,6 +5484,19 @@ public class BaseForm extends GenericForm{
 		field.setType("number");
 		field.setRequired(true);
 		field.setPlaceholder("请填写经度");
+		return field;
+	}
+
+	protected FormField lastUpdateTimeFromReceivingSpace(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("receiving_space.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
 		return field;
 	}
 
@@ -5513,6 +5604,19 @@ public class BaseForm extends GenericForm{
 		return field;
 	}
 
+	protected FormField lastUpdateTimeFromShippingSpace(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("shipping_space.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
+		return field;
+	}
+
 	protected FormField idFromDamageSpace(String parameterName, String initValue){
 		FormField field = new FormField();
 		field.setLabel("序号");
@@ -5604,6 +5708,19 @@ public class BaseForm extends GenericForm{
 		return field;
 	}
 
+	protected FormField lastUpdateTimeFromDamageSpace(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("damage_space.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
+		return field;
+	}
+
 	protected FormField idFromWarehouseAsset(String parameterName, String initValue){
 		FormField field = new FormField();
 		field.setLabel("序号");
@@ -5653,6 +5770,19 @@ public class BaseForm extends GenericForm{
 		field.setType("Warehouse");
 		field.setRequired(true);
 		field.setPlaceholder("请填写业主");
+		return field;
+	}
+
+	protected FormField lastUpdateTimeFromWarehouseAsset(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("最后更新时间");
+		field.setLocaleKey("warehouse_asset.last_update_time");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("date_time");
+		field.setRequired(true);
+		field.setPlaceholder("请填写最后更新时间");
 		return field;
 	}
 

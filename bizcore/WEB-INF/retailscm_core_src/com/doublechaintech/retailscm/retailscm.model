@@ -267,7 +267,9 @@ pic   varchar(254),   图片 -->
 		sku_name="大瓶可乐" 
 		price="$5.97" 
 		quantity="1000.00" 
-		amount="$9999.99"/>
+		amount="$9999.99"
+		last_update_time="updateTime()"
+		/>
 	<consumer_order_shipping_group 
 		name="送货到刘强家" 
 		biz_order="$(consumer_order)"  
@@ -292,7 +294,7 @@ pic   varchar(254),   图片 -->
 		name='优惠券'  
 		owner="$(retail_store_member)"
 		number="CP00001" 
-		
+		last_update_time="updateTime()"
 		/>
 	<member_wishlist
 		name='每周购买清单|每月购买清单'  
@@ -499,6 +501,7 @@ pic   varchar(254),   图片 -->
 		warehouse="$(warehouse)"
 		latitude="40.776877"
 		longitude="130.273647"
+		last_update_time="updateTime()"
 		
 
 	/>
@@ -512,6 +515,7 @@ pic   varchar(254),   图片 -->
 		longitude="130.273647"
 		
 		warehouse="$(warehouse)"
+		last_update_time="updateTime()"
 
 	/>
 	<!-- 每个货架都可以在不同区域移动，这样使得从从供货商那里，不同区域移动,或者整个货架都移动到报废区 -->
@@ -520,7 +524,7 @@ pic   varchar(254),   图片 -->
 		storage_space="$(storage_space)"
 		supplier_space="$(supplier_space)"
 		damage_space="$(damage_space)"
-		
+		last_update_time="updateTime()"
 		
 
 	/>
@@ -603,6 +607,7 @@ pic   varchar(254),   图片 -->
 		warehouse="$(warehouse)"
 		latitude="40.776877"
 		longitude="130.273647"
+		last_update_time="updateTime()"
 
 	/>
 
@@ -614,6 +619,7 @@ pic   varchar(254),   图片 -->
 		warehouse="$(warehouse)"
 		latitude="40.776877"
 		longitude="130.273647"
+		last_update_time="updateTime()"
 	/>
 
 
@@ -626,7 +632,7 @@ pic   varchar(254),   图片 -->
 		latitude="40.776877"
 		longitude="130.273647"
 		description="每个收货区可以供一辆车装货"
-		
+		last_update_time="updateTime()"
 
 	/>
 	<damage_space
@@ -636,6 +642,7 @@ pic   varchar(254),   图片 -->
 		latitude="40.776877"
 		longitude="130.273647"
 		warehouse="$(warehouse)"
+		last_update_time="updateTime()"
 
 	/>
 	<!--每个库房有自己的库房设备/备件和在用件-->
@@ -643,6 +650,7 @@ pic   varchar(254),   图片 -->
 		name="叉车|托盘|传送带备件"
 		position="备用件存放区设备库房"
 		owner="$(warehouse)"
+		last_update_time="updateTime()"
 
 	/>
 

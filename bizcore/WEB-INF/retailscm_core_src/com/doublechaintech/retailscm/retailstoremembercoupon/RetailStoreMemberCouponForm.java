@@ -75,6 +75,20 @@ public class RetailStoreMemberCouponForm extends BaseForm {
 		return numberField("number","");
 	}
 
+
+	public RetailStoreMemberCouponForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromRetailStoreMemberCoupon(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public RetailStoreMemberCouponForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public RetailStoreMemberCouponForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 

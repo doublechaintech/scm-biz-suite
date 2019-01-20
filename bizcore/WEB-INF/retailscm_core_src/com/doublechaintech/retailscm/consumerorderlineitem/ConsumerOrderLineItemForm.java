@@ -117,6 +117,20 @@ public class ConsumerOrderLineItemForm extends BaseForm {
 		return amountField("amount","");
 	}
 
+
+	public ConsumerOrderLineItemForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromConsumerOrderLineItem(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public ConsumerOrderLineItemForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public ConsumerOrderLineItemForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 

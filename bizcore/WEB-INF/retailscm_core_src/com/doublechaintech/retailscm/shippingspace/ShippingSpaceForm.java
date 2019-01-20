@@ -131,6 +131,20 @@ public class ShippingSpaceForm extends BaseForm {
 		return descriptionField("description","");
 	}
 
+
+	public ShippingSpaceForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromShippingSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public ShippingSpaceForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public ShippingSpaceForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 

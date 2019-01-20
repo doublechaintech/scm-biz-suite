@@ -22,6 +22,7 @@
 	<li><span>ID</span><a class="link-action-removed" href="./warehouseAssetManager/view/${warehouseAsset.id}/"> ${warehouseAsset.id}</a></li>
 <li><span>${userContext.localeMap['warehouse_asset.name']}</span> ${warehouseAsset.name}</li>
 <li><span>${userContext.localeMap['warehouse_asset.position']}</span> ${warehouseAsset.position}</li>
+<li><span>${userContext.localeMap['warehouse_asset.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${warehouseAsset.lastUpdateTime}" /></li>
 
 	
 	</ul>

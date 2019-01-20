@@ -162,6 +162,20 @@ public class GoodsAllocationForm extends BaseForm {
 		return damageSpaceIdFieldOfGoodsShelf("damageSpaceId","");
 	}
 
+
+	public GoodsAllocationForm lastUpdateTimeFieldOfGoodsShelf(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromGoodsShelf(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsAllocationForm lastUpdateTimeFieldOfGoodsShelf(String initValue){
+		return lastUpdateTimeFieldOfGoodsShelf("lastUpdateTime",initValue);
+	}
+	public GoodsAllocationForm lastUpdateTimeFieldOfGoodsShelf(){
+		return lastUpdateTimeFieldOfGoodsShelf("lastUpdateTime","");
+	}
+
 	
 
 

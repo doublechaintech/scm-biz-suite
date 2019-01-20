@@ -368,6 +368,22 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(SupplierSpace.WAREHOUSE_PROPERTY, warehouseId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//SupplierSpace.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("供应商的空间");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SupplierSpace.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SupplierSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -524,7 +540,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return prepareSupplierSpaceCreateParameters(supplierSpace);
  	}
  	protected Object[] prepareSupplierSpaceUpdateParameters(SupplierSpace supplierSpace){
- 		Object[] parameters = new Object[9];
+ 		Object[] parameters = new Object[10];
  
  		parameters[0] = supplierSpace.getLocation();
  		parameters[1] = supplierSpace.getContactNumber();
@@ -534,15 +550,16 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		}
  
  		parameters[4] = supplierSpace.getLatitude();
- 		parameters[5] = supplierSpace.getLongitude();		
- 		parameters[6] = supplierSpace.nextVersion();
- 		parameters[7] = supplierSpace.getId();
- 		parameters[8] = supplierSpace.getVersion();
+ 		parameters[5] = supplierSpace.getLongitude();
+ 		parameters[6] = supplierSpace.getLastUpdateTime();		
+ 		parameters[7] = supplierSpace.nextVersion();
+ 		parameters[8] = supplierSpace.getId();
+ 		parameters[9] = supplierSpace.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareSupplierSpaceCreateParameters(SupplierSpace supplierSpace){
-		Object[] parameters = new Object[7];
+		Object[] parameters = new Object[8];
 		String newSupplierSpaceId=getNextId();
 		supplierSpace.setId(newSupplierSpaceId);
 		parameters[0] =  supplierSpace.getId();
@@ -556,7 +573,8 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		}
  		
  		parameters[5] = supplierSpace.getLatitude();
- 		parameters[6] = supplierSpace.getLongitude();		
+ 		parameters[6] = supplierSpace.getLongitude();
+ 		parameters[7] = supplierSpace.getLastUpdateTime();		
  				
  		return parameters;
  	}

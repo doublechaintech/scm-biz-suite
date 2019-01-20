@@ -189,6 +189,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 		consumerOrderLineItem.setPrice(price);
 		consumerOrderLineItem.setQuantity(quantity);
 		consumerOrderLineItem.setAmount(amount);
+		consumerOrderLineItem.setLastUpdateTime(userContext.now());
 
 		consumerOrderLineItem = saveConsumerOrderLineItem(userContext, consumerOrderLineItem, emptyOptions());
 		
@@ -281,7 +282,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the consumerOrderLineItem loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderLineItem.
-			
+			consumerOrderLineItem.updateLastUpdateTime(userContext.now());
 			consumerOrderLineItem.changeProperty(property, newValueExpr);
 			consumerOrderLineItem = saveConsumerOrderLineItem(userContext, consumerOrderLineItem, tokens().done());
 			return present(userContext,consumerOrderLineItem, mergedAllTokens(tokensExpr));
@@ -305,7 +306,7 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 			//make changes to ConsumerOrderLineItem.
 			
 			consumerOrderLineItem.changeProperty(property, newValueExpr);
-			
+			consumerOrderLineItem.updateLastUpdateTime(userContext.now());
 			consumerOrderLineItem = saveConsumerOrderLineItem(userContext, consumerOrderLineItem, tokens().done());
 			return present(userContext,consumerOrderLineItem, mergedAllTokens(tokensExpr));
 			//return saveConsumerOrderLineItem(userContext, consumerOrderLineItem, tokens().done());

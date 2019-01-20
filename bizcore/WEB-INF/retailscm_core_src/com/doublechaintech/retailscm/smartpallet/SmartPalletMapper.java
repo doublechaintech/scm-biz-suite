@@ -19,6 +19,7 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
  		setLatitude(smartPallet, rs, rowNumber); 		
  		setLongitude(smartPallet, rs, rowNumber); 		
  		setWarehouse(smartPallet, rs, rowNumber); 		
+ 		setLastUpdateTime(smartPallet, rs, rowNumber); 		
  		setVersion(smartPallet, rs, rowNumber);
 
 		return smartPallet;
@@ -118,6 +119,18 @@ public class SmartPalletMapper extends BaseRowMapper<SmartPallet>{
  		smartPallet.setWarehouse(createEmptyWarehouse(warehouseId));
  	}
  	
+	protected void setLastUpdateTime(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(SmartPalletTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		smartPallet.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+	}
+		
 	protected void setVersion(SmartPallet smartPallet, ResultSet rs, int rowNumber) throws SQLException{
 	
 		//there will be issue when the type is double/int/long

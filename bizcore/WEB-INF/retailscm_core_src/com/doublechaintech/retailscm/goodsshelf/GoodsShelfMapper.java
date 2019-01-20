@@ -19,6 +19,7 @@ public class GoodsShelfMapper extends BaseRowMapper<GoodsShelf>{
  		setStorageSpace(goodsShelf, rs, rowNumber); 		
  		setSupplierSpace(goodsShelf, rs, rowNumber); 		
  		setDamageSpace(goodsShelf, rs, rowNumber); 		
+ 		setLastUpdateTime(goodsShelf, rs, rowNumber); 		
  		setVersion(goodsShelf, rs, rowNumber);
 
 		return goodsShelf;
@@ -106,6 +107,18 @@ public class GoodsShelfMapper extends BaseRowMapper<GoodsShelf>{
  		goodsShelf.setDamageSpace(createEmptyDamageSpace(damageSpaceId));
  	}
  	
+	protected void setLastUpdateTime(GoodsShelf goodsShelf, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(GoodsShelfTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		goodsShelf.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+	}
+		
 	protected void setVersion(GoodsShelf goodsShelf, ResultSet rs, int rowNumber) throws SQLException{
 	
 		//there will be issue when the type is double/int/long

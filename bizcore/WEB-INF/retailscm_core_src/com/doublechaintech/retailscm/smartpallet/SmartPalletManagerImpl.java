@@ -204,6 +204,7 @@ public class SmartPalletManagerImpl extends CustomRetailscmCheckerManager implem
 		smartPallet.setWarehouse(warehouse);
 		
 		
+		smartPallet.setLastUpdateTime(userContext.now());
 
 		smartPallet = saveSmartPallet(userContext, smartPallet, emptyOptions());
 		
@@ -296,7 +297,7 @@ public class SmartPalletManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the smartPallet loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SmartPallet.
-			
+			smartPallet.updateLastUpdateTime(userContext.now());
 			smartPallet.changeProperty(property, newValueExpr);
 			smartPallet = saveSmartPallet(userContext, smartPallet, tokens().done());
 			return present(userContext,smartPallet, mergedAllTokens(tokensExpr));
@@ -320,7 +321,7 @@ public class SmartPalletManagerImpl extends CustomRetailscmCheckerManager implem
 			//make changes to SmartPallet.
 			
 			smartPallet.changeProperty(property, newValueExpr);
-			
+			smartPallet.updateLastUpdateTime(userContext.now());
 			smartPallet = saveSmartPallet(userContext, smartPallet, tokens().done());
 			return present(userContext,smartPallet, mergedAllTokens(tokensExpr));
 			//return saveSmartPallet(userContext, smartPallet, tokens().done());

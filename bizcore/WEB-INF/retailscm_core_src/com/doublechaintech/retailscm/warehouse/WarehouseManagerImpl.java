@@ -580,7 +580,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		storageSpace.setContactNumber(contactNumber);		
 		storageSpace.setTotalArea(totalArea);		
 		storageSpace.setLatitude(latitude);		
-		storageSpace.setLongitude(longitude);
+		storageSpace.setLongitude(longitude);		
+		storageSpace.setLastUpdateTime(userContext.now());
 	
 		
 		return storageSpace;
@@ -672,7 +673,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Will be good when the warehouse loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			storageSpace.updateLastUpdateTime(userContext.now());
 			
 			warehouse.copyStorageSpaceFrom( storageSpace );		
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withStorageSpaceList().done());
@@ -741,7 +742,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			}
 			
 			storageSpace.changeProperty(property, newValueExpr);
-			
+			storageSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withStorageSpaceList().done());
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
@@ -850,7 +851,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		smartPallet.setContactNumber(contactNumber);		
 		smartPallet.setTotalArea(totalArea);		
 		smartPallet.setLatitude(latitude);		
-		smartPallet.setLongitude(longitude);
+		smartPallet.setLongitude(longitude);		
+		smartPallet.setLastUpdateTime(userContext.now());
 	
 		
 		return smartPallet;
@@ -942,7 +944,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Will be good when the warehouse loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			smartPallet.updateLastUpdateTime(userContext.now());
 			
 			warehouse.copySmartPalletFrom( smartPallet );		
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSmartPalletList().done());
@@ -1011,7 +1013,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			}
 			
 			smartPallet.changeProperty(property, newValueExpr);
-			
+			smartPallet.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSmartPalletList().done());
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
@@ -1120,7 +1122,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		supplierSpace.setContactNumber(contactNumber);		
 		supplierSpace.setTotalArea(totalArea);		
 		supplierSpace.setLatitude(latitude);		
-		supplierSpace.setLongitude(longitude);
+		supplierSpace.setLongitude(longitude);		
+		supplierSpace.setLastUpdateTime(userContext.now());
 	
 		
 		return supplierSpace;
@@ -1212,7 +1215,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Will be good when the warehouse loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			supplierSpace.updateLastUpdateTime(userContext.now());
 			
 			warehouse.copySupplierSpaceFrom( supplierSpace );		
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSupplierSpaceList().done());
@@ -1281,7 +1284,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			}
 			
 			supplierSpace.changeProperty(property, newValueExpr);
-			
+			supplierSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withSupplierSpaceList().done());
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
@@ -1395,7 +1398,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		receivingSpace.setDescription(description);		
 		receivingSpace.setTotalArea(totalArea);		
 		receivingSpace.setLatitude(latitude);		
-		receivingSpace.setLongitude(longitude);
+		receivingSpace.setLongitude(longitude);		
+		receivingSpace.setLastUpdateTime(userContext.now());
 	
 		
 		return receivingSpace;
@@ -1487,7 +1491,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Will be good when the warehouse loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			receivingSpace.updateLastUpdateTime(userContext.now());
 			
 			warehouse.copyReceivingSpaceFrom( receivingSpace );		
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withReceivingSpaceList().done());
@@ -1560,7 +1564,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			}
 			
 			receivingSpace.changeProperty(property, newValueExpr);
-			
+			receivingSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withReceivingSpaceList().done());
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
@@ -1674,7 +1678,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		shippingSpace.setTotalArea(totalArea);		
 		shippingSpace.setLatitude(latitude);		
 		shippingSpace.setLongitude(longitude);		
-		shippingSpace.setDescription(description);
+		shippingSpace.setDescription(description);		
+		shippingSpace.setLastUpdateTime(userContext.now());
 	
 		
 		return shippingSpace;
@@ -1766,7 +1771,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Will be good when the warehouse loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			shippingSpace.updateLastUpdateTime(userContext.now());
 			
 			warehouse.copyShippingSpaceFrom( shippingSpace );		
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withShippingSpaceList().done());
@@ -1839,7 +1844,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			}
 			
 			shippingSpace.changeProperty(property, newValueExpr);
-			
+			shippingSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withShippingSpaceList().done());
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
@@ -1948,7 +1953,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		damageSpace.setContactNumber(contactNumber);		
 		damageSpace.setTotalArea(totalArea);		
 		damageSpace.setLatitude(latitude);		
-		damageSpace.setLongitude(longitude);
+		damageSpace.setLongitude(longitude);		
+		damageSpace.setLastUpdateTime(userContext.now());
 	
 		
 		return damageSpace;
@@ -2040,7 +2046,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Will be good when the warehouse loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			damageSpace.updateLastUpdateTime(userContext.now());
 			
 			warehouse.copyDamageSpaceFrom( damageSpace );		
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withDamageSpaceList().done());
@@ -2109,7 +2115,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			}
 			
 			damageSpace.changeProperty(property, newValueExpr);
-			
+			damageSpace.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withDamageSpaceList().done());
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}
@@ -2203,7 +2209,8 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		
 		
 		warehouseAsset.setName(name);		
-		warehouseAsset.setPosition(position);
+		warehouseAsset.setPosition(position);		
+		warehouseAsset.setLastUpdateTime(userContext.now());
 	
 		
 		return warehouseAsset;
@@ -2295,7 +2302,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			//Will be good when the warehouse loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			warehouseAsset.updateLastUpdateTime(userContext.now());
 			
 			warehouse.copyWarehouseAssetFrom( warehouseAsset );		
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withWarehouseAssetList().done());
@@ -2352,7 +2359,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 			}
 			
 			warehouseAsset.changeProperty(property, newValueExpr);
-			
+			warehouseAsset.updateLastUpdateTime(userContext.now());
 			warehouse = saveWarehouse(userContext, warehouse, tokens().withWarehouseAssetList().done());
 			return present(userContext,warehouse, mergedAllTokens(tokensExpr));
 		}

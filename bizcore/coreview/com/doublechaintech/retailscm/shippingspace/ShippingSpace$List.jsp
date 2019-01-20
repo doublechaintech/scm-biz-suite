@@ -119,6 +119,9 @@
 <c:if test="${param.referName ne 'description'}">
 	<th>${userContext.localeMap['shipping_space.description']}</th>
 </c:if>
+<c:if test="${param.referName ne 'lastUpdateTime'}">
+	<th>${userContext.localeMap['shipping_space.last_update_time']}</th>
+</c:if>
 <th>${userContext.localeMap['@action']}</th>
 		</tr></thead>
 		<tbody>
@@ -150,6 +153,7 @@
 <c:if test="${param.referName ne 'latitude'}">	<td contenteditable='true' class='edit-value'  propertyToChange='latitude' storedCellValue='${item.latitude}' prefix='${ownerBeanName}Manager/updateShippingSpace/${result.id}/${item.id}/'>${item.latitude}</td>
 </c:if><c:if test="${param.referName ne 'longitude'}">	<td contenteditable='true' class='edit-value'  propertyToChange='longitude' storedCellValue='${item.longitude}' prefix='${ownerBeanName}Manager/updateShippingSpace/${result.id}/${item.id}/'>${item.longitude}</td>
 </c:if><c:if test="${param.referName ne 'description'}">	<td contenteditable='true' class='edit-value'  propertyToChange='description' storedCellValue='${item.description}' prefix='${ownerBeanName}Manager/updateShippingSpace/${result.id}/${item.id}/'>${item.description}</td>
+</c:if><c:if test="${param.referName ne 'lastUpdateTime'}">	<td contenteditable='true' class='edit-value'  propertyToChange='lastUpdateTime' storedCellValue='${item.lastUpdateTime}' prefix='${ownerBeanName}Manager/updateShippingSpace/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.lastUpdateTime}" /></td>
 </c:if>
 				<td>
 

@@ -19,6 +19,7 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
  		setLatitude(damageSpace, rs, rowNumber); 		
  		setLongitude(damageSpace, rs, rowNumber); 		
  		setWarehouse(damageSpace, rs, rowNumber); 		
+ 		setLastUpdateTime(damageSpace, rs, rowNumber); 		
  		setVersion(damageSpace, rs, rowNumber);
 
 		return damageSpace;
@@ -118,6 +119,18 @@ public class DamageSpaceMapper extends BaseRowMapper<DamageSpace>{
  		damageSpace.setWarehouse(createEmptyWarehouse(warehouseId));
  	}
  	
+	protected void setLastUpdateTime(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(DamageSpaceTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		damageSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+	}
+		
 	protected void setVersion(DamageSpace damageSpace, ResultSet rs, int rowNumber) throws SQLException{
 	
 		//there will be issue when the type is double/int/long

@@ -26,6 +26,7 @@
 <li><span>${userContext.localeMap['shipping_space.latitude']}</span> ${shippingSpace.latitude}</li>
 <li><span>${userContext.localeMap['shipping_space.longitude']}</span> ${shippingSpace.longitude}</li>
 <li><span>${userContext.localeMap['shipping_space.description']}</span> ${shippingSpace.description}</li>
+<li><span>${userContext.localeMap['shipping_space.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${shippingSpace.lastUpdateTime}" /></li>
 
 	
 	</ul>

@@ -183,6 +183,7 @@ public class RetailStoreMemberCouponManagerImpl extends CustomRetailscmCheckerMa
 		
 		
 		retailStoreMemberCoupon.setNumber(number);
+		retailStoreMemberCoupon.setLastUpdateTime(userContext.now());
 
 		retailStoreMemberCoupon = saveRetailStoreMemberCoupon(userContext, retailStoreMemberCoupon, emptyOptions());
 		
@@ -266,7 +267,7 @@ public class RetailStoreMemberCouponManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the retailStoreMemberCoupon loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreMemberCoupon.
-			
+			retailStoreMemberCoupon.updateLastUpdateTime(userContext.now());
 			retailStoreMemberCoupon.changeProperty(property, newValueExpr);
 			retailStoreMemberCoupon = saveRetailStoreMemberCoupon(userContext, retailStoreMemberCoupon, tokens().done());
 			return present(userContext,retailStoreMemberCoupon, mergedAllTokens(tokensExpr));
@@ -290,7 +291,7 @@ public class RetailStoreMemberCouponManagerImpl extends CustomRetailscmCheckerMa
 			//make changes to RetailStoreMemberCoupon.
 			
 			retailStoreMemberCoupon.changeProperty(property, newValueExpr);
-			
+			retailStoreMemberCoupon.updateLastUpdateTime(userContext.now());
 			retailStoreMemberCoupon = saveRetailStoreMemberCoupon(userContext, retailStoreMemberCoupon, tokens().done());
 			return present(userContext,retailStoreMemberCoupon, mergedAllTokens(tokensExpr));
 			//return saveRetailStoreMemberCoupon(userContext, retailStoreMemberCoupon, tokens().done());

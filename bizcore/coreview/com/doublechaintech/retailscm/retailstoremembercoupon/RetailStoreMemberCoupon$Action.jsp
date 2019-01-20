@@ -20,6 +20,7 @@
 	<li><span>${userContext.localeMap['retail_store_member_coupon.id']}</span> ${retailStoreMemberCoupon.id}</li>
 <li><span>${userContext.localeMap['retail_store_member_coupon.name']}</span> ${retailStoreMemberCoupon.name}</li>
 <li><span>${userContext.localeMap['retail_store_member_coupon.number']}</span> ${retailStoreMemberCoupon.number}</li>
+<li><span>${userContext.localeMap['retail_store_member_coupon.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${retailStoreMemberCoupon.lastUpdateTime}" /></li>
 
 	
 	</ul>

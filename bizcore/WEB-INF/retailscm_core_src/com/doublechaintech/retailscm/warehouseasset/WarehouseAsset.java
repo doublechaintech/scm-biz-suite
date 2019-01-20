@@ -21,6 +21,7 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String POSITION_PROPERTY              = "position"          ;
 	public static final String OWNER_PROPERTY                 = "owner"             ;
+	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
 
@@ -47,6 +48,7 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 	protected		String              	mName               ;
 	protected		String              	mPosition           ;
 	protected		Warehouse           	mOwner              ;
+	protected		DateTime            	mLastUpdateTime     ;
 	protected		int                 	mVersion            ;
 	
 	
@@ -62,11 +64,12 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 	}
 	
-	public 	WarehouseAsset(String name, String position, Warehouse owner)
+	public 	WarehouseAsset(String name, String position, Warehouse owner, DateTime lastUpdateTime)
 	{
 		setName(name);
 		setPosition(position);
 		setOwner(owner);
+		setLastUpdateTime(lastUpdateTime);
 	
 	}
 	
@@ -79,6 +82,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		}
 		if(POSITION_PROPERTY.equals(property)){
 			changePositionProperty(newValueExpr);
+		}
+		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
+			changeLastUpdateTimeProperty(newValueExpr);
 		}
 
       
@@ -109,6 +115,21 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		//they are surely different each other
 		updatePosition(newValue);
 		this.onChangeProperty(POSITION_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+	protected void changeLastUpdateTimeProperty(String newValueExpr){
+		DateTime oldValue = getLastUpdateTime();
+		DateTime newValue = parseTimestamp(newValueExpr);
+		if(equalsTimestamp(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateLastUpdateTime(newValue);
+		this.onChangeProperty(LAST_UPDATE_TIME_PROPERTY, oldValue, newValue);
 		return;
   
 	}
@@ -177,6 +198,19 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 	}
 	
+	public void setLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+	}
+	public DateTime getLastUpdateTime(){
+		return this.mLastUpdateTime;
+	}
+	public WarehouseAsset updateLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+		this.changed = true;
+		return this;
+	}
+	
+	
 	public void setVersion(int version){
 		this.mVersion = version;;
 	}
@@ -221,6 +255,7 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		appendKeyValuePair(result, NAME_PROPERTY, getName());
 		appendKeyValuePair(result, POSITION_PROPERTY, getPosition());
 		appendKeyValuePair(result, OWNER_PROPERTY, getOwner());
+		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 
 		
@@ -240,6 +275,7 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 			dest.setName(getName());
 			dest.setPosition(getPosition());
 			dest.setOwner(getOwner());
+			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 
 		}
@@ -257,6 +293,7 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		if(getOwner() != null ){
  			stringBuilder.append("\towner='Warehouse("+getOwner().getId()+")';");
  		}
+		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");
 

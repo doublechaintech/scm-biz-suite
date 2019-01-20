@@ -574,7 +574,14 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		
  		StatsInfo info = new StatsInfo();
  		
- 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("货架");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
  		resultList.setStatsInfo(info);
 
  	
@@ -617,7 +624,14 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		
  		StatsInfo info = new StatsInfo();
  		
- 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("货架");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
  		resultList.setStatsInfo(info);
 
  	
@@ -660,7 +674,14 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		
  		StatsInfo info = new StatsInfo();
  		
- 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("货架");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
  		resultList.setStatsInfo(info);
 
  	
@@ -818,7 +839,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		return prepareGoodsShelfCreateParameters(goodsShelf);
  	}
  	protected Object[] prepareGoodsShelfUpdateParameters(GoodsShelf goodsShelf){
- 		Object[] parameters = new Object[7];
+ 		Object[] parameters = new Object[8];
  
  		parameters[0] = goodsShelf.getLocation(); 	
  		if(goodsShelf.getStorageSpace() != null){
@@ -832,15 +853,16 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  		if(goodsShelf.getDamageSpace() != null){
  			parameters[3] = goodsShelf.getDamageSpace().getId();
  		}
- 		
- 		parameters[4] = goodsShelf.nextVersion();
- 		parameters[5] = goodsShelf.getId();
- 		parameters[6] = goodsShelf.getVersion();
+ 
+ 		parameters[4] = goodsShelf.getLastUpdateTime();		
+ 		parameters[5] = goodsShelf.nextVersion();
+ 		parameters[6] = goodsShelf.getId();
+ 		parameters[7] = goodsShelf.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareGoodsShelfCreateParameters(GoodsShelf goodsShelf){
-		Object[] parameters = new Object[5];
+		Object[] parameters = new Object[6];
 		String newGoodsShelfId=getNextId();
 		goodsShelf.setId(newGoodsShelfId);
 		parameters[0] =  goodsShelf.getId();
@@ -860,7 +882,8 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  			parameters[4] = goodsShelf.getDamageSpace().getId();
  		
  		}
- 				
+ 		
+ 		parameters[5] = goodsShelf.getLastUpdateTime();		
  				
  		return parameters;
  	}

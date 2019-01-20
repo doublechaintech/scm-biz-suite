@@ -162,6 +162,20 @@ public class GoodsShelfStockCountForm extends BaseForm {
 		return damageSpaceIdFieldOfGoodsShelf("damageSpaceId","");
 	}
 
+
+	public GoodsShelfStockCountForm lastUpdateTimeFieldOfGoodsShelf(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromGoodsShelf(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsShelfStockCountForm lastUpdateTimeFieldOfGoodsShelf(String initValue){
+		return lastUpdateTimeFieldOfGoodsShelf("lastUpdateTime",initValue);
+	}
+	public GoodsShelfStockCountForm lastUpdateTimeFieldOfGoodsShelf(){
+		return lastUpdateTimeFieldOfGoodsShelf("lastUpdateTime","");
+	}
+
 	
 
 

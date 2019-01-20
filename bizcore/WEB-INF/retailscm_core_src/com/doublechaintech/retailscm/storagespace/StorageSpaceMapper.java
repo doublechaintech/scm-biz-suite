@@ -19,6 +19,7 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
  		setWarehouse(storageSpace, rs, rowNumber); 		
  		setLatitude(storageSpace, rs, rowNumber); 		
  		setLongitude(storageSpace, rs, rowNumber); 		
+ 		setLastUpdateTime(storageSpace, rs, rowNumber); 		
  		setVersion(storageSpace, rs, rowNumber);
 
 		return storageSpace;
@@ -116,6 +117,18 @@ public class StorageSpaceMapper extends BaseRowMapper<StorageSpace>{
 		}
 		
 		storageSpace.setLongitude(longitude);
+	}
+		
+	protected void setLastUpdateTime(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(StorageSpaceTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		storageSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
 	}
 		
 	protected void setVersion(StorageSpace storageSpace, ResultSet rs, int rowNumber) throws SQLException{

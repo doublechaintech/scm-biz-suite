@@ -26,6 +26,7 @@
 <li><span>${userContext.localeMap['receiving_space.total_area']}</span> ${receivingSpace.totalArea}</li>
 <li><span>${userContext.localeMap['receiving_space.latitude']}</span> ${receivingSpace.latitude}</li>
 <li><span>${userContext.localeMap['receiving_space.longitude']}</span> ${receivingSpace.longitude}</li>
+<li><span>${userContext.localeMap['receiving_space.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${receivingSpace.lastUpdateTime}" /></li>
 
 	
 	</ul>

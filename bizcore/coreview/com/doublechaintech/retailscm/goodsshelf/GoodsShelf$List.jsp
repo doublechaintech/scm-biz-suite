@@ -110,6 +110,9 @@
 <c:if test="${param.referName ne 'damageSpace'}">
 	<th>${userContext.localeMap['goods_shelf.damage_space']}</th>
 </c:if>
+<c:if test="${param.referName ne 'lastUpdateTime'}">
+	<th>${userContext.localeMap['goods_shelf.last_update_time']}</th>
+</c:if>
 <th>${userContext.localeMap['@action']}</th>
 		</tr></thead>
 		<tbody>
@@ -174,7 +177,8 @@
 		</div>
 	</td>
 </c:if>
-
+<c:if test="${param.referName ne 'lastUpdateTime'}">	<td contenteditable='true' class='edit-value'  propertyToChange='lastUpdateTime' storedCellValue='${item.lastUpdateTime}' prefix='${ownerBeanName}Manager/updateGoodsShelf/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.lastUpdateTime}" /></td>
+</c:if>
 				<td>
 
 				<a href='#${ownerBeanName}Manager/removeGoodsShelf/${result.id}/${item.id}/' class='delete-action btn btn-danger btn-xs'><i class="fa fa-trash-o fa-lg"></i> ${userContext.localeMap['@delete']}</a>

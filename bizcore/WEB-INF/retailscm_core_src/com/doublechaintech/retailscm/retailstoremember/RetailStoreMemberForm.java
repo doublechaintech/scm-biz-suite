@@ -418,6 +418,20 @@ public class RetailStoreMemberForm extends BaseForm {
 	}
 
 
+	public RetailStoreMemberForm lastUpdateTimeFieldForRetailStoreMemberCoupon(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromRetailStoreMemberCoupon(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public RetailStoreMemberForm lastUpdateTimeFieldForRetailStoreMemberCoupon(String initValue){
+		return lastUpdateTimeFieldForRetailStoreMemberCoupon("lastUpdateTime",initValue);
+	}
+	public RetailStoreMemberForm lastUpdateTimeFieldForRetailStoreMemberCoupon(){
+		return lastUpdateTimeFieldForRetailStoreMemberCoupon("lastUpdateTime","");
+	}
+
+
 	public RetailStoreMemberForm memberWishlistIdFieldForMemberWishlist(String parameterName, String initValue){
 		FormField field =  idFromMemberWishlist(parameterName, initValue);		
 		this.addFormField(field);

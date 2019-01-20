@@ -107,6 +107,9 @@
 <c:if test="${param.referName ne 'number'}">
 	<th>${userContext.localeMap['retail_store_member_coupon.number']}</th>
 </c:if>
+<c:if test="${param.referName ne 'lastUpdateTime'}">
+	<th>${userContext.localeMap['retail_store_member_coupon.last_update_time']}</th>
+</c:if>
 <th>${userContext.localeMap['@action']}</th>
 		</tr></thead>
 		<tbody>
@@ -134,6 +137,7 @@
 	</td>
 </c:if>
 <c:if test="${param.referName ne 'number'}">	<td contenteditable='true' class='edit-value'  propertyToChange='number' storedCellValue='${item.number}' prefix='${ownerBeanName}Manager/updateRetailStoreMemberCoupon/${result.id}/${item.id}/'>${item.number}</td>
+</c:if><c:if test="${param.referName ne 'lastUpdateTime'}">	<td contenteditable='true' class='edit-value'  propertyToChange='lastUpdateTime' storedCellValue='${item.lastUpdateTime}' prefix='${ownerBeanName}Manager/updateRetailStoreMemberCoupon/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.lastUpdateTime}" /></td>
 </c:if>
 				<td>
 

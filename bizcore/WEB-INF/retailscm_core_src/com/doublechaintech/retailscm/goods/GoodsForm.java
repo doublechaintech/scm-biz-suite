@@ -499,6 +499,20 @@ public class GoodsForm extends BaseForm {
 	}
 
 
+	public GoodsForm lastUpdateTimeFieldOfReceivingSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromReceivingSpace(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsForm lastUpdateTimeFieldOfReceivingSpace(String initValue){
+		return lastUpdateTimeFieldOfReceivingSpace("lastUpdateTime",initValue);
+	}
+	public GoodsForm lastUpdateTimeFieldOfReceivingSpace(){
+		return lastUpdateTimeFieldOfReceivingSpace("lastUpdateTime","");
+	}
+
+
 	public GoodsForm goodsAllocationIdFieldOfGoodsAllocation(String parameterName, String initValue){
 		FormField field =  idFromGoodsAllocation(parameterName, initValue);
 		this.addFormField(field);	
@@ -667,6 +681,20 @@ public class GoodsForm extends BaseForm {
 	}
 
 
+	public GoodsForm lastUpdateTimeFieldOfSmartPallet(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromSmartPallet(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsForm lastUpdateTimeFieldOfSmartPallet(String initValue){
+		return lastUpdateTimeFieldOfSmartPallet("lastUpdateTime",initValue);
+	}
+	public GoodsForm lastUpdateTimeFieldOfSmartPallet(){
+		return lastUpdateTimeFieldOfSmartPallet("lastUpdateTime","");
+	}
+
+
 	public GoodsForm shippingSpaceIdFieldOfShippingSpace(String parameterName, String initValue){
 		FormField field =  idFromShippingSpace(parameterName, initValue);
 		this.addFormField(field);	
@@ -776,6 +804,20 @@ public class GoodsForm extends BaseForm {
 	}
 	public GoodsForm descriptionFieldOfShippingSpace(){
 		return descriptionFieldOfShippingSpace("description","");
+	}
+
+
+	public GoodsForm lastUpdateTimeFieldOfShippingSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromShippingSpace(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsForm lastUpdateTimeFieldOfShippingSpace(String initValue){
+		return lastUpdateTimeFieldOfShippingSpace("lastUpdateTime",initValue);
+	}
+	public GoodsForm lastUpdateTimeFieldOfShippingSpace(){
+		return lastUpdateTimeFieldOfShippingSpace("lastUpdateTime","");
 	}
 
 

@@ -25,6 +25,7 @@
 <li><span>${userContext.localeMap['smart_pallet.total_area']}</span> ${smartPallet.totalArea}</li>
 <li><span>${userContext.localeMap['smart_pallet.latitude']}</span> ${smartPallet.latitude}</li>
 <li><span>${userContext.localeMap['smart_pallet.longitude']}</span> ${smartPallet.longitude}</li>
+<li><span>${userContext.localeMap['smart_pallet.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${smartPallet.lastUpdateTime}" /></li>
 
 	
 	</ul>

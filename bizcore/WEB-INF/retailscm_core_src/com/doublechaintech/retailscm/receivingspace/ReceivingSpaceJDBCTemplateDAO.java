@@ -368,6 +368,22 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(ReceivingSpace.WAREHOUSE_PROPERTY, warehouseId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//ReceivingSpace.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("收货区");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ReceivingSpace.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ReceivingSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -524,7 +540,7 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return prepareReceivingSpaceCreateParameters(receivingSpace);
  	}
  	protected Object[] prepareReceivingSpaceUpdateParameters(ReceivingSpace receivingSpace){
- 		Object[] parameters = new Object[10];
+ 		Object[] parameters = new Object[11];
  
  		parameters[0] = receivingSpace.getLocation();
  		parameters[1] = receivingSpace.getContactNumber();
@@ -535,15 +551,16 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		}
  
  		parameters[5] = receivingSpace.getLatitude();
- 		parameters[6] = receivingSpace.getLongitude();		
- 		parameters[7] = receivingSpace.nextVersion();
- 		parameters[8] = receivingSpace.getId();
- 		parameters[9] = receivingSpace.getVersion();
+ 		parameters[6] = receivingSpace.getLongitude();
+ 		parameters[7] = receivingSpace.getLastUpdateTime();		
+ 		parameters[8] = receivingSpace.nextVersion();
+ 		parameters[9] = receivingSpace.getId();
+ 		parameters[10] = receivingSpace.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareReceivingSpaceCreateParameters(ReceivingSpace receivingSpace){
-		Object[] parameters = new Object[8];
+		Object[] parameters = new Object[9];
 		String newReceivingSpaceId=getNextId();
 		receivingSpace.setId(newReceivingSpaceId);
 		parameters[0] =  receivingSpace.getId();
@@ -558,7 +575,8 @@ public class ReceivingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		}
  		
  		parameters[6] = receivingSpace.getLatitude();
- 		parameters[7] = receivingSpace.getLongitude();		
+ 		parameters[7] = receivingSpace.getLongitude();
+ 		parameters[8] = receivingSpace.getLastUpdateTime();		
  				
  		return parameters;
  	}

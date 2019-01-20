@@ -19,6 +19,7 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
  		setWarehouse(supplierSpace, rs, rowNumber); 		
  		setLatitude(supplierSpace, rs, rowNumber); 		
  		setLongitude(supplierSpace, rs, rowNumber); 		
+ 		setLastUpdateTime(supplierSpace, rs, rowNumber); 		
  		setVersion(supplierSpace, rs, rowNumber);
 
 		return supplierSpace;
@@ -116,6 +117,18 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
 		}
 		
 		supplierSpace.setLongitude(longitude);
+	}
+		
+	protected void setLastUpdateTime(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(SupplierSpaceTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		supplierSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
 	}
 		
 	protected void setVersion(SupplierSpace supplierSpace, ResultSet rs, int rowNumber) throws SQLException{

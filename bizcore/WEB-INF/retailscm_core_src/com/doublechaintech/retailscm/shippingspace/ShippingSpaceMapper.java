@@ -20,6 +20,7 @@ public class ShippingSpaceMapper extends BaseRowMapper<ShippingSpace>{
  		setLatitude(shippingSpace, rs, rowNumber); 		
  		setLongitude(shippingSpace, rs, rowNumber); 		
  		setDescription(shippingSpace, rs, rowNumber); 		
+ 		setLastUpdateTime(shippingSpace, rs, rowNumber); 		
  		setVersion(shippingSpace, rs, rowNumber);
 
 		return shippingSpace;
@@ -129,6 +130,18 @@ public class ShippingSpaceMapper extends BaseRowMapper<ShippingSpace>{
 		}
 		
 		shippingSpace.setDescription(description);
+	}
+		
+	protected void setLastUpdateTime(ShippingSpace shippingSpace, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(ShippingSpaceTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		shippingSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
 	}
 		
 	protected void setVersion(ShippingSpace shippingSpace, ResultSet rs, int rowNumber) throws SQLException{

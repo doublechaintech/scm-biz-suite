@@ -25,6 +25,7 @@
 <li><span>${userContext.localeMap['storage_space.total_area']}</span> ${storageSpace.totalArea}</li>
 <li><span>${userContext.localeMap['storage_space.latitude']}</span> ${storageSpace.latitude}</li>
 <li><span>${userContext.localeMap['storage_space.longitude']}</span> ${storageSpace.longitude}</li>
+<li><span>${userContext.localeMap['storage_space.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${storageSpace.lastUpdateTime}" /></li>
 
 	
 	</ul>

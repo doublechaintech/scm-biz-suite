@@ -16,6 +16,7 @@ public class WarehouseAssetMapper extends BaseRowMapper<WarehouseAsset>{
  		setName(warehouseAsset, rs, rowNumber); 		
  		setPosition(warehouseAsset, rs, rowNumber); 		
  		setOwner(warehouseAsset, rs, rowNumber); 		
+ 		setLastUpdateTime(warehouseAsset, rs, rowNumber); 		
  		setVersion(warehouseAsset, rs, rowNumber);
 
 		return warehouseAsset;
@@ -79,6 +80,18 @@ public class WarehouseAssetMapper extends BaseRowMapper<WarehouseAsset>{
  		warehouseAsset.setOwner(createEmptyOwner(warehouseId));
  	}
  	
+	protected void setLastUpdateTime(WarehouseAsset warehouseAsset, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(WarehouseAssetTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		warehouseAsset.setLastUpdateTime(convertToDateTime(lastUpdateTime));
+	}
+		
 	protected void setVersion(WarehouseAsset warehouseAsset, ResultSet rs, int rowNumber) throws SQLException{
 	
 		//there will be issue when the type is double/int/long

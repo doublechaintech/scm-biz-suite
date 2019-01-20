@@ -117,6 +117,20 @@ public class SupplierSpaceForm extends BaseForm {
 		return longitudeField("longitude","");
 	}
 
+
+	public SupplierSpaceForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromSupplierSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public SupplierSpaceForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public SupplierSpaceForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 
@@ -303,6 +317,20 @@ public class SupplierSpaceForm extends BaseForm {
 	}
 	public SupplierSpaceForm damageSpaceIdFieldForGoodsShelf(){
 		return damageSpaceIdFieldForGoodsShelf("damageSpaceId","");
+	}
+
+
+	public SupplierSpaceForm lastUpdateTimeFieldForGoodsShelf(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromGoodsShelf(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public SupplierSpaceForm lastUpdateTimeFieldForGoodsShelf(String initValue){
+		return lastUpdateTimeFieldForGoodsShelf("lastUpdateTime",initValue);
+	}
+	public SupplierSpaceForm lastUpdateTimeFieldForGoodsShelf(){
+		return lastUpdateTimeFieldForGoodsShelf("lastUpdateTime","");
 	}
 
 	

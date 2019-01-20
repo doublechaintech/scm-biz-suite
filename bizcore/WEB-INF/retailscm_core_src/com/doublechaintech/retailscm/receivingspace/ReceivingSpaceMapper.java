@@ -20,6 +20,7 @@ public class ReceivingSpaceMapper extends BaseRowMapper<ReceivingSpace>{
  		setWarehouse(receivingSpace, rs, rowNumber); 		
  		setLatitude(receivingSpace, rs, rowNumber); 		
  		setLongitude(receivingSpace, rs, rowNumber); 		
+ 		setLastUpdateTime(receivingSpace, rs, rowNumber); 		
  		setVersion(receivingSpace, rs, rowNumber);
 
 		return receivingSpace;
@@ -129,6 +130,18 @@ public class ReceivingSpaceMapper extends BaseRowMapper<ReceivingSpace>{
 		}
 		
 		receivingSpace.setLongitude(longitude);
+	}
+		
+	protected void setLastUpdateTime(ReceivingSpace receivingSpace, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(ReceivingSpaceTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		receivingSpace.setLastUpdateTime(convertToDateTime(lastUpdateTime));
 	}
 		
 	protected void setVersion(ReceivingSpace receivingSpace, ResultSet rs, int rowNumber) throws SQLException{

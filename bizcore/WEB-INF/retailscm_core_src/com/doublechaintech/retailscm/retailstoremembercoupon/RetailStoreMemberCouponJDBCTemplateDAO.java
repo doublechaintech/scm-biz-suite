@@ -267,6 +267,22 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(RetailStoreMemberCoupon.OWNER_PROPERTY, retailStoreMemberId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("生超会员优惠券");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -423,22 +439,23 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
  		return prepareRetailStoreMemberCouponCreateParameters(retailStoreMemberCoupon);
  	}
  	protected Object[] prepareRetailStoreMemberCouponUpdateParameters(RetailStoreMemberCoupon retailStoreMemberCoupon){
- 		Object[] parameters = new Object[6];
+ 		Object[] parameters = new Object[7];
  
  		parameters[0] = retailStoreMemberCoupon.getName(); 	
  		if(retailStoreMemberCoupon.getOwner() != null){
  			parameters[1] = retailStoreMemberCoupon.getOwner().getId();
  		}
  
- 		parameters[2] = retailStoreMemberCoupon.getNumber();		
- 		parameters[3] = retailStoreMemberCoupon.nextVersion();
- 		parameters[4] = retailStoreMemberCoupon.getId();
- 		parameters[5] = retailStoreMemberCoupon.getVersion();
+ 		parameters[2] = retailStoreMemberCoupon.getNumber();
+ 		parameters[3] = retailStoreMemberCoupon.getLastUpdateTime();		
+ 		parameters[4] = retailStoreMemberCoupon.nextVersion();
+ 		parameters[5] = retailStoreMemberCoupon.getId();
+ 		parameters[6] = retailStoreMemberCoupon.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareRetailStoreMemberCouponCreateParameters(RetailStoreMemberCoupon retailStoreMemberCoupon){
-		Object[] parameters = new Object[4];
+		Object[] parameters = new Object[5];
 		String newRetailStoreMemberCouponId=getNextId();
 		retailStoreMemberCoupon.setId(newRetailStoreMemberCouponId);
 		parameters[0] =  retailStoreMemberCoupon.getId();
@@ -449,7 +466,8 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
  		
  		}
  		
- 		parameters[3] = retailStoreMemberCoupon.getNumber();		
+ 		parameters[3] = retailStoreMemberCoupon.getNumber();
+ 		parameters[4] = retailStoreMemberCoupon.getLastUpdateTime();		
  				
  		return parameters;
  	}

@@ -117,6 +117,20 @@ public class StorageSpaceForm extends BaseForm {
 		return longitudeField("longitude","");
 	}
 
+
+	public StorageSpaceForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromStorageSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public StorageSpaceForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public StorageSpaceForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 
@@ -303,6 +317,20 @@ public class StorageSpaceForm extends BaseForm {
 	}
 	public StorageSpaceForm damageSpaceIdFieldForGoodsShelf(){
 		return damageSpaceIdFieldForGoodsShelf("damageSpaceId","");
+	}
+
+
+	public StorageSpaceForm lastUpdateTimeFieldForGoodsShelf(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromGoodsShelf(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public StorageSpaceForm lastUpdateTimeFieldForGoodsShelf(String initValue){
+		return lastUpdateTimeFieldForGoodsShelf("lastUpdateTime",initValue);
+	}
+	public StorageSpaceForm lastUpdateTimeFieldForGoodsShelf(){
+		return lastUpdateTimeFieldForGoodsShelf("lastUpdateTime","");
 	}
 
 	

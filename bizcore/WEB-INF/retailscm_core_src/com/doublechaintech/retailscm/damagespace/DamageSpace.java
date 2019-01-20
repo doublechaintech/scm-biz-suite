@@ -25,6 +25,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 	public static final String LATITUDE_PROPERTY              = "latitude"          ;
 	public static final String LONGITUDE_PROPERTY             = "longitude"         ;
 	public static final String WAREHOUSE_PROPERTY             = "warehouse"         ;
+	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
 	public static final String GOODS_SHELF_LIST                         = "goodsShelfList"    ;
@@ -55,6 +56,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 	protected		BigDecimal          	mLatitude           ;
 	protected		BigDecimal          	mLongitude          ;
 	protected		Warehouse           	mWarehouse          ;
+	protected		DateTime            	mLastUpdateTime     ;
 	protected		int                 	mVersion            ;
 	
 	
@@ -71,7 +73,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 	}
 	
-	public 	DamageSpace(String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, Warehouse warehouse)
+	public 	DamageSpace(String location, String contactNumber, String totalArea, BigDecimal latitude, BigDecimal longitude, Warehouse warehouse, DateTime lastUpdateTime)
 	{
 		setLocation(location);
 		setContactNumber(contactNumber);
@@ -79,6 +81,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		setLatitude(latitude);
 		setLongitude(longitude);
 		setWarehouse(warehouse);
+		setLastUpdateTime(lastUpdateTime);
 
 		this.mGoodsShelfList = new SmartList<GoodsShelf>();	
 	}
@@ -101,6 +104,9 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		}
 		if(LONGITUDE_PROPERTY.equals(property)){
 			changeLongitudeProperty(newValueExpr);
+		}
+		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
+			changeLastUpdateTimeProperty(newValueExpr);
 		}
 
       
@@ -176,6 +182,21 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		//they are surely different each other
 		updateLongitude(newValue);
 		this.onChangeProperty(LONGITUDE_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+	protected void changeLastUpdateTimeProperty(String newValueExpr){
+		DateTime oldValue = getLastUpdateTime();
+		DateTime newValue = parseTimestamp(newValueExpr);
+		if(equalsTimestamp(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateLastUpdateTime(newValue);
+		this.onChangeProperty(LAST_UPDATE_TIME_PROPERTY, oldValue, newValue);
 		return;
   
 	}
@@ -282,6 +303,19 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		setWarehouse ( null );
 		this.changed = true;
 	}
+	
+	public void setLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+	}
+	public DateTime getLastUpdateTime(){
+		return this.mLastUpdateTime;
+	}
+	public DamageSpace updateLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+		this.changed = true;
+		return this;
+	}
+	
 	
 	public void setVersion(int version){
 		this.mVersion = version;;
@@ -430,6 +464,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		appendKeyValuePair(result, LATITUDE_PROPERTY, getLatitude());
 		appendKeyValuePair(result, LONGITUDE_PROPERTY, getLongitude());
 		appendKeyValuePair(result, WAREHOUSE_PROPERTY, getWarehouse());
+		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 		appendKeyValuePair(result, GOODS_SHELF_LIST, getGoodsShelfList());
 		if(!getGoodsShelfList().isEmpty()){
@@ -457,6 +492,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 			dest.setLatitude(getLatitude());
 			dest.setLongitude(getLongitude());
 			dest.setWarehouse(getWarehouse());
+			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setGoodsShelfList(getGoodsShelfList());
 
@@ -478,6 +514,7 @@ public class DamageSpace extends BaseEntity implements  java.io.Serializable{
 		if(getWarehouse() != null ){
  			stringBuilder.append("\twarehouse='Warehouse("+getWarehouse().getId()+")';");
  		}
+		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");
 

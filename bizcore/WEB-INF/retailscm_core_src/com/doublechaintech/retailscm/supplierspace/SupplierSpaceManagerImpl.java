@@ -197,6 +197,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		
 		supplierSpace.setLatitude(latitude);
 		supplierSpace.setLongitude(longitude);
+		supplierSpace.setLastUpdateTime(userContext.now());
 
 		supplierSpace = saveSupplierSpace(userContext, supplierSpace, emptyOptions());
 		
@@ -289,7 +290,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the supplierSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplierSpace.
-			
+			supplierSpace.updateLastUpdateTime(userContext.now());
 			supplierSpace.changeProperty(property, newValueExpr);
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, tokens().done());
 			return present(userContext,supplierSpace, mergedAllTokens(tokensExpr));
@@ -313,7 +314,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//make changes to SupplierSpace.
 			
 			supplierSpace.changeProperty(property, newValueExpr);
-			
+			supplierSpace.updateLastUpdateTime(userContext.now());
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, tokens().done());
 			return present(userContext,supplierSpace, mergedAllTokens(tokensExpr));
 			//return saveSupplierSpace(userContext, supplierSpace, tokens().done());
@@ -571,7 +572,8 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		goodsShelf.setStorageSpace(storageSpace);		
 		DamageSpace  damageSpace = new DamageSpace();
 		damageSpace.setId(damageSpaceId);		
-		goodsShelf.setDamageSpace(damageSpace);
+		goodsShelf.setDamageSpace(damageSpace);		
+		goodsShelf.setLastUpdateTime(userContext.now());
 	
 		
 		return goodsShelf;
@@ -663,7 +665,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//Will be good when the supplierSpace loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			
 			supplierSpace.copyGoodsShelfFrom( goodsShelf );		
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, tokens().withGoodsShelfList().done());
@@ -716,7 +718,7 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			}
 			
 			goodsShelf.changeProperty(property, newValueExpr);
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, tokens().withGoodsShelfList().done());
 			return present(userContext,supplierSpace, mergedAllTokens(tokensExpr));
 		}

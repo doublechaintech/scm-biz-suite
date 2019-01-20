@@ -23,6 +23,7 @@
 <li><span>${userContext.localeMap['damage_space.total_area']}</span> ${damageSpace.totalArea}</li>
 <li><span>${userContext.localeMap['damage_space.latitude']}</span> ${damageSpace.latitude}</li>
 <li><span>${userContext.localeMap['damage_space.longitude']}</span> ${damageSpace.longitude}</li>
+<li><span>${userContext.localeMap['damage_space.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${damageSpace.lastUpdateTime}" /></li>
 
 	
 	</ul>

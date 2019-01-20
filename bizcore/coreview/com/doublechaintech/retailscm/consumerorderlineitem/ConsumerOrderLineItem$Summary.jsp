@@ -56,6 +56,10 @@
 <span class="summary-label">${userContext.localeMap['consumer_order_line_item.amount']}</span>
 <span ><fmt:formatNumber type="currency"  value="${result.amount}" /></span>
 </div>
+<div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['consumer_order_line_item.last_update_time']}</span>
+<span ><fmt:formatDate pattern="yyyy-MM-dd" value="${result.lastUpdateTime}" /></span>
+</div>
 
 	</div>
 	

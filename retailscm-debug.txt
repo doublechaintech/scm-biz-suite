@@ -238,6 +238,7 @@ Sku Name|产品名称
 Price|价格
 Quantity|数量
 Amount|金额
+Last Update Time|最后更新时间
 Version|版本
 Consumer Order Shipping Group|消费订单送货分组
 Id|序号
@@ -263,6 +264,7 @@ Id|序号
 Name|名称
 Owner|业主
 Number|数
+Last Update Time|最后更新时间
 Version|版本
 Member Wishlist|会员收藏
 Id|序号
@@ -493,6 +495,7 @@ Total Area|总面积
 Warehouse|仓库
 Latitude|纬度
 Longitude|经度
+Last Update Time|最后更新时间
 Version|版本
 Smart Pallet|智能托盘
 Id|序号
@@ -502,6 +505,7 @@ Total Area|总面积
 Latitude|纬度
 Longitude|经度
 Warehouse|仓库
+Last Update Time|最后更新时间
 Version|版本
 Goods Shelf|货架
 Id|序号
@@ -509,6 +513,7 @@ Location|位置
 Storage Space|存货区
 Supplier Space|供应商的空间
 Damage Space|残次货物存放区
+Last Update Time|最后更新时间
 Version|版本
 Goods Shelf Stock Count|货架库存盘点
 Id|序号
@@ -578,6 +583,7 @@ Total Area|总面积
 Warehouse|仓库
 Latitude|纬度
 Longitude|经度
+Last Update Time|最后更新时间
 Version|版本
 Receiving Space|收货区
 Id|序号
@@ -588,6 +594,7 @@ Total Area|总面积
 Warehouse|仓库
 Latitude|纬度
 Longitude|经度
+Last Update Time|最后更新时间
 Version|版本
 Shipping Space|发货区
 Id|序号
@@ -598,6 +605,7 @@ Warehouse|仓库
 Latitude|纬度
 Longitude|经度
 Description|描述
+Last Update Time|最后更新时间
 Version|版本
 Damage Space|残次货物存放区
 Id|序号
@@ -607,12 +615,14 @@ Total Area|总面积
 Latitude|纬度
 Longitude|经度
 Warehouse|仓库
+Last Update Time|最后更新时间
 Version|版本
 Warehouse Asset|仓库资产
 Id|序号
 Name|名称
 Position|位置
 Owner|业主
+Last Update Time|最后更新时间
 Version|版本
 Transport Fleet|运输车队
 Id|序号

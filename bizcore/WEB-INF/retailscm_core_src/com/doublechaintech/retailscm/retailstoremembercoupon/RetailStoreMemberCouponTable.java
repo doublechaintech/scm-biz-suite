@@ -21,13 +21,14 @@ public class RetailStoreMemberCouponTable{
 	static final String COLUMN_NAME = "name";
 	static final String COLUMN_OWNER = "owner";
 	static final String COLUMN_NUMBER = "number";
+	static final String COLUMN_LAST_UPDATE_TIME = "last_update_time";
 	static final String COLUMN_VERSION = "version";
  
 	static final String []ALL_CLOUMNS = {COLUMN_ID, 
-		COLUMN_NAME, COLUMN_OWNER, COLUMN_NUMBER, 
+		COLUMN_NAME, COLUMN_OWNER, COLUMN_NUMBER, COLUMN_LAST_UPDATE_TIME, 
 		COLUMN_VERSION};
 	static final String []NORMAL_CLOUMNS = {
-		COLUMN_NAME, COLUMN_OWNER, COLUMN_NUMBER
+		COLUMN_NAME, COLUMN_OWNER, COLUMN_NUMBER, COLUMN_LAST_UPDATE_TIME
 		};
 	
 	

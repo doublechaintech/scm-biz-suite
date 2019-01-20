@@ -117,6 +117,20 @@ public class DamageSpaceForm extends BaseForm {
 		return warehouseIdField("warehouseId","");
 	}
 
+
+	public DamageSpaceForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromDamageSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public DamageSpaceForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public DamageSpaceForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 
@@ -303,6 +317,20 @@ public class DamageSpaceForm extends BaseForm {
 	}
 	public DamageSpaceForm damageSpaceIdFieldForGoodsShelf(){
 		return damageSpaceIdFieldForGoodsShelf("damageSpaceId","");
+	}
+
+
+	public DamageSpaceForm lastUpdateTimeFieldForGoodsShelf(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromGoodsShelf(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public DamageSpaceForm lastUpdateTimeFieldForGoodsShelf(String initValue){
+		return lastUpdateTimeFieldForGoodsShelf("lastUpdateTime",initValue);
+	}
+	public DamageSpaceForm lastUpdateTimeFieldForGoodsShelf(){
+		return lastUpdateTimeFieldForGoodsShelf("lastUpdateTime","");
 	}
 
 	

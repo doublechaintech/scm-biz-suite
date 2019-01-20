@@ -267,6 +267,22 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(WarehouseAsset.OWNER_PROPERTY, warehouseId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//WarehouseAsset.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("仓库资产");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(WarehouseAsset.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(WarehouseAsset.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -423,22 +439,23 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  		return prepareWarehouseAssetCreateParameters(warehouseAsset);
  	}
  	protected Object[] prepareWarehouseAssetUpdateParameters(WarehouseAsset warehouseAsset){
- 		Object[] parameters = new Object[6];
+ 		Object[] parameters = new Object[7];
  
  		parameters[0] = warehouseAsset.getName();
  		parameters[1] = warehouseAsset.getPosition(); 	
  		if(warehouseAsset.getOwner() != null){
  			parameters[2] = warehouseAsset.getOwner().getId();
  		}
- 		
- 		parameters[3] = warehouseAsset.nextVersion();
- 		parameters[4] = warehouseAsset.getId();
- 		parameters[5] = warehouseAsset.getVersion();
+ 
+ 		parameters[3] = warehouseAsset.getLastUpdateTime();		
+ 		parameters[4] = warehouseAsset.nextVersion();
+ 		parameters[5] = warehouseAsset.getId();
+ 		parameters[6] = warehouseAsset.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareWarehouseAssetCreateParameters(WarehouseAsset warehouseAsset){
-		Object[] parameters = new Object[4];
+		Object[] parameters = new Object[5];
 		String newWarehouseAssetId=getNextId();
 		warehouseAsset.setId(newWarehouseAssetId);
 		parameters[0] =  warehouseAsset.getId();
@@ -449,7 +466,8 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  			parameters[3] = warehouseAsset.getOwner().getId();
  		
  		}
- 				
+ 		
+ 		parameters[4] = warehouseAsset.getLastUpdateTime();		
  				
  		return parameters;
  	}

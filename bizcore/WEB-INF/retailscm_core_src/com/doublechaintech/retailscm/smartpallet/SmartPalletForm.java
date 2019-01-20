@@ -117,6 +117,20 @@ public class SmartPalletForm extends BaseForm {
 		return warehouseIdField("warehouseId","");
 	}
 
+
+	public SmartPalletForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromSmartPallet(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public SmartPalletForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public SmartPalletForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 

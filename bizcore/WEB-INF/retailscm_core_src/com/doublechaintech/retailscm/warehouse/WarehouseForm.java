@@ -362,6 +362,20 @@ public class WarehouseForm extends BaseForm {
 	}
 
 
+	public WarehouseForm lastUpdateTimeFieldForStorageSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromStorageSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseForm lastUpdateTimeFieldForStorageSpace(String initValue){
+		return lastUpdateTimeFieldForStorageSpace("lastUpdateTime",initValue);
+	}
+	public WarehouseForm lastUpdateTimeFieldForStorageSpace(){
+		return lastUpdateTimeFieldForStorageSpace("lastUpdateTime","");
+	}
+
+
 	public WarehouseForm smartPalletIdFieldForSmartPallet(String parameterName, String initValue){
 		FormField field =  idFromSmartPallet(parameterName, initValue);		
 		this.addFormField(field);
@@ -460,6 +474,20 @@ public class WarehouseForm extends BaseForm {
 	}
 
 
+	public WarehouseForm lastUpdateTimeFieldForSmartPallet(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromSmartPallet(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseForm lastUpdateTimeFieldForSmartPallet(String initValue){
+		return lastUpdateTimeFieldForSmartPallet("lastUpdateTime",initValue);
+	}
+	public WarehouseForm lastUpdateTimeFieldForSmartPallet(){
+		return lastUpdateTimeFieldForSmartPallet("lastUpdateTime","");
+	}
+
+
 	public WarehouseForm supplierSpaceIdFieldForSupplierSpace(String parameterName, String initValue){
 		FormField field =  idFromSupplierSpace(parameterName, initValue);		
 		this.addFormField(field);
@@ -555,6 +583,20 @@ public class WarehouseForm extends BaseForm {
 	}
 	public WarehouseForm longitudeFieldForSupplierSpace(){
 		return longitudeFieldForSupplierSpace("longitude","");
+	}
+
+
+	public WarehouseForm lastUpdateTimeFieldForSupplierSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromSupplierSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseForm lastUpdateTimeFieldForSupplierSpace(String initValue){
+		return lastUpdateTimeFieldForSupplierSpace("lastUpdateTime",initValue);
+	}
+	public WarehouseForm lastUpdateTimeFieldForSupplierSpace(){
+		return lastUpdateTimeFieldForSupplierSpace("lastUpdateTime","");
 	}
 
 
@@ -670,6 +712,20 @@ public class WarehouseForm extends BaseForm {
 	}
 
 
+	public WarehouseForm lastUpdateTimeFieldForReceivingSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromReceivingSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseForm lastUpdateTimeFieldForReceivingSpace(String initValue){
+		return lastUpdateTimeFieldForReceivingSpace("lastUpdateTime",initValue);
+	}
+	public WarehouseForm lastUpdateTimeFieldForReceivingSpace(){
+		return lastUpdateTimeFieldForReceivingSpace("lastUpdateTime","");
+	}
+
+
 	public WarehouseForm shippingSpaceIdFieldForShippingSpace(String parameterName, String initValue){
 		FormField field =  idFromShippingSpace(parameterName, initValue);		
 		this.addFormField(field);
@@ -782,6 +838,20 @@ public class WarehouseForm extends BaseForm {
 	}
 
 
+	public WarehouseForm lastUpdateTimeFieldForShippingSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromShippingSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseForm lastUpdateTimeFieldForShippingSpace(String initValue){
+		return lastUpdateTimeFieldForShippingSpace("lastUpdateTime",initValue);
+	}
+	public WarehouseForm lastUpdateTimeFieldForShippingSpace(){
+		return lastUpdateTimeFieldForShippingSpace("lastUpdateTime","");
+	}
+
+
 	public WarehouseForm damageSpaceIdFieldForDamageSpace(String parameterName, String initValue){
 		FormField field =  idFromDamageSpace(parameterName, initValue);		
 		this.addFormField(field);
@@ -880,6 +950,20 @@ public class WarehouseForm extends BaseForm {
 	}
 
 
+	public WarehouseForm lastUpdateTimeFieldForDamageSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromDamageSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseForm lastUpdateTimeFieldForDamageSpace(String initValue){
+		return lastUpdateTimeFieldForDamageSpace("lastUpdateTime",initValue);
+	}
+	public WarehouseForm lastUpdateTimeFieldForDamageSpace(){
+		return lastUpdateTimeFieldForDamageSpace("lastUpdateTime","");
+	}
+
+
 	public WarehouseForm warehouseAssetIdFieldForWarehouseAsset(String parameterName, String initValue){
 		FormField field =  idFromWarehouseAsset(parameterName, initValue);		
 		this.addFormField(field);
@@ -933,6 +1017,20 @@ public class WarehouseForm extends BaseForm {
 	}
 	public WarehouseForm ownerIdFieldForWarehouseAsset(){
 		return ownerIdFieldForWarehouseAsset("ownerId","");
+	}
+
+
+	public WarehouseForm lastUpdateTimeFieldForWarehouseAsset(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromWarehouseAsset(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseForm lastUpdateTimeFieldForWarehouseAsset(String initValue){
+		return lastUpdateTimeFieldForWarehouseAsset("lastUpdateTime",initValue);
+	}
+	public WarehouseForm lastUpdateTimeFieldForWarehouseAsset(){
+		return lastUpdateTimeFieldForWarehouseAsset("lastUpdateTime","");
 	}
 
 	

@@ -24,6 +24,7 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 	public static final String PRICE_PROPERTY                 = "price"             ;
 	public static final String QUANTITY_PROPERTY              = "quantity"          ;
 	public static final String AMOUNT_PROPERTY                = "amount"            ;
+	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
 
@@ -53,6 +54,7 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 	protected		BigDecimal          	mPrice              ;
 	protected		BigDecimal          	mQuantity           ;
 	protected		BigDecimal          	mAmount             ;
+	protected		DateTime            	mLastUpdateTime     ;
 	protected		int                 	mVersion            ;
 	
 	
@@ -68,7 +70,7 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 	}
 	
-	public 	ConsumerOrderLineItem(ConsumerOrder bizOrder, String skuId, String skuName, BigDecimal price, BigDecimal quantity, BigDecimal amount)
+	public 	ConsumerOrderLineItem(ConsumerOrder bizOrder, String skuId, String skuName, BigDecimal price, BigDecimal quantity, BigDecimal amount, DateTime lastUpdateTime)
 	{
 		setBizOrder(bizOrder);
 		setSkuId(skuId);
@@ -76,6 +78,7 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		setPrice(price);
 		setQuantity(quantity);
 		setAmount(amount);
+		setLastUpdateTime(lastUpdateTime);
 	
 	}
 	
@@ -97,6 +100,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		}
 		if(AMOUNT_PROPERTY.equals(property)){
 			changeAmountProperty(newValueExpr);
+		}
+		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
+			changeLastUpdateTimeProperty(newValueExpr);
 		}
 
       
@@ -172,6 +178,21 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		//they are surely different each other
 		updateAmount(newValue);
 		this.onChangeProperty(AMOUNT_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+	protected void changeLastUpdateTimeProperty(String newValueExpr){
+		DateTime oldValue = getLastUpdateTime();
+		DateTime newValue = parseTimestamp(newValueExpr);
+		if(equalsTimestamp(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateLastUpdateTime(newValue);
+		this.onChangeProperty(LAST_UPDATE_TIME_PROPERTY, oldValue, newValue);
 		return;
   
 	}
@@ -284,6 +305,19 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 	}
 	
 	
+	public void setLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+	}
+	public DateTime getLastUpdateTime(){
+		return this.mLastUpdateTime;
+	}
+	public ConsumerOrderLineItem updateLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+		this.changed = true;
+		return this;
+	}
+	
+	
 	public void setVersion(int version){
 		this.mVersion = version;;
 	}
@@ -331,6 +365,7 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		appendKeyValuePair(result, PRICE_PROPERTY, getPrice());
 		appendKeyValuePair(result, QUANTITY_PROPERTY, getQuantity());
 		appendKeyValuePair(result, AMOUNT_PROPERTY, getAmount());
+		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 
 		
@@ -353,6 +388,7 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 			dest.setPrice(getPrice());
 			dest.setQuantity(getQuantity());
 			dest.setAmount(getAmount());
+			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 
 		}
@@ -373,6 +409,7 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		stringBuilder.append("\tprice='"+getPrice()+"';");
 		stringBuilder.append("\tquantity='"+getQuantity()+"';");
 		stringBuilder.append("\tamount='"+getAmount()+"';");
+		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");
 

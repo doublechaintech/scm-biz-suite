@@ -368,6 +368,22 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(SmartPallet.WAREHOUSE_PROPERTY, warehouseId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//SmartPallet.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("智能托盘");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SmartPallet.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SmartPallet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -524,7 +540,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return prepareSmartPalletCreateParameters(smartPallet);
  	}
  	protected Object[] prepareSmartPalletUpdateParameters(SmartPallet smartPallet){
- 		Object[] parameters = new Object[9];
+ 		Object[] parameters = new Object[10];
  
  		parameters[0] = smartPallet.getLocation();
  		parameters[1] = smartPallet.getContactNumber();
@@ -534,15 +550,16 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		if(smartPallet.getWarehouse() != null){
  			parameters[5] = smartPallet.getWarehouse().getId();
  		}
- 		
- 		parameters[6] = smartPallet.nextVersion();
- 		parameters[7] = smartPallet.getId();
- 		parameters[8] = smartPallet.getVersion();
+ 
+ 		parameters[6] = smartPallet.getLastUpdateTime();		
+ 		parameters[7] = smartPallet.nextVersion();
+ 		parameters[8] = smartPallet.getId();
+ 		parameters[9] = smartPallet.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareSmartPalletCreateParameters(SmartPallet smartPallet){
-		Object[] parameters = new Object[7];
+		Object[] parameters = new Object[8];
 		String newSmartPalletId=getNextId();
 		smartPallet.setId(newSmartPalletId);
 		parameters[0] =  smartPallet.getId();
@@ -556,7 +573,8 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  			parameters[6] = smartPallet.getWarehouse().getId();
  		
  		}
- 				
+ 		
+ 		parameters[7] = smartPallet.getLastUpdateTime();		
  				
  		return parameters;
  	}

@@ -8,7 +8,7 @@
 #Error field definition: level_one_department.manager: word 'manager' in keywords set skynet.kw; 
 
 
-=================Execute Report (Model Time 181218T0136) @Fri Jan 18 16:08:01 CST 2019, 150 objects and 997 fields===========================
+=================Execute Report (Model Time 190120T2329) @Sun Jan 20 23:32:37 CST 2019, 150 objects and 1007 fields===========================
 
 
 
@@ -2061,7 +2061,7 @@ consumer_order_delivery{
 } depth=0; isRoot = true
 
 consumer_order_line_item{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderLineItemList;
 		string	sku_id('SKU'), verb: false, required: true;
@@ -2069,6 +2069,7 @@ consumer_order_line_item{
 		money	price('$5.97'), verb: false, required: true;
 		double	quantity('1000.00'), verb: false, required: true;
 		money	amount('$9999.99'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(0){
@@ -2113,11 +2114,12 @@ consumer_order_price_adjustment{
 } depth=5; isRoot = false
 
 retail_store_member_coupon{
-	fields(5){
+	fields(6){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	name('优惠券'), verb: false, required: true;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberCouponList;
 		string	number('CP00001'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(0){
@@ -2558,7 +2560,7 @@ warehouse{
 } depth=1; isRoot = false
 
 storage_space{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号存货区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -2566,6 +2568,7 @@ storage_space{
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: storageSpaceList;
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -2574,7 +2577,7 @@ storage_space{
 } depth=2; isRoot = false
 
 smart_pallet{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -2582,6 +2585,7 @@ smart_pallet{
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: smartPalletList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -2590,12 +2594,13 @@ smart_pallet{
 } depth=2; isRoot = false
 
 goods_shelf{
-	fields(6){
+	fields(7){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号存货区货架'), verb: false, required: true;
 		storage_space	storage_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList;
 		supplier_space	supplier_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList;
 		damage_space	damage_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
@@ -2704,7 +2709,7 @@ goods_movement{
 } depth=8; isRoot = false
 
 supplier_space{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号供货商独立管理区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -2712,6 +2717,7 @@ supplier_space{
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: supplierSpaceList;
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -2720,7 +2726,7 @@ supplier_space{
 } depth=2; isRoot = false
 
 receiving_space{
-	fields(9){
+	fields(10){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号仓库卸货区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -2729,6 +2735,7 @@ receiving_space{
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: receivingSpaceList;
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -2737,7 +2744,7 @@ receiving_space{
 } depth=2; isRoot = false
 
 shipping_space{
-	fields(9){
+	fields(10){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号装货区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -2746,6 +2753,7 @@ shipping_space{
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
 		string	description('每个收货区可以供一辆车装货'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -2754,7 +2762,7 @@ shipping_space{
 } depth=2; isRoot = false
 
 damage_space{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号仓库损坏货物堆放区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -2762,6 +2770,7 @@ damage_space{
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: damageSpaceList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -2770,11 +2779,12 @@ damage_space{
 } depth=2; isRoot = false
 
 warehouse_asset{
-	fields(5){
+	fields(6){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	name('叉车|托盘|传送带备件'), verb: false, required: true;
 		string	position('备用件存放区设备库房'), verb: false, required: true;
 		warehouse	owner('$(object)'), verb: false, required: true, referenceBy: warehouseAssetList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(0){
@@ -4295,7 +4305,7 @@ consumer_order_delivery{
 } depth=0; isRoot = true
 
 consumer_order_line_item{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		consumer_order	biz_order('$(object)'), verb: false, required: true, referenceBy: consumerOrderLineItemList;
 		string	sku_id('SKU'), verb: false, required: true;
@@ -4303,6 +4313,7 @@ consumer_order_line_item{
 		money	price('$5.97'), verb: false, required: true;
 		double	quantity('1000.00'), verb: false, required: true;
 		money	amount('$9999.99'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(0){
@@ -4347,11 +4358,12 @@ consumer_order_price_adjustment{
 } depth=5; isRoot = false
 
 retail_store_member_coupon{
-	fields(5){
+	fields(6){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	name('优惠券'), verb: false, required: true;
 		retail_store_member	owner('$(object)'), verb: false, required: true, referenceBy: retailStoreMemberCouponList;
 		string	number('CP00001'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(0){
@@ -4792,7 +4804,7 @@ warehouse{
 } depth=1; isRoot = false
 
 storage_space{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号存货区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -4800,6 +4812,7 @@ storage_space{
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: storageSpaceList;
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -4808,7 +4821,7 @@ storage_space{
 } depth=2; isRoot = false
 
 smart_pallet{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -4816,6 +4829,7 @@ smart_pallet{
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: smartPalletList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -4824,12 +4838,13 @@ smart_pallet{
 } depth=2; isRoot = false
 
 goods_shelf{
-	fields(6){
+	fields(7){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号存货区货架'), verb: false, required: true;
 		storage_space	storage_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList;
 		supplier_space	supplier_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList;
 		damage_space	damage_space('$(object)'), verb: false, required: true, referenceBy: goodsShelfList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
@@ -4938,7 +4953,7 @@ goods_movement{
 } depth=8; isRoot = false
 
 supplier_space{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号供货商独立管理区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -4946,6 +4961,7 @@ supplier_space{
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: supplierSpaceList;
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -4954,7 +4970,7 @@ supplier_space{
 } depth=2; isRoot = false
 
 receiving_space{
-	fields(9){
+	fields(10){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号仓库卸货区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -4963,6 +4979,7 @@ receiving_space{
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: receivingSpaceList;
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -4971,7 +4988,7 @@ receiving_space{
 } depth=2; isRoot = false
 
 shipping_space{
-	fields(9){
+	fields(10){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号装货区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -4980,6 +4997,7 @@ shipping_space{
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
 		string	description('每个收货区可以供一辆车装货'), verb: false, required: true;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -4988,7 +5006,7 @@ shipping_space{
 } depth=2; isRoot = false
 
 damage_space{
-	fields(8){
+	fields(9){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	location('成都龙泉驿飞鹤路20号仓库损坏货物堆放区'), verb: false, required: true;
 		string	contact_number('02887654321'), verb: false, required: true;
@@ -4996,6 +5014,7 @@ damage_space{
 		double	latitude('40.776877'), verb: false, required: true;
 		double	longitude('130.273647'), verb: false, required: true;
 		warehouse	warehouse('$(object)'), verb: false, required: true, referenceBy: damageSpaceList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
@@ -5004,11 +5023,12 @@ damage_space{
 } depth=2; isRoot = false
 
 warehouse_asset{
-	fields(5){
+	fields(6){
 		string	id('ABCDEFGIJK000001'), verb: false, required: true;
 		string	name('叉车|托盘|传送带备件'), verb: false, required: true;
 		string	position('备用件存放区设备库房'), verb: false, required: true;
 		warehouse	owner('$(object)'), verb: false, required: true, referenceBy: warehouseAssetList;
+		date_time_update	last_update_time('updateTime()'), verb: false, required: true;
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(0){
@@ -6058,3 +6078,11 @@ form_action{
 
 
 =================================End Report=================================
+
+
+
+
+
+
+
+

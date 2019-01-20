@@ -26,6 +26,7 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 	public static final String STORAGE_SPACE_PROPERTY         = "storageSpace"      ;
 	public static final String SUPPLIER_SPACE_PROPERTY        = "supplierSpace"     ;
 	public static final String DAMAGE_SPACE_PROPERTY          = "damageSpace"       ;
+	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
 	public static final String GOODS_SHELF_STOCK_COUNT_LIST             = "goodsShelfStockCountList";
@@ -55,6 +56,7 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 	protected		StorageSpace        	mStorageSpace       ;
 	protected		SupplierSpace       	mSupplierSpace      ;
 	protected		DamageSpace         	mDamageSpace        ;
+	protected		DateTime            	mLastUpdateTime     ;
 	protected		int                 	mVersion            ;
 	
 	
@@ -74,12 +76,13 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 	}
 	
-	public 	GoodsShelf(String location, StorageSpace storageSpace, SupplierSpace supplierSpace, DamageSpace damageSpace)
+	public 	GoodsShelf(String location, StorageSpace storageSpace, SupplierSpace supplierSpace, DamageSpace damageSpace, DateTime lastUpdateTime)
 	{
 		setLocation(location);
 		setStorageSpace(storageSpace);
 		setSupplierSpace(supplierSpace);
 		setDamageSpace(damageSpace);
+		setLastUpdateTime(lastUpdateTime);
 
 		this.mGoodsShelfStockCountList = new SmartList<GoodsShelfStockCount>();
 		this.mGoodsAllocationList = new SmartList<GoodsAllocation>();	
@@ -91,6 +94,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
      	
 		if(LOCATION_PROPERTY.equals(property)){
 			changeLocationProperty(newValueExpr);
+		}
+		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
+			changeLastUpdateTimeProperty(newValueExpr);
 		}
 
       
@@ -106,6 +112,21 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		//they are surely different each other
 		updateLocation(newValue);
 		this.onChangeProperty(LOCATION_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+	protected void changeLastUpdateTimeProperty(String newValueExpr){
+		DateTime oldValue = getLastUpdateTime();
+		DateTime newValue = parseTimestamp(newValueExpr);
+		if(equalsTimestamp(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateLastUpdateTime(newValue);
+		this.onChangeProperty(LAST_UPDATE_TIME_PROPERTY, oldValue, newValue);
 		return;
   
 	}
@@ -196,6 +217,19 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		setDamageSpace ( null );
 		this.changed = true;
 	}
+	
+	public void setLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+	}
+	public DateTime getLastUpdateTime(){
+		return this.mLastUpdateTime;
+	}
+	public GoodsShelf updateLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+		this.changed = true;
+		return this;
+	}
+	
 	
 	public void setVersion(int version){
 		this.mVersion = version;;
@@ -444,6 +478,7 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		appendKeyValuePair(result, STORAGE_SPACE_PROPERTY, getStorageSpace());
 		appendKeyValuePair(result, SUPPLIER_SPACE_PROPERTY, getSupplierSpace());
 		appendKeyValuePair(result, DAMAGE_SPACE_PROPERTY, getDamageSpace());
+		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 		appendKeyValuePair(result, GOODS_SHELF_STOCK_COUNT_LIST, getGoodsShelfStockCountList());
 		if(!getGoodsShelfStockCountList().isEmpty()){
@@ -474,6 +509,7 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 			dest.setStorageSpace(getStorageSpace());
 			dest.setSupplierSpace(getSupplierSpace());
 			dest.setDamageSpace(getDamageSpace());
+			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setGoodsShelfStockCountList(getGoodsShelfStockCountList());
 			dest.setGoodsAllocationList(getGoodsAllocationList());
@@ -498,6 +534,7 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		if(getDamageSpace() != null ){
  			stringBuilder.append("\tdamageSpace='DamageSpace("+getDamageSpace().getId()+")';");
  		}
+		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");
 

@@ -131,6 +131,20 @@ public class ReceivingSpaceForm extends BaseForm {
 		return longitudeField("longitude","");
 	}
 
+
+	public ReceivingSpaceForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromReceivingSpace(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public ReceivingSpaceForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public ReceivingSpaceForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 

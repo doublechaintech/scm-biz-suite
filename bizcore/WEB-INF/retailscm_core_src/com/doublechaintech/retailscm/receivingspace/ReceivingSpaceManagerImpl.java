@@ -206,6 +206,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 		
 		receivingSpace.setLatitude(latitude);
 		receivingSpace.setLongitude(longitude);
+		receivingSpace.setLastUpdateTime(userContext.now());
 
 		receivingSpace = saveReceivingSpace(userContext, receivingSpace, emptyOptions());
 		
@@ -301,7 +302,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the receivingSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ReceivingSpace.
-			
+			receivingSpace.updateLastUpdateTime(userContext.now());
 			receivingSpace.changeProperty(property, newValueExpr);
 			receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().done());
 			return present(userContext,receivingSpace, mergedAllTokens(tokensExpr));
@@ -325,7 +326,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 			//make changes to ReceivingSpace.
 			
 			receivingSpace.changeProperty(property, newValueExpr);
-			
+			receivingSpace.updateLastUpdateTime(userContext.now());
 			receivingSpace = saveReceivingSpace(userContext, receivingSpace, tokens().done());
 			return present(userContext,receivingSpace, mergedAllTokens(tokensExpr));
 			//return saveReceivingSpace(userContext, receivingSpace, tokens().done());

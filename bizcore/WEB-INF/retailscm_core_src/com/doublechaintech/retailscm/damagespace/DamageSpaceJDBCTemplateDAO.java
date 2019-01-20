@@ -368,6 +368,22 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(DamageSpace.WAREHOUSE_PROPERTY, warehouseId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//DamageSpace.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("残次货物存放区");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(DamageSpace.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(DamageSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -524,7 +540,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		return prepareDamageSpaceCreateParameters(damageSpace);
  	}
  	protected Object[] prepareDamageSpaceUpdateParameters(DamageSpace damageSpace){
- 		Object[] parameters = new Object[9];
+ 		Object[] parameters = new Object[10];
  
  		parameters[0] = damageSpace.getLocation();
  		parameters[1] = damageSpace.getContactNumber();
@@ -534,15 +550,16 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  		if(damageSpace.getWarehouse() != null){
  			parameters[5] = damageSpace.getWarehouse().getId();
  		}
- 		
- 		parameters[6] = damageSpace.nextVersion();
- 		parameters[7] = damageSpace.getId();
- 		parameters[8] = damageSpace.getVersion();
+ 
+ 		parameters[6] = damageSpace.getLastUpdateTime();		
+ 		parameters[7] = damageSpace.nextVersion();
+ 		parameters[8] = damageSpace.getId();
+ 		parameters[9] = damageSpace.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareDamageSpaceCreateParameters(DamageSpace damageSpace){
-		Object[] parameters = new Object[7];
+		Object[] parameters = new Object[8];
 		String newDamageSpaceId=getNextId();
 		damageSpace.setId(newDamageSpaceId);
 		parameters[0] =  damageSpace.getId();
@@ -556,7 +573,8 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  			parameters[6] = damageSpace.getWarehouse().getId();
  		
  		}
- 				
+ 		
+ 		parameters[7] = damageSpace.getLastUpdateTime();		
  				
  		return parameters;
  	}

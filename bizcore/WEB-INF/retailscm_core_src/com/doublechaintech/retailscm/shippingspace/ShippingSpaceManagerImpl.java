@@ -206,6 +206,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 		shippingSpace.setLatitude(latitude);
 		shippingSpace.setLongitude(longitude);
 		shippingSpace.setDescription(description);
+		shippingSpace.setLastUpdateTime(userContext.now());
 
 		shippingSpace = saveShippingSpace(userContext, shippingSpace, emptyOptions());
 		
@@ -301,7 +302,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the shippingSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ShippingSpace.
-			
+			shippingSpace.updateLastUpdateTime(userContext.now());
 			shippingSpace.changeProperty(property, newValueExpr);
 			shippingSpace = saveShippingSpace(userContext, shippingSpace, tokens().done());
 			return present(userContext,shippingSpace, mergedAllTokens(tokensExpr));
@@ -325,7 +326,7 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//make changes to ShippingSpace.
 			
 			shippingSpace.changeProperty(property, newValueExpr);
-			
+			shippingSpace.updateLastUpdateTime(userContext.now());
 			shippingSpace = saveShippingSpace(userContext, shippingSpace, tokens().done());
 			return present(userContext,shippingSpace, mergedAllTokens(tokensExpr));
 			//return saveShippingSpace(userContext, shippingSpace, tokens().done());

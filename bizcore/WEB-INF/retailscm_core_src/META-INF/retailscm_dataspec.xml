@@ -354,6 +354,7 @@
 			<field name="price" type="money" checkType="MoneyAmount" min="0.0" max="5.97" description="价格" />
 			<field name="quantity" type="double" checkType="BigDecimalRange" min="0" max="1000.00" description="数量" />
 			<field name="amount" type="money" checkType="MoneyAmount" min="0.0" max="9999.99" description="金额" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -395,6 +396,7 @@
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="12" description="名称" />
 			<field name="owner" type="reference" checkType="exist(retail_store_member)" description="业主" />
 			<field name="number" type="string" checkType="StringLengthRange" min="2" max="28" description="数" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -741,6 +743,7 @@
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -754,6 +757,7 @@
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -765,6 +769,7 @@
 			<field name="storage_space" type="reference" checkType="exist(storage_space)" description="存货区" />
 			<field name="supplier_space" type="reference" checkType="exist(supplier_space)" description="供应商的空间" />
 			<field name="damage_space" type="reference" checkType="exist(damage_space)" description="残次货物存放区" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -861,6 +866,7 @@
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -875,6 +881,7 @@
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -889,6 +896,7 @@
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
 			<field name="description" type="string" checkType="StringLengthRange" min="4" max="52" description="描述" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -902,6 +910,7 @@
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
 			<field name="longitude" type="double" checkType="BigDecimalRange" min="-180.0" max="180.0" description="经度" />
 			<field name="warehouse" type="reference" checkType="exist(warehouse)" description="仓库" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>
@@ -912,6 +921,7 @@
 			<field name="name" type="string" checkType="StringLengthRange" min="1" max="20" description="名称" />
 			<field name="position" type="string" checkType="StringLengthRange" min="3" max="40" description="位置" />
 			<field name="owner" type="reference" checkType="exist(warehouse)" description="业主" />
+			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
 	</table>

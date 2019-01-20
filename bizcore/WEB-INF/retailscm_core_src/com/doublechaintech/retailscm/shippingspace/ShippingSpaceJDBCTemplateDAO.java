@@ -368,6 +368,22 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 		if(resultList==null){
 			return;//do nothing when the list is null.
 		}
+		
+ 		MultipleAccessKey filterKey = new MultipleAccessKey();
+ 		filterKey.put(ShippingSpace.WAREHOUSE_PROPERTY, warehouseId);
+ 		Map<String,Object> emptyOptions = new HashMap<String,Object>();
+ 		
+ 		StatsInfo info = new StatsInfo();
+ 		
+ 
+		StatsItem lastUpdateTimeStatsItem = new StatsItem();
+		//ShippingSpace.LAST_UPDATE_TIME_PROPERTY
+		lastUpdateTimeStatsItem.setDisplayName("发货区");
+		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ShippingSpace.LAST_UPDATE_TIME_PROPERTY));
+		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ShippingSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
+		info.addItem(lastUpdateTimeStatsItem);
+ 				
+ 		resultList.setStatsInfo(info);
 
  	
  		
@@ -524,7 +540,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		return prepareShippingSpaceCreateParameters(shippingSpace);
  	}
  	protected Object[] prepareShippingSpaceUpdateParameters(ShippingSpace shippingSpace){
- 		Object[] parameters = new Object[10];
+ 		Object[] parameters = new Object[11];
  
  		parameters[0] = shippingSpace.getLocation();
  		parameters[1] = shippingSpace.getContactNumber();
@@ -535,15 +551,16 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
  		parameters[4] = shippingSpace.getLatitude();
  		parameters[5] = shippingSpace.getLongitude();
- 		parameters[6] = shippingSpace.getDescription();		
- 		parameters[7] = shippingSpace.nextVersion();
- 		parameters[8] = shippingSpace.getId();
- 		parameters[9] = shippingSpace.getVersion();
+ 		parameters[6] = shippingSpace.getDescription();
+ 		parameters[7] = shippingSpace.getLastUpdateTime();		
+ 		parameters[8] = shippingSpace.nextVersion();
+ 		parameters[9] = shippingSpace.getId();
+ 		parameters[10] = shippingSpace.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareShippingSpaceCreateParameters(ShippingSpace shippingSpace){
-		Object[] parameters = new Object[8];
+		Object[] parameters = new Object[9];
 		String newShippingSpaceId=getNextId();
 		shippingSpace.setId(newShippingSpaceId);
 		parameters[0] =  shippingSpace.getId();
@@ -558,7 +575,8 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  		
  		parameters[5] = shippingSpace.getLatitude();
  		parameters[6] = shippingSpace.getLongitude();
- 		parameters[7] = shippingSpace.getDescription();		
+ 		parameters[7] = shippingSpace.getDescription();
+ 		parameters[8] = shippingSpace.getLastUpdateTime();		
  				
  		return parameters;
  	}

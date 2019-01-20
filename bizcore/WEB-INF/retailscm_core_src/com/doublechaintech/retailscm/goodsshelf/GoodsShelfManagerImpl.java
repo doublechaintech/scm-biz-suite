@@ -208,6 +208,7 @@ public class GoodsShelfManagerImpl extends CustomRetailscmCheckerManager impleme
 		goodsShelf.setDamageSpace(damageSpace);
 		
 		
+		goodsShelf.setLastUpdateTime(userContext.now());
 
 		goodsShelf = saveGoodsShelf(userContext, goodsShelf, emptyOptions());
 		
@@ -292,7 +293,7 @@ public class GoodsShelfManagerImpl extends CustomRetailscmCheckerManager impleme
 			//will be good when the goodsShelf loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GoodsShelf.
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			goodsShelf.changeProperty(property, newValueExpr);
 			goodsShelf = saveGoodsShelf(userContext, goodsShelf, tokens().done());
 			return present(userContext,goodsShelf, mergedAllTokens(tokensExpr));
@@ -316,7 +317,7 @@ public class GoodsShelfManagerImpl extends CustomRetailscmCheckerManager impleme
 			//make changes to GoodsShelf.
 			
 			goodsShelf.changeProperty(property, newValueExpr);
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			goodsShelf = saveGoodsShelf(userContext, goodsShelf, tokens().done());
 			return present(userContext,goodsShelf, mergedAllTokens(tokensExpr));
 			//return saveGoodsShelf(userContext, goodsShelf, tokens().done());

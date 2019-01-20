@@ -19,6 +19,7 @@ public class ConsumerOrderLineItemMapper extends BaseRowMapper<ConsumerOrderLine
  		setPrice(consumerOrderLineItem, rs, rowNumber); 		
  		setQuantity(consumerOrderLineItem, rs, rowNumber); 		
  		setAmount(consumerOrderLineItem, rs, rowNumber); 		
+ 		setLastUpdateTime(consumerOrderLineItem, rs, rowNumber); 		
  		setVersion(consumerOrderLineItem, rs, rowNumber);
 
 		return consumerOrderLineItem;
@@ -116,6 +117,18 @@ public class ConsumerOrderLineItemMapper extends BaseRowMapper<ConsumerOrderLine
 		}
 		
 		consumerOrderLineItem.setAmount(amount);
+	}
+		
+	protected void setLastUpdateTime(ConsumerOrderLineItem consumerOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		Date lastUpdateTime = rs.getTimestamp(ConsumerOrderLineItemTable.COLUMN_LAST_UPDATE_TIME);
+		if(lastUpdateTime == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		consumerOrderLineItem.setLastUpdateTime(convertToDateTime(lastUpdateTime));
 	}
 		
 	protected void setVersion(ConsumerOrderLineItem consumerOrderLineItem, ResultSet rs, int rowNumber) throws SQLException{

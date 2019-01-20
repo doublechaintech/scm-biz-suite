@@ -21,6 +21,7 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 	public static final String NAME_PROPERTY                  = "name"              ;
 	public static final String OWNER_PROPERTY                 = "owner"             ;
 	public static final String NUMBER_PROPERTY                = "number"            ;
+	public static final String LAST_UPDATE_TIME_PROPERTY      = "lastUpdateTime"    ;
 	public static final String VERSION_PROPERTY               = "version"           ;
 
 
@@ -47,6 +48,7 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 	protected		String              	mName               ;
 	protected		RetailStoreMember   	mOwner              ;
 	protected		String              	mNumber             ;
+	protected		DateTime            	mLastUpdateTime     ;
 	protected		int                 	mVersion            ;
 	
 	
@@ -62,11 +64,12 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 	}
 	
-	public 	RetailStoreMemberCoupon(String name, RetailStoreMember owner, String number)
+	public 	RetailStoreMemberCoupon(String name, RetailStoreMember owner, String number, DateTime lastUpdateTime)
 	{
 		setName(name);
 		setOwner(owner);
 		setNumber(number);
+		setLastUpdateTime(lastUpdateTime);
 	
 	}
 	
@@ -79,6 +82,9 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		}
 		if(NUMBER_PROPERTY.equals(property)){
 			changeNumberProperty(newValueExpr);
+		}
+		if(LAST_UPDATE_TIME_PROPERTY.equals(property)){
+			changeLastUpdateTimeProperty(newValueExpr);
 		}
 
       
@@ -109,6 +115,21 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		//they are surely different each other
 		updateNumber(newValue);
 		this.onChangeProperty(NUMBER_PROPERTY, oldValue, newValue);
+		return;
+  
+	}
+			
+			
+			
+	protected void changeLastUpdateTimeProperty(String newValueExpr){
+		DateTime oldValue = getLastUpdateTime();
+		DateTime newValue = parseTimestamp(newValueExpr);
+		if(equalsTimestamp(oldValue , newValue)){
+			return;//they can be both null, or exact the same object, this is much faster than equals function
+		}
+		//they are surely different each other
+		updateLastUpdateTime(newValue);
+		this.onChangeProperty(LAST_UPDATE_TIME_PROPERTY, oldValue, newValue);
 		return;
   
 	}
@@ -177,6 +198,19 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 	}
 	
 	
+	public void setLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+	}
+	public DateTime getLastUpdateTime(){
+		return this.mLastUpdateTime;
+	}
+	public RetailStoreMemberCoupon updateLastUpdateTime(DateTime lastUpdateTime){
+		this.mLastUpdateTime = lastUpdateTime;;
+		this.changed = true;
+		return this;
+	}
+	
+	
 	public void setVersion(int version){
 		this.mVersion = version;;
 	}
@@ -221,6 +255,7 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		appendKeyValuePair(result, NAME_PROPERTY, getName());
 		appendKeyValuePair(result, OWNER_PROPERTY, getOwner());
 		appendKeyValuePair(result, NUMBER_PROPERTY, getNumber());
+		appendKeyValuePair(result, LAST_UPDATE_TIME_PROPERTY, getLastUpdateTime());
 		appendKeyValuePair(result, VERSION_PROPERTY, getVersion());
 
 		
@@ -240,6 +275,7 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 			dest.setName(getName());
 			dest.setOwner(getOwner());
 			dest.setNumber(getNumber());
+			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 
 		}
@@ -257,6 +293,7 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
  			stringBuilder.append("\towner='RetailStoreMember("+getOwner().getId()+")';");
  		}
 		stringBuilder.append("\tnumber='"+getNumber()+"';");
+		stringBuilder.append("\tlastUpdateTime='"+getLastUpdateTime()+"';");
 		stringBuilder.append("\tversion='"+getVersion()+"';");
 		stringBuilder.append("}");
 

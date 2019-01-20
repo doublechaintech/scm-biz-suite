@@ -89,6 +89,20 @@ public class GoodsShelfForm extends BaseForm {
 		return damageSpaceIdField("damageSpaceId","");
 	}
 
+
+	public GoodsShelfForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromGoodsShelf(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public GoodsShelfForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public GoodsShelfForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 
@@ -191,6 +205,20 @@ public class GoodsShelfForm extends BaseForm {
 	}
 
 
+	public GoodsShelfForm lastUpdateTimeFieldOfStorageSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromStorageSpace(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsShelfForm lastUpdateTimeFieldOfStorageSpace(String initValue){
+		return lastUpdateTimeFieldOfStorageSpace("lastUpdateTime",initValue);
+	}
+	public GoodsShelfForm lastUpdateTimeFieldOfStorageSpace(){
+		return lastUpdateTimeFieldOfStorageSpace("lastUpdateTime","");
+	}
+
+
 	public GoodsShelfForm supplierSpaceIdFieldOfSupplierSpace(String parameterName, String initValue){
 		FormField field =  idFromSupplierSpace(parameterName, initValue);
 		this.addFormField(field);	
@@ -289,6 +317,20 @@ public class GoodsShelfForm extends BaseForm {
 	}
 
 
+	public GoodsShelfForm lastUpdateTimeFieldOfSupplierSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromSupplierSpace(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsShelfForm lastUpdateTimeFieldOfSupplierSpace(String initValue){
+		return lastUpdateTimeFieldOfSupplierSpace("lastUpdateTime",initValue);
+	}
+	public GoodsShelfForm lastUpdateTimeFieldOfSupplierSpace(){
+		return lastUpdateTimeFieldOfSupplierSpace("lastUpdateTime","");
+	}
+
+
 	public GoodsShelfForm damageSpaceIdFieldOfDamageSpace(String parameterName, String initValue){
 		FormField field =  idFromDamageSpace(parameterName, initValue);
 		this.addFormField(field);	
@@ -384,6 +426,20 @@ public class GoodsShelfForm extends BaseForm {
 	}
 	public GoodsShelfForm warehouseIdFieldOfDamageSpace(){
 		return warehouseIdFieldOfDamageSpace("warehouseId","");
+	}
+
+
+	public GoodsShelfForm lastUpdateTimeFieldOfDamageSpace(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromDamageSpace(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public GoodsShelfForm lastUpdateTimeFieldOfDamageSpace(String initValue){
+		return lastUpdateTimeFieldOfDamageSpace("lastUpdateTime",initValue);
+	}
+	public GoodsShelfForm lastUpdateTimeFieldOfDamageSpace(){
+		return lastUpdateTimeFieldOfDamageSpace("lastUpdateTime","");
 	}
 
 	

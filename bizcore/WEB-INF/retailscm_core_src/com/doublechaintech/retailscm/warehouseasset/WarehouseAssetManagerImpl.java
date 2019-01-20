@@ -183,6 +183,7 @@ public class WarehouseAssetManagerImpl extends CustomRetailscmCheckerManager imp
 		warehouseAsset.setOwner(owner);
 		
 		
+		warehouseAsset.setLastUpdateTime(userContext.now());
 
 		warehouseAsset = saveWarehouseAsset(userContext, warehouseAsset, emptyOptions());
 		
@@ -266,7 +267,7 @@ public class WarehouseAssetManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the warehouseAsset loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to WarehouseAsset.
-			
+			warehouseAsset.updateLastUpdateTime(userContext.now());
 			warehouseAsset.changeProperty(property, newValueExpr);
 			warehouseAsset = saveWarehouseAsset(userContext, warehouseAsset, tokens().done());
 			return present(userContext,warehouseAsset, mergedAllTokens(tokensExpr));
@@ -290,7 +291,7 @@ public class WarehouseAssetManagerImpl extends CustomRetailscmCheckerManager imp
 			//make changes to WarehouseAsset.
 			
 			warehouseAsset.changeProperty(property, newValueExpr);
-			
+			warehouseAsset.updateLastUpdateTime(userContext.now());
 			warehouseAsset = saveWarehouseAsset(userContext, warehouseAsset, tokens().done());
 			return present(userContext,warehouseAsset, mergedAllTokens(tokensExpr));
 			//return saveWarehouseAsset(userContext, warehouseAsset, tokens().done());

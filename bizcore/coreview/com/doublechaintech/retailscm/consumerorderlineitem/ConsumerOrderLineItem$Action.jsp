@@ -23,6 +23,7 @@
 <li><span>${userContext.localeMap['consumer_order_line_item.price']}</span> <fmt:formatNumber type="currency"  value="${consumerOrderLineItem.price}" /></li>
 <li><span>${userContext.localeMap['consumer_order_line_item.quantity']}</span> ${consumerOrderLineItem.quantity}</li>
 <li><span>${userContext.localeMap['consumer_order_line_item.amount']}</span> <fmt:formatNumber type="currency"  value="${consumerOrderLineItem.amount}" /></li>
+<li><span>${userContext.localeMap['consumer_order_line_item.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${consumerOrderLineItem.lastUpdateTime}" /></li>
 
 	
 	</ul>

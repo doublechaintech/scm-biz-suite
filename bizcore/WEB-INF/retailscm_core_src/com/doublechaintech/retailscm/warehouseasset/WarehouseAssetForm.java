@@ -75,6 +75,20 @@ public class WarehouseAssetForm extends BaseForm {
 		return ownerIdField("ownerId","");
 	}
 
+
+	public WarehouseAssetForm lastUpdateTimeField(String parameterName, String initValue){
+		FormField field = lastUpdateTimeFromWarehouseAsset(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public WarehouseAssetForm lastUpdateTimeField(String initValue){
+		return lastUpdateTimeField("lastUpdateTime",initValue);
+	}
+	public WarehouseAssetForm lastUpdateTimeField(){
+		return lastUpdateTimeField("lastUpdateTime","");
+	}
+
 	
 	
 

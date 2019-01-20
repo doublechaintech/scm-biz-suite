@@ -21,6 +21,7 @@
 	
 	<li><span>ID</span><a class="link-action-removed" href="./goodsShelfManager/view/${goodsShelf.id}/"> ${goodsShelf.id}</a></li>
 <li><span>${userContext.localeMap['goods_shelf.location']}</span> ${goodsShelf.location}</li>
+<li><span>${userContext.localeMap['goods_shelf.last_update_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${goodsShelf.lastUpdateTime}" /></li>
 
 	
 	</ul>

@@ -796,6 +796,20 @@ public class ConsumerOrderForm extends BaseForm {
 	}
 
 
+	public ConsumerOrderForm lastUpdateTimeFieldForConsumerOrderLineItem(String parameterName, String initValue){
+		FormField field =  lastUpdateTimeFromConsumerOrderLineItem(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public ConsumerOrderForm lastUpdateTimeFieldForConsumerOrderLineItem(String initValue){
+		return lastUpdateTimeFieldForConsumerOrderLineItem("lastUpdateTime",initValue);
+	}
+	public ConsumerOrderForm lastUpdateTimeFieldForConsumerOrderLineItem(){
+		return lastUpdateTimeFieldForConsumerOrderLineItem("lastUpdateTime","");
+	}
+
+
 	public ConsumerOrderForm consumerOrderShippingGroupIdFieldForConsumerOrderShippingGroup(String parameterName, String initValue){
 		FormField field =  idFromConsumerOrderShippingGroup(parameterName, initValue);		
 		this.addFormField(field);

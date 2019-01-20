@@ -197,6 +197,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		damageSpace.setWarehouse(warehouse);
 		
 		
+		damageSpace.setLastUpdateTime(userContext.now());
 
 		damageSpace = saveDamageSpace(userContext, damageSpace, emptyOptions());
 		
@@ -289,7 +290,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the damageSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to DamageSpace.
-			
+			damageSpace.updateLastUpdateTime(userContext.now());
 			damageSpace.changeProperty(property, newValueExpr);
 			damageSpace = saveDamageSpace(userContext, damageSpace, tokens().done());
 			return present(userContext,damageSpace, mergedAllTokens(tokensExpr));
@@ -313,7 +314,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			//make changes to DamageSpace.
 			
 			damageSpace.changeProperty(property, newValueExpr);
-			
+			damageSpace.updateLastUpdateTime(userContext.now());
 			damageSpace = saveDamageSpace(userContext, damageSpace, tokens().done());
 			return present(userContext,damageSpace, mergedAllTokens(tokensExpr));
 			//return saveDamageSpace(userContext, damageSpace, tokens().done());
@@ -571,7 +572,8 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 		goodsShelf.setStorageSpace(storageSpace);		
 		SupplierSpace  supplierSpace = new SupplierSpace();
 		supplierSpace.setId(supplierSpaceId);		
-		goodsShelf.setSupplierSpace(supplierSpace);
+		goodsShelf.setSupplierSpace(supplierSpace);		
+		goodsShelf.setLastUpdateTime(userContext.now());
 	
 		
 		return goodsShelf;
@@ -663,7 +665,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			//Will be good when the damageSpace loaded from this JVM process cache.
 			//Also good when there is a RAM based DAO implementation
 			
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			
 			damageSpace.copyGoodsShelfFrom( goodsShelf );		
 			damageSpace = saveDamageSpace(userContext, damageSpace, tokens().withGoodsShelfList().done());
@@ -716,7 +718,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			}
 			
 			goodsShelf.changeProperty(property, newValueExpr);
-			
+			goodsShelf.updateLastUpdateTime(userContext.now());
 			damageSpace = saveDamageSpace(userContext, damageSpace, tokens().withGoodsShelfList().done());
 			return present(userContext,damageSpace, mergedAllTokens(tokensExpr));
 		}
