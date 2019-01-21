@@ -74,6 +74,7 @@ const displayColumns = [
   { title: '价格', dataIndex: 'price', className:'money', render: (text, record) => renderMoneyCell(text, record) },
   { title: '数量', debugtype: 'double', dataIndex: 'quantity', width: '11',render: (text, record)=>renderTextCell(text,record) },
   { title: '金额', dataIndex: 'amount', className:'money', render: (text, record) => renderMoneyCell(text, record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -85,6 +86,7 @@ const fieldLabels = {
   price: '价格',
   quantity: '数量',
   amount: '金额',
+  lastUpdateTime: '最后更新时间',
 
 }
 

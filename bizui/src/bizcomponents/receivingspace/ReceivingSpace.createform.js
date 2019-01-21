@@ -21,8 +21,8 @@ const testValues = {
   contactNumber: '02887654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-  latitude: '40.148099423058596',
-  longitude: '131.99085245995835',
+  latitude: '40.175476527548746',
+  longitude: '129.93404136860386',
   warehouseId: 'W000001',
 }
 */

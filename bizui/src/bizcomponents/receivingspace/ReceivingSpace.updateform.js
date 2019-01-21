@@ -58,6 +58,7 @@ class ReceivingSpaceUpdateForm extends Component {
     const convertiedValues = selectedRows.map((item) => {
       return {
         ...item,
+        lastUpdateTime: moment(item.lastUpdateTime),
 
       }
     })

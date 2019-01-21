@@ -38,7 +38,7 @@ class ReceivingSpaceModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1035 }}
+          scroll={{ x: 1215 }}
         />
       </div>
     )

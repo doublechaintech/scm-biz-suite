@@ -17,7 +17,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2018-02-22',
+  qualifiedTime: '2016-07-16',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',

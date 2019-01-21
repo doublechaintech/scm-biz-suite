@@ -76,6 +76,7 @@ const displayColumns = [
   { title: '仓库', dataIndex: 'warehouse', render: (text, record) => renderReferenceCell(text, record)},
   { title: '纬度', debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record) },
   { title: '经度', debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -88,6 +89,7 @@ const fieldLabels = {
   warehouse: '仓库',
   latitude: '纬度',
   longitude: '经度',
+  lastUpdateTime: '最后更新时间',
 
 }
 

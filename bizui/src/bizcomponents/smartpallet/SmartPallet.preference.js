@@ -270,6 +270,7 @@ const internalSummaryOf = (smartPallet,targetComponent) =>{
 	      "transferToAnotherWarehouse","anotherWarehouseId",smartPallet.warehouse?smartPallet.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(smartPallet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(smartPallet,targetComponent)}
       </DescriptionList>

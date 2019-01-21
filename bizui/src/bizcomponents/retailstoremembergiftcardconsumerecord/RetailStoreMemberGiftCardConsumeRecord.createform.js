@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2016-10-13',
+  occureTime: '2018-01-12',
   number: 'GF00001',
-  amount: '15.17',
+  amount: '19.35',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }

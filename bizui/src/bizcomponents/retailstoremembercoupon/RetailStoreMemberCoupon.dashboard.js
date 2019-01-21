@@ -88,6 +88,7 @@ const internalSummaryOf = (retailStoreMemberCoupon,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="数">{retailStoreMemberCoupon.number}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreMemberCoupon,targetComponent)}
       </DescriptionList>

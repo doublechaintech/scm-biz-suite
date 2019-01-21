@@ -278,6 +278,7 @@ const internalSummaryOf = (goodsShelf,targetComponent) =>{
 	      "transferToAnotherDamageSpace","anotherDamageSpaceId",goodsShelf.damageSpace?goodsShelf.damageSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(goodsShelf,targetComponent)}
       </DescriptionList>

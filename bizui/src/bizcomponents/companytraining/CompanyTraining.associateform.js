@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2016-08-09',
+  timeStart: '2016-04-29',
   durationHours: '3',
   companyId: 'RSCC000001',
   instructorId: 'I000001',

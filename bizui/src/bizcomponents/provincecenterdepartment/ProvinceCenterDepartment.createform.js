@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-  founded: '2016-03-25',
+  founded: '2016-06-21',
   manager: '刘强',
   provinceCenterId: 'RSPC000001',
 }
