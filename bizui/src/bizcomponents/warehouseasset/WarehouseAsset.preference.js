@@ -267,6 +267,7 @@ const internalSummaryOf = (warehouseAsset,targetComponent) =>{
 	      "transferToAnotherOwner","anotherOwnerId",warehouseAsset.owner?warehouseAsset.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(warehouseAsset,targetComponent)}
       </DescriptionList>

@@ -74,6 +74,7 @@ const displayColumns = [
   { title: '存货区', dataIndex: 'storageSpace', render: (text, record) => renderReferenceCell(text, record)},
   { title: '供应商的空间', dataIndex: 'supplierSpace', render: (text, record) => renderReferenceCell(text, record)},
   { title: '残次货物存放区', dataIndex: 'damageSpace', render: (text, record) => renderReferenceCell(text, record)},
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -83,6 +84,7 @@ const fieldLabels = {
   storageSpace: '存货区',
   supplierSpace: '供应商的空间',
   damageSpace: '残次货物存放区',
+  lastUpdateTime: '最后更新时间',
 
 }
 

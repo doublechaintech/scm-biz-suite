@@ -91,6 +91,7 @@ const internalSummaryOf = (damageSpace,targetComponent) =>{
 	      DamageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",damageSpace.warehouse?damageSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<Description term="最后更新时间">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(damageSpace,targetComponent)}
       </DescriptionList>

@@ -71,6 +71,7 @@ const displayColumns = [
   { title: '名称', debugtype: 'string', dataIndex: 'name', width: '7',render: (text, record)=>renderTextCell(text,record) },
   { title: '业主', dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record)},
   { title: '数', debugtype: 'string', dataIndex: 'number', width: '11',render: (text, record)=>renderTextCell(text,record) },
+  { title: '最后更新时间', dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record)  },
 
 ]
 
@@ -79,6 +80,7 @@ const fieldLabels = {
   name: '名称',
   owner: '业主',
   number: '数',
+  lastUpdateTime: '最后更新时间',
 
 }
 

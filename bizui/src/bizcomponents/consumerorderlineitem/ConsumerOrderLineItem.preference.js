@@ -270,6 +270,7 @@ const internalSummaryOf = (consumerOrderLineItem,targetComponent) =>{
 <Description term="价格">{consumerOrderLineItem.price}</Description> 
 <Description term="数量">{consumerOrderLineItem.quantity}</Description> 
 <Description term="金额">{consumerOrderLineItem.amount}</Description> 
+<Description term="最后更新时间">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(consumerOrderLineItem,targetComponent)}
       </DescriptionList>

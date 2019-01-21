@@ -271,6 +271,7 @@ const internalSummaryOf = (receivingSpace,targetComponent) =>{
 </Description>
 <Description term="纬度">{receivingSpace.latitude}</Description> 
 <Description term="经度">{receivingSpace.longitude}</Description> 
+<Description term="最后更新时间">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(receivingSpace,targetComponent)}
       </DescriptionList>
