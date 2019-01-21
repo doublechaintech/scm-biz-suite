@@ -7,6 +7,9 @@
 概念和关系请请见：https://demo.doublechaintech.com/admin/retailscm/entities.html , 图比较大，需要拖动
 
 
+
+[开发指南 ](/DEVELOP.md)
+
 ## 演示地址
 
 https://demo.doublechaintech.com/admin/retailscm/#/home
