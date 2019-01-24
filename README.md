@@ -8,7 +8,7 @@
 
 
 
-[开发指南 ](/DEVELOP.md)
+[部署指南 ](/DEPLOYMENT.md)
 
 ## 演示地址
 
