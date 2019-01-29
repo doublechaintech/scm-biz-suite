@@ -14,7 +14,7 @@
 
 https://demo.doublechaintech.com/admin/retailscm/#/home
 
-下面为16种角色建立了演示账户，每种角色都可以登录，代表不同客户需要的不同资源。
+下面为18种角色建立了演示账户，每种角色都可以登录，代表不同客户需要的不同资源。
 
 | 角色        | 用户名           | 密码         |
 | ------------- |:-------------:|:-------------------:|
@@ -33,10 +33,8 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 |货架|13900000013|DoubleChain!y1|
 |运输船队|13900000014|DoubleChain!y1|
 |运输任务|13900000015|DoubleChain!y1|
-|帐户设置|13900000016|DoubleChain!y1|
 |会计凭证|13900000017|DoubleChain!y1|
 |工资等级|13900000018|DoubleChain!y1|
-|视图|13900000019|DoubleChain!y1|
 |员工|13900000020|DoubleChain!y1|
 |用户域|13900000021|DoubleChain!y1|
 
