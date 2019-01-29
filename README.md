@@ -16,24 +16,16 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 
 下面为16种角色建立了演示账户，每种角色都可以登录，代表不同客户需要的不同资源。
 
-| 角色        | 用户名                            | 密码                                |
-| ------------- |:-------------------------------------------:|:-----------------------------------------:|
+| 角色        | 用户名           | 密码         |
+| ------------- |:-------------:|:-------------------:|
 |双链小超全国运营中心|13900000001|DoubleChain!y1|
-|双链小超省中心|13900000002|DoubleChain!y1|
-|双链小超城市服务中心|13900000003|DoubleChain!y1|
-|城市合伙人|13900000004|DoubleChain!y1|
-|潜在的客户|13900000005|DoubleChain!y1|
-|双链小超|13900000006|DoubleChain!y1|
-|生超会员|13900000007|DoubleChain!y1|
-|产品供应商|13900000009|DoubleChain!y1|
-|仓库|13900000017|DoubleChain!y1|
-|货架|13900000018|DoubleChain!y1|
-|运输车队|13900000019|DoubleChain!y1|
-|账套|13900000021|DoubleChain!y1|
-|会计凭证|13900000022|DoubleChain!y1|
-|工资等级|13900000023|DoubleChain!y1|
-|员工|13900000024|DoubleChain!y1|
-|用户域|13900000025|DoubleChain!y1|
+|双链小超城市服务中心|13900000002|DoubleChain!y1|
+|双链小超|13900000003|DoubleChain!y1|
+|生超会员|13900000010|DoubleChain!y1|
+|仓库|13900000031|DoubleChain!y1|
+|员工|13900000041|DoubleChain!y1|
+|用户域|13900000049|DoubleChain!y1|
+
 
 
 ## bizcore: 服务器端核心代码项目， Business Core
