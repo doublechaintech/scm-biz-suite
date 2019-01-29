@@ -18,13 +18,27 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 
 | 角色        | 用户名           | 密码         |
 | ------------- |:-------------:|:-------------------:|
-|双链小超全国运营中心|13900000001|DoubleChain!y1|
-|双链小超城市服务中心|13900000002|DoubleChain!y1|
-|双链小超|13900000003|DoubleChain!y1|
-|生超会员|13900000010|DoubleChain!y1|
-|仓库|13900000031|DoubleChain!y1|
-|员工|13900000041|DoubleChain!y1|
-|用户域|13900000049|DoubleChain!y1|
+|零售商店国家中心|13900000001|DoubleChain!y1|
+|零售商店省中心|13900000002|DoubleChain!y1|
+|零售商店城市服务中心|13900000003|DoubleChain!y1|
+|城市的合作伙伴|13900000004|DoubleChain!y1|
+|潜在客户|13900000005|DoubleChain!y1|
+|零售商店|13900000006|DoubleChain!y1|
+|零售商店的会员|13900000007|DoubleChain!y1|
+|消费者的订单|13900000008|DoubleChain!y1|
+|产品供应商|13900000009|DoubleChain!y1|
+|供应订单|13900000010|DoubleChain!y1|
+|零售商店的订单|13900000011|DoubleChain!y1|
+|仓库|13900000012|DoubleChain!y1|
+|货架|13900000013|DoubleChain!y1|
+|运输船队|13900000014|DoubleChain!y1|
+|运输任务|13900000015|DoubleChain!y1|
+|帐户设置|13900000016|DoubleChain!y1|
+|会计凭证|13900000017|DoubleChain!y1|
+|工资等级|13900000018|DoubleChain!y1|
+|视图|13900000019|DoubleChain!y1|
+|员工|13900000020|DoubleChain!y1|
+|用户域|13900000021|DoubleChain!y1|
 
 
 
