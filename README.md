@@ -31,7 +31,7 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 |零售商店的订单|13900000011|DoubleChain!y1|
 |仓库|13900000012|DoubleChain!y1|
 |货架|13900000013|DoubleChain!y1|
-|运输船队|13900000014|DoubleChain!y1|
+|运输车队|13900000014|DoubleChain!y1|
 |运输任务|13900000015|DoubleChain!y1|
 |会计凭证|13900000017|DoubleChain!y1|
 |工资等级|13900000018|DoubleChain!y1|
