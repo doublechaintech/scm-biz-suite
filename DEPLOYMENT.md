@@ -163,7 +163,7 @@ server {
 
 ### 使用Tomcat容器
 
-需要需改bizcore/WEB-INF/web.xml路径匹配规则，其他不得不用动
+需要需改bizcore/WEB-INF/web.xml路径匹配规则，其他不用动
 
 
 
