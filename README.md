@@ -76,7 +76,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 
 
 <img src="/doc/philip-wechat-qr.jpeg" alt="WechatQRCode"
-	title="WechatQRCode" width="150" height="100" />
+	title="WechatQRCode" width="150"  />
 
 * 探讨技术以及供应链发展趋势
 * 验证时请输入任何有关供应链相关的名词
