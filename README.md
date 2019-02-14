@@ -74,7 +74,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 
 ## 欢迎加微信，共同学习探讨供应链系统以及相关技术
 
-![WechatQRCode](/doc/philip-wechat-qr.jpeg)
+![WechatQRCode](/doc/philip-wechat-qr.jpeg =250x)
 
 * 探讨技术以及供应链发展趋势
 * 验证时请输入任何有关供应链相关的名词
