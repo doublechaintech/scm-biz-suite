@@ -23,6 +23,9 @@ cd retailscm-biz-suite/bizui/ && yarn install && yarn build
 
 后端有反向代理服务器ngnix，servlet容器Resin或者Tomcat（后期换成Spring Boot），数据库服务器MySQL，缓存服务器Redis组成，消息服务器kafka，多层次权限管理需要图数据库arrangodb，外部email服务器，阿里云短信服务器，OSS服务器，极光app消息push服务器，区块链超级账本fabric节点。
 
+### 下载Resin
+
+https://caucho.com/products/resin/download/3-1/gpl
 
 ### 安装docker,并且利用国内镜像加速
 ```
