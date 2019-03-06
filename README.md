@@ -26,9 +26,8 @@
 
 ## 演示地址
 
-https://demo.doublechaintech.com/admin/retailscm/#/home
 
-下面为18种角色建立了演示账户，每种角色都可以登录，代表不同客户需要的不同资源。
+下面为18种角色建立了演示账户，每种角色都可以登录，代表不同客户需要的不同资源。演示地址在表末。
 
 | 角色        | 用户名           | 密码         |
 | ------------- |:-------------:|:-------------------:|
@@ -52,7 +51,7 @@ https://demo.doublechaintech.com/admin/retailscm/#/home
 |员工|13900000020|DoubleChain!y1|
 |用户域|13900000021|DoubleChain!y1|
 
-
+演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
 
 ## bizcore: 服务器端核心代码项目， Business Core
 
