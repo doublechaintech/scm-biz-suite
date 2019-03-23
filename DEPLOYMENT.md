@@ -63,7 +63,7 @@ default-character-set = utf8mb4
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
-time_zone =+08:00
+default-time-zone =+08:00
 
 
 ```
@@ -164,9 +164,9 @@ server {
 
 ```
 
-### 使用Tomcat容器
+### 使用Tomcat容器）
 
-需要需改bizcore/WEB-INF/web.xml路径匹配规则，其他不用动
+url-pattern 参数无法配置，未成功
 
 
 
