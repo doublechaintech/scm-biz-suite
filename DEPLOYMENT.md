@@ -42,7 +42,7 @@ sudo usermod -aG docker $USER
 基本系统运行需要redis和mysql，均通过docker安装，命令如下
 
 ```
-docker run -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
+docker run -d -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
 docker run -d --name  demo_redis -p 6379:6379 redis
  
 ```
