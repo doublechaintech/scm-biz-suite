@@ -196,9 +196,8 @@ public class ScoringJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ScoringTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 		return ScoringTokens.of(options).analyzeEmployeeCompanyTrainingListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){

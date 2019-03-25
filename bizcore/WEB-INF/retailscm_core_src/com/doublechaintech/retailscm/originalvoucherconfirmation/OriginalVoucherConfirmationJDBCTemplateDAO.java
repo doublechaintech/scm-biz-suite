@@ -196,9 +196,8 @@ public class OriginalVoucherConfirmationJDBCTemplateDAO extends RetailscmNamingS
 	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){		
  		return checkOptions(options,OriginalVoucherConfirmationTokens.ORIGINAL_VOUCHER_LIST);
  	}
- 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,OriginalVoucherConfirmationTokens.ORIGINAL_VOUCHER_LIST+".analyze");
+ 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		 		
+ 		return OriginalVoucherConfirmationTokens.of(options).analyzeOriginalVoucherListEnabled();
  	}
 	
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){

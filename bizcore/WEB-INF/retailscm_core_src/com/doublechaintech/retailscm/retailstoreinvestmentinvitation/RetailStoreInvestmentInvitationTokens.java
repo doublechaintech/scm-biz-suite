@@ -38,6 +38,15 @@ public class RetailStoreInvestmentInvitationTokens extends CommonTokens{
 	protected RetailStoreInvestmentInvitationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreInvestmentInvitationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreInvestmentInvitationTokens tokens = new RetailStoreInvestmentInvitationTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreInvestmentInvitationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreInvestmentInvitationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class RetailStoreInvestmentInvitationTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public RetailStoreInvestmentInvitationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String RETAIL_STORE_LIST = "retailStoreList";
 	public String getRetailStoreList(){
@@ -96,7 +110,11 @@ public class RetailStoreInvestmentInvitationTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreInvestmentInvitationTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);

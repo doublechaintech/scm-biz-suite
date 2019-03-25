@@ -38,6 +38,15 @@ public class WarehouseAssetTokens extends CommonTokens{
 	protected WarehouseAssetTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  WarehouseAssetTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		WarehouseAssetTokens tokens = new WarehouseAssetTokens(options);
+		return tokens;
+		
+	}
+	protected WarehouseAssetTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public WarehouseAssetTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class WarehouseAssetTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public WarehouseAssetTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String OWNER = "owner";

@@ -418,7 +418,7 @@ public class GoodsManagerImpl extends CustomRetailscmCheckerManager implements G
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortGoodsMovementListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

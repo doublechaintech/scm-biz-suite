@@ -9,7 +9,7 @@ import styles from './RetailStoreCityServiceCenter.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreCityServiceCenterBase from './RetailStoreCityServiceCenter.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超成都办事处',
-  founded: '2017-10-25',
+  founded: '2016-07-03',
   belongsToId: 'RSPC000001',
 }
 */
@@ -68,7 +68,7 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = RetailStoreCityServiceCenterBase
     const {RetailStoreCityServiceCenterService} = GlobalComponents
@@ -117,9 +117,10 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'retailStoreCityServiceCenter',listName:'双链小超城市服务中心列表' },
+        payload: { id: owner.id, type: 'retailStoreCityServiceCenter',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -150,7 +151,7 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -194,18 +195,18 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个双链小超城市服务中心"
-        content="新建一个双链小超城市服务中心"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -215,7 +216,7 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
-                    rules: [{ required: true, message: '请输入成立' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
@@ -239,7 +240,7 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -247,7 +248,7 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
-                    rules: [{ required: true, message: '请输入属于' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -267,13 +268,13 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

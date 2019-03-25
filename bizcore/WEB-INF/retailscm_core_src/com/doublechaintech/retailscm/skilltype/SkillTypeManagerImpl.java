@@ -320,7 +320,7 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortEmployeeSkillListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

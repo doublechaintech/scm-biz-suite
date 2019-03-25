@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class RetailStoreMemberBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class RetailStoreMemberBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/retailStoreMember/${this.props.retailStoreMember.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/retailStoreMember/${this.props.retailStoreMember.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/retailStoreMember/${this.props.retailStoreMember.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/retailStoreMember/${this.props.retailStoreMember.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
 
   getConsumerOrderSearch = () => {
     const {ConsumerOrderSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "消费者订单",
@@ -176,11 +172,12 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
       referenceName: 'consumer', 
       listName: 'consumerOrderList', ref:state._retailStoreMember, 
-      listDisplayName: '消费者订单列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderSearch)
   }
   getConsumerOrderCreateForm = () => {
    	const {ConsumerOrderCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "consumerOrder",
@@ -190,22 +187,24 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       currentPage: state._retailStoreMember.consumerOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.consumerOrderSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'consumer', listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: '消费者订单列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'consumer', listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ConsumerOrderCreateForm)
   }
   
   getConsumerOrderUpdateForm = () => {
+    const userContext = null
   	const {ConsumerOrderUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "consumerOrder",
       currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: '消费者订单列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'consumerOrderList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ConsumerOrderUpdateForm)
   }
 
   getRetailStoreMemberCouponSearch = () => {
     const {RetailStoreMemberCouponSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "生超会员优惠券",
@@ -222,11 +221,12 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
       referenceName: 'owner', 
       listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, 
-      listDisplayName: '生超会员优惠券列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberCouponSearch)
   }
   getRetailStoreMemberCouponCreateForm = () => {
    	const {RetailStoreMemberCouponCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStoreMemberCoupon",
@@ -236,22 +236,24 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       currentPage: state._retailStoreMember.retailStoreMemberCouponCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberCouponSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: '生超会员优惠券列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberCouponCreateForm)
   }
   
   getRetailStoreMemberCouponUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreMemberCouponUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "retailStoreMemberCoupon",
       currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: '生超会员优惠券列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberCouponList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberCouponUpdateForm)
   }
 
   getMemberWishlistSearch = () => {
     const {MemberWishlistSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "会员收藏",
@@ -268,11 +270,12 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
       referenceName: 'owner', 
       listName: 'memberWishlistList', ref:state._retailStoreMember, 
-      listDisplayName: '会员收藏列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberWishlistSearch)
   }
   getMemberWishlistCreateForm = () => {
    	const {MemberWishlistCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "memberWishlist",
@@ -282,22 +285,24 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       currentPage: state._retailStoreMember.memberWishlistCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberWishlistSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: '会员收藏列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(MemberWishlistCreateForm)
   }
   
   getMemberWishlistUpdateForm = () => {
+    const userContext = null
   	const {MemberWishlistUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "memberWishlist",
       currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: '会员收藏列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberWishlistList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberWishlistUpdateForm)
   }
 
   getMemberRewardPointSearch = () => {
     const {MemberRewardPointSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "会员奖励点",
@@ -314,11 +319,12 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
       referenceName: 'owner', 
       listName: 'memberRewardPointList', ref:state._retailStoreMember, 
-      listDisplayName: '会员奖励点列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointSearch)
   }
   getMemberRewardPointCreateForm = () => {
    	const {MemberRewardPointCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "memberRewardPoint",
@@ -328,22 +334,24 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       currentPage: state._retailStoreMember.memberRewardPointCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberRewardPointSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: '会员奖励点列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(MemberRewardPointCreateForm)
   }
   
   getMemberRewardPointUpdateForm = () => {
+    const userContext = null
   	const {MemberRewardPointUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "memberRewardPoint",
       currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: '会员奖励点列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberRewardPointList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointUpdateForm)
   }
 
   getMemberRewardPointRedemptionSearch = () => {
     const {MemberRewardPointRedemptionSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "会员奖励点赎回",
@@ -360,11 +368,12 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
       referenceName: 'owner', 
       listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, 
-      listDisplayName: '会员奖励点赎回列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointRedemptionSearch)
   }
   getMemberRewardPointRedemptionCreateForm = () => {
    	const {MemberRewardPointRedemptionCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "memberRewardPointRedemption",
@@ -374,22 +383,24 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       currentPage: state._retailStoreMember.memberRewardPointRedemptionCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.memberRewardPointRedemptionSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: '会员奖励点赎回列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(MemberRewardPointRedemptionCreateForm)
   }
   
   getMemberRewardPointRedemptionUpdateForm = () => {
+    const userContext = null
   	const {MemberRewardPointRedemptionUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "memberRewardPointRedemption",
       currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: '会员奖励点赎回列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'memberRewardPointRedemptionList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(MemberRewardPointRedemptionUpdateForm)
   }
 
   getRetailStoreMemberAddressSearch = () => {
     const {RetailStoreMemberAddressSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "零售店会员地址",
@@ -406,11 +417,12 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
       referenceName: 'owner', 
       listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, 
-      listDisplayName: '零售店会员地址列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberAddressSearch)
   }
   getRetailStoreMemberAddressCreateForm = () => {
    	const {RetailStoreMemberAddressCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStoreMemberAddress",
@@ -420,22 +432,24 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       currentPage: state._retailStoreMember.retailStoreMemberAddressCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberAddressSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: '零售店会员地址列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberAddressCreateForm)
   }
   
   getRetailStoreMemberAddressUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreMemberAddressUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "retailStoreMemberAddress",
       currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: '零售店会员地址列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberAddressList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberAddressUpdateForm)
   }
 
   getRetailStoreMemberGiftCardSearch = () => {
     const {RetailStoreMemberGiftCardSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "零售店会员礼品卡",
@@ -452,11 +466,12 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, 
       referenceName: 'owner', 
       listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, 
-      listDisplayName: '零售店会员礼品卡列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberGiftCardSearch)
   }
   getRetailStoreMemberGiftCardCreateForm = () => {
    	const {RetailStoreMemberGiftCardCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStoreMemberGiftCard",
@@ -466,17 +481,18 @@ class RetailStoreMemberBizApp extends React.PureComponent {
       currentPage: state._retailStoreMember.retailStoreMemberGiftCardCurrentPageNumber,
       searchFormParameters: state._retailStoreMember.retailStoreMemberGiftCardSearchFormParameters,
       loading: state._retailStoreMember.loading,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: '零售店会员礼品卡列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, referenceName: 'owner', listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberGiftCardCreateForm)
   }
   
   getRetailStoreMemberGiftCardUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreMemberGiftCardUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreMember.selectedRows,
       role: "retailStoreMemberGiftCard",
       currentUpdateIndex: state._retailStoreMember.currentUpdateIndex,
-      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: '零售店会员礼品卡列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreMember', id: state._retailStoreMember.id, listName: 'retailStoreMemberGiftCardList', ref:state._retailStoreMember, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberGiftCardUpdateForm)
   }
 
@@ -565,16 +581,22 @@ class RetailStoreMemberBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {RetailStoreMemberEditDetail} = GlobalComponents
-     //const {RetailStoreMemberViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -588,15 +610,15 @@ class RetailStoreMemberBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

@@ -131,6 +131,9 @@ public class SupplyOrderPaymentGroup extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -144,6 +147,9 @@ public class SupplyOrderPaymentGroup extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setBizOrder(SupplyOrder bizOrder){
@@ -156,6 +162,9 @@ public class SupplyOrderPaymentGroup extends BaseEntity implements  java.io.Seri
 		this.mBizOrder = bizOrder;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBizOrder(SupplyOrder bizOrder){
+		if(bizOrder != null) { setBizOrder(bizOrder);}
 	}
 	
 	
@@ -175,6 +184,9 @@ public class SupplyOrderPaymentGroup extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeCardNumber(String cardNumber){
+		if(cardNumber != null) { setCardNumber(cardNumber);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -187,6 +199,9 @@ public class SupplyOrderPaymentGroup extends BaseEntity implements  java.io.Seri
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -241,6 +256,24 @@ public class SupplyOrderPaymentGroup extends BaseEntity implements  java.io.Seri
 			dest.setBizOrder(getBizOrder());
 			dest.setCardNumber(getCardNumber());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplyOrderPaymentGroup){
+		
+			
+			SupplyOrderPaymentGroup dest =(SupplyOrderPaymentGroup)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeBizOrder(getBizOrder());
+			dest.mergeCardNumber(getCardNumber());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

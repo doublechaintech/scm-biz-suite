@@ -173,6 +173,9 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -185,6 +188,9 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -204,6 +210,9 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeEnterTime(Date enterTime){
+		setEnterTime(enterTime);
+	}
 	
 	
 	public void setLeaveTime(Date leaveTime){
@@ -216,6 +225,9 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		this.mLeaveTime = leaveTime;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLeaveTime(Date leaveTime){
+		setLeaveTime(leaveTime);
 	}
 	
 	
@@ -230,6 +242,9 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeDurationHours(int durationHours){
+		setDurationHours(durationHours);
+	}
 	
 	
 	public void setRemark(String remark){
@@ -243,6 +258,9 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeRemark(String remark){
+		if(remark != null) { setRemark(remark);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -255,6 +273,9 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -313,6 +334,26 @@ public class EmployeeAttendance extends BaseEntity implements  java.io.Serializa
 			dest.setDurationHours(getDurationHours());
 			dest.setRemark(getRemark());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeAttendance){
+		
+			
+			EmployeeAttendance dest =(EmployeeAttendance)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergeEnterTime(getEnterTime());
+			dest.mergeLeaveTime(getLeaveTime());
+			dest.mergeDurationHours(getDurationHours());
+			dest.mergeRemark(getRemark());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

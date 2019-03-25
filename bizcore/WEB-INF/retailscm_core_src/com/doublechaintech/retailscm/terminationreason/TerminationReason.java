@@ -135,6 +135,9 @@ public class TerminationReason extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCode(String code){
@@ -148,6 +151,9 @@ public class TerminationReason extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeCode(String code){
+		if(code != null) { setCode(code);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -160,6 +166,9 @@ public class TerminationReason extends BaseEntity implements  java.io.Serializab
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -179,6 +188,9 @@ public class TerminationReason extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -191,6 +203,9 @@ public class TerminationReason extends BaseEntity implements  java.io.Serializab
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -224,7 +239,16 @@ public class TerminationReason extends BaseEntity implements  java.io.Serializab
 		}
 		getTerminationList().addAll(terminationList);
 	}
-	
+	public  void mergeTerminationList(SmartList<Termination> terminationList){
+		if(terminationList==null){
+			return;
+		}
+		if(terminationList.isEmpty()){
+			return;
+		}
+		addTerminationList( terminationList );
+		
+	}
 	public  Termination removeTermination(Termination terminationIndex){
 		
 		int index = getTerminationList().indexOf(terminationIndex);
@@ -351,6 +375,25 @@ public class TerminationReason extends BaseEntity implements  java.io.Serializab
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
 			dest.setTerminationList(getTerminationList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof TerminationReason){
+		
+			
+			TerminationReason dest =(TerminationReason)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCode(getCode());
+			dest.mergeCompany(getCompany());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeTerminationList(getTerminationList());
 
 		}
 		super.copyTo(baseDest);

@@ -168,6 +168,9 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -180,6 +183,9 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -194,6 +200,9 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		this.changed = true;
 		return this;
 	}
+	public void mergeFounded(Date founded){
+		setFounded(founded);
+	}
 	
 	
 	public void setBelongsTo(RetailStoreProvinceCenter belongsTo){
@@ -206,6 +215,9 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		this.mBelongsTo = belongsTo;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBelongsTo(RetailStoreProvinceCenter belongsTo){
+		if(belongsTo != null) { setBelongsTo(belongsTo);}
 	}
 	
 	
@@ -225,6 +237,9 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -237,6 +252,9 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -270,7 +288,16 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		}
 		getCityPartnerList().addAll(cityPartnerList);
 	}
-	
+	public  void mergeCityPartnerList(SmartList<CityPartner> cityPartnerList){
+		if(cityPartnerList==null){
+			return;
+		}
+		if(cityPartnerList.isEmpty()){
+			return;
+		}
+		addCityPartnerList( cityPartnerList );
+		
+	}
 	public  CityPartner removeCityPartner(CityPartner cityPartnerIndex){
 		
 		int index = getCityPartnerList().indexOf(cityPartnerIndex);
@@ -368,7 +395,16 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		}
 		getPotentialCustomerList().addAll(potentialCustomerList);
 	}
-	
+	public  void mergePotentialCustomerList(SmartList<PotentialCustomer> potentialCustomerList){
+		if(potentialCustomerList==null){
+			return;
+		}
+		if(potentialCustomerList.isEmpty()){
+			return;
+		}
+		addPotentialCustomerList( potentialCustomerList );
+		
+	}
 	public  PotentialCustomer removePotentialCustomer(PotentialCustomer potentialCustomerIndex){
 		
 		int index = getPotentialCustomerList().indexOf(potentialCustomerIndex);
@@ -466,7 +502,16 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		}
 		getCityEventList().addAll(cityEventList);
 	}
-	
+	public  void mergeCityEventList(SmartList<CityEvent> cityEventList){
+		if(cityEventList==null){
+			return;
+		}
+		if(cityEventList.isEmpty()){
+			return;
+		}
+		addCityEventList( cityEventList );
+		
+	}
 	public  CityEvent removeCityEvent(CityEvent cityEventIndex){
 		
 		int index = getCityEventList().indexOf(cityEventIndex);
@@ -564,7 +609,16 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 		}
 		getRetailStoreList().addAll(retailStoreList);
 	}
-	
+	public  void mergeRetailStoreList(SmartList<RetailStore> retailStoreList){
+		if(retailStoreList==null){
+			return;
+		}
+		if(retailStoreList.isEmpty()){
+			return;
+		}
+		addRetailStoreList( retailStoreList );
+		
+	}
 	public  RetailStore removeRetailStore(RetailStore retailStoreIndex){
 		
 		int index = getRetailStoreList().indexOf(retailStoreIndex);
@@ -717,6 +771,29 @@ public class RetailStoreCityServiceCenter extends BaseEntity implements  java.io
 			dest.setPotentialCustomerList(getPotentialCustomerList());
 			dest.setCityEventList(getCityEventList());
 			dest.setRetailStoreList(getRetailStoreList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreCityServiceCenter){
+		
+			
+			RetailStoreCityServiceCenter dest =(RetailStoreCityServiceCenter)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeFounded(getFounded());
+			dest.mergeBelongsTo(getBelongsTo());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeCityPartnerList(getCityPartnerList());
+			dest.mergePotentialCustomerList(getPotentialCustomerList());
+			dest.mergeCityEventList(getCityEventList());
+			dest.mergeRetailStoreList(getRetailStoreList());
 
 		}
 		super.copyTo(baseDest);

@@ -480,9 +480,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	protected boolean isExtractRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_LINE_ITEM_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreOrderLineItemListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreOrderTokens.of(options).analyzeRetailStoreOrderLineItemListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreOrderLineItemListEnabled(Map<String,Object> options){
@@ -495,9 +494,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	protected boolean isExtractRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_SHIPPING_GROUP_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreOrderTokens.of(options).analyzeRetailStoreOrderShippingGroupListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreOrderShippingGroupListEnabled(Map<String,Object> options){
@@ -510,9 +508,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	protected boolean isExtractRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreOrderTokens.RETAIL_STORE_ORDER_PAYMENT_GROUP_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreOrderTokens.of(options).analyzeRetailStoreOrderPaymentGroupListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreOrderPaymentGroupListEnabled(Map<String,Object> options){
@@ -525,9 +522,8 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreOrderTokens.GOODS_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreOrderTokens.of(options).analyzeGoodsListEnabled();
  	}
 	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){

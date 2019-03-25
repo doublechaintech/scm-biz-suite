@@ -38,6 +38,15 @@ public class FormFieldTokens extends CommonTokens{
 	protected FormFieldTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  FormFieldTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		FormFieldTokens tokens = new FormFieldTokens(options);
+		return tokens;
+		
+	}
+	protected FormFieldTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public FormFieldTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class FormFieldTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public FormFieldTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String FORM = "form";

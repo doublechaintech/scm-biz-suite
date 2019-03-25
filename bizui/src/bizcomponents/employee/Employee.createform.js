@@ -9,7 +9,7 @@ import styles from './Employee.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeBase from './Employee.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -78,7 +78,7 @@ class EmployeeCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeBase
     const {EmployeeService} = GlobalComponents
@@ -127,9 +127,10 @@ class EmployeeCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'employee',listName:'员工列表' },
+        payload: { id: owner.id, type: 'employee',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -160,7 +161,7 @@ class EmployeeCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -204,18 +205,18 @@ class EmployeeCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个员工"
-        content="新建一个员工"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入头衔" />
                   )}
@@ -225,7 +226,7 @@ class EmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.familyName} {...formItemLayout}>
                   {getFieldDecorator('familyName', {
-                    rules: [{ required: true, message: '请输入姓' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入姓" />
                   )}
@@ -235,7 +236,7 @@ class EmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.givenName} {...formItemLayout}>
                   {getFieldDecorator('givenName', {
-                    rules: [{ required: true, message: '请输入名' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名" />
                   )}
@@ -245,7 +246,7 @@ class EmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
-                    rules: [{ required: true, message: '请输入电子邮件' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入电子邮件" />
                   )}
@@ -255,7 +256,7 @@ class EmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.city} {...formItemLayout}>
                   {getFieldDecorator('city', {
-                    rules: [{ required: true, message: '请输入城市' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入城市" />
                   )}
@@ -265,7 +266,7 @@ class EmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.address} {...formItemLayout}>
                   {getFieldDecorator('address', {
-                    rules: [{ required: true, message: '请输入地址' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入地址" />
                   )}
@@ -275,7 +276,7 @@ class EmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.cellPhone} {...formItemLayout}>
                   {getFieldDecorator('cellPhone', {
-                    rules: [{ required: true, message: '请输入手机' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入手机" />
                   )}
@@ -285,7 +286,7 @@ class EmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.salaryAccount} {...formItemLayout}>
                   {getFieldDecorator('salaryAccount', {
-                    rules: [{ required: true, message: '请输入工资账户' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入工资账户" />
                   )}
@@ -309,7 +310,7 @@ class EmployeeCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -317,7 +318,7 @@ class EmployeeCreateForm extends Component {
                 <Form.Item label={fieldLabels.company} {...formItemLayout}>
                   {getFieldDecorator('companyId', {
                   	initialValue: tryinit('company'),
-                    rules: [{ required: true, message: '请输入公司' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -334,7 +335,7 @@ class EmployeeCreateForm extends Component {
                 <Form.Item label={fieldLabels.department} {...formItemLayout}>
                   {getFieldDecorator('departmentId', {
                   	initialValue: tryinit('department'),
-                    rules: [{ required: true, message: '请输入部门' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -351,7 +352,7 @@ class EmployeeCreateForm extends Component {
                 <Form.Item label={fieldLabels.occupation} {...formItemLayout}>
                   {getFieldDecorator('occupationId', {
                   	initialValue: tryinit('occupation'),
-                    rules: [{ required: true, message: '请输入职业' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -368,7 +369,7 @@ class EmployeeCreateForm extends Component {
                 <Form.Item label={fieldLabels.responsibleFor} {...formItemLayout}>
                   {getFieldDecorator('responsibleForId', {
                   	initialValue: tryinit('responsibleFor'),
-                    rules: [{ required: true, message: '请输入负责' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -385,7 +386,7 @@ class EmployeeCreateForm extends Component {
                 <Form.Item label={fieldLabels.currentSalaryGrade} {...formItemLayout}>
                   {getFieldDecorator('currentSalaryGradeId', {
                   	initialValue: tryinit('currentSalaryGrade'),
-                    rules: [{ required: true, message: '请输入目前工资等级' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -405,13 +406,13 @@ class EmployeeCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

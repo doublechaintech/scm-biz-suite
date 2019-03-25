@@ -245,6 +245,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -257,6 +260,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -271,6 +277,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeRfid(String rfid){
+		if(rfid != null) { setRfid(rfid);}
+	}
 	
 	
 	public void setUom(String uom){
@@ -283,6 +292,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mUom = trimString(uom);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeUom(String uom){
+		if(uom != null) { setUom(uom);}
 	}
 	
 	
@@ -297,6 +309,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeMaxPackage(int maxPackage){
+		setMaxPackage(maxPackage);
+	}
 	
 	
 	public void setExpireTime(Date expireTime){
@@ -310,6 +325,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeExpireTime(Date expireTime){
+		setExpireTime(expireTime);
+	}
 	
 	
 	public void setSku(Sku sku){
@@ -322,6 +340,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mSku = sku;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeSku(Sku sku){
+		if(sku != null) { setSku(sku);}
 	}
 	
 	
@@ -341,6 +362,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeReceivingSpace(ReceivingSpace receivingSpace){
+		if(receivingSpace != null) { setReceivingSpace(receivingSpace);}
+	}
 	
 	
 	public void clearReceivingSpace(){
@@ -358,6 +382,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mGoodsAllocation = goodsAllocation;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeGoodsAllocation(GoodsAllocation goodsAllocation){
+		if(goodsAllocation != null) { setGoodsAllocation(goodsAllocation);}
 	}
 	
 	
@@ -377,6 +404,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSmartPallet(SmartPallet smartPallet){
+		if(smartPallet != null) { setSmartPallet(smartPallet);}
+	}
 	
 	
 	public void clearSmartPallet(){
@@ -394,6 +424,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mShippingSpace = shippingSpace;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeShippingSpace(ShippingSpace shippingSpace){
+		if(shippingSpace != null) { setShippingSpace(shippingSpace);}
 	}
 	
 	
@@ -413,6 +446,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTransportTask(TransportTask transportTask){
+		if(transportTask != null) { setTransportTask(transportTask);}
+	}
 	
 	
 	public void clearTransportTask(){
@@ -430,6 +466,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mRetailStore = retailStore;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeRetailStore(RetailStore retailStore){
+		if(retailStore != null) { setRetailStore(retailStore);}
 	}
 	
 	
@@ -449,6 +488,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeBizOrder(SupplyOrder bizOrder){
+		if(bizOrder != null) { setBizOrder(bizOrder);}
+	}
 	
 	
 	public void clearBizOrder(){
@@ -466,6 +508,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mRetailStoreOrder = retailStoreOrder;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeRetailStoreOrder(RetailStoreOrder retailStoreOrder){
+		if(retailStoreOrder != null) { setRetailStoreOrder(retailStoreOrder);}
 	}
 	
 	
@@ -485,6 +530,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePackaging(GoodsPackaging packaging){
+		if(packaging != null) { setPackaging(packaging);}
+	}
 	
 	
 	public void clearPackaging(){
@@ -503,6 +551,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -515,6 +566,9 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -548,7 +602,16 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsMovementList().addAll(goodsMovementList);
 	}
-	
+	public  void mergeGoodsMovementList(SmartList<GoodsMovement> goodsMovementList){
+		if(goodsMovementList==null){
+			return;
+		}
+		if(goodsMovementList.isEmpty()){
+			return;
+		}
+		addGoodsMovementList( goodsMovementList );
+		
+	}
 	public  GoodsMovement removeGoodsMovement(GoodsMovement goodsMovementIndex){
 		
 		int index = getGoodsMovementList().indexOf(goodsMovementIndex);
@@ -710,6 +773,38 @@ public class Goods extends BaseEntity implements  java.io.Serializable{
 			dest.setCurrentStatus(getCurrentStatus());
 			dest.setVersion(getVersion());
 			dest.setGoodsMovementList(getGoodsMovementList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Goods){
+		
+			
+			Goods dest =(Goods)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeRfid(getRfid());
+			dest.mergeUom(getUom());
+			dest.mergeMaxPackage(getMaxPackage());
+			dest.mergeExpireTime(getExpireTime());
+			dest.mergeSku(getSku());
+			dest.mergeReceivingSpace(getReceivingSpace());
+			dest.mergeGoodsAllocation(getGoodsAllocation());
+			dest.mergeSmartPallet(getSmartPallet());
+			dest.mergeShippingSpace(getShippingSpace());
+			dest.mergeTransportTask(getTransportTask());
+			dest.mergeRetailStore(getRetailStore());
+			dest.mergeBizOrder(getBizOrder());
+			dest.mergeRetailStoreOrder(getRetailStoreOrder());
+			dest.mergePackaging(getPackaging());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeGoodsMovementList(getGoodsMovementList());
 
 		}
 		super.copyTo(baseDest);

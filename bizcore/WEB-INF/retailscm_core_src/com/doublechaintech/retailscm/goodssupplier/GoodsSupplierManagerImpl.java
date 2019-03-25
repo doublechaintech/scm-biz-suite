@@ -350,7 +350,7 @@ public class GoodsSupplierManagerImpl extends CustomRetailscmCheckerManager impl
 		.sortSupplierProductListWith("id","desc")
 		.sortSupplyOrderListWith("id","desc")
 		.sortAccountSetListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

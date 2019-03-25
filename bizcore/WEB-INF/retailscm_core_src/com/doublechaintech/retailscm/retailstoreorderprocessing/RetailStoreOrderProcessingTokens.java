@@ -38,6 +38,15 @@ public class RetailStoreOrderProcessingTokens extends CommonTokens{
 	protected RetailStoreOrderProcessingTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreOrderProcessingTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreOrderProcessingTokens tokens = new RetailStoreOrderProcessingTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreOrderProcessingTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreOrderProcessingTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class RetailStoreOrderProcessingTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public RetailStoreOrderProcessingTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String RETAIL_STORE_ORDER_LIST = "retailStoreOrderList";
 	public String getRetailStoreOrderList(){
@@ -96,7 +110,11 @@ public class RetailStoreOrderProcessingTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreOrderListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreOrderProcessingTokens extractMoreFromRetailStoreOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".extractIds", idsSeperatedWithComma);

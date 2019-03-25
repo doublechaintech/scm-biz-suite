@@ -206,6 +206,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -218,6 +221,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -232,6 +238,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSupplyProduct(String supplyProduct){
+		if(supplyProduct != null) { setSupplyProduct(supplyProduct);}
+	}
 	
 	
 	public void setBelongTo(RetailStoreCountryCenter belongTo){
@@ -244,6 +253,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.mBelongTo = belongTo;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBelongTo(RetailStoreCountryCenter belongTo){
+		if(belongTo != null) { setBelongTo(belongTo);}
 	}
 	
 	
@@ -262,6 +274,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.mContactNumber = trimString(contactNumber);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeContactNumber(String contactNumber){
+		if(contactNumber != null) { setContactNumber(contactNumber);}
 	}
 	
 	
@@ -283,6 +298,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){
@@ -296,6 +314,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -308,6 +329,9 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -341,7 +365,16 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		}
 		getSupplierProductList().addAll(supplierProductList);
 	}
-	
+	public  void mergeSupplierProductList(SmartList<SupplierProduct> supplierProductList){
+		if(supplierProductList==null){
+			return;
+		}
+		if(supplierProductList.isEmpty()){
+			return;
+		}
+		addSupplierProductList( supplierProductList );
+		
+	}
 	public  SupplierProduct removeSupplierProduct(SupplierProduct supplierProductIndex){
 		
 		int index = getSupplierProductList().indexOf(supplierProductIndex);
@@ -439,7 +472,16 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		}
 		getSupplyOrderList().addAll(supplyOrderList);
 	}
-	
+	public  void mergeSupplyOrderList(SmartList<SupplyOrder> supplyOrderList){
+		if(supplyOrderList==null){
+			return;
+		}
+		if(supplyOrderList.isEmpty()){
+			return;
+		}
+		addSupplyOrderList( supplyOrderList );
+		
+	}
 	public  SupplyOrder removeSupplyOrder(SupplyOrder supplyOrderIndex){
 		
 		int index = getSupplyOrderList().indexOf(supplyOrderIndex);
@@ -537,7 +579,16 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 		}
 		getAccountSetList().addAll(accountSetList);
 	}
-	
+	public  void mergeAccountSetList(SmartList<AccountSet> accountSetList){
+		if(accountSetList==null){
+			return;
+		}
+		if(accountSetList.isEmpty()){
+			return;
+		}
+		addAccountSetList( accountSetList );
+		
+	}
 	public  AccountSet removeAccountSet(AccountSet accountSetIndex){
 		
 		int index = getAccountSetList().indexOf(accountSetIndex);
@@ -686,6 +737,30 @@ public class GoodsSupplier extends BaseEntity implements  java.io.Serializable{
 			dest.setSupplierProductList(getSupplierProductList());
 			dest.setSupplyOrderList(getSupplyOrderList());
 			dest.setAccountSetList(getAccountSetList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof GoodsSupplier){
+		
+			
+			GoodsSupplier dest =(GoodsSupplier)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeSupplyProduct(getSupplyProduct());
+			dest.mergeBelongTo(getBelongTo());
+			dest.mergeContactNumber(getContactNumber());
+			dest.mergeDescription(getDescription());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeSupplierProductList(getSupplierProductList());
+			dest.mergeSupplyOrderList(getSupplyOrderList());
+			dest.mergeAccountSetList(getAccountSetList());
 
 		}
 		super.copyTo(baseDest);

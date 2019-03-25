@@ -38,6 +38,15 @@ public class GoodsAllocationTokens extends CommonTokens{
 	protected GoodsAllocationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  GoodsAllocationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		GoodsAllocationTokens tokens = new GoodsAllocationTokens(options);
+		return tokens;
+		
+	}
+	protected GoodsAllocationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public GoodsAllocationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class GoodsAllocationTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public GoodsAllocationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String GOODSSHELF = "goodsShelf";
 	public String getGoodsShelf(){
@@ -108,7 +122,11 @@ public class GoodsAllocationTokens extends CommonTokens{
 	}
 	public boolean analyzeGoodsListEnabled(){		
 		
-		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+		if(checkOptions(this.options(), GOODS_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public GoodsAllocationTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);

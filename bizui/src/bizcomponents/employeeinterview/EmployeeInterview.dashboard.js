@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,17 +76,17 @@ const internalSummaryOf = (employeeInterview,targetComponent) =>{
 	
 	
 	const {EmployeeInterviewService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{employeeInterview.id}</Description> 
-<Description term="员工">{employeeInterview.employee==null?"未分配":employeeInterview.employee.displayName}
+<Description term="员工">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeInterviewService.requestCandidateEmployee,
 	      EmployeeInterviewService.transferToAnotherEmployee,"anotherEmployeeId",employeeInterview.employee?employeeInterview.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="面试类型">{employeeInterview.interviewType==null?"未分配":employeeInterview.interviewType.displayName}
+<Description term="面试类型">{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.interviewType.displayName}(${employeeInterview.interviewType.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"面试类型","interviewType",EmployeeInterviewService.requestCandidateInterviewType,
 	      EmployeeInterviewService.transferToAnotherInterviewType,"anotherInterviewTypeId",employeeInterview.interviewType?employeeInterview.interviewType.id:"")} 
@@ -108,7 +108,7 @@ class EmployeeInterviewDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -135,7 +135,6 @@ class EmployeeInterviewDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

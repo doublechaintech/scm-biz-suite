@@ -156,6 +156,9 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -168,6 +171,9 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 		this.mTitle = trimString(title);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
 	}
 	
 	
@@ -182,6 +188,9 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeCountTime(Date countTime){
+		setCountTime(countTime);
+	}
 	
 	
 	public void setSummary(String summary){
@@ -195,6 +204,9 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeSummary(String summary){
+		if(summary != null) { setSummary(summary);}
+	}
 	
 	
 	public void setShelf(GoodsShelf shelf){
@@ -207,6 +219,9 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 		this.mShelf = shelf;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeShelf(GoodsShelf shelf){
+		if(shelf != null) { setShelf(shelf);}
 	}
 	
 	
@@ -225,6 +240,9 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 		}
 		getStockCountIssueTrackList().addAll(stockCountIssueTrackList);
 	}
-	
+	public  void mergeStockCountIssueTrackList(SmartList<StockCountIssueTrack> stockCountIssueTrackList){
+		if(stockCountIssueTrackList==null){
+			return;
+		}
+		if(stockCountIssueTrackList.isEmpty()){
+			return;
+		}
+		addStockCountIssueTrackList( stockCountIssueTrackList );
+		
+	}
 	public  StockCountIssueTrack removeStockCountIssueTrack(StockCountIssueTrack stockCountIssueTrackIndex){
 		
 		int index = getStockCountIssueTrackList().indexOf(stockCountIssueTrackIndex);
@@ -387,6 +414,26 @@ public class GoodsShelfStockCount extends BaseEntity implements  java.io.Seriali
 			dest.setShelf(getShelf());
 			dest.setVersion(getVersion());
 			dest.setStockCountIssueTrackList(getStockCountIssueTrackList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof GoodsShelfStockCount){
+		
+			
+			GoodsShelfStockCount dest =(GoodsShelfStockCount)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeCountTime(getCountTime());
+			dest.mergeSummary(getSummary());
+			dest.mergeShelf(getShelf());
+			dest.mergeVersion(getVersion());
+			dest.mergeStockCountIssueTrackList(getStockCountIssueTrackList());
 
 		}
 		super.copyTo(baseDest);

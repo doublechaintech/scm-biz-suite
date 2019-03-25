@@ -114,6 +114,9 @@ public class LevelOneCategory extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCatalog(Catalog catalog){
@@ -126,6 +129,9 @@ public class LevelOneCategory extends BaseEntity implements  java.io.Serializabl
 		this.mCatalog = catalog;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCatalog(Catalog catalog){
+		if(catalog != null) { setCatalog(catalog);}
 	}
 	
 	
@@ -145,6 +151,9 @@ public class LevelOneCategory extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -157,6 +166,9 @@ public class LevelOneCategory extends BaseEntity implements  java.io.Serializabl
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -190,7 +202,16 @@ public class LevelOneCategory extends BaseEntity implements  java.io.Serializabl
 		}
 		getLevelTwoCategoryList().addAll(levelTwoCategoryList);
 	}
-	
+	public  void mergeLevelTwoCategoryList(SmartList<LevelTwoCategory> levelTwoCategoryList){
+		if(levelTwoCategoryList==null){
+			return;
+		}
+		if(levelTwoCategoryList.isEmpty()){
+			return;
+		}
+		addLevelTwoCategoryList( levelTwoCategoryList );
+		
+	}
 	public  LevelTwoCategory removeLevelTwoCategory(LevelTwoCategory levelTwoCategoryIndex){
 		
 		int index = getLevelTwoCategoryList().indexOf(levelTwoCategoryIndex);
@@ -315,6 +336,24 @@ public class LevelOneCategory extends BaseEntity implements  java.io.Serializabl
 			dest.setName(getName());
 			dest.setVersion(getVersion());
 			dest.setLevelTwoCategoryList(getLevelTwoCategoryList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof LevelOneCategory){
+		
+			
+			LevelOneCategory dest =(LevelOneCategory)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCatalog(getCatalog());
+			dest.mergeName(getName());
+			dest.mergeVersion(getVersion());
+			dest.mergeLevelTwoCategoryList(getLevelTwoCategoryList());
 
 		}
 		super.copyTo(baseDest);

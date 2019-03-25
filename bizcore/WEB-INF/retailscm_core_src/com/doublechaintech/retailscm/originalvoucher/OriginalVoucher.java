@@ -209,6 +209,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -221,6 +224,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.mTitle = trimString(title);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
 	}
 	
 	
@@ -235,6 +241,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeMadeBy(String madeBy){
+		if(madeBy != null) { setMadeBy(madeBy);}
+	}
 	
 	
 	public void setReceivedBy(String receivedBy){
@@ -247,6 +256,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.mReceivedBy = trimString(receivedBy);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeReceivedBy(String receivedBy){
+		if(receivedBy != null) { setReceivedBy(receivedBy);}
 	}
 	
 	
@@ -261,6 +273,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeVoucherType(String voucherType){
+		if(voucherType != null) { setVoucherType(voucherType);}
+	}
 	
 	
 	public void setVoucherImage(String voucherImage){
@@ -274,6 +289,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeVoucherImage(String voucherImage){
+		if(voucherImage != null) { setVoucherImage(voucherImage);}
+	}
 	
 	
 	public void setBelongsTo(AccountingDocument belongsTo){
@@ -286,6 +304,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.mBelongsTo = belongsTo;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBelongsTo(AccountingDocument belongsTo){
+		if(belongsTo != null) { setBelongsTo(belongsTo);}
 	}
 	
 	
@@ -305,6 +326,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeCreation(OriginalVoucherCreation creation){
+		if(creation != null) { setCreation(creation);}
+	}
 	
 	
 	public void clearCreation(){
@@ -322,6 +346,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.mConfirmation = confirmation;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeConfirmation(OriginalVoucherConfirmation confirmation){
+		if(confirmation != null) { setConfirmation(confirmation);}
 	}
 	
 	
@@ -341,6 +368,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeAuditing(OriginalVoucherAuditing auditing){
+		if(auditing != null) { setAuditing(auditing);}
+	}
 	
 	
 	public void clearAuditing(){
@@ -359,6 +389,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -371,6 +404,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -442,6 +478,31 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 			dest.setAuditing(getAuditing());
 			dest.setCurrentStatus(getCurrentStatus());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof OriginalVoucher){
+		
+			
+			OriginalVoucher dest =(OriginalVoucher)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeMadeBy(getMadeBy());
+			dest.mergeReceivedBy(getReceivedBy());
+			dest.mergeVoucherType(getVoucherType());
+			dest.mergeVoucherImage(getVoucherImage());
+			dest.mergeBelongsTo(getBelongsTo());
+			dest.mergeCreation(getCreation());
+			dest.mergeConfirmation(getConfirmation());
+			dest.mergeAuditing(getAuditing());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

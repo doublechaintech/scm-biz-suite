@@ -38,6 +38,15 @@ public class EmployeeSalarySheetTokens extends CommonTokens{
 	protected EmployeeSalarySheetTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  EmployeeSalarySheetTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		EmployeeSalarySheetTokens tokens = new EmployeeSalarySheetTokens(options);
+		return tokens;
+		
+	}
+	protected EmployeeSalarySheetTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public EmployeeSalarySheetTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -85,6 +94,11 @@ public class EmployeeSalarySheetTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public EmployeeSalarySheetTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String EMPLOYEE = "employee";

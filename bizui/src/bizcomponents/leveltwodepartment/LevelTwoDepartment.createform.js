@@ -9,7 +9,7 @@ import styles from './LevelTwoDepartment.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import LevelTwoDepartmentBase from './LevelTwoDepartment.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '信息系统部大数据部门',
   description: '主要执行集团信息系统建设，维护，规划',
-  founded: '2017-06-02',
+  founded: '2017-01-21',
   belongsToId: 'LOD000001',
 }
 */
@@ -69,7 +69,7 @@ class LevelTwoDepartmentCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = LevelTwoDepartmentBase
     const {LevelTwoDepartmentService} = GlobalComponents
@@ -118,9 +118,10 @@ class LevelTwoDepartmentCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'levelTwoDepartment',listName:'二级部门列表' },
+        payload: { id: owner.id, type: 'levelTwoDepartment',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -151,7 +152,7 @@ class LevelTwoDepartmentCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -195,18 +196,18 @@ class LevelTwoDepartmentCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个二级部门"
-        content="新建一个二级部门"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -216,7 +217,7 @@ class LevelTwoDepartmentCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
-                    rules: [{ required: true, message: '请输入描述' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入描述" />
                   )}
@@ -226,7 +227,7 @@ class LevelTwoDepartmentCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
-                    rules: [{ required: true, message: '请输入成立' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
@@ -250,7 +251,7 @@ class LevelTwoDepartmentCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -258,7 +259,7 @@ class LevelTwoDepartmentCreateForm extends Component {
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
-                    rules: [{ required: true, message: '请输入属于' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -278,13 +279,13 @@ class LevelTwoDepartmentCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

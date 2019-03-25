@@ -804,9 +804,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeCompanyTrainingListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){
@@ -819,9 +818,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_SKILL_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeSkillListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeSkillListEnabled(Map<String,Object> options){
@@ -834,9 +832,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeePerformanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeePerformanceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_PERFORMANCE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeePerformanceListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeePerformanceListEnabled();
  	}
 	
 	protected boolean isSaveEmployeePerformanceListEnabled(Map<String,Object> options){
@@ -849,9 +846,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeWorkExperienceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeWorkExperienceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_WORK_EXPERIENCE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeWorkExperienceListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeWorkExperienceListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeWorkExperienceListEnabled(Map<String,Object> options){
@@ -864,9 +860,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeLeaveListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeLeaveListEnabled(Map<String,Object> options){
@@ -879,9 +874,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeInterviewListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){
@@ -894,9 +888,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeAttendanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeAttendanceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_ATTENDANCE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeAttendanceListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeAttendanceListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeAttendanceListEnabled(Map<String,Object> options){
@@ -909,9 +902,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeQualifierListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeQualifierListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_QUALIFIER_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeQualifierListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeQualifierListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeQualifierListEnabled(Map<String,Object> options){
@@ -924,9 +916,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeEducationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeEducationListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_EDUCATION_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeEducationListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeEducationListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeEducationListEnabled(Map<String,Object> options){
@@ -939,9 +930,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeAwardListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeAwardListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_AWARD_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeAwardListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeAwardListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeAwardListEnabled(Map<String,Object> options){
@@ -954,9 +944,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzeEmployeeSalarySheetListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){
@@ -969,9 +958,8 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	protected boolean isExtractPayingOffListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST);
  	}
- 	protected boolean isAnalyzePayingOffListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeTokens.PAYING_OFF_LIST+".analyze");
+ 	protected boolean isAnalyzePayingOffListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeTokens.of(options).analyzePayingOffListEnabled();
  	}
 	
 	protected boolean isSavePayingOffListEnabled(Map<String,Object> options){

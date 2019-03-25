@@ -135,6 +135,9 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCode(String code){
@@ -148,6 +151,9 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCode(String code){
+		if(code != null) { setCode(code);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -160,6 +166,9 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -179,6 +188,9 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -191,6 +203,9 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -224,7 +239,16 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeSkillList().addAll(employeeSkillList);
 	}
-	
+	public  void mergeEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
+		if(employeeSkillList==null){
+			return;
+		}
+		if(employeeSkillList.isEmpty()){
+			return;
+		}
+		addEmployeeSkillList( employeeSkillList );
+		
+	}
 	public  EmployeeSkill removeEmployeeSkill(EmployeeSkill employeeSkillIndex){
 		
 		int index = getEmployeeSkillList().indexOf(employeeSkillIndex);
@@ -351,6 +375,25 @@ public class SkillType extends BaseEntity implements  java.io.Serializable{
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
 			dest.setEmployeeSkillList(getEmployeeSkillList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SkillType){
+		
+			
+			SkillType dest =(SkillType)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCode(getCode());
+			dest.mergeCompany(getCompany());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeSkillList(getEmployeeSkillList());
 
 		}
 		super.copyTo(baseDest);

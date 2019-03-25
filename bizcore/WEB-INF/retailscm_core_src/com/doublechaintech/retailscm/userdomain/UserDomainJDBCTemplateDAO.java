@@ -224,9 +224,8 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractUserWhiteListListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserDomainTokens.USER_WHITE_LIST_LIST);
  	}
- 	protected boolean isAnalyzeUserWhiteListListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,UserDomainTokens.USER_WHITE_LIST_LIST+".analyze");
+ 	protected boolean isAnalyzeUserWhiteListListEnabled(Map<String,Object> options){		 		
+ 		return UserDomainTokens.of(options).analyzeUserWhiteListListEnabled();
  	}
 	
 	protected boolean isSaveUserWhiteListListEnabled(Map<String,Object> options){
@@ -239,9 +238,8 @@ public class UserDomainJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserDomainTokens.SEC_USER_LIST);
  	}
- 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,UserDomainTokens.SEC_USER_LIST+".analyze");
+ 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		 		
+ 		return UserDomainTokens.of(options).analyzeSecUserListEnabled();
  	}
 	
 	protected boolean isSaveSecUserListEnabled(Map<String,Object> options){

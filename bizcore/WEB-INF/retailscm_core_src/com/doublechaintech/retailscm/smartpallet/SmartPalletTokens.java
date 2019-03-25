@@ -38,6 +38,15 @@ public class SmartPalletTokens extends CommonTokens{
 	protected SmartPalletTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  SmartPalletTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		SmartPalletTokens tokens = new SmartPalletTokens(options);
+		return tokens;
+		
+	}
+	protected SmartPalletTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public SmartPalletTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class SmartPalletTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public SmartPalletTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String WAREHOUSE = "warehouse";
 	public String getWarehouse(){
@@ -108,7 +122,11 @@ public class SmartPalletTokens extends CommonTokens{
 	}
 	public boolean analyzeGoodsListEnabled(){		
 		
-		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+		if(checkOptions(this.options(), GOODS_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public SmartPalletTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);

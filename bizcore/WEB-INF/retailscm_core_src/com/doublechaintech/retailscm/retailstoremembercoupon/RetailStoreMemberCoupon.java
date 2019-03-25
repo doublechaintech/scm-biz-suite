@@ -152,6 +152,9 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -165,6 +168,9 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setOwner(RetailStoreMember owner){
@@ -177,6 +183,9 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreMember owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -196,6 +205,9 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeNumber(String number){
+		if(number != null) { setNumber(number);}
+	}
 	
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){
@@ -209,6 +221,9 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -221,6 +236,9 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class RetailStoreMemberCoupon extends BaseEntity implements  java.io.Seri
 			dest.setNumber(getNumber());
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreMemberCoupon){
+		
+			
+			RetailStoreMemberCoupon dest =(RetailStoreMemberCoupon)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeOwner(getOwner());
+			dest.mergeNumber(getNumber());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

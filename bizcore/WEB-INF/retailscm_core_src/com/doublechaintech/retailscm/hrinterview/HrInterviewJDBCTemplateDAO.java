@@ -196,9 +196,8 @@ public class HrInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,HrInterviewTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,HrInterviewTokens.EMPLOYEE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 		return HrInterviewTokens.of(options).analyzeEmployeeListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){

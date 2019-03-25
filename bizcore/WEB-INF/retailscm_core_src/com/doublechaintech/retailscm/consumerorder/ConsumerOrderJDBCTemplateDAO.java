@@ -483,9 +483,8 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractConsumerOrderLineItemListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_LINE_ITEM_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderLineItemListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_LINE_ITEM_LIST+".analyze");
+ 	protected boolean isAnalyzeConsumerOrderLineItemListEnabled(Map<String,Object> options){		 		
+ 		return ConsumerOrderTokens.of(options).analyzeConsumerOrderLineItemListEnabled();
  	}
 	
 	protected boolean isSaveConsumerOrderLineItemListEnabled(Map<String,Object> options){
@@ -498,9 +497,8 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractConsumerOrderShippingGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_SHIPPING_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderShippingGroupListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_SHIPPING_GROUP_LIST+".analyze");
+ 	protected boolean isAnalyzeConsumerOrderShippingGroupListEnabled(Map<String,Object> options){		 		
+ 		return ConsumerOrderTokens.of(options).analyzeConsumerOrderShippingGroupListEnabled();
  	}
 	
 	protected boolean isSaveConsumerOrderShippingGroupListEnabled(Map<String,Object> options){
@@ -513,9 +511,8 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractConsumerOrderPaymentGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PAYMENT_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderPaymentGroupListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PAYMENT_GROUP_LIST+".analyze");
+ 	protected boolean isAnalyzeConsumerOrderPaymentGroupListEnabled(Map<String,Object> options){		 		
+ 		return ConsumerOrderTokens.of(options).analyzeConsumerOrderPaymentGroupListEnabled();
  	}
 	
 	protected boolean isSaveConsumerOrderPaymentGroupListEnabled(Map<String,Object> options){
@@ -528,9 +525,8 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractConsumerOrderPriceAdjustmentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderPriceAdjustmentListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ConsumerOrderTokens.CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".analyze");
+ 	protected boolean isAnalyzeConsumerOrderPriceAdjustmentListEnabled(Map<String,Object> options){		 		
+ 		return ConsumerOrderTokens.of(options).analyzeConsumerOrderPriceAdjustmentListEnabled();
  	}
 	
 	protected boolean isSaveConsumerOrderPriceAdjustmentListEnabled(Map<String,Object> options){
@@ -543,9 +539,8 @@ public class ConsumerOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ConsumerOrderTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ConsumerOrderTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		 		
+ 		return ConsumerOrderTokens.of(options).analyzeRetailStoreMemberGiftCardConsumeRecordListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){

@@ -221,9 +221,8 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractEmployeeInterviewListEnabled(Map<String,Object> options){		
  		return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,InterviewTypeTokens.EMPLOYEE_INTERVIEW_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeInterviewListEnabled(Map<String,Object> options){		 		
+ 		return InterviewTypeTokens.of(options).analyzeEmployeeInterviewListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeInterviewListEnabled(Map<String,Object> options){

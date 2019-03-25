@@ -131,6 +131,9 @@ public class FormMessage extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -144,6 +147,9 @@ public class FormMessage extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
+	}
 	
 	
 	public void setForm(GenericForm form){
@@ -156,6 +162,9 @@ public class FormMessage extends BaseEntity implements  java.io.Serializable{
 		this.mForm = form;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeForm(GenericForm form){
+		if(form != null) { setForm(form);}
 	}
 	
 	
@@ -175,6 +184,9 @@ public class FormMessage extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLevel(String level){
+		if(level != null) { setLevel(level);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -187,6 +199,9 @@ public class FormMessage extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -241,6 +256,24 @@ public class FormMessage extends BaseEntity implements  java.io.Serializable{
 			dest.setForm(getForm());
 			dest.setLevel(getLevel());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof FormMessage){
+		
+			
+			FormMessage dest =(FormMessage)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeForm(getForm());
+			dest.mergeLevel(getLevel());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

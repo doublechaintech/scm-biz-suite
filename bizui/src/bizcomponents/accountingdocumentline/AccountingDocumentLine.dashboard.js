@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,7 +76,7 @@ const internalSummaryOf = (accountingDocumentLine,targetComponent) =>{
 	
 	
 	const {AccountingDocumentLineService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{accountingDocumentLine.id}</Description> 
@@ -84,13 +84,13 @@ const internalSummaryOf = (accountingDocumentLine,targetComponent) =>{
 <Description term="代码">{accountingDocumentLine.code}</Description> 
 <Description term="直接">{accountingDocumentLine.direct}</Description> 
 <Description term="金额">{accountingDocumentLine.amount}</Description> 
-<Description term="属于">{accountingDocumentLine.belongsTo==null?"未分配":accountingDocumentLine.belongsTo.displayName}
+<Description term="属于">{accountingDocumentLine.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.belongsTo.displayName}(${accountingDocumentLine.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","accountingDocument",AccountingDocumentLineService.requestCandidateBelongsTo,
 	      AccountingDocumentLineService.transferToAnotherBelongsTo,"anotherBelongsToId",accountingDocumentLine.belongsTo?accountingDocumentLine.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="会计科目">{accountingDocumentLine.accountingSubject==null?"未分配":accountingDocumentLine.accountingSubject.displayName}
+<Description term="会计科目">{accountingDocumentLine.accountingSubject==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.accountingSubject.displayName}(${accountingDocumentLine.accountingSubject.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"会计科目","accountingSubject",AccountingDocumentLineService.requestCandidateAccountingSubject,
 	      AccountingDocumentLineService.transferToAnotherAccountingSubject,"anotherAccountingSubjectId",accountingDocumentLine.accountingSubject?accountingDocumentLine.accountingSubject.id:"")} 
@@ -111,7 +111,7 @@ class AccountingDocumentLineDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -138,7 +138,6 @@ class AccountingDocumentLineDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

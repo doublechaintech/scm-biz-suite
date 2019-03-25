@@ -480,9 +480,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractSupplyOrderLineItemListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_LINE_ITEM_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderLineItemListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_LINE_ITEM_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplyOrderLineItemListEnabled(Map<String,Object> options){		 		
+ 		return SupplyOrderTokens.of(options).analyzeSupplyOrderLineItemListEnabled();
  	}
 	
 	protected boolean isSaveSupplyOrderLineItemListEnabled(Map<String,Object> options){
@@ -495,9 +494,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractSupplyOrderShippingGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_SHIPPING_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderShippingGroupListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_SHIPPING_GROUP_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplyOrderShippingGroupListEnabled(Map<String,Object> options){		 		
+ 		return SupplyOrderTokens.of(options).analyzeSupplyOrderShippingGroupListEnabled();
  	}
 	
 	protected boolean isSaveSupplyOrderShippingGroupListEnabled(Map<String,Object> options){
@@ -510,9 +508,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_PAYMENT_GROUP_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplyOrderTokens.SUPPLY_ORDER_PAYMENT_GROUP_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){		 		
+ 		return SupplyOrderTokens.of(options).analyzeSupplyOrderPaymentGroupListEnabled();
  	}
 	
 	protected boolean isSaveSupplyOrderPaymentGroupListEnabled(Map<String,Object> options){
@@ -525,9 +522,8 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplyOrderTokens.GOODS_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 		return SupplyOrderTokens.of(options).analyzeGoodsListEnabled();
  	}
 	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){

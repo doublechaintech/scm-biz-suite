@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import GoodsShelfStockCountBase from './GoodsShelfStockCount.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '每日盘点',
-  countTime: '2018-12-21',
+  countTime: '2018-03-24',
   summary: '使用先进的rfid技术，没有任何错误',
   shelfId: 'GS000001',
 }
@@ -73,6 +73,8 @@ class GoodsShelfStockCountAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {GoodsShelfStockCountService} = GlobalComponents
+    const userContext = null
+    
  const {StockCountIssueTrackModalTable} = GlobalComponents;
 
 
@@ -120,24 +122,24 @@ class GoodsShelfStockCountAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入头衔" />
                   )}
@@ -147,7 +149,7 @@ class GoodsShelfStockCountAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.countTime} {...formItemLayout}>
                   {getFieldDecorator('countTime', {
-                    rules: [{ required: true, message: '请输入计数时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入计数时间" />
                   )}
@@ -157,7 +159,7 @@ class GoodsShelfStockCountAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.summary} {...formItemLayout}>
                   {getFieldDecorator('summary', {
-                    rules: [{ required: true, message: '请输入概览' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入概览" />
                   )}
@@ -185,7 +187,7 @@ class GoodsShelfStockCountAssociateForm extends Component {
                 <Form.Item label={fieldLabels.shelf} {...formItemLayout}>
                   {getFieldDecorator('shelfId', {
                   	initialValue: tryinit('shelf'),
-                    rules: [{ required: true, message: '请输入架' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('shelf')}

@@ -309,6 +309,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -321,6 +324,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -335,6 +341,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTelephone(String telephone){
+		if(telephone != null) { setTelephone(telephone);}
+	}
 	
 	
 	public void setOwner(String owner){
@@ -348,6 +357,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeOwner(String owner){
+		if(owner != null) { setOwner(owner);}
+	}
 	
 	
 	public void setRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter){
@@ -360,6 +372,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mRetailStoreCountryCenter = retailStoreCountryCenter;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeRetailStoreCountryCenter(RetailStoreCountryCenter retailStoreCountryCenter){
+		if(retailStoreCountryCenter != null) { setRetailStoreCountryCenter(retailStoreCountryCenter);}
 	}
 	
 	
@@ -379,6 +394,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
+		if(cityServiceCenter != null) { setCityServiceCenter(cityServiceCenter);}
+	}
 	
 	
 	public void clearCityServiceCenter(){
@@ -396,6 +414,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mCreation = creation;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCreation(RetailStoreCreation creation){
+		if(creation != null) { setCreation(creation);}
 	}
 	
 	
@@ -415,6 +436,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeInvestmentInvitation(RetailStoreInvestmentInvitation investmentInvitation){
+		if(investmentInvitation != null) { setInvestmentInvitation(investmentInvitation);}
+	}
 	
 	
 	public void clearInvestmentInvitation(){
@@ -432,6 +456,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mFranchising = franchising;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeFranchising(RetailStoreFranchising franchising){
+		if(franchising != null) { setFranchising(franchising);}
 	}
 	
 	
@@ -451,6 +478,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDecoration(RetailStoreDecoration decoration){
+		if(decoration != null) { setDecoration(decoration);}
+	}
 	
 	
 	public void clearDecoration(){
@@ -468,6 +498,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mOpening = opening;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOpening(RetailStoreOpening opening){
+		if(opening != null) { setOpening(opening);}
 	}
 	
 	
@@ -487,6 +520,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeClosing(RetailStoreClosing closing){
+		if(closing != null) { setClosing(closing);}
+	}
 	
 	
 	public void clearClosing(){
@@ -505,6 +541,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeFounded(Date founded){
+		setFounded(founded);
+	}
 	
 	
 	public void setLatitude(BigDecimal latitude){
@@ -517,6 +556,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mLatitude = latitude;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLatitude(BigDecimal latitude){
+		setLatitude(latitude);
 	}
 	
 	
@@ -531,6 +573,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLongitude(BigDecimal longitude){
+		setLongitude(longitude);
+	}
 	
 	
 	public void setDescription(String description){
@@ -543,6 +588,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mDescription = trimString(description);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
 	}
 	
 	
@@ -557,6 +605,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setCurrentStatus(String currentStatus){
@@ -570,6 +621,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -582,6 +636,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -615,7 +672,16 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		}
 		getConsumerOrderList().addAll(consumerOrderList);
 	}
-	
+	public  void mergeConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList){
+		if(consumerOrderList==null){
+			return;
+		}
+		if(consumerOrderList.isEmpty()){
+			return;
+		}
+		addConsumerOrderList( consumerOrderList );
+		
+	}
 	public  ConsumerOrder removeConsumerOrder(ConsumerOrder consumerOrderIndex){
 		
 		int index = getConsumerOrderList().indexOf(consumerOrderIndex);
@@ -713,7 +779,16 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		}
 		getRetailStoreOrderList().addAll(retailStoreOrderList);
 	}
-	
+	public  void mergeRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList){
+		if(retailStoreOrderList==null){
+			return;
+		}
+		if(retailStoreOrderList.isEmpty()){
+			return;
+		}
+		addRetailStoreOrderList( retailStoreOrderList );
+		
+	}
 	public  RetailStoreOrder removeRetailStoreOrder(RetailStoreOrder retailStoreOrderIndex){
 		
 		int index = getRetailStoreOrderList().indexOf(retailStoreOrderIndex);
@@ -811,7 +886,16 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsList().addAll(goodsList);
 	}
-	
+	public  void mergeGoodsList(SmartList<Goods> goodsList){
+		if(goodsList==null){
+			return;
+		}
+		if(goodsList.isEmpty()){
+			return;
+		}
+		addGoodsList( goodsList );
+		
+	}
 	public  Goods removeGoods(Goods goodsIndex){
 		
 		int index = getGoodsList().indexOf(goodsIndex);
@@ -909,7 +993,16 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		}
 		getTransportTaskList().addAll(transportTaskList);
 	}
-	
+	public  void mergeTransportTaskList(SmartList<TransportTask> transportTaskList){
+		if(transportTaskList==null){
+			return;
+		}
+		if(transportTaskList.isEmpty()){
+			return;
+		}
+		addTransportTaskList( transportTaskList );
+		
+	}
 	public  TransportTask removeTransportTask(TransportTask transportTaskIndex){
 		
 		int index = getTransportTaskList().indexOf(transportTaskIndex);
@@ -1007,7 +1100,16 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 		}
 		getAccountSetList().addAll(accountSetList);
 	}
-	
+	public  void mergeAccountSetList(SmartList<AccountSet> accountSetList){
+		if(accountSetList==null){
+			return;
+		}
+		if(accountSetList.isEmpty()){
+			return;
+		}
+		addAccountSetList( accountSetList );
+		
+	}
 	public  AccountSet removeAccountSet(AccountSet accountSetIndex){
 		
 		int index = getAccountSetList().indexOf(accountSetIndex);
@@ -1201,6 +1303,43 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 			dest.setGoodsList(getGoodsList());
 			dest.setTransportTaskList(getTransportTaskList());
 			dest.setAccountSetList(getAccountSetList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStore){
+		
+			
+			RetailStore dest =(RetailStore)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeTelephone(getTelephone());
+			dest.mergeOwner(getOwner());
+			dest.mergeRetailStoreCountryCenter(getRetailStoreCountryCenter());
+			dest.mergeCityServiceCenter(getCityServiceCenter());
+			dest.mergeCreation(getCreation());
+			dest.mergeInvestmentInvitation(getInvestmentInvitation());
+			dest.mergeFranchising(getFranchising());
+			dest.mergeDecoration(getDecoration());
+			dest.mergeOpening(getOpening());
+			dest.mergeClosing(getClosing());
+			dest.mergeFounded(getFounded());
+			dest.mergeLatitude(getLatitude());
+			dest.mergeLongitude(getLongitude());
+			dest.mergeDescription(getDescription());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeConsumerOrderList(getConsumerOrderList());
+			dest.mergeRetailStoreOrderList(getRetailStoreOrderList());
+			dest.mergeGoodsList(getGoodsList());
+			dest.mergeTransportTaskList(getTransportTaskList());
+			dest.mergeAccountSetList(getAccountSetList());
 
 		}
 		super.copyTo(baseDest);

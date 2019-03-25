@@ -204,6 +204,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -216,6 +219,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -230,6 +236,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeContactDate(Date contactDate){
+		setContactDate(contactDate);
+	}
 	
 	
 	public void setContactMethod(String contactMethod){
@@ -243,6 +252,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeContactMethod(String contactMethod){
+		if(contactMethod != null) { setContactMethod(contactMethod);}
+	}
 	
 	
 	public void setPotentialCustomer(PotentialCustomer potentialCustomer){
@@ -255,6 +267,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.mPotentialCustomer = potentialCustomer;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePotentialCustomer(PotentialCustomer potentialCustomer){
+		if(potentialCustomer != null) { setPotentialCustomer(potentialCustomer);}
 	}
 	
 	
@@ -274,6 +289,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeCityPartner(CityPartner cityPartner){
+		if(cityPartner != null) { setCityPartner(cityPartner);}
+	}
 	
 	
 	public void clearCityPartner(){
@@ -291,6 +309,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.mContactTo = contactTo;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeContactTo(PotentialCustomerContactPerson contactTo){
+		if(contactTo != null) { setContactTo(contactTo);}
 	}
 	
 	
@@ -310,6 +331,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){
@@ -323,6 +347,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -335,6 +362,9 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -401,6 +431,29 @@ public class PotentialCustomerContact extends BaseEntity implements  java.io.Ser
 			dest.setDescription(getDescription());
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof PotentialCustomerContact){
+		
+			
+			PotentialCustomerContact dest =(PotentialCustomerContact)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeContactDate(getContactDate());
+			dest.mergeContactMethod(getContactMethod());
+			dest.mergePotentialCustomer(getPotentialCustomer());
+			dest.mergeCityPartner(getCityPartner());
+			dest.mergeContactTo(getContactTo());
+			dest.mergeDescription(getDescription());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

@@ -38,6 +38,15 @@ public class AccountingDocumentLineTokens extends CommonTokens{
 	protected AccountingDocumentLineTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  AccountingDocumentLineTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		AccountingDocumentLineTokens tokens = new AccountingDocumentLineTokens(options);
+		return tokens;
+		
+	}
+	protected AccountingDocumentLineTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public AccountingDocumentLineTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class AccountingDocumentLineTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public AccountingDocumentLineTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String BELONGSTO = "belongsTo";

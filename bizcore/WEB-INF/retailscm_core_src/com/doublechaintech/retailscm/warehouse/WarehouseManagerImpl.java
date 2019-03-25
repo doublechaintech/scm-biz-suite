@@ -371,7 +371,7 @@ public class WarehouseManagerImpl extends CustomRetailscmCheckerManager implemen
 		.sortShippingSpaceListWith("id","desc")
 		.sortDamageSpaceListWith("id","desc")
 		.sortWarehouseAssetListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

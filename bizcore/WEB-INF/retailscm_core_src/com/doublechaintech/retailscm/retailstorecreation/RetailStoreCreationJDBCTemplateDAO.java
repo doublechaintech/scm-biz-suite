@@ -196,9 +196,8 @@ public class RetailStoreCreationJDBCTemplateDAO extends RetailscmNamingServiceDA
 	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCreationTokens.RETAIL_STORE_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCreationTokens.RETAIL_STORE_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCreationTokens.of(options).analyzeRetailStoreListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){

@@ -221,9 +221,8 @@ public class AccountingSubjectJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
  	}
- 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountingSubjectTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		 		
+ 		return AccountingSubjectTokens.of(options).analyzeAccountingDocumentLineListEnabled();
  	}
 	
 	protected boolean isSaveAccountingDocumentLineListEnabled(Map<String,Object> options){

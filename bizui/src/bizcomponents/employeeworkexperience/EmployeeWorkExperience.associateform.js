@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeWorkExperienceBase from './EmployeeWorkExperience.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -18,8 +18,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  start: '2017-10-02',
-  end: '2018-05-12',
+  start: '2017-08-02',
+  end: '2018-09-12',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -74,6 +74,8 @@ class EmployeeWorkExperienceAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {EmployeeWorkExperienceService} = GlobalComponents
+    const userContext = null
+    
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -120,24 +122,24 @@ class EmployeeWorkExperienceAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.start} {...formItemLayout}>
                   {getFieldDecorator('start', {
-                    rules: [{ required: true, message: '请输入开始' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入开始" />
                   )}
@@ -147,7 +149,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.end} {...formItemLayout}>
                   {getFieldDecorator('end', {
-                    rules: [{ required: true, message: '请输入结束' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入结束" />
                   )}
@@ -157,7 +159,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.company} {...formItemLayout}>
                   {getFieldDecorator('company', {
-                    rules: [{ required: true, message: '请输入公司' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入公司" />
                   )}
@@ -167,7 +169,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
-                    rules: [{ required: true, message: '请输入描述' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入描述" />
                   )}
@@ -195,7 +197,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
-                    rules: [{ required: true, message: '请输入员工' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('employee')}

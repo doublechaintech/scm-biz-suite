@@ -325,7 +325,7 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortEmployeeLeaveListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

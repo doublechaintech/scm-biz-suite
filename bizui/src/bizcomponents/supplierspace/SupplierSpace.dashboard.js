@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,14 +76,14 @@ const internalSummaryOf = (supplierSpace,targetComponent) =>{
 	
 	
 	const {SupplierSpaceService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{supplierSpace.id}</Description> 
 <Description term="位置">{supplierSpace.location}</Description> 
 <Description term="联系电话">{supplierSpace.contactNumber}</Description> 
 <Description term="总面积">{supplierSpace.totalArea}</Description> 
-<Description term="仓库">{supplierSpace.warehouse==null?"未分配":supplierSpace.warehouse.displayName}
+<Description term="仓库">{supplierSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${supplierSpace.warehouse.displayName}(${supplierSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",SupplierSpaceService.requestCandidateWarehouse,
 	      SupplierSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",supplierSpace.warehouse?supplierSpace.warehouse.id:"")} 
@@ -107,7 +107,7 @@ class SupplierSpaceDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -135,7 +135,6 @@ class SupplierSpaceDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

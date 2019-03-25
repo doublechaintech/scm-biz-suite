@@ -202,18 +202,27 @@ public class RetailscmUserContextImpl extends UserContextImpl implements Retails
 		return checker;
 	}
 	
+	@Override
+	public void saveAccessInfo(String beanName, String methodName, Object[] parameters) {
+	}
+	
+	@Override
+	public void addFootprint(FootprintProducer helper) throws Exception {
+	}
+
+	@Override
+	public Object getPreviousViewPage() throws Exception {
+		return null;
+	}
+
+	@Override
+	public Object getLastViewPage() throws Exception {
+		return null;
+	}
+
+	@Override
+	public Object goback() throws Exception {
+		return null;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

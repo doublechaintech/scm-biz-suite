@@ -194,6 +194,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLabel(String label){
@@ -206,6 +209,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.mLabel = trimString(label);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLabel(String label){
+		if(label != null) { setLabel(label);}
 	}
 	
 	
@@ -220,6 +226,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLocaleKey(String localeKey){
+		if(localeKey != null) { setLocaleKey(localeKey);}
+	}
 	
 	
 	public void setActionKey(String actionKey){
@@ -232,6 +241,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.mActionKey = trimString(actionKey);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeActionKey(String actionKey){
+		if(actionKey != null) { setActionKey(actionKey);}
 	}
 	
 	
@@ -246,6 +258,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLevel(String level){
+		if(level != null) { setLevel(level);}
+	}
 	
 	
 	public void setUrl(String url){
@@ -259,6 +274,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeUrl(String url){
+		if(url != null) { setUrl(url);}
+	}
 	
 	
 	public void setForm(GenericForm form){
@@ -271,6 +289,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.mForm = form;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeForm(GenericForm form){
+		if(form != null) { setForm(form);}
 	}
 	
 	
@@ -289,6 +310,9 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -349,6 +373,27 @@ public class FormAction extends BaseEntity implements  java.io.Serializable{
 			dest.setUrl(getUrl());
 			dest.setForm(getForm());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof FormAction){
+		
+			
+			FormAction dest =(FormAction)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLabel(getLabel());
+			dest.mergeLocaleKey(getLocaleKey());
+			dest.mergeActionKey(getActionKey());
+			dest.mergeLevel(getLevel());
+			dest.mergeUrl(getUrl());
+			dest.mergeForm(getForm());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

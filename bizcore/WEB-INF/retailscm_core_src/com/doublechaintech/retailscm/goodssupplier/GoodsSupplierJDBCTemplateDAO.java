@@ -277,9 +277,8 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractSupplierProductListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST);
  	}
- 	protected boolean isAnalyzeSupplierProductListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GoodsSupplierTokens.SUPPLIER_PRODUCT_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplierProductListEnabled(Map<String,Object> options){		 		
+ 		return GoodsSupplierTokens.of(options).analyzeSupplierProductListEnabled();
  	}
 	
 	protected boolean isSaveSupplierProductListEnabled(Map<String,Object> options){
@@ -292,9 +291,8 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsSupplierTokens.SUPPLY_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GoodsSupplierTokens.SUPPLY_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		 		
+ 		return GoodsSupplierTokens.of(options).analyzeSupplyOrderListEnabled();
  	}
 	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
@@ -307,9 +305,8 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractAccountSetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsSupplierTokens.ACCOUNT_SET_LIST);
  	}
- 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GoodsSupplierTokens.ACCOUNT_SET_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		 		
+ 		return GoodsSupplierTokens.of(options).analyzeAccountSetListEnabled();
  	}
 	
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){

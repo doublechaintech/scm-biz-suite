@@ -4,9 +4,18 @@ import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
 import GlobalComponents from '../../custcomponents';
-
+import appLocaleName from '../../common/Locale.tool'
 import modeltool from '../../utils/modeltool'
 const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
+
+const notifySuccess=(userContext)=>{
+
+	notification.success({
+        message: appLocaleName(userContext,'Success'),
+        description: appLocaleName(userContext,'Success'),
+      })
+
+}
 
 
 export default {
@@ -68,14 +77,15 @@ export default {
     },
     
     *doJob({ payload }, { call, put }) { 
+      const userContext = null
       const {TaskService} = GlobalComponents;
       //yield put({ type: 'showLoading', payload })      
       const {serviceNameToCall, id, parameters} = payload;
       if(!serviceNameToCall){
-      	handleClientError("没有提供后台服务的名字, 该服务没有注册")
+      	handleClientError(appLocaleName(userContext,'ServiceNotRegistered'))
       	return;
       }
-      
+      "react/dva_object_model.jsp"
       
       const data = yield call(serviceNameToCall, id, parameters)
       if(handleServerError(data)){
@@ -108,6 +118,7 @@ export default {
 
 
     *addConsumerOrder({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -120,19 +131,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreMember/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/\ConsumerOrderList/消费者订单列表`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/\ConsumerOrderList/消费者订单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrder({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -145,10 +154,7 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       
       if (continueNext) {
         return
@@ -162,6 +168,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeConsumerOrderList({ payload }, { call, put }) {
+     const userContext = null
       const {RetailStoreMemberService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -173,19 +180,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
+      notifySuccess(userContext)
     },
 
 
 
 
     *addRetailStoreMemberCoupon({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -198,19 +200,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreMember/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/\RetailStoreMemberCouponList/生超会员优惠券列表`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/\RetailStoreMemberCouponList/生超会员优惠券+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberCoupon({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -223,10 +223,7 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       
       if (continueNext) {
         return
@@ -240,6 +237,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeRetailStoreMemberCouponList({ payload }, { call, put }) {
+     const userContext = null
       const {RetailStoreMemberService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -251,19 +249,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
+      notifySuccess(userContext)
     },
 
 
 
 
     *addMemberWishlist({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -276,19 +269,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreMember/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/\MemberWishlistList/会员收藏列表`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/\MemberWishlistList/会员收藏+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateMemberWishlist({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -301,10 +292,7 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       
       if (continueNext) {
         return
@@ -318,6 +306,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeMemberWishlistList({ payload }, { call, put }) {
+     const userContext = null
       const {RetailStoreMemberService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -329,19 +318,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
+      notifySuccess(userContext)
     },
 
 
 
 
     *addMemberRewardPoint({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -354,19 +338,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreMember/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/\MemberRewardPointList/会员奖励点列表`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/\MemberRewardPointList/会员奖励点+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateMemberRewardPoint({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -379,10 +361,7 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       
       if (continueNext) {
         return
@@ -396,6 +375,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeMemberRewardPointList({ payload }, { call, put }) {
+     const userContext = null
       const {RetailStoreMemberService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -407,19 +387,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
+      notifySuccess(userContext)
     },
 
 
 
 
     *addMemberRewardPointRedemption({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -432,19 +407,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreMember/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/\MemberRewardPointRedemptionList/会员奖励点赎回列表`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/\MemberRewardPointRedemptionList/会员奖励点赎回+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateMemberRewardPointRedemption({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -457,10 +430,7 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       
       if (continueNext) {
         return
@@ -474,6 +444,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeMemberRewardPointRedemptionList({ payload }, { call, put }) {
+     const userContext = null
       const {RetailStoreMemberService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -485,19 +456,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
+      notifySuccess(userContext)
     },
 
 
 
 
     *addRetailStoreMemberAddress({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -510,19 +476,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreMember/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/\RetailStoreMemberAddressList/零售店会员地址列表`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/\RetailStoreMemberAddressList/零售店会员地址+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberAddress({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -535,10 +499,7 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       
       if (continueNext) {
         return
@@ -552,6 +513,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeRetailStoreMemberAddressList({ payload }, { call, put }) {
+     const userContext = null
       const {RetailStoreMemberService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -563,19 +525,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
+      notifySuccess(userContext)
     },
 
 
 
 
     *addRetailStoreMemberGiftCard({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -588,19 +545,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreMember/${id}/list/${role}CreateForm'))
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/\RetailStoreMemberGiftCardList/零售店会员礼品卡列表`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/\RetailStoreMemberGiftCardList/零售店会员礼品卡+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberGiftCard({ payload }, { call, put }) {
+      const userContext = null
       const {RetailStoreMemberService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -613,10 +568,7 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
+      notifySuccess(userContext)
       
       if (continueNext) {
         return
@@ -630,6 +582,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeRetailStoreMemberGiftCardList({ payload }, { call, put }) {
+     const userContext = null
       const {RetailStoreMemberService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -641,13 +594,7 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
+      notifySuccess(userContext)
     },
 
   },

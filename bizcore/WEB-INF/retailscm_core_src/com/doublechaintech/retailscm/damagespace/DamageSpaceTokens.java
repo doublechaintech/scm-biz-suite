@@ -38,6 +38,15 @@ public class DamageSpaceTokens extends CommonTokens{
 	protected DamageSpaceTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  DamageSpaceTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		DamageSpaceTokens tokens = new DamageSpaceTokens(options);
+		return tokens;
+		
+	}
+	protected DamageSpaceTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public DamageSpaceTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class DamageSpaceTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public DamageSpaceTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String WAREHOUSE = "warehouse";
 	public String getWarehouse(){
@@ -108,7 +122,11 @@ public class DamageSpaceTokens extends CommonTokens{
 	}
 	public boolean analyzeGoodsShelfListEnabled(){		
 		
-		return checkOptions(this.options(), GOODS_SHELF_LIST+".anaylze");
+		if(checkOptions(this.options(), GOODS_SHELF_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public DamageSpaceTokens extractMoreFromGoodsShelfList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_SHELF_LIST+".extractIds", idsSeperatedWithComma);

@@ -333,7 +333,7 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 		.sortProvinceCenterDepartmentListWith("id","desc")
 		.sortProvinceCenterEmployeeListWith("id","desc")
 		.sortRetailStoreCityServiceCenterListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -366,7 +366,7 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 		.sortConsumerOrderPaymentGroupListWith("id","desc")
 		.sortConsumerOrderPriceAdjustmentListWith("id","desc")
 		.sortRetailStoreMemberGiftCardConsumeRecordListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

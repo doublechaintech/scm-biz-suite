@@ -221,9 +221,8 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST);
  	}
- 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TerminationReasonTokens.TERMINATION_LIST+".analyze");
+ 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		 		
+ 		return TerminationReasonTokens.of(options).analyzeTerminationListEnabled();
  	}
 	
 	protected boolean isSaveTerminationListEnabled(Map<String,Object> options){

@@ -38,6 +38,15 @@ public class SecUserBlockingTokens extends CommonTokens{
 	protected SecUserBlockingTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  SecUserBlockingTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		SecUserBlockingTokens tokens = new SecUserBlockingTokens(options);
+		return tokens;
+		
+	}
+	protected SecUserBlockingTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public SecUserBlockingTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class SecUserBlockingTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public SecUserBlockingTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String SEC_USER_LIST = "secUserList";
 	public String getSecUserList(){
@@ -96,7 +110,11 @@ public class SecUserBlockingTokens extends CommonTokens{
 	}
 	public boolean analyzeSecUserListEnabled(){		
 		
-		return checkOptions(this.options(), SEC_USER_LIST+".anaylze");
+		if(checkOptions(this.options(), SEC_USER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public SecUserBlockingTokens extractMoreFromSecUserList(String idsSeperatedWithComma){		
 		addSimpleOptions(SEC_USER_LIST+".extractIds", idsSeperatedWithComma);

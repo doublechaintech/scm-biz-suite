@@ -9,7 +9,7 @@ import styles from './SupplyOrderApproval.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SupplyOrderApprovalBase from './SupplyOrderApproval.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '批准者',
-  approveTime: '2016-03-12',
+  approveTime: '2018-03-12',
 }
 */
 
@@ -67,7 +67,7 @@ class SupplyOrderApprovalCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = SupplyOrderApprovalBase
     const {SupplyOrderApprovalService} = GlobalComponents
@@ -116,9 +116,10 @@ class SupplyOrderApprovalCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'supplyOrderApproval',listName:'供应订单审批列表' },
+        payload: { id: owner.id, type: 'supplyOrderApproval',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -149,7 +150,7 @@ class SupplyOrderApprovalCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -193,18 +194,18 @@ class SupplyOrderApprovalCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个供应订单审批"
-        content="新建一个供应订单审批"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.who} {...formItemLayout}>
                   {getFieldDecorator('who', {
-                    rules: [{ required: true, message: '请输入谁' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入谁" />
                   )}
@@ -214,7 +215,7 @@ class SupplyOrderApprovalCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.approveTime} {...formItemLayout}>
                   {getFieldDecorator('approveTime', {
-                    rules: [{ required: true, message: '请输入批准时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入批准时间" />
                   )}
@@ -241,13 +242,13 @@ class SupplyOrderApprovalCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

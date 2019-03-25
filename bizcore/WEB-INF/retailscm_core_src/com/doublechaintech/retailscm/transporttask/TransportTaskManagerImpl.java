@@ -379,7 +379,7 @@ public class TransportTaskManagerImpl extends CustomRetailscmCheckerManager impl
 		return tokens().allTokens()
 		.sortGoodsListWith("id","desc")
 		.sortTransportTaskTrackListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

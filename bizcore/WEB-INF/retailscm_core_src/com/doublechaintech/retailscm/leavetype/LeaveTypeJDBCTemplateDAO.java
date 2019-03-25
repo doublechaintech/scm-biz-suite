@@ -221,9 +221,8 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractEmployeeLeaveListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LeaveTypeTokens.EMPLOYEE_LEAVE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,LeaveTypeTokens.EMPLOYEE_LEAVE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeLeaveListEnabled(Map<String,Object> options){		 		
+ 		return LeaveTypeTokens.of(options).analyzeEmployeeLeaveListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeLeaveListEnabled(Map<String,Object> options){

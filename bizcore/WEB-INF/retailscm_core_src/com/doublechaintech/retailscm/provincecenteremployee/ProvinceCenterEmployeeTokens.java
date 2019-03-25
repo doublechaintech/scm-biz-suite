@@ -38,6 +38,15 @@ public class ProvinceCenterEmployeeTokens extends CommonTokens{
 	protected ProvinceCenterEmployeeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ProvinceCenterEmployeeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ProvinceCenterEmployeeTokens tokens = new ProvinceCenterEmployeeTokens(options);
+		return tokens;
+		
+	}
+	protected ProvinceCenterEmployeeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ProvinceCenterEmployeeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class ProvinceCenterEmployeeTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ProvinceCenterEmployeeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String DEPARTMENT = "department";

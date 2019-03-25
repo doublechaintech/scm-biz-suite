@@ -38,6 +38,15 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	protected RetailStoreCountryCenterTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreCountryCenterTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreCountryCenterTokens tokens = new RetailStoreCountryCenterTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreCountryCenterTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreCountryCenterTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -104,6 +113,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public RetailStoreCountryCenterTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String CATALOG_LIST = "catalogList";
 	public String getCatalogList(){
@@ -119,7 +133,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeCatalogListEnabled(){		
 		
-		return checkOptions(this.options(), CATALOG_LIST+".anaylze");
+		if(checkOptions(this.options(), CATALOG_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromCatalogList(String idsSeperatedWithComma){		
 		addSimpleOptions(CATALOG_LIST+".extractIds", idsSeperatedWithComma);
@@ -181,7 +199,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreProvinceCenterListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_PROVINCE_CENTER_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_PROVINCE_CENTER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreProvinceCenterList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_PROVINCE_CENTER_LIST+".extractIds", idsSeperatedWithComma);
@@ -243,7 +265,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);
@@ -305,7 +331,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreMemberListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_MEMBER_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_MEMBER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreMemberList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_LIST+".extractIds", idsSeperatedWithComma);
@@ -367,7 +397,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeGoodsSupplierListEnabled(){		
 		
-		return checkOptions(this.options(), GOODS_SUPPLIER_LIST+".anaylze");
+		if(checkOptions(this.options(), GOODS_SUPPLIER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromGoodsSupplierList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_SUPPLIER_LIST+".extractIds", idsSeperatedWithComma);
@@ -429,7 +463,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeSupplyOrderListEnabled(){		
 		
-		return checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);
@@ -491,7 +529,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreOrderListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromRetailStoreOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".extractIds", idsSeperatedWithComma);
@@ -553,7 +595,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeWarehouseListEnabled(){		
 		
-		return checkOptions(this.options(), WAREHOUSE_LIST+".anaylze");
+		if(checkOptions(this.options(), WAREHOUSE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromWarehouseList(String idsSeperatedWithComma){		
 		addSimpleOptions(WAREHOUSE_LIST+".extractIds", idsSeperatedWithComma);
@@ -615,7 +661,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeTransportFleetListEnabled(){		
 		
-		return checkOptions(this.options(), TRANSPORT_FLEET_LIST+".anaylze");
+		if(checkOptions(this.options(), TRANSPORT_FLEET_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromTransportFleetList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_FLEET_LIST+".extractIds", idsSeperatedWithComma);
@@ -677,7 +727,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountSetListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNT_SET_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNT_SET_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromAccountSetList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNT_SET_LIST+".extractIds", idsSeperatedWithComma);
@@ -739,7 +793,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeLevelOneDepartmentListEnabled(){		
 		
-		return checkOptions(this.options(), LEVEL_ONE_DEPARTMENT_LIST+".anaylze");
+		if(checkOptions(this.options(), LEVEL_ONE_DEPARTMENT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromLevelOneDepartmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEVEL_ONE_DEPARTMENT_LIST+".extractIds", idsSeperatedWithComma);
@@ -801,7 +859,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeSkillTypeListEnabled(){		
 		
-		return checkOptions(this.options(), SKILL_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), SKILL_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromSkillTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(SKILL_TYPE_LIST+".extractIds", idsSeperatedWithComma);
@@ -863,7 +925,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeResponsibilityTypeListEnabled(){		
 		
-		return checkOptions(this.options(), RESPONSIBILITY_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), RESPONSIBILITY_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromResponsibilityTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(RESPONSIBILITY_TYPE_LIST+".extractIds", idsSeperatedWithComma);
@@ -925,7 +991,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeTerminationReasonListEnabled(){		
 		
-		return checkOptions(this.options(), TERMINATION_REASON_LIST+".anaylze");
+		if(checkOptions(this.options(), TERMINATION_REASON_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromTerminationReasonList(String idsSeperatedWithComma){		
 		addSimpleOptions(TERMINATION_REASON_LIST+".extractIds", idsSeperatedWithComma);
@@ -987,7 +1057,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeTerminationTypeListEnabled(){		
 		
-		return checkOptions(this.options(), TERMINATION_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), TERMINATION_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromTerminationTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(TERMINATION_TYPE_LIST+".extractIds", idsSeperatedWithComma);
@@ -1049,7 +1123,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeOccupationTypeListEnabled(){		
 		
-		return checkOptions(this.options(), OCCUPATION_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), OCCUPATION_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromOccupationTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(OCCUPATION_TYPE_LIST+".extractIds", idsSeperatedWithComma);
@@ -1111,7 +1189,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeLeaveTypeListEnabled(){		
 		
-		return checkOptions(this.options(), LEAVE_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), LEAVE_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromLeaveTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEAVE_TYPE_LIST+".extractIds", idsSeperatedWithComma);
@@ -1173,7 +1255,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeSalaryGradeListEnabled(){		
 		
-		return checkOptions(this.options(), SALARY_GRADE_LIST+".anaylze");
+		if(checkOptions(this.options(), SALARY_GRADE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromSalaryGradeList(String idsSeperatedWithComma){		
 		addSimpleOptions(SALARY_GRADE_LIST+".extractIds", idsSeperatedWithComma);
@@ -1235,7 +1321,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeInterviewTypeListEnabled(){		
 		
-		return checkOptions(this.options(), INTERVIEW_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), INTERVIEW_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromInterviewTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(INTERVIEW_TYPE_LIST+".extractIds", idsSeperatedWithComma);
@@ -1297,7 +1387,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeTrainingCourseTypeListEnabled(){		
 		
-		return checkOptions(this.options(), TRAINING_COURSE_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), TRAINING_COURSE_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromTrainingCourseTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRAINING_COURSE_TYPE_LIST+".extractIds", idsSeperatedWithComma);
@@ -1359,7 +1453,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzePublicHolidayListEnabled(){		
 		
-		return checkOptions(this.options(), PUBLIC_HOLIDAY_LIST+".anaylze");
+		if(checkOptions(this.options(), PUBLIC_HOLIDAY_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromPublicHolidayList(String idsSeperatedWithComma){		
 		addSimpleOptions(PUBLIC_HOLIDAY_LIST+".extractIds", idsSeperatedWithComma);
@@ -1421,7 +1519,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
@@ -1483,7 +1585,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeInstructorListEnabled(){		
 		
-		return checkOptions(this.options(), INSTRUCTOR_LIST+".anaylze");
+		if(checkOptions(this.options(), INSTRUCTOR_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromInstructorList(String idsSeperatedWithComma){		
 		addSimpleOptions(INSTRUCTOR_LIST+".extractIds", idsSeperatedWithComma);
@@ -1545,7 +1651,11 @@ public class RetailStoreCountryCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeCompanyTrainingListEnabled(){		
 		
-		return checkOptions(this.options(), COMPANY_TRAINING_LIST+".anaylze");
+		if(checkOptions(this.options(), COMPANY_TRAINING_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreCountryCenterTokens extractMoreFromCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);

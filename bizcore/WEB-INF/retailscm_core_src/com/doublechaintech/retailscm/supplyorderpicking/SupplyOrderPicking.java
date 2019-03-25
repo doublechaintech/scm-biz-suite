@@ -130,6 +130,9 @@ public class SupplyOrderPicking extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -142,6 +145,9 @@ public class SupplyOrderPicking extends BaseEntity implements  java.io.Serializa
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -156,6 +162,9 @@ public class SupplyOrderPicking extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeProcessTime(Date processTime){
+		setProcessTime(processTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -168,6 +177,9 @@ public class SupplyOrderPicking extends BaseEntity implements  java.io.Serializa
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -201,7 +213,16 @@ public class SupplyOrderPicking extends BaseEntity implements  java.io.Serializa
 		}
 		getSupplyOrderList().addAll(supplyOrderList);
 	}
-	
+	public  void mergeSupplyOrderList(SmartList<SupplyOrder> supplyOrderList){
+		if(supplyOrderList==null){
+			return;
+		}
+		if(supplyOrderList.isEmpty()){
+			return;
+		}
+		addSupplyOrderList( supplyOrderList );
+		
+	}
 	public  SupplyOrder removeSupplyOrder(SupplyOrder supplyOrderIndex){
 		
 		int index = getSupplyOrderList().indexOf(supplyOrderIndex);
@@ -325,6 +346,24 @@ public class SupplyOrderPicking extends BaseEntity implements  java.io.Serializa
 			dest.setProcessTime(getProcessTime());
 			dest.setVersion(getVersion());
 			dest.setSupplyOrderList(getSupplyOrderList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplyOrderPicking){
+		
+			
+			SupplyOrderPicking dest =(SupplyOrderPicking)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeProcessTime(getProcessTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeSupplyOrderList(getSupplyOrderList());
 
 		}
 		super.copyTo(baseDest);

@@ -38,6 +38,15 @@ public class LevelTwoDepartmentTokens extends CommonTokens{
 	protected LevelTwoDepartmentTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  LevelTwoDepartmentTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		LevelTwoDepartmentTokens tokens = new LevelTwoDepartmentTokens(options);
+		return tokens;
+		
+	}
+	protected LevelTwoDepartmentTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public LevelTwoDepartmentTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class LevelTwoDepartmentTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public LevelTwoDepartmentTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String BELONGSTO = "belongsTo";
 	public String getBelongsTo(){
@@ -108,7 +122,11 @@ public class LevelTwoDepartmentTokens extends CommonTokens{
 	}
 	public boolean analyzeLevelThreeDepartmentListEnabled(){		
 		
-		return checkOptions(this.options(), LEVEL_THREE_DEPARTMENT_LIST+".anaylze");
+		if(checkOptions(this.options(), LEVEL_THREE_DEPARTMENT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public LevelTwoDepartmentTokens extractMoreFromLevelThreeDepartmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(LEVEL_THREE_DEPARTMENT_LIST+".extractIds", idsSeperatedWithComma);

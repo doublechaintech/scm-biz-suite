@@ -324,7 +324,7 @@ public class SupplyOrderConfirmationManagerImpl extends CustomRetailscmCheckerMa
 		return tokens().allTokens()
 		.sortConsumerOrderListWith("id","desc")
 		.sortSupplyOrderListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

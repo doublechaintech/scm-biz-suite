@@ -311,7 +311,7 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortRetailStoreListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

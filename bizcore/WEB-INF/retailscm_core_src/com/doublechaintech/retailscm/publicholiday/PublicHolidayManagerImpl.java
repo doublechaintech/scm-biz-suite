@@ -317,7 +317,7 @@ public class PublicHolidayManagerImpl extends CustomRetailscmCheckerManager impl
 	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -325,7 +325,7 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortTerminationListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

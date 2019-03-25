@@ -21,18 +21,4 @@
 </beans>
 
 
-	<!-- 
-	
-	caf_custom_src/META-INF/online-system.xml
-	<import resource="classpath*:/META-INF/b2b2c_custom.xml" />
-	
-	<import resource="classpath*:/META-INF/scm_custom.xml" />
-	<import resource="classpath*:/META-INF/scm_custom.xml" />
-	<import resource="classpath*:/META-INF/bettbio_ad_custom.xml" />
-	<import resource="classpath*:/META-INF/bbt_custom.xml" />
-	<import resource="classpath*:/META-INF/b2b2c_custom.xml" />
-	<import resource="classpath*:/META-INF/manu_scm_custom.xml" />
-	
-	 -->
-
 

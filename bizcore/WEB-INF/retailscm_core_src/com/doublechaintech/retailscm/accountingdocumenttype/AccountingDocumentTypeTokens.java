@@ -38,6 +38,15 @@ public class AccountingDocumentTypeTokens extends CommonTokens{
 	protected AccountingDocumentTypeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  AccountingDocumentTypeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		AccountingDocumentTypeTokens tokens = new AccountingDocumentTypeTokens(options);
+		return tokens;
+		
+	}
+	protected AccountingDocumentTypeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public AccountingDocumentTypeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class AccountingDocumentTypeTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public AccountingDocumentTypeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String ACCOUNTINGPERIOD = "accountingPeriod";
 	public String getAccountingPeriod(){
@@ -108,7 +122,11 @@ public class AccountingDocumentTypeTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountingDocumentListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNTING_DOCUMENT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountingDocumentTypeTokens extractMoreFromAccountingDocumentList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LIST+".extractIds", idsSeperatedWithComma);

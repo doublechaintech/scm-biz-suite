@@ -196,9 +196,8 @@ public class OriginalVoucherCreationJDBCTemplateDAO extends RetailscmNamingServi
 	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){		
  		return checkOptions(options,OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST);
  	}
- 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,OriginalVoucherCreationTokens.ORIGINAL_VOUCHER_LIST+".analyze");
+ 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		 		
+ 		return OriginalVoucherCreationTokens.of(options).analyzeOriginalVoucherListEnabled();
  	}
 	
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){

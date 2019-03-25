@@ -324,7 +324,7 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortStockCountIssueTrackListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -172,6 +172,9 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setPackageName(String packageName){
@@ -184,6 +187,9 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 		this.mPackageName = trimString(packageName);;
 		this.changed = true;
 		return this;
+	}
+	public void mergePackageName(String packageName){
+		if(packageName != null) { setPackageName(packageName);}
 	}
 	
 	
@@ -198,6 +204,9 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeRfid(String rfid){
+		if(rfid != null) { setRfid(rfid);}
+	}
 	
 	
 	public void setPackageTime(Date packageTime){
@@ -210,6 +219,9 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 		this.mPackageTime = packageTime;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePackageTime(Date packageTime){
+		setPackageTime(packageTime);
 	}
 	
 	
@@ -224,6 +236,9 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -236,6 +251,9 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -269,7 +287,16 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsList().addAll(goodsList);
 	}
-	
+	public  void mergeGoodsList(SmartList<Goods> goodsList){
+		if(goodsList==null){
+			return;
+		}
+		if(goodsList.isEmpty()){
+			return;
+		}
+		addGoodsList( goodsList );
+		
+	}
 	public  Goods removeGoods(Goods goodsIndex){
 		
 		int index = getGoodsList().indexOf(goodsIndex);
@@ -397,6 +424,26 @@ public class GoodsPackaging extends BaseEntity implements  java.io.Serializable{
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
 			dest.setGoodsList(getGoodsList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof GoodsPackaging){
+		
+			
+			GoodsPackaging dest =(GoodsPackaging)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergePackageName(getPackageName());
+			dest.mergeRfid(getRfid());
+			dest.mergePackageTime(getPackageTime());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeGoodsList(getGoodsList());
 
 		}
 		super.copyTo(baseDest);

@@ -38,6 +38,15 @@ public class TransportTruckTokens extends CommonTokens{
 	protected TransportTruckTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  TransportTruckTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		TransportTruckTokens tokens = new TransportTruckTokens(options);
+		return tokens;
+		
+	}
+	protected TransportTruckTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public TransportTruckTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class TransportTruckTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public TransportTruckTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String OWNER = "owner";
 	public String getOwner(){
@@ -108,7 +122,11 @@ public class TransportTruckTokens extends CommonTokens{
 	}
 	public boolean analyzeTransportTaskListEnabled(){		
 		
-		return checkOptions(this.options(), TRANSPORT_TASK_LIST+".anaylze");
+		if(checkOptions(this.options(), TRANSPORT_TASK_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public TransportTruckTokens extractMoreFromTransportTaskList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TASK_LIST+".extractIds", idsSeperatedWithComma);

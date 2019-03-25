@@ -334,7 +334,7 @@ public class CityPartnerManagerImpl extends CustomRetailscmCheckerManager implem
 		return tokens().allTokens()
 		.sortPotentialCustomerListWith("id","desc")
 		.sortPotentialCustomerContactListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

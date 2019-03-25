@@ -152,6 +152,9 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -164,6 +167,9 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -183,6 +189,9 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeCompleteTime(Date completeTime){
+		setCompleteTime(completeTime);
+	}
 	
 	
 	public void setType(String type){
@@ -195,6 +204,9 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 		this.mType = trimString(type);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeType(String type){
+		if(type != null) { setType(type);}
 	}
 	
 	
@@ -209,6 +221,9 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeRemark(String remark){
+		if(remark != null) { setRemark(remark);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -221,6 +236,9 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 			dest.setType(getType());
 			dest.setRemark(getRemark());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeEducation){
+		
+			
+			EmployeeEducation dest =(EmployeeEducation)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergeCompleteTime(getCompleteTime());
+			dest.mergeType(getType());
+			dest.mergeRemark(getRemark());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

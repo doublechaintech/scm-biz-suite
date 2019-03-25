@@ -20,7 +20,6 @@
 	<bean id="checker" class="com.doublechaintech.retailscm.CustomRetailscmChecker" scope="prototype"></bean>
 	
 	<bean id="secUserManager" class="com.doublechaintech.retailscm.secuser.SecUserCustomManagerImpl">
-		
 	 	<property name="cacheService" ref="cacheService" />
 	 	<property name="esClient" ref="elasticsearchClient" />
 	 	<property name="smtpService" ref="smtpService" />
@@ -32,7 +31,7 @@
 	 	<property name="eventService" ref="dummyEventService" />
 	 	-->
 	 	<property name="graphService" ref="dummygraphService" />
-	 	<property name="eventService" ref="dummyEventService" />
+	 	<property name="eventService" ref="kafkaMessageEventService" />
 	 	
 	 	<property name="messageService" ref="messageService" />
 	 	<property name="daoGroup" ref="DAOGroup" />

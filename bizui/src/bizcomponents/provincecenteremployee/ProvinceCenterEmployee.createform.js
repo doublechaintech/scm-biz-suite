@@ -9,7 +9,7 @@ import styles from './ProvinceCenterEmployee.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ProvinceCenterEmployeeBase from './ProvinceCenterEmployee.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -20,7 +20,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2017-05-31',
+  founded: '2018-12-22',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -71,7 +71,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ProvinceCenterEmployeeBase
     const {ProvinceCenterEmployeeService} = GlobalComponents
@@ -120,9 +120,10 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'provinceCenterEmployee',listName:'省中心员工列表' },
+        payload: { id: owner.id, type: 'provinceCenterEmployee',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -153,7 +154,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -197,18 +198,18 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个省中心员工"
-        content="新建一个省中心员工"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -218,7 +219,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.mobile} {...formItemLayout}>
                   {getFieldDecorator('mobile', {
-                    rules: [{ required: true, message: '请输入手机' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入手机" />
                   )}
@@ -228,7 +229,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
-                    rules: [{ required: true, message: '请输入电子邮件' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入电子邮件" />
                   )}
@@ -238,7 +239,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
-                    rules: [{ required: true, message: '请输入成立' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
@@ -262,7 +263,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -270,7 +271,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
                 <Form.Item label={fieldLabels.department} {...formItemLayout}>
                   {getFieldDecorator('departmentId', {
                   	initialValue: tryinit('department'),
-                    rules: [{ required: true, message: '请输入部门' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -287,7 +288,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
                 <Form.Item label={fieldLabels.provinceCenter} {...formItemLayout}>
                   {getFieldDecorator('provinceCenterId', {
                   	initialValue: tryinit('provinceCenter'),
-                    rules: [{ required: true, message: '请输入省中心' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -307,13 +308,13 @@ class ProvinceCenterEmployeeCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

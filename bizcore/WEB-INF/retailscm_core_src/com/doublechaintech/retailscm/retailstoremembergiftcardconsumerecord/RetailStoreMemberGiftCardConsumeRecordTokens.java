@@ -38,6 +38,15 @@ public class RetailStoreMemberGiftCardConsumeRecordTokens extends CommonTokens{
 	protected RetailStoreMemberGiftCardConsumeRecordTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreMemberGiftCardConsumeRecordTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreMemberGiftCardConsumeRecordTokens tokens = new RetailStoreMemberGiftCardConsumeRecordTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreMemberGiftCardConsumeRecordTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreMemberGiftCardConsumeRecordTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class RetailStoreMemberGiftCardConsumeRecordTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public RetailStoreMemberGiftCardConsumeRecordTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String OWNER = "owner";

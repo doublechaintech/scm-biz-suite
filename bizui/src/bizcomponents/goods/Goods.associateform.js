@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import GoodsBase from './Goods.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -21,8 +21,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '10',
-  expireTime: '2017-03-08',
+  maxPackage: '9',
+  expireTime: '2017-01-13',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -83,6 +83,8 @@ class GoodsAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {GoodsService} = GlobalComponents
+    const userContext = null
+    
  const {GoodsMovementModalTable} = GlobalComponents;
 
 
@@ -130,24 +132,24 @@ class GoodsAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -157,7 +159,7 @@ class GoodsAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.rfid} {...formItemLayout}>
                   {getFieldDecorator('rfid', {
-                    rules: [{ required: true, message: '请输入RFID' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入RFID" />
                   )}
@@ -167,7 +169,7 @@ class GoodsAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.uom} {...formItemLayout}>
                   {getFieldDecorator('uom', {
-                    rules: [{ required: true, message: '请输入计量单位' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入计量单位" />
                   )}
@@ -177,7 +179,7 @@ class GoodsAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.maxPackage} {...formItemLayout}>
                   {getFieldDecorator('maxPackage', {
-                    rules: [{ required: true, message: '请输入最大包装' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入最大包装" />
                   )}
@@ -187,7 +189,7 @@ class GoodsAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.expireTime} {...formItemLayout}>
                   {getFieldDecorator('expireTime', {
-                    rules: [{ required: true, message: '请输入到期时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入到期时间" />
                   )}
@@ -215,7 +217,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.sku} {...formItemLayout}>
                   {getFieldDecorator('skuId', {
                   	initialValue: tryinit('sku'),
-                    rules: [{ required: true, message: '请输入SKU' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('sku')}
@@ -230,7 +232,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.receivingSpace} {...formItemLayout}>
                   {getFieldDecorator('receivingSpaceId', {
                   	initialValue: tryinit('receivingSpace'),
-                    rules: [{ required: true, message: '请输入收货区' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('receivingSpace')}
@@ -245,7 +247,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.goodsAllocation} {...formItemLayout}>
                   {getFieldDecorator('goodsAllocationId', {
                   	initialValue: tryinit('goodsAllocation'),
-                    rules: [{ required: true, message: '请输入货位' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('goodsAllocation')}
@@ -260,7 +262,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.smartPallet} {...formItemLayout}>
                   {getFieldDecorator('smartPalletId', {
                   	initialValue: tryinit('smartPallet'),
-                    rules: [{ required: true, message: '请输入智能托盘' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('smartPallet')}
@@ -275,7 +277,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.shippingSpace} {...formItemLayout}>
                   {getFieldDecorator('shippingSpaceId', {
                   	initialValue: tryinit('shippingSpace'),
-                    rules: [{ required: true, message: '请输入发货区' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('shippingSpace')}
@@ -290,7 +292,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.transportTask} {...formItemLayout}>
                   {getFieldDecorator('transportTaskId', {
                   	initialValue: tryinit('transportTask'),
-                    rules: [{ required: true, message: '请输入运输任务' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('transportTask')}
@@ -305,7 +307,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.retailStore} {...formItemLayout}>
                   {getFieldDecorator('retailStoreId', {
                   	initialValue: tryinit('retailStore'),
-                    rules: [{ required: true, message: '请输入双链小超' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('retailStore')}
@@ -320,7 +322,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
                   {getFieldDecorator('bizOrderId', {
                   	initialValue: tryinit('bizOrder'),
-                    rules: [{ required: true, message: '请输入订单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('bizOrder')}
@@ -335,7 +337,7 @@ class GoodsAssociateForm extends Component {
                 <Form.Item label={fieldLabels.retailStoreOrder} {...formItemLayout}>
                   {getFieldDecorator('retailStoreOrderId', {
                   	initialValue: tryinit('retailStoreOrder'),
-                    rules: [{ required: true, message: '请输入生超的订单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('retailStoreOrder')}

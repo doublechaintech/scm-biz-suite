@@ -126,6 +126,9 @@ public class ConsumerOrderConfirmation extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -138,6 +141,9 @@ public class ConsumerOrderConfirmation extends BaseEntity implements  java.io.Se
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -152,6 +158,9 @@ public class ConsumerOrderConfirmation extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeConfirmTime(Date confirmTime){
+		setConfirmTime(confirmTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -164,6 +173,9 @@ public class ConsumerOrderConfirmation extends BaseEntity implements  java.io.Se
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -215,6 +227,23 @@ public class ConsumerOrderConfirmation extends BaseEntity implements  java.io.Se
 			dest.setWho(getWho());
 			dest.setConfirmTime(getConfirmTime());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ConsumerOrderConfirmation){
+		
+			
+			ConsumerOrderConfirmation dest =(ConsumerOrderConfirmation)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeConfirmTime(getConfirmTime());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

@@ -9,7 +9,7 @@ import styles from './AccountingDocument.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountingDocumentBase from './AccountingDocument.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2017-01-04',
+  accountingDocumentDate: '2017-02-09',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
 }
@@ -69,7 +69,7 @@ class AccountingDocumentCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = AccountingDocumentBase
     const {AccountingDocumentService} = GlobalComponents
@@ -118,9 +118,10 @@ class AccountingDocumentCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'accountingDocument',listName:'会计凭证列表' },
+        payload: { id: owner.id, type: 'accountingDocument',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -151,7 +152,7 @@ class AccountingDocumentCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -195,18 +196,18 @@ class AccountingDocumentCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个会计凭证"
-        content="新建一个会计凭证"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -216,7 +217,7 @@ class AccountingDocumentCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.accountingDocumentDate} {...formItemLayout}>
                   {getFieldDecorator('accountingDocumentDate', {
-                    rules: [{ required: true, message: '请输入会计凭证日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入会计凭证日期" />
                   )}
@@ -240,7 +241,7 @@ class AccountingDocumentCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -248,7 +249,7 @@ class AccountingDocumentCreateForm extends Component {
                 <Form.Item label={fieldLabels.accountingPeriod} {...formItemLayout}>
                   {getFieldDecorator('accountingPeriodId', {
                   	initialValue: tryinit('accountingPeriod'),
-                    rules: [{ required: true, message: '请输入会计期间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -265,7 +266,7 @@ class AccountingDocumentCreateForm extends Component {
                 <Form.Item label={fieldLabels.documentType} {...formItemLayout}>
                   {getFieldDecorator('documentTypeId', {
                   	initialValue: tryinit('documentType'),
-                    rules: [{ required: true, message: '请输入文档类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -285,13 +286,13 @@ class AccountingDocumentCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

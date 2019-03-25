@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import CompanyTrainingBase from './CompanyTraining.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2016-04-29',
+  timeStart: '2016-06-01',
   durationHours: '3',
   companyId: 'RSCC000001',
   instructorId: 'I000001',
@@ -75,6 +75,8 @@ class CompanyTrainingAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {CompanyTrainingService} = GlobalComponents
+    const userContext = null
+    
  const {EmployeeCompanyTrainingModalTable} = GlobalComponents;
 
 
@@ -122,24 +124,24 @@ class CompanyTrainingAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入头衔" />
                   )}
@@ -149,7 +151,7 @@ class CompanyTrainingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.timeStart} {...formItemLayout}>
                   {getFieldDecorator('timeStart', {
-                    rules: [{ required: true, message: '请输入时间开始' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入时间开始" />
                   )}
@@ -159,7 +161,7 @@ class CompanyTrainingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.durationHours} {...formItemLayout}>
                   {getFieldDecorator('durationHours', {
-                    rules: [{ required: true, message: '请输入持续时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入持续时间" />
                   )}
@@ -187,7 +189,7 @@ class CompanyTrainingAssociateForm extends Component {
                 <Form.Item label={fieldLabels.company} {...formItemLayout}>
                   {getFieldDecorator('companyId', {
                   	initialValue: tryinit('company'),
-                    rules: [{ required: true, message: '请输入公司' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('company')}
@@ -202,7 +204,7 @@ class CompanyTrainingAssociateForm extends Component {
                 <Form.Item label={fieldLabels.instructor} {...formItemLayout}>
                   {getFieldDecorator('instructorId', {
                   	initialValue: tryinit('instructor'),
-                    rules: [{ required: true, message: '请输入讲师' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('instructor')}
@@ -217,7 +219,7 @@ class CompanyTrainingAssociateForm extends Component {
                 <Form.Item label={fieldLabels.trainingCourseType} {...formItemLayout}>
                   {getFieldDecorator('trainingCourseTypeId', {
                   	initialValue: tryinit('trainingCourseType'),
-                    rules: [{ required: true, message: '请输入培训课程类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('trainingCourseType')}

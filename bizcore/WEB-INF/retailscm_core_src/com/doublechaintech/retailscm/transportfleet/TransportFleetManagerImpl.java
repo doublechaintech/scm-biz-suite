@@ -335,7 +335,7 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
 		.sortTransportTruckListWith("id","desc")
 		.sortTruckDriverListWith("id","desc")
 		.sortTransportTaskListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

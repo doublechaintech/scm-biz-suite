@@ -110,6 +110,9 @@ public class MemberWishlistProduct extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -123,6 +126,9 @@ public class MemberWishlistProduct extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setOwner(MemberWishlist owner){
@@ -135,6 +141,9 @@ public class MemberWishlistProduct extends BaseEntity implements  java.io.Serial
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(MemberWishlist owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -153,6 +162,9 @@ public class MemberWishlistProduct extends BaseEntity implements  java.io.Serial
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -205,6 +217,23 @@ public class MemberWishlistProduct extends BaseEntity implements  java.io.Serial
 			dest.setName(getName());
 			dest.setOwner(getOwner());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof MemberWishlistProduct){
+		
+			
+			MemberWishlistProduct dest =(MemberWishlistProduct)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeOwner(getOwner());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

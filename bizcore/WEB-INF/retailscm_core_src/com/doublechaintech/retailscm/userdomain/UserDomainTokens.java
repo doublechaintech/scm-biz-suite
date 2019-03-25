@@ -38,6 +38,15 @@ public class UserDomainTokens extends CommonTokens{
 	protected UserDomainTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  UserDomainTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		UserDomainTokens tokens = new UserDomainTokens(options);
+		return tokens;
+		
+	}
+	protected UserDomainTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public UserDomainTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -82,6 +91,11 @@ public class UserDomainTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public UserDomainTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String USER_WHITE_LIST_LIST = "userWhiteListList";
 	public String getUserWhiteListList(){
@@ -97,7 +111,11 @@ public class UserDomainTokens extends CommonTokens{
 	}
 	public boolean analyzeUserWhiteListListEnabled(){		
 		
-		return checkOptions(this.options(), USER_WHITE_LIST_LIST+".anaylze");
+		if(checkOptions(this.options(), USER_WHITE_LIST_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public UserDomainTokens extractMoreFromUserWhiteListList(String idsSeperatedWithComma){		
 		addSimpleOptions(USER_WHITE_LIST_LIST+".extractIds", idsSeperatedWithComma);
@@ -159,7 +177,11 @@ public class UserDomainTokens extends CommonTokens{
 	}
 	public boolean analyzeSecUserListEnabled(){		
 		
-		return checkOptions(this.options(), SEC_USER_LIST+".anaylze");
+		if(checkOptions(this.options(), SEC_USER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public UserDomainTokens extractMoreFromSecUserList(String idsSeperatedWithComma){		
 		addSimpleOptions(SEC_USER_LIST+".extractIds", idsSeperatedWithComma);

@@ -38,6 +38,15 @@ public class RetailStoreClosingTokens extends CommonTokens{
 	protected RetailStoreClosingTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreClosingTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreClosingTokens tokens = new RetailStoreClosingTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreClosingTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreClosingTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class RetailStoreClosingTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public RetailStoreClosingTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String RETAIL_STORE_LIST = "retailStoreList";
 	public String getRetailStoreList(){
@@ -96,7 +110,11 @@ public class RetailStoreClosingTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreClosingTokens extractMoreFromRetailStoreList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_LIST+".extractIds", idsSeperatedWithComma);

@@ -343,7 +343,7 @@ public class SalaryGradeManagerImpl extends CustomRetailscmCheckerManager implem
 		return tokens().allTokens()
 		.sortEmployeeListWith("id","desc")
 		.sortEmployeeSalarySheetListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

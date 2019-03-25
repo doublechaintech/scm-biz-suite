@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class AccountingDocumentBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class AccountingDocumentBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class AccountingDocumentBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/accountingDocument/${this.props.accountingDocument.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/accountingDocument/${this.props.accountingDocument.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/accountingDocument/${this.props.accountingDocument.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/accountingDocument/${this.props.accountingDocument.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class AccountingDocumentBizApp extends React.PureComponent {
 
   getOriginalVoucherSearch = () => {
     const {OriginalVoucherSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "原始凭证",
@@ -176,11 +172,12 @@ class AccountingDocumentBizApp extends React.PureComponent {
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, 
       referenceName: 'belongsTo', 
       listName: 'originalVoucherList', ref:state._accountingDocument, 
-      listDisplayName: '原始凭证列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(OriginalVoucherSearch)
   }
   getOriginalVoucherCreateForm = () => {
    	const {OriginalVoucherCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "originalVoucher",
@@ -190,22 +187,24 @@ class AccountingDocumentBizApp extends React.PureComponent {
       currentPage: state._accountingDocument.originalVoucherCurrentPageNumber,
       searchFormParameters: state._accountingDocument.originalVoucherSearchFormParameters,
       loading: state._accountingDocument.loading,
-      owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: '原始凭证列表'}, // this is for model namespace and
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(OriginalVoucherCreateForm)
   }
   
   getOriginalVoucherUpdateForm = () => {
+    const userContext = null
   	const {OriginalVoucherUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountingDocument.selectedRows,
       role: "originalVoucher",
       currentUpdateIndex: state._accountingDocument.currentUpdateIndex,
-      owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: '原始凭证列表' }, // this is for model namespace and
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(OriginalVoucherUpdateForm)
   }
 
   getAccountingDocumentLineSearch = () => {
     const {AccountingDocumentLineSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "会计凭证行",
@@ -222,11 +221,12 @@ class AccountingDocumentBizApp extends React.PureComponent {
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, 
       referenceName: 'belongsTo', 
       listName: 'accountingDocumentLineList', ref:state._accountingDocument, 
-      listDisplayName: '会计凭证行列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(AccountingDocumentLineSearch)
   }
   getAccountingDocumentLineCreateForm = () => {
    	const {AccountingDocumentLineCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "accountingDocumentLine",
@@ -236,17 +236,18 @@ class AccountingDocumentBizApp extends React.PureComponent {
       currentPage: state._accountingDocument.accountingDocumentLineCurrentPageNumber,
       searchFormParameters: state._accountingDocument.accountingDocumentLineSearchFormParameters,
       loading: state._accountingDocument.loading,
-      owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: '会计凭证行列表'}, // this is for model namespace and
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(AccountingDocumentLineCreateForm)
   }
   
   getAccountingDocumentLineUpdateForm = () => {
+    const userContext = null
   	const {AccountingDocumentLineUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountingDocument.selectedRows,
       role: "accountingDocumentLine",
       currentUpdateIndex: state._accountingDocument.currentUpdateIndex,
-      owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: '会计凭证行列表' }, // this is for model namespace and
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(AccountingDocumentLineUpdateForm)
   }
 
@@ -315,16 +316,22 @@ class AccountingDocumentBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {AccountingDocumentEditDetail} = GlobalComponents
-     //const {AccountingDocumentViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -338,15 +345,15 @@ class AccountingDocumentBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

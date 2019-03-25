@@ -424,7 +424,7 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 		.sortGoodsListWith("id","desc")
 		.sortTransportTaskListWith("id","desc")
 		.sortAccountSetListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -196,9 +196,8 @@ public class ProfessionInterviewJDBCTemplateDAO extends RetailscmNamingServiceDA
 	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ProfessionInterviewTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ProfessionInterviewTokens.EMPLOYEE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 		return ProfessionInterviewTokens.of(options).analyzeEmployeeListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){

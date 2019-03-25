@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ObjectAccessBase from './ObjectAccess.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -81,6 +81,8 @@ class ObjectAccessAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {ObjectAccessService} = GlobalComponents
+    const userContext = null
+    
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -127,24 +129,24 @@ class ObjectAccessAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -154,7 +156,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.objectType} {...formItemLayout}>
                   {getFieldDecorator('objectType', {
-                    rules: [{ required: true, message: '请输入对象类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入对象类型" />
                   )}
@@ -164,7 +166,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list1} {...formItemLayout}>
                   {getFieldDecorator('list1', {
-                    rules: [{ required: true, message: '请输入表' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入表" />
                   )}
@@ -174,7 +176,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list2} {...formItemLayout}>
                   {getFieldDecorator('list2', {
-                    rules: [{ required: true, message: '请输入清单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入清单" />
                   )}
@@ -184,7 +186,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list3} {...formItemLayout}>
                   {getFieldDecorator('list3', {
-                    rules: [{ required: true, message: '请输入目录3' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入目录3" />
                   )}
@@ -194,7 +196,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list4} {...formItemLayout}>
                   {getFieldDecorator('list4', {
-                    rules: [{ required: true, message: '请输入清单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入清单" />
                   )}
@@ -204,7 +206,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list5} {...formItemLayout}>
                   {getFieldDecorator('list5', {
-                    rules: [{ required: true, message: '请输入列表6' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入列表6" />
                   )}
@@ -214,7 +216,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list6} {...formItemLayout}>
                   {getFieldDecorator('list6', {
-                    rules: [{ required: true, message: '请输入list6' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list6" />
                   )}
@@ -224,7 +226,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list7} {...formItemLayout}>
                   {getFieldDecorator('list7', {
-                    rules: [{ required: true, message: '请输入list7' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list7" />
                   )}
@@ -234,7 +236,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list8} {...formItemLayout}>
                   {getFieldDecorator('list8', {
-                    rules: [{ required: true, message: '请输入list8' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list8" />
                   )}
@@ -244,7 +246,7 @@ class ObjectAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.list9} {...formItemLayout}>
                   {getFieldDecorator('list9', {
-                    rules: [{ required: true, message: '请输入list9' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list9" />
                   )}
@@ -272,7 +274,7 @@ class ObjectAccessAssociateForm extends Component {
                 <Form.Item label={fieldLabels.app} {...formItemLayout}>
                   {getFieldDecorator('appId', {
                   	initialValue: tryinit('app'),
-                    rules: [{ required: true, message: '请输入应用程序' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('app')}

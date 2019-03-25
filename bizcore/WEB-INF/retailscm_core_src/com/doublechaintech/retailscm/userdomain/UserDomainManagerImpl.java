@@ -311,7 +311,7 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 		return tokens().allTokens()
 		.sortUserWhiteListListWith("id","desc")
 		.sortSecUserListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

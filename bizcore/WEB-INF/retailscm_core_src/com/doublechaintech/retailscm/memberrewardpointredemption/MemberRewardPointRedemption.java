@@ -131,6 +131,9 @@ public class MemberRewardPointRedemption extends BaseEntity implements  java.io.
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -143,6 +146,9 @@ public class MemberRewardPointRedemption extends BaseEntity implements  java.io.
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -157,6 +163,9 @@ public class MemberRewardPointRedemption extends BaseEntity implements  java.io.
 		this.changed = true;
 		return this;
 	}
+	public void mergePoint(int point){
+		setPoint(point);
+	}
 	
 	
 	public void setOwner(RetailStoreMember owner){
@@ -169,6 +178,9 @@ public class MemberRewardPointRedemption extends BaseEntity implements  java.io.
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreMember owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -187,6 +199,9 @@ public class MemberRewardPointRedemption extends BaseEntity implements  java.io.
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -241,6 +256,24 @@ public class MemberRewardPointRedemption extends BaseEntity implements  java.io.
 			dest.setPoint(getPoint());
 			dest.setOwner(getOwner());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof MemberRewardPointRedemption){
+		
+			
+			MemberRewardPointRedemption dest =(MemberRewardPointRedemption)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergePoint(getPoint());
+			dest.mergeOwner(getOwner());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

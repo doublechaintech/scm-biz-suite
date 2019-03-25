@@ -377,6 +377,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -389,6 +392,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -408,6 +414,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
+	}
 	
 	
 	public void setDepartment(LevelThreeDepartment department){
@@ -420,6 +429,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mDepartment = department;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDepartment(LevelThreeDepartment department){
+		if(department != null) { setDepartment(department);}
 	}
 	
 	
@@ -439,6 +451,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeFamilyName(String familyName){
+		if(familyName != null) { setFamilyName(familyName);}
+	}
 	
 	
 	public void setGivenName(String givenName){
@@ -451,6 +466,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mGivenName = trimString(givenName);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeGivenName(String givenName){
+		if(givenName != null) { setGivenName(givenName);}
 	}
 	
 	
@@ -465,6 +483,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeEmail(String email){
+		if(email != null) { setEmail(email);}
+	}
 	
 	
 	public void setCity(String city){
@@ -477,6 +498,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mCity = trimString(city);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCity(String city){
+		if(city != null) { setCity(city);}
 	}
 	
 	
@@ -491,6 +515,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeAddress(String address){
+		if(address != null) { setAddress(address);}
+	}
 	
 	
 	public void setCellPhone(String cellPhone){
@@ -503,6 +530,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mCellPhone = trimString(cellPhone);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCellPhone(String cellPhone){
+		if(cellPhone != null) { setCellPhone(cellPhone);}
 	}
 	
 	
@@ -524,6 +554,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeOccupation(OccupationType occupation){
+		if(occupation != null) { setOccupation(occupation);}
+	}
 	
 	
 	public void clearOccupation(){
@@ -541,6 +574,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mResponsibleFor = responsibleFor;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeResponsibleFor(ResponsibilityType responsibleFor){
+		if(responsibleFor != null) { setResponsibleFor(responsibleFor);}
 	}
 	
 	
@@ -560,6 +596,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentSalaryGrade(SalaryGrade currentSalaryGrade){
+		if(currentSalaryGrade != null) { setCurrentSalaryGrade(currentSalaryGrade);}
+	}
 	
 	
 	public void clearCurrentSalaryGrade(){
@@ -578,6 +617,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSalaryAccount(String salaryAccount){
+		if(salaryAccount != null) { setSalaryAccount(salaryAccount);}
+	}
 	
 	
 	public void setJobApplication(JobApplication jobApplication){
@@ -590,6 +632,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mJobApplication = jobApplication;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeJobApplication(JobApplication jobApplication){
+		if(jobApplication != null) { setJobApplication(jobApplication);}
 	}
 	
 	
@@ -609,6 +654,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeProfessionInterview(ProfessionInterview professionInterview){
+		if(professionInterview != null) { setProfessionInterview(professionInterview);}
+	}
 	
 	
 	public void clearProfessionInterview(){
@@ -626,6 +674,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mHrInterview = hrInterview;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeHrInterview(HrInterview hrInterview){
+		if(hrInterview != null) { setHrInterview(hrInterview);}
 	}
 	
 	
@@ -645,6 +696,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeOfferApproval(OfferApproval offerApproval){
+		if(offerApproval != null) { setOfferApproval(offerApproval);}
+	}
 	
 	
 	public void clearOfferApproval(){
@@ -662,6 +716,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mOfferAcceptance = offerAcceptance;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOfferAcceptance(OfferAcceptance offerAcceptance){
+		if(offerAcceptance != null) { setOfferAcceptance(offerAcceptance);}
 	}
 	
 	
@@ -681,6 +738,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeEmployeeBoarding(EmployeeBoarding employeeBoarding){
+		if(employeeBoarding != null) { setEmployeeBoarding(employeeBoarding);}
+	}
 	
 	
 	public void clearEmployeeBoarding(){
@@ -698,6 +758,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mTermination = termination;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTermination(Termination termination){
+		if(termination != null) { setTermination(termination);}
 	}
 	
 	
@@ -717,6 +780,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setCurrentStatus(String currentStatus){
@@ -730,6 +796,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -742,6 +811,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -775,7 +847,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeCompanyTrainingList().addAll(employeeCompanyTrainingList);
 	}
-	
+	public  void mergeEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList){
+		if(employeeCompanyTrainingList==null){
+			return;
+		}
+		if(employeeCompanyTrainingList.isEmpty()){
+			return;
+		}
+		addEmployeeCompanyTrainingList( employeeCompanyTrainingList );
+		
+	}
 	public  EmployeeCompanyTraining removeEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTrainingIndex){
 		
 		int index = getEmployeeCompanyTrainingList().indexOf(employeeCompanyTrainingIndex);
@@ -873,7 +954,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeSkillList().addAll(employeeSkillList);
 	}
-	
+	public  void mergeEmployeeSkillList(SmartList<EmployeeSkill> employeeSkillList){
+		if(employeeSkillList==null){
+			return;
+		}
+		if(employeeSkillList.isEmpty()){
+			return;
+		}
+		addEmployeeSkillList( employeeSkillList );
+		
+	}
 	public  EmployeeSkill removeEmployeeSkill(EmployeeSkill employeeSkillIndex){
 		
 		int index = getEmployeeSkillList().indexOf(employeeSkillIndex);
@@ -971,7 +1061,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeePerformanceList().addAll(employeePerformanceList);
 	}
-	
+	public  void mergeEmployeePerformanceList(SmartList<EmployeePerformance> employeePerformanceList){
+		if(employeePerformanceList==null){
+			return;
+		}
+		if(employeePerformanceList.isEmpty()){
+			return;
+		}
+		addEmployeePerformanceList( employeePerformanceList );
+		
+	}
 	public  EmployeePerformance removeEmployeePerformance(EmployeePerformance employeePerformanceIndex){
 		
 		int index = getEmployeePerformanceList().indexOf(employeePerformanceIndex);
@@ -1069,7 +1168,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeWorkExperienceList().addAll(employeeWorkExperienceList);
 	}
-	
+	public  void mergeEmployeeWorkExperienceList(SmartList<EmployeeWorkExperience> employeeWorkExperienceList){
+		if(employeeWorkExperienceList==null){
+			return;
+		}
+		if(employeeWorkExperienceList.isEmpty()){
+			return;
+		}
+		addEmployeeWorkExperienceList( employeeWorkExperienceList );
+		
+	}
 	public  EmployeeWorkExperience removeEmployeeWorkExperience(EmployeeWorkExperience employeeWorkExperienceIndex){
 		
 		int index = getEmployeeWorkExperienceList().indexOf(employeeWorkExperienceIndex);
@@ -1167,7 +1275,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeLeaveList().addAll(employeeLeaveList);
 	}
-	
+	public  void mergeEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
+		if(employeeLeaveList==null){
+			return;
+		}
+		if(employeeLeaveList.isEmpty()){
+			return;
+		}
+		addEmployeeLeaveList( employeeLeaveList );
+		
+	}
 	public  EmployeeLeave removeEmployeeLeave(EmployeeLeave employeeLeaveIndex){
 		
 		int index = getEmployeeLeaveList().indexOf(employeeLeaveIndex);
@@ -1265,7 +1382,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeInterviewList().addAll(employeeInterviewList);
 	}
-	
+	public  void mergeEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList){
+		if(employeeInterviewList==null){
+			return;
+		}
+		if(employeeInterviewList.isEmpty()){
+			return;
+		}
+		addEmployeeInterviewList( employeeInterviewList );
+		
+	}
 	public  EmployeeInterview removeEmployeeInterview(EmployeeInterview employeeInterviewIndex){
 		
 		int index = getEmployeeInterviewList().indexOf(employeeInterviewIndex);
@@ -1363,7 +1489,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeAttendanceList().addAll(employeeAttendanceList);
 	}
-	
+	public  void mergeEmployeeAttendanceList(SmartList<EmployeeAttendance> employeeAttendanceList){
+		if(employeeAttendanceList==null){
+			return;
+		}
+		if(employeeAttendanceList.isEmpty()){
+			return;
+		}
+		addEmployeeAttendanceList( employeeAttendanceList );
+		
+	}
 	public  EmployeeAttendance removeEmployeeAttendance(EmployeeAttendance employeeAttendanceIndex){
 		
 		int index = getEmployeeAttendanceList().indexOf(employeeAttendanceIndex);
@@ -1461,7 +1596,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeQualifierList().addAll(employeeQualifierList);
 	}
-	
+	public  void mergeEmployeeQualifierList(SmartList<EmployeeQualifier> employeeQualifierList){
+		if(employeeQualifierList==null){
+			return;
+		}
+		if(employeeQualifierList.isEmpty()){
+			return;
+		}
+		addEmployeeQualifierList( employeeQualifierList );
+		
+	}
 	public  EmployeeQualifier removeEmployeeQualifier(EmployeeQualifier employeeQualifierIndex){
 		
 		int index = getEmployeeQualifierList().indexOf(employeeQualifierIndex);
@@ -1559,7 +1703,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeEducationList().addAll(employeeEducationList);
 	}
-	
+	public  void mergeEmployeeEducationList(SmartList<EmployeeEducation> employeeEducationList){
+		if(employeeEducationList==null){
+			return;
+		}
+		if(employeeEducationList.isEmpty()){
+			return;
+		}
+		addEmployeeEducationList( employeeEducationList );
+		
+	}
 	public  EmployeeEducation removeEmployeeEducation(EmployeeEducation employeeEducationIndex){
 		
 		int index = getEmployeeEducationList().indexOf(employeeEducationIndex);
@@ -1657,7 +1810,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeAwardList().addAll(employeeAwardList);
 	}
-	
+	public  void mergeEmployeeAwardList(SmartList<EmployeeAward> employeeAwardList){
+		if(employeeAwardList==null){
+			return;
+		}
+		if(employeeAwardList.isEmpty()){
+			return;
+		}
+		addEmployeeAwardList( employeeAwardList );
+		
+	}
 	public  EmployeeAward removeEmployeeAward(EmployeeAward employeeAwardIndex){
 		
 		int index = getEmployeeAwardList().indexOf(employeeAwardIndex);
@@ -1755,7 +1917,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeSalarySheetList().addAll(employeeSalarySheetList);
 	}
-	
+	public  void mergeEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList){
+		if(employeeSalarySheetList==null){
+			return;
+		}
+		if(employeeSalarySheetList.isEmpty()){
+			return;
+		}
+		addEmployeeSalarySheetList( employeeSalarySheetList );
+		
+	}
 	public  EmployeeSalarySheet removeEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheetIndex){
 		
 		int index = getEmployeeSalarySheetList().indexOf(employeeSalarySheetIndex);
@@ -1853,7 +2024,16 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 		}
 		getPayingOffList().addAll(payingOffList);
 	}
-	
+	public  void mergePayingOffList(SmartList<PayingOff> payingOffList){
+		if(payingOffList==null){
+			return;
+		}
+		if(payingOffList.isEmpty()){
+			return;
+		}
+		addPayingOffList( payingOffList );
+		
+	}
 	public  PayingOff removePayingOff(PayingOff payingOffIndex){
 		
 		int index = getPayingOffList().indexOf(payingOffIndex);
@@ -2117,6 +2297,55 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 			dest.setEmployeeAwardList(getEmployeeAwardList());
 			dest.setEmployeeSalarySheetList(getEmployeeSalarySheetList());
 			dest.setPayingOffList(getPayingOffList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Employee){
+		
+			
+			Employee dest =(Employee)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCompany(getCompany());
+			dest.mergeTitle(getTitle());
+			dest.mergeDepartment(getDepartment());
+			dest.mergeFamilyName(getFamilyName());
+			dest.mergeGivenName(getGivenName());
+			dest.mergeEmail(getEmail());
+			dest.mergeCity(getCity());
+			dest.mergeAddress(getAddress());
+			dest.mergeCellPhone(getCellPhone());
+			dest.mergeOccupation(getOccupation());
+			dest.mergeResponsibleFor(getResponsibleFor());
+			dest.mergeCurrentSalaryGrade(getCurrentSalaryGrade());
+			dest.mergeSalaryAccount(getSalaryAccount());
+			dest.mergeJobApplication(getJobApplication());
+			dest.mergeProfessionInterview(getProfessionInterview());
+			dest.mergeHrInterview(getHrInterview());
+			dest.mergeOfferApproval(getOfferApproval());
+			dest.mergeOfferAcceptance(getOfferAcceptance());
+			dest.mergeEmployeeBoarding(getEmployeeBoarding());
+			dest.mergeTermination(getTermination());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeCompanyTrainingList(getEmployeeCompanyTrainingList());
+			dest.mergeEmployeeSkillList(getEmployeeSkillList());
+			dest.mergeEmployeePerformanceList(getEmployeePerformanceList());
+			dest.mergeEmployeeWorkExperienceList(getEmployeeWorkExperienceList());
+			dest.mergeEmployeeLeaveList(getEmployeeLeaveList());
+			dest.mergeEmployeeInterviewList(getEmployeeInterviewList());
+			dest.mergeEmployeeAttendanceList(getEmployeeAttendanceList());
+			dest.mergeEmployeeQualifierList(getEmployeeQualifierList());
+			dest.mergeEmployeeEducationList(getEmployeeEducationList());
+			dest.mergeEmployeeAwardList(getEmployeeAwardList());
+			dest.mergeEmployeeSalarySheetList(getEmployeeSalarySheetList());
+			dest.mergePayingOffList(getPayingOffList());
 
 		}
 		super.copyTo(baseDest);

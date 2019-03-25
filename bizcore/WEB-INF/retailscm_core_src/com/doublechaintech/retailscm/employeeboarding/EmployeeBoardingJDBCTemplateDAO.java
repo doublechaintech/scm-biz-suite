@@ -196,9 +196,8 @@ public class EmployeeBoardingJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,EmployeeBoardingTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,EmployeeBoardingTokens.EMPLOYEE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 		return EmployeeBoardingTokens.of(options).analyzeEmployeeListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){

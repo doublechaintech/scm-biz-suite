@@ -320,6 +320,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -332,6 +335,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -346,6 +352,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeObjectType(String objectType){
+		if(objectType != null) { setObjectType(objectType);}
+	}
 	
 	
 	public void setList1(String list1){
@@ -358,6 +367,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.mList1 = trimString(list1);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeList1(String list1){
+		if(list1 != null) { setList1(list1);}
 	}
 	
 	
@@ -372,6 +384,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeList2(String list2){
+		if(list2 != null) { setList2(list2);}
+	}
 	
 	
 	public void setList3(String list3){
@@ -384,6 +399,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.mList3 = trimString(list3);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeList3(String list3){
+		if(list3 != null) { setList3(list3);}
 	}
 	
 	
@@ -398,6 +416,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeList4(String list4){
+		if(list4 != null) { setList4(list4);}
+	}
 	
 	
 	public void setList5(String list5){
@@ -410,6 +431,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.mList5 = trimString(list5);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeList5(String list5){
+		if(list5 != null) { setList5(list5);}
 	}
 	
 	
@@ -424,6 +448,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeList6(String list6){
+		if(list6 != null) { setList6(list6);}
+	}
 	
 	
 	public void setList7(String list7){
@@ -436,6 +463,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.mList7 = trimString(list7);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeList7(String list7){
+		if(list7 != null) { setList7(list7);}
 	}
 	
 	
@@ -450,6 +480,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeList8(String list8){
+		if(list8 != null) { setList8(list8);}
+	}
 	
 	
 	public void setList9(String list9){
@@ -463,6 +496,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeList9(String list9){
+		if(list9 != null) { setList9(list9);}
+	}
 	
 	
 	public void setApp(UserApp app){
@@ -475,6 +511,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.mApp = app;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeApp(UserApp app){
+		if(app != null) { setApp(app);}
 	}
 	
 	
@@ -493,6 +532,9 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -565,6 +607,33 @@ public class ObjectAccess extends BaseEntity implements  java.io.Serializable{
 			dest.setList9(getList9());
 			dest.setApp(getApp());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ObjectAccess){
+		
+			
+			ObjectAccess dest =(ObjectAccess)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeObjectType(getObjectType());
+			dest.mergeList1(getList1());
+			dest.mergeList2(getList2());
+			dest.mergeList3(getList3());
+			dest.mergeList4(getList4());
+			dest.mergeList5(getList5());
+			dest.mergeList6(getList6());
+			dest.mergeList7(getList7());
+			dest.mergeList8(getList8());
+			dest.mergeList9(getList9());
+			dest.mergeApp(getApp());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

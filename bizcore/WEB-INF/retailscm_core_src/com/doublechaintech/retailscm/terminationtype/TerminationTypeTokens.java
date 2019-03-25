@@ -38,6 +38,15 @@ public class TerminationTypeTokens extends CommonTokens{
 	protected TerminationTypeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  TerminationTypeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		TerminationTypeTokens tokens = new TerminationTypeTokens(options);
+		return tokens;
+		
+	}
+	protected TerminationTypeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public TerminationTypeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class TerminationTypeTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public TerminationTypeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COMPANY = "company";
 	public String getCompany(){
@@ -108,7 +122,11 @@ public class TerminationTypeTokens extends CommonTokens{
 	}
 	public boolean analyzeTerminationListEnabled(){		
 		
-		return checkOptions(this.options(), TERMINATION_LIST+".anaylze");
+		if(checkOptions(this.options(), TERMINATION_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public TerminationTypeTokens extractMoreFromTerminationList(String idsSeperatedWithComma){		
 		addSimpleOptions(TERMINATION_LIST+".extractIds", idsSeperatedWithComma);

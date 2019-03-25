@@ -152,6 +152,9 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTrackTime(Date trackTime){
@@ -164,6 +167,9 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		this.mTrackTime = trackTime;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTrackTime(Date trackTime){
+		setTrackTime(trackTime);
 	}
 	
 	
@@ -178,6 +184,9 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeLatitude(BigDecimal latitude){
+		setLatitude(latitude);
+	}
 	
 	
 	public void setLongitude(BigDecimal longitude){
@@ -191,6 +200,9 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeLongitude(BigDecimal longitude){
+		setLongitude(longitude);
+	}
 	
 	
 	public void setMovement(TransportTask movement){
@@ -203,6 +215,9 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		this.mMovement = movement;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMovement(TransportTask movement){
+		if(movement != null) { setMovement(movement);}
 	}
 	
 	
@@ -221,6 +236,9 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class TransportTaskTrack extends BaseEntity implements  java.io.Serializa
 			dest.setLongitude(getLongitude());
 			dest.setMovement(getMovement());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof TransportTaskTrack){
+		
+			
+			TransportTaskTrack dest =(TransportTaskTrack)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTrackTime(getTrackTime());
+			dest.mergeLatitude(getLatitude());
+			dest.mergeLongitude(getLongitude());
+			dest.mergeMovement(getMovement());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class SecUserBlockingBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class SecUserBlockingBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class SecUserBlockingBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class SecUserBlockingBizApp extends React.PureComponent {
 
   getSecUserSearch = () => {
     const {SecUserSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "SEC的用户",
@@ -176,11 +172,12 @@ class SecUserBlockingBizApp extends React.PureComponent {
       owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, 
       referenceName: 'blocking', 
       listName: 'secUserList', ref:state._secUserBlocking, 
-      listDisplayName: 'SEC的用户列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SecUserSearch)
   }
   getSecUserCreateForm = () => {
    	const {SecUserCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "secUser",
@@ -190,17 +187,18 @@ class SecUserBlockingBizApp extends React.PureComponent {
       currentPage: state._secUserBlocking.secUserCurrentPageNumber,
       searchFormParameters: state._secUserBlocking.secUserSearchFormParameters,
       loading: state._secUserBlocking.loading,
-      owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, referenceName: 'blocking', listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: 'SEC的用户列表'}, // this is for model namespace and
+      owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, referenceName: 'blocking', listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SecUserCreateForm)
   }
   
   getSecUserUpdateForm = () => {
+    const userContext = null
   	const {SecUserUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._secUserBlocking.selectedRows,
       role: "secUser",
       currentUpdateIndex: state._secUserBlocking.currentUpdateIndex,
-      owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: 'SEC的用户列表' }, // this is for model namespace and
+      owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SecUserUpdateForm)
   }
 
@@ -265,16 +263,22 @@ class SecUserBlockingBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {SecUserBlockingEditDetail} = GlobalComponents
-     //const {SecUserBlockingViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -288,15 +292,15 @@ class SecUserBlockingBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

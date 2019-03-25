@@ -114,6 +114,9 @@ public class MemberWishlist extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -127,6 +130,9 @@ public class MemberWishlist extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setOwner(RetailStoreMember owner){
@@ -139,6 +145,9 @@ public class MemberWishlist extends BaseEntity implements  java.io.Serializable{
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreMember owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -157,6 +166,9 @@ public class MemberWishlist extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -190,7 +202,16 @@ public class MemberWishlist extends BaseEntity implements  java.io.Serializable{
 		}
 		getMemberWishlistProductList().addAll(memberWishlistProductList);
 	}
-	
+	public  void mergeMemberWishlistProductList(SmartList<MemberWishlistProduct> memberWishlistProductList){
+		if(memberWishlistProductList==null){
+			return;
+		}
+		if(memberWishlistProductList.isEmpty()){
+			return;
+		}
+		addMemberWishlistProductList( memberWishlistProductList );
+		
+	}
 	public  MemberWishlistProduct removeMemberWishlistProduct(MemberWishlistProduct memberWishlistProductIndex){
 		
 		int index = getMemberWishlistProductList().indexOf(memberWishlistProductIndex);
@@ -315,6 +336,24 @@ public class MemberWishlist extends BaseEntity implements  java.io.Serializable{
 			dest.setOwner(getOwner());
 			dest.setVersion(getVersion());
 			dest.setMemberWishlistProductList(getMemberWishlistProductList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof MemberWishlist){
+		
+			
+			MemberWishlist dest =(MemberWishlist)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeOwner(getOwner());
+			dest.mergeVersion(getVersion());
+			dest.mergeMemberWishlistProductList(getMemberWishlistProductList());
 
 		}
 		super.copyTo(baseDest);

@@ -38,6 +38,15 @@ public class EmployeeEducationTokens extends CommonTokens{
 	protected EmployeeEducationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  EmployeeEducationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		EmployeeEducationTokens tokens = new EmployeeEducationTokens(options);
+		return tokens;
+		
+	}
+	protected EmployeeEducationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public EmployeeEducationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class EmployeeEducationTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public EmployeeEducationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String EMPLOYEE = "employee";

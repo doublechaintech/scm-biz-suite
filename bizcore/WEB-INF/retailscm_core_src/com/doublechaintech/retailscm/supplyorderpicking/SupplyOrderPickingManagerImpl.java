@@ -316,7 +316,7 @@ public class SupplyOrderPickingManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortSupplyOrderListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

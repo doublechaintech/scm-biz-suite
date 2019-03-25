@@ -196,9 +196,8 @@ public class RetailStoreFranchisingJDBCTemplateDAO extends RetailscmNamingServic
 	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreFranchisingTokens.RETAIL_STORE_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreFranchisingTokens.of(options).analyzeRetailStoreListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){

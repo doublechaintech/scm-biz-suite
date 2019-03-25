@@ -163,6 +163,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -175,6 +178,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -189,6 +195,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeAccountingDocumentDate(Date accountingDocumentDate){
+		setAccountingDocumentDate(accountingDocumentDate);
+	}
 	
 	
 	public void setAccountingPeriod(AccountingPeriod accountingPeriod){
@@ -201,6 +210,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.mAccountingPeriod = accountingPeriod;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAccountingPeriod(AccountingPeriod accountingPeriod){
+		if(accountingPeriod != null) { setAccountingPeriod(accountingPeriod);}
 	}
 	
 	
@@ -220,6 +232,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeDocumentType(AccountingDocumentType documentType){
+		if(documentType != null) { setDocumentType(documentType);}
+	}
 	
 	
 	public void clearDocumentType(){
@@ -237,6 +252,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.mCreation = creation;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCreation(AccountingDocumentCreation creation){
+		if(creation != null) { setCreation(creation);}
 	}
 	
 	
@@ -256,6 +274,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeConfirmation(AccountingDocumentConfirmation confirmation){
+		if(confirmation != null) { setConfirmation(confirmation);}
+	}
 	
 	
 	public void clearConfirmation(){
@@ -273,6 +294,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.mAuditing = auditing;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAuditing(AccountingDocumentAuditing auditing){
+		if(auditing != null) { setAuditing(auditing);}
 	}
 	
 	
@@ -292,6 +316,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergePosting(AccountingDocumentPosting posting){
+		if(posting != null) { setPosting(posting);}
+	}
 	
 	
 	public void clearPosting(){
@@ -310,6 +337,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -322,6 +352,9 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -355,7 +388,16 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		}
 		getOriginalVoucherList().addAll(originalVoucherList);
 	}
-	
+	public  void mergeOriginalVoucherList(SmartList<OriginalVoucher> originalVoucherList){
+		if(originalVoucherList==null){
+			return;
+		}
+		if(originalVoucherList.isEmpty()){
+			return;
+		}
+		addOriginalVoucherList( originalVoucherList );
+		
+	}
 	public  OriginalVoucher removeOriginalVoucher(OriginalVoucher originalVoucherIndex){
 		
 		int index = getOriginalVoucherList().indexOf(originalVoucherIndex);
@@ -453,7 +495,16 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 		}
 		getAccountingDocumentLineList().addAll(accountingDocumentLineList);
 	}
-	
+	public  void mergeAccountingDocumentLineList(SmartList<AccountingDocumentLine> accountingDocumentLineList){
+		if(accountingDocumentLineList==null){
+			return;
+		}
+		if(accountingDocumentLineList.isEmpty()){
+			return;
+		}
+		addAccountingDocumentLineList( accountingDocumentLineList );
+		
+	}
 	public  AccountingDocumentLine removeAccountingDocumentLine(AccountingDocumentLine accountingDocumentLineIndex){
 		
 		int index = getAccountingDocumentLineList().indexOf(accountingDocumentLineIndex);
@@ -605,6 +656,32 @@ public class AccountingDocument extends BaseEntity implements  java.io.Serializa
 			dest.setVersion(getVersion());
 			dest.setOriginalVoucherList(getOriginalVoucherList());
 			dest.setAccountingDocumentLineList(getAccountingDocumentLineList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountingDocument){
+		
+			
+			AccountingDocument dest =(AccountingDocument)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeAccountingDocumentDate(getAccountingDocumentDate());
+			dest.mergeAccountingPeriod(getAccountingPeriod());
+			dest.mergeDocumentType(getDocumentType());
+			dest.mergeCreation(getCreation());
+			dest.mergeConfirmation(getConfirmation());
+			dest.mergeAuditing(getAuditing());
+			dest.mergePosting(getPosting());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeOriginalVoucherList(getOriginalVoucherList());
+			dest.mergeAccountingDocumentLineList(getAccountingDocumentLineList());
 
 		}
 		super.copyTo(baseDest);

@@ -38,6 +38,15 @@ public class GenericFormTokens extends CommonTokens{
 	protected GenericFormTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  GenericFormTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		GenericFormTokens tokens = new GenericFormTokens(options);
+		return tokens;
+		
+	}
+	protected GenericFormTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public GenericFormTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -84,6 +93,11 @@ public class GenericFormTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public GenericFormTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String FORM_MESSAGE_LIST = "formMessageList";
 	public String getFormMessageList(){
@@ -99,7 +113,11 @@ public class GenericFormTokens extends CommonTokens{
 	}
 	public boolean analyzeFormMessageListEnabled(){		
 		
-		return checkOptions(this.options(), FORM_MESSAGE_LIST+".anaylze");
+		if(checkOptions(this.options(), FORM_MESSAGE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public GenericFormTokens extractMoreFromFormMessageList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_MESSAGE_LIST+".extractIds", idsSeperatedWithComma);
@@ -161,7 +179,11 @@ public class GenericFormTokens extends CommonTokens{
 	}
 	public boolean analyzeFormFieldMessageListEnabled(){		
 		
-		return checkOptions(this.options(), FORM_FIELD_MESSAGE_LIST+".anaylze");
+		if(checkOptions(this.options(), FORM_FIELD_MESSAGE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public GenericFormTokens extractMoreFromFormFieldMessageList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_FIELD_MESSAGE_LIST+".extractIds", idsSeperatedWithComma);
@@ -223,7 +245,11 @@ public class GenericFormTokens extends CommonTokens{
 	}
 	public boolean analyzeFormFieldListEnabled(){		
 		
-		return checkOptions(this.options(), FORM_FIELD_LIST+".anaylze");
+		if(checkOptions(this.options(), FORM_FIELD_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public GenericFormTokens extractMoreFromFormFieldList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_FIELD_LIST+".extractIds", idsSeperatedWithComma);
@@ -285,7 +311,11 @@ public class GenericFormTokens extends CommonTokens{
 	}
 	public boolean analyzeFormActionListEnabled(){		
 		
-		return checkOptions(this.options(), FORM_ACTION_LIST+".anaylze");
+		if(checkOptions(this.options(), FORM_ACTION_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public GenericFormTokens extractMoreFromFormActionList(String idsSeperatedWithComma){		
 		addSimpleOptions(FORM_ACTION_LIST+".extractIds", idsSeperatedWithComma);

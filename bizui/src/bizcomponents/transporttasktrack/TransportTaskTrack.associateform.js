@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import TransportTaskTrackBase from './TransportTaskTrack.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2016-09-13',
-  latitude: '31.584733757333822',
-  longitude: '105.79507235739935',
+  trackTime: '2017-03-24',
+  latitude: '31.745278962156615',
+  longitude: '105.13225485948388',
   movementId: 'TT000001',
 }
 */
@@ -73,6 +73,8 @@ class TransportTaskTrackAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {TransportTaskTrackService} = GlobalComponents
+    const userContext = null
+    
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -119,24 +121,24 @@ class TransportTaskTrackAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.trackTime} {...formItemLayout}>
                   {getFieldDecorator('trackTime', {
-                    rules: [{ required: true, message: '请输入跟踪时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入跟踪时间" />
                   )}
@@ -146,7 +148,7 @@ class TransportTaskTrackAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
-                    rules: [{ required: true, message: '请输入纬度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入纬度" />
                   )}
@@ -156,7 +158,7 @@ class TransportTaskTrackAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
-                    rules: [{ required: true, message: '请输入经度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入经度" />
                   )}
@@ -184,7 +186,7 @@ class TransportTaskTrackAssociateForm extends Component {
                 <Form.Item label={fieldLabels.movement} {...formItemLayout}>
                   {getFieldDecorator('movementId', {
                   	initialValue: tryinit('movement'),
-                    rules: [{ required: true, message: '请输入运动' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('movement')}

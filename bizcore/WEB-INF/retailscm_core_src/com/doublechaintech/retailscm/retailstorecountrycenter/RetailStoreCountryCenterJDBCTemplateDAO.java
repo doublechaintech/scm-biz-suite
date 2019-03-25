@@ -840,9 +840,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractCatalogListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.CATALOG_LIST);
  	}
- 	protected boolean isAnalyzeCatalogListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.CATALOG_LIST+".analyze");
+ 	protected boolean isAnalyzeCatalogListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeCatalogListEnabled();
  	}
 	
 	protected boolean isSaveCatalogListEnabled(Map<String,Object> options){
@@ -855,9 +854,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractRetailStoreProvinceCenterListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreProvinceCenterListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_PROVINCE_CENTER_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreProvinceCenterListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreProvinceCenterListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreProvinceCenterListEnabled(Map<String,Object> options){
@@ -870,9 +868,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){
@@ -885,9 +882,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractRetailStoreMemberListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_MEMBER_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreMemberListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreMemberListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreMemberListEnabled(Map<String,Object> options){
@@ -900,9 +896,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractGoodsSupplierListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST);
  	}
- 	protected boolean isAnalyzeGoodsSupplierListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.GOODS_SUPPLIER_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsSupplierListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeGoodsSupplierListEnabled();
  	}
 	
 	protected boolean isSaveGoodsSupplierListEnabled(Map<String,Object> options){
@@ -915,9 +910,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.SUPPLY_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeSupplyOrderListEnabled();
  	}
 	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){
@@ -930,9 +924,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.RETAIL_STORE_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeRetailStoreOrderListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
@@ -945,9 +938,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractWarehouseListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.WAREHOUSE_LIST);
  	}
- 	protected boolean isAnalyzeWarehouseListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.WAREHOUSE_LIST+".analyze");
+ 	protected boolean isAnalyzeWarehouseListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeWarehouseListEnabled();
  	}
 	
 	protected boolean isSaveWarehouseListEnabled(Map<String,Object> options){
@@ -960,9 +952,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractTransportFleetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST);
  	}
- 	protected boolean isAnalyzeTransportFleetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.TRANSPORT_FLEET_LIST+".analyze");
+ 	protected boolean isAnalyzeTransportFleetListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeTransportFleetListEnabled();
  	}
 	
 	protected boolean isSaveTransportFleetListEnabled(Map<String,Object> options){
@@ -975,9 +966,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractAccountSetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST);
  	}
- 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.ACCOUNT_SET_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeAccountSetListEnabled();
  	}
 	
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){
@@ -990,9 +980,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractLevelOneDepartmentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST);
  	}
- 	protected boolean isAnalyzeLevelOneDepartmentListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.LEVEL_ONE_DEPARTMENT_LIST+".analyze");
+ 	protected boolean isAnalyzeLevelOneDepartmentListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeLevelOneDepartmentListEnabled();
  	}
 	
 	protected boolean isSaveLevelOneDepartmentListEnabled(Map<String,Object> options){
@@ -1005,9 +994,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractSkillTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.SKILL_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeSkillTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.SKILL_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeSkillTypeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeSkillTypeListEnabled();
  	}
 	
 	protected boolean isSaveSkillTypeListEnabled(Map<String,Object> options){
@@ -1020,9 +1008,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractResponsibilityTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeResponsibilityTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.RESPONSIBILITY_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeResponsibilityTypeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeResponsibilityTypeListEnabled();
  	}
 	
 	protected boolean isSaveResponsibilityTypeListEnabled(Map<String,Object> options){
@@ -1035,9 +1022,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractTerminationReasonListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST);
  	}
- 	protected boolean isAnalyzeTerminationReasonListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_REASON_LIST+".analyze");
+ 	protected boolean isAnalyzeTerminationReasonListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeTerminationReasonListEnabled();
  	}
 	
 	protected boolean isSaveTerminationReasonListEnabled(Map<String,Object> options){
@@ -1050,9 +1036,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractTerminationTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeTerminationTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.TERMINATION_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeTerminationTypeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeTerminationTypeListEnabled();
  	}
 	
 	protected boolean isSaveTerminationTypeListEnabled(Map<String,Object> options){
@@ -1065,9 +1050,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractOccupationTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeOccupationTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.OCCUPATION_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeOccupationTypeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeOccupationTypeListEnabled();
  	}
 	
 	protected boolean isSaveOccupationTypeListEnabled(Map<String,Object> options){
@@ -1080,9 +1064,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractLeaveTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeLeaveTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.LEAVE_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeLeaveTypeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeLeaveTypeListEnabled();
  	}
 	
 	protected boolean isSaveLeaveTypeListEnabled(Map<String,Object> options){
@@ -1095,9 +1078,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractSalaryGradeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.SALARY_GRADE_LIST);
  	}
- 	protected boolean isAnalyzeSalaryGradeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.SALARY_GRADE_LIST+".analyze");
+ 	protected boolean isAnalyzeSalaryGradeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeSalaryGradeListEnabled();
  	}
 	
 	protected boolean isSaveSalaryGradeListEnabled(Map<String,Object> options){
@@ -1110,9 +1092,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractInterviewTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeInterviewTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.INTERVIEW_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeInterviewTypeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeInterviewTypeListEnabled();
  	}
 	
 	protected boolean isSaveInterviewTypeListEnabled(Map<String,Object> options){
@@ -1125,9 +1106,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractTrainingCourseTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeTrainingCourseTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.TRAINING_COURSE_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeTrainingCourseTypeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeTrainingCourseTypeListEnabled();
  	}
 	
 	protected boolean isSaveTrainingCourseTypeListEnabled(Map<String,Object> options){
@@ -1140,9 +1120,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractPublicHolidayListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST);
  	}
- 	protected boolean isAnalyzePublicHolidayListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.PUBLIC_HOLIDAY_LIST+".analyze");
+ 	protected boolean isAnalyzePublicHolidayListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzePublicHolidayListEnabled();
  	}
 	
 	protected boolean isSavePublicHolidayListEnabled(Map<String,Object> options){
@@ -1155,9 +1134,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.EMPLOYEE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeEmployeeListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -1170,9 +1148,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractInstructorListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.INSTRUCTOR_LIST);
  	}
- 	protected boolean isAnalyzeInstructorListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.INSTRUCTOR_LIST+".analyze");
+ 	protected boolean isAnalyzeInstructorListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeInstructorListEnabled();
  	}
 	
 	protected boolean isSaveInstructorListEnabled(Map<String,Object> options){
@@ -1185,9 +1162,8 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCountryCenterTokens.COMPANY_TRAINING_LIST+".analyze");
+ 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCountryCenterTokens.of(options).analyzeCompanyTrainingListEnabled();
  	}
 	
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){

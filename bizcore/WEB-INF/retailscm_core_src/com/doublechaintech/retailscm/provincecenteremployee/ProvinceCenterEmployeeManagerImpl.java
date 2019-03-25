@@ -332,7 +332,7 @@ public class ProvinceCenterEmployeeManagerImpl extends CustomRetailscmCheckerMan
 	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

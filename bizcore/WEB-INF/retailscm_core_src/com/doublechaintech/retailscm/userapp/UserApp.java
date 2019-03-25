@@ -244,6 +244,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -257,6 +260,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
+	}
 	
 	
 	public void setSecUser(SecUser secUser){
@@ -269,6 +275,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.mSecUser = secUser;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeSecUser(SecUser secUser){
+		if(secUser != null) { setSecUser(secUser);}
 	}
 	
 	
@@ -288,6 +297,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeAppIcon(String appIcon){
+		if(appIcon != null) { setAppIcon(appIcon);}
+	}
 	
 	
 	public void setFullAccess(boolean fullAccess){
@@ -300,6 +312,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.mFullAccess = fullAccess;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeFullAccess(boolean fullAccess){
+		setFullAccess(fullAccess);
 	}
 	
 	
@@ -314,6 +329,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePermission(String permission){
+		if(permission != null) { setPermission(permission);}
+	}
 	
 	
 	public void setObjectType(String objectType){
@@ -327,6 +345,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeObjectType(String objectType){
+		if(objectType != null) { setObjectType(objectType);}
+	}
 	
 	
 	public void setObjectId(String objectId){
@@ -339,6 +360,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.mObjectId = trimString(objectId);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeObjectId(String objectId){
+		if(objectId != null) { setObjectId(objectId);}
 	}
 	
 	
@@ -358,6 +382,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLocation(String location){
+		if(location != null) { setLocation(location);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -370,6 +397,9 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -403,7 +433,16 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		}
 		getListAccessList().addAll(listAccessList);
 	}
-	
+	public  void mergeListAccessList(SmartList<ListAccess> listAccessList){
+		if(listAccessList==null){
+			return;
+		}
+		if(listAccessList.isEmpty()){
+			return;
+		}
+		addListAccessList( listAccessList );
+		
+	}
 	public  ListAccess removeListAccess(ListAccess listAccessIndex){
 		
 		int index = getListAccessList().indexOf(listAccessIndex);
@@ -501,7 +540,16 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 		}
 		getObjectAccessList().addAll(objectAccessList);
 	}
-	
+	public  void mergeObjectAccessList(SmartList<ObjectAccess> objectAccessList){
+		if(objectAccessList==null){
+			return;
+		}
+		if(objectAccessList.isEmpty()){
+			return;
+		}
+		addObjectAccessList( objectAccessList );
+		
+	}
 	public  ObjectAccess removeObjectAccess(ObjectAccess objectAccessIndex){
 		
 		int index = getObjectAccessList().indexOf(objectAccessIndex);
@@ -646,6 +694,31 @@ public class UserApp extends BaseEntity implements  java.io.Serializable{
 			dest.setVersion(getVersion());
 			dest.setListAccessList(getListAccessList());
 			dest.setObjectAccessList(getObjectAccessList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof UserApp){
+		
+			
+			UserApp dest =(UserApp)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeSecUser(getSecUser());
+			dest.mergeAppIcon(getAppIcon());
+			dest.mergeFullAccess(getFullAccess());
+			dest.mergePermission(getPermission());
+			dest.mergeObjectType(getObjectType());
+			dest.mergeObjectId(getObjectId());
+			dest.mergeLocation(getLocation());
+			dest.mergeVersion(getVersion());
+			dest.mergeListAccessList(getListAccessList());
+			dest.mergeObjectAccessList(getObjectAccessList());
 
 		}
 		super.copyTo(baseDest);

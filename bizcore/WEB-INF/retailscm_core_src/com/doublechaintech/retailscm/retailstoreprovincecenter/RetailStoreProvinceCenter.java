@@ -164,6 +164,9 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -176,6 +179,9 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -190,6 +196,9 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeFounded(Date founded){
+		setFounded(founded);
+	}
 	
 	
 	public void setCountry(RetailStoreCountryCenter country){
@@ -202,6 +211,9 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		this.mCountry = country;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCountry(RetailStoreCountryCenter country){
+		if(country != null) { setCountry(country);}
 	}
 	
 	
@@ -221,6 +233,9 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -233,6 +248,9 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -266,7 +284,16 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		}
 		getProvinceCenterDepartmentList().addAll(provinceCenterDepartmentList);
 	}
-	
+	public  void mergeProvinceCenterDepartmentList(SmartList<ProvinceCenterDepartment> provinceCenterDepartmentList){
+		if(provinceCenterDepartmentList==null){
+			return;
+		}
+		if(provinceCenterDepartmentList.isEmpty()){
+			return;
+		}
+		addProvinceCenterDepartmentList( provinceCenterDepartmentList );
+		
+	}
 	public  ProvinceCenterDepartment removeProvinceCenterDepartment(ProvinceCenterDepartment provinceCenterDepartmentIndex){
 		
 		int index = getProvinceCenterDepartmentList().indexOf(provinceCenterDepartmentIndex);
@@ -364,7 +391,16 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		}
 		getProvinceCenterEmployeeList().addAll(provinceCenterEmployeeList);
 	}
-	
+	public  void mergeProvinceCenterEmployeeList(SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList){
+		if(provinceCenterEmployeeList==null){
+			return;
+		}
+		if(provinceCenterEmployeeList.isEmpty()){
+			return;
+		}
+		addProvinceCenterEmployeeList( provinceCenterEmployeeList );
+		
+	}
 	public  ProvinceCenterEmployee removeProvinceCenterEmployee(ProvinceCenterEmployee provinceCenterEmployeeIndex){
 		
 		int index = getProvinceCenterEmployeeList().indexOf(provinceCenterEmployeeIndex);
@@ -462,7 +498,16 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 		}
 		getRetailStoreCityServiceCenterList().addAll(retailStoreCityServiceCenterList);
 	}
-	
+	public  void mergeRetailStoreCityServiceCenterList(SmartList<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList){
+		if(retailStoreCityServiceCenterList==null){
+			return;
+		}
+		if(retailStoreCityServiceCenterList.isEmpty()){
+			return;
+		}
+		addRetailStoreCityServiceCenterList( retailStoreCityServiceCenterList );
+		
+	}
 	public  RetailStoreCityServiceCenter removeRetailStoreCityServiceCenter(RetailStoreCityServiceCenter retailStoreCityServiceCenterIndex){
 		
 		int index = getRetailStoreCityServiceCenterList().indexOf(retailStoreCityServiceCenterIndex);
@@ -607,6 +652,28 @@ public class RetailStoreProvinceCenter extends BaseEntity implements  java.io.Se
 			dest.setProvinceCenterDepartmentList(getProvinceCenterDepartmentList());
 			dest.setProvinceCenterEmployeeList(getProvinceCenterEmployeeList());
 			dest.setRetailStoreCityServiceCenterList(getRetailStoreCityServiceCenterList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreProvinceCenter){
+		
+			
+			RetailStoreProvinceCenter dest =(RetailStoreProvinceCenter)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeFounded(getFounded());
+			dest.mergeCountry(getCountry());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeProvinceCenterDepartmentList(getProvinceCenterDepartmentList());
+			dest.mergeProvinceCenterEmployeeList(getProvinceCenterEmployeeList());
+			dest.mergeRetailStoreCityServiceCenterList(getRetailStoreCityServiceCenterList());
 
 		}
 		super.copyTo(baseDest);

@@ -173,6 +173,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -185,6 +188,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -204,6 +210,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeQualifiedTime(Date qualifiedTime){
+		setQualifiedTime(qualifiedTime);
+	}
 	
 	
 	public void setType(String type){
@@ -216,6 +225,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 		this.mType = trimString(type);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeType(String type){
+		if(type != null) { setType(type);}
 	}
 	
 	
@@ -230,6 +242,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeLevel(String level){
+		if(level != null) { setLevel(level);}
+	}
 	
 	
 	public void setRemark(String remark){
@@ -243,6 +258,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeRemark(String remark){
+		if(remark != null) { setRemark(remark);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -255,6 +273,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -313,6 +334,26 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 			dest.setLevel(getLevel());
 			dest.setRemark(getRemark());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeQualifier){
+		
+			
+			EmployeeQualifier dest =(EmployeeQualifier)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergeQualifiedTime(getQualifiedTime());
+			dest.mergeType(getType());
+			dest.mergeLevel(getLevel());
+			dest.mergeRemark(getRemark());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

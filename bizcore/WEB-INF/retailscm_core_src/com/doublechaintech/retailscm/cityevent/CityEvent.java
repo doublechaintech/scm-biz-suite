@@ -177,6 +177,9 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -190,6 +193,9 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setMobile(String mobile){
@@ -202,6 +208,9 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		this.mMobile = trimString(mobile);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMobile(String mobile){
+		if(mobile != null) { setMobile(mobile);}
 	}
 	
 	
@@ -223,6 +232,9 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
+		if(cityServiceCenter != null) { setCityServiceCenter(cityServiceCenter);}
+	}
 	
 	
 	public void clearCityServiceCenter(){
@@ -241,6 +253,9 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){
@@ -254,6 +269,9 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -266,6 +284,9 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -299,7 +320,16 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 		}
 		getEventAttendanceList().addAll(eventAttendanceList);
 	}
-	
+	public  void mergeEventAttendanceList(SmartList<EventAttendance> eventAttendanceList){
+		if(eventAttendanceList==null){
+			return;
+		}
+		if(eventAttendanceList.isEmpty()){
+			return;
+		}
+		addEventAttendanceList( eventAttendanceList );
+		
+	}
 	public  EventAttendance removeEventAttendance(EventAttendance eventAttendanceIndex){
 		
 		int index = getEventAttendanceList().indexOf(eventAttendanceIndex);
@@ -430,6 +460,27 @@ public class CityEvent extends BaseEntity implements  java.io.Serializable{
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setEventAttendanceList(getEventAttendanceList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof CityEvent){
+		
+			
+			CityEvent dest =(CityEvent)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeMobile(getMobile());
+			dest.mergeCityServiceCenter(getCityServiceCenter());
+			dest.mergeDescription(getDescription());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeEventAttendanceList(getEventAttendanceList());
 
 		}
 		super.copyTo(baseDest);

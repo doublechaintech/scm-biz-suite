@@ -300,6 +300,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -312,6 +315,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -326,6 +332,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeYearSet(String yearSet){
+		if(yearSet != null) { setYearSet(yearSet);}
+	}
 	
 	
 	public void setEffectiveDate(Date effectiveDate){
@@ -338,6 +347,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.mEffectiveDate = effectiveDate;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEffectiveDate(Date effectiveDate){
+		setEffectiveDate(effectiveDate);
 	}
 	
 	
@@ -352,6 +364,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeAccountingSystem(String accountingSystem){
+		if(accountingSystem != null) { setAccountingSystem(accountingSystem);}
+	}
 	
 	
 	public void setDomesticCurrencyCode(String domesticCurrencyCode){
@@ -364,6 +379,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.mDomesticCurrencyCode = trimString(domesticCurrencyCode);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDomesticCurrencyCode(String domesticCurrencyCode){
+		if(domesticCurrencyCode != null) { setDomesticCurrencyCode(domesticCurrencyCode);}
 	}
 	
 	
@@ -378,6 +396,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDomesticCurrencyName(String domesticCurrencyName){
+		if(domesticCurrencyName != null) { setDomesticCurrencyName(domesticCurrencyName);}
+	}
 	
 	
 	public void setOpeningBank(String openingBank){
@@ -390,6 +411,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.mOpeningBank = trimString(openingBank);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOpeningBank(String openingBank){
+		if(openingBank != null) { setOpeningBank(openingBank);}
 	}
 	
 	
@@ -404,6 +428,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeAccountNumber(String accountNumber){
+		if(accountNumber != null) { setAccountNumber(accountNumber);}
+	}
 	
 	
 	public void setCountryCenter(RetailStoreCountryCenter countryCenter){
@@ -416,6 +443,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.mCountryCenter = countryCenter;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCountryCenter(RetailStoreCountryCenter countryCenter){
+		if(countryCenter != null) { setCountryCenter(countryCenter);}
 	}
 	
 	
@@ -435,6 +465,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeRetailStore(RetailStore retailStore){
+		if(retailStore != null) { setRetailStore(retailStore);}
+	}
 	
 	
 	public void clearRetailStore(){
@@ -452,6 +485,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.mGoodsSupplier = goodsSupplier;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeGoodsSupplier(GoodsSupplier goodsSupplier){
+		if(goodsSupplier != null) { setGoodsSupplier(goodsSupplier);}
 	}
 	
 	
@@ -471,6 +507,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -483,6 +522,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -516,7 +558,16 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		}
 		getAccountingSubjectList().addAll(accountingSubjectList);
 	}
-	
+	public  void mergeAccountingSubjectList(SmartList<AccountingSubject> accountingSubjectList){
+		if(accountingSubjectList==null){
+			return;
+		}
+		if(accountingSubjectList.isEmpty()){
+			return;
+		}
+		addAccountingSubjectList( accountingSubjectList );
+		
+	}
 	public  AccountingSubject removeAccountingSubject(AccountingSubject accountingSubjectIndex){
 		
 		int index = getAccountingSubjectList().indexOf(accountingSubjectIndex);
@@ -614,7 +665,16 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		}
 		getAccountingPeriodList().addAll(accountingPeriodList);
 	}
-	
+	public  void mergeAccountingPeriodList(SmartList<AccountingPeriod> accountingPeriodList){
+		if(accountingPeriodList==null){
+			return;
+		}
+		if(accountingPeriodList.isEmpty()){
+			return;
+		}
+		addAccountingPeriodList( accountingPeriodList );
+		
+	}
 	public  AccountingPeriod removeAccountingPeriod(AccountingPeriod accountingPeriodIndex){
 		
 		int index = getAccountingPeriodList().indexOf(accountingPeriodIndex);
@@ -712,7 +772,16 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 		}
 		getAccountingDocumentTypeList().addAll(accountingDocumentTypeList);
 	}
-	
+	public  void mergeAccountingDocumentTypeList(SmartList<AccountingDocumentType> accountingDocumentTypeList){
+		if(accountingDocumentTypeList==null){
+			return;
+		}
+		if(accountingDocumentTypeList.isEmpty()){
+			return;
+		}
+		addAccountingDocumentTypeList( accountingDocumentTypeList );
+		
+	}
 	public  AccountingDocumentType removeAccountingDocumentType(AccountingDocumentType accountingDocumentTypeIndex){
 		
 		int index = getAccountingDocumentTypeList().indexOf(accountingDocumentTypeIndex);
@@ -875,6 +944,36 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 			dest.setAccountingSubjectList(getAccountingSubjectList());
 			dest.setAccountingPeriodList(getAccountingPeriodList());
 			dest.setAccountingDocumentTypeList(getAccountingDocumentTypeList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountSet){
+		
+			
+			AccountSet dest =(AccountSet)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeYearSet(getYearSet());
+			dest.mergeEffectiveDate(getEffectiveDate());
+			dest.mergeAccountingSystem(getAccountingSystem());
+			dest.mergeDomesticCurrencyCode(getDomesticCurrencyCode());
+			dest.mergeDomesticCurrencyName(getDomesticCurrencyName());
+			dest.mergeOpeningBank(getOpeningBank());
+			dest.mergeAccountNumber(getAccountNumber());
+			dest.mergeCountryCenter(getCountryCenter());
+			dest.mergeRetailStore(getRetailStore());
+			dest.mergeGoodsSupplier(getGoodsSupplier());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeAccountingSubjectList(getAccountingSubjectList());
+			dest.mergeAccountingPeriodList(getAccountingPeriodList());
+			dest.mergeAccountingDocumentTypeList(getAccountingDocumentTypeList());
 
 		}
 		super.copyTo(baseDest);

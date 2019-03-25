@@ -221,9 +221,8 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	protected boolean isExtractMemberWishlistProductListEnabled(Map<String,Object> options){		
  		return checkOptions(options,MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST);
  	}
- 	protected boolean isAnalyzeMemberWishlistProductListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,MemberWishlistTokens.MEMBER_WISHLIST_PRODUCT_LIST+".analyze");
+ 	protected boolean isAnalyzeMemberWishlistProductListEnabled(Map<String,Object> options){		 		
+ 		return MemberWishlistTokens.of(options).analyzeMemberWishlistProductListEnabled();
  	}
 	
 	protected boolean isSaveMemberWishlistProductListEnabled(Map<String,Object> options){

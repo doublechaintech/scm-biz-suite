@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreProvinceCenterBase from './RetailStoreProvinceCenter.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超四川省运营中心',
-  founded: '2016-09-09',
+  founded: '2018-12-02',
   countryId: 'RSCC000001',
 }
 */
@@ -72,6 +72,8 @@ class RetailStoreProvinceCenterAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {RetailStoreProvinceCenterService} = GlobalComponents
+    const userContext = null
+    
  const {ProvinceCenterDepartmentModalTable} = GlobalComponents;
  const {ProvinceCenterEmployeeModalTable} = GlobalComponents;
  const {RetailStoreCityServiceCenterModalTable} = GlobalComponents;
@@ -121,24 +123,24 @@ class RetailStoreProvinceCenterAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -148,7 +150,7 @@ class RetailStoreProvinceCenterAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
-                    rules: [{ required: true, message: '请输入成立' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
@@ -176,7 +178,7 @@ class RetailStoreProvinceCenterAssociateForm extends Component {
                 <Form.Item label={fieldLabels.country} {...formItemLayout}>
                   {getFieldDecorator('countryId', {
                   	initialValue: tryinit('country'),
-                    rules: [{ required: true, message: '请输入国' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('country')}

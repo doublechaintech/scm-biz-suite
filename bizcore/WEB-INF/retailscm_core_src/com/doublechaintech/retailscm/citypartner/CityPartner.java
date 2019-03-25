@@ -181,6 +181,9 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -194,6 +197,9 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setMobile(String mobile){
@@ -206,6 +212,9 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		this.mMobile = trimString(mobile);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMobile(String mobile){
+		if(mobile != null) { setMobile(mobile);}
 	}
 	
 	
@@ -227,6 +236,9 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
+		if(cityServiceCenter != null) { setCityServiceCenter(cityServiceCenter);}
+	}
 	
 	
 	public void clearCityServiceCenter(){
@@ -245,6 +257,9 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){
@@ -258,6 +273,9 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -270,6 +288,9 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -303,7 +324,16 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		}
 		getPotentialCustomerList().addAll(potentialCustomerList);
 	}
-	
+	public  void mergePotentialCustomerList(SmartList<PotentialCustomer> potentialCustomerList){
+		if(potentialCustomerList==null){
+			return;
+		}
+		if(potentialCustomerList.isEmpty()){
+			return;
+		}
+		addPotentialCustomerList( potentialCustomerList );
+		
+	}
 	public  PotentialCustomer removePotentialCustomer(PotentialCustomer potentialCustomerIndex){
 		
 		int index = getPotentialCustomerList().indexOf(potentialCustomerIndex);
@@ -401,7 +431,16 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 		}
 		getPotentialCustomerContactList().addAll(potentialCustomerContactList);
 	}
-	
+	public  void mergePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList){
+		if(potentialCustomerContactList==null){
+			return;
+		}
+		if(potentialCustomerContactList.isEmpty()){
+			return;
+		}
+		addPotentialCustomerContactList( potentialCustomerContactList );
+		
+	}
 	public  PotentialCustomerContact removePotentialCustomerContact(PotentialCustomerContact potentialCustomerContactIndex){
 		
 		int index = getPotentialCustomerContactList().indexOf(potentialCustomerContactIndex);
@@ -540,6 +579,28 @@ public class CityPartner extends BaseEntity implements  java.io.Serializable{
 			dest.setVersion(getVersion());
 			dest.setPotentialCustomerList(getPotentialCustomerList());
 			dest.setPotentialCustomerContactList(getPotentialCustomerContactList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof CityPartner){
+		
+			
+			CityPartner dest =(CityPartner)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeMobile(getMobile());
+			dest.mergeCityServiceCenter(getCityServiceCenter());
+			dest.mergeDescription(getDescription());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergePotentialCustomerList(getPotentialCustomerList());
+			dest.mergePotentialCustomerContactList(getPotentialCustomerContactList());
 
 		}
 		super.copyTo(baseDest);

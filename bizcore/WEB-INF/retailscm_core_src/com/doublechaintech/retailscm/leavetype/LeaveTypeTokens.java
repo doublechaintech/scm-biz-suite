@@ -38,6 +38,15 @@ public class LeaveTypeTokens extends CommonTokens{
 	protected LeaveTypeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  LeaveTypeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		LeaveTypeTokens tokens = new LeaveTypeTokens(options);
+		return tokens;
+		
+	}
+	protected LeaveTypeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public LeaveTypeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class LeaveTypeTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public LeaveTypeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COMPANY = "company";
 	public String getCompany(){
@@ -108,7 +122,11 @@ public class LeaveTypeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeLeaveListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_LEAVE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_LEAVE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public LeaveTypeTokens extractMoreFromEmployeeLeaveList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LEAVE_LIST+".extractIds", idsSeperatedWithComma);

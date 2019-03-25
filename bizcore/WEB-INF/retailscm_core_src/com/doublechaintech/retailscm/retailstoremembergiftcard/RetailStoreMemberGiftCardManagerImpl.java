@@ -325,7 +325,7 @@ public class RetailStoreMemberGiftCardManagerImpl extends CustomRetailscmChecker
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortRetailStoreMemberGiftCardConsumeRecordListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

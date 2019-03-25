@@ -179,6 +179,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -192,6 +195,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
+	}
 	
 	
 	public void setConsumer(RetailStoreMember consumer){
@@ -204,6 +210,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.mConsumer = consumer;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeConsumer(RetailStoreMember consumer){
+		if(consumer != null) { setConsumer(consumer);}
 	}
 	
 	
@@ -223,6 +232,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeConfirmation(SupplyOrderConfirmation confirmation){
+		if(confirmation != null) { setConfirmation(confirmation);}
+	}
 	
 	
 	public void clearConfirmation(){
@@ -240,6 +252,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.mApproval = approval;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeApproval(SupplyOrderApproval approval){
+		if(approval != null) { setApproval(approval);}
 	}
 	
 	
@@ -259,6 +274,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeProcessing(SupplyOrderProcessing processing){
+		if(processing != null) { setProcessing(processing);}
+	}
 	
 	
 	public void clearProcessing(){
@@ -276,6 +294,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.mShipment = shipment;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeShipment(SupplyOrderShipment shipment){
+		if(shipment != null) { setShipment(shipment);}
 	}
 	
 	
@@ -295,6 +316,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDelivery(SupplyOrderDelivery delivery){
+		if(delivery != null) { setDelivery(delivery);}
+	}
 	
 	
 	public void clearDelivery(){
@@ -312,6 +336,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.mStore = store;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeStore(RetailStore store){
+		if(store != null) { setStore(store);}
 	}
 	
 	
@@ -331,6 +358,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setCurrentStatus(String currentStatus){
@@ -344,6 +374,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -356,6 +389,9 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -389,7 +425,16 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getConsumerOrderLineItemList().addAll(consumerOrderLineItemList);
 	}
-	
+	public  void mergeConsumerOrderLineItemList(SmartList<ConsumerOrderLineItem> consumerOrderLineItemList){
+		if(consumerOrderLineItemList==null){
+			return;
+		}
+		if(consumerOrderLineItemList.isEmpty()){
+			return;
+		}
+		addConsumerOrderLineItemList( consumerOrderLineItemList );
+		
+	}
 	public  ConsumerOrderLineItem removeConsumerOrderLineItem(ConsumerOrderLineItem consumerOrderLineItemIndex){
 		
 		int index = getConsumerOrderLineItemList().indexOf(consumerOrderLineItemIndex);
@@ -487,7 +532,16 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getConsumerOrderShippingGroupList().addAll(consumerOrderShippingGroupList);
 	}
-	
+	public  void mergeConsumerOrderShippingGroupList(SmartList<ConsumerOrderShippingGroup> consumerOrderShippingGroupList){
+		if(consumerOrderShippingGroupList==null){
+			return;
+		}
+		if(consumerOrderShippingGroupList.isEmpty()){
+			return;
+		}
+		addConsumerOrderShippingGroupList( consumerOrderShippingGroupList );
+		
+	}
 	public  ConsumerOrderShippingGroup removeConsumerOrderShippingGroup(ConsumerOrderShippingGroup consumerOrderShippingGroupIndex){
 		
 		int index = getConsumerOrderShippingGroupList().indexOf(consumerOrderShippingGroupIndex);
@@ -585,7 +639,16 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getConsumerOrderPaymentGroupList().addAll(consumerOrderPaymentGroupList);
 	}
-	
+	public  void mergeConsumerOrderPaymentGroupList(SmartList<ConsumerOrderPaymentGroup> consumerOrderPaymentGroupList){
+		if(consumerOrderPaymentGroupList==null){
+			return;
+		}
+		if(consumerOrderPaymentGroupList.isEmpty()){
+			return;
+		}
+		addConsumerOrderPaymentGroupList( consumerOrderPaymentGroupList );
+		
+	}
 	public  ConsumerOrderPaymentGroup removeConsumerOrderPaymentGroup(ConsumerOrderPaymentGroup consumerOrderPaymentGroupIndex){
 		
 		int index = getConsumerOrderPaymentGroupList().indexOf(consumerOrderPaymentGroupIndex);
@@ -683,7 +746,16 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getConsumerOrderPriceAdjustmentList().addAll(consumerOrderPriceAdjustmentList);
 	}
-	
+	public  void mergeConsumerOrderPriceAdjustmentList(SmartList<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList){
+		if(consumerOrderPriceAdjustmentList==null){
+			return;
+		}
+		if(consumerOrderPriceAdjustmentList.isEmpty()){
+			return;
+		}
+		addConsumerOrderPriceAdjustmentList( consumerOrderPriceAdjustmentList );
+		
+	}
 	public  ConsumerOrderPriceAdjustment removeConsumerOrderPriceAdjustment(ConsumerOrderPriceAdjustment consumerOrderPriceAdjustmentIndex){
 		
 		int index = getConsumerOrderPriceAdjustmentList().indexOf(consumerOrderPriceAdjustmentIndex);
@@ -781,7 +853,16 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getRetailStoreMemberGiftCardConsumeRecordList().addAll(retailStoreMemberGiftCardConsumeRecordList);
 	}
-	
+	public  void mergeRetailStoreMemberGiftCardConsumeRecordList(SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList){
+		if(retailStoreMemberGiftCardConsumeRecordList==null){
+			return;
+		}
+		if(retailStoreMemberGiftCardConsumeRecordList.isEmpty()){
+			return;
+		}
+		addRetailStoreMemberGiftCardConsumeRecordList( retailStoreMemberGiftCardConsumeRecordList );
+		
+	}
 	public  RetailStoreMemberGiftCardConsumeRecord removeRetailStoreMemberGiftCardConsumeRecord(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordIndex){
 		
 		int index = getRetailStoreMemberGiftCardConsumeRecordList().indexOf(retailStoreMemberGiftCardConsumeRecordIndex);
@@ -960,6 +1041,36 @@ public class ConsumerOrder extends BaseEntity implements  java.io.Serializable{
 			dest.setConsumerOrderPaymentGroupList(getConsumerOrderPaymentGroupList());
 			dest.setConsumerOrderPriceAdjustmentList(getConsumerOrderPriceAdjustmentList());
 			dest.setRetailStoreMemberGiftCardConsumeRecordList(getRetailStoreMemberGiftCardConsumeRecordList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ConsumerOrder){
+		
+			
+			ConsumerOrder dest =(ConsumerOrder)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeConsumer(getConsumer());
+			dest.mergeConfirmation(getConfirmation());
+			dest.mergeApproval(getApproval());
+			dest.mergeProcessing(getProcessing());
+			dest.mergeShipment(getShipment());
+			dest.mergeDelivery(getDelivery());
+			dest.mergeStore(getStore());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeConsumerOrderLineItemList(getConsumerOrderLineItemList());
+			dest.mergeConsumerOrderShippingGroupList(getConsumerOrderShippingGroupList());
+			dest.mergeConsumerOrderPaymentGroupList(getConsumerOrderPaymentGroupList());
+			dest.mergeConsumerOrderPriceAdjustmentList(getConsumerOrderPriceAdjustmentList());
+			dest.mergeRetailStoreMemberGiftCardConsumeRecordList(getRetailStoreMemberGiftCardConsumeRecordList());
 
 		}
 		super.copyTo(baseDest);

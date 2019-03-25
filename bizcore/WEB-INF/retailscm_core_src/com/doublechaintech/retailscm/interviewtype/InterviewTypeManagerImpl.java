@@ -325,7 +325,7 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortEmployeeInterviewListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

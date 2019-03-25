@@ -130,6 +130,9 @@ public class RetailStoreOrderApproval extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -142,6 +145,9 @@ public class RetailStoreOrderApproval extends BaseEntity implements  java.io.Ser
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -156,6 +162,9 @@ public class RetailStoreOrderApproval extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeApproveTime(Date approveTime){
+		setApproveTime(approveTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -168,6 +177,9 @@ public class RetailStoreOrderApproval extends BaseEntity implements  java.io.Ser
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -201,7 +213,16 @@ public class RetailStoreOrderApproval extends BaseEntity implements  java.io.Ser
 		}
 		getRetailStoreOrderList().addAll(retailStoreOrderList);
 	}
-	
+	public  void mergeRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList){
+		if(retailStoreOrderList==null){
+			return;
+		}
+		if(retailStoreOrderList.isEmpty()){
+			return;
+		}
+		addRetailStoreOrderList( retailStoreOrderList );
+		
+	}
 	public  RetailStoreOrder removeRetailStoreOrder(RetailStoreOrder retailStoreOrderIndex){
 		
 		int index = getRetailStoreOrderList().indexOf(retailStoreOrderIndex);
@@ -325,6 +346,24 @@ public class RetailStoreOrderApproval extends BaseEntity implements  java.io.Ser
 			dest.setApproveTime(getApproveTime());
 			dest.setVersion(getVersion());
 			dest.setRetailStoreOrderList(getRetailStoreOrderList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreOrderApproval){
+		
+			
+			RetailStoreOrderApproval dest =(RetailStoreOrderApproval)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeApproveTime(getApproveTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeRetailStoreOrderList(getRetailStoreOrderList());
 
 		}
 		super.copyTo(baseDest);

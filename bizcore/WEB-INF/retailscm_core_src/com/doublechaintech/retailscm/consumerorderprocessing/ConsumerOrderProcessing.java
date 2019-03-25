@@ -126,6 +126,9 @@ public class ConsumerOrderProcessing extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -138,6 +141,9 @@ public class ConsumerOrderProcessing extends BaseEntity implements  java.io.Seri
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -152,6 +158,9 @@ public class ConsumerOrderProcessing extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeProcessTime(Date processTime){
+		setProcessTime(processTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -164,6 +173,9 @@ public class ConsumerOrderProcessing extends BaseEntity implements  java.io.Seri
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -215,6 +227,23 @@ public class ConsumerOrderProcessing extends BaseEntity implements  java.io.Seri
 			dest.setWho(getWho());
 			dest.setProcessTime(getProcessTime());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ConsumerOrderProcessing){
+		
+			
+			ConsumerOrderProcessing dest =(ConsumerOrderProcessing)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeProcessTime(getProcessTime());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

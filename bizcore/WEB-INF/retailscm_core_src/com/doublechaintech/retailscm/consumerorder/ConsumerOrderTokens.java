@@ -38,6 +38,15 @@ public class ConsumerOrderTokens extends CommonTokens{
 	protected ConsumerOrderTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ConsumerOrderTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ConsumerOrderTokens tokens = new ConsumerOrderTokens(options);
+		return tokens;
+		
+	}
+	protected ConsumerOrderTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ConsumerOrderTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -98,6 +107,11 @@ public class ConsumerOrderTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ConsumerOrderTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String CONSUMER = "consumer";
@@ -184,7 +198,11 @@ public class ConsumerOrderTokens extends CommonTokens{
 	}
 	public boolean analyzeConsumerOrderLineItemListEnabled(){		
 		
-		return checkOptions(this.options(), CONSUMER_ORDER_LINE_ITEM_LIST+".anaylze");
+		if(checkOptions(this.options(), CONSUMER_ORDER_LINE_ITEM_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderLineItemList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_LINE_ITEM_LIST+".extractIds", idsSeperatedWithComma);
@@ -246,7 +264,11 @@ public class ConsumerOrderTokens extends CommonTokens{
 	}
 	public boolean analyzeConsumerOrderShippingGroupListEnabled(){		
 		
-		return checkOptions(this.options(), CONSUMER_ORDER_SHIPPING_GROUP_LIST+".anaylze");
+		if(checkOptions(this.options(), CONSUMER_ORDER_SHIPPING_GROUP_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderShippingGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_SHIPPING_GROUP_LIST+".extractIds", idsSeperatedWithComma);
@@ -308,7 +330,11 @@ public class ConsumerOrderTokens extends CommonTokens{
 	}
 	public boolean analyzeConsumerOrderPaymentGroupListEnabled(){		
 		
-		return checkOptions(this.options(), CONSUMER_ORDER_PAYMENT_GROUP_LIST+".anaylze");
+		if(checkOptions(this.options(), CONSUMER_ORDER_PAYMENT_GROUP_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderPaymentGroupList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_PAYMENT_GROUP_LIST+".extractIds", idsSeperatedWithComma);
@@ -370,7 +396,11 @@ public class ConsumerOrderTokens extends CommonTokens{
 	}
 	public boolean analyzeConsumerOrderPriceAdjustmentListEnabled(){		
 		
-		return checkOptions(this.options(), CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".anaylze");
+		if(checkOptions(this.options(), CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ConsumerOrderTokens extractMoreFromConsumerOrderPriceAdjustmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_PRICE_ADJUSTMENT_LIST+".extractIds", idsSeperatedWithComma);
@@ -432,7 +462,11 @@ public class ConsumerOrderTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ConsumerOrderTokens extractMoreFromRetailStoreMemberGiftCardConsumeRecordList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".extractIds", idsSeperatedWithComma);

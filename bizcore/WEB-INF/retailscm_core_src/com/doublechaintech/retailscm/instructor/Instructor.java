@@ -240,6 +240,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -252,6 +255,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.mTitle = trimString(title);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
 	}
 	
 	
@@ -266,6 +272,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeFamilyName(String familyName){
+		if(familyName != null) { setFamilyName(familyName);}
+	}
 	
 	
 	public void setGivenName(String givenName){
@@ -279,6 +288,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeGivenName(String givenName){
+		if(givenName != null) { setGivenName(givenName);}
+	}
 	
 	
 	public void setCellPhone(String cellPhone){
@@ -291,6 +303,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.mCellPhone = trimString(cellPhone);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCellPhone(String cellPhone){
+		if(cellPhone != null) { setCellPhone(cellPhone);}
 	}
 	
 	
@@ -312,6 +327,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeEmail(String email){
+		if(email != null) { setEmail(email);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -324,6 +342,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -343,6 +364,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeIntroduction(String introduction){
+		if(introduction != null) { setIntroduction(introduction);}
+	}
 	
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){
@@ -356,6 +380,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -368,6 +395,9 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -401,7 +431,16 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 		}
 		getCompanyTrainingList().addAll(companyTrainingList);
 	}
-	
+	public  void mergeCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList){
+		if(companyTrainingList==null){
+			return;
+		}
+		if(companyTrainingList.isEmpty()){
+			return;
+		}
+		addCompanyTrainingList( companyTrainingList );
+		
+	}
 	public  CompanyTraining removeCompanyTraining(CompanyTraining companyTrainingIndex){
 		
 		int index = getCompanyTrainingList().indexOf(companyTrainingIndex);
@@ -538,6 +577,30 @@ public class Instructor extends BaseEntity implements  java.io.Serializable{
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setCompanyTrainingList(getCompanyTrainingList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Instructor){
+		
+			
+			Instructor dest =(Instructor)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeFamilyName(getFamilyName());
+			dest.mergeGivenName(getGivenName());
+			dest.mergeCellPhone(getCellPhone());
+			dest.mergeEmail(getEmail());
+			dest.mergeCompany(getCompany());
+			dest.mergeIntroduction(getIntroduction());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeCompanyTrainingList(getCompanyTrainingList());
 
 		}
 		super.copyTo(baseDest);

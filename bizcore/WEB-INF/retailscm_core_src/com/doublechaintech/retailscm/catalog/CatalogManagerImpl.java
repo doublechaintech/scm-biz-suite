@@ -314,7 +314,7 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortLevelOneCategoryListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

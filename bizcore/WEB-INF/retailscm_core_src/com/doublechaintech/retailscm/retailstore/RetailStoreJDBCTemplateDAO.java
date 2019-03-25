@@ -508,9 +508,8 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreTokens.CONSUMER_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreTokens.CONSUMER_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreTokens.of(options).analyzeConsumerOrderListEnabled();
  	}
 	
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
@@ -523,9 +522,8 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreTokens.RETAIL_STORE_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreTokens.RETAIL_STORE_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreTokens.of(options).analyzeRetailStoreOrderListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
@@ -538,9 +536,8 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreTokens.GOODS_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreTokens.of(options).analyzeGoodsListEnabled();
  	}
 	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -553,9 +550,8 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreTokens.TRANSPORT_TASK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreTokens.TRANSPORT_TASK_LIST+".analyze");
+ 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreTokens.of(options).analyzeTransportTaskListEnabled();
  	}
 	
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){
@@ -568,9 +564,8 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractAccountSetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreTokens.ACCOUNT_SET_LIST);
  	}
- 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreTokens.ACCOUNT_SET_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountSetListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreTokens.of(options).analyzeAccountSetListEnabled();
  	}
 	
 	protected boolean isSaveAccountSetListEnabled(Map<String,Object> options){

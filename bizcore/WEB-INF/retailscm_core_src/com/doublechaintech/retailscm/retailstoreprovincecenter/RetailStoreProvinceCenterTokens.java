@@ -38,6 +38,15 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 	protected RetailStoreProvinceCenterTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreProvinceCenterTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreProvinceCenterTokens tokens = new RetailStoreProvinceCenterTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreProvinceCenterTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreProvinceCenterTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -85,6 +94,11 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public RetailStoreProvinceCenterTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COUNTRY = "country";
 	public String getCountry(){
@@ -110,7 +124,11 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeProvinceCenterDepartmentListEnabled(){		
 		
-		return checkOptions(this.options(), PROVINCE_CENTER_DEPARTMENT_LIST+".anaylze");
+		if(checkOptions(this.options(), PROVINCE_CENTER_DEPARTMENT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreProvinceCenterTokens extractMoreFromProvinceCenterDepartmentList(String idsSeperatedWithComma){		
 		addSimpleOptions(PROVINCE_CENTER_DEPARTMENT_LIST+".extractIds", idsSeperatedWithComma);
@@ -172,7 +190,11 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeProvinceCenterEmployeeListEnabled(){		
 		
-		return checkOptions(this.options(), PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze");
+		if(checkOptions(this.options(), PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreProvinceCenterTokens extractMoreFromProvinceCenterEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
@@ -234,7 +256,11 @@ public class RetailStoreProvinceCenterTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreCityServiceCenterListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreProvinceCenterTokens extractMoreFromRetailStoreCityServiceCenterList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".extractIds", idsSeperatedWithComma);

@@ -374,9 +374,8 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	protected boolean isExtractOriginalVoucherListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST);
  	}
- 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountingDocumentTokens.ORIGINAL_VOUCHER_LIST+".analyze");
+ 	protected boolean isAnalyzeOriginalVoucherListEnabled(Map<String,Object> options){		 		
+ 		return AccountingDocumentTokens.of(options).analyzeOriginalVoucherListEnabled();
  	}
 	
 	protected boolean isSaveOriginalVoucherListEnabled(Map<String,Object> options){
@@ -389,9 +388,8 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	protected boolean isExtractAccountingDocumentLineListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST);
  	}
- 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountingDocumentTokens.ACCOUNTING_DOCUMENT_LINE_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountingDocumentLineListEnabled(Map<String,Object> options){		 		
+ 		return AccountingDocumentTokens.of(options).analyzeAccountingDocumentLineListEnabled();
  	}
 	
 	protected boolean isSaveAccountingDocumentLineListEnabled(Map<String,Object> options){

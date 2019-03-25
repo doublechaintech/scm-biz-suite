@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountingDocumentLineBase from './AccountingDocumentLine.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -21,7 +21,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '928809.06',
+  amount: '800792.75',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -75,6 +75,8 @@ class AccountingDocumentLineAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {AccountingDocumentLineService} = GlobalComponents
+    const userContext = null
+    
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -121,24 +123,24 @@ class AccountingDocumentLineAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -148,7 +150,7 @@ class AccountingDocumentLineAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.code} {...formItemLayout}>
                   {getFieldDecorator('code', {
-                    rules: [{ required: true, message: '请输入代码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入代码" />
                   )}
@@ -158,7 +160,7 @@ class AccountingDocumentLineAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.direct} {...formItemLayout}>
                   {getFieldDecorator('direct', {
-                    rules: [{ required: true, message: '请输入直接' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入直接" />
                   )}
@@ -168,7 +170,7 @@ class AccountingDocumentLineAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.amount} {...formItemLayout}>
                   {getFieldDecorator('amount', {
-                    rules: [{ required: true, message: '请输入金额' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入金额" />
                   )}
@@ -196,7 +198,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
-                    rules: [{ required: true, message: '请输入属于' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('belongsTo')}
@@ -211,7 +213,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                 <Form.Item label={fieldLabels.accountingSubject} {...formItemLayout}>
                   {getFieldDecorator('accountingSubjectId', {
                   	initialValue: tryinit('accountingSubject'),
-                    rules: [{ required: true, message: '请输入会计科目' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('accountingSubject')}

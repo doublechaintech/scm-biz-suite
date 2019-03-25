@@ -324,7 +324,7 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortProductSupplyDurationListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

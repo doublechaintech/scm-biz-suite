@@ -221,9 +221,8 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	protected boolean isExtractLevelThreeDepartmentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelTwoDepartmentTokens.LEVEL_THREE_DEPARTMENT_LIST);
  	}
- 	protected boolean isAnalyzeLevelThreeDepartmentListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,LevelTwoDepartmentTokens.LEVEL_THREE_DEPARTMENT_LIST+".analyze");
+ 	protected boolean isAnalyzeLevelThreeDepartmentListEnabled(Map<String,Object> options){		 		
+ 		return LevelTwoDepartmentTokens.of(options).analyzeLevelThreeDepartmentListEnabled();
  	}
 	
 	protected boolean isSaveLevelThreeDepartmentListEnabled(Map<String,Object> options){

@@ -142,6 +142,9 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -154,6 +157,9 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		this.mTitle = trimString(title);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
 	}
 	
 	
@@ -168,6 +174,9 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -180,6 +189,9 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -213,7 +225,16 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		}
 		getFormMessageList().addAll(formMessageList);
 	}
-	
+	public  void mergeFormMessageList(SmartList<FormMessage> formMessageList){
+		if(formMessageList==null){
+			return;
+		}
+		if(formMessageList.isEmpty()){
+			return;
+		}
+		addFormMessageList( formMessageList );
+		
+	}
 	public  FormMessage removeFormMessage(FormMessage formMessageIndex){
 		
 		int index = getFormMessageList().indexOf(formMessageIndex);
@@ -311,7 +332,16 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		}
 		getFormFieldMessageList().addAll(formFieldMessageList);
 	}
-	
+	public  void mergeFormFieldMessageList(SmartList<FormFieldMessage> formFieldMessageList){
+		if(formFieldMessageList==null){
+			return;
+		}
+		if(formFieldMessageList.isEmpty()){
+			return;
+		}
+		addFormFieldMessageList( formFieldMessageList );
+		
+	}
 	public  FormFieldMessage removeFormFieldMessage(FormFieldMessage formFieldMessageIndex){
 		
 		int index = getFormFieldMessageList().indexOf(formFieldMessageIndex);
@@ -409,7 +439,16 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		}
 		getFormFieldList().addAll(formFieldList);
 	}
-	
+	public  void mergeFormFieldList(SmartList<FormField> formFieldList){
+		if(formFieldList==null){
+			return;
+		}
+		if(formFieldList.isEmpty()){
+			return;
+		}
+		addFormFieldList( formFieldList );
+		
+	}
 	public  FormField removeFormField(FormField formFieldIndex){
 		
 		int index = getFormFieldList().indexOf(formFieldIndex);
@@ -507,7 +546,16 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 		}
 		getFormActionList().addAll(formActionList);
 	}
-	
+	public  void mergeFormActionList(SmartList<FormAction> formActionList){
+		if(formActionList==null){
+			return;
+		}
+		if(formActionList.isEmpty()){
+			return;
+		}
+		addFormActionList( formActionList );
+		
+	}
 	public  FormAction removeFormAction(FormAction formActionIndex){
 		
 		int index = getFormActionList().indexOf(formActionIndex);
@@ -655,6 +703,27 @@ public class GenericForm extends BaseEntity implements  java.io.Serializable{
 			dest.setFormFieldMessageList(getFormFieldMessageList());
 			dest.setFormFieldList(getFormFieldList());
 			dest.setFormActionList(getFormActionList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof GenericForm){
+		
+			
+			GenericForm dest =(GenericForm)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeFormMessageList(getFormMessageList());
+			dest.mergeFormFieldMessageList(getFormFieldMessageList());
+			dest.mergeFormFieldList(getFormFieldList());
+			dest.mergeFormActionList(getFormActionList());
 
 		}
 		super.copyTo(baseDest);

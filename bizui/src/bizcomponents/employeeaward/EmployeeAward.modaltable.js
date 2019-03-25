@@ -5,14 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './EmployeeAward.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import EmployeeAwardBase from './EmployeeAward.base'
-
+import appLocaleName from '../../common/Locale.tool'
 
 class EmployeeAwardModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = EmployeeAwardBase
-	
+	const userContext = null
 	if(!data){
 		return null
 	}
@@ -26,7 +26,7 @@ class EmployeeAwardModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
               </p>
             )}
             type="warning"

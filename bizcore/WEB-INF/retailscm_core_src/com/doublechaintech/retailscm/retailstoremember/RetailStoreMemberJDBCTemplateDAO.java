@@ -389,9 +389,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberTokens.CONSUMER_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberTokens.CONSUMER_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberTokens.of(options).analyzeConsumerOrderListEnabled();
  	}
 	
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
@@ -404,9 +403,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractRetailStoreMemberCouponListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberCouponListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_COUPON_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreMemberCouponListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberTokens.of(options).analyzeRetailStoreMemberCouponListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreMemberCouponListEnabled(Map<String,Object> options){
@@ -419,9 +417,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractMemberWishlistListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_WISHLIST_LIST);
  	}
- 	protected boolean isAnalyzeMemberWishlistListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberTokens.MEMBER_WISHLIST_LIST+".analyze");
+ 	protected boolean isAnalyzeMemberWishlistListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberTokens.of(options).analyzeMemberWishlistListEnabled();
  	}
 	
 	protected boolean isSaveMemberWishlistListEnabled(Map<String,Object> options){
@@ -434,9 +431,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractMemberRewardPointListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST);
  	}
- 	protected boolean isAnalyzeMemberRewardPointListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_LIST+".analyze");
+ 	protected boolean isAnalyzeMemberRewardPointListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberTokens.of(options).analyzeMemberRewardPointListEnabled();
  	}
 	
 	protected boolean isSaveMemberRewardPointListEnabled(Map<String,Object> options){
@@ -449,9 +445,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractMemberRewardPointRedemptionListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST);
  	}
- 	protected boolean isAnalyzeMemberRewardPointRedemptionListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberTokens.MEMBER_REWARD_POINT_REDEMPTION_LIST+".analyze");
+ 	protected boolean isAnalyzeMemberRewardPointRedemptionListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberTokens.of(options).analyzeMemberRewardPointRedemptionListEnabled();
  	}
 	
 	protected boolean isSaveMemberRewardPointRedemptionListEnabled(Map<String,Object> options){
@@ -464,9 +459,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractRetailStoreMemberAddressListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberAddressListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_ADDRESS_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreMemberAddressListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberTokens.of(options).analyzeRetailStoreMemberAddressListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreMemberAddressListEnabled(Map<String,Object> options){
@@ -479,9 +473,8 @@ public class RetailStoreMemberJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberTokens.RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberTokens.of(options).analyzeRetailStoreMemberGiftCardListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreMemberGiftCardListEnabled(Map<String,Object> options){

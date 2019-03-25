@@ -9,7 +9,7 @@ import styles from './SecUser.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SecUserBase from './SecUser.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -22,8 +22,8 @@ const testValues = {
   email: '',
   pwd: 'C183EC89F92A462CF45B95504792EC4625E847C90536EEFE512D1C9DB8602E95',
   verificationCode: '0',
-  verificationCodeExpire: '2019-01-07 14:01:17',
-  lastLoginTime: '2019-01-06 18:29:00',
+  verificationCodeExpire: '2019-03-05 11:06:48',
+  lastLoginTime: '2019-03-18 14:48:30',
   domainId: 'UD000001',
 }
 */
@@ -73,7 +73,7 @@ class SecUserCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = SecUserBase
     const {SecUserService} = GlobalComponents
@@ -122,9 +122,10 @@ class SecUserCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'secUser',listName:'SEC的用户列表' },
+        payload: { id: owner.id, type: 'secUser',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -155,7 +156,7 @@ class SecUserCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -199,18 +200,18 @@ class SecUserCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个SEC的用户"
-        content="新建一个SEC的用户"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.login} {...formItemLayout}>
                   {getFieldDecorator('login', {
-                    rules: [{ required: true, message: '请输入登录' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入登录" />
                   )}
@@ -220,7 +221,7 @@ class SecUserCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.mobile} {...formItemLayout}>
                   {getFieldDecorator('mobile', {
-                    rules: [{ required: true, message: '请输入手机' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入手机" />
                   )}
@@ -230,7 +231,7 @@ class SecUserCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
-                    rules: [{ required: false, message: '请输入电子邮件' }],
+                    rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入电子邮件" />
                   )}
@@ -240,7 +241,7 @@ class SecUserCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.pwd} {...formItemLayout}>
                   {getFieldDecorator('pwd', {
-                    rules: [{ required: true, message: '请输入PWD' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入PWD" />
                   )}
@@ -250,7 +251,7 @@ class SecUserCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.verificationCode} {...formItemLayout}>
                   {getFieldDecorator('verificationCode', {
-                    rules: [{ required: true, message: '请输入验证码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入验证码" />
                   )}
@@ -260,7 +261,7 @@ class SecUserCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.verificationCodeExpire} {...formItemLayout}>
                   {getFieldDecorator('verificationCodeExpire', {
-                    rules: [{ required: true, message: '请输入验证码过期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入验证码过期" />
                   )}
@@ -270,7 +271,7 @@ class SecUserCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.lastLoginTime} {...formItemLayout}>
                   {getFieldDecorator('lastLoginTime', {
-                    rules: [{ required: true, message: '请输入最后登录时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入最后登录时间" />
                   )}
@@ -294,7 +295,7 @@ class SecUserCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -302,7 +303,7 @@ class SecUserCreateForm extends Component {
                 <Form.Item label={fieldLabels.domain} {...formItemLayout}>
                   {getFieldDecorator('domainId', {
                   	initialValue: tryinit('domain'),
-                    rules: [{ required: true, message: '请输入域' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -322,13 +323,13 @@ class SecUserCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

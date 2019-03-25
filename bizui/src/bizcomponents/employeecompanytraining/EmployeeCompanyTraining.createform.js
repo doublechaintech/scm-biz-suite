@@ -9,7 +9,7 @@ import styles from './EmployeeCompanyTraining.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeCompanyTrainingBase from './EmployeeCompanyTraining.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -67,7 +67,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeCompanyTrainingBase
     const {EmployeeCompanyTrainingService} = GlobalComponents
@@ -116,9 +116,10 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'employeeCompanyTraining',listName:'员工参与的公司培训列表' },
+        payload: { id: owner.id, type: 'employeeCompanyTraining',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -149,7 +150,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -193,11 +194,11 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个员工参与的公司培训"
-        content="新建一个员工参与的公司培训"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -218,7 +219,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -226,7 +227,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
-                    rules: [{ required: true, message: '请输入员工' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -243,7 +244,7 @@ class EmployeeCompanyTrainingCreateForm extends Component {
                 <Form.Item label={fieldLabels.training} {...formItemLayout}>
                   {getFieldDecorator('trainingId', {
                   	initialValue: tryinit('training'),
-                    rules: [{ required: true, message: '请输入训练' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -263,13 +264,13 @@ class EmployeeCompanyTrainingCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

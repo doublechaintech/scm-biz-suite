@@ -314,7 +314,7 @@ public class LevelThreeCategoryManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortProductListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

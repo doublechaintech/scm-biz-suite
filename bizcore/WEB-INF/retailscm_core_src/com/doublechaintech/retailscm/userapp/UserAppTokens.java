@@ -38,6 +38,15 @@ public class UserAppTokens extends CommonTokens{
 	protected UserAppTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  UserAppTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		UserAppTokens tokens = new UserAppTokens(options);
+		return tokens;
+		
+	}
+	protected UserAppTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public UserAppTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -84,6 +93,11 @@ public class UserAppTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public UserAppTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String SECUSER = "secUser";
 	public String getSecUser(){
@@ -109,7 +123,11 @@ public class UserAppTokens extends CommonTokens{
 	}
 	public boolean analyzeListAccessListEnabled(){		
 		
-		return checkOptions(this.options(), LIST_ACCESS_LIST+".anaylze");
+		if(checkOptions(this.options(), LIST_ACCESS_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public UserAppTokens extractMoreFromListAccessList(String idsSeperatedWithComma){		
 		addSimpleOptions(LIST_ACCESS_LIST+".extractIds", idsSeperatedWithComma);
@@ -171,7 +189,11 @@ public class UserAppTokens extends CommonTokens{
 	}
 	public boolean analyzeObjectAccessListEnabled(){		
 		
-		return checkOptions(this.options(), OBJECT_ACCESS_LIST+".anaylze");
+		if(checkOptions(this.options(), OBJECT_ACCESS_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public UserAppTokens extractMoreFromObjectAccessList(String idsSeperatedWithComma){		
 		addSimpleOptions(OBJECT_ACCESS_LIST+".extractIds", idsSeperatedWithComma);

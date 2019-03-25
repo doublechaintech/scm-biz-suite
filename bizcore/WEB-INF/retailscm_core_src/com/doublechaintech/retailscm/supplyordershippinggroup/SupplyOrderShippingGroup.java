@@ -131,6 +131,9 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -144,6 +147,9 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setBizOrder(SupplyOrder bizOrder){
@@ -156,6 +162,9 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 		this.mBizOrder = bizOrder;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBizOrder(SupplyOrder bizOrder){
+		if(bizOrder != null) { setBizOrder(bizOrder);}
 	}
 	
 	
@@ -175,6 +184,9 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeAmount(BigDecimal amount){
+		setAmount(amount);
+	}
 	
 	
 	public void setVersion(int version){
@@ -187,6 +199,9 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -241,6 +256,24 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 			dest.setBizOrder(getBizOrder());
 			dest.setAmount(getAmount());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplyOrderShippingGroup){
+		
+			
+			SupplyOrderShippingGroup dest =(SupplyOrderShippingGroup)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeBizOrder(getBizOrder());
+			dest.mergeAmount(getAmount());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

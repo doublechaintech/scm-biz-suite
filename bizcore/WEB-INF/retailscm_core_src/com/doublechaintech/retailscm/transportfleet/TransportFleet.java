@@ -164,6 +164,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -176,6 +179,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -190,6 +196,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeContactNumber(String contactNumber){
+		if(contactNumber != null) { setContactNumber(contactNumber);}
+	}
 	
 	
 	public void setOwner(RetailStoreCountryCenter owner){
@@ -202,6 +211,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreCountryCenter owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -221,6 +233,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -233,6 +248,9 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -266,7 +284,16 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		}
 		getTransportTruckList().addAll(transportTruckList);
 	}
-	
+	public  void mergeTransportTruckList(SmartList<TransportTruck> transportTruckList){
+		if(transportTruckList==null){
+			return;
+		}
+		if(transportTruckList.isEmpty()){
+			return;
+		}
+		addTransportTruckList( transportTruckList );
+		
+	}
 	public  TransportTruck removeTransportTruck(TransportTruck transportTruckIndex){
 		
 		int index = getTransportTruckList().indexOf(transportTruckIndex);
@@ -364,7 +391,16 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		}
 		getTruckDriverList().addAll(truckDriverList);
 	}
-	
+	public  void mergeTruckDriverList(SmartList<TruckDriver> truckDriverList){
+		if(truckDriverList==null){
+			return;
+		}
+		if(truckDriverList.isEmpty()){
+			return;
+		}
+		addTruckDriverList( truckDriverList );
+		
+	}
 	public  TruckDriver removeTruckDriver(TruckDriver truckDriverIndex){
 		
 		int index = getTruckDriverList().indexOf(truckDriverIndex);
@@ -462,7 +498,16 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 		}
 		getTransportTaskList().addAll(transportTaskList);
 	}
-	
+	public  void mergeTransportTaskList(SmartList<TransportTask> transportTaskList){
+		if(transportTaskList==null){
+			return;
+		}
+		if(transportTaskList.isEmpty()){
+			return;
+		}
+		addTransportTaskList( transportTaskList );
+		
+	}
 	public  TransportTask removeTransportTask(TransportTask transportTaskIndex){
 		
 		int index = getTransportTaskList().indexOf(transportTaskIndex);
@@ -607,6 +652,28 @@ public class TransportFleet extends BaseEntity implements  java.io.Serializable{
 			dest.setTransportTruckList(getTransportTruckList());
 			dest.setTruckDriverList(getTruckDriverList());
 			dest.setTransportTaskList(getTransportTaskList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof TransportFleet){
+		
+			
+			TransportFleet dest =(TransportFleet)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeContactNumber(getContactNumber());
+			dest.mergeOwner(getOwner());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeTransportTruckList(getTransportTruckList());
+			dest.mergeTruckDriverList(getTruckDriverList());
+			dest.mergeTransportTaskList(getTransportTaskList());
 
 		}
 		super.copyTo(baseDest);

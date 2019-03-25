@@ -304,9 +304,8 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	protected boolean isExtractUserAppListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SecUserTokens.USER_APP_LIST);
  	}
- 	protected boolean isAnalyzeUserAppListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SecUserTokens.USER_APP_LIST+".analyze");
+ 	protected boolean isAnalyzeUserAppListEnabled(Map<String,Object> options){		 		
+ 		return SecUserTokens.of(options).analyzeUserAppListEnabled();
  	}
 	
 	protected boolean isSaveUserAppListEnabled(Map<String,Object> options){
@@ -319,9 +318,8 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	protected boolean isExtractLoginHistoryListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST);
  	}
- 	protected boolean isAnalyzeLoginHistoryListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SecUserTokens.LOGIN_HISTORY_LIST+".analyze");
+ 	protected boolean isAnalyzeLoginHistoryListEnabled(Map<String,Object> options){		 		
+ 		return SecUserTokens.of(options).analyzeLoginHistoryListEnabled();
  	}
 	
 	protected boolean isSaveLoginHistoryListEnabled(Map<String,Object> options){

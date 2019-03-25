@@ -38,6 +38,15 @@ public class RetailStoreMemberAddressTokens extends CommonTokens{
 	protected RetailStoreMemberAddressTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreMemberAddressTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreMemberAddressTokens tokens = new RetailStoreMemberAddressTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreMemberAddressTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreMemberAddressTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class RetailStoreMemberAddressTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public RetailStoreMemberAddressTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String OWNER = "owner";

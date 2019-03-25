@@ -221,9 +221,8 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TruckDriverTokens.TRANSPORT_TASK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TruckDriverTokens.TRANSPORT_TASK_LIST+".analyze");
+ 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		 		
+ 		return TruckDriverTokens.of(options).analyzeTransportTaskListEnabled();
  	}
 	
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){

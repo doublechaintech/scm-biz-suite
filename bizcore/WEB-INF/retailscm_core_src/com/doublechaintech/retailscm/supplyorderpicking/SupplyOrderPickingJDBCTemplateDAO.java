@@ -196,9 +196,8 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderPickingTokens.SUPPLY_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplyOrderPickingTokens.SUPPLY_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		 		
+ 		return SupplyOrderPickingTokens.of(options).analyzeSupplyOrderListEnabled();
  	}
 	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){

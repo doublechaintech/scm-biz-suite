@@ -305,9 +305,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	protected boolean isExtractCityPartnerListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST);
  	}
- 	protected boolean isAnalyzeCityPartnerListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_PARTNER_LIST+".analyze");
+ 	protected boolean isAnalyzeCityPartnerListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCityServiceCenterTokens.of(options).analyzeCityPartnerListEnabled();
  	}
 	
 	protected boolean isSaveCityPartnerListEnabled(Map<String,Object> options){
@@ -320,9 +319,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.POTENTIAL_CUSTOMER_LIST+".analyze");
+ 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCityServiceCenterTokens.of(options).analyzePotentialCustomerListEnabled();
  	}
 	
 	protected boolean isSavePotentialCustomerListEnabled(Map<String,Object> options){
@@ -335,9 +333,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	protected boolean isExtractCityEventListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST);
  	}
- 	protected boolean isAnalyzeCityEventListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.CITY_EVENT_LIST+".analyze");
+ 	protected boolean isAnalyzeCityEventListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCityServiceCenterTokens.of(options).analyzeCityEventListEnabled();
  	}
 	
 	protected boolean isSaveCityEventListEnabled(Map<String,Object> options){
@@ -350,9 +347,8 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	protected boolean isExtractRetailStoreListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreCityServiceCenterTokens.RETAIL_STORE_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreCityServiceCenterTokens.of(options).analyzeRetailStoreListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreListEnabled(Map<String,Object> options){

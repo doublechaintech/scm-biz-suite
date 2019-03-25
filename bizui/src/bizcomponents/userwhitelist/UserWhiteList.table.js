@@ -8,6 +8,7 @@ import ImagePreview from '../../components/ImagePreview'
 import GlobalComponents from '../../custcomponents';
 import UserWhiteListBase from './UserWhiteList.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
 
 
@@ -43,7 +44,7 @@ class UserWhiteListTable extends PureComponent {
 
     const {owner, metaInfo} =  this.props
     const {referenceName} = owner
-   
+    const userContext = null
     
     const {displayColumns} = UserWhiteListBase
     if(!referenceName){
@@ -52,13 +53,13 @@ class UserWhiteListTable extends PureComponent {
     const remainColumns = displayColumns.filter((item,index)=> item.dataIndex!=referenceName&&index<7&&item.dataIndex!=='content')
     //fixed: 'right',
     const operationColumn={
-      title: '操作',
+      title: appLocaleName(userContext,"Operate"),
       render: (text, record) => (
         <span>
           
-         { hasReadPermission(metaInfo)&&<Link to={`/userWhiteList/${record.id}/dashboard`}>{'查看'}</Link>}
+         { hasReadPermission(metaInfo)&&<Link to={`/userWhiteList/${record.id}/dashboard`}>{appLocaleName(userContext,"View")}</Link>}
 
-          {  hasUpdatePermission(metaInfo)&&<span className={styles.splitLine} /> } {hasUpdatePermission(metaInfo)&&<a key="__2" onClick={()=>this.gotoEdit(text, record)}>编辑</a>}
+          {  hasUpdatePermission(metaInfo)&&<span className={styles.splitLine} /> } {hasUpdatePermission(metaInfo)&&<a key="__2" onClick={()=>this.gotoEdit(text, record)}>{appLocaleName(userContext,"Edit")}</a>}
 
           {
             record.actionList&&record.actionList.map((item)=>(<a key={item.actionId} onClick={()=>this.executeAction(item,text, record)}><span className={styles.splitLine} />{item.actionName}</a>))
@@ -124,7 +125,7 @@ class UserWhiteListTable extends PureComponent {
     // const { data, count, current, owner } = this.props
     const { data, count, current } = this.props
 	const calcDisplayColumns = this.props.calcDisplayColumns||this.calcDisplayColumns
-	
+	const userContext = null
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
@@ -148,12 +149,12 @@ class UserWhiteListTable extends PureComponent {
           <Alert
             message={selectedRowKeys.length===0?(
               <span>
-                一共 <a style={{ fontWeight: 600 }}>{count}</a> 项, 请选择要操作的项来执行更多功能 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")}, {appLocaleName(userContext,"PleaseSelectItemtoProceed")} 
               </span>
             ):(
               <span>
-                一共 <a style={{ fontWeight: 600 }}>{count}</a> 项 
-                已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项 <a onClick={this.cleanSelectedKeys} style={{ marginLeft: 24 }}>清空</a>
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")} 
+                {appLocaleName(userContext,"Selected")} <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> {appLocaleName(userContext,"Items")} <a onClick={this.cleanSelectedKeys} style={{ marginLeft: 24 }}>{appLocaleName(userContext,"Clear")}</a>
               </span>
             )}
             type="info"

@@ -38,6 +38,15 @@ public class ConsumerOrderShipmentTokens extends CommonTokens{
 	protected ConsumerOrderShipmentTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ConsumerOrderShipmentTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ConsumerOrderShipmentTokens tokens = new ConsumerOrderShipmentTokens(options);
+		return tokens;
+		
+	}
+	protected ConsumerOrderShipmentTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ConsumerOrderShipmentTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -79,6 +88,11 @@ public class ConsumerOrderShipmentTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ConsumerOrderShipmentTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	

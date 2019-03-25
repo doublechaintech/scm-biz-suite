@@ -136,6 +136,9 @@ public class EmployeeLeave extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(Employee who){
@@ -148,6 +151,9 @@ public class EmployeeLeave extends BaseEntity implements  java.io.Serializable{
 		this.mWho = who;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(Employee who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -167,6 +173,9 @@ public class EmployeeLeave extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeType(LeaveType type){
+		if(type != null) { setType(type);}
+	}
 	
 	
 	public void clearType(){
@@ -185,6 +194,9 @@ public class EmployeeLeave extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLeaveDurationHour(int leaveDurationHour){
+		setLeaveDurationHour(leaveDurationHour);
+	}
 	
 	
 	public void setRemark(String remark){
@@ -198,6 +210,9 @@ public class EmployeeLeave extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeRemark(String remark){
+		if(remark != null) { setRemark(remark);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -210,6 +225,9 @@ public class EmployeeLeave extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -267,6 +285,25 @@ public class EmployeeLeave extends BaseEntity implements  java.io.Serializable{
 			dest.setLeaveDurationHour(getLeaveDurationHour());
 			dest.setRemark(getRemark());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeLeave){
+		
+			
+			EmployeeLeave dest =(EmployeeLeave)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeType(getType());
+			dest.mergeLeaveDurationHour(getLeaveDurationHour());
+			dest.mergeRemark(getRemark());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

@@ -329,7 +329,7 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortLevelTwoDepartmentListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -187,6 +187,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -200,6 +203,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -212,6 +218,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -231,6 +240,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeInstructor(Instructor instructor){
+		if(instructor != null) { setInstructor(instructor);}
+	}
 	
 	
 	public void clearInstructor(){
@@ -248,6 +260,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.mTrainingCourseType = trainingCourseType;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTrainingCourseType(TrainingCourseType trainingCourseType){
+		if(trainingCourseType != null) { setTrainingCourseType(trainingCourseType);}
 	}
 	
 	
@@ -267,6 +282,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeTimeStart(Date timeStart){
+		setTimeStart(timeStart);
+	}
 	
 	
 	public void setDurationHours(int durationHours){
@@ -279,6 +297,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.mDurationHours = durationHours;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDurationHours(int durationHours){
+		setDurationHours(durationHours);
 	}
 	
 	
@@ -293,6 +314,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -305,6 +329,9 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -338,7 +365,16 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 		}
 		getEmployeeCompanyTrainingList().addAll(employeeCompanyTrainingList);
 	}
-	
+	public  void mergeEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList){
+		if(employeeCompanyTrainingList==null){
+			return;
+		}
+		if(employeeCompanyTrainingList.isEmpty()){
+			return;
+		}
+		addEmployeeCompanyTrainingList( employeeCompanyTrainingList );
+		
+	}
 	public  EmployeeCompanyTraining removeEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTrainingIndex){
 		
 		int index = getEmployeeCompanyTrainingList().indexOf(employeeCompanyTrainingIndex);
@@ -475,6 +511,29 @@ public class CompanyTraining extends BaseEntity implements  java.io.Serializable
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setEmployeeCompanyTrainingList(getEmployeeCompanyTrainingList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof CompanyTraining){
+		
+			
+			CompanyTraining dest =(CompanyTraining)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeCompany(getCompany());
+			dest.mergeInstructor(getInstructor());
+			dest.mergeTrainingCourseType(getTrainingCourseType());
+			dest.mergeTimeStart(getTimeStart());
+			dest.mergeDurationHours(getDurationHours());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeCompanyTrainingList(getEmployeeCompanyTrainingList());
 
 		}
 		super.copyTo(baseDest);

@@ -42,7 +42,7 @@
 	<bean id="retailStoreCityServiceCenterManager" class="com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenterCustomManagerImpl" parent="retailStoreCityServiceCenterManagerBase" ></bean>
 	
 	<bean id="cityPartnerManagerBase" class="com.doublechaintech.retailscm.citypartner.CityPartnerManagerImpl"/>
-	<bean id="cityPartnerManager" class="com.doublechaintech.retailscm.citypartner.CityPartnerManagerImpl" parent="cityPartnerManagerBase" ></bean>
+	<bean id="cityPartnerManager" class="com.doublechaintech.retailscm.citypartner.CityPartnerCustomManagerImpl" parent="cityPartnerManagerBase" ></bean>
 	
 	<bean id="potentialCustomerManagerBase" class="com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerManagerImpl"/>
 	<bean id="potentialCustomerManager" class="com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerCustomManagerImpl" parent="potentialCustomerManagerBase" ></bean>
@@ -150,22 +150,22 @@
 	<bean id="supplyOrderManager" class="com.doublechaintech.retailscm.supplyorder.SupplyOrderCustomManagerImpl" parent="supplyOrderManagerBase" ></bean>
 	
 	<bean id="supplyOrderConfirmationManagerBase" class="com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmationManagerImpl"/>
-	<bean id="supplyOrderConfirmationManager" class="com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmationManagerImpl" parent="supplyOrderConfirmationManagerBase" ></bean>
+	<bean id="supplyOrderConfirmationManager" class="com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmationCustomManagerImpl" parent="supplyOrderConfirmationManagerBase" ></bean>
 	
 	<bean id="supplyOrderApprovalManagerBase" class="com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApprovalManagerImpl"/>
-	<bean id="supplyOrderApprovalManager" class="com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApprovalManagerImpl" parent="supplyOrderApprovalManagerBase" ></bean>
+	<bean id="supplyOrderApprovalManager" class="com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApprovalCustomManagerImpl" parent="supplyOrderApprovalManagerBase" ></bean>
 	
 	<bean id="supplyOrderProcessingManagerBase" class="com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessingManagerImpl"/>
-	<bean id="supplyOrderProcessingManager" class="com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessingManagerImpl" parent="supplyOrderProcessingManagerBase" ></bean>
+	<bean id="supplyOrderProcessingManager" class="com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessingCustomManagerImpl" parent="supplyOrderProcessingManagerBase" ></bean>
 	
 	<bean id="supplyOrderPickingManagerBase" class="com.doublechaintech.retailscm.supplyorderpicking.SupplyOrderPickingManagerImpl"/>
 	<bean id="supplyOrderPickingManager" class="com.doublechaintech.retailscm.supplyorderpicking.SupplyOrderPickingManagerImpl" parent="supplyOrderPickingManagerBase" ></bean>
 	
 	<bean id="supplyOrderShipmentManagerBase" class="com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipmentManagerImpl"/>
-	<bean id="supplyOrderShipmentManager" class="com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipmentManagerImpl" parent="supplyOrderShipmentManagerBase" ></bean>
+	<bean id="supplyOrderShipmentManager" class="com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipmentCustomManagerImpl" parent="supplyOrderShipmentManagerBase" ></bean>
 	
 	<bean id="supplyOrderDeliveryManagerBase" class="com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDeliveryManagerImpl"/>
-	<bean id="supplyOrderDeliveryManager" class="com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDeliveryManagerImpl" parent="supplyOrderDeliveryManagerBase" ></bean>
+	<bean id="supplyOrderDeliveryManager" class="com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDeliveryCustomManagerImpl" parent="supplyOrderDeliveryManagerBase" ></bean>
 	
 	<bean id="supplyOrderLineItemManagerBase" class="com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemManagerImpl"/>
 	<bean id="supplyOrderLineItemManager" class="com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItemManagerImpl" parent="supplyOrderLineItemManagerBase" ></bean>
@@ -216,7 +216,7 @@
 	<bean id="smartPalletManager" class="com.doublechaintech.retailscm.smartpallet.SmartPalletManagerImpl" parent="smartPalletManagerBase" ></bean>
 	
 	<bean id="goodsShelfManagerBase" class="com.doublechaintech.retailscm.goodsshelf.GoodsShelfManagerImpl"/>
-	<bean id="goodsShelfManager" class="com.doublechaintech.retailscm.goodsshelf.GoodsShelfManagerImpl" parent="goodsShelfManagerBase" ></bean>
+	<bean id="goodsShelfManager" class="com.doublechaintech.retailscm.goodsshelf.GoodsShelfCustomManagerImpl" parent="goodsShelfManagerBase" ></bean>
 	
 	<bean id="goodsShelfStockCountManagerBase" class="com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountManagerImpl"/>
 	<bean id="goodsShelfStockCountManager" class="com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountManagerImpl" parent="goodsShelfStockCountManagerBase" ></bean>
@@ -261,7 +261,7 @@
 	<bean id="truckDriverManager" class="com.doublechaintech.retailscm.truckdriver.TruckDriverManagerImpl" parent="truckDriverManagerBase" ></bean>
 	
 	<bean id="transportTaskManagerBase" class="com.doublechaintech.retailscm.transporttask.TransportTaskManagerImpl"/>
-	<bean id="transportTaskManager" class="com.doublechaintech.retailscm.transporttask.TransportTaskManagerImpl" parent="transportTaskManagerBase" ></bean>
+	<bean id="transportTaskManager" class="com.doublechaintech.retailscm.transporttask.TransportTaskCustomManagerImpl" parent="transportTaskManagerBase" ></bean>
 	
 	<bean id="transportTaskTrackManagerBase" class="com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrackManagerImpl"/>
 	<bean id="transportTaskTrackManager" class="com.doublechaintech.retailscm.transporttasktrack.TransportTaskTrackManagerImpl" parent="transportTaskTrackManagerBase" ></bean>
@@ -279,7 +279,7 @@
 	<bean id="accountingDocumentTypeManager" class="com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentTypeManagerImpl" parent="accountingDocumentTypeManagerBase" ></bean>
 	
 	<bean id="accountingDocumentManagerBase" class="com.doublechaintech.retailscm.accountingdocument.AccountingDocumentManagerImpl"/>
-	<bean id="accountingDocumentManager" class="com.doublechaintech.retailscm.accountingdocument.AccountingDocumentManagerImpl" parent="accountingDocumentManagerBase" ></bean>
+	<bean id="accountingDocumentManager" class="com.doublechaintech.retailscm.accountingdocument.AccountingDocumentCustomManagerImpl" parent="accountingDocumentManagerBase" ></bean>
 	
 	<bean id="accountingDocumentCreationManagerBase" class="com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreationManagerImpl"/>
 	<bean id="accountingDocumentCreationManager" class="com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreationManagerImpl" parent="accountingDocumentCreationManagerBase" ></bean>
@@ -336,7 +336,7 @@
 	<bean id="leaveTypeManager" class="com.doublechaintech.retailscm.leavetype.LeaveTypeManagerImpl" parent="leaveTypeManagerBase" ></bean>
 	
 	<bean id="salaryGradeManagerBase" class="com.doublechaintech.retailscm.salarygrade.SalaryGradeManagerImpl"/>
-	<bean id="salaryGradeManager" class="com.doublechaintech.retailscm.salarygrade.SalaryGradeManagerImpl" parent="salaryGradeManagerBase" ></bean>
+	<bean id="salaryGradeManager" class="com.doublechaintech.retailscm.salarygrade.SalaryGradeCustomManagerImpl" parent="salaryGradeManagerBase" ></bean>
 	
 	<bean id="interviewTypeManagerBase" class="com.doublechaintech.retailscm.interviewtype.InterviewTypeManagerImpl"/>
 	<bean id="interviewTypeManager" class="com.doublechaintech.retailscm.interviewtype.InterviewTypeManagerImpl" parent="interviewTypeManagerBase" ></bean>
@@ -351,7 +351,7 @@
 	<bean id="terminationManager" class="com.doublechaintech.retailscm.termination.TerminationManagerImpl" parent="terminationManagerBase" ></bean>
 	
 	<bean id="viewManagerBase" class="com.doublechaintech.retailscm.view.ViewManagerImpl"/>
-	<bean id="viewManager" class="com.doublechaintech.retailscm.view.ViewManagerImpl" parent="viewManagerBase" ></bean>
+	<bean id="viewManager" class="com.doublechaintech.retailscm.view.ViewCustomManagerImpl" parent="viewManagerBase" ></bean>
 	
 	<bean id="employeeManagerBase" class="com.doublechaintech.retailscm.employee.EmployeeManagerImpl"/>
 	<bean id="employeeManager" class="com.doublechaintech.retailscm.employee.EmployeeCustomManagerImpl" parent="employeeManagerBase" ></bean>
@@ -420,19 +420,19 @@
 	<bean id="payingOffManager" class="com.doublechaintech.retailscm.payingoff.PayingOffManagerImpl" parent="payingOffManagerBase" ></bean>
 	
 	<bean id="userDomainManagerBase" class="com.doublechaintech.retailscm.userdomain.UserDomainManagerImpl"/>
-	<bean id="userDomainManager" class="com.doublechaintech.retailscm.userdomain.UserDomainManagerImpl" parent="userDomainManagerBase" ></bean>
+	<bean id="userDomainManager" class="com.doublechaintech.retailscm.userdomain.UserDomainCustomManagerImpl" parent="userDomainManagerBase" ></bean>
 	
 	<bean id="userWhiteListManagerBase" class="com.doublechaintech.retailscm.userwhitelist.UserWhiteListManagerImpl"/>
 	<bean id="userWhiteListManager" class="com.doublechaintech.retailscm.userwhitelist.UserWhiteListManagerImpl" parent="userWhiteListManagerBase" ></bean>
 	
 	<bean id="secUserManagerBase" class="com.doublechaintech.retailscm.secuser.SecUserManagerImpl"/>
-	<bean id="secUserManager" class="com.doublechaintech.retailscm.secuser.SecUserManagerImpl" parent="secUserManagerBase" ></bean>
+	<bean id="secUserManager" class="com.doublechaintech.retailscm.secuser.SecUserCustomManagerImpl" parent="secUserManagerBase" ></bean>
 	
 	<bean id="secUserBlockingManagerBase" class="com.doublechaintech.retailscm.secuserblocking.SecUserBlockingManagerImpl"/>
 	<bean id="secUserBlockingManager" class="com.doublechaintech.retailscm.secuserblocking.SecUserBlockingManagerImpl" parent="secUserBlockingManagerBase" ></bean>
 	
 	<bean id="userAppManagerBase" class="com.doublechaintech.retailscm.userapp.UserAppManagerImpl"/>
-	<bean id="userAppManager" class="com.doublechaintech.retailscm.userapp.UserAppManagerImpl" parent="userAppManagerBase" ></bean>
+	<bean id="userAppManager" class="com.doublechaintech.retailscm.userapp.UserAppCustomManagerImpl" parent="userAppManagerBase" ></bean>
 	
 	<bean id="listAccessManagerBase" class="com.doublechaintech.retailscm.listaccess.ListAccessManagerImpl"/>
 	<bean id="listAccessManager" class="com.doublechaintech.retailscm.listaccess.ListAccessManagerImpl" parent="listAccessManagerBase" ></bean>

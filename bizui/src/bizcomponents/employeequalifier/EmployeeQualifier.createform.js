@@ -9,7 +9,7 @@ import styles from './EmployeeQualifier.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeQualifierBase from './EmployeeQualifier.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -17,7 +17,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2016-07-16',
+  qualifiedTime: '2017-12-01',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -70,7 +70,7 @@ class EmployeeQualifierCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeQualifierBase
     const {EmployeeQualifierService} = GlobalComponents
@@ -119,9 +119,10 @@ class EmployeeQualifierCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'employeeQualifier',listName:'员工资质列表' },
+        payload: { id: owner.id, type: 'employeeQualifier',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -152,7 +153,7 @@ class EmployeeQualifierCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -196,18 +197,18 @@ class EmployeeQualifierCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个员工资质"
-        content="新建一个员工资质"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.qualifiedTime} {...formItemLayout}>
                   {getFieldDecorator('qualifiedTime', {
-                    rules: [{ required: true, message: '请输入合格的时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入合格的时间" />
                   )}
@@ -217,7 +218,7 @@ class EmployeeQualifierCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.type} {...formItemLayout}>
                   {getFieldDecorator('type', {
-                    rules: [{ required: true, message: '请输入类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入类型" />
                   )}
@@ -227,7 +228,7 @@ class EmployeeQualifierCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.level} {...formItemLayout}>
                   {getFieldDecorator('level', {
-                    rules: [{ required: true, message: '请输入水平' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入水平" />
                   )}
@@ -237,7 +238,7 @@ class EmployeeQualifierCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.remark} {...formItemLayout}>
                   {getFieldDecorator('remark', {
-                    rules: [{ required: true, message: '请输入备注' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入备注" />
                   )}
@@ -261,7 +262,7 @@ class EmployeeQualifierCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -269,7 +270,7 @@ class EmployeeQualifierCreateForm extends Component {
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
-                    rules: [{ required: true, message: '请输入员工' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -289,13 +290,13 @@ class EmployeeQualifierCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

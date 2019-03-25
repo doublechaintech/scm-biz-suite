@@ -156,6 +156,9 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCode(String code){
@@ -169,6 +172,9 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeCode(String code){
+		if(code != null) { setCode(code);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -181,6 +187,9 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -200,6 +209,9 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setDescription(String description){
@@ -213,6 +225,9 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -225,6 +240,9 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 		}
 		getCompanyTrainingList().addAll(companyTrainingList);
 	}
-	
+	public  void mergeCompanyTrainingList(SmartList<CompanyTraining> companyTrainingList){
+		if(companyTrainingList==null){
+			return;
+		}
+		if(companyTrainingList.isEmpty()){
+			return;
+		}
+		addCompanyTrainingList( companyTrainingList );
+		
+	}
 	public  CompanyTraining removeCompanyTraining(CompanyTraining companyTrainingIndex){
 		
 		int index = getCompanyTrainingList().indexOf(companyTrainingIndex);
@@ -387,6 +414,26 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
 			dest.setCompanyTrainingList(getCompanyTrainingList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof TrainingCourseType){
+		
+			
+			TrainingCourseType dest =(TrainingCourseType)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCode(getCode());
+			dest.mergeCompany(getCompany());
+			dest.mergeName(getName());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeCompanyTrainingList(getCompanyTrainingList());
 
 		}
 		super.copyTo(baseDest);

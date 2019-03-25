@@ -221,9 +221,8 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SkuTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SkuTokens.GOODS_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 		return SkuTokens.of(options).analyzeGoodsListEnabled();
  	}
 	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){

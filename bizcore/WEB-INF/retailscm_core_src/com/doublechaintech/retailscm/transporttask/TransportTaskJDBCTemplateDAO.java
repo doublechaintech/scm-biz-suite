@@ -324,9 +324,8 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractGoodsListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportTaskTokens.GOODS_LIST);
  	}
- 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TransportTaskTokens.GOODS_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsListEnabled(Map<String,Object> options){		 		
+ 		return TransportTaskTokens.of(options).analyzeGoodsListEnabled();
  	}
 	
 	protected boolean isSaveGoodsListEnabled(Map<String,Object> options){
@@ -339,9 +338,8 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractTransportTaskTrackListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTaskTrackListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TransportTaskTokens.TRANSPORT_TASK_TRACK_LIST+".analyze");
+ 	protected boolean isAnalyzeTransportTaskTrackListEnabled(Map<String,Object> options){		 		
+ 		return TransportTaskTokens.of(options).analyzeTransportTaskTrackListEnabled();
  	}
 	
 	protected boolean isSaveTransportTaskTrackListEnabled(Map<String,Object> options){

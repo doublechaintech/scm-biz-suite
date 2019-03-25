@@ -404,6 +404,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLabel(String label){
@@ -416,6 +419,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mLabel = trimString(label);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLabel(String label){
+		if(label != null) { setLabel(label);}
 	}
 	
 	
@@ -430,6 +436,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLocaleKey(String localeKey){
+		if(localeKey != null) { setLocaleKey(localeKey);}
+	}
 	
 	
 	public void setParameterName(String parameterName){
@@ -442,6 +451,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mParameterName = trimString(parameterName);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeParameterName(String parameterName){
+		if(parameterName != null) { setParameterName(parameterName);}
 	}
 	
 	
@@ -456,6 +468,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeType(String type){
+		if(type != null) { setType(type);}
+	}
 	
 	
 	public void setForm(GenericForm form){
@@ -468,6 +483,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mForm = form;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeForm(GenericForm form){
+		if(form != null) { setForm(form);}
 	}
 	
 	
@@ -487,6 +505,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePlaceholder(String placeholder){
+		if(placeholder != null) { setPlaceholder(placeholder);}
+	}
 	
 	
 	public void setDefaultValue(String defaultValue){
@@ -499,6 +520,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mDefaultValue = trimString(defaultValue);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDefaultValue(String defaultValue){
+		if(defaultValue != null) { setDefaultValue(defaultValue);}
 	}
 	
 	
@@ -513,6 +537,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setFieldGroup(String fieldGroup){
@@ -525,6 +552,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mFieldGroup = trimString(fieldGroup);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeFieldGroup(String fieldGroup){
+		if(fieldGroup != null) { setFieldGroup(fieldGroup);}
 	}
 	
 	
@@ -539,6 +569,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeMinimumValue(String minimumValue){
+		if(minimumValue != null) { setMinimumValue(minimumValue);}
+	}
 	
 	
 	public void setMaximumValue(String maximumValue){
@@ -551,6 +584,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mMaximumValue = trimString(maximumValue);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMaximumValue(String maximumValue){
+		if(maximumValue != null) { setMaximumValue(maximumValue);}
 	}
 	
 	
@@ -565,6 +601,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeRequired(boolean required){
+		setRequired(required);
+	}
 	
 	
 	public void setDisabled(boolean disabled){
@@ -577,6 +616,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mDisabled = disabled;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDisabled(boolean disabled){
+		setDisabled(disabled);
 	}
 	
 	
@@ -591,6 +633,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCustomRendering(boolean customRendering){
+		setCustomRendering(customRendering);
+	}
 	
 	
 	public void setCandidateValues(String candidateValues){
@@ -603,6 +648,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mCandidateValues = trimString(candidateValues);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCandidateValues(String candidateValues){
+		if(candidateValues != null) { setCandidateValues(candidateValues);}
 	}
 	
 	
@@ -617,6 +665,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSuggestValues(String suggestValues){
+		if(suggestValues != null) { setSuggestValues(suggestValues);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -629,6 +680,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -709,6 +763,37 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 			dest.setCandidateValues(getCandidateValues());
 			dest.setSuggestValues(getSuggestValues());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof FormField){
+		
+			
+			FormField dest =(FormField)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLabel(getLabel());
+			dest.mergeLocaleKey(getLocaleKey());
+			dest.mergeParameterName(getParameterName());
+			dest.mergeType(getType());
+			dest.mergeForm(getForm());
+			dest.mergePlaceholder(getPlaceholder());
+			dest.mergeDefaultValue(getDefaultValue());
+			dest.mergeDescription(getDescription());
+			dest.mergeFieldGroup(getFieldGroup());
+			dest.mergeMinimumValue(getMinimumValue());
+			dest.mergeMaximumValue(getMaximumValue());
+			dest.mergeRequired(getRequired());
+			dest.mergeDisabled(getDisabled());
+			dest.mergeCustomRendering(getCustomRendering());
+			dest.mergeCandidateValues(getCandidateValues());
+			dest.mergeSuggestValues(getSuggestValues());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

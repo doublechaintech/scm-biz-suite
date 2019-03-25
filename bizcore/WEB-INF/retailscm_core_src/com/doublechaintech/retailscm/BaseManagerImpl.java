@@ -158,6 +158,12 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		
 		UserContext userContext = (UserContext)baseUserContext;
 		logCall(userContext, methodName, parameters);
+		
+		String xauth = userContext.getRequestHeader("X-Auth");
+		if(xauth!=null) {
+			return accessOK(); //for temporary use， security leak for demo only
+		}
+		
 		//如果来自本地IP，则放开访问
 		UserApp app =(UserApp) userContext.getCachedObject(this.getCurrentAppKey(userContext), UserApp.class);
 		

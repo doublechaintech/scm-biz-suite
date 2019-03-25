@@ -376,7 +376,7 @@ public class SupplyOrderManagerImpl extends CustomRetailscmCheckerManager implem
 		.sortSupplyOrderShippingGroupListWith("id","desc")
 		.sortSupplyOrderPaymentGroupListWith("id","desc")
 		.sortGoodsListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -101,6 +101,9 @@ public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -113,6 +116,9 @@ public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Seri
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -132,6 +138,9 @@ public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeTraining(CompanyTraining training){
+		if(training != null) { setTraining(training);}
+	}
 	
 	
 	public void clearTraining(){
@@ -149,6 +158,9 @@ public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Seri
 		this.mScoring = scoring;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeScoring(Scoring scoring){
+		if(scoring != null) { setScoring(scoring);}
 	}
 	
 	
@@ -168,6 +180,9 @@ public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Seri
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -180,6 +195,9 @@ public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Seri
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -238,6 +256,25 @@ public class EmployeeCompanyTraining extends BaseEntity implements  java.io.Seri
 			dest.setScoring(getScoring());
 			dest.setCurrentStatus(getCurrentStatus());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeCompanyTraining){
+		
+			
+			EmployeeCompanyTraining dest =(EmployeeCompanyTraining)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergeTraining(getTraining());
+			dest.mergeScoring(getScoring());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

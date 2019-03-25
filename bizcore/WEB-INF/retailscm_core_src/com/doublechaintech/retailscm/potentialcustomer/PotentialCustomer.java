@@ -190,6 +190,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -203,6 +206,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setMobile(String mobile){
@@ -215,6 +221,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.mMobile = trimString(mobile);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMobile(String mobile){
+		if(mobile != null) { setMobile(mobile);}
 	}
 	
 	
@@ -236,6 +245,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeCityServiceCenter(RetailStoreCityServiceCenter cityServiceCenter){
+		if(cityServiceCenter != null) { setCityServiceCenter(cityServiceCenter);}
+	}
 	
 	
 	public void clearCityServiceCenter(){
@@ -253,6 +265,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.mCityPartner = cityPartner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCityPartner(CityPartner cityPartner){
+		if(cityPartner != null) { setCityPartner(cityPartner);}
 	}
 	
 	
@@ -272,6 +287,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setLastUpdateTime(DateTime lastUpdateTime){
@@ -285,6 +303,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -297,6 +318,9 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -330,7 +354,16 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		}
 		getPotentialCustomerContactPersonList().addAll(potentialCustomerContactPersonList);
 	}
-	
+	public  void mergePotentialCustomerContactPersonList(SmartList<PotentialCustomerContactPerson> potentialCustomerContactPersonList){
+		if(potentialCustomerContactPersonList==null){
+			return;
+		}
+		if(potentialCustomerContactPersonList.isEmpty()){
+			return;
+		}
+		addPotentialCustomerContactPersonList( potentialCustomerContactPersonList );
+		
+	}
 	public  PotentialCustomerContactPerson removePotentialCustomerContactPerson(PotentialCustomerContactPerson potentialCustomerContactPersonIndex){
 		
 		int index = getPotentialCustomerContactPersonList().indexOf(potentialCustomerContactPersonIndex);
@@ -428,7 +461,16 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		}
 		getPotentialCustomerContactList().addAll(potentialCustomerContactList);
 	}
-	
+	public  void mergePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList){
+		if(potentialCustomerContactList==null){
+			return;
+		}
+		if(potentialCustomerContactList.isEmpty()){
+			return;
+		}
+		addPotentialCustomerContactList( potentialCustomerContactList );
+		
+	}
 	public  PotentialCustomerContact removePotentialCustomerContact(PotentialCustomerContact potentialCustomerContactIndex){
 		
 		int index = getPotentialCustomerContactList().indexOf(potentialCustomerContactIndex);
@@ -526,7 +568,16 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 		}
 		getEventAttendanceList().addAll(eventAttendanceList);
 	}
-	
+	public  void mergeEventAttendanceList(SmartList<EventAttendance> eventAttendanceList){
+		if(eventAttendanceList==null){
+			return;
+		}
+		if(eventAttendanceList.isEmpty()){
+			return;
+		}
+		addEventAttendanceList( eventAttendanceList );
+		
+	}
 	public  EventAttendance removeEventAttendance(EventAttendance eventAttendanceIndex){
 		
 		int index = getEventAttendanceList().indexOf(eventAttendanceIndex);
@@ -676,6 +727,30 @@ public class PotentialCustomer extends BaseEntity implements  java.io.Serializab
 			dest.setPotentialCustomerContactPersonList(getPotentialCustomerContactPersonList());
 			dest.setPotentialCustomerContactList(getPotentialCustomerContactList());
 			dest.setEventAttendanceList(getEventAttendanceList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof PotentialCustomer){
+		
+			
+			PotentialCustomer dest =(PotentialCustomer)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeMobile(getMobile());
+			dest.mergeCityServiceCenter(getCityServiceCenter());
+			dest.mergeCityPartner(getCityPartner());
+			dest.mergeDescription(getDescription());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergePotentialCustomerContactPersonList(getPotentialCustomerContactPersonList());
+			dest.mergePotentialCustomerContactList(getPotentialCustomerContactList());
+			dest.mergeEventAttendanceList(getEventAttendanceList());
 
 		}
 		super.copyTo(baseDest);

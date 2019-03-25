@@ -249,9 +249,8 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SalaryGradeTokens.EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SalaryGradeTokens.EMPLOYEE_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeListEnabled(Map<String,Object> options){		 		
+ 		return SalaryGradeTokens.of(options).analyzeEmployeeListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeListEnabled(Map<String,Object> options){
@@ -264,9 +263,8 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SalaryGradeTokens.EMPLOYEE_SALARY_SHEET_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SalaryGradeTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		 		
+ 		return SalaryGradeTokens.of(options).analyzeEmployeeSalarySheetListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){

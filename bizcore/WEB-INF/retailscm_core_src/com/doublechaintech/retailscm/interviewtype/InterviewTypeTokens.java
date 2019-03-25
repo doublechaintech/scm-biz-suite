@@ -38,6 +38,15 @@ public class InterviewTypeTokens extends CommonTokens{
 	protected InterviewTypeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  InterviewTypeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		InterviewTypeTokens tokens = new InterviewTypeTokens(options);
+		return tokens;
+		
+	}
+	protected InterviewTypeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public InterviewTypeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class InterviewTypeTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public InterviewTypeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COMPANY = "company";
 	public String getCompany(){
@@ -108,7 +122,11 @@ public class InterviewTypeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeInterviewListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_INTERVIEW_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_INTERVIEW_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public InterviewTypeTokens extractMoreFromEmployeeInterviewList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST+".extractIds", idsSeperatedWithComma);

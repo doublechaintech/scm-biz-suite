@@ -342,7 +342,7 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortCompanyTrainingListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -221,9 +221,8 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
 	protected boolean isExtractRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreMemberGiftCardTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreMemberGiftCardTokens.RETAIL_STORE_MEMBER_GIFT_CARD_CONSUME_RECORD_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreMemberGiftCardTokens.of(options).analyzeRetailStoreMemberGiftCardConsumeRecordListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreMemberGiftCardConsumeRecordListEnabled(Map<String,Object> options){

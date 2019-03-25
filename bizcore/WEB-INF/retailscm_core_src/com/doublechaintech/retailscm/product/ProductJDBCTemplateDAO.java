@@ -221,9 +221,8 @@ public class ProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	protected boolean isExtractSkuListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ProductTokens.SKU_LIST);
  	}
- 	protected boolean isAnalyzeSkuListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ProductTokens.SKU_LIST+".analyze");
+ 	protected boolean isAnalyzeSkuListEnabled(Map<String,Object> options){		 		
+ 		return ProductTokens.of(options).analyzeSkuListEnabled();
  	}
 	
 	protected boolean isSaveSkuListEnabled(Map<String,Object> options){

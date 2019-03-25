@@ -151,6 +151,9 @@ public class SecUserBlocking extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -163,6 +166,9 @@ public class SecUserBlocking extends BaseEntity implements  java.io.Serializable
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -177,6 +183,9 @@ public class SecUserBlocking extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeBlockTime(DateTime blockTime){
+		setBlockTime(blockTime);
+	}
 	
 	
 	public void setComments(String comments){
@@ -190,6 +199,9 @@ public class SecUserBlocking extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeComments(String comments){
+		if(comments != null) { setComments(comments);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -202,6 +214,9 @@ public class SecUserBlocking extends BaseEntity implements  java.io.Serializable
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -235,7 +250,16 @@ public class SecUserBlocking extends BaseEntity implements  java.io.Serializable
 		}
 		getSecUserList().addAll(secUserList);
 	}
-	
+	public  void mergeSecUserList(SmartList<SecUser> secUserList){
+		if(secUserList==null){
+			return;
+		}
+		if(secUserList.isEmpty()){
+			return;
+		}
+		addSecUserList( secUserList );
+		
+	}
 	public  SecUser removeSecUser(SecUser secUserIndex){
 		
 		int index = getSecUserList().indexOf(secUserIndex);
@@ -361,6 +385,25 @@ public class SecUserBlocking extends BaseEntity implements  java.io.Serializable
 			dest.setComments(getComments());
 			dest.setVersion(getVersion());
 			dest.setSecUserList(getSecUserList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SecUserBlocking){
+		
+			
+			SecUserBlocking dest =(SecUserBlocking)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeBlockTime(getBlockTime());
+			dest.mergeComments(getComments());
+			dest.mergeVersion(getVersion());
+			dest.mergeSecUserList(getSecUserList());
 
 		}
 		super.copyTo(baseDest);

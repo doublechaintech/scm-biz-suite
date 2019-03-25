@@ -178,6 +178,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -190,6 +193,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -204,6 +210,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeCode(String code){
+		if(code != null) { setCode(code);}
+	}
 	
 	
 	public void setDirect(String direct){
@@ -216,6 +225,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.mDirect = trimString(direct);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDirect(String direct){
+		if(direct != null) { setDirect(direct);}
 	}
 	
 	
@@ -230,6 +242,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeAmount(BigDecimal amount){
+		setAmount(amount);
+	}
 	
 	
 	public void setBelongsTo(AccountingDocument belongsTo){
@@ -242,6 +257,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.mBelongsTo = belongsTo;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBelongsTo(AccountingDocument belongsTo){
+		if(belongsTo != null) { setBelongsTo(belongsTo);}
 	}
 	
 	
@@ -261,6 +279,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeAccountingSubject(AccountingSubject accountingSubject){
+		if(accountingSubject != null) { setAccountingSubject(accountingSubject);}
+	}
 	
 	
 	public void clearAccountingSubject(){
@@ -278,6 +299,9 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -339,6 +363,27 @@ public class AccountingDocumentLine extends BaseEntity implements  java.io.Seria
 			dest.setBelongsTo(getBelongsTo());
 			dest.setAccountingSubject(getAccountingSubject());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountingDocumentLine){
+		
+			
+			AccountingDocumentLine dest =(AccountingDocumentLine)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeCode(getCode());
+			dest.mergeDirect(getDirect());
+			dest.mergeAmount(getAmount());
+			dest.mergeBelongsTo(getBelongsTo());
+			dest.mergeAccountingSubject(getAccountingSubject());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

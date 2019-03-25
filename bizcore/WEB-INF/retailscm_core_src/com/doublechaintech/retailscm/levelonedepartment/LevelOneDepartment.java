@@ -177,6 +177,9 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setBelongsTo(RetailStoreCountryCenter belongsTo){
@@ -189,6 +192,9 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		this.mBelongsTo = belongsTo;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBelongsTo(RetailStoreCountryCenter belongsTo){
+		if(belongsTo != null) { setBelongsTo(belongsTo);}
 	}
 	
 	
@@ -208,6 +214,9 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setDescription(String description){
@@ -220,6 +229,9 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		this.mDescription = trimString(description);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
 	}
 	
 	
@@ -234,6 +246,9 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeManager(String manager){
+		if(manager != null) { setManager(manager);}
+	}
 	
 	
 	public void setFounded(Date founded){
@@ -247,6 +262,9 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeFounded(Date founded){
+		setFounded(founded);
+	}
 	
 	
 	public void setVersion(int version){
@@ -259,6 +277,9 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -292,7 +313,16 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 		}
 		getLevelTwoDepartmentList().addAll(levelTwoDepartmentList);
 	}
-	
+	public  void mergeLevelTwoDepartmentList(SmartList<LevelTwoDepartment> levelTwoDepartmentList){
+		if(levelTwoDepartmentList==null){
+			return;
+		}
+		if(levelTwoDepartmentList.isEmpty()){
+			return;
+		}
+		addLevelTwoDepartmentList( levelTwoDepartmentList );
+		
+	}
 	public  LevelTwoDepartment removeLevelTwoDepartment(LevelTwoDepartment levelTwoDepartmentIndex){
 		
 		int index = getLevelTwoDepartmentList().indexOf(levelTwoDepartmentIndex);
@@ -423,6 +453,27 @@ public class LevelOneDepartment extends BaseEntity implements  java.io.Serializa
 			dest.setFounded(getFounded());
 			dest.setVersion(getVersion());
 			dest.setLevelTwoDepartmentList(getLevelTwoDepartmentList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof LevelOneDepartment){
+		
+			
+			LevelOneDepartment dest =(LevelOneDepartment)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeBelongsTo(getBelongsTo());
+			dest.mergeName(getName());
+			dest.mergeDescription(getDescription());
+			dest.mergeManager(getManager());
+			dest.mergeFounded(getFounded());
+			dest.mergeVersion(getVersion());
+			dest.mergeLevelTwoDepartmentList(getLevelTwoDepartmentList());
 
 		}
 		super.copyTo(baseDest);

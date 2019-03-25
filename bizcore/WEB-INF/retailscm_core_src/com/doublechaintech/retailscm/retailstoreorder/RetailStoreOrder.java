@@ -200,6 +200,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setBuyer(RetailStore buyer){
@@ -212,6 +215,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.mBuyer = buyer;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBuyer(RetailStore buyer){
+		if(buyer != null) { setBuyer(buyer);}
 	}
 	
 	
@@ -231,6 +237,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeSeller(RetailStoreCountryCenter seller){
+		if(seller != null) { setSeller(seller);}
+	}
 	
 	
 	public void clearSeller(){
@@ -249,6 +258,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
+	}
 	
 	
 	public void setTotalAmount(BigDecimal totalAmount){
@@ -262,6 +274,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeTotalAmount(BigDecimal totalAmount){
+		setTotalAmount(totalAmount);
+	}
 	
 	
 	public void setConfirmation(RetailStoreOrderConfirmation confirmation){
@@ -274,6 +289,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.mConfirmation = confirmation;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeConfirmation(RetailStoreOrderConfirmation confirmation){
+		if(confirmation != null) { setConfirmation(confirmation);}
 	}
 	
 	
@@ -293,6 +311,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeApproval(RetailStoreOrderApproval approval){
+		if(approval != null) { setApproval(approval);}
+	}
 	
 	
 	public void clearApproval(){
@@ -310,6 +331,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.mProcessing = processing;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeProcessing(RetailStoreOrderProcessing processing){
+		if(processing != null) { setProcessing(processing);}
 	}
 	
 	
@@ -329,6 +353,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergePicking(RetailStoreOrderPicking picking){
+		if(picking != null) { setPicking(picking);}
+	}
 	
 	
 	public void clearPicking(){
@@ -346,6 +373,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.mShipment = shipment;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeShipment(RetailStoreOrderShipment shipment){
+		if(shipment != null) { setShipment(shipment);}
 	}
 	
 	
@@ -365,6 +395,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeDelivery(RetailStoreOrderDelivery delivery){
+		if(delivery != null) { setDelivery(delivery);}
+	}
 	
 	
 	public void clearDelivery(){
@@ -383,6 +416,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setCurrentStatus(String currentStatus){
@@ -396,6 +432,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -408,6 +447,9 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -441,7 +483,16 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		}
 		getRetailStoreOrderLineItemList().addAll(retailStoreOrderLineItemList);
 	}
-	
+	public  void mergeRetailStoreOrderLineItemList(SmartList<RetailStoreOrderLineItem> retailStoreOrderLineItemList){
+		if(retailStoreOrderLineItemList==null){
+			return;
+		}
+		if(retailStoreOrderLineItemList.isEmpty()){
+			return;
+		}
+		addRetailStoreOrderLineItemList( retailStoreOrderLineItemList );
+		
+	}
 	public  RetailStoreOrderLineItem removeRetailStoreOrderLineItem(RetailStoreOrderLineItem retailStoreOrderLineItemIndex){
 		
 		int index = getRetailStoreOrderLineItemList().indexOf(retailStoreOrderLineItemIndex);
@@ -539,7 +590,16 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		}
 		getRetailStoreOrderShippingGroupList().addAll(retailStoreOrderShippingGroupList);
 	}
-	
+	public  void mergeRetailStoreOrderShippingGroupList(SmartList<RetailStoreOrderShippingGroup> retailStoreOrderShippingGroupList){
+		if(retailStoreOrderShippingGroupList==null){
+			return;
+		}
+		if(retailStoreOrderShippingGroupList.isEmpty()){
+			return;
+		}
+		addRetailStoreOrderShippingGroupList( retailStoreOrderShippingGroupList );
+		
+	}
 	public  RetailStoreOrderShippingGroup removeRetailStoreOrderShippingGroup(RetailStoreOrderShippingGroup retailStoreOrderShippingGroupIndex){
 		
 		int index = getRetailStoreOrderShippingGroupList().indexOf(retailStoreOrderShippingGroupIndex);
@@ -637,7 +697,16 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		}
 		getRetailStoreOrderPaymentGroupList().addAll(retailStoreOrderPaymentGroupList);
 	}
-	
+	public  void mergeRetailStoreOrderPaymentGroupList(SmartList<RetailStoreOrderPaymentGroup> retailStoreOrderPaymentGroupList){
+		if(retailStoreOrderPaymentGroupList==null){
+			return;
+		}
+		if(retailStoreOrderPaymentGroupList.isEmpty()){
+			return;
+		}
+		addRetailStoreOrderPaymentGroupList( retailStoreOrderPaymentGroupList );
+		
+	}
 	public  RetailStoreOrderPaymentGroup removeRetailStoreOrderPaymentGroup(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroupIndex){
 		
 		int index = getRetailStoreOrderPaymentGroupList().indexOf(retailStoreOrderPaymentGroupIndex);
@@ -735,7 +804,16 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 		}
 		getGoodsList().addAll(goodsList);
 	}
-	
+	public  void mergeGoodsList(SmartList<Goods> goodsList){
+		if(goodsList==null){
+			return;
+		}
+		if(goodsList.isEmpty()){
+			return;
+		}
+		addGoodsList( goodsList );
+		
+	}
 	public  Goods removeGoods(Goods goodsIndex){
 		
 		int index = getGoodsList().indexOf(goodsIndex);
@@ -911,6 +989,37 @@ public class RetailStoreOrder extends BaseEntity implements  java.io.Serializabl
 			dest.setRetailStoreOrderShippingGroupList(getRetailStoreOrderShippingGroupList());
 			dest.setRetailStoreOrderPaymentGroupList(getRetailStoreOrderPaymentGroupList());
 			dest.setGoodsList(getGoodsList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreOrder){
+		
+			
+			RetailStoreOrder dest =(RetailStoreOrder)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeBuyer(getBuyer());
+			dest.mergeSeller(getSeller());
+			dest.mergeTitle(getTitle());
+			dest.mergeTotalAmount(getTotalAmount());
+			dest.mergeConfirmation(getConfirmation());
+			dest.mergeApproval(getApproval());
+			dest.mergeProcessing(getProcessing());
+			dest.mergePicking(getPicking());
+			dest.mergeShipment(getShipment());
+			dest.mergeDelivery(getDelivery());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeRetailStoreOrderLineItemList(getRetailStoreOrderLineItemList());
+			dest.mergeRetailStoreOrderShippingGroupList(getRetailStoreOrderShippingGroupList());
+			dest.mergeRetailStoreOrderPaymentGroupList(getRetailStoreOrderPaymentGroupList());
+			dest.mergeGoodsList(getGoodsList());
 
 		}
 		super.copyTo(baseDest);

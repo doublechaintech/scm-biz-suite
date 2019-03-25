@@ -337,7 +337,7 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortGoodsShelfListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

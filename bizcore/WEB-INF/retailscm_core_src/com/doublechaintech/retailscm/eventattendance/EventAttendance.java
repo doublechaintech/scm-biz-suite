@@ -136,6 +136,9 @@ public class EventAttendance extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -149,6 +152,9 @@ public class EventAttendance extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setPotentialCustomer(PotentialCustomer potentialCustomer){
@@ -161,6 +167,9 @@ public class EventAttendance extends BaseEntity implements  java.io.Serializable
 		this.mPotentialCustomer = potentialCustomer;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePotentialCustomer(PotentialCustomer potentialCustomer){
+		if(potentialCustomer != null) { setPotentialCustomer(potentialCustomer);}
 	}
 	
 	
@@ -180,6 +189,9 @@ public class EventAttendance extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeCityEvent(CityEvent cityEvent){
+		if(cityEvent != null) { setCityEvent(cityEvent);}
+	}
 	
 	
 	public void clearCityEvent(){
@@ -198,6 +210,9 @@ public class EventAttendance extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -210,6 +225,9 @@ public class EventAttendance extends BaseEntity implements  java.io.Serializable
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -267,6 +285,25 @@ public class EventAttendance extends BaseEntity implements  java.io.Serializable
 			dest.setCityEvent(getCityEvent());
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EventAttendance){
+		
+			
+			EventAttendance dest =(EventAttendance)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergePotentialCustomer(getPotentialCustomer());
+			dest.mergeCityEvent(getCityEvent());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

@@ -240,6 +240,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -252,6 +255,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -266,6 +272,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSize(String size){
+		if(size != null) { setSize(size);}
+	}
 	
 	
 	public void setProduct(Product product){
@@ -278,6 +287,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.mProduct = product;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeProduct(Product product){
+		if(product != null) { setProduct(product);}
 	}
 	
 	
@@ -297,6 +309,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeBarcode(String barcode){
+		if(barcode != null) { setBarcode(barcode);}
+	}
 	
 	
 	public void setPackageType(String packageType){
@@ -309,6 +324,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.mPackageType = trimString(packageType);;
 		this.changed = true;
 		return this;
+	}
+	public void mergePackageType(String packageType){
+		if(packageType != null) { setPackageType(packageType);}
 	}
 	
 	
@@ -323,6 +341,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeNetContent(String netContent){
+		if(netContent != null) { setNetContent(netContent);}
+	}
 	
 	
 	public void setPrice(BigDecimal price){
@@ -335,6 +356,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.mPrice = price;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePrice(BigDecimal price){
+		setPrice(price);
 	}
 	
 	
@@ -349,6 +373,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePicture(String picture){
+		if(picture != null) { setPicture(picture);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -361,6 +388,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -394,7 +424,16 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsList().addAll(goodsList);
 	}
-	
+	public  void mergeGoodsList(SmartList<Goods> goodsList){
+		if(goodsList==null){
+			return;
+		}
+		if(goodsList.isEmpty()){
+			return;
+		}
+		addGoodsList( goodsList );
+		
+	}
 	public  Goods removeGoods(Goods goodsIndex){
 		
 		int index = getGoodsList().indexOf(goodsIndex);
@@ -531,6 +570,30 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 			dest.setPicture(getPicture());
 			dest.setVersion(getVersion());
 			dest.setGoodsList(getGoodsList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Sku){
+		
+			
+			Sku dest =(Sku)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeSize(getSize());
+			dest.mergeProduct(getProduct());
+			dest.mergeBarcode(getBarcode());
+			dest.mergePackageType(getPackageType());
+			dest.mergeNetContent(getNetContent());
+			dest.mergePrice(getPrice());
+			dest.mergePicture(getPicture());
+			dest.mergeVersion(getVersion());
+			dest.mergeGoodsList(getGoodsList());
 
 		}
 		super.copyTo(baseDest);

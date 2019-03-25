@@ -330,7 +330,7 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortAccountingDocumentLineListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

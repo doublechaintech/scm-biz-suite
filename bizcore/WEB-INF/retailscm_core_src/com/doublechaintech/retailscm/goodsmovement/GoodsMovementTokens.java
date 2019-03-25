@@ -38,6 +38,15 @@ public class GoodsMovementTokens extends CommonTokens{
 	protected GoodsMovementTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  GoodsMovementTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		GoodsMovementTokens tokens = new GoodsMovementTokens(options);
+		return tokens;
+		
+	}
+	protected GoodsMovementTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public GoodsMovementTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class GoodsMovementTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public GoodsMovementTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String GOODS = "goods";

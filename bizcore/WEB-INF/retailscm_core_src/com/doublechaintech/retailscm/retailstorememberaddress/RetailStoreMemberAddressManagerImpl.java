@@ -317,7 +317,7 @@ public class RetailStoreMemberAddressManagerImpl extends CustomRetailscmCheckerM
 	}
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

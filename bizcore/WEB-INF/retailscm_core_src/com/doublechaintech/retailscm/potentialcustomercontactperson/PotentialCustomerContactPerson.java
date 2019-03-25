@@ -156,6 +156,9 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -169,6 +172,9 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setMobile(String mobile){
@@ -181,6 +187,9 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 		this.mMobile = trimString(mobile);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMobile(String mobile){
+		if(mobile != null) { setMobile(mobile);}
 	}
 	
 	
@@ -202,6 +211,9 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 		this.changed = true;
 		return this;
 	}
+	public void mergePotentialCustomer(PotentialCustomer potentialCustomer){
+		if(potentialCustomer != null) { setPotentialCustomer(potentialCustomer);}
+	}
 	
 	
 	public void clearPotentialCustomer(){
@@ -220,6 +232,9 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -232,6 +247,9 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -265,7 +283,16 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 		}
 		getPotentialCustomerContactList().addAll(potentialCustomerContactList);
 	}
-	
+	public  void mergePotentialCustomerContactList(SmartList<PotentialCustomerContact> potentialCustomerContactList){
+		if(potentialCustomerContactList==null){
+			return;
+		}
+		if(potentialCustomerContactList.isEmpty()){
+			return;
+		}
+		addPotentialCustomerContactList( potentialCustomerContactList );
+		
+	}
 	public  PotentialCustomerContact removePotentialCustomerContact(PotentialCustomerContact potentialCustomerContactIndex){
 		
 		int index = getPotentialCustomerContactList().indexOf(potentialCustomerContactIndex);
@@ -394,6 +421,26 @@ public class PotentialCustomerContactPerson extends BaseEntity implements  java.
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
 			dest.setPotentialCustomerContactList(getPotentialCustomerContactList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof PotentialCustomerContactPerson){
+		
+			
+			PotentialCustomerContactPerson dest =(PotentialCustomerContactPerson)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeMobile(getMobile());
+			dest.mergePotentialCustomer(getPotentialCustomer());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergePotentialCustomerContactList(getPotentialCustomerContactList());
 
 		}
 		super.copyTo(baseDest);

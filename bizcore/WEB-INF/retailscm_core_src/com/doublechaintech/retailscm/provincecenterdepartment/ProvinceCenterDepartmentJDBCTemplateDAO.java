@@ -221,9 +221,8 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 	protected boolean isExtractProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,ProvinceCenterDepartmentTokens.PROVINCE_CENTER_EMPLOYEE_LIST+".analyze");
+ 	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		 		
+ 		return ProvinceCenterDepartmentTokens.of(options).analyzeProvinceCenterEmployeeListEnabled();
  	}
 	
 	protected boolean isSaveProvinceCenterEmployeeListEnabled(Map<String,Object> options){

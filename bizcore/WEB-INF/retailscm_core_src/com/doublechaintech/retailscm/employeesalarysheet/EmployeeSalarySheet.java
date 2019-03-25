@@ -248,6 +248,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -260,6 +263,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -279,6 +285,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentSalaryGrade(SalaryGrade currentSalaryGrade){
+		if(currentSalaryGrade != null) { setCurrentSalaryGrade(currentSalaryGrade);}
+	}
 	
 	
 	public void clearCurrentSalaryGrade(){
@@ -297,6 +306,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeBaseSalary(BigDecimal baseSalary){
+		setBaseSalary(baseSalary);
+	}
 	
 	
 	public void setBonus(BigDecimal bonus){
@@ -309,6 +321,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.mBonus = bonus;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBonus(BigDecimal bonus){
+		setBonus(bonus);
 	}
 	
 	
@@ -323,6 +338,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeReward(BigDecimal reward){
+		setReward(reward);
+	}
 	
 	
 	public void setPersonalTax(BigDecimal personalTax){
@@ -335,6 +353,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.mPersonalTax = personalTax;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePersonalTax(BigDecimal personalTax){
+		setPersonalTax(personalTax);
 	}
 	
 	
@@ -349,6 +370,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeSocialSecurity(BigDecimal socialSecurity){
+		setSocialSecurity(socialSecurity);
+	}
 	
 	
 	public void setHousingFound(BigDecimal housingFound){
@@ -361,6 +385,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.mHousingFound = housingFound;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeHousingFound(BigDecimal housingFound){
+		setHousingFound(housingFound);
 	}
 	
 	
@@ -375,6 +402,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeJobInsurance(BigDecimal jobInsurance){
+		setJobInsurance(jobInsurance);
+	}
 	
 	
 	public void setPayingOff(PayingOff payingOff){
@@ -387,6 +417,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.mPayingOff = payingOff;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePayingOff(PayingOff payingOff){
+		if(payingOff != null) { setPayingOff(payingOff);}
 	}
 	
 	
@@ -406,6 +439,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -418,6 +454,9 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -490,6 +529,32 @@ public class EmployeeSalarySheet extends BaseEntity implements  java.io.Serializ
 			dest.setPayingOff(getPayingOff());
 			dest.setCurrentStatus(getCurrentStatus());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeSalarySheet){
+		
+			
+			EmployeeSalarySheet dest =(EmployeeSalarySheet)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergeCurrentSalaryGrade(getCurrentSalaryGrade());
+			dest.mergeBaseSalary(getBaseSalary());
+			dest.mergeBonus(getBonus());
+			dest.mergeReward(getReward());
+			dest.mergePersonalTax(getPersonalTax());
+			dest.mergeSocialSecurity(getSocialSecurity());
+			dest.mergeHousingFound(getHousingFound());
+			dest.mergeJobInsurance(getJobInsurance());
+			dest.mergePayingOff(getPayingOff());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

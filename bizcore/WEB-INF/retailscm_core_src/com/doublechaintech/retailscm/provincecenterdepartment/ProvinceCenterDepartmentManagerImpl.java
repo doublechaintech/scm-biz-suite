@@ -325,7 +325,7 @@ public class ProvinceCenterDepartmentManagerImpl extends CustomRetailscmCheckerM
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortProvinceCenterEmployeeListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

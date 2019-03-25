@@ -224,9 +224,8 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 	protected boolean isExtractConsumerOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplyOrderConfirmationTokens.CONSUMER_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeConsumerOrderListEnabled(Map<String,Object> options){		 		
+ 		return SupplyOrderConfirmationTokens.of(options).analyzeConsumerOrderListEnabled();
  	}
 	
 	protected boolean isSaveConsumerOrderListEnabled(Map<String,Object> options){
@@ -239,9 +238,8 @@ public class SupplyOrderConfirmationJDBCTemplateDAO extends RetailscmNamingServi
 	protected boolean isExtractSupplyOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplyOrderConfirmationTokens.SUPPLY_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplyOrderListEnabled(Map<String,Object> options){		 		
+ 		return SupplyOrderConfirmationTokens.of(options).analyzeSupplyOrderListEnabled();
  	}
 	
 	protected boolean isSaveSupplyOrderListEnabled(Map<String,Object> options){

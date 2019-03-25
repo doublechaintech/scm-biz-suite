@@ -38,6 +38,15 @@ public class OriginalVoucherCreationTokens extends CommonTokens{
 	protected OriginalVoucherCreationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  OriginalVoucherCreationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		OriginalVoucherCreationTokens tokens = new OriginalVoucherCreationTokens(options);
+		return tokens;
+		
+	}
+	protected OriginalVoucherCreationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public OriginalVoucherCreationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class OriginalVoucherCreationTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public OriginalVoucherCreationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String ORIGINAL_VOUCHER_LIST = "originalVoucherList";
 	public String getOriginalVoucherList(){
@@ -96,7 +110,11 @@ public class OriginalVoucherCreationTokens extends CommonTokens{
 	}
 	public boolean analyzeOriginalVoucherListEnabled(){		
 		
-		return checkOptions(this.options(), ORIGINAL_VOUCHER_LIST+".anaylze");
+		if(checkOptions(this.options(), ORIGINAL_VOUCHER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public OriginalVoucherCreationTokens extractMoreFromOriginalVoucherList(String idsSeperatedWithComma){		
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".extractIds", idsSeperatedWithComma);

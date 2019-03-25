@@ -221,9 +221,8 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	protected boolean isExtractLevelOneCategoryListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CatalogTokens.LEVEL_ONE_CATEGORY_LIST);
  	}
- 	protected boolean isAnalyzeLevelOneCategoryListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,CatalogTokens.LEVEL_ONE_CATEGORY_LIST+".analyze");
+ 	protected boolean isAnalyzeLevelOneCategoryListEnabled(Map<String,Object> options){		 		
+ 		return CatalogTokens.of(options).analyzeLevelOneCategoryListEnabled();
  	}
 	
 	protected boolean isSaveLevelOneCategoryListEnabled(Map<String,Object> options){

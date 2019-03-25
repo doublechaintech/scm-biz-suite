@@ -320,7 +320,7 @@ public class TerminationReasonManagerImpl extends CustomRetailscmCheckerManager 
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortTerminationListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

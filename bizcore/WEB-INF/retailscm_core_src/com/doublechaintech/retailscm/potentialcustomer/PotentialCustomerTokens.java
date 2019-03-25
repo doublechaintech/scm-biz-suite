@@ -38,6 +38,15 @@ public class PotentialCustomerTokens extends CommonTokens{
 	protected PotentialCustomerTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  PotentialCustomerTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		PotentialCustomerTokens tokens = new PotentialCustomerTokens(options);
+		return tokens;
+		
+	}
+	protected PotentialCustomerTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public PotentialCustomerTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -87,6 +96,11 @@ public class PotentialCustomerTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public PotentialCustomerTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String CITYSERVICECENTER = "cityServiceCenter";
 	public String getCityServiceCenter(){
@@ -122,7 +136,11 @@ public class PotentialCustomerTokens extends CommonTokens{
 	}
 	public boolean analyzePotentialCustomerContactPersonListEnabled(){		
 		
-		return checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".anaylze");
+		if(checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public PotentialCustomerTokens extractMoreFromPotentialCustomerContactPersonList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".extractIds", idsSeperatedWithComma);
@@ -184,7 +202,11 @@ public class PotentialCustomerTokens extends CommonTokens{
 	}
 	public boolean analyzePotentialCustomerContactListEnabled(){		
 		
-		return checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+		if(checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public PotentialCustomerTokens extractMoreFromPotentialCustomerContactList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".extractIds", idsSeperatedWithComma);
@@ -246,7 +268,11 @@ public class PotentialCustomerTokens extends CommonTokens{
 	}
 	public boolean analyzeEventAttendanceListEnabled(){		
 		
-		return checkOptions(this.options(), EVENT_ATTENDANCE_LIST+".anaylze");
+		if(checkOptions(this.options(), EVENT_ATTENDANCE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public PotentialCustomerTokens extractMoreFromEventAttendanceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EVENT_ATTENDANCE_LIST+".extractIds", idsSeperatedWithComma);

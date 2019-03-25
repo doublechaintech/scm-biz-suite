@@ -325,7 +325,7 @@ public class EmployeeBoardingManagerImpl extends CustomRetailscmCheckerManager i
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortEmployeeListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

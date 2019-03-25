@@ -249,9 +249,8 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractPotentialCustomerListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_LIST+".analyze");
+ 	protected boolean isAnalyzePotentialCustomerListEnabled(Map<String,Object> options){		 		
+ 		return CityPartnerTokens.of(options).analyzePotentialCustomerListEnabled();
  	}
 	
 	protected boolean isSavePotentialCustomerListEnabled(Map<String,Object> options){
@@ -264,9 +263,8 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,CityPartnerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		 		
+ 		return CityPartnerTokens.of(options).analyzePotentialCustomerContactListEnabled();
  	}
 	
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){

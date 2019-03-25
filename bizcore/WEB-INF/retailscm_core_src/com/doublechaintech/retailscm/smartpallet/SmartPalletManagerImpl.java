@@ -344,7 +344,7 @@ public class SmartPalletManagerImpl extends CustomRetailscmCheckerManager implem
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortGoodsListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

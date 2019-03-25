@@ -324,7 +324,7 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortAccountingDocumentListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

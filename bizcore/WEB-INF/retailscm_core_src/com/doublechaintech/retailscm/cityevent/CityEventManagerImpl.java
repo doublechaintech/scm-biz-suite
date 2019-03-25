@@ -326,7 +326,7 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortEventAttendanceListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

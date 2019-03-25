@@ -352,7 +352,7 @@ public class AccountingDocumentManagerImpl extends CustomRetailscmCheckerManager
 		return tokens().allTokens()
 		.sortOriginalVoucherListWith("id","desc")
 		.sortAccountingDocumentLineListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

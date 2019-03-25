@@ -196,9 +196,8 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	protected boolean isExtractSecUserListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SecUserBlockingTokens.SEC_USER_LIST);
  	}
- 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SecUserBlockingTokens.SEC_USER_LIST+".analyze");
+ 	protected boolean isAnalyzeSecUserListEnabled(Map<String,Object> options){		 		
+ 		return SecUserBlockingTokens.of(options).analyzeSecUserListEnabled();
  	}
 	
 	protected boolean isSaveSecUserListEnabled(Map<String,Object> options){

@@ -38,6 +38,15 @@ public class TransportTaskTokens extends CommonTokens{
 	protected TransportTaskTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  TransportTaskTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		TransportTaskTokens tokens = new TransportTaskTokens(options);
+		return tokens;
+		
+	}
+	protected TransportTaskTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public TransportTaskTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -89,6 +98,11 @@ public class TransportTaskTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public TransportTaskTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String END = "end";
@@ -145,7 +159,11 @@ public class TransportTaskTokens extends CommonTokens{
 	}
 	public boolean analyzeGoodsListEnabled(){		
 		
-		return checkOptions(this.options(), GOODS_LIST+".anaylze");
+		if(checkOptions(this.options(), GOODS_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public TransportTaskTokens extractMoreFromGoodsList(String idsSeperatedWithComma){		
 		addSimpleOptions(GOODS_LIST+".extractIds", idsSeperatedWithComma);
@@ -207,7 +225,11 @@ public class TransportTaskTokens extends CommonTokens{
 	}
 	public boolean analyzeTransportTaskTrackListEnabled(){		
 		
-		return checkOptions(this.options(), TRANSPORT_TASK_TRACK_LIST+".anaylze");
+		if(checkOptions(this.options(), TRANSPORT_TASK_TRACK_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public TransportTaskTokens extractMoreFromTransportTaskTrackList(String idsSeperatedWithComma){		
 		addSimpleOptions(TRANSPORT_TASK_TRACK_LIST+".extractIds", idsSeperatedWithComma);

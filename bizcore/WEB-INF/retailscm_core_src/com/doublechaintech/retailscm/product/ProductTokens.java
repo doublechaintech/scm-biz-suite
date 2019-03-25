@@ -38,6 +38,15 @@ public class ProductTokens extends CommonTokens{
 	protected ProductTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ProductTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ProductTokens tokens = new ProductTokens(options);
+		return tokens;
+		
+	}
+	protected ProductTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ProductTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class ProductTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public ProductTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String PARENTCATEGORY = "parentCategory";
 	public String getParentCategory(){
@@ -108,7 +122,11 @@ public class ProductTokens extends CommonTokens{
 	}
 	public boolean analyzeSkuListEnabled(){		
 		
-		return checkOptions(this.options(), SKU_LIST+".anaylze");
+		if(checkOptions(this.options(), SKU_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ProductTokens extractMoreFromSkuList(String idsSeperatedWithComma){		
 		addSimpleOptions(SKU_LIST+".extractIds", idsSeperatedWithComma);

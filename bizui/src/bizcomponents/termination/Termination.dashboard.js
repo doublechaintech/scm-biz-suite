@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,17 +76,17 @@ const internalSummaryOf = (termination,targetComponent) =>{
 	
 	
 	const {TerminationService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{termination.id}</Description> 
-<Description term="原因">{termination.reason==null?"未分配":termination.reason.displayName}
+<Description term="原因">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"原因","terminationReason",TerminationService.requestCandidateReason,
 	      TerminationService.transferToAnotherReason,"anotherReasonId",termination.reason?termination.reason.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="类型">{termination.type==null?"未分配":termination.type.displayName}
+<Description term="类型">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"类型","terminationType",TerminationService.requestCandidateType,
 	      TerminationService.transferToAnotherType,"anotherTypeId",termination.type?termination.type.id:"")} 
@@ -108,7 +108,7 @@ class TerminationDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -136,7 +136,6 @@ class TerminationDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

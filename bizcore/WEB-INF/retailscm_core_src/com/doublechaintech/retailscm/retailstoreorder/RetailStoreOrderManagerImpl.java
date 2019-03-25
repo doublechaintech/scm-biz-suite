@@ -376,7 +376,7 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 		.sortRetailStoreOrderShippingGroupListWith("id","desc")
 		.sortRetailStoreOrderPaymentGroupListWith("id","desc")
 		.sortGoodsListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

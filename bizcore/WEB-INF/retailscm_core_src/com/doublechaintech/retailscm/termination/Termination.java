@@ -119,6 +119,9 @@ public class Termination extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setReason(TerminationReason reason){
@@ -131,6 +134,9 @@ public class Termination extends BaseEntity implements  java.io.Serializable{
 		this.mReason = reason;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeReason(TerminationReason reason){
+		if(reason != null) { setReason(reason);}
 	}
 	
 	
@@ -150,6 +156,9 @@ public class Termination extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeType(TerminationType type){
+		if(type != null) { setType(type);}
+	}
 	
 	
 	public void clearType(){
@@ -168,6 +177,9 @@ public class Termination extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeComment(String comment){
+		if(comment != null) { setComment(comment);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -180,6 +192,9 @@ public class Termination extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -213,7 +228,16 @@ public class Termination extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeList().addAll(employeeList);
 	}
-	
+	public  void mergeEmployeeList(SmartList<Employee> employeeList){
+		if(employeeList==null){
+			return;
+		}
+		if(employeeList.isEmpty()){
+			return;
+		}
+		addEmployeeList( employeeList );
+		
+	}
 	public  Employee removeEmployee(Employee employeeIndex){
 		
 		int index = getEmployeeList().indexOf(employeeIndex);
@@ -341,6 +365,25 @@ public class Termination extends BaseEntity implements  java.io.Serializable{
 			dest.setComment(getComment());
 			dest.setVersion(getVersion());
 			dest.setEmployeeList(getEmployeeList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Termination){
+		
+			
+			Termination dest =(Termination)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeReason(getReason());
+			dest.mergeType(getType());
+			dest.mergeComment(getComment());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeList(getEmployeeList());
 
 		}
 		super.copyTo(baseDest);

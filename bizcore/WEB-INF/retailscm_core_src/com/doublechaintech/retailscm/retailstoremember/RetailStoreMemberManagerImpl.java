@@ -361,7 +361,7 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 		.sortMemberRewardPointRedemptionListWith("id","desc")
 		.sortRetailStoreMemberAddressListWith("id","desc")
 		.sortRetailStoreMemberGiftCardListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

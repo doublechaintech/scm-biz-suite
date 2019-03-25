@@ -38,6 +38,15 @@ public class ScoringTokens extends CommonTokens{
 	protected ScoringTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ScoringTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ScoringTokens tokens = new ScoringTokens(options);
+		return tokens;
+		
+	}
+	protected ScoringTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ScoringTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class ScoringTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public ScoringTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String EMPLOYEE_COMPANY_TRAINING_LIST = "employeeCompanyTrainingList";
 	public String getEmployeeCompanyTrainingList(){
@@ -96,7 +110,11 @@ public class ScoringTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeCompanyTrainingListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ScoringTokens extractMoreFromEmployeeCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);

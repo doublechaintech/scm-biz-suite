@@ -156,6 +156,9 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLocation(String location){
@@ -168,6 +171,9 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 		this.mLocation = trimString(location);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLocation(String location){
+		if(location != null) { setLocation(location);}
 	}
 	
 	
@@ -182,6 +188,9 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeLatitude(BigDecimal latitude){
+		setLatitude(latitude);
+	}
 	
 	
 	public void setLongitude(BigDecimal longitude){
@@ -195,6 +204,9 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeLongitude(BigDecimal longitude){
+		setLongitude(longitude);
+	}
 	
 	
 	public void setGoodsShelf(GoodsShelf goodsShelf){
@@ -207,6 +219,9 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 		this.mGoodsShelf = goodsShelf;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeGoodsShelf(GoodsShelf goodsShelf){
+		if(goodsShelf != null) { setGoodsShelf(goodsShelf);}
 	}
 	
 	
@@ -225,6 +240,9 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 		}
 		getGoodsList().addAll(goodsList);
 	}
-	
+	public  void mergeGoodsList(SmartList<Goods> goodsList){
+		if(goodsList==null){
+			return;
+		}
+		if(goodsList.isEmpty()){
+			return;
+		}
+		addGoodsList( goodsList );
+		
+	}
 	public  Goods removeGoods(Goods goodsIndex){
 		
 		int index = getGoodsList().indexOf(goodsIndex);
@@ -387,6 +414,26 @@ public class GoodsAllocation extends BaseEntity implements  java.io.Serializable
 			dest.setGoodsShelf(getGoodsShelf());
 			dest.setVersion(getVersion());
 			dest.setGoodsList(getGoodsList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof GoodsAllocation){
+		
+			
+			GoodsAllocation dest =(GoodsAllocation)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLocation(getLocation());
+			dest.mergeLatitude(getLatitude());
+			dest.mergeLongitude(getLongitude());
+			dest.mergeGoodsShelf(getGoodsShelf());
+			dest.mergeVersion(getVersion());
+			dest.mergeGoodsList(getGoodsList());
 
 		}
 		super.copyTo(baseDest);

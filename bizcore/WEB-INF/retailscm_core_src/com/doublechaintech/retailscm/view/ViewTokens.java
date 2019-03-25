@@ -38,6 +38,15 @@ public class ViewTokens extends CommonTokens{
 	protected ViewTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ViewTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ViewTokens tokens = new ViewTokens(options);
+		return tokens;
+		
+	}
+	protected ViewTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ViewTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -79,6 +88,11 @@ public class ViewTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ViewTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	

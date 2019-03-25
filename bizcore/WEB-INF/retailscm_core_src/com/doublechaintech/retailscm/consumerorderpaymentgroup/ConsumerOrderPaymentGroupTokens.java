@@ -38,6 +38,15 @@ public class ConsumerOrderPaymentGroupTokens extends CommonTokens{
 	protected ConsumerOrderPaymentGroupTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ConsumerOrderPaymentGroupTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ConsumerOrderPaymentGroupTokens tokens = new ConsumerOrderPaymentGroupTokens(options);
+		return tokens;
+		
+	}
+	protected ConsumerOrderPaymentGroupTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ConsumerOrderPaymentGroupTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class ConsumerOrderPaymentGroupTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ConsumerOrderPaymentGroupTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String BIZORDER = "bizOrder";

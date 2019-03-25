@@ -177,6 +177,9 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setAccountingSubjectCode(String accountingSubjectCode){
@@ -189,6 +192,9 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		this.mAccountingSubjectCode = trimString(accountingSubjectCode);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAccountingSubjectCode(String accountingSubjectCode){
+		if(accountingSubjectCode != null) { setAccountingSubjectCode(accountingSubjectCode);}
 	}
 	
 	
@@ -203,6 +209,9 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeAccountingSubjectName(String accountingSubjectName){
+		if(accountingSubjectName != null) { setAccountingSubjectName(accountingSubjectName);}
+	}
 	
 	
 	public void setAccountingSubjectClassCode(int accountingSubjectClassCode){
@@ -215,6 +224,9 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		this.mAccountingSubjectClassCode = accountingSubjectClassCode;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAccountingSubjectClassCode(int accountingSubjectClassCode){
+		setAccountingSubjectClassCode(accountingSubjectClassCode);
 	}
 	
 	
@@ -229,6 +241,9 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		this.changed = true;
 		return this;
 	}
+	public void mergeAccountingSubjectClassName(String accountingSubjectClassName){
+		if(accountingSubjectClassName != null) { setAccountingSubjectClassName(accountingSubjectClassName);}
+	}
 	
 	
 	public void setAccountSet(AccountSet accountSet){
@@ -241,6 +256,9 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		this.mAccountSet = accountSet;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAccountSet(AccountSet accountSet){
+		if(accountSet != null) { setAccountSet(accountSet);}
 	}
 	
 	
@@ -259,6 +277,9 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -292,7 +313,16 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 		}
 		getAccountingDocumentLineList().addAll(accountingDocumentLineList);
 	}
-	
+	public  void mergeAccountingDocumentLineList(SmartList<AccountingDocumentLine> accountingDocumentLineList){
+		if(accountingDocumentLineList==null){
+			return;
+		}
+		if(accountingDocumentLineList.isEmpty()){
+			return;
+		}
+		addAccountingDocumentLineList( accountingDocumentLineList );
+		
+	}
 	public  AccountingDocumentLine removeAccountingDocumentLine(AccountingDocumentLine accountingDocumentLineIndex){
 		
 		int index = getAccountingDocumentLineList().indexOf(accountingDocumentLineIndex);
@@ -423,6 +453,27 @@ public class AccountingSubject extends BaseEntity implements  java.io.Serializab
 			dest.setAccountSet(getAccountSet());
 			dest.setVersion(getVersion());
 			dest.setAccountingDocumentLineList(getAccountingDocumentLineList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountingSubject){
+		
+			
+			AccountingSubject dest =(AccountingSubject)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeAccountingSubjectCode(getAccountingSubjectCode());
+			dest.mergeAccountingSubjectName(getAccountingSubjectName());
+			dest.mergeAccountingSubjectClassCode(getAccountingSubjectClassCode());
+			dest.mergeAccountingSubjectClassName(getAccountingSubjectClassName());
+			dest.mergeAccountSet(getAccountSet());
+			dest.mergeVersion(getVersion());
+			dest.mergeAccountingDocumentLineList(getAccountingDocumentLineList());
 
 		}
 		super.copyTo(baseDest);

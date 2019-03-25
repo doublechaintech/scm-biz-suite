@@ -249,9 +249,8 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	protected boolean isExtractListAccessListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserAppTokens.LIST_ACCESS_LIST);
  	}
- 	protected boolean isAnalyzeListAccessListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,UserAppTokens.LIST_ACCESS_LIST+".analyze");
+ 	protected boolean isAnalyzeListAccessListEnabled(Map<String,Object> options){		 		
+ 		return UserAppTokens.of(options).analyzeListAccessListEnabled();
  	}
 	
 	protected boolean isSaveListAccessListEnabled(Map<String,Object> options){
@@ -264,9 +263,8 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	protected boolean isExtractObjectAccessListEnabled(Map<String,Object> options){		
  		return checkOptions(options,UserAppTokens.OBJECT_ACCESS_LIST);
  	}
- 	protected boolean isAnalyzeObjectAccessListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,UserAppTokens.OBJECT_ACCESS_LIST+".analyze");
+ 	protected boolean isAnalyzeObjectAccessListEnabled(Map<String,Object> options){		 		
+ 		return UserAppTokens.of(options).analyzeObjectAccessListEnabled();
  	}
 	
 	protected boolean isSaveObjectAccessListEnabled(Map<String,Object> options){

@@ -10,6 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './AccountingDocumentLine.updateform.less'
 import AccountingDocumentLineBase from './AccountingDocumentLine.base'
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -88,6 +89,7 @@ class AccountingDocumentLineUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+    const userContext = null
     const {fieldLabels} = AccountingDocumentLineBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -100,7 +102,7 @@ class AccountingDocumentLineUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-
+		
         const { owner, role } = this.props
         const accountingDocumentLineId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -184,7 +186,7 @@ class AccountingDocumentLineUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'accountingDocumentLine',
-          listName:'会计凭证行列表' 
+          listName:appLocaleName(userContext,"List") 
         },
       })
     }
@@ -215,7 +217,7 @@ class AccountingDocumentLineUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -229,7 +231,7 @@ class AccountingDocumentLineUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-      return (<div>缺少被更新的对象</div>)
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
 	const selectedRow = this.getSelectedRow()
 
@@ -244,11 +246,11 @@ class AccountingDocumentLineUpdateForm extends Component {
 
     return (
       <PageHeaderLayout
-        title={"更新会计凭证行"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新会计凭证行"
+        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
+        content={appLocaleName(userContext,"Update")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
             
@@ -257,7 +259,7 @@ class AccountingDocumentLineUpdateForm extends Component {
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
                     initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
                     
@@ -269,7 +271,7 @@ class AccountingDocumentLineUpdateForm extends Component {
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     initialValue: selectedRow.name,
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                     
@@ -281,7 +283,7 @@ class AccountingDocumentLineUpdateForm extends Component {
                 <Form.Item label={fieldLabels.code} {...formItemLayout}>
                   {getFieldDecorator('code', {
                     initialValue: selectedRow.code,
-                    rules: [{ required: true, message: '请输入代码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入代码" />
                     
@@ -293,7 +295,7 @@ class AccountingDocumentLineUpdateForm extends Component {
                 <Form.Item label={fieldLabels.direct} {...formItemLayout}>
                   {getFieldDecorator('direct', {
                     initialValue: selectedRow.direct,
-                    rules: [{ required: true, message: '请输入直接' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入直接" />
                     
@@ -305,7 +307,7 @@ class AccountingDocumentLineUpdateForm extends Component {
                 <Form.Item label={fieldLabels.amount} {...formItemLayout}>
                   {getFieldDecorator('amount', {
                     initialValue: selectedRow.amount,
-                    rules: [{ required: true, message: '请输入金额' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入金额" />
                     
@@ -325,16 +327,16 @@ class AccountingDocumentLineUpdateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
+            {appLocaleName(userContext,"Update")}
           </Button>
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
+            {appLocaleName(userContext,"UpdateAndContinue")}
           </Button>
           <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
+            {appLocaleName(userContext,"Skip")}
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
-            取消
+            {appLocaleName(userContext,"Cancel")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

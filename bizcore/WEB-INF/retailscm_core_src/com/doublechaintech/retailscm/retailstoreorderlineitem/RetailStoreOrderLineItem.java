@@ -194,6 +194,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setBizOrder(RetailStoreOrder bizOrder){
@@ -206,6 +209,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.mBizOrder = bizOrder;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBizOrder(RetailStoreOrder bizOrder){
+		if(bizOrder != null) { setBizOrder(bizOrder);}
 	}
 	
 	
@@ -225,6 +231,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeSkuId(String skuId){
+		if(skuId != null) { setSkuId(skuId);}
+	}
 	
 	
 	public void clearSkuId(){
@@ -243,6 +252,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeSkuName(String skuName){
+		if(skuName != null) { setSkuName(skuName);}
+	}
 	
 	
 	public void setAmount(BigDecimal amount){
@@ -255,6 +267,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.mAmount = amount;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAmount(BigDecimal amount){
+		setAmount(amount);
 	}
 	
 	
@@ -269,6 +284,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeQuantity(int quantity){
+		setQuantity(quantity);
+	}
 	
 	
 	public void setUnitOfMeasurement(String unitOfMeasurement){
@@ -282,6 +300,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeUnitOfMeasurement(String unitOfMeasurement){
+		if(unitOfMeasurement != null) { setUnitOfMeasurement(unitOfMeasurement);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -294,6 +315,9 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -354,6 +378,27 @@ public class RetailStoreOrderLineItem extends BaseEntity implements  java.io.Ser
 			dest.setQuantity(getQuantity());
 			dest.setUnitOfMeasurement(getUnitOfMeasurement());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreOrderLineItem){
+		
+			
+			RetailStoreOrderLineItem dest =(RetailStoreOrderLineItem)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeBizOrder(getBizOrder());
+			dest.mergeSkuId(getSkuId());
+			dest.mergeSkuName(getSkuName());
+			dest.mergeAmount(getAmount());
+			dest.mergeQuantity(getQuantity());
+			dest.mergeUnitOfMeasurement(getUnitOfMeasurement());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

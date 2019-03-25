@@ -382,7 +382,7 @@ public class AccountSetManagerImpl extends CustomRetailscmCheckerManager impleme
 		.sortAccountingSubjectListWith("id","desc")
 		.sortAccountingPeriodListWith("id","desc")
 		.sortAccountingDocumentTypeListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

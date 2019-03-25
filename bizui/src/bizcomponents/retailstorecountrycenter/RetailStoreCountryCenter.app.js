@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class RetailStoreCountryCenterBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/retailStoreCountryCenter/${this.props.retailStoreCountryCenter.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/retailStoreCountryCenter/${this.props.retailStoreCountryCenter.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/retailStoreCountryCenter/${this.props.retailStoreCountryCenter.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/retailStoreCountryCenter/${this.props.retailStoreCountryCenter.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
 
   getCatalogSearch = () => {
     const {CatalogSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "目录",
@@ -176,11 +172,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'owner', 
       listName: 'catalogList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '目录列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CatalogSearch)
   }
   getCatalogCreateForm = () => {
    	const {CatalogCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "catalog",
@@ -190,22 +187,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.catalogCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.catalogSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'catalogList', ref:state._retailStoreCountryCenter, listDisplayName: '目录列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'catalogList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(CatalogCreateForm)
   }
   
   getCatalogUpdateForm = () => {
+    const userContext = null
   	const {CatalogUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "catalog",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'catalogList', ref:state._retailStoreCountryCenter, listDisplayName: '目录列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'catalogList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CatalogUpdateForm)
   }
 
   getRetailStoreProvinceCenterSearch = () => {
     const {RetailStoreProvinceCenterSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "双链小超省中心",
@@ -222,11 +221,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'country', 
       listName: 'retailStoreProvinceCenterList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '双链小超省中心列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreProvinceCenterSearch)
   }
   getRetailStoreProvinceCenterCreateForm = () => {
    	const {RetailStoreProvinceCenterCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStoreProvinceCenter",
@@ -236,22 +236,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.retailStoreProvinceCenterCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreProvinceCenterSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'country', listName: 'retailStoreProvinceCenterList', ref:state._retailStoreCountryCenter, listDisplayName: '双链小超省中心列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'country', listName: 'retailStoreProvinceCenterList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreProvinceCenterCreateForm)
   }
   
   getRetailStoreProvinceCenterUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreProvinceCenterUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "retailStoreProvinceCenter",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreProvinceCenterList', ref:state._retailStoreCountryCenter, listDisplayName: '双链小超省中心列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreProvinceCenterList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreProvinceCenterUpdateForm)
   }
 
   getRetailStoreSearch = () => {
     const {RetailStoreSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "双链小超",
@@ -268,11 +270,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'retailStoreCountryCenter', 
       listName: 'retailStoreList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '双链小超列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreSearch)
   }
   getRetailStoreCreateForm = () => {
    	const {RetailStoreCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStore",
@@ -282,22 +285,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'retailStoreCountryCenter', listName: 'retailStoreList', ref:state._retailStoreCountryCenter, listDisplayName: '双链小超列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'retailStoreCountryCenter', listName: 'retailStoreList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreCreateForm)
   }
   
   getRetailStoreUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "retailStore",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreList', ref:state._retailStoreCountryCenter, listDisplayName: '双链小超列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreUpdateForm)
   }
 
   getRetailStoreMemberSearch = () => {
     const {RetailStoreMemberSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "生超会员",
@@ -314,11 +319,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'owner', 
       listName: 'retailStoreMemberList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '生超会员列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberSearch)
   }
   getRetailStoreMemberCreateForm = () => {
    	const {RetailStoreMemberCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStoreMember",
@@ -328,22 +334,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.retailStoreMemberCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreMemberSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'retailStoreMemberList', ref:state._retailStoreCountryCenter, listDisplayName: '生超会员列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'retailStoreMemberList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreMemberCreateForm)
   }
   
   getRetailStoreMemberUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreMemberUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "retailStoreMember",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreMemberList', ref:state._retailStoreCountryCenter, listDisplayName: '生超会员列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreMemberList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberUpdateForm)
   }
 
   getGoodsSupplierSearch = () => {
     const {GoodsSupplierSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "产品供应商",
@@ -360,11 +368,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'belongTo', 
       listName: 'goodsSupplierList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '产品供应商列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(GoodsSupplierSearch)
   }
   getGoodsSupplierCreateForm = () => {
    	const {GoodsSupplierCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "goodsSupplier",
@@ -374,22 +383,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.goodsSupplierCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.goodsSupplierSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'belongTo', listName: 'goodsSupplierList', ref:state._retailStoreCountryCenter, listDisplayName: '产品供应商列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'belongTo', listName: 'goodsSupplierList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(GoodsSupplierCreateForm)
   }
   
   getGoodsSupplierUpdateForm = () => {
+    const userContext = null
   	const {GoodsSupplierUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "goodsSupplier",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'goodsSupplierList', ref:state._retailStoreCountryCenter, listDisplayName: '产品供应商列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'goodsSupplierList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(GoodsSupplierUpdateForm)
   }
 
   getSupplyOrderSearch = () => {
     const {SupplyOrderSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "供应订单",
@@ -406,11 +417,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'buyer', 
       listName: 'supplyOrderList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '供应订单列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplyOrderSearch)
   }
   getSupplyOrderCreateForm = () => {
    	const {SupplyOrderCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "supplyOrder",
@@ -420,22 +432,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.supplyOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.supplyOrderSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'buyer', listName: 'supplyOrderList', ref:state._retailStoreCountryCenter, listDisplayName: '供应订单列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'buyer', listName: 'supplyOrderList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SupplyOrderCreateForm)
   }
   
   getSupplyOrderUpdateForm = () => {
+    const userContext = null
   	const {SupplyOrderUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "supplyOrder",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'supplyOrderList', ref:state._retailStoreCountryCenter, listDisplayName: '供应订单列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'supplyOrderList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplyOrderUpdateForm)
   }
 
   getRetailStoreOrderSearch = () => {
     const {RetailStoreOrderSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "生超的订单",
@@ -452,11 +466,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'seller', 
       listName: 'retailStoreOrderList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '生超的订单列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreOrderSearch)
   }
   getRetailStoreOrderCreateForm = () => {
    	const {RetailStoreOrderCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStoreOrder",
@@ -466,22 +481,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.retailStoreOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreOrderSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'seller', listName: 'retailStoreOrderList', ref:state._retailStoreCountryCenter, listDisplayName: '生超的订单列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'seller', listName: 'retailStoreOrderList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreOrderCreateForm)
   }
   
   getRetailStoreOrderUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreOrderUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "retailStoreOrder",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreOrderList', ref:state._retailStoreCountryCenter, listDisplayName: '生超的订单列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'retailStoreOrderList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreOrderUpdateForm)
   }
 
   getWarehouseSearch = () => {
     const {WarehouseSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "仓库",
@@ -498,11 +515,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'owner', 
       listName: 'warehouseList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '仓库列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(WarehouseSearch)
   }
   getWarehouseCreateForm = () => {
    	const {WarehouseCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "warehouse",
@@ -512,22 +530,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.warehouseCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.warehouseSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'warehouseList', ref:state._retailStoreCountryCenter, listDisplayName: '仓库列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'warehouseList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(WarehouseCreateForm)
   }
   
   getWarehouseUpdateForm = () => {
+    const userContext = null
   	const {WarehouseUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "warehouse",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'warehouseList', ref:state._retailStoreCountryCenter, listDisplayName: '仓库列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'warehouseList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(WarehouseUpdateForm)
   }
 
   getTransportFleetSearch = () => {
     const {TransportFleetSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "运输车队",
@@ -544,11 +564,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'owner', 
       listName: 'transportFleetList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '运输车队列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TransportFleetSearch)
   }
   getTransportFleetCreateForm = () => {
    	const {TransportFleetCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "transportFleet",
@@ -558,22 +579,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.transportFleetCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.transportFleetSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'transportFleetList', ref:state._retailStoreCountryCenter, listDisplayName: '运输车队列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'owner', listName: 'transportFleetList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(TransportFleetCreateForm)
   }
   
   getTransportFleetUpdateForm = () => {
+    const userContext = null
   	const {TransportFleetUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "transportFleet",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'transportFleetList', ref:state._retailStoreCountryCenter, listDisplayName: '运输车队列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'transportFleetList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TransportFleetUpdateForm)
   }
 
   getAccountSetSearch = () => {
     const {AccountSetSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "账套",
@@ -590,11 +613,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'countryCenter', 
       listName: 'accountSetList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '账套列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(AccountSetSearch)
   }
   getAccountSetCreateForm = () => {
    	const {AccountSetCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "accountSet",
@@ -604,22 +628,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.accountSetCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.accountSetSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'countryCenter', listName: 'accountSetList', ref:state._retailStoreCountryCenter, listDisplayName: '账套列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'countryCenter', listName: 'accountSetList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(AccountSetCreateForm)
   }
   
   getAccountSetUpdateForm = () => {
+    const userContext = null
   	const {AccountSetUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "accountSet",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'accountSetList', ref:state._retailStoreCountryCenter, listDisplayName: '账套列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'accountSetList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(AccountSetUpdateForm)
   }
 
   getLevelOneDepartmentSearch = () => {
     const {LevelOneDepartmentSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "一级部门",
@@ -636,11 +662,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'belongsTo', 
       listName: 'levelOneDepartmentList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '一级部门列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(LevelOneDepartmentSearch)
   }
   getLevelOneDepartmentCreateForm = () => {
    	const {LevelOneDepartmentCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "levelOneDepartment",
@@ -650,22 +677,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.levelOneDepartmentCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.levelOneDepartmentSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'belongsTo', listName: 'levelOneDepartmentList', ref:state._retailStoreCountryCenter, listDisplayName: '一级部门列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'belongsTo', listName: 'levelOneDepartmentList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(LevelOneDepartmentCreateForm)
   }
   
   getLevelOneDepartmentUpdateForm = () => {
+    const userContext = null
   	const {LevelOneDepartmentUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "levelOneDepartment",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'levelOneDepartmentList', ref:state._retailStoreCountryCenter, listDisplayName: '一级部门列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'levelOneDepartmentList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(LevelOneDepartmentUpdateForm)
   }
 
   getSkillTypeSearch = () => {
     const {SkillTypeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "技能类型",
@@ -682,11 +711,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'skillTypeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '技能类型列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SkillTypeSearch)
   }
   getSkillTypeCreateForm = () => {
    	const {SkillTypeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "skillType",
@@ -696,22 +726,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.skillTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.skillTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'skillTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '技能类型列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'skillTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SkillTypeCreateForm)
   }
   
   getSkillTypeUpdateForm = () => {
+    const userContext = null
   	const {SkillTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "skillType",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'skillTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '技能类型列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'skillTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SkillTypeUpdateForm)
   }
 
   getResponsibilityTypeSearch = () => {
     const {ResponsibilityTypeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "责任类型",
@@ -728,11 +760,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'responsibilityTypeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '责任类型列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ResponsibilityTypeSearch)
   }
   getResponsibilityTypeCreateForm = () => {
    	const {ResponsibilityTypeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "responsibilityType",
@@ -742,22 +775,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.responsibilityTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.responsibilityTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'responsibilityTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '责任类型列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'responsibilityTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ResponsibilityTypeCreateForm)
   }
   
   getResponsibilityTypeUpdateForm = () => {
+    const userContext = null
   	const {ResponsibilityTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "responsibilityType",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'responsibilityTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '责任类型列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'responsibilityTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ResponsibilityTypeUpdateForm)
   }
 
   getTerminationReasonSearch = () => {
     const {TerminationReasonSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "雇佣终止的原因",
@@ -774,11 +809,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'terminationReasonList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '雇佣终止的原因列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TerminationReasonSearch)
   }
   getTerminationReasonCreateForm = () => {
    	const {TerminationReasonCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "terminationReason",
@@ -788,22 +824,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.terminationReasonCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.terminationReasonSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'terminationReasonList', ref:state._retailStoreCountryCenter, listDisplayName: '雇佣终止的原因列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'terminationReasonList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(TerminationReasonCreateForm)
   }
   
   getTerminationReasonUpdateForm = () => {
+    const userContext = null
   	const {TerminationReasonUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "terminationReason",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'terminationReasonList', ref:state._retailStoreCountryCenter, listDisplayName: '雇佣终止的原因列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'terminationReasonList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TerminationReasonUpdateForm)
   }
 
   getTerminationTypeSearch = () => {
     const {TerminationTypeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "雇佣终止类型",
@@ -820,11 +858,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'terminationTypeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '雇佣终止类型列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TerminationTypeSearch)
   }
   getTerminationTypeCreateForm = () => {
    	const {TerminationTypeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "terminationType",
@@ -834,22 +873,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.terminationTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.terminationTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'terminationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '雇佣终止类型列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'terminationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(TerminationTypeCreateForm)
   }
   
   getTerminationTypeUpdateForm = () => {
+    const userContext = null
   	const {TerminationTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "terminationType",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'terminationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '雇佣终止类型列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'terminationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TerminationTypeUpdateForm)
   }
 
   getOccupationTypeSearch = () => {
     const {OccupationTypeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "职位类型",
@@ -866,11 +907,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'occupationTypeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '职位类型列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(OccupationTypeSearch)
   }
   getOccupationTypeCreateForm = () => {
    	const {OccupationTypeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "occupationType",
@@ -880,22 +922,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.occupationTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.occupationTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'occupationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '职位类型列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'occupationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(OccupationTypeCreateForm)
   }
   
   getOccupationTypeUpdateForm = () => {
+    const userContext = null
   	const {OccupationTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "occupationType",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'occupationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '职位类型列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'occupationTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(OccupationTypeUpdateForm)
   }
 
   getLeaveTypeSearch = () => {
     const {LeaveTypeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "请假类型",
@@ -912,11 +956,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'leaveTypeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '请假类型列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(LeaveTypeSearch)
   }
   getLeaveTypeCreateForm = () => {
    	const {LeaveTypeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "leaveType",
@@ -926,22 +971,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.leaveTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.leaveTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'leaveTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '请假类型列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'leaveTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(LeaveTypeCreateForm)
   }
   
   getLeaveTypeUpdateForm = () => {
+    const userContext = null
   	const {LeaveTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "leaveType",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'leaveTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '请假类型列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'leaveTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(LeaveTypeUpdateForm)
   }
 
   getSalaryGradeSearch = () => {
     const {SalaryGradeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "工资等级",
@@ -958,11 +1005,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'salaryGradeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '工资等级列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SalaryGradeSearch)
   }
   getSalaryGradeCreateForm = () => {
    	const {SalaryGradeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "salaryGrade",
@@ -972,22 +1020,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.salaryGradeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.salaryGradeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'salaryGradeList', ref:state._retailStoreCountryCenter, listDisplayName: '工资等级列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'salaryGradeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SalaryGradeCreateForm)
   }
   
   getSalaryGradeUpdateForm = () => {
+    const userContext = null
   	const {SalaryGradeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "salaryGrade",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'salaryGradeList', ref:state._retailStoreCountryCenter, listDisplayName: '工资等级列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'salaryGradeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SalaryGradeUpdateForm)
   }
 
   getInterviewTypeSearch = () => {
     const {InterviewTypeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "面试类型",
@@ -1004,11 +1054,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'interviewTypeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '面试类型列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(InterviewTypeSearch)
   }
   getInterviewTypeCreateForm = () => {
    	const {InterviewTypeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "interviewType",
@@ -1018,22 +1069,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.interviewTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.interviewTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'interviewTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '面试类型列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'interviewTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(InterviewTypeCreateForm)
   }
   
   getInterviewTypeUpdateForm = () => {
+    const userContext = null
   	const {InterviewTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "interviewType",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'interviewTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '面试类型列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'interviewTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(InterviewTypeUpdateForm)
   }
 
   getTrainingCourseTypeSearch = () => {
     const {TrainingCourseTypeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "培训课程类型",
@@ -1050,11 +1103,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'trainingCourseTypeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '培训课程类型列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TrainingCourseTypeSearch)
   }
   getTrainingCourseTypeCreateForm = () => {
    	const {TrainingCourseTypeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "trainingCourseType",
@@ -1064,22 +1118,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.trainingCourseTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.trainingCourseTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'trainingCourseTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '培训课程类型列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'trainingCourseTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(TrainingCourseTypeCreateForm)
   }
   
   getTrainingCourseTypeUpdateForm = () => {
+    const userContext = null
   	const {TrainingCourseTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "trainingCourseType",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'trainingCourseTypeList', ref:state._retailStoreCountryCenter, listDisplayName: '培训课程类型列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'trainingCourseTypeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TrainingCourseTypeUpdateForm)
   }
 
   getPublicHolidaySearch = () => {
     const {PublicHolidaySearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "公共假日",
@@ -1096,11 +1152,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'publicHolidayList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '公共假日列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PublicHolidaySearch)
   }
   getPublicHolidayCreateForm = () => {
    	const {PublicHolidayCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "publicHoliday",
@@ -1110,22 +1167,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.publicHolidayCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.publicHolidaySearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'publicHolidayList', ref:state._retailStoreCountryCenter, listDisplayName: '公共假日列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'publicHolidayList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(PublicHolidayCreateForm)
   }
   
   getPublicHolidayUpdateForm = () => {
+    const userContext = null
   	const {PublicHolidayUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "publicHoliday",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'publicHolidayList', ref:state._retailStoreCountryCenter, listDisplayName: '公共假日列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'publicHolidayList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PublicHolidayUpdateForm)
   }
 
   getEmployeeSearch = () => {
     const {EmployeeSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工",
@@ -1142,11 +1201,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'employeeList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '员工列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSearch)
   }
   getEmployeeCreateForm = () => {
    	const {EmployeeCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employee",
@@ -1156,22 +1216,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.employeeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.employeeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'employeeList', ref:state._retailStoreCountryCenter, listDisplayName: '员工列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'employeeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeCreateForm)
   }
   
   getEmployeeUpdateForm = () => {
+    const userContext = null
   	const {EmployeeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "employee",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'employeeList', ref:state._retailStoreCountryCenter, listDisplayName: '员工列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'employeeList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeUpdateForm)
   }
 
   getInstructorSearch = () => {
     const {InstructorSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "讲师",
@@ -1188,11 +1250,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'instructorList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '讲师列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(InstructorSearch)
   }
   getInstructorCreateForm = () => {
    	const {InstructorCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "instructor",
@@ -1202,22 +1265,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.instructorCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.instructorSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'instructorList', ref:state._retailStoreCountryCenter, listDisplayName: '讲师列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'instructorList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(InstructorCreateForm)
   }
   
   getInstructorUpdateForm = () => {
+    const userContext = null
   	const {InstructorUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "instructor",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'instructorList', ref:state._retailStoreCountryCenter, listDisplayName: '讲师列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'instructorList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(InstructorUpdateForm)
   }
 
   getCompanyTrainingSearch = () => {
     const {CompanyTrainingSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "公司培训",
@@ -1234,11 +1299,12 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, 
       referenceName: 'company', 
       listName: 'companyTrainingList', ref:state._retailStoreCountryCenter, 
-      listDisplayName: '公司培训列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CompanyTrainingSearch)
   }
   getCompanyTrainingCreateForm = () => {
    	const {CompanyTrainingCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "companyTraining",
@@ -1248,17 +1314,18 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCountryCenter.companyTrainingCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.companyTrainingSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'companyTrainingList', ref:state._retailStoreCountryCenter, listDisplayName: '公司培训列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, referenceName: 'company', listName: 'companyTrainingList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(CompanyTrainingCreateForm)
   }
   
   getCompanyTrainingUpdateForm = () => {
+    const userContext = null
   	const {CompanyTrainingUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCountryCenter.selectedRows,
       role: "companyTraining",
       currentUpdateIndex: state._retailStoreCountryCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'companyTrainingList', ref:state._retailStoreCountryCenter, listDisplayName: '公司培训列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCountryCenter', id: state._retailStoreCountryCenter.id, listName: 'companyTrainingList', ref:state._retailStoreCountryCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CompanyTrainingUpdateForm)
   }
 
@@ -1415,16 +1482,22 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {RetailStoreCountryCenterEditDetail} = GlobalComponents
-     //const {RetailStoreCountryCenterViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -1438,15 +1511,15 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

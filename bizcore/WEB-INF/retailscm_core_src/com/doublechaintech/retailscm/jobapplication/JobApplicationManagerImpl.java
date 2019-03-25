@@ -325,7 +325,7 @@ public class JobApplicationManagerImpl extends CustomRetailscmCheckerManager imp
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortEmployeeListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

@@ -156,6 +156,9 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCode(String code){
@@ -169,6 +172,9 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCode(String code){
+		if(code != null) { setCode(code);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -181,6 +187,9 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -200,6 +209,9 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setDetailDescription(String detailDescription){
@@ -213,6 +225,9 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDetailDescription(String detailDescription){
+		if(detailDescription != null) { setDetailDescription(detailDescription);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -225,6 +240,9 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeInterviewList().addAll(employeeInterviewList);
 	}
-	
+	public  void mergeEmployeeInterviewList(SmartList<EmployeeInterview> employeeInterviewList){
+		if(employeeInterviewList==null){
+			return;
+		}
+		if(employeeInterviewList.isEmpty()){
+			return;
+		}
+		addEmployeeInterviewList( employeeInterviewList );
+		
+	}
 	public  EmployeeInterview removeEmployeeInterview(EmployeeInterview employeeInterviewIndex){
 		
 		int index = getEmployeeInterviewList().indexOf(employeeInterviewIndex);
@@ -387,6 +414,26 @@ public class InterviewType extends BaseEntity implements  java.io.Serializable{
 			dest.setDetailDescription(getDetailDescription());
 			dest.setVersion(getVersion());
 			dest.setEmployeeInterviewList(getEmployeeInterviewList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof InterviewType){
+		
+			
+			InterviewType dest =(InterviewType)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCode(getCode());
+			dest.mergeCompany(getCompany());
+			dest.mergeDescription(getDescription());
+			dest.mergeDetailDescription(getDetailDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeInterviewList(getEmployeeInterviewList());
 
 		}
 		super.copyTo(baseDest);

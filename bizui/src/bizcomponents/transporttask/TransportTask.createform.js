@@ -9,7 +9,7 @@ import styles from './TransportTask.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import TransportTaskBase from './TransportTask.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -19,9 +19,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2016-02-21',
-  latitude: '41.3715094978274',
-  longitude: '129.2758628615331',
+  beginTime: '2018-09-26',
+  latitude: '42.033691760940755',
+  longitude: '130.99491811349844',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -74,7 +74,7 @@ class TransportTaskCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = TransportTaskBase
     const {TransportTaskService} = GlobalComponents
@@ -123,9 +123,10 @@ class TransportTaskCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'transportTask',listName:'运输任务列表' },
+        payload: { id: owner.id, type: 'transportTask',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -156,7 +157,7 @@ class TransportTaskCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -200,18 +201,18 @@ class TransportTaskCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个运输任务"
-        content="新建一个运输任务"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -221,7 +222,7 @@ class TransportTaskCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.start} {...formItemLayout}>
                   {getFieldDecorator('start', {
-                    rules: [{ required: true, message: '请输入开始' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入开始" />
                   )}
@@ -231,7 +232,7 @@ class TransportTaskCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.beginTime} {...formItemLayout}>
                   {getFieldDecorator('beginTime', {
-                    rules: [{ required: true, message: '请输入开始时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入开始时间" />
                   )}
@@ -241,7 +242,7 @@ class TransportTaskCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
-                    rules: [{ required: true, message: '请输入纬度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入纬度" />
                   )}
@@ -251,7 +252,7 @@ class TransportTaskCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
-                    rules: [{ required: true, message: '请输入经度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入经度" />
                   )}
@@ -275,7 +276,7 @@ class TransportTaskCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -283,7 +284,7 @@ class TransportTaskCreateForm extends Component {
                 <Form.Item label={fieldLabels.end} {...formItemLayout}>
                   {getFieldDecorator('endId', {
                   	initialValue: tryinit('end'),
-                    rules: [{ required: true, message: '请输入结束' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -300,7 +301,7 @@ class TransportTaskCreateForm extends Component {
                 <Form.Item label={fieldLabels.driver} {...formItemLayout}>
                   {getFieldDecorator('driverId', {
                   	initialValue: tryinit('driver'),
-                    rules: [{ required: true, message: '请输入司机' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -317,7 +318,7 @@ class TransportTaskCreateForm extends Component {
                 <Form.Item label={fieldLabels.truck} {...formItemLayout}>
                   {getFieldDecorator('truckId', {
                   	initialValue: tryinit('truck'),
-                    rules: [{ required: true, message: '请输入卡车' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -334,7 +335,7 @@ class TransportTaskCreateForm extends Component {
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
-                    rules: [{ required: true, message: '请输入属于' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -354,13 +355,13 @@ class TransportTaskCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

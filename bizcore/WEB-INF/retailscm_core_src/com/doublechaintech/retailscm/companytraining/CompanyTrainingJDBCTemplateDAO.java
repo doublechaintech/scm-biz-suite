@@ -271,9 +271,8 @@ public class CompanyTrainingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	protected boolean isExtractEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CompanyTrainingTokens.EMPLOYEE_COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,CompanyTrainingTokens.EMPLOYEE_COMPANY_TRAINING_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 		return CompanyTrainingTokens.of(options).analyzeEmployeeCompanyTrainingListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeCompanyTrainingListEnabled(Map<String,Object> options){

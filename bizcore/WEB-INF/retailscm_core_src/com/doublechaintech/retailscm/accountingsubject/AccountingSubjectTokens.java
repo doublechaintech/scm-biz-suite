@@ -38,6 +38,15 @@ public class AccountingSubjectTokens extends CommonTokens{
 	protected AccountingSubjectTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  AccountingSubjectTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		AccountingSubjectTokens tokens = new AccountingSubjectTokens(options);
+		return tokens;
+		
+	}
+	protected AccountingSubjectTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public AccountingSubjectTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class AccountingSubjectTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public AccountingSubjectTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String ACCOUNTSET = "accountSet";
 	public String getAccountSet(){
@@ -108,7 +122,11 @@ public class AccountingSubjectTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountingDocumentLineListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountingSubjectTokens extractMoreFromAccountingDocumentLineList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST+".extractIds", idsSeperatedWithComma);

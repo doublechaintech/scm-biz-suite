@@ -221,9 +221,8 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
 	protected boolean isExtractStockCountIssueTrackListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST);
  	}
- 	protected boolean isAnalyzeStockCountIssueTrackListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GoodsShelfStockCountTokens.STOCK_COUNT_ISSUE_TRACK_LIST+".analyze");
+ 	protected boolean isAnalyzeStockCountIssueTrackListEnabled(Map<String,Object> options){		 		
+ 		return GoodsShelfStockCountTokens.of(options).analyzeStockCountIssueTrackListEnabled();
  	}
 	
 	protected boolean isSaveStockCountIssueTrackListEnabled(Map<String,Object> options){

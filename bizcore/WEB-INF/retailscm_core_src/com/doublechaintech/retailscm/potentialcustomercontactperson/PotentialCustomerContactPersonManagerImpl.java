@@ -326,7 +326,7 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortPotentialCustomerContactListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

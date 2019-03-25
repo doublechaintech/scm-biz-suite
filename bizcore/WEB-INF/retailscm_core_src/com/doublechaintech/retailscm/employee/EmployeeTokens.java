@@ -38,6 +38,15 @@ public class EmployeeTokens extends CommonTokens{
 	protected EmployeeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  EmployeeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		EmployeeTokens tokens = new EmployeeTokens(options);
+		return tokens;
+		
+	}
+	protected EmployeeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public EmployeeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -115,6 +124,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public EmployeeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String COMPANY = "company";
@@ -251,7 +265,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeCompanyTrainingListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);
@@ -313,7 +331,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeSkillListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_SKILL_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_SKILL_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeSkillList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SKILL_LIST+".extractIds", idsSeperatedWithComma);
@@ -375,7 +397,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeePerformanceListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_PERFORMANCE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_PERFORMANCE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeePerformanceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_PERFORMANCE_LIST+".extractIds", idsSeperatedWithComma);
@@ -437,7 +463,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeWorkExperienceListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_WORK_EXPERIENCE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_WORK_EXPERIENCE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeWorkExperienceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_WORK_EXPERIENCE_LIST+".extractIds", idsSeperatedWithComma);
@@ -499,7 +529,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeLeaveListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_LEAVE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_LEAVE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeLeaveList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LEAVE_LIST+".extractIds", idsSeperatedWithComma);
@@ -561,7 +595,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeInterviewListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_INTERVIEW_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_INTERVIEW_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeInterviewList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_INTERVIEW_LIST+".extractIds", idsSeperatedWithComma);
@@ -623,7 +661,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeAttendanceListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_ATTENDANCE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_ATTENDANCE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeAttendanceList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_ATTENDANCE_LIST+".extractIds", idsSeperatedWithComma);
@@ -685,7 +727,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeQualifierListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_QUALIFIER_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_QUALIFIER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeQualifierList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_QUALIFIER_LIST+".extractIds", idsSeperatedWithComma);
@@ -747,7 +793,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeEducationListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_EDUCATION_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_EDUCATION_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeEducationList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_EDUCATION_LIST+".extractIds", idsSeperatedWithComma);
@@ -809,7 +859,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeAwardListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_AWARD_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_AWARD_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeAwardList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_AWARD_LIST+".extractIds", idsSeperatedWithComma);
@@ -871,7 +925,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeSalarySheetListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromEmployeeSalarySheetList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".extractIds", idsSeperatedWithComma);
@@ -933,7 +991,11 @@ public class EmployeeTokens extends CommonTokens{
 	}
 	public boolean analyzePayingOffListEnabled(){		
 		
-		return checkOptions(this.options(), PAYING_OFF_LIST+".anaylze");
+		if(checkOptions(this.options(), PAYING_OFF_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public EmployeeTokens extractMoreFromPayingOffList(String idsSeperatedWithComma){		
 		addSimpleOptions(PAYING_OFF_LIST+".extractIds", idsSeperatedWithComma);

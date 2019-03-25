@@ -38,6 +38,15 @@ public class PayingOffTokens extends CommonTokens{
 	protected PayingOffTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  PayingOffTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		PayingOffTokens tokens = new PayingOffTokens(options);
+		return tokens;
+		
+	}
+	protected PayingOffTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public PayingOffTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class PayingOffTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public PayingOffTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String PAIDFOR = "paidFor";
 	public String getPaidFor(){
@@ -108,7 +122,11 @@ public class PayingOffTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeSalarySheetListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public PayingOffTokens extractMoreFromEmployeeSalarySheetList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".extractIds", idsSeperatedWithComma);

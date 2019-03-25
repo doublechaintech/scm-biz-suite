@@ -157,6 +157,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setOccureTime(Date occureTime){
@@ -170,6 +173,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 		this.changed = true;
 		return this;
 	}
+	public void mergeOccureTime(Date occureTime){
+		setOccureTime(occureTime);
+	}
 	
 	
 	public void setOwner(RetailStoreMemberGiftCard owner){
@@ -182,6 +188,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreMemberGiftCard owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -201,6 +210,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 		this.changed = true;
 		return this;
 	}
+	public void mergeBizOrder(ConsumerOrder bizOrder){
+		if(bizOrder != null) { setBizOrder(bizOrder);}
+	}
 	
 	
 	public void clearBizOrder(){
@@ -219,6 +231,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 		this.changed = true;
 		return this;
 	}
+	public void mergeNumber(String number){
+		if(number != null) { setNumber(number);}
+	}
 	
 	
 	public void setAmount(BigDecimal amount){
@@ -232,6 +247,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 		this.changed = true;
 		return this;
 	}
+	public void mergeAmount(BigDecimal amount){
+		setAmount(amount);
+	}
 	
 	
 	public void setVersion(int version){
@@ -244,6 +262,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -303,6 +324,26 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 			dest.setNumber(getNumber());
 			dest.setAmount(getAmount());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreMemberGiftCardConsumeRecord){
+		
+			
+			RetailStoreMemberGiftCardConsumeRecord dest =(RetailStoreMemberGiftCardConsumeRecord)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeOccureTime(getOccureTime());
+			dest.mergeOwner(getOwner());
+			dest.mergeBizOrder(getBizOrder());
+			dest.mergeNumber(getNumber());
+			dest.mergeAmount(getAmount());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

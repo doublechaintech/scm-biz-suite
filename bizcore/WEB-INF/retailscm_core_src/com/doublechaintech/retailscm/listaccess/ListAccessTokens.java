@@ -38,6 +38,15 @@ public class ListAccessTokens extends CommonTokens{
 	protected ListAccessTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ListAccessTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ListAccessTokens tokens = new ListAccessTokens(options);
+		return tokens;
+		
+	}
+	protected ListAccessTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ListAccessTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class ListAccessTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ListAccessTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String APP = "app";

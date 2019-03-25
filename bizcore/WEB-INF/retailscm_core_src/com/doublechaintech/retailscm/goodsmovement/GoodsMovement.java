@@ -257,6 +257,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setMoveTime(DateTime moveTime){
@@ -269,6 +272,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.mMoveTime = moveTime;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMoveTime(DateTime moveTime){
+		setMoveTime(moveTime);
 	}
 	
 	
@@ -283,6 +289,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeFacility(String facility){
+		if(facility != null) { setFacility(facility);}
+	}
 	
 	
 	public void setFacilityId(String facilityId){
@@ -295,6 +304,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.mFacilityId = trimString(facilityId);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeFacilityId(String facilityId){
+		if(facilityId != null) { setFacilityId(facilityId);}
 	}
 	
 	
@@ -314,6 +326,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeFromIp(String fromIp){
+		if(fromIp != null) { setFromIp(fromIp);}
+	}
 	
 	
 	public void setUserAgent(String userAgent){
@@ -327,6 +342,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeUserAgent(String userAgent){
+		if(userAgent != null) { setUserAgent(userAgent);}
+	}
 	
 	
 	public void setSessionId(String sessionId){
@@ -339,6 +357,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.mSessionId = trimString(sessionId);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeSessionId(String sessionId){
+		if(sessionId != null) { setSessionId(sessionId);}
 	}
 	
 	
@@ -358,6 +379,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLatitude(BigDecimal latitude){
+		setLatitude(latitude);
+	}
 	
 	
 	public void setLongitude(BigDecimal longitude){
@@ -371,6 +395,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLongitude(BigDecimal longitude){
+		setLongitude(longitude);
+	}
 	
 	
 	public void setGoods(Goods goods){
@@ -383,6 +410,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.mGoods = goods;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeGoods(Goods goods){
+		if(goods != null) { setGoods(goods);}
 	}
 	
 	
@@ -401,6 +431,9 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -467,6 +500,30 @@ public class GoodsMovement extends BaseEntity implements  java.io.Serializable{
 			dest.setLongitude(getLongitude());
 			dest.setGoods(getGoods());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof GoodsMovement){
+		
+			
+			GoodsMovement dest =(GoodsMovement)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeMoveTime(getMoveTime());
+			dest.mergeFacility(getFacility());
+			dest.mergeFacilityId(getFacilityId());
+			dest.mergeFromIp(getFromIp());
+			dest.mergeUserAgent(getUserAgent());
+			dest.mergeSessionId(getSessionId());
+			dest.mergeLatitude(getLatitude());
+			dest.mergeLongitude(getLongitude());
+			dest.mergeGoods(getGoods());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

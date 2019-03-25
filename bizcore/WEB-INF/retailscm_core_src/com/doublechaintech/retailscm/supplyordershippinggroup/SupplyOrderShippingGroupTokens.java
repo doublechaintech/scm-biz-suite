@@ -38,6 +38,15 @@ public class SupplyOrderShippingGroupTokens extends CommonTokens{
 	protected SupplyOrderShippingGroupTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  SupplyOrderShippingGroupTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		SupplyOrderShippingGroupTokens tokens = new SupplyOrderShippingGroupTokens(options);
+		return tokens;
+		
+	}
+	protected SupplyOrderShippingGroupTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public SupplyOrderShippingGroupTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class SupplyOrderShippingGroupTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public SupplyOrderShippingGroupTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String BIZORDER = "bizOrder";

@@ -221,9 +221,8 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	protected boolean isExtractLevelTwoCategoryListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelOneCategoryTokens.LEVEL_TWO_CATEGORY_LIST);
  	}
- 	protected boolean isAnalyzeLevelTwoCategoryListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,LevelOneCategoryTokens.LEVEL_TWO_CATEGORY_LIST+".analyze");
+ 	protected boolean isAnalyzeLevelTwoCategoryListEnabled(Map<String,Object> options){		 		
+ 		return LevelOneCategoryTokens.of(options).analyzeLevelTwoCategoryListEnabled();
  	}
 	
 	protected boolean isSaveLevelTwoCategoryListEnabled(Map<String,Object> options){

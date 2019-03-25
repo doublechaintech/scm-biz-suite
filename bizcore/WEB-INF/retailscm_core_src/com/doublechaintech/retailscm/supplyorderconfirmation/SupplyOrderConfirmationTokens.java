@@ -38,6 +38,15 @@ public class SupplyOrderConfirmationTokens extends CommonTokens{
 	protected SupplyOrderConfirmationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  SupplyOrderConfirmationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		SupplyOrderConfirmationTokens tokens = new SupplyOrderConfirmationTokens(options);
+		return tokens;
+		
+	}
+	protected SupplyOrderConfirmationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public SupplyOrderConfirmationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -82,6 +91,11 @@ public class SupplyOrderConfirmationTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public SupplyOrderConfirmationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String CONSUMER_ORDER_LIST = "consumerOrderList";
 	public String getConsumerOrderList(){
@@ -97,7 +111,11 @@ public class SupplyOrderConfirmationTokens extends CommonTokens{
 	}
 	public boolean analyzeConsumerOrderListEnabled(){		
 		
-		return checkOptions(this.options(), CONSUMER_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), CONSUMER_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public SupplyOrderConfirmationTokens extractMoreFromConsumerOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_LIST+".extractIds", idsSeperatedWithComma);
@@ -159,7 +177,11 @@ public class SupplyOrderConfirmationTokens extends CommonTokens{
 	}
 	public boolean analyzeSupplyOrderListEnabled(){		
 		
-		return checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public SupplyOrderConfirmationTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);

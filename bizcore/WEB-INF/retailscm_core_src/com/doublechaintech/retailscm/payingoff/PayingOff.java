@@ -156,6 +156,9 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -169,6 +172,9 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
+	}
 	
 	
 	public void setPaidFor(Employee paidFor){
@@ -181,6 +187,9 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 		this.mPaidFor = paidFor;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePaidFor(Employee paidFor){
+		if(paidFor != null) { setPaidFor(paidFor);}
 	}
 	
 	
@@ -200,6 +209,9 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePaidTime(Date paidTime){
+		setPaidTime(paidTime);
+	}
 	
 	
 	public void setAmount(BigDecimal amount){
@@ -213,6 +225,9 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeAmount(BigDecimal amount){
+		setAmount(amount);
+	}
 	
 	
 	public void setVersion(int version){
@@ -225,6 +240,9 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeSalarySheetList().addAll(employeeSalarySheetList);
 	}
-	
+	public  void mergeEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList){
+		if(employeeSalarySheetList==null){
+			return;
+		}
+		if(employeeSalarySheetList.isEmpty()){
+			return;
+		}
+		addEmployeeSalarySheetList( employeeSalarySheetList );
+		
+	}
 	public  EmployeeSalarySheet removeEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheetIndex){
 		
 		int index = getEmployeeSalarySheetList().indexOf(employeeSalarySheetIndex);
@@ -387,6 +414,26 @@ public class PayingOff extends BaseEntity implements  java.io.Serializable{
 			dest.setAmount(getAmount());
 			dest.setVersion(getVersion());
 			dest.setEmployeeSalarySheetList(getEmployeeSalarySheetList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof PayingOff){
+		
+			
+			PayingOff dest =(PayingOff)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergePaidFor(getPaidFor());
+			dest.mergePaidTime(getPaidTime());
+			dest.mergeAmount(getAmount());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeSalarySheetList(getEmployeeSalarySheetList());
 
 		}
 		super.copyTo(baseDest);

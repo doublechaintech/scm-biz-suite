@@ -113,6 +113,9 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -126,6 +129,9 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -138,6 +144,9 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -171,7 +180,16 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 		}
 		getUserWhiteListList().addAll(userWhiteListList);
 	}
-	
+	public  void mergeUserWhiteListList(SmartList<UserWhiteList> userWhiteListList){
+		if(userWhiteListList==null){
+			return;
+		}
+		if(userWhiteListList.isEmpty()){
+			return;
+		}
+		addUserWhiteListList( userWhiteListList );
+		
+	}
 	public  UserWhiteList removeUserWhiteList(UserWhiteList userWhiteListIndex){
 		
 		int index = getUserWhiteListList().indexOf(userWhiteListIndex);
@@ -269,7 +287,16 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 		}
 		getSecUserList().addAll(secUserList);
 	}
-	
+	public  void mergeSecUserList(SmartList<SecUser> secUserList){
+		if(secUserList==null){
+			return;
+		}
+		if(secUserList.isEmpty()){
+			return;
+		}
+		addSecUserList( secUserList );
+		
+	}
 	public  SecUser removeSecUser(SecUser secUserIndex){
 		
 		int index = getSecUserList().indexOf(secUserIndex);
@@ -399,6 +426,24 @@ public class UserDomain extends BaseEntity implements  java.io.Serializable{
 			dest.setVersion(getVersion());
 			dest.setUserWhiteListList(getUserWhiteListList());
 			dest.setSecUserList(getSecUserList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof UserDomain){
+		
+			
+			UserDomain dest =(UserDomain)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeVersion(getVersion());
+			dest.mergeUserWhiteListList(getUserWhiteListList());
+			dest.mergeSecUserList(getSecUserList());
 
 		}
 		super.copyTo(baseDest);

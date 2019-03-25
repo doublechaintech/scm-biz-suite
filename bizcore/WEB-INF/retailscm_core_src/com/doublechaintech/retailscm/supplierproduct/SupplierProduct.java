@@ -156,6 +156,9 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setProductName(String productName){
@@ -168,6 +171,9 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 		this.mProductName = trimString(productName);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeProductName(String productName){
+		if(productName != null) { setProductName(productName);}
 	}
 	
 	
@@ -182,6 +188,9 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeProductDescription(String productDescription){
+		if(productDescription != null) { setProductDescription(productDescription);}
+	}
 	
 	
 	public void setProductUnit(String productUnit){
@@ -195,6 +204,9 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeProductUnit(String productUnit){
+		if(productUnit != null) { setProductUnit(productUnit);}
+	}
 	
 	
 	public void setSupplier(GoodsSupplier supplier){
@@ -207,6 +219,9 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 		this.mSupplier = supplier;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeSupplier(GoodsSupplier supplier){
+		if(supplier != null) { setSupplier(supplier);}
 	}
 	
 	
@@ -225,6 +240,9 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 		}
 		getProductSupplyDurationList().addAll(productSupplyDurationList);
 	}
-	
+	public  void mergeProductSupplyDurationList(SmartList<ProductSupplyDuration> productSupplyDurationList){
+		if(productSupplyDurationList==null){
+			return;
+		}
+		if(productSupplyDurationList.isEmpty()){
+			return;
+		}
+		addProductSupplyDurationList( productSupplyDurationList );
+		
+	}
 	public  ProductSupplyDuration removeProductSupplyDuration(ProductSupplyDuration productSupplyDurationIndex){
 		
 		int index = getProductSupplyDurationList().indexOf(productSupplyDurationIndex);
@@ -387,6 +414,26 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 			dest.setSupplier(getSupplier());
 			dest.setVersion(getVersion());
 			dest.setProductSupplyDurationList(getProductSupplyDurationList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplierProduct){
+		
+			
+			SupplierProduct dest =(SupplierProduct)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeProductName(getProductName());
+			dest.mergeProductDescription(getProductDescription());
+			dest.mergeProductUnit(getProductUnit());
+			dest.mergeSupplier(getSupplier());
+			dest.mergeVersion(getVersion());
+			dest.mergeProductSupplyDurationList(getProductSupplyDurationList());
 
 		}
 		super.copyTo(baseDest);

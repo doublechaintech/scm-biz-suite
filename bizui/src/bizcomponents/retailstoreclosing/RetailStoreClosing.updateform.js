@@ -10,6 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './RetailStoreClosing.updateform.less'
 import RetailStoreClosingBase from './RetailStoreClosing.base'
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -88,6 +89,7 @@ class RetailStoreClosingUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+    const userContext = null
     const {fieldLabels} = RetailStoreClosingBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -100,7 +102,7 @@ class RetailStoreClosingUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-
+		
         const { owner, role } = this.props
         const retailStoreClosingId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -184,7 +186,7 @@ class RetailStoreClosingUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'retailStoreClosing',
-          listName:'商店关闭列表' 
+          listName:appLocaleName(userContext,"List") 
         },
       })
     }
@@ -215,7 +217,7 @@ class RetailStoreClosingUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -229,7 +231,7 @@ class RetailStoreClosingUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-      return (<div>缺少被更新的对象</div>)
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
 	const selectedRow = this.getSelectedRow()
 
@@ -244,11 +246,11 @@ class RetailStoreClosingUpdateForm extends Component {
 
     return (
       <PageHeaderLayout
-        title={"更新商店关闭"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新商店关闭"
+        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
+        content={appLocaleName(userContext,"Update")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
             
@@ -257,7 +259,7 @@ class RetailStoreClosingUpdateForm extends Component {
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
                     initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
                     
@@ -269,7 +271,7 @@ class RetailStoreClosingUpdateForm extends Component {
                 <Form.Item label={fieldLabels.comment} {...formItemLayout}>
                   {getFieldDecorator('comment', {
                     initialValue: selectedRow.comment,
-                    rules: [{ required: true, message: '请输入评论' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入评论" />
                     
@@ -289,16 +291,16 @@ class RetailStoreClosingUpdateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
+            {appLocaleName(userContext,"Update")}
           </Button>
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
+            {appLocaleName(userContext,"UpdateAndContinue")}
           </Button>
           <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
+            {appLocaleName(userContext,"Skip")}
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
-            取消
+            {appLocaleName(userContext,"Cancel")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

@@ -38,6 +38,15 @@ public class OriginalVoucherTokens extends CommonTokens{
 	protected OriginalVoucherTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  OriginalVoucherTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		OriginalVoucherTokens tokens = new OriginalVoucherTokens(options);
+		return tokens;
+		
+	}
+	protected OriginalVoucherTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public OriginalVoucherTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -87,6 +96,11 @@ public class OriginalVoucherTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public OriginalVoucherTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String BELONGSTO = "belongsTo";

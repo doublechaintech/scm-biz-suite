@@ -114,6 +114,9 @@ public class LevelTwoCategory extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setParentCategory(LevelOneCategory parentCategory){
@@ -126,6 +129,9 @@ public class LevelTwoCategory extends BaseEntity implements  java.io.Serializabl
 		this.mParentCategory = parentCategory;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeParentCategory(LevelOneCategory parentCategory){
+		if(parentCategory != null) { setParentCategory(parentCategory);}
 	}
 	
 	
@@ -145,6 +151,9 @@ public class LevelTwoCategory extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -157,6 +166,9 @@ public class LevelTwoCategory extends BaseEntity implements  java.io.Serializabl
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -190,7 +202,16 @@ public class LevelTwoCategory extends BaseEntity implements  java.io.Serializabl
 		}
 		getLevelThreeCategoryList().addAll(levelThreeCategoryList);
 	}
-	
+	public  void mergeLevelThreeCategoryList(SmartList<LevelThreeCategory> levelThreeCategoryList){
+		if(levelThreeCategoryList==null){
+			return;
+		}
+		if(levelThreeCategoryList.isEmpty()){
+			return;
+		}
+		addLevelThreeCategoryList( levelThreeCategoryList );
+		
+	}
 	public  LevelThreeCategory removeLevelThreeCategory(LevelThreeCategory levelThreeCategoryIndex){
 		
 		int index = getLevelThreeCategoryList().indexOf(levelThreeCategoryIndex);
@@ -315,6 +336,24 @@ public class LevelTwoCategory extends BaseEntity implements  java.io.Serializabl
 			dest.setName(getName());
 			dest.setVersion(getVersion());
 			dest.setLevelThreeCategoryList(getLevelThreeCategoryList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof LevelTwoCategory){
+		
+			
+			LevelTwoCategory dest =(LevelTwoCategory)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeParentCategory(getParentCategory());
+			dest.mergeName(getName());
+			dest.mergeVersion(getVersion());
+			dest.mergeLevelThreeCategoryList(getLevelThreeCategoryList());
 
 		}
 		super.copyTo(baseDest);

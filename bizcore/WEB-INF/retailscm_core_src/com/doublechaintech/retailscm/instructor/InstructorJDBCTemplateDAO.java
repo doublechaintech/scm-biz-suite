@@ -221,9 +221,8 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractCompanyTrainingListEnabled(Map<String,Object> options){		
  		return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST);
  	}
- 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,InstructorTokens.COMPANY_TRAINING_LIST+".analyze");
+ 	protected boolean isAnalyzeCompanyTrainingListEnabled(Map<String,Object> options){		 		
+ 		return InstructorTokens.of(options).analyzeCompanyTrainingListEnabled();
  	}
 	
 	protected boolean isSaveCompanyTrainingListEnabled(Map<String,Object> options){

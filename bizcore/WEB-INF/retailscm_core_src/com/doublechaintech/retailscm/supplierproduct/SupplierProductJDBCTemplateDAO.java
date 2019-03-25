@@ -221,9 +221,8 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	protected boolean isExtractProductSupplyDurationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST);
  	}
- 	protected boolean isAnalyzeProductSupplyDurationListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplierProductTokens.PRODUCT_SUPPLY_DURATION_LIST+".analyze");
+ 	protected boolean isAnalyzeProductSupplyDurationListEnabled(Map<String,Object> options){		 		
+ 		return SupplierProductTokens.of(options).analyzeProductSupplyDurationListEnabled();
  	}
 	
 	protected boolean isSaveProductSupplyDurationListEnabled(Map<String,Object> options){

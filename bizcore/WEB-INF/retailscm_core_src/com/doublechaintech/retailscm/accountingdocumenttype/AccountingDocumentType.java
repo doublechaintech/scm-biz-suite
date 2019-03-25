@@ -135,6 +135,9 @@ public class AccountingDocumentType extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -147,6 +150,9 @@ public class AccountingDocumentType extends BaseEntity implements  java.io.Seria
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -161,6 +167,9 @@ public class AccountingDocumentType extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setAccountingPeriod(AccountSet accountingPeriod){
@@ -173,6 +182,9 @@ public class AccountingDocumentType extends BaseEntity implements  java.io.Seria
 		this.mAccountingPeriod = accountingPeriod;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAccountingPeriod(AccountSet accountingPeriod){
+		if(accountingPeriod != null) { setAccountingPeriod(accountingPeriod);}
 	}
 	
 	
@@ -191,6 +203,9 @@ public class AccountingDocumentType extends BaseEntity implements  java.io.Seria
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -224,7 +239,16 @@ public class AccountingDocumentType extends BaseEntity implements  java.io.Seria
 		}
 		getAccountingDocumentList().addAll(accountingDocumentList);
 	}
-	
+	public  void mergeAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList){
+		if(accountingDocumentList==null){
+			return;
+		}
+		if(accountingDocumentList.isEmpty()){
+			return;
+		}
+		addAccountingDocumentList( accountingDocumentList );
+		
+	}
 	public  AccountingDocument removeAccountingDocument(AccountingDocument accountingDocumentIndex){
 		
 		int index = getAccountingDocumentList().indexOf(accountingDocumentIndex);
@@ -351,6 +375,25 @@ public class AccountingDocumentType extends BaseEntity implements  java.io.Seria
 			dest.setAccountingPeriod(getAccountingPeriod());
 			dest.setVersion(getVersion());
 			dest.setAccountingDocumentList(getAccountingDocumentList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountingDocumentType){
+		
+			
+			AccountingDocumentType dest =(AccountingDocumentType)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeDescription(getDescription());
+			dest.mergeAccountingPeriod(getAccountingPeriod());
+			dest.mergeVersion(getVersion());
+			dest.mergeAccountingDocumentList(getAccountingDocumentList());
 
 		}
 		super.copyTo(baseDest);

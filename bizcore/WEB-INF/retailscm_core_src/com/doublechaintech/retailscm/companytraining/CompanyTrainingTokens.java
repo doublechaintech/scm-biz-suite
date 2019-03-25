@@ -38,6 +38,15 @@ public class CompanyTrainingTokens extends CommonTokens{
 	protected CompanyTrainingTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  CompanyTrainingTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		CompanyTrainingTokens tokens = new CompanyTrainingTokens(options);
+		return tokens;
+		
+	}
+	protected CompanyTrainingTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public CompanyTrainingTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -87,6 +96,11 @@ public class CompanyTrainingTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public CompanyTrainingTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COMPANY = "company";
 	public String getCompany(){
@@ -132,7 +146,11 @@ public class CompanyTrainingTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeCompanyTrainingListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_COMPANY_TRAINING_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public CompanyTrainingTokens extractMoreFromEmployeeCompanyTrainingList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_COMPANY_TRAINING_LIST+".extractIds", idsSeperatedWithComma);

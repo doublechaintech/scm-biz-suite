@@ -221,9 +221,8 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractGoodsShelfListEnabled(Map<String,Object> options){		
  		return checkOptions(options,DamageSpaceTokens.GOODS_SHELF_LIST);
  	}
- 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,DamageSpaceTokens.GOODS_SHELF_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		 		
+ 		return DamageSpaceTokens.of(options).analyzeGoodsShelfListEnabled();
  	}
 	
 	protected boolean isSaveGoodsShelfListEnabled(Map<String,Object> options){

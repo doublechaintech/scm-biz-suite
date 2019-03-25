@@ -299,9 +299,8 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractGoodsShelfStockCountListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsShelfTokens.GOODS_SHELF_STOCK_COUNT_LIST);
  	}
- 	protected boolean isAnalyzeGoodsShelfStockCountListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GoodsShelfTokens.GOODS_SHELF_STOCK_COUNT_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsShelfStockCountListEnabled(Map<String,Object> options){		 		
+ 		return GoodsShelfTokens.of(options).analyzeGoodsShelfStockCountListEnabled();
  	}
 	
 	protected boolean isSaveGoodsShelfStockCountListEnabled(Map<String,Object> options){
@@ -314,9 +313,8 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractGoodsAllocationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GoodsShelfTokens.GOODS_ALLOCATION_LIST);
  	}
- 	protected boolean isAnalyzeGoodsAllocationListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GoodsShelfTokens.GOODS_ALLOCATION_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsAllocationListEnabled(Map<String,Object> options){		 		
+ 		return GoodsShelfTokens.of(options).analyzeGoodsAllocationListEnabled();
  	}
 	
 	protected boolean isSaveGoodsAllocationListEnabled(Map<String,Object> options){

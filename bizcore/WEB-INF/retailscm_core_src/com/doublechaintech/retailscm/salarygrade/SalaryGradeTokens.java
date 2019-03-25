@@ -38,6 +38,15 @@ public class SalaryGradeTokens extends CommonTokens{
 	protected SalaryGradeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  SalaryGradeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		SalaryGradeTokens tokens = new SalaryGradeTokens(options);
+		return tokens;
+		
+	}
+	protected SalaryGradeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public SalaryGradeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -84,6 +93,11 @@ public class SalaryGradeTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public SalaryGradeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COMPANY = "company";
 	public String getCompany(){
@@ -109,7 +123,11 @@ public class SalaryGradeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public SalaryGradeTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);
@@ -171,7 +189,11 @@ public class SalaryGradeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeSalarySheetListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_SALARY_SHEET_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public SalaryGradeTokens extractMoreFromEmployeeSalarySheetList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_SALARY_SHEET_LIST+".extractIds", idsSeperatedWithComma);

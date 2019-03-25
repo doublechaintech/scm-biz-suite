@@ -152,6 +152,9 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setTitle(String title){
@@ -164,6 +167,9 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		this.mTitle = trimString(title);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
 	}
 	
 	
@@ -178,6 +184,9 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeCountTime(Date countTime){
+		setCountTime(countTime);
+	}
 	
 	
 	public void setSummary(String summary){
@@ -191,6 +200,9 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeSummary(String summary){
+		if(summary != null) { setSummary(summary);}
+	}
 	
 	
 	public void setStockCount(GoodsShelfStockCount stockCount){
@@ -203,6 +215,9 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		this.mStockCount = stockCount;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeStockCount(GoodsShelfStockCount stockCount){
+		if(stockCount != null) { setStockCount(stockCount);}
 	}
 	
 	
@@ -221,6 +236,9 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 			dest.setSummary(getSummary());
 			dest.setStockCount(getStockCount());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof StockCountIssueTrack){
+		
+			
+			StockCountIssueTrack dest =(StockCountIssueTrack)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeCountTime(getCountTime());
+			dest.mergeSummary(getSummary());
+			dest.mergeStockCount(getStockCount());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

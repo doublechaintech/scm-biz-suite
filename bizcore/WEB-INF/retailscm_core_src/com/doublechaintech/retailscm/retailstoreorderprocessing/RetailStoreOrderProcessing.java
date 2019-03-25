@@ -130,6 +130,9 @@ public class RetailStoreOrderProcessing extends BaseEntity implements  java.io.S
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -142,6 +145,9 @@ public class RetailStoreOrderProcessing extends BaseEntity implements  java.io.S
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -156,6 +162,9 @@ public class RetailStoreOrderProcessing extends BaseEntity implements  java.io.S
 		this.changed = true;
 		return this;
 	}
+	public void mergeProcessTime(Date processTime){
+		setProcessTime(processTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -168,6 +177,9 @@ public class RetailStoreOrderProcessing extends BaseEntity implements  java.io.S
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -201,7 +213,16 @@ public class RetailStoreOrderProcessing extends BaseEntity implements  java.io.S
 		}
 		getRetailStoreOrderList().addAll(retailStoreOrderList);
 	}
-	
+	public  void mergeRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList){
+		if(retailStoreOrderList==null){
+			return;
+		}
+		if(retailStoreOrderList.isEmpty()){
+			return;
+		}
+		addRetailStoreOrderList( retailStoreOrderList );
+		
+	}
 	public  RetailStoreOrder removeRetailStoreOrder(RetailStoreOrder retailStoreOrderIndex){
 		
 		int index = getRetailStoreOrderList().indexOf(retailStoreOrderIndex);
@@ -325,6 +346,24 @@ public class RetailStoreOrderProcessing extends BaseEntity implements  java.io.S
 			dest.setProcessTime(getProcessTime());
 			dest.setVersion(getVersion());
 			dest.setRetailStoreOrderList(getRetailStoreOrderList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreOrderProcessing){
+		
+			
+			RetailStoreOrderProcessing dest =(RetailStoreOrderProcessing)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeProcessTime(getProcessTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeRetailStoreOrderList(getRetailStoreOrderList());
 
 		}
 		super.copyTo(baseDest);

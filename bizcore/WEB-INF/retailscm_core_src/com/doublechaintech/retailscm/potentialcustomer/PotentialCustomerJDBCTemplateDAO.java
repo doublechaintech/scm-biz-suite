@@ -302,9 +302,8 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractPotentialCustomerContactPersonListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerContactPersonListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_PERSON_LIST+".analyze");
+ 	protected boolean isAnalyzePotentialCustomerContactPersonListEnabled(Map<String,Object> options){		 		
+ 		return PotentialCustomerTokens.of(options).analyzePotentialCustomerContactPersonListEnabled();
  	}
 	
 	protected boolean isSavePotentialCustomerContactPersonListEnabled(Map<String,Object> options){
@@ -317,9 +316,8 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,PotentialCustomerTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		 		
+ 		return PotentialCustomerTokens.of(options).analyzePotentialCustomerContactListEnabled();
  	}
 	
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){
@@ -332,9 +330,8 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerTokens.EVENT_ATTENDANCE_LIST);
  	}
- 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,PotentialCustomerTokens.EVENT_ATTENDANCE_LIST+".analyze");
+ 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		 		
+ 		return PotentialCustomerTokens.of(options).analyzeEventAttendanceListEnabled();
  	}
 	
 	protected boolean isSaveEventAttendanceListEnabled(Map<String,Object> options){

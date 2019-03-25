@@ -38,6 +38,15 @@ public class ConsumerOrderPriceAdjustmentTokens extends CommonTokens{
 	protected ConsumerOrderPriceAdjustmentTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ConsumerOrderPriceAdjustmentTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ConsumerOrderPriceAdjustmentTokens tokens = new ConsumerOrderPriceAdjustmentTokens(options);
+		return tokens;
+		
+	}
+	protected ConsumerOrderPriceAdjustmentTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ConsumerOrderPriceAdjustmentTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class ConsumerOrderPriceAdjustmentTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ConsumerOrderPriceAdjustmentTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String BIZORDER = "bizOrder";

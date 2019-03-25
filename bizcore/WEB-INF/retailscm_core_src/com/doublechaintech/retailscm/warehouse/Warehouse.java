@@ -243,6 +243,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLocation(String location){
@@ -255,6 +258,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.mLocation = trimString(location);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLocation(String location){
+		if(location != null) { setLocation(location);}
 	}
 	
 	
@@ -269,6 +275,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeContactNumber(String contactNumber){
+		if(contactNumber != null) { setContactNumber(contactNumber);}
+	}
 	
 	
 	public void setTotalArea(String totalArea){
@@ -282,6 +291,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTotalArea(String totalArea){
+		if(totalArea != null) { setTotalArea(totalArea);}
+	}
 	
 	
 	public void setOwner(RetailStoreCountryCenter owner){
@@ -294,6 +306,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreCountryCenter owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -313,6 +328,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLatitude(BigDecimal latitude){
+		setLatitude(latitude);
+	}
 	
 	
 	public void setLongitude(BigDecimal longitude){
@@ -325,6 +343,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.mLongitude = longitude;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLongitude(BigDecimal longitude){
+		setLongitude(longitude);
 	}
 	
 	
@@ -339,6 +360,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -351,6 +375,9 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -384,7 +411,16 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		getStorageSpaceList().addAll(storageSpaceList);
 	}
-	
+	public  void mergeStorageSpaceList(SmartList<StorageSpace> storageSpaceList){
+		if(storageSpaceList==null){
+			return;
+		}
+		if(storageSpaceList.isEmpty()){
+			return;
+		}
+		addStorageSpaceList( storageSpaceList );
+		
+	}
 	public  StorageSpace removeStorageSpace(StorageSpace storageSpaceIndex){
 		
 		int index = getStorageSpaceList().indexOf(storageSpaceIndex);
@@ -482,7 +518,16 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		getSmartPalletList().addAll(smartPalletList);
 	}
-	
+	public  void mergeSmartPalletList(SmartList<SmartPallet> smartPalletList){
+		if(smartPalletList==null){
+			return;
+		}
+		if(smartPalletList.isEmpty()){
+			return;
+		}
+		addSmartPalletList( smartPalletList );
+		
+	}
 	public  SmartPallet removeSmartPallet(SmartPallet smartPalletIndex){
 		
 		int index = getSmartPalletList().indexOf(smartPalletIndex);
@@ -580,7 +625,16 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		getSupplierSpaceList().addAll(supplierSpaceList);
 	}
-	
+	public  void mergeSupplierSpaceList(SmartList<SupplierSpace> supplierSpaceList){
+		if(supplierSpaceList==null){
+			return;
+		}
+		if(supplierSpaceList.isEmpty()){
+			return;
+		}
+		addSupplierSpaceList( supplierSpaceList );
+		
+	}
 	public  SupplierSpace removeSupplierSpace(SupplierSpace supplierSpaceIndex){
 		
 		int index = getSupplierSpaceList().indexOf(supplierSpaceIndex);
@@ -678,7 +732,16 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		getReceivingSpaceList().addAll(receivingSpaceList);
 	}
-	
+	public  void mergeReceivingSpaceList(SmartList<ReceivingSpace> receivingSpaceList){
+		if(receivingSpaceList==null){
+			return;
+		}
+		if(receivingSpaceList.isEmpty()){
+			return;
+		}
+		addReceivingSpaceList( receivingSpaceList );
+		
+	}
 	public  ReceivingSpace removeReceivingSpace(ReceivingSpace receivingSpaceIndex){
 		
 		int index = getReceivingSpaceList().indexOf(receivingSpaceIndex);
@@ -776,7 +839,16 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		getShippingSpaceList().addAll(shippingSpaceList);
 	}
-	
+	public  void mergeShippingSpaceList(SmartList<ShippingSpace> shippingSpaceList){
+		if(shippingSpaceList==null){
+			return;
+		}
+		if(shippingSpaceList.isEmpty()){
+			return;
+		}
+		addShippingSpaceList( shippingSpaceList );
+		
+	}
 	public  ShippingSpace removeShippingSpace(ShippingSpace shippingSpaceIndex){
 		
 		int index = getShippingSpaceList().indexOf(shippingSpaceIndex);
@@ -874,7 +946,16 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		getDamageSpaceList().addAll(damageSpaceList);
 	}
-	
+	public  void mergeDamageSpaceList(SmartList<DamageSpace> damageSpaceList){
+		if(damageSpaceList==null){
+			return;
+		}
+		if(damageSpaceList.isEmpty()){
+			return;
+		}
+		addDamageSpaceList( damageSpaceList );
+		
+	}
 	public  DamageSpace removeDamageSpace(DamageSpace damageSpaceIndex){
 		
 		int index = getDamageSpaceList().indexOf(damageSpaceIndex);
@@ -972,7 +1053,16 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 		}
 		getWarehouseAssetList().addAll(warehouseAssetList);
 	}
-	
+	public  void mergeWarehouseAssetList(SmartList<WarehouseAsset> warehouseAssetList){
+		if(warehouseAssetList==null){
+			return;
+		}
+		if(warehouseAssetList.isEmpty()){
+			return;
+		}
+		addWarehouseAssetList( warehouseAssetList );
+		
+	}
 	public  WarehouseAsset removeWarehouseAsset(WarehouseAsset warehouseAssetIndex){
 		
 		int index = getWarehouseAssetList().indexOf(warehouseAssetIndex);
@@ -1155,6 +1245,35 @@ public class Warehouse extends BaseEntity implements  java.io.Serializable{
 			dest.setShippingSpaceList(getShippingSpaceList());
 			dest.setDamageSpaceList(getDamageSpaceList());
 			dest.setWarehouseAssetList(getWarehouseAssetList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Warehouse){
+		
+			
+			Warehouse dest =(Warehouse)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLocation(getLocation());
+			dest.mergeContactNumber(getContactNumber());
+			dest.mergeTotalArea(getTotalArea());
+			dest.mergeOwner(getOwner());
+			dest.mergeLatitude(getLatitude());
+			dest.mergeLongitude(getLongitude());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeStorageSpaceList(getStorageSpaceList());
+			dest.mergeSmartPalletList(getSmartPalletList());
+			dest.mergeSupplierSpaceList(getSupplierSpaceList());
+			dest.mergeReceivingSpaceList(getReceivingSpaceList());
+			dest.mergeShippingSpaceList(getShippingSpaceList());
+			dest.mergeDamageSpaceList(getDamageSpaceList());
+			dest.mergeWarehouseAssetList(getWarehouseAssetList());
 
 		}
 		super.copyTo(baseDest);

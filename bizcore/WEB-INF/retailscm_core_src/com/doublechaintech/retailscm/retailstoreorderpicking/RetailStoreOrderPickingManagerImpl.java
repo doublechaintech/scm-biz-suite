@@ -316,7 +316,7 @@ public class RetailStoreOrderPickingManagerImpl extends CustomRetailscmCheckerMa
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortRetailStoreOrderListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

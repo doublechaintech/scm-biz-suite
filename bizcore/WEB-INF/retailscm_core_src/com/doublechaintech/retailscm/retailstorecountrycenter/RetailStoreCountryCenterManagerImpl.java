@@ -511,7 +511,7 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 		.sortEmployeeListWith("id","desc")
 		.sortInstructorListWith("id","desc")
 		.sortCompanyTrainingListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

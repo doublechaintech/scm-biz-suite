@@ -156,6 +156,9 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setBelongsTo(LevelTwoDepartment belongsTo){
@@ -168,6 +171,9 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 		this.mBelongsTo = belongsTo;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBelongsTo(LevelTwoDepartment belongsTo){
+		if(belongsTo != null) { setBelongsTo(belongsTo);}
 	}
 	
 	
@@ -187,6 +193,9 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setDescription(String description){
@@ -199,6 +208,9 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 		this.mDescription = trimString(description);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
 	}
 	
 	
@@ -213,6 +225,9 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 		this.changed = true;
 		return this;
 	}
+	public void mergeFounded(Date founded){
+		setFounded(founded);
+	}
 	
 	
 	public void setVersion(int version){
@@ -225,6 +240,9 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 		}
 		getEmployeeList().addAll(employeeList);
 	}
-	
+	public  void mergeEmployeeList(SmartList<Employee> employeeList){
+		if(employeeList==null){
+			return;
+		}
+		if(employeeList.isEmpty()){
+			return;
+		}
+		addEmployeeList( employeeList );
+		
+	}
 	public  Employee removeEmployee(Employee employeeIndex){
 		
 		int index = getEmployeeList().indexOf(employeeIndex);
@@ -387,6 +414,26 @@ public class LevelThreeDepartment extends BaseEntity implements  java.io.Seriali
 			dest.setFounded(getFounded());
 			dest.setVersion(getVersion());
 			dest.setEmployeeList(getEmployeeList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof LevelThreeDepartment){
+		
+			
+			LevelThreeDepartment dest =(LevelThreeDepartment)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeBelongsTo(getBelongsTo());
+			dest.mergeName(getName());
+			dest.mergeDescription(getDescription());
+			dest.mergeFounded(getFounded());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeList(getEmployeeList());
 
 		}
 		super.copyTo(baseDest);

@@ -9,7 +9,7 @@ import styles from './ProfessionInterview.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ProfessionInterviewBase from './ProfessionInterview.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '技术部',
-  interviewTime: '2018-08-22',
+  interviewTime: '2018-10-27',
   comments: '能力各方面表现不错，进入下一轮',
 }
 */
@@ -68,7 +68,7 @@ class ProfessionInterviewCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ProfessionInterviewBase
     const {ProfessionInterviewService} = GlobalComponents
@@ -117,9 +117,10 @@ class ProfessionInterviewCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'professionInterview',listName:'专业面试列表' },
+        payload: { id: owner.id, type: 'professionInterview',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -150,7 +151,7 @@ class ProfessionInterviewCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -194,18 +195,18 @@ class ProfessionInterviewCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个专业面试"
-        content="新建一个专业面试"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.who} {...formItemLayout}>
                   {getFieldDecorator('who', {
-                    rules: [{ required: true, message: '请输入谁' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入谁" />
                   )}
@@ -215,7 +216,7 @@ class ProfessionInterviewCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.interviewTime} {...formItemLayout}>
                   {getFieldDecorator('interviewTime', {
-                    rules: [{ required: true, message: '请输入面试时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入面试时间" />
                   )}
@@ -225,7 +226,7 @@ class ProfessionInterviewCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.comments} {...formItemLayout}>
                   {getFieldDecorator('comments', {
-                    rules: [{ required: true, message: '请输入评论' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入评论" />
                   )}
@@ -252,13 +253,13 @@ class ProfessionInterviewCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

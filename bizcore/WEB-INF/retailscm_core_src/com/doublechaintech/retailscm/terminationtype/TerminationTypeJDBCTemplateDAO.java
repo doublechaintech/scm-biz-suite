@@ -221,9 +221,8 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	protected boolean isExtractTerminationListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TerminationTypeTokens.TERMINATION_LIST);
  	}
- 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TerminationTypeTokens.TERMINATION_LIST+".analyze");
+ 	protected boolean isAnalyzeTerminationListEnabled(Map<String,Object> options){		 		
+ 		return TerminationTypeTokens.of(options).analyzeTerminationListEnabled();
  	}
 	
 	protected boolean isSaveTerminationListEnabled(Map<String,Object> options){

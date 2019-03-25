@@ -114,6 +114,9 @@ public class Catalog extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -127,6 +130,9 @@ public class Catalog extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setOwner(RetailStoreCountryCenter owner){
@@ -139,6 +145,9 @@ public class Catalog extends BaseEntity implements  java.io.Serializable{
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreCountryCenter owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -157,6 +166,9 @@ public class Catalog extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -190,7 +202,16 @@ public class Catalog extends BaseEntity implements  java.io.Serializable{
 		}
 		getLevelOneCategoryList().addAll(levelOneCategoryList);
 	}
-	
+	public  void mergeLevelOneCategoryList(SmartList<LevelOneCategory> levelOneCategoryList){
+		if(levelOneCategoryList==null){
+			return;
+		}
+		if(levelOneCategoryList.isEmpty()){
+			return;
+		}
+		addLevelOneCategoryList( levelOneCategoryList );
+		
+	}
 	public  LevelOneCategory removeLevelOneCategory(LevelOneCategory levelOneCategoryIndex){
 		
 		int index = getLevelOneCategoryList().indexOf(levelOneCategoryIndex);
@@ -315,6 +336,24 @@ public class Catalog extends BaseEntity implements  java.io.Serializable{
 			dest.setOwner(getOwner());
 			dest.setVersion(getVersion());
 			dest.setLevelOneCategoryList(getLevelOneCategoryList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Catalog){
+		
+			
+			Catalog dest =(Catalog)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeOwner(getOwner());
+			dest.mergeVersion(getVersion());
+			dest.mergeLevelOneCategoryList(getLevelOneCategoryList());
 
 		}
 		super.copyTo(baseDest);

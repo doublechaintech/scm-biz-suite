@@ -38,6 +38,15 @@ public class JobApplicationTokens extends CommonTokens{
 	protected JobApplicationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  JobApplicationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		JobApplicationTokens tokens = new JobApplicationTokens(options);
+		return tokens;
+		
+	}
+	protected JobApplicationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public JobApplicationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class JobApplicationTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public JobApplicationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String EMPLOYEE_LIST = "employeeList";
 	public String getEmployeeList(){
@@ -96,7 +110,11 @@ public class JobApplicationTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public JobApplicationTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);

@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import OriginalVoucherAuditingBase from './OriginalVoucherAuditing.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '审核通过，要都审核过了才通过哦',
-  makeDate: '2017-10-24',
+  makeDate: '2016-09-03',
 }
 */
 
@@ -72,6 +72,8 @@ class OriginalVoucherAuditingAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {OriginalVoucherAuditingService} = GlobalComponents
+    const userContext = null
+    
  const {OriginalVoucherModalTable} = GlobalComponents;
 
 
@@ -119,24 +121,24 @@ class OriginalVoucherAuditingAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.who} {...formItemLayout}>
                   {getFieldDecorator('who', {
-                    rules: [{ required: true, message: '请输入谁' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入谁" />
                   )}
@@ -146,7 +148,7 @@ class OriginalVoucherAuditingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.comments} {...formItemLayout}>
                   {getFieldDecorator('comments', {
-                    rules: [{ required: true, message: '请输入评论' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入评论" />
                   )}
@@ -156,7 +158,7 @@ class OriginalVoucherAuditingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.makeDate} {...formItemLayout}>
                   {getFieldDecorator('makeDate', {
-                    rules: [{ required: true, message: '请输入制造日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入制造日期" />
                   )}

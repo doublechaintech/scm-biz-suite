@@ -38,6 +38,15 @@ public class RetailStoreOrderConfirmationTokens extends CommonTokens{
 	protected RetailStoreOrderConfirmationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreOrderConfirmationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreOrderConfirmationTokens tokens = new RetailStoreOrderConfirmationTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreOrderConfirmationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreOrderConfirmationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class RetailStoreOrderConfirmationTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public RetailStoreOrderConfirmationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String RETAIL_STORE_ORDER_LIST = "retailStoreOrderList";
 	public String getRetailStoreOrderList(){
@@ -96,7 +110,11 @@ public class RetailStoreOrderConfirmationTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreOrderListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreOrderConfirmationTokens extractMoreFromRetailStoreOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_ORDER_LIST+".extractIds", idsSeperatedWithComma);

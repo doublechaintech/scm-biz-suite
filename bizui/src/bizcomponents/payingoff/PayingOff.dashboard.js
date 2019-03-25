@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,12 +76,12 @@ const internalSummaryOf = (payingOff,targetComponent) =>{
 	
 	
 	const {PayingOffService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{payingOff.id}</Description> 
 <Description term="谁">{payingOff.who}</Description> 
-<Description term="支付">{payingOff.paidFor==null?"未分配":payingOff.paidFor.displayName}
+<Description term="支付">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"支付","employee",PayingOffService.requestCandidatePaidFor,
 	      PayingOffService.transferToAnotherPaidFor,"anotherPaidForId",payingOff.paidFor?payingOff.paidFor.id:"")} 
@@ -104,7 +104,7 @@ class PayingOffDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -132,7 +132,6 @@ class PayingOffDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

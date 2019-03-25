@@ -151,6 +151,9 @@ public class Scoring extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setScoredBy(String scoredBy){
@@ -163,6 +166,9 @@ public class Scoring extends BaseEntity implements  java.io.Serializable{
 		this.mScoredBy = trimString(scoredBy);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeScoredBy(String scoredBy){
+		if(scoredBy != null) { setScoredBy(scoredBy);}
 	}
 	
 	
@@ -177,6 +183,9 @@ public class Scoring extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeScore(int score){
+		setScore(score);
+	}
 	
 	
 	public void setComment(String comment){
@@ -190,6 +199,9 @@ public class Scoring extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeComment(String comment){
+		if(comment != null) { setComment(comment);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -202,6 +214,9 @@ public class Scoring extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -235,7 +250,16 @@ public class Scoring extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeCompanyTrainingList().addAll(employeeCompanyTrainingList);
 	}
-	
+	public  void mergeEmployeeCompanyTrainingList(SmartList<EmployeeCompanyTraining> employeeCompanyTrainingList){
+		if(employeeCompanyTrainingList==null){
+			return;
+		}
+		if(employeeCompanyTrainingList.isEmpty()){
+			return;
+		}
+		addEmployeeCompanyTrainingList( employeeCompanyTrainingList );
+		
+	}
 	public  EmployeeCompanyTraining removeEmployeeCompanyTraining(EmployeeCompanyTraining employeeCompanyTrainingIndex){
 		
 		int index = getEmployeeCompanyTrainingList().indexOf(employeeCompanyTrainingIndex);
@@ -361,6 +385,25 @@ public class Scoring extends BaseEntity implements  java.io.Serializable{
 			dest.setComment(getComment());
 			dest.setVersion(getVersion());
 			dest.setEmployeeCompanyTrainingList(getEmployeeCompanyTrainingList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Scoring){
+		
+			
+			Scoring dest =(Scoring)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeScoredBy(getScoredBy());
+			dest.mergeScore(getScore());
+			dest.mergeComment(getComment());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeCompanyTrainingList(getEmployeeCompanyTrainingList());
 
 		}
 		super.copyTo(baseDest);

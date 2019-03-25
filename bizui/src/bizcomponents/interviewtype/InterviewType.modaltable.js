@@ -5,14 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './InterviewType.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import InterviewTypeBase from './InterviewType.base'
-
+import appLocaleName from '../../common/Locale.tool'
 
 class InterviewTypeModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = InterviewTypeBase
-	
+	const userContext = null
 	if(!data){
 		return null
 	}
@@ -26,7 +26,7 @@ class InterviewTypeModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
               </p>
             )}
             type="warning"

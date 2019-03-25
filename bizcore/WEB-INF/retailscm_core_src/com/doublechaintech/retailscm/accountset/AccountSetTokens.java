@@ -38,6 +38,15 @@ public class AccountSetTokens extends CommonTokens{
 	protected AccountSetTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  AccountSetTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		AccountSetTokens tokens = new AccountSetTokens(options);
+		return tokens;
+		
+	}
+	protected AccountSetTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public AccountSetTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -89,6 +98,11 @@ public class AccountSetTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public AccountSetTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COUNTRYCENTER = "countryCenter";
 	public String getCountryCenter(){
@@ -134,7 +148,11 @@ public class AccountSetTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountingSubjectListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNTING_SUBJECT_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNTING_SUBJECT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountSetTokens extractMoreFromAccountingSubjectList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_SUBJECT_LIST+".extractIds", idsSeperatedWithComma);
@@ -196,7 +214,11 @@ public class AccountSetTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountingPeriodListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNTING_PERIOD_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNTING_PERIOD_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountSetTokens extractMoreFromAccountingPeriodList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_PERIOD_LIST+".extractIds", idsSeperatedWithComma);
@@ -258,7 +280,11 @@ public class AccountSetTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountingDocumentTypeListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_TYPE_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNTING_DOCUMENT_TYPE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountSetTokens extractMoreFromAccountingDocumentTypeList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_TYPE_LIST+".extractIds", idsSeperatedWithComma);

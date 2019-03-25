@@ -200,6 +200,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setBuyer(RetailStoreCountryCenter buyer){
@@ -212,6 +215,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.mBuyer = buyer;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBuyer(RetailStoreCountryCenter buyer){
+		if(buyer != null) { setBuyer(buyer);}
 	}
 	
 	
@@ -231,6 +237,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSeller(GoodsSupplier seller){
+		if(seller != null) { setSeller(seller);}
+	}
 	
 	
 	public void clearSeller(){
@@ -249,6 +258,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTitle(String title){
+		if(title != null) { setTitle(title);}
+	}
 	
 	
 	public void setTotalAmount(BigDecimal totalAmount){
@@ -262,6 +274,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTotalAmount(BigDecimal totalAmount){
+		setTotalAmount(totalAmount);
+	}
 	
 	
 	public void setConfirmation(SupplyOrderConfirmation confirmation){
@@ -274,6 +289,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.mConfirmation = confirmation;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeConfirmation(SupplyOrderConfirmation confirmation){
+		if(confirmation != null) { setConfirmation(confirmation);}
 	}
 	
 	
@@ -293,6 +311,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeApproval(SupplyOrderApproval approval){
+		if(approval != null) { setApproval(approval);}
+	}
 	
 	
 	public void clearApproval(){
@@ -310,6 +331,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.mProcessing = processing;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeProcessing(SupplyOrderProcessing processing){
+		if(processing != null) { setProcessing(processing);}
 	}
 	
 	
@@ -329,6 +353,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePicking(SupplyOrderPicking picking){
+		if(picking != null) { setPicking(picking);}
+	}
 	
 	
 	public void clearPicking(){
@@ -346,6 +373,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.mShipment = shipment;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeShipment(SupplyOrderShipment shipment){
+		if(shipment != null) { setShipment(shipment);}
 	}
 	
 	
@@ -365,6 +395,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDelivery(SupplyOrderDelivery delivery){
+		if(delivery != null) { setDelivery(delivery);}
+	}
 	
 	
 	public void clearDelivery(){
@@ -383,6 +416,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setCurrentStatus(String currentStatus){
@@ -396,6 +432,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -408,6 +447,9 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -441,7 +483,16 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getSupplyOrderLineItemList().addAll(supplyOrderLineItemList);
 	}
-	
+	public  void mergeSupplyOrderLineItemList(SmartList<SupplyOrderLineItem> supplyOrderLineItemList){
+		if(supplyOrderLineItemList==null){
+			return;
+		}
+		if(supplyOrderLineItemList.isEmpty()){
+			return;
+		}
+		addSupplyOrderLineItemList( supplyOrderLineItemList );
+		
+	}
 	public  SupplyOrderLineItem removeSupplyOrderLineItem(SupplyOrderLineItem supplyOrderLineItemIndex){
 		
 		int index = getSupplyOrderLineItemList().indexOf(supplyOrderLineItemIndex);
@@ -539,7 +590,16 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getSupplyOrderShippingGroupList().addAll(supplyOrderShippingGroupList);
 	}
-	
+	public  void mergeSupplyOrderShippingGroupList(SmartList<SupplyOrderShippingGroup> supplyOrderShippingGroupList){
+		if(supplyOrderShippingGroupList==null){
+			return;
+		}
+		if(supplyOrderShippingGroupList.isEmpty()){
+			return;
+		}
+		addSupplyOrderShippingGroupList( supplyOrderShippingGroupList );
+		
+	}
 	public  SupplyOrderShippingGroup removeSupplyOrderShippingGroup(SupplyOrderShippingGroup supplyOrderShippingGroupIndex){
 		
 		int index = getSupplyOrderShippingGroupList().indexOf(supplyOrderShippingGroupIndex);
@@ -637,7 +697,16 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getSupplyOrderPaymentGroupList().addAll(supplyOrderPaymentGroupList);
 	}
-	
+	public  void mergeSupplyOrderPaymentGroupList(SmartList<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList){
+		if(supplyOrderPaymentGroupList==null){
+			return;
+		}
+		if(supplyOrderPaymentGroupList.isEmpty()){
+			return;
+		}
+		addSupplyOrderPaymentGroupList( supplyOrderPaymentGroupList );
+		
+	}
 	public  SupplyOrderPaymentGroup removeSupplyOrderPaymentGroup(SupplyOrderPaymentGroup supplyOrderPaymentGroupIndex){
 		
 		int index = getSupplyOrderPaymentGroupList().indexOf(supplyOrderPaymentGroupIndex);
@@ -735,7 +804,16 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsList().addAll(goodsList);
 	}
-	
+	public  void mergeGoodsList(SmartList<Goods> goodsList){
+		if(goodsList==null){
+			return;
+		}
+		if(goodsList.isEmpty()){
+			return;
+		}
+		addGoodsList( goodsList );
+		
+	}
 	public  Goods removeGoods(Goods goodsIndex){
 		
 		int index = getGoodsList().indexOf(goodsIndex);
@@ -911,6 +989,37 @@ public class SupplyOrder extends BaseEntity implements  java.io.Serializable{
 			dest.setSupplyOrderShippingGroupList(getSupplyOrderShippingGroupList());
 			dest.setSupplyOrderPaymentGroupList(getSupplyOrderPaymentGroupList());
 			dest.setGoodsList(getGoodsList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplyOrder){
+		
+			
+			SupplyOrder dest =(SupplyOrder)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeBuyer(getBuyer());
+			dest.mergeSeller(getSeller());
+			dest.mergeTitle(getTitle());
+			dest.mergeTotalAmount(getTotalAmount());
+			dest.mergeConfirmation(getConfirmation());
+			dest.mergeApproval(getApproval());
+			dest.mergeProcessing(getProcessing());
+			dest.mergePicking(getPicking());
+			dest.mergeShipment(getShipment());
+			dest.mergeDelivery(getDelivery());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeSupplyOrderLineItemList(getSupplyOrderLineItemList());
+			dest.mergeSupplyOrderShippingGroupList(getSupplyOrderShippingGroupList());
+			dest.mergeSupplyOrderPaymentGroupList(getSupplyOrderPaymentGroupList());
+			dest.mergeGoodsList(getGoodsList());
 
 		}
 		super.copyTo(baseDest);

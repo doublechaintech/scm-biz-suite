@@ -316,7 +316,7 @@ public class RetailStoreOrderConfirmationManagerImpl extends CustomRetailscmChec
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortRetailStoreOrderListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

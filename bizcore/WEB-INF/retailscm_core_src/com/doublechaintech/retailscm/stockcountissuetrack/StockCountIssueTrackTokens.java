@@ -38,6 +38,15 @@ public class StockCountIssueTrackTokens extends CommonTokens{
 	protected StockCountIssueTrackTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  StockCountIssueTrackTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		StockCountIssueTrackTokens tokens = new StockCountIssueTrackTokens(options);
+		return tokens;
+		
+	}
+	protected StockCountIssueTrackTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public StockCountIssueTrackTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class StockCountIssueTrackTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public StockCountIssueTrackTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String STOCKCOUNT = "stockCount";

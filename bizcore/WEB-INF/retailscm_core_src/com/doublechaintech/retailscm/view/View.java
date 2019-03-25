@@ -147,6 +147,9 @@ public class View extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -159,6 +162,9 @@ public class View extends BaseEntity implements  java.io.Serializable{
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -173,6 +179,9 @@ public class View extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeAssessment(String assessment){
+		if(assessment != null) { setAssessment(assessment);}
+	}
 	
 	
 	public void setInterviewTime(Date interviewTime){
@@ -186,6 +195,9 @@ public class View extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeInterviewTime(Date interviewTime){
+		setInterviewTime(interviewTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -198,6 +210,9 @@ public class View extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -251,6 +266,24 @@ public class View extends BaseEntity implements  java.io.Serializable{
 			dest.setAssessment(getAssessment());
 			dest.setInterviewTime(getInterviewTime());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof View){
+		
+			
+			View dest =(View)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeAssessment(getAssessment());
+			dest.mergeInterviewTime(getInterviewTime());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

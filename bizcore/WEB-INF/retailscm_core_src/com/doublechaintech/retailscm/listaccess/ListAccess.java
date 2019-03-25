@@ -236,6 +236,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -248,6 +251,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -262,6 +268,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeInternalName(String internalName){
+		if(internalName != null) { setInternalName(internalName);}
+	}
 	
 	
 	public void setReadPermission(boolean readPermission){
@@ -274,6 +283,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.mReadPermission = readPermission;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeReadPermission(boolean readPermission){
+		setReadPermission(readPermission);
 	}
 	
 	
@@ -288,6 +300,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCreatePermission(boolean createPermission){
+		setCreatePermission(createPermission);
+	}
 	
 	
 	public void setDeletePermission(boolean deletePermission){
@@ -300,6 +315,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.mDeletePermission = deletePermission;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDeletePermission(boolean deletePermission){
+		setDeletePermission(deletePermission);
 	}
 	
 	
@@ -314,6 +332,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeUpdatePermission(boolean updatePermission){
+		setUpdatePermission(updatePermission);
+	}
 	
 	
 	public void setExecutionPermission(boolean executionPermission){
@@ -327,6 +348,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeExecutionPermission(boolean executionPermission){
+		setExecutionPermission(executionPermission);
+	}
 	
 	
 	public void setApp(UserApp app){
@@ -339,6 +363,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.mApp = app;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeApp(UserApp app){
+		if(app != null) { setApp(app);}
 	}
 	
 	
@@ -357,6 +384,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -421,6 +451,29 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 			dest.setExecutionPermission(getExecutionPermission());
 			dest.setApp(getApp());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ListAccess){
+		
+			
+			ListAccess dest =(ListAccess)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeInternalName(getInternalName());
+			dest.mergeReadPermission(getReadPermission());
+			dest.mergeCreatePermission(getCreatePermission());
+			dest.mergeDeletePermission(getDeletePermission());
+			dest.mergeUpdatePermission(getUpdatePermission());
+			dest.mergeExecutionPermission(getExecutionPermission());
+			dest.mergeApp(getApp());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

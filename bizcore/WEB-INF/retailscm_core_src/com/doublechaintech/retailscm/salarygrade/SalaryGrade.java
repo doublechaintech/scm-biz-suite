@@ -160,6 +160,9 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCode(String code){
@@ -173,6 +176,9 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCode(String code){
+		if(code != null) { setCode(code);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -185,6 +191,9 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -204,6 +213,9 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setDetailDescription(String detailDescription){
@@ -217,6 +229,9 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDetailDescription(String detailDescription){
+		if(detailDescription != null) { setDetailDescription(detailDescription);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -229,6 +244,9 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -262,7 +280,16 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeList().addAll(employeeList);
 	}
-	
+	public  void mergeEmployeeList(SmartList<Employee> employeeList){
+		if(employeeList==null){
+			return;
+		}
+		if(employeeList.isEmpty()){
+			return;
+		}
+		addEmployeeList( employeeList );
+		
+	}
 	public  Employee removeEmployee(Employee employeeIndex){
 		
 		int index = getEmployeeList().indexOf(employeeIndex);
@@ -360,7 +387,16 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeSalarySheetList().addAll(employeeSalarySheetList);
 	}
-	
+	public  void mergeEmployeeSalarySheetList(SmartList<EmployeeSalarySheet> employeeSalarySheetList){
+		if(employeeSalarySheetList==null){
+			return;
+		}
+		if(employeeSalarySheetList.isEmpty()){
+			return;
+		}
+		addEmployeeSalarySheetList( employeeSalarySheetList );
+		
+	}
 	public  EmployeeSalarySheet removeEmployeeSalarySheet(EmployeeSalarySheet employeeSalarySheetIndex){
 		
 		int index = getEmployeeSalarySheetList().indexOf(employeeSalarySheetIndex);
@@ -497,6 +533,27 @@ public class SalaryGrade extends BaseEntity implements  java.io.Serializable{
 			dest.setVersion(getVersion());
 			dest.setEmployeeList(getEmployeeList());
 			dest.setEmployeeSalarySheetList(getEmployeeSalarySheetList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SalaryGrade){
+		
+			
+			SalaryGrade dest =(SalaryGrade)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCode(getCode());
+			dest.mergeCompany(getCompany());
+			dest.mergeName(getName());
+			dest.mergeDetailDescription(getDetailDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeList(getEmployeeList());
+			dest.mergeEmployeeSalarySheetList(getEmployeeSalarySheetList());
 
 		}
 		super.copyTo(baseDest);

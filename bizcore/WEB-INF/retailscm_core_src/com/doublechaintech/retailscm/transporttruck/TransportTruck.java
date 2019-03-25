@@ -261,6 +261,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -273,6 +276,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -287,6 +293,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePlateNumber(String plateNumber){
+		if(plateNumber != null) { setPlateNumber(plateNumber);}
+	}
 	
 	
 	public void setContactNumber(String contactNumber){
@@ -299,6 +308,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.mContactNumber = trimString(contactNumber);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeContactNumber(String contactNumber){
+		if(contactNumber != null) { setContactNumber(contactNumber);}
 	}
 	
 	
@@ -313,6 +325,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeVehicleLicenseNumber(String vehicleLicenseNumber){
+		if(vehicleLicenseNumber != null) { setVehicleLicenseNumber(vehicleLicenseNumber);}
+	}
 	
 	
 	public void setEngineNumber(String engineNumber){
@@ -325,6 +340,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.mEngineNumber = trimString(engineNumber);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEngineNumber(String engineNumber){
+		if(engineNumber != null) { setEngineNumber(engineNumber);}
 	}
 	
 	
@@ -339,6 +357,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeMakeDate(Date makeDate){
+		setMakeDate(makeDate);
+	}
 	
 	
 	public void setMileage(String mileage){
@@ -351,6 +372,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.mMileage = trimString(mileage);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMileage(String mileage){
+		if(mileage != null) { setMileage(mileage);}
 	}
 	
 	
@@ -365,6 +389,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeBodyColor(String bodyColor){
+		if(bodyColor != null) { setBodyColor(bodyColor);}
+	}
 	
 	
 	public void setOwner(TransportFleet owner){
@@ -377,6 +404,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(TransportFleet owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -395,6 +425,9 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -428,7 +461,16 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 		}
 		getTransportTaskList().addAll(transportTaskList);
 	}
-	
+	public  void mergeTransportTaskList(SmartList<TransportTask> transportTaskList){
+		if(transportTaskList==null){
+			return;
+		}
+		if(transportTaskList.isEmpty()){
+			return;
+		}
+		addTransportTaskList( transportTaskList );
+		
+	}
 	public  TransportTask removeTransportTask(TransportTask transportTaskIndex){
 		
 		int index = getTransportTaskList().indexOf(transportTaskIndex);
@@ -567,6 +609,31 @@ public class TransportTruck extends BaseEntity implements  java.io.Serializable{
 			dest.setOwner(getOwner());
 			dest.setVersion(getVersion());
 			dest.setTransportTaskList(getTransportTaskList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof TransportTruck){
+		
+			
+			TransportTruck dest =(TransportTruck)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergePlateNumber(getPlateNumber());
+			dest.mergeContactNumber(getContactNumber());
+			dest.mergeVehicleLicenseNumber(getVehicleLicenseNumber());
+			dest.mergeEngineNumber(getEngineNumber());
+			dest.mergeMakeDate(getMakeDate());
+			dest.mergeMileage(getMileage());
+			dest.mergeBodyColor(getBodyColor());
+			dest.mergeOwner(getOwner());
+			dest.mergeVersion(getVersion());
+			dest.mergeTransportTaskList(getTransportTaskList());
 
 		}
 		super.copyTo(baseDest);

@@ -487,7 +487,7 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 		.sortEmployeeAwardListWith("id","desc")
 		.sortEmployeeSalarySheetListWith("id","desc")
 		.sortPayingOffListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

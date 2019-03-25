@@ -156,6 +156,9 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -168,6 +171,9 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -182,6 +188,9 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeFounded(Date founded){
+		setFounded(founded);
+	}
 	
 	
 	public void setProvinceCenter(RetailStoreProvinceCenter provinceCenter){
@@ -194,6 +203,9 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 		this.mProvinceCenter = provinceCenter;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeProvinceCenter(RetailStoreProvinceCenter provinceCenter){
+		if(provinceCenter != null) { setProvinceCenter(provinceCenter);}
 	}
 	
 	
@@ -213,6 +225,9 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeManager(String manager){
+		if(manager != null) { setManager(manager);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -225,6 +240,9 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 		}
 		getProvinceCenterEmployeeList().addAll(provinceCenterEmployeeList);
 	}
-	
+	public  void mergeProvinceCenterEmployeeList(SmartList<ProvinceCenterEmployee> provinceCenterEmployeeList){
+		if(provinceCenterEmployeeList==null){
+			return;
+		}
+		if(provinceCenterEmployeeList.isEmpty()){
+			return;
+		}
+		addProvinceCenterEmployeeList( provinceCenterEmployeeList );
+		
+	}
 	public  ProvinceCenterEmployee removeProvinceCenterEmployee(ProvinceCenterEmployee provinceCenterEmployeeIndex){
 		
 		int index = getProvinceCenterEmployeeList().indexOf(provinceCenterEmployeeIndex);
@@ -387,6 +414,26 @@ public class ProvinceCenterDepartment extends BaseEntity implements  java.io.Ser
 			dest.setManager(getManager());
 			dest.setVersion(getVersion());
 			dest.setProvinceCenterEmployeeList(getProvinceCenterEmployeeList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ProvinceCenterDepartment){
+		
+			
+			ProvinceCenterDepartment dest =(ProvinceCenterDepartment)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeFounded(getFounded());
+			dest.mergeProvinceCenter(getProvinceCenter());
+			dest.mergeManager(getManager());
+			dest.mergeVersion(getVersion());
+			dest.mergeProvinceCenterEmployeeList(getProvinceCenterEmployeeList());
 
 		}
 		super.copyTo(baseDest);

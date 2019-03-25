@@ -131,6 +131,9 @@ public class UserWhiteList extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setUserIdentity(String userIdentity){
@@ -143,6 +146,9 @@ public class UserWhiteList extends BaseEntity implements  java.io.Serializable{
 		this.mUserIdentity = trimString(userIdentity);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeUserIdentity(String userIdentity){
+		if(userIdentity != null) { setUserIdentity(userIdentity);}
 	}
 	
 	
@@ -157,6 +163,9 @@ public class UserWhiteList extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeUserSpecialFunctions(String userSpecialFunctions){
+		if(userSpecialFunctions != null) { setUserSpecialFunctions(userSpecialFunctions);}
+	}
 	
 	
 	public void setDomain(UserDomain domain){
@@ -169,6 +178,9 @@ public class UserWhiteList extends BaseEntity implements  java.io.Serializable{
 		this.mDomain = domain;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDomain(UserDomain domain){
+		if(domain != null) { setDomain(domain);}
 	}
 	
 	
@@ -187,6 +199,9 @@ public class UserWhiteList extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -241,6 +256,24 @@ public class UserWhiteList extends BaseEntity implements  java.io.Serializable{
 			dest.setUserSpecialFunctions(getUserSpecialFunctions());
 			dest.setDomain(getDomain());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof UserWhiteList){
+		
+			
+			UserWhiteList dest =(UserWhiteList)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeUserIdentity(getUserIdentity());
+			dest.mergeUserSpecialFunctions(getUserSpecialFunctions());
+			dest.mergeDomain(getDomain());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

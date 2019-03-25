@@ -38,6 +38,15 @@ public class SupplyOrderPickingTokens extends CommonTokens{
 	protected SupplyOrderPickingTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  SupplyOrderPickingTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		SupplyOrderPickingTokens tokens = new SupplyOrderPickingTokens(options);
+		return tokens;
+		
+	}
+	protected SupplyOrderPickingTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public SupplyOrderPickingTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class SupplyOrderPickingTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public SupplyOrderPickingTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String SUPPLY_ORDER_LIST = "supplyOrderList";
 	public String getSupplyOrderList(){
@@ -96,7 +110,11 @@ public class SupplyOrderPickingTokens extends CommonTokens{
 	}
 	public boolean analyzeSupplyOrderListEnabled(){		
 		
-		return checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), SUPPLY_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public SupplyOrderPickingTokens extractMoreFromSupplyOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(SUPPLY_ORDER_LIST+".extractIds", idsSeperatedWithComma);

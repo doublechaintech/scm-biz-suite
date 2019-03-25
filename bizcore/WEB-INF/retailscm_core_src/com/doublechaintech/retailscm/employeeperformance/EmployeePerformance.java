@@ -110,6 +110,9 @@ public class EmployeePerformance extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -122,6 +125,9 @@ public class EmployeePerformance extends BaseEntity implements  java.io.Serializ
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -141,6 +147,9 @@ public class EmployeePerformance extends BaseEntity implements  java.io.Serializ
 		this.changed = true;
 		return this;
 	}
+	public void mergePerformanceComment(String performanceComment){
+		if(performanceComment != null) { setPerformanceComment(performanceComment);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -153,6 +162,9 @@ public class EmployeePerformance extends BaseEntity implements  java.io.Serializ
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -205,6 +217,23 @@ public class EmployeePerformance extends BaseEntity implements  java.io.Serializ
 			dest.setEmployee(getEmployee());
 			dest.setPerformanceComment(getPerformanceComment());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeePerformance){
+		
+			
+			EmployeePerformance dest =(EmployeePerformance)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergePerformanceComment(getPerformanceComment());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

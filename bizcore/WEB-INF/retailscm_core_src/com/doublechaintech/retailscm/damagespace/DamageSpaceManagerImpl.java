@@ -337,7 +337,7 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortGoodsShelfListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

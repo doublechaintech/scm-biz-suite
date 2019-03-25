@@ -115,6 +115,9 @@ public class EmployeeSkill extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -127,6 +130,9 @@ public class EmployeeSkill extends BaseEntity implements  java.io.Serializable{
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -146,6 +152,9 @@ public class EmployeeSkill extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSkillType(SkillType skillType){
+		if(skillType != null) { setSkillType(skillType);}
+	}
 	
 	
 	public void clearSkillType(){
@@ -164,6 +173,9 @@ public class EmployeeSkill extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -176,6 +188,9 @@ public class EmployeeSkill extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -231,6 +246,24 @@ public class EmployeeSkill extends BaseEntity implements  java.io.Serializable{
 			dest.setSkillType(getSkillType());
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeSkill){
+		
+			
+			EmployeeSkill dest =(EmployeeSkill)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergeSkillType(getSkillType());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

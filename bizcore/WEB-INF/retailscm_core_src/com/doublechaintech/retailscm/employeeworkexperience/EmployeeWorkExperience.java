@@ -173,6 +173,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setEmployee(Employee employee){
@@ -185,6 +188,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 		this.mEmployee = employee;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEmployee(Employee employee){
+		if(employee != null) { setEmployee(employee);}
 	}
 	
 	
@@ -204,6 +210,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeStart(Date start){
+		setStart(start);
+	}
 	
 	
 	public void setEnd(Date end){
@@ -216,6 +225,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 		this.mEnd = end;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeEnd(Date end){
+		setEnd(end);
 	}
 	
 	
@@ -230,6 +242,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeCompany(String company){
+		if(company != null) { setCompany(company);}
+	}
 	
 	
 	public void setDescription(String description){
@@ -243,6 +258,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -255,6 +273,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -313,6 +334,26 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 			dest.setCompany(getCompany());
 			dest.setDescription(getDescription());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeWorkExperience){
+		
+			
+			EmployeeWorkExperience dest =(EmployeeWorkExperience)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeEmployee(getEmployee());
+			dest.mergeStart(getStart());
+			dest.mergeEnd(getEnd());
+			dest.mergeCompany(getCompany());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

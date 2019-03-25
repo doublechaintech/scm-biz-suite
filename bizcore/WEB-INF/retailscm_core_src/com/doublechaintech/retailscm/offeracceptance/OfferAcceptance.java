@@ -151,6 +151,9 @@ public class OfferAcceptance extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -163,6 +166,9 @@ public class OfferAcceptance extends BaseEntity implements  java.io.Serializable
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -177,6 +183,9 @@ public class OfferAcceptance extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeAcceptTime(Date acceptTime){
+		setAcceptTime(acceptTime);
+	}
 	
 	
 	public void setComments(String comments){
@@ -190,6 +199,9 @@ public class OfferAcceptance extends BaseEntity implements  java.io.Serializable
 		this.changed = true;
 		return this;
 	}
+	public void mergeComments(String comments){
+		if(comments != null) { setComments(comments);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -202,6 +214,9 @@ public class OfferAcceptance extends BaseEntity implements  java.io.Serializable
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -235,7 +250,16 @@ public class OfferAcceptance extends BaseEntity implements  java.io.Serializable
 		}
 		getEmployeeList().addAll(employeeList);
 	}
-	
+	public  void mergeEmployeeList(SmartList<Employee> employeeList){
+		if(employeeList==null){
+			return;
+		}
+		if(employeeList.isEmpty()){
+			return;
+		}
+		addEmployeeList( employeeList );
+		
+	}
 	public  Employee removeEmployee(Employee employeeIndex){
 		
 		int index = getEmployeeList().indexOf(employeeIndex);
@@ -361,6 +385,25 @@ public class OfferAcceptance extends BaseEntity implements  java.io.Serializable
 			dest.setComments(getComments());
 			dest.setVersion(getVersion());
 			dest.setEmployeeList(getEmployeeList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof OfferAcceptance){
+		
+			
+			OfferAcceptance dest =(OfferAcceptance)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeAcceptTime(getAcceptTime());
+			dest.mergeComments(getComments());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeList(getEmployeeList());
 
 		}
 		super.copyTo(baseDest);

@@ -38,6 +38,15 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	protected RetailStoreMemberTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  RetailStoreMemberTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		RetailStoreMemberTokens tokens = new RetailStoreMemberTokens(options);
+		return tokens;
+		
+	}
+	protected RetailStoreMemberTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public RetailStoreMemberTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -89,6 +98,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public RetailStoreMemberTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String OWNER = "owner";
 	public String getOwner(){
@@ -114,7 +128,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	}
 	public boolean analyzeConsumerOrderListEnabled(){		
 		
-		return checkOptions(this.options(), CONSUMER_ORDER_LIST+".anaylze");
+		if(checkOptions(this.options(), CONSUMER_ORDER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreMemberTokens extractMoreFromConsumerOrderList(String idsSeperatedWithComma){		
 		addSimpleOptions(CONSUMER_ORDER_LIST+".extractIds", idsSeperatedWithComma);
@@ -176,7 +194,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreMemberCouponListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_MEMBER_COUPON_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_MEMBER_COUPON_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreMemberTokens extractMoreFromRetailStoreMemberCouponList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_COUPON_LIST+".extractIds", idsSeperatedWithComma);
@@ -238,7 +260,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	}
 	public boolean analyzeMemberWishlistListEnabled(){		
 		
-		return checkOptions(this.options(), MEMBER_WISHLIST_LIST+".anaylze");
+		if(checkOptions(this.options(), MEMBER_WISHLIST_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreMemberTokens extractMoreFromMemberWishlistList(String idsSeperatedWithComma){		
 		addSimpleOptions(MEMBER_WISHLIST_LIST+".extractIds", idsSeperatedWithComma);
@@ -300,7 +326,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	}
 	public boolean analyzeMemberRewardPointListEnabled(){		
 		
-		return checkOptions(this.options(), MEMBER_REWARD_POINT_LIST+".anaylze");
+		if(checkOptions(this.options(), MEMBER_REWARD_POINT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreMemberTokens extractMoreFromMemberRewardPointList(String idsSeperatedWithComma){		
 		addSimpleOptions(MEMBER_REWARD_POINT_LIST+".extractIds", idsSeperatedWithComma);
@@ -362,7 +392,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	}
 	public boolean analyzeMemberRewardPointRedemptionListEnabled(){		
 		
-		return checkOptions(this.options(), MEMBER_REWARD_POINT_REDEMPTION_LIST+".anaylze");
+		if(checkOptions(this.options(), MEMBER_REWARD_POINT_REDEMPTION_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreMemberTokens extractMoreFromMemberRewardPointRedemptionList(String idsSeperatedWithComma){		
 		addSimpleOptions(MEMBER_REWARD_POINT_REDEMPTION_LIST+".extractIds", idsSeperatedWithComma);
@@ -424,7 +458,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreMemberAddressListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_MEMBER_ADDRESS_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_MEMBER_ADDRESS_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreMemberTokens extractMoreFromRetailStoreMemberAddressList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_ADDRESS_LIST+".extractIds", idsSeperatedWithComma);
@@ -486,7 +524,11 @@ public class RetailStoreMemberTokens extends CommonTokens{
 	}
 	public boolean analyzeRetailStoreMemberGiftCardListEnabled(){		
 		
-		return checkOptions(this.options(), RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".anaylze");
+		if(checkOptions(this.options(), RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public RetailStoreMemberTokens extractMoreFromRetailStoreMemberGiftCardList(String idsSeperatedWithComma){		
 		addSimpleOptions(RETAIL_STORE_MEMBER_GIFT_CARD_LIST+".extractIds", idsSeperatedWithComma);

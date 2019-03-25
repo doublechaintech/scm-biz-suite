@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/retailStoreCityServiceCenter/${this.props.retailStoreCityServiceCenter.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/retailStoreCityServiceCenter/${this.props.retailStoreCityServiceCenter.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/retailStoreCityServiceCenter/${this.props.retailStoreCityServiceCenter.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/retailStoreCityServiceCenter/${this.props.retailStoreCityServiceCenter.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
 
   getCityPartnerSearch = () => {
     const {CityPartnerSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "城市合伙人",
@@ -176,11 +172,12 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, 
       referenceName: 'cityServiceCenter', 
       listName: 'cityPartnerList', ref:state._retailStoreCityServiceCenter, 
-      listDisplayName: '城市合伙人列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CityPartnerSearch)
   }
   getCityPartnerCreateForm = () => {
    	const {CityPartnerCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "cityPartner",
@@ -190,22 +187,24 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCityServiceCenter.cityPartnerCurrentPageNumber,
       searchFormParameters: state._retailStoreCityServiceCenter.cityPartnerSearchFormParameters,
       loading: state._retailStoreCityServiceCenter.loading,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'cityPartnerList', ref:state._retailStoreCityServiceCenter, listDisplayName: '城市合伙人列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'cityPartnerList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(CityPartnerCreateForm)
   }
   
   getCityPartnerUpdateForm = () => {
+    const userContext = null
   	const {CityPartnerUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCityServiceCenter.selectedRows,
       role: "cityPartner",
       currentUpdateIndex: state._retailStoreCityServiceCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'cityPartnerList', ref:state._retailStoreCityServiceCenter, listDisplayName: '城市合伙人列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'cityPartnerList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CityPartnerUpdateForm)
   }
 
   getPotentialCustomerSearch = () => {
     const {PotentialCustomerSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "潜在的客户",
@@ -222,11 +221,12 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, 
       referenceName: 'cityServiceCenter', 
       listName: 'potentialCustomerList', ref:state._retailStoreCityServiceCenter, 
-      listDisplayName: '潜在的客户列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PotentialCustomerSearch)
   }
   getPotentialCustomerCreateForm = () => {
    	const {PotentialCustomerCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "potentialCustomer",
@@ -236,22 +236,24 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCityServiceCenter.potentialCustomerCurrentPageNumber,
       searchFormParameters: state._retailStoreCityServiceCenter.potentialCustomerSearchFormParameters,
       loading: state._retailStoreCityServiceCenter.loading,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'potentialCustomerList', ref:state._retailStoreCityServiceCenter, listDisplayName: '潜在的客户列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'potentialCustomerList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(PotentialCustomerCreateForm)
   }
   
   getPotentialCustomerUpdateForm = () => {
+    const userContext = null
   	const {PotentialCustomerUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCityServiceCenter.selectedRows,
       role: "potentialCustomer",
       currentUpdateIndex: state._retailStoreCityServiceCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'potentialCustomerList', ref:state._retailStoreCityServiceCenter, listDisplayName: '潜在的客户列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'potentialCustomerList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PotentialCustomerUpdateForm)
   }
 
   getCityEventSearch = () => {
     const {CityEventSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "城市活动",
@@ -268,11 +270,12 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, 
       referenceName: 'cityServiceCenter', 
       listName: 'cityEventList', ref:state._retailStoreCityServiceCenter, 
-      listDisplayName: '城市活动列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CityEventSearch)
   }
   getCityEventCreateForm = () => {
    	const {CityEventCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "cityEvent",
@@ -282,22 +285,24 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCityServiceCenter.cityEventCurrentPageNumber,
       searchFormParameters: state._retailStoreCityServiceCenter.cityEventSearchFormParameters,
       loading: state._retailStoreCityServiceCenter.loading,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'cityEventList', ref:state._retailStoreCityServiceCenter, listDisplayName: '城市活动列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'cityEventList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(CityEventCreateForm)
   }
   
   getCityEventUpdateForm = () => {
+    const userContext = null
   	const {CityEventUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCityServiceCenter.selectedRows,
       role: "cityEvent",
       currentUpdateIndex: state._retailStoreCityServiceCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'cityEventList', ref:state._retailStoreCityServiceCenter, listDisplayName: '城市活动列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'cityEventList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CityEventUpdateForm)
   }
 
   getRetailStoreSearch = () => {
     const {RetailStoreSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "双链小超",
@@ -314,11 +319,12 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, 
       referenceName: 'cityServiceCenter', 
       listName: 'retailStoreList', ref:state._retailStoreCityServiceCenter, 
-      listDisplayName: '双链小超列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreSearch)
   }
   getRetailStoreCreateForm = () => {
    	const {RetailStoreCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "retailStore",
@@ -328,17 +334,18 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
       currentPage: state._retailStoreCityServiceCenter.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreCityServiceCenter.retailStoreSearchFormParameters,
       loading: state._retailStoreCityServiceCenter.loading,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'retailStoreList', ref:state._retailStoreCityServiceCenter, listDisplayName: '双链小超列表'}, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, referenceName: 'cityServiceCenter', listName: 'retailStoreList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(RetailStoreCreateForm)
   }
   
   getRetailStoreUpdateForm = () => {
+    const userContext = null
   	const {RetailStoreUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreCityServiceCenter.selectedRows,
       role: "retailStore",
       currentUpdateIndex: state._retailStoreCityServiceCenter.currentUpdateIndex,
-      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'retailStoreList', ref:state._retailStoreCityServiceCenter, listDisplayName: '双链小超列表' }, // this is for model namespace and
+      owner: { type: '_retailStoreCityServiceCenter', id: state._retailStoreCityServiceCenter.id, listName: 'retailStoreList', ref:state._retailStoreCityServiceCenter, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreUpdateForm)
   }
 
@@ -415,16 +422,22 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {RetailStoreCityServiceCenterEditDetail} = GlobalComponents
-     //const {RetailStoreCityServiceCenterViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -438,15 +451,15 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

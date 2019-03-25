@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,19 +76,19 @@ const internalSummaryOf = (potentialCustomer,targetComponent) =>{
 	
 	
 	const {PotentialCustomerService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{potentialCustomer.id}</Description> 
 <Description term="名称">{potentialCustomer.name}</Description> 
 <Description term="手机">{potentialCustomer.mobile}</Description> 
-<Description term="城市服务中心">{potentialCustomer.cityServiceCenter==null?"未分配":potentialCustomer.cityServiceCenter.displayName}
+<Description term="城市服务中心">{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityServiceCenter.displayName}(${potentialCustomer.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",PotentialCustomerService.requestCandidateCityServiceCenter,
 	      PotentialCustomerService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",potentialCustomer.cityServiceCenter?potentialCustomer.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="城市合伙人">{potentialCustomer.cityPartner==null?"未分配":potentialCustomer.cityPartner.displayName}
+<Description term="城市合伙人">{potentialCustomer.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityPartner.displayName}(${potentialCustomer.cityPartner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"城市合伙人","cityPartner",PotentialCustomerService.requestCandidateCityPartner,
 	      PotentialCustomerService.transferToAnotherCityPartner,"anotherCityPartnerId",potentialCustomer.cityPartner?potentialCustomer.cityPartner.id:"")} 
@@ -111,7 +111,7 @@ class PotentialCustomerDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -141,7 +141,6 @@ class PotentialCustomerDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

@@ -221,9 +221,8 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
 	protected boolean isExtractPotentialCustomerContactListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST);
  	}
- 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,PotentialCustomerContactPersonTokens.POTENTIAL_CUSTOMER_CONTACT_LIST+".analyze");
+ 	protected boolean isAnalyzePotentialCustomerContactListEnabled(Map<String,Object> options){		 		
+ 		return PotentialCustomerContactPersonTokens.of(options).analyzePotentialCustomerContactListEnabled();
  	}
 	
 	protected boolean isSavePotentialCustomerContactListEnabled(Map<String,Object> options){

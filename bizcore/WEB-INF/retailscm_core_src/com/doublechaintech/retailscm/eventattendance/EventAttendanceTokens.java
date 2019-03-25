@@ -38,6 +38,15 @@ public class EventAttendanceTokens extends CommonTokens{
 	protected EventAttendanceTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  EventAttendanceTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		EventAttendanceTokens tokens = new EventAttendanceTokens(options);
+		return tokens;
+		
+	}
+	protected EventAttendanceTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public EventAttendanceTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class EventAttendanceTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public EventAttendanceTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String POTENTIALCUSTOMER = "potentialCustomer";

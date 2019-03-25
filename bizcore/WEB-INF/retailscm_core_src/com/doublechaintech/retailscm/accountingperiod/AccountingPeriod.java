@@ -156,6 +156,9 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -168,6 +171,9 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -182,6 +188,9 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeStartDate(Date startDate){
+		setStartDate(startDate);
+	}
 	
 	
 	public void setEndDate(Date endDate){
@@ -195,6 +204,9 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 		this.changed = true;
 		return this;
 	}
+	public void mergeEndDate(Date endDate){
+		setEndDate(endDate);
+	}
 	
 	
 	public void setAccountSet(AccountSet accountSet){
@@ -207,6 +219,9 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 		this.mAccountSet = accountSet;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAccountSet(AccountSet accountSet){
+		if(accountSet != null) { setAccountSet(accountSet);}
 	}
 	
 	
@@ -225,6 +240,9 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 		}
 		getAccountingDocumentList().addAll(accountingDocumentList);
 	}
-	
+	public  void mergeAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList){
+		if(accountingDocumentList==null){
+			return;
+		}
+		if(accountingDocumentList.isEmpty()){
+			return;
+		}
+		addAccountingDocumentList( accountingDocumentList );
+		
+	}
 	public  AccountingDocument removeAccountingDocument(AccountingDocument accountingDocumentIndex){
 		
 		int index = getAccountingDocumentList().indexOf(accountingDocumentIndex);
@@ -387,6 +414,26 @@ public class AccountingPeriod extends BaseEntity implements  java.io.Serializabl
 			dest.setAccountSet(getAccountSet());
 			dest.setVersion(getVersion());
 			dest.setAccountingDocumentList(getAccountingDocumentList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountingPeriod){
+		
+			
+			AccountingPeriod dest =(AccountingPeriod)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeStartDate(getStartDate());
+			dest.mergeEndDate(getEndDate());
+			dest.mergeAccountSet(getAccountSet());
+			dest.mergeVersion(getVersion());
+			dest.mergeAccountingDocumentList(getAccountingDocumentList());
 
 		}
 		super.copyTo(baseDest);

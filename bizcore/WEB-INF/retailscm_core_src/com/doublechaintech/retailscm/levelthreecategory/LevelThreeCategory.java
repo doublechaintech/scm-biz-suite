@@ -114,6 +114,9 @@ public class LevelThreeCategory extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setParentCategory(LevelTwoCategory parentCategory){
@@ -126,6 +129,9 @@ public class LevelThreeCategory extends BaseEntity implements  java.io.Serializa
 		this.mParentCategory = parentCategory;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeParentCategory(LevelTwoCategory parentCategory){
+		if(parentCategory != null) { setParentCategory(parentCategory);}
 	}
 	
 	
@@ -145,6 +151,9 @@ public class LevelThreeCategory extends BaseEntity implements  java.io.Serializa
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -157,6 +166,9 @@ public class LevelThreeCategory extends BaseEntity implements  java.io.Serializa
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -190,7 +202,16 @@ public class LevelThreeCategory extends BaseEntity implements  java.io.Serializa
 		}
 		getProductList().addAll(productList);
 	}
-	
+	public  void mergeProductList(SmartList<Product> productList){
+		if(productList==null){
+			return;
+		}
+		if(productList.isEmpty()){
+			return;
+		}
+		addProductList( productList );
+		
+	}
 	public  Product removeProduct(Product productIndex){
 		
 		int index = getProductList().indexOf(productIndex);
@@ -315,6 +336,24 @@ public class LevelThreeCategory extends BaseEntity implements  java.io.Serializa
 			dest.setName(getName());
 			dest.setVersion(getVersion());
 			dest.setProductList(getProductList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof LevelThreeCategory){
+		
+			
+			LevelThreeCategory dest =(LevelThreeCategory)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeParentCategory(getParentCategory());
+			dest.mergeName(getName());
+			dest.mergeVersion(getVersion());
+			dest.mergeProductList(getProductList());
 
 		}
 		super.copyTo(baseDest);

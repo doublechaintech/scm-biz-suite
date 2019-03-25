@@ -9,7 +9,7 @@ import styles from './ReceivingSpace.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ReceivingSpaceBase from './ReceivingSpace.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -21,8 +21,8 @@ const testValues = {
   contactNumber: '02887654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-  latitude: '40.175476527548746',
-  longitude: '129.93404136860386',
+  latitude: '40.618841329885385',
+  longitude: '129.82979718537362',
   warehouseId: 'W000001',
 }
 */
@@ -72,7 +72,7 @@ class ReceivingSpaceCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ReceivingSpaceBase
     const {ReceivingSpaceService} = GlobalComponents
@@ -121,9 +121,10 @@ class ReceivingSpaceCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'receivingSpace',listName:'收货区列表' },
+        payload: { id: owner.id, type: 'receivingSpace',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -154,7 +155,7 @@ class ReceivingSpaceCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -198,18 +199,18 @@ class ReceivingSpaceCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个收货区"
-        content="新建一个收货区"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.location} {...formItemLayout}>
                   {getFieldDecorator('location', {
-                    rules: [{ required: true, message: '请输入位置' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入位置" />
                   )}
@@ -219,7 +220,7 @@ class ReceivingSpaceCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.contactNumber} {...formItemLayout}>
                   {getFieldDecorator('contactNumber', {
-                    rules: [{ required: true, message: '请输入联系电话' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入联系电话" />
                   )}
@@ -229,7 +230,7 @@ class ReceivingSpaceCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
-                    rules: [{ required: true, message: '请输入描述' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入描述" />
                   )}
@@ -239,7 +240,7 @@ class ReceivingSpaceCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.totalArea} {...formItemLayout}>
                   {getFieldDecorator('totalArea', {
-                    rules: [{ required: true, message: '请输入总面积' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入总面积" />
                   )}
@@ -249,7 +250,7 @@ class ReceivingSpaceCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
-                    rules: [{ required: true, message: '请输入纬度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入纬度" />
                   )}
@@ -259,7 +260,7 @@ class ReceivingSpaceCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
-                    rules: [{ required: true, message: '请输入经度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入经度" />
                   )}
@@ -283,7 +284,7 @@ class ReceivingSpaceCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -291,7 +292,7 @@ class ReceivingSpaceCreateForm extends Component {
                 <Form.Item label={fieldLabels.warehouse} {...formItemLayout}>
                   {getFieldDecorator('warehouseId', {
                   	initialValue: tryinit('warehouse'),
-                    rules: [{ required: true, message: '请输入仓库' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -311,13 +312,13 @@ class ReceivingSpaceCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

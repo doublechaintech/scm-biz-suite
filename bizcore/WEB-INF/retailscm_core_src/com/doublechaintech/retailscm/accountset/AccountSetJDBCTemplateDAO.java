@@ -327,9 +327,8 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractAccountingSubjectListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_SUBJECT_LIST);
  	}
- 	protected boolean isAnalyzeAccountingSubjectListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountSetTokens.ACCOUNTING_SUBJECT_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountingSubjectListEnabled(Map<String,Object> options){		 		
+ 		return AccountSetTokens.of(options).analyzeAccountingSubjectListEnabled();
  	}
 	
 	protected boolean isSaveAccountingSubjectListEnabled(Map<String,Object> options){
@@ -342,9 +341,8 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractAccountingPeriodListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_PERIOD_LIST);
  	}
- 	protected boolean isAnalyzeAccountingPeriodListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountSetTokens.ACCOUNTING_PERIOD_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountingPeriodListEnabled(Map<String,Object> options){		 		
+ 		return AccountSetTokens.of(options).analyzeAccountingPeriodListEnabled();
  	}
 	
 	protected boolean isSaveAccountingPeriodListEnabled(Map<String,Object> options){
@@ -357,9 +355,8 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	protected boolean isExtractAccountingDocumentTypeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST);
  	}
- 	protected boolean isAnalyzeAccountingDocumentTypeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountSetTokens.ACCOUNTING_DOCUMENT_TYPE_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountingDocumentTypeListEnabled(Map<String,Object> options){		 		
+ 		return AccountSetTokens.of(options).analyzeAccountingDocumentTypeListEnabled();
  	}
 	
 	protected boolean isSaveAccountingDocumentTypeListEnabled(Map<String,Object> options){

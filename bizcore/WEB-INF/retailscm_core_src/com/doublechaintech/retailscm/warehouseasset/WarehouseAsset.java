@@ -152,6 +152,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -164,6 +167,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.mName = trimString(name);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
 	}
 	
 	
@@ -178,6 +184,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergePosition(String position){
+		if(position != null) { setPosition(position);}
+	}
 	
 	
 	public void setOwner(Warehouse owner){
@@ -190,6 +199,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(Warehouse owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -209,6 +221,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -221,6 +236,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 			dest.setOwner(getOwner());
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof WarehouseAsset){
+		
+			
+			WarehouseAsset dest =(WarehouseAsset)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergePosition(getPosition());
+			dest.mergeOwner(getOwner());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

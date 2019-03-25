@@ -314,7 +314,7 @@ public class LevelOneCategoryManagerImpl extends CustomRetailscmCheckerManager i
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortLevelTwoCategoryListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

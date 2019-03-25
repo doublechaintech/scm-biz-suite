@@ -38,6 +38,15 @@ public class OccupationTypeTokens extends CommonTokens{
 	protected OccupationTypeTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  OccupationTypeTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		OccupationTypeTokens tokens = new OccupationTypeTokens(options);
+		return tokens;
+		
+	}
+	protected OccupationTypeTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public OccupationTypeTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class OccupationTypeTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public OccupationTypeTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String COMPANY = "company";
 	public String getCompany(){
@@ -108,7 +122,11 @@ public class OccupationTypeTokens extends CommonTokens{
 	}
 	public boolean analyzeEmployeeListEnabled(){		
 		
-		return checkOptions(this.options(), EMPLOYEE_LIST+".anaylze");
+		if(checkOptions(this.options(), EMPLOYEE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public OccupationTypeTokens extractMoreFromEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);

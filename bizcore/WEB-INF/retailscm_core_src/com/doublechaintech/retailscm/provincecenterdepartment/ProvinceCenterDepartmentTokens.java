@@ -38,6 +38,15 @@ public class ProvinceCenterDepartmentTokens extends CommonTokens{
 	protected ProvinceCenterDepartmentTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ProvinceCenterDepartmentTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ProvinceCenterDepartmentTokens tokens = new ProvinceCenterDepartmentTokens(options);
+		return tokens;
+		
+	}
+	protected ProvinceCenterDepartmentTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ProvinceCenterDepartmentTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class ProvinceCenterDepartmentTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public ProvinceCenterDepartmentTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String PROVINCECENTER = "provinceCenter";
 	public String getProvinceCenter(){
@@ -108,7 +122,11 @@ public class ProvinceCenterDepartmentTokens extends CommonTokens{
 	}
 	public boolean analyzeProvinceCenterEmployeeListEnabled(){		
 		
-		return checkOptions(this.options(), PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze");
+		if(checkOptions(this.options(), PROVINCE_CENTER_EMPLOYEE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public ProvinceCenterDepartmentTokens extractMoreFromProvinceCenterEmployeeList(String idsSeperatedWithComma){		
 		addSimpleOptions(PROVINCE_CENTER_EMPLOYEE_LIST+".extractIds", idsSeperatedWithComma);

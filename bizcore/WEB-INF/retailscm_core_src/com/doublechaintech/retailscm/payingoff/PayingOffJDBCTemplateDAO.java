@@ -221,9 +221,8 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractEmployeeSalarySheetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,PayingOffTokens.EMPLOYEE_SALARY_SHEET_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeSalarySheetListEnabled(Map<String,Object> options){		 		
+ 		return PayingOffTokens.of(options).analyzeEmployeeSalarySheetListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeSalarySheetListEnabled(Map<String,Object> options){

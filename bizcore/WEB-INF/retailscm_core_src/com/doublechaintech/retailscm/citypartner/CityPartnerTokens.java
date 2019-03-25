@@ -38,6 +38,15 @@ public class CityPartnerTokens extends CommonTokens{
 	protected CityPartnerTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  CityPartnerTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		CityPartnerTokens tokens = new CityPartnerTokens(options);
+		return tokens;
+		
+	}
+	protected CityPartnerTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public CityPartnerTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -84,6 +93,11 @@ public class CityPartnerTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public CityPartnerTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String CITYSERVICECENTER = "cityServiceCenter";
 	public String getCityServiceCenter(){
@@ -109,7 +123,11 @@ public class CityPartnerTokens extends CommonTokens{
 	}
 	public boolean analyzePotentialCustomerListEnabled(){		
 		
-		return checkOptions(this.options(), POTENTIAL_CUSTOMER_LIST+".anaylze");
+		if(checkOptions(this.options(), POTENTIAL_CUSTOMER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public CityPartnerTokens extractMoreFromPotentialCustomerList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_LIST+".extractIds", idsSeperatedWithComma);
@@ -171,7 +189,11 @@ public class CityPartnerTokens extends CommonTokens{
 	}
 	public boolean analyzePotentialCustomerContactListEnabled(){		
 		
-		return checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze");
+		if(checkOptions(this.options(), POTENTIAL_CUSTOMER_CONTACT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public CityPartnerTokens extractMoreFromPotentialCustomerContactList(String idsSeperatedWithComma){		
 		addSimpleOptions(POTENTIAL_CUSTOMER_CONTACT_LIST+".extractIds", idsSeperatedWithComma);

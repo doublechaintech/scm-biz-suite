@@ -277,9 +277,8 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
 	protected boolean isExtractProvinceCenterDepartmentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST);
  	}
- 	protected boolean isAnalyzeProvinceCenterDepartmentListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_DEPARTMENT_LIST+".analyze");
+ 	protected boolean isAnalyzeProvinceCenterDepartmentListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreProvinceCenterTokens.of(options).analyzeProvinceCenterDepartmentListEnabled();
  	}
 	
 	protected boolean isSaveProvinceCenterDepartmentListEnabled(Map<String,Object> options){
@@ -292,9 +291,8 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
 	protected boolean isExtractProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST);
  	}
- 	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreProvinceCenterTokens.PROVINCE_CENTER_EMPLOYEE_LIST+".analyze");
+ 	protected boolean isAnalyzeProvinceCenterEmployeeListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreProvinceCenterTokens.of(options).analyzeProvinceCenterEmployeeListEnabled();
  	}
 	
 	protected boolean isSaveProvinceCenterEmployeeListEnabled(Map<String,Object> options){
@@ -307,9 +305,8 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
 	protected boolean isExtractRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreProvinceCenterTokens.RETAIL_STORE_CITY_SERVICE_CENTER_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreProvinceCenterTokens.of(options).analyzeRetailStoreCityServiceCenterListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreCityServiceCenterListEnabled(Map<String,Object> options){

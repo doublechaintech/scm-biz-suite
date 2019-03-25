@@ -152,6 +152,9 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -165,6 +168,9 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setBizOrder(ConsumerOrder bizOrder){
@@ -177,6 +183,9 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		this.mBizOrder = bizOrder;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBizOrder(ConsumerOrder bizOrder){
+		if(bizOrder != null) { setBizOrder(bizOrder);}
 	}
 	
 	
@@ -196,6 +205,9 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		this.changed = true;
 		return this;
 	}
+	public void mergeAmount(BigDecimal amount){
+		setAmount(amount);
+	}
 	
 	
 	public void setProvider(String provider){
@@ -209,6 +221,9 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		this.changed = true;
 		return this;
 	}
+	public void mergeProvider(String provider){
+		if(provider != null) { setProvider(provider);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -221,6 +236,9 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class ConsumerOrderPriceAdjustment extends BaseEntity implements  java.io
 			dest.setAmount(getAmount());
 			dest.setProvider(getProvider());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ConsumerOrderPriceAdjustment){
+		
+			
+			ConsumerOrderPriceAdjustment dest =(ConsumerOrderPriceAdjustment)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeBizOrder(getBizOrder());
+			dest.mergeAmount(getAmount());
+			dest.mergeProvider(getProvider());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

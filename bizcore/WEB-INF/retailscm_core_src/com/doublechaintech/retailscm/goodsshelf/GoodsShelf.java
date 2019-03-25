@@ -149,6 +149,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLocation(String location){
@@ -162,6 +165,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLocation(String location){
+		if(location != null) { setLocation(location);}
+	}
 	
 	
 	public void setStorageSpace(StorageSpace storageSpace){
@@ -174,6 +180,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.mStorageSpace = storageSpace;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeStorageSpace(StorageSpace storageSpace){
+		if(storageSpace != null) { setStorageSpace(storageSpace);}
 	}
 	
 	
@@ -193,6 +202,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeSupplierSpace(SupplierSpace supplierSpace){
+		if(supplierSpace != null) { setSupplierSpace(supplierSpace);}
+	}
 	
 	
 	public void clearSupplierSpace(){
@@ -210,6 +222,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.mDamageSpace = damageSpace;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDamageSpace(DamageSpace damageSpace){
+		if(damageSpace != null) { setDamageSpace(damageSpace);}
 	}
 	
 	
@@ -229,6 +244,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -241,6 +259,9 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -274,7 +295,16 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsShelfStockCountList().addAll(goodsShelfStockCountList);
 	}
-	
+	public  void mergeGoodsShelfStockCountList(SmartList<GoodsShelfStockCount> goodsShelfStockCountList){
+		if(goodsShelfStockCountList==null){
+			return;
+		}
+		if(goodsShelfStockCountList.isEmpty()){
+			return;
+		}
+		addGoodsShelfStockCountList( goodsShelfStockCountList );
+		
+	}
 	public  GoodsShelfStockCount removeGoodsShelfStockCount(GoodsShelfStockCount goodsShelfStockCountIndex){
 		
 		int index = getGoodsShelfStockCountList().indexOf(goodsShelfStockCountIndex);
@@ -372,7 +402,16 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsAllocationList().addAll(goodsAllocationList);
 	}
-	
+	public  void mergeGoodsAllocationList(SmartList<GoodsAllocation> goodsAllocationList){
+		if(goodsAllocationList==null){
+			return;
+		}
+		if(goodsAllocationList.isEmpty()){
+			return;
+		}
+		addGoodsAllocationList( goodsAllocationList );
+		
+	}
 	public  GoodsAllocation removeGoodsAllocation(GoodsAllocation goodsAllocationIndex){
 		
 		int index = getGoodsAllocationList().indexOf(goodsAllocationIndex);
@@ -513,6 +552,28 @@ public class GoodsShelf extends BaseEntity implements  java.io.Serializable{
 			dest.setVersion(getVersion());
 			dest.setGoodsShelfStockCountList(getGoodsShelfStockCountList());
 			dest.setGoodsAllocationList(getGoodsAllocationList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof GoodsShelf){
+		
+			
+			GoodsShelf dest =(GoodsShelf)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLocation(getLocation());
+			dest.mergeStorageSpace(getStorageSpace());
+			dest.mergeSupplierSpace(getSupplierSpace());
+			dest.mergeDamageSpace(getDamageSpace());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeGoodsShelfStockCountList(getGoodsShelfStockCountList());
+			dest.mergeGoodsAllocationList(getGoodsAllocationList());
 
 		}
 		super.copyTo(baseDest);

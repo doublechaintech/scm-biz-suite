@@ -156,6 +156,9 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -169,6 +172,9 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setOwner(RetailStoreMember owner){
@@ -181,6 +187,9 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreMember owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -200,6 +209,9 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeNumber(String number){
+		if(number != null) { setNumber(number);}
+	}
 	
 	
 	public void setRemain(BigDecimal remain){
@@ -213,6 +225,9 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 		this.changed = true;
 		return this;
 	}
+	public void mergeRemain(BigDecimal remain){
+		setRemain(remain);
+	}
 	
 	
 	public void setVersion(int version){
@@ -225,6 +240,9 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 		}
 		getRetailStoreMemberGiftCardConsumeRecordList().addAll(retailStoreMemberGiftCardConsumeRecordList);
 	}
-	
+	public  void mergeRetailStoreMemberGiftCardConsumeRecordList(SmartList<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList){
+		if(retailStoreMemberGiftCardConsumeRecordList==null){
+			return;
+		}
+		if(retailStoreMemberGiftCardConsumeRecordList.isEmpty()){
+			return;
+		}
+		addRetailStoreMemberGiftCardConsumeRecordList( retailStoreMemberGiftCardConsumeRecordList );
+		
+	}
 	public  RetailStoreMemberGiftCardConsumeRecord removeRetailStoreMemberGiftCardConsumeRecord(RetailStoreMemberGiftCardConsumeRecord retailStoreMemberGiftCardConsumeRecordIndex){
 		
 		int index = getRetailStoreMemberGiftCardConsumeRecordList().indexOf(retailStoreMemberGiftCardConsumeRecordIndex);
@@ -387,6 +414,26 @@ public class RetailStoreMemberGiftCard extends BaseEntity implements  java.io.Se
 			dest.setRemain(getRemain());
 			dest.setVersion(getVersion());
 			dest.setRetailStoreMemberGiftCardConsumeRecordList(getRetailStoreMemberGiftCardConsumeRecordList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreMemberGiftCard){
+		
+			
+			RetailStoreMemberGiftCard dest =(RetailStoreMemberGiftCard)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeOwner(getOwner());
+			dest.mergeNumber(getNumber());
+			dest.mergeRemain(getRemain());
+			dest.mergeVersion(getVersion());
+			dest.mergeRetailStoreMemberGiftCardConsumeRecordList(getRetailStoreMemberGiftCardConsumeRecordList());
 
 		}
 		super.copyTo(baseDest);

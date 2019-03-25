@@ -219,6 +219,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -232,6 +235,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setParentCategory(LevelThreeCategory parentCategory){
@@ -244,6 +250,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.mParentCategory = parentCategory;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeParentCategory(LevelThreeCategory parentCategory){
+		if(parentCategory != null) { setParentCategory(parentCategory);}
 	}
 	
 	
@@ -263,6 +272,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeOrigin(String origin){
+		if(origin != null) { setOrigin(origin);}
+	}
 	
 	
 	public void setRemark(String remark){
@@ -275,6 +287,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.mRemark = trimString(remark);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeRemark(String remark){
+		if(remark != null) { setRemark(remark);}
 	}
 	
 	
@@ -289,6 +304,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeBrand(String brand){
+		if(brand != null) { setBrand(brand);}
+	}
 	
 	
 	public void setPicture(String picture){
@@ -301,6 +319,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.mPicture = trimString(encodeUrl(picture));;
 		this.changed = true;
 		return this;
+	}
+	public void mergePicture(String picture){
+		if(picture != null) { setPicture(picture);}
 	}
 	
 	
@@ -315,6 +336,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -327,6 +351,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -360,7 +387,16 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 		}
 		getSkuList().addAll(skuList);
 	}
-	
+	public  void mergeSkuList(SmartList<Sku> skuList){
+		if(skuList==null){
+			return;
+		}
+		if(skuList.isEmpty()){
+			return;
+		}
+		addSkuList( skuList );
+		
+	}
 	public  Sku removeSku(Sku skuIndex){
 		
 		int index = getSkuList().indexOf(skuIndex);
@@ -495,6 +531,29 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setSkuList(getSkuList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Product){
+		
+			
+			Product dest =(Product)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeParentCategory(getParentCategory());
+			dest.mergeOrigin(getOrigin());
+			dest.mergeRemark(getRemark());
+			dest.mergeBrand(getBrand());
+			dest.mergePicture(getPicture());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeSkuList(getSkuList());
 
 		}
 		super.copyTo(baseDest);

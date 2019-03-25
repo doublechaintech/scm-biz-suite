@@ -151,6 +151,9 @@ public class OriginalVoucherConfirmation extends BaseEntity implements  java.io.
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -163,6 +166,9 @@ public class OriginalVoucherConfirmation extends BaseEntity implements  java.io.
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -177,6 +183,9 @@ public class OriginalVoucherConfirmation extends BaseEntity implements  java.io.
 		this.changed = true;
 		return this;
 	}
+	public void mergeComments(String comments){
+		if(comments != null) { setComments(comments);}
+	}
 	
 	
 	public void setMakeDate(Date makeDate){
@@ -190,6 +199,9 @@ public class OriginalVoucherConfirmation extends BaseEntity implements  java.io.
 		this.changed = true;
 		return this;
 	}
+	public void mergeMakeDate(Date makeDate){
+		setMakeDate(makeDate);
+	}
 	
 	
 	public void setVersion(int version){
@@ -202,6 +214,9 @@ public class OriginalVoucherConfirmation extends BaseEntity implements  java.io.
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -235,7 +250,16 @@ public class OriginalVoucherConfirmation extends BaseEntity implements  java.io.
 		}
 		getOriginalVoucherList().addAll(originalVoucherList);
 	}
-	
+	public  void mergeOriginalVoucherList(SmartList<OriginalVoucher> originalVoucherList){
+		if(originalVoucherList==null){
+			return;
+		}
+		if(originalVoucherList.isEmpty()){
+			return;
+		}
+		addOriginalVoucherList( originalVoucherList );
+		
+	}
 	public  OriginalVoucher removeOriginalVoucher(OriginalVoucher originalVoucherIndex){
 		
 		int index = getOriginalVoucherList().indexOf(originalVoucherIndex);
@@ -361,6 +385,25 @@ public class OriginalVoucherConfirmation extends BaseEntity implements  java.io.
 			dest.setMakeDate(getMakeDate());
 			dest.setVersion(getVersion());
 			dest.setOriginalVoucherList(getOriginalVoucherList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof OriginalVoucherConfirmation){
+		
+			
+			OriginalVoucherConfirmation dest =(OriginalVoucherConfirmation)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeComments(getComments());
+			dest.mergeMakeDate(getMakeDate());
+			dest.mergeVersion(getVersion());
+			dest.mergeOriginalVoucherList(getOriginalVoucherList());
 
 		}
 		super.copyTo(baseDest);

@@ -10,6 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './ObjectAccess.updateform.less'
 import ObjectAccessBase from './ObjectAccess.base'
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -88,6 +89,7 @@ class ObjectAccessUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+    const userContext = null
     const {fieldLabels} = ObjectAccessBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -100,7 +102,7 @@ class ObjectAccessUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-
+		
         const { owner, role } = this.props
         const objectAccessId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -184,7 +186,7 @@ class ObjectAccessUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'objectAccess',
-          listName:'对象访问列表' 
+          listName:appLocaleName(userContext,"List") 
         },
       })
     }
@@ -215,7 +217,7 @@ class ObjectAccessUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -229,7 +231,7 @@ class ObjectAccessUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-      return (<div>缺少被更新的对象</div>)
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
 	const selectedRow = this.getSelectedRow()
 
@@ -244,11 +246,11 @@ class ObjectAccessUpdateForm extends Component {
 
     return (
       <PageHeaderLayout
-        title={"更新对象访问"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新对象访问"
+        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
+        content={appLocaleName(userContext,"Update")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
             
@@ -257,7 +259,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
                     initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
                     
@@ -269,7 +271,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     initialValue: selectedRow.name,
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                     
@@ -281,7 +283,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.objectType} {...formItemLayout}>
                   {getFieldDecorator('objectType', {
                     initialValue: selectedRow.objectType,
-                    rules: [{ required: true, message: '请输入对象类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入对象类型" />
                     
@@ -293,7 +295,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list1} {...formItemLayout}>
                   {getFieldDecorator('list1', {
                     initialValue: selectedRow.list1,
-                    rules: [{ required: true, message: '请输入表' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入表" />
                     
@@ -305,7 +307,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list2} {...formItemLayout}>
                   {getFieldDecorator('list2', {
                     initialValue: selectedRow.list2,
-                    rules: [{ required: true, message: '请输入清单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入清单" />
                     
@@ -317,7 +319,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list3} {...formItemLayout}>
                   {getFieldDecorator('list3', {
                     initialValue: selectedRow.list3,
-                    rules: [{ required: true, message: '请输入目录3' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入目录3" />
                     
@@ -329,7 +331,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list4} {...formItemLayout}>
                   {getFieldDecorator('list4', {
                     initialValue: selectedRow.list4,
-                    rules: [{ required: true, message: '请输入清单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入清单" />
                     
@@ -341,7 +343,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list5} {...formItemLayout}>
                   {getFieldDecorator('list5', {
                     initialValue: selectedRow.list5,
-                    rules: [{ required: true, message: '请输入列表6' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入列表6" />
                     
@@ -353,7 +355,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list6} {...formItemLayout}>
                   {getFieldDecorator('list6', {
                     initialValue: selectedRow.list6,
-                    rules: [{ required: true, message: '请输入list6' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list6" />
                     
@@ -365,7 +367,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list7} {...formItemLayout}>
                   {getFieldDecorator('list7', {
                     initialValue: selectedRow.list7,
-                    rules: [{ required: true, message: '请输入list7' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list7" />
                     
@@ -377,7 +379,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list8} {...formItemLayout}>
                   {getFieldDecorator('list8', {
                     initialValue: selectedRow.list8,
-                    rules: [{ required: true, message: '请输入list8' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list8" />
                     
@@ -389,7 +391,7 @@ class ObjectAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.list9} {...formItemLayout}>
                   {getFieldDecorator('list9', {
                     initialValue: selectedRow.list9,
-                    rules: [{ required: true, message: '请输入list9' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入list9" />
                     
@@ -409,16 +411,16 @@ class ObjectAccessUpdateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
+            {appLocaleName(userContext,"Update")}
           </Button>
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
+            {appLocaleName(userContext,"UpdateAndContinue")}
           </Button>
           <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
+            {appLocaleName(userContext,"Skip")}
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
-            取消
+            {appLocaleName(userContext,"Cancel")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

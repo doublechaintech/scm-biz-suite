@@ -346,7 +346,7 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 		.sortPotentialCustomerListWith("id","desc")
 		.sortCityEventListWith("id","desc")
 		.sortRetailStoreListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

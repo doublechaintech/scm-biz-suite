@@ -38,6 +38,15 @@ public class EmployeeInterviewTokens extends CommonTokens{
 	protected EmployeeInterviewTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  EmployeeInterviewTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		EmployeeInterviewTokens tokens = new EmployeeInterviewTokens(options);
+		return tokens;
+		
+	}
+	protected EmployeeInterviewTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public EmployeeInterviewTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -83,6 +92,11 @@ public class EmployeeInterviewTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public EmployeeInterviewTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String EMPLOYEE = "employee";

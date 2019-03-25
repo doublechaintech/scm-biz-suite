@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,7 +76,7 @@ const internalSummaryOf = (smartPallet,targetComponent) =>{
 	
 	
 	const {SmartPalletService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{smartPallet.id}</Description> 
@@ -85,7 +85,7 @@ const internalSummaryOf = (smartPallet,targetComponent) =>{
 <Description term="总面积">{smartPallet.totalArea}</Description> 
 <Description term="纬度">{smartPallet.latitude}</Description> 
 <Description term="经度">{smartPallet.longitude}</Description> 
-<Description term="仓库">{smartPallet.warehouse==null?"未分配":smartPallet.warehouse.displayName}
+<Description term="仓库">{smartPallet.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${smartPallet.warehouse.displayName}(${smartPallet.warehouse.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",SmartPalletService.requestCandidateWarehouse,
 	      SmartPalletService.transferToAnotherWarehouse,"anotherWarehouseId",smartPallet.warehouse?smartPallet.warehouse.id:"")} 
@@ -107,7 +107,7 @@ class SmartPalletDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -135,7 +135,6 @@ class SmartPalletDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

@@ -341,7 +341,7 @@ public class GoodsShelfManagerImpl extends CustomRetailscmCheckerManager impleme
 		return tokens().allTokens()
 		.sortGoodsShelfStockCountListWith("id","desc")
 		.sortGoodsAllocationListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

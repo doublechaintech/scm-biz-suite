@@ -280,9 +280,8 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractFormMessageListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_MESSAGE_LIST);
  	}
- 	protected boolean isAnalyzeFormMessageListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GenericFormTokens.FORM_MESSAGE_LIST+".analyze");
+ 	protected boolean isAnalyzeFormMessageListEnabled(Map<String,Object> options){		 		
+ 		return GenericFormTokens.of(options).analyzeFormMessageListEnabled();
  	}
 	
 	protected boolean isSaveFormMessageListEnabled(Map<String,Object> options){
@@ -295,9 +294,8 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractFormFieldMessageListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_FIELD_MESSAGE_LIST);
  	}
- 	protected boolean isAnalyzeFormFieldMessageListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GenericFormTokens.FORM_FIELD_MESSAGE_LIST+".analyze");
+ 	protected boolean isAnalyzeFormFieldMessageListEnabled(Map<String,Object> options){		 		
+ 		return GenericFormTokens.of(options).analyzeFormFieldMessageListEnabled();
  	}
 	
 	protected boolean isSaveFormFieldMessageListEnabled(Map<String,Object> options){
@@ -310,9 +308,8 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractFormFieldListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_FIELD_LIST);
  	}
- 	protected boolean isAnalyzeFormFieldListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GenericFormTokens.FORM_FIELD_LIST+".analyze");
+ 	protected boolean isAnalyzeFormFieldListEnabled(Map<String,Object> options){		 		
+ 		return GenericFormTokens.of(options).analyzeFormFieldListEnabled();
  	}
 	
 	protected boolean isSaveFormFieldListEnabled(Map<String,Object> options){
@@ -325,9 +322,8 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	protected boolean isExtractFormActionListEnabled(Map<String,Object> options){		
  		return checkOptions(options,GenericFormTokens.FORM_ACTION_LIST);
  	}
- 	protected boolean isAnalyzeFormActionListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,GenericFormTokens.FORM_ACTION_LIST+".analyze");
+ 	protected boolean isAnalyzeFormActionListEnabled(Map<String,Object> options){		 		
+ 		return GenericFormTokens.of(options).analyzeFormActionListEnabled();
  	}
 	
 	protected boolean isSaveFormActionListEnabled(Map<String,Object> options){

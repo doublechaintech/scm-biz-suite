@@ -221,9 +221,8 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	protected boolean isExtractProductListEnabled(Map<String,Object> options){		
  		return checkOptions(options,LevelThreeCategoryTokens.PRODUCT_LIST);
  	}
- 	protected boolean isAnalyzeProductListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,LevelThreeCategoryTokens.PRODUCT_LIST+".analyze");
+ 	protected boolean isAnalyzeProductListEnabled(Map<String,Object> options){		 		
+ 		return LevelThreeCategoryTokens.of(options).analyzeProductListEnabled();
  	}
 	
 	protected boolean isSaveProductListEnabled(Map<String,Object> options){

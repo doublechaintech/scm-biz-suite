@@ -349,7 +349,7 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortGoodsListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

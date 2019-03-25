@@ -251,6 +251,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLogin(String login){
@@ -264,6 +267,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLogin(String login){
+		if(login != null) { setLogin(login);}
+	}
 	
 	
 	public void setMobile(String mobile){
@@ -276,6 +282,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.mMobile = trimString(mobile);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMobile(String mobile){
+		if(mobile != null) { setMobile(mobile);}
 	}
 	
 	
@@ -297,6 +306,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeEmail(String email){
+		if(email != null) { setEmail(email);}
+	}
 	
 	
 	public void setPwd(String pwd){
@@ -309,6 +321,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.mPwd = hashStringWithSHA256(trimString(pwd));;
 		this.changed = true;
 		return this;
+	}
+	public void mergePwd(String pwd){
+		if(pwd != null) { setPwd(pwd);}
 	}
 	
 	
@@ -336,6 +351,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeVerificationCode(int verificationCode){
+		setVerificationCode(verificationCode);
+	}
 	
 	
 	public void setVerificationCodeExpire(DateTime verificationCodeExpire){
@@ -348,6 +366,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.mVerificationCodeExpire = verificationCodeExpire;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVerificationCodeExpire(DateTime verificationCodeExpire){
+		setVerificationCodeExpire(verificationCodeExpire);
 	}
 	
 	
@@ -362,6 +383,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastLoginTime(DateTime lastLoginTime){
+		setLastLoginTime(lastLoginTime);
+	}
 	
 	
 	public void setDomain(UserDomain domain){
@@ -374,6 +398,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.mDomain = domain;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDomain(UserDomain domain){
+		if(domain != null) { setDomain(domain);}
 	}
 	
 	
@@ -393,6 +420,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeBlocking(SecUserBlocking blocking){
+		if(blocking != null) { setBlocking(blocking);}
+	}
 	
 	
 	public void clearBlocking(){
@@ -411,6 +441,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCurrentStatus(String currentStatus){
+		if(currentStatus != null) { setCurrentStatus(currentStatus);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -423,6 +456,9 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -456,7 +492,16 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		}
 		getUserAppList().addAll(userAppList);
 	}
-	
+	public  void mergeUserAppList(SmartList<UserApp> userAppList){
+		if(userAppList==null){
+			return;
+		}
+		if(userAppList.isEmpty()){
+			return;
+		}
+		addUserAppList( userAppList );
+		
+	}
 	public  UserApp removeUserApp(UserApp userAppIndex){
 		
 		int index = getUserAppList().indexOf(userAppIndex);
@@ -554,7 +599,16 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 		}
 		getLoginHistoryList().addAll(loginHistoryList);
 	}
-	
+	public  void mergeLoginHistoryList(SmartList<LoginHistory> loginHistoryList){
+		if(loginHistoryList==null){
+			return;
+		}
+		if(loginHistoryList.isEmpty()){
+			return;
+		}
+		addLoginHistoryList( loginHistoryList );
+		
+	}
 	public  LoginHistory removeLoginHistory(LoginHistory loginHistoryIndex){
 		
 		int index = getLoginHistoryList().indexOf(loginHistoryIndex);
@@ -704,6 +758,33 @@ public class SecUser extends BaseEntity implements  java.io.Serializable{
 			dest.setVersion(getVersion());
 			dest.setUserAppList(getUserAppList());
 			dest.setLoginHistoryList(getLoginHistoryList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SecUser){
+		
+			
+			SecUser dest =(SecUser)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLogin(getLogin());
+			dest.mergeMobile(getMobile());
+			dest.mergeEmail(getEmail());
+			dest.mergePwd(getPwd());
+			dest.mergeVerificationCode(getVerificationCode());
+			dest.mergeVerificationCodeExpire(getVerificationCodeExpire());
+			dest.mergeLastLoginTime(getLastLoginTime());
+			dest.mergeDomain(getDomain());
+			dest.mergeBlocking(getBlocking());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+			dest.mergeUserAppList(getUserAppList());
+			dest.mergeLoginHistoryList(getLoginHistoryList());
 
 		}
 		super.copyTo(baseDest);

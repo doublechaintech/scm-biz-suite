@@ -5,14 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './RetailStoreOrderLineItem.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import RetailStoreOrderLineItemBase from './RetailStoreOrderLineItem.base'
-
+import appLocaleName from '../../common/Locale.tool'
 
 class RetailStoreOrderLineItemModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = RetailStoreOrderLineItemBase
-	
+	const userContext = null
 	if(!data){
 		return null
 	}
@@ -26,7 +26,7 @@ class RetailStoreOrderLineItemModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
               </p>
             )}
             type="warning"

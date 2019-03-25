@@ -350,7 +350,7 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 		return tokens().allTokens()
 		.sortListAccessListWith("id","desc")
 		.sortObjectAccessListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

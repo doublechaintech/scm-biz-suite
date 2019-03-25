@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,7 +76,7 @@ const internalSummaryOf = (accountSet,targetComponent) =>{
 	
 	
 	const {AccountSetService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{accountSet.id}</Description> 
@@ -88,13 +88,13 @@ const internalSummaryOf = (accountSet,targetComponent) =>{
 <Description term="本币名称">{accountSet.domesticCurrencyName}</Description> 
 <Description term="开户银行">{accountSet.openingBank}</Description> 
 <Description term="帐户号码">{accountSet.accountNumber}</Description> 
-<Description term="双链小超">{accountSet.retailStore==null?"未分配":accountSet.retailStore.displayName}
+<Description term="双链小超">{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.retailStore.displayName}(${accountSet.retailStore.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"双链小超","retailStore",AccountSetService.requestCandidateRetailStore,
 	      AccountSetService.transferToAnotherRetailStore,"anotherRetailStoreId",accountSet.retailStore?accountSet.retailStore.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="产品供应商">{accountSet.goodsSupplier==null?"未分配":accountSet.goodsSupplier.displayName}
+<Description term="产品供应商">{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.goodsSupplier.displayName}(${accountSet.goodsSupplier.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"产品供应商","goodsSupplier",AccountSetService.requestCandidateGoodsSupplier,
 	      AccountSetService.transferToAnotherGoodsSupplier,"anotherGoodsSupplierId",accountSet.goodsSupplier?accountSet.goodsSupplier.id:"")} 
@@ -116,7 +116,7 @@ class AccountSetDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -146,7 +146,6 @@ class AccountSetDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

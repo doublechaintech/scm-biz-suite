@@ -152,6 +152,9 @@ public class LoginHistory extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLoginTime(DateTime loginTime){
@@ -164,6 +167,9 @@ public class LoginHistory extends BaseEntity implements  java.io.Serializable{
 		this.mLoginTime = loginTime;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLoginTime(DateTime loginTime){
+		setLoginTime(loginTime);
 	}
 	
 	
@@ -178,6 +184,9 @@ public class LoginHistory extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeFromIp(String fromIp){
+		if(fromIp != null) { setFromIp(fromIp);}
+	}
 	
 	
 	public void setDescription(String description){
@@ -191,6 +200,9 @@ public class LoginHistory extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setSecUser(SecUser secUser){
@@ -203,6 +215,9 @@ public class LoginHistory extends BaseEntity implements  java.io.Serializable{
 		this.mSecUser = secUser;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeSecUser(SecUser secUser){
+		if(secUser != null) { setSecUser(secUser);}
 	}
 	
 	
@@ -221,6 +236,9 @@ public class LoginHistory extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class LoginHistory extends BaseEntity implements  java.io.Serializable{
 			dest.setDescription(getDescription());
 			dest.setSecUser(getSecUser());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof LoginHistory){
+		
+			
+			LoginHistory dest =(LoginHistory)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLoginTime(getLoginTime());
+			dest.mergeFromIp(getFromIp());
+			dest.mergeDescription(getDescription());
+			dest.mergeSecUser(getSecUser());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

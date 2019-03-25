@@ -221,9 +221,8 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	protected boolean isExtractGoodsShelfListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SupplierSpaceTokens.GOODS_SHELF_LIST);
  	}
- 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SupplierSpaceTokens.GOODS_SHELF_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		 		
+ 		return SupplierSpaceTokens.of(options).analyzeGoodsShelfListEnabled();
  	}
 	
 	protected boolean isSaveGoodsShelfListEnabled(Map<String,Object> options){

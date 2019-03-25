@@ -350,7 +350,7 @@ public class PotentialCustomerManagerImpl extends CustomRetailscmCheckerManager 
 		.sortPotentialCustomerContactPersonListWith("id","desc")
 		.sortPotentialCustomerContactListWith("id","desc")
 		.sortEventAttendanceListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

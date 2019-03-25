@@ -314,7 +314,7 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortMemberWishlistProductListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

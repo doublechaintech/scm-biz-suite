@@ -134,6 +134,9 @@ public class SupplyOrderProcessing extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -146,6 +149,9 @@ public class SupplyOrderProcessing extends BaseEntity implements  java.io.Serial
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -160,6 +166,9 @@ public class SupplyOrderProcessing extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeProcessTime(Date processTime){
+		setProcessTime(processTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -172,6 +181,9 @@ public class SupplyOrderProcessing extends BaseEntity implements  java.io.Serial
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -205,7 +217,16 @@ public class SupplyOrderProcessing extends BaseEntity implements  java.io.Serial
 		}
 		getConsumerOrderList().addAll(consumerOrderList);
 	}
-	
+	public  void mergeConsumerOrderList(SmartList<ConsumerOrder> consumerOrderList){
+		if(consumerOrderList==null){
+			return;
+		}
+		if(consumerOrderList.isEmpty()){
+			return;
+		}
+		addConsumerOrderList( consumerOrderList );
+		
+	}
 	public  ConsumerOrder removeConsumerOrder(ConsumerOrder consumerOrderIndex){
 		
 		int index = getConsumerOrderList().indexOf(consumerOrderIndex);
@@ -303,7 +324,16 @@ public class SupplyOrderProcessing extends BaseEntity implements  java.io.Serial
 		}
 		getSupplyOrderList().addAll(supplyOrderList);
 	}
-	
+	public  void mergeSupplyOrderList(SmartList<SupplyOrder> supplyOrderList){
+		if(supplyOrderList==null){
+			return;
+		}
+		if(supplyOrderList.isEmpty()){
+			return;
+		}
+		addSupplyOrderList( supplyOrderList );
+		
+	}
 	public  SupplyOrder removeSupplyOrder(SupplyOrder supplyOrderIndex){
 		
 		int index = getSupplyOrderList().indexOf(supplyOrderIndex);
@@ -435,6 +465,25 @@ public class SupplyOrderProcessing extends BaseEntity implements  java.io.Serial
 			dest.setVersion(getVersion());
 			dest.setConsumerOrderList(getConsumerOrderList());
 			dest.setSupplyOrderList(getSupplyOrderList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplyOrderProcessing){
+		
+			
+			SupplyOrderProcessing dest =(SupplyOrderProcessing)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeProcessTime(getProcessTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeConsumerOrderList(getConsumerOrderList());
+			dest.mergeSupplyOrderList(getSupplyOrderList());
 
 		}
 		super.copyTo(baseDest);

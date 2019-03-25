@@ -219,6 +219,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setLocation(String location){
@@ -231,6 +234,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.mLocation = trimString(location);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLocation(String location){
+		if(location != null) { setLocation(location);}
 	}
 	
 	
@@ -245,6 +251,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeContactNumber(String contactNumber){
+		if(contactNumber != null) { setContactNumber(contactNumber);}
+	}
 	
 	
 	public void setTotalArea(String totalArea){
@@ -258,6 +267,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeTotalArea(String totalArea){
+		if(totalArea != null) { setTotalArea(totalArea);}
+	}
 	
 	
 	public void setWarehouse(Warehouse warehouse){
@@ -270,6 +282,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.mWarehouse = warehouse;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWarehouse(Warehouse warehouse){
+		if(warehouse != null) { setWarehouse(warehouse);}
 	}
 	
 	
@@ -289,6 +304,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLatitude(BigDecimal latitude){
+		setLatitude(latitude);
+	}
 	
 	
 	public void setLongitude(BigDecimal longitude){
@@ -301,6 +319,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.mLongitude = longitude;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeLongitude(BigDecimal longitude){
+		setLongitude(longitude);
 	}
 	
 	
@@ -315,6 +336,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -327,6 +351,9 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -360,7 +387,16 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 		}
 		getGoodsShelfList().addAll(goodsShelfList);
 	}
-	
+	public  void mergeGoodsShelfList(SmartList<GoodsShelf> goodsShelfList){
+		if(goodsShelfList==null){
+			return;
+		}
+		if(goodsShelfList.isEmpty()){
+			return;
+		}
+		addGoodsShelfList( goodsShelfList );
+		
+	}
 	public  GoodsShelf removeGoodsShelf(GoodsShelf goodsShelfIndex){
 		
 		int index = getGoodsShelfList().indexOf(goodsShelfIndex);
@@ -495,6 +531,29 @@ public class SupplierSpace extends BaseEntity implements  java.io.Serializable{
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
 			dest.setGoodsShelfList(getGoodsShelfList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplierSpace){
+		
+			
+			SupplierSpace dest =(SupplierSpace)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLocation(getLocation());
+			dest.mergeContactNumber(getContactNumber());
+			dest.mergeTotalArea(getTotalArea());
+			dest.mergeWarehouse(getWarehouse());
+			dest.mergeLatitude(getLatitude());
+			dest.mergeLongitude(getLongitude());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+			dest.mergeGoodsShelfList(getGoodsShelfList());
 
 		}
 		super.copyTo(baseDest);

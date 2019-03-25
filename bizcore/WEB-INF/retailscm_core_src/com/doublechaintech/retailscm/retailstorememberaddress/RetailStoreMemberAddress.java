@@ -152,6 +152,9 @@ public class RetailStoreMemberAddress extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -165,6 +168,9 @@ public class RetailStoreMemberAddress extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setOwner(RetailStoreMember owner){
@@ -177,6 +183,9 @@ public class RetailStoreMemberAddress extends BaseEntity implements  java.io.Ser
 		this.mOwner = owner;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeOwner(RetailStoreMember owner){
+		if(owner != null) { setOwner(owner);}
 	}
 	
 	
@@ -195,6 +204,9 @@ public class RetailStoreMemberAddress extends BaseEntity implements  java.io.Ser
 		this.mMobilePhone = trimString(mobilePhone);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMobilePhone(String mobilePhone){
+		if(mobilePhone != null) { setMobilePhone(mobilePhone);}
 	}
 	
 	
@@ -216,6 +228,9 @@ public class RetailStoreMemberAddress extends BaseEntity implements  java.io.Ser
 		this.changed = true;
 		return this;
 	}
+	public void mergeAddress(String address){
+		if(address != null) { setAddress(address);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -228,6 +243,9 @@ public class RetailStoreMemberAddress extends BaseEntity implements  java.io.Ser
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -284,6 +302,25 @@ public class RetailStoreMemberAddress extends BaseEntity implements  java.io.Ser
 			dest.setMobilePhone(getMobilePhone());
 			dest.setAddress(getAddress());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreMemberAddress){
+		
+			
+			RetailStoreMemberAddress dest =(RetailStoreMemberAddress)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeOwner(getOwner());
+			dest.mergeMobilePhone(getMobilePhone());
+			dest.mergeAddress(getAddress());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

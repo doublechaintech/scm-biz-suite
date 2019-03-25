@@ -178,6 +178,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setName(String name){
@@ -191,6 +194,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeName(String name){
+		if(name != null) { setName(name);}
+	}
 	
 	
 	public void setMobile(String mobile){
@@ -203,6 +209,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.mMobile = trimString(mobile);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeMobile(String mobile){
+		if(mobile != null) { setMobile(mobile);}
 	}
 	
 	
@@ -224,6 +233,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeEmail(String email){
+		if(email != null) { setEmail(email);}
+	}
 	
 	
 	public void setFounded(Date founded){
@@ -237,6 +249,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeFounded(Date founded){
+		setFounded(founded);
+	}
 	
 	
 	public void setDepartment(ProvinceCenterDepartment department){
@@ -249,6 +264,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.mDepartment = department;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeDepartment(ProvinceCenterDepartment department){
+		if(department != null) { setDepartment(department);}
 	}
 	
 	
@@ -268,6 +286,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.changed = true;
 		return this;
 	}
+	public void mergeProvinceCenter(RetailStoreProvinceCenter provinceCenter){
+		if(provinceCenter != null) { setProvinceCenter(provinceCenter);}
+	}
 	
 	
 	public void clearProvinceCenter(){
@@ -285,6 +306,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -346,6 +370,27 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 			dest.setDepartment(getDepartment());
 			dest.setProvinceCenter(getProvinceCenter());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ProvinceCenterEmployee){
+		
+			
+			ProvinceCenterEmployee dest =(ProvinceCenterEmployee)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeMobile(getMobile());
+			dest.mergeEmail(getEmail());
+			dest.mergeFounded(getFounded());
+			dest.mergeDepartment(getDepartment());
+			dest.mergeProvinceCenter(getProvinceCenter());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

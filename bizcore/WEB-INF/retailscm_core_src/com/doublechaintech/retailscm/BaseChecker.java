@@ -223,7 +223,7 @@ public class BaseChecker {
 	 		
 			return;
 		}
-		String prefixes[]= {"13","14","15","17","18","166","199"};
+		String prefixes[]= {"13","15","16","17","18","19"};
 		
 		
 		
@@ -268,8 +268,11 @@ public class BaseChecker {
 	
 	protected void checkDateTime(Date value, Date minDate, Date maxDate, String propertyKey) {
 		this.checkDateRange(value, minDate, maxDate, propertyKey);
-		
 	}
+	protected void checkDateFuture(Date value, Date minDate, Date maxDate, String propertyKey) {
+		this.checkDateRange(value, minDate, maxDate, propertyKey);
+	}
+	
 	protected void checkDateRange(Date value, Date minDate,
 			Date maxDate, String propertyKey) {
 		if(value == null){

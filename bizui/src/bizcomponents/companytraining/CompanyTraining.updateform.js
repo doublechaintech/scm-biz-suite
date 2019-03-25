@@ -10,6 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './CompanyTraining.updateform.less'
 import CompanyTrainingBase from './CompanyTraining.base'
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -90,6 +91,7 @@ class CompanyTrainingUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+    const userContext = null
     const {fieldLabels} = CompanyTrainingBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -102,7 +104,7 @@ class CompanyTrainingUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-
+		
         const { owner, role } = this.props
         const companyTrainingId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -186,7 +188,7 @@ class CompanyTrainingUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'companyTraining',
-          listName:'公司培训列表' 
+          listName:appLocaleName(userContext,"List") 
         },
       })
     }
@@ -217,7 +219,7 @@ class CompanyTrainingUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -231,7 +233,7 @@ class CompanyTrainingUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-      return (<div>缺少被更新的对象</div>)
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
 	const selectedRow = this.getSelectedRow()
 
@@ -246,11 +248,11 @@ class CompanyTrainingUpdateForm extends Component {
 
     return (
       <PageHeaderLayout
-        title={"更新公司培训"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新公司培训"
+        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
+        content={appLocaleName(userContext,"Update")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
             
@@ -259,7 +261,7 @@ class CompanyTrainingUpdateForm extends Component {
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
                     initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
                     
@@ -271,7 +273,7 @@ class CompanyTrainingUpdateForm extends Component {
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
                     initialValue: selectedRow.title,
-                    rules: [{ required: true, message: '请输入头衔' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入头衔" />
                     
@@ -283,7 +285,7 @@ class CompanyTrainingUpdateForm extends Component {
                 <Form.Item label={fieldLabels.timeStart} {...formItemLayout}>
                   {getFieldDecorator('timeStart', {
                     initialValue: selectedRow.timeStart,
-                    rules: [{ required: true, message: '请输入时间开始' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入时间开始" />
                     
@@ -295,7 +297,7 @@ class CompanyTrainingUpdateForm extends Component {
                 <Form.Item label={fieldLabels.durationHours} {...formItemLayout}>
                   {getFieldDecorator('durationHours', {
                     initialValue: selectedRow.durationHours,
-                    rules: [{ required: true, message: '请输入持续时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入持续时间" />
                     
@@ -315,16 +317,16 @@ class CompanyTrainingUpdateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
+            {appLocaleName(userContext,"Update")}
           </Button>
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
+            {appLocaleName(userContext,"UpdateAndContinue")}
           </Button>
           <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
+            {appLocaleName(userContext,"Skip")}
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
-            取消
+            {appLocaleName(userContext,"Cancel")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

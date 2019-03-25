@@ -221,9 +221,8 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractEmployeeSkillListEnabled(Map<String,Object> options){		
  		return checkOptions(options,SkillTypeTokens.EMPLOYEE_SKILL_LIST);
  	}
- 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,SkillTypeTokens.EMPLOYEE_SKILL_LIST+".analyze");
+ 	protected boolean isAnalyzeEmployeeSkillListEnabled(Map<String,Object> options){		 		
+ 		return SkillTypeTokens.of(options).analyzeEmployeeSkillListEnabled();
  	}
 	
 	protected boolean isSaveEmployeeSkillListEnabled(Map<String,Object> options){

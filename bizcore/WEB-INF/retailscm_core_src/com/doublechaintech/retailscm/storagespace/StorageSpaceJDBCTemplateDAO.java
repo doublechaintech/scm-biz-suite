@@ -221,9 +221,8 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	protected boolean isExtractGoodsShelfListEnabled(Map<String,Object> options){		
  		return checkOptions(options,StorageSpaceTokens.GOODS_SHELF_LIST);
  	}
- 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,StorageSpaceTokens.GOODS_SHELF_LIST+".analyze");
+ 	protected boolean isAnalyzeGoodsShelfListEnabled(Map<String,Object> options){		 		
+ 		return StorageSpaceTokens.of(options).analyzeGoodsShelfListEnabled();
  	}
 	
 	protected boolean isSaveGoodsShelfListEnabled(Map<String,Object> options){

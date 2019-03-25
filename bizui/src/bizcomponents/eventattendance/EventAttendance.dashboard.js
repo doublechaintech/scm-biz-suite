@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,18 +76,18 @@ const internalSummaryOf = (eventAttendance,targetComponent) =>{
 	
 	
 	const {EventAttendanceService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{eventAttendance.id}</Description> 
 <Description term="名称">{eventAttendance.name}</Description> 
-<Description term="潜在的客户">{eventAttendance.potentialCustomer==null?"未分配":eventAttendance.potentialCustomer.displayName}
+<Description term="潜在的客户">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"潜在的客户","potentialCustomer",EventAttendanceService.requestCandidatePotentialCustomer,
 	      EventAttendanceService.transferToAnotherPotentialCustomer,"anotherPotentialCustomerId",eventAttendance.potentialCustomer?eventAttendance.potentialCustomer.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="城市活动">{eventAttendance.cityEvent==null?"未分配":eventAttendance.cityEvent.displayName}
+<Description term="城市活动">{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"城市活动","cityEvent",EventAttendanceService.requestCandidateCityEvent,
 	      EventAttendanceService.transferToAnotherCityEvent,"anotherCityEventId",eventAttendance.cityEvent?eventAttendance.cityEvent.id:"")} 
@@ -109,7 +109,7 @@ class EventAttendanceDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -136,7 +136,6 @@ class EventAttendanceDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

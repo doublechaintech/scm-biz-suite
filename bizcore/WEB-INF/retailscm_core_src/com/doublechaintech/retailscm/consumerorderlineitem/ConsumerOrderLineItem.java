@@ -215,6 +215,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setBizOrder(ConsumerOrder bizOrder){
@@ -227,6 +230,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.mBizOrder = bizOrder;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeBizOrder(ConsumerOrder bizOrder){
+		if(bizOrder != null) { setBizOrder(bizOrder);}
 	}
 	
 	
@@ -246,6 +252,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeSkuId(String skuId){
+		if(skuId != null) { setSkuId(skuId);}
+	}
 	
 	
 	public void clearSkuId(){
@@ -264,6 +273,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeSkuName(String skuName){
+		if(skuName != null) { setSkuName(skuName);}
+	}
 	
 	
 	public void setPrice(BigDecimal price){
@@ -276,6 +288,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.mPrice = price;;
 		this.changed = true;
 		return this;
+	}
+	public void mergePrice(BigDecimal price){
+		setPrice(price);
 	}
 	
 	
@@ -290,6 +305,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeQuantity(BigDecimal quantity){
+		setQuantity(quantity);
+	}
 	
 	
 	public void setAmount(BigDecimal amount){
@@ -302,6 +320,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.mAmount = amount;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeAmount(BigDecimal amount){
+		setAmount(amount);
 	}
 	
 	
@@ -316,6 +337,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeLastUpdateTime(DateTime lastUpdateTime){
+		setLastUpdateTime(lastUpdateTime);
+	}
 	
 	
 	public void setVersion(int version){
@@ -328,6 +352,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -390,6 +417,28 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 			dest.setAmount(getAmount());
 			dest.setLastUpdateTime(getLastUpdateTime());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ConsumerOrderLineItem){
+		
+			
+			ConsumerOrderLineItem dest =(ConsumerOrderLineItem)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeBizOrder(getBizOrder());
+			dest.mergeSkuId(getSkuId());
+			dest.mergeSkuName(getSkuName());
+			dest.mergePrice(getPrice());
+			dest.mergeQuantity(getQuantity());
+			dest.mergeAmount(getAmount());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

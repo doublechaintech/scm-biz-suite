@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,11 +76,11 @@ const internalSummaryOf = (employeeEducation,targetComponent) =>{
 	
 	
 	const {EmployeeEducationService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{employeeEducation.id}</Description> 
-<Description term="员工">{employeeEducation.employee==null?"未分配":employeeEducation.employee.displayName}
+<Description term="员工">{employeeEducation.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeEducation.employee.displayName}(${employeeEducation.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeEducationService.requestCandidateEmployee,
 	      EmployeeEducationService.transferToAnotherEmployee,"anotherEmployeeId",employeeEducation.employee?employeeEducation.employee.id:"")} 
@@ -104,7 +104,7 @@ class EmployeeEducationDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -131,7 +131,6 @@ class EmployeeEducationDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

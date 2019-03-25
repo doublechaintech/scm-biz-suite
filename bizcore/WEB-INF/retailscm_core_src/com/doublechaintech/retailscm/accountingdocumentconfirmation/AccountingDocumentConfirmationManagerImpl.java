@@ -319,7 +319,7 @@ public class AccountingDocumentConfirmationManagerImpl extends CustomRetailscmCh
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortAccountingDocumentListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

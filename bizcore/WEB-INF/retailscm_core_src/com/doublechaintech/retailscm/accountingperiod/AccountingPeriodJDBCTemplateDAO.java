@@ -221,9 +221,8 @@ public class AccountingPeriodJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST);
  	}
- 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountingPeriodTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		 		
+ 		return AccountingPeriodTokens.of(options).analyzeAccountingDocumentListEnabled();
  	}
 	
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){

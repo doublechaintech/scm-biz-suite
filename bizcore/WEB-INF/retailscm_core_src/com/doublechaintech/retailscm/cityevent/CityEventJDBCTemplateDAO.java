@@ -221,9 +221,8 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractEventAttendanceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST);
  	}
- 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,CityEventTokens.EVENT_ATTENDANCE_LIST+".analyze");
+ 	protected boolean isAnalyzeEventAttendanceListEnabled(Map<String,Object> options){		 		
+ 		return CityEventTokens.of(options).analyzeEventAttendanceListEnabled();
  	}
 	
 	protected boolean isSaveEventAttendanceListEnabled(Map<String,Object> options){

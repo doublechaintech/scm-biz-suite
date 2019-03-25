@@ -38,6 +38,15 @@ public class ConsumerOrderConfirmationTokens extends CommonTokens{
 	protected ConsumerOrderConfirmationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  ConsumerOrderConfirmationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		ConsumerOrderConfirmationTokens tokens = new ConsumerOrderConfirmationTokens(options);
+		return tokens;
+		
+	}
+	protected ConsumerOrderConfirmationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public ConsumerOrderConfirmationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -79,6 +88,11 @@ public class ConsumerOrderConfirmationTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public ConsumerOrderConfirmationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	

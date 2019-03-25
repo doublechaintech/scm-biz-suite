@@ -277,9 +277,8 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	protected boolean isExtractTransportTruckListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTruckListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TransportFleetTokens.TRANSPORT_TRUCK_LIST+".analyze");
+ 	protected boolean isAnalyzeTransportTruckListEnabled(Map<String,Object> options){		 		
+ 		return TransportFleetTokens.of(options).analyzeTransportTruckListEnabled();
  	}
 	
 	protected boolean isSaveTransportTruckListEnabled(Map<String,Object> options){
@@ -292,9 +291,8 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	protected boolean isExtractTruckDriverListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST);
  	}
- 	protected boolean isAnalyzeTruckDriverListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TransportFleetTokens.TRUCK_DRIVER_LIST+".analyze");
+ 	protected boolean isAnalyzeTruckDriverListEnabled(Map<String,Object> options){		 		
+ 		return TransportFleetTokens.of(options).analyzeTruckDriverListEnabled();
  	}
 	
 	protected boolean isSaveTruckDriverListEnabled(Map<String,Object> options){
@@ -307,9 +305,8 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	protected boolean isExtractTransportTaskListEnabled(Map<String,Object> options){		
  		return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST);
  	}
- 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,TransportFleetTokens.TRANSPORT_TASK_LIST+".analyze");
+ 	protected boolean isAnalyzeTransportTaskListEnabled(Map<String,Object> options){		 		
+ 		return TransportFleetTokens.of(options).analyzeTransportTaskListEnabled();
  	}
 	
 	protected boolean isSaveTransportTaskListEnabled(Map<String,Object> options){

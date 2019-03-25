@@ -317,7 +317,7 @@ public class OriginalVoucherConfirmationManagerImpl extends CustomRetailscmCheck
 	protected Map<String,Object> viewTokens(){
 		return tokens().allTokens()
 		.sortOriginalVoucherListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

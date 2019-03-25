@@ -196,9 +196,8 @@ public class AccountingDocumentPostingJDBCTemplateDAO extends RetailscmNamingSer
 	protected boolean isExtractAccountingDocumentListEnabled(Map<String,Object> options){		
  		return checkOptions(options,AccountingDocumentPostingTokens.ACCOUNTING_DOCUMENT_LIST);
  	}
- 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,AccountingDocumentPostingTokens.ACCOUNTING_DOCUMENT_LIST+".analyze");
+ 	protected boolean isAnalyzeAccountingDocumentListEnabled(Map<String,Object> options){		 		
+ 		return AccountingDocumentPostingTokens.of(options).analyzeAccountingDocumentListEnabled();
  	}
 	
 	protected boolean isSaveAccountingDocumentListEnabled(Map<String,Object> options){

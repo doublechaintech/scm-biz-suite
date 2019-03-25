@@ -1,16 +1,24 @@
 
 package com.doublechaintech.retailscm;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.terapico.caf.viewcomponent.BaseViewComponent;
+import com.terapico.caf.viewcomponent.ButtonViewComponent;
 import com.terapico.caf.viewcomponent.FilterTabsViewComponent;
+import com.terapico.caf.viewcomponent.PopupViewComponent;
 import com.terapico.caf.viewpage.SerializeScope;
+import com.terapico.utils.MapUtil;
+import com.terapico.utils.TextUtil;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class BaseViewPage extends HashMap<String, Object> {
@@ -27,7 +35,17 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 	protected RetailscmUserContext userContext;
 	@JsonIgnore
 	protected HashMap<String, Object> dataPool;
-
+	@JsonIgnore
+	protected String pageTitle;
+	@JsonIgnore
+	protected HashMap<String, Object> dataContainer;
+	public String getPageTitle() {
+		return pageTitle;
+	}
+	public void setPageTitle(String pageTitle) {
+		this.pageTitle = pageTitle;
+	}
+	
 	public void set(String name, Object value) {
 		ensureDataPool();
 		dataPool.put(name, value);
@@ -37,12 +55,14 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		this.userContext = userContext;
 		beforeDoRendering();
 		doRendering();
+		this.userContext.forceResponseXClassHeader(this.getClass().getName());
 		afterDoRendering();
 		return this;
 	}
 
 	protected void beforeDoRendering() {
-		// By default, nothing to do
+		userContext.setResponseHeader("x-actor-class", this.getClass().getName());
+		addFieldToOwner(this, null, "pageTitle", this.getPageTitle());
 	}
 
 	protected void afterDoRendering() {
@@ -90,10 +110,30 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		}
 		return false;
 	}
-
+	protected boolean isZeroValue(Object value) {
+		if (value instanceof Boolean) {
+			return !((Boolean) value).booleanValue();
+		}
+		if (value instanceof BigDecimal) {
+			return ((BigDecimal) value).signum() == 0;
+		}
+		if (value instanceof BigInteger) {
+			return ((BigInteger) value).signum() == 0;
+		}
+		if (value instanceof Number) {
+			return ((Number) value).doubleValue() == 0;
+		}
+		if (value instanceof String) {
+			return TextUtil.isBlank((String) value);
+		}
+		return false;
+	}
+	
+	
 	protected void doRendering() {
 		SerializeScope srlScope = getSerializeScope();
 		ensureDataPool();
+		addFieldToOwner(this, null, "pageTitle", this.getPageTitle());
 		doRenderingMap(this, srlScope, dataPool, "/");
 	}
 
@@ -123,6 +163,9 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		String newPath = path + hashCode;
 
 		SerializeScope fieldScope = srlScope.getFieldScope(key);
+		if (fieldScope.isShowWhenNotEmpty() && (isEmptyValue(value) || isZeroValue(value))) {
+			return;
+		}
 		String outputName = fieldScope.getAliasName() == null ? key : fieldScope.getAliasName();
 		CustomSerializer cSerializer = getCustomSerializerByObject(value);
 		// 如果有自定义的序列化方法，优先使用自定义的
@@ -157,7 +200,31 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		if (value instanceof BaseEntity) {
 			return doRenderingBaseEntity(fieldScope, (BaseEntity) value, path);
 		}
+		if (value instanceof BaseViewComponent) {
+			return ((BaseViewComponent) value).toMap();
+		}
 		// 最后了，没办法了
+		if (fieldScope.isRevers()) {
+			if (value instanceof BigDecimal) {
+				return ((BigDecimal) value).negate();
+			}
+			if (value instanceof Double) {
+				return -((Double)value);
+			}
+			if (value instanceof Float) {
+				return -((Float)value);
+			}
+			if (value instanceof Integer) {
+				return -((Integer)value);
+			}
+			if (value instanceof BigInteger) {
+				return ((BigInteger)value).negate();
+			}
+			if (value instanceof String) {
+				return new StringBuffer((int) value).reverse().toString();
+			}
+			// 其他数据类型忽略 reverse()
+		}
 		return value;
 	}
 
@@ -191,14 +258,51 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		}
 		List<Object> resultList = new ArrayList<>(asList.size());
 		for (Object item : asList) {
-			Object convertResult = doRenderingObject(fieldScope, item, path, resultMap, key);
-			if (convertResult != null) {
-				resultList.add(convertResult);
+			String outputName = fieldScope.getAliasName() == null ? key : fieldScope.getAliasName();
+			CustomSerializer cSerializer = getCustomSerializerByObject(item);
+			// 如果有自定义的序列化方法，优先使用自定义的
+			if (cSerializer != null) {
+				Object convertResult = cSerializer.serialize(fieldScope, item, path);
+				saveListItemConvertResult(fieldScope, resultList, item, convertResult);
+				continue;
 			}
+			Object convertResult = doRenderingObject(fieldScope, item, path, resultMap, key);
+			saveListItemConvertResult(fieldScope, resultList, item, convertResult);
+		}
+		if (fieldScope.isRevers()) {
+			Collections.reverse(resultList);
 		}
 		return resultList;
 	}
+	protected void saveListItemConvertResult(SerializeScope fieldScope, List<Object> resultList, Object item,
+			Object convertResult) {
+		if (convertResult != null) {
+			if (fieldScope.isPutInDataContainer()) {
+				if (item instanceof BaseEntity) {
+					String skey = ((BaseEntity) item).getInternalType()+"_"+((BaseEntity) item).getId();
+					resultList.add(MapUtil.newMap(MapUtil.$("id", skey)));
+					addToDataContainer(skey, convertResult);
+				} else {
+					String skey = item.getClass().getSimpleName()+"_"+item.hashCode();
+					resultList.add(MapUtil.newMap(MapUtil.$("id", skey)));
+					addToDataContainer(skey, convertResult);
+				}
+			}else {
+				resultList.add(convertResult);
+			}
+		}
+	}
 
+	protected void addToDataContainer(String skey, Object convertResult) {
+		ensureDataContainer();
+		dataContainer.put(skey, convertResult);
+	}
+	protected void ensureDataContainer() {
+		if (this.dataContainer == null) {
+			this.dataContainer = new HashMap<>();
+			this.put("dataContainer", dataContainer);
+		}
+	}
 	protected Object doRenderingSmartList(SerializeScope fieldScope, SmartList<?> value, String path,
 			Map<String, Object> resultMap, String key) {
 		Object resultList = doRenderingList(fieldScope, (List) value, path, resultMap, key);
@@ -210,6 +314,9 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 				dataList.remove(dataList.size() - 1);
 				addFieldToOwner(metaData, fieldScope, X_NEXT_PAGE_URL,
 						dataList.valueByKey(X_NEXT_PAGE_URL));
+				if (resultList instanceof List) {
+					((List) resultList).remove(((List) resultList).size() - 1);
+				}
 			} else {
 				metaData.put("hasNextPage", false);
 			}
@@ -229,11 +336,27 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		if (object instanceof FilterTabsViewComponent) {
 			return new FilterTabsSerializer();
 		}
+		/*
+		if (object instanceof BaseRetailscmFormProcessor) {
+			return new FormProcessorSerializer();
+		}
+		*/
+		if (object instanceof ButtonViewComponent) {
+			// action 是特别定制的序列化
+			return new ButtonViewComponentSerializer();
+		}
+		if (object instanceof PopupViewComponent) {
+			// popup 也是特别定制的的
+			return new PopupViewComponentSerializer();
+		}
 		return null;
 	}
 
+	protected void markAsAjaxResponse() {
+		this.userContext.setResponseHeader("x-redirect", "false");
+	}
+	
 	protected class FilterTabsSerializer implements CustomSerializer {
-
 		@Override
 		public Object serialize(SerializeScope serializeScope, Object value, String path) {
 			FilterTabsViewComponent tabViewCmpt = (FilterTabsViewComponent) value;
@@ -258,9 +381,59 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			}
 			return result;
 		}
-
 	}
 
+	protected class FormProcessorSerializer implements CustomSerializer {
+		@Override
+		public Object serialize(SerializeScope serializeScope, Object value, String path) {
+			/*
+			BaseRetailscmFormProcessor form = (BaseRetailscmFormProcessor) value;
+			if (form == null) {
+				return null;
+			}
+			return form.mapToUiForm(userContext);*/
+			return null;
+		}
+	}
+	
+	protected class ButtonViewComponentSerializer implements CustomSerializer {
+		@Override
+		public Object serialize(SerializeScope serializeScope, Object value, String path) {
+			ButtonViewComponent btn = (ButtonViewComponent) value;
+			SerializeScope fieldScope = SerializeScope.EXCLUDE();
+			Map<String, Object> resultData = new HashMap<>();
+			addFieldToOwner(resultData, fieldScope, "callbackUrl", btn.getCallbackUrl());
+			addFieldToOwner(resultData, fieldScope, "title", btn.getContent());
+			addFieldToOwner(resultData, fieldScope, "imageUrl", btn.getImageUrl());
+			addFieldToOwner(resultData, fieldScope, "linkToUrl", btn.getLinkToUrl());
+			addFieldToOwner(resultData, fieldScope, "code", btn.getTag());
+			addFieldToOwner(resultData, fieldScope, "type", btn.getType());
+			return resultData;
+		}
+	}
+	
+	protected class PopupViewComponentSerializer implements CustomSerializer {
+		@Override
+		public Object serialize(SerializeScope serializeScope, Object value, String path) {
+			PopupViewComponent popup = (PopupViewComponent) value;
+			SerializeScope fieldScope = SerializeScope.EXCLUDE();
+			Map<String, Object> resultData = new HashMap<>();
+			addFieldToOwner(resultData, fieldScope, "title", popup.getTitle());
+			addFieldToOwner(resultData, fieldScope, "text", popup.getText());
+			addFieldToOwner(resultData, fieldScope, "closeActionText", popup.getCloseActionText());
+			List<ButtonViewComponent> actionList = popup.getActionList();
+			if (actionList == null || actionList.isEmpty()) {
+				return resultData;
+			}
+			List<Object> actionsSrst = new ArrayList<>();
+			ButtonViewComponentSerializer btnSer = new ButtonViewComponentSerializer();
+			for(ButtonViewComponent action: actionList) {
+				actionsSrst.add(btnSer.serialize(serializeScope, action, path+action.hashCode()+"/"));
+			}
+			addFieldToOwner(resultData, fieldScope, "actionList", actionsSrst);
+			return resultData;
+		}
+	}
 }
 
 

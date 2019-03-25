@@ -38,6 +38,15 @@ public class MemberWishlistProductTokens extends CommonTokens{
 	protected MemberWishlistProductTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  MemberWishlistProductTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		MemberWishlistProductTokens tokens = new MemberWishlistProductTokens(options);
+		return tokens;
+		
+	}
+	protected MemberWishlistProductTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public MemberWishlistProductTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class MemberWishlistProductTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public MemberWishlistProductTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String OWNER = "owner";

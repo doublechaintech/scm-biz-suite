@@ -38,6 +38,15 @@ public class AccountingDocumentConfirmationTokens extends CommonTokens{
 	protected AccountingDocumentConfirmationTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  AccountingDocumentConfirmationTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		AccountingDocumentConfirmationTokens tokens = new AccountingDocumentConfirmationTokens(options);
+		return tokens;
+		
+	}
+	protected AccountingDocumentConfirmationTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public AccountingDocumentConfirmationTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class AccountingDocumentConfirmationTokens extends CommonTokens{
 	public static Map <String,Object> empty(){
 		return start().done();
 	}
+	
+	public AccountingDocumentConfirmationTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
+	}
 
 	protected static final String ACCOUNTING_DOCUMENT_LIST = "accountingDocumentList";
 	public String getAccountingDocumentList(){
@@ -96,7 +110,11 @@ public class AccountingDocumentConfirmationTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountingDocumentListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNTING_DOCUMENT_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountingDocumentConfirmationTokens extractMoreFromAccountingDocumentList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LIST+".extractIds", idsSeperatedWithComma);

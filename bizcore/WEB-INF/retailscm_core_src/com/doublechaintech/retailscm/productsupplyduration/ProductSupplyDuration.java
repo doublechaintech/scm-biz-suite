@@ -152,6 +152,9 @@ public class ProductSupplyDuration extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setQuantity(int quantity){
@@ -164,6 +167,9 @@ public class ProductSupplyDuration extends BaseEntity implements  java.io.Serial
 		this.mQuantity = quantity;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeQuantity(int quantity){
+		setQuantity(quantity);
 	}
 	
 	
@@ -178,6 +184,9 @@ public class ProductSupplyDuration extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeDuration(String duration){
+		if(duration != null) { setDuration(duration);}
+	}
 	
 	
 	public void setPrice(BigDecimal price){
@@ -191,6 +200,9 @@ public class ProductSupplyDuration extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergePrice(BigDecimal price){
+		setPrice(price);
+	}
 	
 	
 	public void setProduct(SupplierProduct product){
@@ -203,6 +215,9 @@ public class ProductSupplyDuration extends BaseEntity implements  java.io.Serial
 		this.mProduct = product;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeProduct(SupplierProduct product){
+		if(product != null) { setProduct(product);}
 	}
 	
 	
@@ -221,6 +236,9 @@ public class ProductSupplyDuration extends BaseEntity implements  java.io.Serial
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -277,6 +295,25 @@ public class ProductSupplyDuration extends BaseEntity implements  java.io.Serial
 			dest.setPrice(getPrice());
 			dest.setProduct(getProduct());
 			dest.setVersion(getVersion());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ProductSupplyDuration){
+		
+			
+			ProductSupplyDuration dest =(ProductSupplyDuration)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeQuantity(getQuantity());
+			dest.mergeDuration(getDuration());
+			dest.mergePrice(getPrice());
+			dest.mergeProduct(getProduct());
+			dest.mergeVersion(getVersion());
 
 		}
 		super.copyTo(baseDest);

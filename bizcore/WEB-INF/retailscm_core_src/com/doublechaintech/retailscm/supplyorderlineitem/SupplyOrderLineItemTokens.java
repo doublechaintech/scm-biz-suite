@@ -38,6 +38,15 @@ public class SupplyOrderLineItemTokens extends CommonTokens{
 	protected SupplyOrderLineItemTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  SupplyOrderLineItemTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		SupplyOrderLineItemTokens tokens = new SupplyOrderLineItemTokens(options);
+		return tokens;
+		
+	}
+	protected SupplyOrderLineItemTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public SupplyOrderLineItemTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -81,6 +90,11 @@ public class SupplyOrderLineItemTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public SupplyOrderLineItemTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String BIZORDER = "bizOrder";

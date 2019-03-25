@@ -196,9 +196,8 @@ public class RetailStoreOrderProcessingJDBCTemplateDAO extends RetailscmNamingSe
 	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
  		return checkOptions(options,RetailStoreOrderProcessingTokens.RETAIL_STORE_ORDER_LIST);
  	}
- 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,RetailStoreOrderProcessingTokens.RETAIL_STORE_ORDER_LIST+".analyze");
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreOrderProcessingTokens.of(options).analyzeRetailStoreOrderListEnabled();
  	}
 	
 	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){

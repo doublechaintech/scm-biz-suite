@@ -156,6 +156,9 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setCode(String code){
@@ -169,6 +172,9 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeCode(String code){
+		if(code != null) { setCode(code);}
+	}
 	
 	
 	public void setCompany(RetailStoreCountryCenter company){
@@ -181,6 +187,9 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		this.mCompany = company;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeCompany(RetailStoreCountryCenter company){
+		if(company != null) { setCompany(company);}
 	}
 	
 	
@@ -200,6 +209,9 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDescription(String description){
+		if(description != null) { setDescription(description);}
+	}
 	
 	
 	public void setDetailDescription(String detailDescription){
@@ -213,6 +225,9 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		this.changed = true;
 		return this;
 	}
+	public void mergeDetailDescription(String detailDescription){
+		if(detailDescription != null) { setDetailDescription(detailDescription);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -225,6 +240,9 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -258,7 +276,16 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 		}
 		getEmployeeLeaveList().addAll(employeeLeaveList);
 	}
-	
+	public  void mergeEmployeeLeaveList(SmartList<EmployeeLeave> employeeLeaveList){
+		if(employeeLeaveList==null){
+			return;
+		}
+		if(employeeLeaveList.isEmpty()){
+			return;
+		}
+		addEmployeeLeaveList( employeeLeaveList );
+		
+	}
 	public  EmployeeLeave removeEmployeeLeave(EmployeeLeave employeeLeaveIndex){
 		
 		int index = getEmployeeLeaveList().indexOf(employeeLeaveIndex);
@@ -387,6 +414,26 @@ public class LeaveType extends BaseEntity implements  java.io.Serializable{
 			dest.setDetailDescription(getDetailDescription());
 			dest.setVersion(getVersion());
 			dest.setEmployeeLeaveList(getEmployeeLeaveList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof LeaveType){
+		
+			
+			LeaveType dest =(LeaveType)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCode(getCode());
+			dest.mergeCompany(getCompany());
+			dest.mergeDescription(getDescription());
+			dest.mergeDetailDescription(getDetailDescription());
+			dest.mergeVersion(getVersion());
+			dest.mergeEmployeeLeaveList(getEmployeeLeaveList());
 
 		}
 		super.copyTo(baseDest);

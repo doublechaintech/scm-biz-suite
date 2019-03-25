@@ -151,6 +151,9 @@ public class AccountingDocumentConfirmation extends BaseEntity implements  java.
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setWho(String who){
@@ -163,6 +166,9 @@ public class AccountingDocumentConfirmation extends BaseEntity implements  java.
 		this.mWho = trimString(who);;
 		this.changed = true;
 		return this;
+	}
+	public void mergeWho(String who){
+		if(who != null) { setWho(who);}
 	}
 	
 	
@@ -177,6 +183,9 @@ public class AccountingDocumentConfirmation extends BaseEntity implements  java.
 		this.changed = true;
 		return this;
 	}
+	public void mergeComments(String comments){
+		if(comments != null) { setComments(comments);}
+	}
 	
 	
 	public void setMakeDate(Date makeDate){
@@ -190,6 +199,9 @@ public class AccountingDocumentConfirmation extends BaseEntity implements  java.
 		this.changed = true;
 		return this;
 	}
+	public void mergeMakeDate(Date makeDate){
+		setMakeDate(makeDate);
+	}
 	
 	
 	public void setVersion(int version){
@@ -202,6 +214,9 @@ public class AccountingDocumentConfirmation extends BaseEntity implements  java.
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -235,7 +250,16 @@ public class AccountingDocumentConfirmation extends BaseEntity implements  java.
 		}
 		getAccountingDocumentList().addAll(accountingDocumentList);
 	}
-	
+	public  void mergeAccountingDocumentList(SmartList<AccountingDocument> accountingDocumentList){
+		if(accountingDocumentList==null){
+			return;
+		}
+		if(accountingDocumentList.isEmpty()){
+			return;
+		}
+		addAccountingDocumentList( accountingDocumentList );
+		
+	}
 	public  AccountingDocument removeAccountingDocument(AccountingDocument accountingDocumentIndex){
 		
 		int index = getAccountingDocumentList().indexOf(accountingDocumentIndex);
@@ -361,6 +385,25 @@ public class AccountingDocumentConfirmation extends BaseEntity implements  java.
 			dest.setMakeDate(getMakeDate());
 			dest.setVersion(getVersion());
 			dest.setAccountingDocumentList(getAccountingDocumentList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountingDocumentConfirmation){
+		
+			
+			AccountingDocumentConfirmation dest =(AccountingDocumentConfirmation)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeComments(getComments());
+			dest.mergeMakeDate(getMakeDate());
+			dest.mergeVersion(getVersion());
+			dest.mergeAccountingDocumentList(getAccountingDocumentList());
 
 		}
 		super.copyTo(baseDest);

@@ -26,4 +26,8 @@ bin/*
 output/*
 lib/*
 WEB-INF/lib/*
+.history
+.gradle
+classes/*
+.vscode/sftp.json
 

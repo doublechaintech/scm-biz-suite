@@ -38,6 +38,15 @@ public class AccountingDocumentTokens extends CommonTokens{
 	protected AccountingDocumentTokens(){
 		//ensure not initialized outside the class
 	}
+	public  static  AccountingDocumentTokens of(Map<String,Object> options){
+		//ensure not initialized outside the class
+		AccountingDocumentTokens tokens = new AccountingDocumentTokens(options);
+		return tokens;
+		
+	}
+	protected AccountingDocumentTokens(Map<String,Object> options){
+		this.options = options;
+	}
 	
 	public AccountingDocumentTokens merge(String [] tokens){
 		this.parseTokens(tokens);
@@ -93,6 +102,11 @@ public class AccountingDocumentTokens extends CommonTokens{
 	}
 	public static Map <String,Object> empty(){
 		return start().done();
+	}
+	
+	public AccountingDocumentTokens analyzeAllLists(){		
+		addSimpleOptions(ALL_LISTS_ANALYZE);
+		return this;
 	}
 
 	protected static final String ACCOUNTINGPERIOD = "accountingPeriod";
@@ -169,7 +183,11 @@ public class AccountingDocumentTokens extends CommonTokens{
 	}
 	public boolean analyzeOriginalVoucherListEnabled(){		
 		
-		return checkOptions(this.options(), ORIGINAL_VOUCHER_LIST+".anaylze");
+		if(checkOptions(this.options(), ORIGINAL_VOUCHER_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountingDocumentTokens extractMoreFromOriginalVoucherList(String idsSeperatedWithComma){		
 		addSimpleOptions(ORIGINAL_VOUCHER_LIST+".extractIds", idsSeperatedWithComma);
@@ -231,7 +249,11 @@ public class AccountingDocumentTokens extends CommonTokens{
 	}
 	public boolean analyzeAccountingDocumentLineListEnabled(){		
 		
-		return checkOptions(this.options(), ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze");
+		if(checkOptions(this.options(), ACCOUNTING_DOCUMENT_LINE_LIST+".anaylze")){
+			return true; //most of the case, should call here
+		}
+		//if not true, then query for global setting
+		return checkOptions(this.options(), ALL_LISTS_ANALYZE);
 	}
 	public AccountingDocumentTokens extractMoreFromAccountingDocumentLineList(String idsSeperatedWithComma){		
 		addSimpleOptions(ACCOUNTING_DOCUMENT_LINE_LIST+".extractIds", idsSeperatedWithComma);

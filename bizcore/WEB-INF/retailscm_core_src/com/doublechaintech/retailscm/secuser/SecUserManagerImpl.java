@@ -375,7 +375,7 @@ public class SecUserManagerImpl extends CustomRetailscmCheckerManager implements
 		return tokens().allTokens()
 		.sortUserAppListWith("id","desc")
 		.sortLoginHistoryListWith("id","desc")
-		.done();
+		.analyzeAllLists().done();
 
 	}
 	protected Map<String,Object> mergedAllTokens(String []tokens){

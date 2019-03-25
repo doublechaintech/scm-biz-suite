@@ -389,9 +389,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractStorageSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeStorageSpaceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,WarehouseTokens.STORAGE_SPACE_LIST+".analyze");
+ 	protected boolean isAnalyzeStorageSpaceListEnabled(Map<String,Object> options){		 		
+ 		return WarehouseTokens.of(options).analyzeStorageSpaceListEnabled();
  	}
 	
 	protected boolean isSaveStorageSpaceListEnabled(Map<String,Object> options){
@@ -404,9 +403,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractSmartPalletListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST);
  	}
- 	protected boolean isAnalyzeSmartPalletListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,WarehouseTokens.SMART_PALLET_LIST+".analyze");
+ 	protected boolean isAnalyzeSmartPalletListEnabled(Map<String,Object> options){		 		
+ 		return WarehouseTokens.of(options).analyzeSmartPalletListEnabled();
  	}
 	
 	protected boolean isSaveSmartPalletListEnabled(Map<String,Object> options){
@@ -419,9 +417,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractSupplierSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeSupplierSpaceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,WarehouseTokens.SUPPLIER_SPACE_LIST+".analyze");
+ 	protected boolean isAnalyzeSupplierSpaceListEnabled(Map<String,Object> options){		 		
+ 		return WarehouseTokens.of(options).analyzeSupplierSpaceListEnabled();
  	}
 	
 	protected boolean isSaveSupplierSpaceListEnabled(Map<String,Object> options){
@@ -434,9 +431,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractReceivingSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeReceivingSpaceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,WarehouseTokens.RECEIVING_SPACE_LIST+".analyze");
+ 	protected boolean isAnalyzeReceivingSpaceListEnabled(Map<String,Object> options){		 		
+ 		return WarehouseTokens.of(options).analyzeReceivingSpaceListEnabled();
  	}
 	
 	protected boolean isSaveReceivingSpaceListEnabled(Map<String,Object> options){
@@ -449,9 +445,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractShippingSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeShippingSpaceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,WarehouseTokens.SHIPPING_SPACE_LIST+".analyze");
+ 	protected boolean isAnalyzeShippingSpaceListEnabled(Map<String,Object> options){		 		
+ 		return WarehouseTokens.of(options).analyzeShippingSpaceListEnabled();
  	}
 	
 	protected boolean isSaveShippingSpaceListEnabled(Map<String,Object> options){
@@ -464,9 +459,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractDamageSpaceListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST);
  	}
- 	protected boolean isAnalyzeDamageSpaceListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,WarehouseTokens.DAMAGE_SPACE_LIST+".analyze");
+ 	protected boolean isAnalyzeDamageSpaceListEnabled(Map<String,Object> options){		 		
+ 		return WarehouseTokens.of(options).analyzeDamageSpaceListEnabled();
  	}
 	
 	protected boolean isSaveDamageSpaceListEnabled(Map<String,Object> options){
@@ -479,9 +473,8 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	protected boolean isExtractWarehouseAssetListEnabled(Map<String,Object> options){		
  		return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST);
  	}
- 	protected boolean isAnalyzeWarehouseAssetListEnabled(Map<String,Object> options){		
- 		return true;
- 		//return checkOptions(options,WarehouseTokens.WAREHOUSE_ASSET_LIST+".analyze");
+ 	protected boolean isAnalyzeWarehouseAssetListEnabled(Map<String,Object> options){		 		
+ 		return WarehouseTokens.of(options).analyzeWarehouseAssetListEnabled();
  	}
 	
 	protected boolean isSaveWarehouseAssetListEnabled(Map<String,Object> options){

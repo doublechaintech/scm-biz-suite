@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 /*
  * 
@@ -128,7 +129,10 @@ public class SmartList<E  extends BaseEntity> extends BaseEntity implements List
 		ensureSmartList();
 		return smartList.size();
 	}
-
+	public Stream<E> stream() {
+		ensureSmartList();
+		return smartList.stream();
+	}
 	public boolean isEmpty() {
 		ensureSmartList();
 		return smartList.isEmpty();

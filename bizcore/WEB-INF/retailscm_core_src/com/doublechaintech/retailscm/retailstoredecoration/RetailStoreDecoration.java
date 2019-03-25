@@ -109,6 +109,9 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeId(String id){
+		if(id != null) { setId(id);}
+	}
 	
 	
 	public void setComment(String comment){
@@ -122,6 +125,9 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		this.changed = true;
 		return this;
 	}
+	public void mergeComment(String comment){
+		if(comment != null) { setComment(comment);}
+	}
 	
 	
 	public void setVersion(int version){
@@ -134,6 +140,9 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		this.mVersion = version;;
 		this.changed = true;
 		return this;
+	}
+	public void mergeVersion(int version){
+		setVersion(version);
 	}
 	
 	
@@ -167,7 +176,16 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 		}
 		getRetailStoreList().addAll(retailStoreList);
 	}
-	
+	public  void mergeRetailStoreList(SmartList<RetailStore> retailStoreList){
+		if(retailStoreList==null){
+			return;
+		}
+		if(retailStoreList.isEmpty()){
+			return;
+		}
+		addRetailStoreList( retailStoreList );
+		
+	}
 	public  RetailStore removeRetailStore(RetailStore retailStoreIndex){
 		
 		int index = getRetailStoreList().indexOf(retailStoreIndex);
@@ -289,6 +307,23 @@ public class RetailStoreDecoration extends BaseEntity implements  java.io.Serial
 			dest.setComment(getComment());
 			dest.setVersion(getVersion());
 			dest.setRetailStoreList(getRetailStoreList());
+
+		}
+		super.copyTo(baseDest);
+		return baseDest;
+	}
+	public BaseEntity mergeDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreDecoration){
+		
+			
+			RetailStoreDecoration dest =(RetailStoreDecoration)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeComment(getComment());
+			dest.mergeVersion(getVersion());
+			dest.mergeRetailStoreList(getRetailStoreList());
 
 		}
 		super.copyTo(baseDest);
