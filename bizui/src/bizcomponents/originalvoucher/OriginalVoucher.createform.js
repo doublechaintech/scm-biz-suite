@@ -9,7 +9,7 @@ import styles from './OriginalVoucher.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import OriginalVoucherBase from './OriginalVoucher.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -71,7 +71,7 @@ class OriginalVoucherCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = OriginalVoucherBase
     const {OriginalVoucherService} = GlobalComponents
@@ -120,9 +120,10 @@ class OriginalVoucherCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'originalVoucher',listName:'原始凭证列表' },
+        payload: { id: owner.id, type: 'originalVoucher',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -153,7 +154,7 @@ class OriginalVoucherCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -197,18 +198,18 @@ class OriginalVoucherCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个原始凭证"
-        content="新建一个原始凭证"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入头衔" />
                   )}
@@ -218,7 +219,7 @@ class OriginalVoucherCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.madeBy} {...formItemLayout}>
                   {getFieldDecorator('madeBy', {
-                    rules: [{ required: true, message: '请输入由' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入由" />
                   )}
@@ -228,7 +229,7 @@ class OriginalVoucherCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.receivedBy} {...formItemLayout}>
                   {getFieldDecorator('receivedBy', {
-                    rules: [{ required: true, message: '请输入受' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入受" />
                   )}
@@ -238,7 +239,7 @@ class OriginalVoucherCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.voucherType} {...formItemLayout}>
                   {getFieldDecorator('voucherType', {
-                    rules: [{ required: true, message: '请输入凭证类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入凭证类型" />
                   )}
@@ -260,7 +261,7 @@ class OriginalVoucherCreateForm extends Component {
 
 
 
-        <Card title="附件" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Attachment")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -279,7 +280,7 @@ class OriginalVoucherCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -287,7 +288,7 @@ class OriginalVoucherCreateForm extends Component {
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
-                    rules: [{ required: true, message: '请输入属于' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -307,13 +308,13 @@ class OriginalVoucherCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

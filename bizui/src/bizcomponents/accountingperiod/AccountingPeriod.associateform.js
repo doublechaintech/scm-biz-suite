@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountingPeriodBase from './AccountingPeriod.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2018-03-09',
-  endDate: '2016-08-21',
+  startDate: '2017-06-01',
+  endDate: '2018-08-19',
   accountSetId: 'AS000001',
 }
 */
@@ -73,6 +73,8 @@ class AccountingPeriodAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {AccountingPeriodService} = GlobalComponents
+    const userContext = null
+    
  const {AccountingDocumentModalTable} = GlobalComponents;
 
 
@@ -120,24 +122,24 @@ class AccountingPeriodAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -147,7 +149,7 @@ class AccountingPeriodAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.startDate} {...formItemLayout}>
                   {getFieldDecorator('startDate', {
-                    rules: [{ required: true, message: '请输入开始日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入开始日期" />
                   )}
@@ -157,7 +159,7 @@ class AccountingPeriodAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.endDate} {...formItemLayout}>
                   {getFieldDecorator('endDate', {
-                    rules: [{ required: true, message: '请输入结束日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入结束日期" />
                   )}
@@ -185,7 +187,7 @@ class AccountingPeriodAssociateForm extends Component {
                 <Form.Item label={fieldLabels.accountSet} {...formItemLayout}>
                   {getFieldDecorator('accountSetId', {
                   	initialValue: tryinit('accountSet'),
-                    rules: [{ required: true, message: '请输入账套' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('accountSet')}

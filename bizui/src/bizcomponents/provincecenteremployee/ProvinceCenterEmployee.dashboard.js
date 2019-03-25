@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,7 +76,7 @@ const internalSummaryOf = (provinceCenterEmployee,targetComponent) =>{
 	
 	
 	const {ProvinceCenterEmployeeService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{provinceCenterEmployee.id}</Description> 
@@ -84,13 +84,13 @@ const internalSummaryOf = (provinceCenterEmployee,targetComponent) =>{
 <Description term="手机">{provinceCenterEmployee.mobile}</Description> 
 <Description term="电子邮件">{provinceCenterEmployee.email}</Description> 
 <Description term="成立">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="部门">{provinceCenterEmployee.department==null?"未分配":provinceCenterEmployee.department.displayName}
+<Description term="部门">{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"部门","provinceCenterDepartment",ProvinceCenterEmployeeService.requestCandidateDepartment,
 	      ProvinceCenterEmployeeService.transferToAnotherDepartment,"anotherDepartmentId",provinceCenterEmployee.department?provinceCenterEmployee.department.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="省中心">{provinceCenterEmployee.provinceCenter==null?"未分配":provinceCenterEmployee.provinceCenter.displayName}
+<Description term="省中心">{provinceCenterEmployee.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.provinceCenter.displayName}(${provinceCenterEmployee.provinceCenter.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"省中心","retailStoreProvinceCenter",ProvinceCenterEmployeeService.requestCandidateProvinceCenter,
 	      ProvinceCenterEmployeeService.transferToAnotherProvinceCenter,"anotherProvinceCenterId",provinceCenterEmployee.provinceCenter?provinceCenterEmployee.provinceCenter.id:"")} 
@@ -111,7 +111,7 @@ class ProvinceCenterEmployeeDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -138,7 +138,6 @@ class ProvinceCenterEmployeeDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -77,7 +77,7 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 	
 	
 	const {OriginalVoucherService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{originalVoucher.id}</Description> 
@@ -85,7 +85,7 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 <Description term="由">{originalVoucher.madeBy}</Description> 
 <Description term="受">{originalVoucher.receivedBy}</Description> 
 <Description term="凭证类型">{originalVoucher.voucherType}</Description> 
-<Description term="属于">{originalVoucher.belongsTo==null?"未分配":originalVoucher.belongsTo.displayName}
+<Description term="属于">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,
 	      OriginalVoucherService.transferToAnotherBelongsTo,"anotherBelongsToId",originalVoucher.belongsTo?originalVoucher.belongsTo.id:"")} 
@@ -107,7 +107,7 @@ class OriginalVoucherDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -134,7 +134,6 @@ class OriginalVoucherDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

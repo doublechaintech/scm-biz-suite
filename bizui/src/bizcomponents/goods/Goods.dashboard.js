@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,7 +76,7 @@ const internalSummaryOf = (goods,targetComponent) =>{
 	
 	
 	const {GoodsService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{goods.id}</Description> 
@@ -85,55 +85,55 @@ const internalSummaryOf = (goods,targetComponent) =>{
 <Description term="计量单位">{goods.uom}</Description> 
 <Description term="最大包装">{goods.maxPackage}</Description> 
 <Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
-<Description term="SKU">{goods.sku==null?"未分配":goods.sku.displayName}
+<Description term="SKU">{goods.sku==null?appLocaleName(userContext,"NotAssigned"):`${goods.sku.displayName}(${goods.sku.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"SKU","sku",GoodsService.requestCandidateSku,
 	      GoodsService.transferToAnotherSku,"anotherSkuId",goods.sku?goods.sku.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="收货区">{goods.receivingSpace==null?"未分配":goods.receivingSpace.displayName}
+<Description term="收货区">{goods.receivingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.receivingSpace.displayName}(${goods.receivingSpace.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"收货区","receivingSpace",GoodsService.requestCandidateReceivingSpace,
 	      GoodsService.transferToAnotherReceivingSpace,"anotherReceivingSpaceId",goods.receivingSpace?goods.receivingSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="货位">{goods.goodsAllocation==null?"未分配":goods.goodsAllocation.displayName}
+<Description term="货位">{goods.goodsAllocation==null?appLocaleName(userContext,"NotAssigned"):`${goods.goodsAllocation.displayName}(${goods.goodsAllocation.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"货位","goodsAllocation",GoodsService.requestCandidateGoodsAllocation,
 	      GoodsService.transferToAnotherGoodsAllocation,"anotherGoodsAllocationId",goods.goodsAllocation?goods.goodsAllocation.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="智能托盘">{goods.smartPallet==null?"未分配":goods.smartPallet.displayName}
+<Description term="智能托盘">{goods.smartPallet==null?appLocaleName(userContext,"NotAssigned"):`${goods.smartPallet.displayName}(${goods.smartPallet.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"智能托盘","smartPallet",GoodsService.requestCandidateSmartPallet,
 	      GoodsService.transferToAnotherSmartPallet,"anotherSmartPalletId",goods.smartPallet?goods.smartPallet.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="发货区">{goods.shippingSpace==null?"未分配":goods.shippingSpace.displayName}
+<Description term="发货区">{goods.shippingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.shippingSpace.displayName}(${goods.shippingSpace.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"发货区","shippingSpace",GoodsService.requestCandidateShippingSpace,
 	      GoodsService.transferToAnotherShippingSpace,"anotherShippingSpaceId",goods.shippingSpace?goods.shippingSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="运输任务">{goods.transportTask==null?"未分配":goods.transportTask.displayName}
+<Description term="运输任务">{goods.transportTask==null?appLocaleName(userContext,"NotAssigned"):`${goods.transportTask.displayName}(${goods.transportTask.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"运输任务","transportTask",GoodsService.requestCandidateTransportTask,
 	      GoodsService.transferToAnotherTransportTask,"anotherTransportTaskId",goods.transportTask?goods.transportTask.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="双链小超">{goods.retailStore==null?"未分配":goods.retailStore.displayName}
+<Description term="双链小超">{goods.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStore.displayName}(${goods.retailStore.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"双链小超","retailStore",GoodsService.requestCandidateRetailStore,
 	      GoodsService.transferToAnotherRetailStore,"anotherRetailStoreId",goods.retailStore?goods.retailStore.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="订单">{goods.bizOrder==null?"未分配":goods.bizOrder.displayName}
+<Description term="订单">{goods.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.bizOrder.displayName}(${goods.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","supplyOrder",GoodsService.requestCandidateBizOrder,
 	      GoodsService.transferToAnotherBizOrder,"anotherBizOrderId",goods.bizOrder?goods.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="生超的订单">{goods.retailStoreOrder==null?"未分配":goods.retailStoreOrder.displayName}
+<Description term="生超的订单">{goods.retailStoreOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStoreOrder.displayName}(${goods.retailStoreOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"生超的订单","retailStoreOrder",GoodsService.requestCandidateRetailStoreOrder,
 	      GoodsService.transferToAnotherRetailStoreOrder,"anotherRetailStoreOrderId",goods.retailStoreOrder?goods.retailStoreOrder.id:"")} 
@@ -155,7 +155,7 @@ class GoodsDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -183,7 +183,6 @@ class GoodsDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

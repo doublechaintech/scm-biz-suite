@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,17 +76,17 @@ const internalSummaryOf = (employeeSkill,targetComponent) =>{
 	
 	
 	const {EmployeeSkillService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{employeeSkill.id}</Description> 
-<Description term="员工">{employeeSkill.employee==null?"未分配":employeeSkill.employee.displayName}
+<Description term="员工">{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeSkillService.requestCandidateEmployee,
 	      EmployeeSkillService.transferToAnotherEmployee,"anotherEmployeeId",employeeSkill.employee?employeeSkill.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="技能类型">{employeeSkill.skillType==null?"未分配":employeeSkill.skillType.displayName}
+<Description term="技能类型">{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.skillType.displayName}(${employeeSkill.skillType.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"技能类型","skillType",EmployeeSkillService.requestCandidateSkillType,
 	      EmployeeSkillService.transferToAnotherSkillType,"anotherSkillTypeId",employeeSkill.skillType?employeeSkill.skillType.id:"")} 
@@ -108,7 +108,7 @@ class EmployeeSkillDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -135,7 +135,6 @@ class EmployeeSkillDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

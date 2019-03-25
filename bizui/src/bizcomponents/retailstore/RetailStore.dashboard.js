@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,14 +76,14 @@ const internalSummaryOf = (retailStore,targetComponent) =>{
 	
 	
 	const {RetailStoreService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{retailStore.id}</Description> 
 <Description term="名称">{retailStore.name}</Description> 
 <Description term="电话">{retailStore.telephone}</Description> 
 <Description term="业主">{retailStore.owner}</Description> 
-<Description term="城市服务中心">{retailStore.cityServiceCenter==null?"未分配":retailStore.cityServiceCenter.displayName}
+<Description term="城市服务中心">{retailStore.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${retailStore.cityServiceCenter.displayName}(${retailStore.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",RetailStoreService.requestCandidateCityServiceCenter,
 	      RetailStoreService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",retailStore.cityServiceCenter?retailStore.cityServiceCenter.id:"")} 
@@ -110,7 +110,7 @@ class RetailStoreDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -142,7 +142,6 @@ class RetailStoreDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

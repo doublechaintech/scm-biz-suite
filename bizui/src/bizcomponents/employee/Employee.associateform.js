@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeBase from './Employee.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -82,6 +82,8 @@ class EmployeeAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {EmployeeService} = GlobalComponents
+    const userContext = null
+    
  const {EmployeeCompanyTrainingModalTable} = GlobalComponents;
  const {EmployeeSkillModalTable} = GlobalComponents;
  const {EmployeePerformanceModalTable} = GlobalComponents;
@@ -140,24 +142,24 @@ class EmployeeAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入头衔" />
                   )}
@@ -167,7 +169,7 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.familyName} {...formItemLayout}>
                   {getFieldDecorator('familyName', {
-                    rules: [{ required: true, message: '请输入姓' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入姓" />
                   )}
@@ -177,7 +179,7 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.givenName} {...formItemLayout}>
                   {getFieldDecorator('givenName', {
-                    rules: [{ required: true, message: '请输入名' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名" />
                   )}
@@ -187,7 +189,7 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
-                    rules: [{ required: true, message: '请输入电子邮件' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入电子邮件" />
                   )}
@@ -197,7 +199,7 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.city} {...formItemLayout}>
                   {getFieldDecorator('city', {
-                    rules: [{ required: true, message: '请输入城市' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入城市" />
                   )}
@@ -207,7 +209,7 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.address} {...formItemLayout}>
                   {getFieldDecorator('address', {
-                    rules: [{ required: true, message: '请输入地址' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入地址" />
                   )}
@@ -217,7 +219,7 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.cellPhone} {...formItemLayout}>
                   {getFieldDecorator('cellPhone', {
-                    rules: [{ required: true, message: '请输入手机' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入手机" />
                   )}
@@ -227,7 +229,7 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.salaryAccount} {...formItemLayout}>
                   {getFieldDecorator('salaryAccount', {
-                    rules: [{ required: true, message: '请输入工资账户' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入工资账户" />
                   )}
@@ -255,7 +257,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.company} {...formItemLayout}>
                   {getFieldDecorator('companyId', {
                   	initialValue: tryinit('company'),
-                    rules: [{ required: true, message: '请输入公司' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('company')}
@@ -270,7 +272,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.department} {...formItemLayout}>
                   {getFieldDecorator('departmentId', {
                   	initialValue: tryinit('department'),
-                    rules: [{ required: true, message: '请输入部门' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('department')}
@@ -285,7 +287,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.occupation} {...formItemLayout}>
                   {getFieldDecorator('occupationId', {
                   	initialValue: tryinit('occupation'),
-                    rules: [{ required: true, message: '请输入职业' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('occupation')}
@@ -300,7 +302,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.responsibleFor} {...formItemLayout}>
                   {getFieldDecorator('responsibleForId', {
                   	initialValue: tryinit('responsibleFor'),
-                    rules: [{ required: true, message: '请输入负责' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('responsibleFor')}
@@ -315,7 +317,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.currentSalaryGrade} {...formItemLayout}>
                   {getFieldDecorator('currentSalaryGradeId', {
                   	initialValue: tryinit('currentSalaryGrade'),
-                    rules: [{ required: true, message: '请输入目前工资等级' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('currentSalaryGrade')}

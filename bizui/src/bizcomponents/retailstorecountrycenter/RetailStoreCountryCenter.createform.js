@@ -9,7 +9,7 @@ import styles from './RetailStoreCountryCenter.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreCountryCenterBase from './RetailStoreCountryCenter.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
-  founded: '2017-12-26',
+  founded: '2016-09-30',
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',
@@ -73,7 +73,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = RetailStoreCountryCenterBase
     const {RetailStoreCountryCenterService} = GlobalComponents
@@ -122,9 +122,10 @@ class RetailStoreCountryCenterCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'retailStoreCountryCenter',listName:'双链小超全国运营中心列表' },
+        payload: { id: owner.id, type: 'retailStoreCountryCenter',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -155,7 +156,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -199,18 +200,18 @@ class RetailStoreCountryCenterCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个双链小超全国运营中心"
-        content="新建一个双链小超全国运营中心"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -220,7 +221,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.serviceNumber} {...formItemLayout}>
                   {getFieldDecorator('serviceNumber', {
-                    rules: [{ required: true, message: '请输入服务号码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入服务号码" />
                   )}
@@ -230,7 +231,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
-                    rules: [{ required: true, message: '请输入成立' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
@@ -240,7 +241,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.webSite} {...formItemLayout}>
                   {getFieldDecorator('webSite', {
-                    rules: [{ required: true, message: '请输入网站' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入网站" />
                   )}
@@ -250,7 +251,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.address} {...formItemLayout}>
                   {getFieldDecorator('address', {
-                    rules: [{ required: true, message: '请输入地址' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入地址" />
                   )}
@@ -260,7 +261,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.operatedBy} {...formItemLayout}>
                   {getFieldDecorator('operatedBy', {
-                    rules: [{ required: true, message: '请输入由' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入由" />
                   )}
@@ -270,7 +271,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.legalRepresentative} {...formItemLayout}>
                   {getFieldDecorator('legalRepresentative', {
-                    rules: [{ required: true, message: '请输入法定代表人' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入法定代表人" />
                   )}
@@ -280,7 +281,7 @@ class RetailStoreCountryCenterCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
-                    rules: [{ required: true, message: '请输入描述' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入描述" />
                   )}
@@ -307,13 +308,13 @@ class RetailStoreCountryCenterCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

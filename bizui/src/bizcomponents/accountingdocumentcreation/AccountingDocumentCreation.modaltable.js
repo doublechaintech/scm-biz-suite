@@ -5,14 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './AccountingDocumentCreation.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import AccountingDocumentCreationBase from './AccountingDocumentCreation.base'
-
+import appLocaleName from '../../common/Locale.tool'
 
 class AccountingDocumentCreationModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = AccountingDocumentCreationBase
-	
+	const userContext = null
 	if(!data){
 		return null
 	}
@@ -26,7 +26,7 @@ class AccountingDocumentCreationModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
               </p>
             )}
             type="warning"

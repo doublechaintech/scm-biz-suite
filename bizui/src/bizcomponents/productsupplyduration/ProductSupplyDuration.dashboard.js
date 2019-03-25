@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,14 +76,14 @@ const internalSummaryOf = (productSupplyDuration,targetComponent) =>{
 	
 	
 	const {ProductSupplyDurationService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{productSupplyDuration.id}</Description> 
 <Description term="数量">{productSupplyDuration.quantity}</Description> 
 <Description term="持续时间">{productSupplyDuration.duration}</Description> 
 <Description term="价格">{productSupplyDuration.price}</Description> 
-<Description term="产品">{productSupplyDuration.product==null?"未分配":productSupplyDuration.product.displayName}
+<Description term="产品">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"产品","supplierProduct",ProductSupplyDurationService.requestCandidateProduct,
 	      ProductSupplyDurationService.transferToAnotherProduct,"anotherProductId",productSupplyDuration.product?productSupplyDuration.product.id:"")} 
@@ -104,7 +104,7 @@ class ProductSupplyDurationDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -131,7 +131,6 @@ class ProductSupplyDurationDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

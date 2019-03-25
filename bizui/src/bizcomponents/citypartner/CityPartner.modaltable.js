@@ -5,14 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './CityPartner.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import CityPartnerBase from './CityPartner.base'
-
+import appLocaleName from '../../common/Locale.tool'
 
 class CityPartnerModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = CityPartnerBase
-	
+	const userContext = null
 	if(!data){
 		return null
 	}
@@ -26,7 +26,7 @@ class CityPartnerModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
               </p>
             )}
             type="warning"

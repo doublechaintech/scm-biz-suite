@@ -9,7 +9,7 @@ import styles from './EmployeeLeave.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeLeaveBase from './EmployeeLeave.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -69,7 +69,7 @@ class EmployeeLeaveCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeLeaveBase
     const {EmployeeLeaveService} = GlobalComponents
@@ -118,9 +118,10 @@ class EmployeeLeaveCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'employeeLeave',listName:'请假记录列表' },
+        payload: { id: owner.id, type: 'employeeLeave',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -151,7 +152,7 @@ class EmployeeLeaveCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -195,18 +196,18 @@ class EmployeeLeaveCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个请假记录"
-        content="新建一个请假记录"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.leaveDurationHour} {...formItemLayout}>
                   {getFieldDecorator('leaveDurationHour', {
-                    rules: [{ required: true, message: '请输入请假时长' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入请假时长" />
                   )}
@@ -216,7 +217,7 @@ class EmployeeLeaveCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.remark} {...formItemLayout}>
                   {getFieldDecorator('remark', {
-                    rules: [{ required: true, message: '请输入备注' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入备注" />
                   )}
@@ -240,7 +241,7 @@ class EmployeeLeaveCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -248,7 +249,7 @@ class EmployeeLeaveCreateForm extends Component {
                 <Form.Item label={fieldLabels.who} {...formItemLayout}>
                   {getFieldDecorator('whoId', {
                   	initialValue: tryinit('who'),
-                    rules: [{ required: true, message: '请输入谁' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -265,7 +266,7 @@ class EmployeeLeaveCreateForm extends Component {
                 <Form.Item label={fieldLabels.type} {...formItemLayout}>
                   {getFieldDecorator('typeId', {
                   	initialValue: tryinit('type'),
-                    rules: [{ required: true, message: '请输入类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -285,13 +286,13 @@ class EmployeeLeaveCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

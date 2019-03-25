@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,13 +76,13 @@ const internalSummaryOf = (memberRewardPoint,targetComponent) =>{
 	
 	
 	const {MemberRewardPointService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{memberRewardPoint.id}</Description> 
 <Description term="名称">{memberRewardPoint.name}</Description> 
 <Description term="点">{memberRewardPoint.point}</Description> 
-<Description term="业主">{memberRewardPoint.owner==null?"未分配":memberRewardPoint.owner.displayName}
+<Description term="业主">{memberRewardPoint.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPoint.owner.displayName}(${memberRewardPoint.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","retailStoreMember",MemberRewardPointService.requestCandidateOwner,
 	      MemberRewardPointService.transferToAnotherOwner,"anotherOwnerId",memberRewardPoint.owner?memberRewardPoint.owner.id:"")} 
@@ -103,7 +103,7 @@ class MemberRewardPointDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -130,7 +130,6 @@ class MemberRewardPointDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

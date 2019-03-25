@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SupplierProductBase from './SupplierProduct.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -73,6 +73,8 @@ class SupplierProductAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {SupplierProductService} = GlobalComponents
+    const userContext = null
+    
  const {ProductSupplyDurationModalTable} = GlobalComponents;
 
 
@@ -120,24 +122,24 @@ class SupplierProductAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.productName} {...formItemLayout}>
                   {getFieldDecorator('productName', {
-                    rules: [{ required: true, message: '请输入品名' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入品名" />
                   )}
@@ -147,7 +149,7 @@ class SupplierProductAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.productDescription} {...formItemLayout}>
                   {getFieldDecorator('productDescription', {
-                    rules: [{ required: true, message: '请输入产品描述' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入产品描述" />
                   )}
@@ -157,7 +159,7 @@ class SupplierProductAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.productUnit} {...formItemLayout}>
                   {getFieldDecorator('productUnit', {
-                    rules: [{ required: true, message: '请输入产品单元' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入产品单元" />
                   )}
@@ -185,7 +187,7 @@ class SupplierProductAssociateForm extends Component {
                 <Form.Item label={fieldLabels.supplier} {...formItemLayout}>
                   {getFieldDecorator('supplierId', {
                   	initialValue: tryinit('supplier'),
-                    rules: [{ required: true, message: '请输入供应商' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('supplier')}

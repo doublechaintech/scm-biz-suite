@@ -7,6 +7,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 import styles from './ObjectAccess.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
+import appLocaleName from '../../common/Locale.tool'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -174,6 +175,7 @@ componentDidMount() {
       
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
+    const userContext = null
     const {ObjectAccessService} = GlobalComponents
     const tryinit  = (fieldName) => {
       const { owner } = this.props
@@ -199,7 +201,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input placeholder="请输入序号" />
+             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -207,16 +209,16 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input placeholder="请输入名称" />
+             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
 
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
-              <Button type="primary" htmlType="submit">查询</Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> 展开 <Icon type="down" /> </a>
+              <Button type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
+              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> {appLocaleName(userContext,"Expand")} <Icon type="down" /> </a>
             </span>
           </Col>
         </Row>
@@ -226,7 +228,7 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {ObjectAccessService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
-    
+    const userContext = null
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       const { referenceName } = owner
@@ -254,7 +256,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input placeholder="请输入序号" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -262,7 +264,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input placeholder="请输入名称" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -270,7 +272,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="对象类型">
               {getFieldDecorator('objectType')(
-                <Input placeholder="请输入对象类型" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -278,7 +280,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="表">
               {getFieldDecorator('list1')(
-                <Input placeholder="请输入表" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -286,7 +288,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="清单">
               {getFieldDecorator('list2')(
-                <Input placeholder="请输入清单" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -294,7 +296,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="目录3">
               {getFieldDecorator('list3')(
-                <Input placeholder="请输入目录3" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -302,7 +304,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="清单">
               {getFieldDecorator('list4')(
-                <Input placeholder="请输入清单" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -310,7 +312,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表6">
               {getFieldDecorator('list5')(
-                <Input placeholder="请输入列表6" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -318,7 +320,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="list6">
               {getFieldDecorator('list6')(
-                <Input placeholder="请输入list6" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -326,7 +328,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="list7">
               {getFieldDecorator('list7')(
-                <Input placeholder="请输入list7" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -334,7 +336,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="list8">
               {getFieldDecorator('list8')(
-                <Input placeholder="请输入list8" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -342,7 +344,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="list9">
               {getFieldDecorator('list9')(
-                <Input placeholder="请输入list9" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -365,9 +367,9 @@ componentDidMount() {
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
-            <Button type="primary" htmlType="submit">查询</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>收起 <Icon type="up" /></a>
+            <Button type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
+            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>{appLocaleName(userContext,"Collapse")} <Icon type="up" /></a>
           </span>
         </div>
       </Form>

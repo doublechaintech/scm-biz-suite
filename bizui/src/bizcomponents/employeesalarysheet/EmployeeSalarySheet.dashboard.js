@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,17 +76,17 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 	
 	
 	const {EmployeeSalarySheetService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{employeeSalarySheet.id}</Description> 
-<Description term="员工">{employeeSalarySheet.employee==null?"未分配":employeeSalarySheet.employee.displayName}
+<Description term="员工">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeSalarySheetService.requestCandidateEmployee,
 	      EmployeeSalarySheetService.transferToAnotherEmployee,"anotherEmployeeId",employeeSalarySheet.employee?employeeSalarySheet.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="目前工资等级">{employeeSalarySheet.currentSalaryGrade==null?"未分配":employeeSalarySheet.currentSalaryGrade.displayName}
+<Description term="目前工资等级">{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"目前工资等级","salaryGrade",EmployeeSalarySheetService.requestCandidateCurrentSalaryGrade,
 	      EmployeeSalarySheetService.transferToAnotherCurrentSalaryGrade,"anotherCurrentSalaryGradeId",employeeSalarySheet.currentSalaryGrade?employeeSalarySheet.currentSalaryGrade.id:"")} 
@@ -99,7 +99,7 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 <Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
 <Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
 <Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
-<Description term="工资支付">{employeeSalarySheet.payingOff==null?"未分配":employeeSalarySheet.payingOff.displayName}
+<Description term="工资支付">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"工资支付","payingOff",EmployeeSalarySheetService.requestCandidatePayingOff,
 	      EmployeeSalarySheetService.transferToAnotherPayingOff,"anotherPayingOffId",employeeSalarySheet.payingOff?employeeSalarySheet.payingOff.id:"")} 
@@ -121,7 +121,7 @@ class EmployeeSalarySheetDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -148,7 +148,6 @@ class EmployeeSalarySheetDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SupplierSpaceBase from './SupplierSpace.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -21,8 +21,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号供货商独立管理区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '40.026460472817654',
-  longitude: '130.88544366839932',
+  latitude: '41.76496810151596',
+  longitude: '131.3049073286336',
   warehouseId: 'W000001',
 }
 */
@@ -75,6 +75,8 @@ class SupplierSpaceAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {SupplierSpaceService} = GlobalComponents
+    const userContext = null
+    
  const {GoodsShelfModalTable} = GlobalComponents;
 
 
@@ -122,24 +124,24 @@ class SupplierSpaceAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.location} {...formItemLayout}>
                   {getFieldDecorator('location', {
-                    rules: [{ required: true, message: '请输入位置' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入位置" />
                   )}
@@ -149,7 +151,7 @@ class SupplierSpaceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.contactNumber} {...formItemLayout}>
                   {getFieldDecorator('contactNumber', {
-                    rules: [{ required: true, message: '请输入联系电话' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入联系电话" />
                   )}
@@ -159,7 +161,7 @@ class SupplierSpaceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.totalArea} {...formItemLayout}>
                   {getFieldDecorator('totalArea', {
-                    rules: [{ required: true, message: '请输入总面积' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入总面积" />
                   )}
@@ -169,7 +171,7 @@ class SupplierSpaceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
-                    rules: [{ required: true, message: '请输入纬度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入纬度" />
                   )}
@@ -179,7 +181,7 @@ class SupplierSpaceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
-                    rules: [{ required: true, message: '请输入经度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入经度" />
                   )}
@@ -207,7 +209,7 @@ class SupplierSpaceAssociateForm extends Component {
                 <Form.Item label={fieldLabels.warehouse} {...formItemLayout}>
                   {getFieldDecorator('warehouseId', {
                   	initialValue: tryinit('warehouse'),
-                    rules: [{ required: true, message: '请输入仓库' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('warehouse')}

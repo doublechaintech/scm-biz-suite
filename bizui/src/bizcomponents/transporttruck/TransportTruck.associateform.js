@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import TransportTruckBase from './TransportTruck.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -23,7 +23,7 @@ const testValues = {
   contactNumber: '02887654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2017-11-27',
+  makeDate: '2019-01-20',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -78,6 +78,8 @@ class TransportTruckAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {TransportTruckService} = GlobalComponents
+    const userContext = null
+    
  const {TransportTaskModalTable} = GlobalComponents;
 
 
@@ -125,24 +127,24 @@ class TransportTruckAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -152,7 +154,7 @@ class TransportTruckAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.plateNumber} {...formItemLayout}>
                   {getFieldDecorator('plateNumber', {
-                    rules: [{ required: true, message: '请输入车牌号码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入车牌号码" />
                   )}
@@ -162,7 +164,7 @@ class TransportTruckAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.contactNumber} {...formItemLayout}>
                   {getFieldDecorator('contactNumber', {
-                    rules: [{ required: true, message: '请输入联系电话' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入联系电话" />
                   )}
@@ -172,7 +174,7 @@ class TransportTruckAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.vehicleLicenseNumber} {...formItemLayout}>
                   {getFieldDecorator('vehicleLicenseNumber', {
-                    rules: [{ required: true, message: '请输入汽车牌照号码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入汽车牌照号码" />
                   )}
@@ -182,7 +184,7 @@ class TransportTruckAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.engineNumber} {...formItemLayout}>
                   {getFieldDecorator('engineNumber', {
-                    rules: [{ required: true, message: '请输入发动机号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入发动机号" />
                   )}
@@ -192,7 +194,7 @@ class TransportTruckAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.makeDate} {...formItemLayout}>
                   {getFieldDecorator('makeDate', {
-                    rules: [{ required: true, message: '请输入制造日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入制造日期" />
                   )}
@@ -202,7 +204,7 @@ class TransportTruckAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.mileage} {...formItemLayout}>
                   {getFieldDecorator('mileage', {
-                    rules: [{ required: true, message: '请输入里程' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入里程" />
                   )}
@@ -212,7 +214,7 @@ class TransportTruckAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.bodyColor} {...formItemLayout}>
                   {getFieldDecorator('bodyColor', {
-                    rules: [{ required: true, message: '请输入车身颜色' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入车身颜色" />
                   )}
@@ -240,7 +242,7 @@ class TransportTruckAssociateForm extends Component {
                 <Form.Item label={fieldLabels.owner} {...formItemLayout}>
                   {getFieldDecorator('ownerId', {
                   	initialValue: tryinit('owner'),
-                    rules: [{ required: true, message: '请输入业主' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('owner')}

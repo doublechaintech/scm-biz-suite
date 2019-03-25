@@ -5,14 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './RetailStoreDecoration.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import RetailStoreDecorationBase from './RetailStoreDecoration.base'
-
+import appLocaleName from '../../common/Locale.tool'
 
 class RetailStoreDecorationModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = RetailStoreDecorationBase
-	
+	const userContext = null
 	if(!data){
 		return null
 	}
@@ -26,7 +26,7 @@ class RetailStoreDecorationModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
               </p>
             )}
             type="warning"

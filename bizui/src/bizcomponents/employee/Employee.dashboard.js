@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,12 +76,12 @@ const internalSummaryOf = (employee,targetComponent) =>{
 	
 	
 	const {EmployeeService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{employee.id}</Description> 
 <Description term="头衔">{employee.title}</Description> 
-<Description term="部门">{employee.department==null?"未分配":employee.department.displayName}
+<Description term="部门">{employee.department==null?appLocaleName(userContext,"NotAssigned"):`${employee.department.displayName}(${employee.department.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"部门","levelThreeDepartment",EmployeeService.requestCandidateDepartment,
 	      EmployeeService.transferToAnotherDepartment,"anotherDepartmentId",employee.department?employee.department.id:"")} 
@@ -93,26 +93,26 @@ const internalSummaryOf = (employee,targetComponent) =>{
 <Description term="城市">{employee.city}</Description> 
 <Description term="地址">{employee.address}</Description> 
 <Description term="手机">{employee.cellPhone}</Description> 
-<Description term="职业">{employee.occupation==null?"未分配":employee.occupation.displayName}
+<Description term="职业">{employee.occupation==null?appLocaleName(userContext,"NotAssigned"):`${employee.occupation.displayName}(${employee.occupation.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"职业","occupationType",EmployeeService.requestCandidateOccupation,
 	      EmployeeService.transferToAnotherOccupation,"anotherOccupationId",employee.occupation?employee.occupation.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="负责">{employee.responsibleFor==null?"未分配":employee.responsibleFor.displayName}
+<Description term="负责">{employee.responsibleFor==null?appLocaleName(userContext,"NotAssigned"):`${employee.responsibleFor.displayName}(${employee.responsibleFor.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"负责","responsibilityType",EmployeeService.requestCandidateResponsibleFor,
 	      EmployeeService.transferToAnotherResponsibleFor,"anotherResponsibleForId",employee.responsibleFor?employee.responsibleFor.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="目前工资等级">{employee.currentSalaryGrade==null?"未分配":employee.currentSalaryGrade.displayName}
+<Description term="目前工资等级">{employee.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employee.currentSalaryGrade.displayName}(${employee.currentSalaryGrade.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"目前工资等级","salaryGrade",EmployeeService.requestCandidateCurrentSalaryGrade,
 	      EmployeeService.transferToAnotherCurrentSalaryGrade,"anotherCurrentSalaryGradeId",employee.currentSalaryGrade?employee.currentSalaryGrade.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="工资账户">{employee.salaryAccount}</Description> 
-<Description term="雇佣终止">{employee.termination==null?"未分配":employee.termination.displayName}
+<Description term="雇佣终止">{employee.termination==null?appLocaleName(userContext,"NotAssigned"):`${employee.termination.displayName}(${employee.termination.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"雇佣终止","termination",EmployeeService.requestCandidateTermination,
 	      EmployeeService.transferToAnotherTermination,"anotherTerminationId",employee.termination?employee.termination.id:"")} 
@@ -135,7 +135,7 @@ class EmployeeDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -174,7 +174,6 @@ class EmployeeDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

@@ -5,14 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './StorageSpace.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import StorageSpaceBase from './StorageSpace.base'
-
+import appLocaleName from '../../common/Locale.tool'
 
 class StorageSpaceModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = StorageSpaceBase
-	
+	const userContext = null
 	if(!data){
 		return null
 	}
@@ -26,7 +26,7 @@ class StorageSpaceModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
               </p>
             )}
             type="warning"

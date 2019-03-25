@@ -9,7 +9,7 @@ import styles from './EmployeeSalarySheet.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeSalarySheetBase from './EmployeeSalarySheet.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -17,13 +17,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2240.21',
-  bonus: '957.26',
-  reward: '883.64',
-  personalTax: '744.79',
-  socialSecurity: '881.26',
-  housingFound: '949.42',
-  jobInsurance: '6.62',
+  baseSalary: '2180.87',
+  bonus: '731.97',
+  reward: '968.47',
+  personalTax: '690.57',
+  socialSecurity: '1083.31',
+  housingFound: '1222.94',
+  jobInsurance: '8.46',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
 }
@@ -74,7 +74,7 @@ class EmployeeSalarySheetCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeSalarySheetBase
     const {EmployeeSalarySheetService} = GlobalComponents
@@ -123,9 +123,10 @@ class EmployeeSalarySheetCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'employeeSalarySheet',listName:'工资单列表' },
+        payload: { id: owner.id, type: 'employeeSalarySheet',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -156,7 +157,7 @@ class EmployeeSalarySheetCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -200,18 +201,18 @@ class EmployeeSalarySheetCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个工资单"
-        content="新建一个工资单"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.baseSalary} {...formItemLayout}>
                   {getFieldDecorator('baseSalary', {
-                    rules: [{ required: true, message: '请输入基本工资' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入基本工资" />
                   )}
@@ -221,7 +222,7 @@ class EmployeeSalarySheetCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.bonus} {...formItemLayout}>
                   {getFieldDecorator('bonus', {
-                    rules: [{ required: true, message: '请输入奖金' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入奖金" />
                   )}
@@ -231,7 +232,7 @@ class EmployeeSalarySheetCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.reward} {...formItemLayout}>
                   {getFieldDecorator('reward', {
-                    rules: [{ required: true, message: '请输入奖励' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入奖励" />
                   )}
@@ -241,7 +242,7 @@ class EmployeeSalarySheetCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.personalTax} {...formItemLayout}>
                   {getFieldDecorator('personalTax', {
-                    rules: [{ required: true, message: '请输入个人所得税' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入个人所得税" />
                   )}
@@ -251,7 +252,7 @@ class EmployeeSalarySheetCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.socialSecurity} {...formItemLayout}>
                   {getFieldDecorator('socialSecurity', {
-                    rules: [{ required: true, message: '请输入社会保险' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入社会保险" />
                   )}
@@ -261,7 +262,7 @@ class EmployeeSalarySheetCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.housingFound} {...formItemLayout}>
                   {getFieldDecorator('housingFound', {
-                    rules: [{ required: true, message: '请输入住房公积金' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入住房公积金" />
                   )}
@@ -271,7 +272,7 @@ class EmployeeSalarySheetCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.jobInsurance} {...formItemLayout}>
                   {getFieldDecorator('jobInsurance', {
-                    rules: [{ required: true, message: '请输入失业保险' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入失业保险" />
                   )}
@@ -295,7 +296,7 @@ class EmployeeSalarySheetCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -303,7 +304,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
-                    rules: [{ required: true, message: '请输入员工' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -320,7 +321,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                 <Form.Item label={fieldLabels.currentSalaryGrade} {...formItemLayout}>
                   {getFieldDecorator('currentSalaryGradeId', {
                   	initialValue: tryinit('currentSalaryGrade'),
-                    rules: [{ required: true, message: '请输入目前工资等级' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -340,13 +341,13 @@ class EmployeeSalarySheetCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

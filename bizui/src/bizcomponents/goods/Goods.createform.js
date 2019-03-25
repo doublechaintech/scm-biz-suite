@@ -9,7 +9,7 @@ import styles from './Goods.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import GoodsBase from './Goods.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -20,8 +20,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '10',
-  expireTime: '2016-09-09',
+  maxPackage: '9',
+  expireTime: '2017-04-28',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -79,7 +79,7 @@ class GoodsCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = GoodsBase
     const {GoodsService} = GlobalComponents
@@ -128,9 +128,10 @@ class GoodsCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'goods',listName:'货物列表' },
+        payload: { id: owner.id, type: 'goods',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -161,7 +162,7 @@ class GoodsCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -205,18 +206,18 @@ class GoodsCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个货物"
-        content="新建一个货物"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -226,7 +227,7 @@ class GoodsCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.rfid} {...formItemLayout}>
                   {getFieldDecorator('rfid', {
-                    rules: [{ required: true, message: '请输入RFID' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入RFID" />
                   )}
@@ -236,7 +237,7 @@ class GoodsCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.uom} {...formItemLayout}>
                   {getFieldDecorator('uom', {
-                    rules: [{ required: true, message: '请输入计量单位' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入计量单位" />
                   )}
@@ -246,7 +247,7 @@ class GoodsCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.maxPackage} {...formItemLayout}>
                   {getFieldDecorator('maxPackage', {
-                    rules: [{ required: true, message: '请输入最大包装' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入最大包装" />
                   )}
@@ -256,7 +257,7 @@ class GoodsCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.expireTime} {...formItemLayout}>
                   {getFieldDecorator('expireTime', {
-                    rules: [{ required: true, message: '请输入到期时间' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入到期时间" />
                   )}
@@ -280,7 +281,7 @@ class GoodsCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -288,7 +289,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.sku} {...formItemLayout}>
                   {getFieldDecorator('skuId', {
                   	initialValue: tryinit('sku'),
-                    rules: [{ required: true, message: '请输入SKU' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -305,7 +306,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.receivingSpace} {...formItemLayout}>
                   {getFieldDecorator('receivingSpaceId', {
                   	initialValue: tryinit('receivingSpace'),
-                    rules: [{ required: true, message: '请输入收货区' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -322,7 +323,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.goodsAllocation} {...formItemLayout}>
                   {getFieldDecorator('goodsAllocationId', {
                   	initialValue: tryinit('goodsAllocation'),
-                    rules: [{ required: true, message: '请输入货位' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -339,7 +340,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.smartPallet} {...formItemLayout}>
                   {getFieldDecorator('smartPalletId', {
                   	initialValue: tryinit('smartPallet'),
-                    rules: [{ required: true, message: '请输入智能托盘' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -356,7 +357,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.shippingSpace} {...formItemLayout}>
                   {getFieldDecorator('shippingSpaceId', {
                   	initialValue: tryinit('shippingSpace'),
-                    rules: [{ required: true, message: '请输入发货区' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -373,7 +374,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.transportTask} {...formItemLayout}>
                   {getFieldDecorator('transportTaskId', {
                   	initialValue: tryinit('transportTask'),
-                    rules: [{ required: true, message: '请输入运输任务' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -390,7 +391,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.retailStore} {...formItemLayout}>
                   {getFieldDecorator('retailStoreId', {
                   	initialValue: tryinit('retailStore'),
-                    rules: [{ required: true, message: '请输入双链小超' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -407,7 +408,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
                   {getFieldDecorator('bizOrderId', {
                   	initialValue: tryinit('bizOrder'),
-                    rules: [{ required: true, message: '请输入订单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -424,7 +425,7 @@ class GoodsCreateForm extends Component {
                 <Form.Item label={fieldLabels.retailStoreOrder} {...formItemLayout}>
                   {getFieldDecorator('retailStoreOrderId', {
                   	initialValue: tryinit('retailStoreOrder'),
-                    rules: [{ required: true, message: '请输入生超的订单' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -444,13 +445,13 @@ class GoodsCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

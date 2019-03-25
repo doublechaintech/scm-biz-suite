@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ConsumerOrderBase from './ConsumerOrder.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -72,6 +72,8 @@ class ConsumerOrderAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {ConsumerOrderService} = GlobalComponents
+    const userContext = null
+    
  const {ConsumerOrderLineItemModalTable} = GlobalComponents;
  const {ConsumerOrderShippingGroupModalTable} = GlobalComponents;
  const {ConsumerOrderPaymentGroupModalTable} = GlobalComponents;
@@ -123,24 +125,24 @@ class ConsumerOrderAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入头衔" />
                   )}
@@ -168,7 +170,7 @@ class ConsumerOrderAssociateForm extends Component {
                 <Form.Item label={fieldLabels.consumer} {...formItemLayout}>
                   {getFieldDecorator('consumerId', {
                   	initialValue: tryinit('consumer'),
-                    rules: [{ required: true, message: '请输入消费者' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('consumer')}
@@ -183,7 +185,7 @@ class ConsumerOrderAssociateForm extends Component {
                 <Form.Item label={fieldLabels.store} {...formItemLayout}>
                   {getFieldDecorator('storeId', {
                   	initialValue: tryinit('store'),
-                    rules: [{ required: true, message: '请输入商场' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('store')}

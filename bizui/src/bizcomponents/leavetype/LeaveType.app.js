@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class LeaveTypeBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class LeaveTypeBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class LeaveTypeBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/leaveType/${this.props.leaveType.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/leaveType/${this.props.leaveType.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/leaveType/${this.props.leaveType.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/leaveType/${this.props.leaveType.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class LeaveTypeBizApp extends React.PureComponent {
 
   getEmployeeLeaveSearch = () => {
     const {EmployeeLeaveSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "请假记录",
@@ -176,11 +172,12 @@ class LeaveTypeBizApp extends React.PureComponent {
       owner: { type: '_leaveType', id: state._leaveType.id, 
       referenceName: 'type', 
       listName: 'employeeLeaveList', ref:state._leaveType, 
-      listDisplayName: '请假记录列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeLeaveSearch)
   }
   getEmployeeLeaveCreateForm = () => {
    	const {EmployeeLeaveCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeLeave",
@@ -190,17 +187,18 @@ class LeaveTypeBizApp extends React.PureComponent {
       currentPage: state._leaveType.employeeLeaveCurrentPageNumber,
       searchFormParameters: state._leaveType.employeeLeaveSearchFormParameters,
       loading: state._leaveType.loading,
-      owner: { type: '_leaveType', id: state._leaveType.id, referenceName: 'type', listName: 'employeeLeaveList', ref:state._leaveType, listDisplayName: '请假记录列表'}, // this is for model namespace and
+      owner: { type: '_leaveType', id: state._leaveType.id, referenceName: 'type', listName: 'employeeLeaveList', ref:state._leaveType, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeLeaveCreateForm)
   }
   
   getEmployeeLeaveUpdateForm = () => {
+    const userContext = null
   	const {EmployeeLeaveUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._leaveType.selectedRows,
       role: "employeeLeave",
       currentUpdateIndex: state._leaveType.currentUpdateIndex,
-      owner: { type: '_leaveType', id: state._leaveType.id, listName: 'employeeLeaveList', ref:state._leaveType, listDisplayName: '请假记录列表' }, // this is for model namespace and
+      owner: { type: '_leaveType', id: state._leaveType.id, listName: 'employeeLeaveList', ref:state._leaveType, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeLeaveUpdateForm)
   }
 
@@ -265,16 +263,22 @@ class LeaveTypeBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {LeaveTypeEditDetail} = GlobalComponents
-     //const {LeaveTypeViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -288,15 +292,15 @@ class LeaveTypeBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

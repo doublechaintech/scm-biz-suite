@@ -7,6 +7,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 import styles from './LeaveType.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
+import appLocaleName from '../../common/Locale.tool'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -166,6 +167,7 @@ componentDidMount() {
       
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
+    const userContext = null
     const {LeaveTypeService} = GlobalComponents
     const tryinit  = (fieldName) => {
       const { owner } = this.props
@@ -191,7 +193,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input placeholder="请输入序号" />
+             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -199,16 +201,16 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="代码">
            {getFieldDecorator('code')(
-             <Input placeholder="请输入代码" />
+             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
 
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
-              <Button type="primary" htmlType="submit">查询</Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> 展开 <Icon type="down" /> </a>
+              <Button type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
+              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> {appLocaleName(userContext,"Expand")} <Icon type="down" /> </a>
             </span>
           </Col>
         </Row>
@@ -218,7 +220,7 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {LeaveTypeService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
-    
+    const userContext = null
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       const { referenceName } = owner
@@ -246,7 +248,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input placeholder="请输入序号" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -254,7 +256,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="代码">
               {getFieldDecorator('code')(
-                <Input placeholder="请输入代码" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -277,7 +279,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-                <Input placeholder="请输入描述" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -285,7 +287,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="详细描述">
               {getFieldDecorator('detailDescription')(
-                <Input placeholder="请输入详细描述" />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -293,9 +295,9 @@ componentDidMount() {
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
-            <Button type="primary" htmlType="submit">查询</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>收起 <Icon type="up" /></a>
+            <Button type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
+            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>{appLocaleName(userContext,"Collapse")} <Icon type="up" /></a>
           </span>
         </div>
       </Form>

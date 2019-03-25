@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class PotentialCustomerBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class PotentialCustomerBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class PotentialCustomerBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/potentialCustomer/${this.props.potentialCustomer.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/potentialCustomer/${this.props.potentialCustomer.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/potentialCustomer/${this.props.potentialCustomer.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/potentialCustomer/${this.props.potentialCustomer.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class PotentialCustomerBizApp extends React.PureComponent {
 
   getPotentialCustomerContactPersonSearch = () => {
     const {PotentialCustomerContactPersonSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "潜在客户联络人",
@@ -176,11 +172,12 @@ class PotentialCustomerBizApp extends React.PureComponent {
       owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, 
       referenceName: 'potentialCustomer', 
       listName: 'potentialCustomerContactPersonList', ref:state._potentialCustomer, 
-      listDisplayName: '潜在客户联络人列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PotentialCustomerContactPersonSearch)
   }
   getPotentialCustomerContactPersonCreateForm = () => {
    	const {PotentialCustomerContactPersonCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "potentialCustomerContactPerson",
@@ -190,22 +187,24 @@ class PotentialCustomerBizApp extends React.PureComponent {
       currentPage: state._potentialCustomer.potentialCustomerContactPersonCurrentPageNumber,
       searchFormParameters: state._potentialCustomer.potentialCustomerContactPersonSearchFormParameters,
       loading: state._potentialCustomer.loading,
-      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, referenceName: 'potentialCustomer', listName: 'potentialCustomerContactPersonList', ref:state._potentialCustomer, listDisplayName: '潜在客户联络人列表'}, // this is for model namespace and
+      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, referenceName: 'potentialCustomer', listName: 'potentialCustomerContactPersonList', ref:state._potentialCustomer, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(PotentialCustomerContactPersonCreateForm)
   }
   
   getPotentialCustomerContactPersonUpdateForm = () => {
+    const userContext = null
   	const {PotentialCustomerContactPersonUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._potentialCustomer.selectedRows,
       role: "potentialCustomerContactPerson",
       currentUpdateIndex: state._potentialCustomer.currentUpdateIndex,
-      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, listName: 'potentialCustomerContactPersonList', ref:state._potentialCustomer, listDisplayName: '潜在客户联络人列表' }, // this is for model namespace and
+      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, listName: 'potentialCustomerContactPersonList', ref:state._potentialCustomer, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PotentialCustomerContactPersonUpdateForm)
   }
 
   getPotentialCustomerContactSearch = () => {
     const {PotentialCustomerContactSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "潜在客户联系",
@@ -222,11 +221,12 @@ class PotentialCustomerBizApp extends React.PureComponent {
       owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, 
       referenceName: 'potentialCustomer', 
       listName: 'potentialCustomerContactList', ref:state._potentialCustomer, 
-      listDisplayName: '潜在客户联系列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PotentialCustomerContactSearch)
   }
   getPotentialCustomerContactCreateForm = () => {
    	const {PotentialCustomerContactCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "potentialCustomerContact",
@@ -236,22 +236,24 @@ class PotentialCustomerBizApp extends React.PureComponent {
       currentPage: state._potentialCustomer.potentialCustomerContactCurrentPageNumber,
       searchFormParameters: state._potentialCustomer.potentialCustomerContactSearchFormParameters,
       loading: state._potentialCustomer.loading,
-      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, referenceName: 'potentialCustomer', listName: 'potentialCustomerContactList', ref:state._potentialCustomer, listDisplayName: '潜在客户联系列表'}, // this is for model namespace and
+      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, referenceName: 'potentialCustomer', listName: 'potentialCustomerContactList', ref:state._potentialCustomer, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(PotentialCustomerContactCreateForm)
   }
   
   getPotentialCustomerContactUpdateForm = () => {
+    const userContext = null
   	const {PotentialCustomerContactUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._potentialCustomer.selectedRows,
       role: "potentialCustomerContact",
       currentUpdateIndex: state._potentialCustomer.currentUpdateIndex,
-      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, listName: 'potentialCustomerContactList', ref:state._potentialCustomer, listDisplayName: '潜在客户联系列表' }, // this is for model namespace and
+      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, listName: 'potentialCustomerContactList', ref:state._potentialCustomer, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PotentialCustomerContactUpdateForm)
   }
 
   getEventAttendanceSearch = () => {
     const {EventAttendanceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "活动的参与情况",
@@ -268,11 +270,12 @@ class PotentialCustomerBizApp extends React.PureComponent {
       owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, 
       referenceName: 'potentialCustomer', 
       listName: 'eventAttendanceList', ref:state._potentialCustomer, 
-      listDisplayName: '活动的参与情况列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EventAttendanceSearch)
   }
   getEventAttendanceCreateForm = () => {
    	const {EventAttendanceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "eventAttendance",
@@ -282,17 +285,18 @@ class PotentialCustomerBizApp extends React.PureComponent {
       currentPage: state._potentialCustomer.eventAttendanceCurrentPageNumber,
       searchFormParameters: state._potentialCustomer.eventAttendanceSearchFormParameters,
       loading: state._potentialCustomer.loading,
-      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, referenceName: 'potentialCustomer', listName: 'eventAttendanceList', ref:state._potentialCustomer, listDisplayName: '活动的参与情况列表'}, // this is for model namespace and
+      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, referenceName: 'potentialCustomer', listName: 'eventAttendanceList', ref:state._potentialCustomer, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EventAttendanceCreateForm)
   }
   
   getEventAttendanceUpdateForm = () => {
+    const userContext = null
   	const {EventAttendanceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._potentialCustomer.selectedRows,
       role: "eventAttendance",
       currentUpdateIndex: state._potentialCustomer.currentUpdateIndex,
-      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, listName: 'eventAttendanceList', ref:state._potentialCustomer, listDisplayName: '活动的参与情况列表' }, // this is for model namespace and
+      owner: { type: '_potentialCustomer', id: state._potentialCustomer.id, listName: 'eventAttendanceList', ref:state._potentialCustomer, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EventAttendanceUpdateForm)
   }
 
@@ -365,16 +369,22 @@ class PotentialCustomerBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {PotentialCustomerEditDetail} = GlobalComponents
-     //const {PotentialCustomerViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -388,15 +398,15 @@ class PotentialCustomerBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

@@ -20,7 +20,7 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
@@ -76,7 +76,7 @@ const internalSummaryOf = (accountingSubject,targetComponent) =>{
 	
 	
 	const {AccountingSubjectService} = GlobalComponents
-	
+	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{accountingSubject.id}</Description> 
@@ -84,7 +84,7 @@ const internalSummaryOf = (accountingSubject,targetComponent) =>{
 <Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
 <Description term="会计科目类别代码">{accountingSubject.accountingSubjectClassCode}</Description> 
 <Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
-<Description term="账套">{accountingSubject.accountSet==null?"未分配":accountingSubject.accountSet.displayName}
+<Description term="账套">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"账套","accountSet",AccountingSubjectService.requestCandidateAccountSet,
 	      AccountingSubjectService.transferToAnotherAccountSet,"anotherAccountSetId",accountingSubject.accountSet?accountingSubject.accountSet.id:"")} 
@@ -105,7 +105,7 @@ class AccountingSubjectDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-    targetLocalName:"城市",
+    targetLocalName:"",
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -133,7 +133,6 @@ class AccountingSubjectDashboard extends Component {
     
       	],
   	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

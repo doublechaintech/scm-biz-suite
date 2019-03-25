@@ -9,7 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountSetBase from './AccountSet.base'
 import SelectObject from '../../components/SelectObject'
-
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2018-01-09',
+  effectiveDate: '2017-10-15',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
@@ -80,6 +80,8 @@ class AccountSetAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {AccountSetService} = GlobalComponents
+    const userContext = null
+    
  const {AccountingSubjectModalTable} = GlobalComponents;
  const {AccountingPeriodModalTable} = GlobalComponents;
  const {AccountingDocumentTypeModalTable} = GlobalComponents;
@@ -129,24 +131,24 @@ class AccountSetAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    
+   
     return (
  <Modal
-          title="创建新的支付"
+          title={appLocaleName(userContext,"CreateNew")}
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -156,7 +158,7 @@ class AccountSetAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.yearSet} {...formItemLayout}>
                   {getFieldDecorator('yearSet', {
-                    rules: [{ required: true, message: '请输入年组' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入年组" />
                   )}
@@ -166,7 +168,7 @@ class AccountSetAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.effectiveDate} {...formItemLayout}>
                   {getFieldDecorator('effectiveDate', {
-                    rules: [{ required: true, message: '请输入生效日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入生效日期" />
                   )}
@@ -176,7 +178,7 @@ class AccountSetAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.accountingSystem} {...formItemLayout}>
                   {getFieldDecorator('accountingSystem', {
-                    rules: [{ required: true, message: '请输入会计制度' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入会计制度" />
                   )}
@@ -186,7 +188,7 @@ class AccountSetAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.domesticCurrencyCode} {...formItemLayout}>
                   {getFieldDecorator('domesticCurrencyCode', {
-                    rules: [{ required: true, message: '请输入本币代码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入本币代码" />
                   )}
@@ -196,7 +198,7 @@ class AccountSetAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.domesticCurrencyName} {...formItemLayout}>
                   {getFieldDecorator('domesticCurrencyName', {
-                    rules: [{ required: true, message: '请输入本币名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入本币名称" />
                   )}
@@ -206,7 +208,7 @@ class AccountSetAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.openingBank} {...formItemLayout}>
                   {getFieldDecorator('openingBank', {
-                    rules: [{ required: true, message: '请输入开户银行' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入开户银行" />
                   )}
@@ -216,7 +218,7 @@ class AccountSetAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.accountNumber} {...formItemLayout}>
                   {getFieldDecorator('accountNumber', {
-                    rules: [{ required: true, message: '请输入帐户号码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入帐户号码" />
                   )}
@@ -244,7 +246,7 @@ class AccountSetAssociateForm extends Component {
                 <Form.Item label={fieldLabels.countryCenter} {...formItemLayout}>
                   {getFieldDecorator('countryCenterId', {
                   	initialValue: tryinit('countryCenter'),
-                    rules: [{ required: true, message: '请输入全国运营中心' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('countryCenter')}
@@ -259,7 +261,7 @@ class AccountSetAssociateForm extends Component {
                 <Form.Item label={fieldLabels.retailStore} {...formItemLayout}>
                   {getFieldDecorator('retailStoreId', {
                   	initialValue: tryinit('retailStore'),
-                    rules: [{ required: true, message: '请输入双链小超' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('retailStore')}
@@ -274,7 +276,7 @@ class AccountSetAssociateForm extends Component {
                 <Form.Item label={fieldLabels.goodsSupplier} {...formItemLayout}>
                   {getFieldDecorator('goodsSupplierId', {
                   	initialValue: tryinit('goodsSupplier'),
-                    rules: [{ required: true, message: '请输入产品供应商' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('goodsSupplier')}

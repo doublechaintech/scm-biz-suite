@@ -10,6 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './Sku.updateform.less'
 import SkuBase from './Sku.base'
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -89,6 +90,7 @@ class SkuUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+    const userContext = null
     const {fieldLabels} = SkuBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -101,7 +103,7 @@ class SkuUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-
+		
         const { owner, role } = this.props
         const skuId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -185,7 +187,7 @@ class SkuUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'sku',
-          listName:'SKU列表' 
+          listName:appLocaleName(userContext,"List") 
         },
       })
     }
@@ -216,7 +218,7 @@ class SkuUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -230,7 +232,7 @@ class SkuUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-      return (<div>缺少被更新的对象</div>)
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
 	const selectedRow = this.getSelectedRow()
 
@@ -245,11 +247,11 @@ class SkuUpdateForm extends Component {
 
     return (
       <PageHeaderLayout
-        title={"更新SKU"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新SKU"
+        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
+        content={appLocaleName(userContext,"Update")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
             
@@ -258,7 +260,7 @@ class SkuUpdateForm extends Component {
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
                     initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
                     
@@ -270,7 +272,7 @@ class SkuUpdateForm extends Component {
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     initialValue: selectedRow.name,
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                     
@@ -282,7 +284,7 @@ class SkuUpdateForm extends Component {
                 <Form.Item label={fieldLabels.size} {...formItemLayout}>
                   {getFieldDecorator('size', {
                     initialValue: selectedRow.size,
-                    rules: [{ required: true, message: '请输入大小' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入大小" />
                     
@@ -294,7 +296,7 @@ class SkuUpdateForm extends Component {
                 <Form.Item label={fieldLabels.barcode} {...formItemLayout}>
                   {getFieldDecorator('barcode', {
                     initialValue: selectedRow.barcode,
-                    rules: [{ required: true, message: '请输入条码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入条码" />
                     
@@ -306,7 +308,7 @@ class SkuUpdateForm extends Component {
                 <Form.Item label={fieldLabels.packageType} {...formItemLayout}>
                   {getFieldDecorator('packageType', {
                     initialValue: selectedRow.packageType,
-                    rules: [{ required: true, message: '请输入包装类型' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入包装类型" />
                     
@@ -318,7 +320,7 @@ class SkuUpdateForm extends Component {
                 <Form.Item label={fieldLabels.netContent} {...formItemLayout}>
                   {getFieldDecorator('netContent', {
                     initialValue: selectedRow.netContent,
-                    rules: [{ required: true, message: '请输入净含量' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入净含量" />
                     
@@ -330,7 +332,7 @@ class SkuUpdateForm extends Component {
                 <Form.Item label={fieldLabels.price} {...formItemLayout}>
                   {getFieldDecorator('price', {
                     initialValue: selectedRow.price,
-                    rules: [{ required: true, message: '请输入价格' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入价格" />
                     
@@ -347,7 +349,7 @@ class SkuUpdateForm extends Component {
         
 
 
-        <Card title={<div>附件 <Popover title="扫描二维码可以从手机上传图片或者附件" content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
+        <Card title={<div>{appLocaleName(userContext,"Attachment")} <Popover title={appLocaleName(userContext,"ScanQRCodetoUploadfromSmartPhone")} content={<div><img src='./qrtest.png'/></div>}><Icon type="qrcode" ></Icon></Popover></div>} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -367,16 +369,16 @@ class SkuUpdateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
+            {appLocaleName(userContext,"Update")}
           </Button>
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
+            {appLocaleName(userContext,"UpdateAndContinue")}
           </Button>
           <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
+            {appLocaleName(userContext,"Skip")}
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
-            取消
+            {appLocaleName(userContext,"Cancel")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

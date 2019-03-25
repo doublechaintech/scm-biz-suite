@@ -9,7 +9,7 @@ import styles from './TransportTruck.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import TransportTruckBase from './TransportTruck.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -22,7 +22,7 @@ const testValues = {
   contactNumber: '02887654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2018-12-12',
+  makeDate: '2019-03-03',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -74,7 +74,7 @@ class TransportTruckCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = TransportTruckBase
     const {TransportTruckService} = GlobalComponents
@@ -123,9 +123,10 @@ class TransportTruckCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'transportTruck',listName:'运输车列表' },
+        payload: { id: owner.id, type: 'transportTruck',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -156,7 +157,7 @@ class TransportTruckCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -200,18 +201,18 @@ class TransportTruckCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个运输车"
-        content="新建一个运输车"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -221,7 +222,7 @@ class TransportTruckCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.plateNumber} {...formItemLayout}>
                   {getFieldDecorator('plateNumber', {
-                    rules: [{ required: true, message: '请输入车牌号码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入车牌号码" />
                   )}
@@ -231,7 +232,7 @@ class TransportTruckCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.contactNumber} {...formItemLayout}>
                   {getFieldDecorator('contactNumber', {
-                    rules: [{ required: true, message: '请输入联系电话' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入联系电话" />
                   )}
@@ -241,7 +242,7 @@ class TransportTruckCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.vehicleLicenseNumber} {...formItemLayout}>
                   {getFieldDecorator('vehicleLicenseNumber', {
-                    rules: [{ required: true, message: '请输入汽车牌照号码' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入汽车牌照号码" />
                   )}
@@ -251,7 +252,7 @@ class TransportTruckCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.engineNumber} {...formItemLayout}>
                   {getFieldDecorator('engineNumber', {
-                    rules: [{ required: true, message: '请输入发动机号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入发动机号" />
                   )}
@@ -261,7 +262,7 @@ class TransportTruckCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.makeDate} {...formItemLayout}>
                   {getFieldDecorator('makeDate', {
-                    rules: [{ required: true, message: '请输入制造日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入制造日期" />
                   )}
@@ -271,7 +272,7 @@ class TransportTruckCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.mileage} {...formItemLayout}>
                   {getFieldDecorator('mileage', {
-                    rules: [{ required: true, message: '请输入里程' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入里程" />
                   )}
@@ -281,7 +282,7 @@ class TransportTruckCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.bodyColor} {...formItemLayout}>
                   {getFieldDecorator('bodyColor', {
-                    rules: [{ required: true, message: '请输入车身颜色' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入车身颜色" />
                   )}
@@ -305,7 +306,7 @@ class TransportTruckCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -313,7 +314,7 @@ class TransportTruckCreateForm extends Component {
                 <Form.Item label={fieldLabels.owner} {...formItemLayout}>
                   {getFieldDecorator('ownerId', {
                   	initialValue: tryinit('owner'),
-                    rules: [{ required: true, message: '请输入业主' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -333,13 +334,13 @@ class TransportTruckCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

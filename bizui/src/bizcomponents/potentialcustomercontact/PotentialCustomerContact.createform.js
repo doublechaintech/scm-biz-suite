@@ -9,7 +9,7 @@ import styles from './PotentialCustomerContact.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import PotentialCustomerContactBase from './PotentialCustomerContact.base'
-
+import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2018-06-23',
+  contactDate: '2017-12-23',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -72,7 +72,7 @@ class PotentialCustomerContactCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-
+	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = PotentialCustomerContactBase
     const {PotentialCustomerContactService} = GlobalComponents
@@ -121,9 +121,10 @@ class PotentialCustomerContactCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+     
       dispatch({
         type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'potentialCustomerContact',listName:'潜在客户联系列表' },
+        payload: { id: owner.id, type: 'potentialCustomerContact',listName:appLocaleName(userContext,"List") },
       })
     }
     const errors = getFieldsError()
@@ -154,7 +155,7 @@ class PotentialCustomerContactCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -198,18 +199,18 @@ class PotentialCustomerContactCreateForm extends Component {
     }
     return (
       <PageHeaderLayout
-        title="新建一个潜在客户联系"
-        content="新建一个潜在客户联系"
+        title={appLocaleName(userContext,"CreateNew")}
+        content={appLocaleName(userContext,"CreateNew")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                   )}
@@ -219,7 +220,7 @@ class PotentialCustomerContactCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.contactDate} {...formItemLayout}>
                   {getFieldDecorator('contactDate', {
-                    rules: [{ required: true, message: '请输入接触日期' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入接触日期" />
                   )}
@@ -229,7 +230,7 @@ class PotentialCustomerContactCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.contactMethod} {...formItemLayout}>
                   {getFieldDecorator('contactMethod', {
-                    rules: [{ required: true, message: '请输入接触法' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入接触法" />
                   )}
@@ -239,7 +240,7 @@ class PotentialCustomerContactCreateForm extends Component {
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
-                    rules: [{ required: true, message: '请输入描述' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入描述" />
                   )}
@@ -263,7 +264,7 @@ class PotentialCustomerContactCreateForm extends Component {
 
 
 
-        <Card title="关联" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
 
@@ -271,7 +272,7 @@ class PotentialCustomerContactCreateForm extends Component {
                 <Form.Item label={fieldLabels.potentialCustomer} {...formItemLayout}>
                   {getFieldDecorator('potentialCustomerId', {
                   	initialValue: tryinit('potentialCustomer'),
-                    rules: [{ required: true, message: '请输入潜在的客户' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -288,7 +289,7 @@ class PotentialCustomerContactCreateForm extends Component {
                 <Form.Item label={fieldLabels.cityPartner} {...formItemLayout}>
                   {getFieldDecorator('cityPartnerId', {
                   	initialValue: tryinit('cityPartner'),
-                    rules: [{ required: true, message: '请输入城市合伙人' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -305,7 +306,7 @@ class PotentialCustomerContactCreateForm extends Component {
                 <Form.Item label={fieldLabels.contactTo} {...formItemLayout}>
                   {getFieldDecorator('contactToId', {
                   	initialValue: tryinit('contactTo'),
-                    rules: [{ required: true, message: '请输入接触' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                   
                   <SelectObject 
@@ -325,13 +326,13 @@ class PotentialCustomerContactCreateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-            提交
+            {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
+            {appLocaleName(userContext,"SubmitAndContinue")}
           </Button>
           <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
+            {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

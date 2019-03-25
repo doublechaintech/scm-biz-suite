@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class WarehouseBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class WarehouseBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class WarehouseBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/warehouse/${this.props.warehouse.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/warehouse/${this.props.warehouse.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/warehouse/${this.props.warehouse.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/warehouse/${this.props.warehouse.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class WarehouseBizApp extends React.PureComponent {
 
   getStorageSpaceSearch = () => {
     const {StorageSpaceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "存货区",
@@ -176,11 +172,12 @@ class WarehouseBizApp extends React.PureComponent {
       owner: { type: '_warehouse', id: state._warehouse.id, 
       referenceName: 'warehouse', 
       listName: 'storageSpaceList', ref:state._warehouse, 
-      listDisplayName: '存货区列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(StorageSpaceSearch)
   }
   getStorageSpaceCreateForm = () => {
    	const {StorageSpaceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "storageSpace",
@@ -190,22 +187,24 @@ class WarehouseBizApp extends React.PureComponent {
       currentPage: state._warehouse.storageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.storageSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: '存货区列表'}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(StorageSpaceCreateForm)
   }
   
   getStorageSpaceUpdateForm = () => {
+    const userContext = null
   	const {StorageSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "storageSpace",
       currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: '存货区列表' }, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'storageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(StorageSpaceUpdateForm)
   }
 
   getSmartPalletSearch = () => {
     const {SmartPalletSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "智能托盘",
@@ -222,11 +221,12 @@ class WarehouseBizApp extends React.PureComponent {
       owner: { type: '_warehouse', id: state._warehouse.id, 
       referenceName: 'warehouse', 
       listName: 'smartPalletList', ref:state._warehouse, 
-      listDisplayName: '智能托盘列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SmartPalletSearch)
   }
   getSmartPalletCreateForm = () => {
    	const {SmartPalletCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "smartPallet",
@@ -236,22 +236,24 @@ class WarehouseBizApp extends React.PureComponent {
       currentPage: state._warehouse.smartPalletCurrentPageNumber,
       searchFormParameters: state._warehouse.smartPalletSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'smartPalletList', ref:state._warehouse, listDisplayName: '智能托盘列表'}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'smartPalletList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SmartPalletCreateForm)
   }
   
   getSmartPalletUpdateForm = () => {
+    const userContext = null
   	const {SmartPalletUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "smartPallet",
       currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'smartPalletList', ref:state._warehouse, listDisplayName: '智能托盘列表' }, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'smartPalletList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SmartPalletUpdateForm)
   }
 
   getSupplierSpaceSearch = () => {
     const {SupplierSpaceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "供应商的空间",
@@ -268,11 +270,12 @@ class WarehouseBizApp extends React.PureComponent {
       owner: { type: '_warehouse', id: state._warehouse.id, 
       referenceName: 'warehouse', 
       listName: 'supplierSpaceList', ref:state._warehouse, 
-      listDisplayName: '供应商的空间列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplierSpaceSearch)
   }
   getSupplierSpaceCreateForm = () => {
    	const {SupplierSpaceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "supplierSpace",
@@ -282,22 +285,24 @@ class WarehouseBizApp extends React.PureComponent {
       currentPage: state._warehouse.supplierSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.supplierSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: '供应商的空间列表'}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(SupplierSpaceCreateForm)
   }
   
   getSupplierSpaceUpdateForm = () => {
+    const userContext = null
   	const {SupplierSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "supplierSpace",
       currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: '供应商的空间列表' }, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'supplierSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplierSpaceUpdateForm)
   }
 
   getReceivingSpaceSearch = () => {
     const {ReceivingSpaceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "收货区",
@@ -314,11 +319,12 @@ class WarehouseBizApp extends React.PureComponent {
       owner: { type: '_warehouse', id: state._warehouse.id, 
       referenceName: 'warehouse', 
       listName: 'receivingSpaceList', ref:state._warehouse, 
-      listDisplayName: '收货区列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ReceivingSpaceSearch)
   }
   getReceivingSpaceCreateForm = () => {
    	const {ReceivingSpaceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "receivingSpace",
@@ -328,22 +334,24 @@ class WarehouseBizApp extends React.PureComponent {
       currentPage: state._warehouse.receivingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.receivingSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: '收货区列表'}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ReceivingSpaceCreateForm)
   }
   
   getReceivingSpaceUpdateForm = () => {
+    const userContext = null
   	const {ReceivingSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "receivingSpace",
       currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: '收货区列表' }, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'receivingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ReceivingSpaceUpdateForm)
   }
 
   getShippingSpaceSearch = () => {
     const {ShippingSpaceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "发货区",
@@ -360,11 +368,12 @@ class WarehouseBizApp extends React.PureComponent {
       owner: { type: '_warehouse', id: state._warehouse.id, 
       referenceName: 'warehouse', 
       listName: 'shippingSpaceList', ref:state._warehouse, 
-      listDisplayName: '发货区列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ShippingSpaceSearch)
   }
   getShippingSpaceCreateForm = () => {
    	const {ShippingSpaceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "shippingSpace",
@@ -374,22 +383,24 @@ class WarehouseBizApp extends React.PureComponent {
       currentPage: state._warehouse.shippingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.shippingSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: '发货区列表'}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(ShippingSpaceCreateForm)
   }
   
   getShippingSpaceUpdateForm = () => {
+    const userContext = null
   	const {ShippingSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "shippingSpace",
       currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: '发货区列表' }, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'shippingSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ShippingSpaceUpdateForm)
   }
 
   getDamageSpaceSearch = () => {
     const {DamageSpaceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "残次货物存放区",
@@ -406,11 +417,12 @@ class WarehouseBizApp extends React.PureComponent {
       owner: { type: '_warehouse', id: state._warehouse.id, 
       referenceName: 'warehouse', 
       listName: 'damageSpaceList', ref:state._warehouse, 
-      listDisplayName: '残次货物存放区列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(DamageSpaceSearch)
   }
   getDamageSpaceCreateForm = () => {
    	const {DamageSpaceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "damageSpace",
@@ -420,22 +432,24 @@ class WarehouseBizApp extends React.PureComponent {
       currentPage: state._warehouse.damageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.damageSpaceSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: '残次货物存放区列表'}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'warehouse', listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(DamageSpaceCreateForm)
   }
   
   getDamageSpaceUpdateForm = () => {
+    const userContext = null
   	const {DamageSpaceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "damageSpace",
       currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: '残次货物存放区列表' }, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'damageSpaceList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(DamageSpaceUpdateForm)
   }
 
   getWarehouseAssetSearch = () => {
     const {WarehouseAssetSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "仓库资产",
@@ -452,11 +466,12 @@ class WarehouseBizApp extends React.PureComponent {
       owner: { type: '_warehouse', id: state._warehouse.id, 
       referenceName: 'owner', 
       listName: 'warehouseAssetList', ref:state._warehouse, 
-      listDisplayName: '仓库资产列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(WarehouseAssetSearch)
   }
   getWarehouseAssetCreateForm = () => {
    	const {WarehouseAssetCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "warehouseAsset",
@@ -466,17 +481,18 @@ class WarehouseBizApp extends React.PureComponent {
       currentPage: state._warehouse.warehouseAssetCurrentPageNumber,
       searchFormParameters: state._warehouse.warehouseAssetSearchFormParameters,
       loading: state._warehouse.loading,
-      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'owner', listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: '仓库资产列表'}, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, referenceName: 'owner', listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(WarehouseAssetCreateForm)
   }
   
   getWarehouseAssetUpdateForm = () => {
+    const userContext = null
   	const {WarehouseAssetUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._warehouse.selectedRows,
       role: "warehouseAsset",
       currentUpdateIndex: state._warehouse.currentUpdateIndex,
-      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: '仓库资产列表' }, // this is for model namespace and
+      owner: { type: '_warehouse', id: state._warehouse.id, listName: 'warehouseAssetList', ref:state._warehouse, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(WarehouseAssetUpdateForm)
   }
 
@@ -565,16 +581,22 @@ class WarehouseBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {WarehouseEditDetail} = GlobalComponents
-     //const {WarehouseViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -588,15 +610,15 @@ class WarehouseBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

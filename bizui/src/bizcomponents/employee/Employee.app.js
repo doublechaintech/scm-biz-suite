@@ -31,6 +31,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+import appLocaleName from '../../common/Locale.tool'
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -76,9 +77,7 @@ const query = {
 class EmployeeBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
+     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,7 +116,7 @@ class EmployeeBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-  
+  	const userContext = null
     return (
       
 		  <Menu
@@ -133,22 +132,18 @@ class EmployeeBizApp extends React.PureComponent {
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/employee/${this.props.employee.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
+               <Link to={`/employee/${this.props.employee.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
+           
              
          {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
+          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
           <Icon type="bars" /><span>{item.displayName}</span>
           </Link>
         </Menu.Item>))}
        
        <Menu.Item key="preference">
-               <Link to={`/employee/${this.props.employee.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
+               <Link to={`/employee/${this.props.employee.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
              </Menu.Item>
       
            </Menu>
@@ -160,6 +155,7 @@ class EmployeeBizApp extends React.PureComponent {
 
   getEmployeeCompanyTrainingSearch = () => {
     const {EmployeeCompanyTrainingSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工参与的公司培训",
@@ -176,11 +172,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeCompanyTrainingList', ref:state._employee, 
-      listDisplayName: '员工参与的公司培训列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeCompanyTrainingSearch)
   }
   getEmployeeCompanyTrainingCreateForm = () => {
    	const {EmployeeCompanyTrainingCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeCompanyTraining",
@@ -190,22 +187,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeCompanyTrainingCurrentPageNumber,
       searchFormParameters: state._employee.employeeCompanyTrainingSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeCompanyTrainingList', ref:state._employee, listDisplayName: '员工参与的公司培训列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeCompanyTrainingList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeCompanyTrainingCreateForm)
   }
   
   getEmployeeCompanyTrainingUpdateForm = () => {
+    const userContext = null
   	const {EmployeeCompanyTrainingUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeCompanyTraining",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeCompanyTrainingList', ref:state._employee, listDisplayName: '员工参与的公司培训列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeCompanyTrainingList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeCompanyTrainingUpdateForm)
   }
 
   getEmployeeSkillSearch = () => {
     const {EmployeeSkillSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工技能",
@@ -222,11 +221,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeSkillList', ref:state._employee, 
-      listDisplayName: '员工技能列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSkillSearch)
   }
   getEmployeeSkillCreateForm = () => {
    	const {EmployeeSkillCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeSkill",
@@ -236,22 +236,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeSkillCurrentPageNumber,
       searchFormParameters: state._employee.employeeSkillSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeSkillList', ref:state._employee, listDisplayName: '员工技能列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeSkillList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeSkillCreateForm)
   }
   
   getEmployeeSkillUpdateForm = () => {
+    const userContext = null
   	const {EmployeeSkillUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeSkill",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeSkillList', ref:state._employee, listDisplayName: '员工技能列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeSkillList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSkillUpdateForm)
   }
 
   getEmployeePerformanceSearch = () => {
     const {EmployeePerformanceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工绩效",
@@ -268,11 +270,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeePerformanceList', ref:state._employee, 
-      listDisplayName: '员工绩效列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeePerformanceSearch)
   }
   getEmployeePerformanceCreateForm = () => {
    	const {EmployeePerformanceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeePerformance",
@@ -282,22 +285,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeePerformanceCurrentPageNumber,
       searchFormParameters: state._employee.employeePerformanceSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeePerformanceList', ref:state._employee, listDisplayName: '员工绩效列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeePerformanceList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeePerformanceCreateForm)
   }
   
   getEmployeePerformanceUpdateForm = () => {
+    const userContext = null
   	const {EmployeePerformanceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeePerformance",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeePerformanceList', ref:state._employee, listDisplayName: '员工绩效列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeePerformanceList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeePerformanceUpdateForm)
   }
 
   getEmployeeWorkExperienceSearch = () => {
     const {EmployeeWorkExperienceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工工作经验",
@@ -314,11 +319,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeWorkExperienceList', ref:state._employee, 
-      listDisplayName: '员工工作经验列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeWorkExperienceSearch)
   }
   getEmployeeWorkExperienceCreateForm = () => {
    	const {EmployeeWorkExperienceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeWorkExperience",
@@ -328,22 +334,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeWorkExperienceCurrentPageNumber,
       searchFormParameters: state._employee.employeeWorkExperienceSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeWorkExperienceList', ref:state._employee, listDisplayName: '员工工作经验列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeWorkExperienceList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeWorkExperienceCreateForm)
   }
   
   getEmployeeWorkExperienceUpdateForm = () => {
+    const userContext = null
   	const {EmployeeWorkExperienceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeWorkExperience",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeWorkExperienceList', ref:state._employee, listDisplayName: '员工工作经验列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeWorkExperienceList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeWorkExperienceUpdateForm)
   }
 
   getEmployeeLeaveSearch = () => {
     const {EmployeeLeaveSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "请假记录",
@@ -360,11 +368,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'who', 
       listName: 'employeeLeaveList', ref:state._employee, 
-      listDisplayName: '请假记录列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeLeaveSearch)
   }
   getEmployeeLeaveCreateForm = () => {
    	const {EmployeeLeaveCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeLeave",
@@ -374,22 +383,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeLeaveCurrentPageNumber,
       searchFormParameters: state._employee.employeeLeaveSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'who', listName: 'employeeLeaveList', ref:state._employee, listDisplayName: '请假记录列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'who', listName: 'employeeLeaveList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeLeaveCreateForm)
   }
   
   getEmployeeLeaveUpdateForm = () => {
+    const userContext = null
   	const {EmployeeLeaveUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeLeave",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeLeaveList', ref:state._employee, listDisplayName: '请假记录列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeLeaveList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeLeaveUpdateForm)
   }
 
   getEmployeeInterviewSearch = () => {
     const {EmployeeInterviewSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工面试",
@@ -406,11 +417,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeInterviewList', ref:state._employee, 
-      listDisplayName: '员工面试列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeInterviewSearch)
   }
   getEmployeeInterviewCreateForm = () => {
    	const {EmployeeInterviewCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeInterview",
@@ -420,22 +432,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeInterviewCurrentPageNumber,
       searchFormParameters: state._employee.employeeInterviewSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeInterviewList', ref:state._employee, listDisplayName: '员工面试列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeInterviewList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeInterviewCreateForm)
   }
   
   getEmployeeInterviewUpdateForm = () => {
+    const userContext = null
   	const {EmployeeInterviewUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeInterview",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeInterviewList', ref:state._employee, listDisplayName: '员工面试列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeInterviewList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeInterviewUpdateForm)
   }
 
   getEmployeeAttendanceSearch = () => {
     const {EmployeeAttendanceSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工考勤",
@@ -452,11 +466,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeAttendanceList', ref:state._employee, 
-      listDisplayName: '员工考勤列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeAttendanceSearch)
   }
   getEmployeeAttendanceCreateForm = () => {
    	const {EmployeeAttendanceCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeAttendance",
@@ -466,22 +481,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeAttendanceCurrentPageNumber,
       searchFormParameters: state._employee.employeeAttendanceSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeAttendanceList', ref:state._employee, listDisplayName: '员工考勤列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeAttendanceList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeAttendanceCreateForm)
   }
   
   getEmployeeAttendanceUpdateForm = () => {
+    const userContext = null
   	const {EmployeeAttendanceUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeAttendance",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeAttendanceList', ref:state._employee, listDisplayName: '员工考勤列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeAttendanceList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeAttendanceUpdateForm)
   }
 
   getEmployeeQualifierSearch = () => {
     const {EmployeeQualifierSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工资质",
@@ -498,11 +515,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeQualifierList', ref:state._employee, 
-      listDisplayName: '员工资质列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeQualifierSearch)
   }
   getEmployeeQualifierCreateForm = () => {
    	const {EmployeeQualifierCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeQualifier",
@@ -512,22 +530,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeQualifierCurrentPageNumber,
       searchFormParameters: state._employee.employeeQualifierSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeQualifierList', ref:state._employee, listDisplayName: '员工资质列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeQualifierList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeQualifierCreateForm)
   }
   
   getEmployeeQualifierUpdateForm = () => {
+    const userContext = null
   	const {EmployeeQualifierUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeQualifier",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeQualifierList', ref:state._employee, listDisplayName: '员工资质列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeQualifierList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeQualifierUpdateForm)
   }
 
   getEmployeeEducationSearch = () => {
     const {EmployeeEducationSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工教育",
@@ -544,11 +564,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeEducationList', ref:state._employee, 
-      listDisplayName: '员工教育列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeEducationSearch)
   }
   getEmployeeEducationCreateForm = () => {
    	const {EmployeeEducationCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeEducation",
@@ -558,22 +579,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeEducationCurrentPageNumber,
       searchFormParameters: state._employee.employeeEducationSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeEducationList', ref:state._employee, listDisplayName: '员工教育列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeEducationList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeEducationCreateForm)
   }
   
   getEmployeeEducationUpdateForm = () => {
+    const userContext = null
   	const {EmployeeEducationUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeEducation",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeEducationList', ref:state._employee, listDisplayName: '员工教育列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeEducationList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeEducationUpdateForm)
   }
 
   getEmployeeAwardSearch = () => {
     const {EmployeeAwardSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "员工嘉奖",
@@ -590,11 +613,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeAwardList', ref:state._employee, 
-      listDisplayName: '员工嘉奖列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeAwardSearch)
   }
   getEmployeeAwardCreateForm = () => {
    	const {EmployeeAwardCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeAward",
@@ -604,22 +628,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeAwardCurrentPageNumber,
       searchFormParameters: state._employee.employeeAwardSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeAwardList', ref:state._employee, listDisplayName: '员工嘉奖列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeAwardList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeAwardCreateForm)
   }
   
   getEmployeeAwardUpdateForm = () => {
+    const userContext = null
   	const {EmployeeAwardUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeAward",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeAwardList', ref:state._employee, listDisplayName: '员工嘉奖列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeAwardList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeAwardUpdateForm)
   }
 
   getEmployeeSalarySheetSearch = () => {
     const {EmployeeSalarySheetSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "工资单",
@@ -636,11 +662,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'employee', 
       listName: 'employeeSalarySheetList', ref:state._employee, 
-      listDisplayName: '工资单列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSalarySheetSearch)
   }
   getEmployeeSalarySheetCreateForm = () => {
    	const {EmployeeSalarySheetCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "employeeSalarySheet",
@@ -650,22 +677,24 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.employeeSalarySheetCurrentPageNumber,
       searchFormParameters: state._employee.employeeSalarySheetSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeSalarySheetList', ref:state._employee, listDisplayName: '工资单列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'employee', listName: 'employeeSalarySheetList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(EmployeeSalarySheetCreateForm)
   }
   
   getEmployeeSalarySheetUpdateForm = () => {
+    const userContext = null
   	const {EmployeeSalarySheetUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "employeeSalarySheet",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'employeeSalarySheetList', ref:state._employee, listDisplayName: '工资单列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'employeeSalarySheetList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSalarySheetUpdateForm)
   }
 
   getPayingOffSearch = () => {
     const {PayingOffSearch} = GlobalComponents;
+    const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "工资支付",
@@ -682,11 +711,12 @@ class EmployeeBizApp extends React.PureComponent {
       owner: { type: '_employee', id: state._employee.id, 
       referenceName: 'paidFor', 
       listName: 'payingOffList', ref:state._employee, 
-      listDisplayName: '工资支付列表' }, // this is for model namespace and
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PayingOffSearch)
   }
   getPayingOffCreateForm = () => {
    	const {PayingOffCreateForm} = GlobalComponents;
+   	const userContext = null
     return connect(state => ({
       rule: state.rule,
       role: "payingOff",
@@ -696,17 +726,18 @@ class EmployeeBizApp extends React.PureComponent {
       currentPage: state._employee.payingOffCurrentPageNumber,
       searchFormParameters: state._employee.payingOffSearchFormParameters,
       loading: state._employee.loading,
-      owner: { type: '_employee', id: state._employee.id, referenceName: 'paidFor', listName: 'payingOffList', ref:state._employee, listDisplayName: '工资支付列表'}, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, referenceName: 'paidFor', listName: 'payingOffList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
     }))(PayingOffCreateForm)
   }
   
   getPayingOffUpdateForm = () => {
+    const userContext = null
   	const {PayingOffUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._employee.selectedRows,
       role: "payingOff",
       currentUpdateIndex: state._employee.currentUpdateIndex,
-      owner: { type: '_employee', id: state._employee.id, listName: 'payingOffList', ref:state._employee, listDisplayName: '工资支付列表' }, // this is for model namespace and
+      owner: { type: '_employee', id: state._employee.id, listName: 'payingOffList', ref:state._employee, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PayingOffUpdateForm)
   }
 
@@ -815,16 +846,22 @@ class EmployeeBizApp extends React.PureComponent {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
      const { breadcrumb }  = this.props
-
-     //const {EmployeeEditDetail} = GlobalComponents
-     //const {EmployeeViewDetail} = GlobalComponents
-     
-     
+  
      const targetApp = sessionObject('targetApp')
      const currentBreadcrumb =sessionObject(targetApp.id)
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
      
-     
-     // Don't show popup menu when it is been collapsed
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
@@ -838,15 +875,15 @@ class EmployeeBizApp extends React.PureComponent {
             alt="logo"
             onClick={this.toggle}
             className={styles.logo}
-          />
+          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
           {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
+            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
 
           })}
          </div>
           <div className={styles.right}  >
           <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
+          {appLocaleName(userContext,"Exit")}</Button>
           </div>
           
         </Header>

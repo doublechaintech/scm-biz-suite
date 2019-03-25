@@ -10,6 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './ListAccess.updateform.less'
 import ListAccessBase from './ListAccess.base'
+import appLocaleName from '../../common/Locale.tool'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -88,6 +89,7 @@ class ListAccessUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+    const userContext = null
     const {fieldLabels} = ListAccessBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -100,7 +102,7 @@ class ListAccessUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-
+		
         const { owner, role } = this.props
         const listAccessId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -184,7 +186,7 @@ class ListAccessUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'listAccess',
-          listName:'访问列表列表' 
+          listName:appLocaleName(userContext,"List") 
         },
       })
     }
@@ -215,7 +217,7 @@ class ListAccessUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-            title="表单校验信息"
+            title={appLocaleName(userContext,"FieldValidateInfo")}
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -229,7 +231,7 @@ class ListAccessUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-      return (<div>缺少被更新的对象</div>)
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
     }
 	const selectedRow = this.getSelectedRow()
 
@@ -244,11 +246,11 @@ class ListAccessUpdateForm extends Component {
 
     return (
       <PageHeaderLayout
-        title={"更新访问列表"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新访问列表"
+        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
+        content={appLocaleName(userContext,"Update")}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title="基础信息" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
             
@@ -257,7 +259,7 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
                     initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
                     
@@ -269,7 +271,7 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     initialValue: selectedRow.name,
-                    rules: [{ required: true, message: '请输入名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入名称" />
                     
@@ -281,7 +283,7 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.internalName} {...formItemLayout}>
                   {getFieldDecorator('internalName', {
                     initialValue: selectedRow.internalName,
-                    rules: [{ required: true, message: '请输入内部名称' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input placeholder="请输入内部名称" />
                     
@@ -293,7 +295,7 @@ class ListAccessUpdateForm extends Component {
           </Form>  
         </Card>
         
-        <Card title="设置" className={styles.card} bordered={false}>
+        <Card title={appLocaleName(userContext,"Preference")} className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
             
@@ -302,10 +304,10 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.readPermission} {...switchFormItemLayout}>
                   {getFieldDecorator('readPermission', {
                     initialValue: selectedRow.readPermission,
-                    rules: [{ required: true, message: '请输入读权限' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                     valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入读权限bool" />
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>
@@ -314,10 +316,10 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.createPermission} {...switchFormItemLayout}>
                   {getFieldDecorator('createPermission', {
                     initialValue: selectedRow.createPermission,
-                    rules: [{ required: true, message: '请输入创建权限' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                     valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入创建权限bool" />
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>
@@ -326,10 +328,10 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.deletePermission} {...switchFormItemLayout}>
                   {getFieldDecorator('deletePermission', {
                     initialValue: selectedRow.deletePermission,
-                    rules: [{ required: true, message: '请输入删除权限' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                     valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入删除权限bool" />
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>
@@ -338,10 +340,10 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.updatePermission} {...switchFormItemLayout}>
                   {getFieldDecorator('updatePermission', {
                     initialValue: selectedRow.updatePermission,
-                    rules: [{ required: true, message: '请输入更新许可' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                     valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入更新许可bool" />
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>
@@ -350,10 +352,10 @@ class ListAccessUpdateForm extends Component {
                 <Form.Item label={fieldLabels.executionPermission} {...switchFormItemLayout}>
                   {getFieldDecorator('executionPermission', {
                     initialValue: selectedRow.executionPermission,
-                    rules: [{ required: true, message: '请输入执行权限' }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                     valuePropName: 'checked'
                   })(
-                    <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入执行权限bool" />
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>
@@ -370,16 +372,16 @@ class ListAccessUpdateForm extends Component {
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
+            {appLocaleName(userContext,"Update")}
           </Button>
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
+            {appLocaleName(userContext,"UpdateAndContinue")}
           </Button>
           <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
+            {appLocaleName(userContext,"Skip")}
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
-            取消
+            {appLocaleName(userContext,"Cancel")}
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>
