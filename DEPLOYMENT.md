@@ -42,7 +42,7 @@ sudo usermod -aG docker $USER
 基本系统运行需要redis和mysql，均通过docker安装，命令如下
 
 ```
-docker run -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
+docker run -d -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
 docker run -d --name  demo_redis -p 6379:6379 redis
  
 ```
@@ -63,10 +63,15 @@ default-character-set = utf8mb4
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
-time_zone =+08:00
+default-time-zone =+08:00
 
 
 ```
+
+MySQL的初始化脚本问题文件在 bizcore/retailscm_core_src/META-INF/retailscm_mysql.sql下面
+
+配置文件在bizcore/retailscm_custom_src/META-INF/infra.properties里面
+
 
 Redis很简单，运行就是了
 
@@ -164,9 +169,9 @@ server {
 
 ```
 
-### 使用Tomcat容器
+### 使用Tomcat容器）
 
-需要需改bizcore/WEB-INF/web.xml路径匹配规则，其他不用动
+url-pattern 参数无法配置，未成功
 
 
 
