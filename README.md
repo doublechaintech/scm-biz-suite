@@ -9,6 +9,7 @@
 
 [部署指南 ](/DEPLOYMENT.md)
 
+智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
 ## 核心特性
 * 本系统包括前端、后端、数据大屏，数据结构和基础数据都是通过自研软件开发开发
