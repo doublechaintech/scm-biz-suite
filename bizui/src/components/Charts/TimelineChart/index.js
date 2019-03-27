@@ -44,7 +44,8 @@ class TimelineChart extends React.Component {
     });
 
     const dv = ds.createView();
-    dv.source(data)
+    dv
+      .source(data)
       .transform({
         type: 'filter',
         callback: obj => {

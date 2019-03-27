@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2016-09-26',
-  endDate: '2017-04-09',
+  startDate: '2019-01-19',
+  endDate: '2018-01-30',
   accountSetId: 'AS000001',
 }
 */
@@ -194,10 +194,10 @@ class AccountingPeriodCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}会计期间`}
+        content={`${appLocaleName(userContext,"CreateNew")}会计期间`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class AccountingPeriodCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class AccountingPeriodCreateForm extends Component {
                   {getFieldDecorator('startDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入开始日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入开始日期" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class AccountingPeriodCreateForm extends Component {
                   {getFieldDecorator('endDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入结束日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入结束日期" />
                   )}
                 </Form.Item>
               </Col>

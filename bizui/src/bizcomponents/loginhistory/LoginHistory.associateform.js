@@ -139,7 +139,7 @@ class LoginHistoryAssociateForm extends Component {
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入从IP" />
+                    <Input size="large" placeholder="请输入从IP" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class LoginHistoryAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                   )}
                 </Form.Item>
               </Col>

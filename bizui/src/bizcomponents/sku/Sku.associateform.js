@@ -23,7 +23,7 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
-  price: '1136.73',
+  price: '970.99',
   productId: 'P000001',
 }
 */
@@ -145,7 +145,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -155,7 +155,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('size', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入大小" />
+                    <Input size="large" placeholder="请输入大小" />
                   )}
                 </Form.Item>
               </Col>
@@ -165,7 +165,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('barcode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入条码" />
+                    <Input size="large" placeholder="请输入条码" />
                   )}
                 </Form.Item>
               </Col>
@@ -175,7 +175,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('packageType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入包装类型" />
+                    <Input size="large" placeholder="请输入包装类型" />
                   )}
                 </Form.Item>
               </Col>
@@ -185,7 +185,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('netContent', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入净含量" />
+                    <Input size="large" placeholder="请输入净含量" />
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +195,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入价格" />
+                    <Input size="large" placeholder="请输入价格" />
                   )}
                 </Form.Item>
               </Col>

@@ -245,10 +245,10 @@ class EmployeeQualifierUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -262,7 +262,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.qualifiedTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入合格的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入合格的时间" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.type,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入类型" />
+                    <Input size="large" placeholder="请输入类型" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.level,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入水平" />
+                    <Input size="large" placeholder="请输入水平" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.remark,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入备注" />
+                    <Input size="large" placeholder="请输入备注" />
                     
                   )}
                 </Form.Item>

@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2018-12-31',
-  leaveTime: '2019-01-19',
-  durationHours: '8',
+  enterTime: '2018-07-23',
+  leaveTime: '2019-02-05',
+  durationHours: '6',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -195,10 +195,10 @@ class EmployeeAttendanceCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}员工考勤`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工考勤`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class EmployeeAttendanceCreateForm extends Component {
                   {getFieldDecorator('enterTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入进入时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入进入时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class EmployeeAttendanceCreateForm extends Component {
                   {getFieldDecorator('leaveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入离开的时候" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入离开的时候" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class EmployeeAttendanceCreateForm extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入持续时间" />
+                    <Input size="large" placeholder="请输入持续时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class EmployeeAttendanceCreateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入备注" />
+                    <Input size="large" placeholder="请输入备注" />
                   )}
                 </Form.Item>
               </Col>

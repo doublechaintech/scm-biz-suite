@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-  amount: '459.70',
+  amount: '468.60',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -194,10 +194,10 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}消费品价格调整`}
+        content={`${appLocaleName(userContext,"CreateNew")}消费品价格调整`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入金额" />
+                    <Input size="large" placeholder="请输入金额" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
                   {getFieldDecorator('provider', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入供应商" />
+                    <Input size="large" placeholder="请输入供应商" />
                   )}
                 </Form.Item>
               </Col>

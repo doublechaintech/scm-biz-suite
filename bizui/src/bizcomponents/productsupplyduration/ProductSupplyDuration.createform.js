@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   quantity: '100',
   duration: '现货',
-  price: '9482.56',
+  price: '8449.53',
   productId: 'SP000001',
 }
 */
@@ -194,10 +194,10 @@ class ProductSupplyDurationCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}产品供应时间`}
+        content={`${appLocaleName(userContext,"CreateNew")}产品供应时间`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class ProductSupplyDurationCreateForm extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入数量" />
+                    <Input size="large" placeholder="请输入数量" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class ProductSupplyDurationCreateForm extends Component {
                   {getFieldDecorator('duration', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入持续时间" />
+                    <Input size="large" placeholder="请输入持续时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class ProductSupplyDurationCreateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入价格" />
+                    <Input size="large" placeholder="请输入价格" />
                   )}
                 </Form.Item>
               </Col>

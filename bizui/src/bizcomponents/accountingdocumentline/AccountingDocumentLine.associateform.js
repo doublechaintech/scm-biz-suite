@@ -21,7 +21,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '800792.75',
+  amount: '930454.44',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -142,7 +142,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入代码" />
+                    <Input size="large" placeholder="请输入代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('direct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入直接" />
+                    <Input size="large" placeholder="请输入直接" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入金额" />
+                    <Input size="large" placeholder="请输入金额" />
                   )}
                 </Form.Item>
               </Col>

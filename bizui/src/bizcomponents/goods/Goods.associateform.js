@@ -22,7 +22,7 @@ const testValues = {
   rfid: 'RF99192',
   uom: '件',
   maxPackage: '9',
-  expireTime: '2017-01-13',
+  expireTime: '2017-12-12',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -151,7 +151,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入RFID" />
+                    <Input size="large" placeholder="请输入RFID" />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('uom', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入计量单位" />
+                    <Input size="large" placeholder="请输入计量单位" />
                   )}
                 </Form.Item>
               </Col>
@@ -181,7 +181,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('maxPackage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入最大包装" />
+                    <Input size="large" placeholder="请输入最大包装" />
                   )}
                 </Form.Item>
               </Col>
@@ -191,7 +191,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('expireTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入到期时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入到期时间" />
                   )}
                 </Form.Item>
               </Col>

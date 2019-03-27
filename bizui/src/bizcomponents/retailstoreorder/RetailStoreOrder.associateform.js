@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
-  totalAmount: '2599912448.00',
+  totalAmount: '2202248192.00',
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
 }
@@ -144,7 +144,7 @@ class RetailStoreOrderAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入头衔" />
+                    <Input size="large" placeholder="请输入头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +154,7 @@ class RetailStoreOrderAssociateForm extends Component {
                   {getFieldDecorator('totalAmount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入总金额" />
+                    <Input size="large" placeholder="请输入总金额" />
                   )}
                 </Form.Item>
               </Col>

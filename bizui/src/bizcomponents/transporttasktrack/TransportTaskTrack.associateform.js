@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2017-03-24',
-  latitude: '31.745278962156615',
-  longitude: '105.13225485948388',
+  trackTime: '2016-08-23',
+  latitude: '31.081372415587587',
+  longitude: '105.40259069414206',
   movementId: 'TT000001',
 }
 */
@@ -140,7 +140,7 @@ class TransportTaskTrackAssociateForm extends Component {
                   {getFieldDecorator('trackTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入跟踪时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入跟踪时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class TransportTaskTrackAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入纬度" />
+                    <Input size="large" placeholder="请输入纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class TransportTaskTrackAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入经度" />
+                    <Input size="large" placeholder="请输入经度" />
                   )}
                 </Form.Item>
               </Col>

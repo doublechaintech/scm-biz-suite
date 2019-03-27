@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2019-03-13',
+  occureTime: '2017-08-23',
   number: 'GF00001',
-  amount: '17.64',
+  amount: '17.11',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -195,10 +195,10 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
+        content={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('occureTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入发生时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入发生时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入数" />
+                    <Input size="large" placeholder="请输入数" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入金额" />
+                    <Input size="large" placeholder="请输入金额" />
                   )}
                 </Form.Item>
               </Col>

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '申请者',
-  acceptTime: '2016-06-25',
+  acceptTime: '2016-05-24',
   comments: '谢谢，我一个月内上班',
 }
 */
@@ -193,10 +193,10 @@ class OfferAcceptanceCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}接受工作要约`}
+        content={`${appLocaleName(userContext,"CreateNew")}接受工作要约`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class OfferAcceptanceCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入谁" />
+                    <Input size="large" placeholder="请输入谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class OfferAcceptanceCreateForm extends Component {
                   {getFieldDecorator('acceptTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入接受时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入接受时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class OfferAcceptanceCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入评论" />
+                    <Input size="large" placeholder="请输入评论" />
                   )}
                 </Form.Item>
               </Col>

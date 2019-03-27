@@ -244,10 +244,10 @@ class AccountingSubjectUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -261,7 +261,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目代码" />
+                    <Input size="large" placeholder="请输入会计科目代码" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目名称" />
+                    <Input size="large" placeholder="请输入会计科目名称" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectClassCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目类别代码" />
+                    <Input size="large" placeholder="请输入会计科目类别代码" />
                     
                   )}
                 </Form.Item>
@@ -309,7 +309,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectClassName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目类别名称" />
+                    <Input size="large" placeholder="请输入会计科目类别名称" />
                     
                   )}
                 </Form.Item>

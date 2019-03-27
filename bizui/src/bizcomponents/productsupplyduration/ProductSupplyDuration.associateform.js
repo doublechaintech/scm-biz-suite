@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   quantity: '100',
   duration: '现货',
-  price: '9287.51',
+  price: '9086.19',
   productId: 'SP000001',
 }
 */
@@ -140,7 +140,7 @@ class ProductSupplyDurationAssociateForm extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入数量" />
+                    <Input size="large" placeholder="请输入数量" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class ProductSupplyDurationAssociateForm extends Component {
                   {getFieldDecorator('duration', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入持续时间" />
+                    <Input size="large" placeholder="请输入持续时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class ProductSupplyDurationAssociateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入价格" />
+                    <Input size="large" placeholder="请输入价格" />
                   )}
                 </Form.Item>
               </Col>

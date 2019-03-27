@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '处理者',
-  processTime: '2016-06-08',
+  processTime: '2017-03-26',
 }
 */
 
@@ -138,7 +138,7 @@ class ConsumerOrderProcessingAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入谁" />
+                    <Input size="large" placeholder="请输入谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +148,7 @@ class ConsumerOrderProcessingAssociateForm extends Component {
                   {getFieldDecorator('processTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入过程的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入过程的时间" />
                   )}
                 </Form.Item>
               </Col>
