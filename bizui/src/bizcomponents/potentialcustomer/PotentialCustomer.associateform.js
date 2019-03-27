@@ -144,7 +144,7 @@ class PotentialCustomerAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +154,7 @@ class PotentialCustomerAssociateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入手机" />
+                    <Input size="large" placeholder="请输入手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -164,7 +164,7 @@ class PotentialCustomerAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                   )}
                 </Form.Item>
               </Col>

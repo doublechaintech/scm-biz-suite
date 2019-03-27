@@ -4,7 +4,7 @@ import { Link } from 'dva/router'
 import moment from 'moment'
 import appLocaleName from '../../common/Locale.tool'
 
-
+import { Icon } from 'antd';
 
 const menuData = {menuName:"员工", menuFor: "employee",
   		subItems: [
@@ -84,7 +84,7 @@ const renderBooleanCell=(value, record)=>{
 
 const renderReferenceCell=(value, record)=>{
 	const userContext = null
-	return (value ? value.displayName : appLocaleName(userContext,"NotAssigned")) 
+	return (value ? <span style={{fontWeight:"bold"}} title={`${value.id} - ${value.displayName}`} >{value.displayName}</span> : appLocaleName(userContext,"NotAssigned")) 
 
 }
 

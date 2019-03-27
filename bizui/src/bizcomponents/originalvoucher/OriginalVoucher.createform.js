@@ -196,10 +196,10 @@ class OriginalVoucherCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}原始凭证`}
+        content={`${appLocaleName(userContext,"CreateNew")}原始凭证`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入头衔" />
+                    <Input size="large" placeholder="请输入头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('madeBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入由" />
+                    <Input size="large" placeholder="请输入由" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('receivedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入受" />
+                    <Input size="large" placeholder="请输入受" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('voucherType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入凭证类型" />
+                    <Input size="large" placeholder="请输入凭证类型" />
                   )}
                 </Form.Item>
               </Col>

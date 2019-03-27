@@ -245,10 +245,10 @@ class GoodsMovementUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -262,7 +262,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.moveTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入移动时间" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入移动时间" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.facility,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入设施" />
+                    <Input size="large" placeholder="请输入设施" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.facilityId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入设备ID" />
+                    <Input size="large" placeholder="请输入设备ID" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.fromIp,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入从IP" />
+                    <Input size="large" placeholder="请输入从IP" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.sessionId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会话ID" />
+                    <Input size="large" placeholder="请输入会话ID" />
                     
                   )}
                 </Form.Item>
@@ -334,7 +334,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入纬度" />
+                    <Input size="large" placeholder="请输入纬度" />
                     
                   )}
                 </Form.Item>
@@ -346,7 +346,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入经度" />
+                    <Input size="large" placeholder="请输入经度" />
                     
                   )}
                 </Form.Item>

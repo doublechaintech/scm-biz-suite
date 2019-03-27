@@ -193,10 +193,10 @@ class ListAccessCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}访问列表`}
+        content={`${appLocaleName(userContext,"CreateNew")}访问列表`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class ListAccessCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class ListAccessCreateForm extends Component {
                   {getFieldDecorator('internalName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入内部名称" />
+                    <Input size="large" placeholder="请输入内部名称" />
                   )}
                 </Form.Item>
               </Col>

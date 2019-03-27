@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-  paidTime: '2018-05-16',
-  amount: '4672.91',
+  paidTime: '2018-07-07',
+  amount: '3892.24',
   paidForId: 'E000001',
 }
 */
@@ -194,10 +194,10 @@ class PayingOffCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}工资支付`}
+        content={`${appLocaleName(userContext,"CreateNew")}工资支付`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class PayingOffCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入谁" />
+                    <Input size="large" placeholder="请输入谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class PayingOffCreateForm extends Component {
                   {getFieldDecorator('paidTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入支付时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入支付时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class PayingOffCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入金额" />
+                    <Input size="large" placeholder="请输入金额" />
                   )}
                 </Form.Item>
               </Col>

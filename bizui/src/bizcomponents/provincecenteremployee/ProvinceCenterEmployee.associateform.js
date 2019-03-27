@@ -21,7 +21,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2019-02-24',
+  founded: '2017-08-20',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -142,7 +142,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入手机" />
+                    <Input size="large" placeholder="请输入手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入电子邮件" />
+                    <Input size="large" placeholder="请输入电子邮件" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
                 </Form.Item>
               </Col>

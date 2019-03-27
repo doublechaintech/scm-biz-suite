@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2017-12-23',
+  contactDate: '2017-07-12',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -197,10 +197,10 @@ class PotentialCustomerContactCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}潜在客户联系`}
+        content={`${appLocaleName(userContext,"CreateNew")}潜在客户联系`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -212,7 +212,7 @@ class PotentialCustomerContactCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -222,7 +222,7 @@ class PotentialCustomerContactCreateForm extends Component {
                   {getFieldDecorator('contactDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入接触日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入接触日期" />
                   )}
                 </Form.Item>
               </Col>
@@ -232,7 +232,7 @@ class PotentialCustomerContactCreateForm extends Component {
                   {getFieldDecorator('contactMethod', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入接触法" />
+                    <Input size="large" placeholder="请输入接触法" />
                   )}
                 </Form.Item>
               </Col>
@@ -242,7 +242,7 @@ class PotentialCustomerContactCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                   )}
                 </Form.Item>
               </Col>

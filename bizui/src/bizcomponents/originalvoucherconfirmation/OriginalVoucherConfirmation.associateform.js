@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '确认通过',
-  makeDate: '2017-12-11',
+  makeDate: '2016-10-24',
 }
 */
 
@@ -140,7 +140,7 @@ class OriginalVoucherConfirmationAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入谁" />
+                    <Input size="large" placeholder="请输入谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class OriginalVoucherConfirmationAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入评论" />
+                    <Input size="large" placeholder="请输入评论" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class OriginalVoucherConfirmationAssociateForm extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入制造日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入制造日期" />
                   )}
                 </Form.Item>
               </Col>

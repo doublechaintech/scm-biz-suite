@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   who: '面试官',
   assessment: '小伙子不错，值得培养',
-  interviewTime: '2018-01-07',
+  interviewTime: '2016-03-28',
 }
 */
 
@@ -139,7 +139,7 @@ class ViewAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入谁" />
+                    <Input size="large" placeholder="请输入谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class ViewAssociateForm extends Component {
                   {getFieldDecorator('assessment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入评估" />
+                    <Input size="large" placeholder="请输入评估" />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +159,7 @@ class ViewAssociateForm extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入面试时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入面试时间" />
                   )}
                 </Form.Item>
               </Col>

@@ -194,10 +194,10 @@ class TerminationTypeCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}雇佣终止类型`}
+        content={`${appLocaleName(userContext,"CreateNew")}雇佣终止类型`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class TerminationTypeCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入代码" />
+                    <Input size="large" placeholder="请输入代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class TerminationTypeCreateForm extends Component {
                   {getFieldDecorator('baseDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入基本描述" />
+                    <Input size="large" placeholder="请输入基本描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class TerminationTypeCreateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入详细描述" />
+                    <Input size="large" placeholder="请输入详细描述" />
                   )}
                 </Form.Item>
               </Col>

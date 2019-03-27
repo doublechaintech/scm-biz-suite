@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2017-11-22',
+  occureTime: '2018-05-31',
   number: 'GF00001',
-  amount: '18.85',
+  amount: '16.76',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -141,7 +141,7 @@ class RetailStoreMemberGiftCardConsumeRecordAssociateForm extends Component {
                   {getFieldDecorator('occureTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入发生时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入发生时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class RetailStoreMemberGiftCardConsumeRecordAssociateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入数" />
+                    <Input size="large" placeholder="请输入数" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class RetailStoreMemberGiftCardConsumeRecordAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入金额" />
+                    <Input size="large" placeholder="请输入金额" />
                   )}
                 </Form.Item>
               </Col>

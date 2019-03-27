@@ -195,10 +195,10 @@ class AccountingSubjectCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}会计科目`}
+        content={`${appLocaleName(userContext,"CreateNew")}会计科目`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目代码" />
+                    <Input size="large" placeholder="请输入会计科目代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目名称" />
+                    <Input size="large" placeholder="请输入会计科目名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目类别代码" />
+                    <Input size="large" placeholder="请输入会计科目类别代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入会计科目类别名称" />
+                    <Input size="large" placeholder="请输入会计科目类别名称" />
                   )}
                 </Form.Item>
               </Col>

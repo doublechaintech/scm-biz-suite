@@ -246,10 +246,10 @@ class EmployeeWorkExperienceUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -263,7 +263,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.start,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入开始" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.end,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入结束" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入结束" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.company,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入公司" />
+                    <Input size="large" placeholder="请输入公司" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                     
                   )}
                 </Form.Item>

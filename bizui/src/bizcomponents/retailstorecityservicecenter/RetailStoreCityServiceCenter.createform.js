@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超成都办事处',
-  founded: '2016-07-03',
+  founded: '2017-09-25',
   belongsToId: 'RSPC000001',
 }
 */
@@ -193,10 +193,10 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}双链小超城市服务中心`}
+        content={`${appLocaleName(userContext,"CreateNew")}双链小超城市服务中心`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
                 </Form.Item>
               </Col>

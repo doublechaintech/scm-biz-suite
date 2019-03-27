@@ -161,7 +161,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入头衔" />
+                    <Input size="large" placeholder="请输入头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('familyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入姓" />
+                    <Input size="large" placeholder="请输入姓" />
                   )}
                 </Form.Item>
               </Col>
@@ -181,7 +181,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('givenName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名" />
+                    <Input size="large" placeholder="请输入名" />
                   )}
                 </Form.Item>
               </Col>
@@ -191,7 +191,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入电子邮件" />
+                    <Input size="large" placeholder="请输入电子邮件" />
                   )}
                 </Form.Item>
               </Col>
@@ -201,7 +201,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('city', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入城市" />
+                    <Input size="large" placeholder="请输入城市" />
                   )}
                 </Form.Item>
               </Col>
@@ -211,7 +211,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入地址" />
+                    <Input size="large" placeholder="请输入地址" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('cellPhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入手机" />
+                    <Input size="large" placeholder="请输入手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class EmployeeAssociateForm extends Component {
                   {getFieldDecorator('salaryAccount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入工资账户" />
+                    <Input size="large" placeholder="请输入工资账户" />
                   )}
                 </Form.Item>
               </Col>

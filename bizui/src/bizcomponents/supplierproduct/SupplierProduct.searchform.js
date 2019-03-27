@@ -193,7 +193,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -201,7 +201,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="品名">
            {getFieldDecorator('productName')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -248,7 +248,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -256,7 +256,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="品名">
               {getFieldDecorator('productName')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -264,7 +264,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="产品描述">
               {getFieldDecorator('productDescription')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -272,7 +272,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="产品单元">
               {getFieldDecorator('productUnit')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

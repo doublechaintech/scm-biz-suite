@@ -163,7 +163,7 @@ class ListAccessTable extends PureComponent {
         </div>
         <Table
           loading={false}
-          size="middle"
+          size="default"
           rowKey={record => record.id}
            
           rowSelection={rowSelection}

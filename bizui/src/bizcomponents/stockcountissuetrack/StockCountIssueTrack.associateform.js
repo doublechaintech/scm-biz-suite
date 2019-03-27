@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2019-01-06',
+  countTime: '2018-11-17',
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }
@@ -140,7 +140,7 @@ class StockCountIssueTrackAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入头衔" />
+                    <Input size="large" placeholder="请输入头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class StockCountIssueTrackAssociateForm extends Component {
                   {getFieldDecorator('countTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入计数时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入计数时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class StockCountIssueTrackAssociateForm extends Component {
                   {getFieldDecorator('summary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入概览" />
+                    <Input size="large" placeholder="请输入概览" />
                   )}
                 </Form.Item>
               </Col>

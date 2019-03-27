@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2017-10-03',
-  latitude: '31.968831297902376',
-  longitude: '103.84268210190407',
+  trackTime: '2017-02-11',
+  latitude: '31.343777027617143',
+  longitude: '104.21825410378209',
   movementId: 'TT000001',
 }
 */
@@ -194,10 +194,10 @@ class TransportTaskTrackCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}运输任务跟踪`}
+        content={`${appLocaleName(userContext,"CreateNew")}运输任务跟踪`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class TransportTaskTrackCreateForm extends Component {
                   {getFieldDecorator('trackTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入跟踪时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入跟踪时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class TransportTaskTrackCreateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入纬度" />
+                    <Input size="large" placeholder="请输入纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class TransportTaskTrackCreateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入经度" />
+                    <Input size="large" placeholder="请输入经度" />
                   )}
                 </Form.Item>
               </Col>

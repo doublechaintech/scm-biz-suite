@@ -193,10 +193,10 @@ class UserWhiteListCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}用户白名单`}
+        content={`${appLocaleName(userContext,"CreateNew")}用户白名单`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class UserWhiteListCreateForm extends Component {
                   {getFieldDecorator('userIdentity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入用户身份" />
+                    <Input size="large" placeholder="请输入用户身份" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class UserWhiteListCreateForm extends Component {
                   {getFieldDecorator('userSpecialFunctions', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入用户特殊功能" />
+                    <Input size="large" placeholder="请输入用户特殊功能" />
                   )}
                 </Form.Item>
               </Col>

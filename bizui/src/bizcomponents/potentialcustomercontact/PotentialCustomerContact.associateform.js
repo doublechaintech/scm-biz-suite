@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2016-07-27',
+  contactDate: '2018-07-30',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -143,7 +143,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +153,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('contactDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入接触日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入接触日期" />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +163,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('contactMethod', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入接触法" />
+                    <Input size="large" placeholder="请输入接触法" />
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +173,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                   )}
                 </Form.Item>
               </Col>

@@ -22,8 +22,8 @@ const testValues = {
   contactNumber: '02887654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-  latitude: '41.85542205966624',
-  longitude: '129.3250747401844',
+  latitude: '42.692600477136445',
+  longitude: '131.47561250091172',
   warehouseId: 'W000001',
 }
 */
@@ -144,7 +144,7 @@ class ReceivingSpaceAssociateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入位置" />
+                    <Input size="large" placeholder="请输入位置" />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +154,7 @@ class ReceivingSpaceAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入联系电话" />
+                    <Input size="large" placeholder="请输入联系电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -164,7 +164,7 @@ class ReceivingSpaceAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -174,7 +174,7 @@ class ReceivingSpaceAssociateForm extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入总面积" />
+                    <Input size="large" placeholder="请输入总面积" />
                   )}
                 </Form.Item>
               </Col>
@@ -184,7 +184,7 @@ class ReceivingSpaceAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入纬度" />
+                    <Input size="large" placeholder="请输入纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -194,7 +194,7 @@ class ReceivingSpaceAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入经度" />
+                    <Input size="large" placeholder="请输入经度" />
                   )}
                 </Form.Item>
               </Col>

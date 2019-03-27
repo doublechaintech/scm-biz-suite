@@ -144,7 +144,7 @@ class GoodsSupplierAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +154,7 @@ class GoodsSupplierAssociateForm extends Component {
                   {getFieldDecorator('supplyProduct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入供应产品" />
+                    <Input size="large" placeholder="请输入供应产品" />
                   )}
                 </Form.Item>
               </Col>
@@ -164,7 +164,7 @@ class GoodsSupplierAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入联系电话" />
+                    <Input size="large" placeholder="请输入联系电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -174,7 +174,7 @@ class GoodsSupplierAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                   )}
                 </Form.Item>
               </Col>

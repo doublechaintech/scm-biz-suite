@@ -17,7 +17,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2017-12-01',
+  qualifiedTime: '2018-11-24',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -195,10 +195,10 @@ class EmployeeQualifierCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}员工资质`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工资质`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class EmployeeQualifierCreateForm extends Component {
                   {getFieldDecorator('qualifiedTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入合格的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入合格的时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class EmployeeQualifierCreateForm extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入类型" />
+                    <Input size="large" placeholder="请输入类型" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class EmployeeQualifierCreateForm extends Component {
                   {getFieldDecorator('level', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入水平" />
+                    <Input size="large" placeholder="请输入水平" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class EmployeeQualifierCreateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入备注" />
+                    <Input size="large" placeholder="请输入备注" />
                   )}
                 </Form.Item>
               </Col>

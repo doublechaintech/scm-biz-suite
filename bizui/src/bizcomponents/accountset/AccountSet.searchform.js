@@ -199,7 +199,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -207,7 +207,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -254,7 +254,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -262,7 +262,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -270,7 +270,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="年组">
               {getFieldDecorator('yearSet')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -278,7 +278,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="会计制度">
               {getFieldDecorator('accountingSystem')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -286,7 +286,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="本币代码">
               {getFieldDecorator('domesticCurrencyCode')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -294,7 +294,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="本币名称">
               {getFieldDecorator('domesticCurrencyName')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -302,7 +302,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="开户银行">
               {getFieldDecorator('openingBank')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -310,7 +310,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="帐户号码">
               {getFieldDecorator('accountNumber')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

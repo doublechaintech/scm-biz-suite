@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '技术部',
-  interviewTime: '2018-10-27',
+  interviewTime: '2016-12-25',
   comments: '能力各方面表现不错，进入下一轮',
 }
 */
@@ -193,10 +193,10 @@ class ProfessionInterviewCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}专业面试`}
+        content={`${appLocaleName(userContext,"CreateNew")}专业面试`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class ProfessionInterviewCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入谁" />
+                    <Input size="large" placeholder="请输入谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class ProfessionInterviewCreateForm extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入面试时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入面试时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class ProfessionInterviewCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入评论" />
+                    <Input size="large" placeholder="请输入评论" />
                   )}
                 </Form.Item>
               </Col>

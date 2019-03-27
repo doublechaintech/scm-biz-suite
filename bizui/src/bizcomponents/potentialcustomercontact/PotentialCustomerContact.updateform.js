@@ -246,10 +246,10 @@ class PotentialCustomerContactUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -263,7 +263,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.contactDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入接触日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入接触日期" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.contactMethod,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入接触法" />
+                    <Input size="large" placeholder="请输入接触法" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                     
                   )}
                 </Form.Item>

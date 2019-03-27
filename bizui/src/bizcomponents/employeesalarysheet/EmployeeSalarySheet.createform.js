@@ -17,13 +17,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2180.87',
-  bonus: '731.97',
-  reward: '968.47',
-  personalTax: '690.57',
-  socialSecurity: '1083.31',
-  housingFound: '1222.94',
-  jobInsurance: '8.46',
+  baseSalary: '2620.79',
+  bonus: '829.33',
+  reward: '898.36',
+  personalTax: '600.38',
+  socialSecurity: '926.39',
+  housingFound: '956.31',
+  jobInsurance: '6.33',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
 }
@@ -199,10 +199,10 @@ class EmployeeSalarySheetCreateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"CreateNew")}
-        content={appLocaleName(userContext,"CreateNew")}
+        title={`${appLocaleName(userContext,"CreateNew")}工资单`}
+        content={`${appLocaleName(userContext,"CreateNew")}工资单`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -214,7 +214,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                   {getFieldDecorator('baseSalary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入基本工资" />
+                    <Input size="large" placeholder="请输入基本工资" />
                   )}
                 </Form.Item>
               </Col>
@@ -224,7 +224,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                   {getFieldDecorator('bonus', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入奖金" />
+                    <Input size="large" placeholder="请输入奖金" />
                   )}
                 </Form.Item>
               </Col>
@@ -234,7 +234,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                   {getFieldDecorator('reward', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入奖励" />
+                    <Input size="large" placeholder="请输入奖励" />
                   )}
                 </Form.Item>
               </Col>
@@ -244,7 +244,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                   {getFieldDecorator('personalTax', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入个人所得税" />
+                    <Input size="large" placeholder="请输入个人所得税" />
                   )}
                 </Form.Item>
               </Col>
@@ -254,7 +254,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                   {getFieldDecorator('socialSecurity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入社会保险" />
+                    <Input size="large" placeholder="请输入社会保险" />
                   )}
                 </Form.Item>
               </Col>
@@ -264,7 +264,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                   {getFieldDecorator('housingFound', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入住房公积金" />
+                    <Input size="large" placeholder="请输入住房公积金" />
                   )}
                 </Form.Item>
               </Col>
@@ -274,7 +274,7 @@ class EmployeeSalarySheetCreateForm extends Component {
                   {getFieldDecorator('jobInsurance', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入失业保险" />
+                    <Input size="large" placeholder="请输入失业保险" />
                   )}
                 </Form.Item>
               </Col>

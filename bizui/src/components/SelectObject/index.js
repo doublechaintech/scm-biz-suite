@@ -53,7 +53,7 @@ export default class SelectObject extends React.Component {
     this.executeSearch("")
   }
   componentWillUnmount() {
-    this._isMounted = true;
+    this._isMounted = false;
   }
   componentWillReceiveProps(nextProps) {
     // Should be a controlled component.
@@ -102,15 +102,20 @@ export default class SelectObject extends React.Component {
     return (
       <AutoComplete
               value={valueOf(value,candidateValues)}
-                    dataSource={candidateValues}
+                size="large"
+                    dataSource={candidateValues.map(item=>{
+                      return (<Option key={item.id}>{`${item.id} - ${item.displayName}`}</Option>);
+                    })}
                     onSearch={this.handleSearch}
                     placeholder="请选择列表中或者输入搜索"
                     disabled={disabled}
                     onChange={(value)=>this.handleChange(value)}
+                    // eslint-disable-next-line react/react-in-jsx-scope
+                    suffix={<Icon type="search" />} 
                   >
-                  {candidateValues.map(item=>{
-                return (<Option key={item.id}>{`${item.id} - ${item.displayName}`}</Option>);
-            })}
+                  <Input suffix={( <Icon type="bars" /> )}
+          />
+          
       </AutoComplete>
     )
   }

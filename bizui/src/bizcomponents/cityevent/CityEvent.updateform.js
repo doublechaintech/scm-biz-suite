@@ -245,10 +245,10 @@ class CityEventUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -262,7 +262,7 @@ class CityEventUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class CityEventUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class CityEventUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入手机" />
+                    <Input size="large" placeholder="请输入手机" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class CityEventUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                     
                   )}
                 </Form.Item>

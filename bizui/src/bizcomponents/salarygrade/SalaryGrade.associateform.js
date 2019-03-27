@@ -142,7 +142,7 @@ class SalaryGradeAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入代码" />
+                    <Input size="large" placeholder="请输入代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class SalaryGradeAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class SalaryGradeAssociateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入详细描述" />
+                    <Input size="large" placeholder="请输入详细描述" />
                   )}
                 </Form.Item>
               </Col>

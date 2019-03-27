@@ -244,10 +244,10 @@ class ScoringUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -261,7 +261,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.scoredBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入由谁打分" />
+                    <Input size="large" placeholder="请输入由谁打分" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.score,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入分数" />
+                    <Input size="large" placeholder="请输入分数" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.comment,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入评论" />
+                    <Input size="large" placeholder="请输入评论" />
                     
                   )}
                 </Form.Item>

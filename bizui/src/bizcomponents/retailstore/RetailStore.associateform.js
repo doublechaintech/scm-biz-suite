@@ -21,9 +21,9 @@ const testValues = {
   name: '中和社区小超',
   telephone: '02887654321',
   owner: '吕刚',
-  founded: '2017-09-23',
-  latitude: '42.585642236200435',
-  longitude: '131.5471704934914',
+  founded: '2019-03-03',
+  latitude: '41.04828676167042',
+  longitude: '130.02651531428776',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
@@ -150,7 +150,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('telephone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入电话" />
+                    <Input size="large" placeholder="请输入电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -170,7 +170,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('owner', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入业主" />
+                    <Input size="large" placeholder="请输入业主" />
                   )}
                 </Form.Item>
               </Col>
@@ -180,7 +180,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入成立" />
                   )}
                 </Form.Item>
               </Col>
@@ -190,7 +190,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入纬度" />
+                    <Input size="large" placeholder="请输入纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -200,7 +200,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入经度" />
+                    <Input size="large" placeholder="请输入经度" />
                   )}
                 </Form.Item>
               </Col>
@@ -210,7 +210,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入描述" />
+                    <Input size="large" placeholder="请输入描述" />
                   )}
                 </Form.Item>
               </Col>

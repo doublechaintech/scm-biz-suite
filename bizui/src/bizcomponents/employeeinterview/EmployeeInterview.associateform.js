@@ -139,7 +139,7 @@ class EmployeeInterviewAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入备注" />
+                    <Input size="large" placeholder="请输入备注" />
                   )}
                 </Form.Item>
               </Col>

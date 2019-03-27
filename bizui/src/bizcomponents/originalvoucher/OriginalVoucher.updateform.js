@@ -245,10 +245,10 @@ class OriginalVoucherUpdateForm extends Component {
       wrapperCol: { span: 4 },
     }
 
-    return (
+	return (
       <PageHeaderLayout
-        title={appLocaleName(userContext,"Update")+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content={appLocaleName(userContext,"Update")}
+        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -262,7 +262,7 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="请输入序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入头衔" />
+                    <Input size="large" placeholder="请输入头衔" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.madeBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入由" />
+                    <Input size="large" placeholder="请输入由" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.receivedBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入受" />
+                    <Input size="large" placeholder="请输入受" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.voucherType,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入凭证类型" />
+                    <Input size="large" placeholder="请输入凭证类型" />
                     
                   )}
                 </Form.Item>

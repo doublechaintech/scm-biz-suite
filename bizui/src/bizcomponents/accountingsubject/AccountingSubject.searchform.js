@@ -193,7 +193,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -201,7 +201,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="会计科目代码">
            {getFieldDecorator('accountingSubjectCode')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -248,7 +248,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -256,7 +256,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="会计科目代码">
               {getFieldDecorator('accountingSubjectCode')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -264,7 +264,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="会计科目名称">
               {getFieldDecorator('accountingSubjectName')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -272,7 +272,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="会计科目类别名称">
               {getFieldDecorator('accountingSubjectClassName')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

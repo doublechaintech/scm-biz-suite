@@ -18,13 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2770.31',
-  bonus: '891.08',
-  reward: '805.53',
-  personalTax: '698.95',
-  socialSecurity: '829.20',
-  housingFound: '936.23',
-  jobInsurance: '8.82',
+  baseSalary: '2485.76',
+  bonus: '973.64',
+  reward: '702.49',
+  personalTax: '693.93',
+  socialSecurity: '880.41',
+  housingFound: '966.32',
+  jobInsurance: '8.06',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
 }
@@ -145,7 +145,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('baseSalary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入基本工资" />
+                    <Input size="large" placeholder="请输入基本工资" />
                   )}
                 </Form.Item>
               </Col>
@@ -155,7 +155,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('bonus', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入奖金" />
+                    <Input size="large" placeholder="请输入奖金" />
                   )}
                 </Form.Item>
               </Col>
@@ -165,7 +165,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('reward', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入奖励" />
+                    <Input size="large" placeholder="请输入奖励" />
                   )}
                 </Form.Item>
               </Col>
@@ -175,7 +175,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('personalTax', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入个人所得税" />
+                    <Input size="large" placeholder="请输入个人所得税" />
                   )}
                 </Form.Item>
               </Col>
@@ -185,7 +185,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('socialSecurity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入社会保险" />
+                    <Input size="large" placeholder="请输入社会保险" />
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +195,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('housingFound', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入住房公积金" />
+                    <Input size="large" placeholder="请输入住房公积金" />
                   )}
                 </Form.Item>
               </Col>
@@ -205,7 +205,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('jobInsurance', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入失业保险" />
+                    <Input size="large" placeholder="请输入失业保险" />
                   )}
                 </Form.Item>
               </Col>

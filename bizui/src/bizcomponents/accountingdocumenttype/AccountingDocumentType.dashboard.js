@@ -27,8 +27,10 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
 }= DashboardTool
+
+
 
 
 
@@ -95,6 +97,7 @@ const internalSummaryOf = (accountingDocumentType,targetComponent) =>{
 
 }
 
+const internalQuickFunctions = defaultQuickFunctions
 
 class AccountingDocumentTypeDashboard extends Component {
 
@@ -140,6 +143,7 @@ class AccountingDocumentTypeDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
+    const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     return (
 
       <PageHeaderLayout
@@ -147,14 +151,12 @@ class AccountingDocumentTypeDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-      {renderExtraHeader(cardsData.cardsSource)}
-        <div>
+        {quickFunctions(cardsData)} 
+        {renderExtraHeader(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}
-        {subListsOf(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}        
         {largeTextOf(cardsData.cardsSource)}
-          
-        </div>
+  
       </PageHeaderLayout>
     )
   }

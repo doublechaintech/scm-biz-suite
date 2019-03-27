@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到刘强家',
-  amount: '498.37',
+  amount: '592.02',
   bizOrderId: 'CO000001',
 }
 */
@@ -139,7 +139,7 @@ class ConsumerOrderShippingGroupAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入名称" />
+                    <Input size="large" placeholder="请输入名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class ConsumerOrderShippingGroupAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input placeholder="请输入金额" />
+                    <Input size="large" placeholder="请输入金额" />
                   )}
                 </Form.Item>
               </Col>

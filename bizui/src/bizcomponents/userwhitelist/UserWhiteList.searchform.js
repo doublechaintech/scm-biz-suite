@@ -192,7 +192,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -200,7 +200,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="用户身份">
            {getFieldDecorator('userIdentity')(
-             <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -247,7 +247,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -255,7 +255,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="用户身份">
               {getFieldDecorator('userIdentity')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -263,7 +263,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="用户特殊功能">
               {getFieldDecorator('userSpecialFunctions')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
