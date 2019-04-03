@@ -129,7 +129,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 
 
 ![ScreenShot](/doc/home-screen.jpg)
-![ScreenShot](/doc/rootapp.jpg)
+![ScreenShot](/doc/root-app.jpg)
 
 ## 配套的数据大屏
 
