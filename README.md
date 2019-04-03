@@ -136,7 +136,6 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 ![ScreenShot](/doc/datascreen.png)
 
 
-
 ## 核心功能
 * 平台管理，平台鸟瞰视图
 * 业务开拓管理（CRM），管理联系，销售进度，完成合伙人转化
