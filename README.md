@@ -2,7 +2,7 @@
 
 零售供应链中台基础系统，一共大约130万行代码，管理界面通过javascript高阶函数定制，Java后台主要通过增加方法或者重写已经存在的大量方法来灵活定制。
 
-本系统目前大约有130万行代码，是用自研知识图谱和因果网络处理系统生成高可维护源代码。集成了阿里云OSS服务和短信服务。
+本系统代码是用自研知识图谱和因果网络处理系统自动生成高可维护源代码。
 
 
 概念和关系请请见：https://demo.doublechaintech.com/admin/retailscm/entities.html , 图比较大，需要拖动
@@ -128,13 +128,12 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 前端 React/dvajs/antd/echarts/Redux
 
 
-![ScreenShot](/doc/homescreen.png)
-![ScreenShot](/doc/rootapp.png)
+![ScreenShot](/doc/home-screen.jpg)
+![ScreenShot](/doc/root-app.jpg)
 
 ## 配套的数据大屏
 
 ![ScreenShot](/doc/datascreen.png)
-
 
 
 ## 核心功能
