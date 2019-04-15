@@ -24,7 +24,7 @@
 
 ## 许可
 
-除了Logo以外，本系统源代码为Apache 2 License，可以用于商用目的
+除Logo，登录页和主页图片以外，本系统源代码为Apache 2 License，可以用于商用目的
 
 ## 技术支持
 
