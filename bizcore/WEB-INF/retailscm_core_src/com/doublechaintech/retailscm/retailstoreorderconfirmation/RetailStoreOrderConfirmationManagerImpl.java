@@ -245,8 +245,9 @@ public class RetailStoreOrderConfirmationManagerImpl extends CustomRetailscmChec
 			//will be good when the retailStoreOrderConfirmation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderConfirmation.
+			if (retailStoreOrderConfirmation.isChanged()){
 			
-			
+			}
 			retailStoreOrderConfirmation = saveRetailStoreOrderConfirmation(userContext, retailStoreOrderConfirmation, options);
 			return retailStoreOrderConfirmation;
 			

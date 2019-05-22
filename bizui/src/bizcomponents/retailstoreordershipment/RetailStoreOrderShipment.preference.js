@@ -300,8 +300,12 @@ class RetailStoreOrderShipmentPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreOrderCount } = this.props.retailStoreOrderShipment
-    const cardsData = {cardsName:"生超订单出货",cardsFor: "retailStoreOrderShipment",cardsSource: this.props.retailStoreOrderShipment,
+    const  retailStoreOrderShipment = this.props.retailStoreOrderShipment;
+    const { id,displayName, retailStoreOrderCount } = retailStoreOrderShipment
+    
+    
+    
+    const cardsData = {cardsName:"生超订单出货",cardsFor: "retailStoreOrderShipment",cardsSource: retailStoreOrderShipment,
   		subItems: [
     
       	],

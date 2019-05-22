@@ -243,8 +243,9 @@ public class WarehouseAssetManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the warehouseAsset loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to WarehouseAsset.
-			
-			
+			if (warehouseAsset.isChanged()){
+			warehouseAsset.updateLastUpdateTime(userContext.now());
+			}
 			warehouseAsset = saveWarehouseAsset(userContext, warehouseAsset, options);
 			return warehouseAsset;
 			

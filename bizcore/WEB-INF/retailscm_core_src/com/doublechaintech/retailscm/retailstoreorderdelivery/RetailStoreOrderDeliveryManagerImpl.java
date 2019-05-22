@@ -245,8 +245,9 @@ public class RetailStoreOrderDeliveryManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the retailStoreOrderDelivery loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderDelivery.
+			if (retailStoreOrderDelivery.isChanged()){
 			
-			
+			}
 			retailStoreOrderDelivery = saveRetailStoreOrderDelivery(userContext, retailStoreOrderDelivery, options);
 			return retailStoreOrderDelivery;
 			

@@ -307,8 +307,12 @@ class EmployeeEducationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeeEducation
-    const cardsData = {cardsName:"员工教育",cardsFor: "employeeEducation",cardsSource: this.props.employeeEducation,
+    const  employeeEducation = this.props.employeeEducation;
+    const { id,displayName,  } = employeeEducation
+    
+    
+    
+    const cardsData = {cardsName:"员工教育",cardsFor: "employeeEducation",cardsSource: employeeEducation,
   		subItems: [
     
       	],

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.supplyorder;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -2743,6 +2745,101 @@ public class SupplyOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public void enhanceList(List<SupplyOrder> supplyOrderList) {		
 		this.enhanceListInternal(supplyOrderList, this.getSupplyOrderMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrderLineItem的bizOrder的SupplyOrderLineItemList
+	public SmartList<SupplyOrderLineItem> loadOurSupplyOrderLineItemList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SupplyOrderLineItem.BIZ_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SupplyOrderLineItem> loadedObjs = userContext.getDAOGroup().getSupplyOrderLineItemDAO().findSupplyOrderLineItemWithKey(key, options);
+		Map<String, List<SupplyOrderLineItem>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBizOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SupplyOrderLineItem> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SupplyOrderLineItem> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSupplyOrderLineItemList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrderShippingGroup的bizOrder的SupplyOrderShippingGroupList
+	public SmartList<SupplyOrderShippingGroup> loadOurSupplyOrderShippingGroupList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SupplyOrderShippingGroup.BIZ_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SupplyOrderShippingGroup> loadedObjs = userContext.getDAOGroup().getSupplyOrderShippingGroupDAO().findSupplyOrderShippingGroupWithKey(key, options);
+		Map<String, List<SupplyOrderShippingGroup>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBizOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SupplyOrderShippingGroup> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SupplyOrderShippingGroup> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSupplyOrderShippingGroupList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrderPaymentGroup的bizOrder的SupplyOrderPaymentGroupList
+	public SmartList<SupplyOrderPaymentGroup> loadOurSupplyOrderPaymentGroupList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SupplyOrderPaymentGroup.BIZ_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SupplyOrderPaymentGroup> loadedObjs = userContext.getDAOGroup().getSupplyOrderPaymentGroupDAO().findSupplyOrderPaymentGroupWithKey(key, options);
+		Map<String, List<SupplyOrderPaymentGroup>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBizOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SupplyOrderPaymentGroup> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SupplyOrderPaymentGroup> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSupplyOrderPaymentGroupList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的bizOrder的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.BIZ_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBizOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplyOrder> supplyOrderList = ownerEntity.collectRefsWithType(SupplyOrder.INTERNAL_TYPE);

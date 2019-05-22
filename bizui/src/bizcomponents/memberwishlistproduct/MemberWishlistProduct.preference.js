@@ -305,8 +305,12 @@ class MemberWishlistProductPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.memberWishlistProduct
-    const cardsData = {cardsName:"会员收藏产品",cardsFor: "memberWishlistProduct",cardsSource: this.props.memberWishlistProduct,
+    const  memberWishlistProduct = this.props.memberWishlistProduct;
+    const { id,displayName,  } = memberWishlistProduct
+    
+    
+    
+    const cardsData = {cardsName:"会员收藏产品",cardsFor: "memberWishlistProduct",cardsSource: memberWishlistProduct,
   		subItems: [
     
       	],

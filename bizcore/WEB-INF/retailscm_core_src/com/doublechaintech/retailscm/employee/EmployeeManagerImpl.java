@@ -405,8 +405,9 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//will be good when the employee loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Employee.
-			
-			
+			if (employee.isChanged()){
+			employee.updateLastUpdateTime(userContext.now());
+			}
 			employee = saveEmployee(userContext, employee, options);
 			return employee;
 			

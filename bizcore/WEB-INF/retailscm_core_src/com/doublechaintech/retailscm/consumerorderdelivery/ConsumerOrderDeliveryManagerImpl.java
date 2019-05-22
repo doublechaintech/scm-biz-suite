@@ -232,8 +232,9 @@ public class ConsumerOrderDeliveryManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the consumerOrderDelivery loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderDelivery.
+			if (consumerOrderDelivery.isChanged()){
 			
-			
+			}
 			consumerOrderDelivery = saveConsumerOrderDelivery(userContext, consumerOrderDelivery, options);
 			return consumerOrderDelivery;
 			

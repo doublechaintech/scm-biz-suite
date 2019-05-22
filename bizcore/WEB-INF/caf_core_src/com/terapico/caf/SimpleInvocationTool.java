@@ -57,6 +57,7 @@ public class SimpleInvocationTool implements InvocationTool {
 			e.printStackTrace();
 			result.setActualResult(e);
 		}catch (Throwable e) {
+			e.printStackTrace();
 			result.setActualResult(e);
 		}
 		return result;

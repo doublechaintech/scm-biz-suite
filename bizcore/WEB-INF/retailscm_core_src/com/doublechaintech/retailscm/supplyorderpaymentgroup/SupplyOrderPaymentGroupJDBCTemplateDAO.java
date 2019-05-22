@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.supplyorderpaymentgroup;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -512,6 +514,9 @@ public class SupplyOrderPaymentGroupJDBCTemplateDAO extends RetailscmNamingServi
 	public void enhanceList(List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList) {		
 		this.enhanceListInternal(supplyOrderPaymentGroupList, this.getSupplyOrderPaymentGroupMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplyOrderPaymentGroup> supplyOrderPaymentGroupList = ownerEntity.collectRefsWithType(SupplyOrderPaymentGroup.INTERNAL_TYPE);

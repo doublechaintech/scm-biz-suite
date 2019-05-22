@@ -253,8 +253,9 @@ public class AccountingDocumentTypeManagerImpl extends CustomRetailscmCheckerMan
 			//will be good when the accountingDocumentType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingDocumentType.
+			if (accountingDocumentType.isChanged()){
 			
-			
+			}
 			accountingDocumentType = saveAccountingDocumentType(userContext, accountingDocumentType, options);
 			return accountingDocumentType;
 			

@@ -70,9 +70,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 	
 		
 	public 	OriginalVoucher(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setBelongsTo( null );
 		setCreation( null );
@@ -279,13 +279,13 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 	
 	
 	public void setVoucherImage(String voucherImage){
-		this.mVoucherImage = trimString(encodeUrl(voucherImage));;
+		this.mVoucherImage = trimString(voucherImage);;
 	}
 	public String getVoucherImage(){
 		return this.mVoucherImage;
 	}
 	public OriginalVoucher updateVoucherImage(String voucherImage){
-		this.mVoucherImage = trimString(encodeUrl(voucherImage));;
+		this.mVoucherImage = trimString(voucherImage);;
 		this.changed = true;
 		return this;
 	}

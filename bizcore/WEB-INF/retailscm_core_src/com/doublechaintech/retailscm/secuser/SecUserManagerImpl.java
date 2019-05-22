@@ -303,8 +303,9 @@ public class SecUserManagerImpl extends CustomRetailscmCheckerManager implements
 			//will be good when the secUser loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SecUser.
+			if (secUser.isChanged()){
 			
-			
+			}
 			secUser = saveSecUser(userContext, secUser, options);
 			return secUser;
 			

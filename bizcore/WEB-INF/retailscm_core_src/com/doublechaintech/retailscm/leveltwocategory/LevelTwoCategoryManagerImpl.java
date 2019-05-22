@@ -243,8 +243,9 @@ public class LevelTwoCategoryManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the levelTwoCategory loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LevelTwoCategory.
+			if (levelTwoCategory.isChanged()){
 			
-			
+			}
 			levelTwoCategory = saveLevelTwoCategory(userContext, levelTwoCategory, options);
 			return levelTwoCategory;
 			

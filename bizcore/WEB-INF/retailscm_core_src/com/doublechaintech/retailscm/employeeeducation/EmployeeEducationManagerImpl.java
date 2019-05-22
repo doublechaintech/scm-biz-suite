@@ -247,8 +247,9 @@ public class EmployeeEducationManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the employeeEducation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeEducation.
+			if (employeeEducation.isChanged()){
 			
-			
+			}
 			employeeEducation = saveEmployeeEducation(userContext, employeeEducation, options);
 			return employeeEducation;
 			

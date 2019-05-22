@@ -261,7 +261,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.quantity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入数量" />
+                    <Input size="large" placeholder="数量" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.duration,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入持续时间" />
+                    <Input size="large" placeholder="持续时间" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.price,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入价格" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
                     
                   )}
                 </Form.Item>

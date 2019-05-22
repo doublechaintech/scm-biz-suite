@@ -310,8 +310,12 @@ class OriginalVoucherPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.originalVoucher
-    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",cardsSource: this.props.originalVoucher,
+    const  originalVoucher = this.props.originalVoucher;
+    const { id,displayName,  } = originalVoucher
+    
+    
+    
+    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",cardsSource: originalVoucher,
   		subItems: [
     
       	],

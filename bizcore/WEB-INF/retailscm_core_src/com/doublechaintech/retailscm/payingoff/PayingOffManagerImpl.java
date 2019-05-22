@@ -255,8 +255,9 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 			//will be good when the payingOff loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to PayingOff.
+			if (payingOff.isChanged()){
 			
-			
+			}
 			payingOff = savePayingOff(userContext, payingOff, options);
 			return payingOff;
 			

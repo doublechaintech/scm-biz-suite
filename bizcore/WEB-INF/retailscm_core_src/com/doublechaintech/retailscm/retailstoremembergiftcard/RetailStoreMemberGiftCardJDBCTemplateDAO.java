@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstoremembergiftcard;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -786,6 +788,32 @@ public class RetailStoreMemberGiftCardJDBCTemplateDAO extends RetailscmNamingSer
 	public void enhanceList(List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList) {		
 		this.enhanceListInternal(retailStoreMemberGiftCardList, this.getRetailStoreMemberGiftCardMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberGiftCardConsumeRecord的owner的RetailStoreMemberGiftCardConsumeRecordList
+	public SmartList<RetailStoreMemberGiftCardConsumeRecord> loadOurRetailStoreMemberGiftCardConsumeRecordList(RetailscmUserContext userContext, List<RetailStoreMemberGiftCard> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreMemberGiftCardConsumeRecord.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreMemberGiftCardConsumeRecord> loadedObjs = userContext.getDAOGroup().getRetailStoreMemberGiftCardConsumeRecordDAO().findRetailStoreMemberGiftCardConsumeRecordWithKey(key, options);
+		Map<String, List<RetailStoreMemberGiftCardConsumeRecord>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreMemberGiftCardConsumeRecord> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreMemberGiftCardConsumeRecord> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreMemberGiftCardConsumeRecordList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreMemberGiftCard> retailStoreMemberGiftCardList = ownerEntity.collectRefsWithType(RetailStoreMemberGiftCard.INTERNAL_TYPE);

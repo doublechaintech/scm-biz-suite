@@ -242,8 +242,9 @@ public class MemberRewardPointRedemptionManagerImpl extends CustomRetailscmCheck
 			//will be good when the memberRewardPointRedemption loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to MemberRewardPointRedemption.
+			if (memberRewardPointRedemption.isChanged()){
 			
-			
+			}
 			memberRewardPointRedemption = saveMemberRewardPointRedemption(userContext, memberRewardPointRedemption, options);
 			return memberRewardPointRedemption;
 			

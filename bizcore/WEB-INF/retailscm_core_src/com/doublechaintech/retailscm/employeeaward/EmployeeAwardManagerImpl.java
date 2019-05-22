@@ -247,8 +247,9 @@ public class EmployeeAwardManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the employeeAward loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeAward.
+			if (employeeAward.isChanged()){
 			
-			
+			}
 			employeeAward = saveEmployeeAward(userContext, employeeAward, options);
 			return employeeAward;
 			

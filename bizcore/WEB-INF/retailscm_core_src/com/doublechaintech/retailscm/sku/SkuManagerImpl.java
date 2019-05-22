@@ -282,8 +282,9 @@ public class SkuManagerImpl extends CustomRetailscmCheckerManager implements Sku
 			//will be good when the sku loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Sku.
+			if (sku.isChanged()){
 			
-			
+			}
 			sku = saveSku(userContext, sku, options);
 			return sku;
 			

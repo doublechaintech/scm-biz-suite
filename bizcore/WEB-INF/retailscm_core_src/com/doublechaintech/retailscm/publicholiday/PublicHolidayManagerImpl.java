@@ -247,8 +247,9 @@ public class PublicHolidayManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the publicHoliday loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to PublicHoliday.
+			if (publicHoliday.isChanged()){
 			
-			
+			}
 			publicHoliday = savePublicHoliday(userContext, publicHoliday, options);
 			return publicHoliday;
 			

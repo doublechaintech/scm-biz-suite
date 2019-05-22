@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.accountingdocumentline;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -647,6 +649,9 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
 	public void enhanceList(List<AccountingDocumentLine> accountingDocumentLineList) {		
 		this.enhanceListInternal(accountingDocumentLineList, this.getAccountingDocumentLineMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountingDocumentLine> accountingDocumentLineList = ownerEntity.collectRefsWithType(AccountingDocumentLine.INTERNAL_TYPE);

@@ -306,8 +306,12 @@ class RetailStoreOrderShippingGroupPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.retailStoreOrderShippingGroup
-    const cardsData = {cardsName:"生超订单送货分组",cardsFor: "retailStoreOrderShippingGroup",cardsSource: this.props.retailStoreOrderShippingGroup,
+    const  retailStoreOrderShippingGroup = this.props.retailStoreOrderShippingGroup;
+    const { id,displayName,  } = retailStoreOrderShippingGroup
+    
+    
+    
+    const cardsData = {cardsName:"生超订单送货分组",cardsFor: "retailStoreOrderShippingGroup",cardsSource: retailStoreOrderShippingGroup,
   		subItems: [
     
       	],

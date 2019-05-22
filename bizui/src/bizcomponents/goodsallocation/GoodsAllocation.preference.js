@@ -307,8 +307,12 @@ class GoodsAllocationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsCount } = this.props.goodsAllocation
-    const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",cardsSource: this.props.goodsAllocation,
+    const  goodsAllocation = this.props.goodsAllocation;
+    const { id,displayName, goodsCount } = goodsAllocation
+    
+    
+    
+    const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",cardsSource: goodsAllocation,
   		subItems: [
     
       	],

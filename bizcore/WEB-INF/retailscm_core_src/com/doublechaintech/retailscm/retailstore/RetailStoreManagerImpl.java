@@ -349,8 +349,9 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the retailStore loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStore.
-			
-			
+			if (retailStore.isChanged()){
+			retailStore.updateLastUpdateTime(userContext.now());
+			}
 			retailStore = saveRetailStore(userContext, retailStore, options);
 			return retailStore;
 			

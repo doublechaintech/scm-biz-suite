@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.productsupplyduration;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -514,6 +516,9 @@ public class ProductSupplyDurationJDBCTemplateDAO extends RetailscmNamingService
 	public void enhanceList(List<ProductSupplyDuration> productSupplyDurationList) {		
 		this.enhanceListInternal(productSupplyDurationList, this.getProductSupplyDurationMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ProductSupplyDuration> productSupplyDurationList = ownerEntity.collectRefsWithType(ProductSupplyDuration.INTERNAL_TYPE);

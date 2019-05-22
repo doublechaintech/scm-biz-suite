@@ -287,8 +287,9 @@ public class ObjectAccessManagerImpl extends CustomRetailscmCheckerManager imple
 			//will be good when the objectAccess loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ObjectAccess.
+			if (objectAccess.isChanged()){
 			
-			
+			}
 			objectAccess = saveObjectAccess(userContext, objectAccess, options);
 			return objectAccess;
 			

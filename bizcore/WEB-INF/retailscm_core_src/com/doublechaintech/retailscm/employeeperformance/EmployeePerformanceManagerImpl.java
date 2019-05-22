@@ -237,8 +237,9 @@ public class EmployeePerformanceManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the employeePerformance loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeePerformance.
+			if (employeePerformance.isChanged()){
 			
-			
+			}
 			employeePerformance = saveEmployeePerformance(userContext, employeePerformance, options);
 			return employeePerformance;
 			

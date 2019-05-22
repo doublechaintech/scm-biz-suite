@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.formfield;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -538,6 +540,9 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public void enhanceList(List<FormField> formFieldList) {		
 		this.enhanceListInternal(formFieldList, this.getFormFieldMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<FormField> formFieldList = ownerEntity.collectRefsWithType(FormField.INTERNAL_TYPE);

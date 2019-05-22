@@ -307,8 +307,12 @@ class ProductSupplyDurationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.productSupplyDuration
-    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",cardsSource: this.props.productSupplyDuration,
+    const  productSupplyDuration = this.props.productSupplyDuration;
+    const { id,displayName,  } = productSupplyDuration
+    
+    
+    
+    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,
   		subItems: [
     
       	],

@@ -1,5 +1,5 @@
 
-
+import React from 'react'
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/supplyOrderApproval/${id}/list/\ConsumerOrderList/消费者订单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/supplyOrderApproval/${id}/list/ConsumerOrderList/消费者订单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrder({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/supplyOrderApproval/${id}/list/\ConsumerOrderList/消费者订单列表`, state: newPlayload }
+      const location = { pathname: `/supplyOrderApproval/${id}/list/ConsumerOrderList/消费者订单列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextConsumerOrderUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/supplyOrderApproval/${id}/list/\SupplyOrderList/供应订单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/supplyOrderApproval/${id}/list/SupplyOrderList/供应订单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSupplyOrder({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/supplyOrderApproval/${id}/list/\SupplyOrderList/供应订单列表`, state: newPlayload }
+      const location = { pathname: `/supplyOrderApproval/${id}/list/SupplyOrderList/供应订单列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSupplyOrderUpdateRow({ payload }, { call, put }) {

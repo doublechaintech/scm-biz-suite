@@ -248,8 +248,9 @@ public class AccountingDocumentConfirmationManagerImpl extends CustomRetailscmCh
 			//will be good when the accountingDocumentConfirmation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingDocumentConfirmation.
+			if (accountingDocumentConfirmation.isChanged()){
 			
-			
+			}
 			accountingDocumentConfirmation = saveAccountingDocumentConfirmation(userContext, accountingDocumentConfirmation, options);
 			return accountingDocumentConfirmation;
 			

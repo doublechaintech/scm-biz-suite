@@ -307,8 +307,12 @@ class LevelThreeDepartmentPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.levelThreeDepartment
-    const cardsData = {cardsName:"三级部门",cardsFor: "levelThreeDepartment",cardsSource: this.props.levelThreeDepartment,
+    const  levelThreeDepartment = this.props.levelThreeDepartment;
+    const { id,displayName, employeeCount } = levelThreeDepartment
+    
+    
+    
+    const cardsData = {cardsName:"三级部门",cardsFor: "levelThreeDepartment",cardsSource: levelThreeDepartment,
   		subItems: [
     
       	],

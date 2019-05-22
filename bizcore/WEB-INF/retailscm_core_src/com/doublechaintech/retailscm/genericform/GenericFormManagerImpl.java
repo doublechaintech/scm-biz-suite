@@ -253,8 +253,9 @@ public class GenericFormManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the genericForm loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GenericForm.
+			if (genericForm.isChanged()){
 			
-			
+			}
 			genericForm = saveGenericForm(userContext, genericForm, options);
 			return genericForm;
 			

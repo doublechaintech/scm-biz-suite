@@ -262,8 +262,9 @@ public class CityPartnerManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the cityPartner loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to CityPartner.
-			
-			
+			if (cityPartner.isChanged()){
+			cityPartner.updateLastUpdateTime(userContext.now());
+			}
 			cityPartner = saveCityPartner(userContext, cityPartner, options);
 			return cityPartner;
 			

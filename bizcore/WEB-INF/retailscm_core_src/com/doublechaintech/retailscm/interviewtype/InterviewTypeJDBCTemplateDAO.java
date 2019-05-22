@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.interviewtype;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -786,6 +788,32 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<InterviewType> interviewTypeList) {		
 		this.enhanceListInternal(interviewTypeList, this.getInterviewTypeMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeInterview的interviewType的EmployeeInterviewList
+	public SmartList<EmployeeInterview> loadOurEmployeeInterviewList(RetailscmUserContext userContext, List<InterviewType> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeInterview.INTERVIEW_TYPE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeInterview> loadedObjs = userContext.getDAOGroup().getEmployeeInterviewDAO().findEmployeeInterviewWithKey(key, options);
+		Map<String, List<EmployeeInterview>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getInterviewType().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeInterview> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeInterview> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeInterviewList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<InterviewType> interviewTypeList = ownerEntity.collectRefsWithType(InterviewType.INTERNAL_TYPE);

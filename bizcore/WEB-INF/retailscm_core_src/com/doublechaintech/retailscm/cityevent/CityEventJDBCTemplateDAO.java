@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.cityevent;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -804,6 +806,32 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public void enhanceList(List<CityEvent> cityEventList) {		
 		this.enhanceListInternal(cityEventList, this.getCityEventMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:EventAttendance的cityEvent的EventAttendanceList
+	public SmartList<EventAttendance> loadOurEventAttendanceList(RetailscmUserContext userContext, List<CityEvent> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EventAttendance.CITY_EVENT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EventAttendance> loadedObjs = userContext.getDAOGroup().getEventAttendanceDAO().findEventAttendanceWithKey(key, options);
+		Map<String, List<EventAttendance>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCityEvent().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EventAttendance> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EventAttendance> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEventAttendanceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<CityEvent> cityEventList = ownerEntity.collectRefsWithType(CityEvent.INTERNAL_TYPE);

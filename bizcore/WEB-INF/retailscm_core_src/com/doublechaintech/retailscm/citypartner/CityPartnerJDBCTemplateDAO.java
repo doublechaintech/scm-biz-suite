@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.citypartner;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1120,6 +1122,55 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public void enhanceList(List<CityPartner> cityPartnerList) {		
 		this.enhanceListInternal(cityPartnerList, this.getCityPartnerMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:PotentialCustomer的cityPartner的PotentialCustomerList
+	public SmartList<PotentialCustomer> loadOurPotentialCustomerList(RetailscmUserContext userContext, List<CityPartner> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PotentialCustomer.CITY_PARTNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PotentialCustomer> loadedObjs = userContext.getDAOGroup().getPotentialCustomerDAO().findPotentialCustomerWithKey(key, options);
+		Map<String, List<PotentialCustomer>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCityPartner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PotentialCustomer> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PotentialCustomer> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPotentialCustomerList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContact的cityPartner的PotentialCustomerContactList
+	public SmartList<PotentialCustomerContact> loadOurPotentialCustomerContactList(RetailscmUserContext userContext, List<CityPartner> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PotentialCustomerContact.CITY_PARTNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PotentialCustomerContact> loadedObjs = userContext.getDAOGroup().getPotentialCustomerContactDAO().findPotentialCustomerContactWithKey(key, options);
+		Map<String, List<PotentialCustomerContact>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCityPartner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PotentialCustomerContact> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PotentialCustomerContact> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPotentialCustomerContactList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<CityPartner> cityPartnerList = ownerEntity.collectRefsWithType(CityPartner.INTERNAL_TYPE);

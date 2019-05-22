@@ -301,8 +301,12 @@ class PublicHolidayPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.publicHoliday
-    const cardsData = {cardsName:"公共假日",cardsFor: "publicHoliday",cardsSource: this.props.publicHoliday,
+    const  publicHoliday = this.props.publicHoliday;
+    const { id,displayName,  } = publicHoliday
+    
+    
+    
+    const cardsData = {cardsName:"公共假日",cardsFor: "publicHoliday",cardsSource: publicHoliday,
   		subItems: [
     
       	],

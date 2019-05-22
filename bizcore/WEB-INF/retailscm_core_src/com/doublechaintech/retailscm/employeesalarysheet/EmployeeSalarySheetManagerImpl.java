@@ -282,8 +282,9 @@ public class EmployeeSalarySheetManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the employeeSalarySheet loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeSalarySheet.
+			if (employeeSalarySheet.isChanged()){
 			
-			
+			}
 			employeeSalarySheet = saveEmployeeSalarySheet(userContext, employeeSalarySheet, options);
 			return employeeSalarySheet;
 			

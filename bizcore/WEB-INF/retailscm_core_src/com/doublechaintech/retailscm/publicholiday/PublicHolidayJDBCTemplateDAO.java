@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.publicholiday;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -514,6 +516,9 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<PublicHoliday> publicHolidayList) {		
 		this.enhanceListInternal(publicHolidayList, this.getPublicHolidayMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PublicHoliday> publicHolidayList = ownerEntity.collectRefsWithType(PublicHoliday.INTERNAL_TYPE);

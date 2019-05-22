@@ -278,8 +278,9 @@ public class ReceivingSpaceManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the receivingSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ReceivingSpace.
-			
-			
+			if (receivingSpace.isChanged()){
+			receivingSpace.updateLastUpdateTime(userContext.now());
+			}
 			receivingSpace = saveReceivingSpace(userContext, receivingSpace, options);
 			return receivingSpace;
 			

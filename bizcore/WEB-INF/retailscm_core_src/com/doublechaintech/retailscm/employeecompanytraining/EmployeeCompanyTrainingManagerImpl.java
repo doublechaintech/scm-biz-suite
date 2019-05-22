@@ -246,8 +246,9 @@ public class EmployeeCompanyTrainingManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the employeeCompanyTraining loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeCompanyTraining.
+			if (employeeCompanyTraining.isChanged()){
 			
-			
+			}
 			employeeCompanyTraining = saveEmployeeCompanyTraining(userContext, employeeCompanyTraining, options);
 			return employeeCompanyTraining;
 			

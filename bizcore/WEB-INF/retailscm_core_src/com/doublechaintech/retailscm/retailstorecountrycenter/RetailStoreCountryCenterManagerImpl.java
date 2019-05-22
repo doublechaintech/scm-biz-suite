@@ -417,8 +417,9 @@ public class RetailStoreCountryCenterManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the retailStoreCountryCenter loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreCountryCenter.
+			if (retailStoreCountryCenter.isChanged()){
 			
-			
+			}
 			retailStoreCountryCenter = saveRetailStoreCountryCenter(userContext, retailStoreCountryCenter, options);
 			return retailStoreCountryCenter;
 			

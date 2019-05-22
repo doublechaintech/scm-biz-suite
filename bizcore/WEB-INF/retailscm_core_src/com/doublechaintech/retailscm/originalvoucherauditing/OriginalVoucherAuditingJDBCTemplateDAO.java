@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.originalvoucherauditing;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -673,6 +675,32 @@ public class OriginalVoucherAuditingJDBCTemplateDAO extends RetailscmNamingServi
 	public void enhanceList(List<OriginalVoucherAuditing> originalVoucherAuditingList) {		
 		this.enhanceListInternal(originalVoucherAuditingList, this.getOriginalVoucherAuditingMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:OriginalVoucher的auditing的OriginalVoucherList
+	public SmartList<OriginalVoucher> loadOurOriginalVoucherList(RetailscmUserContext userContext, List<OriginalVoucherAuditing> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(OriginalVoucher.AUDITING_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<OriginalVoucher> loadedObjs = userContext.getDAOGroup().getOriginalVoucherDAO().findOriginalVoucherWithKey(key, options);
+		Map<String, List<OriginalVoucher>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getAuditing().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<OriginalVoucher> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<OriginalVoucher> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setOriginalVoucherList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<OriginalVoucherAuditing> originalVoucherAuditingList = ownerEntity.collectRefsWithType(OriginalVoucherAuditing.INTERNAL_TYPE);

@@ -306,8 +306,12 @@ class SupplyOrderShippingGroupPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.supplyOrderShippingGroup
-    const cardsData = {cardsName:"供应订单送货分组",cardsFor: "supplyOrderShippingGroup",cardsSource: this.props.supplyOrderShippingGroup,
+    const  supplyOrderShippingGroup = this.props.supplyOrderShippingGroup;
+    const { id,displayName,  } = supplyOrderShippingGroup
+    
+    
+    
+    const cardsData = {cardsName:"供应订单送货分组",cardsFor: "supplyOrderShippingGroup",cardsSource: supplyOrderShippingGroup,
   		subItems: [
     
       	],

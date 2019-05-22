@@ -21,4 +21,6 @@ export default {
   disableDynamicImport: true,
   publicPath: '',
   hash: true,
+  devtool: 'cheap-module-source-map', 
+
 };

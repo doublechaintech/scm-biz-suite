@@ -245,8 +245,9 @@ public class RetailStoreOrderProcessingManagerImpl extends CustomRetailscmChecke
 			//will be good when the retailStoreOrderProcessing loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderProcessing.
+			if (retailStoreOrderProcessing.isChanged()){
 			
-			
+			}
 			retailStoreOrderProcessing = saveRetailStoreOrderProcessing(userContext, retailStoreOrderProcessing, options);
 			return retailStoreOrderProcessing;
 			

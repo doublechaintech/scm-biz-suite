@@ -291,8 +291,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the consumerOrder loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrder.
-			
-			
+			if (consumerOrder.isChanged()){
+			consumerOrder.updateLastUpdateTime(userContext.now());
+			}
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, options);
 			return consumerOrder;
 			

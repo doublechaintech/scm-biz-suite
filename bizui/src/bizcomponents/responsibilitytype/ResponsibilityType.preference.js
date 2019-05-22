@@ -301,8 +301,12 @@ class ResponsibilityTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.responsibilityType
-    const cardsData = {cardsName:"责任类型",cardsFor: "responsibilityType",cardsSource: this.props.responsibilityType,
+    const  responsibilityType = this.props.responsibilityType;
+    const { id,displayName, employeeCount } = responsibilityType
+    
+    
+    
+    const cardsData = {cardsName:"责任类型",cardsFor: "responsibilityType",cardsSource: responsibilityType,
   		subItems: [
     
       	],

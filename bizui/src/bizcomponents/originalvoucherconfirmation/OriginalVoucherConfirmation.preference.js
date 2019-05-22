@@ -301,8 +301,12 @@ class OriginalVoucherConfirmationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, originalVoucherCount } = this.props.originalVoucherConfirmation
-    const cardsData = {cardsName:"原始凭证的确认",cardsFor: "originalVoucherConfirmation",cardsSource: this.props.originalVoucherConfirmation,
+    const  originalVoucherConfirmation = this.props.originalVoucherConfirmation;
+    const { id,displayName, originalVoucherCount } = originalVoucherConfirmation
+    
+    
+    
+    const cardsData = {cardsName:"原始凭证的确认",cardsFor: "originalVoucherConfirmation",cardsSource: originalVoucherConfirmation,
   		subItems: [
     
       	],

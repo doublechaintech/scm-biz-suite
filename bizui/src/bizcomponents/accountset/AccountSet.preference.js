@@ -319,8 +319,12 @@ class AccountSetPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, accountingSubjectCount, accountingPeriodCount, accountingDocumentTypeCount } = this.props.accountSet
-    const cardsData = {cardsName:"账套",cardsFor: "accountSet",cardsSource: this.props.accountSet,
+    const  accountSet = this.props.accountSet;
+    const { id,displayName, accountingSubjectCount, accountingPeriodCount, accountingDocumentTypeCount } = accountSet
+    
+    
+    
+    const cardsData = {cardsName:"账套",cardsFor: "accountSet",cardsSource: accountSet,
   		subItems: [
     
       	],

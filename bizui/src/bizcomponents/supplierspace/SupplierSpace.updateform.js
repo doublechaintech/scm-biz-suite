@@ -262,7 +262,7 @@ class SupplierSpaceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class SupplierSpaceUpdateForm extends Component {
                     initialValue: selectedRow.location,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入位置" />
+                    <Input size="large" placeholder="位置" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class SupplierSpaceUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入联系电话" />
+                    <Input size="large" placeholder="联系电话" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class SupplierSpaceUpdateForm extends Component {
                     initialValue: selectedRow.totalArea,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入总面积" />
+                    <Input size="large" placeholder="总面积" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class SupplierSpaceUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入纬度" />
+                    <Input size="large" placeholder="纬度" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class SupplierSpaceUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入经度" />
+                    <Input size="large" placeholder="经度" />
                     
                   )}
                 </Form.Item>

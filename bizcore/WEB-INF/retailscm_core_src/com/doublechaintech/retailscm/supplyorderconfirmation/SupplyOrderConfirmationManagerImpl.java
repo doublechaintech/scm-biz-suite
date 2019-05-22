@@ -252,8 +252,9 @@ public class SupplyOrderConfirmationManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the supplyOrderConfirmation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderConfirmation.
+			if (supplyOrderConfirmation.isChanged()){
 			
-			
+			}
 			supplyOrderConfirmation = saveSupplyOrderConfirmation(userContext, supplyOrderConfirmation, options);
 			return supplyOrderConfirmation;
 			

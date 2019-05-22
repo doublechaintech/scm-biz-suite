@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeattendance;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -516,6 +518,9 @@ public class EmployeeAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public void enhanceList(List<EmployeeAttendance> employeeAttendanceList) {		
 		this.enhanceListInternal(employeeAttendanceList, this.getEmployeeAttendanceMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeAttendance> employeeAttendanceList = ownerEntity.collectRefsWithType(EmployeeAttendance.INTERNAL_TYPE);

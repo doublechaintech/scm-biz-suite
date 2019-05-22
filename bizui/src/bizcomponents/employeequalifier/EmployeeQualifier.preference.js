@@ -308,8 +308,12 @@ class EmployeeQualifierPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeeQualifier
-    const cardsData = {cardsName:"员工资质",cardsFor: "employeeQualifier",cardsSource: this.props.employeeQualifier,
+    const  employeeQualifier = this.props.employeeQualifier;
+    const { id,displayName,  } = employeeQualifier
+    
+    
+    
+    const cardsData = {cardsName:"员工资质",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,
   		subItems: [
     
       	],

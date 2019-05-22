@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.consumerorderprocessing;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -399,6 +401,9 @@ public class ConsumerOrderProcessingJDBCTemplateDAO extends RetailscmNamingServi
 	public void enhanceList(List<ConsumerOrderProcessing> consumerOrderProcessingList) {		
 		this.enhanceListInternal(consumerOrderProcessingList, this.getConsumerOrderProcessingMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrderProcessing> consumerOrderProcessingList = ownerEntity.collectRefsWithType(ConsumerOrderProcessing.INTERNAL_TYPE);

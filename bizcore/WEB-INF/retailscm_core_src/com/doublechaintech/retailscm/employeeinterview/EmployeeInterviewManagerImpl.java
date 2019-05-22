@@ -247,8 +247,9 @@ public class EmployeeInterviewManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the employeeInterview loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeInterview.
+			if (employeeInterview.isChanged()){
 			
-			
+			}
 			employeeInterview = saveEmployeeInterview(userContext, employeeInterview, options);
 			return employeeInterview;
 			

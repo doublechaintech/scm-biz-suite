@@ -246,8 +246,9 @@ public class OriginalVoucherConfirmationManagerImpl extends CustomRetailscmCheck
 			//will be good when the originalVoucherConfirmation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OriginalVoucherConfirmation.
+			if (originalVoucherConfirmation.isChanged()){
 			
-			
+			}
 			originalVoucherConfirmation = saveOriginalVoucherConfirmation(userContext, originalVoucherConfirmation, options);
 			return originalVoucherConfirmation;
 			

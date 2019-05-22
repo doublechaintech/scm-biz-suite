@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.provincecenteremployee;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -647,6 +649,9 @@ public class ProvinceCenterEmployeeJDBCTemplateDAO extends RetailscmNamingServic
 	public void enhanceList(List<ProvinceCenterEmployee> provinceCenterEmployeeList) {		
 		this.enhanceListInternal(provinceCenterEmployeeList, this.getProvinceCenterEmployeeMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ProvinceCenterEmployee> provinceCenterEmployeeList = ownerEntity.collectRefsWithType(ProvinceCenterEmployee.INTERNAL_TYPE);

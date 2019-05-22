@@ -306,8 +306,12 @@ class AccountingDocumentTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, accountingDocumentCount } = this.props.accountingDocumentType
-    const cardsData = {cardsName:"会计凭证类型",cardsFor: "accountingDocumentType",cardsSource: this.props.accountingDocumentType,
+    const  accountingDocumentType = this.props.accountingDocumentType;
+    const { id,displayName, accountingDocumentCount } = accountingDocumentType
+    
+    
+    
+    const cardsData = {cardsName:"会计凭证类型",cardsFor: "accountingDocumentType",cardsSource: accountingDocumentType,
   		subItems: [
     
       	],

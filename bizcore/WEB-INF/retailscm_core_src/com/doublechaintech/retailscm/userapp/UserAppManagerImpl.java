@@ -278,8 +278,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			//will be good when the userApp loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to UserApp.
+			if (userApp.isChanged()){
 			
-			
+			}
 			userApp = saveUserApp(userContext, userApp, options);
 			return userApp;
 			

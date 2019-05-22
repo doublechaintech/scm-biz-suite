@@ -57,6 +57,17 @@ public class RequestUtil {
         if (value == null) {
             return defaultValue;
         }
+        if (value instanceof Number) {
+        	return new Date(((Number) value).longValue());
+        }
+        if (value instanceof String && ((String)value).matches("\\d{0,14}")) {
+        	try {
+        		long tsMs = Long.parseLong((String) value);
+        		return new Date(tsMs);
+        	}catch (Exception e) {
+        		// 不行就算了
+        	}
+        }
         Date date = DateTimeUtil.parseInputDateTime(String.valueOf(value));
         if (date == null) {
             return defaultValue;
@@ -115,6 +126,11 @@ public class RequestUtil {
         }
         try {
             return Integer.parseInt(String.valueOf(value));
+        } catch (Exception e) {
+            // return defaultValue;
+        }
+        try {
+            return (int) Double.parseDouble(String.valueOf(value));
         } catch (Exception e) {
             return defaultValue;
         }

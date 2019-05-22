@@ -308,8 +308,12 @@ class EmployeeWorkExperiencePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeeWorkExperience
-    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",cardsSource: this.props.employeeWorkExperience,
+    const  employeeWorkExperience = this.props.employeeWorkExperience;
+    const { id,displayName,  } = employeeWorkExperience
+    
+    
+    
+    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",cardsSource: employeeWorkExperience,
   		subItems: [
     
       	],

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeequalifier;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -516,6 +518,9 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<EmployeeQualifier> employeeQualifierList) {		
 		this.enhanceListInternal(employeeQualifierList, this.getEmployeeQualifierMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeQualifier> employeeQualifierList = ownerEntity.collectRefsWithType(EmployeeQualifier.INTERNAL_TYPE);

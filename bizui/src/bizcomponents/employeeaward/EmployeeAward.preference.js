@@ -307,8 +307,12 @@ class EmployeeAwardPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeeAward
-    const cardsData = {cardsName:"员工嘉奖",cardsFor: "employeeAward",cardsSource: this.props.employeeAward,
+    const  employeeAward = this.props.employeeAward;
+    const { id,displayName,  } = employeeAward
+    
+    
+    
+    const cardsData = {cardsName:"员工嘉奖",cardsFor: "employeeAward",cardsSource: employeeAward,
   		subItems: [
     
       	],

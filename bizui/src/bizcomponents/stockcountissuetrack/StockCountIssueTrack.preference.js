@@ -307,8 +307,12 @@ class StockCountIssueTrackPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.stockCountIssueTrack
-    const cardsData = {cardsName:"库存计数问题跟踪",cardsFor: "stockCountIssueTrack",cardsSource: this.props.stockCountIssueTrack,
+    const  stockCountIssueTrack = this.props.stockCountIssueTrack;
+    const { id,displayName,  } = stockCountIssueTrack
+    
+    
+    
+    const cardsData = {cardsName:"库存计数问题跟踪",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,
   		subItems: [
     
       	],

@@ -97,6 +97,7 @@ public class UCInvocationServlet extends SimpleInvocationServlet {
 				System.out.println("InvocationResult result = super.invoke(context); called"+checkResult);
 				InvocationResult result=new SimpleInvocationResult();
 				result.setActualResult(checkResult);
+				result.setInvocationContext(context);
 				return result;
 			}
 			

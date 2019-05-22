@@ -301,8 +301,12 @@ class SecUserBlockingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, secUserCount } = this.props.secUserBlocking
-    const cardsData = {cardsName:"用户屏蔽",cardsFor: "secUserBlocking",cardsSource: this.props.secUserBlocking,
+    const  secUserBlocking = this.props.secUserBlocking;
+    const { id,displayName, secUserCount } = secUserBlocking
+    
+    
+    
+    const cardsData = {cardsName:"用户屏蔽",cardsFor: "secUserBlocking",cardsSource: secUserBlocking,
   		subItems: [
     
       	],

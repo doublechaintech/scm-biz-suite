@@ -34,7 +34,7 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 		
 		//SecUser user  = this.currentApp(baseUserContext);
 	
-		title = email+"/"+password+"@retailscm";
+		title = email+"/"+"@retailscm";
 		
 		if(result instanceof SecUser) {
 			SecUser user = (SecUser)result;
@@ -44,7 +44,7 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 			
 		}
 		
-		sendMail(userContext, title, content);
+		// sendMail(userContext, title, content);
 		return result;
 	}
 	
@@ -55,12 +55,11 @@ public class SecUserCustomManagerImpl extends CustomSecUserManagerImpl{
 		}
 		
 		try {
-			userContext.sendEmail("zhangxilai@doublechaintech.com,liuli@doublechaintech.com", 
+			userContext.sendEmail("homecontrol@126.com", 
 					title, 
 					"from: "+userContext.getRemoteIP()+" with "+ userContext.getUserAgent());
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

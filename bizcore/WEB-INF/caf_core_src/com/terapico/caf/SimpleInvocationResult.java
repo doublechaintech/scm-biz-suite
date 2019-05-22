@@ -87,6 +87,36 @@ public class SimpleInvocationResult implements InvocationResult {
 	public boolean isRenderAsJSON() {
 		return InvocationResult.RENDER_AS_JSON.equals(getAssignedRenderingWay());
 	}
-	
-
+	@Override
+	public String getEnvType() {
+		InvocationContext invokeCtx = getInvocationContext();
+		if (invokeCtx == null){
+			return "product";
+		}
+		Object[] params = invokeCtx.getParameters();
+		if (params == null || params.length < 1){
+			return "product";
+		}
+		if (!(params[0] instanceof BaseUserContext)){
+			return "product";
+		}
+		BaseUserContext usrCtx = (BaseUserContext) params[0];
+		return usrCtx.isProductEnvironment()?"product":"test";
+	}
+	@Override
+	public String getEnvName() {
+		InvocationContext invokeCtx = getInvocationContext();
+		if (invokeCtx == null){
+			return "product";
+		}
+		Object[] params = invokeCtx.getParameters();
+		if (params == null || params.length < 1){
+			return "product";
+		}
+		if (!(params[0] instanceof BaseUserContext)){
+			return "product";
+		}
+		BaseUserContext usrCtx = (BaseUserContext) params[0];
+		return usrCtx.getEnvironmentName();
+	}
 }

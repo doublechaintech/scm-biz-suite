@@ -254,8 +254,9 @@ public class JobApplicationManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the jobApplication loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to JobApplication.
+			if (jobApplication.isChanged()){
 			
-			
+			}
 			jobApplication = saveJobApplication(userContext, jobApplication, options);
 			return jobApplication;
 			

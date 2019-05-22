@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.salarygrade;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1190,6 +1192,55 @@ public class SalaryGradeJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public void enhanceList(List<SalaryGrade> salaryGradeList) {		
 		this.enhanceListInternal(salaryGradeList, this.getSalaryGradeMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Employee的currentSalaryGrade的EmployeeList
+	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<SalaryGrade> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Employee.CURRENT_SALARY_GRADE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Employee> loadedObjs = userContext.getDAOGroup().getEmployeeDAO().findEmployeeWithKey(key, options);
+		Map<String, List<Employee>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCurrentSalaryGrade().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Employee> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Employee> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeSalarySheet的currentSalaryGrade的EmployeeSalarySheetList
+	public SmartList<EmployeeSalarySheet> loadOurEmployeeSalarySheetList(RetailscmUserContext userContext, List<SalaryGrade> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeSalarySheet.CURRENT_SALARY_GRADE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeSalarySheet> loadedObjs = userContext.getDAOGroup().getEmployeeSalarySheetDAO().findEmployeeSalarySheetWithKey(key, options);
+		Map<String, List<EmployeeSalarySheet>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCurrentSalaryGrade().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeSalarySheet> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeSalarySheet> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeSalarySheetList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SalaryGrade> salaryGradeList = ownerEntity.collectRefsWithType(SalaryGrade.INTERNAL_TYPE);

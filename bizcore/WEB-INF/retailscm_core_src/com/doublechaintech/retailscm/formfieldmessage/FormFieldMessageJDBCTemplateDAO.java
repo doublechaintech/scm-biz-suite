@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.formfieldmessage;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -514,6 +516,9 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	public void enhanceList(List<FormFieldMessage> formFieldMessageList) {		
 		this.enhanceListInternal(formFieldMessageList, this.getFormFieldMessageMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<FormFieldMessage> formFieldMessageList = ownerEntity.collectRefsWithType(FormFieldMessage.INTERNAL_TYPE);

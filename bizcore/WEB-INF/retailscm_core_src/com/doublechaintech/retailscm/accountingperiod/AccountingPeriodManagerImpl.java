@@ -258,8 +258,9 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the accountingPeriod loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingPeriod.
+			if (accountingPeriod.isChanged()){
 			
-			
+			}
 			accountingPeriod = saveAccountingPeriod(userContext, accountingPeriod, options);
 			return accountingPeriod;
 			

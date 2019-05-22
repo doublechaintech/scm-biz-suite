@@ -302,8 +302,9 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the retailStoreOrder loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrder.
-			
-			
+			if (retailStoreOrder.isChanged()){
+			retailStoreOrder.updateLastUpdateTime(userContext.now());
+			}
 			retailStoreOrder = saveRetailStoreOrder(userContext, retailStoreOrder, options);
 			return retailStoreOrder;
 			

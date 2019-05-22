@@ -310,8 +310,12 @@ class DamageSpacePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsShelfCount } = this.props.damageSpace
-    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",cardsSource: this.props.damageSpace,
+    const  damageSpace = this.props.damageSpace;
+    const { id,displayName, goodsShelfCount } = damageSpace
+    
+    
+    
+    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",cardsSource: damageSpace,
   		subItems: [
     
       	],

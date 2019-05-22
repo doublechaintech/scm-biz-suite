@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.potentialcustomercontact;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -792,6 +794,9 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
 	public void enhanceList(List<PotentialCustomerContact> potentialCustomerContactList) {		
 		this.enhanceListInternal(potentialCustomerContactList, this.getPotentialCustomerContactMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PotentialCustomerContact> potentialCustomerContactList = ownerEntity.collectRefsWithType(PotentialCustomerContact.INTERNAL_TYPE);

@@ -324,8 +324,12 @@ class EmployeeSalarySheetPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeeSalarySheet
-    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",cardsSource: this.props.employeeSalarySheet,
+    const  employeeSalarySheet = this.props.employeeSalarySheet;
+    const { id,displayName,  } = employeeSalarySheet
+    
+    
+    
+    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,
   		subItems: [
     
       	],

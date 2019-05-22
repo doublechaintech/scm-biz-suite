@@ -300,8 +300,12 @@ class SupplyOrderApprovalPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, consumerOrderCount, supplyOrderCount } = this.props.supplyOrderApproval
-    const cardsData = {cardsName:"供应订单审批",cardsFor: "supplyOrderApproval",cardsSource: this.props.supplyOrderApproval,
+    const  supplyOrderApproval = this.props.supplyOrderApproval;
+    const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderApproval
+    
+    
+    
+    const cardsData = {cardsName:"供应订单审批",cardsFor: "supplyOrderApproval",cardsSource: supplyOrderApproval,
   		subItems: [
     
       	],

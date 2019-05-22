@@ -301,8 +301,12 @@ class OriginalVoucherAuditingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, originalVoucherCount } = this.props.originalVoucherAuditing
-    const cardsData = {cardsName:"原始凭证的审核",cardsFor: "originalVoucherAuditing",cardsSource: this.props.originalVoucherAuditing,
+    const  originalVoucherAuditing = this.props.originalVoucherAuditing;
+    const { id,displayName, originalVoucherCount } = originalVoucherAuditing
+    
+    
+    
+    const cardsData = {cardsName:"原始凭证的审核",cardsFor: "originalVoucherAuditing",cardsSource: originalVoucherAuditing,
   		subItems: [
     
       	],

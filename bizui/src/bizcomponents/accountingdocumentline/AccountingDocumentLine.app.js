@@ -32,23 +32,23 @@ import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
+import BizAppTool from '../../common/BizApp.tool'
 
 const { Header, Sider, Content } = Layout
 const { SubMenu } = Menu
+const {
+  defaultFilteredNoGroupMenuItems,
+  defaultFilteredMenuItemsGroup,
+  defaultRenderMenuItem,
+
+} = BizAppTool
+
+
+const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
+const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
+const renderMenuItem=defaultRenderMenuItem
+
+
 
 const query = {
   'screen-xs': {
@@ -135,17 +135,26 @@ class AccountingDocumentLineBizApp extends React.PureComponent {
                <Link to={`/accountingDocumentLine/${this.props.accountingDocumentLine.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
            
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/accountingDocumentLine/${this.props.accountingDocumentLine.id}/preference`}><Icon type="setting" /><span>{appLocaleName(userContext,"Preference")}</span></Link>
-             </Menu.Item>
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+        {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
+          return(
+    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+      {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
+    </SubMenu>
+
+        )}
+        )}
+
+       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
+       			<Menu.Item key="profile">
+               		<Link to={`/accountingDocumentLine/${this.props.accountingDocumentLine.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
+             	</Menu.Item>
+             	<Menu.Item key="permission">
+               		<Link to={`/accountingDocumentLine/${this.props.accountingDocumentLine.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
+             	</Menu.Item> 
       
+        	</SubMenu>
+        
            </Menu>
     )
   }
@@ -157,12 +166,14 @@ class AccountingDocumentLineBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {AccountingDocumentLineDashboard} = GlobalComponents
-  	const {AccountingDocumentLinePreference} = GlobalComponents
+  	const {AccountingDocumentLinePermission} = GlobalComponents
+  	const {AccountingDocumentLineProfile} = GlobalComponents
   	
   	
   	const routers=[
   	{path:"/accountingDocumentLine/:id/dashboard", component: AccountingDocumentLineDashboard},
-  	{path:"/accountingDocumentLine/:id/preference", component: AccountingDocumentLinePreference},
+  	{path:"/accountingDocumentLine/:id/profile", component: AccountingDocumentLineProfile},
+  	{path:"/accountingDocumentLine/:id/permission", component: AccountingDocumentLinePermission},
   	
   	
     	

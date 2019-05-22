@@ -240,8 +240,9 @@ public class RetailStoreInvestmentInvitationManagerImpl extends CustomRetailscmC
 			//will be good when the retailStoreInvestmentInvitation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreInvestmentInvitation.
+			if (retailStoreInvestmentInvitation.isChanged()){
 			
-			
+			}
 			retailStoreInvestmentInvitation = saveRetailStoreInvestmentInvitation(userContext, retailStoreInvestmentInvitation, options);
 			return retailStoreInvestmentInvitation;
 			

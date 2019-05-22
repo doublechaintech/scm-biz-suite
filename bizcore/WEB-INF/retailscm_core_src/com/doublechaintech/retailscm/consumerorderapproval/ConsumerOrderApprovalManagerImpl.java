@@ -232,8 +232,9 @@ public class ConsumerOrderApprovalManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the consumerOrderApproval loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderApproval.
+			if (consumerOrderApproval.isChanged()){
 			
-			
+			}
 			consumerOrderApproval = saveConsumerOrderApproval(userContext, consumerOrderApproval, options);
 			return consumerOrderApproval;
 			

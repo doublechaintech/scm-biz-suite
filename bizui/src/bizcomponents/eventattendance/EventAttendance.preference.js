@@ -312,8 +312,12 @@ class EventAttendancePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.eventAttendance
-    const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",cardsSource: this.props.eventAttendance,
+    const  eventAttendance = this.props.eventAttendance;
+    const { id,displayName,  } = eventAttendance
+    
+    
+    
+    const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",cardsSource: eventAttendance,
   		subItems: [
     
       	],

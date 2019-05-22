@@ -307,8 +307,12 @@ class RetailStoreCityServiceCenterPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, cityPartnerCount, potentialCustomerCount, cityEventCount, retailStoreCount } = this.props.retailStoreCityServiceCenter
-    const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",cardsSource: this.props.retailStoreCityServiceCenter,
+    const  retailStoreCityServiceCenter = this.props.retailStoreCityServiceCenter;
+    const { id,displayName, cityPartnerCount, potentialCustomerCount, cityEventCount, retailStoreCount } = retailStoreCityServiceCenter
+    
+    
+    
+    const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",cardsSource: retailStoreCityServiceCenter,
   		subItems: [
     
       	],

@@ -307,8 +307,9 @@ public class TransportTaskManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the transportTask loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TransportTask.
+			if (transportTask.isChanged()){
 			
-			
+			}
 			transportTask = saveTransportTask(userContext, transportTask, options);
 			return transportTask;
 			

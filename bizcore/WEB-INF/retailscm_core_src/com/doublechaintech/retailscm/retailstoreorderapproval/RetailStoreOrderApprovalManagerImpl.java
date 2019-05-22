@@ -245,8 +245,9 @@ public class RetailStoreOrderApprovalManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the retailStoreOrderApproval loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderApproval.
+			if (retailStoreOrderApproval.isChanged()){
 			
-			
+			}
 			retailStoreOrderApproval = saveRetailStoreOrderApproval(userContext, retailStoreOrderApproval, options);
 			return retailStoreOrderApproval;
 			

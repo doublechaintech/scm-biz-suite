@@ -240,8 +240,9 @@ public class SecUserBlockingManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the secUserBlocking loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SecUserBlocking.
+			if (secUserBlocking.isChanged()){
 			
-			
+			}
 			secUserBlocking = saveSecUserBlocking(userContext, secUserBlocking, options);
 			return secUserBlocking;
 			

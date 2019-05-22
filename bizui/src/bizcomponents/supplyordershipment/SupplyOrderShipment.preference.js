@@ -300,8 +300,12 @@ class SupplyOrderShipmentPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, consumerOrderCount, supplyOrderCount } = this.props.supplyOrderShipment
-    const cardsData = {cardsName:"供应货",cardsFor: "supplyOrderShipment",cardsSource: this.props.supplyOrderShipment,
+    const  supplyOrderShipment = this.props.supplyOrderShipment;
+    const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderShipment
+    
+    
+    
+    const cardsData = {cardsName:"供应货",cardsFor: "supplyOrderShipment",cardsSource: supplyOrderShipment,
   		subItems: [
     
       	],

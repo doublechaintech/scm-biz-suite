@@ -8,7 +8,7 @@
 #Error field definition: level_one_department.manager: word 'manager' in keywords set skynet.kw; 
 
 
-=================Execute Report (Model Time 190120T2329) @Wed Mar 27 19:31:38 CST 2019, 150 objects and 1007 fields===========================
+=================Execute Report (Model Time 190403T1129) @Mon May 20 12:23:41 CST 2019, 150 objects and 1007 fields===========================
 
 
 
@@ -1479,111 +1479,6 @@ Info: Add virtual field [paying_offs(es)] to <employee>
 	paying_off.paid_for
 
 
- processing: user_domain
-
-
- processing: user_white_list
-
-
- processing: user_white_list.user_domain.domain
-
-Info: Add virtual field [user_white_lists(es)] to <user_domain>
-	user_white_list.domain
-
-
- processing: sec_user
-
-
- processing: sec_user.user_domain.domain
-
-Info: Add virtual field [sec_users(es)] to <user_domain>
-	sec_user.domain
-
-
- processing: sec_user.sec_user_blocking.blocking
-
-Info: Add virtual field [sec_users(es)] to <sec_user_blocking>
-	sec_user.blocking
-
-
- processing: sec_user_blocking
-
-
- processing: user_app
-
-
- processing: user_app.sec_user.sec_user
-
-Info: Add virtual field [user_apps(es)] to <sec_user>
-	user_app.sec_user
-
-
- processing: list_access
-
-
- processing: list_access.user_app.app
-
-Info: Add virtual field [list_accesss(es)] to <user_app>
-	list_access.app
-
-
- processing: object_access
-
-
- processing: object_access.user_app.app
-
-Info: Add virtual field [object_accesss(es)] to <user_app>
-	object_access.app
-
-
- processing: login_history
-
-
- processing: login_history.sec_user.sec_user
-
-Info: Add virtual field [login_historys(es)] to <sec_user>
-	login_history.sec_user
-
-
- processing: generic_form
-
-
- processing: form_message
-
-
- processing: form_message.generic_form.form
-
-Info: Add virtual field [form_messages(es)] to <generic_form>
-	form_message.form
-
-
- processing: form_field_message
-
-
- processing: form_field_message.generic_form.form
-
-Info: Add virtual field [form_field_messages(es)] to <generic_form>
-	form_field_message.form
-
-
- processing: form_field
-
-
- processing: form_field.generic_form.form
-
-Info: Add virtual field [form_fields(es)] to <generic_form>
-	form_field.form
-
-
- processing: form_action
-
-
- processing: form_action.generic_form.form
-
-Info: Add virtual field [form_actions(es)] to <generic_form>
-	form_action.form
-
-
 **************************************************
 
 retail_store_country_center{
@@ -1600,30 +1495,30 @@ retail_store_country_center{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(24){
-		catalogList	owner(基本信息)--owner;
-		retailStoreProvinceCenterList	country(基本信息)--country;
-		retailStoreList	retail_store_country_center(基本信息)--retail_store_country_center;
-		retailStoreMemberList	owner(基本信息)--owner;
-		goodsSupplierList	belong_to(基本信息)--belong_to;
-		supplyOrderList	buyer(基本信息)--buyer;
-		retailStoreOrderList	seller(基本信息)--seller;
-		warehouseList	owner(基本信息)--owner;
-		transportFleetList	owner(基本信息)--owner;
-		accountSetList	country_center(基本信息)--country_center;
-		levelOneDepartmentList	belongs_to(基本信息)--belongs_to;
-		skillTypeList	company(基本信息)--company;
-		responsibilityTypeList	company(基本信息)--company;
-		terminationReasonList	company(基本信息)--company;
-		terminationTypeList	company(基本信息)--company;
-		occupationTypeList	company(基本信息)--company;
-		leaveTypeList	company(基本信息)--company;
-		salaryGradeList	company(基本信息)--company;
-		interviewTypeList	company(基本信息)--company;
-		trainingCourseTypeList	company(基本信息)--company;
-		publicHolidayList	company(基本信息)--company;
-		employeeList	company(基本信息)--company;
-		instructorList	company(基本信息)--company;
-		companyTrainingList	company(基本信息)--company;
+		catalogList	owner(产品管理)--owner;
+		retailStoreProvinceCenterList	country(组织机构)--country;
+		retailStoreList	retail_store_country_center(加盟管理)--retail_store_country_center;
+		retailStoreMemberList	owner(会员管理)--owner;
+		goodsSupplierList	belong_to(供应管理)--belong_to;
+		supplyOrderList	buyer(供应管理)--buyer;
+		retailStoreOrderList	seller(销售管理)--seller;
+		warehouseList	owner(仓配运一体化)--owner;
+		transportFleetList	owner(仓配运一体化)--owner;
+		accountSetList	country_center(财务管理)--country_center;
+		levelOneDepartmentList	belongs_to(组织机构)--belongs_to;
+		skillTypeList	company(人力资源)--company;
+		responsibilityTypeList	company(人力资源)--company;
+		terminationReasonList	company(人力资源)--company;
+		terminationTypeList	company(人力资源)--company;
+		occupationTypeList	company(人力资源)--company;
+		leaveTypeList	company(人力资源)--company;
+		salaryGradeList	company(人力资源)--company;
+		interviewTypeList	company(人力资源)--company;
+		trainingCourseTypeList	company(人力资源)--company;
+		publicHolidayList	company(人力资源)--company;
+		employeeList	company(人力资源)--company;
+		instructorList	company(人力资源)--company;
+		companyTrainingList	company(人力资源)--company;
 	}
 } depth=0; isRoot = true
 
@@ -1635,7 +1530,7 @@ catalog{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelOneCategoryList	catalog(基本信息)--catalog;
+		levelOneCategoryList	catalog(__no_group)--catalog;
 	}
 } depth=1; isRoot = false
 
@@ -1647,7 +1542,7 @@ level_one_category{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelTwoCategoryList	parent_category(基本信息)--parent_category;
+		levelTwoCategoryList	parent_category(__no_group)--parent_category;
 	}
 } depth=2; isRoot = false
 
@@ -1659,7 +1554,7 @@ level_two_category{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelThreeCategoryList	parent_category(基本信息)--parent_category;
+		levelThreeCategoryList	parent_category(__no_group)--parent_category;
 	}
 } depth=3; isRoot = false
 
@@ -1671,7 +1566,7 @@ level_three_category{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		productList	parent_category(基本信息)--parent_category;
+		productList	parent_category(__no_group)--parent_category;
 	}
 } depth=4; isRoot = false
 
@@ -1688,7 +1583,7 @@ product{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		skuList	product(基本信息)--product;
+		skuList	product(__no_group)--product;
 	}
 } depth=5; isRoot = false
 
@@ -1706,7 +1601,7 @@ sku{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	sku(基本信息)--sku;
+		goodsList	sku(__no_group)--sku;
 	}
 } depth=6; isRoot = false
 
@@ -1720,9 +1615,9 @@ retail_store_province_center{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		provinceCenterDepartmentList	province_center(基本信息)--province_center;
-		provinceCenterEmployeeList	province_center(基本信息)--province_center;
-		retailStoreCityServiceCenterList	belongs_to(基本信息)--belongs_to;
+		provinceCenterDepartmentList	province_center(__no_group)--province_center;
+		provinceCenterEmployeeList	province_center(__no_group)--province_center;
+		retailStoreCityServiceCenterList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=1; isRoot = false
 
@@ -1736,7 +1631,7 @@ province_center_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		provinceCenterEmployeeList	department(基本信息)--department;
+		provinceCenterEmployeeList	department(__no_group)--department;
 	}
 } depth=2; isRoot = false
 
@@ -1765,10 +1660,10 @@ retail_store_city_service_center{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(4){
-		cityPartnerList	city_service_center(基本信息)--city_service_center;
-		potentialCustomerList	city_service_center(基本信息)--city_service_center;
-		cityEventList	city_service_center(基本信息)--city_service_center;
-		retailStoreList	city_service_center(基本信息)--city_service_center;
+		cityPartnerList	city_service_center(__no_group)--city_service_center;
+		potentialCustomerList	city_service_center(__no_group)--city_service_center;
+		cityEventList	city_service_center(__no_group)--city_service_center;
+		retailStoreList	city_service_center(__no_group)--city_service_center;
 	}
 } depth=2; isRoot = false
 
@@ -1783,8 +1678,8 @@ city_partner{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		potentialCustomerList	city_partner(基本信息)--city_partner;
-		potentialCustomerContactList	city_partner(基本信息)--city_partner;
+		potentialCustomerList	city_partner(__no_group)--city_partner;
+		potentialCustomerContactList	city_partner(__no_group)--city_partner;
 	}
 } depth=3; isRoot = false
 
@@ -1800,9 +1695,9 @@ potential_customer{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		potentialCustomerContactPersonList	potential_customer(基本信息)--potential_customer;
-		potentialCustomerContactList	potential_customer(基本信息)--potential_customer;
-		eventAttendanceList	potential_customer(基本信息)--potential_customer;
+		potentialCustomerContactPersonList	potential_customer(__no_group)--potential_customer;
+		potentialCustomerContactList	potential_customer(__no_group)--potential_customer;
+		eventAttendanceList	potential_customer(__no_group)--potential_customer;
 	}
 } depth=4; isRoot = false
 
@@ -1816,7 +1711,7 @@ potential_customer_contact_person{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		potentialCustomerContactList	contact_to(基本信息)--contact_to;
+		potentialCustomerContactList	contact_to(__no_group)--contact_to;
 	}
 } depth=5; isRoot = false
 
@@ -1848,7 +1743,7 @@ city_event{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		eventAttendanceList	city_event(基本信息)--city_event;
+		eventAttendanceList	city_event(__no_group)--city_event;
 	}
 } depth=3; isRoot = false
 
@@ -1888,11 +1783,11 @@ retail_store{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(5){
-		consumerOrderList	store(基本信息)--store;
-		retailStoreOrderList	buyer(基本信息)--buyer;
-		goodsList	retail_store(基本信息)--retail_store;
-		transportTaskList	end(基本信息)--end;
-		accountSetList	retail_store(基本信息)--retail_store;
+		consumerOrderList	store(__no_group)--store;
+		retailStoreOrderList	buyer(__no_group)--buyer;
+		goodsList	retail_store(__no_group)--retail_store;
+		transportTaskList	end(__no_group)--end;
+		accountSetList	retail_store(__no_group)--retail_store;
 	}
 } depth=3; isRoot = false
 
@@ -1903,7 +1798,7 @@ retail_store_creation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	creation(基本信息)--creation;
+		retailStoreList	creation(__no_group)--creation;
 	}
 } depth=0; isRoot = true
 
@@ -1914,7 +1809,7 @@ retail_store_investment_invitation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	investment_invitation(基本信息)--investment_invitation;
+		retailStoreList	investment_invitation(__no_group)--investment_invitation;
 	}
 } depth=0; isRoot = true
 
@@ -1925,7 +1820,7 @@ retail_store_franchising{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	franchising(基本信息)--franchising;
+		retailStoreList	franchising(__no_group)--franchising;
 	}
 } depth=0; isRoot = true
 
@@ -1936,7 +1831,7 @@ retail_store_decoration{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	decoration(基本信息)--decoration;
+		retailStoreList	decoration(__no_group)--decoration;
 	}
 } depth=0; isRoot = true
 
@@ -1947,7 +1842,7 @@ retail_store_opening{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	opening(基本信息)--opening;
+		retailStoreList	opening(__no_group)--opening;
 	}
 } depth=0; isRoot = true
 
@@ -1958,7 +1853,7 @@ retail_store_closing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	closing(基本信息)--closing;
+		retailStoreList	closing(__no_group)--closing;
 	}
 } depth=0; isRoot = true
 
@@ -1971,13 +1866,13 @@ retail_store_member{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(7){
-		consumerOrderList	consumer(基本信息)--consumer;
-		retailStoreMemberCouponList	owner(基本信息)--owner;
-		memberWishlistList	owner(基本信息)--owner;
-		memberRewardPointList	owner(基本信息)--owner;
-		memberRewardPointRedemptionList	owner(基本信息)--owner;
-		retailStoreMemberAddressList	owner(基本信息)--owner;
-		retailStoreMemberGiftCardList	owner(基本信息)--owner;
+		consumerOrderList	consumer(__no_group)--consumer;
+		retailStoreMemberCouponList	owner(__no_group)--owner;
+		memberWishlistList	owner(__no_group)--owner;
+		memberRewardPointList	owner(__no_group)--owner;
+		memberRewardPointRedemptionList	owner(__no_group)--owner;
+		retailStoreMemberAddressList	owner(__no_group)--owner;
+		retailStoreMemberGiftCardList	owner(__no_group)--owner;
 	}
 } depth=1; isRoot = false
 
@@ -1997,11 +1892,11 @@ consumer_order{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(5){
-		consumerOrderLineItemList	biz_order(基本信息)--biz_order;
-		consumerOrderShippingGroupList	biz_order(基本信息)--biz_order;
-		consumerOrderPaymentGroupList	biz_order(基本信息)--biz_order;
-		consumerOrderPriceAdjustmentList	biz_order(基本信息)--biz_order;
-		retailStoreMemberGiftCardConsumeRecordList	biz_order(基本信息)--biz_order;
+		consumerOrderLineItemList	biz_order(__no_group)--biz_order;
+		consumerOrderShippingGroupList	biz_order(__no_group)--biz_order;
+		consumerOrderPaymentGroupList	biz_order(__no_group)--biz_order;
+		consumerOrderPriceAdjustmentList	biz_order(__no_group)--biz_order;
+		retailStoreMemberGiftCardConsumeRecordList	biz_order(__no_group)--biz_order;
 	}
 } depth=4; isRoot = false
 
@@ -2134,7 +2029,7 @@ member_wishlist{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		memberWishlistProductList	owner(基本信息)--owner;
+		memberWishlistProductList	owner(__no_group)--owner;
 	}
 } depth=2; isRoot = false
 
@@ -2196,7 +2091,7 @@ retail_store_member_gift_card{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreMemberGiftCardConsumeRecordList	owner(基本信息)--owner;
+		retailStoreMemberGiftCardConsumeRecordList	owner(__no_group)--owner;
 	}
 } depth=2; isRoot = false
 
@@ -2226,9 +2121,9 @@ goods_supplier{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		supplierProductList	supplier(基本信息)--supplier;
-		supplyOrderList	seller(基本信息)--seller;
-		accountSetList	goods_supplier(基本信息)--goods_supplier;
+		supplierProductList	supplier(__no_group)--supplier;
+		supplyOrderList	seller(__no_group)--seller;
+		accountSetList	goods_supplier(__no_group)--goods_supplier;
 	}
 } depth=1; isRoot = false
 
@@ -2242,7 +2137,7 @@ supplier_product{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		productSupplyDurationList	product(基本信息)--product;
+		productSupplyDurationList	product(__no_group)--product;
 	}
 } depth=2; isRoot = false
 
@@ -2277,10 +2172,10 @@ supply_order{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(4){
-		supplyOrderLineItemList	biz_order(基本信息)--biz_order;
-		supplyOrderShippingGroupList	biz_order(基本信息)--biz_order;
-		supplyOrderPaymentGroupList	biz_order(基本信息)--biz_order;
-		goodsList	biz_order(基本信息)--biz_order;
+		supplyOrderLineItemList	biz_order(__no_group)--biz_order;
+		supplyOrderShippingGroupList	biz_order(__no_group)--biz_order;
+		supplyOrderPaymentGroupList	biz_order(__no_group)--biz_order;
+		goodsList	biz_order(__no_group)--biz_order;
 	}
 } depth=2; isRoot = false
 
@@ -2292,8 +2187,8 @@ supply_order_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	confirmation(基本信息)--confirmation;
-		supplyOrderList	confirmation(基本信息)--confirmation;
+		consumerOrderList	confirmation(__no_group)--confirmation;
+		supplyOrderList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -2305,8 +2200,8 @@ supply_order_approval{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	approval(基本信息)--approval;
-		supplyOrderList	approval(基本信息)--approval;
+		consumerOrderList	approval(__no_group)--approval;
+		supplyOrderList	approval(__no_group)--approval;
 	}
 } depth=0; isRoot = true
 
@@ -2318,8 +2213,8 @@ supply_order_processing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	processing(基本信息)--processing;
-		supplyOrderList	processing(基本信息)--processing;
+		consumerOrderList	processing(__no_group)--processing;
+		supplyOrderList	processing(__no_group)--processing;
 	}
 } depth=0; isRoot = true
 
@@ -2331,7 +2226,7 @@ supply_order_picking{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		supplyOrderList	picking(基本信息)--picking;
+		supplyOrderList	picking(__no_group)--picking;
 	}
 } depth=0; isRoot = true
 
@@ -2343,8 +2238,8 @@ supply_order_shipment{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	shipment(基本信息)--shipment;
-		supplyOrderList	shipment(基本信息)--shipment;
+		consumerOrderList	shipment(__no_group)--shipment;
+		supplyOrderList	shipment(__no_group)--shipment;
 	}
 } depth=0; isRoot = true
 
@@ -2356,8 +2251,8 @@ supply_order_delivery{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	delivery(基本信息)--delivery;
-		supplyOrderList	delivery(基本信息)--delivery;
+		consumerOrderList	delivery(__no_group)--delivery;
+		supplyOrderList	delivery(__no_group)--delivery;
 	}
 } depth=0; isRoot = true
 
@@ -2418,10 +2313,10 @@ retail_store_order{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(4){
-		retailStoreOrderLineItemList	biz_order(基本信息)--biz_order;
-		retailStoreOrderShippingGroupList	biz_order(基本信息)--biz_order;
-		retailStoreOrderPaymentGroupList	biz_order(基本信息)--biz_order;
-		goodsList	retail_store_order(基本信息)--retail_store_order;
+		retailStoreOrderLineItemList	biz_order(__no_group)--biz_order;
+		retailStoreOrderShippingGroupList	biz_order(__no_group)--biz_order;
+		retailStoreOrderPaymentGroupList	biz_order(__no_group)--biz_order;
+		goodsList	retail_store_order(__no_group)--retail_store_order;
 	}
 } depth=4; isRoot = false
 
@@ -2433,7 +2328,7 @@ retail_store_order_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	confirmation(基本信息)--confirmation;
+		retailStoreOrderList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -2445,7 +2340,7 @@ retail_store_order_approval{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	approval(基本信息)--approval;
+		retailStoreOrderList	approval(__no_group)--approval;
 	}
 } depth=0; isRoot = true
 
@@ -2457,7 +2352,7 @@ retail_store_order_processing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	processing(基本信息)--processing;
+		retailStoreOrderList	processing(__no_group)--processing;
 	}
 } depth=0; isRoot = true
 
@@ -2469,7 +2364,7 @@ retail_store_order_picking{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	picking(基本信息)--picking;
+		retailStoreOrderList	picking(__no_group)--picking;
 	}
 } depth=0; isRoot = true
 
@@ -2481,7 +2376,7 @@ retail_store_order_shipment{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	shipment(基本信息)--shipment;
+		retailStoreOrderList	shipment(__no_group)--shipment;
 	}
 } depth=0; isRoot = true
 
@@ -2493,7 +2388,7 @@ retail_store_order_delivery{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	delivery(基本信息)--delivery;
+		retailStoreOrderList	delivery(__no_group)--delivery;
 	}
 } depth=0; isRoot = true
 
@@ -2549,13 +2444,13 @@ warehouse{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(7){
-		storageSpaceList	warehouse(基本信息)--warehouse;
-		smartPalletList	warehouse(基本信息)--warehouse;
-		supplierSpaceList	warehouse(基本信息)--warehouse;
-		receivingSpaceList	warehouse(基本信息)--warehouse;
-		shippingSpaceList	warehouse(基本信息)--warehouse;
-		damageSpaceList	warehouse(基本信息)--warehouse;
-		warehouseAssetList	owner(基本信息)--owner;
+		storageSpaceList	warehouse(__no_group)--warehouse;
+		smartPalletList	warehouse(__no_group)--warehouse;
+		supplierSpaceList	warehouse(__no_group)--warehouse;
+		receivingSpaceList	warehouse(__no_group)--warehouse;
+		shippingSpaceList	warehouse(__no_group)--warehouse;
+		damageSpaceList	warehouse(__no_group)--warehouse;
+		warehouseAssetList	owner(__no_group)--owner;
 	}
 } depth=1; isRoot = false
 
@@ -2572,7 +2467,7 @@ storage_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsShelfList	storage_space(基本信息)--storage_space;
+		goodsShelfList	storage_space(__no_group)--storage_space;
 	}
 } depth=2; isRoot = false
 
@@ -2589,7 +2484,7 @@ smart_pallet{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	smart_pallet(基本信息)--smart_pallet;
+		goodsList	smart_pallet(__no_group)--smart_pallet;
 	}
 } depth=2; isRoot = false
 
@@ -2604,8 +2499,8 @@ goods_shelf{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		goodsShelfStockCountList	shelf(基本信息)--shelf;
-		goodsAllocationList	goods_shelf(基本信息)--goods_shelf;
+		goodsShelfStockCountList	shelf(__no_group)--shelf;
+		goodsAllocationList	goods_shelf(__no_group)--goods_shelf;
 	}
 } depth=3; isRoot = false
 
@@ -2619,7 +2514,7 @@ goods_shelf_stock_count{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		stockCountIssueTrackList	stock_count(基本信息)--stock_count;
+		stockCountIssueTrackList	stock_count(__no_group)--stock_count;
 	}
 } depth=4; isRoot = false
 
@@ -2646,7 +2541,7 @@ goods_allocation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	goods_allocation(基本信息)--goods_allocation;
+		goodsList	goods_allocation(__no_group)--goods_allocation;
 	}
 } depth=4; isRoot = false
 
@@ -2672,7 +2567,7 @@ goods{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsMovementList	goods(基本信息)--goods;
+		goodsMovementList	goods(__no_group)--goods;
 	}
 } depth=7; isRoot = false
 
@@ -2686,7 +2581,7 @@ goods_packaging{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	packaging(基本信息)--packaging;
+		goodsList	packaging(__no_group)--packaging;
 	}
 } depth=0; isRoot = true
 
@@ -2721,7 +2616,7 @@ supplier_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsShelfList	supplier_space(基本信息)--supplier_space;
+		goodsShelfList	supplier_space(__no_group)--supplier_space;
 	}
 } depth=2; isRoot = false
 
@@ -2739,7 +2634,7 @@ receiving_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	receiving_space(基本信息)--receiving_space;
+		goodsList	receiving_space(__no_group)--receiving_space;
 	}
 } depth=2; isRoot = false
 
@@ -2757,7 +2652,7 @@ shipping_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	shipping_space(基本信息)--shipping_space;
+		goodsList	shipping_space(__no_group)--shipping_space;
 	}
 } depth=2; isRoot = false
 
@@ -2774,7 +2669,7 @@ damage_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsShelfList	damage_space(基本信息)--damage_space;
+		goodsShelfList	damage_space(__no_group)--damage_space;
 	}
 } depth=2; isRoot = false
 
@@ -2801,9 +2696,9 @@ transport_fleet{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		transportTruckList	owner(基本信息)--owner;
-		truckDriverList	belongs_to(基本信息)--belongs_to;
-		transportTaskList	belongs_to(基本信息)--belongs_to;
+		transportTruckList	owner(__no_group)--owner;
+		truckDriverList	belongs_to(__no_group)--belongs_to;
+		transportTaskList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=1; isRoot = false
 
@@ -2822,7 +2717,7 @@ transport_truck{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		transportTaskList	truck(基本信息)--truck;
+		transportTaskList	truck(__no_group)--truck;
 	}
 } depth=2; isRoot = false
 
@@ -2836,7 +2731,7 @@ truck_driver{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		transportTaskList	driver(基本信息)--driver;
+		transportTaskList	driver(__no_group)--driver;
 	}
 } depth=2; isRoot = false
 
@@ -2855,8 +2750,8 @@ transport_task{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		goodsList	transport_task(基本信息)--transport_task;
-		transportTaskTrackList	movement(基本信息)--movement;
+		goodsList	transport_task(__no_group)--transport_task;
+		transportTaskTrackList	movement(__no_group)--movement;
 	}
 } depth=4; isRoot = false
 
@@ -2891,9 +2786,9 @@ account_set{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		accountingSubjectList	account_set(基本信息)--account_set;
-		accountingPeriodList	account_set(基本信息)--account_set;
-		accountingDocumentTypeList	accounting_period(基本信息)--accounting_period;
+		accountingSubjectList	account_set(__no_group)--account_set;
+		accountingPeriodList	account_set(__no_group)--account_set;
+		accountingDocumentTypeList	accounting_period(__no_group)--accounting_period;
 	}
 } depth=4; isRoot = false
 
@@ -2908,7 +2803,7 @@ accounting_subject{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentLineList	accounting_subject(基本信息)--accounting_subject;
+		accountingDocumentLineList	accounting_subject(__no_group)--accounting_subject;
 	}
 } depth=5; isRoot = false
 
@@ -2922,7 +2817,7 @@ accounting_period{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	accounting_period(基本信息)--accounting_period;
+		accountingDocumentList	accounting_period(__no_group)--accounting_period;
 	}
 } depth=5; isRoot = false
 
@@ -2935,7 +2830,7 @@ accounting_document_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	document_type(基本信息)--document_type;
+		accountingDocumentList	document_type(__no_group)--document_type;
 	}
 } depth=5; isRoot = false
 
@@ -2954,8 +2849,8 @@ accounting_document{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		originalVoucherList	belongs_to(基本信息)--belongs_to;
-		accountingDocumentLineList	belongs_to(基本信息)--belongs_to;
+		originalVoucherList	belongs_to(__no_group)--belongs_to;
+		accountingDocumentLineList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=6; isRoot = false
 
@@ -2968,7 +2863,7 @@ accounting_document_creation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	creation(基本信息)--creation;
+		accountingDocumentList	creation(__no_group)--creation;
 	}
 } depth=0; isRoot = true
 
@@ -2981,7 +2876,7 @@ accounting_document_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	confirmation(基本信息)--confirmation;
+		accountingDocumentList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -2994,7 +2889,7 @@ accounting_document_auditing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	auditing(基本信息)--auditing;
+		accountingDocumentList	auditing(__no_group)--auditing;
 	}
 } depth=0; isRoot = true
 
@@ -3007,7 +2902,7 @@ accounting_document_posting{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	posting(基本信息)--posting;
+		accountingDocumentList	posting(__no_group)--posting;
 	}
 } depth=0; isRoot = true
 
@@ -3039,7 +2934,7 @@ original_voucher_creation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		originalVoucherList	creation(基本信息)--creation;
+		originalVoucherList	creation(__no_group)--creation;
 	}
 } depth=0; isRoot = true
 
@@ -3052,7 +2947,7 @@ original_voucher_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		originalVoucherList	confirmation(基本信息)--confirmation;
+		originalVoucherList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -3065,7 +2960,7 @@ original_voucher_auditing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		originalVoucherList	auditing(基本信息)--auditing;
+		originalVoucherList	auditing(__no_group)--auditing;
 	}
 } depth=0; isRoot = true
 
@@ -3095,7 +2990,7 @@ level_one_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelTwoDepartmentList	belongs_to(基本信息)--belongs_to;
+		levelTwoDepartmentList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=1; isRoot = false
 
@@ -3109,7 +3004,7 @@ level_two_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelThreeDepartmentList	belongs_to(基本信息)--belongs_to;
+		levelThreeDepartmentList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=2; isRoot = false
 
@@ -3123,7 +3018,7 @@ level_three_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	department(基本信息)--department;
+		employeeList	department(__no_group)--department;
 	}
 } depth=3; isRoot = false
 
@@ -3136,7 +3031,7 @@ skill_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeSkillList	skill_type(基本信息)--skill_type;
+		employeeSkillList	skill_type(__no_group)--skill_type;
 	}
 } depth=1; isRoot = false
 
@@ -3150,7 +3045,7 @@ responsibility_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	responsible_for(基本信息)--responsible_for;
+		employeeList	responsible_for(__no_group)--responsible_for;
 	}
 } depth=1; isRoot = false
 
@@ -3163,7 +3058,7 @@ termination_reason{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		terminationList	reason(基本信息)--reason;
+		terminationList	reason(__no_group)--reason;
 	}
 } depth=1; isRoot = false
 
@@ -3177,7 +3072,7 @@ termination_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		terminationList	type(基本信息)--type;
+		terminationList	type(__no_group)--type;
 	}
 } depth=1; isRoot = false
 
@@ -3191,7 +3086,7 @@ occupation_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	occupation(基本信息)--occupation;
+		employeeList	occupation(__no_group)--occupation;
 	}
 } depth=1; isRoot = false
 
@@ -3205,7 +3100,7 @@ leave_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeLeaveList	type(基本信息)--type;
+		employeeLeaveList	type(__no_group)--type;
 	}
 } depth=1; isRoot = false
 
@@ -3219,8 +3114,8 @@ salary_grade{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		employeeList	current_salary_grade(基本信息)--current_salary_grade;
-		employeeSalarySheetList	current_salary_grade(基本信息)--current_salary_grade;
+		employeeList	current_salary_grade(__no_group)--current_salary_grade;
+		employeeSalarySheetList	current_salary_grade(__no_group)--current_salary_grade;
 	}
 } depth=1; isRoot = false
 
@@ -3234,7 +3129,7 @@ interview_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeInterviewList	interview_type(基本信息)--interview_type;
+		employeeInterviewList	interview_type(__no_group)--interview_type;
 	}
 } depth=1; isRoot = false
 
@@ -3248,7 +3143,7 @@ training_course_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		companyTrainingList	training_course_type(基本信息)--training_course_type;
+		companyTrainingList	training_course_type(__no_group)--training_course_type;
 	}
 } depth=1; isRoot = false
 
@@ -3274,7 +3169,7 @@ termination{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	termination(基本信息)--termination;
+		employeeList	termination(__no_group)--termination;
 	}
 } depth=2; isRoot = false
 
@@ -3318,18 +3213,18 @@ employee{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(12){
-		employeeCompanyTrainingList	employee(基本信息)--employee;
-		employeeSkillList	employee(基本信息)--employee;
-		employeePerformanceList	employee(基本信息)--employee;
-		employeeWorkExperienceList	employee(基本信息)--employee;
-		employeeLeaveList	who(基本信息)--who;
-		employeeInterviewList	employee(基本信息)--employee;
-		employeeAttendanceList	employee(基本信息)--employee;
-		employeeQualifierList	employee(基本信息)--employee;
-		employeeEducationList	employee(基本信息)--employee;
-		employeeAwardList	employee(基本信息)--employee;
-		employeeSalarySheetList	employee(基本信息)--employee;
-		payingOffList	paid_for(基本信息)--paid_for;
+		employeeCompanyTrainingList	employee(__no_group)--employee;
+		employeeSkillList	employee(__no_group)--employee;
+		employeePerformanceList	employee(__no_group)--employee;
+		employeeWorkExperienceList	employee(__no_group)--employee;
+		employeeLeaveList	who(__no_group)--who;
+		employeeInterviewList	employee(__no_group)--employee;
+		employeeAttendanceList	employee(__no_group)--employee;
+		employeeQualifierList	employee(__no_group)--employee;
+		employeeEducationList	employee(__no_group)--employee;
+		employeeAwardList	employee(__no_group)--employee;
+		employeeSalarySheetList	employee(__no_group)--employee;
+		payingOffList	paid_for(__no_group)--paid_for;
 	}
 } depth=4; isRoot = false
 
@@ -3342,7 +3237,7 @@ job_application{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	job_application(基本信息)--job_application;
+		employeeList	job_application(__no_group)--job_application;
 	}
 } depth=0; isRoot = true
 
@@ -3355,7 +3250,7 @@ profession_interview{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	profession_interview(基本信息)--profession_interview;
+		employeeList	profession_interview(__no_group)--profession_interview;
 	}
 } depth=0; isRoot = true
 
@@ -3368,7 +3263,7 @@ hr_interview{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	hr_interview(基本信息)--hr_interview;
+		employeeList	hr_interview(__no_group)--hr_interview;
 	}
 } depth=0; isRoot = true
 
@@ -3381,7 +3276,7 @@ offer_approval{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	offer_approval(基本信息)--offer_approval;
+		employeeList	offer_approval(__no_group)--offer_approval;
 	}
 } depth=0; isRoot = true
 
@@ -3394,7 +3289,7 @@ offer_acceptance{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	offer_acceptance(基本信息)--offer_acceptance;
+		employeeList	offer_acceptance(__no_group)--offer_acceptance;
 	}
 } depth=0; isRoot = true
 
@@ -3407,7 +3302,7 @@ employee_boarding{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	employee_boarding(基本信息)--employee_boarding;
+		employeeList	employee_boarding(__no_group)--employee_boarding;
 	}
 } depth=0; isRoot = true
 
@@ -3425,7 +3320,7 @@ instructor{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		companyTrainingList	instructor(基本信息)--instructor;
+		companyTrainingList	instructor(__no_group)--instructor;
 	}
 } depth=1; isRoot = false
 
@@ -3442,7 +3337,7 @@ company_training{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeCompanyTrainingList	training(基本信息)--training;
+		employeeCompanyTrainingList	training(__no_group)--training;
 	}
 } depth=2; isRoot = false
 
@@ -3455,7 +3350,7 @@ scoring{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeCompanyTrainingList	scoring(基本信息)--scoring;
+		employeeCompanyTrainingList	scoring(__no_group)--scoring;
 	}
 } depth=0; isRoot = true
 
@@ -3618,217 +3513,9 @@ paying_off{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeSalarySheetList	paying_off(基本信息)--paying_off;
+		employeeSalarySheetList	paying_off(__no_group)--paying_off;
 	}
 } depth=5; isRoot = false
-
-user_domain{
-	fields(3){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	name('用户区域'), verb: false, required: true;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(2){
-		userWhiteListList	domain(基本信息)--domain;
-		secUserList	domain(基本信息)--domain;
-	}
-} depth=0; isRoot = true
-
-user_white_list{
-	fields(5){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	user_identity('clariones|13808188512'), verb: false, required: true;
-		string	user_special_functions('tester;ios-spokesperson'), verb: false, required: true;
-		user_domain	domain('$(object)'), verb: false, required: true, referenceBy: userWhiteListList;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=1; isRoot = false
-
-sec_user{
-	fields(12){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	login('login'), verb: false, required: true;
-		string_china_mobile_phone	mobile('13900000001'), verb: false, required: true;
-		string	email('|suddy_chang@163.com'), verb: false, required: false;
-		string_password	pwd('*******'), verb: false, required: true;
-		int	verification_code('0|9999999'), verb: false, required: true;
-		date_time	verification_code_expire('2099-12-31T09:09:09'), verb: false, required: true;
-		date_time	last_login_time('2099-12-31T09:09:09'), verb: false, required: true;
-		user_domain	domain('$(object)'), verb: false, required: true, referenceBy: secUserList;
-		sec_user_blocking	blocking('$(object)'), verb: true, required: true, referenceBy: secUserList;
-		string	current_status('BLOCKED'), verb: false, required: true;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(2){
-		userAppList	sec_user(基本信息)--sec_user;
-		loginHistoryList	sec_user(基本信息)--sec_user;
-	}
-} depth=1; isRoot = false
-
-sec_user_blocking{
-	fields(5){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	who('currentUser()'), verb: false, required: true;
-		date_time_create	block_time('createTime()'), verb: false, required: true;
-		string	comments('这个用户多次发送违反社区的帖子，现在把他给屏蔽了'), verb: false, required: true;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(1){
-		secUserList	blocking(基本信息)--blocking;
-	}
-} depth=0; isRoot = true
-
-user_app{
-	fields(10){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	title('审车平台|账户管理|接车公司|审车公司|维修公司|顾客'), verb: false, required: true;
-		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: userAppList;
-		string	app_icon('users|bank|wechat|bar-chart|user|users'), verb: false, required: true;
-		bool	full_access('true'), verb: false, required: true;
-		string	permission('MXWR|MXWR'), verb: false, required: true;
-		string	object_type('CarInspectionPlatform|UserDomain|CarReceivingServiceCompany|CarInspectionServiceCompany|CarRepairingServiceCompany|CustomerInfo'), verb: false, required: true;
-		string	object_id('CIP000001|UD000001|CRSC000001|CISC000001|CRSC000001|CI000001'), verb: false, required: true;
-		string	location('/link/to/app'), verb: false, required: true;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(2){
-		listAccessList	app(基本信息)--app;
-		objectAccessList	app(基本信息)--app;
-	}
-} depth=2; isRoot = false
-
-list_access{
-	fields(10){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	name('列表'), verb: false, required: true;
-		string	internal_name('levelOneCategoryList'), verb: false, required: true;
-		bool	read_permission('true'), verb: false, required: true;
-		bool	create_permission('true'), verb: false, required: true;
-		bool	delete_permission('true'), verb: false, required: true;
-		bool	update_permission('true'), verb: false, required: true;
-		bool	execution_permission('true'), verb: false, required: true;
-		user_app	app('$(object)'), verb: false, required: true, referenceBy: listAccessList;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=3; isRoot = false
-
-object_access{
-	fields(14){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	name('控制访问列表1'), verb: false, required: true;
-		string	object_type('FranchiseeStoreCountryCenter|AccountSet'), verb: false, required: true;
-		string	list1('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list2('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list3('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list4('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list5('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list6('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list7('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list8('catalogList|levelOneCategoryList'), verb: false, required: true;
-		string	list9('catalogList|levelOneCategoryList'), verb: false, required: true;
-		user_app	app('$(object)'), verb: false, required: true, referenceBy: objectAccessList;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=3; isRoot = false
-
-login_history{
-	fields(6){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		date_time_create	login_time('createTime()'), verb: false, required: true;
-		string	from_ip('192.168.1.1|192.168.1.2'), verb: false, required: true;
-		string	description('登陆成功'), verb: false, required: true;
-		sec_user	sec_user('$(object)'), verb: false, required: true, referenceBy: loginHistoryList;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=2; isRoot = false
-
-generic_form{
-	fields(4){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	title('登记输入单'), verb: false, required: true;
-		string	description('姓名就是你身份证上的名字'), verb: false, required: true;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(4){
-		formMessageList	form(基本信息)--form;
-		formFieldMessageList	form(基本信息)--form;
-		formFieldList	form(基本信息)--form;
-		formActionList	form(基本信息)--form;
-	}
-} depth=0; isRoot = true
-
-form_message{
-	fields(5){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	title('字段组合错误'), verb: false, required: true;
-		generic_form	form('$(object)'), verb: false, required: true, referenceBy: formMessageList;
-		string	level('success|info|warning|danger'), verb: false, required: true;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=1; isRoot = false
-
-form_field_message{
-	fields(6){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	title('输入错误'), verb: false, required: true;
-		string	parameter_name('name'), verb: false, required: true;
-		generic_form	form('$(object)'), verb: false, required: true, referenceBy: formFieldMessageList;
-		string	level('success|info|warning|danger'), verb: false, required: true;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=1; isRoot = false
-
-form_field{
-	fields(18){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	label('姓名|年龄|出生地|国籍'), verb: false, required: true;
-		string	locale_key('name|age|birth_place|country'), verb: false, required: true;
-		string	parameter_name('name'), verb: false, required: true;
-		string	type('text|longtext|date|date_time|money|url|image|password|number|switch|vcode'), verb: false, required: true;
-		generic_form	form('$(object)'), verb: false, required: true, referenceBy: formFieldList;
-		string	placeholder('姓名就是你身份证上的名字'), verb: false, required: true;
-		string	default_value('李一一'), verb: false, required: true;
-		string	description('姓名就是你身份证上的名字'), verb: false, required: true;
-		string	field_group('基础信息|扩展信息'), verb: false, required: true;
-		string	minimum_value('maybe any value'), verb: false, required: true;
-		string	maximum_value('a value expression'), verb: false, required: true;
-		bool	required('true|false'), verb: false, required: true;
-		bool	disabled('true|false'), verb: false, required: true;
-		bool	custom_rendering('false'), verb: false, required: true;
-		string	candidate_values('|||男,女|高,矮'), verb: false, required: false;
-		string	suggest_values('|||男,女|高,矮'), verb: false, required: false;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=1; isRoot = false
-
-form_action{
-	fields(8){
-		string	id('ABCDEFGIJK000001'), verb: false, required: true;
-		string	label('功能'), verb: false, required: true;
-		string	locale_key('name'), verb: false, required: true;
-		string	action_key('save|update|remove'), verb: false, required: true;
-		string	level('default|warning|danger|primary'), verb: false, required: true;
-		string	url('genericFormManager/name/name0002/name0003/'), verb: false, required: true;
-		generic_form	form('$(object)'), verb: false, required: true, referenceBy: formActionList;
-		int	version('2147483647'), verb: false, required: true;
-	}
-	references field(0){
-	}
-} depth=1; isRoot = false
 
 retail_store_country_center{
 	fields(10){
@@ -3844,30 +3531,30 @@ retail_store_country_center{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(24){
-		catalogList	owner(基本信息)--owner;
-		retailStoreProvinceCenterList	country(基本信息)--country;
-		retailStoreList	retail_store_country_center(基本信息)--retail_store_country_center;
-		retailStoreMemberList	owner(基本信息)--owner;
-		goodsSupplierList	belong_to(基本信息)--belong_to;
-		supplyOrderList	buyer(基本信息)--buyer;
-		retailStoreOrderList	seller(基本信息)--seller;
-		warehouseList	owner(基本信息)--owner;
-		transportFleetList	owner(基本信息)--owner;
-		accountSetList	country_center(基本信息)--country_center;
-		levelOneDepartmentList	belongs_to(基本信息)--belongs_to;
-		skillTypeList	company(基本信息)--company;
-		responsibilityTypeList	company(基本信息)--company;
-		terminationReasonList	company(基本信息)--company;
-		terminationTypeList	company(基本信息)--company;
-		occupationTypeList	company(基本信息)--company;
-		leaveTypeList	company(基本信息)--company;
-		salaryGradeList	company(基本信息)--company;
-		interviewTypeList	company(基本信息)--company;
-		trainingCourseTypeList	company(基本信息)--company;
-		publicHolidayList	company(基本信息)--company;
-		employeeList	company(基本信息)--company;
-		instructorList	company(基本信息)--company;
-		companyTrainingList	company(基本信息)--company;
+		catalogList	owner(产品管理)--owner;
+		retailStoreProvinceCenterList	country(组织机构)--country;
+		retailStoreList	retail_store_country_center(加盟管理)--retail_store_country_center;
+		retailStoreMemberList	owner(会员管理)--owner;
+		goodsSupplierList	belong_to(供应管理)--belong_to;
+		supplyOrderList	buyer(供应管理)--buyer;
+		retailStoreOrderList	seller(销售管理)--seller;
+		warehouseList	owner(仓配运一体化)--owner;
+		transportFleetList	owner(仓配运一体化)--owner;
+		accountSetList	country_center(财务管理)--country_center;
+		levelOneDepartmentList	belongs_to(组织机构)--belongs_to;
+		skillTypeList	company(人力资源)--company;
+		responsibilityTypeList	company(人力资源)--company;
+		terminationReasonList	company(人力资源)--company;
+		terminationTypeList	company(人力资源)--company;
+		occupationTypeList	company(人力资源)--company;
+		leaveTypeList	company(人力资源)--company;
+		salaryGradeList	company(人力资源)--company;
+		interviewTypeList	company(人力资源)--company;
+		trainingCourseTypeList	company(人力资源)--company;
+		publicHolidayList	company(人力资源)--company;
+		employeeList	company(人力资源)--company;
+		instructorList	company(人力资源)--company;
+		companyTrainingList	company(人力资源)--company;
 	}
 } depth=0; isRoot = true
 
@@ -3879,7 +3566,7 @@ catalog{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelOneCategoryList	catalog(基本信息)--catalog;
+		levelOneCategoryList	catalog(__no_group)--catalog;
 	}
 } depth=1; isRoot = false
 
@@ -3891,7 +3578,7 @@ level_one_category{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelTwoCategoryList	parent_category(基本信息)--parent_category;
+		levelTwoCategoryList	parent_category(__no_group)--parent_category;
 	}
 } depth=2; isRoot = false
 
@@ -3903,7 +3590,7 @@ level_two_category{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelThreeCategoryList	parent_category(基本信息)--parent_category;
+		levelThreeCategoryList	parent_category(__no_group)--parent_category;
 	}
 } depth=3; isRoot = false
 
@@ -3915,7 +3602,7 @@ level_three_category{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		productList	parent_category(基本信息)--parent_category;
+		productList	parent_category(__no_group)--parent_category;
 	}
 } depth=4; isRoot = false
 
@@ -3932,7 +3619,7 @@ product{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		skuList	product(基本信息)--product;
+		skuList	product(__no_group)--product;
 	}
 } depth=5; isRoot = false
 
@@ -3950,7 +3637,7 @@ sku{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	sku(基本信息)--sku;
+		goodsList	sku(__no_group)--sku;
 	}
 } depth=6; isRoot = false
 
@@ -3964,9 +3651,9 @@ retail_store_province_center{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		provinceCenterDepartmentList	province_center(基本信息)--province_center;
-		provinceCenterEmployeeList	province_center(基本信息)--province_center;
-		retailStoreCityServiceCenterList	belongs_to(基本信息)--belongs_to;
+		provinceCenterDepartmentList	province_center(__no_group)--province_center;
+		provinceCenterEmployeeList	province_center(__no_group)--province_center;
+		retailStoreCityServiceCenterList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=1; isRoot = false
 
@@ -3980,7 +3667,7 @@ province_center_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		provinceCenterEmployeeList	department(基本信息)--department;
+		provinceCenterEmployeeList	department(__no_group)--department;
 	}
 } depth=2; isRoot = false
 
@@ -4009,10 +3696,10 @@ retail_store_city_service_center{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(4){
-		cityPartnerList	city_service_center(基本信息)--city_service_center;
-		potentialCustomerList	city_service_center(基本信息)--city_service_center;
-		cityEventList	city_service_center(基本信息)--city_service_center;
-		retailStoreList	city_service_center(基本信息)--city_service_center;
+		cityPartnerList	city_service_center(__no_group)--city_service_center;
+		potentialCustomerList	city_service_center(__no_group)--city_service_center;
+		cityEventList	city_service_center(__no_group)--city_service_center;
+		retailStoreList	city_service_center(__no_group)--city_service_center;
 	}
 } depth=2; isRoot = false
 
@@ -4027,8 +3714,8 @@ city_partner{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		potentialCustomerList	city_partner(基本信息)--city_partner;
-		potentialCustomerContactList	city_partner(基本信息)--city_partner;
+		potentialCustomerList	city_partner(__no_group)--city_partner;
+		potentialCustomerContactList	city_partner(__no_group)--city_partner;
 	}
 } depth=3; isRoot = false
 
@@ -4044,9 +3731,9 @@ potential_customer{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		potentialCustomerContactPersonList	potential_customer(基本信息)--potential_customer;
-		potentialCustomerContactList	potential_customer(基本信息)--potential_customer;
-		eventAttendanceList	potential_customer(基本信息)--potential_customer;
+		potentialCustomerContactPersonList	potential_customer(__no_group)--potential_customer;
+		potentialCustomerContactList	potential_customer(__no_group)--potential_customer;
+		eventAttendanceList	potential_customer(__no_group)--potential_customer;
 	}
 } depth=4; isRoot = false
 
@@ -4060,7 +3747,7 @@ potential_customer_contact_person{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		potentialCustomerContactList	contact_to(基本信息)--contact_to;
+		potentialCustomerContactList	contact_to(__no_group)--contact_to;
 	}
 } depth=5; isRoot = false
 
@@ -4092,7 +3779,7 @@ city_event{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		eventAttendanceList	city_event(基本信息)--city_event;
+		eventAttendanceList	city_event(__no_group)--city_event;
 	}
 } depth=3; isRoot = false
 
@@ -4132,11 +3819,11 @@ retail_store{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(5){
-		consumerOrderList	store(基本信息)--store;
-		retailStoreOrderList	buyer(基本信息)--buyer;
-		goodsList	retail_store(基本信息)--retail_store;
-		transportTaskList	end(基本信息)--end;
-		accountSetList	retail_store(基本信息)--retail_store;
+		consumerOrderList	store(__no_group)--store;
+		retailStoreOrderList	buyer(__no_group)--buyer;
+		goodsList	retail_store(__no_group)--retail_store;
+		transportTaskList	end(__no_group)--end;
+		accountSetList	retail_store(__no_group)--retail_store;
 	}
 } depth=3; isRoot = false
 
@@ -4147,7 +3834,7 @@ retail_store_creation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	creation(基本信息)--creation;
+		retailStoreList	creation(__no_group)--creation;
 	}
 } depth=0; isRoot = true
 
@@ -4158,7 +3845,7 @@ retail_store_investment_invitation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	investment_invitation(基本信息)--investment_invitation;
+		retailStoreList	investment_invitation(__no_group)--investment_invitation;
 	}
 } depth=0; isRoot = true
 
@@ -4169,7 +3856,7 @@ retail_store_franchising{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	franchising(基本信息)--franchising;
+		retailStoreList	franchising(__no_group)--franchising;
 	}
 } depth=0; isRoot = true
 
@@ -4180,7 +3867,7 @@ retail_store_decoration{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	decoration(基本信息)--decoration;
+		retailStoreList	decoration(__no_group)--decoration;
 	}
 } depth=0; isRoot = true
 
@@ -4191,7 +3878,7 @@ retail_store_opening{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	opening(基本信息)--opening;
+		retailStoreList	opening(__no_group)--opening;
 	}
 } depth=0; isRoot = true
 
@@ -4202,7 +3889,7 @@ retail_store_closing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreList	closing(基本信息)--closing;
+		retailStoreList	closing(__no_group)--closing;
 	}
 } depth=0; isRoot = true
 
@@ -4215,13 +3902,13 @@ retail_store_member{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(7){
-		consumerOrderList	consumer(基本信息)--consumer;
-		retailStoreMemberCouponList	owner(基本信息)--owner;
-		memberWishlistList	owner(基本信息)--owner;
-		memberRewardPointList	owner(基本信息)--owner;
-		memberRewardPointRedemptionList	owner(基本信息)--owner;
-		retailStoreMemberAddressList	owner(基本信息)--owner;
-		retailStoreMemberGiftCardList	owner(基本信息)--owner;
+		consumerOrderList	consumer(__no_group)--consumer;
+		retailStoreMemberCouponList	owner(__no_group)--owner;
+		memberWishlistList	owner(__no_group)--owner;
+		memberRewardPointList	owner(__no_group)--owner;
+		memberRewardPointRedemptionList	owner(__no_group)--owner;
+		retailStoreMemberAddressList	owner(__no_group)--owner;
+		retailStoreMemberGiftCardList	owner(__no_group)--owner;
 	}
 } depth=1; isRoot = false
 
@@ -4241,11 +3928,11 @@ consumer_order{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(5){
-		consumerOrderLineItemList	biz_order(基本信息)--biz_order;
-		consumerOrderShippingGroupList	biz_order(基本信息)--biz_order;
-		consumerOrderPaymentGroupList	biz_order(基本信息)--biz_order;
-		consumerOrderPriceAdjustmentList	biz_order(基本信息)--biz_order;
-		retailStoreMemberGiftCardConsumeRecordList	biz_order(基本信息)--biz_order;
+		consumerOrderLineItemList	biz_order(__no_group)--biz_order;
+		consumerOrderShippingGroupList	biz_order(__no_group)--biz_order;
+		consumerOrderPaymentGroupList	biz_order(__no_group)--biz_order;
+		consumerOrderPriceAdjustmentList	biz_order(__no_group)--biz_order;
+		retailStoreMemberGiftCardConsumeRecordList	biz_order(__no_group)--biz_order;
 	}
 } depth=4; isRoot = false
 
@@ -4378,7 +4065,7 @@ member_wishlist{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		memberWishlistProductList	owner(基本信息)--owner;
+		memberWishlistProductList	owner(__no_group)--owner;
 	}
 } depth=2; isRoot = false
 
@@ -4440,7 +4127,7 @@ retail_store_member_gift_card{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreMemberGiftCardConsumeRecordList	owner(基本信息)--owner;
+		retailStoreMemberGiftCardConsumeRecordList	owner(__no_group)--owner;
 	}
 } depth=2; isRoot = false
 
@@ -4470,9 +4157,9 @@ goods_supplier{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		supplierProductList	supplier(基本信息)--supplier;
-		supplyOrderList	seller(基本信息)--seller;
-		accountSetList	goods_supplier(基本信息)--goods_supplier;
+		supplierProductList	supplier(__no_group)--supplier;
+		supplyOrderList	seller(__no_group)--seller;
+		accountSetList	goods_supplier(__no_group)--goods_supplier;
 	}
 } depth=1; isRoot = false
 
@@ -4486,7 +4173,7 @@ supplier_product{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		productSupplyDurationList	product(基本信息)--product;
+		productSupplyDurationList	product(__no_group)--product;
 	}
 } depth=2; isRoot = false
 
@@ -4521,10 +4208,10 @@ supply_order{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(4){
-		supplyOrderLineItemList	biz_order(基本信息)--biz_order;
-		supplyOrderShippingGroupList	biz_order(基本信息)--biz_order;
-		supplyOrderPaymentGroupList	biz_order(基本信息)--biz_order;
-		goodsList	biz_order(基本信息)--biz_order;
+		supplyOrderLineItemList	biz_order(__no_group)--biz_order;
+		supplyOrderShippingGroupList	biz_order(__no_group)--biz_order;
+		supplyOrderPaymentGroupList	biz_order(__no_group)--biz_order;
+		goodsList	biz_order(__no_group)--biz_order;
 	}
 } depth=2; isRoot = false
 
@@ -4536,8 +4223,8 @@ supply_order_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	confirmation(基本信息)--confirmation;
-		supplyOrderList	confirmation(基本信息)--confirmation;
+		consumerOrderList	confirmation(__no_group)--confirmation;
+		supplyOrderList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -4549,8 +4236,8 @@ supply_order_approval{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	approval(基本信息)--approval;
-		supplyOrderList	approval(基本信息)--approval;
+		consumerOrderList	approval(__no_group)--approval;
+		supplyOrderList	approval(__no_group)--approval;
 	}
 } depth=0; isRoot = true
 
@@ -4562,8 +4249,8 @@ supply_order_processing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	processing(基本信息)--processing;
-		supplyOrderList	processing(基本信息)--processing;
+		consumerOrderList	processing(__no_group)--processing;
+		supplyOrderList	processing(__no_group)--processing;
 	}
 } depth=0; isRoot = true
 
@@ -4575,7 +4262,7 @@ supply_order_picking{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		supplyOrderList	picking(基本信息)--picking;
+		supplyOrderList	picking(__no_group)--picking;
 	}
 } depth=0; isRoot = true
 
@@ -4587,8 +4274,8 @@ supply_order_shipment{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	shipment(基本信息)--shipment;
-		supplyOrderList	shipment(基本信息)--shipment;
+		consumerOrderList	shipment(__no_group)--shipment;
+		supplyOrderList	shipment(__no_group)--shipment;
 	}
 } depth=0; isRoot = true
 
@@ -4600,8 +4287,8 @@ supply_order_delivery{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		consumerOrderList	delivery(基本信息)--delivery;
-		supplyOrderList	delivery(基本信息)--delivery;
+		consumerOrderList	delivery(__no_group)--delivery;
+		supplyOrderList	delivery(__no_group)--delivery;
 	}
 } depth=0; isRoot = true
 
@@ -4662,10 +4349,10 @@ retail_store_order{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(4){
-		retailStoreOrderLineItemList	biz_order(基本信息)--biz_order;
-		retailStoreOrderShippingGroupList	biz_order(基本信息)--biz_order;
-		retailStoreOrderPaymentGroupList	biz_order(基本信息)--biz_order;
-		goodsList	retail_store_order(基本信息)--retail_store_order;
+		retailStoreOrderLineItemList	biz_order(__no_group)--biz_order;
+		retailStoreOrderShippingGroupList	biz_order(__no_group)--biz_order;
+		retailStoreOrderPaymentGroupList	biz_order(__no_group)--biz_order;
+		goodsList	retail_store_order(__no_group)--retail_store_order;
 	}
 } depth=4; isRoot = false
 
@@ -4677,7 +4364,7 @@ retail_store_order_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	confirmation(基本信息)--confirmation;
+		retailStoreOrderList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -4689,7 +4376,7 @@ retail_store_order_approval{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	approval(基本信息)--approval;
+		retailStoreOrderList	approval(__no_group)--approval;
 	}
 } depth=0; isRoot = true
 
@@ -4701,7 +4388,7 @@ retail_store_order_processing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	processing(基本信息)--processing;
+		retailStoreOrderList	processing(__no_group)--processing;
 	}
 } depth=0; isRoot = true
 
@@ -4713,7 +4400,7 @@ retail_store_order_picking{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	picking(基本信息)--picking;
+		retailStoreOrderList	picking(__no_group)--picking;
 	}
 } depth=0; isRoot = true
 
@@ -4725,7 +4412,7 @@ retail_store_order_shipment{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	shipment(基本信息)--shipment;
+		retailStoreOrderList	shipment(__no_group)--shipment;
 	}
 } depth=0; isRoot = true
 
@@ -4737,7 +4424,7 @@ retail_store_order_delivery{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		retailStoreOrderList	delivery(基本信息)--delivery;
+		retailStoreOrderList	delivery(__no_group)--delivery;
 	}
 } depth=0; isRoot = true
 
@@ -4793,13 +4480,13 @@ warehouse{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(7){
-		storageSpaceList	warehouse(基本信息)--warehouse;
-		smartPalletList	warehouse(基本信息)--warehouse;
-		supplierSpaceList	warehouse(基本信息)--warehouse;
-		receivingSpaceList	warehouse(基本信息)--warehouse;
-		shippingSpaceList	warehouse(基本信息)--warehouse;
-		damageSpaceList	warehouse(基本信息)--warehouse;
-		warehouseAssetList	owner(基本信息)--owner;
+		storageSpaceList	warehouse(__no_group)--warehouse;
+		smartPalletList	warehouse(__no_group)--warehouse;
+		supplierSpaceList	warehouse(__no_group)--warehouse;
+		receivingSpaceList	warehouse(__no_group)--warehouse;
+		shippingSpaceList	warehouse(__no_group)--warehouse;
+		damageSpaceList	warehouse(__no_group)--warehouse;
+		warehouseAssetList	owner(__no_group)--owner;
 	}
 } depth=1; isRoot = false
 
@@ -4816,7 +4503,7 @@ storage_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsShelfList	storage_space(基本信息)--storage_space;
+		goodsShelfList	storage_space(__no_group)--storage_space;
 	}
 } depth=2; isRoot = false
 
@@ -4833,7 +4520,7 @@ smart_pallet{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	smart_pallet(基本信息)--smart_pallet;
+		goodsList	smart_pallet(__no_group)--smart_pallet;
 	}
 } depth=2; isRoot = false
 
@@ -4848,8 +4535,8 @@ goods_shelf{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		goodsShelfStockCountList	shelf(基本信息)--shelf;
-		goodsAllocationList	goods_shelf(基本信息)--goods_shelf;
+		goodsShelfStockCountList	shelf(__no_group)--shelf;
+		goodsAllocationList	goods_shelf(__no_group)--goods_shelf;
 	}
 } depth=3; isRoot = false
 
@@ -4863,7 +4550,7 @@ goods_shelf_stock_count{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		stockCountIssueTrackList	stock_count(基本信息)--stock_count;
+		stockCountIssueTrackList	stock_count(__no_group)--stock_count;
 	}
 } depth=4; isRoot = false
 
@@ -4890,7 +4577,7 @@ goods_allocation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	goods_allocation(基本信息)--goods_allocation;
+		goodsList	goods_allocation(__no_group)--goods_allocation;
 	}
 } depth=4; isRoot = false
 
@@ -4916,7 +4603,7 @@ goods{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsMovementList	goods(基本信息)--goods;
+		goodsMovementList	goods(__no_group)--goods;
 	}
 } depth=7; isRoot = false
 
@@ -4930,7 +4617,7 @@ goods_packaging{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	packaging(基本信息)--packaging;
+		goodsList	packaging(__no_group)--packaging;
 	}
 } depth=0; isRoot = true
 
@@ -4965,7 +4652,7 @@ supplier_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsShelfList	supplier_space(基本信息)--supplier_space;
+		goodsShelfList	supplier_space(__no_group)--supplier_space;
 	}
 } depth=2; isRoot = false
 
@@ -4983,7 +4670,7 @@ receiving_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	receiving_space(基本信息)--receiving_space;
+		goodsList	receiving_space(__no_group)--receiving_space;
 	}
 } depth=2; isRoot = false
 
@@ -5001,7 +4688,7 @@ shipping_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsList	shipping_space(基本信息)--shipping_space;
+		goodsList	shipping_space(__no_group)--shipping_space;
 	}
 } depth=2; isRoot = false
 
@@ -5018,7 +4705,7 @@ damage_space{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		goodsShelfList	damage_space(基本信息)--damage_space;
+		goodsShelfList	damage_space(__no_group)--damage_space;
 	}
 } depth=2; isRoot = false
 
@@ -5045,9 +4732,9 @@ transport_fleet{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		transportTruckList	owner(基本信息)--owner;
-		truckDriverList	belongs_to(基本信息)--belongs_to;
-		transportTaskList	belongs_to(基本信息)--belongs_to;
+		transportTruckList	owner(__no_group)--owner;
+		truckDriverList	belongs_to(__no_group)--belongs_to;
+		transportTaskList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=1; isRoot = false
 
@@ -5066,7 +4753,7 @@ transport_truck{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		transportTaskList	truck(基本信息)--truck;
+		transportTaskList	truck(__no_group)--truck;
 	}
 } depth=2; isRoot = false
 
@@ -5080,7 +4767,7 @@ truck_driver{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		transportTaskList	driver(基本信息)--driver;
+		transportTaskList	driver(__no_group)--driver;
 	}
 } depth=2; isRoot = false
 
@@ -5099,8 +4786,8 @@ transport_task{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		goodsList	transport_task(基本信息)--transport_task;
-		transportTaskTrackList	movement(基本信息)--movement;
+		goodsList	transport_task(__no_group)--transport_task;
+		transportTaskTrackList	movement(__no_group)--movement;
 	}
 } depth=4; isRoot = false
 
@@ -5135,9 +4822,9 @@ account_set{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(3){
-		accountingSubjectList	account_set(基本信息)--account_set;
-		accountingPeriodList	account_set(基本信息)--account_set;
-		accountingDocumentTypeList	accounting_period(基本信息)--accounting_period;
+		accountingSubjectList	account_set(__no_group)--account_set;
+		accountingPeriodList	account_set(__no_group)--account_set;
+		accountingDocumentTypeList	accounting_period(__no_group)--accounting_period;
 	}
 } depth=4; isRoot = false
 
@@ -5152,7 +4839,7 @@ accounting_subject{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentLineList	accounting_subject(基本信息)--accounting_subject;
+		accountingDocumentLineList	accounting_subject(__no_group)--accounting_subject;
 	}
 } depth=5; isRoot = false
 
@@ -5166,7 +4853,7 @@ accounting_period{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	accounting_period(基本信息)--accounting_period;
+		accountingDocumentList	accounting_period(__no_group)--accounting_period;
 	}
 } depth=5; isRoot = false
 
@@ -5179,7 +4866,7 @@ accounting_document_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	document_type(基本信息)--document_type;
+		accountingDocumentList	document_type(__no_group)--document_type;
 	}
 } depth=5; isRoot = false
 
@@ -5198,8 +4885,8 @@ accounting_document{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		originalVoucherList	belongs_to(基本信息)--belongs_to;
-		accountingDocumentLineList	belongs_to(基本信息)--belongs_to;
+		originalVoucherList	belongs_to(__no_group)--belongs_to;
+		accountingDocumentLineList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=6; isRoot = false
 
@@ -5212,7 +4899,7 @@ accounting_document_creation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	creation(基本信息)--creation;
+		accountingDocumentList	creation(__no_group)--creation;
 	}
 } depth=0; isRoot = true
 
@@ -5225,7 +4912,7 @@ accounting_document_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	confirmation(基本信息)--confirmation;
+		accountingDocumentList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -5238,7 +4925,7 @@ accounting_document_auditing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	auditing(基本信息)--auditing;
+		accountingDocumentList	auditing(__no_group)--auditing;
 	}
 } depth=0; isRoot = true
 
@@ -5251,7 +4938,7 @@ accounting_document_posting{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		accountingDocumentList	posting(基本信息)--posting;
+		accountingDocumentList	posting(__no_group)--posting;
 	}
 } depth=0; isRoot = true
 
@@ -5283,7 +4970,7 @@ original_voucher_creation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		originalVoucherList	creation(基本信息)--creation;
+		originalVoucherList	creation(__no_group)--creation;
 	}
 } depth=0; isRoot = true
 
@@ -5296,7 +4983,7 @@ original_voucher_confirmation{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		originalVoucherList	confirmation(基本信息)--confirmation;
+		originalVoucherList	confirmation(__no_group)--confirmation;
 	}
 } depth=0; isRoot = true
 
@@ -5309,7 +4996,7 @@ original_voucher_auditing{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		originalVoucherList	auditing(基本信息)--auditing;
+		originalVoucherList	auditing(__no_group)--auditing;
 	}
 } depth=0; isRoot = true
 
@@ -5339,7 +5026,7 @@ level_one_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelTwoDepartmentList	belongs_to(基本信息)--belongs_to;
+		levelTwoDepartmentList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=1; isRoot = false
 
@@ -5353,7 +5040,7 @@ level_two_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		levelThreeDepartmentList	belongs_to(基本信息)--belongs_to;
+		levelThreeDepartmentList	belongs_to(__no_group)--belongs_to;
 	}
 } depth=2; isRoot = false
 
@@ -5367,7 +5054,7 @@ level_three_department{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	department(基本信息)--department;
+		employeeList	department(__no_group)--department;
 	}
 } depth=3; isRoot = false
 
@@ -5380,7 +5067,7 @@ skill_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeSkillList	skill_type(基本信息)--skill_type;
+		employeeSkillList	skill_type(__no_group)--skill_type;
 	}
 } depth=1; isRoot = false
 
@@ -5394,7 +5081,7 @@ responsibility_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	responsible_for(基本信息)--responsible_for;
+		employeeList	responsible_for(__no_group)--responsible_for;
 	}
 } depth=1; isRoot = false
 
@@ -5407,7 +5094,7 @@ termination_reason{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		terminationList	reason(基本信息)--reason;
+		terminationList	reason(__no_group)--reason;
 	}
 } depth=1; isRoot = false
 
@@ -5421,7 +5108,7 @@ termination_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		terminationList	type(基本信息)--type;
+		terminationList	type(__no_group)--type;
 	}
 } depth=1; isRoot = false
 
@@ -5435,7 +5122,7 @@ occupation_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	occupation(基本信息)--occupation;
+		employeeList	occupation(__no_group)--occupation;
 	}
 } depth=1; isRoot = false
 
@@ -5449,7 +5136,7 @@ leave_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeLeaveList	type(基本信息)--type;
+		employeeLeaveList	type(__no_group)--type;
 	}
 } depth=1; isRoot = false
 
@@ -5463,8 +5150,8 @@ salary_grade{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		employeeList	current_salary_grade(基本信息)--current_salary_grade;
-		employeeSalarySheetList	current_salary_grade(基本信息)--current_salary_grade;
+		employeeList	current_salary_grade(__no_group)--current_salary_grade;
+		employeeSalarySheetList	current_salary_grade(__no_group)--current_salary_grade;
 	}
 } depth=1; isRoot = false
 
@@ -5478,7 +5165,7 @@ interview_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeInterviewList	interview_type(基本信息)--interview_type;
+		employeeInterviewList	interview_type(__no_group)--interview_type;
 	}
 } depth=1; isRoot = false
 
@@ -5492,7 +5179,7 @@ training_course_type{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		companyTrainingList	training_course_type(基本信息)--training_course_type;
+		companyTrainingList	training_course_type(__no_group)--training_course_type;
 	}
 } depth=1; isRoot = false
 
@@ -5518,7 +5205,7 @@ termination{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	termination(基本信息)--termination;
+		employeeList	termination(__no_group)--termination;
 	}
 } depth=2; isRoot = false
 
@@ -5562,18 +5249,18 @@ employee{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(12){
-		employeeCompanyTrainingList	employee(基本信息)--employee;
-		employeeSkillList	employee(基本信息)--employee;
-		employeePerformanceList	employee(基本信息)--employee;
-		employeeWorkExperienceList	employee(基本信息)--employee;
-		employeeLeaveList	who(基本信息)--who;
-		employeeInterviewList	employee(基本信息)--employee;
-		employeeAttendanceList	employee(基本信息)--employee;
-		employeeQualifierList	employee(基本信息)--employee;
-		employeeEducationList	employee(基本信息)--employee;
-		employeeAwardList	employee(基本信息)--employee;
-		employeeSalarySheetList	employee(基本信息)--employee;
-		payingOffList	paid_for(基本信息)--paid_for;
+		employeeCompanyTrainingList	employee(__no_group)--employee;
+		employeeSkillList	employee(__no_group)--employee;
+		employeePerformanceList	employee(__no_group)--employee;
+		employeeWorkExperienceList	employee(__no_group)--employee;
+		employeeLeaveList	who(__no_group)--who;
+		employeeInterviewList	employee(__no_group)--employee;
+		employeeAttendanceList	employee(__no_group)--employee;
+		employeeQualifierList	employee(__no_group)--employee;
+		employeeEducationList	employee(__no_group)--employee;
+		employeeAwardList	employee(__no_group)--employee;
+		employeeSalarySheetList	employee(__no_group)--employee;
+		payingOffList	paid_for(__no_group)--paid_for;
 	}
 } depth=4; isRoot = false
 
@@ -5586,7 +5273,7 @@ job_application{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	job_application(基本信息)--job_application;
+		employeeList	job_application(__no_group)--job_application;
 	}
 } depth=0; isRoot = true
 
@@ -5599,7 +5286,7 @@ profession_interview{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	profession_interview(基本信息)--profession_interview;
+		employeeList	profession_interview(__no_group)--profession_interview;
 	}
 } depth=0; isRoot = true
 
@@ -5612,7 +5299,7 @@ hr_interview{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	hr_interview(基本信息)--hr_interview;
+		employeeList	hr_interview(__no_group)--hr_interview;
 	}
 } depth=0; isRoot = true
 
@@ -5625,7 +5312,7 @@ offer_approval{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	offer_approval(基本信息)--offer_approval;
+		employeeList	offer_approval(__no_group)--offer_approval;
 	}
 } depth=0; isRoot = true
 
@@ -5638,7 +5325,7 @@ offer_acceptance{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	offer_acceptance(基本信息)--offer_acceptance;
+		employeeList	offer_acceptance(__no_group)--offer_acceptance;
 	}
 } depth=0; isRoot = true
 
@@ -5651,7 +5338,7 @@ employee_boarding{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeList	employee_boarding(基本信息)--employee_boarding;
+		employeeList	employee_boarding(__no_group)--employee_boarding;
 	}
 } depth=0; isRoot = true
 
@@ -5669,7 +5356,7 @@ instructor{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		companyTrainingList	instructor(基本信息)--instructor;
+		companyTrainingList	instructor(__no_group)--instructor;
 	}
 } depth=1; isRoot = false
 
@@ -5686,7 +5373,7 @@ company_training{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeCompanyTrainingList	training(基本信息)--training;
+		employeeCompanyTrainingList	training(__no_group)--training;
 	}
 } depth=2; isRoot = false
 
@@ -5699,7 +5386,7 @@ scoring{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeCompanyTrainingList	scoring(基本信息)--scoring;
+		employeeCompanyTrainingList	scoring(__no_group)--scoring;
 	}
 } depth=0; isRoot = true
 
@@ -5862,7 +5549,7 @@ paying_off{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		employeeSalarySheetList	paying_off(基本信息)--paying_off;
+		employeeSalarySheetList	paying_off(__no_group)--paying_off;
 	}
 } depth=5; isRoot = false
 
@@ -5873,8 +5560,8 @@ user_domain{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		userWhiteListList	domain(基本信息)--domain;
-		secUserList	domain(基本信息)--domain;
+		userWhiteListList	domain(__no_group)--domain;
+		secUserList	domain(__no_group)--domain;
 	}
 } depth=0; isRoot = true
 
@@ -5906,8 +5593,8 @@ sec_user{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		userAppList	sec_user(基本信息)--sec_user;
-		loginHistoryList	sec_user(基本信息)--sec_user;
+		userAppList	sec_user(__no_group)--sec_user;
+		loginHistoryList	sec_user(__no_group)--sec_user;
 	}
 } depth=1; isRoot = false
 
@@ -5920,7 +5607,7 @@ sec_user_blocking{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(1){
-		secUserList	blocking(基本信息)--blocking;
+		secUserList	blocking(__no_group)--blocking;
 	}
 } depth=0; isRoot = true
 
@@ -5938,8 +5625,8 @@ user_app{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(2){
-		listAccessList	app(基本信息)--app;
-		objectAccessList	app(基本信息)--app;
+		listAccessList	app(__no_group)--app;
+		objectAccessList	app(__no_group)--app;
 	}
 } depth=2; isRoot = false
 
@@ -6002,10 +5689,10 @@ generic_form{
 		int	version('2147483647'), verb: false, required: true;
 	}
 	references field(4){
-		formMessageList	form(基本信息)--form;
-		formFieldMessageList	form(基本信息)--form;
-		formFieldList	form(基本信息)--form;
-		formActionList	form(基本信息)--form;
+		formMessageList	form(__no_group)--form;
+		formFieldMessageList	form(__no_group)--form;
+		formFieldList	form(__no_group)--form;
+		formActionList	form(__no_group)--form;
 	}
 } depth=0; isRoot = true
 

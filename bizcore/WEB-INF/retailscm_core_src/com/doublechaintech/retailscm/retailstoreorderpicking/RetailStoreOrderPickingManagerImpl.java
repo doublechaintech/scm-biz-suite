@@ -245,8 +245,9 @@ public class RetailStoreOrderPickingManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the retailStoreOrderPicking loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderPicking.
+			if (retailStoreOrderPicking.isChanged()){
 			
-			
+			}
 			retailStoreOrderPicking = saveRetailStoreOrderPicking(userContext, retailStoreOrderPicking, options);
 			return retailStoreOrderPicking;
 			

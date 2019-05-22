@@ -307,8 +307,12 @@ class GoodsShelfStockCountPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, stockCountIssueTrackCount } = this.props.goodsShelfStockCount
-    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",cardsSource: this.props.goodsShelfStockCount,
+    const  goodsShelfStockCount = this.props.goodsShelfStockCount;
+    const { id,displayName, stockCountIssueTrackCount } = goodsShelfStockCount
+    
+    
+    
+    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,
   		subItems: [
     
       	],

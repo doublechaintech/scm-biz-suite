@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.storagespace;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -852,6 +854,32 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	public void enhanceList(List<StorageSpace> storageSpaceList) {		
 		this.enhanceListInternal(storageSpaceList, this.getStorageSpaceMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:GoodsShelf的storageSpace的GoodsShelfList
+	public SmartList<GoodsShelf> loadOurGoodsShelfList(RetailscmUserContext userContext, List<StorageSpace> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(GoodsShelf.STORAGE_SPACE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<GoodsShelf> loadedObjs = userContext.getDAOGroup().getGoodsShelfDAO().findGoodsShelfWithKey(key, options);
+		Map<String, List<GoodsShelf>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getStorageSpace().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<GoodsShelf> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<GoodsShelf> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsShelfList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<StorageSpace> storageSpaceList = ownerEntity.collectRefsWithType(StorageSpace.INTERNAL_TYPE);

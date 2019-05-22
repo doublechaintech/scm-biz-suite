@@ -249,8 +249,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			//will be good when the skillType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SkillType.
+			if (skillType.isChanged()){
 			
-			
+			}
 			skillType = saveSkillType(userContext, skillType, options);
 			return skillType;
 			

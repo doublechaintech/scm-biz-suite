@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstoredecoration;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -713,6 +715,32 @@ public class RetailStoreDecorationJDBCTemplateDAO extends RetailscmNamingService
 	public void enhanceList(List<RetailStoreDecoration> retailStoreDecorationList) {		
 		this.enhanceListInternal(retailStoreDecorationList, this.getRetailStoreDecorationMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStore的decoration的RetailStoreList
+	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreDecoration> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStore.DECORATION_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStore> loadedObjs = userContext.getDAOGroup().getRetailStoreDAO().findRetailStoreWithKey(key, options);
+		Map<String, List<RetailStore>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getDecoration().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStore> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStore> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreDecoration> retailStoreDecorationList = ownerEntity.collectRefsWithType(RetailStoreDecoration.INTERNAL_TYPE);

@@ -252,8 +252,9 @@ public class EmployeeAttendanceManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the employeeAttendance loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeAttendance.
+			if (employeeAttendance.isChanged()){
 			
-			
+			}
 			employeeAttendance = saveEmployeeAttendance(userContext, employeeAttendance, options);
 			return employeeAttendance;
 			

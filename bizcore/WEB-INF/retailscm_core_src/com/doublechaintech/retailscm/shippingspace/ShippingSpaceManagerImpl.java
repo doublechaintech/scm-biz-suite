@@ -278,8 +278,9 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the shippingSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ShippingSpace.
-			
-			
+			if (shippingSpace.isChanged()){
+			shippingSpace.updateLastUpdateTime(userContext.now());
+			}
 			shippingSpace = saveShippingSpace(userContext, shippingSpace, options);
 			return shippingSpace;
 			

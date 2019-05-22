@@ -254,8 +254,9 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the terminationType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TerminationType.
+			if (terminationType.isChanged()){
 			
-			
+			}
 			terminationType = saveTerminationType(userContext, terminationType, options);
 			return terminationType;
 			

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.accountingdocumentconfirmation;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -717,6 +719,32 @@ public class AccountingDocumentConfirmationJDBCTemplateDAO extends RetailscmNami
 	public void enhanceList(List<AccountingDocumentConfirmation> accountingDocumentConfirmationList) {		
 		this.enhanceListInternal(accountingDocumentConfirmationList, this.getAccountingDocumentConfirmationMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocument的confirmation的AccountingDocumentList
+	public SmartList<AccountingDocument> loadOurAccountingDocumentList(RetailscmUserContext userContext, List<AccountingDocumentConfirmation> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountingDocument.CONFIRMATION_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountingDocument> loadedObjs = userContext.getDAOGroup().getAccountingDocumentDAO().findAccountingDocumentWithKey(key, options);
+		Map<String, List<AccountingDocument>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getConfirmation().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountingDocument> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountingDocument> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountingDocumentList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountingDocumentConfirmation> accountingDocumentConfirmationList = ownerEntity.collectRefsWithType(AccountingDocumentConfirmation.INTERNAL_TYPE);

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.consumerorderapproval;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -399,6 +401,9 @@ public class ConsumerOrderApprovalJDBCTemplateDAO extends RetailscmNamingService
 	public void enhanceList(List<ConsumerOrderApproval> consumerOrderApprovalList) {		
 		this.enhanceListInternal(consumerOrderApprovalList, this.getConsumerOrderApprovalMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrderApproval> consumerOrderApprovalList = ownerEntity.collectRefsWithType(ConsumerOrderApproval.INTERNAL_TYPE);

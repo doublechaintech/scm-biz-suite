@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.view;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -401,6 +403,9 @@ public class ViewJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Vi
 	public void enhanceList(List<View> viewList) {		
 		this.enhanceListInternal(viewList, this.getViewMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<View> viewList = ownerEntity.collectRefsWithType(View.INTERNAL_TYPE);

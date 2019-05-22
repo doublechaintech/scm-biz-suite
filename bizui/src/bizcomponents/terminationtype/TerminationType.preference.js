@@ -301,8 +301,12 @@ class TerminationTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, terminationCount } = this.props.terminationType
-    const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",cardsSource: this.props.terminationType,
+    const  terminationType = this.props.terminationType;
+    const { id,displayName, terminationCount } = terminationType
+    
+    
+    
+    const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",cardsSource: terminationType,
   		subItems: [
     
       	],

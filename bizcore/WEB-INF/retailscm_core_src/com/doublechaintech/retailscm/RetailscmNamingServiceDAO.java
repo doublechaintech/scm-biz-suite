@@ -265,6 +265,16 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 		return resultMap.get(key);
 	}
 
+	protected String trimString(String valueToTrim) {
+		if(valueToTrim==null) {
+			return null;
+		}
+		if(valueToTrim.isEmpty()) {
+			return "";
+		}
+		return valueToTrim.trim();
+		
+	}
 	protected Map<String, String> getResultMap(String unionedSQL,
 			Object[] parameters) {
 		
@@ -280,10 +290,11 @@ public class RetailscmNamingServiceDAO extends CommonJDBCTemplateDAO {
 				
 				Map<String,String> internalMap = new HashMap<String,String>();
 				while(resultSet.next()){ 
-					String key = resultSet.getString(1)+":"+resultSet.getString(2);
+					String key = trimString(resultSet.getString(1))+":"+trimString(resultSet.getString(2));
+					// Fixed the issue for Informix and Gbase 8t/s data base, it appends values for the class column
 					String value = resultSet.getString(3);
 					
-					//System.out.printf("%s: %s\r\n",key, value);
+					// System.out.printf("%s = %s\r\n",key, value);
 					
 					internalMap.put(key, value);
 					

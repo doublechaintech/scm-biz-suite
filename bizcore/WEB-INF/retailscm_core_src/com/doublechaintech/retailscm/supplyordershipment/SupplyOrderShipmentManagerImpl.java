@@ -252,8 +252,9 @@ public class SupplyOrderShipmentManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the supplyOrderShipment loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderShipment.
+			if (supplyOrderShipment.isChanged()){
 			
-			
+			}
 			supplyOrderShipment = saveSupplyOrderShipment(userContext, supplyOrderShipment, options);
 			return supplyOrderShipment;
 			

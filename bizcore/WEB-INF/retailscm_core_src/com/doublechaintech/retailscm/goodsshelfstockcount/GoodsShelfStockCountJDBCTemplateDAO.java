@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.goodsshelfstockcount;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -742,6 +744,32 @@ public class GoodsShelfStockCountJDBCTemplateDAO extends RetailscmNamingServiceD
 	public void enhanceList(List<GoodsShelfStockCount> goodsShelfStockCountList) {		
 		this.enhanceListInternal(goodsShelfStockCountList, this.getGoodsShelfStockCountMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:StockCountIssueTrack的stockCount的StockCountIssueTrackList
+	public SmartList<StockCountIssueTrack> loadOurStockCountIssueTrackList(RetailscmUserContext userContext, List<GoodsShelfStockCount> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(StockCountIssueTrack.STOCK_COUNT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<StockCountIssueTrack> loadedObjs = userContext.getDAOGroup().getStockCountIssueTrackDAO().findStockCountIssueTrackWithKey(key, options);
+		Map<String, List<StockCountIssueTrack>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getStockCount().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<StockCountIssueTrack> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<StockCountIssueTrack> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setStockCountIssueTrackList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsShelfStockCount> goodsShelfStockCountList = ownerEntity.collectRefsWithType(GoodsShelfStockCount.INTERNAL_TYPE);

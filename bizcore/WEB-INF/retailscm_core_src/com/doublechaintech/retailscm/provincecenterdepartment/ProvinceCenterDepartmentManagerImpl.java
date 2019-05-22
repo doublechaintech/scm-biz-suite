@@ -254,8 +254,9 @@ public class ProvinceCenterDepartmentManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the provinceCenterDepartment loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ProvinceCenterDepartment.
+			if (provinceCenterDepartment.isChanged()){
 			
-			
+			}
 			provinceCenterDepartment = saveProvinceCenterDepartment(userContext, provinceCenterDepartment, options);
 			return provinceCenterDepartment;
 			

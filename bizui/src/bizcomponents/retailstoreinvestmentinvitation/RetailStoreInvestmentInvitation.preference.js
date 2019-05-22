@@ -299,8 +299,12 @@ class RetailStoreInvestmentInvitationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreCount } = this.props.retailStoreInvestmentInvitation
-    const cardsData = {cardsName:"生超招商",cardsFor: "retailStoreInvestmentInvitation",cardsSource: this.props.retailStoreInvestmentInvitation,
+    const  retailStoreInvestmentInvitation = this.props.retailStoreInvestmentInvitation;
+    const { id,displayName, retailStoreCount } = retailStoreInvestmentInvitation
+    
+    
+    
+    const cardsData = {cardsName:"生超招商",cardsFor: "retailStoreInvestmentInvitation",cardsSource: retailStoreInvestmentInvitation,
   		subItems: [
     
       	],

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.goodsshelf;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1242,6 +1244,55 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	public void enhanceList(List<GoodsShelf> goodsShelfList) {		
 		this.enhanceListInternal(goodsShelfList, this.getGoodsShelfMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:GoodsShelfStockCount的shelf的GoodsShelfStockCountList
+	public SmartList<GoodsShelfStockCount> loadOurGoodsShelfStockCountList(RetailscmUserContext userContext, List<GoodsShelf> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(GoodsShelfStockCount.SHELF_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<GoodsShelfStockCount> loadedObjs = userContext.getDAOGroup().getGoodsShelfStockCountDAO().findGoodsShelfStockCountWithKey(key, options);
+		Map<String, List<GoodsShelfStockCount>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getShelf().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<GoodsShelfStockCount> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<GoodsShelfStockCount> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsShelfStockCountList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:GoodsAllocation的goodsShelf的GoodsAllocationList
+	public SmartList<GoodsAllocation> loadOurGoodsAllocationList(RetailscmUserContext userContext, List<GoodsShelf> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(GoodsAllocation.GOODS_SHELF_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<GoodsAllocation> loadedObjs = userContext.getDAOGroup().getGoodsAllocationDAO().findGoodsAllocationWithKey(key, options);
+		Map<String, List<GoodsAllocation>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getGoodsShelf().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<GoodsAllocation> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<GoodsAllocation> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsAllocationList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsShelf> goodsShelfList = ownerEntity.collectRefsWithType(GoodsShelf.INTERNAL_TYPE);

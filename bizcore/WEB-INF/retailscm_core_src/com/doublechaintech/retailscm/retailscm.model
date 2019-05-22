@@ -26,7 +26,7 @@
 	<!--连锁店的拥有者会有自己的产品分类，这样就可以保证订货和供货之间不存在不一致的情况-->
 	<catalog 
 		name="水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康" 
-		 owner="$(retail_store_country_center)"/>	
+		 owner="$(retail_store_country_center)" _vg4owner="产品管理"/>	
 	<level_one_category catalog="$(catalog)" 
 		name="水果蔬菜|肉禽蛋奶|冷热速食|休闲食品|酒水饮料|粮油调味|清洁日化|家居用品|鲜花蛋糕|医药健康"/>	
 	<level_two_category parent_category="$(level_one_category)" 
@@ -100,7 +100,7 @@ pic   varchar(254),   图片 -->
 		name='双链小超四川省运营中心|双链小超北京运营中心'  
 		founded="past()"
 		
-		country="$(retail_store_country_center)"
+		country="$(retail_store_country_center)" _vg4country="组织机构"
 		last_update_time="updateTime()"
 		
 	/>
@@ -200,7 +200,7 @@ pic   varchar(254),   图片 -->
 		name='中和社区小超|华阳社区小超|大源社区小超' 
 		telephone="02887654321"
 		owner="吕刚"
-		retail_store_country_center="$(retail_store_country_center)"
+		retail_store_country_center="$(retail_store_country_center)" _vg4retail_store_country_center="加盟管理"
 		city_service_center="$(retail_store_city_service_center)" 
 		creation="$(retail_store_creation)"
 		investment_invitation="$(retail_store_investment_invitation)"
@@ -230,7 +230,7 @@ pic   varchar(254),   图片 -->
 	<retail_store_member 
 		name='李亚青'  
 		mobile_phone="18099887766"
-		owner="$(retail_store_country_center)" 
+		owner="$(retail_store_country_center)"  _vg4owner="会员管理"
 
 		/>
 	
@@ -352,7 +352,7 @@ pic   varchar(254),   图片 -->
 	<goods_supplier 
 		name="宝洁|中粮|福临门" 
 		supply_product="洗护用品|食品|植物油" 
-		belong_to="$(retail_store_country_center)" 
+		belong_to="$(retail_store_country_center)"  _vg4belong_to="供应管理"
 		contact_number="18677889999"
 		description="啤酒饮料矿泉水，香肠瓜子方便面都提供"
 		last_update_time="updateTime()"
@@ -387,7 +387,7 @@ pic   varchar(254),   图片 -->
 		
 	
 	<supply_order 
-		buyer="$(retail_store_country_center)"
+		buyer="$(retail_store_country_center)" _vg4buyer="供应管理"
 		seller="$(goods_supplier)" 
 		title="双链给供货商下的订单"
 		
@@ -440,7 +440,7 @@ pic   varchar(254),   图片 -->
 
 	<retail_store_order 
 		buyer="$(retail_store)"
-		seller="$(retail_store_country_center)" 
+		seller="$(retail_store_country_center)" _vg4seller="销售管理"
 		title="双链小超给双链供应链下的订单"
 		total_amount="$3000000000.88"  
 		confirmation="$(retail_store_order_confirmation)" 
@@ -486,7 +486,7 @@ pic   varchar(254),   图片 -->
 		location="成都龙泉驿飞鹤路20号"
 		contact_number="02887654321"
 		total_area="187672平方米"
-		owner="$(retail_store_country_center)"
+		owner="$(retail_store_country_center)" _vg4owner="仓配运一体化"
 		latitude="40.776877"
 		longitude="130.273647"
 		last_update_time="updateTime()"
@@ -659,7 +659,7 @@ pic   varchar(254),   图片 -->
 		name="双链先锋号车队"
 		contact_number="02887654321"
 		
-		owner="$(retail_store_country_center)"
+		owner="$(retail_store_country_center)" _vg4owner="仓配运一体化"
 		last_update_time="updateTime()"
 
 	/>
@@ -789,7 +789,7 @@ ATM取款：ATM withdrawal
 		domestic_currency_name="人民币|美元"
 		opening_bank="招商银行|工商银行"
 		account_number="33265805054885"
-		country_center="$(retail_store_country_center)"
+		country_center="$(retail_store_country_center)" _vg4country_center="财务管理"
 		retail_store="$(retail_store)"
 		goods_supplier="$(goods_supplier)"
 		last_update_time="updateTime()"
@@ -903,7 +903,7 @@ ATM取款：ATM withdrawal
 
 	
 	<level_one_department
-        belongs_to="$(retail_store_country_center)"
+        belongs_to="$(retail_store_country_center)" _vg4belongs_to="组织机构"
         name="供应链部|采购部|管理部|财务部|信息技术部|法务部|市场部|人力资源部"
         description="主要执行集团信息系统建设，维护，规划"
         manager='刘强|王德宏'
@@ -941,7 +941,7 @@ ATM取款：ATM withdrawal
     <!--技能类型-->
     <skill_type
         code="S0000"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         description="JAVA编程|大数据|并行计算|操作系统|数据库"
         _features="setting"
 
@@ -949,7 +949,7 @@ ATM取款：ATM withdrawal
      <!--职责类型-->
     <responsibility_type
         code="S0000"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         base_description="合规管理|财务管理|总务管理|信息管理|库存管理|市场管理|产品管理|采购管理|资产管理|销售管理|安全管理"
         detail_description="负责集团及其他分公司信息系统有效运作，并使集团在技术上领先"
          _features="setting"
@@ -957,14 +957,14 @@ ATM取款：ATM withdrawal
     <!--雇佣关系终止原因-->
     <termination_reason
         code="ETR0000"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         description="业务发展，公司转型|战略调整|业务优化"
          _features="setting"
     />
     <!--雇佣关系终止类型-->
     <termination_type
         code="ETT0000"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         base_description="合同解除|辞职|退休"
         detail_description="这个终止原因的描述是这样的................................................."
          _features="setting"
@@ -972,7 +972,7 @@ ATM取款：ATM withdrawal
     <!--职位类型-->
     <occupation_type
         code="OT0000"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         description="需求分析员|软件工程师|高级软件工程师|财务分析师|财务主管|出纳|总经理|副总经历|大数据架构师|销售经理|销售总监|技术总监|区域销售经理"
         detail_description="故事还得从遥远的古代开始................................................."
          _features="setting"
@@ -980,7 +980,7 @@ ATM取款：ATM withdrawal
      <!--雇员请假类型-->
     <leave_type
         code="LT0000"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         description="带薪年假|病假|事假|婚假|产假|陪产假|丧假|探亲假|哺乳假|待产假|陪待产假"
         detail_description="故事还得从遥远的古代开始................................................."
          _features="setting"
@@ -988,7 +988,7 @@ ATM取款：ATM withdrawal
        <!--薪水等级-->
     <salary_grade
         code="SG0000"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         name="一级薪资|二级薪资|三级薪资|四级薪资|五级薪资|六级薪资|七级薪资"
         detail_description="故事还得从遥远的古代开始................................................."
          _features="setting"
@@ -996,7 +996,7 @@ ATM取款：ATM withdrawal
 	 <!--工作面试类型-->
      <interview_type
         code="INTRVW00"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         description="特别情况面试|离职面试|信息面试|入职面试"
         detail_description="故事还得从遥远的古代开始................................................."
          _features="setting"
@@ -1006,7 +1006,7 @@ ATM取款：ATM withdrawal
     <!--培训课程类型-->
      <training_course_type
         code="TC00"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         name="入职培训|售前培训|技术培训|管理培训|外训"
         description="培训是提升个人和企业竞争力的法宝"
          _features="setting"
@@ -1023,7 +1023,7 @@ ATM取款：ATM withdrawal
     -->
     <public_holiday
         code="PH00"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         name="元旦节|春节|妇女节|清明节|端午节|暑假|国庆节|中秋节"
         description="节日快乐，万事如意！"
          _features="setting"
@@ -1036,7 +1036,7 @@ ATM取款：ATM withdrawal
     />
     <view who="面试官" assessment="小伙子不错，值得培养" interview_time="2017-03-03"/>
     <employee
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
 
         title="程序员"
         department="$(level_three_department)"
@@ -1100,13 +1100,13 @@ ATM取款：ATM withdrawal
         given_name="文强|大伟|字章"
         cell_phone="18699990000"
         email="instructor@gmail.com"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         introduction="这是一个长长长长长长长长的介绍"
         last_update_time="updateTime()"
     />
     <company_training
         title="入职培训"
-        company="$(retail_store_country_center)"
+        company="$(retail_store_country_center)" _vg4company="人力资源"
         instructor="$(instructor)"
         training_course_type="$(training_course_type)"
         time_start="past()"
@@ -1204,131 +1204,7 @@ ATM取款：ATM withdrawal
     />
 	
    
-      <user_domain
-            name="用户区域"
-      >
-      
-      <!-- 特殊用户白名单
-      		该表安排在user-domain内，通常情况下，客户不会看到这里。
-      		内容（目前）完全由项目自己定义。
-      		user_identity 用于识别哪些用户有特权
-      		user_special_functions 用于表示该用户有些啥特权。 特权名称完全由项目定义。
-       -->
-      <user_white_list
-			user_identity="clariones|13808188512|[1,40]"
-			user_special_functions="tester;ios-spokesperson|[1,200]"
-			domain="$(user_domain)"
-			_features="setting"
-			/>
-      <sec_user
-            login="login"
-            mobile='13900000001|[0,11]'
-            email='|suddy_chang@163.com'
-            pwd='*******'
-            verification_code="0|9999999"
-            verification_code_expire="2099-12-31T09:09:09"
-            last_login_time='2099-12-31T09:09:09'
-            domain="$(user_domain)"
-            _identified_by="login,email,mobile"
-            blocking="$(sec_user_blocking)"
-      />
-      <sec_user_blocking
-            who="currentUser()"
-            block_time="createTime()"
-            comments="这个用户多次发送违反社区的帖子，现在把他给屏蔽了"
-      />
-
-      <user_app
-            title='审车平台|账户管理|接车公司|审车公司|维修公司|顾客|[1,300]'
-            sec_user="$(sec_user)"
-            app_icon="users|bank|wechat|bar-chart|user|users"
-            full_access="true"
-            permission="MXWR|MXWR"
-            object_type="CarInspectionPlatform|UserDomain|CarReceivingServiceCompany|CarInspectionServiceCompany|CarRepairingServiceCompany|CustomerInfo"
-            object_id="CIP000001|UD000001|CRSC000001|CISC000001|CRSC000001|CI000001"
-            location='/link/to/app'
-
-      />
-	  <list_access
-		 	name="列表|[2,200]"
-		 	internal_name="levelOneCategoryList|[2,200]"
-		 	read_permission="true"
-		 	create_permission="true"
-		 	delete_permission="true"		 	
-		 	update_permission="true"
-		 	execution_permission="true"		 	
-		 	app="$(user_app)"
-	  />
-      <object_access
-            name="控制访问列表1"
-            object_type="FranchiseeStoreCountryCenter|AccountSet"
-            list1="catalogList|levelOneCategoryList"
-            list2="catalogList|levelOneCategoryList"
-            list3="catalogList|levelOneCategoryList"
-            list4="catalogList|levelOneCategoryList"
-            list5="catalogList|levelOneCategoryList"
-            list6="catalogList|levelOneCategoryList"
-            list7="catalogList|levelOneCategoryList"
-            list8="catalogList|levelOneCategoryList"
-            list9="catalogList|levelOneCategoryList"
-
-
-            app="$(user_app)"
-      />
-
-      <login_history
-            login_time="createTime()"
-            from_ip="192.168.1.1|192.168.1.2"
-            description="登陆成功"
-            sec_user="$(sec_user)"
-      />
-      <generic_form
-            title="登记输入单"
-            description="姓名就是你身份证上的名字"
-             _features="internal"
-      />
-      <form_message
-            title="字段组合错误"
-            form="$(generic_form)"
-            level="success|info|warning|danger"
-             _features="internal"
-      />
-      <form_field_message
-            title="输入错误"
-            parameter_name="name"
-            form="$(generic_form)"
-            level="success|info|warning|danger"
-             _features="internal"
-      />
-      <form_field
-            label="姓名|年龄|出生地|国籍"
-            locale_key="name|age|birth_place|country"
-            parameter_name="name"
-            type="text|longtext|date|date_time|money|url|image|password|number|switch|vcode"
-            form="$(generic_form)"
-            placeholder="姓名就是你身份证上的名字"
-            default_value="李一一"
-            description="姓名就是你身份证上的名字"
-            field_group="基础信息|扩展信息"
-            minimum_value="maybe any value"
-            maximum_value="a value expression"
-            required="true|false"
-            disabled="true|false"
-            custom_rendering="false"
-            candidate_values="|||男,女|高,矮"
-            suggest_values="|||男,女|高,矮"
-             _features="internal"
-      />
-      <form_action
-            label="功能"
-            locale_key="name"
-            action_key="save|update|remove"
-            level="default|warning|danger|primary"
-            url="genericFormManager/name/name0002/name0003/"
-            form="$(generic_form)"
-             _features="internal"
-      />
-      </user_domain>
+ 
 </root>
 
 

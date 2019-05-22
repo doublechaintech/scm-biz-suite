@@ -248,8 +248,9 @@ public class AccountingDocumentCreationManagerImpl extends CustomRetailscmChecke
 			//will be good when the accountingDocumentCreation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingDocumentCreation.
+			if (accountingDocumentCreation.isChanged()){
 			
-			
+			}
 			accountingDocumentCreation = saveAccountingDocumentCreation(userContext, accountingDocumentCreation, options);
 			return accountingDocumentCreation;
 			

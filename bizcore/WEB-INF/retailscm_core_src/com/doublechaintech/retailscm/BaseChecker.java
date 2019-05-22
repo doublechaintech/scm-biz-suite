@@ -430,6 +430,22 @@ public class BaseChecker {
 	protected void checkCountryCode(String countryCode, int min, int max, String propertyKey) {
 		checkStringLengthRange(countryCode, min, max, propertyKey);
 	}
+	protected void checkLongRange(long value, long min, long max, String propertyKey) {
+		if (value > max) {
+			packMessage(messageList, "LONG_GREATER_THAN_MAX", propertyKey,
+					new Object[] { propertyKey, value, min, max },
+					"您输入的" + propertyKey + "在比允许的最大值" + max + "还要大，请修正。");
+
+			return;
+		}
+		if (value < min) {
+			packMessage(messageList, "LONG_LESS_THAN_MIN", propertyKey, new Object[] { propertyKey, value, min, max },
+					"您输入的" + propertyKey + "在比允许的最小值" + min + "还要小，请修正。");
+
+			return;
+		}
+
+	}
 	
 }
 

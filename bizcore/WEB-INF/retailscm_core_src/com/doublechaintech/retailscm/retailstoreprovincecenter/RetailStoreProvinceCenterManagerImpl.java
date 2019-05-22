@@ -260,8 +260,9 @@ public class RetailStoreProvinceCenterManagerImpl extends CustomRetailscmChecker
 			//will be good when the retailStoreProvinceCenter loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreProvinceCenter.
-			
-			
+			if (retailStoreProvinceCenter.isChanged()){
+			retailStoreProvinceCenter.updateLastUpdateTime(userContext.now());
+			}
 			retailStoreProvinceCenter = saveRetailStoreProvinceCenter(userContext, retailStoreProvinceCenter, options);
 			return retailStoreProvinceCenter;
 			

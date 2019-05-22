@@ -277,8 +277,9 @@ public class PotentialCustomerManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the potentialCustomer loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to PotentialCustomer.
-			
-			
+			if (potentialCustomer.isChanged()){
+			potentialCustomer.updateLastUpdateTime(userContext.now());
+			}
 			potentialCustomer = savePotentialCustomer(userContext, potentialCustomer, options);
 			return potentialCustomer;
 			

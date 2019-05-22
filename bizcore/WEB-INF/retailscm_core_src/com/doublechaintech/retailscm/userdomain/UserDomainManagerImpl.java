@@ -239,8 +239,9 @@ public class UserDomainManagerImpl extends CustomRetailscmCheckerManager impleme
 			//will be good when the userDomain loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to UserDomain.
+			if (userDomain.isChanged()){
 			
-			
+			}
 			userDomain = saveUserDomain(userContext, userDomain, options);
 			return userDomain;
 			

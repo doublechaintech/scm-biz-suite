@@ -301,8 +301,12 @@ class OfferApprovalPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.offerApproval
-    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",cardsSource: this.props.offerApproval,
+    const  offerApproval = this.props.offerApproval;
+    const { id,displayName, employeeCount } = offerApproval
+    
+    
+    
+    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",cardsSource: offerApproval,
   		subItems: [
     
       	],

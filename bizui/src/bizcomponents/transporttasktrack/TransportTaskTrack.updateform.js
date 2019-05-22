@@ -262,7 +262,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.trackTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入跟踪时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="跟踪时间" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入纬度" />
+                    <Input size="large" placeholder="纬度" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入经度" />
+                    <Input size="large" placeholder="经度" />
                     
                   )}
                 </Form.Item>

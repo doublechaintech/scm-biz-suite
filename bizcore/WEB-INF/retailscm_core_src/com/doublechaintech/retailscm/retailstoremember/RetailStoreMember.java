@@ -74,9 +74,9 @@ public class RetailStoreMember extends BaseEntity implements  java.io.Serializab
 	
 		
 	public 	RetailStoreMember(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setOwner( null );
 

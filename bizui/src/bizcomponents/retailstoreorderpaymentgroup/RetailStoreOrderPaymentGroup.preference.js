@@ -306,8 +306,12 @@ class RetailStoreOrderPaymentGroupPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.retailStoreOrderPaymentGroup
-    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: this.props.retailStoreOrderPaymentGroup,
+    const  retailStoreOrderPaymentGroup = this.props.retailStoreOrderPaymentGroup;
+    const { id,displayName,  } = retailStoreOrderPaymentGroup
+    
+    
+    
+    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: retailStoreOrderPaymentGroup,
   		subItems: [
     
       	],

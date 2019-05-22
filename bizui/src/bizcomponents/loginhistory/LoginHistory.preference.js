@@ -307,8 +307,12 @@ class LoginHistoryPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.loginHistory
-    const cardsData = {cardsName:"登录历史",cardsFor: "loginHistory",cardsSource: this.props.loginHistory,
+    const  loginHistory = this.props.loginHistory;
+    const { id,displayName,  } = loginHistory
+    
+    
+    
+    const cardsData = {cardsName:"登录历史",cardsFor: "loginHistory",cardsSource: loginHistory,
   		subItems: [
     
       	],

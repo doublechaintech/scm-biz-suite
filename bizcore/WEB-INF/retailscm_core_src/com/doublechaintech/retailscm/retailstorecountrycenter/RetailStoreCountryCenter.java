@@ -134,9 +134,9 @@ public class RetailStoreCountryCenter extends BaseEntity implements  java.io.Ser
 	
 		
 	public 	RetailStoreCountryCenter(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 
 		this.changed = true;
@@ -402,13 +402,13 @@ public class RetailStoreCountryCenter extends BaseEntity implements  java.io.Ser
 	
 	
 	public void setWebSite(String webSite){
-		this.mWebSite = trimString(encodeUrl(webSite));;
+		this.mWebSite = trimString(webSite);;
 	}
 	public String getWebSite(){
 		return this.mWebSite;
 	}
 	public RetailStoreCountryCenter updateWebSite(String webSite){
-		this.mWebSite = trimString(encodeUrl(webSite));;
+		this.mWebSite = trimString(webSite);;
 		this.changed = true;
 		return this;
 	}

@@ -248,8 +248,9 @@ public class AccountingDocumentAuditingManagerImpl extends CustomRetailscmChecke
 			//will be good when the accountingDocumentAuditing loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingDocumentAuditing.
+			if (accountingDocumentAuditing.isChanged()){
 			
-			
+			}
 			accountingDocumentAuditing = saveAccountingDocumentAuditing(userContext, accountingDocumentAuditing, options);
 			return accountingDocumentAuditing;
 			

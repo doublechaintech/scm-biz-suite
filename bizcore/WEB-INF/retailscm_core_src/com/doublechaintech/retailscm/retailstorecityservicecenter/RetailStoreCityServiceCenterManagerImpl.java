@@ -272,8 +272,9 @@ public class RetailStoreCityServiceCenterManagerImpl extends CustomRetailscmChec
 			//will be good when the retailStoreCityServiceCenter loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreCityServiceCenter.
-			
-			
+			if (retailStoreCityServiceCenter.isChanged()){
+			retailStoreCityServiceCenter.updateLastUpdateTime(userContext.now());
+			}
 			retailStoreCityServiceCenter = saveRetailStoreCityServiceCenter(userContext, retailStoreCityServiceCenter, options);
 			return retailStoreCityServiceCenter;
 			

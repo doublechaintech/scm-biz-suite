@@ -243,8 +243,9 @@ public class LevelOneCategoryManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the levelOneCategory loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LevelOneCategory.
+			if (levelOneCategory.isChanged()){
 			
-			
+			}
 			levelOneCategory = saveLevelOneCategory(userContext, levelOneCategory, options);
 			return levelOneCategory;
 			

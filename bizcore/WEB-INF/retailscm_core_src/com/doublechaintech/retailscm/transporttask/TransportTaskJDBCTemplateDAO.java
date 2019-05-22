@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.transporttask;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1701,6 +1703,55 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<TransportTask> transportTaskList) {		
 		this.enhanceListInternal(transportTaskList, this.getTransportTaskMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的transportTask的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.TRANSPORT_TASK_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getTransportTask().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTaskTrack的movement的TransportTaskTrackList
+	public SmartList<TransportTaskTrack> loadOurTransportTaskTrackList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTaskTrack.MOVEMENT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTaskTrack> loadedObjs = userContext.getDAOGroup().getTransportTaskTrackDAO().findTransportTaskTrackWithKey(key, options);
+		Map<String, List<TransportTaskTrack>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getMovement().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTaskTrack> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTaskTrack> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTaskTrackList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TransportTask> transportTaskList = ownerEntity.collectRefsWithType(TransportTask.INTERNAL_TYPE);

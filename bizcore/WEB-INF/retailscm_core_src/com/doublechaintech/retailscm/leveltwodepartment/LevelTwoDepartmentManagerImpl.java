@@ -253,8 +253,9 @@ public class LevelTwoDepartmentManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the levelTwoDepartment loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LevelTwoDepartment.
+			if (levelTwoDepartment.isChanged()){
 			
-			
+			}
 			levelTwoDepartment = saveLevelTwoDepartment(userContext, levelTwoDepartment, options);
 			return levelTwoDepartment;
 			

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.accountingdocumentposting;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -717,6 +719,32 @@ public class AccountingDocumentPostingJDBCTemplateDAO extends RetailscmNamingSer
 	public void enhanceList(List<AccountingDocumentPosting> accountingDocumentPostingList) {		
 		this.enhanceListInternal(accountingDocumentPostingList, this.getAccountingDocumentPostingMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocument的posting的AccountingDocumentList
+	public SmartList<AccountingDocument> loadOurAccountingDocumentList(RetailscmUserContext userContext, List<AccountingDocumentPosting> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountingDocument.POSTING_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountingDocument> loadedObjs = userContext.getDAOGroup().getAccountingDocumentDAO().findAccountingDocumentWithKey(key, options);
+		Map<String, List<AccountingDocument>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPosting().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountingDocument> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountingDocument> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountingDocumentList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountingDocumentPosting> accountingDocumentPostingList = ownerEntity.collectRefsWithType(AccountingDocumentPosting.INTERNAL_TYPE);

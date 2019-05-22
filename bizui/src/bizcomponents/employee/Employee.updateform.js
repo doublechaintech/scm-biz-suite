@@ -262,7 +262,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入头衔" />
+                    <Input size="large" placeholder="头衔" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.familyName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入姓" />
+                    <Input size="large" placeholder="姓" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.givenName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名" />
+                    <Input size="large" placeholder="名" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入电子邮件" />
+                    <Input size="large" placeholder="电子邮件" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.city,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入城市" />
+                    <Input size="large" placeholder="城市" />
                     
                   )}
                 </Form.Item>
@@ -334,7 +334,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.address,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入地址" />
+                    <Input size="large" placeholder="地址" />
                     
                   )}
                 </Form.Item>
@@ -346,7 +346,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.cellPhone,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入手机" />
+                    <Input size="large" placeholder="手机" />
                     
                   )}
                 </Form.Item>
@@ -358,7 +358,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.salaryAccount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入工资账户" />
+                    <Input size="large" placeholder="工资账户" />
                     
                   )}
                 </Form.Item>

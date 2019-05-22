@@ -299,8 +299,12 @@ class RetailStoreCreationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreCount } = this.props.retailStoreCreation
-    const cardsData = {cardsName:"双链小超的创作",cardsFor: "retailStoreCreation",cardsSource: this.props.retailStoreCreation,
+    const  retailStoreCreation = this.props.retailStoreCreation;
+    const { id,displayName, retailStoreCount } = retailStoreCreation
+    
+    
+    
+    const cardsData = {cardsName:"双链小超的创作",cardsFor: "retailStoreCreation",cardsSource: retailStoreCreation,
   		subItems: [
     
       	],

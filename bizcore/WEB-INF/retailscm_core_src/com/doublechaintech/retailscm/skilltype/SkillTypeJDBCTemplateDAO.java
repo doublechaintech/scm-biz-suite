@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.skilltype;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -784,6 +786,32 @@ public class SkillTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public void enhanceList(List<SkillType> skillTypeList) {		
 		this.enhanceListInternal(skillTypeList, this.getSkillTypeMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeSkill的skillType的EmployeeSkillList
+	public SmartList<EmployeeSkill> loadOurEmployeeSkillList(RetailscmUserContext userContext, List<SkillType> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeSkill.SKILL_TYPE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeSkill> loadedObjs = userContext.getDAOGroup().getEmployeeSkillDAO().findEmployeeSkillWithKey(key, options);
+		Map<String, List<EmployeeSkill>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSkillType().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeSkill> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeSkill> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeSkillList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SkillType> skillTypeList = ownerEntity.collectRefsWithType(SkillType.INTERNAL_TYPE);

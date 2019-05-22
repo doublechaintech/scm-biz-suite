@@ -267,8 +267,9 @@ public class ListAccessManagerImpl extends CustomRetailscmCheckerManager impleme
 			//will be good when the listAccess loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ListAccess.
+			if (listAccess.isChanged()){
 			
-			
+			}
 			listAccess = saveListAccess(userContext, listAccess, options);
 			return listAccess;
 			

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.listaccess;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -522,6 +524,9 @@ public class ListAccessJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	public void enhanceList(List<ListAccess> listAccessList) {		
 		this.enhanceListInternal(listAccessList, this.getListAccessMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ListAccess> listAccessList = ownerEntity.collectRefsWithType(ListAccess.INTERNAL_TYPE);

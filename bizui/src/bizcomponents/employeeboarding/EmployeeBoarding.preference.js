@@ -301,8 +301,12 @@ class EmployeeBoardingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.employeeBoarding
-    const cardsData = {cardsName:"员工入职",cardsFor: "employeeBoarding",cardsSource: this.props.employeeBoarding,
+    const  employeeBoarding = this.props.employeeBoarding;
+    const { id,displayName, employeeCount } = employeeBoarding
+    
+    
+    
+    const cardsData = {cardsName:"员工入职",cardsFor: "employeeBoarding",cardsSource: employeeBoarding,
   		subItems: [
     
       	],

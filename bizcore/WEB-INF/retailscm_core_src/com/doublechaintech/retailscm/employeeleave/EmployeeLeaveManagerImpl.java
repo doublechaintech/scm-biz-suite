@@ -252,8 +252,9 @@ public class EmployeeLeaveManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the employeeLeave loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeLeave.
+			if (employeeLeave.isChanged()){
 			
-			
+			}
 			employeeLeave = saveEmployeeLeave(userContext, employeeLeave, options);
 			return employeeLeave;
 			

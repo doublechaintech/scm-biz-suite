@@ -306,8 +306,12 @@ class MemberRewardPointPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.memberRewardPoint
-    const cardsData = {cardsName:"会员奖励点",cardsFor: "memberRewardPoint",cardsSource: this.props.memberRewardPoint,
+    const  memberRewardPoint = this.props.memberRewardPoint;
+    const { id,displayName,  } = memberRewardPoint
+    
+    
+    
+    const cardsData = {cardsName:"会员奖励点",cardsFor: "memberRewardPoint",cardsSource: memberRewardPoint,
   		subItems: [
     
       	],

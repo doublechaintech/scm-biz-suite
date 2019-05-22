@@ -311,8 +311,12 @@ class UserAppPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, listAccessCount, objectAccessCount } = this.props.userApp
-    const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",cardsSource: this.props.userApp,
+    const  userApp = this.props.userApp;
+    const { id,displayName, listAccessCount, objectAccessCount } = userApp
+    
+    
+    
+    const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",cardsSource: userApp,
   		subItems: [
     
       	],

@@ -21,5 +21,7 @@ public interface InvocationResult {
 	public boolean isRenderAsJSON();
 
 	public Map<String, String> getResponseHeader();
+	public String getEnvName();
+	public String getEnvType();
 	
 }

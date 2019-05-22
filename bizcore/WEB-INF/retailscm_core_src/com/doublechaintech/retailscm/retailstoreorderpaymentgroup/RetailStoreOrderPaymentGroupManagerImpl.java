@@ -242,8 +242,9 @@ public class RetailStoreOrderPaymentGroupManagerImpl extends CustomRetailscmChec
 			//will be good when the retailStoreOrderPaymentGroup loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderPaymentGroup.
+			if (retailStoreOrderPaymentGroup.isChanged()){
 			
-			
+			}
 			retailStoreOrderPaymentGroup = saveRetailStoreOrderPaymentGroup(userContext, retailStoreOrderPaymentGroup, options);
 			return retailStoreOrderPaymentGroup;
 			
