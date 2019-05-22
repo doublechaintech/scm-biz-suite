@@ -301,8 +301,12 @@ class SalaryGradePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount, employeeSalarySheetCount } = this.props.salaryGrade
-    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",cardsSource: this.props.salaryGrade,
+    const  salaryGrade = this.props.salaryGrade;
+    const { id,displayName, employeeCount, employeeSalarySheetCount } = salaryGrade
+    
+    
+    
+    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",cardsSource: salaryGrade,
   		subItems: [
     
       	],

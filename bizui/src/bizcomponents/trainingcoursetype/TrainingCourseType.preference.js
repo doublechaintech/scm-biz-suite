@@ -301,8 +301,12 @@ class TrainingCourseTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, companyTrainingCount } = this.props.trainingCourseType
-    const cardsData = {cardsName:"培训课程类型",cardsFor: "trainingCourseType",cardsSource: this.props.trainingCourseType,
+    const  trainingCourseType = this.props.trainingCourseType;
+    const { id,displayName, companyTrainingCount } = trainingCourseType
+    
+    
+    
+    const cardsData = {cardsName:"培训课程类型",cardsFor: "trainingCourseType",cardsSource: trainingCourseType,
   		subItems: [
     
       	],

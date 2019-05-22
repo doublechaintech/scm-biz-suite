@@ -307,8 +307,12 @@ class ConsumerOrderPriceAdjustmentPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.consumerOrderPriceAdjustment
-    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",cardsSource: this.props.consumerOrderPriceAdjustment,
+    const  consumerOrderPriceAdjustment = this.props.consumerOrderPriceAdjustment;
+    const { id,displayName,  } = consumerOrderPriceAdjustment
+    
+    
+    
+    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,
   		subItems: [
     
       	],

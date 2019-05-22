@@ -301,8 +301,12 @@ class LeaveTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeLeaveCount } = this.props.leaveType
-    const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",cardsSource: this.props.leaveType,
+    const  leaveType = this.props.leaveType;
+    const { id,displayName, employeeLeaveCount } = leaveType
+    
+    
+    
+    const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",cardsSource: leaveType,
   		subItems: [
     
       	],

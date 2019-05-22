@@ -301,8 +301,12 @@ class ProfessionInterviewPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.professionInterview
-    const cardsData = {cardsName:"专业面试",cardsFor: "professionInterview",cardsSource: this.props.professionInterview,
+    const  professionInterview = this.props.professionInterview;
+    const { id,displayName, employeeCount } = professionInterview
+    
+    
+    
+    const cardsData = {cardsName:"专业面试",cardsFor: "professionInterview",cardsSource: professionInterview,
   		subItems: [
     
       	],

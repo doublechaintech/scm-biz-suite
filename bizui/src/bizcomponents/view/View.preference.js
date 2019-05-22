@@ -301,8 +301,12 @@ class ViewPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.view
-    const cardsData = {cardsName:"观",cardsFor: "view",cardsSource: this.props.view,
+    const  view = this.props.view;
+    const { id,displayName,  } = view
+    
+    
+    
+    const cardsData = {cardsName:"观",cardsFor: "view",cardsSource: view,
   		subItems: [
     
       	],

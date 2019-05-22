@@ -311,8 +311,12 @@ class SkuPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsCount } = this.props.sku
-    const cardsData = {cardsName:"SKU",cardsFor: "sku",cardsSource: this.props.sku,
+    const  sku = this.props.sku;
+    const { id,displayName, goodsCount } = sku
+    
+    
+    
+    const cardsData = {cardsName:"SKU",cardsFor: "sku",cardsSource: sku,
   		subItems: [
     
       	],

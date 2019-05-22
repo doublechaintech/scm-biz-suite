@@ -309,8 +309,12 @@ class SupplyOrderLineItemPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.supplyOrderLineItem
-    const cardsData = {cardsName:"供应订单行项目",cardsFor: "supplyOrderLineItem",cardsSource: this.props.supplyOrderLineItem,
+    const  supplyOrderLineItem = this.props.supplyOrderLineItem;
+    const { id,displayName,  } = supplyOrderLineItem
+    
+    
+    
+    const cardsData = {cardsName:"供应订单行项目",cardsFor: "supplyOrderLineItem",cardsSource: supplyOrderLineItem,
   		subItems: [
     
       	],

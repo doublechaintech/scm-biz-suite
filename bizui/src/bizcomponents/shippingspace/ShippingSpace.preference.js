@@ -311,8 +311,12 @@ class ShippingSpacePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsCount } = this.props.shippingSpace
-    const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",cardsSource: this.props.shippingSpace,
+    const  shippingSpace = this.props.shippingSpace;
+    const { id,displayName, goodsCount } = shippingSpace
+    
+    
+    
+    const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",cardsSource: shippingSpace,
   		subItems: [
     
       	],

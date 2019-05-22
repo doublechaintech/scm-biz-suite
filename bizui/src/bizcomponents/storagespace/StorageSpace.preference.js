@@ -310,8 +310,12 @@ class StorageSpacePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsShelfCount } = this.props.storageSpace
-    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",cardsSource: this.props.storageSpace,
+    const  storageSpace = this.props.storageSpace;
+    const { id,displayName, goodsShelfCount } = storageSpace
+    
+    
+    
+    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",cardsSource: storageSpace,
   		subItems: [
     
       	],

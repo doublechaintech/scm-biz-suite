@@ -312,8 +312,12 @@ class EmployeeLeavePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeeLeave
-    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",cardsSource: this.props.employeeLeave,
+    const  employeeLeave = this.props.employeeLeave;
+    const { id,displayName,  } = employeeLeave
+    
+    
+    
+    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",cardsSource: employeeLeave,
   		subItems: [
     
       	],

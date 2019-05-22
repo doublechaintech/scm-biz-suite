@@ -305,8 +305,12 @@ class InstructorPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, companyTrainingCount } = this.props.instructor
-    const cardsData = {cardsName:"讲师",cardsFor: "instructor",cardsSource: this.props.instructor,
+    const  instructor = this.props.instructor;
+    const { id,displayName, companyTrainingCount } = instructor
+    
+    
+    
+    const cardsData = {cardsName:"讲师",cardsFor: "instructor",cardsSource: instructor,
   		subItems: [
     
       	],

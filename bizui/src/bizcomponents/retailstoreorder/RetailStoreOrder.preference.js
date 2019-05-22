@@ -308,8 +308,12 @@ class RetailStoreOrderPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreOrderLineItemCount, retailStoreOrderShippingGroupCount, retailStoreOrderPaymentGroupCount, goodsCount } = this.props.retailStoreOrder
-    const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",cardsSource: this.props.retailStoreOrder,
+    const  retailStoreOrder = this.props.retailStoreOrder;
+    const { id,displayName, retailStoreOrderLineItemCount, retailStoreOrderShippingGroupCount, retailStoreOrderPaymentGroupCount, goodsCount } = retailStoreOrder
+    
+    
+    
+    const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",cardsSource: retailStoreOrder,
   		subItems: [
     
       	],

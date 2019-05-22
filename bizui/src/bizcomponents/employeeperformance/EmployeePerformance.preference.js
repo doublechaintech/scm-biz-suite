@@ -305,8 +305,12 @@ class EmployeePerformancePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeePerformance
-    const cardsData = {cardsName:"员工绩效",cardsFor: "employeePerformance",cardsSource: this.props.employeePerformance,
+    const  employeePerformance = this.props.employeePerformance;
+    const { id,displayName,  } = employeePerformance
+    
+    
+    
+    const cardsData = {cardsName:"员工绩效",cardsFor: "employeePerformance",cardsSource: employeePerformance,
   		subItems: [
     
       	],

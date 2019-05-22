@@ -310,8 +310,12 @@ class ProductPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, skuCount } = this.props.product
-    const cardsData = {cardsName:"产品",cardsFor: "product",cardsSource: this.props.product,
+    const  product = this.props.product;
+    const { id,displayName, skuCount } = product
+    
+    
+    
+    const cardsData = {cardsName:"产品",cardsFor: "product",cardsSource: product,
   		subItems: [
     
       	],

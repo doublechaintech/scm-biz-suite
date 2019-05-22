@@ -311,8 +311,12 @@ class ReceivingSpacePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsCount } = this.props.receivingSpace
-    const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",cardsSource: this.props.receivingSpace,
+    const  receivingSpace = this.props.receivingSpace;
+    const { id,displayName, goodsCount } = receivingSpace
+    
+    
+    
+    const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",cardsSource: receivingSpace,
   		subItems: [
     
       	],

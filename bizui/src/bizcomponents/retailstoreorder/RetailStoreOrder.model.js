@@ -1,5 +1,5 @@
 
-
+import React from 'react'
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreOrder/${id}/list/\RetailStoreOrderLineItemList/双链小超订单行项目+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreOrder/${id}/list/RetailStoreOrderLineItemList/双链小超订单行项目+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreOrderLineItem({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreOrder/${id}/list/\RetailStoreOrderLineItemList/双链小超订单行项目列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreOrder/${id}/list/RetailStoreOrderLineItemList/双链小超订单行项目列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreOrderLineItemUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreOrder/${id}/list/\RetailStoreOrderShippingGroupList/生超订单送货分组+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreOrder/${id}/list/RetailStoreOrderShippingGroupList/生超订单送货分组+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreOrderShippingGroup({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreOrder/${id}/list/\RetailStoreOrderShippingGroupList/生超订单送货分组列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreOrder/${id}/list/RetailStoreOrderShippingGroupList/生超订单送货分组列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreOrderShippingGroupUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreOrder/${id}/list/\RetailStoreOrderPaymentGroupList/生超订单付款组+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreOrder/${id}/list/RetailStoreOrderPaymentGroupList/生超订单付款组+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreOrderPaymentGroup({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreOrder/${id}/list/\RetailStoreOrderPaymentGroupList/生超订单付款组列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreOrder/${id}/list/RetailStoreOrderPaymentGroupList/生超订单付款组列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreOrderPaymentGroupUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreOrder/${id}/list/\GoodsList/货物+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreOrder/${id}/list/GoodsList/货物+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoods({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreOrder/${id}/list/\GoodsList/货物列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreOrder/${id}/list/GoodsList/货物列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsUpdateRow({ payload }, { call, put }) {

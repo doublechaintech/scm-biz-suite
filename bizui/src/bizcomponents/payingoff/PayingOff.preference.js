@@ -307,8 +307,12 @@ class PayingOffPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeSalarySheetCount } = this.props.payingOff
-    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",cardsSource: this.props.payingOff,
+    const  payingOff = this.props.payingOff;
+    const { id,displayName, employeeSalarySheetCount } = payingOff
+    
+    
+    
+    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",cardsSource: payingOff,
   		subItems: [
     
       	],

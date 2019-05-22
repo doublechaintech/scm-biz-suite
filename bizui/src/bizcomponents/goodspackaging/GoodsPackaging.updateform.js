@@ -262,7 +262,7 @@ class GoodsPackagingUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class GoodsPackagingUpdateForm extends Component {
                     initialValue: selectedRow.packageName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入包的名字" />
+                    <Input size="large" placeholder="包的名字" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class GoodsPackagingUpdateForm extends Component {
                     initialValue: selectedRow.rfid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入RFID" />
+                    <Input size="large" placeholder="RFID" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class GoodsPackagingUpdateForm extends Component {
                     initialValue: selectedRow.packageTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入包的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="包的时间" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class GoodsPackagingUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                     
                   )}
                 </Form.Item>

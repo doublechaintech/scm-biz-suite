@@ -301,8 +301,12 @@ class AccountingDocumentAuditingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, accountingDocumentCount } = this.props.accountingDocumentAuditing
-    const cardsData = {cardsName:"会计凭证的审核",cardsFor: "accountingDocumentAuditing",cardsSource: this.props.accountingDocumentAuditing,
+    const  accountingDocumentAuditing = this.props.accountingDocumentAuditing;
+    const { id,displayName, accountingDocumentCount } = accountingDocumentAuditing
+    
+    
+    
+    const cardsData = {cardsName:"会计凭证的审核",cardsFor: "accountingDocumentAuditing",cardsSource: accountingDocumentAuditing,
   		subItems: [
     
       	],

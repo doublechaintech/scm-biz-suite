@@ -300,8 +300,12 @@ class RetailStoreMemberPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, consumerOrderCount, retailStoreMemberCouponCount, memberWishlistCount, memberRewardPointCount, memberRewardPointRedemptionCount, retailStoreMemberAddressCount, retailStoreMemberGiftCardCount } = this.props.retailStoreMember
-    const cardsData = {cardsName:"生超会员",cardsFor: "retailStoreMember",cardsSource: this.props.retailStoreMember,
+    const  retailStoreMember = this.props.retailStoreMember;
+    const { id,displayName, consumerOrderCount, retailStoreMemberCouponCount, memberWishlistCount, memberRewardPointCount, memberRewardPointRedemptionCount, retailStoreMemberAddressCount, retailStoreMemberGiftCardCount } = retailStoreMember
+    
+    
+    
+    const cardsData = {cardsName:"生超会员",cardsFor: "retailStoreMember",cardsSource: retailStoreMember,
   		subItems: [
     
       	],

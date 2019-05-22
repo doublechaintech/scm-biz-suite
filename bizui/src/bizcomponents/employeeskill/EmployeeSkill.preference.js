@@ -311,8 +311,12 @@ class EmployeeSkillPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.employeeSkill
-    const cardsData = {cardsName:"员工技能",cardsFor: "employeeSkill",cardsSource: this.props.employeeSkill,
+    const  employeeSkill = this.props.employeeSkill;
+    const { id,displayName,  } = employeeSkill
+    
+    
+    
+    const cardsData = {cardsName:"员工技能",cardsFor: "employeeSkill",cardsSource: employeeSkill,
   		subItems: [
     
       	],

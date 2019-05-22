@@ -314,8 +314,12 @@ class GoodsMovementPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.goodsMovement
-    const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",cardsSource: this.props.goodsMovement,
+    const  goodsMovement = this.props.goodsMovement;
+    const { id,displayName,  } = goodsMovement
+    
+    
+    
+    const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",cardsSource: goodsMovement,
   		subItems: [
     
       	],

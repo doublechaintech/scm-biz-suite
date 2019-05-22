@@ -307,8 +307,12 @@ class WarehouseAssetPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.warehouseAsset
-    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",cardsSource: this.props.warehouseAsset,
+    const  warehouseAsset = this.props.warehouseAsset;
+    const { id,displayName,  } = warehouseAsset
+    
+    
+    
+    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,
   		subItems: [
     
       	],

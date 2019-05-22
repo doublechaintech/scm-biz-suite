@@ -261,7 +261,7 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.productName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入品名" />
+                    <Input size="large" placeholder="品名" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.productDescription,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产品描述" />
+                    <Input size="large" placeholder="产品描述" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.productUnit,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产品单元" />
+                    <Input size="large" placeholder="产品单元" />
                     
                   )}
                 </Form.Item>

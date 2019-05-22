@@ -307,8 +307,12 @@ class TransportTaskTrackPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.transportTaskTrack
-    const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",cardsSource: this.props.transportTaskTrack,
+    const  transportTaskTrack = this.props.transportTaskTrack;
+    const { id,displayName,  } = transportTaskTrack
+    
+    
+    
+    const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",cardsSource: transportTaskTrack,
   		subItems: [
     
       	],

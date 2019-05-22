@@ -314,8 +314,12 @@ class PotentialCustomerPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, potentialCustomerContactPersonCount, potentialCustomerContactCount, eventAttendanceCount } = this.props.potentialCustomer
-    const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",cardsSource: this.props.potentialCustomer,
+    const  potentialCustomer = this.props.potentialCustomer;
+    const { id,displayName, potentialCustomerContactPersonCount, potentialCustomerContactCount, eventAttendanceCount } = potentialCustomer
+    
+    
+    
+    const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",cardsSource: potentialCustomer,
   		subItems: [
     
       	],

@@ -314,8 +314,12 @@ class ProvinceCenterEmployeePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.provinceCenterEmployee
-    const cardsData = {cardsName:"省中心员工",cardsFor: "provinceCenterEmployee",cardsSource: this.props.provinceCenterEmployee,
+    const  provinceCenterEmployee = this.props.provinceCenterEmployee;
+    const { id,displayName,  } = provinceCenterEmployee
+    
+    
+    
+    const cardsData = {cardsName:"省中心员工",cardsFor: "provinceCenterEmployee",cardsSource: provinceCenterEmployee,
   		subItems: [
     
       	],

@@ -305,8 +305,12 @@ class LevelTwoCategoryPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, levelThreeCategoryCount } = this.props.levelTwoCategory
-    const cardsData = {cardsName:"二级分类",cardsFor: "levelTwoCategory",cardsSource: this.props.levelTwoCategory,
+    const  levelTwoCategory = this.props.levelTwoCategory;
+    const { id,displayName, levelThreeCategoryCount } = levelTwoCategory
+    
+    
+    
+    const cardsData = {cardsName:"二级分类",cardsFor: "levelTwoCategory",cardsSource: levelTwoCategory,
   		subItems: [
     
       	],

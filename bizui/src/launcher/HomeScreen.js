@@ -55,22 +55,66 @@ class HomeScreen extends React.Component {
     //return '/login';
   };
 
-  render() {
-    if (!this.props.launcher) {
-      return;
+  showAppList = () =>{
+    const styleList = 'icon-effect-1 icon-effect-1a icon-item'
+    
+    var effectClasses = classNames({
+      styleList,
+    });
+
+    if(!this.props.launcher.data || !this.props.launcher.data.userAppList){
+      return (
+      <Row key="3" className="icon-item-list" justify="center" align="middle" id="more">
+        <Col
+          className={styleList}
+          key={i}
+          span={6}
+          style={{ textAlign: 'center' }}
+          onClick={e => this.gotoApp(e, app)}
+        >
+         登录成功，但是没有分配到任何App
+        </Col>
+
+    </Row>)
     }
+
+    const appList = this.props.launcher.data.userAppList;
+
+    return(<Row key="3" className="icon-item-list" justify="center" align="middle" id="more">
+          {appList.map((app, i) => (
+            <Col
+              className={styleList}
+              key={i}
+              span={6}
+              style={{ textAlign: 'center' }}
+              onClick={e => this.gotoApp(e, app)}
+            >
+              <div className="icon-item-box">
+                <FontAwesome name={app.appIcon} style={{ color: 'brown' }} className={'icon'} />
+                <p>{app.title}</p>
+              </div>
+            </Col>
+          ))}
+        </Row>)
+
+
+
+  }
+
+  render() {
+    
 
     const appList = this.props.launcher.data.userAppList;
     const calcLink = this.calcLink;
 
     const { systemName } = this.props.launcher;
     const userContext = this.props.launcher.data;
-    const styleList = 'icon-effect-1 icon-effect-1a icon-item';
-    var effectClasses = classNames({
-      styleList,
-    });
+    
 
     // console.log(styleList);
+
+    
+
 
     return (
       <div className={'wrapper'}>
@@ -89,22 +133,10 @@ class HomeScreen extends React.Component {
             </a>
           </Col>
         </Row>
-        <Row key="3" className="icon-item-list" justify="center" align="middle" id="more">
-          {appList.map((app, i) => (
-            <Col
-              className={styleList}
-              key={i}
-              span={6}
-              style={{ textAlign: 'center' }}
-              onClick={e => this.gotoApp(e, app)}
-            >
-              <div className="icon-item-box">
-                <FontAwesome name={app.appIcon} style={{ color: 'brown' }} className={'icon'} />
-                <p>{app.title}</p>
-              </div>
-            </Col>
-          ))}
-        </Row>
+
+        {this.showAppList()}
+
+       
       </div>
     );
   }

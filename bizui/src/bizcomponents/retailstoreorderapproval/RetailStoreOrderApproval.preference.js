@@ -300,8 +300,12 @@ class RetailStoreOrderApprovalPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreOrderCount } = this.props.retailStoreOrderApproval
-    const cardsData = {cardsName:"生超订单批准",cardsFor: "retailStoreOrderApproval",cardsSource: this.props.retailStoreOrderApproval,
+    const  retailStoreOrderApproval = this.props.retailStoreOrderApproval;
+    const { id,displayName, retailStoreOrderCount } = retailStoreOrderApproval
+    
+    
+    
+    const cardsData = {cardsName:"生超订单批准",cardsFor: "retailStoreOrderApproval",cardsSource: retailStoreOrderApproval,
   		subItems: [
     
       	],

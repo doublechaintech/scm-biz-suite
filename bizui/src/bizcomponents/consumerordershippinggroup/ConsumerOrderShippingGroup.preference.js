@@ -306,8 +306,12 @@ class ConsumerOrderShippingGroupPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.consumerOrderShippingGroup
-    const cardsData = {cardsName:"消费订单送货分组",cardsFor: "consumerOrderShippingGroup",cardsSource: this.props.consumerOrderShippingGroup,
+    const  consumerOrderShippingGroup = this.props.consumerOrderShippingGroup;
+    const { id,displayName,  } = consumerOrderShippingGroup
+    
+    
+    
+    const cardsData = {cardsName:"消费订单送货分组",cardsFor: "consumerOrderShippingGroup",cardsSource: consumerOrderShippingGroup,
   		subItems: [
     
       	],

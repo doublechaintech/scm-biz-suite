@@ -310,8 +310,12 @@ class SmartPalletPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsCount } = this.props.smartPallet
-    const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",cardsSource: this.props.smartPallet,
+    const  smartPallet = this.props.smartPallet;
+    const { id,displayName, goodsCount } = smartPallet
+    
+    
+    
+    const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",cardsSource: smartPallet,
   		subItems: [
     
       	],

@@ -1,5 +1,5 @@
 
-
+import React from 'react'
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/catalog/${id}/list/\LevelOneCategoryList/一级分类+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/catalog/${id}/list/LevelOneCategoryList/一级分类+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateLevelOneCategory({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/catalog/${id}/list/\LevelOneCategoryList/一级分类列表`, state: newPlayload }
+      const location = { pathname: `/catalog/${id}/list/LevelOneCategoryList/一级分类列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextLevelOneCategoryUpdateRow({ payload }, { call, put }) {

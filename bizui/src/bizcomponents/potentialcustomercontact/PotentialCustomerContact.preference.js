@@ -321,8 +321,12 @@ class PotentialCustomerContactPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.potentialCustomerContact
-    const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",cardsSource: this.props.potentialCustomerContact,
+    const  potentialCustomerContact = this.props.potentialCustomerContact;
+    const { id,displayName,  } = potentialCustomerContact
+    
+    
+    
+    const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",cardsSource: potentialCustomerContact,
   		subItems: [
     
       	],

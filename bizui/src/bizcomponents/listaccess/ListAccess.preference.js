@@ -311,8 +311,12 @@ class ListAccessPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.listAccess
-    const cardsData = {cardsName:"访问列表",cardsFor: "listAccess",cardsSource: this.props.listAccess,
+    const  listAccess = this.props.listAccess;
+    const { id,displayName,  } = listAccess
+    
+    
+    
+    const cardsData = {cardsName:"访问列表",cardsFor: "listAccess",cardsSource: listAccess,
   		subItems: [
     
       	],

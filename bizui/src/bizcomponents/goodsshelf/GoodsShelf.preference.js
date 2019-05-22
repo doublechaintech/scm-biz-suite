@@ -318,8 +318,12 @@ class GoodsShelfPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsShelfStockCountCount, goodsAllocationCount } = this.props.goodsShelf
-    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",cardsSource: this.props.goodsShelf,
+    const  goodsShelf = this.props.goodsShelf;
+    const { id,displayName, goodsShelfStockCountCount, goodsAllocationCount } = goodsShelf
+    
+    
+    
+    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",cardsSource: goodsShelf,
   		subItems: [
     
       	],

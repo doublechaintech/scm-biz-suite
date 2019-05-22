@@ -1,5 +1,5 @@
 
-
+import React from 'react'
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/\ProvinceCenterDepartmentList/省中心+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/ProvinceCenterDepartmentList/省中心+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateProvinceCenterDepartment({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/\ProvinceCenterDepartmentList/省中心列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/ProvinceCenterDepartmentList/省中心列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextProvinceCenterDepartmentUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/\ProvinceCenterEmployeeList/省中心员工+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/ProvinceCenterEmployeeList/省中心员工+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateProvinceCenterEmployee({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/\ProvinceCenterEmployeeList/省中心员工列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/ProvinceCenterEmployeeList/省中心员工列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextProvinceCenterEmployeeUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/\RetailStoreCityServiceCenterList/双链小超城市服务中心+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/RetailStoreCityServiceCenterList/双链小超城市服务中心+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreCityServiceCenter({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/\RetailStoreCityServiceCenterList/双链小超城市服务中心列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreProvinceCenter/${id}/list/RetailStoreCityServiceCenterList/双链小超城市服务中心列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreCityServiceCenterUpdateRow({ payload }, { call, put }) {
