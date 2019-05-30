@@ -1,9 +1,26 @@
 # 零售供应链中台基础系统 运行指南
 
 
+
+
 系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS
 
 ## 前端 
+
+### 安装nodejs
+```
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+## 安装yarn 
+
+```
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+```
+## 编译
 前端使用yarn编译, 由于项目庞大, 必须设置额外的两个参数nodejs参数
 * NODE_OPTIONS=--max-old-space-size=10230，增加编译内容， 或者安装并且下载 increase-memory-limit 
 * PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chromium防止下载时间过长
