@@ -6,7 +6,7 @@
 ## 前端 
 前端使用yarn编译, 由于项目庞大, 必须设置额外的两个参数nodejs参数
 * NODE_OPTIONS=--max-old-space-size=10230，增加编译内容， 或者安装并且下载 increase-memory-limit 
-* PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chrome防止下载时间过长
+* PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chromium防止下载时间过长
 
 然后执行
 
