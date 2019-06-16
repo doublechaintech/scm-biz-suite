@@ -39,7 +39,7 @@
 * PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html
 
-
+请注意，这两个系统的密码为: DoubleChain!y1
 
 
 ### 总部及分支机构运营
