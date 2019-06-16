@@ -36,11 +36,8 @@
 
 系统平台框架天然支持一个用户多个App，下面为18种角色建立了演示账户，每种角色都可以登录，代表不同用户管理的不同资源。
 
-* PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html
-* GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html
-
-请注意，这两个系统的密码为: DoubleChain!y1
-
+* PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html, 密码为: admin123
+* GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
 
 ### 总部及分支机构运营
 
