@@ -86,9 +86,9 @@ default-time-zone =+08:00
 
 ```
 
-MySQL的初始化脚本问题文件在 bizcore/retailscm_core_src/META-INF/retailscm_mysql.sql下面
+MySQL的初始化脚本问题文件在 bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql下面
 
-配置文件在bizcore/retailscm_custom_src/META-INF/infra.properties里面
+配置文件在bizcore/WEB-INF/retailscm_custom_src/META-INF/infra.properties里面
 
 
 
