@@ -269,8 +269,9 @@ public class GoodsShelfManagerImpl extends CustomRetailscmCheckerManager impleme
 			//will be good when the goodsShelf loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GoodsShelf.
-			
-			
+			if (goodsShelf.isChanged()){
+			goodsShelf.updateLastUpdateTime(userContext.now());
+			}
 			goodsShelf = saveGoodsShelf(userContext, goodsShelf, options);
 			return goodsShelf;
 			

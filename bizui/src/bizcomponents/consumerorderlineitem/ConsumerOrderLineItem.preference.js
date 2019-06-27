@@ -310,8 +310,12 @@ class ConsumerOrderLineItemPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.consumerOrderLineItem
-    const cardsData = {cardsName:"消费者订单行项目",cardsFor: "consumerOrderLineItem",cardsSource: this.props.consumerOrderLineItem,
+    const  consumerOrderLineItem = this.props.consumerOrderLineItem;
+    const { id,displayName,  } = consumerOrderLineItem
+    
+    
+    
+    const cardsData = {cardsName:"消费者订单行项目",cardsFor: "consumerOrderLineItem",cardsSource: consumerOrderLineItem,
   		subItems: [
     
       	],

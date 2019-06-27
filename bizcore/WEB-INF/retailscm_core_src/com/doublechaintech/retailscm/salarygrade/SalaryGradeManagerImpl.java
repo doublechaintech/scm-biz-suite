@@ -271,8 +271,9 @@ public class SalaryGradeManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the salaryGrade loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SalaryGrade.
+			if (salaryGrade.isChanged()){
 			
-			
+			}
 			salaryGrade = saveSalaryGrade(userContext, salaryGrade, options);
 			return salaryGrade;
 			

@@ -57,10 +57,10 @@ export const get3 = ({ url, msg = '接口异常', headers }) =>
       console.log(err);
       message.warn(msg);
     });
-
+// const headers = { 'X-App-Version':"35",'Content-Type': 'application/x-www-form-urlencoded' }
 export const get = ({ url, msg = '接口异常', headers }) =>
   axios
-    .get(url, headers)
+    .get(url, {headers:{"X-App-Version":35}})
     .then(function(res) {
       console.log('http headers', res.headers);
       const clazz = res.headers['x-class'];
@@ -89,12 +89,12 @@ export const getURLPrefix = () => {
     return `http://${url.hostname}:8080/${SYSTEM_SHORT_NAME}/`
   }
   if (url.hostname === '127.0.0.1') {
-    return `https://app.art0x.com/moyi/`
+    return `https://demo.doublechaintech.com/${SYSTEM_SHORT_NAME}/`
   }
   //return `http://xm.jl51.com.cn/cis/`
 
-  return `${url.origin}/${SYSTEM_SHORT_NAME}/`;
-  //return `${url.origin}/${SYSTEM_SHORT_NAME}/`
+  // return `https://demo.doublechaintech.com/${SYSTEM_SHORT_NAME}/`;
+  return `${url.origin}/${SYSTEM_SHORT_NAME}/`
 };
 
 export const joinParameters = (parameters) => {
@@ -174,19 +174,20 @@ export const PREFIX = getURLPrefix();
 export const postForm = ({ url, requestParameters, msg = '接口异常'})=>{
 
   
-  const headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+  const headers = { 'X-App-Version':"35",'Content-Type': 'application/x-www-form-urlencoded' }
+  const options ={headers}
   return post({
     url,
     data: joinPostParameters(requestParameters),
-    headers,
+    options,
   })
 }
 
 
 
-export const post = ({ url, data, msg = '接口异常', headers }) =>
+export const post = ({ url, data, msg = '接口异常', options }) =>
   axios
-    .post(url, data, headers)
+    .post(url, data, options)
     .then(res => res.data)
     .catch(err => {
       console.log(err);

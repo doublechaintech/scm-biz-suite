@@ -300,8 +300,12 @@ class SupplyOrderConfirmationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, consumerOrderCount, supplyOrderCount } = this.props.supplyOrderConfirmation
-    const cardsData = {cardsName:"供应订单确认",cardsFor: "supplyOrderConfirmation",cardsSource: this.props.supplyOrderConfirmation,
+    const  supplyOrderConfirmation = this.props.supplyOrderConfirmation;
+    const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderConfirmation
+    
+    
+    
+    const cardsData = {cardsName:"供应订单确认",cardsFor: "supplyOrderConfirmation",cardsSource: supplyOrderConfirmation,
   		subItems: [
     
       	],

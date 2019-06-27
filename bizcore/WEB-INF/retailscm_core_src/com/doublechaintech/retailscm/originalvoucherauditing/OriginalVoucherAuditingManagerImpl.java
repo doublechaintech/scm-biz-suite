@@ -246,8 +246,9 @@ public class OriginalVoucherAuditingManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the originalVoucherAuditing loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OriginalVoucherAuditing.
+			if (originalVoucherAuditing.isChanged()){
 			
-			
+			}
 			originalVoucherAuditing = saveOriginalVoucherAuditing(userContext, originalVoucherAuditing, options);
 			return originalVoucherAuditing;
 			

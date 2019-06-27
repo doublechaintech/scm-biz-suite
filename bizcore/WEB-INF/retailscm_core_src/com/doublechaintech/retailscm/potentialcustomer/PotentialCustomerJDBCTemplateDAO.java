@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.potentialcustomer;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1477,6 +1479,78 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<PotentialCustomer> potentialCustomerList) {		
 		this.enhanceListInternal(potentialCustomerList, this.getPotentialCustomerMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContactPerson的potentialCustomer的PotentialCustomerContactPersonList
+	public SmartList<PotentialCustomerContactPerson> loadOurPotentialCustomerContactPersonList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PotentialCustomerContactPerson.POTENTIAL_CUSTOMER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PotentialCustomerContactPerson> loadedObjs = userContext.getDAOGroup().getPotentialCustomerContactPersonDAO().findPotentialCustomerContactPersonWithKey(key, options);
+		Map<String, List<PotentialCustomerContactPerson>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPotentialCustomer().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PotentialCustomerContactPerson> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PotentialCustomerContactPerson> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPotentialCustomerContactPersonList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContact的potentialCustomer的PotentialCustomerContactList
+	public SmartList<PotentialCustomerContact> loadOurPotentialCustomerContactList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PotentialCustomerContact.POTENTIAL_CUSTOMER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PotentialCustomerContact> loadedObjs = userContext.getDAOGroup().getPotentialCustomerContactDAO().findPotentialCustomerContactWithKey(key, options);
+		Map<String, List<PotentialCustomerContact>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPotentialCustomer().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PotentialCustomerContact> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PotentialCustomerContact> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPotentialCustomerContactList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EventAttendance的potentialCustomer的EventAttendanceList
+	public SmartList<EventAttendance> loadOurEventAttendanceList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EventAttendance.POTENTIAL_CUSTOMER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EventAttendance> loadedObjs = userContext.getDAOGroup().getEventAttendanceDAO().findEventAttendanceWithKey(key, options);
+		Map<String, List<EventAttendance>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPotentialCustomer().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EventAttendance> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EventAttendance> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEventAttendanceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PotentialCustomer> potentialCustomerList = ownerEntity.collectRefsWithType(PotentialCustomer.INTERNAL_TYPE);

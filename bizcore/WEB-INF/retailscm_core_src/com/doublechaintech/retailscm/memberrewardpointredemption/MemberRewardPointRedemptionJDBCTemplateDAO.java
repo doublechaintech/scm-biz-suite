@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.memberrewardpointredemption;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -512,6 +514,9 @@ public class MemberRewardPointRedemptionJDBCTemplateDAO extends RetailscmNamingS
 	public void enhanceList(List<MemberRewardPointRedemption> memberRewardPointRedemptionList) {		
 		this.enhanceListInternal(memberRewardPointRedemptionList, this.getMemberRewardPointRedemptionMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<MemberRewardPointRedemption> memberRewardPointRedemptionList = ownerEntity.collectRefsWithType(MemberRewardPointRedemption.INTERNAL_TYPE);

@@ -1640,7 +1640,7 @@
 			<field name="app_icon" type="string" checkType="StringLengthRange" min="2" max="36" description="应用程序图标" />
 			<field name="full_access" type="bool" checkType="BooleanRange" min="0" max="true" description="完全访问" />
 			<field name="permission" type="string" checkType="StringLengthRange" min="2" max="16" description="许可" />
-			<field name="object_type" type="string" checkType="StringLengthRange" min="5" max="108" description="对象类型" />
+			<field name="object_type" type="string" checkType="StringLengthRange" min="1" max="100" description="对象类型" />
 			<field name="object_id" type="string" checkType="StringLengthRange" min="4" max="40" description="对象ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="4" max="48" description="位置" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -1650,8 +1650,8 @@
 	<table name="list_access_data">
 		<fields>
 			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="5" max="64" description="序号" />
-			<field name="name" type="string" checkType="StringLengthRange" min="2" max="200" description="名称" />
-			<field name="internal_name" type="string" checkType="StringLengthRange" min="2" max="200" description="内部名称" />
+			<field name="name" type="string" checkType="StringLengthRange" min="1" max="200" description="名称" />
+			<field name="internal_name" type="string" checkType="StringLengthRange" min="1" max="200" description="内部名称" />
 			<field name="read_permission" type="bool" checkType="BooleanRange" min="0" max="true" description="读权限" />
 			<field name="create_permission" type="bool" checkType="BooleanRange" min="0" max="true" description="创建权限" />
 			<field name="delete_permission" type="bool" checkType="BooleanRange" min="0" max="true" description="删除权限" />

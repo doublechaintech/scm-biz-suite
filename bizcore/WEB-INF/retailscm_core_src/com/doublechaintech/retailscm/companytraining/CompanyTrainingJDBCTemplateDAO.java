@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.companytraining;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1062,6 +1064,32 @@ public class CompanyTrainingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public void enhanceList(List<CompanyTraining> companyTrainingList) {		
 		this.enhanceListInternal(companyTrainingList, this.getCompanyTrainingMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的training的EmployeeCompanyTrainingList
+	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<CompanyTraining> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeCompanyTraining.TRAINING_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeCompanyTraining> loadedObjs = userContext.getDAOGroup().getEmployeeCompanyTrainingDAO().findEmployeeCompanyTrainingWithKey(key, options);
+		Map<String, List<EmployeeCompanyTraining>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getTraining().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeCompanyTraining> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeCompanyTraining> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeCompanyTrainingList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<CompanyTraining> companyTrainingList = ownerEntity.collectRefsWithType(CompanyTraining.INTERNAL_TYPE);

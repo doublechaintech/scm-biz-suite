@@ -61,9 +61,9 @@ public class ConsumerOrderLineItem extends BaseEntity implements  java.io.Serial
 	
 		
 	public 	ConsumerOrderLineItem(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setBizOrder( null );
 

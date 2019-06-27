@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstoremembercoupon;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -530,6 +532,9 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
 	public void enhanceList(List<RetailStoreMemberCoupon> retailStoreMemberCouponList) {		
 		this.enhanceListInternal(retailStoreMemberCouponList, this.getRetailStoreMemberCouponMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreMemberCoupon> retailStoreMemberCouponList = ownerEntity.collectRefsWithType(RetailStoreMemberCoupon.INTERNAL_TYPE);

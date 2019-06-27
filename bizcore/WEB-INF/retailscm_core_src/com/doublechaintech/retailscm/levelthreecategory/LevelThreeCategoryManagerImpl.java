@@ -243,8 +243,9 @@ public class LevelThreeCategoryManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the levelThreeCategory loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LevelThreeCategory.
+			if (levelThreeCategory.isChanged()){
 			
-			
+			}
 			levelThreeCategory = saveLevelThreeCategory(userContext, levelThreeCategory, options);
 			return levelThreeCategory;
 			

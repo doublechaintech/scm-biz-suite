@@ -254,8 +254,9 @@ public class EmployeeBoardingManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the employeeBoarding loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeBoarding.
+			if (employeeBoarding.isChanged()){
 			
-			
+			}
 			employeeBoarding = saveEmployeeBoarding(userContext, employeeBoarding, options);
 			return employeeBoarding;
 			

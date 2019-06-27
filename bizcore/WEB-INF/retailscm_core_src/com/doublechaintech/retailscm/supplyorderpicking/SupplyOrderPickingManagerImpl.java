@@ -245,8 +245,9 @@ public class SupplyOrderPickingManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the supplyOrderPicking loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderPicking.
+			if (supplyOrderPicking.isChanged()){
 			
-			
+			}
 			supplyOrderPicking = saveSupplyOrderPicking(userContext, supplyOrderPicking, options);
 			return supplyOrderPicking;
 			

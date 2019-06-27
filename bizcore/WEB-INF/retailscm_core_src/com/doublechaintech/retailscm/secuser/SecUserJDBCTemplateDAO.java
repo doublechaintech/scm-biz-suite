@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.secuser;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1199,6 +1201,55 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	public void enhanceList(List<SecUser> secUserList) {		
 		this.enhanceListInternal(secUserList, this.getSecUserMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:UserApp的secUser的UserAppList
+	public SmartList<UserApp> loadOurUserAppList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(UserApp.SEC_USER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<UserApp> loadedObjs = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, options);
+		Map<String, List<UserApp>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSecUser().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<UserApp> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<UserApp> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setUserAppList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:LoginHistory的secUser的LoginHistoryList
+	public SmartList<LoginHistory> loadOurLoginHistoryList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LoginHistory.SEC_USER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LoginHistory> loadedObjs = userContext.getDAOGroup().getLoginHistoryDAO().findLoginHistoryWithKey(key, options);
+		Map<String, List<LoginHistory>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSecUser().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LoginHistory> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LoginHistory> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLoginHistoryList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SecUser> secUserList = ownerEntity.collectRefsWithType(SecUser.INTERNAL_TYPE);

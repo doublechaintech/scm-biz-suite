@@ -308,8 +308,12 @@ class AccountingSubjectPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, accountingDocumentLineCount } = this.props.accountingSubject
-    const cardsData = {cardsName:"会计科目",cardsFor: "accountingSubject",cardsSource: this.props.accountingSubject,
+    const  accountingSubject = this.props.accountingSubject;
+    const { id,displayName, accountingDocumentLineCount } = accountingSubject
+    
+    
+    
+    const cardsData = {cardsName:"会计科目",cardsFor: "accountingSubject",cardsSource: accountingSubject,
   		subItems: [
     
       	],

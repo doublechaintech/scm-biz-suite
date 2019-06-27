@@ -262,8 +262,9 @@ public class AccountingDocumentLineManagerImpl extends CustomRetailscmCheckerMan
 			//will be good when the accountingDocumentLine loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingDocumentLine.
+			if (accountingDocumentLine.isChanged()){
 			
-			
+			}
 			accountingDocumentLine = saveAccountingDocumentLine(userContext, accountingDocumentLine, options);
 			return accountingDocumentLine;
 			

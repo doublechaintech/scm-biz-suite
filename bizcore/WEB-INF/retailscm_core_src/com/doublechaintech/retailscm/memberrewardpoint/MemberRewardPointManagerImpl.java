@@ -242,8 +242,9 @@ public class MemberRewardPointManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the memberRewardPoint loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to MemberRewardPoint.
+			if (memberRewardPoint.isChanged()){
 			
-			
+			}
 			memberRewardPoint = saveMemberRewardPoint(userContext, memberRewardPoint, options);
 			return memberRewardPoint;
 			

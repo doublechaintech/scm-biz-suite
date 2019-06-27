@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.warehouseasset;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -530,6 +532,9 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public void enhanceList(List<WarehouseAsset> warehouseAssetList) {		
 		this.enhanceListInternal(warehouseAssetList, this.getWarehouseAssetMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<WarehouseAsset> warehouseAssetList = ownerEntity.collectRefsWithType(WarehouseAsset.INTERNAL_TYPE);

@@ -232,8 +232,9 @@ public class ConsumerOrderProcessingManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the consumerOrderProcessing loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderProcessing.
+			if (consumerOrderProcessing.isChanged()){
 			
-			
+			}
 			consumerOrderProcessing = saveConsumerOrderProcessing(userContext, consumerOrderProcessing, options);
 			return consumerOrderProcessing;
 			

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.goodsallocation;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1094,6 +1096,32 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public void enhanceList(List<GoodsAllocation> goodsAllocationList) {		
 		this.enhanceListInternal(goodsAllocationList, this.getGoodsAllocationMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的goodsAllocation的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<GoodsAllocation> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.GOODS_ALLOCATION_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getGoodsAllocation().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsAllocation> goodsAllocationList = ownerEntity.collectRefsWithType(GoodsAllocation.INTERNAL_TYPE);

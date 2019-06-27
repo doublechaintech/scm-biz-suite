@@ -13,6 +13,8 @@ import RetailStoreCountryCenterSearchForm from './retailstorecountrycenter/Retai
 import RetailStoreCountryCenterCreateForm from './retailstorecountrycenter/RetailStoreCountryCenter.createform';
 import RetailStoreCountryCenterAssociateForm from './retailstorecountrycenter/RetailStoreCountryCenter.associateform';
 import RetailStoreCountryCenterTable from './retailstorecountrycenter/RetailStoreCountryCenter.table';
+import RetailStoreCountryCenterPermission from './retailstorecountrycenter/RetailStoreCountryCenter.permission';
+import RetailStoreCountryCenterProfile from './retailstorecountrycenter/RetailStoreCountryCenter.profile';
 import RetailStoreCountryCenterService from './retailstorecountrycenter/RetailStoreCountryCenter.service';
 import RetailStoreCountryCenterUpdateForm from './retailstorecountrycenter/RetailStoreCountryCenter.updateform';
 import CatalogBase from './catalog/Catalog.base';
@@ -26,6 +28,8 @@ import CatalogSearchForm from './catalog/Catalog.searchform';
 import CatalogCreateForm from './catalog/Catalog.createform';
 import CatalogAssociateForm from './catalog/Catalog.associateform';
 import CatalogTable from './catalog/Catalog.table';
+import CatalogPermission from './catalog/Catalog.permission';
+import CatalogProfile from './catalog/Catalog.profile';
 import CatalogService from './catalog/Catalog.service';
 import CatalogUpdateForm from './catalog/Catalog.updateform';
 import LevelOneCategoryBase from './levelonecategory/LevelOneCategory.base';
@@ -39,6 +43,8 @@ import LevelOneCategorySearchForm from './levelonecategory/LevelOneCategory.sear
 import LevelOneCategoryCreateForm from './levelonecategory/LevelOneCategory.createform';
 import LevelOneCategoryAssociateForm from './levelonecategory/LevelOneCategory.associateform';
 import LevelOneCategoryTable from './levelonecategory/LevelOneCategory.table';
+import LevelOneCategoryPermission from './levelonecategory/LevelOneCategory.permission';
+import LevelOneCategoryProfile from './levelonecategory/LevelOneCategory.profile';
 import LevelOneCategoryService from './levelonecategory/LevelOneCategory.service';
 import LevelOneCategoryUpdateForm from './levelonecategory/LevelOneCategory.updateform';
 import LevelTwoCategoryBase from './leveltwocategory/LevelTwoCategory.base';
@@ -52,6 +58,8 @@ import LevelTwoCategorySearchForm from './leveltwocategory/LevelTwoCategory.sear
 import LevelTwoCategoryCreateForm from './leveltwocategory/LevelTwoCategory.createform';
 import LevelTwoCategoryAssociateForm from './leveltwocategory/LevelTwoCategory.associateform';
 import LevelTwoCategoryTable from './leveltwocategory/LevelTwoCategory.table';
+import LevelTwoCategoryPermission from './leveltwocategory/LevelTwoCategory.permission';
+import LevelTwoCategoryProfile from './leveltwocategory/LevelTwoCategory.profile';
 import LevelTwoCategoryService from './leveltwocategory/LevelTwoCategory.service';
 import LevelTwoCategoryUpdateForm from './leveltwocategory/LevelTwoCategory.updateform';
 import LevelThreeCategoryBase from './levelthreecategory/LevelThreeCategory.base';
@@ -65,6 +73,8 @@ import LevelThreeCategorySearchForm from './levelthreecategory/LevelThreeCategor
 import LevelThreeCategoryCreateForm from './levelthreecategory/LevelThreeCategory.createform';
 import LevelThreeCategoryAssociateForm from './levelthreecategory/LevelThreeCategory.associateform';
 import LevelThreeCategoryTable from './levelthreecategory/LevelThreeCategory.table';
+import LevelThreeCategoryPermission from './levelthreecategory/LevelThreeCategory.permission';
+import LevelThreeCategoryProfile from './levelthreecategory/LevelThreeCategory.profile';
 import LevelThreeCategoryService from './levelthreecategory/LevelThreeCategory.service';
 import LevelThreeCategoryUpdateForm from './levelthreecategory/LevelThreeCategory.updateform';
 import ProductBase from './product/Product.base';
@@ -78,6 +88,8 @@ import ProductSearchForm from './product/Product.searchform';
 import ProductCreateForm from './product/Product.createform';
 import ProductAssociateForm from './product/Product.associateform';
 import ProductTable from './product/Product.table';
+import ProductPermission from './product/Product.permission';
+import ProductProfile from './product/Product.profile';
 import ProductService from './product/Product.service';
 import ProductUpdateForm from './product/Product.updateform';
 import SkuBase from './sku/Sku.base';
@@ -91,6 +103,8 @@ import SkuSearchForm from './sku/Sku.searchform';
 import SkuCreateForm from './sku/Sku.createform';
 import SkuAssociateForm from './sku/Sku.associateform';
 import SkuTable from './sku/Sku.table';
+import SkuPermission from './sku/Sku.permission';
+import SkuProfile from './sku/Sku.profile';
 import SkuService from './sku/Sku.service';
 import SkuUpdateForm from './sku/Sku.updateform';
 import RetailStoreProvinceCenterBase from './retailstoreprovincecenter/RetailStoreProvinceCenter.base';
@@ -104,6 +118,8 @@ import RetailStoreProvinceCenterSearchForm from './retailstoreprovincecenter/Ret
 import RetailStoreProvinceCenterCreateForm from './retailstoreprovincecenter/RetailStoreProvinceCenter.createform';
 import RetailStoreProvinceCenterAssociateForm from './retailstoreprovincecenter/RetailStoreProvinceCenter.associateform';
 import RetailStoreProvinceCenterTable from './retailstoreprovincecenter/RetailStoreProvinceCenter.table';
+import RetailStoreProvinceCenterPermission from './retailstoreprovincecenter/RetailStoreProvinceCenter.permission';
+import RetailStoreProvinceCenterProfile from './retailstoreprovincecenter/RetailStoreProvinceCenter.profile';
 import RetailStoreProvinceCenterService from './retailstoreprovincecenter/RetailStoreProvinceCenter.service';
 import RetailStoreProvinceCenterUpdateForm from './retailstoreprovincecenter/RetailStoreProvinceCenter.updateform';
 import ProvinceCenterDepartmentBase from './provincecenterdepartment/ProvinceCenterDepartment.base';
@@ -117,6 +133,8 @@ import ProvinceCenterDepartmentSearchForm from './provincecenterdepartment/Provi
 import ProvinceCenterDepartmentCreateForm from './provincecenterdepartment/ProvinceCenterDepartment.createform';
 import ProvinceCenterDepartmentAssociateForm from './provincecenterdepartment/ProvinceCenterDepartment.associateform';
 import ProvinceCenterDepartmentTable from './provincecenterdepartment/ProvinceCenterDepartment.table';
+import ProvinceCenterDepartmentPermission from './provincecenterdepartment/ProvinceCenterDepartment.permission';
+import ProvinceCenterDepartmentProfile from './provincecenterdepartment/ProvinceCenterDepartment.profile';
 import ProvinceCenterDepartmentService from './provincecenterdepartment/ProvinceCenterDepartment.service';
 import ProvinceCenterDepartmentUpdateForm from './provincecenterdepartment/ProvinceCenterDepartment.updateform';
 import ProvinceCenterEmployeeBase from './provincecenteremployee/ProvinceCenterEmployee.base';
@@ -130,6 +148,8 @@ import ProvinceCenterEmployeeSearchForm from './provincecenteremployee/ProvinceC
 import ProvinceCenterEmployeeCreateForm from './provincecenteremployee/ProvinceCenterEmployee.createform';
 import ProvinceCenterEmployeeAssociateForm from './provincecenteremployee/ProvinceCenterEmployee.associateform';
 import ProvinceCenterEmployeeTable from './provincecenteremployee/ProvinceCenterEmployee.table';
+import ProvinceCenterEmployeePermission from './provincecenteremployee/ProvinceCenterEmployee.permission';
+import ProvinceCenterEmployeeProfile from './provincecenteremployee/ProvinceCenterEmployee.profile';
 import ProvinceCenterEmployeeService from './provincecenteremployee/ProvinceCenterEmployee.service';
 import ProvinceCenterEmployeeUpdateForm from './provincecenteremployee/ProvinceCenterEmployee.updateform';
 import RetailStoreCityServiceCenterBase from './retailstorecityservicecenter/RetailStoreCityServiceCenter.base';
@@ -143,6 +163,8 @@ import RetailStoreCityServiceCenterSearchForm from './retailstorecityservicecent
 import RetailStoreCityServiceCenterCreateForm from './retailstorecityservicecenter/RetailStoreCityServiceCenter.createform';
 import RetailStoreCityServiceCenterAssociateForm from './retailstorecityservicecenter/RetailStoreCityServiceCenter.associateform';
 import RetailStoreCityServiceCenterTable from './retailstorecityservicecenter/RetailStoreCityServiceCenter.table';
+import RetailStoreCityServiceCenterPermission from './retailstorecityservicecenter/RetailStoreCityServiceCenter.permission';
+import RetailStoreCityServiceCenterProfile from './retailstorecityservicecenter/RetailStoreCityServiceCenter.profile';
 import RetailStoreCityServiceCenterService from './retailstorecityservicecenter/RetailStoreCityServiceCenter.service';
 import RetailStoreCityServiceCenterUpdateForm from './retailstorecityservicecenter/RetailStoreCityServiceCenter.updateform';
 import CityPartnerBase from './citypartner/CityPartner.base';
@@ -156,6 +178,8 @@ import CityPartnerSearchForm from './citypartner/CityPartner.searchform';
 import CityPartnerCreateForm from './citypartner/CityPartner.createform';
 import CityPartnerAssociateForm from './citypartner/CityPartner.associateform';
 import CityPartnerTable from './citypartner/CityPartner.table';
+import CityPartnerPermission from './citypartner/CityPartner.permission';
+import CityPartnerProfile from './citypartner/CityPartner.profile';
 import CityPartnerService from './citypartner/CityPartner.service';
 import CityPartnerUpdateForm from './citypartner/CityPartner.updateform';
 import PotentialCustomerBase from './potentialcustomer/PotentialCustomer.base';
@@ -169,6 +193,8 @@ import PotentialCustomerSearchForm from './potentialcustomer/PotentialCustomer.s
 import PotentialCustomerCreateForm from './potentialcustomer/PotentialCustomer.createform';
 import PotentialCustomerAssociateForm from './potentialcustomer/PotentialCustomer.associateform';
 import PotentialCustomerTable from './potentialcustomer/PotentialCustomer.table';
+import PotentialCustomerPermission from './potentialcustomer/PotentialCustomer.permission';
+import PotentialCustomerProfile from './potentialcustomer/PotentialCustomer.profile';
 import PotentialCustomerService from './potentialcustomer/PotentialCustomer.service';
 import PotentialCustomerUpdateForm from './potentialcustomer/PotentialCustomer.updateform';
 import PotentialCustomerContactPersonBase from './potentialcustomercontactperson/PotentialCustomerContactPerson.base';
@@ -182,6 +208,8 @@ import PotentialCustomerContactPersonSearchForm from './potentialcustomercontact
 import PotentialCustomerContactPersonCreateForm from './potentialcustomercontactperson/PotentialCustomerContactPerson.createform';
 import PotentialCustomerContactPersonAssociateForm from './potentialcustomercontactperson/PotentialCustomerContactPerson.associateform';
 import PotentialCustomerContactPersonTable from './potentialcustomercontactperson/PotentialCustomerContactPerson.table';
+import PotentialCustomerContactPersonPermission from './potentialcustomercontactperson/PotentialCustomerContactPerson.permission';
+import PotentialCustomerContactPersonProfile from './potentialcustomercontactperson/PotentialCustomerContactPerson.profile';
 import PotentialCustomerContactPersonService from './potentialcustomercontactperson/PotentialCustomerContactPerson.service';
 import PotentialCustomerContactPersonUpdateForm from './potentialcustomercontactperson/PotentialCustomerContactPerson.updateform';
 import PotentialCustomerContactBase from './potentialcustomercontact/PotentialCustomerContact.base';
@@ -195,6 +223,8 @@ import PotentialCustomerContactSearchForm from './potentialcustomercontact/Poten
 import PotentialCustomerContactCreateForm from './potentialcustomercontact/PotentialCustomerContact.createform';
 import PotentialCustomerContactAssociateForm from './potentialcustomercontact/PotentialCustomerContact.associateform';
 import PotentialCustomerContactTable from './potentialcustomercontact/PotentialCustomerContact.table';
+import PotentialCustomerContactPermission from './potentialcustomercontact/PotentialCustomerContact.permission';
+import PotentialCustomerContactProfile from './potentialcustomercontact/PotentialCustomerContact.profile';
 import PotentialCustomerContactService from './potentialcustomercontact/PotentialCustomerContact.service';
 import PotentialCustomerContactUpdateForm from './potentialcustomercontact/PotentialCustomerContact.updateform';
 import CityEventBase from './cityevent/CityEvent.base';
@@ -208,6 +238,8 @@ import CityEventSearchForm from './cityevent/CityEvent.searchform';
 import CityEventCreateForm from './cityevent/CityEvent.createform';
 import CityEventAssociateForm from './cityevent/CityEvent.associateform';
 import CityEventTable from './cityevent/CityEvent.table';
+import CityEventPermission from './cityevent/CityEvent.permission';
+import CityEventProfile from './cityevent/CityEvent.profile';
 import CityEventService from './cityevent/CityEvent.service';
 import CityEventUpdateForm from './cityevent/CityEvent.updateform';
 import EventAttendanceBase from './eventattendance/EventAttendance.base';
@@ -221,6 +253,8 @@ import EventAttendanceSearchForm from './eventattendance/EventAttendance.searchf
 import EventAttendanceCreateForm from './eventattendance/EventAttendance.createform';
 import EventAttendanceAssociateForm from './eventattendance/EventAttendance.associateform';
 import EventAttendanceTable from './eventattendance/EventAttendance.table';
+import EventAttendancePermission from './eventattendance/EventAttendance.permission';
+import EventAttendanceProfile from './eventattendance/EventAttendance.profile';
 import EventAttendanceService from './eventattendance/EventAttendance.service';
 import EventAttendanceUpdateForm from './eventattendance/EventAttendance.updateform';
 import RetailStoreBase from './retailstore/RetailStore.base';
@@ -234,6 +268,8 @@ import RetailStoreSearchForm from './retailstore/RetailStore.searchform';
 import RetailStoreCreateForm from './retailstore/RetailStore.createform';
 import RetailStoreAssociateForm from './retailstore/RetailStore.associateform';
 import RetailStoreTable from './retailstore/RetailStore.table';
+import RetailStorePermission from './retailstore/RetailStore.permission';
+import RetailStoreProfile from './retailstore/RetailStore.profile';
 import RetailStoreService from './retailstore/RetailStore.service';
 import RetailStoreUpdateForm from './retailstore/RetailStore.updateform';
 import RetailStoreCreationBase from './retailstorecreation/RetailStoreCreation.base';
@@ -247,6 +283,8 @@ import RetailStoreCreationSearchForm from './retailstorecreation/RetailStoreCrea
 import RetailStoreCreationCreateForm from './retailstorecreation/RetailStoreCreation.createform';
 import RetailStoreCreationAssociateForm from './retailstorecreation/RetailStoreCreation.associateform';
 import RetailStoreCreationTable from './retailstorecreation/RetailStoreCreation.table';
+import RetailStoreCreationPermission from './retailstorecreation/RetailStoreCreation.permission';
+import RetailStoreCreationProfile from './retailstorecreation/RetailStoreCreation.profile';
 import RetailStoreCreationService from './retailstorecreation/RetailStoreCreation.service';
 import RetailStoreCreationUpdateForm from './retailstorecreation/RetailStoreCreation.updateform';
 import RetailStoreInvestmentInvitationBase from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.base';
@@ -260,6 +298,8 @@ import RetailStoreInvestmentInvitationSearchForm from './retailstoreinvestmentin
 import RetailStoreInvestmentInvitationCreateForm from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.createform';
 import RetailStoreInvestmentInvitationAssociateForm from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.associateform';
 import RetailStoreInvestmentInvitationTable from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.table';
+import RetailStoreInvestmentInvitationPermission from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.permission';
+import RetailStoreInvestmentInvitationProfile from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.profile';
 import RetailStoreInvestmentInvitationService from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.service';
 import RetailStoreInvestmentInvitationUpdateForm from './retailstoreinvestmentinvitation/RetailStoreInvestmentInvitation.updateform';
 import RetailStoreFranchisingBase from './retailstorefranchising/RetailStoreFranchising.base';
@@ -273,6 +313,8 @@ import RetailStoreFranchisingSearchForm from './retailstorefranchising/RetailSto
 import RetailStoreFranchisingCreateForm from './retailstorefranchising/RetailStoreFranchising.createform';
 import RetailStoreFranchisingAssociateForm from './retailstorefranchising/RetailStoreFranchising.associateform';
 import RetailStoreFranchisingTable from './retailstorefranchising/RetailStoreFranchising.table';
+import RetailStoreFranchisingPermission from './retailstorefranchising/RetailStoreFranchising.permission';
+import RetailStoreFranchisingProfile from './retailstorefranchising/RetailStoreFranchising.profile';
 import RetailStoreFranchisingService from './retailstorefranchising/RetailStoreFranchising.service';
 import RetailStoreFranchisingUpdateForm from './retailstorefranchising/RetailStoreFranchising.updateform';
 import RetailStoreDecorationBase from './retailstoredecoration/RetailStoreDecoration.base';
@@ -286,6 +328,8 @@ import RetailStoreDecorationSearchForm from './retailstoredecoration/RetailStore
 import RetailStoreDecorationCreateForm from './retailstoredecoration/RetailStoreDecoration.createform';
 import RetailStoreDecorationAssociateForm from './retailstoredecoration/RetailStoreDecoration.associateform';
 import RetailStoreDecorationTable from './retailstoredecoration/RetailStoreDecoration.table';
+import RetailStoreDecorationPermission from './retailstoredecoration/RetailStoreDecoration.permission';
+import RetailStoreDecorationProfile from './retailstoredecoration/RetailStoreDecoration.profile';
 import RetailStoreDecorationService from './retailstoredecoration/RetailStoreDecoration.service';
 import RetailStoreDecorationUpdateForm from './retailstoredecoration/RetailStoreDecoration.updateform';
 import RetailStoreOpeningBase from './retailstoreopening/RetailStoreOpening.base';
@@ -299,6 +343,8 @@ import RetailStoreOpeningSearchForm from './retailstoreopening/RetailStoreOpenin
 import RetailStoreOpeningCreateForm from './retailstoreopening/RetailStoreOpening.createform';
 import RetailStoreOpeningAssociateForm from './retailstoreopening/RetailStoreOpening.associateform';
 import RetailStoreOpeningTable from './retailstoreopening/RetailStoreOpening.table';
+import RetailStoreOpeningPermission from './retailstoreopening/RetailStoreOpening.permission';
+import RetailStoreOpeningProfile from './retailstoreopening/RetailStoreOpening.profile';
 import RetailStoreOpeningService from './retailstoreopening/RetailStoreOpening.service';
 import RetailStoreOpeningUpdateForm from './retailstoreopening/RetailStoreOpening.updateform';
 import RetailStoreClosingBase from './retailstoreclosing/RetailStoreClosing.base';
@@ -312,6 +358,8 @@ import RetailStoreClosingSearchForm from './retailstoreclosing/RetailStoreClosin
 import RetailStoreClosingCreateForm from './retailstoreclosing/RetailStoreClosing.createform';
 import RetailStoreClosingAssociateForm from './retailstoreclosing/RetailStoreClosing.associateform';
 import RetailStoreClosingTable from './retailstoreclosing/RetailStoreClosing.table';
+import RetailStoreClosingPermission from './retailstoreclosing/RetailStoreClosing.permission';
+import RetailStoreClosingProfile from './retailstoreclosing/RetailStoreClosing.profile';
 import RetailStoreClosingService from './retailstoreclosing/RetailStoreClosing.service';
 import RetailStoreClosingUpdateForm from './retailstoreclosing/RetailStoreClosing.updateform';
 import RetailStoreMemberBase from './retailstoremember/RetailStoreMember.base';
@@ -325,6 +373,8 @@ import RetailStoreMemberSearchForm from './retailstoremember/RetailStoreMember.s
 import RetailStoreMemberCreateForm from './retailstoremember/RetailStoreMember.createform';
 import RetailStoreMemberAssociateForm from './retailstoremember/RetailStoreMember.associateform';
 import RetailStoreMemberTable from './retailstoremember/RetailStoreMember.table';
+import RetailStoreMemberPermission from './retailstoremember/RetailStoreMember.permission';
+import RetailStoreMemberProfile from './retailstoremember/RetailStoreMember.profile';
 import RetailStoreMemberService from './retailstoremember/RetailStoreMember.service';
 import RetailStoreMemberUpdateForm from './retailstoremember/RetailStoreMember.updateform';
 import ConsumerOrderBase from './consumerorder/ConsumerOrder.base';
@@ -338,6 +388,8 @@ import ConsumerOrderSearchForm from './consumerorder/ConsumerOrder.searchform';
 import ConsumerOrderCreateForm from './consumerorder/ConsumerOrder.createform';
 import ConsumerOrderAssociateForm from './consumerorder/ConsumerOrder.associateform';
 import ConsumerOrderTable from './consumerorder/ConsumerOrder.table';
+import ConsumerOrderPermission from './consumerorder/ConsumerOrder.permission';
+import ConsumerOrderProfile from './consumerorder/ConsumerOrder.profile';
 import ConsumerOrderService from './consumerorder/ConsumerOrder.service';
 import ConsumerOrderUpdateForm from './consumerorder/ConsumerOrder.updateform';
 import ConsumerOrderConfirmationBase from './consumerorderconfirmation/ConsumerOrderConfirmation.base';
@@ -351,6 +403,8 @@ import ConsumerOrderConfirmationSearchForm from './consumerorderconfirmation/Con
 import ConsumerOrderConfirmationCreateForm from './consumerorderconfirmation/ConsumerOrderConfirmation.createform';
 import ConsumerOrderConfirmationAssociateForm from './consumerorderconfirmation/ConsumerOrderConfirmation.associateform';
 import ConsumerOrderConfirmationTable from './consumerorderconfirmation/ConsumerOrderConfirmation.table';
+import ConsumerOrderConfirmationPermission from './consumerorderconfirmation/ConsumerOrderConfirmation.permission';
+import ConsumerOrderConfirmationProfile from './consumerorderconfirmation/ConsumerOrderConfirmation.profile';
 import ConsumerOrderConfirmationService from './consumerorderconfirmation/ConsumerOrderConfirmation.service';
 import ConsumerOrderConfirmationUpdateForm from './consumerorderconfirmation/ConsumerOrderConfirmation.updateform';
 import ConsumerOrderApprovalBase from './consumerorderapproval/ConsumerOrderApproval.base';
@@ -364,6 +418,8 @@ import ConsumerOrderApprovalSearchForm from './consumerorderapproval/ConsumerOrd
 import ConsumerOrderApprovalCreateForm from './consumerorderapproval/ConsumerOrderApproval.createform';
 import ConsumerOrderApprovalAssociateForm from './consumerorderapproval/ConsumerOrderApproval.associateform';
 import ConsumerOrderApprovalTable from './consumerorderapproval/ConsumerOrderApproval.table';
+import ConsumerOrderApprovalPermission from './consumerorderapproval/ConsumerOrderApproval.permission';
+import ConsumerOrderApprovalProfile from './consumerorderapproval/ConsumerOrderApproval.profile';
 import ConsumerOrderApprovalService from './consumerorderapproval/ConsumerOrderApproval.service';
 import ConsumerOrderApprovalUpdateForm from './consumerorderapproval/ConsumerOrderApproval.updateform';
 import ConsumerOrderProcessingBase from './consumerorderprocessing/ConsumerOrderProcessing.base';
@@ -377,6 +433,8 @@ import ConsumerOrderProcessingSearchForm from './consumerorderprocessing/Consume
 import ConsumerOrderProcessingCreateForm from './consumerorderprocessing/ConsumerOrderProcessing.createform';
 import ConsumerOrderProcessingAssociateForm from './consumerorderprocessing/ConsumerOrderProcessing.associateform';
 import ConsumerOrderProcessingTable from './consumerorderprocessing/ConsumerOrderProcessing.table';
+import ConsumerOrderProcessingPermission from './consumerorderprocessing/ConsumerOrderProcessing.permission';
+import ConsumerOrderProcessingProfile from './consumerorderprocessing/ConsumerOrderProcessing.profile';
 import ConsumerOrderProcessingService from './consumerorderprocessing/ConsumerOrderProcessing.service';
 import ConsumerOrderProcessingUpdateForm from './consumerorderprocessing/ConsumerOrderProcessing.updateform';
 import ConsumerOrderShipmentBase from './consumerordershipment/ConsumerOrderShipment.base';
@@ -390,6 +448,8 @@ import ConsumerOrderShipmentSearchForm from './consumerordershipment/ConsumerOrd
 import ConsumerOrderShipmentCreateForm from './consumerordershipment/ConsumerOrderShipment.createform';
 import ConsumerOrderShipmentAssociateForm from './consumerordershipment/ConsumerOrderShipment.associateform';
 import ConsumerOrderShipmentTable from './consumerordershipment/ConsumerOrderShipment.table';
+import ConsumerOrderShipmentPermission from './consumerordershipment/ConsumerOrderShipment.permission';
+import ConsumerOrderShipmentProfile from './consumerordershipment/ConsumerOrderShipment.profile';
 import ConsumerOrderShipmentService from './consumerordershipment/ConsumerOrderShipment.service';
 import ConsumerOrderShipmentUpdateForm from './consumerordershipment/ConsumerOrderShipment.updateform';
 import ConsumerOrderDeliveryBase from './consumerorderdelivery/ConsumerOrderDelivery.base';
@@ -403,6 +463,8 @@ import ConsumerOrderDeliverySearchForm from './consumerorderdelivery/ConsumerOrd
 import ConsumerOrderDeliveryCreateForm from './consumerorderdelivery/ConsumerOrderDelivery.createform';
 import ConsumerOrderDeliveryAssociateForm from './consumerorderdelivery/ConsumerOrderDelivery.associateform';
 import ConsumerOrderDeliveryTable from './consumerorderdelivery/ConsumerOrderDelivery.table';
+import ConsumerOrderDeliveryPermission from './consumerorderdelivery/ConsumerOrderDelivery.permission';
+import ConsumerOrderDeliveryProfile from './consumerorderdelivery/ConsumerOrderDelivery.profile';
 import ConsumerOrderDeliveryService from './consumerorderdelivery/ConsumerOrderDelivery.service';
 import ConsumerOrderDeliveryUpdateForm from './consumerorderdelivery/ConsumerOrderDelivery.updateform';
 import ConsumerOrderLineItemBase from './consumerorderlineitem/ConsumerOrderLineItem.base';
@@ -416,6 +478,8 @@ import ConsumerOrderLineItemSearchForm from './consumerorderlineitem/ConsumerOrd
 import ConsumerOrderLineItemCreateForm from './consumerorderlineitem/ConsumerOrderLineItem.createform';
 import ConsumerOrderLineItemAssociateForm from './consumerorderlineitem/ConsumerOrderLineItem.associateform';
 import ConsumerOrderLineItemTable from './consumerorderlineitem/ConsumerOrderLineItem.table';
+import ConsumerOrderLineItemPermission from './consumerorderlineitem/ConsumerOrderLineItem.permission';
+import ConsumerOrderLineItemProfile from './consumerorderlineitem/ConsumerOrderLineItem.profile';
 import ConsumerOrderLineItemService from './consumerorderlineitem/ConsumerOrderLineItem.service';
 import ConsumerOrderLineItemUpdateForm from './consumerorderlineitem/ConsumerOrderLineItem.updateform';
 import ConsumerOrderShippingGroupBase from './consumerordershippinggroup/ConsumerOrderShippingGroup.base';
@@ -429,6 +493,8 @@ import ConsumerOrderShippingGroupSearchForm from './consumerordershippinggroup/C
 import ConsumerOrderShippingGroupCreateForm from './consumerordershippinggroup/ConsumerOrderShippingGroup.createform';
 import ConsumerOrderShippingGroupAssociateForm from './consumerordershippinggroup/ConsumerOrderShippingGroup.associateform';
 import ConsumerOrderShippingGroupTable from './consumerordershippinggroup/ConsumerOrderShippingGroup.table';
+import ConsumerOrderShippingGroupPermission from './consumerordershippinggroup/ConsumerOrderShippingGroup.permission';
+import ConsumerOrderShippingGroupProfile from './consumerordershippinggroup/ConsumerOrderShippingGroup.profile';
 import ConsumerOrderShippingGroupService from './consumerordershippinggroup/ConsumerOrderShippingGroup.service';
 import ConsumerOrderShippingGroupUpdateForm from './consumerordershippinggroup/ConsumerOrderShippingGroup.updateform';
 import ConsumerOrderPaymentGroupBase from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.base';
@@ -442,6 +508,8 @@ import ConsumerOrderPaymentGroupSearchForm from './consumerorderpaymentgroup/Con
 import ConsumerOrderPaymentGroupCreateForm from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.createform';
 import ConsumerOrderPaymentGroupAssociateForm from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.associateform';
 import ConsumerOrderPaymentGroupTable from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.table';
+import ConsumerOrderPaymentGroupPermission from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.permission';
+import ConsumerOrderPaymentGroupProfile from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.profile';
 import ConsumerOrderPaymentGroupService from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.service';
 import ConsumerOrderPaymentGroupUpdateForm from './consumerorderpaymentgroup/ConsumerOrderPaymentGroup.updateform';
 import ConsumerOrderPriceAdjustmentBase from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.base';
@@ -455,6 +523,8 @@ import ConsumerOrderPriceAdjustmentSearchForm from './consumerorderpriceadjustme
 import ConsumerOrderPriceAdjustmentCreateForm from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.createform';
 import ConsumerOrderPriceAdjustmentAssociateForm from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.associateform';
 import ConsumerOrderPriceAdjustmentTable from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.table';
+import ConsumerOrderPriceAdjustmentPermission from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.permission';
+import ConsumerOrderPriceAdjustmentProfile from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.profile';
 import ConsumerOrderPriceAdjustmentService from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.service';
 import ConsumerOrderPriceAdjustmentUpdateForm from './consumerorderpriceadjustment/ConsumerOrderPriceAdjustment.updateform';
 import RetailStoreMemberCouponBase from './retailstoremembercoupon/RetailStoreMemberCoupon.base';
@@ -468,6 +538,8 @@ import RetailStoreMemberCouponSearchForm from './retailstoremembercoupon/RetailS
 import RetailStoreMemberCouponCreateForm from './retailstoremembercoupon/RetailStoreMemberCoupon.createform';
 import RetailStoreMemberCouponAssociateForm from './retailstoremembercoupon/RetailStoreMemberCoupon.associateform';
 import RetailStoreMemberCouponTable from './retailstoremembercoupon/RetailStoreMemberCoupon.table';
+import RetailStoreMemberCouponPermission from './retailstoremembercoupon/RetailStoreMemberCoupon.permission';
+import RetailStoreMemberCouponProfile from './retailstoremembercoupon/RetailStoreMemberCoupon.profile';
 import RetailStoreMemberCouponService from './retailstoremembercoupon/RetailStoreMemberCoupon.service';
 import RetailStoreMemberCouponUpdateForm from './retailstoremembercoupon/RetailStoreMemberCoupon.updateform';
 import MemberWishlistBase from './memberwishlist/MemberWishlist.base';
@@ -481,6 +553,8 @@ import MemberWishlistSearchForm from './memberwishlist/MemberWishlist.searchform
 import MemberWishlistCreateForm from './memberwishlist/MemberWishlist.createform';
 import MemberWishlistAssociateForm from './memberwishlist/MemberWishlist.associateform';
 import MemberWishlistTable from './memberwishlist/MemberWishlist.table';
+import MemberWishlistPermission from './memberwishlist/MemberWishlist.permission';
+import MemberWishlistProfile from './memberwishlist/MemberWishlist.profile';
 import MemberWishlistService from './memberwishlist/MemberWishlist.service';
 import MemberWishlistUpdateForm from './memberwishlist/MemberWishlist.updateform';
 import MemberRewardPointBase from './memberrewardpoint/MemberRewardPoint.base';
@@ -494,6 +568,8 @@ import MemberRewardPointSearchForm from './memberrewardpoint/MemberRewardPoint.s
 import MemberRewardPointCreateForm from './memberrewardpoint/MemberRewardPoint.createform';
 import MemberRewardPointAssociateForm from './memberrewardpoint/MemberRewardPoint.associateform';
 import MemberRewardPointTable from './memberrewardpoint/MemberRewardPoint.table';
+import MemberRewardPointPermission from './memberrewardpoint/MemberRewardPoint.permission';
+import MemberRewardPointProfile from './memberrewardpoint/MemberRewardPoint.profile';
 import MemberRewardPointService from './memberrewardpoint/MemberRewardPoint.service';
 import MemberRewardPointUpdateForm from './memberrewardpoint/MemberRewardPoint.updateform';
 import MemberRewardPointRedemptionBase from './memberrewardpointredemption/MemberRewardPointRedemption.base';
@@ -507,6 +583,8 @@ import MemberRewardPointRedemptionSearchForm from './memberrewardpointredemption
 import MemberRewardPointRedemptionCreateForm from './memberrewardpointredemption/MemberRewardPointRedemption.createform';
 import MemberRewardPointRedemptionAssociateForm from './memberrewardpointredemption/MemberRewardPointRedemption.associateform';
 import MemberRewardPointRedemptionTable from './memberrewardpointredemption/MemberRewardPointRedemption.table';
+import MemberRewardPointRedemptionPermission from './memberrewardpointredemption/MemberRewardPointRedemption.permission';
+import MemberRewardPointRedemptionProfile from './memberrewardpointredemption/MemberRewardPointRedemption.profile';
 import MemberRewardPointRedemptionService from './memberrewardpointredemption/MemberRewardPointRedemption.service';
 import MemberRewardPointRedemptionUpdateForm from './memberrewardpointredemption/MemberRewardPointRedemption.updateform';
 import MemberWishlistProductBase from './memberwishlistproduct/MemberWishlistProduct.base';
@@ -520,6 +598,8 @@ import MemberWishlistProductSearchForm from './memberwishlistproduct/MemberWishl
 import MemberWishlistProductCreateForm from './memberwishlistproduct/MemberWishlistProduct.createform';
 import MemberWishlistProductAssociateForm from './memberwishlistproduct/MemberWishlistProduct.associateform';
 import MemberWishlistProductTable from './memberwishlistproduct/MemberWishlistProduct.table';
+import MemberWishlistProductPermission from './memberwishlistproduct/MemberWishlistProduct.permission';
+import MemberWishlistProductProfile from './memberwishlistproduct/MemberWishlistProduct.profile';
 import MemberWishlistProductService from './memberwishlistproduct/MemberWishlistProduct.service';
 import MemberWishlistProductUpdateForm from './memberwishlistproduct/MemberWishlistProduct.updateform';
 import RetailStoreMemberAddressBase from './retailstorememberaddress/RetailStoreMemberAddress.base';
@@ -533,6 +613,8 @@ import RetailStoreMemberAddressSearchForm from './retailstorememberaddress/Retai
 import RetailStoreMemberAddressCreateForm from './retailstorememberaddress/RetailStoreMemberAddress.createform';
 import RetailStoreMemberAddressAssociateForm from './retailstorememberaddress/RetailStoreMemberAddress.associateform';
 import RetailStoreMemberAddressTable from './retailstorememberaddress/RetailStoreMemberAddress.table';
+import RetailStoreMemberAddressPermission from './retailstorememberaddress/RetailStoreMemberAddress.permission';
+import RetailStoreMemberAddressProfile from './retailstorememberaddress/RetailStoreMemberAddress.profile';
 import RetailStoreMemberAddressService from './retailstorememberaddress/RetailStoreMemberAddress.service';
 import RetailStoreMemberAddressUpdateForm from './retailstorememberaddress/RetailStoreMemberAddress.updateform';
 import RetailStoreMemberGiftCardBase from './retailstoremembergiftcard/RetailStoreMemberGiftCard.base';
@@ -546,6 +628,8 @@ import RetailStoreMemberGiftCardSearchForm from './retailstoremembergiftcard/Ret
 import RetailStoreMemberGiftCardCreateForm from './retailstoremembergiftcard/RetailStoreMemberGiftCard.createform';
 import RetailStoreMemberGiftCardAssociateForm from './retailstoremembergiftcard/RetailStoreMemberGiftCard.associateform';
 import RetailStoreMemberGiftCardTable from './retailstoremembergiftcard/RetailStoreMemberGiftCard.table';
+import RetailStoreMemberGiftCardPermission from './retailstoremembergiftcard/RetailStoreMemberGiftCard.permission';
+import RetailStoreMemberGiftCardProfile from './retailstoremembergiftcard/RetailStoreMemberGiftCard.profile';
 import RetailStoreMemberGiftCardService from './retailstoremembergiftcard/RetailStoreMemberGiftCard.service';
 import RetailStoreMemberGiftCardUpdateForm from './retailstoremembergiftcard/RetailStoreMemberGiftCard.updateform';
 import RetailStoreMemberGiftCardConsumeRecordBase from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.base';
@@ -559,6 +643,8 @@ import RetailStoreMemberGiftCardConsumeRecordSearchForm from './retailstoremembe
 import RetailStoreMemberGiftCardConsumeRecordCreateForm from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.createform';
 import RetailStoreMemberGiftCardConsumeRecordAssociateForm from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.associateform';
 import RetailStoreMemberGiftCardConsumeRecordTable from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.table';
+import RetailStoreMemberGiftCardConsumeRecordPermission from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.permission';
+import RetailStoreMemberGiftCardConsumeRecordProfile from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.profile';
 import RetailStoreMemberGiftCardConsumeRecordService from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.service';
 import RetailStoreMemberGiftCardConsumeRecordUpdateForm from './retailstoremembergiftcardconsumerecord/RetailStoreMemberGiftCardConsumeRecord.updateform';
 import GoodsSupplierBase from './goodssupplier/GoodsSupplier.base';
@@ -572,6 +658,8 @@ import GoodsSupplierSearchForm from './goodssupplier/GoodsSupplier.searchform';
 import GoodsSupplierCreateForm from './goodssupplier/GoodsSupplier.createform';
 import GoodsSupplierAssociateForm from './goodssupplier/GoodsSupplier.associateform';
 import GoodsSupplierTable from './goodssupplier/GoodsSupplier.table';
+import GoodsSupplierPermission from './goodssupplier/GoodsSupplier.permission';
+import GoodsSupplierProfile from './goodssupplier/GoodsSupplier.profile';
 import GoodsSupplierService from './goodssupplier/GoodsSupplier.service';
 import GoodsSupplierUpdateForm from './goodssupplier/GoodsSupplier.updateform';
 import SupplierProductBase from './supplierproduct/SupplierProduct.base';
@@ -585,6 +673,8 @@ import SupplierProductSearchForm from './supplierproduct/SupplierProduct.searchf
 import SupplierProductCreateForm from './supplierproduct/SupplierProduct.createform';
 import SupplierProductAssociateForm from './supplierproduct/SupplierProduct.associateform';
 import SupplierProductTable from './supplierproduct/SupplierProduct.table';
+import SupplierProductPermission from './supplierproduct/SupplierProduct.permission';
+import SupplierProductProfile from './supplierproduct/SupplierProduct.profile';
 import SupplierProductService from './supplierproduct/SupplierProduct.service';
 import SupplierProductUpdateForm from './supplierproduct/SupplierProduct.updateform';
 import ProductSupplyDurationBase from './productsupplyduration/ProductSupplyDuration.base';
@@ -598,6 +688,8 @@ import ProductSupplyDurationSearchForm from './productsupplyduration/ProductSupp
 import ProductSupplyDurationCreateForm from './productsupplyduration/ProductSupplyDuration.createform';
 import ProductSupplyDurationAssociateForm from './productsupplyduration/ProductSupplyDuration.associateform';
 import ProductSupplyDurationTable from './productsupplyduration/ProductSupplyDuration.table';
+import ProductSupplyDurationPermission from './productsupplyduration/ProductSupplyDuration.permission';
+import ProductSupplyDurationProfile from './productsupplyduration/ProductSupplyDuration.profile';
 import ProductSupplyDurationService from './productsupplyduration/ProductSupplyDuration.service';
 import ProductSupplyDurationUpdateForm from './productsupplyduration/ProductSupplyDuration.updateform';
 import SupplyOrderBase from './supplyorder/SupplyOrder.base';
@@ -611,6 +703,8 @@ import SupplyOrderSearchForm from './supplyorder/SupplyOrder.searchform';
 import SupplyOrderCreateForm from './supplyorder/SupplyOrder.createform';
 import SupplyOrderAssociateForm from './supplyorder/SupplyOrder.associateform';
 import SupplyOrderTable from './supplyorder/SupplyOrder.table';
+import SupplyOrderPermission from './supplyorder/SupplyOrder.permission';
+import SupplyOrderProfile from './supplyorder/SupplyOrder.profile';
 import SupplyOrderService from './supplyorder/SupplyOrder.service';
 import SupplyOrderUpdateForm from './supplyorder/SupplyOrder.updateform';
 import SupplyOrderConfirmationBase from './supplyorderconfirmation/SupplyOrderConfirmation.base';
@@ -624,6 +718,8 @@ import SupplyOrderConfirmationSearchForm from './supplyorderconfirmation/SupplyO
 import SupplyOrderConfirmationCreateForm from './supplyorderconfirmation/SupplyOrderConfirmation.createform';
 import SupplyOrderConfirmationAssociateForm from './supplyorderconfirmation/SupplyOrderConfirmation.associateform';
 import SupplyOrderConfirmationTable from './supplyorderconfirmation/SupplyOrderConfirmation.table';
+import SupplyOrderConfirmationPermission from './supplyorderconfirmation/SupplyOrderConfirmation.permission';
+import SupplyOrderConfirmationProfile from './supplyorderconfirmation/SupplyOrderConfirmation.profile';
 import SupplyOrderConfirmationService from './supplyorderconfirmation/SupplyOrderConfirmation.service';
 import SupplyOrderConfirmationUpdateForm from './supplyorderconfirmation/SupplyOrderConfirmation.updateform';
 import SupplyOrderApprovalBase from './supplyorderapproval/SupplyOrderApproval.base';
@@ -637,6 +733,8 @@ import SupplyOrderApprovalSearchForm from './supplyorderapproval/SupplyOrderAppr
 import SupplyOrderApprovalCreateForm from './supplyorderapproval/SupplyOrderApproval.createform';
 import SupplyOrderApprovalAssociateForm from './supplyorderapproval/SupplyOrderApproval.associateform';
 import SupplyOrderApprovalTable from './supplyorderapproval/SupplyOrderApproval.table';
+import SupplyOrderApprovalPermission from './supplyorderapproval/SupplyOrderApproval.permission';
+import SupplyOrderApprovalProfile from './supplyorderapproval/SupplyOrderApproval.profile';
 import SupplyOrderApprovalService from './supplyorderapproval/SupplyOrderApproval.service';
 import SupplyOrderApprovalUpdateForm from './supplyorderapproval/SupplyOrderApproval.updateform';
 import SupplyOrderProcessingBase from './supplyorderprocessing/SupplyOrderProcessing.base';
@@ -650,6 +748,8 @@ import SupplyOrderProcessingSearchForm from './supplyorderprocessing/SupplyOrder
 import SupplyOrderProcessingCreateForm from './supplyorderprocessing/SupplyOrderProcessing.createform';
 import SupplyOrderProcessingAssociateForm from './supplyorderprocessing/SupplyOrderProcessing.associateform';
 import SupplyOrderProcessingTable from './supplyorderprocessing/SupplyOrderProcessing.table';
+import SupplyOrderProcessingPermission from './supplyorderprocessing/SupplyOrderProcessing.permission';
+import SupplyOrderProcessingProfile from './supplyorderprocessing/SupplyOrderProcessing.profile';
 import SupplyOrderProcessingService from './supplyorderprocessing/SupplyOrderProcessing.service';
 import SupplyOrderProcessingUpdateForm from './supplyorderprocessing/SupplyOrderProcessing.updateform';
 import SupplyOrderPickingBase from './supplyorderpicking/SupplyOrderPicking.base';
@@ -663,6 +763,8 @@ import SupplyOrderPickingSearchForm from './supplyorderpicking/SupplyOrderPickin
 import SupplyOrderPickingCreateForm from './supplyorderpicking/SupplyOrderPicking.createform';
 import SupplyOrderPickingAssociateForm from './supplyorderpicking/SupplyOrderPicking.associateform';
 import SupplyOrderPickingTable from './supplyorderpicking/SupplyOrderPicking.table';
+import SupplyOrderPickingPermission from './supplyorderpicking/SupplyOrderPicking.permission';
+import SupplyOrderPickingProfile from './supplyorderpicking/SupplyOrderPicking.profile';
 import SupplyOrderPickingService from './supplyorderpicking/SupplyOrderPicking.service';
 import SupplyOrderPickingUpdateForm from './supplyorderpicking/SupplyOrderPicking.updateform';
 import SupplyOrderShipmentBase from './supplyordershipment/SupplyOrderShipment.base';
@@ -676,6 +778,8 @@ import SupplyOrderShipmentSearchForm from './supplyordershipment/SupplyOrderShip
 import SupplyOrderShipmentCreateForm from './supplyordershipment/SupplyOrderShipment.createform';
 import SupplyOrderShipmentAssociateForm from './supplyordershipment/SupplyOrderShipment.associateform';
 import SupplyOrderShipmentTable from './supplyordershipment/SupplyOrderShipment.table';
+import SupplyOrderShipmentPermission from './supplyordershipment/SupplyOrderShipment.permission';
+import SupplyOrderShipmentProfile from './supplyordershipment/SupplyOrderShipment.profile';
 import SupplyOrderShipmentService from './supplyordershipment/SupplyOrderShipment.service';
 import SupplyOrderShipmentUpdateForm from './supplyordershipment/SupplyOrderShipment.updateform';
 import SupplyOrderDeliveryBase from './supplyorderdelivery/SupplyOrderDelivery.base';
@@ -689,6 +793,8 @@ import SupplyOrderDeliverySearchForm from './supplyorderdelivery/SupplyOrderDeli
 import SupplyOrderDeliveryCreateForm from './supplyorderdelivery/SupplyOrderDelivery.createform';
 import SupplyOrderDeliveryAssociateForm from './supplyorderdelivery/SupplyOrderDelivery.associateform';
 import SupplyOrderDeliveryTable from './supplyorderdelivery/SupplyOrderDelivery.table';
+import SupplyOrderDeliveryPermission from './supplyorderdelivery/SupplyOrderDelivery.permission';
+import SupplyOrderDeliveryProfile from './supplyorderdelivery/SupplyOrderDelivery.profile';
 import SupplyOrderDeliveryService from './supplyorderdelivery/SupplyOrderDelivery.service';
 import SupplyOrderDeliveryUpdateForm from './supplyorderdelivery/SupplyOrderDelivery.updateform';
 import SupplyOrderLineItemBase from './supplyorderlineitem/SupplyOrderLineItem.base';
@@ -702,6 +808,8 @@ import SupplyOrderLineItemSearchForm from './supplyorderlineitem/SupplyOrderLine
 import SupplyOrderLineItemCreateForm from './supplyorderlineitem/SupplyOrderLineItem.createform';
 import SupplyOrderLineItemAssociateForm from './supplyorderlineitem/SupplyOrderLineItem.associateform';
 import SupplyOrderLineItemTable from './supplyorderlineitem/SupplyOrderLineItem.table';
+import SupplyOrderLineItemPermission from './supplyorderlineitem/SupplyOrderLineItem.permission';
+import SupplyOrderLineItemProfile from './supplyorderlineitem/SupplyOrderLineItem.profile';
 import SupplyOrderLineItemService from './supplyorderlineitem/SupplyOrderLineItem.service';
 import SupplyOrderLineItemUpdateForm from './supplyorderlineitem/SupplyOrderLineItem.updateform';
 import SupplyOrderShippingGroupBase from './supplyordershippinggroup/SupplyOrderShippingGroup.base';
@@ -715,6 +823,8 @@ import SupplyOrderShippingGroupSearchForm from './supplyordershippinggroup/Suppl
 import SupplyOrderShippingGroupCreateForm from './supplyordershippinggroup/SupplyOrderShippingGroup.createform';
 import SupplyOrderShippingGroupAssociateForm from './supplyordershippinggroup/SupplyOrderShippingGroup.associateform';
 import SupplyOrderShippingGroupTable from './supplyordershippinggroup/SupplyOrderShippingGroup.table';
+import SupplyOrderShippingGroupPermission from './supplyordershippinggroup/SupplyOrderShippingGroup.permission';
+import SupplyOrderShippingGroupProfile from './supplyordershippinggroup/SupplyOrderShippingGroup.profile';
 import SupplyOrderShippingGroupService from './supplyordershippinggroup/SupplyOrderShippingGroup.service';
 import SupplyOrderShippingGroupUpdateForm from './supplyordershippinggroup/SupplyOrderShippingGroup.updateform';
 import SupplyOrderPaymentGroupBase from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.base';
@@ -728,6 +838,8 @@ import SupplyOrderPaymentGroupSearchForm from './supplyorderpaymentgroup/SupplyO
 import SupplyOrderPaymentGroupCreateForm from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.createform';
 import SupplyOrderPaymentGroupAssociateForm from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.associateform';
 import SupplyOrderPaymentGroupTable from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.table';
+import SupplyOrderPaymentGroupPermission from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.permission';
+import SupplyOrderPaymentGroupProfile from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.profile';
 import SupplyOrderPaymentGroupService from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.service';
 import SupplyOrderPaymentGroupUpdateForm from './supplyorderpaymentgroup/SupplyOrderPaymentGroup.updateform';
 import RetailStoreOrderBase from './retailstoreorder/RetailStoreOrder.base';
@@ -741,6 +853,8 @@ import RetailStoreOrderSearchForm from './retailstoreorder/RetailStoreOrder.sear
 import RetailStoreOrderCreateForm from './retailstoreorder/RetailStoreOrder.createform';
 import RetailStoreOrderAssociateForm from './retailstoreorder/RetailStoreOrder.associateform';
 import RetailStoreOrderTable from './retailstoreorder/RetailStoreOrder.table';
+import RetailStoreOrderPermission from './retailstoreorder/RetailStoreOrder.permission';
+import RetailStoreOrderProfile from './retailstoreorder/RetailStoreOrder.profile';
 import RetailStoreOrderService from './retailstoreorder/RetailStoreOrder.service';
 import RetailStoreOrderUpdateForm from './retailstoreorder/RetailStoreOrder.updateform';
 import RetailStoreOrderConfirmationBase from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.base';
@@ -754,6 +868,8 @@ import RetailStoreOrderConfirmationSearchForm from './retailstoreorderconfirmati
 import RetailStoreOrderConfirmationCreateForm from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.createform';
 import RetailStoreOrderConfirmationAssociateForm from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.associateform';
 import RetailStoreOrderConfirmationTable from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.table';
+import RetailStoreOrderConfirmationPermission from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.permission';
+import RetailStoreOrderConfirmationProfile from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.profile';
 import RetailStoreOrderConfirmationService from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.service';
 import RetailStoreOrderConfirmationUpdateForm from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.updateform';
 import RetailStoreOrderApprovalBase from './retailstoreorderapproval/RetailStoreOrderApproval.base';
@@ -767,6 +883,8 @@ import RetailStoreOrderApprovalSearchForm from './retailstoreorderapproval/Retai
 import RetailStoreOrderApprovalCreateForm from './retailstoreorderapproval/RetailStoreOrderApproval.createform';
 import RetailStoreOrderApprovalAssociateForm from './retailstoreorderapproval/RetailStoreOrderApproval.associateform';
 import RetailStoreOrderApprovalTable from './retailstoreorderapproval/RetailStoreOrderApproval.table';
+import RetailStoreOrderApprovalPermission from './retailstoreorderapproval/RetailStoreOrderApproval.permission';
+import RetailStoreOrderApprovalProfile from './retailstoreorderapproval/RetailStoreOrderApproval.profile';
 import RetailStoreOrderApprovalService from './retailstoreorderapproval/RetailStoreOrderApproval.service';
 import RetailStoreOrderApprovalUpdateForm from './retailstoreorderapproval/RetailStoreOrderApproval.updateform';
 import RetailStoreOrderProcessingBase from './retailstoreorderprocessing/RetailStoreOrderProcessing.base';
@@ -780,6 +898,8 @@ import RetailStoreOrderProcessingSearchForm from './retailstoreorderprocessing/R
 import RetailStoreOrderProcessingCreateForm from './retailstoreorderprocessing/RetailStoreOrderProcessing.createform';
 import RetailStoreOrderProcessingAssociateForm from './retailstoreorderprocessing/RetailStoreOrderProcessing.associateform';
 import RetailStoreOrderProcessingTable from './retailstoreorderprocessing/RetailStoreOrderProcessing.table';
+import RetailStoreOrderProcessingPermission from './retailstoreorderprocessing/RetailStoreOrderProcessing.permission';
+import RetailStoreOrderProcessingProfile from './retailstoreorderprocessing/RetailStoreOrderProcessing.profile';
 import RetailStoreOrderProcessingService from './retailstoreorderprocessing/RetailStoreOrderProcessing.service';
 import RetailStoreOrderProcessingUpdateForm from './retailstoreorderprocessing/RetailStoreOrderProcessing.updateform';
 import RetailStoreOrderPickingBase from './retailstoreorderpicking/RetailStoreOrderPicking.base';
@@ -793,6 +913,8 @@ import RetailStoreOrderPickingSearchForm from './retailstoreorderpicking/RetailS
 import RetailStoreOrderPickingCreateForm from './retailstoreorderpicking/RetailStoreOrderPicking.createform';
 import RetailStoreOrderPickingAssociateForm from './retailstoreorderpicking/RetailStoreOrderPicking.associateform';
 import RetailStoreOrderPickingTable from './retailstoreorderpicking/RetailStoreOrderPicking.table';
+import RetailStoreOrderPickingPermission from './retailstoreorderpicking/RetailStoreOrderPicking.permission';
+import RetailStoreOrderPickingProfile from './retailstoreorderpicking/RetailStoreOrderPicking.profile';
 import RetailStoreOrderPickingService from './retailstoreorderpicking/RetailStoreOrderPicking.service';
 import RetailStoreOrderPickingUpdateForm from './retailstoreorderpicking/RetailStoreOrderPicking.updateform';
 import RetailStoreOrderShipmentBase from './retailstoreordershipment/RetailStoreOrderShipment.base';
@@ -806,6 +928,8 @@ import RetailStoreOrderShipmentSearchForm from './retailstoreordershipment/Retai
 import RetailStoreOrderShipmentCreateForm from './retailstoreordershipment/RetailStoreOrderShipment.createform';
 import RetailStoreOrderShipmentAssociateForm from './retailstoreordershipment/RetailStoreOrderShipment.associateform';
 import RetailStoreOrderShipmentTable from './retailstoreordershipment/RetailStoreOrderShipment.table';
+import RetailStoreOrderShipmentPermission from './retailstoreordershipment/RetailStoreOrderShipment.permission';
+import RetailStoreOrderShipmentProfile from './retailstoreordershipment/RetailStoreOrderShipment.profile';
 import RetailStoreOrderShipmentService from './retailstoreordershipment/RetailStoreOrderShipment.service';
 import RetailStoreOrderShipmentUpdateForm from './retailstoreordershipment/RetailStoreOrderShipment.updateform';
 import RetailStoreOrderDeliveryBase from './retailstoreorderdelivery/RetailStoreOrderDelivery.base';
@@ -819,6 +943,8 @@ import RetailStoreOrderDeliverySearchForm from './retailstoreorderdelivery/Retai
 import RetailStoreOrderDeliveryCreateForm from './retailstoreorderdelivery/RetailStoreOrderDelivery.createform';
 import RetailStoreOrderDeliveryAssociateForm from './retailstoreorderdelivery/RetailStoreOrderDelivery.associateform';
 import RetailStoreOrderDeliveryTable from './retailstoreorderdelivery/RetailStoreOrderDelivery.table';
+import RetailStoreOrderDeliveryPermission from './retailstoreorderdelivery/RetailStoreOrderDelivery.permission';
+import RetailStoreOrderDeliveryProfile from './retailstoreorderdelivery/RetailStoreOrderDelivery.profile';
 import RetailStoreOrderDeliveryService from './retailstoreorderdelivery/RetailStoreOrderDelivery.service';
 import RetailStoreOrderDeliveryUpdateForm from './retailstoreorderdelivery/RetailStoreOrderDelivery.updateform';
 import RetailStoreOrderLineItemBase from './retailstoreorderlineitem/RetailStoreOrderLineItem.base';
@@ -832,6 +958,8 @@ import RetailStoreOrderLineItemSearchForm from './retailstoreorderlineitem/Retai
 import RetailStoreOrderLineItemCreateForm from './retailstoreorderlineitem/RetailStoreOrderLineItem.createform';
 import RetailStoreOrderLineItemAssociateForm from './retailstoreorderlineitem/RetailStoreOrderLineItem.associateform';
 import RetailStoreOrderLineItemTable from './retailstoreorderlineitem/RetailStoreOrderLineItem.table';
+import RetailStoreOrderLineItemPermission from './retailstoreorderlineitem/RetailStoreOrderLineItem.permission';
+import RetailStoreOrderLineItemProfile from './retailstoreorderlineitem/RetailStoreOrderLineItem.profile';
 import RetailStoreOrderLineItemService from './retailstoreorderlineitem/RetailStoreOrderLineItem.service';
 import RetailStoreOrderLineItemUpdateForm from './retailstoreorderlineitem/RetailStoreOrderLineItem.updateform';
 import RetailStoreOrderShippingGroupBase from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.base';
@@ -845,6 +973,8 @@ import RetailStoreOrderShippingGroupSearchForm from './retailstoreordershippingg
 import RetailStoreOrderShippingGroupCreateForm from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.createform';
 import RetailStoreOrderShippingGroupAssociateForm from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.associateform';
 import RetailStoreOrderShippingGroupTable from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.table';
+import RetailStoreOrderShippingGroupPermission from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.permission';
+import RetailStoreOrderShippingGroupProfile from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.profile';
 import RetailStoreOrderShippingGroupService from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.service';
 import RetailStoreOrderShippingGroupUpdateForm from './retailstoreordershippinggroup/RetailStoreOrderShippingGroup.updateform';
 import RetailStoreOrderPaymentGroupBase from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.base';
@@ -858,6 +988,8 @@ import RetailStoreOrderPaymentGroupSearchForm from './retailstoreorderpaymentgro
 import RetailStoreOrderPaymentGroupCreateForm from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.createform';
 import RetailStoreOrderPaymentGroupAssociateForm from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.associateform';
 import RetailStoreOrderPaymentGroupTable from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.table';
+import RetailStoreOrderPaymentGroupPermission from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.permission';
+import RetailStoreOrderPaymentGroupProfile from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.profile';
 import RetailStoreOrderPaymentGroupService from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.service';
 import RetailStoreOrderPaymentGroupUpdateForm from './retailstoreorderpaymentgroup/RetailStoreOrderPaymentGroup.updateform';
 import WarehouseBase from './warehouse/Warehouse.base';
@@ -871,6 +1003,8 @@ import WarehouseSearchForm from './warehouse/Warehouse.searchform';
 import WarehouseCreateForm from './warehouse/Warehouse.createform';
 import WarehouseAssociateForm from './warehouse/Warehouse.associateform';
 import WarehouseTable from './warehouse/Warehouse.table';
+import WarehousePermission from './warehouse/Warehouse.permission';
+import WarehouseProfile from './warehouse/Warehouse.profile';
 import WarehouseService from './warehouse/Warehouse.service';
 import WarehouseUpdateForm from './warehouse/Warehouse.updateform';
 import StorageSpaceBase from './storagespace/StorageSpace.base';
@@ -884,6 +1018,8 @@ import StorageSpaceSearchForm from './storagespace/StorageSpace.searchform';
 import StorageSpaceCreateForm from './storagespace/StorageSpace.createform';
 import StorageSpaceAssociateForm from './storagespace/StorageSpace.associateform';
 import StorageSpaceTable from './storagespace/StorageSpace.table';
+import StorageSpacePermission from './storagespace/StorageSpace.permission';
+import StorageSpaceProfile from './storagespace/StorageSpace.profile';
 import StorageSpaceService from './storagespace/StorageSpace.service';
 import StorageSpaceUpdateForm from './storagespace/StorageSpace.updateform';
 import SmartPalletBase from './smartpallet/SmartPallet.base';
@@ -897,6 +1033,8 @@ import SmartPalletSearchForm from './smartpallet/SmartPallet.searchform';
 import SmartPalletCreateForm from './smartpallet/SmartPallet.createform';
 import SmartPalletAssociateForm from './smartpallet/SmartPallet.associateform';
 import SmartPalletTable from './smartpallet/SmartPallet.table';
+import SmartPalletPermission from './smartpallet/SmartPallet.permission';
+import SmartPalletProfile from './smartpallet/SmartPallet.profile';
 import SmartPalletService from './smartpallet/SmartPallet.service';
 import SmartPalletUpdateForm from './smartpallet/SmartPallet.updateform';
 import GoodsShelfBase from './goodsshelf/GoodsShelf.base';
@@ -910,6 +1048,8 @@ import GoodsShelfSearchForm from './goodsshelf/GoodsShelf.searchform';
 import GoodsShelfCreateForm from './goodsshelf/GoodsShelf.createform';
 import GoodsShelfAssociateForm from './goodsshelf/GoodsShelf.associateform';
 import GoodsShelfTable from './goodsshelf/GoodsShelf.table';
+import GoodsShelfPermission from './goodsshelf/GoodsShelf.permission';
+import GoodsShelfProfile from './goodsshelf/GoodsShelf.profile';
 import GoodsShelfService from './goodsshelf/GoodsShelf.service';
 import GoodsShelfUpdateForm from './goodsshelf/GoodsShelf.updateform';
 import GoodsShelfStockCountBase from './goodsshelfstockcount/GoodsShelfStockCount.base';
@@ -923,6 +1063,8 @@ import GoodsShelfStockCountSearchForm from './goodsshelfstockcount/GoodsShelfSto
 import GoodsShelfStockCountCreateForm from './goodsshelfstockcount/GoodsShelfStockCount.createform';
 import GoodsShelfStockCountAssociateForm from './goodsshelfstockcount/GoodsShelfStockCount.associateform';
 import GoodsShelfStockCountTable from './goodsshelfstockcount/GoodsShelfStockCount.table';
+import GoodsShelfStockCountPermission from './goodsshelfstockcount/GoodsShelfStockCount.permission';
+import GoodsShelfStockCountProfile from './goodsshelfstockcount/GoodsShelfStockCount.profile';
 import GoodsShelfStockCountService from './goodsshelfstockcount/GoodsShelfStockCount.service';
 import GoodsShelfStockCountUpdateForm from './goodsshelfstockcount/GoodsShelfStockCount.updateform';
 import StockCountIssueTrackBase from './stockcountissuetrack/StockCountIssueTrack.base';
@@ -936,6 +1078,8 @@ import StockCountIssueTrackSearchForm from './stockcountissuetrack/StockCountIss
 import StockCountIssueTrackCreateForm from './stockcountissuetrack/StockCountIssueTrack.createform';
 import StockCountIssueTrackAssociateForm from './stockcountissuetrack/StockCountIssueTrack.associateform';
 import StockCountIssueTrackTable from './stockcountissuetrack/StockCountIssueTrack.table';
+import StockCountIssueTrackPermission from './stockcountissuetrack/StockCountIssueTrack.permission';
+import StockCountIssueTrackProfile from './stockcountissuetrack/StockCountIssueTrack.profile';
 import StockCountIssueTrackService from './stockcountissuetrack/StockCountIssueTrack.service';
 import StockCountIssueTrackUpdateForm from './stockcountissuetrack/StockCountIssueTrack.updateform';
 import GoodsAllocationBase from './goodsallocation/GoodsAllocation.base';
@@ -949,6 +1093,8 @@ import GoodsAllocationSearchForm from './goodsallocation/GoodsAllocation.searchf
 import GoodsAllocationCreateForm from './goodsallocation/GoodsAllocation.createform';
 import GoodsAllocationAssociateForm from './goodsallocation/GoodsAllocation.associateform';
 import GoodsAllocationTable from './goodsallocation/GoodsAllocation.table';
+import GoodsAllocationPermission from './goodsallocation/GoodsAllocation.permission';
+import GoodsAllocationProfile from './goodsallocation/GoodsAllocation.profile';
 import GoodsAllocationService from './goodsallocation/GoodsAllocation.service';
 import GoodsAllocationUpdateForm from './goodsallocation/GoodsAllocation.updateform';
 import GoodsBase from './goods/Goods.base';
@@ -962,6 +1108,8 @@ import GoodsSearchForm from './goods/Goods.searchform';
 import GoodsCreateForm from './goods/Goods.createform';
 import GoodsAssociateForm from './goods/Goods.associateform';
 import GoodsTable from './goods/Goods.table';
+import GoodsPermission from './goods/Goods.permission';
+import GoodsProfile from './goods/Goods.profile';
 import GoodsService from './goods/Goods.service';
 import GoodsUpdateForm from './goods/Goods.updateform';
 import GoodsPackagingBase from './goodspackaging/GoodsPackaging.base';
@@ -975,6 +1123,8 @@ import GoodsPackagingSearchForm from './goodspackaging/GoodsPackaging.searchform
 import GoodsPackagingCreateForm from './goodspackaging/GoodsPackaging.createform';
 import GoodsPackagingAssociateForm from './goodspackaging/GoodsPackaging.associateform';
 import GoodsPackagingTable from './goodspackaging/GoodsPackaging.table';
+import GoodsPackagingPermission from './goodspackaging/GoodsPackaging.permission';
+import GoodsPackagingProfile from './goodspackaging/GoodsPackaging.profile';
 import GoodsPackagingService from './goodspackaging/GoodsPackaging.service';
 import GoodsPackagingUpdateForm from './goodspackaging/GoodsPackaging.updateform';
 import GoodsMovementBase from './goodsmovement/GoodsMovement.base';
@@ -988,6 +1138,8 @@ import GoodsMovementSearchForm from './goodsmovement/GoodsMovement.searchform';
 import GoodsMovementCreateForm from './goodsmovement/GoodsMovement.createform';
 import GoodsMovementAssociateForm from './goodsmovement/GoodsMovement.associateform';
 import GoodsMovementTable from './goodsmovement/GoodsMovement.table';
+import GoodsMovementPermission from './goodsmovement/GoodsMovement.permission';
+import GoodsMovementProfile from './goodsmovement/GoodsMovement.profile';
 import GoodsMovementService from './goodsmovement/GoodsMovement.service';
 import GoodsMovementUpdateForm from './goodsmovement/GoodsMovement.updateform';
 import SupplierSpaceBase from './supplierspace/SupplierSpace.base';
@@ -1001,6 +1153,8 @@ import SupplierSpaceSearchForm from './supplierspace/SupplierSpace.searchform';
 import SupplierSpaceCreateForm from './supplierspace/SupplierSpace.createform';
 import SupplierSpaceAssociateForm from './supplierspace/SupplierSpace.associateform';
 import SupplierSpaceTable from './supplierspace/SupplierSpace.table';
+import SupplierSpacePermission from './supplierspace/SupplierSpace.permission';
+import SupplierSpaceProfile from './supplierspace/SupplierSpace.profile';
 import SupplierSpaceService from './supplierspace/SupplierSpace.service';
 import SupplierSpaceUpdateForm from './supplierspace/SupplierSpace.updateform';
 import ReceivingSpaceBase from './receivingspace/ReceivingSpace.base';
@@ -1014,6 +1168,8 @@ import ReceivingSpaceSearchForm from './receivingspace/ReceivingSpace.searchform
 import ReceivingSpaceCreateForm from './receivingspace/ReceivingSpace.createform';
 import ReceivingSpaceAssociateForm from './receivingspace/ReceivingSpace.associateform';
 import ReceivingSpaceTable from './receivingspace/ReceivingSpace.table';
+import ReceivingSpacePermission from './receivingspace/ReceivingSpace.permission';
+import ReceivingSpaceProfile from './receivingspace/ReceivingSpace.profile';
 import ReceivingSpaceService from './receivingspace/ReceivingSpace.service';
 import ReceivingSpaceUpdateForm from './receivingspace/ReceivingSpace.updateform';
 import ShippingSpaceBase from './shippingspace/ShippingSpace.base';
@@ -1027,6 +1183,8 @@ import ShippingSpaceSearchForm from './shippingspace/ShippingSpace.searchform';
 import ShippingSpaceCreateForm from './shippingspace/ShippingSpace.createform';
 import ShippingSpaceAssociateForm from './shippingspace/ShippingSpace.associateform';
 import ShippingSpaceTable from './shippingspace/ShippingSpace.table';
+import ShippingSpacePermission from './shippingspace/ShippingSpace.permission';
+import ShippingSpaceProfile from './shippingspace/ShippingSpace.profile';
 import ShippingSpaceService from './shippingspace/ShippingSpace.service';
 import ShippingSpaceUpdateForm from './shippingspace/ShippingSpace.updateform';
 import DamageSpaceBase from './damagespace/DamageSpace.base';
@@ -1040,6 +1198,8 @@ import DamageSpaceSearchForm from './damagespace/DamageSpace.searchform';
 import DamageSpaceCreateForm from './damagespace/DamageSpace.createform';
 import DamageSpaceAssociateForm from './damagespace/DamageSpace.associateform';
 import DamageSpaceTable from './damagespace/DamageSpace.table';
+import DamageSpacePermission from './damagespace/DamageSpace.permission';
+import DamageSpaceProfile from './damagespace/DamageSpace.profile';
 import DamageSpaceService from './damagespace/DamageSpace.service';
 import DamageSpaceUpdateForm from './damagespace/DamageSpace.updateform';
 import WarehouseAssetBase from './warehouseasset/WarehouseAsset.base';
@@ -1053,6 +1213,8 @@ import WarehouseAssetSearchForm from './warehouseasset/WarehouseAsset.searchform
 import WarehouseAssetCreateForm from './warehouseasset/WarehouseAsset.createform';
 import WarehouseAssetAssociateForm from './warehouseasset/WarehouseAsset.associateform';
 import WarehouseAssetTable from './warehouseasset/WarehouseAsset.table';
+import WarehouseAssetPermission from './warehouseasset/WarehouseAsset.permission';
+import WarehouseAssetProfile from './warehouseasset/WarehouseAsset.profile';
 import WarehouseAssetService from './warehouseasset/WarehouseAsset.service';
 import WarehouseAssetUpdateForm from './warehouseasset/WarehouseAsset.updateform';
 import TransportFleetBase from './transportfleet/TransportFleet.base';
@@ -1066,6 +1228,8 @@ import TransportFleetSearchForm from './transportfleet/TransportFleet.searchform
 import TransportFleetCreateForm from './transportfleet/TransportFleet.createform';
 import TransportFleetAssociateForm from './transportfleet/TransportFleet.associateform';
 import TransportFleetTable from './transportfleet/TransportFleet.table';
+import TransportFleetPermission from './transportfleet/TransportFleet.permission';
+import TransportFleetProfile from './transportfleet/TransportFleet.profile';
 import TransportFleetService from './transportfleet/TransportFleet.service';
 import TransportFleetUpdateForm from './transportfleet/TransportFleet.updateform';
 import TransportTruckBase from './transporttruck/TransportTruck.base';
@@ -1079,6 +1243,8 @@ import TransportTruckSearchForm from './transporttruck/TransportTruck.searchform
 import TransportTruckCreateForm from './transporttruck/TransportTruck.createform';
 import TransportTruckAssociateForm from './transporttruck/TransportTruck.associateform';
 import TransportTruckTable from './transporttruck/TransportTruck.table';
+import TransportTruckPermission from './transporttruck/TransportTruck.permission';
+import TransportTruckProfile from './transporttruck/TransportTruck.profile';
 import TransportTruckService from './transporttruck/TransportTruck.service';
 import TransportTruckUpdateForm from './transporttruck/TransportTruck.updateform';
 import TruckDriverBase from './truckdriver/TruckDriver.base';
@@ -1092,6 +1258,8 @@ import TruckDriverSearchForm from './truckdriver/TruckDriver.searchform';
 import TruckDriverCreateForm from './truckdriver/TruckDriver.createform';
 import TruckDriverAssociateForm from './truckdriver/TruckDriver.associateform';
 import TruckDriverTable from './truckdriver/TruckDriver.table';
+import TruckDriverPermission from './truckdriver/TruckDriver.permission';
+import TruckDriverProfile from './truckdriver/TruckDriver.profile';
 import TruckDriverService from './truckdriver/TruckDriver.service';
 import TruckDriverUpdateForm from './truckdriver/TruckDriver.updateform';
 import TransportTaskBase from './transporttask/TransportTask.base';
@@ -1105,6 +1273,8 @@ import TransportTaskSearchForm from './transporttask/TransportTask.searchform';
 import TransportTaskCreateForm from './transporttask/TransportTask.createform';
 import TransportTaskAssociateForm from './transporttask/TransportTask.associateform';
 import TransportTaskTable from './transporttask/TransportTask.table';
+import TransportTaskPermission from './transporttask/TransportTask.permission';
+import TransportTaskProfile from './transporttask/TransportTask.profile';
 import TransportTaskService from './transporttask/TransportTask.service';
 import TransportTaskUpdateForm from './transporttask/TransportTask.updateform';
 import TransportTaskTrackBase from './transporttasktrack/TransportTaskTrack.base';
@@ -1118,6 +1288,8 @@ import TransportTaskTrackSearchForm from './transporttasktrack/TransportTaskTrac
 import TransportTaskTrackCreateForm from './transporttasktrack/TransportTaskTrack.createform';
 import TransportTaskTrackAssociateForm from './transporttasktrack/TransportTaskTrack.associateform';
 import TransportTaskTrackTable from './transporttasktrack/TransportTaskTrack.table';
+import TransportTaskTrackPermission from './transporttasktrack/TransportTaskTrack.permission';
+import TransportTaskTrackProfile from './transporttasktrack/TransportTaskTrack.profile';
 import TransportTaskTrackService from './transporttasktrack/TransportTaskTrack.service';
 import TransportTaskTrackUpdateForm from './transporttasktrack/TransportTaskTrack.updateform';
 import AccountSetBase from './accountset/AccountSet.base';
@@ -1131,6 +1303,8 @@ import AccountSetSearchForm from './accountset/AccountSet.searchform';
 import AccountSetCreateForm from './accountset/AccountSet.createform';
 import AccountSetAssociateForm from './accountset/AccountSet.associateform';
 import AccountSetTable from './accountset/AccountSet.table';
+import AccountSetPermission from './accountset/AccountSet.permission';
+import AccountSetProfile from './accountset/AccountSet.profile';
 import AccountSetService from './accountset/AccountSet.service';
 import AccountSetUpdateForm from './accountset/AccountSet.updateform';
 import AccountingSubjectBase from './accountingsubject/AccountingSubject.base';
@@ -1144,6 +1318,8 @@ import AccountingSubjectSearchForm from './accountingsubject/AccountingSubject.s
 import AccountingSubjectCreateForm from './accountingsubject/AccountingSubject.createform';
 import AccountingSubjectAssociateForm from './accountingsubject/AccountingSubject.associateform';
 import AccountingSubjectTable from './accountingsubject/AccountingSubject.table';
+import AccountingSubjectPermission from './accountingsubject/AccountingSubject.permission';
+import AccountingSubjectProfile from './accountingsubject/AccountingSubject.profile';
 import AccountingSubjectService from './accountingsubject/AccountingSubject.service';
 import AccountingSubjectUpdateForm from './accountingsubject/AccountingSubject.updateform';
 import AccountingPeriodBase from './accountingperiod/AccountingPeriod.base';
@@ -1157,6 +1333,8 @@ import AccountingPeriodSearchForm from './accountingperiod/AccountingPeriod.sear
 import AccountingPeriodCreateForm from './accountingperiod/AccountingPeriod.createform';
 import AccountingPeriodAssociateForm from './accountingperiod/AccountingPeriod.associateform';
 import AccountingPeriodTable from './accountingperiod/AccountingPeriod.table';
+import AccountingPeriodPermission from './accountingperiod/AccountingPeriod.permission';
+import AccountingPeriodProfile from './accountingperiod/AccountingPeriod.profile';
 import AccountingPeriodService from './accountingperiod/AccountingPeriod.service';
 import AccountingPeriodUpdateForm from './accountingperiod/AccountingPeriod.updateform';
 import AccountingDocumentTypeBase from './accountingdocumenttype/AccountingDocumentType.base';
@@ -1170,6 +1348,8 @@ import AccountingDocumentTypeSearchForm from './accountingdocumenttype/Accountin
 import AccountingDocumentTypeCreateForm from './accountingdocumenttype/AccountingDocumentType.createform';
 import AccountingDocumentTypeAssociateForm from './accountingdocumenttype/AccountingDocumentType.associateform';
 import AccountingDocumentTypeTable from './accountingdocumenttype/AccountingDocumentType.table';
+import AccountingDocumentTypePermission from './accountingdocumenttype/AccountingDocumentType.permission';
+import AccountingDocumentTypeProfile from './accountingdocumenttype/AccountingDocumentType.profile';
 import AccountingDocumentTypeService from './accountingdocumenttype/AccountingDocumentType.service';
 import AccountingDocumentTypeUpdateForm from './accountingdocumenttype/AccountingDocumentType.updateform';
 import AccountingDocumentBase from './accountingdocument/AccountingDocument.base';
@@ -1183,6 +1363,8 @@ import AccountingDocumentSearchForm from './accountingdocument/AccountingDocumen
 import AccountingDocumentCreateForm from './accountingdocument/AccountingDocument.createform';
 import AccountingDocumentAssociateForm from './accountingdocument/AccountingDocument.associateform';
 import AccountingDocumentTable from './accountingdocument/AccountingDocument.table';
+import AccountingDocumentPermission from './accountingdocument/AccountingDocument.permission';
+import AccountingDocumentProfile from './accountingdocument/AccountingDocument.profile';
 import AccountingDocumentService from './accountingdocument/AccountingDocument.service';
 import AccountingDocumentUpdateForm from './accountingdocument/AccountingDocument.updateform';
 import AccountingDocumentCreationBase from './accountingdocumentcreation/AccountingDocumentCreation.base';
@@ -1196,6 +1378,8 @@ import AccountingDocumentCreationSearchForm from './accountingdocumentcreation/A
 import AccountingDocumentCreationCreateForm from './accountingdocumentcreation/AccountingDocumentCreation.createform';
 import AccountingDocumentCreationAssociateForm from './accountingdocumentcreation/AccountingDocumentCreation.associateform';
 import AccountingDocumentCreationTable from './accountingdocumentcreation/AccountingDocumentCreation.table';
+import AccountingDocumentCreationPermission from './accountingdocumentcreation/AccountingDocumentCreation.permission';
+import AccountingDocumentCreationProfile from './accountingdocumentcreation/AccountingDocumentCreation.profile';
 import AccountingDocumentCreationService from './accountingdocumentcreation/AccountingDocumentCreation.service';
 import AccountingDocumentCreationUpdateForm from './accountingdocumentcreation/AccountingDocumentCreation.updateform';
 import AccountingDocumentConfirmationBase from './accountingdocumentconfirmation/AccountingDocumentConfirmation.base';
@@ -1209,6 +1393,8 @@ import AccountingDocumentConfirmationSearchForm from './accountingdocumentconfir
 import AccountingDocumentConfirmationCreateForm from './accountingdocumentconfirmation/AccountingDocumentConfirmation.createform';
 import AccountingDocumentConfirmationAssociateForm from './accountingdocumentconfirmation/AccountingDocumentConfirmation.associateform';
 import AccountingDocumentConfirmationTable from './accountingdocumentconfirmation/AccountingDocumentConfirmation.table';
+import AccountingDocumentConfirmationPermission from './accountingdocumentconfirmation/AccountingDocumentConfirmation.permission';
+import AccountingDocumentConfirmationProfile from './accountingdocumentconfirmation/AccountingDocumentConfirmation.profile';
 import AccountingDocumentConfirmationService from './accountingdocumentconfirmation/AccountingDocumentConfirmation.service';
 import AccountingDocumentConfirmationUpdateForm from './accountingdocumentconfirmation/AccountingDocumentConfirmation.updateform';
 import AccountingDocumentAuditingBase from './accountingdocumentauditing/AccountingDocumentAuditing.base';
@@ -1222,6 +1408,8 @@ import AccountingDocumentAuditingSearchForm from './accountingdocumentauditing/A
 import AccountingDocumentAuditingCreateForm from './accountingdocumentauditing/AccountingDocumentAuditing.createform';
 import AccountingDocumentAuditingAssociateForm from './accountingdocumentauditing/AccountingDocumentAuditing.associateform';
 import AccountingDocumentAuditingTable from './accountingdocumentauditing/AccountingDocumentAuditing.table';
+import AccountingDocumentAuditingPermission from './accountingdocumentauditing/AccountingDocumentAuditing.permission';
+import AccountingDocumentAuditingProfile from './accountingdocumentauditing/AccountingDocumentAuditing.profile';
 import AccountingDocumentAuditingService from './accountingdocumentauditing/AccountingDocumentAuditing.service';
 import AccountingDocumentAuditingUpdateForm from './accountingdocumentauditing/AccountingDocumentAuditing.updateform';
 import AccountingDocumentPostingBase from './accountingdocumentposting/AccountingDocumentPosting.base';
@@ -1235,6 +1423,8 @@ import AccountingDocumentPostingSearchForm from './accountingdocumentposting/Acc
 import AccountingDocumentPostingCreateForm from './accountingdocumentposting/AccountingDocumentPosting.createform';
 import AccountingDocumentPostingAssociateForm from './accountingdocumentposting/AccountingDocumentPosting.associateform';
 import AccountingDocumentPostingTable from './accountingdocumentposting/AccountingDocumentPosting.table';
+import AccountingDocumentPostingPermission from './accountingdocumentposting/AccountingDocumentPosting.permission';
+import AccountingDocumentPostingProfile from './accountingdocumentposting/AccountingDocumentPosting.profile';
 import AccountingDocumentPostingService from './accountingdocumentposting/AccountingDocumentPosting.service';
 import AccountingDocumentPostingUpdateForm from './accountingdocumentposting/AccountingDocumentPosting.updateform';
 import OriginalVoucherBase from './originalvoucher/OriginalVoucher.base';
@@ -1248,6 +1438,8 @@ import OriginalVoucherSearchForm from './originalvoucher/OriginalVoucher.searchf
 import OriginalVoucherCreateForm from './originalvoucher/OriginalVoucher.createform';
 import OriginalVoucherAssociateForm from './originalvoucher/OriginalVoucher.associateform';
 import OriginalVoucherTable from './originalvoucher/OriginalVoucher.table';
+import OriginalVoucherPermission from './originalvoucher/OriginalVoucher.permission';
+import OriginalVoucherProfile from './originalvoucher/OriginalVoucher.profile';
 import OriginalVoucherService from './originalvoucher/OriginalVoucher.service';
 import OriginalVoucherUpdateForm from './originalvoucher/OriginalVoucher.updateform';
 import OriginalVoucherCreationBase from './originalvouchercreation/OriginalVoucherCreation.base';
@@ -1261,6 +1453,8 @@ import OriginalVoucherCreationSearchForm from './originalvouchercreation/Origina
 import OriginalVoucherCreationCreateForm from './originalvouchercreation/OriginalVoucherCreation.createform';
 import OriginalVoucherCreationAssociateForm from './originalvouchercreation/OriginalVoucherCreation.associateform';
 import OriginalVoucherCreationTable from './originalvouchercreation/OriginalVoucherCreation.table';
+import OriginalVoucherCreationPermission from './originalvouchercreation/OriginalVoucherCreation.permission';
+import OriginalVoucherCreationProfile from './originalvouchercreation/OriginalVoucherCreation.profile';
 import OriginalVoucherCreationService from './originalvouchercreation/OriginalVoucherCreation.service';
 import OriginalVoucherCreationUpdateForm from './originalvouchercreation/OriginalVoucherCreation.updateform';
 import OriginalVoucherConfirmationBase from './originalvoucherconfirmation/OriginalVoucherConfirmation.base';
@@ -1274,6 +1468,8 @@ import OriginalVoucherConfirmationSearchForm from './originalvoucherconfirmation
 import OriginalVoucherConfirmationCreateForm from './originalvoucherconfirmation/OriginalVoucherConfirmation.createform';
 import OriginalVoucherConfirmationAssociateForm from './originalvoucherconfirmation/OriginalVoucherConfirmation.associateform';
 import OriginalVoucherConfirmationTable from './originalvoucherconfirmation/OriginalVoucherConfirmation.table';
+import OriginalVoucherConfirmationPermission from './originalvoucherconfirmation/OriginalVoucherConfirmation.permission';
+import OriginalVoucherConfirmationProfile from './originalvoucherconfirmation/OriginalVoucherConfirmation.profile';
 import OriginalVoucherConfirmationService from './originalvoucherconfirmation/OriginalVoucherConfirmation.service';
 import OriginalVoucherConfirmationUpdateForm from './originalvoucherconfirmation/OriginalVoucherConfirmation.updateform';
 import OriginalVoucherAuditingBase from './originalvoucherauditing/OriginalVoucherAuditing.base';
@@ -1287,6 +1483,8 @@ import OriginalVoucherAuditingSearchForm from './originalvoucherauditing/Origina
 import OriginalVoucherAuditingCreateForm from './originalvoucherauditing/OriginalVoucherAuditing.createform';
 import OriginalVoucherAuditingAssociateForm from './originalvoucherauditing/OriginalVoucherAuditing.associateform';
 import OriginalVoucherAuditingTable from './originalvoucherauditing/OriginalVoucherAuditing.table';
+import OriginalVoucherAuditingPermission from './originalvoucherauditing/OriginalVoucherAuditing.permission';
+import OriginalVoucherAuditingProfile from './originalvoucherauditing/OriginalVoucherAuditing.profile';
 import OriginalVoucherAuditingService from './originalvoucherauditing/OriginalVoucherAuditing.service';
 import OriginalVoucherAuditingUpdateForm from './originalvoucherauditing/OriginalVoucherAuditing.updateform';
 import AccountingDocumentLineBase from './accountingdocumentline/AccountingDocumentLine.base';
@@ -1300,6 +1498,8 @@ import AccountingDocumentLineSearchForm from './accountingdocumentline/Accountin
 import AccountingDocumentLineCreateForm from './accountingdocumentline/AccountingDocumentLine.createform';
 import AccountingDocumentLineAssociateForm from './accountingdocumentline/AccountingDocumentLine.associateform';
 import AccountingDocumentLineTable from './accountingdocumentline/AccountingDocumentLine.table';
+import AccountingDocumentLinePermission from './accountingdocumentline/AccountingDocumentLine.permission';
+import AccountingDocumentLineProfile from './accountingdocumentline/AccountingDocumentLine.profile';
 import AccountingDocumentLineService from './accountingdocumentline/AccountingDocumentLine.service';
 import AccountingDocumentLineUpdateForm from './accountingdocumentline/AccountingDocumentLine.updateform';
 import LevelOneDepartmentBase from './levelonedepartment/LevelOneDepartment.base';
@@ -1313,6 +1513,8 @@ import LevelOneDepartmentSearchForm from './levelonedepartment/LevelOneDepartmen
 import LevelOneDepartmentCreateForm from './levelonedepartment/LevelOneDepartment.createform';
 import LevelOneDepartmentAssociateForm from './levelonedepartment/LevelOneDepartment.associateform';
 import LevelOneDepartmentTable from './levelonedepartment/LevelOneDepartment.table';
+import LevelOneDepartmentPermission from './levelonedepartment/LevelOneDepartment.permission';
+import LevelOneDepartmentProfile from './levelonedepartment/LevelOneDepartment.profile';
 import LevelOneDepartmentService from './levelonedepartment/LevelOneDepartment.service';
 import LevelOneDepartmentUpdateForm from './levelonedepartment/LevelOneDepartment.updateform';
 import LevelTwoDepartmentBase from './leveltwodepartment/LevelTwoDepartment.base';
@@ -1326,6 +1528,8 @@ import LevelTwoDepartmentSearchForm from './leveltwodepartment/LevelTwoDepartmen
 import LevelTwoDepartmentCreateForm from './leveltwodepartment/LevelTwoDepartment.createform';
 import LevelTwoDepartmentAssociateForm from './leveltwodepartment/LevelTwoDepartment.associateform';
 import LevelTwoDepartmentTable from './leveltwodepartment/LevelTwoDepartment.table';
+import LevelTwoDepartmentPermission from './leveltwodepartment/LevelTwoDepartment.permission';
+import LevelTwoDepartmentProfile from './leveltwodepartment/LevelTwoDepartment.profile';
 import LevelTwoDepartmentService from './leveltwodepartment/LevelTwoDepartment.service';
 import LevelTwoDepartmentUpdateForm from './leveltwodepartment/LevelTwoDepartment.updateform';
 import LevelThreeDepartmentBase from './levelthreedepartment/LevelThreeDepartment.base';
@@ -1339,6 +1543,8 @@ import LevelThreeDepartmentSearchForm from './levelthreedepartment/LevelThreeDep
 import LevelThreeDepartmentCreateForm from './levelthreedepartment/LevelThreeDepartment.createform';
 import LevelThreeDepartmentAssociateForm from './levelthreedepartment/LevelThreeDepartment.associateform';
 import LevelThreeDepartmentTable from './levelthreedepartment/LevelThreeDepartment.table';
+import LevelThreeDepartmentPermission from './levelthreedepartment/LevelThreeDepartment.permission';
+import LevelThreeDepartmentProfile from './levelthreedepartment/LevelThreeDepartment.profile';
 import LevelThreeDepartmentService from './levelthreedepartment/LevelThreeDepartment.service';
 import LevelThreeDepartmentUpdateForm from './levelthreedepartment/LevelThreeDepartment.updateform';
 import SkillTypeBase from './skilltype/SkillType.base';
@@ -1352,6 +1558,8 @@ import SkillTypeSearchForm from './skilltype/SkillType.searchform';
 import SkillTypeCreateForm from './skilltype/SkillType.createform';
 import SkillTypeAssociateForm from './skilltype/SkillType.associateform';
 import SkillTypeTable from './skilltype/SkillType.table';
+import SkillTypePermission from './skilltype/SkillType.permission';
+import SkillTypeProfile from './skilltype/SkillType.profile';
 import SkillTypeService from './skilltype/SkillType.service';
 import SkillTypeUpdateForm from './skilltype/SkillType.updateform';
 import ResponsibilityTypeBase from './responsibilitytype/ResponsibilityType.base';
@@ -1365,6 +1573,8 @@ import ResponsibilityTypeSearchForm from './responsibilitytype/ResponsibilityTyp
 import ResponsibilityTypeCreateForm from './responsibilitytype/ResponsibilityType.createform';
 import ResponsibilityTypeAssociateForm from './responsibilitytype/ResponsibilityType.associateform';
 import ResponsibilityTypeTable from './responsibilitytype/ResponsibilityType.table';
+import ResponsibilityTypePermission from './responsibilitytype/ResponsibilityType.permission';
+import ResponsibilityTypeProfile from './responsibilitytype/ResponsibilityType.profile';
 import ResponsibilityTypeService from './responsibilitytype/ResponsibilityType.service';
 import ResponsibilityTypeUpdateForm from './responsibilitytype/ResponsibilityType.updateform';
 import TerminationReasonBase from './terminationreason/TerminationReason.base';
@@ -1378,6 +1588,8 @@ import TerminationReasonSearchForm from './terminationreason/TerminationReason.s
 import TerminationReasonCreateForm from './terminationreason/TerminationReason.createform';
 import TerminationReasonAssociateForm from './terminationreason/TerminationReason.associateform';
 import TerminationReasonTable from './terminationreason/TerminationReason.table';
+import TerminationReasonPermission from './terminationreason/TerminationReason.permission';
+import TerminationReasonProfile from './terminationreason/TerminationReason.profile';
 import TerminationReasonService from './terminationreason/TerminationReason.service';
 import TerminationReasonUpdateForm from './terminationreason/TerminationReason.updateform';
 import TerminationTypeBase from './terminationtype/TerminationType.base';
@@ -1391,6 +1603,8 @@ import TerminationTypeSearchForm from './terminationtype/TerminationType.searchf
 import TerminationTypeCreateForm from './terminationtype/TerminationType.createform';
 import TerminationTypeAssociateForm from './terminationtype/TerminationType.associateform';
 import TerminationTypeTable from './terminationtype/TerminationType.table';
+import TerminationTypePermission from './terminationtype/TerminationType.permission';
+import TerminationTypeProfile from './terminationtype/TerminationType.profile';
 import TerminationTypeService from './terminationtype/TerminationType.service';
 import TerminationTypeUpdateForm from './terminationtype/TerminationType.updateform';
 import OccupationTypeBase from './occupationtype/OccupationType.base';
@@ -1404,6 +1618,8 @@ import OccupationTypeSearchForm from './occupationtype/OccupationType.searchform
 import OccupationTypeCreateForm from './occupationtype/OccupationType.createform';
 import OccupationTypeAssociateForm from './occupationtype/OccupationType.associateform';
 import OccupationTypeTable from './occupationtype/OccupationType.table';
+import OccupationTypePermission from './occupationtype/OccupationType.permission';
+import OccupationTypeProfile from './occupationtype/OccupationType.profile';
 import OccupationTypeService from './occupationtype/OccupationType.service';
 import OccupationTypeUpdateForm from './occupationtype/OccupationType.updateform';
 import LeaveTypeBase from './leavetype/LeaveType.base';
@@ -1417,6 +1633,8 @@ import LeaveTypeSearchForm from './leavetype/LeaveType.searchform';
 import LeaveTypeCreateForm from './leavetype/LeaveType.createform';
 import LeaveTypeAssociateForm from './leavetype/LeaveType.associateform';
 import LeaveTypeTable from './leavetype/LeaveType.table';
+import LeaveTypePermission from './leavetype/LeaveType.permission';
+import LeaveTypeProfile from './leavetype/LeaveType.profile';
 import LeaveTypeService from './leavetype/LeaveType.service';
 import LeaveTypeUpdateForm from './leavetype/LeaveType.updateform';
 import SalaryGradeBase from './salarygrade/SalaryGrade.base';
@@ -1430,6 +1648,8 @@ import SalaryGradeSearchForm from './salarygrade/SalaryGrade.searchform';
 import SalaryGradeCreateForm from './salarygrade/SalaryGrade.createform';
 import SalaryGradeAssociateForm from './salarygrade/SalaryGrade.associateform';
 import SalaryGradeTable from './salarygrade/SalaryGrade.table';
+import SalaryGradePermission from './salarygrade/SalaryGrade.permission';
+import SalaryGradeProfile from './salarygrade/SalaryGrade.profile';
 import SalaryGradeService from './salarygrade/SalaryGrade.service';
 import SalaryGradeUpdateForm from './salarygrade/SalaryGrade.updateform';
 import InterviewTypeBase from './interviewtype/InterviewType.base';
@@ -1443,6 +1663,8 @@ import InterviewTypeSearchForm from './interviewtype/InterviewType.searchform';
 import InterviewTypeCreateForm from './interviewtype/InterviewType.createform';
 import InterviewTypeAssociateForm from './interviewtype/InterviewType.associateform';
 import InterviewTypeTable from './interviewtype/InterviewType.table';
+import InterviewTypePermission from './interviewtype/InterviewType.permission';
+import InterviewTypeProfile from './interviewtype/InterviewType.profile';
 import InterviewTypeService from './interviewtype/InterviewType.service';
 import InterviewTypeUpdateForm from './interviewtype/InterviewType.updateform';
 import TrainingCourseTypeBase from './trainingcoursetype/TrainingCourseType.base';
@@ -1456,6 +1678,8 @@ import TrainingCourseTypeSearchForm from './trainingcoursetype/TrainingCourseTyp
 import TrainingCourseTypeCreateForm from './trainingcoursetype/TrainingCourseType.createform';
 import TrainingCourseTypeAssociateForm from './trainingcoursetype/TrainingCourseType.associateform';
 import TrainingCourseTypeTable from './trainingcoursetype/TrainingCourseType.table';
+import TrainingCourseTypePermission from './trainingcoursetype/TrainingCourseType.permission';
+import TrainingCourseTypeProfile from './trainingcoursetype/TrainingCourseType.profile';
 import TrainingCourseTypeService from './trainingcoursetype/TrainingCourseType.service';
 import TrainingCourseTypeUpdateForm from './trainingcoursetype/TrainingCourseType.updateform';
 import PublicHolidayBase from './publicholiday/PublicHoliday.base';
@@ -1469,6 +1693,8 @@ import PublicHolidaySearchForm from './publicholiday/PublicHoliday.searchform';
 import PublicHolidayCreateForm from './publicholiday/PublicHoliday.createform';
 import PublicHolidayAssociateForm from './publicholiday/PublicHoliday.associateform';
 import PublicHolidayTable from './publicholiday/PublicHoliday.table';
+import PublicHolidayPermission from './publicholiday/PublicHoliday.permission';
+import PublicHolidayProfile from './publicholiday/PublicHoliday.profile';
 import PublicHolidayService from './publicholiday/PublicHoliday.service';
 import PublicHolidayUpdateForm from './publicholiday/PublicHoliday.updateform';
 import TerminationBase from './termination/Termination.base';
@@ -1482,6 +1708,8 @@ import TerminationSearchForm from './termination/Termination.searchform';
 import TerminationCreateForm from './termination/Termination.createform';
 import TerminationAssociateForm from './termination/Termination.associateform';
 import TerminationTable from './termination/Termination.table';
+import TerminationPermission from './termination/Termination.permission';
+import TerminationProfile from './termination/Termination.profile';
 import TerminationService from './termination/Termination.service';
 import TerminationUpdateForm from './termination/Termination.updateform';
 import ViewBase from './view/View.base';
@@ -1495,6 +1723,8 @@ import ViewSearchForm from './view/View.searchform';
 import ViewCreateForm from './view/View.createform';
 import ViewAssociateForm from './view/View.associateform';
 import ViewTable from './view/View.table';
+import ViewPermission from './view/View.permission';
+import ViewProfile from './view/View.profile';
 import ViewService from './view/View.service';
 import ViewUpdateForm from './view/View.updateform';
 import EmployeeBase from './employee/Employee.base';
@@ -1508,6 +1738,8 @@ import EmployeeSearchForm from './employee/Employee.searchform';
 import EmployeeCreateForm from './employee/Employee.createform';
 import EmployeeAssociateForm from './employee/Employee.associateform';
 import EmployeeTable from './employee/Employee.table';
+import EmployeePermission from './employee/Employee.permission';
+import EmployeeProfile from './employee/Employee.profile';
 import EmployeeService from './employee/Employee.service';
 import EmployeeUpdateForm from './employee/Employee.updateform';
 import JobApplicationBase from './jobapplication/JobApplication.base';
@@ -1521,6 +1753,8 @@ import JobApplicationSearchForm from './jobapplication/JobApplication.searchform
 import JobApplicationCreateForm from './jobapplication/JobApplication.createform';
 import JobApplicationAssociateForm from './jobapplication/JobApplication.associateform';
 import JobApplicationTable from './jobapplication/JobApplication.table';
+import JobApplicationPermission from './jobapplication/JobApplication.permission';
+import JobApplicationProfile from './jobapplication/JobApplication.profile';
 import JobApplicationService from './jobapplication/JobApplication.service';
 import JobApplicationUpdateForm from './jobapplication/JobApplication.updateform';
 import ProfessionInterviewBase from './professioninterview/ProfessionInterview.base';
@@ -1534,6 +1768,8 @@ import ProfessionInterviewSearchForm from './professioninterview/ProfessionInter
 import ProfessionInterviewCreateForm from './professioninterview/ProfessionInterview.createform';
 import ProfessionInterviewAssociateForm from './professioninterview/ProfessionInterview.associateform';
 import ProfessionInterviewTable from './professioninterview/ProfessionInterview.table';
+import ProfessionInterviewPermission from './professioninterview/ProfessionInterview.permission';
+import ProfessionInterviewProfile from './professioninterview/ProfessionInterview.profile';
 import ProfessionInterviewService from './professioninterview/ProfessionInterview.service';
 import ProfessionInterviewUpdateForm from './professioninterview/ProfessionInterview.updateform';
 import HrInterviewBase from './hrinterview/HrInterview.base';
@@ -1547,6 +1783,8 @@ import HrInterviewSearchForm from './hrinterview/HrInterview.searchform';
 import HrInterviewCreateForm from './hrinterview/HrInterview.createform';
 import HrInterviewAssociateForm from './hrinterview/HrInterview.associateform';
 import HrInterviewTable from './hrinterview/HrInterview.table';
+import HrInterviewPermission from './hrinterview/HrInterview.permission';
+import HrInterviewProfile from './hrinterview/HrInterview.profile';
 import HrInterviewService from './hrinterview/HrInterview.service';
 import HrInterviewUpdateForm from './hrinterview/HrInterview.updateform';
 import OfferApprovalBase from './offerapproval/OfferApproval.base';
@@ -1560,6 +1798,8 @@ import OfferApprovalSearchForm from './offerapproval/OfferApproval.searchform';
 import OfferApprovalCreateForm from './offerapproval/OfferApproval.createform';
 import OfferApprovalAssociateForm from './offerapproval/OfferApproval.associateform';
 import OfferApprovalTable from './offerapproval/OfferApproval.table';
+import OfferApprovalPermission from './offerapproval/OfferApproval.permission';
+import OfferApprovalProfile from './offerapproval/OfferApproval.profile';
 import OfferApprovalService from './offerapproval/OfferApproval.service';
 import OfferApprovalUpdateForm from './offerapproval/OfferApproval.updateform';
 import OfferAcceptanceBase from './offeracceptance/OfferAcceptance.base';
@@ -1573,6 +1813,8 @@ import OfferAcceptanceSearchForm from './offeracceptance/OfferAcceptance.searchf
 import OfferAcceptanceCreateForm from './offeracceptance/OfferAcceptance.createform';
 import OfferAcceptanceAssociateForm from './offeracceptance/OfferAcceptance.associateform';
 import OfferAcceptanceTable from './offeracceptance/OfferAcceptance.table';
+import OfferAcceptancePermission from './offeracceptance/OfferAcceptance.permission';
+import OfferAcceptanceProfile from './offeracceptance/OfferAcceptance.profile';
 import OfferAcceptanceService from './offeracceptance/OfferAcceptance.service';
 import OfferAcceptanceUpdateForm from './offeracceptance/OfferAcceptance.updateform';
 import EmployeeBoardingBase from './employeeboarding/EmployeeBoarding.base';
@@ -1586,6 +1828,8 @@ import EmployeeBoardingSearchForm from './employeeboarding/EmployeeBoarding.sear
 import EmployeeBoardingCreateForm from './employeeboarding/EmployeeBoarding.createform';
 import EmployeeBoardingAssociateForm from './employeeboarding/EmployeeBoarding.associateform';
 import EmployeeBoardingTable from './employeeboarding/EmployeeBoarding.table';
+import EmployeeBoardingPermission from './employeeboarding/EmployeeBoarding.permission';
+import EmployeeBoardingProfile from './employeeboarding/EmployeeBoarding.profile';
 import EmployeeBoardingService from './employeeboarding/EmployeeBoarding.service';
 import EmployeeBoardingUpdateForm from './employeeboarding/EmployeeBoarding.updateform';
 import InstructorBase from './instructor/Instructor.base';
@@ -1599,6 +1843,8 @@ import InstructorSearchForm from './instructor/Instructor.searchform';
 import InstructorCreateForm from './instructor/Instructor.createform';
 import InstructorAssociateForm from './instructor/Instructor.associateform';
 import InstructorTable from './instructor/Instructor.table';
+import InstructorPermission from './instructor/Instructor.permission';
+import InstructorProfile from './instructor/Instructor.profile';
 import InstructorService from './instructor/Instructor.service';
 import InstructorUpdateForm from './instructor/Instructor.updateform';
 import CompanyTrainingBase from './companytraining/CompanyTraining.base';
@@ -1612,6 +1858,8 @@ import CompanyTrainingSearchForm from './companytraining/CompanyTraining.searchf
 import CompanyTrainingCreateForm from './companytraining/CompanyTraining.createform';
 import CompanyTrainingAssociateForm from './companytraining/CompanyTraining.associateform';
 import CompanyTrainingTable from './companytraining/CompanyTraining.table';
+import CompanyTrainingPermission from './companytraining/CompanyTraining.permission';
+import CompanyTrainingProfile from './companytraining/CompanyTraining.profile';
 import CompanyTrainingService from './companytraining/CompanyTraining.service';
 import CompanyTrainingUpdateForm from './companytraining/CompanyTraining.updateform';
 import ScoringBase from './scoring/Scoring.base';
@@ -1625,6 +1873,8 @@ import ScoringSearchForm from './scoring/Scoring.searchform';
 import ScoringCreateForm from './scoring/Scoring.createform';
 import ScoringAssociateForm from './scoring/Scoring.associateform';
 import ScoringTable from './scoring/Scoring.table';
+import ScoringPermission from './scoring/Scoring.permission';
+import ScoringProfile from './scoring/Scoring.profile';
 import ScoringService from './scoring/Scoring.service';
 import ScoringUpdateForm from './scoring/Scoring.updateform';
 import EmployeeCompanyTrainingBase from './employeecompanytraining/EmployeeCompanyTraining.base';
@@ -1638,6 +1888,8 @@ import EmployeeCompanyTrainingSearchForm from './employeecompanytraining/Employe
 import EmployeeCompanyTrainingCreateForm from './employeecompanytraining/EmployeeCompanyTraining.createform';
 import EmployeeCompanyTrainingAssociateForm from './employeecompanytraining/EmployeeCompanyTraining.associateform';
 import EmployeeCompanyTrainingTable from './employeecompanytraining/EmployeeCompanyTraining.table';
+import EmployeeCompanyTrainingPermission from './employeecompanytraining/EmployeeCompanyTraining.permission';
+import EmployeeCompanyTrainingProfile from './employeecompanytraining/EmployeeCompanyTraining.profile';
 import EmployeeCompanyTrainingService from './employeecompanytraining/EmployeeCompanyTraining.service';
 import EmployeeCompanyTrainingUpdateForm from './employeecompanytraining/EmployeeCompanyTraining.updateform';
 import EmployeeSkillBase from './employeeskill/EmployeeSkill.base';
@@ -1651,6 +1903,8 @@ import EmployeeSkillSearchForm from './employeeskill/EmployeeSkill.searchform';
 import EmployeeSkillCreateForm from './employeeskill/EmployeeSkill.createform';
 import EmployeeSkillAssociateForm from './employeeskill/EmployeeSkill.associateform';
 import EmployeeSkillTable from './employeeskill/EmployeeSkill.table';
+import EmployeeSkillPermission from './employeeskill/EmployeeSkill.permission';
+import EmployeeSkillProfile from './employeeskill/EmployeeSkill.profile';
 import EmployeeSkillService from './employeeskill/EmployeeSkill.service';
 import EmployeeSkillUpdateForm from './employeeskill/EmployeeSkill.updateform';
 import EmployeePerformanceBase from './employeeperformance/EmployeePerformance.base';
@@ -1664,6 +1918,8 @@ import EmployeePerformanceSearchForm from './employeeperformance/EmployeePerform
 import EmployeePerformanceCreateForm from './employeeperformance/EmployeePerformance.createform';
 import EmployeePerformanceAssociateForm from './employeeperformance/EmployeePerformance.associateform';
 import EmployeePerformanceTable from './employeeperformance/EmployeePerformance.table';
+import EmployeePerformancePermission from './employeeperformance/EmployeePerformance.permission';
+import EmployeePerformanceProfile from './employeeperformance/EmployeePerformance.profile';
 import EmployeePerformanceService from './employeeperformance/EmployeePerformance.service';
 import EmployeePerformanceUpdateForm from './employeeperformance/EmployeePerformance.updateform';
 import EmployeeWorkExperienceBase from './employeeworkexperience/EmployeeWorkExperience.base';
@@ -1677,6 +1933,8 @@ import EmployeeWorkExperienceSearchForm from './employeeworkexperience/EmployeeW
 import EmployeeWorkExperienceCreateForm from './employeeworkexperience/EmployeeWorkExperience.createform';
 import EmployeeWorkExperienceAssociateForm from './employeeworkexperience/EmployeeWorkExperience.associateform';
 import EmployeeWorkExperienceTable from './employeeworkexperience/EmployeeWorkExperience.table';
+import EmployeeWorkExperiencePermission from './employeeworkexperience/EmployeeWorkExperience.permission';
+import EmployeeWorkExperienceProfile from './employeeworkexperience/EmployeeWorkExperience.profile';
 import EmployeeWorkExperienceService from './employeeworkexperience/EmployeeWorkExperience.service';
 import EmployeeWorkExperienceUpdateForm from './employeeworkexperience/EmployeeWorkExperience.updateform';
 import EmployeeLeaveBase from './employeeleave/EmployeeLeave.base';
@@ -1690,6 +1948,8 @@ import EmployeeLeaveSearchForm from './employeeleave/EmployeeLeave.searchform';
 import EmployeeLeaveCreateForm from './employeeleave/EmployeeLeave.createform';
 import EmployeeLeaveAssociateForm from './employeeleave/EmployeeLeave.associateform';
 import EmployeeLeaveTable from './employeeleave/EmployeeLeave.table';
+import EmployeeLeavePermission from './employeeleave/EmployeeLeave.permission';
+import EmployeeLeaveProfile from './employeeleave/EmployeeLeave.profile';
 import EmployeeLeaveService from './employeeleave/EmployeeLeave.service';
 import EmployeeLeaveUpdateForm from './employeeleave/EmployeeLeave.updateform';
 import EmployeeInterviewBase from './employeeinterview/EmployeeInterview.base';
@@ -1703,6 +1963,8 @@ import EmployeeInterviewSearchForm from './employeeinterview/EmployeeInterview.s
 import EmployeeInterviewCreateForm from './employeeinterview/EmployeeInterview.createform';
 import EmployeeInterviewAssociateForm from './employeeinterview/EmployeeInterview.associateform';
 import EmployeeInterviewTable from './employeeinterview/EmployeeInterview.table';
+import EmployeeInterviewPermission from './employeeinterview/EmployeeInterview.permission';
+import EmployeeInterviewProfile from './employeeinterview/EmployeeInterview.profile';
 import EmployeeInterviewService from './employeeinterview/EmployeeInterview.service';
 import EmployeeInterviewUpdateForm from './employeeinterview/EmployeeInterview.updateform';
 import EmployeeAttendanceBase from './employeeattendance/EmployeeAttendance.base';
@@ -1716,6 +1978,8 @@ import EmployeeAttendanceSearchForm from './employeeattendance/EmployeeAttendanc
 import EmployeeAttendanceCreateForm from './employeeattendance/EmployeeAttendance.createform';
 import EmployeeAttendanceAssociateForm from './employeeattendance/EmployeeAttendance.associateform';
 import EmployeeAttendanceTable from './employeeattendance/EmployeeAttendance.table';
+import EmployeeAttendancePermission from './employeeattendance/EmployeeAttendance.permission';
+import EmployeeAttendanceProfile from './employeeattendance/EmployeeAttendance.profile';
 import EmployeeAttendanceService from './employeeattendance/EmployeeAttendance.service';
 import EmployeeAttendanceUpdateForm from './employeeattendance/EmployeeAttendance.updateform';
 import EmployeeQualifierBase from './employeequalifier/EmployeeQualifier.base';
@@ -1729,6 +1993,8 @@ import EmployeeQualifierSearchForm from './employeequalifier/EmployeeQualifier.s
 import EmployeeQualifierCreateForm from './employeequalifier/EmployeeQualifier.createform';
 import EmployeeQualifierAssociateForm from './employeequalifier/EmployeeQualifier.associateform';
 import EmployeeQualifierTable from './employeequalifier/EmployeeQualifier.table';
+import EmployeeQualifierPermission from './employeequalifier/EmployeeQualifier.permission';
+import EmployeeQualifierProfile from './employeequalifier/EmployeeQualifier.profile';
 import EmployeeQualifierService from './employeequalifier/EmployeeQualifier.service';
 import EmployeeQualifierUpdateForm from './employeequalifier/EmployeeQualifier.updateform';
 import EmployeeEducationBase from './employeeeducation/EmployeeEducation.base';
@@ -1742,6 +2008,8 @@ import EmployeeEducationSearchForm from './employeeeducation/EmployeeEducation.s
 import EmployeeEducationCreateForm from './employeeeducation/EmployeeEducation.createform';
 import EmployeeEducationAssociateForm from './employeeeducation/EmployeeEducation.associateform';
 import EmployeeEducationTable from './employeeeducation/EmployeeEducation.table';
+import EmployeeEducationPermission from './employeeeducation/EmployeeEducation.permission';
+import EmployeeEducationProfile from './employeeeducation/EmployeeEducation.profile';
 import EmployeeEducationService from './employeeeducation/EmployeeEducation.service';
 import EmployeeEducationUpdateForm from './employeeeducation/EmployeeEducation.updateform';
 import EmployeeAwardBase from './employeeaward/EmployeeAward.base';
@@ -1755,6 +2023,8 @@ import EmployeeAwardSearchForm from './employeeaward/EmployeeAward.searchform';
 import EmployeeAwardCreateForm from './employeeaward/EmployeeAward.createform';
 import EmployeeAwardAssociateForm from './employeeaward/EmployeeAward.associateform';
 import EmployeeAwardTable from './employeeaward/EmployeeAward.table';
+import EmployeeAwardPermission from './employeeaward/EmployeeAward.permission';
+import EmployeeAwardProfile from './employeeaward/EmployeeAward.profile';
 import EmployeeAwardService from './employeeaward/EmployeeAward.service';
 import EmployeeAwardUpdateForm from './employeeaward/EmployeeAward.updateform';
 import EmployeeSalarySheetBase from './employeesalarysheet/EmployeeSalarySheet.base';
@@ -1768,6 +2038,8 @@ import EmployeeSalarySheetSearchForm from './employeesalarysheet/EmployeeSalaryS
 import EmployeeSalarySheetCreateForm from './employeesalarysheet/EmployeeSalarySheet.createform';
 import EmployeeSalarySheetAssociateForm from './employeesalarysheet/EmployeeSalarySheet.associateform';
 import EmployeeSalarySheetTable from './employeesalarysheet/EmployeeSalarySheet.table';
+import EmployeeSalarySheetPermission from './employeesalarysheet/EmployeeSalarySheet.permission';
+import EmployeeSalarySheetProfile from './employeesalarysheet/EmployeeSalarySheet.profile';
 import EmployeeSalarySheetService from './employeesalarysheet/EmployeeSalarySheet.service';
 import EmployeeSalarySheetUpdateForm from './employeesalarysheet/EmployeeSalarySheet.updateform';
 import PayingOffBase from './payingoff/PayingOff.base';
@@ -1781,6 +2053,8 @@ import PayingOffSearchForm from './payingoff/PayingOff.searchform';
 import PayingOffCreateForm from './payingoff/PayingOff.createform';
 import PayingOffAssociateForm from './payingoff/PayingOff.associateform';
 import PayingOffTable from './payingoff/PayingOff.table';
+import PayingOffPermission from './payingoff/PayingOff.permission';
+import PayingOffProfile from './payingoff/PayingOff.profile';
 import PayingOffService from './payingoff/PayingOff.service';
 import PayingOffUpdateForm from './payingoff/PayingOff.updateform';
 import UserDomainBase from './userdomain/UserDomain.base';
@@ -1794,6 +2068,8 @@ import UserDomainSearchForm from './userdomain/UserDomain.searchform';
 import UserDomainCreateForm from './userdomain/UserDomain.createform';
 import UserDomainAssociateForm from './userdomain/UserDomain.associateform';
 import UserDomainTable from './userdomain/UserDomain.table';
+import UserDomainPermission from './userdomain/UserDomain.permission';
+import UserDomainProfile from './userdomain/UserDomain.profile';
 import UserDomainService from './userdomain/UserDomain.service';
 import UserDomainUpdateForm from './userdomain/UserDomain.updateform';
 import UserWhiteListBase from './userwhitelist/UserWhiteList.base';
@@ -1807,6 +2083,8 @@ import UserWhiteListSearchForm from './userwhitelist/UserWhiteList.searchform';
 import UserWhiteListCreateForm from './userwhitelist/UserWhiteList.createform';
 import UserWhiteListAssociateForm from './userwhitelist/UserWhiteList.associateform';
 import UserWhiteListTable from './userwhitelist/UserWhiteList.table';
+import UserWhiteListPermission from './userwhitelist/UserWhiteList.permission';
+import UserWhiteListProfile from './userwhitelist/UserWhiteList.profile';
 import UserWhiteListService from './userwhitelist/UserWhiteList.service';
 import UserWhiteListUpdateForm from './userwhitelist/UserWhiteList.updateform';
 import SecUserBase from './secuser/SecUser.base';
@@ -1820,6 +2098,8 @@ import SecUserSearchForm from './secuser/SecUser.searchform';
 import SecUserCreateForm from './secuser/SecUser.createform';
 import SecUserAssociateForm from './secuser/SecUser.associateform';
 import SecUserTable from './secuser/SecUser.table';
+import SecUserPermission from './secuser/SecUser.permission';
+import SecUserProfile from './secuser/SecUser.profile';
 import SecUserService from './secuser/SecUser.service';
 import SecUserUpdateForm from './secuser/SecUser.updateform';
 import SecUserBlockingBase from './secuserblocking/SecUserBlocking.base';
@@ -1833,6 +2113,8 @@ import SecUserBlockingSearchForm from './secuserblocking/SecUserBlocking.searchf
 import SecUserBlockingCreateForm from './secuserblocking/SecUserBlocking.createform';
 import SecUserBlockingAssociateForm from './secuserblocking/SecUserBlocking.associateform';
 import SecUserBlockingTable from './secuserblocking/SecUserBlocking.table';
+import SecUserBlockingPermission from './secuserblocking/SecUserBlocking.permission';
+import SecUserBlockingProfile from './secuserblocking/SecUserBlocking.profile';
 import SecUserBlockingService from './secuserblocking/SecUserBlocking.service';
 import SecUserBlockingUpdateForm from './secuserblocking/SecUserBlocking.updateform';
 import UserAppBase from './userapp/UserApp.base';
@@ -1846,6 +2128,8 @@ import UserAppSearchForm from './userapp/UserApp.searchform';
 import UserAppCreateForm from './userapp/UserApp.createform';
 import UserAppAssociateForm from './userapp/UserApp.associateform';
 import UserAppTable from './userapp/UserApp.table';
+import UserAppPermission from './userapp/UserApp.permission';
+import UserAppProfile from './userapp/UserApp.profile';
 import UserAppService from './userapp/UserApp.service';
 import UserAppUpdateForm from './userapp/UserApp.updateform';
 import ListAccessBase from './listaccess/ListAccess.base';
@@ -1859,6 +2143,8 @@ import ListAccessSearchForm from './listaccess/ListAccess.searchform';
 import ListAccessCreateForm from './listaccess/ListAccess.createform';
 import ListAccessAssociateForm from './listaccess/ListAccess.associateform';
 import ListAccessTable from './listaccess/ListAccess.table';
+import ListAccessPermission from './listaccess/ListAccess.permission';
+import ListAccessProfile from './listaccess/ListAccess.profile';
 import ListAccessService from './listaccess/ListAccess.service';
 import ListAccessUpdateForm from './listaccess/ListAccess.updateform';
 import ObjectAccessBase from './objectaccess/ObjectAccess.base';
@@ -1872,6 +2158,8 @@ import ObjectAccessSearchForm from './objectaccess/ObjectAccess.searchform';
 import ObjectAccessCreateForm from './objectaccess/ObjectAccess.createform';
 import ObjectAccessAssociateForm from './objectaccess/ObjectAccess.associateform';
 import ObjectAccessTable from './objectaccess/ObjectAccess.table';
+import ObjectAccessPermission from './objectaccess/ObjectAccess.permission';
+import ObjectAccessProfile from './objectaccess/ObjectAccess.profile';
 import ObjectAccessService from './objectaccess/ObjectAccess.service';
 import ObjectAccessUpdateForm from './objectaccess/ObjectAccess.updateform';
 import LoginHistoryBase from './loginhistory/LoginHistory.base';
@@ -1885,6 +2173,8 @@ import LoginHistorySearchForm from './loginhistory/LoginHistory.searchform';
 import LoginHistoryCreateForm from './loginhistory/LoginHistory.createform';
 import LoginHistoryAssociateForm from './loginhistory/LoginHistory.associateform';
 import LoginHistoryTable from './loginhistory/LoginHistory.table';
+import LoginHistoryPermission from './loginhistory/LoginHistory.permission';
+import LoginHistoryProfile from './loginhistory/LoginHistory.profile';
 import LoginHistoryService from './loginhistory/LoginHistory.service';
 import LoginHistoryUpdateForm from './loginhistory/LoginHistory.updateform';
 
@@ -2418,6 +2708,8 @@ const OOTBComponents={
     RetailStoreCountryCenterCreateForm,
     RetailStoreCountryCenterAssociateForm,
     RetailStoreCountryCenterTable,
+    RetailStoreCountryCenterPermission,
+    RetailStoreCountryCenterProfile,
     RetailStoreCountryCenterService,
     RetailStoreCountryCenterUpdateForm,
     CatalogBase,
@@ -2431,6 +2723,8 @@ const OOTBComponents={
     CatalogCreateForm,
     CatalogAssociateForm,
     CatalogTable,
+    CatalogPermission,
+    CatalogProfile,
     CatalogService,
     CatalogUpdateForm,
     LevelOneCategoryBase,
@@ -2444,6 +2738,8 @@ const OOTBComponents={
     LevelOneCategoryCreateForm,
     LevelOneCategoryAssociateForm,
     LevelOneCategoryTable,
+    LevelOneCategoryPermission,
+    LevelOneCategoryProfile,
     LevelOneCategoryService,
     LevelOneCategoryUpdateForm,
     LevelTwoCategoryBase,
@@ -2457,6 +2753,8 @@ const OOTBComponents={
     LevelTwoCategoryCreateForm,
     LevelTwoCategoryAssociateForm,
     LevelTwoCategoryTable,
+    LevelTwoCategoryPermission,
+    LevelTwoCategoryProfile,
     LevelTwoCategoryService,
     LevelTwoCategoryUpdateForm,
     LevelThreeCategoryBase,
@@ -2470,6 +2768,8 @@ const OOTBComponents={
     LevelThreeCategoryCreateForm,
     LevelThreeCategoryAssociateForm,
     LevelThreeCategoryTable,
+    LevelThreeCategoryPermission,
+    LevelThreeCategoryProfile,
     LevelThreeCategoryService,
     LevelThreeCategoryUpdateForm,
     ProductBase,
@@ -2483,6 +2783,8 @@ const OOTBComponents={
     ProductCreateForm,
     ProductAssociateForm,
     ProductTable,
+    ProductPermission,
+    ProductProfile,
     ProductService,
     ProductUpdateForm,
     SkuBase,
@@ -2496,6 +2798,8 @@ const OOTBComponents={
     SkuCreateForm,
     SkuAssociateForm,
     SkuTable,
+    SkuPermission,
+    SkuProfile,
     SkuService,
     SkuUpdateForm,
     RetailStoreProvinceCenterBase,
@@ -2509,6 +2813,8 @@ const OOTBComponents={
     RetailStoreProvinceCenterCreateForm,
     RetailStoreProvinceCenterAssociateForm,
     RetailStoreProvinceCenterTable,
+    RetailStoreProvinceCenterPermission,
+    RetailStoreProvinceCenterProfile,
     RetailStoreProvinceCenterService,
     RetailStoreProvinceCenterUpdateForm,
     ProvinceCenterDepartmentBase,
@@ -2522,6 +2828,8 @@ const OOTBComponents={
     ProvinceCenterDepartmentCreateForm,
     ProvinceCenterDepartmentAssociateForm,
     ProvinceCenterDepartmentTable,
+    ProvinceCenterDepartmentPermission,
+    ProvinceCenterDepartmentProfile,
     ProvinceCenterDepartmentService,
     ProvinceCenterDepartmentUpdateForm,
     ProvinceCenterEmployeeBase,
@@ -2535,6 +2843,8 @@ const OOTBComponents={
     ProvinceCenterEmployeeCreateForm,
     ProvinceCenterEmployeeAssociateForm,
     ProvinceCenterEmployeeTable,
+    ProvinceCenterEmployeePermission,
+    ProvinceCenterEmployeeProfile,
     ProvinceCenterEmployeeService,
     ProvinceCenterEmployeeUpdateForm,
     RetailStoreCityServiceCenterBase,
@@ -2548,6 +2858,8 @@ const OOTBComponents={
     RetailStoreCityServiceCenterCreateForm,
     RetailStoreCityServiceCenterAssociateForm,
     RetailStoreCityServiceCenterTable,
+    RetailStoreCityServiceCenterPermission,
+    RetailStoreCityServiceCenterProfile,
     RetailStoreCityServiceCenterService,
     RetailStoreCityServiceCenterUpdateForm,
     CityPartnerBase,
@@ -2561,6 +2873,8 @@ const OOTBComponents={
     CityPartnerCreateForm,
     CityPartnerAssociateForm,
     CityPartnerTable,
+    CityPartnerPermission,
+    CityPartnerProfile,
     CityPartnerService,
     CityPartnerUpdateForm,
     PotentialCustomerBase,
@@ -2574,6 +2888,8 @@ const OOTBComponents={
     PotentialCustomerCreateForm,
     PotentialCustomerAssociateForm,
     PotentialCustomerTable,
+    PotentialCustomerPermission,
+    PotentialCustomerProfile,
     PotentialCustomerService,
     PotentialCustomerUpdateForm,
     PotentialCustomerContactPersonBase,
@@ -2587,6 +2903,8 @@ const OOTBComponents={
     PotentialCustomerContactPersonCreateForm,
     PotentialCustomerContactPersonAssociateForm,
     PotentialCustomerContactPersonTable,
+    PotentialCustomerContactPersonPermission,
+    PotentialCustomerContactPersonProfile,
     PotentialCustomerContactPersonService,
     PotentialCustomerContactPersonUpdateForm,
     PotentialCustomerContactBase,
@@ -2600,6 +2918,8 @@ const OOTBComponents={
     PotentialCustomerContactCreateForm,
     PotentialCustomerContactAssociateForm,
     PotentialCustomerContactTable,
+    PotentialCustomerContactPermission,
+    PotentialCustomerContactProfile,
     PotentialCustomerContactService,
     PotentialCustomerContactUpdateForm,
     CityEventBase,
@@ -2613,6 +2933,8 @@ const OOTBComponents={
     CityEventCreateForm,
     CityEventAssociateForm,
     CityEventTable,
+    CityEventPermission,
+    CityEventProfile,
     CityEventService,
     CityEventUpdateForm,
     EventAttendanceBase,
@@ -2626,6 +2948,8 @@ const OOTBComponents={
     EventAttendanceCreateForm,
     EventAttendanceAssociateForm,
     EventAttendanceTable,
+    EventAttendancePermission,
+    EventAttendanceProfile,
     EventAttendanceService,
     EventAttendanceUpdateForm,
     RetailStoreBase,
@@ -2639,6 +2963,8 @@ const OOTBComponents={
     RetailStoreCreateForm,
     RetailStoreAssociateForm,
     RetailStoreTable,
+    RetailStorePermission,
+    RetailStoreProfile,
     RetailStoreService,
     RetailStoreUpdateForm,
     RetailStoreCreationBase,
@@ -2652,6 +2978,8 @@ const OOTBComponents={
     RetailStoreCreationCreateForm,
     RetailStoreCreationAssociateForm,
     RetailStoreCreationTable,
+    RetailStoreCreationPermission,
+    RetailStoreCreationProfile,
     RetailStoreCreationService,
     RetailStoreCreationUpdateForm,
     RetailStoreInvestmentInvitationBase,
@@ -2665,6 +2993,8 @@ const OOTBComponents={
     RetailStoreInvestmentInvitationCreateForm,
     RetailStoreInvestmentInvitationAssociateForm,
     RetailStoreInvestmentInvitationTable,
+    RetailStoreInvestmentInvitationPermission,
+    RetailStoreInvestmentInvitationProfile,
     RetailStoreInvestmentInvitationService,
     RetailStoreInvestmentInvitationUpdateForm,
     RetailStoreFranchisingBase,
@@ -2678,6 +3008,8 @@ const OOTBComponents={
     RetailStoreFranchisingCreateForm,
     RetailStoreFranchisingAssociateForm,
     RetailStoreFranchisingTable,
+    RetailStoreFranchisingPermission,
+    RetailStoreFranchisingProfile,
     RetailStoreFranchisingService,
     RetailStoreFranchisingUpdateForm,
     RetailStoreDecorationBase,
@@ -2691,6 +3023,8 @@ const OOTBComponents={
     RetailStoreDecorationCreateForm,
     RetailStoreDecorationAssociateForm,
     RetailStoreDecorationTable,
+    RetailStoreDecorationPermission,
+    RetailStoreDecorationProfile,
     RetailStoreDecorationService,
     RetailStoreDecorationUpdateForm,
     RetailStoreOpeningBase,
@@ -2704,6 +3038,8 @@ const OOTBComponents={
     RetailStoreOpeningCreateForm,
     RetailStoreOpeningAssociateForm,
     RetailStoreOpeningTable,
+    RetailStoreOpeningPermission,
+    RetailStoreOpeningProfile,
     RetailStoreOpeningService,
     RetailStoreOpeningUpdateForm,
     RetailStoreClosingBase,
@@ -2717,6 +3053,8 @@ const OOTBComponents={
     RetailStoreClosingCreateForm,
     RetailStoreClosingAssociateForm,
     RetailStoreClosingTable,
+    RetailStoreClosingPermission,
+    RetailStoreClosingProfile,
     RetailStoreClosingService,
     RetailStoreClosingUpdateForm,
     RetailStoreMemberBase,
@@ -2730,6 +3068,8 @@ const OOTBComponents={
     RetailStoreMemberCreateForm,
     RetailStoreMemberAssociateForm,
     RetailStoreMemberTable,
+    RetailStoreMemberPermission,
+    RetailStoreMemberProfile,
     RetailStoreMemberService,
     RetailStoreMemberUpdateForm,
     ConsumerOrderBase,
@@ -2743,6 +3083,8 @@ const OOTBComponents={
     ConsumerOrderCreateForm,
     ConsumerOrderAssociateForm,
     ConsumerOrderTable,
+    ConsumerOrderPermission,
+    ConsumerOrderProfile,
     ConsumerOrderService,
     ConsumerOrderUpdateForm,
     ConsumerOrderConfirmationBase,
@@ -2756,6 +3098,8 @@ const OOTBComponents={
     ConsumerOrderConfirmationCreateForm,
     ConsumerOrderConfirmationAssociateForm,
     ConsumerOrderConfirmationTable,
+    ConsumerOrderConfirmationPermission,
+    ConsumerOrderConfirmationProfile,
     ConsumerOrderConfirmationService,
     ConsumerOrderConfirmationUpdateForm,
     ConsumerOrderApprovalBase,
@@ -2769,6 +3113,8 @@ const OOTBComponents={
     ConsumerOrderApprovalCreateForm,
     ConsumerOrderApprovalAssociateForm,
     ConsumerOrderApprovalTable,
+    ConsumerOrderApprovalPermission,
+    ConsumerOrderApprovalProfile,
     ConsumerOrderApprovalService,
     ConsumerOrderApprovalUpdateForm,
     ConsumerOrderProcessingBase,
@@ -2782,6 +3128,8 @@ const OOTBComponents={
     ConsumerOrderProcessingCreateForm,
     ConsumerOrderProcessingAssociateForm,
     ConsumerOrderProcessingTable,
+    ConsumerOrderProcessingPermission,
+    ConsumerOrderProcessingProfile,
     ConsumerOrderProcessingService,
     ConsumerOrderProcessingUpdateForm,
     ConsumerOrderShipmentBase,
@@ -2795,6 +3143,8 @@ const OOTBComponents={
     ConsumerOrderShipmentCreateForm,
     ConsumerOrderShipmentAssociateForm,
     ConsumerOrderShipmentTable,
+    ConsumerOrderShipmentPermission,
+    ConsumerOrderShipmentProfile,
     ConsumerOrderShipmentService,
     ConsumerOrderShipmentUpdateForm,
     ConsumerOrderDeliveryBase,
@@ -2808,6 +3158,8 @@ const OOTBComponents={
     ConsumerOrderDeliveryCreateForm,
     ConsumerOrderDeliveryAssociateForm,
     ConsumerOrderDeliveryTable,
+    ConsumerOrderDeliveryPermission,
+    ConsumerOrderDeliveryProfile,
     ConsumerOrderDeliveryService,
     ConsumerOrderDeliveryUpdateForm,
     ConsumerOrderLineItemBase,
@@ -2821,6 +3173,8 @@ const OOTBComponents={
     ConsumerOrderLineItemCreateForm,
     ConsumerOrderLineItemAssociateForm,
     ConsumerOrderLineItemTable,
+    ConsumerOrderLineItemPermission,
+    ConsumerOrderLineItemProfile,
     ConsumerOrderLineItemService,
     ConsumerOrderLineItemUpdateForm,
     ConsumerOrderShippingGroupBase,
@@ -2834,6 +3188,8 @@ const OOTBComponents={
     ConsumerOrderShippingGroupCreateForm,
     ConsumerOrderShippingGroupAssociateForm,
     ConsumerOrderShippingGroupTable,
+    ConsumerOrderShippingGroupPermission,
+    ConsumerOrderShippingGroupProfile,
     ConsumerOrderShippingGroupService,
     ConsumerOrderShippingGroupUpdateForm,
     ConsumerOrderPaymentGroupBase,
@@ -2847,6 +3203,8 @@ const OOTBComponents={
     ConsumerOrderPaymentGroupCreateForm,
     ConsumerOrderPaymentGroupAssociateForm,
     ConsumerOrderPaymentGroupTable,
+    ConsumerOrderPaymentGroupPermission,
+    ConsumerOrderPaymentGroupProfile,
     ConsumerOrderPaymentGroupService,
     ConsumerOrderPaymentGroupUpdateForm,
     ConsumerOrderPriceAdjustmentBase,
@@ -2860,6 +3218,8 @@ const OOTBComponents={
     ConsumerOrderPriceAdjustmentCreateForm,
     ConsumerOrderPriceAdjustmentAssociateForm,
     ConsumerOrderPriceAdjustmentTable,
+    ConsumerOrderPriceAdjustmentPermission,
+    ConsumerOrderPriceAdjustmentProfile,
     ConsumerOrderPriceAdjustmentService,
     ConsumerOrderPriceAdjustmentUpdateForm,
     RetailStoreMemberCouponBase,
@@ -2873,6 +3233,8 @@ const OOTBComponents={
     RetailStoreMemberCouponCreateForm,
     RetailStoreMemberCouponAssociateForm,
     RetailStoreMemberCouponTable,
+    RetailStoreMemberCouponPermission,
+    RetailStoreMemberCouponProfile,
     RetailStoreMemberCouponService,
     RetailStoreMemberCouponUpdateForm,
     MemberWishlistBase,
@@ -2886,6 +3248,8 @@ const OOTBComponents={
     MemberWishlistCreateForm,
     MemberWishlistAssociateForm,
     MemberWishlistTable,
+    MemberWishlistPermission,
+    MemberWishlistProfile,
     MemberWishlistService,
     MemberWishlistUpdateForm,
     MemberRewardPointBase,
@@ -2899,6 +3263,8 @@ const OOTBComponents={
     MemberRewardPointCreateForm,
     MemberRewardPointAssociateForm,
     MemberRewardPointTable,
+    MemberRewardPointPermission,
+    MemberRewardPointProfile,
     MemberRewardPointService,
     MemberRewardPointUpdateForm,
     MemberRewardPointRedemptionBase,
@@ -2912,6 +3278,8 @@ const OOTBComponents={
     MemberRewardPointRedemptionCreateForm,
     MemberRewardPointRedemptionAssociateForm,
     MemberRewardPointRedemptionTable,
+    MemberRewardPointRedemptionPermission,
+    MemberRewardPointRedemptionProfile,
     MemberRewardPointRedemptionService,
     MemberRewardPointRedemptionUpdateForm,
     MemberWishlistProductBase,
@@ -2925,6 +3293,8 @@ const OOTBComponents={
     MemberWishlistProductCreateForm,
     MemberWishlistProductAssociateForm,
     MemberWishlistProductTable,
+    MemberWishlistProductPermission,
+    MemberWishlistProductProfile,
     MemberWishlistProductService,
     MemberWishlistProductUpdateForm,
     RetailStoreMemberAddressBase,
@@ -2938,6 +3308,8 @@ const OOTBComponents={
     RetailStoreMemberAddressCreateForm,
     RetailStoreMemberAddressAssociateForm,
     RetailStoreMemberAddressTable,
+    RetailStoreMemberAddressPermission,
+    RetailStoreMemberAddressProfile,
     RetailStoreMemberAddressService,
     RetailStoreMemberAddressUpdateForm,
     RetailStoreMemberGiftCardBase,
@@ -2951,6 +3323,8 @@ const OOTBComponents={
     RetailStoreMemberGiftCardCreateForm,
     RetailStoreMemberGiftCardAssociateForm,
     RetailStoreMemberGiftCardTable,
+    RetailStoreMemberGiftCardPermission,
+    RetailStoreMemberGiftCardProfile,
     RetailStoreMemberGiftCardService,
     RetailStoreMemberGiftCardUpdateForm,
     RetailStoreMemberGiftCardConsumeRecordBase,
@@ -2964,6 +3338,8 @@ const OOTBComponents={
     RetailStoreMemberGiftCardConsumeRecordCreateForm,
     RetailStoreMemberGiftCardConsumeRecordAssociateForm,
     RetailStoreMemberGiftCardConsumeRecordTable,
+    RetailStoreMemberGiftCardConsumeRecordPermission,
+    RetailStoreMemberGiftCardConsumeRecordProfile,
     RetailStoreMemberGiftCardConsumeRecordService,
     RetailStoreMemberGiftCardConsumeRecordUpdateForm,
     GoodsSupplierBase,
@@ -2977,6 +3353,8 @@ const OOTBComponents={
     GoodsSupplierCreateForm,
     GoodsSupplierAssociateForm,
     GoodsSupplierTable,
+    GoodsSupplierPermission,
+    GoodsSupplierProfile,
     GoodsSupplierService,
     GoodsSupplierUpdateForm,
     SupplierProductBase,
@@ -2990,6 +3368,8 @@ const OOTBComponents={
     SupplierProductCreateForm,
     SupplierProductAssociateForm,
     SupplierProductTable,
+    SupplierProductPermission,
+    SupplierProductProfile,
     SupplierProductService,
     SupplierProductUpdateForm,
     ProductSupplyDurationBase,
@@ -3003,6 +3383,8 @@ const OOTBComponents={
     ProductSupplyDurationCreateForm,
     ProductSupplyDurationAssociateForm,
     ProductSupplyDurationTable,
+    ProductSupplyDurationPermission,
+    ProductSupplyDurationProfile,
     ProductSupplyDurationService,
     ProductSupplyDurationUpdateForm,
     SupplyOrderBase,
@@ -3016,6 +3398,8 @@ const OOTBComponents={
     SupplyOrderCreateForm,
     SupplyOrderAssociateForm,
     SupplyOrderTable,
+    SupplyOrderPermission,
+    SupplyOrderProfile,
     SupplyOrderService,
     SupplyOrderUpdateForm,
     SupplyOrderConfirmationBase,
@@ -3029,6 +3413,8 @@ const OOTBComponents={
     SupplyOrderConfirmationCreateForm,
     SupplyOrderConfirmationAssociateForm,
     SupplyOrderConfirmationTable,
+    SupplyOrderConfirmationPermission,
+    SupplyOrderConfirmationProfile,
     SupplyOrderConfirmationService,
     SupplyOrderConfirmationUpdateForm,
     SupplyOrderApprovalBase,
@@ -3042,6 +3428,8 @@ const OOTBComponents={
     SupplyOrderApprovalCreateForm,
     SupplyOrderApprovalAssociateForm,
     SupplyOrderApprovalTable,
+    SupplyOrderApprovalPermission,
+    SupplyOrderApprovalProfile,
     SupplyOrderApprovalService,
     SupplyOrderApprovalUpdateForm,
     SupplyOrderProcessingBase,
@@ -3055,6 +3443,8 @@ const OOTBComponents={
     SupplyOrderProcessingCreateForm,
     SupplyOrderProcessingAssociateForm,
     SupplyOrderProcessingTable,
+    SupplyOrderProcessingPermission,
+    SupplyOrderProcessingProfile,
     SupplyOrderProcessingService,
     SupplyOrderProcessingUpdateForm,
     SupplyOrderPickingBase,
@@ -3068,6 +3458,8 @@ const OOTBComponents={
     SupplyOrderPickingCreateForm,
     SupplyOrderPickingAssociateForm,
     SupplyOrderPickingTable,
+    SupplyOrderPickingPermission,
+    SupplyOrderPickingProfile,
     SupplyOrderPickingService,
     SupplyOrderPickingUpdateForm,
     SupplyOrderShipmentBase,
@@ -3081,6 +3473,8 @@ const OOTBComponents={
     SupplyOrderShipmentCreateForm,
     SupplyOrderShipmentAssociateForm,
     SupplyOrderShipmentTable,
+    SupplyOrderShipmentPermission,
+    SupplyOrderShipmentProfile,
     SupplyOrderShipmentService,
     SupplyOrderShipmentUpdateForm,
     SupplyOrderDeliveryBase,
@@ -3094,6 +3488,8 @@ const OOTBComponents={
     SupplyOrderDeliveryCreateForm,
     SupplyOrderDeliveryAssociateForm,
     SupplyOrderDeliveryTable,
+    SupplyOrderDeliveryPermission,
+    SupplyOrderDeliveryProfile,
     SupplyOrderDeliveryService,
     SupplyOrderDeliveryUpdateForm,
     SupplyOrderLineItemBase,
@@ -3107,6 +3503,8 @@ const OOTBComponents={
     SupplyOrderLineItemCreateForm,
     SupplyOrderLineItemAssociateForm,
     SupplyOrderLineItemTable,
+    SupplyOrderLineItemPermission,
+    SupplyOrderLineItemProfile,
     SupplyOrderLineItemService,
     SupplyOrderLineItemUpdateForm,
     SupplyOrderShippingGroupBase,
@@ -3120,6 +3518,8 @@ const OOTBComponents={
     SupplyOrderShippingGroupCreateForm,
     SupplyOrderShippingGroupAssociateForm,
     SupplyOrderShippingGroupTable,
+    SupplyOrderShippingGroupPermission,
+    SupplyOrderShippingGroupProfile,
     SupplyOrderShippingGroupService,
     SupplyOrderShippingGroupUpdateForm,
     SupplyOrderPaymentGroupBase,
@@ -3133,6 +3533,8 @@ const OOTBComponents={
     SupplyOrderPaymentGroupCreateForm,
     SupplyOrderPaymentGroupAssociateForm,
     SupplyOrderPaymentGroupTable,
+    SupplyOrderPaymentGroupPermission,
+    SupplyOrderPaymentGroupProfile,
     SupplyOrderPaymentGroupService,
     SupplyOrderPaymentGroupUpdateForm,
     RetailStoreOrderBase,
@@ -3146,6 +3548,8 @@ const OOTBComponents={
     RetailStoreOrderCreateForm,
     RetailStoreOrderAssociateForm,
     RetailStoreOrderTable,
+    RetailStoreOrderPermission,
+    RetailStoreOrderProfile,
     RetailStoreOrderService,
     RetailStoreOrderUpdateForm,
     RetailStoreOrderConfirmationBase,
@@ -3159,6 +3563,8 @@ const OOTBComponents={
     RetailStoreOrderConfirmationCreateForm,
     RetailStoreOrderConfirmationAssociateForm,
     RetailStoreOrderConfirmationTable,
+    RetailStoreOrderConfirmationPermission,
+    RetailStoreOrderConfirmationProfile,
     RetailStoreOrderConfirmationService,
     RetailStoreOrderConfirmationUpdateForm,
     RetailStoreOrderApprovalBase,
@@ -3172,6 +3578,8 @@ const OOTBComponents={
     RetailStoreOrderApprovalCreateForm,
     RetailStoreOrderApprovalAssociateForm,
     RetailStoreOrderApprovalTable,
+    RetailStoreOrderApprovalPermission,
+    RetailStoreOrderApprovalProfile,
     RetailStoreOrderApprovalService,
     RetailStoreOrderApprovalUpdateForm,
     RetailStoreOrderProcessingBase,
@@ -3185,6 +3593,8 @@ const OOTBComponents={
     RetailStoreOrderProcessingCreateForm,
     RetailStoreOrderProcessingAssociateForm,
     RetailStoreOrderProcessingTable,
+    RetailStoreOrderProcessingPermission,
+    RetailStoreOrderProcessingProfile,
     RetailStoreOrderProcessingService,
     RetailStoreOrderProcessingUpdateForm,
     RetailStoreOrderPickingBase,
@@ -3198,6 +3608,8 @@ const OOTBComponents={
     RetailStoreOrderPickingCreateForm,
     RetailStoreOrderPickingAssociateForm,
     RetailStoreOrderPickingTable,
+    RetailStoreOrderPickingPermission,
+    RetailStoreOrderPickingProfile,
     RetailStoreOrderPickingService,
     RetailStoreOrderPickingUpdateForm,
     RetailStoreOrderShipmentBase,
@@ -3211,6 +3623,8 @@ const OOTBComponents={
     RetailStoreOrderShipmentCreateForm,
     RetailStoreOrderShipmentAssociateForm,
     RetailStoreOrderShipmentTable,
+    RetailStoreOrderShipmentPermission,
+    RetailStoreOrderShipmentProfile,
     RetailStoreOrderShipmentService,
     RetailStoreOrderShipmentUpdateForm,
     RetailStoreOrderDeliveryBase,
@@ -3224,6 +3638,8 @@ const OOTBComponents={
     RetailStoreOrderDeliveryCreateForm,
     RetailStoreOrderDeliveryAssociateForm,
     RetailStoreOrderDeliveryTable,
+    RetailStoreOrderDeliveryPermission,
+    RetailStoreOrderDeliveryProfile,
     RetailStoreOrderDeliveryService,
     RetailStoreOrderDeliveryUpdateForm,
     RetailStoreOrderLineItemBase,
@@ -3237,6 +3653,8 @@ const OOTBComponents={
     RetailStoreOrderLineItemCreateForm,
     RetailStoreOrderLineItemAssociateForm,
     RetailStoreOrderLineItemTable,
+    RetailStoreOrderLineItemPermission,
+    RetailStoreOrderLineItemProfile,
     RetailStoreOrderLineItemService,
     RetailStoreOrderLineItemUpdateForm,
     RetailStoreOrderShippingGroupBase,
@@ -3250,6 +3668,8 @@ const OOTBComponents={
     RetailStoreOrderShippingGroupCreateForm,
     RetailStoreOrderShippingGroupAssociateForm,
     RetailStoreOrderShippingGroupTable,
+    RetailStoreOrderShippingGroupPermission,
+    RetailStoreOrderShippingGroupProfile,
     RetailStoreOrderShippingGroupService,
     RetailStoreOrderShippingGroupUpdateForm,
     RetailStoreOrderPaymentGroupBase,
@@ -3263,6 +3683,8 @@ const OOTBComponents={
     RetailStoreOrderPaymentGroupCreateForm,
     RetailStoreOrderPaymentGroupAssociateForm,
     RetailStoreOrderPaymentGroupTable,
+    RetailStoreOrderPaymentGroupPermission,
+    RetailStoreOrderPaymentGroupProfile,
     RetailStoreOrderPaymentGroupService,
     RetailStoreOrderPaymentGroupUpdateForm,
     WarehouseBase,
@@ -3276,6 +3698,8 @@ const OOTBComponents={
     WarehouseCreateForm,
     WarehouseAssociateForm,
     WarehouseTable,
+    WarehousePermission,
+    WarehouseProfile,
     WarehouseService,
     WarehouseUpdateForm,
     StorageSpaceBase,
@@ -3289,6 +3713,8 @@ const OOTBComponents={
     StorageSpaceCreateForm,
     StorageSpaceAssociateForm,
     StorageSpaceTable,
+    StorageSpacePermission,
+    StorageSpaceProfile,
     StorageSpaceService,
     StorageSpaceUpdateForm,
     SmartPalletBase,
@@ -3302,6 +3728,8 @@ const OOTBComponents={
     SmartPalletCreateForm,
     SmartPalletAssociateForm,
     SmartPalletTable,
+    SmartPalletPermission,
+    SmartPalletProfile,
     SmartPalletService,
     SmartPalletUpdateForm,
     GoodsShelfBase,
@@ -3315,6 +3743,8 @@ const OOTBComponents={
     GoodsShelfCreateForm,
     GoodsShelfAssociateForm,
     GoodsShelfTable,
+    GoodsShelfPermission,
+    GoodsShelfProfile,
     GoodsShelfService,
     GoodsShelfUpdateForm,
     GoodsShelfStockCountBase,
@@ -3328,6 +3758,8 @@ const OOTBComponents={
     GoodsShelfStockCountCreateForm,
     GoodsShelfStockCountAssociateForm,
     GoodsShelfStockCountTable,
+    GoodsShelfStockCountPermission,
+    GoodsShelfStockCountProfile,
     GoodsShelfStockCountService,
     GoodsShelfStockCountUpdateForm,
     StockCountIssueTrackBase,
@@ -3341,6 +3773,8 @@ const OOTBComponents={
     StockCountIssueTrackCreateForm,
     StockCountIssueTrackAssociateForm,
     StockCountIssueTrackTable,
+    StockCountIssueTrackPermission,
+    StockCountIssueTrackProfile,
     StockCountIssueTrackService,
     StockCountIssueTrackUpdateForm,
     GoodsAllocationBase,
@@ -3354,6 +3788,8 @@ const OOTBComponents={
     GoodsAllocationCreateForm,
     GoodsAllocationAssociateForm,
     GoodsAllocationTable,
+    GoodsAllocationPermission,
+    GoodsAllocationProfile,
     GoodsAllocationService,
     GoodsAllocationUpdateForm,
     GoodsBase,
@@ -3367,6 +3803,8 @@ const OOTBComponents={
     GoodsCreateForm,
     GoodsAssociateForm,
     GoodsTable,
+    GoodsPermission,
+    GoodsProfile,
     GoodsService,
     GoodsUpdateForm,
     GoodsPackagingBase,
@@ -3380,6 +3818,8 @@ const OOTBComponents={
     GoodsPackagingCreateForm,
     GoodsPackagingAssociateForm,
     GoodsPackagingTable,
+    GoodsPackagingPermission,
+    GoodsPackagingProfile,
     GoodsPackagingService,
     GoodsPackagingUpdateForm,
     GoodsMovementBase,
@@ -3393,6 +3833,8 @@ const OOTBComponents={
     GoodsMovementCreateForm,
     GoodsMovementAssociateForm,
     GoodsMovementTable,
+    GoodsMovementPermission,
+    GoodsMovementProfile,
     GoodsMovementService,
     GoodsMovementUpdateForm,
     SupplierSpaceBase,
@@ -3406,6 +3848,8 @@ const OOTBComponents={
     SupplierSpaceCreateForm,
     SupplierSpaceAssociateForm,
     SupplierSpaceTable,
+    SupplierSpacePermission,
+    SupplierSpaceProfile,
     SupplierSpaceService,
     SupplierSpaceUpdateForm,
     ReceivingSpaceBase,
@@ -3419,6 +3863,8 @@ const OOTBComponents={
     ReceivingSpaceCreateForm,
     ReceivingSpaceAssociateForm,
     ReceivingSpaceTable,
+    ReceivingSpacePermission,
+    ReceivingSpaceProfile,
     ReceivingSpaceService,
     ReceivingSpaceUpdateForm,
     ShippingSpaceBase,
@@ -3432,6 +3878,8 @@ const OOTBComponents={
     ShippingSpaceCreateForm,
     ShippingSpaceAssociateForm,
     ShippingSpaceTable,
+    ShippingSpacePermission,
+    ShippingSpaceProfile,
     ShippingSpaceService,
     ShippingSpaceUpdateForm,
     DamageSpaceBase,
@@ -3445,6 +3893,8 @@ const OOTBComponents={
     DamageSpaceCreateForm,
     DamageSpaceAssociateForm,
     DamageSpaceTable,
+    DamageSpacePermission,
+    DamageSpaceProfile,
     DamageSpaceService,
     DamageSpaceUpdateForm,
     WarehouseAssetBase,
@@ -3458,6 +3908,8 @@ const OOTBComponents={
     WarehouseAssetCreateForm,
     WarehouseAssetAssociateForm,
     WarehouseAssetTable,
+    WarehouseAssetPermission,
+    WarehouseAssetProfile,
     WarehouseAssetService,
     WarehouseAssetUpdateForm,
     TransportFleetBase,
@@ -3471,6 +3923,8 @@ const OOTBComponents={
     TransportFleetCreateForm,
     TransportFleetAssociateForm,
     TransportFleetTable,
+    TransportFleetPermission,
+    TransportFleetProfile,
     TransportFleetService,
     TransportFleetUpdateForm,
     TransportTruckBase,
@@ -3484,6 +3938,8 @@ const OOTBComponents={
     TransportTruckCreateForm,
     TransportTruckAssociateForm,
     TransportTruckTable,
+    TransportTruckPermission,
+    TransportTruckProfile,
     TransportTruckService,
     TransportTruckUpdateForm,
     TruckDriverBase,
@@ -3497,6 +3953,8 @@ const OOTBComponents={
     TruckDriverCreateForm,
     TruckDriverAssociateForm,
     TruckDriverTable,
+    TruckDriverPermission,
+    TruckDriverProfile,
     TruckDriverService,
     TruckDriverUpdateForm,
     TransportTaskBase,
@@ -3510,6 +3968,8 @@ const OOTBComponents={
     TransportTaskCreateForm,
     TransportTaskAssociateForm,
     TransportTaskTable,
+    TransportTaskPermission,
+    TransportTaskProfile,
     TransportTaskService,
     TransportTaskUpdateForm,
     TransportTaskTrackBase,
@@ -3523,6 +3983,8 @@ const OOTBComponents={
     TransportTaskTrackCreateForm,
     TransportTaskTrackAssociateForm,
     TransportTaskTrackTable,
+    TransportTaskTrackPermission,
+    TransportTaskTrackProfile,
     TransportTaskTrackService,
     TransportTaskTrackUpdateForm,
     AccountSetBase,
@@ -3536,6 +3998,8 @@ const OOTBComponents={
     AccountSetCreateForm,
     AccountSetAssociateForm,
     AccountSetTable,
+    AccountSetPermission,
+    AccountSetProfile,
     AccountSetService,
     AccountSetUpdateForm,
     AccountingSubjectBase,
@@ -3549,6 +4013,8 @@ const OOTBComponents={
     AccountingSubjectCreateForm,
     AccountingSubjectAssociateForm,
     AccountingSubjectTable,
+    AccountingSubjectPermission,
+    AccountingSubjectProfile,
     AccountingSubjectService,
     AccountingSubjectUpdateForm,
     AccountingPeriodBase,
@@ -3562,6 +4028,8 @@ const OOTBComponents={
     AccountingPeriodCreateForm,
     AccountingPeriodAssociateForm,
     AccountingPeriodTable,
+    AccountingPeriodPermission,
+    AccountingPeriodProfile,
     AccountingPeriodService,
     AccountingPeriodUpdateForm,
     AccountingDocumentTypeBase,
@@ -3575,6 +4043,8 @@ const OOTBComponents={
     AccountingDocumentTypeCreateForm,
     AccountingDocumentTypeAssociateForm,
     AccountingDocumentTypeTable,
+    AccountingDocumentTypePermission,
+    AccountingDocumentTypeProfile,
     AccountingDocumentTypeService,
     AccountingDocumentTypeUpdateForm,
     AccountingDocumentBase,
@@ -3588,6 +4058,8 @@ const OOTBComponents={
     AccountingDocumentCreateForm,
     AccountingDocumentAssociateForm,
     AccountingDocumentTable,
+    AccountingDocumentPermission,
+    AccountingDocumentProfile,
     AccountingDocumentService,
     AccountingDocumentUpdateForm,
     AccountingDocumentCreationBase,
@@ -3601,6 +4073,8 @@ const OOTBComponents={
     AccountingDocumentCreationCreateForm,
     AccountingDocumentCreationAssociateForm,
     AccountingDocumentCreationTable,
+    AccountingDocumentCreationPermission,
+    AccountingDocumentCreationProfile,
     AccountingDocumentCreationService,
     AccountingDocumentCreationUpdateForm,
     AccountingDocumentConfirmationBase,
@@ -3614,6 +4088,8 @@ const OOTBComponents={
     AccountingDocumentConfirmationCreateForm,
     AccountingDocumentConfirmationAssociateForm,
     AccountingDocumentConfirmationTable,
+    AccountingDocumentConfirmationPermission,
+    AccountingDocumentConfirmationProfile,
     AccountingDocumentConfirmationService,
     AccountingDocumentConfirmationUpdateForm,
     AccountingDocumentAuditingBase,
@@ -3627,6 +4103,8 @@ const OOTBComponents={
     AccountingDocumentAuditingCreateForm,
     AccountingDocumentAuditingAssociateForm,
     AccountingDocumentAuditingTable,
+    AccountingDocumentAuditingPermission,
+    AccountingDocumentAuditingProfile,
     AccountingDocumentAuditingService,
     AccountingDocumentAuditingUpdateForm,
     AccountingDocumentPostingBase,
@@ -3640,6 +4118,8 @@ const OOTBComponents={
     AccountingDocumentPostingCreateForm,
     AccountingDocumentPostingAssociateForm,
     AccountingDocumentPostingTable,
+    AccountingDocumentPostingPermission,
+    AccountingDocumentPostingProfile,
     AccountingDocumentPostingService,
     AccountingDocumentPostingUpdateForm,
     OriginalVoucherBase,
@@ -3653,6 +4133,8 @@ const OOTBComponents={
     OriginalVoucherCreateForm,
     OriginalVoucherAssociateForm,
     OriginalVoucherTable,
+    OriginalVoucherPermission,
+    OriginalVoucherProfile,
     OriginalVoucherService,
     OriginalVoucherUpdateForm,
     OriginalVoucherCreationBase,
@@ -3666,6 +4148,8 @@ const OOTBComponents={
     OriginalVoucherCreationCreateForm,
     OriginalVoucherCreationAssociateForm,
     OriginalVoucherCreationTable,
+    OriginalVoucherCreationPermission,
+    OriginalVoucherCreationProfile,
     OriginalVoucherCreationService,
     OriginalVoucherCreationUpdateForm,
     OriginalVoucherConfirmationBase,
@@ -3679,6 +4163,8 @@ const OOTBComponents={
     OriginalVoucherConfirmationCreateForm,
     OriginalVoucherConfirmationAssociateForm,
     OriginalVoucherConfirmationTable,
+    OriginalVoucherConfirmationPermission,
+    OriginalVoucherConfirmationProfile,
     OriginalVoucherConfirmationService,
     OriginalVoucherConfirmationUpdateForm,
     OriginalVoucherAuditingBase,
@@ -3692,6 +4178,8 @@ const OOTBComponents={
     OriginalVoucherAuditingCreateForm,
     OriginalVoucherAuditingAssociateForm,
     OriginalVoucherAuditingTable,
+    OriginalVoucherAuditingPermission,
+    OriginalVoucherAuditingProfile,
     OriginalVoucherAuditingService,
     OriginalVoucherAuditingUpdateForm,
     AccountingDocumentLineBase,
@@ -3705,6 +4193,8 @@ const OOTBComponents={
     AccountingDocumentLineCreateForm,
     AccountingDocumentLineAssociateForm,
     AccountingDocumentLineTable,
+    AccountingDocumentLinePermission,
+    AccountingDocumentLineProfile,
     AccountingDocumentLineService,
     AccountingDocumentLineUpdateForm,
     LevelOneDepartmentBase,
@@ -3718,6 +4208,8 @@ const OOTBComponents={
     LevelOneDepartmentCreateForm,
     LevelOneDepartmentAssociateForm,
     LevelOneDepartmentTable,
+    LevelOneDepartmentPermission,
+    LevelOneDepartmentProfile,
     LevelOneDepartmentService,
     LevelOneDepartmentUpdateForm,
     LevelTwoDepartmentBase,
@@ -3731,6 +4223,8 @@ const OOTBComponents={
     LevelTwoDepartmentCreateForm,
     LevelTwoDepartmentAssociateForm,
     LevelTwoDepartmentTable,
+    LevelTwoDepartmentPermission,
+    LevelTwoDepartmentProfile,
     LevelTwoDepartmentService,
     LevelTwoDepartmentUpdateForm,
     LevelThreeDepartmentBase,
@@ -3744,6 +4238,8 @@ const OOTBComponents={
     LevelThreeDepartmentCreateForm,
     LevelThreeDepartmentAssociateForm,
     LevelThreeDepartmentTable,
+    LevelThreeDepartmentPermission,
+    LevelThreeDepartmentProfile,
     LevelThreeDepartmentService,
     LevelThreeDepartmentUpdateForm,
     SkillTypeBase,
@@ -3757,6 +4253,8 @@ const OOTBComponents={
     SkillTypeCreateForm,
     SkillTypeAssociateForm,
     SkillTypeTable,
+    SkillTypePermission,
+    SkillTypeProfile,
     SkillTypeService,
     SkillTypeUpdateForm,
     ResponsibilityTypeBase,
@@ -3770,6 +4268,8 @@ const OOTBComponents={
     ResponsibilityTypeCreateForm,
     ResponsibilityTypeAssociateForm,
     ResponsibilityTypeTable,
+    ResponsibilityTypePermission,
+    ResponsibilityTypeProfile,
     ResponsibilityTypeService,
     ResponsibilityTypeUpdateForm,
     TerminationReasonBase,
@@ -3783,6 +4283,8 @@ const OOTBComponents={
     TerminationReasonCreateForm,
     TerminationReasonAssociateForm,
     TerminationReasonTable,
+    TerminationReasonPermission,
+    TerminationReasonProfile,
     TerminationReasonService,
     TerminationReasonUpdateForm,
     TerminationTypeBase,
@@ -3796,6 +4298,8 @@ const OOTBComponents={
     TerminationTypeCreateForm,
     TerminationTypeAssociateForm,
     TerminationTypeTable,
+    TerminationTypePermission,
+    TerminationTypeProfile,
     TerminationTypeService,
     TerminationTypeUpdateForm,
     OccupationTypeBase,
@@ -3809,6 +4313,8 @@ const OOTBComponents={
     OccupationTypeCreateForm,
     OccupationTypeAssociateForm,
     OccupationTypeTable,
+    OccupationTypePermission,
+    OccupationTypeProfile,
     OccupationTypeService,
     OccupationTypeUpdateForm,
     LeaveTypeBase,
@@ -3822,6 +4328,8 @@ const OOTBComponents={
     LeaveTypeCreateForm,
     LeaveTypeAssociateForm,
     LeaveTypeTable,
+    LeaveTypePermission,
+    LeaveTypeProfile,
     LeaveTypeService,
     LeaveTypeUpdateForm,
     SalaryGradeBase,
@@ -3835,6 +4343,8 @@ const OOTBComponents={
     SalaryGradeCreateForm,
     SalaryGradeAssociateForm,
     SalaryGradeTable,
+    SalaryGradePermission,
+    SalaryGradeProfile,
     SalaryGradeService,
     SalaryGradeUpdateForm,
     InterviewTypeBase,
@@ -3848,6 +4358,8 @@ const OOTBComponents={
     InterviewTypeCreateForm,
     InterviewTypeAssociateForm,
     InterviewTypeTable,
+    InterviewTypePermission,
+    InterviewTypeProfile,
     InterviewTypeService,
     InterviewTypeUpdateForm,
     TrainingCourseTypeBase,
@@ -3861,6 +4373,8 @@ const OOTBComponents={
     TrainingCourseTypeCreateForm,
     TrainingCourseTypeAssociateForm,
     TrainingCourseTypeTable,
+    TrainingCourseTypePermission,
+    TrainingCourseTypeProfile,
     TrainingCourseTypeService,
     TrainingCourseTypeUpdateForm,
     PublicHolidayBase,
@@ -3874,6 +4388,8 @@ const OOTBComponents={
     PublicHolidayCreateForm,
     PublicHolidayAssociateForm,
     PublicHolidayTable,
+    PublicHolidayPermission,
+    PublicHolidayProfile,
     PublicHolidayService,
     PublicHolidayUpdateForm,
     TerminationBase,
@@ -3887,6 +4403,8 @@ const OOTBComponents={
     TerminationCreateForm,
     TerminationAssociateForm,
     TerminationTable,
+    TerminationPermission,
+    TerminationProfile,
     TerminationService,
     TerminationUpdateForm,
     ViewBase,
@@ -3900,6 +4418,8 @@ const OOTBComponents={
     ViewCreateForm,
     ViewAssociateForm,
     ViewTable,
+    ViewPermission,
+    ViewProfile,
     ViewService,
     ViewUpdateForm,
     EmployeeBase,
@@ -3913,6 +4433,8 @@ const OOTBComponents={
     EmployeeCreateForm,
     EmployeeAssociateForm,
     EmployeeTable,
+    EmployeePermission,
+    EmployeeProfile,
     EmployeeService,
     EmployeeUpdateForm,
     JobApplicationBase,
@@ -3926,6 +4448,8 @@ const OOTBComponents={
     JobApplicationCreateForm,
     JobApplicationAssociateForm,
     JobApplicationTable,
+    JobApplicationPermission,
+    JobApplicationProfile,
     JobApplicationService,
     JobApplicationUpdateForm,
     ProfessionInterviewBase,
@@ -3939,6 +4463,8 @@ const OOTBComponents={
     ProfessionInterviewCreateForm,
     ProfessionInterviewAssociateForm,
     ProfessionInterviewTable,
+    ProfessionInterviewPermission,
+    ProfessionInterviewProfile,
     ProfessionInterviewService,
     ProfessionInterviewUpdateForm,
     HrInterviewBase,
@@ -3952,6 +4478,8 @@ const OOTBComponents={
     HrInterviewCreateForm,
     HrInterviewAssociateForm,
     HrInterviewTable,
+    HrInterviewPermission,
+    HrInterviewProfile,
     HrInterviewService,
     HrInterviewUpdateForm,
     OfferApprovalBase,
@@ -3965,6 +4493,8 @@ const OOTBComponents={
     OfferApprovalCreateForm,
     OfferApprovalAssociateForm,
     OfferApprovalTable,
+    OfferApprovalPermission,
+    OfferApprovalProfile,
     OfferApprovalService,
     OfferApprovalUpdateForm,
     OfferAcceptanceBase,
@@ -3978,6 +4508,8 @@ const OOTBComponents={
     OfferAcceptanceCreateForm,
     OfferAcceptanceAssociateForm,
     OfferAcceptanceTable,
+    OfferAcceptancePermission,
+    OfferAcceptanceProfile,
     OfferAcceptanceService,
     OfferAcceptanceUpdateForm,
     EmployeeBoardingBase,
@@ -3991,6 +4523,8 @@ const OOTBComponents={
     EmployeeBoardingCreateForm,
     EmployeeBoardingAssociateForm,
     EmployeeBoardingTable,
+    EmployeeBoardingPermission,
+    EmployeeBoardingProfile,
     EmployeeBoardingService,
     EmployeeBoardingUpdateForm,
     InstructorBase,
@@ -4004,6 +4538,8 @@ const OOTBComponents={
     InstructorCreateForm,
     InstructorAssociateForm,
     InstructorTable,
+    InstructorPermission,
+    InstructorProfile,
     InstructorService,
     InstructorUpdateForm,
     CompanyTrainingBase,
@@ -4017,6 +4553,8 @@ const OOTBComponents={
     CompanyTrainingCreateForm,
     CompanyTrainingAssociateForm,
     CompanyTrainingTable,
+    CompanyTrainingPermission,
+    CompanyTrainingProfile,
     CompanyTrainingService,
     CompanyTrainingUpdateForm,
     ScoringBase,
@@ -4030,6 +4568,8 @@ const OOTBComponents={
     ScoringCreateForm,
     ScoringAssociateForm,
     ScoringTable,
+    ScoringPermission,
+    ScoringProfile,
     ScoringService,
     ScoringUpdateForm,
     EmployeeCompanyTrainingBase,
@@ -4043,6 +4583,8 @@ const OOTBComponents={
     EmployeeCompanyTrainingCreateForm,
     EmployeeCompanyTrainingAssociateForm,
     EmployeeCompanyTrainingTable,
+    EmployeeCompanyTrainingPermission,
+    EmployeeCompanyTrainingProfile,
     EmployeeCompanyTrainingService,
     EmployeeCompanyTrainingUpdateForm,
     EmployeeSkillBase,
@@ -4056,6 +4598,8 @@ const OOTBComponents={
     EmployeeSkillCreateForm,
     EmployeeSkillAssociateForm,
     EmployeeSkillTable,
+    EmployeeSkillPermission,
+    EmployeeSkillProfile,
     EmployeeSkillService,
     EmployeeSkillUpdateForm,
     EmployeePerformanceBase,
@@ -4069,6 +4613,8 @@ const OOTBComponents={
     EmployeePerformanceCreateForm,
     EmployeePerformanceAssociateForm,
     EmployeePerformanceTable,
+    EmployeePerformancePermission,
+    EmployeePerformanceProfile,
     EmployeePerformanceService,
     EmployeePerformanceUpdateForm,
     EmployeeWorkExperienceBase,
@@ -4082,6 +4628,8 @@ const OOTBComponents={
     EmployeeWorkExperienceCreateForm,
     EmployeeWorkExperienceAssociateForm,
     EmployeeWorkExperienceTable,
+    EmployeeWorkExperiencePermission,
+    EmployeeWorkExperienceProfile,
     EmployeeWorkExperienceService,
     EmployeeWorkExperienceUpdateForm,
     EmployeeLeaveBase,
@@ -4095,6 +4643,8 @@ const OOTBComponents={
     EmployeeLeaveCreateForm,
     EmployeeLeaveAssociateForm,
     EmployeeLeaveTable,
+    EmployeeLeavePermission,
+    EmployeeLeaveProfile,
     EmployeeLeaveService,
     EmployeeLeaveUpdateForm,
     EmployeeInterviewBase,
@@ -4108,6 +4658,8 @@ const OOTBComponents={
     EmployeeInterviewCreateForm,
     EmployeeInterviewAssociateForm,
     EmployeeInterviewTable,
+    EmployeeInterviewPermission,
+    EmployeeInterviewProfile,
     EmployeeInterviewService,
     EmployeeInterviewUpdateForm,
     EmployeeAttendanceBase,
@@ -4121,6 +4673,8 @@ const OOTBComponents={
     EmployeeAttendanceCreateForm,
     EmployeeAttendanceAssociateForm,
     EmployeeAttendanceTable,
+    EmployeeAttendancePermission,
+    EmployeeAttendanceProfile,
     EmployeeAttendanceService,
     EmployeeAttendanceUpdateForm,
     EmployeeQualifierBase,
@@ -4134,6 +4688,8 @@ const OOTBComponents={
     EmployeeQualifierCreateForm,
     EmployeeQualifierAssociateForm,
     EmployeeQualifierTable,
+    EmployeeQualifierPermission,
+    EmployeeQualifierProfile,
     EmployeeQualifierService,
     EmployeeQualifierUpdateForm,
     EmployeeEducationBase,
@@ -4147,6 +4703,8 @@ const OOTBComponents={
     EmployeeEducationCreateForm,
     EmployeeEducationAssociateForm,
     EmployeeEducationTable,
+    EmployeeEducationPermission,
+    EmployeeEducationProfile,
     EmployeeEducationService,
     EmployeeEducationUpdateForm,
     EmployeeAwardBase,
@@ -4160,6 +4718,8 @@ const OOTBComponents={
     EmployeeAwardCreateForm,
     EmployeeAwardAssociateForm,
     EmployeeAwardTable,
+    EmployeeAwardPermission,
+    EmployeeAwardProfile,
     EmployeeAwardService,
     EmployeeAwardUpdateForm,
     EmployeeSalarySheetBase,
@@ -4173,6 +4733,8 @@ const OOTBComponents={
     EmployeeSalarySheetCreateForm,
     EmployeeSalarySheetAssociateForm,
     EmployeeSalarySheetTable,
+    EmployeeSalarySheetPermission,
+    EmployeeSalarySheetProfile,
     EmployeeSalarySheetService,
     EmployeeSalarySheetUpdateForm,
     PayingOffBase,
@@ -4186,6 +4748,8 @@ const OOTBComponents={
     PayingOffCreateForm,
     PayingOffAssociateForm,
     PayingOffTable,
+    PayingOffPermission,
+    PayingOffProfile,
     PayingOffService,
     PayingOffUpdateForm,
     UserDomainBase,
@@ -4199,6 +4763,8 @@ const OOTBComponents={
     UserDomainCreateForm,
     UserDomainAssociateForm,
     UserDomainTable,
+    UserDomainPermission,
+    UserDomainProfile,
     UserDomainService,
     UserDomainUpdateForm,
     UserWhiteListBase,
@@ -4212,6 +4778,8 @@ const OOTBComponents={
     UserWhiteListCreateForm,
     UserWhiteListAssociateForm,
     UserWhiteListTable,
+    UserWhiteListPermission,
+    UserWhiteListProfile,
     UserWhiteListService,
     UserWhiteListUpdateForm,
     SecUserBase,
@@ -4225,6 +4793,8 @@ const OOTBComponents={
     SecUserCreateForm,
     SecUserAssociateForm,
     SecUserTable,
+    SecUserPermission,
+    SecUserProfile,
     SecUserService,
     SecUserUpdateForm,
     SecUserBlockingBase,
@@ -4238,6 +4808,8 @@ const OOTBComponents={
     SecUserBlockingCreateForm,
     SecUserBlockingAssociateForm,
     SecUserBlockingTable,
+    SecUserBlockingPermission,
+    SecUserBlockingProfile,
     SecUserBlockingService,
     SecUserBlockingUpdateForm,
     UserAppBase,
@@ -4251,6 +4823,8 @@ const OOTBComponents={
     UserAppCreateForm,
     UserAppAssociateForm,
     UserAppTable,
+    UserAppPermission,
+    UserAppProfile,
     UserAppService,
     UserAppUpdateForm,
     ListAccessBase,
@@ -4264,6 +4838,8 @@ const OOTBComponents={
     ListAccessCreateForm,
     ListAccessAssociateForm,
     ListAccessTable,
+    ListAccessPermission,
+    ListAccessProfile,
     ListAccessService,
     ListAccessUpdateForm,
     ObjectAccessBase,
@@ -4277,6 +4853,8 @@ const OOTBComponents={
     ObjectAccessCreateForm,
     ObjectAccessAssociateForm,
     ObjectAccessTable,
+    ObjectAccessPermission,
+    ObjectAccessProfile,
     ObjectAccessService,
     ObjectAccessUpdateForm,
     LoginHistoryBase,
@@ -4290,6 +4868,8 @@ const OOTBComponents={
     LoginHistoryCreateForm,
     LoginHistoryAssociateForm,
     LoginHistoryTable,
+    LoginHistoryPermission,
+    LoginHistoryProfile,
     LoginHistoryService,
     LoginHistoryUpdateForm,
     menuDataOf,bindBizModels,unbindBizModels,calcLocationPath,calcMenuData

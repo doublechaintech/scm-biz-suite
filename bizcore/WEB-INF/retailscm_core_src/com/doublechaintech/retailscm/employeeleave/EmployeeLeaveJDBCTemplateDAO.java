@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeleave;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -643,6 +645,9 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<EmployeeLeave> employeeLeaveList) {		
 		this.enhanceListInternal(employeeLeaveList, this.getEmployeeLeaveMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeLeave> employeeLeaveList = ownerEntity.collectRefsWithType(EmployeeLeave.INTERNAL_TYPE);

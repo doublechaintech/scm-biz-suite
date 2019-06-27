@@ -262,8 +262,9 @@ public class ProvinceCenterEmployeeManagerImpl extends CustomRetailscmCheckerMan
 			//will be good when the provinceCenterEmployee loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ProvinceCenterEmployee.
+			if (provinceCenterEmployee.isChanged()){
 			
-			
+			}
 			provinceCenterEmployee = saveProvinceCenterEmployee(userContext, provinceCenterEmployee, options);
 			return provinceCenterEmployee;
 			

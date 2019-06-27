@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeskill;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -641,6 +643,9 @@ public class EmployeeSkillJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<EmployeeSkill> employeeSkillList) {		
 		this.enhanceListInternal(employeeSkillList, this.getEmployeeSkillMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeSkill> employeeSkillList = ownerEntity.collectRefsWithType(EmployeeSkill.INTERNAL_TYPE);

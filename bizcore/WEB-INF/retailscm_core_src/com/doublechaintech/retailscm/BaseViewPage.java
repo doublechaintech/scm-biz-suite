@@ -51,7 +51,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 		dataPool.put(name, value);
 	}
 
-	public Object doRender(RetailscmUserContext userContext) {
+	public Map<String, Object> doRender(RetailscmUserContext userContext) {
 		this.userContext = userContext;
 		beforeDoRendering();
 		doRendering();
@@ -156,7 +156,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			return;
 		}
 
-		String hashCode = value.hashCode() + "/";
+		String hashCode = "/"+value.hashCode() + "/";
 		if (path.contains(hashCode)) {
 			return;
 		}
@@ -280,11 +280,11 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			if (fieldScope.isPutInDataContainer()) {
 				if (item instanceof BaseEntity) {
 					String skey = ((BaseEntity) item).getInternalType()+"_"+((BaseEntity) item).getId();
-					resultList.add(MapUtil.newMap(MapUtil.$("id", skey)));
+					resultList.add(MapUtil.put("id", skey).into_map());
 					addToDataContainer(skey, convertResult);
 				} else {
 					String skey = item.getClass().getSimpleName()+"_"+item.hashCode();
-					resultList.add(MapUtil.newMap(MapUtil.$("id", skey)));
+					resultList.add(MapUtil.put("id", skey).into_map());
 					addToDataContainer(skey, convertResult);
 				}
 			}else {
@@ -372,7 +372,7 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			for (Map<String, Object> content : contentList) {
 				Map<String, Object> resultData = new HashMap<>();
 				addFieldToOwner(resultData, fieldScope, "title", content.get("text"));
-				addFieldToOwner(resultData, fieldScope, "tips", content.get("tips"));
+				addFieldToOwner(resultData, fieldScope, "brief", content.get("tips"));
 				addFieldToOwner(resultData, fieldScope, "code", content.get("code"));
 				addFieldToOwner(resultData, fieldScope, "summary", content.get("tips"));
 				addFieldToOwner(resultData, fieldScope, "linkToUrl", content.get("linkToUrl"));
@@ -403,8 +403,15 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			SerializeScope fieldScope = SerializeScope.EXCLUDE();
 			Map<String, Object> resultData = new HashMap<>();
 			addFieldToOwner(resultData, fieldScope, "callbackUrl", btn.getCallbackUrl());
-			addFieldToOwner(resultData, fieldScope, "title", btn.getContent());
+			addFieldToOwner(resultData, fieldScope, "shareRouter", btn.getShareRouter());
+			if (btn.getShareTitle() != null) {
+				addFieldToOwner(resultData, fieldScope, "title", btn.getShareTitle());
+				addFieldToOwner(resultData, fieldScope, "content", btn.getContent());
+			}else {
+				addFieldToOwner(resultData, fieldScope, "title", btn.getContent());
+			}
 			addFieldToOwner(resultData, fieldScope, "imageUrl", btn.getImageUrl());
+			addFieldToOwner(resultData, fieldScope, "enabled", btn.isActive());
 			addFieldToOwner(resultData, fieldScope, "linkToUrl", btn.getLinkToUrl());
 			addFieldToOwner(resultData, fieldScope, "code", btn.getTag());
 			addFieldToOwner(resultData, fieldScope, "type", btn.getType());
@@ -433,6 +440,13 @@ public abstract class BaseViewPage extends HashMap<String, Object> {
 			addFieldToOwner(resultData, fieldScope, "actionList", actionsSrst);
 			return resultData;
 		}
+	}
+	
+	public Map<String, Object> serializeObject(Object object, SerializeScope serializeScope) {
+		Map<String, Object> resultMap = new HashMap<>();
+		SerializeScope ssWrapper = SerializeScope.INCLUDE().field("data", serializeScope);
+		handleOneData(resultMap, ssWrapper, "/", "data", object);
+		return (Map<String, Object>) resultMap.get("data");
 	}
 }
 

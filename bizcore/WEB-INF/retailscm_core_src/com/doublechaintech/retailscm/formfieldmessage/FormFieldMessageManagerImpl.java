@@ -247,8 +247,9 @@ public class FormFieldMessageManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the formFieldMessage loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to FormFieldMessage.
+			if (formFieldMessage.isChanged()){
 			
-			
+			}
 			formFieldMessage = saveFormFieldMessage(userContext, formFieldMessage, options);
 			return formFieldMessage;
 			

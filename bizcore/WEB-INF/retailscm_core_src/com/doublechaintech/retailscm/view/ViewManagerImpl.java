@@ -237,8 +237,9 @@ public class ViewManagerImpl extends CustomRetailscmCheckerManager implements Vi
 			//will be good when the view loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to View.
+			if (view.isChanged()){
 			
-			
+			}
 			view = saveView(userContext, view, options);
 			return view;
 			

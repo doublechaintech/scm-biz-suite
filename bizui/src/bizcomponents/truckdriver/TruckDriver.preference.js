@@ -307,8 +307,12 @@ class TruckDriverPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, transportTaskCount } = this.props.truckDriver
-    const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",cardsSource: this.props.truckDriver,
+    const  truckDriver = this.props.truckDriver;
+    const { id,displayName, transportTaskCount } = truckDriver
+    
+    
+    
+    const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",cardsSource: truckDriver,
   		subItems: [
     
       	],

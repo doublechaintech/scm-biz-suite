@@ -1,5 +1,5 @@
 
-
+import React from 'react'
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/cityPartner/${id}/list/\PotentialCustomerList/潜在的客户+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/cityPartner/${id}/list/PotentialCustomerList/潜在的客户+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePotentialCustomer({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/cityPartner/${id}/list/\PotentialCustomerList/潜在的客户列表`, state: newPlayload }
+      const location = { pathname: `/cityPartner/${id}/list/PotentialCustomerList/潜在的客户列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextPotentialCustomerUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/cityPartner/${id}/list/\PotentialCustomerContactList/潜在客户联系+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/cityPartner/${id}/list/PotentialCustomerContactList/潜在客户联系+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePotentialCustomerContact({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/cityPartner/${id}/list/\PotentialCustomerContactList/潜在客户联系列表`, state: newPlayload }
+      const location = { pathname: `/cityPartner/${id}/list/PotentialCustomerContactList/潜在客户联系列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextPotentialCustomerContactUpdateRow({ payload }, { call, put }) {

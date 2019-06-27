@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.supplyordershipment;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1031,6 +1033,55 @@ public class SupplyOrderShipmentJDBCTemplateDAO extends RetailscmNamingServiceDA
 	public void enhanceList(List<SupplyOrderShipment> supplyOrderShipmentList) {		
 		this.enhanceListInternal(supplyOrderShipmentList, this.getSupplyOrderShipmentMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:ConsumerOrder的shipment的ConsumerOrderList
+	public SmartList<ConsumerOrder> loadOurConsumerOrderList(RetailscmUserContext userContext, List<SupplyOrderShipment> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ConsumerOrder.SHIPMENT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ConsumerOrder> loadedObjs = userContext.getDAOGroup().getConsumerOrderDAO().findConsumerOrderWithKey(key, options);
+		Map<String, List<ConsumerOrder>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getShipment().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ConsumerOrder> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ConsumerOrder> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setConsumerOrderList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrder的shipment的SupplyOrderList
+	public SmartList<SupplyOrder> loadOurSupplyOrderList(RetailscmUserContext userContext, List<SupplyOrderShipment> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SupplyOrder.SHIPMENT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SupplyOrder> loadedObjs = userContext.getDAOGroup().getSupplyOrderDAO().findSupplyOrderWithKey(key, options);
+		Map<String, List<SupplyOrder>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getShipment().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SupplyOrder> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SupplyOrder> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSupplyOrderList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplyOrderShipment> supplyOrderShipmentList = ownerEntity.collectRefsWithType(SupplyOrderShipment.INTERNAL_TYPE);

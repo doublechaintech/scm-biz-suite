@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.goodsmovement;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -540,6 +542,9 @@ public class GoodsMovementJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<GoodsMovement> goodsMovementList) {		
 		this.enhanceListInternal(goodsMovementList, this.getGoodsMovementMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsMovement> goodsMovementList = ownerEntity.collectRefsWithType(GoodsMovement.INTERNAL_TYPE);

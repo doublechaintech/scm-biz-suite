@@ -240,8 +240,9 @@ public class RetailStoreCreationManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the retailStoreCreation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreCreation.
+			if (retailStoreCreation.isChanged()){
 			
-			
+			}
 			retailStoreCreation = saveRetailStoreCreation(userContext, retailStoreCreation, options);
 			return retailStoreCreation;
 			

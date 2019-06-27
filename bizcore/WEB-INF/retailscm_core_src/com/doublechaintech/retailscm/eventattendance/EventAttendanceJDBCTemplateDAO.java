@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.eventattendance;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -643,6 +645,9 @@ public class EventAttendanceJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public void enhanceList(List<EventAttendance> eventAttendanceList) {		
 		this.enhanceListInternal(eventAttendanceList, this.getEventAttendanceMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EventAttendance> eventAttendanceList = ownerEntity.collectRefsWithType(EventAttendance.INTERNAL_TYPE);

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstorecountrycenter;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -6367,6 +6369,561 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	public void enhanceList(List<RetailStoreCountryCenter> retailStoreCountryCenterList) {		
 		this.enhanceListInternal(retailStoreCountryCenterList, this.getRetailStoreCountryCenterMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Catalog的owner的CatalogList
+	public SmartList<Catalog> loadOurCatalogList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Catalog.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Catalog> loadedObjs = userContext.getDAOGroup().getCatalogDAO().findCatalogWithKey(key, options);
+		Map<String, List<Catalog>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Catalog> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Catalog> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setCatalogList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreProvinceCenter的country的RetailStoreProvinceCenterList
+	public SmartList<RetailStoreProvinceCenter> loadOurRetailStoreProvinceCenterList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreProvinceCenter.COUNTRY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreProvinceCenter> loadedObjs = userContext.getDAOGroup().getRetailStoreProvinceCenterDAO().findRetailStoreProvinceCenterWithKey(key, options);
+		Map<String, List<RetailStoreProvinceCenter>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCountry().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreProvinceCenter> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreProvinceCenter> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreProvinceCenterList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStore的retailStoreCountryCenter的RetailStoreList
+	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStore.RETAIL_STORE_COUNTRY_CENTER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStore> loadedObjs = userContext.getDAOGroup().getRetailStoreDAO().findRetailStoreWithKey(key, options);
+		Map<String, List<RetailStore>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getRetailStoreCountryCenter().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStore> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStore> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreMember的owner的RetailStoreMemberList
+	public SmartList<RetailStoreMember> loadOurRetailStoreMemberList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreMember.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreMember> loadedObjs = userContext.getDAOGroup().getRetailStoreMemberDAO().findRetailStoreMemberWithKey(key, options);
+		Map<String, List<RetailStoreMember>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreMember> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreMember> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreMemberList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:GoodsSupplier的belongTo的GoodsSupplierList
+	public SmartList<GoodsSupplier> loadOurGoodsSupplierList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(GoodsSupplier.BELONG_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<GoodsSupplier> loadedObjs = userContext.getDAOGroup().getGoodsSupplierDAO().findGoodsSupplierWithKey(key, options);
+		Map<String, List<GoodsSupplier>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<GoodsSupplier> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<GoodsSupplier> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsSupplierList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrder的buyer的SupplyOrderList
+	public SmartList<SupplyOrder> loadOurSupplyOrderList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SupplyOrder.BUYER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SupplyOrder> loadedObjs = userContext.getDAOGroup().getSupplyOrderDAO().findSupplyOrderWithKey(key, options);
+		Map<String, List<SupplyOrder>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBuyer().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SupplyOrder> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SupplyOrder> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSupplyOrderList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrder的seller的RetailStoreOrderList
+	public SmartList<RetailStoreOrder> loadOurRetailStoreOrderList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SELLER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreOrder> loadedObjs = userContext.getDAOGroup().getRetailStoreOrderDAO().findRetailStoreOrderWithKey(key, options);
+		Map<String, List<RetailStoreOrder>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSeller().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreOrder> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreOrder> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreOrderList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:Warehouse的owner的WarehouseList
+	public SmartList<Warehouse> loadOurWarehouseList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Warehouse.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Warehouse> loadedObjs = userContext.getDAOGroup().getWarehouseDAO().findWarehouseWithKey(key, options);
+		Map<String, List<Warehouse>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Warehouse> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Warehouse> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setWarehouseList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportFleet的owner的TransportFleetList
+	public SmartList<TransportFleet> loadOurTransportFleetList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportFleet.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportFleet> loadedObjs = userContext.getDAOGroup().getTransportFleetDAO().findTransportFleetWithKey(key, options);
+		Map<String, List<TransportFleet>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportFleet> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportFleet> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportFleetList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountSet的countryCenter的AccountSetList
+	public SmartList<AccountSet> loadOurAccountSetList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountSet.COUNTRY_CENTER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountSet> loadedObjs = userContext.getDAOGroup().getAccountSetDAO().findAccountSetWithKey(key, options);
+		Map<String, List<AccountSet>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCountryCenter().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountSet> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountSet> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountSetList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:LevelOneDepartment的belongsTo的LevelOneDepartmentList
+	public SmartList<LevelOneDepartment> loadOurLevelOneDepartmentList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LevelOneDepartment.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LevelOneDepartment> loadedObjs = userContext.getDAOGroup().getLevelOneDepartmentDAO().findLevelOneDepartmentWithKey(key, options);
+		Map<String, List<LevelOneDepartment>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LevelOneDepartment> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LevelOneDepartment> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLevelOneDepartmentList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SkillType的company的SkillTypeList
+	public SmartList<SkillType> loadOurSkillTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SkillType.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SkillType> loadedObjs = userContext.getDAOGroup().getSkillTypeDAO().findSkillTypeWithKey(key, options);
+		Map<String, List<SkillType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SkillType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SkillType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSkillTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:ResponsibilityType的company的ResponsibilityTypeList
+	public SmartList<ResponsibilityType> loadOurResponsibilityTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ResponsibilityType.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ResponsibilityType> loadedObjs = userContext.getDAOGroup().getResponsibilityTypeDAO().findResponsibilityTypeWithKey(key, options);
+		Map<String, List<ResponsibilityType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ResponsibilityType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ResponsibilityType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setResponsibilityTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TerminationReason的company的TerminationReasonList
+	public SmartList<TerminationReason> loadOurTerminationReasonList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TerminationReason.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TerminationReason> loadedObjs = userContext.getDAOGroup().getTerminationReasonDAO().findTerminationReasonWithKey(key, options);
+		Map<String, List<TerminationReason>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TerminationReason> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TerminationReason> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTerminationReasonList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TerminationType的company的TerminationTypeList
+	public SmartList<TerminationType> loadOurTerminationTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TerminationType.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TerminationType> loadedObjs = userContext.getDAOGroup().getTerminationTypeDAO().findTerminationTypeWithKey(key, options);
+		Map<String, List<TerminationType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TerminationType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TerminationType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTerminationTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:OccupationType的company的OccupationTypeList
+	public SmartList<OccupationType> loadOurOccupationTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(OccupationType.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<OccupationType> loadedObjs = userContext.getDAOGroup().getOccupationTypeDAO().findOccupationTypeWithKey(key, options);
+		Map<String, List<OccupationType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<OccupationType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<OccupationType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setOccupationTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:LeaveType的company的LeaveTypeList
+	public SmartList<LeaveType> loadOurLeaveTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LeaveType.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LeaveType> loadedObjs = userContext.getDAOGroup().getLeaveTypeDAO().findLeaveTypeWithKey(key, options);
+		Map<String, List<LeaveType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LeaveType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LeaveType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLeaveTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SalaryGrade的company的SalaryGradeList
+	public SmartList<SalaryGrade> loadOurSalaryGradeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SalaryGrade.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SalaryGrade> loadedObjs = userContext.getDAOGroup().getSalaryGradeDAO().findSalaryGradeWithKey(key, options);
+		Map<String, List<SalaryGrade>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SalaryGrade> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SalaryGrade> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSalaryGradeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:InterviewType的company的InterviewTypeList
+	public SmartList<InterviewType> loadOurInterviewTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(InterviewType.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<InterviewType> loadedObjs = userContext.getDAOGroup().getInterviewTypeDAO().findInterviewTypeWithKey(key, options);
+		Map<String, List<InterviewType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<InterviewType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<InterviewType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setInterviewTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TrainingCourseType的company的TrainingCourseTypeList
+	public SmartList<TrainingCourseType> loadOurTrainingCourseTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TrainingCourseType.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TrainingCourseType> loadedObjs = userContext.getDAOGroup().getTrainingCourseTypeDAO().findTrainingCourseTypeWithKey(key, options);
+		Map<String, List<TrainingCourseType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TrainingCourseType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TrainingCourseType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTrainingCourseTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:PublicHoliday的company的PublicHolidayList
+	public SmartList<PublicHoliday> loadOurPublicHolidayList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PublicHoliday.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PublicHoliday> loadedObjs = userContext.getDAOGroup().getPublicHolidayDAO().findPublicHolidayWithKey(key, options);
+		Map<String, List<PublicHoliday>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PublicHoliday> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PublicHoliday> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPublicHolidayList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:Employee的company的EmployeeList
+	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Employee.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Employee> loadedObjs = userContext.getDAOGroup().getEmployeeDAO().findEmployeeWithKey(key, options);
+		Map<String, List<Employee>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Employee> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Employee> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:Instructor的company的InstructorList
+	public SmartList<Instructor> loadOurInstructorList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Instructor.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Instructor> loadedObjs = userContext.getDAOGroup().getInstructorDAO().findInstructorWithKey(key, options);
+		Map<String, List<Instructor>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Instructor> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Instructor> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setInstructorList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的company的CompanyTrainingList
+	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(CompanyTraining.COMPANY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<CompanyTraining> loadedObjs = userContext.getDAOGroup().getCompanyTrainingDAO().findCompanyTrainingWithKey(key, options);
+		Map<String, List<CompanyTraining>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCompany().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<CompanyTraining> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<CompanyTraining> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setCompanyTrainingList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreCountryCenter> retailStoreCountryCenterList = ownerEntity.collectRefsWithType(RetailStoreCountryCenter.INTERNAL_TYPE);

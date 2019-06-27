@@ -252,8 +252,9 @@ public class SupplyOrderProcessingManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the supplyOrderProcessing loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderProcessing.
+			if (supplyOrderProcessing.isChanged()){
 			
-			
+			}
 			supplyOrderProcessing = saveSupplyOrderProcessing(userContext, supplyOrderProcessing, options);
 			return supplyOrderProcessing;
 			

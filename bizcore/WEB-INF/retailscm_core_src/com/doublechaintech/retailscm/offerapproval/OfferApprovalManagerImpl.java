@@ -254,8 +254,9 @@ public class OfferApprovalManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the offerApproval loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OfferApproval.
+			if (offerApproval.isChanged()){
 			
-			
+			}
 			offerApproval = saveOfferApproval(userContext, offerApproval, options);
 			return offerApproval;
 			

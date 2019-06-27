@@ -301,10 +301,14 @@ class RetailStoreProvinceCenterPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, provinceCenterDepartmentCount, provinceCenterEmployeeCount, retailStoreCityServiceCenterCount } = this.props.retailStoreProvinceCenter
-    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",cardsSource: this.props.retailStoreProvinceCenter,
+    const  retailStoreProvinceCenter = this.props.retailStoreProvinceCenter;
+    const { id,displayName, provinceCenterDepartmentCount, provinceCenterEmployeeCount, retailStoreCityServiceCenterCount } = retailStoreProvinceCenter
+    
+    
+    
+    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",cardsSource: retailStoreProvinceCenter,
   		subItems: [
-{name: 'provinceCenterDepartmentList', displayName:'省中心',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment'},
+{name: 'provinceCenterDepartmentList', displayName:'省中心',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment', data: retailStoreProvinceCenter.provinceCenterDepartmentList},
     
       	],
   	};

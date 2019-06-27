@@ -252,8 +252,9 @@ public class EventAttendanceManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the eventAttendance loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EventAttendance.
+			if (eventAttendance.isChanged()){
 			
-			
+			}
 			eventAttendance = saveEventAttendance(userContext, eventAttendance, options);
 			return eventAttendance;
 			

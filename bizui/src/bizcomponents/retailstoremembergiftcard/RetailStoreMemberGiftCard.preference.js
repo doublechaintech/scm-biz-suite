@@ -307,8 +307,12 @@ class RetailStoreMemberGiftCardPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreMemberGiftCardConsumeRecordCount } = this.props.retailStoreMemberGiftCard
-    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",cardsSource: this.props.retailStoreMemberGiftCard,
+    const  retailStoreMemberGiftCard = this.props.retailStoreMemberGiftCard;
+    const { id,displayName, retailStoreMemberGiftCardConsumeRecordCount } = retailStoreMemberGiftCard
+    
+    
+    
+    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,
   		subItems: [
     
       	],

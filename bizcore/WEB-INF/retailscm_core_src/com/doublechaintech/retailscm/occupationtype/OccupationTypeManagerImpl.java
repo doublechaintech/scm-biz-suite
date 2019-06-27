@@ -264,8 +264,9 @@ public class OccupationTypeManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the occupationType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OccupationType.
+			if (occupationType.isChanged()){
 			
-			
+			}
 			occupationType = saveOccupationType(userContext, occupationType, options);
 			return occupationType;
 			

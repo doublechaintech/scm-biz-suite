@@ -267,8 +267,9 @@ public class OriginalVoucherManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the originalVoucher loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OriginalVoucher.
+			if (originalVoucher.isChanged()){
 			
-			
+			}
 			originalVoucher = saveOriginalVoucher(userContext, originalVoucher, options);
 			return originalVoucher;
 			

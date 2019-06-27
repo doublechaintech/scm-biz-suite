@@ -253,8 +253,9 @@ public class SupplierProductManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the supplierProduct loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplierProduct.
+			if (supplierProduct.isChanged()){
 			
-			
+			}
 			supplierProduct = saveSupplierProduct(userContext, supplierProduct, options);
 			return supplierProduct;
 			

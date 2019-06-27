@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.consumerorderconfirmation;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -399,6 +401,9 @@ public class ConsumerOrderConfirmationJDBCTemplateDAO extends RetailscmNamingSer
 	public void enhanceList(List<ConsumerOrderConfirmation> consumerOrderConfirmationList) {		
 		this.enhanceListInternal(consumerOrderConfirmationList, this.getConsumerOrderConfirmationMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrderConfirmation> consumerOrderConfirmationList = ownerEntity.collectRefsWithType(ConsumerOrderConfirmation.INTERNAL_TYPE);

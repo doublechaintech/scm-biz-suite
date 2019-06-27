@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeinterview;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -641,6 +643,9 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<EmployeeInterview> employeeInterviewList) {		
 		this.enhanceListInternal(employeeInterviewList, this.getEmployeeInterviewMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeInterview> employeeInterviewList = ownerEntity.collectRefsWithType(EmployeeInterview.INTERNAL_TYPE);

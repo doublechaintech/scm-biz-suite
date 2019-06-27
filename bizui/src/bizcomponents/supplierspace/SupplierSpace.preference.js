@@ -310,8 +310,12 @@ class SupplierSpacePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, goodsShelfCount } = this.props.supplierSpace
-    const cardsData = {cardsName:"供应商的空间",cardsFor: "supplierSpace",cardsSource: this.props.supplierSpace,
+    const  supplierSpace = this.props.supplierSpace;
+    const { id,displayName, goodsShelfCount } = supplierSpace
+    
+    
+    
+    const cardsData = {cardsName:"供应商的空间",cardsFor: "supplierSpace",cardsSource: supplierSpace,
   		subItems: [
     
       	],

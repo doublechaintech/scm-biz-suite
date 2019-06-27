@@ -1,7 +1,9 @@
 package com.terapico.caf.viewcomponent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.util.TextUtils;
 
@@ -354,5 +356,17 @@ public abstract class BaseViewComponent {
 
     public String genRamdomId() {
     	return String.format("GI%08X_%S", System.currentTimeMillis(), RandomUtil.randomNumAndChars(6));
+    }
+    
+    public Map<String, Object> toMap() {
+    	ObjectMapper mapper = DebugUtil.getObjectMapper();
+    	try {
+			String jstr = mapper.writeValueAsString(this);
+			return mapper.readValue(jstr, Map.class);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new HashMap<String, Object>() {{put("exception",e);}};
+		}
     }
 }

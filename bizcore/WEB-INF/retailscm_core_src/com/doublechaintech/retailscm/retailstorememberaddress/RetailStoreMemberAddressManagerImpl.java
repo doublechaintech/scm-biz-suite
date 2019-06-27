@@ -247,8 +247,9 @@ public class RetailStoreMemberAddressManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the retailStoreMemberAddress loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreMemberAddress.
+			if (retailStoreMemberAddress.isChanged()){
 			
-			
+			}
 			retailStoreMemberAddress = saveRetailStoreMemberAddress(userContext, retailStoreMemberAddress, options);
 			return retailStoreMemberAddress;
 			

@@ -243,8 +243,9 @@ public class RetailStoreMemberCouponManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the retailStoreMemberCoupon loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreMemberCoupon.
-			
-			
+			if (retailStoreMemberCoupon.isChanged()){
+			retailStoreMemberCoupon.updateLastUpdateTime(userContext.now());
+			}
 			retailStoreMemberCoupon = saveRetailStoreMemberCoupon(userContext, retailStoreMemberCoupon, options);
 			return retailStoreMemberCoupon;
 			

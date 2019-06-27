@@ -261,7 +261,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.baseSalary,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入基本工资" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="基本工资" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.bonus,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入奖金" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖金" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.reward,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入奖励" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖励" />
                     
                   )}
                 </Form.Item>
@@ -309,7 +309,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.personalTax,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入个人所得税" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="个人所得税" />
                     
                   )}
                 </Form.Item>
@@ -321,7 +321,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.socialSecurity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入社会保险" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="社会保险" />
                     
                   )}
                 </Form.Item>
@@ -333,7 +333,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.housingFound,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入住房公积金" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="住房公积金" />
                     
                   )}
                 </Form.Item>
@@ -345,7 +345,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.jobInsurance,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入失业保险" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="失业保险" />
                     
                   )}
                 </Form.Item>

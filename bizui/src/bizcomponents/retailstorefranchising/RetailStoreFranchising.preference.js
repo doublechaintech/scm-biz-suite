@@ -299,8 +299,12 @@ class RetailStoreFranchisingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreCount } = this.props.retailStoreFranchising
-    const cardsData = {cardsName:"生超的特许经营",cardsFor: "retailStoreFranchising",cardsSource: this.props.retailStoreFranchising,
+    const  retailStoreFranchising = this.props.retailStoreFranchising;
+    const { id,displayName, retailStoreCount } = retailStoreFranchising
+    
+    
+    
+    const cardsData = {cardsName:"生超的特许经营",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,
   		subItems: [
     
       	],

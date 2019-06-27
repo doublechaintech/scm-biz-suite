@@ -254,8 +254,9 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the interviewType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to InterviewType.
+			if (interviewType.isChanged()){
 			
-			
+			}
 			interviewType = saveInterviewType(userContext, interviewType, options);
 			return interviewType;
 			

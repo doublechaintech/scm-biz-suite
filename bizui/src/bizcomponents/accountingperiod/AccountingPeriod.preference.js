@@ -307,8 +307,12 @@ class AccountingPeriodPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, accountingDocumentCount } = this.props.accountingPeriod
-    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",cardsSource: this.props.accountingPeriod,
+    const  accountingPeriod = this.props.accountingPeriod;
+    const { id,displayName, accountingDocumentCount } = accountingPeriod
+    
+    
+    
+    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,
   		subItems: [
     
       	],

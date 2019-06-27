@@ -253,8 +253,9 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 			//will be good when the goodsShelfStockCount loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GoodsShelfStockCount.
+			if (goodsShelfStockCount.isChanged()){
 			
-			
+			}
 			goodsShelfStockCount = saveGoodsShelfStockCount(userContext, goodsShelfStockCount, options);
 			return goodsShelfStockCount;
 			

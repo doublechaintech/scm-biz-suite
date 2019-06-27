@@ -240,8 +240,9 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the retailStoreDecoration loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreDecoration.
+			if (retailStoreDecoration.isChanged()){
 			
-			
+			}
 			retailStoreDecoration = saveRetailStoreDecoration(userContext, retailStoreDecoration, options);
 			return retailStoreDecoration;
 			

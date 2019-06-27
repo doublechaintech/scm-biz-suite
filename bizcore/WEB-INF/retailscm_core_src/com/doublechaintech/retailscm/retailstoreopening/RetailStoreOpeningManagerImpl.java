@@ -240,8 +240,9 @@ public class RetailStoreOpeningManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the retailStoreOpening loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOpening.
+			if (retailStoreOpening.isChanged()){
 			
-			
+			}
 			retailStoreOpening = saveRetailStoreOpening(userContext, retailStoreOpening, options);
 			return retailStoreOpening;
 			

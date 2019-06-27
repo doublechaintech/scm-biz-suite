@@ -264,8 +264,9 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the responsibilityType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ResponsibilityType.
+			if (responsibilityType.isChanged()){
 			
-			
+			}
 			responsibilityType = saveResponsibilityType(userContext, responsibilityType, options);
 			return responsibilityType;
 			

@@ -69,6 +69,7 @@
     <bean id="sensitiveWordFilterService" class="com.skynet.infrastructure.SensitiveWordFilterService">
         <property name="sensitiveWordsProvider" ref="sensitiveWordsProvider"/>
         <property name="stopWordsProvider" ref="stopWordsProvider"/>
+        <property name="enabled" value="true"/>
     </bean>
 
     <bean id="kafkaMessageEventService" class="com.skynet.infrastructure.kafkaservice.KafkaMessageEventService">

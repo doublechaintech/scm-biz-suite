@@ -254,8 +254,9 @@ public class LeaveTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			//will be good when the leaveType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LeaveType.
+			if (leaveType.isChanged()){
 			
-			
+			}
 			leaveType = saveLeaveType(userContext, leaveType, options);
 			return leaveType;
 			

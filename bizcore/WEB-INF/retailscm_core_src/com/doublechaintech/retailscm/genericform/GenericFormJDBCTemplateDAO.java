@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.genericform;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1311,6 +1313,101 @@ public class GenericFormJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public void enhanceList(List<GenericForm> genericFormList) {		
 		this.enhanceListInternal(genericFormList, this.getGenericFormMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:FormMessage的form的FormMessageList
+	public SmartList<FormMessage> loadOurFormMessageList(RetailscmUserContext userContext, List<GenericForm> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(FormMessage.FORM_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<FormMessage> loadedObjs = userContext.getDAOGroup().getFormMessageDAO().findFormMessageWithKey(key, options);
+		Map<String, List<FormMessage>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getForm().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<FormMessage> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<FormMessage> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setFormMessageList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:FormFieldMessage的form的FormFieldMessageList
+	public SmartList<FormFieldMessage> loadOurFormFieldMessageList(RetailscmUserContext userContext, List<GenericForm> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(FormFieldMessage.FORM_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<FormFieldMessage> loadedObjs = userContext.getDAOGroup().getFormFieldMessageDAO().findFormFieldMessageWithKey(key, options);
+		Map<String, List<FormFieldMessage>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getForm().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<FormFieldMessage> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<FormFieldMessage> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setFormFieldMessageList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:FormField的form的FormFieldList
+	public SmartList<FormField> loadOurFormFieldList(RetailscmUserContext userContext, List<GenericForm> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(FormField.FORM_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<FormField> loadedObjs = userContext.getDAOGroup().getFormFieldDAO().findFormFieldWithKey(key, options);
+		Map<String, List<FormField>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getForm().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<FormField> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<FormField> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setFormFieldList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:FormAction的form的FormActionList
+	public SmartList<FormAction> loadOurFormActionList(RetailscmUserContext userContext, List<GenericForm> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(FormAction.FORM_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<FormAction> loadedObjs = userContext.getDAOGroup().getFormActionDAO().findFormActionWithKey(key, options);
+		Map<String, List<FormAction>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getForm().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<FormAction> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<FormAction> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setFormActionList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GenericForm> genericFormList = ownerEntity.collectRefsWithType(GenericForm.INTERNAL_TYPE);

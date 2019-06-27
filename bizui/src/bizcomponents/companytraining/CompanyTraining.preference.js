@@ -314,8 +314,12 @@ class CompanyTrainingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCompanyTrainingCount } = this.props.companyTraining
-    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",cardsSource: this.props.companyTraining,
+    const  companyTraining = this.props.companyTraining;
+    const { id,displayName, employeeCompanyTrainingCount } = companyTraining
+    
+    
+    
+    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",cardsSource: companyTraining,
   		subItems: [
     
       	],

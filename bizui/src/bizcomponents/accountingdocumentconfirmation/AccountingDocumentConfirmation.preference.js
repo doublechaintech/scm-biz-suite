@@ -301,8 +301,12 @@ class AccountingDocumentConfirmationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, accountingDocumentCount } = this.props.accountingDocumentConfirmation
-    const cardsData = {cardsName:"会计的确认文件",cardsFor: "accountingDocumentConfirmation",cardsSource: this.props.accountingDocumentConfirmation,
+    const  accountingDocumentConfirmation = this.props.accountingDocumentConfirmation;
+    const { id,displayName, accountingDocumentCount } = accountingDocumentConfirmation
+    
+    
+    
+    const cardsData = {cardsName:"会计的确认文件",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,
   		subItems: [
     
       	],

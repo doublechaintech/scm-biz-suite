@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.consumerordershippinggroup;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -512,6 +514,9 @@ public class ConsumerOrderShippingGroupJDBCTemplateDAO extends RetailscmNamingSe
 	public void enhanceList(List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList) {		
 		this.enhanceListInternal(consumerOrderShippingGroupList, this.getConsumerOrderShippingGroupMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrderShippingGroup> consumerOrderShippingGroupList = ownerEntity.collectRefsWithType(ConsumerOrderShippingGroup.INTERNAL_TYPE);

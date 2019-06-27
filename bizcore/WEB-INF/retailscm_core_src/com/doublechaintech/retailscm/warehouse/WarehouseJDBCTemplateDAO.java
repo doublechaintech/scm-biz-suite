@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.warehouse;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -2132,6 +2134,170 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public void enhanceList(List<Warehouse> warehouseList) {		
 		this.enhanceListInternal(warehouseList, this.getWarehouseMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:StorageSpace的warehouse的StorageSpaceList
+	public SmartList<StorageSpace> loadOurStorageSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(StorageSpace.WAREHOUSE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<StorageSpace> loadedObjs = userContext.getDAOGroup().getStorageSpaceDAO().findStorageSpaceWithKey(key, options);
+		Map<String, List<StorageSpace>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getWarehouse().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<StorageSpace> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<StorageSpace> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setStorageSpaceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SmartPallet的warehouse的SmartPalletList
+	public SmartList<SmartPallet> loadOurSmartPalletList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SmartPallet.WAREHOUSE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SmartPallet> loadedObjs = userContext.getDAOGroup().getSmartPalletDAO().findSmartPalletWithKey(key, options);
+		Map<String, List<SmartPallet>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getWarehouse().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SmartPallet> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SmartPallet> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSmartPalletList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplierSpace的warehouse的SupplierSpaceList
+	public SmartList<SupplierSpace> loadOurSupplierSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SupplierSpace.WAREHOUSE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SupplierSpace> loadedObjs = userContext.getDAOGroup().getSupplierSpaceDAO().findSupplierSpaceWithKey(key, options);
+		Map<String, List<SupplierSpace>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getWarehouse().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SupplierSpace> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SupplierSpace> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSupplierSpaceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:ReceivingSpace的warehouse的ReceivingSpaceList
+	public SmartList<ReceivingSpace> loadOurReceivingSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ReceivingSpace.WAREHOUSE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ReceivingSpace> loadedObjs = userContext.getDAOGroup().getReceivingSpaceDAO().findReceivingSpaceWithKey(key, options);
+		Map<String, List<ReceivingSpace>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getWarehouse().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ReceivingSpace> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ReceivingSpace> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setReceivingSpaceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:ShippingSpace的warehouse的ShippingSpaceList
+	public SmartList<ShippingSpace> loadOurShippingSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ShippingSpace.WAREHOUSE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ShippingSpace> loadedObjs = userContext.getDAOGroup().getShippingSpaceDAO().findShippingSpaceWithKey(key, options);
+		Map<String, List<ShippingSpace>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getWarehouse().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ShippingSpace> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ShippingSpace> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setShippingSpaceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:DamageSpace的warehouse的DamageSpaceList
+	public SmartList<DamageSpace> loadOurDamageSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(DamageSpace.WAREHOUSE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<DamageSpace> loadedObjs = userContext.getDAOGroup().getDamageSpaceDAO().findDamageSpaceWithKey(key, options);
+		Map<String, List<DamageSpace>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getWarehouse().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<DamageSpace> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<DamageSpace> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setDamageSpaceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:WarehouseAsset的owner的WarehouseAssetList
+	public SmartList<WarehouseAsset> loadOurWarehouseAssetList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(WarehouseAsset.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<WarehouseAsset> loadedObjs = userContext.getDAOGroup().getWarehouseAssetDAO().findWarehouseAssetWithKey(key, options);
+		Map<String, List<WarehouseAsset>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<WarehouseAsset> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<WarehouseAsset> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setWarehouseAssetList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Warehouse> warehouseList = ownerEntity.collectRefsWithType(Warehouse.INTERNAL_TYPE);

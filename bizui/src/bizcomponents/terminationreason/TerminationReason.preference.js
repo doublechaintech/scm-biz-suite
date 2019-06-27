@@ -300,8 +300,12 @@ class TerminationReasonPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, terminationCount } = this.props.terminationReason
-    const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",cardsSource: this.props.terminationReason,
+    const  terminationReason = this.props.terminationReason;
+    const { id,displayName, terminationCount } = terminationReason
+    
+    
+    
+    const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",cardsSource: terminationReason,
   		subItems: [
     
       	],

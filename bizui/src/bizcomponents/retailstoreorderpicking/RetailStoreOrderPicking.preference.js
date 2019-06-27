@@ -300,8 +300,12 @@ class RetailStoreOrderPickingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreOrderCount } = this.props.retailStoreOrderPicking
-    const cardsData = {cardsName:"生超订单拣货",cardsFor: "retailStoreOrderPicking",cardsSource: this.props.retailStoreOrderPicking,
+    const  retailStoreOrderPicking = this.props.retailStoreOrderPicking;
+    const { id,displayName, retailStoreOrderCount } = retailStoreOrderPicking
+    
+    
+    
+    const cardsData = {cardsName:"生超订单拣货",cardsFor: "retailStoreOrderPicking",cardsSource: retailStoreOrderPicking,
   		subItems: [
     
       	],

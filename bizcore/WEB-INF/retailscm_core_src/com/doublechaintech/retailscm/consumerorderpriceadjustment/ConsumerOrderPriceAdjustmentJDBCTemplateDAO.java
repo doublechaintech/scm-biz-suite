@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.consumerorderpriceadjustment;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -514,6 +516,9 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmNaming
 	public void enhanceList(List<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList) {		
 		this.enhanceListInternal(consumerOrderPriceAdjustmentList, this.getConsumerOrderPriceAdjustmentMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ConsumerOrderPriceAdjustment> consumerOrderPriceAdjustmentList = ownerEntity.collectRefsWithType(ConsumerOrderPriceAdjustment.INTERNAL_TYPE);

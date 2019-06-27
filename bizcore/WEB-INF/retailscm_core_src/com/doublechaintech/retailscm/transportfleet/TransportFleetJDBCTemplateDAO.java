@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.transportfleet;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1346,6 +1348,78 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public void enhanceList(List<TransportFleet> transportFleetList) {		
 		this.enhanceListInternal(transportFleetList, this.getTransportFleetMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTruck的owner的TransportTruckList
+	public SmartList<TransportTruck> loadOurTransportTruckList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTruck.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTruck> loadedObjs = userContext.getDAOGroup().getTransportTruckDAO().findTransportTruckWithKey(key, options);
+		Map<String, List<TransportTruck>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTruck> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTruck> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTruckList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TruckDriver的belongsTo的TruckDriverList
+	public SmartList<TruckDriver> loadOurTruckDriverList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TruckDriver.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TruckDriver> loadedObjs = userContext.getDAOGroup().getTruckDriverDAO().findTruckDriverWithKey(key, options);
+		Map<String, List<TruckDriver>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TruckDriver> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TruckDriver> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTruckDriverList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTask的belongsTo的TransportTaskList
+	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTask.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTask> loadedObjs = userContext.getDAOGroup().getTransportTaskDAO().findTransportTaskWithKey(key, options);
+		Map<String, List<TransportTask>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTask> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTask> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTaskList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TransportFleet> transportFleetList = ownerEntity.collectRefsWithType(TransportFleet.INTERNAL_TYPE);

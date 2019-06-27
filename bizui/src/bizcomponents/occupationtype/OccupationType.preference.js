@@ -301,8 +301,12 @@ class OccupationTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.occupationType
-    const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",cardsSource: this.props.occupationType,
+    const  occupationType = this.props.occupationType;
+    const { id,displayName, employeeCount } = occupationType
+    
+    
+    
+    const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",cardsSource: occupationType,
   		subItems: [
     
       	],

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstorememberaddress;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -514,6 +516,9 @@ public class RetailStoreMemberAddressJDBCTemplateDAO extends RetailscmNamingServ
 	public void enhanceList(List<RetailStoreMemberAddress> retailStoreMemberAddressList) {		
 		this.enhanceListInternal(retailStoreMemberAddressList, this.getRetailStoreMemberAddressMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreMemberAddress> retailStoreMemberAddressList = ownerEntity.collectRefsWithType(RetailStoreMemberAddress.INTERNAL_TYPE);

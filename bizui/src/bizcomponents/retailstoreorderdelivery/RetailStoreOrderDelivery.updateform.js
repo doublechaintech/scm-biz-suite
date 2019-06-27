@@ -262,7 +262,7 @@ class RetailStoreOrderDeliveryUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class RetailStoreOrderDeliveryUpdateForm extends Component {
                     initialValue: selectedRow.who,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入谁" />
+                    <Input size="large" placeholder="谁" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class RetailStoreOrderDeliveryUpdateForm extends Component {
                     initialValue: selectedRow.deliveryTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入交货时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="交货时间" />
                     
                   )}
                 </Form.Item>

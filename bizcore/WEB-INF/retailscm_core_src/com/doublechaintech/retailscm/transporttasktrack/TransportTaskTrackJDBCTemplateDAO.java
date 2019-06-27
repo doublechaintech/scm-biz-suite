@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.transporttasktrack;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -514,6 +516,9 @@ public class TransportTaskTrackJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public void enhanceList(List<TransportTaskTrack> transportTaskTrackList) {		
 		this.enhanceListInternal(transportTaskTrackList, this.getTransportTaskTrackMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TransportTaskTrack> transportTaskTrackList = ownerEntity.collectRefsWithType(TransportTaskTrack.INTERNAL_TYPE);

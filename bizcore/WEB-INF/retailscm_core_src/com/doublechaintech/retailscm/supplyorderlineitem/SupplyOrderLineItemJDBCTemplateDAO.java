@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.supplyorderlineitem;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -518,6 +520,9 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmNamingServiceDA
 	public void enhanceList(List<SupplyOrderLineItem> supplyOrderLineItemList) {		
 		this.enhanceListInternal(supplyOrderLineItemList, this.getSupplyOrderLineItemMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplyOrderLineItem> supplyOrderLineItemList = ownerEntity.collectRefsWithType(SupplyOrderLineItem.INTERNAL_TYPE);

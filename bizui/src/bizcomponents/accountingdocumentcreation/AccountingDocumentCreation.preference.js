@@ -301,8 +301,12 @@ class AccountingDocumentCreationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, accountingDocumentCount } = this.props.accountingDocumentCreation
-    const cardsData = {cardsName:"会计文件的创建",cardsFor: "accountingDocumentCreation",cardsSource: this.props.accountingDocumentCreation,
+    const  accountingDocumentCreation = this.props.accountingDocumentCreation;
+    const { id,displayName, accountingDocumentCount } = accountingDocumentCreation
+    
+    
+    
+    const cardsData = {cardsName:"会计文件的创建",cardsFor: "accountingDocumentCreation",cardsSource: accountingDocumentCreation,
   		subItems: [
     
       	],

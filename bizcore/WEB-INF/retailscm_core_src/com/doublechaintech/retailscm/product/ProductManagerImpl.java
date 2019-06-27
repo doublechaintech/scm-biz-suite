@@ -264,8 +264,9 @@ public class ProductManagerImpl extends CustomRetailscmCheckerManager implements
 			//will be good when the product loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Product.
-			
-			
+			if (product.isChanged()){
+			product.updateLastUpdateTime(userContext.now());
+			}
 			product = saveProduct(userContext, product, options);
 			return product;
 			

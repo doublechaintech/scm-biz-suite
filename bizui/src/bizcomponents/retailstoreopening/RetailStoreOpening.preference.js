@@ -299,8 +299,12 @@ class RetailStoreOpeningPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreCount } = this.props.retailStoreOpening
-    const cardsData = {cardsName:"生超开业",cardsFor: "retailStoreOpening",cardsSource: this.props.retailStoreOpening,
+    const  retailStoreOpening = this.props.retailStoreOpening;
+    const { id,displayName, retailStoreCount } = retailStoreOpening
+    
+    
+    
+    const cardsData = {cardsName:"生超开业",cardsFor: "retailStoreOpening",cardsSource: retailStoreOpening,
   		subItems: [
     
       	],

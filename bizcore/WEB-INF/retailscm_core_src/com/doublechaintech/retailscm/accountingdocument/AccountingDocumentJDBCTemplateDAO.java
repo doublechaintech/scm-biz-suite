@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.accountingdocument;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -1633,6 +1635,55 @@ public class AccountingDocumentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public void enhanceList(List<AccountingDocument> accountingDocumentList) {		
 		this.enhanceListInternal(accountingDocumentList, this.getAccountingDocumentMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:OriginalVoucher的belongsTo的OriginalVoucherList
+	public SmartList<OriginalVoucher> loadOurOriginalVoucherList(RetailscmUserContext userContext, List<AccountingDocument> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(OriginalVoucher.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<OriginalVoucher> loadedObjs = userContext.getDAOGroup().getOriginalVoucherDAO().findOriginalVoucherWithKey(key, options);
+		Map<String, List<OriginalVoucher>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<OriginalVoucher> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<OriginalVoucher> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setOriginalVoucherList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocumentLine的belongsTo的AccountingDocumentLineList
+	public SmartList<AccountingDocumentLine> loadOurAccountingDocumentLineList(RetailscmUserContext userContext, List<AccountingDocument> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountingDocumentLine.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountingDocumentLine> loadedObjs = userContext.getDAOGroup().getAccountingDocumentLineDAO().findAccountingDocumentLineWithKey(key, options);
+		Map<String, List<AccountingDocumentLine>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountingDocumentLine> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountingDocumentLine> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountingDocumentLineList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountingDocument> accountingDocumentList = ownerEntity.collectRefsWithType(AccountingDocument.INTERNAL_TYPE);

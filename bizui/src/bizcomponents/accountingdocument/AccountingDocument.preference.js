@@ -313,8 +313,12 @@ class AccountingDocumentPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, originalVoucherCount, accountingDocumentLineCount } = this.props.accountingDocument
-    const cardsData = {cardsName:"会计凭证",cardsFor: "accountingDocument",cardsSource: this.props.accountingDocument,
+    const  accountingDocument = this.props.accountingDocument;
+    const { id,displayName, originalVoucherCount, accountingDocumentLineCount } = accountingDocument
+    
+    
+    
+    const cardsData = {cardsName:"会计凭证",cardsFor: "accountingDocument",cardsSource: accountingDocument,
   		subItems: [
     
       	],

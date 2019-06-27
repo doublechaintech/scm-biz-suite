@@ -240,8 +240,9 @@ public class RetailStoreClosingManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the retailStoreClosing loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreClosing.
+			if (retailStoreClosing.isChanged()){
 			
-			
+			}
 			retailStoreClosing = saveRetailStoreClosing(userContext, retailStoreClosing, options);
 			return retailStoreClosing;
 			

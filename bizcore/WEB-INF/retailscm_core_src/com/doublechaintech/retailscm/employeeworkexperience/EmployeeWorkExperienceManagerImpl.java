@@ -252,8 +252,9 @@ public class EmployeeWorkExperienceManagerImpl extends CustomRetailscmCheckerMan
 			//will be good when the employeeWorkExperience loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeWorkExperience.
+			if (employeeWorkExperience.isChanged()){
 			
-			
+			}
 			employeeWorkExperience = saveEmployeeWorkExperience(userContext, employeeWorkExperience, options);
 			return employeeWorkExperience;
 			

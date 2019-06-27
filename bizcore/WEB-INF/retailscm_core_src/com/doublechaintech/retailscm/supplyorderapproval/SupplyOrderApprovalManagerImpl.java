@@ -252,8 +252,9 @@ public class SupplyOrderApprovalManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the supplyOrderApproval loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderApproval.
+			if (supplyOrderApproval.isChanged()){
 			
-			
+			}
 			supplyOrderApproval = saveSupplyOrderApproval(userContext, supplyOrderApproval, options);
 			return supplyOrderApproval;
 			

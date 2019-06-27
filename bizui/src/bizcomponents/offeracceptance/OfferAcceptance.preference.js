@@ -301,8 +301,12 @@ class OfferAcceptancePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.offerAcceptance
-    const cardsData = {cardsName:"接受工作要约",cardsFor: "offerAcceptance",cardsSource: this.props.offerAcceptance,
+    const  offerAcceptance = this.props.offerAcceptance;
+    const { id,displayName, employeeCount } = offerAcceptance
+    
+    
+    
+    const cardsData = {cardsName:"接受工作要约",cardsFor: "offerAcceptance",cardsSource: offerAcceptance,
   		subItems: [
     
       	],

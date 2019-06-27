@@ -301,8 +301,12 @@ class JobApplicationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCount } = this.props.jobApplication
-    const cardsData = {cardsName:"工作申请",cardsFor: "jobApplication",cardsSource: this.props.jobApplication,
+    const  jobApplication = this.props.jobApplication;
+    const { id,displayName, employeeCount } = jobApplication
+    
+    
+    
+    const cardsData = {cardsName:"工作申请",cardsFor: "jobApplication",cardsSource: jobApplication,
   		subItems: [
     
       	],

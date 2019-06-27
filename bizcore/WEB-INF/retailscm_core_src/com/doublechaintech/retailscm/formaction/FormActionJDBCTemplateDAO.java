@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.formaction;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -518,6 +520,9 @@ public class FormActionJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	public void enhanceList(List<FormAction> formActionList) {		
 		this.enhanceListInternal(formActionList, this.getFormActionMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<FormAction> formActionList = ownerEntity.collectRefsWithType(FormAction.INTERNAL_TYPE);

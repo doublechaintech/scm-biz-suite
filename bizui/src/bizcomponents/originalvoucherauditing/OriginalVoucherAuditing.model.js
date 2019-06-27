@@ -1,5 +1,5 @@
 
-
+import React from 'react'
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/originalVoucherAuditing/${id}/list/\OriginalVoucherList/原始凭证+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/originalVoucherAuditing/${id}/list/OriginalVoucherList/原始凭证+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateOriginalVoucher({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/originalVoucherAuditing/${id}/list/\OriginalVoucherList/原始凭证列表`, state: newPlayload }
+      const location = { pathname: `/originalVoucherAuditing/${id}/list/OriginalVoucherList/原始凭证列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextOriginalVoucherUpdateRow({ payload }, { call, put }) {

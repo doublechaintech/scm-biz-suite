@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeperformance;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -510,6 +512,9 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
 	public void enhanceList(List<EmployeePerformance> employeePerformanceList) {		
 		this.enhanceListInternal(employeePerformanceList, this.getEmployeePerformanceMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeePerformance> employeePerformanceList = ownerEntity.collectRefsWithType(EmployeePerformance.INTERNAL_TYPE);

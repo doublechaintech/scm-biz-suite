@@ -248,8 +248,9 @@ public class AccountingDocumentPostingManagerImpl extends CustomRetailscmChecker
 			//will be good when the accountingDocumentPosting loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingDocumentPosting.
+			if (accountingDocumentPosting.isChanged()){
 			
-			
+			}
 			accountingDocumentPosting = saveAccountingDocumentPosting(userContext, accountingDocumentPosting, options);
 			return accountingDocumentPosting;
 			

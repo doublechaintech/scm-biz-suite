@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.transporttruck;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -884,6 +886,32 @@ public class TransportTruckJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public void enhanceList(List<TransportTruck> transportTruckList) {		
 		this.enhanceListInternal(transportTruckList, this.getTransportTruckMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTask的truck的TransportTaskList
+	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<TransportTruck> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTask.TRUCK_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTask> loadedObjs = userContext.getDAOGroup().getTransportTaskDAO().findTransportTaskWithKey(key, options);
+		Map<String, List<TransportTask>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getTruck().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTask> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTask> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTaskList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TransportTruck> transportTruckList = ownerEntity.collectRefsWithType(TransportTruck.INTERNAL_TYPE);

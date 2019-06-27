@@ -300,8 +300,12 @@ class UserWhiteListPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.userWhiteList
-    const cardsData = {cardsName:"用户白名单",cardsFor: "userWhiteList",cardsSource: this.props.userWhiteList,
+    const  userWhiteList = this.props.userWhiteList;
+    const { id,displayName,  } = userWhiteList
+    
+    
+    
+    const cardsData = {cardsName:"用户白名单",cardsFor: "userWhiteList",cardsSource: userWhiteList,
   		subItems: [
     
       	],

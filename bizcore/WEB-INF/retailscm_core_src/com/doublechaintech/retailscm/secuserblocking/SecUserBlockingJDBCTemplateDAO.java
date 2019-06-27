@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.secuserblocking;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -673,6 +675,32 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public void enhanceList(List<SecUserBlocking> secUserBlockingList) {		
 		this.enhanceListInternal(secUserBlockingList, this.getSecUserBlockingMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:SecUser的blocking的SecUserList
+	public SmartList<SecUser> loadOurSecUserList(RetailscmUserContext userContext, List<SecUserBlocking> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(SecUser.BLOCKING_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<SecUser> loadedObjs = userContext.getDAOGroup().getSecUserDAO().findSecUserWithKey(key, options);
+		Map<String, List<SecUser>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBlocking().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<SecUser> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<SecUser> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setSecUserList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SecUserBlocking> secUserBlockingList = ownerEntity.collectRefsWithType(SecUserBlocking.INTERNAL_TYPE);

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.levelonecategory;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -738,6 +740,32 @@ public class LevelOneCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	public void enhanceList(List<LevelOneCategory> levelOneCategoryList) {		
 		this.enhanceListInternal(levelOneCategoryList, this.getLevelOneCategoryMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:LevelTwoCategory的parentCategory的LevelTwoCategoryList
+	public SmartList<LevelTwoCategory> loadOurLevelTwoCategoryList(RetailscmUserContext userContext, List<LevelOneCategory> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LevelTwoCategory.PARENT_CATEGORY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LevelTwoCategory> loadedObjs = userContext.getDAOGroup().getLevelTwoCategoryDAO().findLevelTwoCategoryWithKey(key, options);
+		Map<String, List<LevelTwoCategory>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getParentCategory().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LevelTwoCategory> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LevelTwoCategory> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLevelTwoCategoryList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LevelOneCategory> levelOneCategoryList = ownerEntity.collectRefsWithType(LevelOneCategory.INTERNAL_TYPE);

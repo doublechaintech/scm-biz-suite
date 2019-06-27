@@ -242,8 +242,9 @@ public class SupplyOrderPaymentGroupManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the supplyOrderPaymentGroup loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderPaymentGroup.
+			if (supplyOrderPaymentGroup.isChanged()){
 			
-			
+			}
 			supplyOrderPaymentGroup = saveSupplyOrderPaymentGroup(userContext, supplyOrderPaymentGroup, options);
 			return supplyOrderPaymentGroup;
 			

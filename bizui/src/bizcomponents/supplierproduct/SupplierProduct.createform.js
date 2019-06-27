@@ -209,7 +209,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入品名" />
+                    <Input size="large" placeholder="品名" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产品描述" />
+                    <Input size="large" placeholder="产品描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productUnit', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产品单元" />
+                    <Input size="large" placeholder="产品单元" />
                   )}
                 </Form.Item>
               </Col>

@@ -39,4 +39,8 @@ public class RandomUtil {
 		}
 		return sb.toString();
 	}
+
+	public static int getRandomInRange(int min, int max) {
+		return min + (int)(Math.random()*(max-min));
+	}
 }

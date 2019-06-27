@@ -243,8 +243,9 @@ public class MemberWishlistManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the memberWishlist loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to MemberWishlist.
+			if (memberWishlist.isChanged()){
 			
-			
+			}
 			memberWishlist = saveMemberWishlist(userContext, memberWishlist, options);
 			return memberWishlist;
 			

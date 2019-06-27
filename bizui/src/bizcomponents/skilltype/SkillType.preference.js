@@ -300,8 +300,12 @@ class SkillTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeSkillCount } = this.props.skillType
-    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",cardsSource: this.props.skillType,
+    const  skillType = this.props.skillType;
+    const { id,displayName, employeeSkillCount } = skillType
+    
+    
+    
+    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",cardsSource: skillType,
   		subItems: [
     
       	],

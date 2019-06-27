@@ -242,8 +242,9 @@ public class ConsumerOrderShippingGroupManagerImpl extends CustomRetailscmChecke
 			//will be good when the consumerOrderShippingGroup loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderShippingGroup.
+			if (consumerOrderShippingGroup.isChanged()){
 			
-			
+			}
 			consumerOrderShippingGroup = saveConsumerOrderShippingGroup(userContext, consumerOrderShippingGroup, options);
 			return consumerOrderShippingGroup;
 			

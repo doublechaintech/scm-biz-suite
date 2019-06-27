@@ -1,4 +1,5 @@
 package com.doublechaintech.retailscm;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -226,14 +227,88 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 
 
 	}
-	protected JdbcTemplate getJdbcTemplateObject() {
+	
+	protected static final String DATABASE_PRODUCT_INFORMIX="Informix Server".toLowerCase();
+	protected static final String DATABASE_PRODUCT_GBASE="GBase Server".toLowerCase();
+	protected static final String DATABASE_PRODUCT_MYSQL="MySQL".toLowerCase();
+	protected static final String DATABASE_PRODUCT_PGSQL="PostgreSQL".toLowerCase();
+	protected static final String DATABASE_PRODUCT_ORACLE="Oracle".toLowerCase();
+	protected static final String DATABASE_PRODUCT_MSSQL="Microsoft SQL Server".toLowerCase();
+	//body should like   "* from table where ... order ... group by ... "
+	protected String wrapRangeQuery(String body) {
+		
+		if(getDatabaseProductName().equals(DATABASE_PRODUCT_MYSQL)) {
+			return this.join("select ",body," limit ?, ?");
+		}
+		if(getDatabaseProductName().equals(DATABASE_PRODUCT_GBASE)) {
+			return this.join("select skip ? first ? ",body);
+		}
+		if(getDatabaseProductName().equals(DATABASE_PRODUCT_INFORMIX)) {
+			return this.join("select skip ? first ? ",body);
+		}
+		if(getDatabaseProductName().equals(DATABASE_PRODUCT_PGSQL)) {
+			return this.join("select  ",body," offset ? limit ?");
+		}
 		/*
+		 * select *
+    from (select a.*, rownum rowno
+            from (select t.*
+                    from test t
+                   order by t.create_date desc) a
+           where rownum <= 20) b
+   where b.rowno >= 11;
+		 * 
+		 * */
+		
+		if(getDatabaseProductName().equals(DATABASE_PRODUCT_ORACLE)) {
+			//not tested yet, more issue is here
+			return this.join("select * from (",  
+					"select a.*, rownum rowno from (",
+					"select ",body, 
+					") _external where_external.rownum<=? ",
+					") _internal where _internal.rownum>=? ");
+		}
+		return this.join("select ",body," offset ? limit ?");
+		//please do not go there, will fail for most case;
+		
+		
+		
+	}
+	
+	
+	
+	
+	protected String currentDatabaseProductName = null;
+	
+	
+	
+	protected String getDatabaseProductName() {
+		
+		if(currentDatabaseProductName!=null) {
+			return currentDatabaseProductName;
+		}
+		// only call the connection to get product by the first time;
+		Connection conn = null;
 		try {
-			System.out.print(jdbcTemplateObject.getDataSource().getConnection().getClientInfo().toString());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+			conn = jdbcTemplateObject.getDataSource().getConnection();
+			return currentDatabaseProductName = conn.getMetaData().getDatabaseProductName().toLowerCase();
+		} catch (Exception e) {
+			return null;
+		}finally {
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					//Do nothing
+					this.logDebug("Trying to close connection error: "+e.getMessage());
+				}
+			}
+		}
+	}
+	
+	protected JdbcTemplate getJdbcTemplateObject()  {
+		
+		
 		
 		return jdbcTemplateObject;
 	}
@@ -1095,7 +1170,7 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 	protected <T  extends BaseEntity> SmartList<T> queryWithRange(String target, Object value, Map<String,Object> options,  
 			RowMapper<T> mapper, int start, int count){
 		QueryCriteria qc = this.createQueryCriteria(options);
-		String SQL = "select * from "+this.getTableName()+" where "+target+" = ? " + qc.getSQL()+" limit ?, ?";
+		String SQL = wrapRangeQuery("* from "+this.getTableName()+" where "+target+" = ? " + qc.getSQL());
  		//MySQL only, please replace it when using ORACLE DB
 		
 		Object []parameters = this.joinArrays(new Object[][]{new Object[]{value}, qc.getParameters(), new Object[]{ start, count}} );
@@ -1125,7 +1200,22 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 		}
 		return constractFindAllWithFilterKey(fieldName, filterKey, pageNo, pageSize);
 	}
+	
+	protected Object[] constractFindAllWithoutFilterKey(String fieldName, int pageNo, int pageSize) {
+		String querySQL = wrapRangeQuery("* from " + this.getTableName() + " order by " + fieldName + " asc ");
+		String countSQL = "select count(*) from " + this.getTableName();
+		Object[] params = new Object[] { (pageNo - 1) * pageSize, pageSize };
+		return new Object[] { countSQL, new Object[] {}, querySQL, params };
+	}
 
+	protected Object[] constractFindAllWithFilterKey(String fieldName, String filterKey, int pageNo, int pageSize) {
+		String querySQL =  wrapRangeQuery("* from " + this.getTableName() + " where " + fieldName + " like ? order by " + fieldName + " asc ");
+		String countSQL = "select count(*) from " + this.getTableName() + " where " + fieldName + " like ? ";
+		Object[] countParams = new Object[] { '%' + filterKey + '%' };
+		Object[] queryParams = new Object[] { '%' + filterKey + '%', (pageNo - 1) * pageSize, pageSize };
+		return new Object[] { countSQL, countParams, querySQL, queryParams };
+	}
+	/*
 	protected Object[] constractFindAllWithoutFilterKey(String fieldName, int pageNo, int pageSize) {
 		String querySQL = "select * from " + this.getTableName() + " order by " + fieldName + " asc limit ?,?";
 		String countSQL = "select count(*) from " + this.getTableName();
@@ -1140,7 +1230,7 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 		Object[] queryParams = new Object[] { '%' + filterKey + '%', (pageNo - 1) * pageSize, pageSize };
 		return new Object[] { countSQL, countParams, querySQL, queryParams };
 	}
-	
+	*/
 	
 	protected void assertMethodArgumentNotNull(Object object, String method, String parameterName){
 		if(object == null){
@@ -1215,14 +1305,14 @@ public abstract class CommonJDBCTemplateDAO extends BaseEntity{
 		
 		String internalKey = this.mapToInternalColumn(groupKey);
 		checkGroupKey(internalKey);//open for functions
-		String SQL = "select "+internalKey+", count(*) as count from "+this.getTableName()
-				+" where " + filterKey.sql() + qc.getSQL() +" group by " +internalKey ;
+		String SQL = "select "+internalKey+" as date_key, count(*) as count from "+this.getTableName()
+				+" where " + filterKey.sql() + qc.getSQL() +" group by date_key"  ;
 		
 		Object []parameters = this.joinArrays(new Object[][]{filterKey.params(), qc.getParameters()});
 		if(parameters.length == 0){
 			//if there are no parameters, where does not make sence
-			SQL = "select "+internalKey+", count(*) as count from "+this.getTableName()
-					+" group by " +internalKey ;
+			SQL = "select "+internalKey+" as date_key, count(*) as count from "+this.getTableName()
+					+" group by date_key"  ;
 		}
 		
 		
@@ -1306,6 +1396,9 @@ class CountingResultMap extends HashMap<String, Integer> {
 	}
 	
 }
+
+
+
 
 
 

@@ -209,7 +209,7 @@ class GoodsShelfCreateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入位置" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>

@@ -300,8 +300,12 @@ class SupplyOrderPickingPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, supplyOrderCount } = this.props.supplyOrderPicking
-    const cardsData = {cardsName:"供应订单拣货",cardsFor: "supplyOrderPicking",cardsSource: this.props.supplyOrderPicking,
+    const  supplyOrderPicking = this.props.supplyOrderPicking;
+    const { id,displayName, supplyOrderCount } = supplyOrderPicking
+    
+    
+    
+    const cardsData = {cardsName:"供应订单拣货",cardsFor: "supplyOrderPicking",cardsSource: supplyOrderPicking,
   		subItems: [
     
       	],

@@ -307,8 +307,12 @@ class RetailStoreMemberCouponPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.retailStoreMemberCoupon
-    const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",cardsSource: this.props.retailStoreMemberCoupon,
+    const  retailStoreMemberCoupon = this.props.retailStoreMemberCoupon;
+    const { id,displayName,  } = retailStoreMemberCoupon
+    
+    
+    
+    const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",cardsSource: retailStoreMemberCoupon,
   		subItems: [
     
       	],

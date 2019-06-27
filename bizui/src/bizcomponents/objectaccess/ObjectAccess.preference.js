@@ -315,8 +315,12 @@ class ObjectAccessPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.objectAccess
-    const cardsData = {cardsName:"对象访问",cardsFor: "objectAccess",cardsSource: this.props.objectAccess,
+    const  objectAccess = this.props.objectAccess;
+    const { id,displayName,  } = objectAccess
+    
+    
+    
+    const cardsData = {cardsName:"对象访问",cardsFor: "objectAccess",cardsSource: objectAccess,
   		subItems: [
     
       	],

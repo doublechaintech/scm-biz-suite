@@ -66,8 +66,13 @@ public class FilterTabsViewComponent extends BaseViewComponent {
     }
 
     public FilterTabsViewComponent() {
+    	this(null);
+    }
+    public FilterTabsViewComponent(String activeTab) {
         super();
+        this.setLinkToUrl("");
         this.setComponentType("filter-tabs");
+        this.setActiveTab(activeTab);
     }
 
     private List<Map<String, Object>> ensureContent() {

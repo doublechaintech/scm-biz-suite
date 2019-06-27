@@ -306,8 +306,12 @@ class SecUserPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, userAppCount, loginHistoryCount } = this.props.secUser
-    const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",cardsSource: this.props.secUser,
+    const  secUser = this.props.secUser;
+    const { id,displayName, userAppCount, loginHistoryCount } = secUser
+    
+    
+    
+    const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",cardsSource: secUser,
   		subItems: [
     
       	],

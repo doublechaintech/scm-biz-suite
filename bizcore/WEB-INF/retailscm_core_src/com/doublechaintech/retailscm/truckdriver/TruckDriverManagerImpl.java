@@ -256,8 +256,9 @@ public class TruckDriverManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the truckDriver loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TruckDriver.
+			if (truckDriver.isChanged()){
 			
-			
+			}
 			truckDriver = saveTruckDriver(userContext, truckDriver, options);
 			return truckDriver;
 			

@@ -306,8 +306,12 @@ class ConsumerOrderPaymentGroupPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.consumerOrderPaymentGroup
-    const cardsData = {cardsName:"消费者订单付款组",cardsFor: "consumerOrderPaymentGroup",cardsSource: this.props.consumerOrderPaymentGroup,
+    const  consumerOrderPaymentGroup = this.props.consumerOrderPaymentGroup;
+    const { id,displayName,  } = consumerOrderPaymentGroup
+    
+    
+    
+    const cardsData = {cardsName:"消费者订单付款组",cardsFor: "consumerOrderPaymentGroup",cardsSource: consumerOrderPaymentGroup,
   		subItems: [
     
       	],

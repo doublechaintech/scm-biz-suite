@@ -242,8 +242,9 @@ public class SupplyOrderShippingGroupManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the supplyOrderShippingGroup loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderShippingGroup.
+			if (supplyOrderShippingGroup.isChanged()){
 			
-			
+			}
 			supplyOrderShippingGroup = saveSupplyOrderShippingGroup(userContext, supplyOrderShippingGroup, options);
 			return supplyOrderShippingGroup;
 			

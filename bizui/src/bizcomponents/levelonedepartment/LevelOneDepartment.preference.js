@@ -302,8 +302,12 @@ class LevelOneDepartmentPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, levelTwoDepartmentCount } = this.props.levelOneDepartment
-    const cardsData = {cardsName:"一级部门",cardsFor: "levelOneDepartment",cardsSource: this.props.levelOneDepartment,
+    const  levelOneDepartment = this.props.levelOneDepartment;
+    const { id,displayName, levelTwoDepartmentCount } = levelOneDepartment
+    
+    
+    
+    const cardsData = {cardsName:"一级部门",cardsFor: "levelOneDepartment",cardsSource: levelOneDepartment,
   		subItems: [
     
       	],

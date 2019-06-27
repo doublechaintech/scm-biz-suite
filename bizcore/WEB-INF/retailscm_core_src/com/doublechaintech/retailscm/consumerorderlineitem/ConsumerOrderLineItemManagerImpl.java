@@ -258,8 +258,9 @@ public class ConsumerOrderLineItemManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the consumerOrderLineItem loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderLineItem.
-			
-			
+			if (consumerOrderLineItem.isChanged()){
+			consumerOrderLineItem.updateLastUpdateTime(userContext.now());
+			}
 			consumerOrderLineItem = saveConsumerOrderLineItem(userContext, consumerOrderLineItem, options);
 			return consumerOrderLineItem;
 			

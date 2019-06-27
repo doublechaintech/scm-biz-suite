@@ -309,8 +309,12 @@ class RetailStoreOrderLineItemPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.retailStoreOrderLineItem
-    const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",cardsSource: this.props.retailStoreOrderLineItem,
+    const  retailStoreOrderLineItem = this.props.retailStoreOrderLineItem;
+    const { id,displayName,  } = retailStoreOrderLineItem
+    
+    
+    
+    const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",cardsSource: retailStoreOrderLineItem,
   		subItems: [
     
       	],

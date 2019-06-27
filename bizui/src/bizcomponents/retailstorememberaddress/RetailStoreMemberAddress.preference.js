@@ -307,8 +307,12 @@ class RetailStoreMemberAddressPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName,  } = this.props.retailStoreMemberAddress
-    const cardsData = {cardsName:"零售店会员地址",cardsFor: "retailStoreMemberAddress",cardsSource: this.props.retailStoreMemberAddress,
+    const  retailStoreMemberAddress = this.props.retailStoreMemberAddress;
+    const { id,displayName,  } = retailStoreMemberAddress
+    
+    
+    
+    const cardsData = {cardsName:"零售店会员地址",cardsFor: "retailStoreMemberAddress",cardsSource: retailStoreMemberAddress,
   		subItems: [
     
       	],

@@ -301,8 +301,12 @@ class InterviewTypePreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeInterviewCount } = this.props.interviewType
-    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",cardsSource: this.props.interviewType,
+    const  interviewType = this.props.interviewType;
+    const { id,displayName, employeeInterviewCount } = interviewType
+    
+    
+    
+    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",cardsSource: interviewType,
   		subItems: [
     
       	],

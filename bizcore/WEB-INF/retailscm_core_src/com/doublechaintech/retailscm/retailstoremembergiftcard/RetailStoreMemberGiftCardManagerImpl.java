@@ -254,8 +254,9 @@ public class RetailStoreMemberGiftCardManagerImpl extends CustomRetailscmChecker
 			//will be good when the retailStoreMemberGiftCard loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreMemberGiftCard.
+			if (retailStoreMemberGiftCard.isChanged()){
 			
-			
+			}
 			retailStoreMemberGiftCard = saveRetailStoreMemberGiftCard(userContext, retailStoreMemberGiftCard, options);
 			return retailStoreMemberGiftCard;
 			

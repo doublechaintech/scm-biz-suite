@@ -301,8 +301,12 @@ class TransportFleetPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, transportTruckCount, truckDriverCount, transportTaskCount } = this.props.transportFleet
-    const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",cardsSource: this.props.transportFleet,
+    const  transportFleet = this.props.transportFleet;
+    const { id,displayName, transportTruckCount, truckDriverCount, transportTaskCount } = transportFleet
+    
+    
+    
+    const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",cardsSource: transportFleet,
   		subItems: [
     
       	],

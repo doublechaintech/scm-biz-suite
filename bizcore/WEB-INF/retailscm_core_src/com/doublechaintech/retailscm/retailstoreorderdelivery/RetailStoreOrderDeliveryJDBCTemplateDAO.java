@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstoreorderdelivery;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -715,6 +717,32 @@ public class RetailStoreOrderDeliveryJDBCTemplateDAO extends RetailscmNamingServ
 	public void enhanceList(List<RetailStoreOrderDelivery> retailStoreOrderDeliveryList) {		
 		this.enhanceListInternal(retailStoreOrderDeliveryList, this.getRetailStoreOrderDeliveryMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrder的delivery的RetailStoreOrderList
+	public SmartList<RetailStoreOrder> loadOurRetailStoreOrderList(RetailscmUserContext userContext, List<RetailStoreOrderDelivery> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.DELIVERY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreOrder> loadedObjs = userContext.getDAOGroup().getRetailStoreOrderDAO().findRetailStoreOrderWithKey(key, options);
+		Map<String, List<RetailStoreOrder>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getDelivery().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreOrder> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreOrder> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreOrderList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreOrderDelivery> retailStoreOrderDeliveryList = ownerEntity.collectRefsWithType(RetailStoreOrderDelivery.INTERNAL_TYPE);

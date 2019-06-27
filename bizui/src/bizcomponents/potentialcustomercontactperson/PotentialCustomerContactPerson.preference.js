@@ -307,8 +307,12 @@ class PotentialCustomerContactPersonPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, potentialCustomerContactCount } = this.props.potentialCustomerContactPerson
-    const cardsData = {cardsName:"潜在客户联络人",cardsFor: "potentialCustomerContactPerson",cardsSource: this.props.potentialCustomerContactPerson,
+    const  potentialCustomerContactPerson = this.props.potentialCustomerContactPerson;
+    const { id,displayName, potentialCustomerContactCount } = potentialCustomerContactPerson
+    
+    
+    
+    const cardsData = {cardsName:"潜在客户联络人",cardsFor: "potentialCustomerContactPerson",cardsSource: potentialCustomerContactPerson,
   		subItems: [
     
       	],

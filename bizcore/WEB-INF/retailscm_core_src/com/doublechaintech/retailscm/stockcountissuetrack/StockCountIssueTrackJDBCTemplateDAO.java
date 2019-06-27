@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.stockcountissuetrack;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -514,6 +516,9 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceD
 	public void enhanceList(List<StockCountIssueTrack> stockCountIssueTrackList) {		
 		this.enhanceListInternal(stockCountIssueTrackList, this.getStockCountIssueTrackMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<StockCountIssueTrack> stockCountIssueTrackList = ownerEntity.collectRefsWithType(StockCountIssueTrack.INTERNAL_TYPE);

@@ -64,9 +64,9 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	Product(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setParentCategory( null );
 
@@ -310,13 +310,13 @@ public class Product extends BaseEntity implements  java.io.Serializable{
 	
 	
 	public void setPicture(String picture){
-		this.mPicture = trimString(encodeUrl(picture));;
+		this.mPicture = trimString(picture);;
 	}
 	public String getPicture(){
 		return this.mPicture;
 	}
 	public Product updatePicture(String picture){
-		this.mPicture = trimString(encodeUrl(picture));;
+		this.mPicture = trimString(picture);;
 		this.changed = true;
 		return this;
 	}

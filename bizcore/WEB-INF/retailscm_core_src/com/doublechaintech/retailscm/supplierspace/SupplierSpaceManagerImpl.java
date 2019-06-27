@@ -266,8 +266,9 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the supplierSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplierSpace.
-			
-			
+			if (supplierSpace.isChanged()){
+			supplierSpace.updateLastUpdateTime(userContext.now());
+			}
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, options);
 			return supplierSpace;
 			

@@ -299,8 +299,12 @@ class RetailStoreDecorationPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, retailStoreCount } = this.props.retailStoreDecoration
-    const cardsData = {cardsName:"生超装修",cardsFor: "retailStoreDecoration",cardsSource: this.props.retailStoreDecoration,
+    const  retailStoreDecoration = this.props.retailStoreDecoration;
+    const { id,displayName, retailStoreCount } = retailStoreDecoration
+    
+    
+    
+    const cardsData = {cardsName:"生超装修",cardsFor: "retailStoreDecoration",cardsSource: retailStoreDecoration,
   		subItems: [
     
       	],

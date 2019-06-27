@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.terminationreason;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -784,6 +786,32 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<TerminationReason> terminationReasonList) {		
 		this.enhanceListInternal(terminationReasonList, this.getTerminationReasonMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Termination的reason的TerminationList
+	public SmartList<Termination> loadOurTerminationList(RetailscmUserContext userContext, List<TerminationReason> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Termination.REASON_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Termination> loadedObjs = userContext.getDAOGroup().getTerminationDAO().findTerminationWithKey(key, options);
+		Map<String, List<Termination>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getReason().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Termination> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Termination> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTerminationList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TerminationReason> terminationReasonList = ownerEntity.collectRefsWithType(TerminationReason.INTERNAL_TYPE);

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.payingoff;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -830,6 +832,32 @@ public class PayingOffJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public void enhanceList(List<PayingOff> payingOffList) {		
 		this.enhanceListInternal(payingOffList, this.getPayingOffMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeSalarySheet的payingOff的EmployeeSalarySheetList
+	public SmartList<EmployeeSalarySheet> loadOurEmployeeSalarySheetList(RetailscmUserContext userContext, List<PayingOff> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeSalarySheet.PAYING_OFF_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeSalarySheet> loadedObjs = userContext.getDAOGroup().getEmployeeSalarySheetDAO().findEmployeeSalarySheetWithKey(key, options);
+		Map<String, List<EmployeeSalarySheet>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPayingOff().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeSalarySheet> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeSalarySheet> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeSalarySheetList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PayingOff> payingOffList = ownerEntity.collectRefsWithType(PayingOff.INTERNAL_TYPE);

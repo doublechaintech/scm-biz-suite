@@ -262,8 +262,9 @@ public class TransportFleetManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the transportFleet loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TransportFleet.
-			
-			
+			if (transportFleet.isChanged()){
+			transportFleet.updateLastUpdateTime(userContext.now());
+			}
 			transportFleet = saveTransportFleet(userContext, transportFleet, options);
 			return transportFleet;
 			

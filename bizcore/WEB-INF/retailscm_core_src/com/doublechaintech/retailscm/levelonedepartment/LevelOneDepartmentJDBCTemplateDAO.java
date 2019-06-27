@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.levelonedepartment;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -744,6 +746,32 @@ public class LevelOneDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public void enhanceList(List<LevelOneDepartment> levelOneDepartmentList) {		
 		this.enhanceListInternal(levelOneDepartmentList, this.getLevelOneDepartmentMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:LevelTwoDepartment的belongsTo的LevelTwoDepartmentList
+	public SmartList<LevelTwoDepartment> loadOurLevelTwoDepartmentList(RetailscmUserContext userContext, List<LevelOneDepartment> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LevelTwoDepartment.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LevelTwoDepartment> loadedObjs = userContext.getDAOGroup().getLevelTwoDepartmentDAO().findLevelTwoDepartmentWithKey(key, options);
+		Map<String, List<LevelTwoDepartment>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LevelTwoDepartment> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LevelTwoDepartment> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLevelTwoDepartmentList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LevelOneDepartment> levelOneDepartmentList = ownerEntity.collectRefsWithType(LevelOneDepartment.INTERNAL_TYPE);

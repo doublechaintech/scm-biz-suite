@@ -309,8 +309,9 @@ public class AccountSetManagerImpl extends CustomRetailscmCheckerManager impleme
 			//will be good when the accountSet loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountSet.
-			
-			
+			if (accountSet.isChanged()){
+			accountSet.updateLastUpdateTime(userContext.now());
+			}
 			accountSet = saveAccountSet(userContext, accountSet, options);
 			return accountSet;
 			

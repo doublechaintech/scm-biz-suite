@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -645,6 +647,9 @@ public class RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO extends Retai
 	public void enhanceList(List<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList) {		
 		this.enhanceListInternal(retailStoreMemberGiftCardConsumeRecordList, this.getRetailStoreMemberGiftCardConsumeRecordMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreMemberGiftCardConsumeRecord> retailStoreMemberGiftCardConsumeRecordList = ownerEntity.collectRefsWithType(RetailStoreMemberGiftCardConsumeRecord.INTERNAL_TYPE);

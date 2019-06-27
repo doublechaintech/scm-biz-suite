@@ -242,8 +242,9 @@ public class UserWhiteListManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the userWhiteList loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to UserWhiteList.
+			if (userWhiteList.isChanged()){
 			
-			
+			}
 			userWhiteList = saveUserWhiteList(userContext, userWhiteList, options);
 			return userWhiteList;
 			

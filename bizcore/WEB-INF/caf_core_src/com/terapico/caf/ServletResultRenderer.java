@@ -24,11 +24,30 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @SuppressWarnings("rawtypes")
 public class ServletResultRenderer {
-
+	
+	protected void renderMimeObjectResult(HttpServlet servlet, InvocationResult result, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		
+		Object actualResult = result.getActualResult();
+		if(!(actualResult instanceof BlobObject)) {
+			throw new IllegalArgumentException("The return object is not a blob");
+		}
+		BlobObject blob=(BlobObject)actualResult;
+		response.addHeader("X-Env-Type", result.getEnvType());
+		response.addHeader("X-Env-Name", result.getEnvName());
+		response.setCharacterEncoding(null);
+		response.setContentType(blob.getMimeType());
+		response.getOutputStream().write(blob.getData());
+		
+	}
 	public void render(HttpServlet servlet, HttpServletRequest request, HttpServletResponse response,
 			InvocationResult result) throws ServletException, IOException {
 		// When integrate with WeiXin, some special request has accept:*/* , and must render as plainText
 		// so decide render way by result.isRenderByXXX first
+		if(result.getActualResult() instanceof BlobObject) {
+			renderMimeObjectResult(servlet, result, request, response);
+			return;
+		}
 		if (result.isAssignedRenderingWay()){
 			if (result.isRenderAsHtml()){
 				renderHTMLPage(servlet, result, request, response);
@@ -144,6 +163,7 @@ public class ServletResultRenderer {
 	}
 	private ObjectMapper objectMapper = null;
 	protected ObjectMapper getObjectMapper(){
+//		objectMapper = null;
 		if(objectMapper == null){
 			objectMapper = new ObjectMapper();
 			//DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -161,7 +181,7 @@ public class ServletResultRenderer {
 		response.addHeader("Access-Control-Allow-Origin",origin);
 		response.addHeader("Access-Control-Allow-Methods","GET, POST, OPTIONS");
 		//Access-Control-Expose-Headers
-		response.addHeader("Access-Control-Expose-Headers","Set-Cookie");
+		response.addHeader("Access-Control-Expose-Headers","Set-Cookie, X-Redirect, X-Env-Type, X-Env-Name");
 		response.addHeader("Access-Control-Allow-Credentials","true");
 		
 	}
@@ -178,7 +198,9 @@ public class ServletResultRenderer {
 			renderClass = result.getResponseHeader().get("X-Class");
 		}
 		response.addHeader("X-Class", renderClass);
-		response.addHeader("Access-Control-Expose-Headers", "X-Class");
+		response.addHeader("X-Env-Type", result.getEnvType());
+		response.addHeader("X-Env-Name", result.getEnvName());
+		response.addHeader("Access-Control-Expose-Headers", "X-Class, X-Redirect, X-Env-Type, X-Env-Name");
 		//Access-Control-Expose-Headers
 		
 		log("Render JSON result with class: "+ renderClass);
@@ -206,6 +228,7 @@ public class ServletResultRenderer {
 		*/
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.setSerializationInclusion(Include.NON_NULL);
+//        log("Render JSON result: "+ result.getActualResult());
 		String json = mapper.writeValueAsString(result.getActualResult());
 		log("Render JSON result with size: "+ json.length());
 //		log("Render JSON result: "+ json);
@@ -229,6 +252,8 @@ public class ServletResultRenderer {
 		if (result.getResponseHeader() != null && result.getResponseHeader().containsKey("X-Class")) {
 			renderClass = result.getResponseHeader().get("X-Class");
 		}
+		response.addHeader("X-Env-Type", result.getEnvType());
+		response.addHeader("X-Env-Name", result.getEnvName());
 		response.addHeader("X-Class", renderClass);
 		// 其他header
 		if(result.getResponseHeader() != null) {
@@ -251,6 +276,8 @@ public class ServletResultRenderer {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/javascript");
 		response.addHeader("Cache-Control", "no-cache, must-revalidate");
+		response.addHeader("X-Env-Type", result.getEnvType());
+		response.addHeader("X-Env-Name", result.getEnvName());
 		// 其他header
 		if(result.getResponseHeader() != null) {
 			for(String hName: result.getResponseHeader().keySet()) {

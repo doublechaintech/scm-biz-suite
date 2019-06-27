@@ -42,7 +42,17 @@ public class ButtonViewComponent extends BaseViewComponent {
      */
     protected String callbackUrl;
 
-    public String getShareTitle() {
+    protected String shareRouter;
+    
+    public String getShareRouter() {
+		return shareRouter;
+	}
+
+	public void setShareRouter(String shareRouter) {
+		this.shareRouter = shareRouter;
+	}
+
+	public String getShareTitle() {
         return shareTitle;
     }
 

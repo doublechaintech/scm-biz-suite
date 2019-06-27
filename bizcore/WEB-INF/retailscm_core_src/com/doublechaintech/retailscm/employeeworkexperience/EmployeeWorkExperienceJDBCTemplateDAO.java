@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeworkexperience;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -516,6 +518,9 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServic
 	public void enhanceList(List<EmployeeWorkExperience> employeeWorkExperienceList) {		
 		this.enhanceListInternal(employeeWorkExperienceList, this.getEmployeeWorkExperienceMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeWorkExperience> employeeWorkExperienceList = ownerEntity.collectRefsWithType(EmployeeWorkExperience.INTERNAL_TYPE);

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.originalvoucher;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -895,6 +897,9 @@ public class OriginalVoucherJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public void enhanceList(List<OriginalVoucher> originalVoucherList) {		
 		this.enhanceListInternal(originalVoucherList, this.getOriginalVoucherMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<OriginalVoucher> originalVoucherList = ownerEntity.collectRefsWithType(OriginalVoucher.INTERNAL_TYPE);

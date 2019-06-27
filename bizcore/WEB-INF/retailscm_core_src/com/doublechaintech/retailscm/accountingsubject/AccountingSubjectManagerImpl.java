@@ -259,8 +259,9 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the accountingSubject loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingSubject.
+			if (accountingSubject.isChanged()){
 			
-			
+			}
 			accountingSubject = saveAccountingSubject(userContext, accountingSubject, options);
 			return accountingSubject;
 			

@@ -301,8 +301,12 @@ class ScoringPreference extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeCompanyTrainingCount } = this.props.scoring
-    const cardsData = {cardsName:"评分",cardsFor: "scoring",cardsSource: this.props.scoring,
+    const  scoring = this.props.scoring;
+    const { id,displayName, employeeCompanyTrainingCount } = scoring
+    
+    
+    
+    const cardsData = {cardsName:"评分",cardsFor: "scoring",cardsSource: scoring,
   		subItems: [
     
       	],
