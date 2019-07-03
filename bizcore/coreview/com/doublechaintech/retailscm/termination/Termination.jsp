@@ -129,9 +129,11 @@
 
 	<div class="row">
 <c:set var="terminationReason" value="${ result.reason}" scope="request" />
+<c:set var="referName" value="(reason)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/terminationreason/TerminationReason$Info.jsp" />
 
 <c:set var="terminationType" value="${ result.type}" scope="request" />
+<c:set var="referName" value="(type)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/terminationtype/TerminationType$Info.jsp" />
 
 </div>

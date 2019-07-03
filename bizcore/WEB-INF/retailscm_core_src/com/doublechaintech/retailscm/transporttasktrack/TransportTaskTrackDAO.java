@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.transporttask.TransportTask;
+
 import com.doublechaintech.retailscm.transporttask.TransportTaskDAO;
 
 
@@ -50,6 +53,7 @@ public interface TransportTaskTrackDAO{
  	public void analyzeTransportTaskTrackByMovement(SmartList<TransportTaskTrack> resultList, String transportTaskId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

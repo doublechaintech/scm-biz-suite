@@ -246,8 +246,9 @@ public class OriginalVoucherCreationManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the originalVoucherCreation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OriginalVoucherCreation.
+			if (originalVoucherCreation.isChanged()){
 			
-			
+			}
 			originalVoucherCreation = saveOriginalVoucherCreation(userContext, originalVoucherCreation, options);
 			return originalVoucherCreation;
 			
@@ -512,8 +513,8 @@ public class OriginalVoucherCreationManagerImpl extends CustomRetailscmCheckerMa
 			String originalVoucherIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfOriginalVoucherCreation(originalVoucherCreationId);
-		for(String originalVoucherId: originalVoucherIds){
-			userContext.getChecker().checkIdOfOriginalVoucher(originalVoucherId);
+		for(String originalVoucherIdItem: originalVoucherIds){
+			userContext.getChecker().checkIdOfOriginalVoucher(originalVoucherIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(OriginalVoucherCreationManagerException.class);

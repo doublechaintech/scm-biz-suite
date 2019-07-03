@@ -245,8 +245,9 @@ public class RetailStoreOrderDeliveryManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the retailStoreOrderDelivery loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderDelivery.
+			if (retailStoreOrderDelivery.isChanged()){
 			
-			
+			}
 			retailStoreOrderDelivery = saveRetailStoreOrderDelivery(userContext, retailStoreOrderDelivery, options);
 			return retailStoreOrderDelivery;
 			
@@ -520,8 +521,8 @@ public class RetailStoreOrderDeliveryManagerImpl extends CustomRetailscmCheckerM
 			String retailStoreOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrderDelivery(retailStoreOrderDeliveryId);
-		for(String retailStoreOrderId: retailStoreOrderIds){
-			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
+		for(String retailStoreOrderIdItem: retailStoreOrderIds){
+			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderDeliveryManagerException.class);

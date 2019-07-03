@@ -262,8 +262,9 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the goodsAllocation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GoodsAllocation.
+			if (goodsAllocation.isChanged()){
 			
-			
+			}
 			goodsAllocation = saveGoodsAllocation(userContext, goodsAllocation, options);
 			return goodsAllocation;
 			
@@ -748,8 +749,8 @@ public class GoodsAllocationManagerImpl extends CustomRetailscmCheckerManager im
 			String goodsIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfGoodsAllocation(goodsAllocationId);
-		for(String goodsId: goodsIds){
-			userContext.getChecker().checkIdOfGoods(goodsId);
+		for(String goodsIdItem: goodsIds){
+			userContext.getChecker().checkIdOfGoods(goodsIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(GoodsAllocationManagerException.class);

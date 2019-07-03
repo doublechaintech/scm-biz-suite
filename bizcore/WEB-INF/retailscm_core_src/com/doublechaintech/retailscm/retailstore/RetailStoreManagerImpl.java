@@ -349,8 +349,9 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the retailStore loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStore.
-			
-			
+			if (retailStore.isChanged()){
+			retailStore.updateLastUpdateTime(userContext.now());
+			}
 			retailStore = saveRetailStore(userContext, retailStore, options);
 			return retailStore;
 			
@@ -1863,8 +1864,8 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			String consumerOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStore(retailStoreId);
-		for(String consumerOrderId: consumerOrderIds){
-			userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
+		for(String consumerOrderIdItem: consumerOrderIds){
+			userContext.getChecker().checkIdOfConsumerOrder(consumerOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreManagerException.class);
@@ -2279,8 +2280,8 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			String retailStoreOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStore(retailStoreId);
-		for(String retailStoreOrderId: retailStoreOrderIds){
-			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
+		for(String retailStoreOrderIdItem: retailStoreOrderIds){
+			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreManagerException.class);
@@ -2782,8 +2783,8 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			String goodsIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStore(retailStoreId);
-		for(String goodsId: goodsIds){
-			userContext.getChecker().checkIdOfGoods(goodsId);
+		for(String goodsIdItem: goodsIds){
+			userContext.getChecker().checkIdOfGoods(goodsIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreManagerException.class);
@@ -3101,8 +3102,8 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			String transportTaskIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStore(retailStoreId);
-		for(String transportTaskId: transportTaskIds){
-			userContext.getChecker().checkIdOfTransportTask(transportTaskId);
+		for(String transportTaskIdItem: transportTaskIds){
+			userContext.getChecker().checkIdOfTransportTask(transportTaskIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreManagerException.class);
@@ -3397,8 +3398,8 @@ public class RetailStoreManagerImpl extends CustomRetailscmCheckerManager implem
 			String accountSetIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStore(retailStoreId);
-		for(String accountSetId: accountSetIds){
-			userContext.getChecker().checkIdOfAccountSet(accountSetId);
+		for(String accountSetIdItem: accountSetIds){
+			userContext.getChecker().checkIdOfAccountSet(accountSetIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreManagerException.class);

@@ -55,9 +55,9 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	WarehouseAsset(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setOwner( null );
 
@@ -317,6 +317,24 @@ public class WarehouseAsset extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof WarehouseAsset){
+		
+			
+			WarehouseAsset dest =(WarehouseAsset)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergePosition(getPosition());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

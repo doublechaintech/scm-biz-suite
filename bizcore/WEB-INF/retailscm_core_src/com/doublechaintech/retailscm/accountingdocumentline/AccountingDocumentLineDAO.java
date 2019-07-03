@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
+import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;
+
 import com.doublechaintech.retailscm.accountingsubject.AccountingSubjectDAO;
 import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
 
@@ -59,6 +63,7 @@ public interface AccountingDocumentLineDAO{
  	public void analyzeAccountingDocumentLineByAccountingSubject(SmartList<AccountingDocumentLine> resultList, String accountingSubjectId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

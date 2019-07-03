@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.supplierproduct.SupplierProduct;
+
 import com.doublechaintech.retailscm.supplierproduct.SupplierProductDAO;
 
 
@@ -50,6 +53,7 @@ public interface ProductSupplyDurationDAO{
  	public void analyzeProductSupplyDurationByProduct(SmartList<ProductSupplyDuration> resultList, String supplierProductId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

@@ -55,9 +55,9 @@ public class FormFieldMessage extends BaseEntity implements  java.io.Serializabl
 	
 		
 	public 	FormFieldMessage(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setForm( null );
 
@@ -317,6 +317,24 @@ public class FormFieldMessage extends BaseEntity implements  java.io.Serializabl
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof FormFieldMessage){
+		
+			
+			FormFieldMessage dest =(FormFieldMessage)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeParameterName(getParameterName());
+			dest.mergeLevel(getLevel());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

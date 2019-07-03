@@ -58,10 +58,10 @@ public class SalaryGradeMapper extends BaseRowMapper<SalaryGrade>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = salaryGrade.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = salaryGrade.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'salaryGrade' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.userapp.UserApp;
+
 import com.doublechaintech.retailscm.userapp.UserAppDAO;
 
 
@@ -50,6 +53,7 @@ public interface ListAccessDAO{
  	public void analyzeListAccessByApp(SmartList<ListAccess> resultList, String userAppId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

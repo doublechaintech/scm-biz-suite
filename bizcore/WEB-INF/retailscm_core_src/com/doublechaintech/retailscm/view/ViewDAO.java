@@ -9,6 +9,8 @@ import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
 
+
+
 public interface ViewDAO{
 
 	
@@ -41,6 +43,7 @@ public interface ViewDAO{
 	
 	
 	public SmartList<View> queryList(String sql, Object ... parmeters);
+
 }
 
 

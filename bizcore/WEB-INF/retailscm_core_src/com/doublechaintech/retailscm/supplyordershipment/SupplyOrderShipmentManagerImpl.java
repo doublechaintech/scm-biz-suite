@@ -252,8 +252,9 @@ public class SupplyOrderShipmentManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the supplyOrderShipment loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderShipment.
+			if (supplyOrderShipment.isChanged()){
 			
-			
+			}
 			supplyOrderShipment = saveSupplyOrderShipment(userContext, supplyOrderShipment, options);
 			return supplyOrderShipment;
 			
@@ -559,8 +560,8 @@ public class SupplyOrderShipmentManagerImpl extends CustomRetailscmCheckerManage
 			String consumerOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfSupplyOrderShipment(supplyOrderShipmentId);
-		for(String consumerOrderId: consumerOrderIds){
-			userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
+		for(String consumerOrderIdItem: consumerOrderIds){
+			userContext.getChecker().checkIdOfConsumerOrder(consumerOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(SupplyOrderShipmentManagerException.class);
@@ -946,8 +947,8 @@ public class SupplyOrderShipmentManagerImpl extends CustomRetailscmCheckerManage
 			String supplyOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfSupplyOrderShipment(supplyOrderShipmentId);
-		for(String supplyOrderId: supplyOrderIds){
-			userContext.getChecker().checkIdOfSupplyOrder(supplyOrderId);
+		for(String supplyOrderIdItem: supplyOrderIds){
+			userContext.getChecker().checkIdOfSupplyOrder(supplyOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(SupplyOrderShipmentManagerException.class);

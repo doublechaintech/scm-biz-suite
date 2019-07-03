@@ -266,8 +266,9 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the damageSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to DamageSpace.
-			
-			
+			if (damageSpace.isChanged()){
+			damageSpace.updateLastUpdateTime(userContext.now());
+			}
 			damageSpace = saveDamageSpace(userContext, damageSpace, options);
 			return damageSpace;
 			
@@ -594,8 +595,8 @@ public class DamageSpaceManagerImpl extends CustomRetailscmCheckerManager implem
 			String goodsShelfIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfDamageSpace(damageSpaceId);
-		for(String goodsShelfId: goodsShelfIds){
-			userContext.getChecker().checkIdOfGoodsShelf(goodsShelfId);
+		for(String goodsShelfIdItem: goodsShelfIds){
+			userContext.getChecker().checkIdOfGoodsShelf(goodsShelfIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(DamageSpaceManagerException.class);

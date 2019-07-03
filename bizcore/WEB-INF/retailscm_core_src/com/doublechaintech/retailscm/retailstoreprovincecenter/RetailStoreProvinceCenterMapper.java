@@ -70,10 +70,10 @@ public class RetailStoreProvinceCenterMapper extends BaseRowMapper<RetailStorePr
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = retailStoreProvinceCenter.getCountry();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = retailStoreProvinceCenter.getCountry();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'retailStoreProvinceCenter' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.supplierproduct;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements SupplierProductDAO{
  
@@ -71,7 +76,7 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public SupplierProduct load(String id,Map<String,Object> options) throws Exception{
@@ -614,9 +619,9 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return supplierProduct;
 		}
 		
-		for(ProductSupplyDuration productSupplyDuration: externalProductSupplyDurationList){
+		for(ProductSupplyDuration productSupplyDurationItem: externalProductSupplyDurationList){
 
-			productSupplyDuration.clearFromAll();
+			productSupplyDurationItem.clearFromAll();
 		}
 		
 		
@@ -742,6 +747,32 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public void enhanceList(List<SupplierProduct> supplierProductList) {		
 		this.enhanceListInternal(supplierProductList, this.getSupplierProductMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:ProductSupplyDuration的product的ProductSupplyDurationList
+	public SmartList<ProductSupplyDuration> loadOurProductSupplyDurationList(RetailscmUserContext userContext, List<SupplierProduct> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ProductSupplyDuration.PRODUCT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ProductSupplyDuration> loadedObjs = userContext.getDAOGroup().getProductSupplyDurationDAO().findProductSupplyDurationWithKey(key, options);
+		Map<String, List<ProductSupplyDuration>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getProduct().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ProductSupplyDuration> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ProductSupplyDuration> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setProductSupplyDurationList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplierProduct> supplierProductList = ownerEntity.collectRefsWithType(SupplierProduct.INTERNAL_TYPE);
@@ -774,6 +805,9 @@ public class SupplierProductJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public SmartList<SupplierProduct> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSupplierProductMapper());
 	}
+	
+	
+
 }
 
 

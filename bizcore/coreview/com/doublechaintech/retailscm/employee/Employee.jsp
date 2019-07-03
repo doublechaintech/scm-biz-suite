@@ -140,18 +140,23 @@
 
 	<div class="row">
 <c:set var="retailStoreCountryCenter" value="${ result.company}" scope="request" />
+<c:set var="referName" value="(company)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/retailstorecountrycenter/RetailStoreCountryCenter$Info.jsp" />
 
 <c:set var="levelThreeDepartment" value="${ result.department}" scope="request" />
+<c:set var="referName" value="(department)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/levelthreedepartment/LevelThreeDepartment$Info.jsp" />
 
 <c:set var="occupationType" value="${ result.occupation}" scope="request" />
+<c:set var="referName" value="(occupation)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/occupationtype/OccupationType$Info.jsp" />
 
 <c:set var="responsibilityType" value="${ result.responsibleFor}" scope="request" />
+<c:set var="referName" value="(responsibleFor)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/responsibilitytype/ResponsibilityType$Info.jsp" />
 
 <c:set var="salaryGrade" value="${ result.currentSalaryGrade}" scope="request" />
+<c:set var="referName" value="(currentSalaryGrade)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/salarygrade/SalaryGrade$Info.jsp" />
 
 </div>

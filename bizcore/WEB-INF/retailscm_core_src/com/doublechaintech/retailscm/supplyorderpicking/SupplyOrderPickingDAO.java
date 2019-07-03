@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
+
 import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
 
 
@@ -57,6 +60,10 @@ public interface SupplyOrderPickingDAO{
 	
 	
 	public SmartList<SupplyOrderPicking> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrder的picking的SupplyOrderList
+	public SmartList<SupplyOrder> loadOurSupplyOrderList(RetailscmUserContext userContext, List<SupplyOrderPicking> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

@@ -307,8 +307,9 @@ public class TransportTaskManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the transportTask loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TransportTask.
+			if (transportTask.isChanged()){
 			
-			
+			}
 			transportTask = saveTransportTask(userContext, transportTask, options);
 			return transportTask;
 			
@@ -971,8 +972,8 @@ public class TransportTaskManagerImpl extends CustomRetailscmCheckerManager impl
 			String goodsIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfTransportTask(transportTaskId);
-		for(String goodsId: goodsIds){
-			userContext.getChecker().checkIdOfGoods(goodsId);
+		for(String goodsIdItem: goodsIds){
+			userContext.getChecker().checkIdOfGoods(goodsIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(TransportTaskManagerException.class);
@@ -1265,8 +1266,8 @@ public class TransportTaskManagerImpl extends CustomRetailscmCheckerManager impl
 			String transportTaskTrackIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfTransportTask(transportTaskId);
-		for(String transportTaskTrackId: transportTaskTrackIds){
-			userContext.getChecker().checkIdOfTransportTaskTrack(transportTaskTrackId);
+		for(String transportTaskTrackIdItem: transportTaskTrackIds){
+			userContext.getChecker().checkIdOfTransportTaskTrack(transportTaskTrackIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(TransportTaskManagerException.class);

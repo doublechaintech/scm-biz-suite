@@ -257,8 +257,9 @@ public class RetailStoreMemberGiftCardConsumeRecordManagerImpl extends CustomRet
 			//will be good when the retailStoreMemberGiftCardConsumeRecord loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreMemberGiftCardConsumeRecord.
+			if (retailStoreMemberGiftCardConsumeRecord.isChanged()){
 			
-			
+			}
 			retailStoreMemberGiftCardConsumeRecord = saveRetailStoreMemberGiftCardConsumeRecord(userContext, retailStoreMemberGiftCardConsumeRecord, options);
 			return retailStoreMemberGiftCardConsumeRecord;
 			

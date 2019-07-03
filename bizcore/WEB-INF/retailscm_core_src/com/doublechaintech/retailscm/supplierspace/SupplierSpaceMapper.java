@@ -85,10 +85,10 @@ public class SupplierSpaceMapper extends BaseRowMapper<SupplierSpace>{
  		if( warehouseId.isEmpty()){
  			return;
  		}
- 		Warehouse warehouse = supplierSpace.getWarehouse();
- 		if( warehouse != null ){
+ 		Warehouse lwarehouse = supplierSpace.getWarehouse();
+ 		if( lwarehouse != null ){
  			//if the root object 'supplierSpace' already have the property, just set the id for it;
- 			warehouse.setId(warehouseId);
+ 			lwarehouse.setId(warehouseId);
  			
  			return;
  		}

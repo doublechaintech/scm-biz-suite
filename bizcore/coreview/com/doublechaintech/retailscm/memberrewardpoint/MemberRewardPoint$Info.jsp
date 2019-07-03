@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A MemberRewardPoint">${userContext.localeMap['member_reward_point']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A MemberRewardPoint">${userContext.localeMap['member_reward_point']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

@@ -58,10 +58,10 @@ public class TrainingCourseTypeMapper extends BaseRowMapper<TrainingCourseType>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = trainingCourseType.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = trainingCourseType.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'trainingCourseType' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

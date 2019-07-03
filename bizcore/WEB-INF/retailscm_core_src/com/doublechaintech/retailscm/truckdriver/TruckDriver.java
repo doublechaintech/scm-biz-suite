@@ -58,9 +58,9 @@ public class TruckDriver extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	TruckDriver(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setBelongsTo( null );
 
@@ -444,6 +444,24 @@ public class TruckDriver extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof TruckDriver){
+		
+			
+			TruckDriver dest =(TruckDriver)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeDriverLicenseNumber(getDriverLicenseNumber());
+			dest.mergeContactNumber(getContactNumber());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

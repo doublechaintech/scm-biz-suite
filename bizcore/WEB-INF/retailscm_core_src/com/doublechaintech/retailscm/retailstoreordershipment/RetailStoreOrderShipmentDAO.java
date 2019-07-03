@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
+
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderDAO;
 
 
@@ -57,6 +60,10 @@ public interface RetailStoreOrderShipmentDAO{
 	
 	
 	public SmartList<RetailStoreOrderShipment> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrder的shipment的RetailStoreOrderList
+	public SmartList<RetailStoreOrder> loadOurRetailStoreOrderList(RetailscmUserContext userContext, List<RetailStoreOrderShipment> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

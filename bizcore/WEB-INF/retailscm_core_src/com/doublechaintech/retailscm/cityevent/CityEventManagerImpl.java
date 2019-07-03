@@ -255,8 +255,9 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 			//will be good when the cityEvent loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to CityEvent.
-			
-			
+			if (cityEvent.isChanged()){
+			cityEvent.updateLastUpdateTime(userContext.now());
+			}
 			cityEvent = saveCityEvent(userContext, cityEvent, options);
 			return cityEvent;
 			
@@ -564,8 +565,8 @@ public class CityEventManagerImpl extends CustomRetailscmCheckerManager implemen
 			String eventAttendanceIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfCityEvent(cityEventId);
-		for(String eventAttendanceId: eventAttendanceIds){
-			userContext.getChecker().checkIdOfEventAttendance(eventAttendanceId);
+		for(String eventAttendanceIdItem: eventAttendanceIds){
+			userContext.getChecker().checkIdOfEventAttendance(eventAttendanceIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(CityEventManagerException.class);

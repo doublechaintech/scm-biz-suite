@@ -57,10 +57,10 @@ public class SkillTypeMapper extends BaseRowMapper<SkillType>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = skillType.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = skillType.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'skillType' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

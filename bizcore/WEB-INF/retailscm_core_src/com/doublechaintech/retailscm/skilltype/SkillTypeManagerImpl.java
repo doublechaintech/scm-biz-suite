@@ -249,8 +249,9 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			//will be good when the skillType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SkillType.
+			if (skillType.isChanged()){
 			
-			
+			}
 			skillType = saveSkillType(userContext, skillType, options);
 			return skillType;
 			
@@ -553,8 +554,8 @@ public class SkillTypeManagerImpl extends CustomRetailscmCheckerManager implemen
 			String employeeSkillIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfSkillType(skillTypeId);
-		for(String employeeSkillId: employeeSkillIds){
-			userContext.getChecker().checkIdOfEmployeeSkill(employeeSkillId);
+		for(String employeeSkillIdItem: employeeSkillIds){
+			userContext.getChecker().checkIdOfEmployeeSkill(employeeSkillIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(SkillTypeManagerException.class);

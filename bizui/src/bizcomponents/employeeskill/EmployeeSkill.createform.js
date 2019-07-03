@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   description: '高手高手高高手',
-  employeeId: 'E000001',
-  skillTypeId: 'ST000001',
+  employeeId: 'E00000001',
+  skillTypeId: 'ST00000001',
 }
 */
 
@@ -208,7 +208,7 @@ class EmployeeSkillCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

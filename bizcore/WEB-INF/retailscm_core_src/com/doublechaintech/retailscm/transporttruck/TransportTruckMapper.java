@@ -147,10 +147,10 @@ public class TransportTruckMapper extends BaseRowMapper<TransportTruck>{
  		if( transportFleetId.isEmpty()){
  			return;
  		}
- 		TransportFleet transportFleet = transportTruck.getOwner();
- 		if( transportFleet != null ){
+ 		TransportFleet ltransportFleet = transportTruck.getOwner();
+ 		if( ltransportFleet != null ){
  			//if the root object 'transportTruck' already have the property, just set the id for it;
- 			transportFleet.setId(transportFleetId);
+ 			ltransportFleet.setId(transportFleetId);
  			
  			return;
  		}

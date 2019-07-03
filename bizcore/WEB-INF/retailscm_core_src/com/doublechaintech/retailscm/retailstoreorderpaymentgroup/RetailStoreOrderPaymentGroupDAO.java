@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
+
 import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrderDAO;
 
 
@@ -50,6 +53,7 @@ public interface RetailStoreOrderPaymentGroupDAO{
  	public void analyzeRetailStoreOrderPaymentGroupByBizOrder(SmartList<RetailStoreOrderPaymentGroup> resultList, String retailStoreOrderId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

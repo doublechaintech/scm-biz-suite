@@ -58,9 +58,9 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 	
 		
 	public 	RetailStoreMemberGiftCardConsumeRecord(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setOwner( null );
 		setBizOrder( null );
@@ -347,6 +347,24 @@ public class RetailStoreMemberGiftCardConsumeRecord extends BaseEntity implement
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreMemberGiftCardConsumeRecord){
+		
+			
+			RetailStoreMemberGiftCardConsumeRecord dest =(RetailStoreMemberGiftCardConsumeRecord)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeOccureTime(getOccureTime());
+			dest.mergeNumber(getNumber());
+			dest.mergeAmount(getAmount());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

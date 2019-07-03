@@ -129,6 +129,7 @@
 
 	<div class="row">
 <c:set var="employee" value="${ result.paidFor}" scope="request" />
+<c:set var="referName" value="(paidFor)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/employee/Employee$Info.jsp" />
 
 </div>

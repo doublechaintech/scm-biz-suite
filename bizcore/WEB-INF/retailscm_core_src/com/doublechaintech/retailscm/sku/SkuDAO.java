@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.goods.Goods;
+import com.doublechaintech.retailscm.product.Product;
+
 import com.doublechaintech.retailscm.goods.GoodsDAO;
 import com.doublechaintech.retailscm.product.ProductDAO;
 
@@ -90,6 +94,10 @@ public interface SkuDAO{
  	public void analyzeSkuByProduct(SmartList<Sku> resultList, String productId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:Goods的sku的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<Sku> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

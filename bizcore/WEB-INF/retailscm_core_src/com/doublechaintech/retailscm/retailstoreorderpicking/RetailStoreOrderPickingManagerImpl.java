@@ -245,8 +245,9 @@ public class RetailStoreOrderPickingManagerImpl extends CustomRetailscmCheckerMa
 			//will be good when the retailStoreOrderPicking loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderPicking.
+			if (retailStoreOrderPicking.isChanged()){
 			
-			
+			}
 			retailStoreOrderPicking = saveRetailStoreOrderPicking(userContext, retailStoreOrderPicking, options);
 			return retailStoreOrderPicking;
 			
@@ -520,8 +521,8 @@ public class RetailStoreOrderPickingManagerImpl extends CustomRetailscmCheckerMa
 			String retailStoreOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrderPicking(retailStoreOrderPickingId);
-		for(String retailStoreOrderId: retailStoreOrderIds){
-			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
+		for(String retailStoreOrderIdItem: retailStoreOrderIds){
+			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderPickingManagerException.class);

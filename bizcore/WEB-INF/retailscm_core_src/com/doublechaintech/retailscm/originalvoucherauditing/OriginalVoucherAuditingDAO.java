@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.originalvoucher.OriginalVoucher;
+
 import com.doublechaintech.retailscm.originalvoucher.OriginalVoucherDAO;
 
 
@@ -53,6 +56,10 @@ public interface OriginalVoucherAuditingDAO{
 	
 	
 	public SmartList<OriginalVoucherAuditing> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:OriginalVoucher的auditing的OriginalVoucherList
+	public SmartList<OriginalVoucher> loadOurOriginalVoucherList(RetailscmUserContext userContext, List<OriginalVoucherAuditing> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

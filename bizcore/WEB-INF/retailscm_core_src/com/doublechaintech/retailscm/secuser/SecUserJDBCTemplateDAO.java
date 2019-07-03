@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.secuser;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -30,7 +32,10 @@ import com.doublechaintech.retailscm.loginhistory.LoginHistoryDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements SecUserDAO{
  
@@ -103,7 +108,7 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public SecUser load(String id,Map<String,Object> options) throws Exception{
@@ -768,32 +773,35 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  		return prepareSecUserCreateParameters(secUser);
  	}
  	protected Object[] prepareSecUserUpdateParameters(SecUser secUser){
- 		Object[] parameters = new Object[13];
+ 		Object[] parameters = new Object[16];
  
  		parameters[0] = secUser.getLogin();
  		parameters[1] = secUser.getMobile();
  		parameters[2] = secUser.getEmail();
  		parameters[3] = secUser.getPwd();
- 		parameters[4] = secUser.getVerificationCode();
- 		parameters[5] = secUser.getVerificationCodeExpire();
- 		parameters[6] = secUser.getLastLoginTime(); 	
+ 		parameters[4] = secUser.getWeixinOpenid();
+ 		parameters[5] = secUser.getWeixinAppid();
+ 		parameters[6] = secUser.getAccessToken();
+ 		parameters[7] = secUser.getVerificationCode();
+ 		parameters[8] = secUser.getVerificationCodeExpire();
+ 		parameters[9] = secUser.getLastLoginTime(); 	
  		if(secUser.getDomain() != null){
- 			parameters[7] = secUser.getDomain().getId();
+ 			parameters[10] = secUser.getDomain().getId();
  		}
   	
  		if(secUser.getBlocking() != null){
- 			parameters[8] = secUser.getBlocking().getId();
+ 			parameters[11] = secUser.getBlocking().getId();
  		}
  
- 		parameters[9] = secUser.getCurrentStatus();		
- 		parameters[10] = secUser.nextVersion();
- 		parameters[11] = secUser.getId();
- 		parameters[12] = secUser.getVersion();
+ 		parameters[12] = secUser.getCurrentStatus();		
+ 		parameters[13] = secUser.nextVersion();
+ 		parameters[14] = secUser.getId();
+ 		parameters[15] = secUser.getVersion();
  				
  		return parameters;
  	}
  	protected Object[] prepareSecUserCreateParameters(SecUser secUser){
-		Object[] parameters = new Object[11];
+		Object[] parameters = new Object[14];
 		String newSecUserId=getNextId();
 		secUser.setId(newSecUserId);
 		parameters[0] =  secUser.getId();
@@ -802,20 +810,23 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
  		parameters[2] = secUser.getMobile();
  		parameters[3] = secUser.getEmail();
  		parameters[4] = secUser.getPwd();
- 		parameters[5] = secUser.getVerificationCode();
- 		parameters[6] = secUser.getVerificationCodeExpire();
- 		parameters[7] = secUser.getLastLoginTime(); 	
+ 		parameters[5] = secUser.getWeixinOpenid();
+ 		parameters[6] = secUser.getWeixinAppid();
+ 		parameters[7] = secUser.getAccessToken();
+ 		parameters[8] = secUser.getVerificationCode();
+ 		parameters[9] = secUser.getVerificationCodeExpire();
+ 		parameters[10] = secUser.getLastLoginTime(); 	
  		if(secUser.getDomain() != null){
- 			parameters[8] = secUser.getDomain().getId();
+ 			parameters[11] = secUser.getDomain().getId();
  		
  		}
  		 	
  		if(secUser.getBlocking() != null){
- 			parameters[9] = secUser.getBlocking().getId();
+ 			parameters[12] = secUser.getBlocking().getId();
  		
  		}
  		
- 		parameters[10] = secUser.getCurrentStatus();		
+ 		parameters[13] = secUser.getCurrentStatus();		
  				
  		return parameters;
  	}
@@ -906,9 +917,9 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 			return secUser;
 		}
 		
-		for(UserApp userApp: externalUserAppList){
+		for(UserApp userAppItem: externalUserAppList){
 
-			userApp.clearFromAll();
+			userAppItem.clearFromAll();
 		}
 		
 		
@@ -938,9 +949,9 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 			return secUser;
 		}
 		
-		for(UserApp userApp: externalUserAppList){
-			userApp.clearObjectId();
-			userApp.clearSecUser();
+		for(UserApp userAppItem: externalUserAppList){
+			userAppItem.clearObjectId();
+			userAppItem.clearSecUser();
 			
 		}
 		
@@ -978,9 +989,9 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 			return secUser;
 		}
 		
-		for(LoginHistory loginHistory: externalLoginHistoryList){
+		for(LoginHistory loginHistoryItem: externalLoginHistoryList){
 
-			loginHistory.clearFromAll();
+			loginHistoryItem.clearFromAll();
 		}
 		
 		
@@ -1199,6 +1210,55 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	public void enhanceList(List<SecUser> secUserList) {		
 		this.enhanceListInternal(secUserList, this.getSecUserMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:UserApp的secUser的UserAppList
+	public SmartList<UserApp> loadOurUserAppList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(UserApp.SEC_USER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<UserApp> loadedObjs = userContext.getDAOGroup().getUserAppDAO().findUserAppWithKey(key, options);
+		Map<String, List<UserApp>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSecUser().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<UserApp> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<UserApp> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setUserAppList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:LoginHistory的secUser的LoginHistoryList
+	public SmartList<LoginHistory> loadOurLoginHistoryList(RetailscmUserContext userContext, List<SecUser> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LoginHistory.SEC_USER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LoginHistory> loadedObjs = userContext.getDAOGroup().getLoginHistoryDAO().findLoginHistoryWithKey(key, options);
+		Map<String, List<LoginHistory>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSecUser().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LoginHistory> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LoginHistory> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLoginHistoryList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SecUser> secUserList = ownerEntity.collectRefsWithType(SecUser.INTERNAL_TYPE);
@@ -1231,6 +1291,9 @@ public class SecUserJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	public SmartList<SecUser> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSecUserMapper());
 	}
+	
+	
+
 }
 
 

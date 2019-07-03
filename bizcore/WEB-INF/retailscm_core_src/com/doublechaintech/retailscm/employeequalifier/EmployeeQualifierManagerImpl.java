@@ -252,8 +252,9 @@ public class EmployeeQualifierManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the employeeQualifier loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to EmployeeQualifier.
+			if (employeeQualifier.isChanged()){
 			
-			
+			}
 			employeeQualifier = saveEmployeeQualifier(userContext, employeeQualifier, options);
 			return employeeQualifier;
 			

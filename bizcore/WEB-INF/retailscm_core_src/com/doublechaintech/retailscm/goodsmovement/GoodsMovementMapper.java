@@ -147,10 +147,10 @@ public class GoodsMovementMapper extends BaseRowMapper<GoodsMovement>{
  		if( goodsId.isEmpty()){
  			return;
  		}
- 		Goods goods = goodsMovement.getGoods();
- 		if( goods != null ){
+ 		Goods lgoods = goodsMovement.getGoods();
+ 		if( lgoods != null ){
  			//if the root object 'goodsMovement' already have the property, just set the id for it;
- 			goods.setId(goodsId);
+ 			lgoods.setId(goodsId);
  			
  			return;
  		}

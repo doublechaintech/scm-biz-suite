@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.memberwishlist.MemberWishlist;
+
 import com.doublechaintech.retailscm.memberwishlist.MemberWishlistDAO;
 
 
@@ -50,6 +53,7 @@ public interface MemberWishlistProductDAO{
  	public void analyzeMemberWishlistProductByOwner(SmartList<MemberWishlistProduct> resultList, String memberWishlistId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

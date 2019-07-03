@@ -102,10 +102,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = retailStore.getRetailStoreCountryCenter();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = retailStore.getRetailStoreCountryCenter();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}
@@ -120,10 +120,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreCityServiceCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCityServiceCenter retailStoreCityServiceCenter = retailStore.getCityServiceCenter();
- 		if( retailStoreCityServiceCenter != null ){
+ 		RetailStoreCityServiceCenter lretailStoreCityServiceCenter = retailStore.getCityServiceCenter();
+ 		if( lretailStoreCityServiceCenter != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
+ 			lretailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
  			
  			return;
  		}
@@ -138,10 +138,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreCreationId.isEmpty()){
  			return;
  		}
- 		RetailStoreCreation retailStoreCreation = retailStore.getCreation();
- 		if( retailStoreCreation != null ){
+ 		RetailStoreCreation lretailStoreCreation = retailStore.getCreation();
+ 		if( lretailStoreCreation != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreCreation.setId(retailStoreCreationId);
+ 			lretailStoreCreation.setId(retailStoreCreationId);
  			
  			return;
  		}
@@ -156,10 +156,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreInvestmentInvitationId.isEmpty()){
  			return;
  		}
- 		RetailStoreInvestmentInvitation retailStoreInvestmentInvitation = retailStore.getInvestmentInvitation();
- 		if( retailStoreInvestmentInvitation != null ){
+ 		RetailStoreInvestmentInvitation lretailStoreInvestmentInvitation = retailStore.getInvestmentInvitation();
+ 		if( lretailStoreInvestmentInvitation != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreInvestmentInvitation.setId(retailStoreInvestmentInvitationId);
+ 			lretailStoreInvestmentInvitation.setId(retailStoreInvestmentInvitationId);
  			
  			return;
  		}
@@ -174,10 +174,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreFranchisingId.isEmpty()){
  			return;
  		}
- 		RetailStoreFranchising retailStoreFranchising = retailStore.getFranchising();
- 		if( retailStoreFranchising != null ){
+ 		RetailStoreFranchising lretailStoreFranchising = retailStore.getFranchising();
+ 		if( lretailStoreFranchising != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreFranchising.setId(retailStoreFranchisingId);
+ 			lretailStoreFranchising.setId(retailStoreFranchisingId);
  			
  			return;
  		}
@@ -192,10 +192,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreDecorationId.isEmpty()){
  			return;
  		}
- 		RetailStoreDecoration retailStoreDecoration = retailStore.getDecoration();
- 		if( retailStoreDecoration != null ){
+ 		RetailStoreDecoration lretailStoreDecoration = retailStore.getDecoration();
+ 		if( lretailStoreDecoration != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreDecoration.setId(retailStoreDecorationId);
+ 			lretailStoreDecoration.setId(retailStoreDecorationId);
  			
  			return;
  		}
@@ -210,10 +210,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreOpeningId.isEmpty()){
  			return;
  		}
- 		RetailStoreOpening retailStoreOpening = retailStore.getOpening();
- 		if( retailStoreOpening != null ){
+ 		RetailStoreOpening lretailStoreOpening = retailStore.getOpening();
+ 		if( lretailStoreOpening != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreOpening.setId(retailStoreOpeningId);
+ 			lretailStoreOpening.setId(retailStoreOpeningId);
  			
  			return;
  		}
@@ -228,10 +228,10 @@ public class RetailStoreMapper extends BaseRowMapper<RetailStore>{
  		if( retailStoreClosingId.isEmpty()){
  			return;
  		}
- 		RetailStoreClosing retailStoreClosing = retailStore.getClosing();
- 		if( retailStoreClosing != null ){
+ 		RetailStoreClosing lretailStoreClosing = retailStore.getClosing();
+ 		if( lretailStoreClosing != null ){
  			//if the root object 'retailStore' already have the property, just set the id for it;
- 			retailStoreClosing.setId(retailStoreClosingId);
+ 			lretailStoreClosing.setId(retailStoreClosingId);
  			
  			return;
  		}

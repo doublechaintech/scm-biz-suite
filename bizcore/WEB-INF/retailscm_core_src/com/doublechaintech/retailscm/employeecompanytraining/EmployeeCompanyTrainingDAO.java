@@ -7,6 +7,11 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.scoring.Scoring;
+import com.doublechaintech.retailscm.employee.Employee;
+import com.doublechaintech.retailscm.companytraining.CompanyTraining;
+
 import com.doublechaintech.retailscm.companytraining.CompanyTrainingDAO;
 import com.doublechaintech.retailscm.scoring.ScoringDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
@@ -68,6 +73,7 @@ public interface EmployeeCompanyTrainingDAO{
  	public void analyzeEmployeeCompanyTrainingByScoring(SmartList<EmployeeCompanyTraining> resultList, String scoringId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

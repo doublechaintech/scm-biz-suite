@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;
+import com.doublechaintech.retailscm.cityevent.CityEvent;
+
 import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerDAO;
 import com.doublechaintech.retailscm.cityevent.CityEventDAO;
 
@@ -59,6 +63,7 @@ public interface EventAttendanceDAO{
  	public void analyzeEventAttendanceByCityEvent(SmartList<EventAttendance> resultList, String cityEventId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

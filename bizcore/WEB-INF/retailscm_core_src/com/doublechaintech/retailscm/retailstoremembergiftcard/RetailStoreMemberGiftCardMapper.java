@@ -58,10 +58,10 @@ public class RetailStoreMemberGiftCardMapper extends BaseRowMapper<RetailStoreMe
  		if( retailStoreMemberId.isEmpty()){
  			return;
  		}
- 		RetailStoreMember retailStoreMember = retailStoreMemberGiftCard.getOwner();
- 		if( retailStoreMember != null ){
+ 		RetailStoreMember lretailStoreMember = retailStoreMemberGiftCard.getOwner();
+ 		if( lretailStoreMember != null ){
  			//if the root object 'retailStoreMemberGiftCard' already have the property, just set the id for it;
- 			retailStoreMember.setId(retailStoreMemberId);
+ 			lretailStoreMember.setId(retailStoreMemberId);
  			
  			return;
  		}

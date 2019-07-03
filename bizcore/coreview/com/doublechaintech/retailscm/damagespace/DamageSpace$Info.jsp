@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A DamageSpace">${userContext.localeMap['damage_space']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A DamageSpace">${userContext.localeMap['damage_space']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

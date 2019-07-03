@@ -1,5 +1,6 @@
 package com.terapico.caf;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -12,6 +13,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TimeZone;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -58,7 +64,49 @@ public class ReflectionTool {
 		}
 		return false;
 	}
+	public static boolean hasRemoteInitiableInterface(Type parameterType) {
+		
+		return RemoteInitiable.class.isAssignableFrom((Class) parameterType);
+		
+	}
+	
+	private static ObjectMapper mapper ;
+	static {
+		mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+	}
+	
+	public static Object convertOnlyOneParameter(Type[] types, String value) {
+		int length = types.length;
+		
+		if(length == 0) {
+			throw new IllegalArgumentException("Only one type allowed here, but the length of the length is: "+length);
+			
+		}
+		Type firstParameterType = types[0]; //it is safe here, there is ONE param when code runs to here
+		
+		//String type supported
+		if(firstParameterType == java.lang.String.class) {
+			return value;
+		}
+		//otherwise this should be a json object with a class
+		if(!hasRemoteInitiableInterface(firstParameterType)) {
+			throw new IllegalArgumentException("The type should implement a RemoteInitiable interface, but the class is: " + firstParameterType.getTypeName());
+		}
+		//parse to a json object and return
+		
+		 
+		
+		try {
+			Object responseObj = mapper.readValue(value, (Class)firstParameterType);
+			return responseObj;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} 
 
+	}
 	protected Constructor getOneStringConstructor(Class clazz) {
 		Constructor constructors[] = clazz.getDeclaredConstructors();
 

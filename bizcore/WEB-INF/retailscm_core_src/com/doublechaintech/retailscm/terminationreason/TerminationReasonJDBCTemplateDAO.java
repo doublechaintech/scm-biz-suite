@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.terminationreason;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO implements TerminationReasonDAO{
  
@@ -71,7 +76,7 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public TerminationReason load(String id,Map<String,Object> options) throws Exception{
@@ -612,9 +617,9 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return terminationReason;
 		}
 		
-		for(Termination termination: externalTerminationList){
+		for(Termination terminationItem: externalTerminationList){
 
-			termination.clearFromAll();
+			terminationItem.clearFromAll();
 		}
 		
 		
@@ -644,9 +649,9 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return terminationReason;
 		}
 		
-		for(Termination termination: externalTerminationList){
-			termination.clearType();
-			termination.clearReason();
+		for(Termination terminationItem: externalTerminationList){
+			terminationItem.clearType();
+			terminationItem.clearReason();
 			
 		}
 		
@@ -784,6 +789,32 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<TerminationReason> terminationReasonList) {		
 		this.enhanceListInternal(terminationReasonList, this.getTerminationReasonMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Termination的reason的TerminationList
+	public SmartList<Termination> loadOurTerminationList(RetailscmUserContext userContext, List<TerminationReason> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Termination.REASON_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Termination> loadedObjs = userContext.getDAOGroup().getTerminationDAO().findTerminationWithKey(key, options);
+		Map<String, List<Termination>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getReason().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Termination> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Termination> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTerminationList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TerminationReason> terminationReasonList = ownerEntity.collectRefsWithType(TerminationReason.INTERNAL_TYPE);
@@ -816,6 +847,9 @@ public class TerminationReasonJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public SmartList<TerminationReason> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTerminationReasonMapper());
 	}
+	
+	
+
 }
 
 

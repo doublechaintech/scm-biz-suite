@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A WarehouseAsset">${userContext.localeMap['warehouse_asset']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A WarehouseAsset">${userContext.localeMap['warehouse_asset']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

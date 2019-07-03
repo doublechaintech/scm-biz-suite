@@ -219,6 +219,48 @@ public class UserAppForm extends BaseForm {
 	}
 
 
+	public UserAppForm weixinOpenidFieldOfSecUser(String parameterName, String initValue){
+		FormField field =  weixinOpenidFromSecUser(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public UserAppForm weixinOpenidFieldOfSecUser(String initValue){
+		return weixinOpenidFieldOfSecUser("weixinOpenid",initValue);
+	}
+	public UserAppForm weixinOpenidFieldOfSecUser(){
+		return weixinOpenidFieldOfSecUser("weixinOpenid","");
+	}
+
+
+	public UserAppForm weixinAppidFieldOfSecUser(String parameterName, String initValue){
+		FormField field =  weixinAppidFromSecUser(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public UserAppForm weixinAppidFieldOfSecUser(String initValue){
+		return weixinAppidFieldOfSecUser("weixinAppid",initValue);
+	}
+	public UserAppForm weixinAppidFieldOfSecUser(){
+		return weixinAppidFieldOfSecUser("weixinAppid","");
+	}
+
+
+	public UserAppForm accessTokenFieldOfSecUser(String parameterName, String initValue){
+		FormField field =  accessTokenFromSecUser(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public UserAppForm accessTokenFieldOfSecUser(String initValue){
+		return accessTokenFieldOfSecUser("accessToken",initValue);
+	}
+	public UserAppForm accessTokenFieldOfSecUser(){
+		return accessTokenFieldOfSecUser("accessToken","");
+	}
+
+
 	public UserAppForm verificationCodeFieldOfSecUser(String parameterName, String initValue){
 		FormField field =  verificationCodeFromSecUser(parameterName, initValue);
 		this.addFormField(field);	

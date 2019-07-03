@@ -7,6 +7,32 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
+import com.doublechaintech.retailscm.warehouse.Warehouse;
+import com.doublechaintech.retailscm.instructor.Instructor;
+import com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartment;
+import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;
+import com.doublechaintech.retailscm.occupationtype.OccupationType;
+import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
+import com.doublechaintech.retailscm.leavetype.LeaveType;
+import com.doublechaintech.retailscm.catalog.Catalog;
+import com.doublechaintech.retailscm.publicholiday.PublicHoliday;
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
+import com.doublechaintech.retailscm.skilltype.SkillType;
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
+import com.doublechaintech.retailscm.retailstore.RetailStore;
+import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
+import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenter;
+import com.doublechaintech.retailscm.employee.Employee;
+import com.doublechaintech.retailscm.companytraining.CompanyTraining;
+import com.doublechaintech.retailscm.interviewtype.InterviewType;
+import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityType;
+import com.doublechaintech.retailscm.terminationtype.TerminationType;
+import com.doublechaintech.retailscm.terminationreason.TerminationReason;
+import com.doublechaintech.retailscm.transportfleet.TransportFleet;
+import com.doublechaintech.retailscm.accountset.AccountSet;
+
 import com.doublechaintech.retailscm.salarygrade.SalaryGradeDAO;
 import com.doublechaintech.retailscm.publicholiday.PublicHolidayDAO;
 import com.doublechaintech.retailscm.companytraining.CompanyTrainingDAO;
@@ -277,6 +303,79 @@ public interface RetailStoreCountryCenterDAO{
 	
 	
 	public SmartList<RetailStoreCountryCenter> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:Catalog的owner的CatalogList
+	public SmartList<Catalog> loadOurCatalogList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreProvinceCenter的country的RetailStoreProvinceCenterList
+	public SmartList<RetailStoreProvinceCenter> loadOurRetailStoreProvinceCenterList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStore的retailStoreCountryCenter的RetailStoreList
+	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreMember的owner的RetailStoreMemberList
+	public SmartList<RetailStoreMember> loadOurRetailStoreMemberList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:GoodsSupplier的belongTo的GoodsSupplierList
+	public SmartList<GoodsSupplier> loadOurGoodsSupplierList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrder的buyer的SupplyOrderList
+	public SmartList<SupplyOrder> loadOurSupplyOrderList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrder的seller的RetailStoreOrderList
+	public SmartList<RetailStoreOrder> loadOurRetailStoreOrderList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:Warehouse的owner的WarehouseList
+	public SmartList<Warehouse> loadOurWarehouseList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportFleet的owner的TransportFleetList
+	public SmartList<TransportFleet> loadOurTransportFleetList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountSet的countryCenter的AccountSetList
+	public SmartList<AccountSet> loadOurAccountSetList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:LevelOneDepartment的belongsTo的LevelOneDepartmentList
+	public SmartList<LevelOneDepartment> loadOurLevelOneDepartmentList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SkillType的company的SkillTypeList
+	public SmartList<SkillType> loadOurSkillTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:ResponsibilityType的company的ResponsibilityTypeList
+	public SmartList<ResponsibilityType> loadOurResponsibilityTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:TerminationReason的company的TerminationReasonList
+	public SmartList<TerminationReason> loadOurTerminationReasonList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:TerminationType的company的TerminationTypeList
+	public SmartList<TerminationType> loadOurTerminationTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:OccupationType的company的OccupationTypeList
+	public SmartList<OccupationType> loadOurOccupationTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:LeaveType的company的LeaveTypeList
+	public SmartList<LeaveType> loadOurLeaveTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SalaryGrade的company的SalaryGradeList
+	public SmartList<SalaryGrade> loadOurSalaryGradeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:InterviewType的company的InterviewTypeList
+	public SmartList<InterviewType> loadOurInterviewTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:TrainingCourseType的company的TrainingCourseTypeList
+	public SmartList<TrainingCourseType> loadOurTrainingCourseTypeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:PublicHoliday的company的PublicHolidayList
+	public SmartList<PublicHoliday> loadOurPublicHolidayList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:Employee的company的EmployeeList
+	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:Instructor的company的InstructorList
+	public SmartList<Instructor> loadOurInstructorList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的company的CompanyTrainingList
+	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<RetailStoreCountryCenter> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

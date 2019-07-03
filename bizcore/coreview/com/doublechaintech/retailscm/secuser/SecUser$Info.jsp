@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A SecUser">${userContext.localeMap['sec_user']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A SecUser">${userContext.localeMap['sec_user']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	
@@ -24,6 +24,9 @@
 <li><span>${userContext.localeMap['sec_user.mobile']}</span> ${secUser.maskedMobile}</li>
 <li><span>${userContext.localeMap['sec_user.email']}</span> ${secUser.email}</li>
 <li><span>${userContext.localeMap['sec_user.pwd']}</span> ${secUser.maskedPwd}</li>
+<li><span>${userContext.localeMap['sec_user.weixin_openid']}</span> ${secUser.weixinOpenid}</li>
+<li><span>${userContext.localeMap['sec_user.weixin_appid']}</span> ${secUser.weixinAppid}</li>
+<li><span>${userContext.localeMap['sec_user.access_token']}</span> ${secUser.accessToken}</li>
 <li><span>${userContext.localeMap['sec_user.verification_code']}</span> ${secUser.verificationCode}</li>
 <li><span>${userContext.localeMap['sec_user.verification_code_expire']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${secUser.verificationCodeExpire}" /></li>
 <li><span>${userContext.localeMap['sec_user.last_login_time']}</span> <fmt:formatDate pattern="yyyy-MM-dd" value="${secUser.lastLoginTime}" /></li>

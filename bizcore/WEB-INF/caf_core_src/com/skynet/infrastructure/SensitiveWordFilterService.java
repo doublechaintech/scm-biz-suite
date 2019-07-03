@@ -111,9 +111,19 @@ public class SensitiveWordFilterService implements InitializingBean {
     private static final char SIGN = '*'; // 敏感词过滤替换
     private SensitiveWordsProvider sensitiveWordsProvider;
     private SensitiveWordsProvider stopWordsProvider;
+    private boolean enabled = true;
+    
+    
 
+    public boolean isEnabled() {
+		return enabled;
+	}
 
-    public void setSensitiveWordsProvider(SensitiveWordsProvider sensitiveWordsProvider) {
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setSensitiveWordsProvider(SensitiveWordsProvider sensitiveWordsProvider) {
         this.sensitiveWordsProvider = sensitiveWordsProvider;
     }
 
@@ -179,6 +189,9 @@ public class SensitiveWordFilterService implements InitializingBean {
      * @return
      */
     public final String doFilter(final String inputSrc) {
+    	if (!isEnabled()) {
+    		return inputSrc;
+    	}
         if (set != null && nodes != null && !TextUtil.isBlank(inputSrc)) {
         	String src = internalReplacement(inputSrc);
             char[] chs = src.toCharArray();

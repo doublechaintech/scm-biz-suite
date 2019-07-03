@@ -58,10 +58,10 @@ public class OccupationTypeMapper extends BaseRowMapper<OccupationType>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = occupationType.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = occupationType.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'occupationType' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

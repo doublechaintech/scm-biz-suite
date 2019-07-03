@@ -262,8 +262,9 @@ public class CityPartnerManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the cityPartner loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to CityPartner.
-			
-			
+			if (cityPartner.isChanged()){
+			cityPartner.updateLastUpdateTime(userContext.now());
+			}
 			cityPartner = saveCityPartner(userContext, cityPartner, options);
 			return cityPartner;
 			
@@ -614,8 +615,8 @@ public class CityPartnerManagerImpl extends CustomRetailscmCheckerManager implem
 			String potentialCustomerIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfCityPartner(cityPartnerId);
-		for(String potentialCustomerId: potentialCustomerIds){
-			userContext.getChecker().checkIdOfPotentialCustomer(potentialCustomerId);
+		for(String potentialCustomerIdItem: potentialCustomerIds){
+			userContext.getChecker().checkIdOfPotentialCustomer(potentialCustomerIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(CityPartnerManagerException.class);
@@ -882,8 +883,8 @@ public class CityPartnerManagerImpl extends CustomRetailscmCheckerManager implem
 			String potentialCustomerContactIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfCityPartner(cityPartnerId);
-		for(String potentialCustomerContactId: potentialCustomerContactIds){
-			userContext.getChecker().checkIdOfPotentialCustomerContact(potentialCustomerContactId);
+		for(String potentialCustomerContactIdItem: potentialCustomerContactIds){
+			userContext.getChecker().checkIdOfPotentialCustomerContact(potentialCustomerContactIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(CityPartnerManagerException.class);

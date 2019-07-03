@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A UserWhiteList">${userContext.localeMap['user_white_list']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A UserWhiteList">${userContext.localeMap['user_white_list']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

@@ -7,6 +7,20 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroup;
+import com.doublechaintech.retailscm.goods.Goods;
+import com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApproval;
+import com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItem;
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
+import com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDelivery;
+import com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroup;
+import com.doublechaintech.retailscm.supplyorderpicking.SupplyOrderPicking;
+import com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessing;
+import com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmation;
+import com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipment;
+
 import com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroupDAO;
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierDAO;
 import com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessingDAO;
@@ -181,6 +195,19 @@ public interface SupplyOrderDAO{
  	public void analyzeSupplyOrderByDelivery(SmartList<SupplyOrder> resultList, String supplyOrderDeliveryId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrderLineItem的bizOrder的SupplyOrderLineItemList
+	public SmartList<SupplyOrderLineItem> loadOurSupplyOrderLineItemList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrderShippingGroup的bizOrder的SupplyOrderShippingGroupList
+	public SmartList<SupplyOrderShippingGroup> loadOurSupplyOrderShippingGroupList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrderPaymentGroup的bizOrder的SupplyOrderPaymentGroupList
+	public SmartList<SupplyOrderPaymentGroup> loadOurSupplyOrderPaymentGroupList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的bizOrder的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SupplyOrder> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

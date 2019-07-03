@@ -243,8 +243,9 @@ public class LevelThreeCategoryManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the levelThreeCategory loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LevelThreeCategory.
+			if (levelThreeCategory.isChanged()){
 			
-			
+			}
 			levelThreeCategory = saveLevelThreeCategory(userContext, levelThreeCategory, options);
 			return levelThreeCategory;
 			
@@ -545,8 +546,8 @@ public class LevelThreeCategoryManagerImpl extends CustomRetailscmCheckerManager
 			String productIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfLevelThreeCategory(levelThreeCategoryId);
-		for(String productId: productIds){
-			userContext.getChecker().checkIdOfProduct(productId);
+		for(String productIdItem: productIds){
+			userContext.getChecker().checkIdOfProduct(productIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(LevelThreeCategoryManagerException.class);

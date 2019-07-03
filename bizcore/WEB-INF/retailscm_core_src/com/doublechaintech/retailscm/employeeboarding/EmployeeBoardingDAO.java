@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.employee.Employee;
+
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
@@ -69,6 +72,10 @@ public interface EmployeeBoardingDAO{
 	
 	
 	public SmartList<EmployeeBoarding> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:Employee的employeeBoarding的EmployeeList
+	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<EmployeeBoarding> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

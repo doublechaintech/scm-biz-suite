@@ -47,10 +47,10 @@ public class EmployeeAttendanceMapper extends BaseRowMapper<EmployeeAttendance>{
  		if( employeeId.isEmpty()){
  			return;
  		}
- 		Employee employee = employeeAttendance.getEmployee();
- 		if( employee != null ){
+ 		Employee lemployee = employeeAttendance.getEmployee();
+ 		if( lemployee != null ){
  			//if the root object 'employeeAttendance' already have the property, just set the id for it;
- 			employee.setId(employeeId);
+ 			lemployee.setId(employeeId);
  			
  			return;
  		}

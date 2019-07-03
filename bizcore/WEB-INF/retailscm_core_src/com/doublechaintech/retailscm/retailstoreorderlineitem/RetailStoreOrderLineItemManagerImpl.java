@@ -257,8 +257,9 @@ public class RetailStoreOrderLineItemManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the retailStoreOrderLineItem loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderLineItem.
+			if (retailStoreOrderLineItem.isChanged()){
 			
-			
+			}
 			retailStoreOrderLineItem = saveRetailStoreOrderLineItem(userContext, retailStoreOrderLineItem, options);
 			return retailStoreOrderLineItem;
 			

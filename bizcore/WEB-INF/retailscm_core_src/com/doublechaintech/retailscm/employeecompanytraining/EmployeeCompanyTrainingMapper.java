@@ -48,10 +48,10 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
  		if( employeeId.isEmpty()){
  			return;
  		}
- 		Employee employee = employeeCompanyTraining.getEmployee();
- 		if( employee != null ){
+ 		Employee lemployee = employeeCompanyTraining.getEmployee();
+ 		if( lemployee != null ){
  			//if the root object 'employeeCompanyTraining' already have the property, just set the id for it;
- 			employee.setId(employeeId);
+ 			lemployee.setId(employeeId);
  			
  			return;
  		}
@@ -66,10 +66,10 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
  		if( companyTrainingId.isEmpty()){
  			return;
  		}
- 		CompanyTraining companyTraining = employeeCompanyTraining.getTraining();
- 		if( companyTraining != null ){
+ 		CompanyTraining lcompanyTraining = employeeCompanyTraining.getTraining();
+ 		if( lcompanyTraining != null ){
  			//if the root object 'employeeCompanyTraining' already have the property, just set the id for it;
- 			companyTraining.setId(companyTrainingId);
+ 			lcompanyTraining.setId(companyTrainingId);
  			
  			return;
  		}
@@ -84,10 +84,10 @@ public class EmployeeCompanyTrainingMapper extends BaseRowMapper<EmployeeCompany
  		if( scoringId.isEmpty()){
  			return;
  		}
- 		Scoring scoring = employeeCompanyTraining.getScoring();
- 		if( scoring != null ){
+ 		Scoring lscoring = employeeCompanyTraining.getScoring();
+ 		if( lscoring != null ){
  			//if the root object 'employeeCompanyTraining' already have the property, just set the id for it;
- 			scoring.setId(scoringId);
+ 			lscoring.setId(scoringId);
  			
  			return;
  		}

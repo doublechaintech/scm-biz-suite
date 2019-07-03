@@ -20,9 +20,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.terapico.caf.DateTime;
+import com.terapico.caf.RemoteInitiable;
 import com.terapico.utils.TextUtil;
 
-public class BaseEntity implements Serializable{
+public class BaseEntity implements Serializable, RemoteInitiable{
 	public  void ensureAccess(Map<String,Object> accessTokens) {
 		
 		List<SmartList<?>> allLists = this.getAllRelatedLists();
@@ -100,6 +101,7 @@ public class BaseEntity implements Serializable{
    }
 	
 	public String maskChinaMobileNumber(String chinaMobileNumber){
+	
 		if(chinaMobileNumber == null){
 			return null;
 		}
@@ -108,7 +110,7 @@ public class BaseEntity implements Serializable{
 		}
 		
 		return chinaMobileNumber.substring(0,3)+"****"+chinaMobileNumber.substring(7);
-        
+    
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -862,9 +864,6 @@ public class BaseEntity implements Serializable{
 		return this.isValidFieldChar(fieldChar);
 	}
 }
-
-
-
 
 
 

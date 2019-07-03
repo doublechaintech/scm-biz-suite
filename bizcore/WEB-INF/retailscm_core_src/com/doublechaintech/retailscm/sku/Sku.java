@@ -66,9 +66,9 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	Sku(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setProduct( null );
 
@@ -597,6 +597,28 @@ public class Sku extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Sku){
+		
+			
+			Sku dest =(Sku)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeSize(getSize());
+			dest.mergeBarcode(getBarcode());
+			dest.mergePackageType(getPackageType());
+			dest.mergeNetContent(getNetContent());
+			dest.mergePrice(getPrice());
+			dest.mergePicture(getPicture());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.accountingdocumentauditing;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingServiceDAO implements AccountingDocumentAuditingDAO{
 
@@ -60,7 +65,7 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public AccountingDocumentAuditing load(String id,Map<String,Object> options) throws Exception{
@@ -501,9 +506,9 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
 			return accountingDocumentAuditing;
 		}
 		
-		for(AccountingDocument accountingDocument: externalAccountingDocumentList){
+		for(AccountingDocument accountingDocumentItem: externalAccountingDocumentList){
 
-			accountingDocument.clearFromAll();
+			accountingDocumentItem.clearFromAll();
 		}
 		
 		
@@ -533,9 +538,9 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
 			return accountingDocumentAuditing;
 		}
 		
-		for(AccountingDocument accountingDocument: externalAccountingDocumentList){
-			accountingDocument.clearAccountingPeriod();
-			accountingDocument.clearAuditing();
+		for(AccountingDocument accountingDocumentItem: externalAccountingDocumentList){
+			accountingDocumentItem.clearAccountingPeriod();
+			accountingDocumentItem.clearAuditing();
 			
 		}
 		
@@ -577,9 +582,9 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
 			return accountingDocumentAuditing;
 		}
 		
-		for(AccountingDocument accountingDocument: externalAccountingDocumentList){
-			accountingDocument.clearDocumentType();
-			accountingDocument.clearAuditing();
+		for(AccountingDocument accountingDocumentItem: externalAccountingDocumentList){
+			accountingDocumentItem.clearDocumentType();
+			accountingDocumentItem.clearAuditing();
 			
 		}
 		
@@ -717,6 +722,32 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
 	public void enhanceList(List<AccountingDocumentAuditing> accountingDocumentAuditingList) {		
 		this.enhanceListInternal(accountingDocumentAuditingList, this.getAccountingDocumentAuditingMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocument的auditing的AccountingDocumentList
+	public SmartList<AccountingDocument> loadOurAccountingDocumentList(RetailscmUserContext userContext, List<AccountingDocumentAuditing> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountingDocument.AUDITING_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountingDocument> loadedObjs = userContext.getDAOGroup().getAccountingDocumentDAO().findAccountingDocumentWithKey(key, options);
+		Map<String, List<AccountingDocument>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getAuditing().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountingDocument> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountingDocument> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountingDocumentList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountingDocumentAuditing> accountingDocumentAuditingList = ownerEntity.collectRefsWithType(AccountingDocumentAuditing.INTERNAL_TYPE);
@@ -749,6 +780,89 @@ public class AccountingDocumentAuditingJDBCTemplateDAO extends RetailscmNamingSe
 	public SmartList<AccountingDocumentAuditing> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getAccountingDocumentAuditingMapper());
 	}
+	
+	
+    
+	public Map<String, Integer> countBySql(String sql, Object[] params) {
+		if (params == null || params.length == 0) {
+			return new HashMap<>();
+		}
+		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		if (result == null || result.isEmpty()) {
+			return new HashMap<>();
+		}
+		Map<String, Integer> cntMap = new HashMap<>();
+		for (Map<String, Object> data : result) {
+			String key = (String) data.get("id");
+			Number value = (Number) data.get("count");
+			cntMap.put(key, value.intValue());
+		}
+		this.logSQLAndParameters("countBySql", sql, params, cntMap.size() + " Counts");
+		return cntMap;
+	}
+
+	public Integer singleCountBySql(String sql, Object[] params) {
+		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
+		return cnt;
+	}
+
+	public BigDecimal summaryBySql(String sql, Object[] params) {
+		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
+		return cnt == null ? BigDecimal.ZERO : cnt;
+	}
+
+	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
+		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
+		return result;
+	}
+
+	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
+		Map<String, Object> result = null;
+		try {
+			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+			// 空结果，返回null
+		}
+		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+		return result;
+	}
+
+	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
+		T result = null;
+		try {
+			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+			// 空结果，返回null
+		}
+		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+		return result;
+	}
+
+	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
+		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
+		return result;
+	}
+
+	public synchronized int updateBySql(String sql, Object[] params) {
+		int result = getJdbcTemplateObject().update(sql, params);
+		logSQLAndParameters("updateBySql", sql, params, result + " items");
+		return result;
+	}
+
+	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
+		getJdbcTemplateObject().query(sql, args, callback);
+	}
+
+	public void executeSql(String sql) {
+		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
+		getJdbcTemplateObject().execute(sql);
+	}
+
+
 }
 
 

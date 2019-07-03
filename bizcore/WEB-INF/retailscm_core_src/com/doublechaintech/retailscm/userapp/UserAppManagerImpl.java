@@ -278,8 +278,9 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			//will be good when the userApp loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to UserApp.
+			if (userApp.isChanged()){
 			
-			
+			}
 			userApp = saveUserApp(userContext, userApp, options);
 			return userApp;
 			
@@ -692,8 +693,8 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			String listAccessIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfUserApp(userAppId);
-		for(String listAccessId: listAccessIds){
-			userContext.getChecker().checkIdOfListAccess(listAccessId);
+		for(String listAccessIdItem: listAccessIds){
+			userContext.getChecker().checkIdOfListAccess(listAccessIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(UserAppManagerException.class);
@@ -1000,8 +1001,8 @@ public class UserAppManagerImpl extends CustomRetailscmCheckerManager implements
 			String objectAccessIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfUserApp(userAppId);
-		for(String objectAccessId: objectAccessIds){
-			userContext.getChecker().checkIdOfObjectAccess(objectAccessId);
+		for(String objectAccessIdItem: objectAccessIds){
+			userContext.getChecker().checkIdOfObjectAccess(objectAccessIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(UserAppManagerException.class);

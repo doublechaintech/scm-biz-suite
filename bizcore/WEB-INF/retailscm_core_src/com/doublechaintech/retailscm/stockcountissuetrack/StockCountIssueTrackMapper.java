@@ -82,10 +82,10 @@ public class StockCountIssueTrackMapper extends BaseRowMapper<StockCountIssueTra
  		if( goodsShelfStockCountId.isEmpty()){
  			return;
  		}
- 		GoodsShelfStockCount goodsShelfStockCount = stockCountIssueTrack.getStockCount();
- 		if( goodsShelfStockCount != null ){
+ 		GoodsShelfStockCount lgoodsShelfStockCount = stockCountIssueTrack.getStockCount();
+ 		if( lgoodsShelfStockCount != null ){
  			//if the root object 'stockCountIssueTrack' already have the property, just set the id for it;
- 			goodsShelfStockCount.setId(goodsShelfStockCountId);
+ 			lgoodsShelfStockCount.setId(goodsShelfStockCountId);
  			
  			return;
  		}

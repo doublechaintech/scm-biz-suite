@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.goods;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -44,7 +46,10 @@ import com.doublechaintech.retailscm.receivingspace.ReceivingSpaceDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements GoodsDAO{
  
@@ -170,7 +175,7 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public Goods load(String id,Map<String,Object> options) throws Exception{
@@ -1727,9 +1732,9 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 			return goods;
 		}
 		
-		for(GoodsMovement goodsMovement: externalGoodsMovementList){
+		for(GoodsMovement goodsMovementItem: externalGoodsMovementList){
 
-			goodsMovement.clearFromAll();
+			goodsMovementItem.clearFromAll();
 		}
 		
 		
@@ -1759,9 +1764,9 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 			return goods;
 		}
 		
-		for(GoodsMovement goodsMovement: externalGoodsMovementList){
-			goodsMovement.clearFacilityId();
-			goodsMovement.clearGoods();
+		for(GoodsMovement goodsMovementItem: externalGoodsMovementList){
+			goodsMovementItem.clearFacilityId();
+			goodsMovementItem.clearGoods();
 			
 		}
 		
@@ -1803,9 +1808,9 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 			return goods;
 		}
 		
-		for(GoodsMovement goodsMovement: externalGoodsMovementList){
-			goodsMovement.clearSessionId();
-			goodsMovement.clearGoods();
+		for(GoodsMovement goodsMovementItem: externalGoodsMovementList){
+			goodsMovementItem.clearSessionId();
+			goodsMovementItem.clearGoods();
 			
 		}
 		
@@ -1943,6 +1948,32 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 	public void enhanceList(List<Goods> goodsList) {		
 		this.enhanceListInternal(goodsList, this.getGoodsMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:GoodsMovement的goods的GoodsMovementList
+	public SmartList<GoodsMovement> loadOurGoodsMovementList(RetailscmUserContext userContext, List<Goods> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(GoodsMovement.GOODS_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<GoodsMovement> loadedObjs = userContext.getDAOGroup().getGoodsMovementDAO().findGoodsMovementWithKey(key, options);
+		Map<String, List<GoodsMovement>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getGoods().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<GoodsMovement> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<GoodsMovement> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsMovementList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Goods> goodsList = ownerEntity.collectRefsWithType(Goods.INTERNAL_TYPE);
@@ -1975,6 +2006,9 @@ public class GoodsJDBCTemplateDAO extends RetailscmNamingServiceDAO implements G
 	public SmartList<Goods> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getGoodsMapper());
 	}
+	
+	
+
 }
 
 

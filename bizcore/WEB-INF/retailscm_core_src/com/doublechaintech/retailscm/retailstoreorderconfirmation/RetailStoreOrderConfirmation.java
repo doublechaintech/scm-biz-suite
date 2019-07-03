@@ -53,9 +53,9 @@ public class RetailStoreOrderConfirmation extends BaseEntity implements  java.io
 	
 		
 	public 	RetailStoreOrderConfirmation(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 
 		this.changed = true;
@@ -367,6 +367,23 @@ public class RetailStoreOrderConfirmation extends BaseEntity implements  java.io
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreOrderConfirmation){
+		
+			
+			RetailStoreOrderConfirmation dest =(RetailStoreOrderConfirmation)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeWho(getWho());
+			dest.mergeConfirmTime(getConfirmTime());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

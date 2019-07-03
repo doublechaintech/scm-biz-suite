@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.employee.Employee;
+
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
@@ -69,6 +72,10 @@ public interface HrInterviewDAO{
 	
 	
 	public SmartList<HrInterview> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:Employee的hrInterview的EmployeeList
+	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<HrInterview> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

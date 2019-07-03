@@ -264,8 +264,9 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the responsibilityType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ResponsibilityType.
+			if (responsibilityType.isChanged()){
 			
-			
+			}
 			responsibilityType = saveResponsibilityType(userContext, responsibilityType, options);
 			return responsibilityType;
 			
@@ -674,8 +675,8 @@ public class ResponsibilityTypeManagerImpl extends CustomRetailscmCheckerManager
 			String employeeIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfResponsibilityType(responsibilityTypeId);
-		for(String employeeId: employeeIds){
-			userContext.getChecker().checkIdOfEmployee(employeeId);
+		for(String employeeIdItem: employeeIds){
+			userContext.getChecker().checkIdOfEmployee(employeeIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ResponsibilityTypeManagerException.class);

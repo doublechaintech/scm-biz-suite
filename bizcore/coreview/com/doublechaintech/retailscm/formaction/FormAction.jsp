@@ -128,6 +128,7 @@
 
 	<div class="row">
 <c:set var="genericForm" value="${ result.form}" scope="request" />
+<c:set var="referName" value="(form)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/genericform/GenericForm$Info.jsp" />
 
 </div>

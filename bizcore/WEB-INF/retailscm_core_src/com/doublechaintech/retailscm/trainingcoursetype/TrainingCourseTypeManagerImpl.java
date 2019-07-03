@@ -255,8 +255,9 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the trainingCourseType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TrainingCourseType.
+			if (trainingCourseType.isChanged()){
 			
-			
+			}
 			trainingCourseType = saveTrainingCourseType(userContext, trainingCourseType, options);
 			return trainingCourseType;
 			
@@ -593,8 +594,8 @@ public class TrainingCourseTypeManagerImpl extends CustomRetailscmCheckerManager
 			String companyTrainingIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfTrainingCourseType(trainingCourseTypeId);
-		for(String companyTrainingId: companyTrainingIds){
-			userContext.getChecker().checkIdOfCompanyTraining(companyTrainingId);
+		for(String companyTrainingIdItem: companyTrainingIds){
+			userContext.getChecker().checkIdOfCompanyTraining(companyTrainingIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(TrainingCourseTypeManagerException.class);

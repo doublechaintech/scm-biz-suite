@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.memberwishlist;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO implements MemberWishlistDAO{
  
@@ -71,7 +76,7 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public MemberWishlist load(String id,Map<String,Object> options) throws Exception{
@@ -610,9 +615,9 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return memberWishlist;
 		}
 		
-		for(MemberWishlistProduct memberWishlistProduct: externalMemberWishlistProductList){
+		for(MemberWishlistProduct memberWishlistProductItem: externalMemberWishlistProductList){
 
-			memberWishlistProduct.clearFromAll();
+			memberWishlistProductItem.clearFromAll();
 		}
 		
 		
@@ -738,6 +743,32 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public void enhanceList(List<MemberWishlist> memberWishlistList) {		
 		this.enhanceListInternal(memberWishlistList, this.getMemberWishlistMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:MemberWishlistProduct的owner的MemberWishlistProductList
+	public SmartList<MemberWishlistProduct> loadOurMemberWishlistProductList(RetailscmUserContext userContext, List<MemberWishlist> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(MemberWishlistProduct.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<MemberWishlistProduct> loadedObjs = userContext.getDAOGroup().getMemberWishlistProductDAO().findMemberWishlistProductWithKey(key, options);
+		Map<String, List<MemberWishlistProduct>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<MemberWishlistProduct> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<MemberWishlistProduct> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setMemberWishlistProductList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<MemberWishlist> memberWishlistList = ownerEntity.collectRefsWithType(MemberWishlist.INTERNAL_TYPE);
@@ -770,6 +801,9 @@ public class MemberWishlistJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public SmartList<MemberWishlist> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getMemberWishlistMapper());
 	}
+	
+	
+
 }
 
 

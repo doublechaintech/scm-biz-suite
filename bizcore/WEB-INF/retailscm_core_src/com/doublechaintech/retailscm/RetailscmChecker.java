@@ -7547,6 +7547,33 @@ public class RetailscmChecker extends BaseChecker{
 		return this;
 	}	 			
 
+	public static final String  WEIXIN_OPENID_OF_SEC_USER ="sec_user.weixin_openid";
+	public RetailscmChecker checkWeixinOpenidOfSecUser(String weixinOpenid)
+	{
+		
+	 	checkStringLengthRange(weixinOpenid,0, 128,WEIXIN_OPENID_OF_SEC_USER ); 		
+		
+		return this;
+	}	 			
+
+	public static final String  WEIXIN_APPID_OF_SEC_USER ="sec_user.weixin_appid";
+	public RetailscmChecker checkWeixinAppidOfSecUser(String weixinAppid)
+	{
+		
+	 	checkStringLengthRange(weixinAppid,0, 128,WEIXIN_APPID_OF_SEC_USER ); 		
+		
+		return this;
+	}	 			
+
+	public static final String  ACCESS_TOKEN_OF_SEC_USER ="sec_user.access_token";
+	public RetailscmChecker checkAccessTokenOfSecUser(String accessToken)
+	{
+		
+	 	checkStringLengthRange(accessToken,0, 128,ACCESS_TOKEN_OF_SEC_USER ); 		
+		
+		return this;
+	}	 			
+
 	public static final String  VERIFICATION_CODE_OF_SEC_USER ="sec_user.verification_code";
 	public RetailscmChecker checkVerificationCodeOfSecUser(int verificationCode)
 	{
@@ -7686,7 +7713,7 @@ public class RetailscmChecker extends BaseChecker{
 	public RetailscmChecker checkObjectTypeOfUserApp(String objectType)
 	{
 		
-	 	checkStringLengthRange(objectType,5, 108,OBJECT_TYPE_OF_USER_APP ); 		
+	 	checkStringLengthRange(objectType,1, 100,OBJECT_TYPE_OF_USER_APP ); 		
 		
 		return this;
 	}	 			
@@ -7731,7 +7758,7 @@ public class RetailscmChecker extends BaseChecker{
 	public RetailscmChecker checkNameOfListAccess(String name)
 	{
 		
-	 	checkStringLengthRange(name,2, 200,NAME_OF_LIST_ACCESS ); 		
+	 	checkStringLengthRange(name,1, 200,NAME_OF_LIST_ACCESS ); 		
 		
 		return this;
 	}	 			
@@ -7740,7 +7767,7 @@ public class RetailscmChecker extends BaseChecker{
 	public RetailscmChecker checkInternalNameOfListAccess(String internalName)
 	{
 		
-	 	checkStringLengthRange(internalName,2, 200,INTERNAL_NAME_OF_LIST_ACCESS ); 		
+	 	checkStringLengthRange(internalName,1, 200,INTERNAL_NAME_OF_LIST_ACCESS ); 		
 		
 		return this;
 	}	 			
@@ -8380,9 +8407,6 @@ public class RetailscmChecker extends BaseChecker{
 
     
 }
-
-
-
 
 
 

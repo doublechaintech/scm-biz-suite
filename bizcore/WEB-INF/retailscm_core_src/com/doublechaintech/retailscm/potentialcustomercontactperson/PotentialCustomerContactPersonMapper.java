@@ -70,10 +70,10 @@ public class PotentialCustomerContactPersonMapper extends BaseRowMapper<Potentia
  		if( potentialCustomerId.isEmpty()){
  			return;
  		}
- 		PotentialCustomer potentialCustomer = potentialCustomerContactPerson.getPotentialCustomer();
- 		if( potentialCustomer != null ){
+ 		PotentialCustomer lpotentialCustomer = potentialCustomerContactPerson.getPotentialCustomer();
+ 		if( lpotentialCustomer != null ){
  			//if the root object 'potentialCustomerContactPerson' already have the property, just set the id for it;
- 			potentialCustomer.setId(potentialCustomerId);
+ 			lpotentialCustomer.setId(potentialCustomerId);
  			
  			return;
  		}

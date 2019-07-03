@@ -254,8 +254,9 @@ public class OfferAcceptanceManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the offerAcceptance loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OfferAcceptance.
+			if (offerAcceptance.isChanged()){
 			
-			
+			}
 			offerAcceptance = saveOfferAcceptance(userContext, offerAcceptance, options);
 			return offerAcceptance;
 			
@@ -628,8 +629,8 @@ public class OfferAcceptanceManagerImpl extends CustomRetailscmCheckerManager im
 			String employeeIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfOfferAcceptance(offerAcceptanceId);
-		for(String employeeId: employeeIds){
-			userContext.getChecker().checkIdOfEmployee(employeeId);
+		for(String employeeIdItem: employeeIds){
+			userContext.getChecker().checkIdOfEmployee(employeeIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(OfferAcceptanceManagerException.class);

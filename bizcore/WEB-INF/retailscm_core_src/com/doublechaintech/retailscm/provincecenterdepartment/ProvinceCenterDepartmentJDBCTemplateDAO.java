@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.provincecenterdepartment;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.provincecenteremployee.ProvinceCenterEmploy
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO implements ProvinceCenterDepartmentDAO{
  
@@ -71,7 +76,7 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public ProvinceCenterDepartment load(String id,Map<String,Object> options) throws Exception{
@@ -614,9 +619,9 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 			return provinceCenterDepartment;
 		}
 		
-		for(ProvinceCenterEmployee provinceCenterEmployee: externalProvinceCenterEmployeeList){
+		for(ProvinceCenterEmployee provinceCenterEmployeeItem: externalProvinceCenterEmployeeList){
 
-			provinceCenterEmployee.clearFromAll();
+			provinceCenterEmployeeItem.clearFromAll();
 		}
 		
 		
@@ -646,9 +651,9 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 			return provinceCenterDepartment;
 		}
 		
-		for(ProvinceCenterEmployee provinceCenterEmployee: externalProvinceCenterEmployeeList){
-			provinceCenterEmployee.clearProvinceCenter();
-			provinceCenterEmployee.clearDepartment();
+		for(ProvinceCenterEmployee provinceCenterEmployeeItem: externalProvinceCenterEmployeeList){
+			provinceCenterEmployeeItem.clearProvinceCenter();
+			provinceCenterEmployeeItem.clearDepartment();
 			
 		}
 		
@@ -786,6 +791,32 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 	public void enhanceList(List<ProvinceCenterDepartment> provinceCenterDepartmentList) {		
 		this.enhanceListInternal(provinceCenterDepartmentList, this.getProvinceCenterDepartmentMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:ProvinceCenterEmployee的department的ProvinceCenterEmployeeList
+	public SmartList<ProvinceCenterEmployee> loadOurProvinceCenterEmployeeList(RetailscmUserContext userContext, List<ProvinceCenterDepartment> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ProvinceCenterEmployee.DEPARTMENT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ProvinceCenterEmployee> loadedObjs = userContext.getDAOGroup().getProvinceCenterEmployeeDAO().findProvinceCenterEmployeeWithKey(key, options);
+		Map<String, List<ProvinceCenterEmployee>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getDepartment().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ProvinceCenterEmployee> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ProvinceCenterEmployee> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setProvinceCenterEmployeeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<ProvinceCenterDepartment> provinceCenterDepartmentList = ownerEntity.collectRefsWithType(ProvinceCenterDepartment.INTERNAL_TYPE);
@@ -818,6 +849,9 @@ public class ProvinceCenterDepartmentJDBCTemplateDAO extends RetailscmNamingServ
 	public SmartList<ProvinceCenterDepartment> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getProvinceCenterDepartmentMapper());
 	}
+	
+	
+
 }
 
 

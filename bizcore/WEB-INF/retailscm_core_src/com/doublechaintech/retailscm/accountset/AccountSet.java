@@ -82,9 +82,9 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	AccountSet(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCountryCenter( null );
 		setRetailStore( null );
@@ -977,6 +977,30 @@ public class AccountSet extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof AccountSet){
+		
+			
+			AccountSet dest =(AccountSet)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeYearSet(getYearSet());
+			dest.mergeEffectiveDate(getEffectiveDate());
+			dest.mergeAccountingSystem(getAccountingSystem());
+			dest.mergeDomesticCurrencyCode(getDomesticCurrencyCode());
+			dest.mergeDomesticCurrencyName(getDomesticCurrencyName());
+			dest.mergeOpeningBank(getOpeningBank());
+			dest.mergeAccountNumber(getAccountNumber());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

@@ -110,10 +110,10 @@ public class InstructorMapper extends BaseRowMapper<Instructor>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = instructor.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = instructor.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'instructor' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

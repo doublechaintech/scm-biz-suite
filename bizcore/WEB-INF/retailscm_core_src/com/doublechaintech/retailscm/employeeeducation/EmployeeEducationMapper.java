@@ -46,10 +46,10 @@ public class EmployeeEducationMapper extends BaseRowMapper<EmployeeEducation>{
  		if( employeeId.isEmpty()){
  			return;
  		}
- 		Employee employee = employeeEducation.getEmployee();
- 		if( employee != null ){
+ 		Employee lemployee = employeeEducation.getEmployee();
+ 		if( lemployee != null ){
  			//if the root object 'employeeEducation' already have the property, just set the id for it;
- 			employee.setId(employeeId);
+ 			lemployee.setId(employeeId);
  			
  			return;
  		}

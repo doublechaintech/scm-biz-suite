@@ -276,8 +276,9 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the companyTraining loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to CompanyTraining.
-			
-			
+			if (companyTraining.isChanged()){
+			companyTraining.updateLastUpdateTime(userContext.now());
+			}
 			companyTraining = saveCompanyTraining(userContext, companyTraining, options);
 			return companyTraining;
 			
@@ -694,8 +695,8 @@ public class CompanyTrainingManagerImpl extends CustomRetailscmCheckerManager im
 			String employeeCompanyTrainingIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfCompanyTraining(companyTrainingId);
-		for(String employeeCompanyTrainingId: employeeCompanyTrainingIds){
-			userContext.getChecker().checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
+		for(String employeeCompanyTrainingIdItem: employeeCompanyTrainingIds){
+			userContext.getChecker().checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(CompanyTrainingManagerException.class);

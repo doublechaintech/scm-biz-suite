@@ -36,6 +36,3 @@ public class RetailscmRuntimeException extends RuntimeException {
 
 
 
-
-
-

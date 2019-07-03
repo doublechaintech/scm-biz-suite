@@ -7,6 +7,14 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+import com.doublechaintech.retailscm.goodssupplier.GoodsSupplier;
+import com.doublechaintech.retailscm.retailstore.RetailStore;
+import com.doublechaintech.retailscm.accountingsubject.AccountingSubject;
+import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType;
+import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
+
 import com.doublechaintech.retailscm.accountingperiod.AccountingPeriodDAO;
 import com.doublechaintech.retailscm.goodssupplier.GoodsSupplierDAO;
 import com.doublechaintech.retailscm.accountingsubject.AccountingSubjectDAO;
@@ -92,6 +100,16 @@ public interface AccountSetDAO{
  	public void analyzeAccountSetByGoodsSupplier(SmartList<AccountSet> resultList, String goodsSupplierId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:AccountingSubject的accountSet的AccountingSubjectList
+	public SmartList<AccountingSubject> loadOurAccountingSubjectList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingPeriod的accountSet的AccountingPeriodList
+	public SmartList<AccountingPeriod> loadOurAccountingPeriodList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocumentType的accountingPeriod的AccountingDocumentTypeList
+	public SmartList<AccountingDocumentType> loadOurAccountingDocumentTypeList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

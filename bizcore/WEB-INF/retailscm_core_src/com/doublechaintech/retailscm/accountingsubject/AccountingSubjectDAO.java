@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;
+import com.doublechaintech.retailscm.accountset.AccountSet;
+
 import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLineDAO;
 import com.doublechaintech.retailscm.accountset.AccountSetDAO;
 
@@ -62,6 +66,10 @@ public interface AccountingSubjectDAO{
  	public void analyzeAccountingSubjectByAccountSet(SmartList<AccountingSubject> resultList, String accountSetId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocumentLine的accountingSubject的AccountingDocumentLineList
+	public SmartList<AccountingDocumentLine> loadOurAccountingDocumentLineList(RetailscmUserContext userContext, List<AccountingSubject> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

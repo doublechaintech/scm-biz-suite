@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeleave;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO implements EmployeeLeaveDAO{
  
@@ -61,7 +66,7 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public EmployeeLeave load(String id,Map<String,Object> options) throws Exception{
@@ -643,6 +648,9 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<EmployeeLeave> employeeLeaveList) {		
 		this.enhanceListInternal(employeeLeaveList, this.getEmployeeLeaveMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeLeave> employeeLeaveList = ownerEntity.collectRefsWithType(EmployeeLeave.INTERNAL_TYPE);
@@ -675,6 +683,9 @@ public class EmployeeLeaveJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public SmartList<EmployeeLeave> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeLeaveMapper());
 	}
+	
+	
+
 }
 
 

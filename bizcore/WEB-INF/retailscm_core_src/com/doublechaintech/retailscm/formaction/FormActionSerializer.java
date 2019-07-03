@@ -22,6 +22,3 @@ public class FormActionSerializer extends RetailscmObjectPlainCustomSerializer<F
 
 
 
-
-
-

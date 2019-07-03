@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A GoodsShelfStockCount">${userContext.localeMap['goods_shelf_stock_count']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A GoodsShelfStockCount">${userContext.localeMap['goods_shelf_stock_count']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

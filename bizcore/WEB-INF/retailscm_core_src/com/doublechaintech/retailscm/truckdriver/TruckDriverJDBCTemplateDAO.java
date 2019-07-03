@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.truckdriver;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.transporttask.TransportTaskDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implements TruckDriverDAO{
  
@@ -71,7 +76,7 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public TruckDriver load(String id,Map<String,Object> options) throws Exception{
@@ -614,9 +619,9 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return truckDriver;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
+		for(TransportTask transportTaskItem: externalTransportTaskList){
 
-			transportTask.clearFromAll();
+			transportTaskItem.clearFromAll();
 		}
 		
 		
@@ -646,9 +651,9 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return truckDriver;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
-			transportTask.clearEnd();
-			transportTask.clearDriver();
+		for(TransportTask transportTaskItem: externalTransportTaskList){
+			transportTaskItem.clearEnd();
+			transportTaskItem.clearDriver();
 			
 		}
 		
@@ -690,9 +695,9 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return truckDriver;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
-			transportTask.clearTruck();
-			transportTask.clearDriver();
+		for(TransportTask transportTaskItem: externalTransportTaskList){
+			transportTaskItem.clearTruck();
+			transportTaskItem.clearDriver();
 			
 		}
 		
@@ -734,9 +739,9 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return truckDriver;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
-			transportTask.clearBelongsTo();
-			transportTask.clearDriver();
+		for(TransportTask transportTaskItem: externalTransportTaskList){
+			transportTaskItem.clearBelongsTo();
+			transportTaskItem.clearDriver();
 			
 		}
 		
@@ -874,6 +879,32 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public void enhanceList(List<TruckDriver> truckDriverList) {		
 		this.enhanceListInternal(truckDriverList, this.getTruckDriverMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTask的driver的TransportTaskList
+	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<TruckDriver> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTask.DRIVER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTask> loadedObjs = userContext.getDAOGroup().getTransportTaskDAO().findTransportTaskWithKey(key, options);
+		Map<String, List<TransportTask>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getDriver().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTask> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTask> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTaskList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TruckDriver> truckDriverList = ownerEntity.collectRefsWithType(TruckDriver.INTERNAL_TYPE);
@@ -906,6 +937,9 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public SmartList<TruckDriver> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTruckDriverMapper());
 	}
+	
+	
+
 }
 
 

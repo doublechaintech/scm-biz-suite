@@ -58,10 +58,10 @@ public class RetailStoreMemberAddressMapper extends BaseRowMapper<RetailStoreMem
  		if( retailStoreMemberId.isEmpty()){
  			return;
  		}
- 		RetailStoreMember retailStoreMember = retailStoreMemberAddress.getOwner();
- 		if( retailStoreMember != null ){
+ 		RetailStoreMember lretailStoreMember = retailStoreMemberAddress.getOwner();
+ 		if( lretailStoreMember != null ){
  			//if the root object 'retailStoreMemberAddress' already have the property, just set the id for it;
- 			retailStoreMember.setId(retailStoreMemberId);
+ 			lretailStoreMember.setId(retailStoreMemberId);
  			
  			return;
  		}

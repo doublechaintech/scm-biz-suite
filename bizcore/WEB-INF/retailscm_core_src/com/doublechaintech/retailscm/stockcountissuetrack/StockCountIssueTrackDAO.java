@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCount;
+
 import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountDAO;
 
 
@@ -50,6 +53,7 @@ public interface StockCountIssueTrackDAO{
  	public void analyzeStockCountIssueTrackByStockCount(SmartList<StockCountIssueTrack> resultList, String goodsShelfStockCountId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

@@ -53,6 +53,18 @@
 <span >${result.maskedPwd}</span>
 </div>
 <div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['sec_user.weixin_openid']}</span>
+<span >${result.weixinOpenid}</span>
+</div>
+<div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['sec_user.weixin_appid']}</span>
+<span >${result.weixinAppid}</span>
+</div>
+<div class="col-xs-12 col-md-3 summary-section">
+<span class="summary-label">${userContext.localeMap['sec_user.access_token']}</span>
+<span >${result.accessToken}</span>
+</div>
+<div class="col-xs-12 col-md-3 summary-section">
 <span class="summary-label">${userContext.localeMap['sec_user.verification_code']}</span>
 <span >${result.verificationCode}</span>
 </div>

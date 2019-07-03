@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstoreorder;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -46,7 +48,10 @@ import com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOr
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO implements RetailStoreOrderDAO{
  
@@ -211,7 +216,7 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public RetailStoreOrder load(String id,Map<String,Object> options) throws Exception{
@@ -1856,9 +1861,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(RetailStoreOrderLineItem retailStoreOrderLineItem: externalRetailStoreOrderLineItemList){
+		for(RetailStoreOrderLineItem retailStoreOrderLineItemItem: externalRetailStoreOrderLineItemList){
 
-			retailStoreOrderLineItem.clearFromAll();
+			retailStoreOrderLineItemItem.clearFromAll();
 		}
 		
 		
@@ -1888,9 +1893,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(RetailStoreOrderLineItem retailStoreOrderLineItem: externalRetailStoreOrderLineItemList){
-			retailStoreOrderLineItem.clearSkuId();
-			retailStoreOrderLineItem.clearBizOrder();
+		for(RetailStoreOrderLineItem retailStoreOrderLineItemItem: externalRetailStoreOrderLineItemList){
+			retailStoreOrderLineItemItem.clearSkuId();
+			retailStoreOrderLineItemItem.clearBizOrder();
 			
 		}
 		
@@ -1928,9 +1933,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(RetailStoreOrderShippingGroup retailStoreOrderShippingGroup: externalRetailStoreOrderShippingGroupList){
+		for(RetailStoreOrderShippingGroup retailStoreOrderShippingGroupItem: externalRetailStoreOrderShippingGroupList){
 
-			retailStoreOrderShippingGroup.clearFromAll();
+			retailStoreOrderShippingGroupItem.clearFromAll();
 		}
 		
 		
@@ -1956,9 +1961,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroup: externalRetailStoreOrderPaymentGroupList){
+		for(RetailStoreOrderPaymentGroup retailStoreOrderPaymentGroupItem: externalRetailStoreOrderPaymentGroupList){
 
-			retailStoreOrderPaymentGroup.clearFromAll();
+			retailStoreOrderPaymentGroupItem.clearFromAll();
 		}
 		
 		
@@ -1984,9 +1989,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
+		for(Goods goodsItem: externalGoodsList){
 
-			goods.clearFromAll();
+			goodsItem.clearFromAll();
 		}
 		
 		
@@ -2016,9 +2021,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSku();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSku();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2060,9 +2065,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearReceivingSpace();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearReceivingSpace();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2104,9 +2109,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearGoodsAllocation();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearGoodsAllocation();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2148,9 +2153,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSmartPallet();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSmartPallet();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2192,9 +2197,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearShippingSpace();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearShippingSpace();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2236,9 +2241,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearTransportTask();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearTransportTask();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2280,9 +2285,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStore();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStore();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2324,9 +2329,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 			return retailStoreOrder;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearBizOrder();
-			goods.clearRetailStoreOrder();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearBizOrder();
+			goodsItem.clearRetailStoreOrder();
 			
 		}
 		
@@ -2743,6 +2748,101 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	public void enhanceList(List<RetailStoreOrder> retailStoreOrderList) {		
 		this.enhanceListInternal(retailStoreOrderList, this.getRetailStoreOrderMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrderLineItem的bizOrder的RetailStoreOrderLineItemList
+	public SmartList<RetailStoreOrderLineItem> loadOurRetailStoreOrderLineItemList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrderLineItem.BIZ_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreOrderLineItem> loadedObjs = userContext.getDAOGroup().getRetailStoreOrderLineItemDAO().findRetailStoreOrderLineItemWithKey(key, options);
+		Map<String, List<RetailStoreOrderLineItem>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBizOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreOrderLineItem> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreOrderLineItem> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreOrderLineItemList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrderShippingGroup的bizOrder的RetailStoreOrderShippingGroupList
+	public SmartList<RetailStoreOrderShippingGroup> loadOurRetailStoreOrderShippingGroupList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrderShippingGroup.BIZ_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreOrderShippingGroup> loadedObjs = userContext.getDAOGroup().getRetailStoreOrderShippingGroupDAO().findRetailStoreOrderShippingGroupWithKey(key, options);
+		Map<String, List<RetailStoreOrderShippingGroup>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBizOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreOrderShippingGroup> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreOrderShippingGroup> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreOrderShippingGroupList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrderPaymentGroup的bizOrder的RetailStoreOrderPaymentGroupList
+	public SmartList<RetailStoreOrderPaymentGroup> loadOurRetailStoreOrderPaymentGroupList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrderPaymentGroup.BIZ_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreOrderPaymentGroup> loadedObjs = userContext.getDAOGroup().getRetailStoreOrderPaymentGroupDAO().findRetailStoreOrderPaymentGroupWithKey(key, options);
+		Map<String, List<RetailStoreOrderPaymentGroup>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBizOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreOrderPaymentGroup> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreOrderPaymentGroup> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreOrderPaymentGroupList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的retailStoreOrder的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<RetailStoreOrder> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.RETAIL_STORE_ORDER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getRetailStoreOrder().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreOrder> retailStoreOrderList = ownerEntity.collectRefsWithType(RetailStoreOrder.INTERNAL_TYPE);
@@ -2775,6 +2875,9 @@ public class RetailStoreOrderJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	public SmartList<RetailStoreOrder> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreOrderMapper());
 	}
+	
+	
+
 }
 
 

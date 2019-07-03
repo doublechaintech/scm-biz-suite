@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
+import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCard;
+
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
 import com.doublechaintech.retailscm.retailstoremembergiftcard.RetailStoreMemberGiftCardDAO;
 
@@ -59,6 +63,7 @@ public interface RetailStoreMemberGiftCardConsumeRecordDAO{
  	public void analyzeRetailStoreMemberGiftCardConsumeRecordByBizOrder(SmartList<RetailStoreMemberGiftCardConsumeRecord> resultList, String consumerOrderId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

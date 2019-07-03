@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.employee.Employee;
+import com.doublechaintech.retailscm.interviewtype.InterviewType;
+
 import com.doublechaintech.retailscm.interviewtype.InterviewTypeDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
@@ -59,6 +63,7 @@ public interface EmployeeInterviewDAO{
  	public void analyzeEmployeeInterviewByInterviewType(SmartList<EmployeeInterview> resultList, String interviewTypeId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

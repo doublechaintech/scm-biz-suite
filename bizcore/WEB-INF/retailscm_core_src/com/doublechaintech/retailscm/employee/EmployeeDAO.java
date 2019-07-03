@@ -7,6 +7,32 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.hrinterview.HrInterview;
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+import com.doublechaintech.retailscm.professioninterview.ProfessionInterview;
+import com.doublechaintech.retailscm.employeeleave.EmployeeLeave;
+import com.doublechaintech.retailscm.employeeinterview.EmployeeInterview;
+import com.doublechaintech.retailscm.offeracceptance.OfferAcceptance;
+import com.doublechaintech.retailscm.employeeskill.EmployeeSkill;
+import com.doublechaintech.retailscm.employeeboarding.EmployeeBoarding;
+import com.doublechaintech.retailscm.payingoff.PayingOff;
+import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartment;
+import com.doublechaintech.retailscm.occupationtype.OccupationType;
+import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
+import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTraining;
+import com.doublechaintech.retailscm.offerapproval.OfferApproval;
+import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheet;
+import com.doublechaintech.retailscm.termination.Termination;
+import com.doublechaintech.retailscm.employeeattendance.EmployeeAttendance;
+import com.doublechaintech.retailscm.jobapplication.JobApplication;
+import com.doublechaintech.retailscm.employeequalifier.EmployeeQualifier;
+import com.doublechaintech.retailscm.employeeperformance.EmployeePerformance;
+import com.doublechaintech.retailscm.employeeeducation.EmployeeEducation;
+import com.doublechaintech.retailscm.responsibilitytype.ResponsibilityType;
+import com.doublechaintech.retailscm.employeeworkexperience.EmployeeWorkExperience;
+import com.doublechaintech.retailscm.employeeaward.EmployeeAward;
+
 import com.doublechaintech.retailscm.offerapproval.OfferApprovalDAO;
 import com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheetDAO;
 import com.doublechaintech.retailscm.salarygrade.SalaryGradeDAO;
@@ -265,6 +291,43 @@ public interface EmployeeDAO{
  	public void analyzeEmployeeByTermination(SmartList<Employee> resultList, String terminationId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的employee的EmployeeCompanyTrainingList
+	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeSkill的employee的EmployeeSkillList
+	public SmartList<EmployeeSkill> loadOurEmployeeSkillList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeePerformance的employee的EmployeePerformanceList
+	public SmartList<EmployeePerformance> loadOurEmployeePerformanceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeWorkExperience的employee的EmployeeWorkExperienceList
+	public SmartList<EmployeeWorkExperience> loadOurEmployeeWorkExperienceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeLeave的who的EmployeeLeaveList
+	public SmartList<EmployeeLeave> loadOurEmployeeLeaveList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeInterview的employee的EmployeeInterviewList
+	public SmartList<EmployeeInterview> loadOurEmployeeInterviewList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeAttendance的employee的EmployeeAttendanceList
+	public SmartList<EmployeeAttendance> loadOurEmployeeAttendanceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeQualifier的employee的EmployeeQualifierList
+	public SmartList<EmployeeQualifier> loadOurEmployeeQualifierList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeEducation的employee的EmployeeEducationList
+	public SmartList<EmployeeEducation> loadOurEmployeeEducationList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeAward的employee的EmployeeAwardList
+	public SmartList<EmployeeAward> loadOurEmployeeAwardList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeSalarySheet的employee的EmployeeSalarySheetList
+	public SmartList<EmployeeSalarySheet> loadOurEmployeeSalarySheetList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:PayingOff的paidFor的PayingOffList
+	public SmartList<PayingOff> loadOurPayingOffList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

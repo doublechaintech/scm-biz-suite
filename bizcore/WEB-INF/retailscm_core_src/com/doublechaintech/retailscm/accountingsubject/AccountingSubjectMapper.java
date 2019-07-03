@@ -95,10 +95,10 @@ public class AccountingSubjectMapper extends BaseRowMapper<AccountingSubject>{
  		if( accountSetId.isEmpty()){
  			return;
  		}
- 		AccountSet accountSet = accountingSubject.getAccountSet();
- 		if( accountSet != null ){
+ 		AccountSet laccountSet = accountingSubject.getAccountSet();
+ 		if( laccountSet != null ){
  			//if the root object 'accountingSubject' already have the property, just set the id for it;
- 			accountSet.setId(accountSetId);
+ 			laccountSet.setId(accountSetId);
  			
  			return;
  		}

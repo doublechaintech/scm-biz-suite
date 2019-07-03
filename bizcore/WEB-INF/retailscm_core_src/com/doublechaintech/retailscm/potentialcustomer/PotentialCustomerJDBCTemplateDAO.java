@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.potentialcustomer;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -32,7 +34,10 @@ import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCus
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO implements PotentialCustomerDAO{
  
@@ -124,7 +129,7 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public PotentialCustomer load(String id,Map<String,Object> options) throws Exception{
@@ -975,9 +980,9 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return potentialCustomer;
 		}
 		
-		for(PotentialCustomerContactPerson potentialCustomerContactPerson: externalPotentialCustomerContactPersonList){
+		for(PotentialCustomerContactPerson potentialCustomerContactPersonItem: externalPotentialCustomerContactPersonList){
 
-			potentialCustomerContactPerson.clearFromAll();
+			potentialCustomerContactPersonItem.clearFromAll();
 		}
 		
 		
@@ -1003,9 +1008,9 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return potentialCustomer;
 		}
 		
-		for(PotentialCustomerContact potentialCustomerContact: externalPotentialCustomerContactList){
+		for(PotentialCustomerContact potentialCustomerContactItem: externalPotentialCustomerContactList){
 
-			potentialCustomerContact.clearFromAll();
+			potentialCustomerContactItem.clearFromAll();
 		}
 		
 		
@@ -1035,9 +1040,9 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return potentialCustomer;
 		}
 		
-		for(PotentialCustomerContact potentialCustomerContact: externalPotentialCustomerContactList){
-			potentialCustomerContact.clearCityPartner();
-			potentialCustomerContact.clearPotentialCustomer();
+		for(PotentialCustomerContact potentialCustomerContactItem: externalPotentialCustomerContactList){
+			potentialCustomerContactItem.clearCityPartner();
+			potentialCustomerContactItem.clearPotentialCustomer();
 			
 		}
 		
@@ -1079,9 +1084,9 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return potentialCustomer;
 		}
 		
-		for(PotentialCustomerContact potentialCustomerContact: externalPotentialCustomerContactList){
-			potentialCustomerContact.clearContactTo();
-			potentialCustomerContact.clearPotentialCustomer();
+		for(PotentialCustomerContact potentialCustomerContactItem: externalPotentialCustomerContactList){
+			potentialCustomerContactItem.clearContactTo();
+			potentialCustomerContactItem.clearPotentialCustomer();
 			
 		}
 		
@@ -1119,9 +1124,9 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return potentialCustomer;
 		}
 		
-		for(EventAttendance eventAttendance: externalEventAttendanceList){
+		for(EventAttendance eventAttendanceItem: externalEventAttendanceList){
 
-			eventAttendance.clearFromAll();
+			eventAttendanceItem.clearFromAll();
 		}
 		
 		
@@ -1151,9 +1156,9 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 			return potentialCustomer;
 		}
 		
-		for(EventAttendance eventAttendance: externalEventAttendanceList){
-			eventAttendance.clearCityEvent();
-			eventAttendance.clearPotentialCustomer();
+		for(EventAttendance eventAttendanceItem: externalEventAttendanceList){
+			eventAttendanceItem.clearCityEvent();
+			eventAttendanceItem.clearPotentialCustomer();
 			
 		}
 		
@@ -1477,6 +1482,78 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<PotentialCustomer> potentialCustomerList) {		
 		this.enhanceListInternal(potentialCustomerList, this.getPotentialCustomerMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContactPerson的potentialCustomer的PotentialCustomerContactPersonList
+	public SmartList<PotentialCustomerContactPerson> loadOurPotentialCustomerContactPersonList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PotentialCustomerContactPerson.POTENTIAL_CUSTOMER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PotentialCustomerContactPerson> loadedObjs = userContext.getDAOGroup().getPotentialCustomerContactPersonDAO().findPotentialCustomerContactPersonWithKey(key, options);
+		Map<String, List<PotentialCustomerContactPerson>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPotentialCustomer().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PotentialCustomerContactPerson> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PotentialCustomerContactPerson> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPotentialCustomerContactPersonList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:PotentialCustomerContact的potentialCustomer的PotentialCustomerContactList
+	public SmartList<PotentialCustomerContact> loadOurPotentialCustomerContactList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PotentialCustomerContact.POTENTIAL_CUSTOMER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PotentialCustomerContact> loadedObjs = userContext.getDAOGroup().getPotentialCustomerContactDAO().findPotentialCustomerContactWithKey(key, options);
+		Map<String, List<PotentialCustomerContact>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPotentialCustomer().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PotentialCustomerContact> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PotentialCustomerContact> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPotentialCustomerContactList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EventAttendance的potentialCustomer的EventAttendanceList
+	public SmartList<EventAttendance> loadOurEventAttendanceList(RetailscmUserContext userContext, List<PotentialCustomer> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EventAttendance.POTENTIAL_CUSTOMER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EventAttendance> loadedObjs = userContext.getDAOGroup().getEventAttendanceDAO().findEventAttendanceWithKey(key, options);
+		Map<String, List<EventAttendance>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPotentialCustomer().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EventAttendance> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EventAttendance> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEventAttendanceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PotentialCustomer> potentialCustomerList = ownerEntity.collectRefsWithType(PotentialCustomer.INTERNAL_TYPE);
@@ -1509,6 +1586,9 @@ public class PotentialCustomerJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public SmartList<PotentialCustomer> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getPotentialCustomerMapper());
 	}
+	
+	
+
 }
 
 

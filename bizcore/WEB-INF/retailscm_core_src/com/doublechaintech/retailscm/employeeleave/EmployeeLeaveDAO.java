@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.employee.Employee;
+import com.doublechaintech.retailscm.leavetype.LeaveType;
+
 import com.doublechaintech.retailscm.leavetype.LeaveTypeDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
@@ -59,6 +63,7 @@ public interface EmployeeLeaveDAO{
  	public void analyzeEmployeeLeaveByType(SmartList<EmployeeLeave> resultList, String leaveTypeId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

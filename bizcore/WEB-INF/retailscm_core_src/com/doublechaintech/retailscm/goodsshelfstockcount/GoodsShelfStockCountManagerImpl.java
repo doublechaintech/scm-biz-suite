@@ -253,8 +253,9 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 			//will be good when the goodsShelfStockCount loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GoodsShelfStockCount.
+			if (goodsShelfStockCount.isChanged()){
 			
-			
+			}
 			goodsShelfStockCount = saveGoodsShelfStockCount(userContext, goodsShelfStockCount, options);
 			return goodsShelfStockCount;
 			
@@ -544,8 +545,8 @@ public class GoodsShelfStockCountManagerImpl extends CustomRetailscmCheckerManag
 			String stockCountIssueTrackIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfGoodsShelfStockCount(goodsShelfStockCountId);
-		for(String stockCountIssueTrackId: stockCountIssueTrackIds){
-			userContext.getChecker().checkIdOfStockCountIssueTrack(stockCountIssueTrackId);
+		for(String stockCountIssueTrackIdItem: stockCountIssueTrackIds){
+			userContext.getChecker().checkIdOfStockCountIssueTrack(stockCountIssueTrackIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(GoodsShelfStockCountManagerException.class);

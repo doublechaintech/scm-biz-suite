@@ -246,8 +246,9 @@ public class OriginalVoucherConfirmationManagerImpl extends CustomRetailscmCheck
 			//will be good when the originalVoucherConfirmation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to OriginalVoucherConfirmation.
+			if (originalVoucherConfirmation.isChanged()){
 			
-			
+			}
 			originalVoucherConfirmation = saveOriginalVoucherConfirmation(userContext, originalVoucherConfirmation, options);
 			return originalVoucherConfirmation;
 			
@@ -512,8 +513,8 @@ public class OriginalVoucherConfirmationManagerImpl extends CustomRetailscmCheck
 			String originalVoucherIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfOriginalVoucherConfirmation(originalVoucherConfirmationId);
-		for(String originalVoucherId: originalVoucherIds){
-			userContext.getChecker().checkIdOfOriginalVoucher(originalVoucherId);
+		for(String originalVoucherIdItem: originalVoucherIds){
+			userContext.getChecker().checkIdOfOriginalVoucher(originalVoucherIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(OriginalVoucherConfirmationManagerException.class);

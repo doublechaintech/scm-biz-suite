@@ -272,8 +272,9 @@ public class GoodsMovementManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the goodsMovement loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GoodsMovement.
+			if (goodsMovement.isChanged()){
 			
-			
+			}
 			goodsMovement = saveGoodsMovement(userContext, goodsMovement, options);
 			return goodsMovement;
 			

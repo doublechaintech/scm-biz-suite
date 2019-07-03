@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A SecUserBlocking">${userContext.localeMap['sec_user_blocking']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A SecUserBlocking">${userContext.localeMap['sec_user_blocking']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

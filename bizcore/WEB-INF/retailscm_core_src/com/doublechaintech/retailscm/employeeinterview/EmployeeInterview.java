@@ -54,9 +54,9 @@ public class EmployeeInterview extends BaseEntity implements  java.io.Serializab
 	
 		
 	public 	EmployeeInterview(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setEmployee( null );
 		setInterviewType( null );
@@ -267,6 +267,22 @@ public class EmployeeInterview extends BaseEntity implements  java.io.Serializab
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeInterview){
+		
+			
+			EmployeeInterview dest =(EmployeeInterview)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeRemark(getRemark());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

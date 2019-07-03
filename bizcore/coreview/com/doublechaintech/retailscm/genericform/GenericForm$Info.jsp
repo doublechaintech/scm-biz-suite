@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A GenericForm">${userContext.localeMap['generic_form']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A GenericForm">${userContext.localeMap['generic_form']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

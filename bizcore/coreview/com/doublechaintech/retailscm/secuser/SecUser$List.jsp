@@ -110,6 +110,15 @@
 <c:if test="${param.referName ne 'pwd'}">
 	<th>${userContext.localeMap['sec_user.pwd']}</th>
 </c:if>
+<c:if test="${param.referName ne 'weixinOpenid'}">
+	<th>${userContext.localeMap['sec_user.weixin_openid']}</th>
+</c:if>
+<c:if test="${param.referName ne 'weixinAppid'}">
+	<th>${userContext.localeMap['sec_user.weixin_appid']}</th>
+</c:if>
+<c:if test="${param.referName ne 'accessToken'}">
+	<th>${userContext.localeMap['sec_user.access_token']}</th>
+</c:if>
 <c:if test="${param.referName ne 'verificationCode'}">
 	<th>${userContext.localeMap['sec_user.verification_code']}</th>
 </c:if>
@@ -138,6 +147,9 @@
 </c:if><c:if test="${param.referName ne 'mobile'}">	<td contenteditable='true' class='edit-value'  propertyToChange='mobile' storedCellValue='${item.maskedMobile}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'>${item.maskedMobile}</td>
 </c:if><c:if test="${param.referName ne 'email'}">	<td contenteditable='true' class='edit-value'  propertyToChange='email' storedCellValue='${item.email}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'>${item.email}</td>
 </c:if><c:if test="${param.referName ne 'pwd'}">	<td contenteditable='true' class='edit-value'  propertyToChange='pwd' storedCellValue='${item.maskedPwd}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'>${item.maskedPwd}</td>
+</c:if><c:if test="${param.referName ne 'weixinOpenid'}">	<td contenteditable='true' class='edit-value'  propertyToChange='weixinOpenid' storedCellValue='${item.weixinOpenid}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'>${item.weixinOpenid}</td>
+</c:if><c:if test="${param.referName ne 'weixinAppid'}">	<td contenteditable='true' class='edit-value'  propertyToChange='weixinAppid' storedCellValue='${item.weixinAppid}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'>${item.weixinAppid}</td>
+</c:if><c:if test="${param.referName ne 'accessToken'}">	<td contenteditable='true' class='edit-value'  propertyToChange='accessToken' storedCellValue='${item.accessToken}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'>${item.accessToken}</td>
 </c:if><c:if test="${param.referName ne 'verificationCode'}">	<td contenteditable='true' class='edit-value'  propertyToChange='verificationCode' storedCellValue='${item.verificationCode}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'>${item.verificationCode}</td>
 </c:if><c:if test="${param.referName ne 'verificationCodeExpire'}">	<td contenteditable='true' class='edit-value'  propertyToChange='verificationCodeExpire' storedCellValue='${item.verificationCodeExpire}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.verificationCodeExpire}" /></td>
 </c:if><c:if test="${param.referName ne 'lastLoginTime'}">	<td contenteditable='true' class='edit-value'  propertyToChange='lastLoginTime' storedCellValue='${item.lastLoginTime}' prefix='${ownerBeanName}Manager/updateSecUser/${result.id}/${item.id}/'><fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm:ss" value="${item.lastLoginTime}" /></td>

@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A StockCountIssueTrack">${userContext.localeMap['stock_count_issue_track']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A StockCountIssueTrack">${userContext.localeMap['stock_count_issue_track']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

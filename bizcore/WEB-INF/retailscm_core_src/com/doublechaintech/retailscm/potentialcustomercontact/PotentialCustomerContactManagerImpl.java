@@ -273,8 +273,9 @@ public class PotentialCustomerContactManagerImpl extends CustomRetailscmCheckerM
 			//will be good when the potentialCustomerContact loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to PotentialCustomerContact.
-			
-			
+			if (potentialCustomerContact.isChanged()){
+			potentialCustomerContact.updateLastUpdateTime(userContext.now());
+			}
 			potentialCustomerContact = savePotentialCustomerContact(userContext, potentialCustomerContact, options);
 			return potentialCustomerContact;
 			

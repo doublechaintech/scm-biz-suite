@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeeducation;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class EmployeeEducationJDBCTemplateDAO extends RetailscmNamingServiceDAO implements EmployeeEducationDAO{
  
@@ -50,7 +55,7 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public EmployeeEducation load(String id,Map<String,Object> options) throws Exception{
@@ -514,6 +519,9 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<EmployeeEducation> employeeEducationList) {		
 		this.enhanceListInternal(employeeEducationList, this.getEmployeeEducationMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeEducation> employeeEducationList = ownerEntity.collectRefsWithType(EmployeeEducation.INTERNAL_TYPE);
@@ -546,6 +554,9 @@ public class EmployeeEducationJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public SmartList<EmployeeEducation> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeEducationMapper());
 	}
+	
+	
+
 }
 
 

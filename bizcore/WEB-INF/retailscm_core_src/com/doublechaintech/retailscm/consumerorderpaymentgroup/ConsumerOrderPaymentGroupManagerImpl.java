@@ -242,8 +242,9 @@ public class ConsumerOrderPaymentGroupManagerImpl extends CustomRetailscmChecker
 			//will be good when the consumerOrderPaymentGroup loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderPaymentGroup.
+			if (consumerOrderPaymentGroup.isChanged()){
 			
-			
+			}
 			consumerOrderPaymentGroup = saveConsumerOrderPaymentGroup(userContext, consumerOrderPaymentGroup, options);
 			return consumerOrderPaymentGroup;
 			

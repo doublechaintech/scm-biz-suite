@@ -247,8 +247,9 @@ public class ProductSupplyDurationManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the productSupplyDuration loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ProductSupplyDuration.
+			if (productSupplyDuration.isChanged()){
 			
-			
+			}
 			productSupplyDuration = saveProductSupplyDuration(userContext, productSupplyDuration, options);
 			return productSupplyDuration;
 			

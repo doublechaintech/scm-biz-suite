@@ -46,10 +46,10 @@ public class TerminationMapper extends BaseRowMapper<Termination>{
  		if( terminationReasonId.isEmpty()){
  			return;
  		}
- 		TerminationReason terminationReason = termination.getReason();
- 		if( terminationReason != null ){
+ 		TerminationReason lterminationReason = termination.getReason();
+ 		if( lterminationReason != null ){
  			//if the root object 'termination' already have the property, just set the id for it;
- 			terminationReason.setId(terminationReasonId);
+ 			lterminationReason.setId(terminationReasonId);
  			
  			return;
  		}
@@ -64,10 +64,10 @@ public class TerminationMapper extends BaseRowMapper<Termination>{
  		if( terminationTypeId.isEmpty()){
  			return;
  		}
- 		TerminationType terminationType = termination.getType();
- 		if( terminationType != null ){
+ 		TerminationType lterminationType = termination.getType();
+ 		if( lterminationType != null ){
  			//if the root object 'termination' already have the property, just set the id for it;
- 			terminationType.setId(terminationTypeId);
+ 			lterminationType.setId(terminationTypeId);
  			
  			return;
  		}

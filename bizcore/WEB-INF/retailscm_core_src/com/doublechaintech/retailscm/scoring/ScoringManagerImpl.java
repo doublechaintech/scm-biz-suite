@@ -245,8 +245,9 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 			//will be good when the scoring loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Scoring.
+			if (scoring.isChanged()){
 			
-			
+			}
 			scoring = saveScoring(userContext, scoring, options);
 			return scoring;
 			
@@ -509,8 +510,8 @@ public class ScoringManagerImpl extends CustomRetailscmCheckerManager implements
 			String employeeCompanyTrainingIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfScoring(scoringId);
-		for(String employeeCompanyTrainingId: employeeCompanyTrainingIds){
-			userContext.getChecker().checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
+		for(String employeeCompanyTrainingIdItem: employeeCompanyTrainingIds){
+			userContext.getChecker().checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ScoringManagerException.class);

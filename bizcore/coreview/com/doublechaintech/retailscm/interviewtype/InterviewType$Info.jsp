@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A InterviewType">${userContext.localeMap['interview_type']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A InterviewType">${userContext.localeMap['interview_type']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

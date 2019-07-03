@@ -242,8 +242,9 @@ public class RetailStoreOrderShippingGroupManagerImpl extends CustomRetailscmChe
 			//will be good when the retailStoreOrderShippingGroup loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderShippingGroup.
+			if (retailStoreOrderShippingGroup.isChanged()){
 			
-			
+			}
 			retailStoreOrderShippingGroup = saveRetailStoreOrderShippingGroup(userContext, retailStoreOrderShippingGroup, options);
 			return retailStoreOrderShippingGroup;
 			

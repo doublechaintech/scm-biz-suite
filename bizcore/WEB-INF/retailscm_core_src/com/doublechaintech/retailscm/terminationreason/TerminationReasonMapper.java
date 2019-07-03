@@ -57,10 +57,10 @@ public class TerminationReasonMapper extends BaseRowMapper<TerminationReason>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = terminationReason.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = terminationReason.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'terminationReason' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

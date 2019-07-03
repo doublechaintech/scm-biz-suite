@@ -61,10 +61,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = supplyOrder.getBuyer();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = supplyOrder.getBuyer();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}
@@ -79,10 +79,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( goodsSupplierId.isEmpty()){
  			return;
  		}
- 		GoodsSupplier goodsSupplier = supplyOrder.getSeller();
- 		if( goodsSupplier != null ){
+ 		GoodsSupplier lgoodsSupplier = supplyOrder.getSeller();
+ 		if( lgoodsSupplier != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			goodsSupplier.setId(goodsSupplierId);
+ 			lgoodsSupplier.setId(goodsSupplierId);
  			
  			return;
  		}
@@ -121,10 +121,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( supplyOrderConfirmationId.isEmpty()){
  			return;
  		}
- 		SupplyOrderConfirmation supplyOrderConfirmation = supplyOrder.getConfirmation();
- 		if( supplyOrderConfirmation != null ){
+ 		SupplyOrderConfirmation lsupplyOrderConfirmation = supplyOrder.getConfirmation();
+ 		if( lsupplyOrderConfirmation != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			supplyOrderConfirmation.setId(supplyOrderConfirmationId);
+ 			lsupplyOrderConfirmation.setId(supplyOrderConfirmationId);
  			
  			return;
  		}
@@ -139,10 +139,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( supplyOrderApprovalId.isEmpty()){
  			return;
  		}
- 		SupplyOrderApproval supplyOrderApproval = supplyOrder.getApproval();
- 		if( supplyOrderApproval != null ){
+ 		SupplyOrderApproval lsupplyOrderApproval = supplyOrder.getApproval();
+ 		if( lsupplyOrderApproval != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			supplyOrderApproval.setId(supplyOrderApprovalId);
+ 			lsupplyOrderApproval.setId(supplyOrderApprovalId);
  			
  			return;
  		}
@@ -157,10 +157,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( supplyOrderProcessingId.isEmpty()){
  			return;
  		}
- 		SupplyOrderProcessing supplyOrderProcessing = supplyOrder.getProcessing();
- 		if( supplyOrderProcessing != null ){
+ 		SupplyOrderProcessing lsupplyOrderProcessing = supplyOrder.getProcessing();
+ 		if( lsupplyOrderProcessing != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			supplyOrderProcessing.setId(supplyOrderProcessingId);
+ 			lsupplyOrderProcessing.setId(supplyOrderProcessingId);
  			
  			return;
  		}
@@ -175,10 +175,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( supplyOrderPickingId.isEmpty()){
  			return;
  		}
- 		SupplyOrderPicking supplyOrderPicking = supplyOrder.getPicking();
- 		if( supplyOrderPicking != null ){
+ 		SupplyOrderPicking lsupplyOrderPicking = supplyOrder.getPicking();
+ 		if( lsupplyOrderPicking != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			supplyOrderPicking.setId(supplyOrderPickingId);
+ 			lsupplyOrderPicking.setId(supplyOrderPickingId);
  			
  			return;
  		}
@@ -193,10 +193,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( supplyOrderShipmentId.isEmpty()){
  			return;
  		}
- 		SupplyOrderShipment supplyOrderShipment = supplyOrder.getShipment();
- 		if( supplyOrderShipment != null ){
+ 		SupplyOrderShipment lsupplyOrderShipment = supplyOrder.getShipment();
+ 		if( lsupplyOrderShipment != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			supplyOrderShipment.setId(supplyOrderShipmentId);
+ 			lsupplyOrderShipment.setId(supplyOrderShipmentId);
  			
  			return;
  		}
@@ -211,10 +211,10 @@ public class SupplyOrderMapper extends BaseRowMapper<SupplyOrder>{
  		if( supplyOrderDeliveryId.isEmpty()){
  			return;
  		}
- 		SupplyOrderDelivery supplyOrderDelivery = supplyOrder.getDelivery();
- 		if( supplyOrderDelivery != null ){
+ 		SupplyOrderDelivery lsupplyOrderDelivery = supplyOrder.getDelivery();
+ 		if( lsupplyOrderDelivery != null ){
  			//if the root object 'supplyOrder' already have the property, just set the id for it;
- 			supplyOrderDelivery.setId(supplyOrderDeliveryId);
+ 			lsupplyOrderDelivery.setId(supplyOrderDeliveryId);
  			
  			return;
  		}

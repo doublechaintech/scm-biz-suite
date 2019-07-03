@@ -309,8 +309,9 @@ public class AccountSetManagerImpl extends CustomRetailscmCheckerManager impleme
 			//will be good when the accountSet loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountSet.
-			
-			
+			if (accountSet.isChanged()){
+			accountSet.updateLastUpdateTime(userContext.now());
+			}
 			accountSet = saveAccountSet(userContext, accountSet, options);
 			return accountSet;
 			
@@ -725,8 +726,8 @@ public class AccountSetManagerImpl extends CustomRetailscmCheckerManager impleme
 			String accountingSubjectIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfAccountSet(accountSetId);
-		for(String accountingSubjectId: accountingSubjectIds){
-			userContext.getChecker().checkIdOfAccountingSubject(accountingSubjectId);
+		for(String accountingSubjectIdItem: accountingSubjectIds){
+			userContext.getChecker().checkIdOfAccountingSubject(accountingSubjectIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(AccountSetManagerException.class);
@@ -981,8 +982,8 @@ public class AccountSetManagerImpl extends CustomRetailscmCheckerManager impleme
 			String accountingPeriodIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfAccountSet(accountSetId);
-		for(String accountingPeriodId: accountingPeriodIds){
-			userContext.getChecker().checkIdOfAccountingPeriod(accountingPeriodId);
+		for(String accountingPeriodIdItem: accountingPeriodIds){
+			userContext.getChecker().checkIdOfAccountingPeriod(accountingPeriodIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(AccountSetManagerException.class);
@@ -1228,8 +1229,8 @@ public class AccountSetManagerImpl extends CustomRetailscmCheckerManager impleme
 			String accountingDocumentTypeIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfAccountSet(accountSetId);
-		for(String accountingDocumentTypeId: accountingDocumentTypeIds){
-			userContext.getChecker().checkIdOfAccountingDocumentType(accountingDocumentTypeId);
+		for(String accountingDocumentTypeIdItem: accountingDocumentTypeIds){
+			userContext.getChecker().checkIdOfAccountingDocumentType(accountingDocumentTypeIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(AccountSetManagerException.class);

@@ -284,8 +284,9 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the retailStoreMember loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreMember.
+			if (retailStoreMember.isChanged()){
 			
-			
+			}
 			retailStoreMember = saveRetailStoreMember(userContext, retailStoreMember, options);
 			return retailStoreMember;
 			
@@ -596,8 +597,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			String consumerOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreMember(retailStoreMemberId);
-		for(String consumerOrderId: consumerOrderIds){
-			userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
+		for(String consumerOrderIdItem: consumerOrderIds){
+			userContext.getChecker().checkIdOfConsumerOrder(consumerOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
@@ -1006,8 +1007,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			String retailStoreMemberCouponIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreMember(retailStoreMemberId);
-		for(String retailStoreMemberCouponId: retailStoreMemberCouponIds){
-			userContext.getChecker().checkIdOfRetailStoreMemberCoupon(retailStoreMemberCouponId);
+		for(String retailStoreMemberCouponIdItem: retailStoreMemberCouponIds){
+			userContext.getChecker().checkIdOfRetailStoreMemberCoupon(retailStoreMemberCouponIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
@@ -1244,8 +1245,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			String memberWishlistIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreMember(retailStoreMemberId);
-		for(String memberWishlistId: memberWishlistIds){
-			userContext.getChecker().checkIdOfMemberWishlist(memberWishlistId);
+		for(String memberWishlistIdItem: memberWishlistIds){
+			userContext.getChecker().checkIdOfMemberWishlist(memberWishlistIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
@@ -1483,8 +1484,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			String memberRewardPointIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreMember(retailStoreMemberId);
-		for(String memberRewardPointId: memberRewardPointIds){
-			userContext.getChecker().checkIdOfMemberRewardPoint(memberRewardPointId);
+		for(String memberRewardPointIdItem: memberRewardPointIds){
+			userContext.getChecker().checkIdOfMemberRewardPoint(memberRewardPointIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
@@ -1726,8 +1727,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			String memberRewardPointRedemptionIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreMember(retailStoreMemberId);
-		for(String memberRewardPointRedemptionId: memberRewardPointRedemptionIds){
-			userContext.getChecker().checkIdOfMemberRewardPointRedemption(memberRewardPointRedemptionId);
+		for(String memberRewardPointRedemptionIdItem: memberRewardPointRedemptionIds){
+			userContext.getChecker().checkIdOfMemberRewardPointRedemption(memberRewardPointRedemptionIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
@@ -1974,8 +1975,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			String retailStoreMemberAddressIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreMember(retailStoreMemberId);
-		for(String retailStoreMemberAddressId: retailStoreMemberAddressIds){
-			userContext.getChecker().checkIdOfRetailStoreMemberAddress(retailStoreMemberAddressId);
+		for(String retailStoreMemberAddressIdItem: retailStoreMemberAddressIds){
+			userContext.getChecker().checkIdOfRetailStoreMemberAddress(retailStoreMemberAddressIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);
@@ -2226,8 +2227,8 @@ public class RetailStoreMemberManagerImpl extends CustomRetailscmCheckerManager 
 			String retailStoreMemberGiftCardIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreMember(retailStoreMemberId);
-		for(String retailStoreMemberGiftCardId: retailStoreMemberGiftCardIds){
-			userContext.getChecker().checkIdOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardId);
+		for(String retailStoreMemberGiftCardIdItem: retailStoreMemberGiftCardIds){
+			userContext.getChecker().checkIdOfRetailStoreMemberGiftCard(retailStoreMemberGiftCardIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreMemberManagerException.class);

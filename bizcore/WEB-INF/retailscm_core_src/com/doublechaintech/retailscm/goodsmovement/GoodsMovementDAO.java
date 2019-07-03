@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.goods.Goods;
+
 import com.doublechaintech.retailscm.goods.GoodsDAO;
 
 
@@ -50,6 +53,7 @@ public interface GoodsMovementDAO{
  	public void analyzeGoodsMovementByGoods(SmartList<GoodsMovement> resultList, String goodsId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

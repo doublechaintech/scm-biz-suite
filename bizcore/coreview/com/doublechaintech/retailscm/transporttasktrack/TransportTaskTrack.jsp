@@ -128,6 +128,7 @@
 
 	<div class="row">
 <c:set var="transportTask" value="${ result.movement}" scope="request" />
+<c:set var="referName" value="(movement)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/transporttask/TransportTask$Info.jsp" />
 
 </div>

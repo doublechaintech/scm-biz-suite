@@ -254,8 +254,9 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the interviewType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to InterviewType.
+			if (interviewType.isChanged()){
 			
-			
+			}
 			interviewType = saveInterviewType(userContext, interviewType, options);
 			return interviewType;
 			
@@ -558,8 +559,8 @@ public class InterviewTypeManagerImpl extends CustomRetailscmCheckerManager impl
 			String employeeInterviewIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfInterviewType(interviewTypeId);
-		for(String employeeInterviewId: employeeInterviewIds){
-			userContext.getChecker().checkIdOfEmployeeInterview(employeeInterviewId);
+		for(String employeeInterviewIdItem: employeeInterviewIds){
+			userContext.getChecker().checkIdOfEmployeeInterview(employeeInterviewIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(InterviewTypeManagerException.class);

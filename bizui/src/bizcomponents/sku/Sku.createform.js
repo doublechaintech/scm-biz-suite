@@ -22,8 +22,8 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
-  price: '1078.24',
-  productId: 'P000001',
+  price: '1101.67',
+  productId: 'P00000001',
 }
 */
 
@@ -213,7 +213,7 @@ class SkuCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -223,7 +223,7 @@ class SkuCreateForm extends Component {
                   {getFieldDecorator('size', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入大小" />
+                    <Input size="large" placeholder="大小" />
                   )}
                 </Form.Item>
               </Col>
@@ -233,7 +233,7 @@ class SkuCreateForm extends Component {
                   {getFieldDecorator('barcode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入条码" />
+                    <Input size="large" placeholder="条码" />
                   )}
                 </Form.Item>
               </Col>
@@ -243,7 +243,7 @@ class SkuCreateForm extends Component {
                   {getFieldDecorator('packageType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入包装类型" />
+                    <Input size="large" placeholder="包装类型" />
                   )}
                 </Form.Item>
               </Col>
@@ -253,7 +253,7 @@ class SkuCreateForm extends Component {
                   {getFieldDecorator('netContent', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入净含量" />
+                    <Input size="large" placeholder="净含量" />
                   )}
                 </Form.Item>
               </Col>
@@ -263,7 +263,7 @@ class SkuCreateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入价格" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
                   )}
                 </Form.Item>
               </Col>

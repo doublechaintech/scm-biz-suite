@@ -1,5 +1,6 @@
 package com.terapico.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -38,4 +39,15 @@ public class FileUtils {
 		return sb.toString();
 	}
 
+	public static byte[] readFileAsBytes(File inputFile) throws Exception {
+		FileInputStream fin = new FileInputStream(inputFile);
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		int n;
+		byte[] buff = new byte[1024];
+		while((n=fin.read(buff)) > 0) {
+			bout.write(buff, 0, n);
+		}
+		fin.close();
+		return bout.toByteArray();
+	}
 }

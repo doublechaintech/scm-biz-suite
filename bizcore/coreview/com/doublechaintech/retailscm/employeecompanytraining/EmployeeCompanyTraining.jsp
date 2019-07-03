@@ -128,9 +128,11 @@
 
 	<div class="row">
 <c:set var="employee" value="${ result.employee}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/employee/Employee$Info.jsp" />
 
 <c:set var="companyTraining" value="${ result.training}" scope="request" />
+<c:set var="referName" value="(training)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/companytraining/CompanyTraining$Info.jsp" />
 
 </div>

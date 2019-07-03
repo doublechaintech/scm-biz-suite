@@ -129,30 +129,39 @@
 
 	<div class="row">
 <c:set var="sku" value="${ result.sku}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/sku/Sku$Info.jsp" />
 
 <c:set var="receivingSpace" value="${ result.receivingSpace}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/receivingspace/ReceivingSpace$Info.jsp" />
 
 <c:set var="goodsAllocation" value="${ result.goodsAllocation}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/goodsallocation/GoodsAllocation$Info.jsp" />
 
 <c:set var="smartPallet" value="${ result.smartPallet}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/smartpallet/SmartPallet$Info.jsp" />
 
 <c:set var="shippingSpace" value="${ result.shippingSpace}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/shippingspace/ShippingSpace$Info.jsp" />
 
 <c:set var="transportTask" value="${ result.transportTask}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/transporttask/TransportTask$Info.jsp" />
 
 <c:set var="retailStore" value="${ result.retailStore}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/retailstore/RetailStore$Info.jsp" />
 
 <c:set var="supplyOrder" value="${ result.bizOrder}" scope="request" />
+<c:set var="referName" value="(bizOrder)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/supplyorder/SupplyOrder$Info.jsp" />
 
 <c:set var="retailStoreOrder" value="${ result.retailStoreOrder}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/retailstoreorder/RetailStoreOrder$Info.jsp" />
 
 </div>

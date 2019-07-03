@@ -18,9 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架',
-  storageSpaceId: 'SS000001',
-  supplierSpaceId: 'SS000001',
-  damageSpaceId: 'DS000001',
+  storageSpaceId: 'SS00000001',
+  supplierSpaceId: 'SS00000001',
+  damageSpaceId: 'DS00000001',
 }
 */
 
@@ -209,7 +209,7 @@ class GoodsShelfCreateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入位置" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>

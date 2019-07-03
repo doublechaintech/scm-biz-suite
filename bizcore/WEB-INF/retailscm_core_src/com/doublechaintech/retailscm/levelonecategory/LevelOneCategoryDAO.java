@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategory;
+import com.doublechaintech.retailscm.catalog.Catalog;
+
 import com.doublechaintech.retailscm.leveltwocategory.LevelTwoCategoryDAO;
 import com.doublechaintech.retailscm.catalog.CatalogDAO;
 
@@ -58,6 +62,10 @@ public interface LevelOneCategoryDAO{
  	public void analyzeLevelOneCategoryByCatalog(SmartList<LevelOneCategory> resultList, String catalogId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:LevelTwoCategory的parentCategory的LevelTwoCategoryList
+	public SmartList<LevelTwoCategory> loadOurLevelTwoCategoryList(RetailscmUserContext userContext, List<LevelOneCategory> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

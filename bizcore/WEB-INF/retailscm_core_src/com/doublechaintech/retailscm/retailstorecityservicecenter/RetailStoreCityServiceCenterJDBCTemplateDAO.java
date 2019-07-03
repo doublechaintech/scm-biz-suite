@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstorecityservicecenter;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -32,7 +34,10 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNamingServiceDAO implements RetailStoreCityServiceCenterDAO{
  
@@ -134,7 +139,7 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public RetailStoreCityServiceCenter load(String id,Map<String,Object> options) throws Exception{
@@ -951,9 +956,9 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 			return retailStoreCityServiceCenter;
 		}
 		
-		for(CityPartner cityPartner: externalCityPartnerList){
+		for(CityPartner cityPartnerItem: externalCityPartnerList){
 
-			cityPartner.clearFromAll();
+			cityPartnerItem.clearFromAll();
 		}
 		
 		
@@ -979,9 +984,9 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 			return retailStoreCityServiceCenter;
 		}
 		
-		for(PotentialCustomer potentialCustomer: externalPotentialCustomerList){
+		for(PotentialCustomer potentialCustomerItem: externalPotentialCustomerList){
 
-			potentialCustomer.clearFromAll();
+			potentialCustomerItem.clearFromAll();
 		}
 		
 		
@@ -1011,9 +1016,9 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 			return retailStoreCityServiceCenter;
 		}
 		
-		for(PotentialCustomer potentialCustomer: externalPotentialCustomerList){
-			potentialCustomer.clearCityPartner();
-			potentialCustomer.clearCityServiceCenter();
+		for(PotentialCustomer potentialCustomerItem: externalPotentialCustomerList){
+			potentialCustomerItem.clearCityPartner();
+			potentialCustomerItem.clearCityServiceCenter();
 			
 		}
 		
@@ -1051,9 +1056,9 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 			return retailStoreCityServiceCenter;
 		}
 		
-		for(CityEvent cityEvent: externalCityEventList){
+		for(CityEvent cityEventItem: externalCityEventList){
 
-			cityEvent.clearFromAll();
+			cityEventItem.clearFromAll();
 		}
 		
 		
@@ -1079,9 +1084,9 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 			return retailStoreCityServiceCenter;
 		}
 		
-		for(RetailStore retailStore: externalRetailStoreList){
+		for(RetailStore retailStoreItem: externalRetailStoreList){
 
-			retailStore.clearFromAll();
+			retailStoreItem.clearFromAll();
 		}
 		
 		
@@ -1111,9 +1116,9 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 			return retailStoreCityServiceCenter;
 		}
 		
-		for(RetailStore retailStore: externalRetailStoreList){
-			retailStore.clearRetailStoreCountryCenter();
-			retailStore.clearCityServiceCenter();
+		for(RetailStore retailStoreItem: externalRetailStoreList){
+			retailStoreItem.clearRetailStoreCountryCenter();
+			retailStoreItem.clearCityServiceCenter();
 			
 		}
 		
@@ -1530,6 +1535,101 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	public void enhanceList(List<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList) {		
 		this.enhanceListInternal(retailStoreCityServiceCenterList, this.getRetailStoreCityServiceCenterMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:CityPartner的cityServiceCenter的CityPartnerList
+	public SmartList<CityPartner> loadOurCityPartnerList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(CityPartner.CITY_SERVICE_CENTER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<CityPartner> loadedObjs = userContext.getDAOGroup().getCityPartnerDAO().findCityPartnerWithKey(key, options);
+		Map<String, List<CityPartner>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCityServiceCenter().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<CityPartner> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<CityPartner> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setCityPartnerList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:PotentialCustomer的cityServiceCenter的PotentialCustomerList
+	public SmartList<PotentialCustomer> loadOurPotentialCustomerList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PotentialCustomer.CITY_SERVICE_CENTER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PotentialCustomer> loadedObjs = userContext.getDAOGroup().getPotentialCustomerDAO().findPotentialCustomerWithKey(key, options);
+		Map<String, List<PotentialCustomer>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCityServiceCenter().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PotentialCustomer> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PotentialCustomer> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPotentialCustomerList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:CityEvent的cityServiceCenter的CityEventList
+	public SmartList<CityEvent> loadOurCityEventList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(CityEvent.CITY_SERVICE_CENTER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<CityEvent> loadedObjs = userContext.getDAOGroup().getCityEventDAO().findCityEventWithKey(key, options);
+		Map<String, List<CityEvent>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCityServiceCenter().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<CityEvent> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<CityEvent> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setCityEventList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStore的cityServiceCenter的RetailStoreList
+	public SmartList<RetailStore> loadOurRetailStoreList(RetailscmUserContext userContext, List<RetailStoreCityServiceCenter> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStore.CITY_SERVICE_CENTER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStore> loadedObjs = userContext.getDAOGroup().getRetailStoreDAO().findRetailStoreWithKey(key, options);
+		Map<String, List<RetailStore>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCityServiceCenter().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStore> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStore> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreCityServiceCenter> retailStoreCityServiceCenterList = ownerEntity.collectRefsWithType(RetailStoreCityServiceCenter.INTERNAL_TYPE);
@@ -1562,6 +1662,9 @@ public class RetailStoreCityServiceCenterJDBCTemplateDAO extends RetailscmNaming
 	public SmartList<RetailStoreCityServiceCenter> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreCityServiceCenterMapper());
 	}
+	
+	
+
 }
 
 

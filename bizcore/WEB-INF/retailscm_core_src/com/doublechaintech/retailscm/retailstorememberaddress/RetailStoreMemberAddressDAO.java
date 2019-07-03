@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
+
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 
 
@@ -50,6 +53,7 @@ public interface RetailStoreMemberAddressDAO{
  	public void analyzeRetailStoreMemberAddressByOwner(SmartList<RetailStoreMemberAddress> resultList, String retailStoreMemberId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

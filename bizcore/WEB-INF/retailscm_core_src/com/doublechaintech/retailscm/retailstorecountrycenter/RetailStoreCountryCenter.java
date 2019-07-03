@@ -134,9 +134,9 @@ public class RetailStoreCountryCenter extends BaseEntity implements  java.io.Ser
 	
 		
 	public 	RetailStoreCountryCenter(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 
 		this.changed = true;
@@ -3367,6 +3367,29 @@ public class RetailStoreCountryCenter extends BaseEntity implements  java.io.Ser
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStoreCountryCenter){
+		
+			
+			RetailStoreCountryCenter dest =(RetailStoreCountryCenter)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeServiceNumber(getServiceNumber());
+			dest.mergeFounded(getFounded());
+			dest.mergeWebSite(getWebSite());
+			dest.mergeAddress(getAddress());
+			dest.mergeOperatedBy(getOperatedBy());
+			dest.mergeLegalRepresentative(getLegalRepresentative());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

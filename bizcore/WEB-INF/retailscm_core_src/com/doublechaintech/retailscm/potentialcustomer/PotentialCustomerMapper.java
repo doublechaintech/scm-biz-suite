@@ -73,10 +73,10 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
  		if( retailStoreCityServiceCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCityServiceCenter retailStoreCityServiceCenter = potentialCustomer.getCityServiceCenter();
- 		if( retailStoreCityServiceCenter != null ){
+ 		RetailStoreCityServiceCenter lretailStoreCityServiceCenter = potentialCustomer.getCityServiceCenter();
+ 		if( lretailStoreCityServiceCenter != null ){
  			//if the root object 'potentialCustomer' already have the property, just set the id for it;
- 			retailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
+ 			lretailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
  			
  			return;
  		}
@@ -91,10 +91,10 @@ public class PotentialCustomerMapper extends BaseRowMapper<PotentialCustomer>{
  		if( cityPartnerId.isEmpty()){
  			return;
  		}
- 		CityPartner cityPartner = potentialCustomer.getCityPartner();
- 		if( cityPartner != null ){
+ 		CityPartner lcityPartner = potentialCustomer.getCityPartner();
+ 		if( lcityPartner != null ){
  			//if the root object 'potentialCustomer' already have the property, just set the id for it;
- 			cityPartner.setId(cityPartnerId);
+ 			lcityPartner.setId(cityPartnerId);
  			
  			return;
  		}

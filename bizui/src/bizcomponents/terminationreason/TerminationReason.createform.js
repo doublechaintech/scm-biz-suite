@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   code: 'ETR0000',
   description: '业务发展，公司转型',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 
@@ -208,7 +208,7 @@ class TerminationReasonCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入代码" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class TerminationReasonCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

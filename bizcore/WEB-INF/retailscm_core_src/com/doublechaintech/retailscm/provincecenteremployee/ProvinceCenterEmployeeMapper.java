@@ -97,10 +97,10 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
  		if( provinceCenterDepartmentId.isEmpty()){
  			return;
  		}
- 		ProvinceCenterDepartment provinceCenterDepartment = provinceCenterEmployee.getDepartment();
- 		if( provinceCenterDepartment != null ){
+ 		ProvinceCenterDepartment lprovinceCenterDepartment = provinceCenterEmployee.getDepartment();
+ 		if( lprovinceCenterDepartment != null ){
  			//if the root object 'provinceCenterEmployee' already have the property, just set the id for it;
- 			provinceCenterDepartment.setId(provinceCenterDepartmentId);
+ 			lprovinceCenterDepartment.setId(provinceCenterDepartmentId);
  			
  			return;
  		}
@@ -115,10 +115,10 @@ public class ProvinceCenterEmployeeMapper extends BaseRowMapper<ProvinceCenterEm
  		if( retailStoreProvinceCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreProvinceCenter retailStoreProvinceCenter = provinceCenterEmployee.getProvinceCenter();
- 		if( retailStoreProvinceCenter != null ){
+ 		RetailStoreProvinceCenter lretailStoreProvinceCenter = provinceCenterEmployee.getProvinceCenter();
+ 		if( lretailStoreProvinceCenter != null ){
  			//if the root object 'provinceCenterEmployee' already have the property, just set the id for it;
- 			retailStoreProvinceCenter.setId(retailStoreProvinceCenterId);
+ 			lretailStoreProvinceCenter.setId(retailStoreProvinceCenterId);
  			
  			return;
  		}

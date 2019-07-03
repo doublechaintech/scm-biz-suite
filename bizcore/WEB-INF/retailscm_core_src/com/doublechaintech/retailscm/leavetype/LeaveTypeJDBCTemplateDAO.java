@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.leavetype;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implements LeaveTypeDAO{
  
@@ -71,7 +76,7 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public LeaveType load(String id,Map<String,Object> options) throws Exception{
@@ -614,9 +619,9 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 			return leaveType;
 		}
 		
-		for(EmployeeLeave employeeLeave: externalEmployeeLeaveList){
+		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
 
-			employeeLeave.clearFromAll();
+			employeeLeaveItem.clearFromAll();
 		}
 		
 		
@@ -646,9 +651,9 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 			return leaveType;
 		}
 		
-		for(EmployeeLeave employeeLeave: externalEmployeeLeaveList){
-			employeeLeave.clearWho();
-			employeeLeave.clearType();
+		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
+			employeeLeaveItem.clearWho();
+			employeeLeaveItem.clearType();
 			
 		}
 		
@@ -786,6 +791,32 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public void enhanceList(List<LeaveType> leaveTypeList) {		
 		this.enhanceListInternal(leaveTypeList, this.getLeaveTypeMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeLeave的type的EmployeeLeaveList
+	public SmartList<EmployeeLeave> loadOurEmployeeLeaveList(RetailscmUserContext userContext, List<LeaveType> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeLeave.TYPE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeLeave> loadedObjs = userContext.getDAOGroup().getEmployeeLeaveDAO().findEmployeeLeaveWithKey(key, options);
+		Map<String, List<EmployeeLeave>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getType().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeLeave> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeLeave> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeLeaveList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LeaveType> leaveTypeList = ownerEntity.collectRefsWithType(LeaveType.INTERNAL_TYPE);
@@ -818,6 +849,9 @@ public class LeaveTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public SmartList<LeaveType> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getLeaveTypeMapper());
 	}
+	
+	
+
 }
 
 

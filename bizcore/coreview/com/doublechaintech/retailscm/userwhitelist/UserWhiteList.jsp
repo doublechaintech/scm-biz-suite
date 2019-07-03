@@ -128,6 +128,7 @@
 
 	<div class="row">
 <c:set var="userDomain" value="${ result.domain}" scope="request" />
+<c:set var="referName" value="(domain)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/userdomain/UserDomain$Info.jsp" />
 
 </div>

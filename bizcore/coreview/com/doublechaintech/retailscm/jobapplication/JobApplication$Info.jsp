@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A JobApplication">${userContext.localeMap['job_application']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A JobApplication">${userContext.localeMap['job_application']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

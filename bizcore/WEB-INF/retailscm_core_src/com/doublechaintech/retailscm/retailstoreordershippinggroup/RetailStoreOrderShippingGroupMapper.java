@@ -57,10 +57,10 @@ public class RetailStoreOrderShippingGroupMapper extends BaseRowMapper<RetailSto
  		if( retailStoreOrderId.isEmpty()){
  			return;
  		}
- 		RetailStoreOrder retailStoreOrder = retailStoreOrderShippingGroup.getBizOrder();
- 		if( retailStoreOrder != null ){
+ 		RetailStoreOrder lretailStoreOrder = retailStoreOrderShippingGroup.getBizOrder();
+ 		if( lretailStoreOrder != null ){
  			//if the root object 'retailStoreOrderShippingGroup' already have the property, just set the id for it;
- 			retailStoreOrder.setId(retailStoreOrderId);
+ 			lretailStoreOrder.setId(retailStoreOrderId);
  			
  			return;
  		}

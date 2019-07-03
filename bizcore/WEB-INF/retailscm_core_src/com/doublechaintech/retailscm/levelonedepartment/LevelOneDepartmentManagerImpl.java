@@ -258,8 +258,9 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 			//will be good when the levelOneDepartment loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LevelOneDepartment.
+			if (levelOneDepartment.isChanged()){
 			
-			
+			}
 			levelOneDepartment = saveLevelOneDepartment(userContext, levelOneDepartment, options);
 			return levelOneDepartment;
 			
@@ -549,8 +550,8 @@ public class LevelOneDepartmentManagerImpl extends CustomRetailscmCheckerManager
 			String levelTwoDepartmentIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfLevelOneDepartment(levelOneDepartmentId);
-		for(String levelTwoDepartmentId: levelTwoDepartmentIds){
-			userContext.getChecker().checkIdOfLevelTwoDepartment(levelTwoDepartmentId);
+		for(String levelTwoDepartmentIdItem: levelTwoDepartmentIds){
+			userContext.getChecker().checkIdOfLevelTwoDepartment(levelTwoDepartmentIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(LevelOneDepartmentManagerException.class);

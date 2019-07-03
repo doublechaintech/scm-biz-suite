@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.retailstoremembercoupon;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServiceDAO implements RetailStoreMemberCouponDAO{
  
@@ -50,7 +55,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public RetailStoreMemberCoupon load(String id,Map<String,Object> options) throws Exception{
@@ -530,6 +535,9 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
 	public void enhanceList(List<RetailStoreMemberCoupon> retailStoreMemberCouponList) {		
 		this.enhanceListInternal(retailStoreMemberCouponList, this.getRetailStoreMemberCouponMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<RetailStoreMemberCoupon> retailStoreMemberCouponList = ownerEntity.collectRefsWithType(RetailStoreMemberCoupon.INTERNAL_TYPE);
@@ -562,6 +570,9 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
 	public SmartList<RetailStoreMemberCoupon> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getRetailStoreMemberCouponMapper());
 	}
+	
+	
+
 }
 
 

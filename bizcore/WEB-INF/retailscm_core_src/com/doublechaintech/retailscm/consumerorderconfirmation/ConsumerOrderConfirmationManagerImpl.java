@@ -232,8 +232,9 @@ public class ConsumerOrderConfirmationManagerImpl extends CustomRetailscmChecker
 			//will be good when the consumerOrderConfirmation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrderConfirmation.
+			if (consumerOrderConfirmation.isChanged()){
 			
-			
+			}
 			consumerOrderConfirmation = saveConsumerOrderConfirmation(userContext, consumerOrderConfirmation, options);
 			return consumerOrderConfirmation;
 			

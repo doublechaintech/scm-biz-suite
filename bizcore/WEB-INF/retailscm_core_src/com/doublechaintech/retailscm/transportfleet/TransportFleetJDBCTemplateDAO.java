@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.transportfleet;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -30,7 +32,10 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO implements TransportFleetDAO{
  
@@ -113,7 +118,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public TransportFleet load(String id,Map<String,Object> options) throws Exception{
@@ -844,9 +849,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return transportFleet;
 		}
 		
-		for(TransportTruck transportTruck: externalTransportTruckList){
+		for(TransportTruck transportTruckItem: externalTransportTruckList){
 
-			transportTruck.clearFromAll();
+			transportTruckItem.clearFromAll();
 		}
 		
 		
@@ -872,9 +877,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return transportFleet;
 		}
 		
-		for(TruckDriver truckDriver: externalTruckDriverList){
+		for(TruckDriver truckDriverItem: externalTruckDriverList){
 
-			truckDriver.clearFromAll();
+			truckDriverItem.clearFromAll();
 		}
 		
 		
@@ -900,9 +905,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return transportFleet;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
+		for(TransportTask transportTaskItem: externalTransportTaskList){
 
-			transportTask.clearFromAll();
+			transportTaskItem.clearFromAll();
 		}
 		
 		
@@ -932,9 +937,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return transportFleet;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
-			transportTask.clearEnd();
-			transportTask.clearBelongsTo();
+		for(TransportTask transportTaskItem: externalTransportTaskList){
+			transportTaskItem.clearEnd();
+			transportTaskItem.clearBelongsTo();
 			
 		}
 		
@@ -976,9 +981,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return transportFleet;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
-			transportTask.clearDriver();
-			transportTask.clearBelongsTo();
+		for(TransportTask transportTaskItem: externalTransportTaskList){
+			transportTaskItem.clearDriver();
+			transportTaskItem.clearBelongsTo();
 			
 		}
 		
@@ -1020,9 +1025,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return transportFleet;
 		}
 		
-		for(TransportTask transportTask: externalTransportTaskList){
-			transportTask.clearTruck();
-			transportTask.clearBelongsTo();
+		for(TransportTask transportTaskItem: externalTransportTaskList){
+			transportTaskItem.clearTruck();
+			transportTaskItem.clearBelongsTo();
 			
 		}
 		
@@ -1346,6 +1351,78 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public void enhanceList(List<TransportFleet> transportFleetList) {		
 		this.enhanceListInternal(transportFleetList, this.getTransportFleetMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTruck的owner的TransportTruckList
+	public SmartList<TransportTruck> loadOurTransportTruckList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTruck.OWNER_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTruck> loadedObjs = userContext.getDAOGroup().getTransportTruckDAO().findTransportTruckWithKey(key, options);
+		Map<String, List<TransportTruck>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getOwner().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTruck> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTruck> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTruckList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TruckDriver的belongsTo的TruckDriverList
+	public SmartList<TruckDriver> loadOurTruckDriverList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TruckDriver.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TruckDriver> loadedObjs = userContext.getDAOGroup().getTruckDriverDAO().findTruckDriverWithKey(key, options);
+		Map<String, List<TruckDriver>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TruckDriver> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TruckDriver> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTruckDriverList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTask的belongsTo的TransportTaskList
+	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<TransportFleet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTask.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTask> loadedObjs = userContext.getDAOGroup().getTransportTaskDAO().findTransportTaskWithKey(key, options);
+		Map<String, List<TransportTask>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTask> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTask> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTaskList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TransportFleet> transportFleetList = ownerEntity.collectRefsWithType(TransportFleet.INTERNAL_TYPE);
@@ -1378,6 +1455,9 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public SmartList<TransportFleet> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTransportFleetMapper());
 	}
+	
+	
+
 }
 
 

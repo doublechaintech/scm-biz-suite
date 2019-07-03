@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A AccountingDocumentType">${userContext.localeMap['accounting_document_type']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A AccountingDocumentType">${userContext.localeMap['accounting_document_type']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

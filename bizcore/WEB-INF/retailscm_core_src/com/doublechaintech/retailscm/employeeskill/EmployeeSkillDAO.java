@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.skilltype.SkillType;
+import com.doublechaintech.retailscm.employee.Employee;
+
 import com.doublechaintech.retailscm.skilltype.SkillTypeDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
@@ -59,6 +63,7 @@ public interface EmployeeSkillDAO{
  	public void analyzeEmployeeSkillBySkillType(SmartList<EmployeeSkill> resultList, String skillTypeId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

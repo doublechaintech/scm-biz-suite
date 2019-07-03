@@ -71,10 +71,10 @@ public class CityPartnerMapper extends BaseRowMapper<CityPartner>{
  		if( retailStoreCityServiceCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCityServiceCenter retailStoreCityServiceCenter = cityPartner.getCityServiceCenter();
- 		if( retailStoreCityServiceCenter != null ){
+ 		RetailStoreCityServiceCenter lretailStoreCityServiceCenter = cityPartner.getCityServiceCenter();
+ 		if( lretailStoreCityServiceCenter != null ){
  			//if the root object 'cityPartner' already have the property, just set the id for it;
- 			retailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
+ 			lretailStoreCityServiceCenter.setId(retailStoreCityServiceCenterId);
  			
  			return;
  		}

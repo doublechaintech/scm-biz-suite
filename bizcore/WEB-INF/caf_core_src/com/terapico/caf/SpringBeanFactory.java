@@ -1,26 +1,51 @@
 package com.terapico.caf;
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractRefreshableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
 public class SpringBeanFactory extends InternalBeanFactory implements BeanFactory{
-	
 
-	
-	ClassPathXmlApplicationContext context; 
+	ApplicationContext mApplicationContext;
+
+	ApplicationContext context;
+
+	ConfigurableListableBeanFactory mBeanFactory;
+
 	public SpringBeanFactory(){
 		
 		
 		
 		
 	}
+
+	public SpringBeanFactory(ApplicationContext pApplicationContext){
+
+		mApplicationContext = pApplicationContext;
+
+
+	}
+
+	//
 	protected void ensureContext()
 	{
 		if(context!=null){return;}
-		context = new ClassPathXmlApplicationContext(new String[]{
+
+		if (mApplicationContext != null){
+			context = mApplicationContext;
+
+			mBeanFactory = ((GenericApplicationContext)mApplicationContext).getBeanFactory();
+			return;
+		}
+		ClassPathXmlApplicationContext classpathContext = new ClassPathXmlApplicationContext(new String[]{
 				"classpath*:/META-INF/spring.xml",
 				"classpath*:/META-INF/online-system.xml"});
-		
+
+		mBeanFactory = classpathContext.getBeanFactory();
+		context = classpathContext;
 		
 	}
 	private String []beanNamesCache;
@@ -40,7 +65,7 @@ public class SpringBeanFactory extends InternalBeanFactory implements BeanFactor
 	public ConfigurableListableBeanFactory springFactory()
 	{
 		ensureContext();
-		return this.context.getBeanFactory();
+		return this.mBeanFactory;
 		
 	}
 	

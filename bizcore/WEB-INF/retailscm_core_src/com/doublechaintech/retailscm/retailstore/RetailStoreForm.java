@@ -1570,7 +1570,7 @@ public class RetailStoreForm extends BaseForm {
 	}	
  	public RetailStoreForm  inviteInvestmentAction(){
 		FormAction action = new FormAction();
-		action.setLabel("邀请投资");
+		action.setLabel("Invite Investment");
 		action.setLocaleKey("retail_store.inviteInvestment");
 		action.setUrl("retailStoreManager/inviteInvestment/retailStoreId/comment/");
 		this.addFormAction(action);

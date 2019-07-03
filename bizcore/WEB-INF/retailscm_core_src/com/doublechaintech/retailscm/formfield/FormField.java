@@ -79,9 +79,9 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	FormField(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setForm( null );
 
@@ -797,6 +797,36 @@ public class FormField extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof FormField){
+		
+			
+			FormField dest =(FormField)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeLabel(getLabel());
+			dest.mergeLocaleKey(getLocaleKey());
+			dest.mergeParameterName(getParameterName());
+			dest.mergeType(getType());
+			dest.mergePlaceholder(getPlaceholder());
+			dest.mergeDefaultValue(getDefaultValue());
+			dest.mergeDescription(getDescription());
+			dest.mergeFieldGroup(getFieldGroup());
+			dest.mergeMinimumValue(getMinimumValue());
+			dest.mergeMaximumValue(getMaximumValue());
+			dest.mergeRequired(getRequired());
+			dest.mergeDisabled(getDisabled());
+			dest.mergeCustomRendering(getCustomRendering());
+			dest.mergeCandidateValues(getCandidateValues());
+			dest.mergeSuggestValues(getSuggestValues());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

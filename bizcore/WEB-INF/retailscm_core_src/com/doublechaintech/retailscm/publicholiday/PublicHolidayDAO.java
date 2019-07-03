@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterDAO;
 
 
@@ -50,6 +53,7 @@ public interface PublicHolidayDAO{
  	public void analyzePublicHolidayByCompany(SmartList<PublicHoliday> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

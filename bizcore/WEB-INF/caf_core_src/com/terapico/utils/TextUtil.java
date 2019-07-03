@@ -2,6 +2,7 @@ package com.terapico.utils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -280,8 +281,12 @@ public class TextUtil {
         if (isBlank(orgStr)) {
             return orgStr;
         }
+        boolean isMask = moreFlag.matches("^\\*+$");
+        if (isMask && (headChars + tailChars) >= orgStr.length()) {
+        	return orgStr;
+        }
         int finalLen = headChars + tailChars + (moreFlag == null ? 0 : moreFlag.length());
-        if (orgStr.length() <= finalLen) {
+        if (orgStr.length() <= finalLen && !isMask) {
             return orgStr;
         }
         StringBuilder sb = new StringBuilder();
@@ -309,12 +314,19 @@ public class TextUtil {
 	}
 
 	public static String encodeUrl(String urlStr) {
-		return urlStr;
+		return encodeEntireUrl(urlStr);
 	}
+//	private static String ENCODED_SLASH = URLEncoder.encode("/");
+			
 	public static String encodeEntireUrl(String urlStr) {
+		if (isBlank(urlStr)) {
+			return null;
+		}
 		try {
+//			String urlEncoded = URLEncoder.encode(urlStr, "ut-8");
+//			urlEncoded = urlEncoded.replace("%2F", replacement)
 			return new URI(urlStr).toASCIIString();
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return urlStr;
 		}

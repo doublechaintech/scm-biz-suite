@@ -58,10 +58,10 @@ public class ConsumerOrderPriceAdjustmentMapper extends BaseRowMapper<ConsumerOr
  		if( consumerOrderId.isEmpty()){
  			return;
  		}
- 		ConsumerOrder consumerOrder = consumerOrderPriceAdjustment.getBizOrder();
- 		if( consumerOrder != null ){
+ 		ConsumerOrder lconsumerOrder = consumerOrderPriceAdjustment.getBizOrder();
+ 		if( lconsumerOrder != null ){
  			//if the root object 'consumerOrderPriceAdjustment' already have the property, just set the id for it;
- 			consumerOrder.setId(consumerOrderId);
+ 			lconsumerOrder.setId(consumerOrderId);
  			
  			return;
  		}

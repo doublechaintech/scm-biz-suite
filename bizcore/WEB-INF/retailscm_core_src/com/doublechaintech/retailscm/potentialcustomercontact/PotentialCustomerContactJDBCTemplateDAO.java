@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.potentialcustomercontact;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -28,7 +30,10 @@ import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCus
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServiceDAO implements PotentialCustomerContactDAO{
  
@@ -72,7 +77,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public PotentialCustomerContact load(String id,Map<String,Object> options) throws Exception{
@@ -792,6 +797,9 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
 	public void enhanceList(List<PotentialCustomerContact> potentialCustomerContactList) {		
 		this.enhanceListInternal(potentialCustomerContactList, this.getPotentialCustomerContactMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<PotentialCustomerContact> potentialCustomerContactList = ownerEntity.collectRefsWithType(PotentialCustomerContact.INTERNAL_TYPE);
@@ -824,6 +832,9 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
 	public SmartList<PotentialCustomerContact> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getPotentialCustomerContactMapper());
 	}
+	
+	
+
 }
 
 

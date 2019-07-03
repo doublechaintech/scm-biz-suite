@@ -266,8 +266,9 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			//will be good when the storageSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to StorageSpace.
-			
-			
+			if (storageSpace.isChanged()){
+			storageSpace.updateLastUpdateTime(userContext.now());
+			}
 			storageSpace = saveStorageSpace(userContext, storageSpace, options);
 			return storageSpace;
 			
@@ -594,8 +595,8 @@ public class StorageSpaceManagerImpl extends CustomRetailscmCheckerManager imple
 			String goodsShelfIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfStorageSpace(storageSpaceId);
-		for(String goodsShelfId: goodsShelfIds){
-			userContext.getChecker().checkIdOfGoodsShelf(goodsShelfId);
+		for(String goodsShelfIdItem: goodsShelfIds){
+			userContext.getChecker().checkIdOfGoodsShelf(goodsShelfIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(StorageSpaceManagerException.class);

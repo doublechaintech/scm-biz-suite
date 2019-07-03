@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.formfieldmessage;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.genericform.GenericFormDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO implements FormFieldMessageDAO{
  
@@ -50,7 +55,7 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public FormFieldMessage load(String id,Map<String,Object> options) throws Exception{
@@ -514,6 +519,9 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	public void enhanceList(List<FormFieldMessage> formFieldMessageList) {		
 		this.enhanceListInternal(formFieldMessageList, this.getFormFieldMessageMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<FormFieldMessage> formFieldMessageList = ownerEntity.collectRefsWithType(FormFieldMessage.INTERNAL_TYPE);
@@ -546,6 +554,9 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	public SmartList<FormFieldMessage> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getFormFieldMessageMapper());
 	}
+	
+	
+
 }
 
 

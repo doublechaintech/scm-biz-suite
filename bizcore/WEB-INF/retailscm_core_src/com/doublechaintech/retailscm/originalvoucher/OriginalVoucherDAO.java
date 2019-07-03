@@ -7,6 +7,12 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.accountingdocument.AccountingDocument;
+import com.doublechaintech.retailscm.originalvouchercreation.OriginalVoucherCreation;
+import com.doublechaintech.retailscm.originalvoucherauditing.OriginalVoucherAuditing;
+import com.doublechaintech.retailscm.originalvoucherconfirmation.OriginalVoucherConfirmation;
+
 import com.doublechaintech.retailscm.originalvoucherauditing.OriginalVoucherAuditingDAO;
 import com.doublechaintech.retailscm.originalvouchercreation.OriginalVoucherCreationDAO;
 import com.doublechaintech.retailscm.originalvoucherconfirmation.OriginalVoucherConfirmationDAO;
@@ -77,6 +83,7 @@ public interface OriginalVoucherDAO{
  	public void analyzeOriginalVoucherByAuditing(SmartList<OriginalVoucher> resultList, String originalVoucherAuditingId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

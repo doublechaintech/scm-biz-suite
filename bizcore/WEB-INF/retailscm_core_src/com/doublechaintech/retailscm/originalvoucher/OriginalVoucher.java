@@ -70,9 +70,9 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 	
 		
 	public 	OriginalVoucher(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setBelongsTo( null );
 		setCreation( null );
@@ -506,6 +506,27 @@ public class OriginalVoucher extends BaseEntity implements  java.io.Serializable
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof OriginalVoucher){
+		
+			
+			OriginalVoucher dest =(OriginalVoucher)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeMadeBy(getMadeBy());
+			dest.mergeReceivedBy(getReceivedBy());
+			dest.mergeVoucherType(getVoucherType());
+			dest.mergeVoucherImage(getVoucherImage());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

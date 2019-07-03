@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeperformance;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDAO implements EmployeePerformanceDAO{
  
@@ -50,7 +55,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public EmployeePerformance load(String id,Map<String,Object> options) throws Exception{
@@ -510,6 +515,9 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
 	public void enhanceList(List<EmployeePerformance> employeePerformanceList) {		
 		this.enhanceListInternal(employeePerformanceList, this.getEmployeePerformanceMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeePerformance> employeePerformanceList = ownerEntity.collectRefsWithType(EmployeePerformance.INTERNAL_TYPE);
@@ -542,6 +550,9 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
 	public SmartList<EmployeePerformance> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeePerformanceMapper());
 	}
+	
+	
+
 }
 
 

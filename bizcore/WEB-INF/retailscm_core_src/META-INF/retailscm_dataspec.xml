@@ -210,10 +210,10 @@
 			<field name="retail_store_country_center" type="reference" checkType="exist(retail_store_country_center)" description="双链小超全国运营中心" />
 			<field name="city_service_center" type="reference" checkType="exist(retail_store_city_service_center)" description="城市服务中心" />
 			<field name="creation" type="reference" checkType="exist(retail_store_creation)" description="创建" />
-			<field name="investment_invitation" type="reference" checkType="exist(retail_store_investment_invitation)" description="招商" />
-			<field name="franchising" type="reference" checkType="exist(retail_store_franchising)" description="加盟" />
+			<field name="investment_invitation" type="reference" checkType="exist(retail_store_investment_invitation)" description="Invite Investment" />
+			<field name="franchising" type="reference" checkType="exist(retail_store_franchising)" description="特许经营" />
 			<field name="decoration" type="reference" checkType="exist(retail_store_decoration)" description="装修" />
-			<field name="opening" type="reference" checkType="exist(retail_store_opening)" description="开业" />
+			<field name="opening" type="reference" checkType="exist(retail_store_opening)" description="开放" />
 			<field name="closing" type="reference" checkType="exist(retail_store_closing)" description="关闭" />
 			<field name="founded" type="date_past" checkType="DatePast" min="1900-01-01" max="now()" description="成立" />
 			<field name="latitude" type="double" checkType="BigDecimalRange" min="-90.0" max="90.0" description="纬度" />
@@ -289,10 +289,10 @@
 			<field name="title" type="string" checkType="StringLengthRange" min="2" max="16" description="头衔" />
 			<field name="consumer" type="reference" checkType="exist(retail_store_member)" description="消费者" />
 			<field name="confirmation" type="reference" checkType="exist(supply_order_confirmation)" description="确认" />
-			<field name="approval" type="reference" checkType="exist(supply_order_approval)" description="验收" />
-			<field name="processing" type="reference" checkType="exist(supply_order_processing)" description="处理" />
-			<field name="shipment" type="reference" checkType="exist(supply_order_shipment)" description="装运" />
-			<field name="delivery" type="reference" checkType="exist(supply_order_delivery)" description="送货" />
+			<field name="approval" type="reference" checkType="exist(supply_order_approval)" description="批准" />
+			<field name="processing" type="reference" checkType="exist(supply_order_processing)" description="过程" />
+			<field name="shipment" type="reference" checkType="exist(supply_order_shipment)" description="船" />
+			<field name="delivery" type="reference" checkType="exist(supply_order_delivery)" description="交付" />
 			<field name="store" type="reference" checkType="exist(retail_store)" description="商场" />
 			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="3" max="36" description="当前状态" />
@@ -516,11 +516,11 @@
 			<field name="title" type="string" checkType="StringLengthRange" min="3" max="40" description="头衔" />
 			<field name="total_amount" type="money" checkType="MoneyAmount" min="0.0" max="3000000000.88" description="总金额" />
 			<field name="confirmation" type="reference" checkType="exist(supply_order_confirmation)" description="确认" />
-			<field name="approval" type="reference" checkType="exist(supply_order_approval)" description="验收" />
-			<field name="processing" type="reference" checkType="exist(supply_order_processing)" description="处理" />
-			<field name="picking" type="reference" checkType="exist(supply_order_picking)" description="捡货" />
-			<field name="shipment" type="reference" checkType="exist(supply_order_shipment)" description="装运" />
-			<field name="delivery" type="reference" checkType="exist(supply_order_delivery)" description="送货" />
+			<field name="approval" type="reference" checkType="exist(supply_order_approval)" description="批准" />
+			<field name="processing" type="reference" checkType="exist(supply_order_processing)" description="过程" />
+			<field name="picking" type="reference" checkType="exist(supply_order_picking)" description="选择" />
+			<field name="shipment" type="reference" checkType="exist(supply_order_shipment)" description="船" />
+			<field name="delivery" type="reference" checkType="exist(supply_order_delivery)" description="交付" />
 			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="3" max="36" description="当前状态" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -622,11 +622,11 @@
 			<field name="title" type="string" checkType="StringLengthRange" min="4" max="56" description="头衔" />
 			<field name="total_amount" type="money" checkType="MoneyAmount" min="0.0" max="3000000000.88" description="总金额" />
 			<field name="confirmation" type="reference" checkType="exist(retail_store_order_confirmation)" description="确认" />
-			<field name="approval" type="reference" checkType="exist(retail_store_order_approval)" description="验收" />
-			<field name="processing" type="reference" checkType="exist(retail_store_order_processing)" description="处理" />
-			<field name="picking" type="reference" checkType="exist(retail_store_order_picking)" description="捡货" />
-			<field name="shipment" type="reference" checkType="exist(retail_store_order_shipment)" description="装运" />
-			<field name="delivery" type="reference" checkType="exist(retail_store_order_delivery)" description="送货" />
+			<field name="approval" type="reference" checkType="exist(retail_store_order_approval)" description="批准" />
+			<field name="processing" type="reference" checkType="exist(retail_store_order_processing)" description="过程" />
+			<field name="picking" type="reference" checkType="exist(retail_store_order_picking)" description="选择" />
+			<field name="shipment" type="reference" checkType="exist(retail_store_order_shipment)" description="船" />
+			<field name="delivery" type="reference" checkType="exist(retail_store_order_delivery)" description="交付" />
 			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="3" max="36" description="当前状态" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -824,7 +824,7 @@
 			<field name="retail_store" type="reference" checkType="exist(retail_store)" description="双链小超" />
 			<field name="biz_order" type="reference" checkType="exist(supply_order)" description="订单" />
 			<field name="retail_store_order" type="reference" checkType="exist(retail_store_order)" description="生超的订单" />
-			<field name="packaging" type="reference" checkType="exist(goods_packaging)" description="包装" />
+			<field name="packaging" type="reference" checkType="exist(goods_packaging)" description="包" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="2" max="24" description="当前状态" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -1053,7 +1053,7 @@
 			<field name="creation" type="reference" checkType="exist(accounting_document_creation)" description="创建" />
 			<field name="confirmation" type="reference" checkType="exist(accounting_document_confirmation)" description="确认" />
 			<field name="auditing" type="reference" checkType="exist(accounting_document_auditing)" description="审计" />
-			<field name="posting" type="reference" checkType="exist(accounting_document_posting)" description="过账" />
+			<field name="posting" type="reference" checkType="exist(accounting_document_posting)" description="帖子" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="3" max="36" description="当前状态" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -1337,13 +1337,13 @@
 			<field name="responsible_for" type="reference" checkType="exist(responsibility_type)" description="负责" />
 			<field name="current_salary_grade" type="reference" checkType="exist(salary_grade)" description="目前工资等级" />
 			<field name="salary_account" type="string" checkType="StringLengthRange" min="4" max="60" description="工资账户" />
-			<field name="job_application" type="reference" checkType="exist(job_application)" description="工作申请" />
-			<field name="profession_interview" type="reference" checkType="exist(profession_interview)" description="专业面试" />
-			<field name="hr_interview" type="reference" checkType="exist(hr_interview)" description="人力资源部面试" />
-			<field name="offer_approval" type="reference" checkType="exist(offer_approval)" description="审批工作要约" />
-			<field name="offer_acceptance" type="reference" checkType="exist(offer_acceptance)" description="接受工作要约" />
-			<field name="employee_boarding" type="reference" checkType="exist(employee_boarding)" description="员工入职" />
-			<field name="termination" type="reference" checkType="exist(termination)" description="雇佣终止" />
+			<field name="job_application" type="reference" checkType="exist(job_application)" description="申请的工作" />
+			<field name="profession_interview" type="reference" checkType="exist(profession_interview)" description="采访的职业" />
+			<field name="hr_interview" type="reference" checkType="exist(hr_interview)" description="面试由人力资源" />
+			<field name="offer_approval" type="reference" checkType="exist(offer_approval)" description="通过提供" />
+			<field name="offer_acceptance" type="reference" checkType="exist(offer_acceptance)" description="接受报价" />
+			<field name="employee_boarding" type="reference" checkType="exist(employee_boarding)" description="董事会员工" />
+			<field name="termination" type="reference" checkType="exist(termination)" description="终止" />
 			<field name="last_update_time" type="date_time_update" checkType="DateTimeUpdate" min="1900-01-01T00:00:00" max="updateTime()" description="最后更新时间" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="5" max="88" description="当前状态" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -1454,7 +1454,7 @@
 			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="5" max="64" description="序号" />
 			<field name="employee" type="reference" checkType="exist(employee)" description="员工" />
 			<field name="training" type="reference" checkType="exist(company_training)" description="训练" />
-			<field name="scoring" type="reference" checkType="exist(scoring)" description="评分" />
+			<field name="scoring" type="reference" checkType="exist(scoring)" description="分数" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="2" max="24" description="当前状态" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -1570,7 +1570,7 @@
 			<field name="social_security" type="money" checkType="MoneyAmount" min="0.0" max="1100.22" description="社会保险" />
 			<field name="housing_found" type="money" checkType="MoneyAmount" min="0.0" max="1222.99" description="住房公积金" />
 			<field name="job_insurance" type="money" checkType="MoneyAmount" min="0.0" max="8.88" description="失业保险" />
-			<field name="paying_off" type="reference" checkType="exist(paying_off)" description="工资支付" />
+			<field name="paying_off" type="reference" checkType="exist(paying_off)" description="回报" />
 			<field name="current_status" type="string" checkType="StringLengthRange" min="3" max="32" description="当前状态" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
 		</fields>
@@ -1612,6 +1612,9 @@
 			<field name="mobile" type="string_china_mobile_phone" checkType="ChinaMobilePhone" min="0" max="11" description="手机" />
 			<field name="email" type="string" checkType="StringLengthRange" min="0" max="76" description="电子邮件" />
 			<field name="pwd" type="string_password" checkType="Password" min="3" max="28" description="PWD" />
+			<field name="weixin_openid" type="string" checkType="StringLengthRange" min="0" max="128" description="Weixin Openid" />
+			<field name="weixin_appid" type="string" checkType="StringLengthRange" min="0" max="128" description="Weixin Appid" />
+			<field name="access_token" type="string" checkType="StringLengthRange" min="0" max="128" description="访问令牌" />
 			<field name="verification_code" type="int" checkType="IntegerRange" min="0" max="9999999" description="验证码" />
 			<field name="verification_code_expire" type="date_time" checkType="DateTime" min="1900-01-01T00:00:00" max="2099-12-31T09:09:09" description="验证码过期" />
 			<field name="last_login_time" type="date_time" checkType="DateTime" min="1900-01-01T00:00:00" max="2099-12-31T09:09:09" description="最后登录时间" />
@@ -1640,7 +1643,7 @@
 			<field name="app_icon" type="string" checkType="StringLengthRange" min="2" max="36" description="应用程序图标" />
 			<field name="full_access" type="bool" checkType="BooleanRange" min="0" max="true" description="完全访问" />
 			<field name="permission" type="string" checkType="StringLengthRange" min="2" max="16" description="许可" />
-			<field name="object_type" type="string" checkType="StringLengthRange" min="5" max="108" description="对象类型" />
+			<field name="object_type" type="string" checkType="StringLengthRange" min="1" max="100" description="对象类型" />
 			<field name="object_id" type="string" checkType="StringLengthRange" min="4" max="40" description="对象ID" />
 			<field name="location" type="string" checkType="StringLengthRange" min="4" max="48" description="位置" />
 			<field name="version" type="int" checkType="IntegerRange" min="0" max="Integer.MAX_VALUE" description="版本" />
@@ -1650,8 +1653,8 @@
 	<table name="list_access_data">
 		<fields>
 			<field name="id" nullable="false" type="string" checkType="StringLengthRange" min="5" max="64" description="序号" />
-			<field name="name" type="string" checkType="StringLengthRange" min="2" max="200" description="名称" />
-			<field name="internal_name" type="string" checkType="StringLengthRange" min="2" max="200" description="内部名称" />
+			<field name="name" type="string" checkType="StringLengthRange" min="1" max="200" description="名称" />
+			<field name="internal_name" type="string" checkType="StringLengthRange" min="1" max="200" description="内部名称" />
 			<field name="read_permission" type="bool" checkType="BooleanRange" min="0" max="true" description="读权限" />
 			<field name="create_permission" type="bool" checkType="BooleanRange" min="0" max="true" description="创建权限" />
 			<field name="delete_permission" type="bool" checkType="BooleanRange" min="0" max="true" description="删除权限" />

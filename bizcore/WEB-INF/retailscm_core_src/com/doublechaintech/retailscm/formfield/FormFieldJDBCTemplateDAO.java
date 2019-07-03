@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.formfield;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.genericform.GenericFormDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implements FormFieldDAO{
  
@@ -50,7 +55,7 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public FormField load(String id,Map<String,Object> options) throws Exception{
@@ -538,6 +543,9 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public void enhanceList(List<FormField> formFieldList) {		
 		this.enhanceListInternal(formFieldList, this.getFormFieldMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<FormField> formFieldList = ownerEntity.collectRefsWithType(FormField.INTERNAL_TYPE);
@@ -570,6 +578,9 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	public SmartList<FormField> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getFormFieldMapper());
 	}
+	
+	
+
 }
 
 

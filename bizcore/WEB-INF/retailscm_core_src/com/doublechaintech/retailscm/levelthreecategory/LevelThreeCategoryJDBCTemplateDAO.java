@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.levelthreecategory;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.product.ProductDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO implements LevelThreeCategoryDAO{
  
@@ -71,7 +76,7 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public LevelThreeCategory load(String id,Map<String,Object> options) throws Exception{
@@ -610,9 +615,9 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 			return levelThreeCategory;
 		}
 		
-		for(Product product: externalProductList){
+		for(Product productItem: externalProductList){
 
-			product.clearFromAll();
+			productItem.clearFromAll();
 		}
 		
 		
@@ -738,6 +743,32 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public void enhanceList(List<LevelThreeCategory> levelThreeCategoryList) {		
 		this.enhanceListInternal(levelThreeCategoryList, this.getLevelThreeCategoryMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Product的parentCategory的ProductList
+	public SmartList<Product> loadOurProductList(RetailscmUserContext userContext, List<LevelThreeCategory> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Product.PARENT_CATEGORY_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Product> loadedObjs = userContext.getDAOGroup().getProductDAO().findProductWithKey(key, options);
+		Map<String, List<Product>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getParentCategory().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Product> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Product> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setProductList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LevelThreeCategory> levelThreeCategoryList = ownerEntity.collectRefsWithType(LevelThreeCategory.INTERNAL_TYPE);
@@ -770,6 +801,9 @@ public class LevelThreeCategoryJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public SmartList<LevelThreeCategory> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getLevelThreeCategoryMapper());
 	}
+	
+	
+
 }
 
 

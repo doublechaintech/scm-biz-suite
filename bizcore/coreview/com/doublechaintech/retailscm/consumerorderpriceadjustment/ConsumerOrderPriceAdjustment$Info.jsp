@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A ConsumerOrderPriceAdjustment">${userContext.localeMap['consumer_order_price_adjustment']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A ConsumerOrderPriceAdjustment">${userContext.localeMap['consumer_order_price_adjustment']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

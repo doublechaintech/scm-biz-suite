@@ -57,9 +57,9 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 	
 		
 	public 	EmployeeQualifier(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setEmployee( null );
 
@@ -357,6 +357,25 @@ public class EmployeeQualifier extends BaseEntity implements  java.io.Serializab
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeQualifier){
+		
+			
+			EmployeeQualifier dest =(EmployeeQualifier)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeQualifiedTime(getQualifiedTime());
+			dest.mergeType(getType());
+			dest.mergeLevel(getLevel());
+			dest.mergeRemark(getRemark());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

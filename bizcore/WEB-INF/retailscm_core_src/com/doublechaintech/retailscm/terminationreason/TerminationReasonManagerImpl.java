@@ -249,8 +249,9 @@ public class TerminationReasonManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the terminationReason loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TerminationReason.
+			if (terminationReason.isChanged()){
 			
-			
+			}
 			terminationReason = saveTerminationReason(userContext, terminationReason, options);
 			return terminationReason;
 			
@@ -553,8 +554,8 @@ public class TerminationReasonManagerImpl extends CustomRetailscmCheckerManager 
 			String terminationIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfTerminationReason(terminationReasonId);
-		for(String terminationId: terminationIds){
-			userContext.getChecker().checkIdOfTermination(terminationId);
+		for(String terminationIdItem: terminationIds){
+			userContext.getChecker().checkIdOfTermination(terminationIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(TerminationReasonManagerException.class);

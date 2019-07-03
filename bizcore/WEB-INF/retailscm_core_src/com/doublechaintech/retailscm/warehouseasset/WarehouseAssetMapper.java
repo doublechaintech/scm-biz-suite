@@ -70,10 +70,10 @@ public class WarehouseAssetMapper extends BaseRowMapper<WarehouseAsset>{
  		if( warehouseId.isEmpty()){
  			return;
  		}
- 		Warehouse warehouse = warehouseAsset.getOwner();
- 		if( warehouse != null ){
+ 		Warehouse lwarehouse = warehouseAsset.getOwner();
+ 		if( lwarehouse != null ){
  			//if the root object 'warehouseAsset' already have the property, just set the id for it;
- 			warehouse.setId(warehouseId);
+ 			lwarehouse.setId(warehouseId);
  			
  			return;
  		}

@@ -21,7 +21,7 @@ const testValues = {
   name: '家里',
   mobilePhone: '18099887766',
   address: '四川省成都市科学城北路33号',
-  ownerId: 'RSM000001',
+  ownerId: 'RSM00000001',
 }
 */
 
@@ -140,7 +140,7 @@ class RetailStoreMemberAddressAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class RetailStoreMemberAddressAssociateForm extends Component {
                   {getFieldDecorator('mobilePhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入移动电话" />
+                    <Input size="large" placeholder="移动电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class RetailStoreMemberAddressAssociateForm extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入地址" />
+                    <Input size="large" placeholder="地址" />
                   )}
                 </Form.Item>
               </Col>

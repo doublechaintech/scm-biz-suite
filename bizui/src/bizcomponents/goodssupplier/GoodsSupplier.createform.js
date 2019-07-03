@@ -21,7 +21,7 @@ const testValues = {
   supplyProduct: '洗护用品',
   contactNumber: '18677889999',
   description: '啤酒饮料矿泉水，香肠瓜子方便面都提供',
-  belongToId: 'RSCC000001',
+  belongToId: 'RSCC00000001',
 }
 */
 
@@ -210,7 +210,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('supplyProduct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入供应产品" />
+                    <Input size="large" placeholder="供应产品" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入联系电话" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

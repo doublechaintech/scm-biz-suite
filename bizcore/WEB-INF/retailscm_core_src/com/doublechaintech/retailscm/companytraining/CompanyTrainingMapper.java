@@ -63,10 +63,10 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = companyTraining.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = companyTraining.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'companyTraining' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}
@@ -81,10 +81,10 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
  		if( instructorId.isEmpty()){
  			return;
  		}
- 		Instructor instructor = companyTraining.getInstructor();
- 		if( instructor != null ){
+ 		Instructor linstructor = companyTraining.getInstructor();
+ 		if( linstructor != null ){
  			//if the root object 'companyTraining' already have the property, just set the id for it;
- 			instructor.setId(instructorId);
+ 			linstructor.setId(instructorId);
  			
  			return;
  		}
@@ -99,10 +99,10 @@ public class CompanyTrainingMapper extends BaseRowMapper<CompanyTraining>{
  		if( trainingCourseTypeId.isEmpty()){
  			return;
  		}
- 		TrainingCourseType trainingCourseType = companyTraining.getTrainingCourseType();
- 		if( trainingCourseType != null ){
+ 		TrainingCourseType ltrainingCourseType = companyTraining.getTrainingCourseType();
+ 		if( ltrainingCourseType != null ){
  			//if the root object 'companyTraining' already have the property, just set the id for it;
- 			trainingCourseType.setId(trainingCourseTypeId);
+ 			ltrainingCourseType.setId(trainingCourseTypeId);
  			
  			return;
  		}

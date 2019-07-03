@@ -291,8 +291,9 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the consumerOrder loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ConsumerOrder.
-			
-			
+			if (consumerOrder.isChanged()){
+			consumerOrder.updateLastUpdateTime(userContext.now());
+			}
 			consumerOrder = saveConsumerOrder(userContext, consumerOrder, options);
 			return consumerOrder;
 			
@@ -1458,8 +1459,8 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			String consumerOrderLineItemIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
-		for(String consumerOrderLineItemId: consumerOrderLineItemIds){
-			userContext.getChecker().checkIdOfConsumerOrderLineItem(consumerOrderLineItemId);
+		for(String consumerOrderLineItemIdItem: consumerOrderLineItemIds){
+			userContext.getChecker().checkIdOfConsumerOrderLineItem(consumerOrderLineItemIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
@@ -1713,8 +1714,8 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			String consumerOrderShippingGroupIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
-		for(String consumerOrderShippingGroupId: consumerOrderShippingGroupIds){
-			userContext.getChecker().checkIdOfConsumerOrderShippingGroup(consumerOrderShippingGroupId);
+		for(String consumerOrderShippingGroupIdItem: consumerOrderShippingGroupIds){
+			userContext.getChecker().checkIdOfConsumerOrderShippingGroup(consumerOrderShippingGroupIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
@@ -1956,8 +1957,8 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			String consumerOrderPaymentGroupIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
-		for(String consumerOrderPaymentGroupId: consumerOrderPaymentGroupIds){
-			userContext.getChecker().checkIdOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupId);
+		for(String consumerOrderPaymentGroupIdItem: consumerOrderPaymentGroupIds){
+			userContext.getChecker().checkIdOfConsumerOrderPaymentGroup(consumerOrderPaymentGroupIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
@@ -2204,8 +2205,8 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			String consumerOrderPriceAdjustmentIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
-		for(String consumerOrderPriceAdjustmentId: consumerOrderPriceAdjustmentIds){
-			userContext.getChecker().checkIdOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentId);
+		for(String consumerOrderPriceAdjustmentIdItem: consumerOrderPriceAdjustmentIds){
+			userContext.getChecker().checkIdOfConsumerOrderPriceAdjustment(consumerOrderPriceAdjustmentIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ConsumerOrderManagerException.class);
@@ -2461,8 +2462,8 @@ public class ConsumerOrderManagerImpl extends CustomRetailscmCheckerManager impl
 			String retailStoreMemberGiftCardConsumeRecordIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfConsumerOrder(consumerOrderId);
-		for(String retailStoreMemberGiftCardConsumeRecordId: retailStoreMemberGiftCardConsumeRecordIds){
-			userContext.getChecker().checkIdOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordId);
+		for(String retailStoreMemberGiftCardConsumeRecordIdItem: retailStoreMemberGiftCardConsumeRecordIds){
+			userContext.getChecker().checkIdOfRetailStoreMemberGiftCardConsumeRecord(retailStoreMemberGiftCardConsumeRecordIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ConsumerOrderManagerException.class);

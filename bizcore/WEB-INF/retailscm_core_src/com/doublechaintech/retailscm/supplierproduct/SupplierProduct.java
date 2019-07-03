@@ -58,9 +58,9 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 	
 		
 	public 	SupplierProduct(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setSupplier( null );
 
@@ -437,6 +437,24 @@ public class SupplierProduct extends BaseEntity implements  java.io.Serializable
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplierProduct){
+		
+			
+			SupplierProduct dest =(SupplierProduct)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeProductName(getProductName());
+			dest.mergeProductDescription(getProductDescription());
+			dest.mergeProductUnit(getProductUnit());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

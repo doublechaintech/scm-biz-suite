@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.goods.Goods;
+import com.doublechaintech.retailscm.warehouse.Warehouse;
+
 import com.doublechaintech.retailscm.warehouse.WarehouseDAO;
 import com.doublechaintech.retailscm.goods.GoodsDAO;
 
@@ -90,6 +94,10 @@ public interface SmartPalletDAO{
  	public void analyzeSmartPalletByWarehouse(SmartList<SmartPallet> resultList, String warehouseId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:Goods的smartPallet的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SmartPallet> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

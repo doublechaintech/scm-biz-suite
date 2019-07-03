@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.leveltwodepartment;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.levelthreedepartment.LevelThreeDepartmentDA
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO implements LevelTwoDepartmentDAO{
  
@@ -71,7 +76,7 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public LevelTwoDepartment load(String id,Map<String,Object> options) throws Exception{
@@ -614,9 +619,9 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 			return levelTwoDepartment;
 		}
 		
-		for(LevelThreeDepartment levelThreeDepartment: externalLevelThreeDepartmentList){
+		for(LevelThreeDepartment levelThreeDepartmentItem: externalLevelThreeDepartmentList){
 
-			levelThreeDepartment.clearFromAll();
+			levelThreeDepartmentItem.clearFromAll();
 		}
 		
 		
@@ -742,6 +747,32 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public void enhanceList(List<LevelTwoDepartment> levelTwoDepartmentList) {		
 		this.enhanceListInternal(levelTwoDepartmentList, this.getLevelTwoDepartmentMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:LevelThreeDepartment的belongsTo的LevelThreeDepartmentList
+	public SmartList<LevelThreeDepartment> loadOurLevelThreeDepartmentList(RetailscmUserContext userContext, List<LevelTwoDepartment> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LevelThreeDepartment.BELONGS_TO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LevelThreeDepartment> loadedObjs = userContext.getDAOGroup().getLevelThreeDepartmentDAO().findLevelThreeDepartmentWithKey(key, options);
+		Map<String, List<LevelThreeDepartment>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getBelongsTo().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LevelThreeDepartment> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LevelThreeDepartment> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLevelThreeDepartmentList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LevelTwoDepartment> levelTwoDepartmentList = ownerEntity.collectRefsWithType(LevelTwoDepartment.INTERNAL_TYPE);
@@ -774,6 +805,9 @@ public class LevelTwoDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public SmartList<LevelTwoDepartment> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getLevelTwoDepartmentMapper());
 	}
+	
+	
+
 }
 
 

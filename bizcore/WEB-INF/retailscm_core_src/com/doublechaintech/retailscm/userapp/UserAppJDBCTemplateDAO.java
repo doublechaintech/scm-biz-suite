@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.userapp;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -28,7 +30,10 @@ import com.doublechaintech.retailscm.objectaccess.ObjectAccessDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements UserAppDAO{
  
@@ -92,7 +97,7 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public UserApp load(String id,Map<String,Object> options) throws Exception{
@@ -729,9 +734,9 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 			return userApp;
 		}
 		
-		for(ListAccess listAccess: externalListAccessList){
+		for(ListAccess listAccessItem: externalListAccessList){
 
-			listAccess.clearFromAll();
+			listAccessItem.clearFromAll();
 		}
 		
 		
@@ -757,9 +762,9 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 			return userApp;
 		}
 		
-		for(ObjectAccess objectAccess: externalObjectAccessList){
+		for(ObjectAccess objectAccessItem: externalObjectAccessList){
 
-			objectAccess.clearFromAll();
+			objectAccessItem.clearFromAll();
 		}
 		
 		
@@ -978,6 +983,55 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	public void enhanceList(List<UserApp> userAppList) {		
 		this.enhanceListInternal(userAppList, this.getUserAppMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:ListAccess的app的ListAccessList
+	public SmartList<ListAccess> loadOurListAccessList(RetailscmUserContext userContext, List<UserApp> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ListAccess.APP_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ListAccess> loadedObjs = userContext.getDAOGroup().getListAccessDAO().findListAccessWithKey(key, options);
+		Map<String, List<ListAccess>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getApp().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ListAccess> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ListAccess> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setListAccessList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:ObjectAccess的app的ObjectAccessList
+	public SmartList<ObjectAccess> loadOurObjectAccessList(RetailscmUserContext userContext, List<UserApp> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(ObjectAccess.APP_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<ObjectAccess> loadedObjs = userContext.getDAOGroup().getObjectAccessDAO().findObjectAccessWithKey(key, options);
+		Map<String, List<ObjectAccess>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getApp().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<ObjectAccess> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<ObjectAccess> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setObjectAccessList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<UserApp> userAppList = ownerEntity.collectRefsWithType(UserApp.INTERNAL_TYPE);
@@ -1010,6 +1064,9 @@ public class UserAppJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	public SmartList<UserApp> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getUserAppMapper());
 	}
+	
+	
+
 }
 
 

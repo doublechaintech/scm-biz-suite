@@ -243,8 +243,9 @@ public class LevelOneCategoryManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the levelOneCategory loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to LevelOneCategory.
+			if (levelOneCategory.isChanged()){
 			
-			
+			}
 			levelOneCategory = saveLevelOneCategory(userContext, levelOneCategory, options);
 			return levelOneCategory;
 			
@@ -524,8 +525,8 @@ public class LevelOneCategoryManagerImpl extends CustomRetailscmCheckerManager i
 			String levelTwoCategoryIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfLevelOneCategory(levelOneCategoryId);
-		for(String levelTwoCategoryId: levelTwoCategoryIds){
-			userContext.getChecker().checkIdOfLevelTwoCategory(levelTwoCategoryId);
+		for(String levelTwoCategoryIdItem: levelTwoCategoryIds){
+			userContext.getChecker().checkIdOfLevelTwoCategory(levelTwoCategoryIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(LevelOneCategoryManagerException.class);

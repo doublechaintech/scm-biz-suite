@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A RetailStoreMemberGiftCardConsumeRecord">${userContext.localeMap['retail_store_member_gift_card_consume_record']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A RetailStoreMemberGiftCardConsumeRecord">${userContext.localeMap['retail_store_member_gift_card_consume_record']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

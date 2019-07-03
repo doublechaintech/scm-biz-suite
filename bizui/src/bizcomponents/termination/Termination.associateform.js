@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   comment: '员工离职',
-  reasonId: 'TR000001',
-  typeId: 'TT000001',
+  reasonId: 'TR00000001',
+  typeId: 'TT00000001',
 }
 */
 
@@ -140,7 +140,7 @@ class TerminationAssociateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入评论" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

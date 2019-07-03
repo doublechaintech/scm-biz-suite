@@ -19,13 +19,13 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2017-10-28',
-  latitude: '42.07601058612997',
-  longitude: '131.8711676749097',
-  endId: 'RS000001',
-  driverId: 'TD000001',
-  truckId: 'TT000001',
-  belongsToId: 'TF000001',
+  beginTime: '2018-12-26',
+  latitude: '40.32301430204376',
+  longitude: '131.67148191224064',
+  endId: 'RS00000001',
+  driverId: 'TD00000001',
+  truckId: 'TT00000001',
+  belongsToId: 'TF00000001',
 }
 */
 
@@ -214,7 +214,7 @@ class TransportTaskCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -224,7 +224,7 @@ class TransportTaskCreateForm extends Component {
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入开始" />
+                    <Input size="large" placeholder="开始" />
                   )}
                 </Form.Item>
               </Col>
@@ -234,7 +234,7 @@ class TransportTaskCreateForm extends Component {
                   {getFieldDecorator('beginTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入开始时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -244,7 +244,7 @@ class TransportTaskCreateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入纬度" />
+                    <Input size="large" placeholder="纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -254,7 +254,7 @@ class TransportTaskCreateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入经度" />
+                    <Input size="large" placeholder="经度" />
                   )}
                 </Form.Item>
               </Col>

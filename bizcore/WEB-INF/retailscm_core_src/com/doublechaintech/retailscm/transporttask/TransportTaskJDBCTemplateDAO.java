@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.transporttask;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -34,7 +36,10 @@ import com.doublechaintech.retailscm.retailstore.RetailStoreDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO implements TransportTaskDAO{
  
@@ -125,7 +130,7 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public TransportTask load(String id,Map<String,Object> options) throws Exception{
@@ -1100,9 +1105,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
+		for(Goods goodsItem: externalGoodsList){
 
-			goods.clearFromAll();
+			goodsItem.clearFromAll();
 		}
 		
 		
@@ -1132,9 +1137,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSku();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSku();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1176,9 +1181,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearReceivingSpace();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearReceivingSpace();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1220,9 +1225,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearGoodsAllocation();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearGoodsAllocation();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1264,9 +1269,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSmartPallet();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSmartPallet();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1308,9 +1313,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearShippingSpace();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearShippingSpace();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1352,9 +1357,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStore();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStore();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1396,9 +1401,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearBizOrder();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearBizOrder();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1440,9 +1445,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStoreOrder();
-			goods.clearTransportTask();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStoreOrder();
+			goodsItem.clearTransportTask();
 			
 		}
 		
@@ -1480,9 +1485,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 			return transportTask;
 		}
 		
-		for(TransportTaskTrack transportTaskTrack: externalTransportTaskTrackList){
+		for(TransportTaskTrack transportTaskTrackItem: externalTransportTaskTrackList){
 
-			transportTaskTrack.clearFromAll();
+			transportTaskTrackItem.clearFromAll();
 		}
 		
 		
@@ -1701,6 +1706,55 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<TransportTask> transportTaskList) {		
 		this.enhanceListInternal(transportTaskList, this.getTransportTaskMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的transportTask的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.TRANSPORT_TASK_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getTransportTask().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTaskTrack的movement的TransportTaskTrackList
+	public SmartList<TransportTaskTrack> loadOurTransportTaskTrackList(RetailscmUserContext userContext, List<TransportTask> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(TransportTaskTrack.MOVEMENT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<TransportTaskTrack> loadedObjs = userContext.getDAOGroup().getTransportTaskTrackDAO().findTransportTaskTrackWithKey(key, options);
+		Map<String, List<TransportTaskTrack>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getMovement().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<TransportTaskTrack> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<TransportTaskTrack> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setTransportTaskTrackList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TransportTask> transportTaskList = ownerEntity.collectRefsWithType(TransportTask.INTERNAL_TYPE);
@@ -1733,6 +1787,9 @@ public class TransportTaskJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public SmartList<TransportTask> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTransportTaskMapper());
 	}
+	
+	
+
 }
 
 

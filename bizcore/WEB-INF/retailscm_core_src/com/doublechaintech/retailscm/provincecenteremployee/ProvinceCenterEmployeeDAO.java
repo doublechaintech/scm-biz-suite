@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartment;
+import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenter;
+
 import com.doublechaintech.retailscm.provincecenterdepartment.ProvinceCenterDepartmentDAO;
 import com.doublechaintech.retailscm.retailstoreprovincecenter.RetailStoreProvinceCenterDAO;
 
@@ -59,6 +63,7 @@ public interface ProvinceCenterEmployeeDAO{
  	public void analyzeProvinceCenterEmployeeByProvinceCenter(SmartList<ProvinceCenterEmployee> resultList, String retailStoreProvinceCenterId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

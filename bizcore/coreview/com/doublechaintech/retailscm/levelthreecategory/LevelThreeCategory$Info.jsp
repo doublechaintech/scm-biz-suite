@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A LevelThreeCategory">${userContext.localeMap['level_three_category']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A LevelThreeCategory">${userContext.localeMap['level_three_category']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

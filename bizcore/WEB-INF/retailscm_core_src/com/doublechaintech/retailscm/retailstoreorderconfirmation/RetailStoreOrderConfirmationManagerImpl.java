@@ -245,8 +245,9 @@ public class RetailStoreOrderConfirmationManagerImpl extends CustomRetailscmChec
 			//will be good when the retailStoreOrderConfirmation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderConfirmation.
+			if (retailStoreOrderConfirmation.isChanged()){
 			
-			
+			}
 			retailStoreOrderConfirmation = saveRetailStoreOrderConfirmation(userContext, retailStoreOrderConfirmation, options);
 			return retailStoreOrderConfirmation;
 			
@@ -520,8 +521,8 @@ public class RetailStoreOrderConfirmationManagerImpl extends CustomRetailscmChec
 			String retailStoreOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrderConfirmation(retailStoreOrderConfirmationId);
-		for(String retailStoreOrderId: retailStoreOrderIds){
-			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
+		for(String retailStoreOrderIdItem: retailStoreOrderIds){
+			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderConfirmationManagerException.class);

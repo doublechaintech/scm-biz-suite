@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.accountset;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -34,7 +36,10 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO implements AccountSetDAO{
  
@@ -135,7 +140,7 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public AccountSet load(String id,Map<String,Object> options) throws Exception{
@@ -1114,9 +1119,9 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 			return accountSet;
 		}
 		
-		for(AccountingSubject accountingSubject: externalAccountingSubjectList){
+		for(AccountingSubject accountingSubjectItem: externalAccountingSubjectList){
 
-			accountingSubject.clearFromAll();
+			accountingSubjectItem.clearFromAll();
 		}
 		
 		
@@ -1142,9 +1147,9 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 			return accountSet;
 		}
 		
-		for(AccountingPeriod accountingPeriod: externalAccountingPeriodList){
+		for(AccountingPeriod accountingPeriodItem: externalAccountingPeriodList){
 
-			accountingPeriod.clearFromAll();
+			accountingPeriodItem.clearFromAll();
 		}
 		
 		
@@ -1170,9 +1175,9 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 			return accountSet;
 		}
 		
-		for(AccountingDocumentType accountingDocumentType: externalAccountingDocumentTypeList){
+		for(AccountingDocumentType accountingDocumentTypeItem: externalAccountingDocumentTypeList){
 
-			accountingDocumentType.clearFromAll();
+			accountingDocumentTypeItem.clearFromAll();
 		}
 		
 		
@@ -1484,6 +1489,78 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	public void enhanceList(List<AccountSet> accountSetList) {		
 		this.enhanceListInternal(accountSetList, this.getAccountSetMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingSubject的accountSet的AccountingSubjectList
+	public SmartList<AccountingSubject> loadOurAccountingSubjectList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountingSubject.ACCOUNT_SET_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountingSubject> loadedObjs = userContext.getDAOGroup().getAccountingSubjectDAO().findAccountingSubjectWithKey(key, options);
+		Map<String, List<AccountingSubject>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getAccountSet().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountingSubject> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountingSubject> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountingSubjectList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingPeriod的accountSet的AccountingPeriodList
+	public SmartList<AccountingPeriod> loadOurAccountingPeriodList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountingPeriod.ACCOUNT_SET_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountingPeriod> loadedObjs = userContext.getDAOGroup().getAccountingPeriodDAO().findAccountingPeriodWithKey(key, options);
+		Map<String, List<AccountingPeriod>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getAccountSet().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountingPeriod> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountingPeriod> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountingPeriodList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocumentType的accountingPeriod的AccountingDocumentTypeList
+	public SmartList<AccountingDocumentType> loadOurAccountingDocumentTypeList(RetailscmUserContext userContext, List<AccountSet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(AccountingDocumentType.ACCOUNTING_PERIOD_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<AccountingDocumentType> loadedObjs = userContext.getDAOGroup().getAccountingDocumentTypeDAO().findAccountingDocumentTypeWithKey(key, options);
+		Map<String, List<AccountingDocumentType>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getAccountingPeriod().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<AccountingDocumentType> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<AccountingDocumentType> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setAccountingDocumentTypeList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountSet> accountSetList = ownerEntity.collectRefsWithType(AccountSet.INTERNAL_TYPE);
@@ -1516,6 +1593,9 @@ public class AccountSetJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	public SmartList<AccountSet> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getAccountSetMapper());
 	}
+	
+	
+
 }
 
 

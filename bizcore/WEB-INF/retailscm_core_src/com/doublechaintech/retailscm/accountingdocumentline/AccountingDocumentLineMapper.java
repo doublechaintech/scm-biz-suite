@@ -97,10 +97,10 @@ public class AccountingDocumentLineMapper extends BaseRowMapper<AccountingDocume
  		if( accountingDocumentId.isEmpty()){
  			return;
  		}
- 		AccountingDocument accountingDocument = accountingDocumentLine.getBelongsTo();
- 		if( accountingDocument != null ){
+ 		AccountingDocument laccountingDocument = accountingDocumentLine.getBelongsTo();
+ 		if( laccountingDocument != null ){
  			//if the root object 'accountingDocumentLine' already have the property, just set the id for it;
- 			accountingDocument.setId(accountingDocumentId);
+ 			laccountingDocument.setId(accountingDocumentId);
  			
  			return;
  		}
@@ -115,10 +115,10 @@ public class AccountingDocumentLineMapper extends BaseRowMapper<AccountingDocume
  		if( accountingSubjectId.isEmpty()){
  			return;
  		}
- 		AccountingSubject accountingSubject = accountingDocumentLine.getAccountingSubject();
- 		if( accountingSubject != null ){
+ 		AccountingSubject laccountingSubject = accountingDocumentLine.getAccountingSubject();
+ 		if( laccountingSubject != null ){
  			//if the root object 'accountingDocumentLine' already have the property, just set the id for it;
- 			accountingSubject.setId(accountingSubjectId);
+ 			laccountingSubject.setId(accountingSubjectId);
  			
  			return;
  		}

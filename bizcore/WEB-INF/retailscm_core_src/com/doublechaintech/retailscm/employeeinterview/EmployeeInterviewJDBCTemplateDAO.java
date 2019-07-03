@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeinterview;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO implements EmployeeInterviewDAO{
  
@@ -61,7 +66,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public EmployeeInterview load(String id,Map<String,Object> options) throws Exception{
@@ -641,6 +646,9 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public void enhanceList(List<EmployeeInterview> employeeInterviewList) {		
 		this.enhanceListInternal(employeeInterviewList, this.getEmployeeInterviewMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeInterview> employeeInterviewList = ownerEntity.collectRefsWithType(EmployeeInterview.INTERNAL_TYPE);
@@ -673,6 +681,9 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	public SmartList<EmployeeInterview> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeInterviewMapper());
 	}
+	
+	
+
 }
 
 

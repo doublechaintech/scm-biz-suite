@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.secuser.SecUser;
+
 import com.doublechaintech.retailscm.secuser.SecUserDAO;
 
 
@@ -53,6 +56,10 @@ public interface SecUserBlockingDAO{
 	
 	
 	public SmartList<SecUserBlocking> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:SecUser的blocking的SecUserList
+	public SmartList<SecUser> loadOurSecUserList(RetailscmUserContext userContext, List<SecUserBlocking> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

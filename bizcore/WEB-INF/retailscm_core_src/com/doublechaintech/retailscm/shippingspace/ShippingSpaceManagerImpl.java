@@ -278,8 +278,9 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the shippingSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ShippingSpace.
-			
-			
+			if (shippingSpace.isChanged()){
+			shippingSpace.updateLastUpdateTime(userContext.now());
+			}
 			shippingSpace = saveShippingSpace(userContext, shippingSpace, options);
 			return shippingSpace;
 			
@@ -764,8 +765,8 @@ public class ShippingSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			String goodsIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfShippingSpace(shippingSpaceId);
-		for(String goodsId: goodsIds){
-			userContext.getChecker().checkIdOfGoods(goodsId);
+		for(String goodsIdItem: goodsIds){
+			userContext.getChecker().checkIdOfGoods(goodsIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ShippingSpaceManagerException.class);

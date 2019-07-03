@@ -60,9 +60,9 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 	
 		
 	public 	ProvinceCenterEmployee(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setDepartment( null );
 		setProvinceCenter( null );
@@ -394,6 +394,25 @@ public class ProvinceCenterEmployee extends BaseEntity implements  java.io.Seria
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ProvinceCenterEmployee){
+		
+			
+			ProvinceCenterEmployee dest =(ProvinceCenterEmployee)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeMobile(getMobile());
+			dest.mergeEmail(getEmail());
+			dest.mergeFounded(getFounded());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

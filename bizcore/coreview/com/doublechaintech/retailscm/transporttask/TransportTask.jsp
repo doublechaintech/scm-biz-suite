@@ -130,15 +130,19 @@
 
 	<div class="row">
 <c:set var="retailStore" value="${ result.end}" scope="request" />
+<c:set var="referName" value="(end)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/retailstore/RetailStore$Info.jsp" />
 
 <c:set var="truckDriver" value="${ result.driver}" scope="request" />
+<c:set var="referName" value="(driver)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/truckdriver/TruckDriver$Info.jsp" />
 
 <c:set var="transportTruck" value="${ result.truck}" scope="request" />
+<c:set var="referName" value="(truck)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/transporttruck/TransportTruck$Info.jsp" />
 
 <c:set var="transportFleet" value="${ result.belongsTo}" scope="request" />
+<c:set var="referName" value="(belongsTo)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/transportfleet/TransportFleet$Info.jsp" />
 
 </div>

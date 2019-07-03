@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
+import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
+
 import com.doublechaintech.retailscm.consumerorder.ConsumerOrderDAO;
 import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
 
@@ -73,6 +77,13 @@ public interface SupplyOrderConfirmationDAO{
 	
 	
 	public SmartList<SupplyOrderConfirmation> queryList(String sql, Object ... parmeters);
+
+	// 需要一个加载引用我的对象的enhance方法:ConsumerOrder的confirmation的ConsumerOrderList
+	public SmartList<ConsumerOrder> loadOurConsumerOrderList(RetailscmUserContext userContext, List<SupplyOrderConfirmation> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplyOrder的confirmation的SupplyOrderList
+	public SmartList<SupplyOrder> loadOurSupplyOrderList(RetailscmUserContext userContext, List<SupplyOrderConfirmation> us, Map<String,Object> options) throws Exception;
+	
 }
 
 

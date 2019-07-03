@@ -44,10 +44,10 @@ public class LevelTwoCategoryMapper extends BaseRowMapper<LevelTwoCategory>{
  		if( levelOneCategoryId.isEmpty()){
  			return;
  		}
- 		LevelOneCategory levelOneCategory = levelTwoCategory.getParentCategory();
- 		if( levelOneCategory != null ){
+ 		LevelOneCategory llevelOneCategory = levelTwoCategory.getParentCategory();
+ 		if( llevelOneCategory != null ){
  			//if the root object 'levelTwoCategory' already have the property, just set the id for it;
- 			levelOneCategory.setId(levelOneCategoryId);
+ 			llevelOneCategory.setId(levelOneCategoryId);
  			
  			return;
  		}

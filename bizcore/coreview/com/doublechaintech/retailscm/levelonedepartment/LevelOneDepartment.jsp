@@ -129,6 +129,7 @@
 
 	<div class="row">
 <c:set var="retailStoreCountryCenter" value="${ result.belongsTo}" scope="request" />
+<c:set var="referName" value="(belongsTo)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/retailstorecountrycenter/RetailStoreCountryCenter$Info.jsp" />
 
 </div>

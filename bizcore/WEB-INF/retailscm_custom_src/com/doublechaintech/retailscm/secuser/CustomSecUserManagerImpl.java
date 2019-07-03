@@ -558,32 +558,35 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
         }
         userContext.setPublicMediaServicePrefix(getPublicMediaServicePrefix());
        
-        userContext.setRequestParameters(request.getParameterMap());
+        userContext.setRequestParameters((Map)request.getParameterMap());
         userContext.setDaoGroup(getDaoGroup());
         userContext.setEventService(this.getEventService());
         userContext.setManagerGroup(getManagerGroup());
-        ServletInputStream ins;
-        try {
-            ins = request.getInputStream();
-
-            if (ins != null) {
-                if (ins.available() > 0) {
-                    System.out.println("input stream can read");
-                    ByteArrayOutputStream bout = new ByteArrayOutputStream();
-                    byte[] buff = new byte[1024];
-                    int n = 0;
-                    while ((n = ins.read(buff)) > 0) {
-                        bout.write(buff, 0, n);
-                    }
-
-                    userContext.setRequestBody(bout.toByteArray());
-                } else {
-                    System.out.println("input stream cannot read");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // 原则上不要自己读取request的内容. 特殊情况下读取, 请注明原因. 以下为读取POST的body的例子.
+		//        ServletInputStream ins;
+		//        try {
+		//        	if (request.getMethod().equalsIgnoreCase("post")) {
+		//	            ins = request.getInputStream();
+		//	
+		//	            if (ins != null) {
+		//	                if (ins.available() > 0) {
+		//	                    System.out.println("input stream can read");
+		//	                    ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		//	                    byte[] buff = new byte[1024];
+		//	                    int n = 0;
+		//	                    while ((n = ins.read(buff)) > 0) {
+		//	                        bout.write(buff, 0, n);
+		//	                    }
+		//	
+		//	                    userContext.setRequestBody(bout.toByteArray());
+		//	                } else {
+		//	                    System.out.println("input stream cannot read");
+		//	                }
+		//	            }
+		//        	}
+		//        } catch (IOException e) {
+		//            e.printStackTrace();
+		//        }
     }
     
     protected String getRemoteIP(HttpServletRequest request){
@@ -904,9 +907,6 @@ public class CustomSecUserManagerImpl extends SecUserManagerImpl implements
     
 
 }
-
-
-
 
 
 

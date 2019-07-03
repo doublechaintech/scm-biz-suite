@@ -47,10 +47,10 @@ public class EmployeeWorkExperienceMapper extends BaseRowMapper<EmployeeWorkExpe
  		if( employeeId.isEmpty()){
  			return;
  		}
- 		Employee employee = employeeWorkExperience.getEmployee();
- 		if( employee != null ){
+ 		Employee lemployee = employeeWorkExperience.getEmployee();
+ 		if( lemployee != null ){
  			//if the root object 'employeeWorkExperience' already have the property, just set the id for it;
- 			employee.setId(employeeId);
+ 			lemployee.setId(employeeId);
  			
  			return;
  		}

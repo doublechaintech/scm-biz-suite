@@ -273,8 +273,9 @@ public class SmartPalletManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the smartPallet loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SmartPallet.
-			
-			
+			if (smartPallet.isChanged()){
+			smartPallet.updateLastUpdateTime(userContext.now());
+			}
 			smartPallet = saveSmartPallet(userContext, smartPallet, options);
 			return smartPallet;
 			
@@ -759,8 +760,8 @@ public class SmartPalletManagerImpl extends CustomRetailscmCheckerManager implem
 			String goodsIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfSmartPallet(smartPalletId);
-		for(String goodsId: goodsIds){
-			userContext.getChecker().checkIdOfGoods(goodsId);
+		for(String goodsIdItem: goodsIds){
+			userContext.getChecker().checkIdOfGoods(goodsIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(SmartPalletManagerException.class);

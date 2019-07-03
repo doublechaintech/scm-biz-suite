@@ -254,8 +254,9 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 			//will be good when the terminationType loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TerminationType.
+			if (terminationType.isChanged()){
 			
-			
+			}
 			terminationType = saveTerminationType(userContext, terminationType, options);
 			return terminationType;
 			
@@ -558,8 +559,8 @@ public class TerminationTypeManagerImpl extends CustomRetailscmCheckerManager im
 			String terminationIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfTerminationType(terminationTypeId);
-		for(String terminationId: terminationIds){
-			userContext.getChecker().checkIdOfTermination(terminationId);
+		for(String terminationIdItem: terminationIds){
+			userContext.getChecker().checkIdOfTermination(terminationIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(TerminationTypeManagerException.class);

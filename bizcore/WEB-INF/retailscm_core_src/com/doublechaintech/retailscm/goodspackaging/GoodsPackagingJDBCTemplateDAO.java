@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.goodspackaging;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO implements GoodsPackagingDAO{
 
@@ -60,7 +65,7 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public GoodsPackaging load(String id,Map<String,Object> options) throws Exception{
@@ -503,9 +508,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
+		for(Goods goodsItem: externalGoodsList){
 
-			goods.clearFromAll();
+			goodsItem.clearFromAll();
 		}
 		
 		
@@ -535,9 +540,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSku();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSku();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -579,9 +584,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearReceivingSpace();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearReceivingSpace();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -623,9 +628,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearGoodsAllocation();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearGoodsAllocation();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -667,9 +672,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSmartPallet();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSmartPallet();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -711,9 +716,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearShippingSpace();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearShippingSpace();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -755,9 +760,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearTransportTask();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearTransportTask();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -799,9 +804,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStore();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStore();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -843,9 +848,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearBizOrder();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearBizOrder();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -887,9 +892,9 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 			return goodsPackaging;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStoreOrder();
-			goods.clearPackaging();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStoreOrder();
+			goodsItem.clearPackaging();
 			
 		}
 		
@@ -1027,6 +1032,32 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public void enhanceList(List<GoodsPackaging> goodsPackagingList) {		
 		this.enhanceListInternal(goodsPackagingList, this.getGoodsPackagingMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的packaging的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<GoodsPackaging> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.PACKAGING_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPackaging().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsPackaging> goodsPackagingList = ownerEntity.collectRefsWithType(GoodsPackaging.INTERNAL_TYPE);
@@ -1059,6 +1090,89 @@ public class GoodsPackagingJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	public SmartList<GoodsPackaging> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getGoodsPackagingMapper());
 	}
+	
+	
+    
+	public Map<String, Integer> countBySql(String sql, Object[] params) {
+		if (params == null || params.length == 0) {
+			return new HashMap<>();
+		}
+		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		if (result == null || result.isEmpty()) {
+			return new HashMap<>();
+		}
+		Map<String, Integer> cntMap = new HashMap<>();
+		for (Map<String, Object> data : result) {
+			String key = (String) data.get("id");
+			Number value = (Number) data.get("count");
+			cntMap.put(key, value.intValue());
+		}
+		this.logSQLAndParameters("countBySql", sql, params, cntMap.size() + " Counts");
+		return cntMap;
+	}
+
+	public Integer singleCountBySql(String sql, Object[] params) {
+		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
+		return cnt;
+	}
+
+	public BigDecimal summaryBySql(String sql, Object[] params) {
+		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
+		return cnt == null ? BigDecimal.ZERO : cnt;
+	}
+
+	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
+		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
+		return result;
+	}
+
+	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
+		Map<String, Object> result = null;
+		try {
+			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+			// 空结果，返回null
+		}
+		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+		return result;
+	}
+
+	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
+		T result = null;
+		try {
+			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+			// 空结果，返回null
+		}
+		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+		return result;
+	}
+
+	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
+		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
+		return result;
+	}
+
+	public synchronized int updateBySql(String sql, Object[] params) {
+		int result = getJdbcTemplateObject().update(sql, params);
+		logSQLAndParameters("updateBySql", sql, params, result + " items");
+		return result;
+	}
+
+	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
+		getJdbcTemplateObject().query(sql, args, callback);
+	}
+
+	public void executeSql(String sql) {
+		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
+		getJdbcTemplateObject().execute(sql);
+	}
+
+
 }
 
 

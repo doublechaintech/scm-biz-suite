@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.employee.Employee;
+
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
@@ -50,6 +53,7 @@ public interface EmployeeEducationDAO{
  	public void analyzeEmployeeEducationByEmployee(SmartList<EmployeeEducation> resultList, String employeeId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

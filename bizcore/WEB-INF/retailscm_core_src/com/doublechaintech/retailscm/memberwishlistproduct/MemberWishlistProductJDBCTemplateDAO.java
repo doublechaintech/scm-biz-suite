@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.memberwishlistproduct;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.memberwishlist.MemberWishlistDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class MemberWishlistProductJDBCTemplateDAO extends RetailscmNamingServiceDAO implements MemberWishlistProductDAO{
  
@@ -50,7 +55,7 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmNamingService
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public MemberWishlistProduct load(String id,Map<String,Object> options) throws Exception{
@@ -510,6 +515,9 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmNamingService
 	public void enhanceList(List<MemberWishlistProduct> memberWishlistProductList) {		
 		this.enhanceListInternal(memberWishlistProductList, this.getMemberWishlistProductMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<MemberWishlistProduct> memberWishlistProductList = ownerEntity.collectRefsWithType(MemberWishlistProduct.INTERNAL_TYPE);
@@ -542,6 +550,9 @@ public class MemberWishlistProductJDBCTemplateDAO extends RetailscmNamingService
 	public SmartList<MemberWishlistProduct> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getMemberWishlistProductMapper());
 	}
+	
+	
+
 }
 
 

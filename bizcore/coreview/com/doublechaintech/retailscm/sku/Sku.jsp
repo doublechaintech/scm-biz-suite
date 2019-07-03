@@ -129,6 +129,7 @@
 
 	<div class="row">
 <c:set var="product" value="${ result.product}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/product/Product$Info.jsp" />
 
 </div>

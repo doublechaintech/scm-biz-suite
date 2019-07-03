@@ -7,6 +7,16 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine;
+import com.doublechaintech.retailscm.accountingdocumentposting.AccountingDocumentPosting;
+import com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreation;
+import com.doublechaintech.retailscm.accountingdocumentauditing.AccountingDocumentAuditing;
+import com.doublechaintech.retailscm.accountingdocumentconfirmation.AccountingDocumentConfirmation;
+import com.doublechaintech.retailscm.originalvoucher.OriginalVoucher;
+import com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType;
+import com.doublechaintech.retailscm.accountingperiod.AccountingPeriod;
+
 import com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreationDAO;
 import com.doublechaintech.retailscm.accountingperiod.AccountingPeriodDAO;
 import com.doublechaintech.retailscm.originalvoucher.OriginalVoucherDAO;
@@ -115,6 +125,13 @@ public interface AccountingDocumentDAO{
  	public void analyzeAccountingDocumentByPosting(SmartList<AccountingDocument> resultList, String accountingDocumentPostingId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:OriginalVoucher的belongsTo的OriginalVoucherList
+	public SmartList<OriginalVoucher> loadOurOriginalVoucherList(RetailscmUserContext userContext, List<AccountingDocument> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountingDocumentLine的belongsTo的AccountingDocumentLineList
+	public SmartList<AccountingDocumentLine> loadOurAccountingDocumentLineList(RetailscmUserContext userContext, List<AccountingDocument> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

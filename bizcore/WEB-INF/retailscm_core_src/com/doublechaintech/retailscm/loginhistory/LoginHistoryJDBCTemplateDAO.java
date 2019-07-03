@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.loginhistory;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.secuser.SecUserDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO implements LoginHistoryDAO{
  
@@ -50,7 +55,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public LoginHistory load(String id,Map<String,Object> options) throws Exception{
@@ -530,6 +535,9 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	public void enhanceList(List<LoginHistory> loginHistoryList) {		
 		this.enhanceListInternal(loginHistoryList, this.getLoginHistoryMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<LoginHistory> loginHistoryList = ownerEntity.collectRefsWithType(LoginHistory.INTERNAL_TYPE);
@@ -562,6 +570,9 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	public SmartList<LoginHistory> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getLoginHistoryMapper());
 	}
+	
+	
+
 }
 
 

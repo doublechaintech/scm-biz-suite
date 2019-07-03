@@ -25,11 +25,11 @@ const testValues = {
   address: '学院路234号',
   cellPhone: '18677778888',
   salaryAccount: '6226 7788 9908 ',
-  companyId: 'RSCC000001',
-  departmentId: 'LTD000001',
-  occupationId: 'OT000001',
-  responsibleForId: 'RT000001',
-  currentSalaryGradeId: 'SG000001',
+  companyId: 'RSCC00000001',
+  departmentId: 'LTD00000001',
+  occupationId: 'OT00000001',
+  responsibleForId: 'RT00000001',
+  currentSalaryGradeId: 'SG00000001',
 }
 */
 
@@ -218,7 +218,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入头衔" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('familyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入姓" />
+                    <Input size="large" placeholder="姓" />
                   )}
                 </Form.Item>
               </Col>
@@ -238,7 +238,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('givenName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名" />
+                    <Input size="large" placeholder="名" />
                   )}
                 </Form.Item>
               </Col>
@@ -248,7 +248,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入电子邮件" />
+                    <Input size="large" placeholder="电子邮件" />
                   )}
                 </Form.Item>
               </Col>
@@ -258,7 +258,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('city', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入城市" />
+                    <Input size="large" placeholder="城市" />
                   )}
                 </Form.Item>
               </Col>
@@ -268,7 +268,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入地址" />
+                    <Input size="large" placeholder="地址" />
                   )}
                 </Form.Item>
               </Col>
@@ -278,7 +278,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('cellPhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入手机" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -288,7 +288,7 @@ class EmployeeCreateForm extends Component {
                   {getFieldDecorator('salaryAccount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入工资账户" />
+                    <Input size="large" placeholder="工资账户" />
                   )}
                 </Form.Item>
               </Col>

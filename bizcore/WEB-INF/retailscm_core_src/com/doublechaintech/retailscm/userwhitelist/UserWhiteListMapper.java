@@ -69,10 +69,10 @@ public class UserWhiteListMapper extends BaseRowMapper<UserWhiteList>{
  		if( userDomainId.isEmpty()){
  			return;
  		}
- 		UserDomain userDomain = userWhiteList.getDomain();
- 		if( userDomain != null ){
+ 		UserDomain luserDomain = userWhiteList.getDomain();
+ 		if( luserDomain != null ){
  			//if the root object 'userWhiteList' already have the property, just set the id for it;
- 			userDomain.setId(userDomainId);
+ 			luserDomain.setId(userDomainId);
  			
  			return;
  		}

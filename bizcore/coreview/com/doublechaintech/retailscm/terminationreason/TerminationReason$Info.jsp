@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A TerminationReason">${userContext.localeMap['termination_reason']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A TerminationReason">${userContext.localeMap['termination_reason']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

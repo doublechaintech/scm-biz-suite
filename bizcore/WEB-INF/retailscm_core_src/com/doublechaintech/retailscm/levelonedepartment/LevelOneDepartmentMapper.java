@@ -47,10 +47,10 @@ public class LevelOneDepartmentMapper extends BaseRowMapper<LevelOneDepartment>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = levelOneDepartment.getBelongsTo();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = levelOneDepartment.getBelongsTo();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'levelOneDepartment' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

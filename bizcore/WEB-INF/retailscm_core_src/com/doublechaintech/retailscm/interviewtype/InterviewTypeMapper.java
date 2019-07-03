@@ -58,10 +58,10 @@ public class InterviewTypeMapper extends BaseRowMapper<InterviewType>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = interviewType.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = interviewType.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'interviewType' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.genericform.GenericForm;
+
 import com.doublechaintech.retailscm.genericform.GenericFormDAO;
 
 
@@ -50,6 +53,7 @@ public interface FormFieldDAO{
  	public void analyzeFormFieldByForm(SmartList<FormField> resultList, String genericFormId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

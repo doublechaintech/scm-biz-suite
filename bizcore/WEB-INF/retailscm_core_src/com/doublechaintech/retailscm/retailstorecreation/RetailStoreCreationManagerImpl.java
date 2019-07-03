@@ -240,8 +240,9 @@ public class RetailStoreCreationManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the retailStoreCreation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreCreation.
+			if (retailStoreCreation.isChanged()){
 			
-			
+			}
 			retailStoreCreation = saveRetailStoreCreation(userContext, retailStoreCreation, options);
 			return retailStoreCreation;
 			
@@ -540,8 +541,8 @@ public class RetailStoreCreationManagerImpl extends CustomRetailscmCheckerManage
 			String retailStoreIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreCreation(retailStoreCreationId);
-		for(String retailStoreId: retailStoreIds){
-			userContext.getChecker().checkIdOfRetailStore(retailStoreId);
+		for(String retailStoreIdItem: retailStoreIds){
+			userContext.getChecker().checkIdOfRetailStore(retailStoreIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreCreationManagerException.class);

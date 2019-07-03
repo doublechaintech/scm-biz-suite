@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 
 import com.terapico.caf.InternalBeanFactory;
 import com.terapico.caf.InvocationContext;
@@ -15,13 +16,27 @@ import com.terapico.caf.InvocationTool;
 import com.terapico.caf.SimpleInvocationResult;
 import com.terapico.caf.SimpleInvocationServlet;
 import com.terapico.utils.TextUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
-public class UCInvocationServlet extends SimpleInvocationServlet {
+@WebServlet(urlPatterns = "/*")
+public class UCInvocationServlet extends SimpleInvocationServlet{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public ApplicationContext getApplicationContext() {
+		return mApplicationContext;
+	}
+
+	public void setApplicationContext(ApplicationContext pApplicationContext) {
+		mApplicationContext = pApplicationContext;
+	}
+
+	@Autowired
+	private ApplicationContext mApplicationContext;
 
 	@Override
 	public void init() throws ServletException {
@@ -97,6 +112,7 @@ public class UCInvocationServlet extends SimpleInvocationServlet {
 				System.out.println("InvocationResult result = super.invoke(context); called"+checkResult);
 				InvocationResult result=new SimpleInvocationResult();
 				result.setActualResult(checkResult);
+				result.setInvocationContext(context);
 				return result;
 			}
 			
@@ -195,7 +211,7 @@ public class UCInvocationServlet extends SimpleInvocationServlet {
 	public void replaceBeans()
 	{
 		InternalBeanFactory.replaceFormBuilder(new UCFormBuilder());
-		InternalBeanFactory.replaceServletInvocationContextFactory(new UCInvocationContextFactory());
+		InternalBeanFactory.replaceServletInvocationContextFactory(new UCInvocationContextFactory(mApplicationContext));
 		
 	}
 	

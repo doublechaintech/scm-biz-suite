@@ -55,9 +55,9 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 	
 		
 	public 	EmployeeEducation(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setEmployee( null );
 
@@ -317,6 +317,24 @@ public class EmployeeEducation extends BaseEntity implements  java.io.Serializab
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeEducation){
+		
+			
+			EmployeeEducation dest =(EmployeeEducation)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCompleteTime(getCompleteTime());
+			dest.mergeType(getType());
+			dest.mergeRemark(getRemark());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

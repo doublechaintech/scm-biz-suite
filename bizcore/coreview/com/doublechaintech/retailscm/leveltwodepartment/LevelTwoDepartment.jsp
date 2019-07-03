@@ -129,6 +129,7 @@
 
 	<div class="row">
 <c:set var="levelOneDepartment" value="${ result.belongsTo}" scope="request" />
+<c:set var="referName" value="(belongsTo)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/levelonedepartment/LevelOneDepartment$Info.jsp" />
 
 </div>

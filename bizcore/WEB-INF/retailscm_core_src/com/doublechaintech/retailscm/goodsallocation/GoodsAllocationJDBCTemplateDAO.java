@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.goodsallocation;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO implements GoodsAllocationDAO{
  
@@ -71,7 +76,7 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public GoodsAllocation load(String id,Map<String,Object> options) throws Exception{
@@ -614,9 +619,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
+		for(Goods goodsItem: externalGoodsList){
 
-			goods.clearFromAll();
+			goodsItem.clearFromAll();
 		}
 		
 		
@@ -646,9 +651,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSku();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSku();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -690,9 +695,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearReceivingSpace();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearReceivingSpace();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -734,9 +739,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSmartPallet();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSmartPallet();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -778,9 +783,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearShippingSpace();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearShippingSpace();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -822,9 +827,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearTransportTask();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearTransportTask();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -866,9 +871,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStore();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStore();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -910,9 +915,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearBizOrder();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearBizOrder();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -954,9 +959,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 			return goodsAllocation;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStoreOrder();
-			goods.clearGoodsAllocation();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStoreOrder();
+			goodsItem.clearGoodsAllocation();
 			
 		}
 		
@@ -1094,6 +1099,32 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public void enhanceList(List<GoodsAllocation> goodsAllocationList) {		
 		this.enhanceListInternal(goodsAllocationList, this.getGoodsAllocationMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的goodsAllocation的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<GoodsAllocation> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.GOODS_ALLOCATION_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getGoodsAllocation().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<GoodsAllocation> goodsAllocationList = ownerEntity.collectRefsWithType(GoodsAllocation.INTERNAL_TYPE);
@@ -1126,6 +1157,9 @@ public class GoodsAllocationJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	public SmartList<GoodsAllocation> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getGoodsAllocationMapper());
 	}
+	
+	
+
 }
 
 

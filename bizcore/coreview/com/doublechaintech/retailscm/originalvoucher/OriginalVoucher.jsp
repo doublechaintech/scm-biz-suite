@@ -128,6 +128,7 @@
 
 	<div class="row">
 <c:set var="accountingDocument" value="${ result.belongsTo}" scope="request" />
+<c:set var="referName" value="(belongsTo)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/accountingdocument/AccountingDocument$Info.jsp" />
 
 </div>

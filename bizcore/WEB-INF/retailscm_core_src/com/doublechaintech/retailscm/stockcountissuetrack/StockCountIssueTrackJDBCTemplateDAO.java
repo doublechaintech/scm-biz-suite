@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.stockcountissuetrack;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.goodsshelfstockcount.GoodsShelfStockCountDA
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceDAO implements StockCountIssueTrackDAO{
  
@@ -50,7 +55,7 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceD
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public StockCountIssueTrack load(String id,Map<String,Object> options) throws Exception{
@@ -514,6 +519,9 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceD
 	public void enhanceList(List<StockCountIssueTrack> stockCountIssueTrackList) {		
 		this.enhanceListInternal(stockCountIssueTrackList, this.getStockCountIssueTrackMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<StockCountIssueTrack> stockCountIssueTrackList = ownerEntity.collectRefsWithType(StockCountIssueTrack.INTERNAL_TYPE);
@@ -546,6 +554,9 @@ public class StockCountIssueTrackJDBCTemplateDAO extends RetailscmNamingServiceD
 	public SmartList<StockCountIssueTrack> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getStockCountIssueTrackMapper());
 	}
+	
+	
+
 }
 
 

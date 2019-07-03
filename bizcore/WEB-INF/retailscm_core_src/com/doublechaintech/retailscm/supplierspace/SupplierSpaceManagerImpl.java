@@ -266,8 +266,9 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			//will be good when the supplierSpace loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplierSpace.
-			
-			
+			if (supplierSpace.isChanged()){
+			supplierSpace.updateLastUpdateTime(userContext.now());
+			}
 			supplierSpace = saveSupplierSpace(userContext, supplierSpace, options);
 			return supplierSpace;
 			
@@ -594,8 +595,8 @@ public class SupplierSpaceManagerImpl extends CustomRetailscmCheckerManager impl
 			String goodsShelfIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfSupplierSpace(supplierSpaceId);
-		for(String goodsShelfId: goodsShelfIds){
-			userContext.getChecker().checkIdOfGoodsShelf(goodsShelfId);
+		for(String goodsShelfIdItem: goodsShelfIds){
+			userContext.getChecker().checkIdOfGoodsShelf(goodsShelfIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(SupplierSpaceManagerException.class);

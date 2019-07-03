@@ -58,10 +58,10 @@ public class TerminationTypeMapper extends BaseRowMapper<TerminationType>{
  		if( retailStoreCountryCenterId.isEmpty()){
  			return;
  		}
- 		RetailStoreCountryCenter retailStoreCountryCenter = terminationType.getCompany();
- 		if( retailStoreCountryCenter != null ){
+ 		RetailStoreCountryCenter lretailStoreCountryCenter = terminationType.getCompany();
+ 		if( lretailStoreCountryCenter != null ){
  			//if the root object 'terminationType' already have the property, just set the id for it;
- 			retailStoreCountryCenter.setId(retailStoreCountryCenterId);
+ 			lretailStoreCountryCenter.setId(retailStoreCountryCenterId);
  			
  			return;
  		}

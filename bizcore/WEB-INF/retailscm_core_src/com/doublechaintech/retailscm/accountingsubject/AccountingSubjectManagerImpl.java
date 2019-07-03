@@ -259,8 +259,9 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 			//will be good when the accountingSubject loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingSubject.
+			if (accountingSubject.isChanged()){
 			
-			
+			}
 			accountingSubject = saveAccountingSubject(userContext, accountingSubject, options);
 			return accountingSubject;
 			
@@ -578,8 +579,8 @@ public class AccountingSubjectManagerImpl extends CustomRetailscmCheckerManager 
 			String accountingDocumentLineIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfAccountingSubject(accountingSubjectId);
-		for(String accountingDocumentLineId: accountingDocumentLineIds){
-			userContext.getChecker().checkIdOfAccountingDocumentLine(accountingDocumentLineId);
+		for(String accountingDocumentLineIdItem: accountingDocumentLineIds){
+			userContext.getChecker().checkIdOfAccountingDocumentLine(accountingDocumentLineIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(AccountingSubjectManagerException.class);

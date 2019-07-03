@@ -302,8 +302,9 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the retailStoreOrder loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrder.
-			
-			
+			if (retailStoreOrder.isChanged()){
+			retailStoreOrder.updateLastUpdateTime(userContext.now());
+			}
 			retailStoreOrder = saveRetailStoreOrder(userContext, retailStoreOrder, options);
 			return retailStoreOrder;
 			
@@ -1738,8 +1739,8 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 			String retailStoreOrderLineItemIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
-		for(String retailStoreOrderLineItemId: retailStoreOrderLineItemIds){
-			userContext.getChecker().checkIdOfRetailStoreOrderLineItem(retailStoreOrderLineItemId);
+		for(String retailStoreOrderLineItemIdItem: retailStoreOrderLineItemIds){
+			userContext.getChecker().checkIdOfRetailStoreOrderLineItem(retailStoreOrderLineItemIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderManagerException.class);
@@ -1993,8 +1994,8 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 			String retailStoreOrderShippingGroupIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
-		for(String retailStoreOrderShippingGroupId: retailStoreOrderShippingGroupIds){
-			userContext.getChecker().checkIdOfRetailStoreOrderShippingGroup(retailStoreOrderShippingGroupId);
+		for(String retailStoreOrderShippingGroupIdItem: retailStoreOrderShippingGroupIds){
+			userContext.getChecker().checkIdOfRetailStoreOrderShippingGroup(retailStoreOrderShippingGroupIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderManagerException.class);
@@ -2236,8 +2237,8 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 			String retailStoreOrderPaymentGroupIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
-		for(String retailStoreOrderPaymentGroupId: retailStoreOrderPaymentGroupIds){
-			userContext.getChecker().checkIdOfRetailStoreOrderPaymentGroup(retailStoreOrderPaymentGroupId);
+		for(String retailStoreOrderPaymentGroupIdItem: retailStoreOrderPaymentGroupIds){
+			userContext.getChecker().checkIdOfRetailStoreOrderPaymentGroup(retailStoreOrderPaymentGroupIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderManagerException.class);
@@ -2535,8 +2536,8 @@ public class RetailStoreOrderManagerImpl extends CustomRetailscmCheckerManager i
 			String goodsIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
-		for(String goodsId: goodsIds){
-			userContext.getChecker().checkIdOfGoods(goodsId);
+		for(String goodsIdItem: goodsIds){
+			userContext.getChecker().checkIdOfGoods(goodsIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderManagerException.class);

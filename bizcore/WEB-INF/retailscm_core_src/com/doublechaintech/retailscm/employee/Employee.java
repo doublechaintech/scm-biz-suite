@@ -138,9 +138,9 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	Employee(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCompany( null );
 		setDepartment( null );
@@ -2349,6 +2349,31 @@ public class Employee extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof Employee){
+		
+			
+			Employee dest =(Employee)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeFamilyName(getFamilyName());
+			dest.mergeGivenName(getGivenName());
+			dest.mergeEmail(getEmail());
+			dest.mergeCity(getCity());
+			dest.mergeAddress(getAddress());
+			dest.mergeCellPhone(getCellPhone());
+			dest.mergeSalaryAccount(getSalaryAccount());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

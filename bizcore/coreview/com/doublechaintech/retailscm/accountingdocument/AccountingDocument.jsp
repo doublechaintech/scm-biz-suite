@@ -130,9 +130,11 @@
 
 	<div class="row">
 <c:set var="accountingPeriod" value="${ result.accountingPeriod}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/accountingperiod/AccountingPeriod$Info.jsp" />
 
 <c:set var="accountingDocumentType" value="${ result.documentType}" scope="request" />
+<c:set var="referName" value="(documentType)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/accountingdocumenttype/AccountingDocumentType$Info.jsp" />
 
 </div>

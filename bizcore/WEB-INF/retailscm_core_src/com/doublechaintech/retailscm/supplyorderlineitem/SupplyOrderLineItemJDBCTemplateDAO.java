@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.supplyorderlineitem;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmNamingServiceDAO implements SupplyOrderLineItemDAO{
  
@@ -50,7 +55,7 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmNamingServiceDA
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public SupplyOrderLineItem load(String id,Map<String,Object> options) throws Exception{
@@ -518,6 +523,9 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmNamingServiceDA
 	public void enhanceList(List<SupplyOrderLineItem> supplyOrderLineItemList) {		
 		this.enhanceListInternal(supplyOrderLineItemList, this.getSupplyOrderLineItemMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SupplyOrderLineItem> supplyOrderLineItemList = ownerEntity.collectRefsWithType(SupplyOrderLineItem.INTERNAL_TYPE);
@@ -550,6 +558,9 @@ public class SupplyOrderLineItemJDBCTemplateDAO extends RetailscmNamingServiceDA
 	public SmartList<SupplyOrderLineItem> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSupplyOrderLineItemMapper());
 	}
+	
+	
+
 }
 
 

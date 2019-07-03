@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A ConsumerOrderPaymentGroup">${userContext.localeMap['consumer_order_payment_group']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A ConsumerOrderPaymentGroup">${userContext.localeMap['consumer_order_payment_group']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

@@ -271,8 +271,9 @@ public class SalaryGradeManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the salaryGrade loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SalaryGrade.
+			if (salaryGrade.isChanged()){
 			
-			
+			}
 			salaryGrade = saveSalaryGrade(userContext, salaryGrade, options);
 			return salaryGrade;
 			
@@ -700,8 +701,8 @@ public class SalaryGradeManagerImpl extends CustomRetailscmCheckerManager implem
 			String employeeIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfSalaryGrade(salaryGradeId);
-		for(String employeeId: employeeIds){
-			userContext.getChecker().checkIdOfEmployee(employeeId);
+		for(String employeeIdItem: employeeIds){
+			userContext.getChecker().checkIdOfEmployee(employeeIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(SalaryGradeManagerException.class);
@@ -1236,8 +1237,8 @@ public class SalaryGradeManagerImpl extends CustomRetailscmCheckerManager implem
 			String employeeSalarySheetIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfSalaryGrade(salaryGradeId);
-		for(String employeeSalarySheetId: employeeSalarySheetIds){
-			userContext.getChecker().checkIdOfEmployeeSalarySheet(employeeSalarySheetId);
+		for(String employeeSalarySheetIdItem: employeeSalarySheetIds){
+			userContext.getChecker().checkIdOfEmployeeSalarySheet(employeeSalarySheetIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(SalaryGradeManagerException.class);

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.sku;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.product.ProductDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements SkuDAO{
  
@@ -71,7 +76,7 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public Sku load(String id,Map<String,Object> options) throws Exception{
@@ -622,9 +627,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
+		for(Goods goodsItem: externalGoodsList){
 
-			goods.clearFromAll();
+			goodsItem.clearFromAll();
 		}
 		
 		
@@ -654,9 +659,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearReceivingSpace();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearReceivingSpace();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -698,9 +703,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearGoodsAllocation();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearGoodsAllocation();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -742,9 +747,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSmartPallet();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSmartPallet();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -786,9 +791,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearShippingSpace();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearShippingSpace();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -830,9 +835,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearTransportTask();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearTransportTask();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -874,9 +879,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStore();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStore();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -918,9 +923,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearBizOrder();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearBizOrder();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -962,9 +967,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 			return sku;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStoreOrder();
-			goods.clearSku();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStoreOrder();
+			goodsItem.clearSku();
 			
 		}
 		
@@ -1102,6 +1107,32 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 	public void enhanceList(List<Sku> skuList) {		
 		this.enhanceListInternal(skuList, this.getSkuMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的sku的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<Sku> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.SKU_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSku().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Sku> skuList = ownerEntity.collectRefsWithType(Sku.INTERNAL_TYPE);
@@ -1134,6 +1165,9 @@ public class SkuJDBCTemplateDAO extends RetailscmNamingServiceDAO implements Sku
 	public SmartList<Sku> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSkuMapper());
 	}
+	
+	
+
 }
 
 

@@ -7,6 +7,20 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApproval;
+import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroup;
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
+import com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDelivery;
+import com.doublechaintech.retailscm.retailstore.RetailStore;
+import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustment;
+import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroup;
+import com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItem;
+import com.doublechaintech.retailscm.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecord;
+import com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessing;
+import com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmation;
+import com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipment;
+
 import com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroupDAO;
 import com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroupDAO;
 import com.doublechaintech.retailscm.consumerorderpriceadjustment.ConsumerOrderPriceAdjustmentDAO;
@@ -152,6 +166,22 @@ public interface ConsumerOrderDAO{
  	public void analyzeConsumerOrderByStore(SmartList<ConsumerOrder> resultList, String retailStoreId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:ConsumerOrderLineItem的bizOrder的ConsumerOrderLineItemList
+	public SmartList<ConsumerOrderLineItem> loadOurConsumerOrderLineItemList(RetailscmUserContext userContext, List<ConsumerOrder> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:ConsumerOrderShippingGroup的bizOrder的ConsumerOrderShippingGroupList
+	public SmartList<ConsumerOrderShippingGroup> loadOurConsumerOrderShippingGroupList(RetailscmUserContext userContext, List<ConsumerOrder> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:ConsumerOrderPaymentGroup的bizOrder的ConsumerOrderPaymentGroupList
+	public SmartList<ConsumerOrderPaymentGroup> loadOurConsumerOrderPaymentGroupList(RetailscmUserContext userContext, List<ConsumerOrder> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:ConsumerOrderPriceAdjustment的bizOrder的ConsumerOrderPriceAdjustmentList
+	public SmartList<ConsumerOrderPriceAdjustment> loadOurConsumerOrderPriceAdjustmentList(RetailscmUserContext userContext, List<ConsumerOrder> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreMemberGiftCardConsumeRecord的bizOrder的RetailStoreMemberGiftCardConsumeRecordList
+	public SmartList<RetailStoreMemberGiftCardConsumeRecord> loadOurRetailStoreMemberGiftCardConsumeRecordList(RetailscmUserContext userContext, List<ConsumerOrder> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

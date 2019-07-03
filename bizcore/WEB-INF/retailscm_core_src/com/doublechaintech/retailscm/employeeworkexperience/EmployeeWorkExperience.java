@@ -57,9 +57,9 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 	
 		
 	public 	EmployeeWorkExperience(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setEmployee( null );
 
@@ -357,6 +357,25 @@ public class EmployeeWorkExperience extends BaseEntity implements  java.io.Seria
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof EmployeeWorkExperience){
+		
+			
+			EmployeeWorkExperience dest =(EmployeeWorkExperience)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeStart(getStart());
+			dest.mergeEnd(getEnd());
+			dest.mergeCompany(getCompany());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

@@ -254,8 +254,9 @@ public class ProfessionInterviewManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the professionInterview loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to ProfessionInterview.
+			if (professionInterview.isChanged()){
 			
-			
+			}
 			professionInterview = saveProfessionInterview(userContext, professionInterview, options);
 			return professionInterview;
 			
@@ -628,8 +629,8 @@ public class ProfessionInterviewManagerImpl extends CustomRetailscmCheckerManage
 			String employeeIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfProfessionInterview(professionInterviewId);
-		for(String employeeId: employeeIds){
-			userContext.getChecker().checkIdOfEmployee(employeeId);
+		for(String employeeIdItem: employeeIds){
+			userContext.getChecker().checkIdOfEmployee(employeeIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(ProfessionInterviewManagerException.class);

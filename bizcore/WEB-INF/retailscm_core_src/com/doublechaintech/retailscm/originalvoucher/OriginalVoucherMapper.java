@@ -115,10 +115,10 @@ public class OriginalVoucherMapper extends BaseRowMapper<OriginalVoucher>{
  		if( accountingDocumentId.isEmpty()){
  			return;
  		}
- 		AccountingDocument accountingDocument = originalVoucher.getBelongsTo();
- 		if( accountingDocument != null ){
+ 		AccountingDocument laccountingDocument = originalVoucher.getBelongsTo();
+ 		if( laccountingDocument != null ){
  			//if the root object 'originalVoucher' already have the property, just set the id for it;
- 			accountingDocument.setId(accountingDocumentId);
+ 			laccountingDocument.setId(accountingDocumentId);
  			
  			return;
  		}
@@ -133,10 +133,10 @@ public class OriginalVoucherMapper extends BaseRowMapper<OriginalVoucher>{
  		if( originalVoucherCreationId.isEmpty()){
  			return;
  		}
- 		OriginalVoucherCreation originalVoucherCreation = originalVoucher.getCreation();
- 		if( originalVoucherCreation != null ){
+ 		OriginalVoucherCreation loriginalVoucherCreation = originalVoucher.getCreation();
+ 		if( loriginalVoucherCreation != null ){
  			//if the root object 'originalVoucher' already have the property, just set the id for it;
- 			originalVoucherCreation.setId(originalVoucherCreationId);
+ 			loriginalVoucherCreation.setId(originalVoucherCreationId);
  			
  			return;
  		}
@@ -151,10 +151,10 @@ public class OriginalVoucherMapper extends BaseRowMapper<OriginalVoucher>{
  		if( originalVoucherConfirmationId.isEmpty()){
  			return;
  		}
- 		OriginalVoucherConfirmation originalVoucherConfirmation = originalVoucher.getConfirmation();
- 		if( originalVoucherConfirmation != null ){
+ 		OriginalVoucherConfirmation loriginalVoucherConfirmation = originalVoucher.getConfirmation();
+ 		if( loriginalVoucherConfirmation != null ){
  			//if the root object 'originalVoucher' already have the property, just set the id for it;
- 			originalVoucherConfirmation.setId(originalVoucherConfirmationId);
+ 			loriginalVoucherConfirmation.setId(originalVoucherConfirmationId);
  			
  			return;
  		}
@@ -169,10 +169,10 @@ public class OriginalVoucherMapper extends BaseRowMapper<OriginalVoucher>{
  		if( originalVoucherAuditingId.isEmpty()){
  			return;
  		}
- 		OriginalVoucherAuditing originalVoucherAuditing = originalVoucher.getAuditing();
- 		if( originalVoucherAuditing != null ){
+ 		OriginalVoucherAuditing loriginalVoucherAuditing = originalVoucher.getAuditing();
+ 		if( loriginalVoucherAuditing != null ){
  			//if the root object 'originalVoucher' already have the property, just set the id for it;
- 			originalVoucherAuditing.setId(originalVoucherAuditingId);
+ 			loriginalVoucherAuditing.setId(originalVoucherAuditingId);
  			
  			return;
  		}

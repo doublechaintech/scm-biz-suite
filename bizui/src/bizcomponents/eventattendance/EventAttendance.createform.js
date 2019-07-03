@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   name: '小超见面会参加信息',
   description: '体会不错，考虑加盟',
-  potentialCustomerId: 'PC000001',
-  cityEventId: 'CE000001',
+  potentialCustomerId: 'PC00000001',
+  cityEventId: 'CE00000001',
 }
 */
 
@@ -209,7 +209,7 @@ class EventAttendanceCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class EventAttendanceCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

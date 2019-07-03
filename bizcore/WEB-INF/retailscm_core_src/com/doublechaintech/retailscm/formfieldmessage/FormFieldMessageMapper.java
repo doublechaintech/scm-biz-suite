@@ -70,10 +70,10 @@ public class FormFieldMessageMapper extends BaseRowMapper<FormFieldMessage>{
  		if( genericFormId.isEmpty()){
  			return;
  		}
- 		GenericForm genericForm = formFieldMessage.getForm();
- 		if( genericForm != null ){
+ 		GenericForm lgenericForm = formFieldMessage.getForm();
+ 		if( lgenericForm != null ){
  			//if the root object 'formFieldMessage' already have the property, just set the id for it;
- 			genericForm.setId(genericFormId);
+ 			lgenericForm.setId(genericFormId);
  			
  			return;
  		}

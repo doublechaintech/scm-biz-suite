@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeaward;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class EmployeeAwardJDBCTemplateDAO extends RetailscmNamingServiceDAO implements EmployeeAwardDAO{
  
@@ -50,7 +55,7 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public EmployeeAward load(String id,Map<String,Object> options) throws Exception{
@@ -514,6 +519,9 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<EmployeeAward> employeeAwardList) {		
 		this.enhanceListInternal(employeeAwardList, this.getEmployeeAwardMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeAward> employeeAwardList = ownerEntity.collectRefsWithType(EmployeeAward.INTERNAL_TYPE);
@@ -546,6 +554,9 @@ public class EmployeeAwardJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public SmartList<EmployeeAward> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeAwardMapper());
 	}
+	
+	
+
 }
 
 

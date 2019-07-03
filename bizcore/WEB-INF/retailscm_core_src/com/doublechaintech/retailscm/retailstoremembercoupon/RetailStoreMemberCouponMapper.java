@@ -58,10 +58,10 @@ public class RetailStoreMemberCouponMapper extends BaseRowMapper<RetailStoreMemb
  		if( retailStoreMemberId.isEmpty()){
  			return;
  		}
- 		RetailStoreMember retailStoreMember = retailStoreMemberCoupon.getOwner();
- 		if( retailStoreMember != null ){
+ 		RetailStoreMember lretailStoreMember = retailStoreMemberCoupon.getOwner();
+ 		if( lretailStoreMember != null ){
  			//if the root object 'retailStoreMemberCoupon' already have the property, just set the id for it;
- 			retailStoreMember.setId(retailStoreMemberId);
+ 			lretailStoreMember.setId(retailStoreMemberId);
  			
  			return;
  		}

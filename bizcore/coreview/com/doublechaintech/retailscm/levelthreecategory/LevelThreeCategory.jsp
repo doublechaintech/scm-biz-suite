@@ -129,6 +129,7 @@
 
 	<div class="row">
 <c:set var="levelTwoCategory" value="${ result.parentCategory}" scope="request" />
+<c:set var="referName" value="(parentCategory)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/leveltwocategory/LevelTwoCategory$Info.jsp" />
 
 </div>

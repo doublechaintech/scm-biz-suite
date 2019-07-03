@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.trainingcoursetype;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO implements TrainingCourseTypeDAO{
  
@@ -71,7 +76,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public TrainingCourseType load(String id,Map<String,Object> options) throws Exception{
@@ -614,9 +619,9 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 			return trainingCourseType;
 		}
 		
-		for(CompanyTraining companyTraining: externalCompanyTrainingList){
+		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
 
-			companyTraining.clearFromAll();
+			companyTrainingItem.clearFromAll();
 		}
 		
 		
@@ -646,9 +651,9 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 			return trainingCourseType;
 		}
 		
-		for(CompanyTraining companyTraining: externalCompanyTrainingList){
-			companyTraining.clearCompany();
-			companyTraining.clearTrainingCourseType();
+		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
+			companyTrainingItem.clearCompany();
+			companyTrainingItem.clearTrainingCourseType();
 			
 		}
 		
@@ -690,9 +695,9 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 			return trainingCourseType;
 		}
 		
-		for(CompanyTraining companyTraining: externalCompanyTrainingList){
-			companyTraining.clearInstructor();
-			companyTraining.clearTrainingCourseType();
+		for(CompanyTraining companyTrainingItem: externalCompanyTrainingList){
+			companyTrainingItem.clearInstructor();
+			companyTrainingItem.clearTrainingCourseType();
 			
 		}
 		
@@ -830,6 +835,32 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public void enhanceList(List<TrainingCourseType> trainingCourseTypeList) {		
 		this.enhanceListInternal(trainingCourseTypeList, this.getTrainingCourseTypeMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:CompanyTraining的trainingCourseType的CompanyTrainingList
+	public SmartList<CompanyTraining> loadOurCompanyTrainingList(RetailscmUserContext userContext, List<TrainingCourseType> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(CompanyTraining.TRAINING_COURSE_TYPE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<CompanyTraining> loadedObjs = userContext.getDAOGroup().getCompanyTrainingDAO().findCompanyTrainingWithKey(key, options);
+		Map<String, List<CompanyTraining>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getTrainingCourseType().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<CompanyTraining> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<CompanyTraining> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setCompanyTrainingList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<TrainingCourseType> trainingCourseTypeList = ownerEntity.collectRefsWithType(TrainingCourseType.INTERNAL_TYPE);
@@ -862,6 +893,9 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	public SmartList<TrainingCourseType> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getTrainingCourseTypeMapper());
 	}
+	
+	
+
 }
 
 

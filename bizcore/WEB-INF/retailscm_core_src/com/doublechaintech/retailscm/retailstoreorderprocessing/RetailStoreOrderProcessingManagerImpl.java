@@ -245,8 +245,9 @@ public class RetailStoreOrderProcessingManagerImpl extends CustomRetailscmChecke
 			//will be good when the retailStoreOrderProcessing loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreOrderProcessing.
+			if (retailStoreOrderProcessing.isChanged()){
 			
-			
+			}
 			retailStoreOrderProcessing = saveRetailStoreOrderProcessing(userContext, retailStoreOrderProcessing, options);
 			return retailStoreOrderProcessing;
 			
@@ -520,8 +521,8 @@ public class RetailStoreOrderProcessingManagerImpl extends CustomRetailscmChecke
 			String retailStoreOrderIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreOrderProcessing(retailStoreOrderProcessingId);
-		for(String retailStoreOrderId: retailStoreOrderIds){
-			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderId);
+		for(String retailStoreOrderIdItem: retailStoreOrderIds){
+			userContext.getChecker().checkIdOfRetailStoreOrder(retailStoreOrderIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreOrderProcessingManagerException.class);

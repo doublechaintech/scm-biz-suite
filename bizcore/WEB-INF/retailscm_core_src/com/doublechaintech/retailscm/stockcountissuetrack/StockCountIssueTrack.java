@@ -55,9 +55,9 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 	
 		
 	public 	StockCountIssueTrack(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setStockCount( null );
 
@@ -317,6 +317,24 @@ public class StockCountIssueTrack extends BaseEntity implements  java.io.Seriali
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof StockCountIssueTrack){
+		
+			
+			StockCountIssueTrack dest =(StockCountIssueTrack)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeTitle(getTitle());
+			dest.mergeCountTime(getCountTime());
+			dest.mergeSummary(getSummary());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

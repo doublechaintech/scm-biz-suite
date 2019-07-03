@@ -128,9 +128,11 @@
 
 	<div class="row">
 <c:set var="retailStoreMemberGiftCard" value="${ result.owner}" scope="request" />
+<c:set var="referName" value="(owner)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/retailstoremembergiftcard/RetailStoreMemberGiftCard$Info.jsp" />
 
 <c:set var="consumerOrder" value="${ result.bizOrder}" scope="request" />
+<c:set var="referName" value="(bizOrder)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/consumerorder/ConsumerOrder$Info.jsp" />
 
 </div>

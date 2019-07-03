@@ -240,8 +240,9 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 			//will be good when the retailStoreDecoration loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreDecoration.
+			if (retailStoreDecoration.isChanged()){
 			
-			
+			}
 			retailStoreDecoration = saveRetailStoreDecoration(userContext, retailStoreDecoration, options);
 			return retailStoreDecoration;
 			
@@ -540,8 +541,8 @@ public class RetailStoreDecorationManagerImpl extends CustomRetailscmCheckerMana
 			String retailStoreIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreDecoration(retailStoreDecorationId);
-		for(String retailStoreId: retailStoreIds){
-			userContext.getChecker().checkIdOfRetailStore(retailStoreId);
+		for(String retailStoreIdItem: retailStoreIds){
+			userContext.getChecker().checkIdOfRetailStore(retailStoreIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreDecorationManagerException.class);

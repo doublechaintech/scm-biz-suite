@@ -21,7 +21,7 @@ const testValues = {
   origin: '四川',
   remark: '可口可乐，销售百年的糖水，获得了全世界额青睐',
   brand: '品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品',
-  parentCategoryId: 'LTC000001',
+  parentCategoryId: 'LTC00000001',
 }
 */
 
@@ -211,7 +211,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('origin', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产地" />
+                    <Input size="large" placeholder="产地" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入备注" />
+                    <Input size="large" placeholder="备注" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('brand', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入品牌" />
+                    <Input size="large" placeholder="品牌" />
                   )}
                 </Form.Item>
               </Col>

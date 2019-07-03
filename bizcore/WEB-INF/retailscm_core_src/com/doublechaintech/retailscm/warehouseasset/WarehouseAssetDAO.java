@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.warehouse.Warehouse;
+
 import com.doublechaintech.retailscm.warehouse.WarehouseDAO;
 
 
@@ -50,6 +53,7 @@ public interface WarehouseAssetDAO{
  	public void analyzeWarehouseAssetByOwner(SmartList<WarehouseAsset> resultList, String warehouseId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

@@ -240,8 +240,9 @@ public class RetailStoreFranchisingManagerImpl extends CustomRetailscmCheckerMan
 			//will be good when the retailStoreFranchising loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreFranchising.
+			if (retailStoreFranchising.isChanged()){
 			
-			
+			}
 			retailStoreFranchising = saveRetailStoreFranchising(userContext, retailStoreFranchising, options);
 			return retailStoreFranchising;
 			
@@ -540,8 +541,8 @@ public class RetailStoreFranchisingManagerImpl extends CustomRetailscmCheckerMan
 			String retailStoreIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreFranchising(retailStoreFranchisingId);
-		for(String retailStoreId: retailStoreIds){
-			userContext.getChecker().checkIdOfRetailStore(retailStoreId);
+		for(String retailStoreIdItem: retailStoreIds){
+			userContext.getChecker().checkIdOfRetailStore(retailStoreIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreFranchisingManagerException.class);

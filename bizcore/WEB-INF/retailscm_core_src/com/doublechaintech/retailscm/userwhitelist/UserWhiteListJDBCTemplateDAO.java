@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.userwhitelist;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.userdomain.UserDomainDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class UserWhiteListJDBCTemplateDAO extends RetailscmNamingServiceDAO implements UserWhiteListDAO{
  
@@ -50,7 +55,7 @@ public class UserWhiteListJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public UserWhiteList load(String id,Map<String,Object> options) throws Exception{
@@ -512,6 +517,9 @@ public class UserWhiteListJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public void enhanceList(List<UserWhiteList> userWhiteListList) {		
 		this.enhanceListInternal(userWhiteListList, this.getUserWhiteListMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<UserWhiteList> userWhiteListList = ownerEntity.collectRefsWithType(UserWhiteList.INTERNAL_TYPE);
@@ -544,6 +552,9 @@ public class UserWhiteListJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	public SmartList<UserWhiteList> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getUserWhiteListMapper());
 	}
+	
+	
+
 }
 
 

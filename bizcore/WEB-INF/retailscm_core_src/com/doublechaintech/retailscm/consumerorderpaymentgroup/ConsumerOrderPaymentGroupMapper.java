@@ -57,10 +57,10 @@ public class ConsumerOrderPaymentGroupMapper extends BaseRowMapper<ConsumerOrder
  		if( consumerOrderId.isEmpty()){
  			return;
  		}
- 		ConsumerOrder consumerOrder = consumerOrderPaymentGroup.getBizOrder();
- 		if( consumerOrder != null ){
+ 		ConsumerOrder lconsumerOrder = consumerOrderPaymentGroup.getBizOrder();
+ 		if( lconsumerOrder != null ){
  			//if the root object 'consumerOrderPaymentGroup' already have the property, just set the id for it;
- 			consumerOrder.setId(consumerOrderId);
+ 			lconsumerOrder.setId(consumerOrderId);
  			
  			return;
  		}

@@ -163,6 +163,48 @@ public class LoginHistoryForm extends BaseForm {
 	}
 
 
+	public LoginHistoryForm weixinOpenidFieldOfSecUser(String parameterName, String initValue){
+		FormField field =  weixinOpenidFromSecUser(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public LoginHistoryForm weixinOpenidFieldOfSecUser(String initValue){
+		return weixinOpenidFieldOfSecUser("weixinOpenid",initValue);
+	}
+	public LoginHistoryForm weixinOpenidFieldOfSecUser(){
+		return weixinOpenidFieldOfSecUser("weixinOpenid","");
+	}
+
+
+	public LoginHistoryForm weixinAppidFieldOfSecUser(String parameterName, String initValue){
+		FormField field =  weixinAppidFromSecUser(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public LoginHistoryForm weixinAppidFieldOfSecUser(String initValue){
+		return weixinAppidFieldOfSecUser("weixinAppid",initValue);
+	}
+	public LoginHistoryForm weixinAppidFieldOfSecUser(){
+		return weixinAppidFieldOfSecUser("weixinAppid","");
+	}
+
+
+	public LoginHistoryForm accessTokenFieldOfSecUser(String parameterName, String initValue){
+		FormField field =  accessTokenFromSecUser(parameterName, initValue);
+		this.addFormField(field);	
+		return this;
+	}
+	
+	public LoginHistoryForm accessTokenFieldOfSecUser(String initValue){
+		return accessTokenFieldOfSecUser("accessToken",initValue);
+	}
+	public LoginHistoryForm accessTokenFieldOfSecUser(){
+		return accessTokenFieldOfSecUser("accessToken","");
+	}
+
+
 	public LoginHistoryForm verificationCodeFieldOfSecUser(String parameterName, String initValue){
 		FormField field =  verificationCodeFromSecUser(parameterName, initValue);
 		this.addFormField(field);	

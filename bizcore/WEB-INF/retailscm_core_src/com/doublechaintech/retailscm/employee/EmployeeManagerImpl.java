@@ -405,8 +405,9 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			//will be good when the employee loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Employee.
-			
-			
+			if (employee.isChanged()){
+			employee.updateLastUpdateTime(userContext.now());
+			}
 			employee = saveEmployee(userContext, employee, options);
 			return employee;
 			
@@ -2123,8 +2124,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeCompanyTrainingIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeCompanyTrainingId: employeeCompanyTrainingIds){
-			userContext.getChecker().checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingId);
+		for(String employeeCompanyTrainingIdItem: employeeCompanyTrainingIds){
+			userContext.getChecker().checkIdOfEmployeeCompanyTraining(employeeCompanyTrainingIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -2392,8 +2393,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeSkillIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeSkillId: employeeSkillIds){
-			userContext.getChecker().checkIdOfEmployeeSkill(employeeSkillId);
+		for(String employeeSkillIdItem: employeeSkillIds){
+			userContext.getChecker().checkIdOfEmployeeSkill(employeeSkillIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -2626,8 +2627,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeePerformanceIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeePerformanceId: employeePerformanceIds){
-			userContext.getChecker().checkIdOfEmployeePerformance(employeePerformanceId);
+		for(String employeePerformanceIdItem: employeePerformanceIds){
+			userContext.getChecker().checkIdOfEmployeePerformance(employeePerformanceIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -2875,8 +2876,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeWorkExperienceIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeWorkExperienceId: employeeWorkExperienceIds){
-			userContext.getChecker().checkIdOfEmployeeWorkExperience(employeeWorkExperienceId);
+		for(String employeeWorkExperienceIdItem: employeeWorkExperienceIds){
+			userContext.getChecker().checkIdOfEmployeeWorkExperience(employeeWorkExperienceIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -3131,8 +3132,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeLeaveIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeLeaveId: employeeLeaveIds){
-			userContext.getChecker().checkIdOfEmployeeLeave(employeeLeaveId);
+		for(String employeeLeaveIdItem: employeeLeaveIds){
+			userContext.getChecker().checkIdOfEmployeeLeave(employeeLeaveIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -3374,8 +3375,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeInterviewIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeInterviewId: employeeInterviewIds){
-			userContext.getChecker().checkIdOfEmployeeInterview(employeeInterviewId);
+		for(String employeeInterviewIdItem: employeeInterviewIds){
+			userContext.getChecker().checkIdOfEmployeeInterview(employeeInterviewIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -3623,8 +3624,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeAttendanceIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeAttendanceId: employeeAttendanceIds){
-			userContext.getChecker().checkIdOfEmployeeAttendance(employeeAttendanceId);
+		for(String employeeAttendanceIdItem: employeeAttendanceIds){
+			userContext.getChecker().checkIdOfEmployeeAttendance(employeeAttendanceIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -3884,8 +3885,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeQualifierIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeQualifierId: employeeQualifierIds){
-			userContext.getChecker().checkIdOfEmployeeQualifier(employeeQualifierId);
+		for(String employeeQualifierIdItem: employeeQualifierIds){
+			userContext.getChecker().checkIdOfEmployeeQualifier(employeeQualifierIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -4140,8 +4141,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeEducationIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeEducationId: employeeEducationIds){
-			userContext.getChecker().checkIdOfEmployeeEducation(employeeEducationId);
+		for(String employeeEducationIdItem: employeeEducationIds){
+			userContext.getChecker().checkIdOfEmployeeEducation(employeeEducationIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -4392,8 +4393,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeAwardIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeAwardId: employeeAwardIds){
-			userContext.getChecker().checkIdOfEmployeeAward(employeeAwardId);
+		for(String employeeAwardIdItem: employeeAwardIds){
+			userContext.getChecker().checkIdOfEmployeeAward(employeeAwardIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -4670,8 +4671,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String employeeSalarySheetIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String employeeSalarySheetId: employeeSalarySheetIds){
-			userContext.getChecker().checkIdOfEmployeeSalarySheet(employeeSalarySheetId);
+		for(String employeeSalarySheetIdItem: employeeSalarySheetIds){
+			userContext.getChecker().checkIdOfEmployeeSalarySheet(employeeSalarySheetIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);
@@ -4972,8 +4973,8 @@ public class EmployeeManagerImpl extends CustomRetailscmCheckerManager implement
 			String payingOffIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfEmployee(employeeId);
-		for(String payingOffId: payingOffIds){
-			userContext.getChecker().checkIdOfPayingOff(payingOffId);
+		for(String payingOffIdItem: payingOffIds){
+			userContext.getChecker().checkIdOfPayingOff(payingOffIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(EmployeeManagerException.class);

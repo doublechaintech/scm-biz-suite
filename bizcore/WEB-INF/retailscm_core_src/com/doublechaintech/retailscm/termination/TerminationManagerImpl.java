@@ -264,8 +264,9 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the termination loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Termination.
+			if (termination.isChanged()){
 			
-			
+			}
 			termination = saveTermination(userContext, termination, options);
 			return termination;
 			
@@ -756,8 +757,8 @@ public class TerminationManagerImpl extends CustomRetailscmCheckerManager implem
 			String employeeIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfTermination(terminationId);
-		for(String employeeId: employeeIds){
-			userContext.getChecker().checkIdOfEmployee(employeeId);
+		for(String employeeIdItem: employeeIds){
+			userContext.getChecker().checkIdOfEmployee(employeeIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(TerminationManagerException.class);

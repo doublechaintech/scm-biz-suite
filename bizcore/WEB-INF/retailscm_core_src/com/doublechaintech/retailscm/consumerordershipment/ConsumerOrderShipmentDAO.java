@@ -9,6 +9,8 @@ import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
 
 
+
+
 public interface ConsumerOrderShipmentDAO{
 
 	
@@ -41,6 +43,7 @@ public interface ConsumerOrderShipmentDAO{
 	
 	
 	public SmartList<ConsumerOrderShipment> queryList(String sql, Object ... parmeters);
+
 }
 
 

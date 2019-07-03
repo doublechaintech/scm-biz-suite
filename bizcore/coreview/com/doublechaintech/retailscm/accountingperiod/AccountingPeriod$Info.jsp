@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A AccountingPeriod">${userContext.localeMap['accounting_period']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A AccountingPeriod">${userContext.localeMap['accounting_period']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

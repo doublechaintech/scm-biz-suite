@@ -18,6 +18,9 @@ public class SecUserMapper extends BaseRowMapper<SecUser>{
  		setMobile(secUser, rs, rowNumber); 		
  		setEmail(secUser, rs, rowNumber); 		
  		setPwd(secUser, rs, rowNumber); 		
+ 		setWeixinOpenid(secUser, rs, rowNumber); 		
+ 		setWeixinAppid(secUser, rs, rowNumber); 		
+ 		setAccessToken(secUser, rs, rowNumber); 		
  		setVerificationCode(secUser, rs, rowNumber); 		
  		setVerificationCodeExpire(secUser, rs, rowNumber); 		
  		setLastLoginTime(secUser, rs, rowNumber); 		
@@ -93,6 +96,42 @@ public class SecUserMapper extends BaseRowMapper<SecUser>{
 		secUser.setPwd(pwd);
 	}
 		
+	protected void setWeixinOpenid(SecUser secUser, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		String weixinOpenid = rs.getString(SecUserTable.COLUMN_WEIXIN_OPENID);
+		if(weixinOpenid == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		secUser.setWeixinOpenid(weixinOpenid);
+	}
+		
+	protected void setWeixinAppid(SecUser secUser, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		String weixinAppid = rs.getString(SecUserTable.COLUMN_WEIXIN_APPID);
+		if(weixinAppid == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		secUser.setWeixinAppid(weixinAppid);
+	}
+		
+	protected void setAccessToken(SecUser secUser, ResultSet rs, int rowNumber) throws SQLException{
+	
+		//there will be issue when the type is double/int/long
+		String accessToken = rs.getString(SecUserTable.COLUMN_ACCESS_TOKEN);
+		if(accessToken == null){
+			//do nothing when nothing found in database
+			return;
+		}
+		
+		secUser.setAccessToken(accessToken);
+	}
+		
 	protected void setVerificationCode(SecUser secUser, ResultSet rs, int rowNumber) throws SQLException{
 	
 		//there will be issue when the type is double/int/long
@@ -137,10 +176,10 @@ public class SecUserMapper extends BaseRowMapper<SecUser>{
  		if( userDomainId.isEmpty()){
  			return;
  		}
- 		UserDomain userDomain = secUser.getDomain();
- 		if( userDomain != null ){
+ 		UserDomain luserDomain = secUser.getDomain();
+ 		if( luserDomain != null ){
  			//if the root object 'secUser' already have the property, just set the id for it;
- 			userDomain.setId(userDomainId);
+ 			luserDomain.setId(userDomainId);
  			
  			return;
  		}
@@ -155,10 +194,10 @@ public class SecUserMapper extends BaseRowMapper<SecUser>{
  		if( secUserBlockingId.isEmpty()){
  			return;
  		}
- 		SecUserBlocking secUserBlocking = secUser.getBlocking();
- 		if( secUserBlocking != null ){
+ 		SecUserBlocking lsecUserBlocking = secUser.getBlocking();
+ 		if( lsecUserBlocking != null ){
  			//if the root object 'secUser' already have the property, just set the id for it;
- 			secUserBlocking.setId(secUserBlockingId);
+ 			lsecUserBlocking.setId(secUserBlockingId);
  			
  			return;
  		}

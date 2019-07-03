@@ -271,8 +271,9 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 			//will be good when the instructor loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Instructor.
-			
-			
+			if (instructor.isChanged()){
+			instructor.updateLastUpdateTime(userContext.now());
+			}
 			instructor = saveInstructor(userContext, instructor, options);
 			return instructor;
 			
@@ -609,8 +610,8 @@ public class InstructorManagerImpl extends CustomRetailscmCheckerManager impleme
 			String companyTrainingIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfInstructor(instructorId);
-		for(String companyTrainingId: companyTrainingIds){
-			userContext.getChecker().checkIdOfCompanyTraining(companyTrainingId);
+		for(String companyTrainingIdItem: companyTrainingIds){
+			userContext.getChecker().checkIdOfCompanyTraining(companyTrainingIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(InstructorManagerException.class);

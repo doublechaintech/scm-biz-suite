@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.catalog;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountry
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements CatalogDAO{
  
@@ -71,7 +76,7 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public Catalog load(String id,Map<String,Object> options) throws Exception{
@@ -610,9 +615,9 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 			return catalog;
 		}
 		
-		for(LevelOneCategory levelOneCategory: externalLevelOneCategoryList){
+		for(LevelOneCategory levelOneCategoryItem: externalLevelOneCategoryList){
 
-			levelOneCategory.clearFromAll();
+			levelOneCategoryItem.clearFromAll();
 		}
 		
 		
@@ -738,6 +743,32 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	public void enhanceList(List<Catalog> catalogList) {		
 		this.enhanceListInternal(catalogList, this.getCatalogMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:LevelOneCategory的catalog的LevelOneCategoryList
+	public SmartList<LevelOneCategory> loadOurLevelOneCategoryList(RetailscmUserContext userContext, List<Catalog> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(LevelOneCategory.CATALOG_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<LevelOneCategory> loadedObjs = userContext.getDAOGroup().getLevelOneCategoryDAO().findLevelOneCategoryWithKey(key, options);
+		Map<String, List<LevelOneCategory>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getCatalog().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<LevelOneCategory> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<LevelOneCategory> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setLevelOneCategoryList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Catalog> catalogList = ownerEntity.collectRefsWithType(Catalog.INTERNAL_TYPE);
@@ -770,6 +801,9 @@ public class CatalogJDBCTemplateDAO extends RetailscmNamingServiceDAO implements
 	public SmartList<Catalog> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getCatalogMapper());
 	}
+	
+	
+
 }
 
 

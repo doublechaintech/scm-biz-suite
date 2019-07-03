@@ -7,6 +7,11 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.employee.Employee;
+import com.doublechaintech.retailscm.payingoff.PayingOff;
+import com.doublechaintech.retailscm.salarygrade.SalaryGrade;
+
 import com.doublechaintech.retailscm.salarygrade.SalaryGradeDAO;
 import com.doublechaintech.retailscm.payingoff.PayingOffDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
@@ -68,6 +73,7 @@ public interface EmployeeSalarySheetDAO{
  	public void analyzeEmployeeSalarySheetByPayingOff(SmartList<EmployeeSalarySheet> resultList, String payingOffId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

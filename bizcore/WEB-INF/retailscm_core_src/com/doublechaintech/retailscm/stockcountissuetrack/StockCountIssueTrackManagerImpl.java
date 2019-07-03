@@ -247,8 +247,9 @@ public class StockCountIssueTrackManagerImpl extends CustomRetailscmCheckerManag
 			//will be good when the stockCountIssueTrack loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to StockCountIssueTrack.
+			if (stockCountIssueTrack.isChanged()){
 			
-			
+			}
 			stockCountIssueTrack = saveStockCountIssueTrack(userContext, stockCountIssueTrack, options);
 			return stockCountIssueTrack;
 			

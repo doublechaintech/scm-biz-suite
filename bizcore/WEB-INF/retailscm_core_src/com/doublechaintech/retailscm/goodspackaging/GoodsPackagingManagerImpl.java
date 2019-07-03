@@ -257,8 +257,9 @@ public class GoodsPackagingManagerImpl extends CustomRetailscmCheckerManager imp
 			//will be good when the goodsPackaging loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GoodsPackaging.
+			if (goodsPackaging.isChanged()){
 			
-			
+			}
 			goodsPackaging = saveGoodsPackaging(userContext, goodsPackaging, options);
 			return goodsPackaging;
 			
@@ -707,8 +708,8 @@ public class GoodsPackagingManagerImpl extends CustomRetailscmCheckerManager imp
 			String goodsIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfGoodsPackaging(goodsPackagingId);
-		for(String goodsId: goodsIds){
-			userContext.getChecker().checkIdOfGoods(goodsId);
+		for(String goodsIdItem: goodsIds){
+			userContext.getChecker().checkIdOfGoods(goodsIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(GoodsPackagingManagerException.class);

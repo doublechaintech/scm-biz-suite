@@ -63,9 +63,9 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	ListAccess(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setApp( null );
 
@@ -477,6 +477,28 @@ public class ListAccess extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof ListAccess){
+		
+			
+			ListAccess dest =(ListAccess)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeInternalName(getInternalName());
+			dest.mergeReadPermission(getReadPermission());
+			dest.mergeCreatePermission(getCreatePermission());
+			dest.mergeDeletePermission(getDeletePermission());
+			dest.mergeUpdatePermission(getUpdatePermission());
+			dest.mergeExecutionPermission(getExecutionPermission());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

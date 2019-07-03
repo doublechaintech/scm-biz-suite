@@ -7,6 +7,9 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.supplyorder.SupplyOrder;
+
 import com.doublechaintech.retailscm.supplyorder.SupplyOrderDAO;
 
 
@@ -50,6 +53,7 @@ public interface SupplyOrderLineItemDAO{
  	public void analyzeSupplyOrderLineItemByBizOrder(SmartList<SupplyOrderLineItem> resultList, String supplyOrderId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

@@ -128,6 +128,7 @@
 
 	<div class="row">
 <c:set var="goodsShelfStockCount" value="${ result.stockCount}" scope="request" />
+<c:set var="referName" value="(stockCount)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/goodsshelfstockcount/GoodsShelfStockCount$Info.jsp" />
 
 </div>

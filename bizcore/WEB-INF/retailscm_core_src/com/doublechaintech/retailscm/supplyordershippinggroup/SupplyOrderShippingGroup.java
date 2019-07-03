@@ -53,9 +53,9 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 	
 		
 	public 	SupplyOrderShippingGroup(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setBizOrder( null );
 
@@ -277,6 +277,23 @@ public class SupplyOrderShippingGroup extends BaseEntity implements  java.io.Ser
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof SupplyOrderShippingGroup){
+		
+			
+			SupplyOrderShippingGroup dest =(SupplyOrderShippingGroup)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeAmount(getAmount());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

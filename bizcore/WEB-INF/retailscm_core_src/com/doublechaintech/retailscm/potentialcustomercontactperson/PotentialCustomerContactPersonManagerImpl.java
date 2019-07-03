@@ -255,8 +255,9 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 			//will be good when the potentialCustomerContactPerson loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to PotentialCustomerContactPerson.
+			if (potentialCustomerContactPerson.isChanged()){
 			
-			
+			}
 			potentialCustomerContactPerson = savePotentialCustomerContactPerson(userContext, potentialCustomerContactPerson, options);
 			return potentialCustomerContactPerson;
 			
@@ -598,8 +599,8 @@ public class PotentialCustomerContactPersonManagerImpl extends CustomRetailscmCh
 			String potentialCustomerContactIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfPotentialCustomerContactPerson(potentialCustomerContactPersonId);
-		for(String potentialCustomerContactId: potentialCustomerContactIds){
-			userContext.getChecker().checkIdOfPotentialCustomerContact(potentialCustomerContactId);
+		for(String potentialCustomerContactIdItem: potentialCustomerContactIds){
+			userContext.getChecker().checkIdOfPotentialCustomerContact(potentialCustomerContactIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(PotentialCustomerContactPersonManagerException.class);

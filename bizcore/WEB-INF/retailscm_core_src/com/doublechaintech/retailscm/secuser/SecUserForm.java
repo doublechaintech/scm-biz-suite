@@ -90,6 +90,48 @@ public class SecUserForm extends BaseForm {
 	}
 
 
+	public SecUserForm weixinOpenidField(String parameterName, String initValue){
+		FormField field = weixinOpenidFromSecUser(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public SecUserForm weixinOpenidField(String initValue){
+		return weixinOpenidField("weixinOpenid",initValue);
+	}
+	public SecUserForm weixinOpenidField(){
+		return weixinOpenidField("weixinOpenid","");
+	}
+
+
+	public SecUserForm weixinAppidField(String parameterName, String initValue){
+		FormField field = weixinAppidFromSecUser(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public SecUserForm weixinAppidField(String initValue){
+		return weixinAppidField("weixinAppid",initValue);
+	}
+	public SecUserForm weixinAppidField(){
+		return weixinAppidField("weixinAppid","");
+	}
+
+
+	public SecUserForm accessTokenField(String parameterName, String initValue){
+		FormField field = accessTokenFromSecUser(parameterName, initValue);		
+		this.addFormField(field);
+		return this;
+	}
+	
+	public SecUserForm accessTokenField(String initValue){
+		return accessTokenField("accessToken",initValue);
+	}
+	public SecUserForm accessTokenField(){
+		return accessTokenField("accessToken","");
+	}
+
+
 	public SecUserForm verificationCodeField(String parameterName, String initValue){
 		FormField field = verificationCodeFromSecUser(parameterName, initValue);		
 		this.addFormField(field);

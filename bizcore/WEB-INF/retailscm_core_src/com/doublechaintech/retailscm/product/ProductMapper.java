@@ -61,10 +61,10 @@ public class ProductMapper extends BaseRowMapper<Product>{
  		if( levelThreeCategoryId.isEmpty()){
  			return;
  		}
- 		LevelThreeCategory levelThreeCategory = product.getParentCategory();
- 		if( levelThreeCategory != null ){
+ 		LevelThreeCategory llevelThreeCategory = product.getParentCategory();
+ 		if( llevelThreeCategory != null ){
  			//if the root object 'product' already have the property, just set the id for it;
- 			levelThreeCategory.setId(levelThreeCategoryId);
+ 			llevelThreeCategory.setId(levelThreeCategoryId);
  			
  			return;
  		}

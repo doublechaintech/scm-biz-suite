@@ -82,10 +82,10 @@ public class TransportTaskTrackMapper extends BaseRowMapper<TransportTaskTrack>{
  		if( transportTaskId.isEmpty()){
  			return;
  		}
- 		TransportTask transportTask = transportTaskTrack.getMovement();
- 		if( transportTask != null ){
+ 		TransportTask ltransportTask = transportTaskTrack.getMovement();
+ 		if( ltransportTask != null ){
  			//if the root object 'transportTaskTrack' already have the property, just set the id for it;
- 			transportTask.setId(transportTaskId);
+ 			ltransportTask.setId(transportTaskId);
  			
  			return;
  		}

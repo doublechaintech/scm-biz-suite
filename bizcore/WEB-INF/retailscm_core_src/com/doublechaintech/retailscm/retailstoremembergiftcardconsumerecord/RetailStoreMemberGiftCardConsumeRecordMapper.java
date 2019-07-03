@@ -60,10 +60,10 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
  		if( retailStoreMemberGiftCardId.isEmpty()){
  			return;
  		}
- 		RetailStoreMemberGiftCard retailStoreMemberGiftCard = retailStoreMemberGiftCardConsumeRecord.getOwner();
- 		if( retailStoreMemberGiftCard != null ){
+ 		RetailStoreMemberGiftCard lretailStoreMemberGiftCard = retailStoreMemberGiftCardConsumeRecord.getOwner();
+ 		if( lretailStoreMemberGiftCard != null ){
  			//if the root object 'retailStoreMemberGiftCardConsumeRecord' already have the property, just set the id for it;
- 			retailStoreMemberGiftCard.setId(retailStoreMemberGiftCardId);
+ 			lretailStoreMemberGiftCard.setId(retailStoreMemberGiftCardId);
  			
  			return;
  		}
@@ -78,10 +78,10 @@ public class RetailStoreMemberGiftCardConsumeRecordMapper extends BaseRowMapper<
  		if( consumerOrderId.isEmpty()){
  			return;
  		}
- 		ConsumerOrder consumerOrder = retailStoreMemberGiftCardConsumeRecord.getBizOrder();
- 		if( consumerOrder != null ){
+ 		ConsumerOrder lconsumerOrder = retailStoreMemberGiftCardConsumeRecord.getBizOrder();
+ 		if( lconsumerOrder != null ){
  			//if the root object 'retailStoreMemberGiftCardConsumeRecord' already have the property, just set the id for it;
- 			consumerOrder.setId(consumerOrderId);
+ 			lconsumerOrder.setId(consumerOrderId);
  			
  			return;
  		}

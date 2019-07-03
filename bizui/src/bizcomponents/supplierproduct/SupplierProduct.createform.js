@@ -20,7 +20,7 @@ const testValues = {
   productName: '黑人牙膏',
   productDescription: '最好的黑人牙膏，只卖3块喽',
   productUnit: '件',
-  supplierId: 'GS000001',
+  supplierId: 'GS00000001',
 }
 */
 
@@ -209,7 +209,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入品名" />
+                    <Input size="large" placeholder="品名" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产品描述" />
+                    <Input size="large" placeholder="产品描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productUnit', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产品单元" />
+                    <Input size="large" placeholder="产品单元" />
                   )}
                 </Form.Item>
               </Col>

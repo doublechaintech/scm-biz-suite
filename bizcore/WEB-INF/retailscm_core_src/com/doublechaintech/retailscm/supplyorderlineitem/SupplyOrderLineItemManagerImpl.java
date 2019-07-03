@@ -257,8 +257,9 @@ public class SupplyOrderLineItemManagerImpl extends CustomRetailscmCheckerManage
 			//will be good when the supplyOrderLineItem loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to SupplyOrderLineItem.
+			if (supplyOrderLineItem.isChanged()){
 			
-			
+			}
 			supplyOrderLineItem = saveSupplyOrderLineItem(userContext, supplyOrderLineItem, options);
 			return supplyOrderLineItem;
 			

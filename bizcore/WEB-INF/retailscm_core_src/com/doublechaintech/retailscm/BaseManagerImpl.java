@@ -1105,16 +1105,15 @@ public class BaseManagerImpl implements AccessControledService,BeanNameAware{
 		
 	}
 	
-	
+	protected long parseLong(String longExpr) {
+		return Long.valueOf(longExpr);
+	}
 	
 	
 	
 	
 	
 }
-
-
-
 
 
 

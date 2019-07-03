@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employeeworkexperience;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -24,7 +26,10 @@ import com.doublechaintech.retailscm.employee.EmployeeDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServiceDAO implements EmployeeWorkExperienceDAO{
  
@@ -50,7 +55,7 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServic
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public EmployeeWorkExperience load(String id,Map<String,Object> options) throws Exception{
@@ -516,6 +521,9 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServic
 	public void enhanceList(List<EmployeeWorkExperience> employeeWorkExperienceList) {		
 		this.enhanceListInternal(employeeWorkExperienceList, this.getEmployeeWorkExperienceMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<EmployeeWorkExperience> employeeWorkExperienceList = ownerEntity.collectRefsWithType(EmployeeWorkExperience.INTERNAL_TYPE);
@@ -548,6 +556,9 @@ public class EmployeeWorkExperienceJDBCTemplateDAO extends RetailscmNamingServic
 	public SmartList<EmployeeWorkExperience> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeWorkExperienceMapper());
 	}
+	
+	
+
 }
 
 

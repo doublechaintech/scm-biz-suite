@@ -258,8 +258,9 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 			//will be good when the accountingPeriod loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to AccountingPeriod.
+			if (accountingPeriod.isChanged()){
 			
-			
+			}
 			accountingPeriod = saveAccountingPeriod(userContext, accountingPeriod, options);
 			return accountingPeriod;
 			
@@ -568,8 +569,8 @@ public class AccountingPeriodManagerImpl extends CustomRetailscmCheckerManager i
 			String accountingDocumentIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfAccountingPeriod(accountingPeriodId);
-		for(String accountingDocumentId: accountingDocumentIds){
-			userContext.getChecker().checkIdOfAccountingDocument(accountingDocumentId);
+		for(String accountingDocumentIdItem: accountingDocumentIds){
+			userContext.getChecker().checkIdOfAccountingDocument(accountingDocumentIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(AccountingPeriodManagerException.class);

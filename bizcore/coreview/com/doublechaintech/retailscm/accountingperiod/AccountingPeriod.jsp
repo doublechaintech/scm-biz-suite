@@ -129,6 +129,7 @@
 
 	<div class="row">
 <c:set var="accountSet" value="${ result.accountSet}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/accountset/AccountSet$Info.jsp" />
 
 </div>

@@ -18,9 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2019-01-19',
-  endDate: '2018-01-30',
-  accountSetId: 'AS000001',
+  startDate: '2017-05-08',
+  endDate: '2019-05-02',
+  accountSetId: 'AS00000001',
 }
 */
 
@@ -209,7 +209,7 @@ class AccountingPeriodCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class AccountingPeriodCreateForm extends Component {
                   {getFieldDecorator('startDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入开始日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始日期" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class AccountingPeriodCreateForm extends Component {
                   {getFieldDecorator('endDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入结束日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束日期" />
                   )}
                 </Form.Item>
               </Col>

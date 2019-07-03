@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.accountingdocumentline;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.accountingdocument.AccountingDocumentDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServiceDAO implements AccountingDocumentLineDAO{
  
@@ -61,7 +66,7 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public AccountingDocumentLine load(String id,Map<String,Object> options) throws Exception{
@@ -647,6 +652,9 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
 	public void enhanceList(List<AccountingDocumentLine> accountingDocumentLineList) {		
 		this.enhanceListInternal(accountingDocumentLineList, this.getAccountingDocumentLineMapper());
 	}
+	
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<AccountingDocumentLine> accountingDocumentLineList = ownerEntity.collectRefsWithType(AccountingDocumentLine.INTERNAL_TYPE);
@@ -679,6 +687,9 @@ public class AccountingDocumentLineJDBCTemplateDAO extends RetailscmNamingServic
 	public SmartList<AccountingDocumentLine> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getAccountingDocumentLineMapper());
 	}
+	
+	
+
 }
 
 

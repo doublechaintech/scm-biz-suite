@@ -256,8 +256,9 @@ public class TruckDriverManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the truckDriver loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to TruckDriver.
+			if (truckDriver.isChanged()){
 			
-			
+			}
 			truckDriver = saveTruckDriver(userContext, truckDriver, options);
 			return truckDriver;
 			
@@ -626,8 +627,8 @@ public class TruckDriverManagerImpl extends CustomRetailscmCheckerManager implem
 			String transportTaskIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfTruckDriver(truckDriverId);
-		for(String transportTaskId: transportTaskIds){
-			userContext.getChecker().checkIdOfTransportTask(transportTaskId);
+		for(String transportTaskIdItem: transportTaskIds){
+			userContext.getChecker().checkIdOfTransportTask(transportTaskIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(TruckDriverManagerException.class);

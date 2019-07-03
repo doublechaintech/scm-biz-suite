@@ -21,8 +21,8 @@ const testValues = {
   name: '曾倩',
   mobile: '13677778888',
   description: '负责开拓市场，具有极强的开拓能力',
-  cityServiceCenterId: 'RSCSC000001',
-  cityPartnerId: 'CP000001',
+  cityServiceCenterId: 'RSCSC00000001',
+  cityPartnerId: 'CP00000001',
 }
 */
 
@@ -144,7 +144,7 @@ class PotentialCustomerAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +154,7 @@ class PotentialCustomerAssociateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入手机" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -164,7 +164,7 @@ class PotentialCustomerAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

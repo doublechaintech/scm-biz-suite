@@ -7,6 +7,16 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.supplierspace.SupplierSpace;
+import com.doublechaintech.retailscm.warehouseasset.WarehouseAsset;
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+import com.doublechaintech.retailscm.damagespace.DamageSpace;
+import com.doublechaintech.retailscm.receivingspace.ReceivingSpace;
+import com.doublechaintech.retailscm.smartpallet.SmartPallet;
+import com.doublechaintech.retailscm.shippingspace.ShippingSpace;
+import com.doublechaintech.retailscm.storagespace.StorageSpace;
+
 import com.doublechaintech.retailscm.damagespace.DamageSpaceDAO;
 import com.doublechaintech.retailscm.warehouseasset.WarehouseAssetDAO;
 import com.doublechaintech.retailscm.smartpallet.SmartPalletDAO;
@@ -106,6 +116,28 @@ public interface WarehouseDAO{
  	public void analyzeWarehouseByOwner(SmartList<Warehouse> resultList, String retailStoreCountryCenterId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:StorageSpace的warehouse的StorageSpaceList
+	public SmartList<StorageSpace> loadOurStorageSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SmartPallet的warehouse的SmartPalletList
+	public SmartList<SmartPallet> loadOurSmartPalletList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:SupplierSpace的warehouse的SupplierSpaceList
+	public SmartList<SupplierSpace> loadOurSupplierSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:ReceivingSpace的warehouse的ReceivingSpaceList
+	public SmartList<ReceivingSpace> loadOurReceivingSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:ShippingSpace的warehouse的ShippingSpaceList
+	public SmartList<ShippingSpace> loadOurShippingSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:DamageSpace的warehouse的DamageSpaceList
+	public SmartList<DamageSpace> loadOurDamageSpaceList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:WarehouseAsset的owner的WarehouseAssetList
+	public SmartList<WarehouseAsset> loadOurWarehouseAssetList(RetailscmUserContext userContext, List<Warehouse> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.employee;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -70,7 +72,10 @@ import com.doublechaintech.retailscm.employeeeducation.EmployeeEducationDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implements EmployeeDAO{
  
@@ -423,7 +428,7 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public Employee load(String id,Map<String,Object> options) throws Exception{
@@ -3240,9 +3245,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeCompanyTraining employeeCompanyTraining: externalEmployeeCompanyTrainingList){
+		for(EmployeeCompanyTraining employeeCompanyTrainingItem: externalEmployeeCompanyTrainingList){
 
-			employeeCompanyTraining.clearFromAll();
+			employeeCompanyTrainingItem.clearFromAll();
 		}
 		
 		
@@ -3272,9 +3277,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeCompanyTraining employeeCompanyTraining: externalEmployeeCompanyTrainingList){
-			employeeCompanyTraining.clearTraining();
-			employeeCompanyTraining.clearEmployee();
+		for(EmployeeCompanyTraining employeeCompanyTrainingItem: externalEmployeeCompanyTrainingList){
+			employeeCompanyTrainingItem.clearTraining();
+			employeeCompanyTrainingItem.clearEmployee();
 			
 		}
 		
@@ -3312,9 +3317,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeSkill employeeSkill: externalEmployeeSkillList){
+		for(EmployeeSkill employeeSkillItem: externalEmployeeSkillList){
 
-			employeeSkill.clearFromAll();
+			employeeSkillItem.clearFromAll();
 		}
 		
 		
@@ -3344,9 +3349,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeSkill employeeSkill: externalEmployeeSkillList){
-			employeeSkill.clearSkillType();
-			employeeSkill.clearEmployee();
+		for(EmployeeSkill employeeSkillItem: externalEmployeeSkillList){
+			employeeSkillItem.clearSkillType();
+			employeeSkillItem.clearEmployee();
 			
 		}
 		
@@ -3384,9 +3389,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeePerformance employeePerformance: externalEmployeePerformanceList){
+		for(EmployeePerformance employeePerformanceItem: externalEmployeePerformanceList){
 
-			employeePerformance.clearFromAll();
+			employeePerformanceItem.clearFromAll();
 		}
 		
 		
@@ -3412,9 +3417,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeWorkExperience employeeWorkExperience: externalEmployeeWorkExperienceList){
+		for(EmployeeWorkExperience employeeWorkExperienceItem: externalEmployeeWorkExperienceList){
 
-			employeeWorkExperience.clearFromAll();
+			employeeWorkExperienceItem.clearFromAll();
 		}
 		
 		
@@ -3440,9 +3445,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeLeave employeeLeave: externalEmployeeLeaveList){
+		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
 
-			employeeLeave.clearFromAll();
+			employeeLeaveItem.clearFromAll();
 		}
 		
 		
@@ -3472,9 +3477,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeLeave employeeLeave: externalEmployeeLeaveList){
-			employeeLeave.clearType();
-			employeeLeave.clearWho();
+		for(EmployeeLeave employeeLeaveItem: externalEmployeeLeaveList){
+			employeeLeaveItem.clearType();
+			employeeLeaveItem.clearWho();
 			
 		}
 		
@@ -3512,9 +3517,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeInterview employeeInterview: externalEmployeeInterviewList){
+		for(EmployeeInterview employeeInterviewItem: externalEmployeeInterviewList){
 
-			employeeInterview.clearFromAll();
+			employeeInterviewItem.clearFromAll();
 		}
 		
 		
@@ -3544,9 +3549,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeInterview employeeInterview: externalEmployeeInterviewList){
-			employeeInterview.clearInterviewType();
-			employeeInterview.clearEmployee();
+		for(EmployeeInterview employeeInterviewItem: externalEmployeeInterviewList){
+			employeeInterviewItem.clearInterviewType();
+			employeeInterviewItem.clearEmployee();
 			
 		}
 		
@@ -3584,9 +3589,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeAttendance employeeAttendance: externalEmployeeAttendanceList){
+		for(EmployeeAttendance employeeAttendanceItem: externalEmployeeAttendanceList){
 
-			employeeAttendance.clearFromAll();
+			employeeAttendanceItem.clearFromAll();
 		}
 		
 		
@@ -3612,9 +3617,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeQualifier employeeQualifier: externalEmployeeQualifierList){
+		for(EmployeeQualifier employeeQualifierItem: externalEmployeeQualifierList){
 
-			employeeQualifier.clearFromAll();
+			employeeQualifierItem.clearFromAll();
 		}
 		
 		
@@ -3640,9 +3645,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeEducation employeeEducation: externalEmployeeEducationList){
+		for(EmployeeEducation employeeEducationItem: externalEmployeeEducationList){
 
-			employeeEducation.clearFromAll();
+			employeeEducationItem.clearFromAll();
 		}
 		
 		
@@ -3668,9 +3673,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeAward employeeAward: externalEmployeeAwardList){
+		for(EmployeeAward employeeAwardItem: externalEmployeeAwardList){
 
-			employeeAward.clearFromAll();
+			employeeAwardItem.clearFromAll();
 		}
 		
 		
@@ -3696,9 +3701,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeSalarySheet employeeSalarySheet: externalEmployeeSalarySheetList){
+		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
 
-			employeeSalarySheet.clearFromAll();
+			employeeSalarySheetItem.clearFromAll();
 		}
 		
 		
@@ -3728,9 +3733,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(EmployeeSalarySheet employeeSalarySheet: externalEmployeeSalarySheetList){
-			employeeSalarySheet.clearCurrentSalaryGrade();
-			employeeSalarySheet.clearEmployee();
+		for(EmployeeSalarySheet employeeSalarySheetItem: externalEmployeeSalarySheetList){
+			employeeSalarySheetItem.clearCurrentSalaryGrade();
+			employeeSalarySheetItem.clearEmployee();
 			
 		}
 		
@@ -3768,9 +3773,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 			return employee;
 		}
 		
-		for(PayingOff payingOff: externalPayingOffList){
+		for(PayingOff payingOffItem: externalPayingOffList){
 
-			payingOff.clearFromAll();
+			payingOffItem.clearFromAll();
 		}
 		
 		
@@ -4919,6 +4924,285 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	public void enhanceList(List<Employee> employeeList) {		
 		this.enhanceListInternal(employeeList, this.getEmployeeMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的employee的EmployeeCompanyTrainingList
+	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeCompanyTraining.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeCompanyTraining> loadedObjs = userContext.getDAOGroup().getEmployeeCompanyTrainingDAO().findEmployeeCompanyTrainingWithKey(key, options);
+		Map<String, List<EmployeeCompanyTraining>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeCompanyTraining> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeCompanyTraining> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeCompanyTrainingList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeSkill的employee的EmployeeSkillList
+	public SmartList<EmployeeSkill> loadOurEmployeeSkillList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeSkill.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeSkill> loadedObjs = userContext.getDAOGroup().getEmployeeSkillDAO().findEmployeeSkillWithKey(key, options);
+		Map<String, List<EmployeeSkill>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeSkill> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeSkill> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeSkillList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeePerformance的employee的EmployeePerformanceList
+	public SmartList<EmployeePerformance> loadOurEmployeePerformanceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeePerformance.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeePerformance> loadedObjs = userContext.getDAOGroup().getEmployeePerformanceDAO().findEmployeePerformanceWithKey(key, options);
+		Map<String, List<EmployeePerformance>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeePerformance> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeePerformance> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeePerformanceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeWorkExperience的employee的EmployeeWorkExperienceList
+	public SmartList<EmployeeWorkExperience> loadOurEmployeeWorkExperienceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeWorkExperience.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeWorkExperience> loadedObjs = userContext.getDAOGroup().getEmployeeWorkExperienceDAO().findEmployeeWorkExperienceWithKey(key, options);
+		Map<String, List<EmployeeWorkExperience>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeWorkExperience> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeWorkExperience> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeWorkExperienceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeLeave的who的EmployeeLeaveList
+	public SmartList<EmployeeLeave> loadOurEmployeeLeaveList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeLeave.WHO_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeLeave> loadedObjs = userContext.getDAOGroup().getEmployeeLeaveDAO().findEmployeeLeaveWithKey(key, options);
+		Map<String, List<EmployeeLeave>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getWho().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeLeave> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeLeave> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeLeaveList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeInterview的employee的EmployeeInterviewList
+	public SmartList<EmployeeInterview> loadOurEmployeeInterviewList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeInterview.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeInterview> loadedObjs = userContext.getDAOGroup().getEmployeeInterviewDAO().findEmployeeInterviewWithKey(key, options);
+		Map<String, List<EmployeeInterview>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeInterview> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeInterview> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeInterviewList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeAttendance的employee的EmployeeAttendanceList
+	public SmartList<EmployeeAttendance> loadOurEmployeeAttendanceList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeAttendance.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeAttendance> loadedObjs = userContext.getDAOGroup().getEmployeeAttendanceDAO().findEmployeeAttendanceWithKey(key, options);
+		Map<String, List<EmployeeAttendance>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeAttendance> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeAttendance> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeAttendanceList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeQualifier的employee的EmployeeQualifierList
+	public SmartList<EmployeeQualifier> loadOurEmployeeQualifierList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeQualifier.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeQualifier> loadedObjs = userContext.getDAOGroup().getEmployeeQualifierDAO().findEmployeeQualifierWithKey(key, options);
+		Map<String, List<EmployeeQualifier>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeQualifier> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeQualifier> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeQualifierList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeEducation的employee的EmployeeEducationList
+	public SmartList<EmployeeEducation> loadOurEmployeeEducationList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeEducation.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeEducation> loadedObjs = userContext.getDAOGroup().getEmployeeEducationDAO().findEmployeeEducationWithKey(key, options);
+		Map<String, List<EmployeeEducation>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeEducation> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeEducation> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeEducationList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeAward的employee的EmployeeAwardList
+	public SmartList<EmployeeAward> loadOurEmployeeAwardList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeAward.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeAward> loadedObjs = userContext.getDAOGroup().getEmployeeAwardDAO().findEmployeeAwardWithKey(key, options);
+		Map<String, List<EmployeeAward>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeAward> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeAward> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeAwardList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:EmployeeSalarySheet的employee的EmployeeSalarySheetList
+	public SmartList<EmployeeSalarySheet> loadOurEmployeeSalarySheetList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(EmployeeSalarySheet.EMPLOYEE_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<EmployeeSalarySheet> loadedObjs = userContext.getDAOGroup().getEmployeeSalarySheetDAO().findEmployeeSalarySheetWithKey(key, options);
+		Map<String, List<EmployeeSalarySheet>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getEmployee().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<EmployeeSalarySheet> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<EmployeeSalarySheet> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setEmployeeSalarySheetList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	// 需要一个加载引用我的对象的enhance方法:PayingOff的paidFor的PayingOffList
+	public SmartList<PayingOff> loadOurPayingOffList(RetailscmUserContext userContext, List<Employee> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(PayingOff.PAID_FOR_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<PayingOff> loadedObjs = userContext.getDAOGroup().getPayingOffDAO().findPayingOffWithKey(key, options);
+		Map<String, List<PayingOff>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getPaidFor().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<PayingOff> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<PayingOff> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setPayingOffList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<Employee> employeeList = ownerEntity.collectRefsWithType(Employee.INTERNAL_TYPE);
@@ -4951,6 +5235,9 @@ public class EmployeeJDBCTemplateDAO extends RetailscmNamingServiceDAO implement
 	public SmartList<Employee> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getEmployeeMapper());
 	}
+	
+	
+
 }
 
 

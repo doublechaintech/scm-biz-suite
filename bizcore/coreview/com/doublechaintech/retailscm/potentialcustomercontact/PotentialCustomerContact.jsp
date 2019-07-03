@@ -128,12 +128,15 @@
 
 	<div class="row">
 <c:set var="potentialCustomer" value="${ result.potentialCustomer}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/potentialcustomer/PotentialCustomer$Info.jsp" />
 
 <c:set var="cityPartner" value="${ result.cityPartner}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/citypartner/CityPartner$Info.jsp" />
 
 <c:set var="potentialCustomerContactPerson" value="${ result.contactTo}" scope="request" />
+<c:set var="referName" value="(contactTo)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/potentialcustomercontactperson/PotentialCustomerContactPerson$Info.jsp" />
 
 </div>

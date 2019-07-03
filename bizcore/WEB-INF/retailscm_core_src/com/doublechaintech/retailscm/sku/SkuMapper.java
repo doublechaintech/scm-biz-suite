@@ -74,10 +74,10 @@ public class SkuMapper extends BaseRowMapper<Sku>{
  		if( productId.isEmpty()){
  			return;
  		}
- 		Product product = sku.getProduct();
- 		if( product != null ){
+ 		Product lproduct = sku.getProduct();
+ 		if( lproduct != null ){
  			//if the root object 'sku' already have the property, just set the id for it;
- 			product.setId(productId);
+ 			lproduct.setId(productId);
  			
  			return;
  		}

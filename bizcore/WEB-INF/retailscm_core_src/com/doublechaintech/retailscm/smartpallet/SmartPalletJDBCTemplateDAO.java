@@ -3,6 +3,8 @@ package com.doublechaintech.retailscm.smartpallet;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.math.BigDecimal;
@@ -26,7 +28,10 @@ import com.doublechaintech.retailscm.goods.GoodsDAO;
 
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 
 public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implements SmartPalletDAO{
  
@@ -71,7 +76,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%06d";
+		return getShortName(this.getName())+"%08d";
 	}
 	
 	public SmartPallet load(String id,Map<String,Object> options) throws Exception{
@@ -636,9 +641,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
+		for(Goods goodsItem: externalGoodsList){
 
-			goods.clearFromAll();
+			goodsItem.clearFromAll();
 		}
 		
 		
@@ -668,9 +673,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearSku();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearSku();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -712,9 +717,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearReceivingSpace();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearReceivingSpace();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -756,9 +761,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearGoodsAllocation();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearGoodsAllocation();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -800,9 +805,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearShippingSpace();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearShippingSpace();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -844,9 +849,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearTransportTask();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearTransportTask();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -888,9 +893,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStore();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStore();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -932,9 +937,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearBizOrder();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearBizOrder();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -976,9 +981,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 			return smartPallet;
 		}
 		
-		for(Goods goods: externalGoodsList){
-			goods.clearRetailStoreOrder();
-			goods.clearSmartPallet();
+		for(Goods goodsItem: externalGoodsList){
+			goodsItem.clearRetailStoreOrder();
+			goodsItem.clearSmartPallet();
 			
 		}
 		
@@ -1116,6 +1121,32 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public void enhanceList(List<SmartPallet> smartPalletList) {		
 		this.enhanceListInternal(smartPalletList, this.getSmartPalletMapper());
 	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的smartPallet的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<SmartPallet> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(Goods.SMART_PALLET_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<Goods> loadedObjs = userContext.getDAOGroup().getGoodsDAO().findGoodsWithKey(key, options);
+		Map<String, List<Goods>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getSmartPallet().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<Goods> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<Goods> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setGoodsList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
 	@Override
 	public void collectAndEnhance(BaseEntity ownerEntity) {
 		List<SmartPallet> smartPalletList = ownerEntity.collectRefsWithType(SmartPallet.INTERNAL_TYPE);
@@ -1148,6 +1179,9 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	public SmartList<SmartPallet> queryList(String sql, Object... parameters) {
 	    return this.queryForList(sql, parameters, this.getSmartPalletMapper());
 	}
+	
+	
+
 }
 
 

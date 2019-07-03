@@ -20,7 +20,7 @@ const testValues = {
   name: '运货卡车司机',
   driverLicenseNumber: '51099887733',
   contactNumber: '18777778888',
-  belongsToId: 'TF000001',
+  belongsToId: 'TF00000001',
 }
 */
 
@@ -209,7 +209,7 @@ class TruckDriverCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class TruckDriverCreateForm extends Component {
                   {getFieldDecorator('driverLicenseNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入驾驶执照号码" />
+                    <Input size="large" placeholder="驾驶执照号码" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class TruckDriverCreateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入联系电话" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>

@@ -57,10 +57,10 @@ public class SupplyOrderPaymentGroupMapper extends BaseRowMapper<SupplyOrderPaym
  		if( supplyOrderId.isEmpty()){
  			return;
  		}
- 		SupplyOrder supplyOrder = supplyOrderPaymentGroup.getBizOrder();
- 		if( supplyOrder != null ){
+ 		SupplyOrder lsupplyOrder = supplyOrderPaymentGroup.getBizOrder();
+ 		if( lsupplyOrder != null ){
  			//if the root object 'supplyOrderPaymentGroup' already have the property, just set the id for it;
- 			supplyOrder.setId(supplyOrderId);
+ 			lsupplyOrder.setId(supplyOrderId);
  			
  			return;
  		}

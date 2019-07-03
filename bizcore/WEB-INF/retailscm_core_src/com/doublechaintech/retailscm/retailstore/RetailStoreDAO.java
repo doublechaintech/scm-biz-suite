@@ -7,6 +7,21 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing;
+import com.doublechaintech.retailscm.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitation;
+import com.doublechaintech.retailscm.transporttask.TransportTask;
+import com.doublechaintech.retailscm.retailstorefranchising.RetailStoreFranchising;
+import com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder;
+import com.doublechaintech.retailscm.goods.Goods;
+import com.doublechaintech.retailscm.consumerorder.ConsumerOrder;
+import com.doublechaintech.retailscm.retailstoredecoration.RetailStoreDecoration;
+import com.doublechaintech.retailscm.retailstorecreation.RetailStoreCreation;
+import com.doublechaintech.retailscm.retailstoreopening.RetailStoreOpening;
+import com.doublechaintech.retailscm.accountset.AccountSet;
+import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenter;
+
 import com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosingDAO;
 import com.doublechaintech.retailscm.retailstorecityservicecenter.RetailStoreCityServiceCenterDAO;
 import com.doublechaintech.retailscm.goods.GoodsDAO;
@@ -213,6 +228,22 @@ public interface RetailStoreDAO{
  	public void analyzeRetailStoreByClosing(SmartList<RetailStore> resultList, String retailStoreClosingId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:ConsumerOrder的store的ConsumerOrderList
+	public SmartList<ConsumerOrder> loadOurConsumerOrderList(RetailscmUserContext userContext, List<RetailStore> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrder的buyer的RetailStoreOrderList
+	public SmartList<RetailStoreOrder> loadOurRetailStoreOrderList(RetailscmUserContext userContext, List<RetailStore> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:Goods的retailStore的GoodsList
+	public SmartList<Goods> loadOurGoodsList(RetailscmUserContext userContext, List<RetailStore> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:TransportTask的end的TransportTaskList
+	public SmartList<TransportTask> loadOurTransportTaskList(RetailscmUserContext userContext, List<RetailStore> us, Map<String,Object> options) throws Exception;
+	
+	// 需要一个加载引用我的对象的enhance方法:AccountSet的retailStore的AccountSetList
+	public SmartList<AccountSet> loadOurAccountSetList(RetailscmUserContext userContext, List<RetailStore> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

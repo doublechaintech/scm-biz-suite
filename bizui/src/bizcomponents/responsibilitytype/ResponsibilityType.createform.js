@@ -20,7 +20,7 @@ const testValues = {
   code: 'S0000',
   baseDescription: '合规管理',
   detailDescription: '负责集团及其他分公司信息系统有效运作，并使集团在技术上领先',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 
@@ -209,7 +209,7 @@ class ResponsibilityTypeCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入代码" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class ResponsibilityTypeCreateForm extends Component {
                   {getFieldDecorator('baseDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入基本描述" />
+                    <Input size="large" placeholder="基本描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class ResponsibilityTypeCreateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入详细描述" />
+                    <Input size="large" placeholder="详细描述" />
                   )}
                 </Form.Item>
               </Col>

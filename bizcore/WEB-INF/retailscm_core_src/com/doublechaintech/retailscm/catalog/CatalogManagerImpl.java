@@ -243,8 +243,9 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 			//will be good when the catalog loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to Catalog.
+			if (catalog.isChanged()){
 			
-			
+			}
 			catalog = saveCatalog(userContext, catalog, options);
 			return catalog;
 			
@@ -524,8 +525,8 @@ public class CatalogManagerImpl extends CustomRetailscmCheckerManager implements
 			String levelOneCategoryIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfCatalog(catalogId);
-		for(String levelOneCategoryId: levelOneCategoryIds){
-			userContext.getChecker().checkIdOfLevelOneCategory(levelOneCategoryId);
+		for(String levelOneCategoryIdItem: levelOneCategoryIds){
+			userContext.getChecker().checkIdOfLevelOneCategory(levelOneCategoryIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(CatalogManagerException.class);

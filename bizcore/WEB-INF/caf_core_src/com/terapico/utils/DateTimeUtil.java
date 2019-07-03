@@ -20,10 +20,10 @@ public class DateTimeUtil {
 	public static long WEEK_IN_MS = DAY_IN_MS * 7;
 
 	public static final DateTimeFormatter DAY_FORMAT = DateTimeFormatter.ofPattern("yyyy-M-d");
-	public static final DateTimeFormatter DAY_TIME_MINUTE_FORMAT = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm");
-	public static final DateTimeFormatter DAY_TIME_MINUTE_FORMAT_S = DateTimeFormatter.ofPattern("yyyy-M-dd'T'HH:mm");
-	public static final DateTimeFormatter DAY_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm:ss");
-	public static final DateTimeFormatter DAY_TIME_FORMAT_S = DateTimeFormatter.ofPattern("yyyy-M-d'T'HH:mm:ss");
+	public static final DateTimeFormatter DAY_TIME_MINUTE_FORMAT = DateTimeFormatter.ofPattern("yyyy-M-d H:m");
+	public static final DateTimeFormatter DAY_TIME_MINUTE_FORMAT_S = DateTimeFormatter.ofPattern("yyyy-M-dd'T'H:m");
+	public static final DateTimeFormatter DAY_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-M-d H:m:s");
+	public static final DateTimeFormatter DAY_TIME_FORMAT_S = DateTimeFormatter.ofPattern("yyyy-M-d'T'H:m:s");
 	private static final DateTimeFormatter[] allFormats = new DateTimeFormatter[] { DAY_FORMAT, DAY_TIME_FORMAT,
 			DAY_TIME_FORMAT_S, DAY_TIME_MINUTE_FORMAT, DAY_TIME_MINUTE_FORMAT_S };
 
@@ -57,7 +57,7 @@ public class DateTimeUtil {
 	public static Date SetTimeInADay(Date date, int hour, int minute, int second) {
 		Calendar cald = Calendar.getInstance();
 		cald.setTime(date);
-		cald.set(Calendar.HOUR, hour);
+		cald.set(Calendar.HOUR_OF_DAY, hour);
 		cald.set(Calendar.MINUTE, minute);
 		cald.set(Calendar.SECOND, second);
 		return cald.getTime();
@@ -76,7 +76,9 @@ public class DateTimeUtil {
 	public static Date addHours(Date date, int hours) {
 		return toDate(toLocalDateTime(date).plusHours(hours));
 	}
-
+	public static Date addMS(Date date, long ms) {
+		return new Date(date.getTime() + ms);
+	}
 	private static Date toDate(LocalDateTime input) {
 		return Date.from(input.atZone(ZoneId.systemDefault()).toInstant());
 	}
@@ -103,7 +105,7 @@ public class DateTimeUtil {
 		return (int) duration.toDays();
 	}
 
-	public static int calcDifferHours(DateTime startTime, DateTime endTime) {
+	public static int calcDifferHours(Date startTime, Date endTime) {
 		LocalDateTime d1 = toLocalDateTime(startTime);
 		LocalDateTime d2 = toLocalDateTime(endTime);
 		Duration duration = Duration.between(d1, d2);
@@ -230,6 +232,11 @@ public class DateTimeUtil {
 		if (tsInMs < 0) {
 			return "负" + result;
 		}
+		return result;
+	}
+
+	public static Date getDateBefore(long timeInMS) {
+		Date result = toDate(LocalDateTime.now().minusSeconds(timeInMS/1000));
 		return result;
 	}
 }

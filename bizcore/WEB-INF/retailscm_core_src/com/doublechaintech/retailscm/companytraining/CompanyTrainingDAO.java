@@ -7,6 +7,12 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenter;
+import com.doublechaintech.retailscm.instructor.Instructor;
+import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseType;
+import com.doublechaintech.retailscm.employeecompanytraining.EmployeeCompanyTraining;
+
 import com.doublechaintech.retailscm.instructor.InstructorDAO;
 import com.doublechaintech.retailscm.trainingcoursetype.TrainingCourseTypeDAO;
 import com.doublechaintech.retailscm.retailstorecountrycenter.RetailStoreCountryCenterDAO;
@@ -80,6 +86,10 @@ public interface CompanyTrainingDAO{
  	public void analyzeCompanyTrainingByTrainingCourseType(SmartList<CompanyTraining> resultList, String trainingCourseTypeId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:EmployeeCompanyTraining的training的EmployeeCompanyTrainingList
+	public SmartList<EmployeeCompanyTraining> loadOurEmployeeCompanyTrainingList(RetailscmUserContext userContext, List<CompanyTraining> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

@@ -7,6 +7,11 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomer;
+import com.doublechaintech.retailscm.citypartner.CityPartner;
+import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPerson;
+
 import com.doublechaintech.retailscm.potentialcustomer.PotentialCustomerDAO;
 import com.doublechaintech.retailscm.citypartner.CityPartnerDAO;
 import com.doublechaintech.retailscm.potentialcustomercontactperson.PotentialCustomerContactPersonDAO;
@@ -68,6 +73,7 @@ public interface PotentialCustomerContactDAO{
  	public void analyzePotentialCustomerContactByContactTo(SmartList<PotentialCustomerContact> resultList, String potentialCustomerContactPersonId, Map<String,Object> options);
 
  
- }
+ 
+}
 
 

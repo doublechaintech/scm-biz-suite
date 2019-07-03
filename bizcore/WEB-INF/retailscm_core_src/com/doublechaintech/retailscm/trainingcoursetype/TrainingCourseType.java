@@ -58,9 +58,9 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 	
 		
 	public 	TrainingCourseType(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setCompany( null );
 
@@ -437,6 +437,24 @@ public class TrainingCourseType extends BaseEntity implements  java.io.Serializa
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof TrainingCourseType){
+		
+			
+			TrainingCourseType dest =(TrainingCourseType)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeCode(getCode());
+			dest.mergeName(getName());
+			dest.mergeDescription(getDescription());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	

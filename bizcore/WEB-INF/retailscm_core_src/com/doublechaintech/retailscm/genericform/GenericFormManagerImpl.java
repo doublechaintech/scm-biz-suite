@@ -253,8 +253,9 @@ public class GenericFormManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the genericForm loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to GenericForm.
+			if (genericForm.isChanged()){
 			
-			
+			}
 			genericForm = saveGenericForm(userContext, genericForm, options);
 			return genericForm;
 			
@@ -483,8 +484,8 @@ public class GenericFormManagerImpl extends CustomRetailscmCheckerManager implem
 			String formMessageIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfGenericForm(genericFormId);
-		for(String formMessageId: formMessageIds){
-			userContext.getChecker().checkIdOfFormMessage(formMessageId);
+		for(String formMessageIdItem: formMessageIds){
+			userContext.getChecker().checkIdOfFormMessage(formMessageIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(GenericFormManagerException.class);
@@ -731,8 +732,8 @@ public class GenericFormManagerImpl extends CustomRetailscmCheckerManager implem
 			String formFieldMessageIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfGenericForm(genericFormId);
-		for(String formFieldMessageId: formFieldMessageIds){
-			userContext.getChecker().checkIdOfFormFieldMessage(formFieldMessageId);
+		for(String formFieldMessageIdItem: formFieldMessageIds){
+			userContext.getChecker().checkIdOfFormFieldMessage(formFieldMessageIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(GenericFormManagerException.class);
@@ -1043,8 +1044,8 @@ public class GenericFormManagerImpl extends CustomRetailscmCheckerManager implem
 			String formFieldIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfGenericForm(genericFormId);
-		for(String formFieldId: formFieldIds){
-			userContext.getChecker().checkIdOfFormField(formFieldId);
+		for(String formFieldIdItem: formFieldIds){
+			userContext.getChecker().checkIdOfFormField(formFieldIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(GenericFormManagerException.class);
@@ -1353,8 +1354,8 @@ public class GenericFormManagerImpl extends CustomRetailscmCheckerManager implem
 			String formActionIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfGenericForm(genericFormId);
-		for(String formActionId: formActionIds){
-			userContext.getChecker().checkIdOfFormAction(formActionId);
+		for(String formActionIdItem: formActionIds){
+			userContext.getChecker().checkIdOfFormAction(formActionIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(GenericFormManagerException.class);

@@ -69,10 +69,10 @@ public class MemberRewardPointMapper extends BaseRowMapper<MemberRewardPoint>{
  		if( retailStoreMemberId.isEmpty()){
  			return;
  		}
- 		RetailStoreMember retailStoreMember = memberRewardPoint.getOwner();
- 		if( retailStoreMember != null ){
+ 		RetailStoreMember lretailStoreMember = memberRewardPoint.getOwner();
+ 		if( lretailStoreMember != null ){
  			//if the root object 'memberRewardPoint' already have the property, just set the id for it;
- 			retailStoreMember.setId(retailStoreMemberId);
+ 			lretailStoreMember.setId(retailStoreMemberId);
  			
  			return;
  		}

@@ -132,9 +132,11 @@
 
 	<div class="row">
 <c:set var="retailStoreCountryCenter" value="${ result.buyer}" scope="request" />
+<c:set var="referName" value="(buyer)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/retailstorecountrycenter/RetailStoreCountryCenter$Info.jsp" />
 
 <c:set var="goodsSupplier" value="${ result.seller}" scope="request" />
+<c:set var="referName" value="(seller)" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/goodssupplier/GoodsSupplier$Info.jsp" />
 
 </div>

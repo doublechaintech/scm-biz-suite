@@ -70,10 +70,10 @@ public class ConsumerOrderMapper extends BaseRowMapper<ConsumerOrder>{
  		if( retailStoreMemberId.isEmpty()){
  			return;
  		}
- 		RetailStoreMember retailStoreMember = consumerOrder.getConsumer();
- 		if( retailStoreMember != null ){
+ 		RetailStoreMember lretailStoreMember = consumerOrder.getConsumer();
+ 		if( lretailStoreMember != null ){
  			//if the root object 'consumerOrder' already have the property, just set the id for it;
- 			retailStoreMember.setId(retailStoreMemberId);
+ 			lretailStoreMember.setId(retailStoreMemberId);
  			
  			return;
  		}
@@ -88,10 +88,10 @@ public class ConsumerOrderMapper extends BaseRowMapper<ConsumerOrder>{
  		if( supplyOrderConfirmationId.isEmpty()){
  			return;
  		}
- 		SupplyOrderConfirmation supplyOrderConfirmation = consumerOrder.getConfirmation();
- 		if( supplyOrderConfirmation != null ){
+ 		SupplyOrderConfirmation lsupplyOrderConfirmation = consumerOrder.getConfirmation();
+ 		if( lsupplyOrderConfirmation != null ){
  			//if the root object 'consumerOrder' already have the property, just set the id for it;
- 			supplyOrderConfirmation.setId(supplyOrderConfirmationId);
+ 			lsupplyOrderConfirmation.setId(supplyOrderConfirmationId);
  			
  			return;
  		}
@@ -106,10 +106,10 @@ public class ConsumerOrderMapper extends BaseRowMapper<ConsumerOrder>{
  		if( supplyOrderApprovalId.isEmpty()){
  			return;
  		}
- 		SupplyOrderApproval supplyOrderApproval = consumerOrder.getApproval();
- 		if( supplyOrderApproval != null ){
+ 		SupplyOrderApproval lsupplyOrderApproval = consumerOrder.getApproval();
+ 		if( lsupplyOrderApproval != null ){
  			//if the root object 'consumerOrder' already have the property, just set the id for it;
- 			supplyOrderApproval.setId(supplyOrderApprovalId);
+ 			lsupplyOrderApproval.setId(supplyOrderApprovalId);
  			
  			return;
  		}
@@ -124,10 +124,10 @@ public class ConsumerOrderMapper extends BaseRowMapper<ConsumerOrder>{
  		if( supplyOrderProcessingId.isEmpty()){
  			return;
  		}
- 		SupplyOrderProcessing supplyOrderProcessing = consumerOrder.getProcessing();
- 		if( supplyOrderProcessing != null ){
+ 		SupplyOrderProcessing lsupplyOrderProcessing = consumerOrder.getProcessing();
+ 		if( lsupplyOrderProcessing != null ){
  			//if the root object 'consumerOrder' already have the property, just set the id for it;
- 			supplyOrderProcessing.setId(supplyOrderProcessingId);
+ 			lsupplyOrderProcessing.setId(supplyOrderProcessingId);
  			
  			return;
  		}
@@ -142,10 +142,10 @@ public class ConsumerOrderMapper extends BaseRowMapper<ConsumerOrder>{
  		if( supplyOrderShipmentId.isEmpty()){
  			return;
  		}
- 		SupplyOrderShipment supplyOrderShipment = consumerOrder.getShipment();
- 		if( supplyOrderShipment != null ){
+ 		SupplyOrderShipment lsupplyOrderShipment = consumerOrder.getShipment();
+ 		if( lsupplyOrderShipment != null ){
  			//if the root object 'consumerOrder' already have the property, just set the id for it;
- 			supplyOrderShipment.setId(supplyOrderShipmentId);
+ 			lsupplyOrderShipment.setId(supplyOrderShipmentId);
  			
  			return;
  		}
@@ -160,10 +160,10 @@ public class ConsumerOrderMapper extends BaseRowMapper<ConsumerOrder>{
  		if( supplyOrderDeliveryId.isEmpty()){
  			return;
  		}
- 		SupplyOrderDelivery supplyOrderDelivery = consumerOrder.getDelivery();
- 		if( supplyOrderDelivery != null ){
+ 		SupplyOrderDelivery lsupplyOrderDelivery = consumerOrder.getDelivery();
+ 		if( lsupplyOrderDelivery != null ){
  			//if the root object 'consumerOrder' already have the property, just set the id for it;
- 			supplyOrderDelivery.setId(supplyOrderDeliveryId);
+ 			lsupplyOrderDelivery.setId(supplyOrderDeliveryId);
  			
  			return;
  		}
@@ -178,10 +178,10 @@ public class ConsumerOrderMapper extends BaseRowMapper<ConsumerOrder>{
  		if( retailStoreId.isEmpty()){
  			return;
  		}
- 		RetailStore retailStore = consumerOrder.getStore();
- 		if( retailStore != null ){
+ 		RetailStore lretailStore = consumerOrder.getStore();
+ 		if( lretailStore != null ){
  			//if the root object 'consumerOrder' already have the property, just set the id for it;
- 			retailStore.setId(retailStoreId);
+ 			lretailStore.setId(retailStoreId);
  			
  			return;
  		}

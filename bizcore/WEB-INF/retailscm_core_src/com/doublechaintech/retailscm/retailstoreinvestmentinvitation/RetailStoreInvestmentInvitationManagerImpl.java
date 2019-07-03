@@ -240,8 +240,9 @@ public class RetailStoreInvestmentInvitationManagerImpl extends CustomRetailscmC
 			//will be good when the retailStoreInvestmentInvitation loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to RetailStoreInvestmentInvitation.
+			if (retailStoreInvestmentInvitation.isChanged()){
 			
-			
+			}
 			retailStoreInvestmentInvitation = saveRetailStoreInvestmentInvitation(userContext, retailStoreInvestmentInvitation, options);
 			return retailStoreInvestmentInvitation;
 			
@@ -540,8 +541,8 @@ public class RetailStoreInvestmentInvitationManagerImpl extends CustomRetailscmC
 			String retailStoreIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfRetailStoreInvestmentInvitation(retailStoreInvestmentInvitationId);
-		for(String retailStoreId: retailStoreIds){
-			userContext.getChecker().checkIdOfRetailStore(retailStoreId);
+		for(String retailStoreIdItem: retailStoreIds){
+			userContext.getChecker().checkIdOfRetailStore(retailStoreIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(RetailStoreInvestmentInvitationManagerException.class);

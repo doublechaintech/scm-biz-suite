@@ -14,7 +14,7 @@
 	
 	<div class="inner-section">
 	
-	<b title="A SalaryGrade">${userContext.localeMap['salary_grade']} </b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+	<b title="A SalaryGrade">${userContext.localeMap['salary_grade']} ${referName}</b><a href="#"><i class="fa fa-refresh" aria-hidden="true"></i></a>
 	<hr/>
 	<ul>
 	

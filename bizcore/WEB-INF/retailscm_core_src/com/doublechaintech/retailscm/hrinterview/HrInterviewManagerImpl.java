@@ -254,8 +254,9 @@ public class HrInterviewManagerImpl extends CustomRetailscmCheckerManager implem
 			//will be good when the hrInterview loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to HrInterview.
+			if (hrInterview.isChanged()){
 			
-			
+			}
 			hrInterview = saveHrInterview(userContext, hrInterview, options);
 			return hrInterview;
 			
@@ -628,8 +629,8 @@ public class HrInterviewManagerImpl extends CustomRetailscmCheckerManager implem
 			String employeeIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfHrInterview(hrInterviewId);
-		for(String employeeId: employeeIds){
-			userContext.getChecker().checkIdOfEmployee(employeeId);
+		for(String employeeIdItem: employeeIds){
+			userContext.getChecker().checkIdOfEmployee(employeeIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(HrInterviewManagerException.class);

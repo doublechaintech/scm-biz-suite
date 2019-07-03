@@ -7,6 +7,10 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProduct;
+import com.doublechaintech.retailscm.retailstoremember.RetailStoreMember;
+
 import com.doublechaintech.retailscm.memberwishlistproduct.MemberWishlistProductDAO;
 import com.doublechaintech.retailscm.retailstoremember.RetailStoreMemberDAO;
 
@@ -58,6 +62,10 @@ public interface MemberWishlistDAO{
  	public void analyzeMemberWishlistByOwner(SmartList<MemberWishlist> resultList, String retailStoreMemberId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:MemberWishlistProduct的owner的MemberWishlistProductList
+	public SmartList<MemberWishlistProduct> loadOurMemberWishlistProductList(RetailscmUserContext userContext, List<MemberWishlist> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

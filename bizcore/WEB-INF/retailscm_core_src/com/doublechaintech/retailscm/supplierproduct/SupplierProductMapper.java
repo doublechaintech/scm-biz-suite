@@ -82,10 +82,10 @@ public class SupplierProductMapper extends BaseRowMapper<SupplierProduct>{
  		if( goodsSupplierId.isEmpty()){
  			return;
  		}
- 		GoodsSupplier goodsSupplier = supplierProduct.getSupplier();
- 		if( goodsSupplier != null ){
+ 		GoodsSupplier lgoodsSupplier = supplierProduct.getSupplier();
+ 		if( lgoodsSupplier != null ){
  			//if the root object 'supplierProduct' already have the property, just set the id for it;
- 			goodsSupplier.setId(goodsSupplierId);
+ 			lgoodsSupplier.setId(goodsSupplierId);
  			
  			return;
  		}

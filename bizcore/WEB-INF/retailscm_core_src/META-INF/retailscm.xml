@@ -15,17 +15,17 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
 	
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
 		<property name="url" value="${app.database.jdbcURL}" />
 		<property name="username" value="${app.database.username}" />
 		<property name="password" value="${app.database.password}" />
+		<property name="driverClassName" value="${app.database.driverClass}" />
 		<property name="initialSize" value="${app.database.pool.initialSize}" />
 		<property name="maxActive" value="${app.database.pool.maxActive}" />
 		
 		
 		<property name="testOnBorrow" value="true" />
 		<property name="testWhileIdle" value="true" />
-		<property name="validationQuery" value="SELECT 1" />       
+		<property name="validationQuery" value="SELECT 1 from sec_user_data" />       
 		<property name="removeAbandonedTimeout" value="55" />
 		<property name="removeAbandoned" value="true"/>
 
@@ -1461,9 +1461,6 @@
 	</bean>
 	<bean id="DAOGroup" parent="DAOGroupBase"></bean>
 </beans>
-
-
-
 
 
 

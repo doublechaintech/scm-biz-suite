@@ -255,8 +255,9 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 			//will be good when the payingOff loaded from this JVM process cache.
 			//also good when there is a ram based DAO implementation
 			//make changes to PayingOff.
+			if (payingOff.isChanged()){
 			
-			
+			}
 			payingOff = savePayingOff(userContext, payingOff, options);
 			return payingOff;
 			
@@ -613,8 +614,8 @@ public class PayingOffManagerImpl extends CustomRetailscmCheckerManager implemen
 			String employeeSalarySheetIds[],String [] tokensExpr) throws Exception {
 		
 		userContext.getChecker().checkIdOfPayingOff(payingOffId);
-		for(String employeeSalarySheetId: employeeSalarySheetIds){
-			userContext.getChecker().checkIdOfEmployeeSalarySheet(employeeSalarySheetId);
+		for(String employeeSalarySheetIdItem: employeeSalarySheetIds){
+			userContext.getChecker().checkIdOfEmployeeSalarySheet(employeeSalarySheetIdItem);
 		}
 		
 		userContext.getChecker().throwExceptionIfHasErrors(PayingOffManagerException.class);

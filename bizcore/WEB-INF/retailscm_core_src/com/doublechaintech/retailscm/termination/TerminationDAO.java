@@ -7,6 +7,11 @@ import com.doublechaintech.retailscm.BaseEntity;
 import com.doublechaintech.retailscm.SmartList;
 import com.doublechaintech.retailscm.MultipleAccessKey;
 import com.doublechaintech.retailscm.RetailscmUserContext;
+
+import com.doublechaintech.retailscm.employee.Employee;
+import com.doublechaintech.retailscm.terminationtype.TerminationType;
+import com.doublechaintech.retailscm.terminationreason.TerminationReason;
+
 import com.doublechaintech.retailscm.terminationtype.TerminationTypeDAO;
 import com.doublechaintech.retailscm.terminationreason.TerminationReasonDAO;
 import com.doublechaintech.retailscm.employee.EmployeeDAO;
@@ -87,6 +92,10 @@ public interface TerminationDAO{
  	public void analyzeTerminationByType(SmartList<Termination> resultList, String terminationTypeId, Map<String,Object> options);
 
  
- }
+ 
+	// 需要一个加载引用我的对象的enhance方法:Employee的termination的EmployeeList
+	public SmartList<Employee> loadOurEmployeeList(RetailscmUserContext userContext, List<Termination> us, Map<String,Object> options) throws Exception;
+	
+}
 
 

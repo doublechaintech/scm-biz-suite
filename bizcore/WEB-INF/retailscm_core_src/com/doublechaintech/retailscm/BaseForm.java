@@ -1446,27 +1446,27 @@ public class BaseForm extends GenericForm{
 
 	protected FormField investmentInvitationIdFromRetailStore(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("招商");
+		field.setLabel("Invite Investment");
 		field.setLocaleKey("retail_store.investment_invitation");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreInvestmentInvitation");
 		field.setRequired(true);
-		field.setPlaceholder("请填写招商");
+		field.setPlaceholder("请填写Invite Investment");
 		return field;
 	}
 
 	protected FormField franchisingIdFromRetailStore(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("加盟");
+		field.setLabel("特许经营");
 		field.setLocaleKey("retail_store.franchising");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreFranchising");
 		field.setRequired(true);
-		field.setPlaceholder("请填写加盟");
+		field.setPlaceholder("请填写特许经营");
 		return field;
 	}
 
@@ -1485,14 +1485,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField openingIdFromRetailStore(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("开业");
+		field.setLabel("开放");
 		field.setLocaleKey("retail_store.opening");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreOpening");
 		field.setRequired(true);
-		field.setPlaceholder("请填写开业");
+		field.setPlaceholder("请填写开放");
 		return field;
 	}
 
@@ -1849,53 +1849,53 @@ public class BaseForm extends GenericForm{
 
 	protected FormField approvalIdFromConsumerOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("验收");
+		field.setLabel("批准");
 		field.setLocaleKey("consumer_order.approval");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderApproval");
 		field.setRequired(true);
-		field.setPlaceholder("请填写验收");
+		field.setPlaceholder("请填写批准");
 		return field;
 	}
 
 	protected FormField processingIdFromConsumerOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("处理");
+		field.setLabel("过程");
 		field.setLocaleKey("consumer_order.processing");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderProcessing");
 		field.setRequired(true);
-		field.setPlaceholder("请填写处理");
+		field.setPlaceholder("请填写过程");
 		return field;
 	}
 
 	protected FormField shipmentIdFromConsumerOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("装运");
+		field.setLabel("船");
 		field.setLocaleKey("consumer_order.shipment");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderShipment");
 		field.setRequired(true);
-		field.setPlaceholder("请填写装运");
+		field.setPlaceholder("请填写船");
 		return field;
 	}
 
 	protected FormField deliveryIdFromConsumerOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("送货");
+		field.setLabel("交付");
 		field.setLocaleKey("consumer_order.delivery");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderDelivery");
 		field.setRequired(true);
-		field.setPlaceholder("请填写送货");
+		field.setPlaceholder("请填写交付");
 		return field;
 	}
 
@@ -3162,66 +3162,66 @@ public class BaseForm extends GenericForm{
 
 	protected FormField approvalIdFromSupplyOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("验收");
+		field.setLabel("批准");
 		field.setLocaleKey("supply_order.approval");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderApproval");
 		field.setRequired(true);
-		field.setPlaceholder("请填写验收");
+		field.setPlaceholder("请填写批准");
 		return field;
 	}
 
 	protected FormField processingIdFromSupplyOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("处理");
+		field.setLabel("过程");
 		field.setLocaleKey("supply_order.processing");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderProcessing");
 		field.setRequired(true);
-		field.setPlaceholder("请填写处理");
+		field.setPlaceholder("请填写过程");
 		return field;
 	}
 
 	protected FormField pickingIdFromSupplyOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("捡货");
+		field.setLabel("选择");
 		field.setLocaleKey("supply_order.picking");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderPicking");
 		field.setRequired(true);
-		field.setPlaceholder("请填写捡货");
+		field.setPlaceholder("请填写选择");
 		return field;
 	}
 
 	protected FormField shipmentIdFromSupplyOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("装运");
+		field.setLabel("船");
 		field.setLocaleKey("supply_order.shipment");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderShipment");
 		field.setRequired(true);
-		field.setPlaceholder("请填写装运");
+		field.setPlaceholder("请填写船");
 		return field;
 	}
 
 	protected FormField deliveryIdFromSupplyOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("送货");
+		field.setLabel("交付");
 		field.setLocaleKey("supply_order.delivery");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("SupplyOrderDelivery");
 		field.setRequired(true);
-		field.setPlaceholder("请填写送货");
+		field.setPlaceholder("请填写交付");
 		return field;
 	}
 
@@ -3760,66 +3760,66 @@ public class BaseForm extends GenericForm{
 
 	protected FormField approvalIdFromRetailStoreOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("验收");
+		field.setLabel("批准");
 		field.setLocaleKey("retail_store_order.approval");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreOrderApproval");
 		field.setRequired(true);
-		field.setPlaceholder("请填写验收");
+		field.setPlaceholder("请填写批准");
 		return field;
 	}
 
 	protected FormField processingIdFromRetailStoreOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("处理");
+		field.setLabel("过程");
 		field.setLocaleKey("retail_store_order.processing");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreOrderProcessing");
 		field.setRequired(true);
-		field.setPlaceholder("请填写处理");
+		field.setPlaceholder("请填写过程");
 		return field;
 	}
 
 	protected FormField pickingIdFromRetailStoreOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("捡货");
+		field.setLabel("选择");
 		field.setLocaleKey("retail_store_order.picking");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreOrderPicking");
 		field.setRequired(true);
-		field.setPlaceholder("请填写捡货");
+		field.setPlaceholder("请填写选择");
 		return field;
 	}
 
 	protected FormField shipmentIdFromRetailStoreOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("装运");
+		field.setLabel("船");
 		field.setLocaleKey("retail_store_order.shipment");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreOrderShipment");
 		field.setRequired(true);
-		field.setPlaceholder("请填写装运");
+		field.setPlaceholder("请填写船");
 		return field;
 	}
 
 	protected FormField deliveryIdFromRetailStoreOrder(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("送货");
+		field.setLabel("交付");
 		field.setLocaleKey("retail_store_order.delivery");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("RetailStoreOrderDelivery");
 		field.setRequired(true);
-		field.setPlaceholder("请填写送货");
+		field.setPlaceholder("请填写交付");
 		return field;
 	}
 
@@ -5060,14 +5060,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField packagingIdFromGoods(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("包装");
+		field.setLabel("包");
 		field.setLocaleKey("goods.packaging");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("GoodsPackaging");
 		field.setRequired(true);
-		field.setPlaceholder("请填写包装");
+		field.setPlaceholder("请填写包");
 		return field;
 	}
 
@@ -6711,14 +6711,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField postingIdFromAccountingDocument(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("过账");
+		field.setLabel("帖子");
 		field.setLocaleKey("accounting_document.posting");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("AccountingDocumentPosting");
 		field.setRequired(true);
-		field.setPlaceholder("请填写过账");
+		field.setPlaceholder("请填写帖子");
 		return field;
 	}
 
@@ -8453,92 +8453,92 @@ public class BaseForm extends GenericForm{
 
 	protected FormField jobApplicationIdFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("工作申请");
+		field.setLabel("申请的工作");
 		field.setLocaleKey("employee.job_application");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("JobApplication");
 		field.setRequired(true);
-		field.setPlaceholder("请填写工作申请");
+		field.setPlaceholder("请填写申请的工作");
 		return field;
 	}
 
 	protected FormField professionInterviewIdFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("专业面试");
+		field.setLabel("采访的职业");
 		field.setLocaleKey("employee.profession_interview");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("ProfessionInterview");
 		field.setRequired(true);
-		field.setPlaceholder("请填写专业面试");
+		field.setPlaceholder("请填写采访的职业");
 		return field;
 	}
 
 	protected FormField hrInterviewIdFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("人力资源部面试");
+		field.setLabel("面试由人力资源");
 		field.setLocaleKey("employee.hr_interview");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("HrInterview");
 		field.setRequired(true);
-		field.setPlaceholder("请填写人力资源部面试");
+		field.setPlaceholder("请填写面试由人力资源");
 		return field;
 	}
 
 	protected FormField offerApprovalIdFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("审批工作要约");
+		field.setLabel("通过提供");
 		field.setLocaleKey("employee.offer_approval");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("OfferApproval");
 		field.setRequired(true);
-		field.setPlaceholder("请填写审批工作要约");
+		field.setPlaceholder("请填写通过提供");
 		return field;
 	}
 
 	protected FormField offerAcceptanceIdFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("接受工作要约");
+		field.setLabel("接受报价");
 		field.setLocaleKey("employee.offer_acceptance");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("OfferAcceptance");
 		field.setRequired(true);
-		field.setPlaceholder("请填写接受工作要约");
+		field.setPlaceholder("请填写接受报价");
 		return field;
 	}
 
 	protected FormField employeeBoardingIdFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("员工入职");
+		field.setLabel("董事会员工");
 		field.setLocaleKey("employee.employee_boarding");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("EmployeeBoarding");
 		field.setRequired(true);
-		field.setPlaceholder("请填写员工入职");
+		field.setPlaceholder("请填写董事会员工");
 		return field;
 	}
 
 	protected FormField terminationIdFromEmployee(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("雇佣终止");
+		field.setLabel("终止");
 		field.setLocaleKey("employee.termination");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("Termination");
 		field.setRequired(true);
-		field.setPlaceholder("请填写雇佣终止");
+		field.setPlaceholder("请填写终止");
 		return field;
 	}
 
@@ -9194,14 +9194,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField scoringIdFromEmployeeCompanyTraining(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("评分");
+		field.setLabel("分数");
 		field.setLocaleKey("employee_company_training.scoring");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("Scoring");
 		field.setRequired(true);
-		field.setPlaceholder("请填写评分");
+		field.setPlaceholder("请填写分数");
 		return field;
 	}
 
@@ -9922,14 +9922,14 @@ public class BaseForm extends GenericForm{
 
 	protected FormField payingOffIdFromEmployeeSalarySheet(String parameterName, String initValue){
 		FormField field = new FormField();
-		field.setLabel("工资支付");
+		field.setLabel("回报");
 		field.setLocaleKey("employee_salary_sheet.paying_off");
 		field.setParameterName(parameterName);
 		field.setDefaultValue(initValue);
 		field.setFieldGroup("基本信息");
 		field.setType("PayingOff");
 		field.setRequired(true);
-		field.setPlaceholder("请填写工资支付");
+		field.setPlaceholder("请填写回报");
 		return field;
 	}
 
@@ -10151,6 +10151,45 @@ public class BaseForm extends GenericForm{
 		field.setType("password");
 		field.setRequired(true);
 		field.setPlaceholder("请填写PWD");
+		return field;
+	}
+
+	protected FormField weixinOpenidFromSecUser(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("Weixin Openid");
+		field.setLocaleKey("sec_user.weixin_openid");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("text");
+		field.setRequired(true);
+		field.setPlaceholder("请填写Weixin Openid");
+		return field;
+	}
+
+	protected FormField weixinAppidFromSecUser(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("Weixin Appid");
+		field.setLocaleKey("sec_user.weixin_appid");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("text");
+		field.setRequired(true);
+		field.setPlaceholder("请填写Weixin Appid");
+		return field;
+	}
+
+	protected FormField accessTokenFromSecUser(String parameterName, String initValue){
+		FormField field = new FormField();
+		field.setLabel("访问令牌");
+		field.setLocaleKey("sec_user.access_token");
+		field.setParameterName(parameterName);
+		field.setDefaultValue(initValue);
+		field.setFieldGroup("基本信息");
+		field.setType("text");
+		field.setRequired(true);
+		field.setPlaceholder("请填写访问令牌");
 		return field;
 	}
 

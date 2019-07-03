@@ -130,12 +130,15 @@
 
 	<div class="row">
 <c:set var="storageSpace" value="${ result.storageSpace}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/storagespace/StorageSpace$Info.jsp" />
 
 <c:set var="supplierSpace" value="${ result.supplierSpace}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/supplierspace/SupplierSpace$Info.jsp" />
 
 <c:set var="damageSpace" value="${ result.damageSpace}" scope="request" />
+<c:set var="referName" value="" scope="request" />
 <sky:include page="com/doublechaintech/retailscm/damagespace/DamageSpace$Info.jsp" />
 
 </div>

@@ -57,10 +57,10 @@ public class RetailStoreOrderPaymentGroupMapper extends BaseRowMapper<RetailStor
  		if( retailStoreOrderId.isEmpty()){
  			return;
  		}
- 		RetailStoreOrder retailStoreOrder = retailStoreOrderPaymentGroup.getBizOrder();
- 		if( retailStoreOrder != null ){
+ 		RetailStoreOrder lretailStoreOrder = retailStoreOrderPaymentGroup.getBizOrder();
+ 		if( lretailStoreOrder != null ){
  			//if the root object 'retailStoreOrderPaymentGroup' already have the property, just set the id for it;
- 			retailStoreOrder.setId(retailStoreOrderId);
+ 			lretailStoreOrder.setId(retailStoreOrderId);
  			
  			return;
  		}

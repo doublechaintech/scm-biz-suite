@@ -103,9 +103,9 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 	
 		
 	public 	RetailStore(){
-		//lazy load for all the properties
+		// lazy load for all the properties
 	}
-	//disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
+	// disconnect from all, 中文就是一了百了，跟所有一切尘世断绝往来藏身于茫茫数据海洋
 	public 	void clearFromAll(){
 		setRetailStoreCountryCenter( null );
 		setCityServiceCenter( null );
@@ -1343,6 +1343,30 @@ public class RetailStore extends BaseEntity implements  java.io.Serializable{
 
 		}
 		super.copyTo(baseDest);
+		return baseDest;
+	}
+	
+	public BaseEntity mergePrimitiveDataTo(BaseEntity baseDest){
+		
+		
+		if(baseDest instanceof RetailStore){
+		
+			
+			RetailStore dest =(RetailStore)baseDest;
+		
+			dest.mergeId(getId());
+			dest.mergeName(getName());
+			dest.mergeTelephone(getTelephone());
+			dest.mergeOwner(getOwner());
+			dest.mergeFounded(getFounded());
+			dest.mergeLatitude(getLatitude());
+			dest.mergeLongitude(getLongitude());
+			dest.mergeDescription(getDescription());
+			dest.mergeLastUpdateTime(getLastUpdateTime());
+			dest.mergeCurrentStatus(getCurrentStatus());
+			dest.mergeVersion(getVersion());
+
+		}
 		return baseDest;
 	}
 	
