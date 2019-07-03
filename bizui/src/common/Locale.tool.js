@@ -85,6 +85,12 @@ bizAppZhCN.ScanQRCodetoUploadfromSmartPhone = '扫描二维码可以从手机上
 bizAppEnUS.ScanQRCodetoUploadfromSmartPhone = 'Scan QR Code to Upload from Smart Phone';
 bizAppZhCN.Preference = '设置';
 bizAppEnUS.Preference = 'Preference';
+bizAppZhCN.Setting = '设置';
+bizAppEnUS.Setting = 'Preference';
+bizAppZhCN.Profile = '基础数据';
+bizAppEnUS.Profile = 'Profile';
+bizAppZhCN.Permission = '权限配置';
+bizAppEnUS.Permission = 'Permission';
 bizAppZhCN.Yes = '是';
 bizAppEnUS.Yes = 'Yes';
 bizAppZhCN.Submit = '提交';
@@ -151,11 +157,11 @@ const determinLocale = userContext => {
     const userLang = navigator.language || navigator.userLanguage;
     const trimedLocale = userLang.replace('-', '');
     if (isLegalLocale(trimedLocale)) {
-      return trimedLocale;
+      return defaultLocale;
     }
     return defaultLocale;
   }
-
+  
   const userLocale = userContext.userLocale;
   if (isLegalLocale(userLocale)) {
     return userLocale;

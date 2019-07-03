@@ -1,6 +1,6 @@
 import { Upload, Icon, Modal } from 'antd';
 
-//?x-oss-process=style/small
+
 
 const resizeDispayImageInList=(imageLocation)=>resizeDispayImage(imageLocation,"small")
 
@@ -16,9 +16,8 @@ const resizeDispayImage=(imageLocation, style)=>{
     return imageLocation
   }
   if(imageLocation.indexOf("?")<0){
-    return imageLocation+"?x-oss-process=style/"+style
+    return `${imageLocation}?x-oss-process=style/${style}`
   }
-  //there is a style
   return imageLocation.replace("small",style)
 
 }

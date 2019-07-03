@@ -7,19 +7,12 @@ import {
   Col,
   Icon,
   Card,
-  Tabs,
-  Table,
-  Radio,
-  DatePicker,
   Tooltip,
-  Menu,
-  Dropdown,
-  Badge,
   Switch,
   Select,
   Form,
   AutoComplete,
-  Modal
+  Modal,Divider,Collapse
 } from 'antd';
 import styles from './Dashboard.tool.less';
 import ImagePreview from '../components/ImagePreview';
@@ -31,20 +24,17 @@ import moment from 'moment';
 import appLocaleName from './Locale.tool';
 import {
   ChartCard,
-  yuan,
   MiniArea,
   MiniBar,
-  MiniProgress,
-  Field,
-  Bar,
-  Pie,
-  TimelineChart,
+
 } from 'components/Charts';
+
+import { PREFIX } from '../axios/tools'
 
 import echarts from 'echarts';
 import Themes from './Dashboard.echartstheme';
-import { isWeekend } from 'date-fns';
 
+const {Panel} = Collapse;
 //get more style from https://echarts.baidu.com/theme-builder/
 echarts.registerTheme('bizTheme2', Themes.bizTheme);
 //please do not use defaultTheme, this is a big trap for developers
@@ -60,6 +50,16 @@ const topColResponsiveProps = {
   xl: 6,
   style: { marginBottom: 24, marginTop: 24 },
 };
+
+const wholeLineColProps = {
+  xs: 24,
+  sm: 24,
+  md: 24,
+  lg: 24,
+  xl: 24,
+  style: {  marginBottom: 24, marginTop: 24},
+};
+
 
 const renderForNumbers = aggregatedData => {
   if (!aggregatedData) {
@@ -187,7 +187,7 @@ const renderForTimeLine = aggregatedData => {
   if (!data.dataArray) {
     return null;
   }
-  if (data.dataArray.length == 0) {
+  if (data.dataArray.length === 0) {
     return null;
   }
   const option = {
@@ -299,7 +299,7 @@ const aggregateDataset = mainObject => {
       const itemkey = calcKey(item);
       const existedValue = dataMap[itemkey];
       const itemValue = {};
-      const displayName = series.displayName;
+      const {displayName} = series
       itemValue[displayName] = item.count;
       dimensionSet.add(displayName);
       if (!existedValue) {
@@ -403,7 +403,7 @@ const defaultLargeTextOf = mainObject => {
 //TODO: repalce with service
 const defaultHandleTransferSearch = (targetComponent, filterKey, newRequest) => {
   const parameters = newRequest || targetComponent.state;
-  console.log('current state', newRequest);
+  
   const {
     candidateServiceFunc,
     candidateObjectType,
@@ -411,7 +411,7 @@ const defaultHandleTransferSearch = (targetComponent, filterKey, newRequest) => 
     transferServiceFunc,
   } = parameters;
 
-  console.log('current state', parameters);
+  
 
   const id = ''; //not used for now
   const pageNo = 1;
@@ -420,7 +420,7 @@ const defaultHandleTransferSearch = (targetComponent, filterKey, newRequest) => 
     console.log('candidateReferenceService current state, not working', parameters);
     return;
   }
-  //get a function for fetching the candidate reference list
+  // get a function for fetching the candidate reference list
   const future = candidateReferenceService(candidateObjectType, id, filterKey, pageNo);
 
   future.then(candidateReferenceList => {
@@ -542,11 +542,16 @@ const defaultBuildTransferModal = (mainObject, targetComponent) => {
 };
 
 const defaultRenderExtraHeader = mainObject => {
+  
+};
+
+
+const defaultRenderAnalytics= mainObject => {
   const data = aggregateDataset(mainObject);
   if (!data.dataArray) {
     return null;
   }
-  if (data.dataArray.length == 0) {
+  if (data.dataArray.length === 0) {
     return null;
   }
   return (
@@ -554,6 +559,55 @@ const defaultRenderExtraHeader = mainObject => {
       {renderForNumbers(data)}
       {renderForTimeLine(data)}
     </div>
+  );
+};
+
+const legalListForDisplay=(targetObject, listItem)=>{
+
+  if(!targetObject){
+    return false
+  }
+  if(!listItem){
+    return false
+  }
+  if(!listItem.name){
+    return false
+  }
+  if(!targetObject[listItem.name]){
+    return false
+  }
+
+  return true
+
+}
+
+const defaultRenderSubjectList = cardsData => {
+  
+  // listItem.renderItem(item)
+  const targetObject = cardsData.cardsSource
+  return (
+    <Row gutter={16}>
+      
+      {cardsData.subItems
+        
+        .filter(listItem=>legalListForDisplay(targetObject,listItem))
+        .map(listItem => (
+         
+          <Col key={listItem.displayName} span={24} {...wholeLineColProps}>
+            
+             <Card title={listItem.displayName} style={{ marginBottom: 24 }} >
+
+            {
+             
+              targetObject[listItem.name].map(item=>(listItem.renderItem(item)))
+            }
+           
+             </Card>
+          </Col>
+         
+        ))}
+    </Row>
+    
   );
 };
 
@@ -597,11 +651,26 @@ const defaultSubListsOf = cardsData => {
 
 
 const defaultQuickFunctions = cardsData => {
-  const userContext = null;
-  const { id } = cardsData.cardsSource;
+  
+  const { id, actionList } = cardsData.cardsSource;
   return (
     <Row gutter={16}>
-      
+      {
+        actionList.filter(item => item.actionGroup==="custom")
+        .map(item=>(
+
+          
+          <Col span={6} key={`${item.actionPath}`}>
+          <Card span={6} style={{fontSize:"20px"}}>
+          <a href={`${PREFIX}${item.managerBeanName}/${item.actionPath}`} target="_blank">
+          <Icon type={item.actionIcon} /> {item.actionName}
+          </a>
+          </Card>
+          </Col>
+        ))
+
+
+      }
       {cardsData.subItems
         
         .filter(item => hasItemReadPermission(item))
@@ -643,6 +712,52 @@ const defaultHideCloseTrans = targetComponent => {
   targetComponent.setState({ transferModalVisiable: false });
 };
 
+const renderTitle=(listItem,cardsData)=>{
+  const {id} = cardsData.cardsSource
+  return <div>{listItem.displayName}({listItem.count})
+   <Link to={`/${cardsData.cardsFor}/${id}/list/${listItem.name}/${listItem.displayName}列表`}>
+   <Icon type="double-right" />
+   </Link>
+   </div>
+
+}
+
+const renderListContent=(targetObject, listItem)=>{
+
+  const listContent = targetObject[listItem.name];
+  if(!listContent){
+    return (<div>稍等...</div>)
+  }
+  return listContent.map(item=>(listItem.renderItem(item)))
+
+}
+const defaultRenderSettingList = cardsData => {
+  
+  // listItem.renderItem(item)
+  const targetObject = cardsData.cardsSource
+  
+  return (
+    <Collapse bordered={false} defaultActiveKey={['1']}>
+      
+      {cardsData.subItems
+        
+        
+        .map((listItem) => (
+    
+          <Panel header={renderTitle(listItem,cardsData)} key={listItem.name}>
+            {
+             renderListContent(targetObject,listItem,cardsData)
+            }
+           
+          </Panel>
+        ))}
+    </Collapse>
+    
+  );
+};
+
+
+
 const DashboardTool = {
   aggregateDataset,
   calcKey,
@@ -654,10 +769,13 @@ const DashboardTool = {
   defaultHandleTransferSearch,
   defaultShowTransferModel,
   defaultRenderExtraHeader,
+  defaultRenderAnalytics,
   defaultSubListsOf,
   defaultRenderExtraFooter,
   renderForTimeLine,
-  renderForNumbers,defaultQuickFunctions
+  renderForNumbers,defaultQuickFunctions,defaultRenderSubjectList,defaultRenderSettingList,
 };
 
 export default DashboardTool;
+
+
