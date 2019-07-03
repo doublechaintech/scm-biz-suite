@@ -25,6 +25,14 @@ sudo apt-get update && sudo apt-get install yarn
 * NODE_OPTIONS=--max-old-space-size=10230，增加编译内容， 或者安装并且下载 increase-memory-limit 
 * PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chromium防止下载时间过长
 
+在 ~/.bash_profile 里面加入
+export NODE_OPTIONS=--max-old-space-size=10230
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+
+新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证
+
+
+
 然后执行
 
 ```
