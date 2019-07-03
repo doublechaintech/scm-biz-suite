@@ -1,96 +1,40 @@
+import React from 'react'
+import { Icon,Divider } from 'antd'
 
-import ImagePreview from '../../components/ImagePreview'
 import { Link } from 'dva/router'
 import moment from 'moment'
+import ImagePreview from '../../components/ImagePreview'
 import appLocaleName from '../../common/Locale.tool'
+import BaseTool from '../../common/Base.tool'
+import GlobalComponents from '../../custcomponents'
+import DescriptionList from '../../components/DescriptionList'
+const { Description } = DescriptionList
+const {
+	defaultRenderReferenceCell,
+	defaultRenderBooleanCell,
+	defaultRenderMoneyCell,
+	defaultRenderDateTimeCell,
+	defaultRenderImageCell,
+	defaultRenderDateCell,
+	defaultRenderIdentifier,
+	defaultRenderTextCell,
+} = BaseTool
 
-import { Icon } from 'antd';
+const renderTextCell=defaultRenderTextCell
+const renderIdentifier=defaultRenderIdentifier
+const renderDateCell=defaultRenderDateCell
+const renderDateTimeCell=defaultRenderDateTimeCell
+const renderImageCell=defaultRenderImageCell
+const renderMoneyCell=defaultRenderMoneyCell
+const renderBooleanCell=defaultRenderBooleanCell
+const renderReferenceCell=defaultRenderReferenceCell
+
 
 const menuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
   		subItems: [
   
   		],
 }
-
-const renderTextCell=(value, record)=>{
-	const userContext = null
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+appLocaleName(userContext,"Chars")+")"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-
-const formatMoney=(amount)=>{
-	const options={style: 'decimal',minimumFractionDigits: 2,maximumFractionDigits:2}
-    const moneyFormat = new Intl.NumberFormat('en-US',options);
-	return moneyFormat.format(amount)
-	
-}
-
-const renderMoneyCell=(value, record)=>{
-	const userContext = null
-	if(!value){
-		return appLocaleName(userContext,"Empty")
-	}
-	if(value == null){
-		return appLocaleName(userContext,"Empty")
-	}
-	return (`${appLocaleName(userContext,"Currency")}${formatMoney(value)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-	const userContext = null
-
-	return  (value? appLocaleName(userContext,"Yes") : appLocaleName(userContext,"No"))
-
-}
-
-const renderReferenceCell=(value, record)=>{
-	const userContext = null
-	return (value ? <span style={{fontWeight:"bold"}} title={`${value.id} - ${value.displayName}`} >{value.displayName}</span> : appLocaleName(userContext,"NotAssigned")) 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record) },
-  { title: '员工', dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '目前工资等级', dataIndex: 'currentSalaryGrade', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '基本工资', dataIndex: 'baseSalary', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '奖金', dataIndex: 'bonus', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '奖励', dataIndex: 'reward', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '个人所得税', dataIndex: 'personalTax', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '社会保险', dataIndex: 'socialSecurity', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '住房公积金', dataIndex: 'housingFound', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '失业保险', dataIndex: 'jobInsurance', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '工资支付', dataIndex: 'payingOff', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '当前状态', debugtype: 'string', dataIndex: 'currentStatus', width: '12',render: (text, record)=>renderTextCell(text,record) },
-
-]
 
 const fieldLabels = {
   id: '序号',
@@ -103,13 +47,65 @@ const fieldLabels = {
   socialSecurity: '社会保险',
   housingFound: '住房公积金',
   jobInsurance: '失业保险',
-  payingOff: '工资支付',
+  payingOff: '回报',
   currentStatus: '当前状态',
 
 }
 
+const displayColumns = [
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.currentSalaryGrade, dataIndex: 'currentSalaryGrade', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.baseSalary, dataIndex: 'baseSalary', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
+  { title: fieldLabels.bonus, dataIndex: 'bonus', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
+  { title: fieldLabels.reward, dataIndex: 'reward', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
+  { title: fieldLabels.personalTax, dataIndex: 'personalTax', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
+  { title: fieldLabels.socialSecurity, dataIndex: 'socialSecurity', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
+  { title: fieldLabels.housingFound, dataIndex: 'housingFound', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
+  { title: fieldLabels.jobInsurance, dataIndex: 'jobInsurance', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
+  { title: fieldLabels.payingOff, dataIndex: 'payingOff', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.currentStatus, debugtype: 'string', dataIndex: 'currentStatus', width: '12',render: (text, record)=>renderTextCell(text,record)},
 
-const EmployeeSalarySheetBase={menuData,displayColumns,fieldLabels}
+]
+// refernce to https://ant.design/components/list-cn/
+const renderItemOfList=(employeeSalarySheet,targetComponent)=>{
+
+	
+	
+	
+	const userContext = null
+	return (
+	<div key={employeeSalarySheet.id}>
+	
+	<DescriptionList  key={employeeSalarySheet.id} size="small" col="4">
+<Description term="序号">{employeeSalarySheet.id}</Description> 
+<Description term="员工">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
+</Description>
+<Description term="目前工资等级">{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
+</Description>
+<Description term="基本工资">{employeeSalarySheet.baseSalary}</Description> 
+<Description term="奖金">{employeeSalarySheet.bonus}</Description> 
+<Description term="奖励">{employeeSalarySheet.reward}</Description> 
+<Description term="个人所得税">{employeeSalarySheet.personalTax}</Description> 
+<Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
+<Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
+<Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
+<Description term="回报">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
+</Description>
+<Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
+	
+        
+      </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
+	)
+
+}
+	
+
+
+
+const EmployeeSalarySheetBase={menuData,displayColumns,fieldLabels,renderItemOfList}
 export default EmployeeSalarySheetBase
 
 

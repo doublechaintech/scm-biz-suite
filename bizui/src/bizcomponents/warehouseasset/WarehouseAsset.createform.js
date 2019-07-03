@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '叉车',
   position: '备用件存放区设备库房',
-  ownerId: 'W000001',
+  ownerId: 'W00000001',
 }
 */
 
@@ -208,7 +208,7 @@ class WarehouseAssetCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class WarehouseAssetCreateForm extends Component {
                   {getFieldDecorator('position', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入位置" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>

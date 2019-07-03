@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  applicationTime: '2018-03-21',
+  applicationTime: '2017-03-24',
   who: '申请者本人',
   comments: '我觉得我符合职位要求，请给我一个机会为公司发展做出贡献，谢谢！',
 }
@@ -140,7 +140,7 @@ class JobApplicationAssociateForm extends Component {
                   {getFieldDecorator('applicationTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入申请时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="申请时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class JobApplicationAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入谁" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class JobApplicationAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入评论" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

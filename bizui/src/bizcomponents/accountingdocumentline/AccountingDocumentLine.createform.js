@@ -20,9 +20,9 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '767667.25',
-  belongsToId: 'AD000001',
-  accountingSubjectId: 'AS000001',
+  amount: '942742.31',
+  belongsToId: 'AD00000001',
+  accountingSubjectId: 'AS00000001',
 }
 */
 
@@ -211,7 +211,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入代码" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('direct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入直接" />
+                    <Input size="large" placeholder="直接" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

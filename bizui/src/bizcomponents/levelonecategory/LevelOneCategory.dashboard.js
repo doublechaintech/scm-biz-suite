@@ -26,11 +26,10 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
-  defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultSubListsOf,defaultRenderAnalytics,
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(levelOneCategory)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (levelOneCategory) =>defaultSettingListOf(levelOneCategory, optionList)
 const internalLargeTextOf = (levelOneCategory) =>{
 
@@ -129,7 +129,7 @@ class LevelOneCategoryDashboard extends Component {
     const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",
     	cardsSource: this.props.levelOneCategory,returnURL,displayName,
   		subItems: [
-{name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo},
+{name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
     
       	],
   	};
@@ -142,7 +142,10 @@ class LevelOneCategoryDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
+    const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -150,13 +153,18 @@ class LevelOneCategoryDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-        {quickFunctions(cardsData)} 
+       
         {renderExtraHeader(cardsData.cardsSource)}
+        {quickFunctions(cardsData)} 
+        {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
-  
+        {renderExtraFooter(cardsData.cardsSource)}
+  		
       </PageHeaderLayout>
+    
     )
   }
 }

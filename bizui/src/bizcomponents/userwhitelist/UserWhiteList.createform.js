@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   userIdentity: 'clariones',
   userSpecialFunctions: 'tester;ios-spokesperson',
-  domainId: 'UD000001',
+  domainId: 'UD00000001',
 }
 */
 
@@ -208,7 +208,7 @@ class UserWhiteListCreateForm extends Component {
                   {getFieldDecorator('userIdentity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入用户身份" />
+                    <Input size="large" placeholder="用户身份" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class UserWhiteListCreateForm extends Component {
                   {getFieldDecorator('userSpecialFunctions', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入用户特殊功能" />
+                    <Input size="large" placeholder="用户特殊功能" />
                   )}
                 </Form.Item>
               </Col>

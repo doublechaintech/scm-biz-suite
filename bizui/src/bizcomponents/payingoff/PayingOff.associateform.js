@@ -19,9 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-  paidTime: '2019-03-16',
-  amount: '3967.83',
-  paidForId: 'E000001',
+  paidTime: '2019-02-24',
+  amount: '4601.00',
+  paidForId: 'E00000001',
 }
 */
 
@@ -141,7 +141,7 @@ class PayingOffAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入谁" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class PayingOffAssociateForm extends Component {
                   {getFieldDecorator('paidTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入支付时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="支付时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class PayingOffAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

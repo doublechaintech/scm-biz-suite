@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
-  founded: '2017-03-27',
+  founded: '2018-10-29',
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',
@@ -168,7 +168,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -178,7 +178,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('serviceNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入服务号码" />
+                    <Input size="large" placeholder="服务号码" />
                   )}
                 </Form.Item>
               </Col>
@@ -188,7 +188,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
                   )}
                 </Form.Item>
               </Col>
@@ -198,7 +198,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('webSite', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入网站" />
+                    <Input size="large" placeholder="网站" />
                   )}
                 </Form.Item>
               </Col>
@@ -208,7 +208,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入地址" />
+                    <Input size="large" placeholder="地址" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('operatedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入由" />
+                    <Input size="large" placeholder="由" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('legalRepresentative', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入法定代表人" />
+                    <Input size="large" placeholder="法定代表人" />
                   )}
                 </Form.Item>
               </Col>
@@ -238,7 +238,7 @@ class RetailStoreCountryCenterAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

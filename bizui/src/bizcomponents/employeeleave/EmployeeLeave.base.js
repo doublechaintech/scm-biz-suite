@@ -1,89 +1,40 @@
+import React from 'react'
+import { Icon,Divider } from 'antd'
 
-import ImagePreview from '../../components/ImagePreview'
 import { Link } from 'dva/router'
 import moment from 'moment'
+import ImagePreview from '../../components/ImagePreview'
 import appLocaleName from '../../common/Locale.tool'
+import BaseTool from '../../common/Base.tool'
+import GlobalComponents from '../../custcomponents'
+import DescriptionList from '../../components/DescriptionList'
+const { Description } = DescriptionList
+const {
+	defaultRenderReferenceCell,
+	defaultRenderBooleanCell,
+	defaultRenderMoneyCell,
+	defaultRenderDateTimeCell,
+	defaultRenderImageCell,
+	defaultRenderDateCell,
+	defaultRenderIdentifier,
+	defaultRenderTextCell,
+} = BaseTool
 
-import { Icon } from 'antd';
+const renderTextCell=defaultRenderTextCell
+const renderIdentifier=defaultRenderIdentifier
+const renderDateCell=defaultRenderDateCell
+const renderDateTimeCell=defaultRenderDateTimeCell
+const renderImageCell=defaultRenderImageCell
+const renderMoneyCell=defaultRenderMoneyCell
+const renderBooleanCell=defaultRenderBooleanCell
+const renderReferenceCell=defaultRenderReferenceCell
+
 
 const menuData = {menuName:"请假记录", menuFor: "employeeLeave",
   		subItems: [
   
   		],
 }
-
-const renderTextCell=(value, record)=>{
-	const userContext = null
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+appLocaleName(userContext,"Chars")+")"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-
-const formatMoney=(amount)=>{
-	const options={style: 'decimal',minimumFractionDigits: 2,maximumFractionDigits:2}
-    const moneyFormat = new Intl.NumberFormat('en-US',options);
-	return moneyFormat.format(amount)
-	
-}
-
-const renderMoneyCell=(value, record)=>{
-	const userContext = null
-	if(!value){
-		return appLocaleName(userContext,"Empty")
-	}
-	if(value == null){
-		return appLocaleName(userContext,"Empty")
-	}
-	return (`${appLocaleName(userContext,"Currency")}${formatMoney(value)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-	const userContext = null
-
-	return  (value? appLocaleName(userContext,"Yes") : appLocaleName(userContext,"No"))
-
-}
-
-const renderReferenceCell=(value, record)=>{
-	const userContext = null
-	return (value ? <span style={{fontWeight:"bold"}} title={`${value.id} - ${value.displayName}`} >{value.displayName}</span> : appLocaleName(userContext,"NotAssigned")) 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record) },
-  { title: '谁', dataIndex: 'who', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '类型', dataIndex: 'type', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '请假时长', debugtype: 'int', dataIndex: 'leaveDurationHour', width: '5',render: (text, record)=>renderTextCell(text,record) },
-  { title: '备注', debugtype: 'string', dataIndex: 'remark', width: '15',render: (text, record)=>renderTextCell(text,record) },
-
-]
 
 const fieldLabels = {
   id: '序号',
@@ -94,8 +45,45 @@ const fieldLabels = {
 
 }
 
+const displayColumns = [
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.who, dataIndex: 'who', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.type, dataIndex: 'type', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.leaveDurationHour, debugtype: 'int', dataIndex: 'leaveDurationHour', width: '5',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.remark, debugtype: 'string', dataIndex: 'remark', width: '15',render: (text, record)=>renderTextCell(text,record)},
 
-const EmployeeLeaveBase={menuData,displayColumns,fieldLabels}
+]
+// refernce to https://ant.design/components/list-cn/
+const renderItemOfList=(employeeLeave,targetComponent)=>{
+
+	
+	
+	
+	const userContext = null
+	return (
+	<div key={employeeLeave.id}>
+	
+	<DescriptionList  key={employeeLeave.id} size="small" col="4">
+<Description term="序号">{employeeLeave.id}</Description> 
+<Description term="谁">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
+</Description>
+<Description term="类型">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
+</Description>
+<Description term="请假时长">{employeeLeave.leaveDurationHour}</Description> 
+<Description term="备注">{employeeLeave.remark}</Description> 
+	
+        
+      </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
+	)
+
+}
+	
+
+
+
+const EmployeeLeaveBase={menuData,displayColumns,fieldLabels,renderItemOfList}
 export default EmployeeLeaveBase
 
 

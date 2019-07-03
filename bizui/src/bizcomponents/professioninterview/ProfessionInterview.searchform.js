@@ -102,7 +102,7 @@ componentDidMount() {
     }
   }
   */
-  buildStringSearchParameters = (formValues, searchVerb, fieldName) => {
+  buildStringSearchParameters = (listName, formValues, searchVerb, fieldName) => {
     const fieldValue = formValues[fieldName]
     if (!fieldValue) {
       return null
@@ -111,9 +111,9 @@ componentDidMount() {
     //paramHolder.length
     const value = {}
 
-    value[`professionInterviewList.searchField`] = fieldName
-    value[`professionInterviewList.searchVerb`] =  searchVerb
-    value[`professionInterviewList.searchValue`] = fieldValue
+    value[`${listName}.searchField`] = fieldName
+    value[`${listName}.searchVerb`] =  searchVerb
+    value[`${listName}.searchValue`] = fieldValue
     
     return value
 
@@ -127,11 +127,12 @@ componentDidMount() {
     form.validateFields((err, fieldsValue) => {
       if (err) return
       const paramList = []
-      
+      const { owner } = this.props
+      const {listName} = owner
      
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'id'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'who'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'comments'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'who'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'comments'))
 
      
       console.log("the final parameter", paramList)
@@ -147,11 +148,12 @@ componentDidMount() {
 
       }
      
-      params['professionInterviewList'] = 1
-      params['professionInterviewList.orderBy.0'] = "id"
-      params['professionInterviewList.descOrAsc.0'] = "desc"
       
-      const { owner } = this.props
+      params[`${listName}`] = 1
+      params[`${listName}.orderBy.0`] = "id"
+      params[`${listName}.descOrAsc.0`] = "desc"
+      
+      
       const expandForm = overrideValue([this.state.expandForm],false)
       dispatch({
         type: `${owner.type}/load`,
@@ -206,8 +208,8 @@ componentDidMount() {
 
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
-              <Button type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
+              <Button  icon="search" type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
+              <Button  icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> {appLocaleName(userContext,"Expand")} <Icon type="down" /> </a>
             </span>
           </Col>
@@ -270,8 +272,8 @@ componentDidMount() {
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
-            <Button type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
+            <Button type="primary" icon="search" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
+            <Button icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
             <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>{appLocaleName(userContext,"Collapse")} <Icon type="up" /></a>
           </span>
         </div>

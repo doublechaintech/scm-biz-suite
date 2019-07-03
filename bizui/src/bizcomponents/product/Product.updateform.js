@@ -263,7 +263,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入序号" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.origin,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入产地" />
+                    <Input size="large" placeholder="产地" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.remark,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入备注" />
+                    <Input size="large" placeholder="备注" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.brand,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入品牌" />
+                    <Input size="large" placeholder="品牌" />
                     
                   )}
                 </Form.Item>

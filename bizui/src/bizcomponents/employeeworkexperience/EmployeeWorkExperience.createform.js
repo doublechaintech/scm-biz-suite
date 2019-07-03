@@ -17,11 +17,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  start: '2019-03-20',
-  end: '2017-08-13',
+  start: '2016-12-01',
+  end: '2016-12-13',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
-  employeeId: 'E000001',
+  employeeId: 'E00000001',
 }
 */
 
@@ -210,7 +210,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('end', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入结束" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('company', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入公司" />
+                    <Input size="large" placeholder="公司" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

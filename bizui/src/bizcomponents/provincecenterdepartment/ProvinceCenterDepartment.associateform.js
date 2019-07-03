@@ -19,9 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-  founded: '2018-07-14',
+  founded: '2018-12-11',
   manager: '刘强',
-  provinceCenterId: 'RSPC000001',
+  provinceCenterId: 'RSPC00000001',
 }
 */
 
@@ -141,7 +141,7 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                   {getFieldDecorator('manager', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入经理" />
+                    <Input size="large" placeholder="经理" />
                   )}
                 </Form.Item>
               </Col>

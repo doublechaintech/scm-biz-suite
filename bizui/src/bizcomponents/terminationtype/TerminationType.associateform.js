@@ -21,7 +21,7 @@ const testValues = {
   code: 'ETT0000',
   baseDescription: '合同解除',
   detailDescription: '这个终止原因的描述是这样的.................................................',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 
@@ -141,7 +141,7 @@ class TerminationTypeAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入代码" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class TerminationTypeAssociateForm extends Component {
                   {getFieldDecorator('baseDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入基本描述" />
+                    <Input size="large" placeholder="基本描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class TerminationTypeAssociateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入详细描述" />
+                    <Input size="large" placeholder="详细描述" />
                   )}
                 </Form.Item>
               </Col>

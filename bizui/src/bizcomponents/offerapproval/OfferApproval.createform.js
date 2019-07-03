@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '总经理',
-  approveTime: '2018-01-06',
+  approveTime: '2017-07-19',
   comments: '该员工发展潜力不错，',
 }
 */
@@ -208,7 +208,7 @@ class OfferApprovalCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入谁" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class OfferApprovalCreateForm extends Component {
                   {getFieldDecorator('approveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入批准时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="批准时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class OfferApprovalCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入评论" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

@@ -38,7 +38,7 @@ class SecUserModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1755 }}
+          scroll={{ x: 2685 }}
         />
       </div>
     )

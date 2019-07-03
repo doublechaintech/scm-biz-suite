@@ -19,9 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链给供货商下的订单',
-  totalAmount: '2898050816.00',
-  buyerId: 'RSCC000001',
-  sellerId: 'GS000001',
+  totalAmount: '2839825920.00',
+  buyerId: 'RSCC00000001',
+  sellerId: 'GS00000001',
 }
 */
 
@@ -144,7 +144,7 @@ class SupplyOrderAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入头衔" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +154,7 @@ class SupplyOrderAssociateForm extends Component {
                   {getFieldDecorator('totalAmount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入总金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="总金额" />
                   )}
                 </Form.Item>
               </Col>

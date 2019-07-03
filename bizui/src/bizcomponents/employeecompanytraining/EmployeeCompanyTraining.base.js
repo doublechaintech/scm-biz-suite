@@ -1,10 +1,34 @@
+import React from 'react'
+import { Icon,Divider } from 'antd'
 
-import ImagePreview from '../../components/ImagePreview'
 import { Link } from 'dva/router'
 import moment from 'moment'
+import ImagePreview from '../../components/ImagePreview'
 import appLocaleName from '../../common/Locale.tool'
+import BaseTool from '../../common/Base.tool'
+import GlobalComponents from '../../custcomponents'
+import DescriptionList from '../../components/DescriptionList'
+const { Description } = DescriptionList
+const {
+	defaultRenderReferenceCell,
+	defaultRenderBooleanCell,
+	defaultRenderMoneyCell,
+	defaultRenderDateTimeCell,
+	defaultRenderImageCell,
+	defaultRenderDateCell,
+	defaultRenderIdentifier,
+	defaultRenderTextCell,
+} = BaseTool
 
-import { Icon } from 'antd';
+const renderTextCell=defaultRenderTextCell
+const renderIdentifier=defaultRenderIdentifier
+const renderDateCell=defaultRenderDateCell
+const renderDateTimeCell=defaultRenderDateTimeCell
+const renderImageCell=defaultRenderImageCell
+const renderMoneyCell=defaultRenderMoneyCell
+const renderBooleanCell=defaultRenderBooleanCell
+const renderReferenceCell=defaultRenderReferenceCell
+
 
 const menuData = {menuName:"员工参与的公司培训", menuFor: "employeeCompanyTraining",
   		subItems: [
@@ -12,90 +36,53 @@ const menuData = {menuName:"员工参与的公司培训", menuFor: "employeeComp
   		],
 }
 
-const renderTextCell=(value, record)=>{
-	const userContext = null
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+appLocaleName(userContext,"Chars")+")"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-
-const formatMoney=(amount)=>{
-	const options={style: 'decimal',minimumFractionDigits: 2,maximumFractionDigits:2}
-    const moneyFormat = new Intl.NumberFormat('en-US',options);
-	return moneyFormat.format(amount)
-	
-}
-
-const renderMoneyCell=(value, record)=>{
-	const userContext = null
-	if(!value){
-		return appLocaleName(userContext,"Empty")
-	}
-	if(value == null){
-		return appLocaleName(userContext,"Empty")
-	}
-	return (`${appLocaleName(userContext,"Currency")}${formatMoney(value)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-	const userContext = null
-
-	return  (value? appLocaleName(userContext,"Yes") : appLocaleName(userContext,"No"))
-
-}
-
-const renderReferenceCell=(value, record)=>{
-	const userContext = null
-	return (value ? <span style={{fontWeight:"bold"}} title={`${value.id} - ${value.displayName}`} >{value.displayName}</span> : appLocaleName(userContext,"NotAssigned")) 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record) },
-  { title: '员工', dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '训练', dataIndex: 'training', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '评分', dataIndex: 'scoring', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '当前状态', debugtype: 'string', dataIndex: 'currentStatus', width: '10',render: (text, record)=>renderTextCell(text,record) },
-
-]
-
 const fieldLabels = {
   id: '序号',
   employee: '员工',
   training: '训练',
-  scoring: '评分',
+  scoring: '分数',
   currentStatus: '当前状态',
 
 }
 
+const displayColumns = [
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.training, dataIndex: 'training', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.scoring, dataIndex: 'scoring', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.currentStatus, debugtype: 'string', dataIndex: 'currentStatus', width: '10',render: (text, record)=>renderTextCell(text,record)},
 
-const EmployeeCompanyTrainingBase={menuData,displayColumns,fieldLabels}
+]
+// refernce to https://ant.design/components/list-cn/
+const renderItemOfList=(employeeCompanyTraining,targetComponent)=>{
+
+	
+	
+	
+	const userContext = null
+	return (
+	<div key={employeeCompanyTraining.id}>
+	
+	<DescriptionList  key={employeeCompanyTraining.id} size="small" col="4">
+<Description term="序号">{employeeCompanyTraining.id}</Description> 
+<Description term="员工">{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
+</Description>
+<Description term="训练">{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
+</Description>
+<Description term="当前状态">{employeeCompanyTraining.currentStatus}</Description> 
+	
+        
+      </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
+	)
+
+}
+	
+
+
+
+const EmployeeCompanyTrainingBase={menuData,displayColumns,fieldLabels,renderItemOfList}
 export default EmployeeCompanyTrainingBase
 
 

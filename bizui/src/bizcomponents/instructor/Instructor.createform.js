@@ -23,7 +23,7 @@ const testValues = {
   cellPhone: '18699990000',
   email: 'instructor@gmail.com',
   introduction: '这是一个长长长长长长长长的介绍',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 
@@ -212,7 +212,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入头衔" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -222,7 +222,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('familyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入姓" />
+                    <Input size="large" placeholder="姓" />
                   )}
                 </Form.Item>
               </Col>
@@ -232,7 +232,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('givenName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名" />
+                    <Input size="large" placeholder="名" />
                   )}
                 </Form.Item>
               </Col>
@@ -242,7 +242,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('cellPhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入手机" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -252,7 +252,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入电子邮件" />
+                    <Input size="large" placeholder="电子邮件" />
                   )}
                 </Form.Item>
               </Col>
@@ -262,7 +262,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('introduction', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入介绍" />
+                    <Input size="large" placeholder="介绍" />
                   )}
                 </Form.Item>
               </Col>

@@ -19,9 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2018-07-01',
-  accountingPeriodId: 'AP000001',
-  documentTypeId: 'ADT000001',
+  accountingDocumentDate: '2018-12-19',
+  accountingPeriodId: 'AP00000001',
+  documentTypeId: 'ADT00000001',
 }
 */
 
@@ -142,7 +142,7 @@ class AccountingDocumentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class AccountingDocumentAssociateForm extends Component {
                   {getFieldDecorator('accountingDocumentDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入会计凭证日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="会计凭证日期" />
                   )}
                 </Form.Item>
               </Col>

@@ -21,7 +21,7 @@ const testValues = {
   madeBy: '李亚青',
   receivedBy: '本公司',
   voucherType: '原始凭证',
-  belongsToId: 'AD000001',
+  belongsToId: 'AD00000001',
 }
 */
 
@@ -211,7 +211,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入头衔" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('madeBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入由" />
+                    <Input size="large" placeholder="由" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('receivedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入受" />
+                    <Input size="large" placeholder="受" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('voucherType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入凭证类型" />
+                    <Input size="large" placeholder="凭证类型" />
                   )}
                 </Form.Item>
               </Col>

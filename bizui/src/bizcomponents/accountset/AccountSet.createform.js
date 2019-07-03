@@ -19,15 +19,15 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2018-01-16',
+  effectiveDate: '2017-07-15',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
   accountNumber: '33265805054885',
-  countryCenterId: 'RSCC000001',
-  retailStoreId: 'RS000001',
-  goodsSupplierId: 'GS000001',
+  countryCenterId: 'RSCC00000001',
+  retailStoreId: 'RS00000001',
+  goodsSupplierId: 'GS00000001',
 }
 */
 
@@ -216,7 +216,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -226,7 +226,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('yearSet', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入年组" />
+                    <Input size="large" placeholder="年组" />
                   )}
                 </Form.Item>
               </Col>
@@ -236,7 +236,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('effectiveDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入生效日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="生效日期" />
                   )}
                 </Form.Item>
               </Col>
@@ -246,7 +246,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('accountingSystem', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入会计制度" />
+                    <Input size="large" placeholder="会计制度" />
                   )}
                 </Form.Item>
               </Col>
@@ -256,7 +256,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('domesticCurrencyCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入本币代码" />
+                    <Input size="large" placeholder="本币代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -266,7 +266,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('domesticCurrencyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入本币名称" />
+                    <Input size="large" placeholder="本币名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -276,7 +276,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('openingBank', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入开户银行" />
+                    <Input size="large" placeholder="开户银行" />
                   )}
                 </Form.Item>
               </Col>
@@ -286,7 +286,7 @@ class AccountSetCreateForm extends Component {
                   {getFieldDecorator('accountNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入帐户号码" />
+                    <Input size="large" placeholder="帐户号码" />
                   )}
                 </Form.Item>
               </Col>

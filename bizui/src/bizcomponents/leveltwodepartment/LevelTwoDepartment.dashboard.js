@@ -26,11 +26,10 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
-  defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultSubListsOf,defaultRenderAnalytics,
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(levelTwoDepartment)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (levelTwoDepartment) =>defaultSettingListOf(levelTwoDepartment, optionList)
 const internalLargeTextOf = (levelTwoDepartment) =>{
 
@@ -131,7 +131,7 @@ class LevelTwoDepartmentDashboard extends Component {
     const cardsData = {cardsName:"二级部门",cardsFor: "levelTwoDepartment",
     	cardsSource: this.props.levelTwoDepartment,returnURL,displayName,
   		subItems: [
-{name: 'levelThreeDepartmentList', displayName:'三级部门',type:'levelThreeDepartment',count:levelThreeDepartmentCount,addFunction: true, role: 'levelThreeDepartment', metaInfo: levelThreeDepartmentListMetaInfo},
+{name: 'levelThreeDepartmentList', displayName:'三级部门',type:'levelThreeDepartment',count:levelThreeDepartmentCount,addFunction: true, role: 'levelThreeDepartment', metaInfo: levelThreeDepartmentListMetaInfo, renderItem: GlobalComponents.LevelThreeDepartmentBase.renderItemOfList},
     
       	],
   	};
@@ -144,7 +144,10 @@ class LevelTwoDepartmentDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
+    const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -152,13 +155,18 @@ class LevelTwoDepartmentDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-        {quickFunctions(cardsData)} 
+       
         {renderExtraHeader(cardsData.cardsSource)}
+        {quickFunctions(cardsData)} 
+        {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
-  
+        {renderExtraFooter(cardsData.cardsSource)}
+  		
       </PageHeaderLayout>
+    
     )
   }
 }

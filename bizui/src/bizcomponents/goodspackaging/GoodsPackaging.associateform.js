@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
-  packageTime: '2018-04-11',
+  packageTime: '2018-12-07',
   description: '打包完成，准备起运',
 }
 */
@@ -141,7 +141,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('packageName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入包的名字" />
+                    <Input size="large" placeholder="包的名字" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入RFID" />
+                    <Input size="large" placeholder="RFID" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('packageTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="请输入包的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="包的时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

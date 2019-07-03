@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '李亚青',
   mobilePhone: '18099887766',
-  ownerId: 'RSCC000001',
+  ownerId: 'RSCC00000001',
 }
 */
 
@@ -146,7 +146,7 @@ class RetailStoreMemberAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -156,7 +156,7 @@ class RetailStoreMemberAssociateForm extends Component {
                   {getFieldDecorator('mobilePhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入移动电话" />
+                    <Input size="large" placeholder="移动电话" />
                   )}
                 </Form.Item>
               </Col>

@@ -21,7 +21,7 @@ const testValues = {
   code: 'TC00',
   name: '入职培训',
   description: '培训是提升个人和企业竞争力的法宝',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 
@@ -141,7 +141,7 @@ class TrainingCourseTypeAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入代码" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class TrainingCourseTypeAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class TrainingCourseTypeAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

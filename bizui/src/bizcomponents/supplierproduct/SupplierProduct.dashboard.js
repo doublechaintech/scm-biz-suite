@@ -26,11 +26,10 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
-  defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultSubListsOf,defaultRenderAnalytics,
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(supplierProduct)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (supplierProduct) =>defaultSettingListOf(supplierProduct, optionList)
 const internalLargeTextOf = (supplierProduct) =>{
 
@@ -131,7 +131,7 @@ class SupplierProductDashboard extends Component {
     const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",
     	cardsSource: this.props.supplierProduct,returnURL,displayName,
   		subItems: [
-{name: 'productSupplyDurationList', displayName:'产品供应时间',type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo},
+{name: 'productSupplyDurationList', displayName:'产品供应时间',type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo, renderItem: GlobalComponents.ProductSupplyDurationBase.renderItemOfList},
     
       	],
   	};
@@ -144,7 +144,10 @@ class SupplierProductDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
+    const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -152,13 +155,18 @@ class SupplierProductDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-        {quickFunctions(cardsData)} 
+       
         {renderExtraHeader(cardsData.cardsSource)}
+        {quickFunctions(cardsData)} 
+        {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
-  
+        {renderExtraFooter(cardsData.cardsSource)}
+  		
       </PageHeaderLayout>
+    
     )
   }
 }

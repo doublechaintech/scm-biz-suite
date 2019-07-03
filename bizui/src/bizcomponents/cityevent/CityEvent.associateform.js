@@ -21,7 +21,7 @@ const testValues = {
   name: '小超见面会',
   mobile: '13677778888',
   description: '给大家讲解小超的发展蓝图',
-  cityServiceCenterId: 'RSCSC000001',
+  cityServiceCenterId: 'RSCSC00000001',
 }
 */
 
@@ -141,7 +141,7 @@ class CityEventAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入名称" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class CityEventAssociateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入手机" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class CityEventAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请输入描述" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>
