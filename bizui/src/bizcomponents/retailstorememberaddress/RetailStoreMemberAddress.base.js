@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -53,27 +54,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({retailStoreMemberAddress,targetComponent})=>{
+const renderItemOfList=(retailStoreMemberAddress,targetComponent)=>{
 
 	
 	
-	const {RetailStoreMemberAddressService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={retailStoreMemberAddress.id}>
+	
+	<DescriptionList  key={retailStoreMemberAddress.id} size="small" col="4">
 <Description term="序号">{retailStoreMemberAddress.id}</Description> 
 <Description term="名称">{retailStoreMemberAddress.name}</Description> 
 <Description term="业主">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberAddressService.requestCandidateOwner,
-	      RetailStoreMemberAddressService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberAddress.owner?retailStoreMemberAddress.owner.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="移动电话">{retailStoreMemberAddress.mobilePhone}</Description> 
 <Description term="地址">{retailStoreMemberAddress.address}</Description> 
 	
-        {buildTransferModal(retailStoreMemberAddress,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

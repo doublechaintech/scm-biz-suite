@@ -4,12 +4,12 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-
+import GlobalComponents from '../../custcomponents';
 import {Form } from 'antd'
 import { Link } from 'dva/router'
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import styles from './AccountingDocumentConfirmation.preference.less'
+import styles from './AccountingDocumentConfirmation.profile.less'
 import DescriptionList from '../../components/DescriptionList';
 
 import DashboardTool from '../../common/Dashboard.tool'
@@ -17,7 +17,7 @@ import appLocaleName from '../../common/Locale.tool'
 
 const {
   defaultRenderExtraHeader,
-  defaultSubListsOf,
+  defaultSubListsOf, defaultRenderSettingList,
 
 }= DashboardTool
 
@@ -27,6 +27,7 @@ const internalRenderExtraHeader = defaultRenderExtraHeader
 
 const internalSubListsOf = defaultSubListsOf
 
+const internalRenderSettingList = defaultRenderSettingList
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
@@ -34,18 +35,10 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
 
 }
 
-
-const internalSummaryOf = (accountingDocumentConfirmation,targetComponent) =>{
-    const userContext = null
-	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentConfirmation.id}</Description> 
-<Description term="谁">{accountingDocumentConfirmation.who}</Description> 
-<Description term="评论">{accountingDocumentConfirmation.comments}</Description> 
-<Description term="制造日期">{ moment(accountingDocumentConfirmation.makeDate).format('YYYY-MM-DD')}</Description> 
+const internalSummaryOf = (item, targetComponents)=>{
 	
-      </DescriptionList>
-	)
+	return GlobalComponents.AccountingDocumentConfirmationBase.renderItemOfList(item, targetComponents)
+
 }
 
 
@@ -65,13 +58,14 @@ class AccountingDocumentConfirmationProfile extends Component {
 
     const cardsData = {cardsName:"会计的确认文件",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,
   		subItems: [
-    
+     
       	],
   	};
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
-    const subListsOf = this.props.subListsOf || internalSubListsOf
+   
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderSettingList = this.props.renderSettingList || internalRenderSettingList
     
     return (
 
@@ -81,7 +75,7 @@ class AccountingDocumentConfirmationProfile extends Component {
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}
-       {subListsOf(cardsData)} 
+       {renderSettingList(cardsData)} 
       </PageHeaderLayout>
     )
   }

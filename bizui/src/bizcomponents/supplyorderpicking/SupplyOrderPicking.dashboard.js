@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(supplyOrderPicking)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (supplyOrderPicking) =>defaultSettingListOf(supplyOrderPicking, optionList)
 const internalLargeTextOf = (supplyOrderPicking) =>{
 
@@ -124,7 +124,7 @@ class SupplyOrderPickingDashboard extends Component {
     const cardsData = {cardsName:"供应订单拣货",cardsFor: "supplyOrderPicking",
     	cardsSource: this.props.supplyOrderPicking,returnURL,displayName,
   		subItems: [
-{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo},
+{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
     
       	],
   	};
@@ -139,6 +139,8 @@ class SupplyOrderPickingDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -151,10 +153,11 @@ class SupplyOrderPickingDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

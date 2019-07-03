@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -53,32 +54,28 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({eventAttendance,targetComponent})=>{
+const renderItemOfList=(eventAttendance,targetComponent)=>{
 
 	
 	
-	const {EventAttendanceService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={eventAttendance.id}>
+	
+	<DescriptionList  key={eventAttendance.id} size="small" col="4">
 <Description term="序号">{eventAttendance.id}</Description> 
 <Description term="名称">{eventAttendance.name}</Description> 
 <Description term="潜在的客户">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"潜在的客户","potentialCustomer",EventAttendanceService.requestCandidatePotentialCustomer,
-	      EventAttendanceService.transferToAnotherPotentialCustomer,"anotherPotentialCustomerId",eventAttendance.potentialCustomer?eventAttendance.potentialCustomer.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="城市活动">{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市活动","cityEvent",EventAttendanceService.requestCandidateCityEvent,
-	      EventAttendanceService.transferToAnotherCityEvent,"anotherCityEventId",eventAttendance.cityEvent?eventAttendance.cityEvent.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{eventAttendance.description}</Description> 
 	
-        {buildTransferModal(eventAttendance,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

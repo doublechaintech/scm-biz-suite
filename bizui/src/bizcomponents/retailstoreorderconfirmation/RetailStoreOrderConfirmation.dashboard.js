@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(retailStoreOrderConfirmation)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (retailStoreOrderConfirmation) =>defaultSettingListOf(retailStoreOrderConfirmation, optionList)
 const internalLargeTextOf = (retailStoreOrderConfirmation) =>{
 
@@ -124,7 +124,7 @@ class RetailStoreOrderConfirmationDashboard extends Component {
     const cardsData = {cardsName:"生超订单确认",cardsFor: "retailStoreOrderConfirmation",
     	cardsSource: this.props.retailStoreOrderConfirmation,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo},
+{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
     
       	],
   	};
@@ -139,6 +139,8 @@ class RetailStoreOrderConfirmationDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -151,10 +153,11 @@ class RetailStoreOrderConfirmationDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

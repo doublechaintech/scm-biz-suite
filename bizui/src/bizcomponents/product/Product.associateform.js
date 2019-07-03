@@ -22,7 +22,7 @@ const testValues = {
   origin: '四川',
   remark: '可口可乐，销售百年的糖水，获得了全世界额青睐',
   brand: '品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品',
-  parentCategoryId: 'LTC000001',
+  parentCategoryId: 'LTC00000001',
 }
 */
 

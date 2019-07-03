@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({supplierProduct,targetComponent})=>{
+const renderItemOfList=(supplierProduct,targetComponent)=>{
 
 	
 	
-	const {SupplierProductService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={supplierProduct.id}>
+	
+	<DescriptionList  key={supplierProduct.id} size="small" col="4">
 <Description term="序号">{supplierProduct.id}</Description> 
 <Description term="品名">{supplierProduct.productName}</Description> 
 <Description term="产品描述">{supplierProduct.productDescription}</Description> 
 <Description term="产品单元">{supplierProduct.productUnit}</Description> 
 <Description term="供应商">{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${supplierProduct.supplier.displayName}(${supplierProduct.supplier.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"供应商","goodsSupplier",SupplierProductService.requestCandidateSupplier,
-	      SupplierProductService.transferToAnotherSupplier,"anotherSupplierId",supplierProduct.supplier?supplierProduct.supplier.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(supplierProduct,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(goodsMovement)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (goodsMovement) =>defaultSettingListOf(goodsMovement, optionList)
 const internalLargeTextOf = (goodsMovement) =>{
 
@@ -152,6 +152,8 @@ class GoodsMovementDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -164,10 +166,11 @@ class GoodsMovementDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

@@ -20,15 +20,15 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2018-08-21',
+  effectiveDate: '2017-01-18',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
   accountNumber: '33265805054885',
-  countryCenterId: 'RSCC000001',
-  retailStoreId: 'RS000001',
-  goodsSupplierId: 'GS000001',
+  countryCenterId: 'RSCC00000001',
+  retailStoreId: 'RS00000001',
+  goodsSupplierId: 'GS00000001',
 }
 */
 

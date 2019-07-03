@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(instructor)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (instructor) =>defaultSettingListOf(instructor, optionList)
 const internalLargeTextOf = (instructor) =>{
 
@@ -129,7 +129,7 @@ class InstructorDashboard extends Component {
     const cardsData = {cardsName:"讲师",cardsFor: "instructor",
     	cardsSource: this.props.instructor,returnURL,displayName,
   		subItems: [
-{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo},
+{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
   	};
@@ -144,6 +144,8 @@ class InstructorDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -156,10 +158,11 @@ class InstructorDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

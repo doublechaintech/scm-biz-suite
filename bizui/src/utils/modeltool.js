@@ -59,12 +59,21 @@ const setupModel = ({ dispatch, history, location, modelName }) => {
         dispatch({ type: 'view', payload: { id, pathname } })
         return
     }
+
+
+    const profilematch = pathToRegexp(`/${modelName}/:id/profile`).exec(pathname)
+    if (profilematch) {
+        const id = profilematch[1]
+        dispatch({ type: 'view', payload: { id, pathname } })
+        return
+    }
     const editDetailMatch = pathToRegexp(`/${modelName}/:id/editDetail`).exec(pathname)
     if (editDetailMatch) {
         const id = editDetailMatch[1]
         dispatch({ type: 'view', payload: { id, pathname } })
         return
     }
+
     const viewDetailMatch = pathToRegexp(`/${modelName}/:id/viewDetail`).exec(pathname)
     if (viewDetailMatch) {
         const id = viewDetailMatch[1]
@@ -83,7 +92,7 @@ const setupModel = ({ dispatch, history, location, modelName }) => {
     if (othermatch) {
         const id = othermatch[1]
         dispatch({ type: 'view', payload: { id, pathname } })
-        return
+        
     }
 
 }

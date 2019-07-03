@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -46,11 +47,11 @@ const fieldLabels = {
   title: '头衔',
   totalAmount: '总金额',
   confirmation: '确认',
-  approval: '验收',
-  processing: '处理',
-  picking: '捡货',
-  shipment: '装运',
-  delivery: '送货',
+  approval: '批准',
+  processing: '过程',
+  picking: '选择',
+  shipment: '船',
+  delivery: '交付',
   lastUpdateTime: '最后更新时间',
   currentStatus: '当前状态',
 
@@ -73,28 +74,28 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({supplyOrder,targetComponent})=>{
+const renderItemOfList=(supplyOrder,targetComponent)=>{
 
 	
 	
-	const {SupplyOrderService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={supplyOrder.id}>
+	
+	<DescriptionList  key={supplyOrder.id} size="small" col="4">
 <Description term="序号">{supplyOrder.id}</Description> 
 <Description term="卖方">{supplyOrder.seller==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrder.seller.displayName}(${supplyOrder.seller.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"卖方","goodsSupplier",SupplyOrderService.requestCandidateSeller,
-	      SupplyOrderService.transferToAnotherSeller,"anotherSellerId",supplyOrder.seller?supplyOrder.seller.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="头衔">{supplyOrder.title}</Description> 
 <Description term="总金额">{supplyOrder.totalAmount}</Description> 
 <Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{supplyOrder.currentStatus}</Description> 
 	
-        {buildTransferModal(supplyOrder,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

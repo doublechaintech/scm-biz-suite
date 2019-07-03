@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({levelTwoDepartment,targetComponent})=>{
+const renderItemOfList=(levelTwoDepartment,targetComponent)=>{
 
 	
 	
-	const {LevelTwoDepartmentService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={levelTwoDepartment.id}>
+	
+	<DescriptionList  key={levelTwoDepartment.id} size="small" col="4">
 <Description term="序号">{levelTwoDepartment.id}</Description> 
 <Description term="属于">{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"属于","levelOneDepartment",LevelTwoDepartmentService.requestCandidateBelongsTo,
-	      LevelTwoDepartmentService.transferToAnotherBelongsTo,"anotherBelongsToId",levelTwoDepartment.belongsTo?levelTwoDepartment.belongsTo.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="名称">{levelTwoDepartment.name}</Description> 
 <Description term="描述">{levelTwoDepartment.description}</Description> 
 <Description term="成立">{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(levelTwoDepartment,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -51,31 +52,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({employeeSkill,targetComponent})=>{
+const renderItemOfList=(employeeSkill,targetComponent)=>{
 
 	
 	
-	const {EmployeeSkillService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={employeeSkill.id}>
+	
+	<DescriptionList  key={employeeSkill.id} size="small" col="4">
 <Description term="序号">{employeeSkill.id}</Description> 
 <Description term="员工">{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeSkillService.requestCandidateEmployee,
-	      EmployeeSkillService.transferToAnotherEmployee,"anotherEmployeeId",employeeSkill.employee?employeeSkill.employee.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="技能类型">{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.skillType.displayName}(${employeeSkill.skillType.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"技能类型","skillType",EmployeeSkillService.requestCandidateSkillType,
-	      EmployeeSkillService.transferToAnotherSkillType,"anotherSkillTypeId",employeeSkill.skillType?employeeSkill.skillType.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{employeeSkill.description}</Description> 
 	
-        {buildTransferModal(employeeSkill,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

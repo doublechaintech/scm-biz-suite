@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(memberWishlistProduct)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (memberWishlistProduct) =>defaultSettingListOf(memberWishlistProduct, optionList)
 const internalLargeTextOf = (memberWishlistProduct) =>{
 
@@ -143,6 +143,8 @@ class MemberWishlistProductDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -155,10 +157,11 @@ class MemberWishlistProductDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

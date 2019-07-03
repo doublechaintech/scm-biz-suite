@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -57,20 +58,18 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({retailStoreOrderLineItem,targetComponent})=>{
+const renderItemOfList=(retailStoreOrderLineItem,targetComponent)=>{
 
 	
 	
-	const {RetailStoreOrderLineItemService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={retailStoreOrderLineItem.id}>
+	
+	<DescriptionList  key={retailStoreOrderLineItem.id} size="small" col="4">
 <Description term="序号">{retailStoreOrderLineItem.id}</Description> 
 <Description term="订单">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","retailStoreOrder",RetailStoreOrderLineItemService.requestCandidateBizOrder,
-	      RetailStoreOrderLineItemService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreOrderLineItem.bizOrder?retailStoreOrderLineItem.bizOrder.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="产品ID">{retailStoreOrderLineItem.skuId}</Description> 
 <Description term="产品名称">{retailStoreOrderLineItem.skuName}</Description> 
@@ -78,8 +77,10 @@ const renderItemOfList=({retailStoreOrderLineItem,targetComponent})=>{
 <Description term="数量">{retailStoreOrderLineItem.quantity}</Description> 
 <Description term="测量单位">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
 	
-        {buildTransferModal(retailStoreOrderLineItem,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

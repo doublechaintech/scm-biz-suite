@@ -157,14 +157,14 @@ const determinLocale = userContext => {
     const userLang = navigator.language || navigator.userLanguage;
     const trimedLocale = userLang.replace('-', '');
     if (isLegalLocale(trimedLocale)) {
-      return trimedLocale;
+      return defaultLocale;
     }
     return defaultLocale;
   }
-
+  
   const userLocale = userContext.userLocale;
   if (isLegalLocale(userLocale)) {
-    return userLocale;
+    return defaultLocale;
   }
 
   return defaultLocale;

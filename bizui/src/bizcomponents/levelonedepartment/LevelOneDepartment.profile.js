@@ -4,12 +4,12 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-
+import GlobalComponents from '../../custcomponents';
 import {Form } from 'antd'
 import { Link } from 'dva/router'
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import styles from './LevelOneDepartment.preference.less'
+import styles from './LevelOneDepartment.profile.less'
 import DescriptionList from '../../components/DescriptionList';
 
 import DashboardTool from '../../common/Dashboard.tool'
@@ -17,7 +17,7 @@ import appLocaleName from '../../common/Locale.tool'
 
 const {
   defaultRenderExtraHeader,
-  defaultSubListsOf,
+  defaultSubListsOf, defaultRenderSettingList,
 
 }= DashboardTool
 
@@ -27,6 +27,7 @@ const internalRenderExtraHeader = defaultRenderExtraHeader
 
 const internalSubListsOf = defaultSubListsOf
 
+const internalRenderSettingList = defaultRenderSettingList
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
@@ -34,19 +35,10 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
 
 }
 
-
-const internalSummaryOf = (levelOneDepartment,targetComponent) =>{
-    const userContext = null
-	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelOneDepartment.id}</Description> 
-<Description term="名称">{levelOneDepartment.name}</Description> 
-<Description term="描述">{levelOneDepartment.description}</Description> 
-<Description term="经理">{levelOneDepartment.manager}</Description> 
-<Description term="成立">{ moment(levelOneDepartment.founded).format('YYYY-MM-DD')}</Description> 
+const internalSummaryOf = (item, targetComponents)=>{
 	
-      </DescriptionList>
-	)
+	return GlobalComponents.LevelOneDepartmentBase.renderItemOfList(item, targetComponents)
+
 }
 
 
@@ -66,13 +58,14 @@ class LevelOneDepartmentProfile extends Component {
 
     const cardsData = {cardsName:"一级部门",cardsFor: "levelOneDepartment",cardsSource: levelOneDepartment,
   		subItems: [
-    
+     
       	],
   	};
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
-    const subListsOf = this.props.subListsOf || internalSubListsOf
+   
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderSettingList = this.props.renderSettingList || internalRenderSettingList
     
     return (
 
@@ -82,7 +75,7 @@ class LevelOneDepartmentProfile extends Component {
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}
-       {subListsOf(cardsData)} 
+       {renderSettingList(cardsData)} 
       </PageHeaderLayout>
     )
   }

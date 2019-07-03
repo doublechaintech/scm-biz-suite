@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -52,20 +53,24 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({terminationReason,targetComponent})=>{
+const renderItemOfList=(terminationReason,targetComponent)=>{
 
 	
 	
-	const {TerminationReasonService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={terminationReason.id}>
+	
+	<DescriptionList  key={terminationReason.id} size="small" col="4">
 <Description term="序号">{terminationReason.id}</Description> 
 <Description term="代码">{terminationReason.code}</Description> 
 <Description term="描述">{terminationReason.description}</Description> 
 	
-        {buildTransferModal(terminationReason,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

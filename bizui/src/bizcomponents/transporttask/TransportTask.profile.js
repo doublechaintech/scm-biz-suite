@@ -4,12 +4,12 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-
+import GlobalComponents from '../../custcomponents';
 import {Form } from 'antd'
 import { Link } from 'dva/router'
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import styles from './TransportTask.preference.less'
+import styles from './TransportTask.profile.less'
 import DescriptionList from '../../components/DescriptionList';
 
 import DashboardTool from '../../common/Dashboard.tool'
@@ -17,7 +17,7 @@ import appLocaleName from '../../common/Locale.tool'
 
 const {
   defaultRenderExtraHeader,
-  defaultSubListsOf,
+  defaultSubListsOf, defaultRenderSettingList,
 
 }= DashboardTool
 
@@ -27,6 +27,7 @@ const internalRenderExtraHeader = defaultRenderExtraHeader
 
 const internalSubListsOf = defaultSubListsOf
 
+const internalRenderSettingList = defaultRenderSettingList
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
@@ -34,20 +35,10 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
 
 }
 
-
-const internalSummaryOf = (transportTask,targetComponent) =>{
-    const userContext = null
-	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTask.id}</Description> 
-<Description term="名称">{transportTask.name}</Description> 
-<Description term="开始">{transportTask.start}</Description> 
-<Description term="开始时间">{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="纬度">{transportTask.latitude}</Description> 
-<Description term="经度">{transportTask.longitude}</Description> 
+const internalSummaryOf = (item, targetComponents)=>{
 	
-      </DescriptionList>
-	)
+	return GlobalComponents.TransportTaskBase.renderItemOfList(item, targetComponents)
+
 }
 
 
@@ -67,13 +58,14 @@ class TransportTaskProfile extends Component {
 
     const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",cardsSource: transportTask,
   		subItems: [
-    
+     
       	],
   	};
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
-    const subListsOf = this.props.subListsOf || internalSubListsOf
+   
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderSettingList = this.props.renderSettingList || internalRenderSettingList
     
     return (
 
@@ -83,7 +75,7 @@ class TransportTaskProfile extends Component {
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}
-       {subListsOf(cardsData)} 
+       {renderSettingList(cardsData)} 
       </PageHeaderLayout>
     )
   }

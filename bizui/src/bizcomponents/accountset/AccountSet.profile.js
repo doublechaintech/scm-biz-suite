@@ -4,12 +4,12 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-
+import GlobalComponents from '../../custcomponents';
 import {Form } from 'antd'
 import { Link } from 'dva/router'
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import styles from './AccountSet.preference.less'
+import styles from './AccountSet.profile.less'
 import DescriptionList from '../../components/DescriptionList';
 
 import DashboardTool from '../../common/Dashboard.tool'
@@ -17,7 +17,7 @@ import appLocaleName from '../../common/Locale.tool'
 
 const {
   defaultRenderExtraHeader,
-  defaultSubListsOf,
+  defaultSubListsOf, defaultRenderSettingList,
 
 }= DashboardTool
 
@@ -27,6 +27,7 @@ const internalRenderExtraHeader = defaultRenderExtraHeader
 
 const internalSubListsOf = defaultSubListsOf
 
+const internalRenderSettingList = defaultRenderSettingList
 
 const internalRenderTitle = (cardsData,targetComponent) =>{
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
@@ -34,24 +35,10 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
 
 }
 
-
-const internalSummaryOf = (accountSet,targetComponent) =>{
-    const userContext = null
-	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountSet.id}</Description> 
-<Description term="名称">{accountSet.name}</Description> 
-<Description term="年组">{accountSet.yearSet}</Description> 
-<Description term="生效日期">{ moment(accountSet.effectiveDate).format('YYYY-MM-DD')}</Description> 
-<Description term="会计制度">{accountSet.accountingSystem}</Description> 
-<Description term="本币代码">{accountSet.domesticCurrencyCode}</Description> 
-<Description term="本币名称">{accountSet.domesticCurrencyName}</Description> 
-<Description term="开户银行">{accountSet.openingBank}</Description> 
-<Description term="帐户号码">{accountSet.accountNumber}</Description> 
-<Description term="最后更新时间">{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+const internalSummaryOf = (item, targetComponents)=>{
 	
-      </DescriptionList>
-	)
+	return GlobalComponents.AccountSetBase.renderItemOfList(item, targetComponents)
+
 }
 
 
@@ -71,13 +58,14 @@ class AccountSetProfile extends Component {
 
     const cardsData = {cardsName:"账套",cardsFor: "accountSet",cardsSource: accountSet,
   		subItems: [
-    
+     
       	],
   	};
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
-    const subListsOf = this.props.subListsOf || internalSubListsOf
+   
     const summaryOf = this.props.summaryOf || internalSummaryOf
+    const renderSettingList = this.props.renderSettingList || internalRenderSettingList
     
     return (
 
@@ -87,7 +75,7 @@ class AccountSetProfile extends Component {
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}
-       {subListsOf(cardsData)} 
+       {renderSettingList(cardsData)} 
       </PageHeaderLayout>
     )
   }

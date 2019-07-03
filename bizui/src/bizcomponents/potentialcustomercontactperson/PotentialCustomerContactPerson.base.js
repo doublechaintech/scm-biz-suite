@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({potentialCustomerContactPerson,targetComponent})=>{
+const renderItemOfList=(potentialCustomerContactPerson,targetComponent)=>{
 
 	
 	
-	const {PotentialCustomerContactPersonService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={potentialCustomerContactPerson.id}>
+	
+	<DescriptionList  key={potentialCustomerContactPerson.id} size="small" col="4">
 <Description term="序号">{potentialCustomerContactPerson.id}</Description> 
 <Description term="名称">{potentialCustomerContactPerson.name}</Description> 
 <Description term="手机">{potentialCustomerContactPerson.mobile}</Description> 
 <Description term="潜在的客户">{potentialCustomerContactPerson.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContactPerson.potentialCustomer.displayName}(${potentialCustomerContactPerson.potentialCustomer.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"潜在的客户","potentialCustomer",PotentialCustomerContactPersonService.requestCandidatePotentialCustomer,
-	      PotentialCustomerContactPersonService.transferToAnotherPotentialCustomer,"anotherPotentialCustomerId",potentialCustomerContactPerson.potentialCustomer?potentialCustomerContactPerson.potentialCustomer.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{potentialCustomerContactPerson.description}</Description> 
 	
-        {buildTransferModal(potentialCustomerContactPerson,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

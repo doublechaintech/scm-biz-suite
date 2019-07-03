@@ -21,7 +21,7 @@ const testValues = {
   productName: '黑人牙膏',
   productDescription: '最好的黑人牙膏，只卖3块喽',
   productUnit: '件',
-  supplierId: 'GS000001',
+  supplierId: 'GS00000001',
 }
 */
 

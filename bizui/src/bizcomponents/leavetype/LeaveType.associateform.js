@@ -21,7 +21,7 @@ const testValues = {
   code: 'LT0000',
   description: '带薪年假',
   detailDescription: '故事还得从遥远的古代开始.................................................',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

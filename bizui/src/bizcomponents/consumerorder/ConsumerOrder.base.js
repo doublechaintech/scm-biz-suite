@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -45,10 +46,10 @@ const fieldLabels = {
   title: '头衔',
   consumer: '消费者',
   confirmation: '确认',
-  approval: '验收',
-  processing: '处理',
-  shipment: '装运',
-  delivery: '送货',
+  approval: '批准',
+  processing: '过程',
+  shipment: '船',
+  delivery: '交付',
   store: '商场',
   lastUpdateTime: '最后更新时间',
   currentStatus: '当前状态',
@@ -70,33 +71,29 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({consumerOrder,targetComponent})=>{
+const renderItemOfList=(consumerOrder,targetComponent)=>{
 
 	
 	
-	const {ConsumerOrderService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={consumerOrder.id}>
+	
+	<DescriptionList  key={consumerOrder.id} size="small" col="4">
 <Description term="序号">{consumerOrder.id}</Description> 
 <Description term="头衔">{consumerOrder.title}</Description> 
 <Description term="消费者">{consumerOrder.consumer==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.consumer.displayName}(${consumerOrder.consumer.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"消费者","retailStoreMember",ConsumerOrderService.requestCandidateConsumer,
-	      ConsumerOrderService.transferToAnotherConsumer,"anotherConsumerId",consumerOrder.consumer?consumerOrder.consumer.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="商场">{consumerOrder.store==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.store.displayName}(${consumerOrder.store.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"商场","retailStore",ConsumerOrderService.requestCandidateStore,
-	      ConsumerOrderService.transferToAnotherStore,"anotherStoreId",consumerOrder.store?consumerOrder.store.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="最后更新时间">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{consumerOrder.currentStatus}</Description> 
 	
-        {buildTransferModal(consumerOrder,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

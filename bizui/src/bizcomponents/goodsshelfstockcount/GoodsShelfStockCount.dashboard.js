@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(goodsShelfStockCount)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (goodsShelfStockCount) =>defaultSettingListOf(goodsShelfStockCount, optionList)
 const internalLargeTextOf = (goodsShelfStockCount) =>{
 
@@ -131,7 +131,7 @@ class GoodsShelfStockCountDashboard extends Component {
     const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",
     	cardsSource: this.props.goodsShelfStockCount,returnURL,displayName,
   		subItems: [
-{name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo},
+{name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
     
       	],
   	};
@@ -146,6 +146,8 @@ class GoodsShelfStockCountDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -158,10 +160,11 @@ class GoodsShelfStockCountDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(levelOneCategory)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (levelOneCategory) =>defaultSettingListOf(levelOneCategory, optionList)
 const internalLargeTextOf = (levelOneCategory) =>{
 
@@ -129,7 +129,7 @@ class LevelOneCategoryDashboard extends Component {
     const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",
     	cardsSource: this.props.levelOneCategory,returnURL,displayName,
   		subItems: [
-{name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo},
+{name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
     
       	],
   	};
@@ -144,6 +144,8 @@ class LevelOneCategoryDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -156,10 +158,11 @@ class LevelOneCategoryDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

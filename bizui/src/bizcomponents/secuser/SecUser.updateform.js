@@ -318,6 +318,42 @@ class SecUserUpdateForm extends Component {
               </Col>
 
               <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.weixinOpenid} {...formItemLayout}>
+                  {getFieldDecorator('weixinOpenid', {
+                    initialValue: selectedRow.weixinOpenid,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="Weixin Openid" />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.weixinAppid} {...formItemLayout}>
+                  {getFieldDecorator('weixinAppid', {
+                    initialValue: selectedRow.weixinAppid,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="Weixin Appid" />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.accessToken} {...formItemLayout}>
+                  {getFieldDecorator('accessToken', {
+                    initialValue: selectedRow.accessToken,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="访问令牌" />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.verificationCode} {...formItemLayout}>
                   {getFieldDecorator('verificationCode', {
                     initialValue: selectedRow.verificationCode,

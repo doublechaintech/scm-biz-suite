@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -51,26 +52,26 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({supplyOrderShippingGroup,targetComponent})=>{
+const renderItemOfList=(supplyOrderShippingGroup,targetComponent)=>{
 
 	
 	
-	const {SupplyOrderShippingGroupService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={supplyOrderShippingGroup.id}>
+	
+	<DescriptionList  key={supplyOrderShippingGroup.id} size="small" col="4">
 <Description term="序号">{supplyOrderShippingGroup.id}</Description> 
 <Description term="名称">{supplyOrderShippingGroup.name}</Description> 
 <Description term="订单">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","supplyOrder",SupplyOrderShippingGroupService.requestCandidateBizOrder,
-	      SupplyOrderShippingGroupService.transferToAnotherBizOrder,"anotherBizOrderId",supplyOrderShippingGroup.bizOrder?supplyOrderShippingGroup.bizOrder.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="金额">{supplyOrderShippingGroup.amount}</Description> 
 	
-        {buildTransferModal(supplyOrderShippingGroup,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

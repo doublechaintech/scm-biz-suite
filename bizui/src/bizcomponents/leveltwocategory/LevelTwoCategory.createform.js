@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  parentCategoryId: 'LOC000001',
+  parentCategoryId: 'LOC00000001',
 }
 */
 

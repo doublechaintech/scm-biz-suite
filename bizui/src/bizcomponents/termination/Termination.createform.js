@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   comment: '员工离职',
-  reasonId: 'TR000001',
-  typeId: 'TT000001',
+  reasonId: 'TR00000001',
+  typeId: 'TT00000001',
 }
 */
 

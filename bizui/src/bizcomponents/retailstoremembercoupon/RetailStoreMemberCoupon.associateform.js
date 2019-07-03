@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '优惠券',
   number: 'CP00001',
-  ownerId: 'RSM000001',
+  ownerId: 'RSM00000001',
 }
 */
 

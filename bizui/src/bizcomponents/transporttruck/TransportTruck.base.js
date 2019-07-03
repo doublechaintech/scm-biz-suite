@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -64,14 +65,16 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({transportTruck,targetComponent})=>{
+const renderItemOfList=(transportTruck,targetComponent)=>{
 
 	
 	
-	const {TransportTruckService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={transportTruck.id}>
+	
+	<DescriptionList  key={transportTruck.id} size="small" col="4">
 <Description term="序号">{transportTruck.id}</Description> 
 <Description term="名称">{transportTruck.name}</Description> 
 <Description term="车牌号码">{transportTruck.plateNumber}</Description> 
@@ -82,14 +85,12 @@ const renderItemOfList=({transportTruck,targetComponent})=>{
 <Description term="里程">{transportTruck.mileage}</Description> 
 <Description term="车身颜色">{transportTruck.bodyColor}</Description> 
 <Description term="业主">{transportTruck.owner==null?appLocaleName(userContext,"NotAssigned"):`${transportTruck.owner.displayName}(${transportTruck.owner.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","transportFleet",TransportTruckService.requestCandidateOwner,
-	      TransportTruckService.transferToAnotherOwner,"anotherOwnerId",transportTruck.owner?transportTruck.owner.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(transportTruck,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

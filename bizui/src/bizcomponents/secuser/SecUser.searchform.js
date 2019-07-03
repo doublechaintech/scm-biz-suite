@@ -135,6 +135,9 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'mobile'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'email'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'pwd'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'weixinOpenid'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'weixinAppid'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'accessToken'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'domain'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
 
@@ -284,6 +287,30 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="PWD">
               {getFieldDecorator('pwd')(
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="Weixin Openid">
+              {getFieldDecorator('weixinOpenid')(
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="Weixin Appid">
+              {getFieldDecorator('weixinAppid')(
+                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+              )}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="访问令牌">
+              {getFieldDecorator('accessToken')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>

@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   userIdentity: 'clariones',
   userSpecialFunctions: 'tester;ios-spokesperson',
-  domainId: 'UD000001',
+  domainId: 'UD00000001',
 }
 */
 

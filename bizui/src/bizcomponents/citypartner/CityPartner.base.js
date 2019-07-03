@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -57,28 +58,28 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({cityPartner,targetComponent})=>{
+const renderItemOfList=(cityPartner,targetComponent)=>{
 
 	
 	
-	const {CityPartnerService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={cityPartner.id}>
+	
+	<DescriptionList  key={cityPartner.id} size="small" col="4">
 <Description term="序号">{cityPartner.id}</Description> 
 <Description term="名称">{cityPartner.name}</Description> 
 <Description term="手机">{cityPartner.mobile}</Description> 
 <Description term="城市服务中心">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",CityPartnerService.requestCandidateCityServiceCenter,
-	      CityPartnerService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",cityPartner.cityServiceCenter?cityPartner.cityServiceCenter.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{cityPartner.description}</Description> 
 <Description term="最后更新时间">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(cityPartner,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

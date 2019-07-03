@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   description: '高手高手高高手',
-  employeeId: 'E000001',
-  skillTypeId: 'ST000001',
+  employeeId: 'E00000001',
+  skillTypeId: 'ST00000001',
 }
 */
 

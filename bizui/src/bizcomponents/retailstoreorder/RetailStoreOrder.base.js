@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -46,11 +47,11 @@ const fieldLabels = {
   title: '头衔',
   totalAmount: '总金额',
   confirmation: '确认',
-  approval: '验收',
-  processing: '处理',
-  picking: '捡货',
-  shipment: '装运',
-  delivery: '送货',
+  approval: '批准',
+  processing: '过程',
+  picking: '选择',
+  shipment: '船',
+  delivery: '交付',
   lastUpdateTime: '最后更新时间',
   currentStatus: '当前状态',
 
@@ -73,28 +74,28 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({retailStoreOrder,targetComponent})=>{
+const renderItemOfList=(retailStoreOrder,targetComponent)=>{
 
 	
 	
-	const {RetailStoreOrderService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={retailStoreOrder.id}>
+	
+	<DescriptionList  key={retailStoreOrder.id} size="small" col="4">
 <Description term="序号">{retailStoreOrder.id}</Description> 
 <Description term="买方">{retailStoreOrder.buyer==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrder.buyer.displayName}(${retailStoreOrder.buyer.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"买方","retailStore",RetailStoreOrderService.requestCandidateBuyer,
-	      RetailStoreOrderService.transferToAnotherBuyer,"anotherBuyerId",retailStoreOrder.buyer?retailStoreOrder.buyer.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="头衔">{retailStoreOrder.title}</Description> 
 <Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
 <Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
 	
-        {buildTransferModal(retailStoreOrder,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

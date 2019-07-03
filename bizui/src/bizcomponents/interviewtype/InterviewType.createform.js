@@ -20,7 +20,7 @@ const testValues = {
   code: 'INTRVW00',
   description: '特别情况面试',
   detailDescription: '故事还得从遥远的古代开始.................................................',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

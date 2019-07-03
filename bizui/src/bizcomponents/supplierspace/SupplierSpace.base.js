@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -60,30 +61,30 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({supplierSpace,targetComponent})=>{
+const renderItemOfList=(supplierSpace,targetComponent)=>{
 
 	
 	
-	const {SupplierSpaceService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={supplierSpace.id}>
+	
+	<DescriptionList  key={supplierSpace.id} size="small" col="4">
 <Description term="序号">{supplierSpace.id}</Description> 
 <Description term="位置">{supplierSpace.location}</Description> 
 <Description term="联系电话">{supplierSpace.contactNumber}</Description> 
 <Description term="总面积">{supplierSpace.totalArea}</Description> 
 <Description term="仓库">{supplierSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${supplierSpace.warehouse.displayName}(${supplierSpace.warehouse.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",SupplierSpaceService.requestCandidateWarehouse,
-	      SupplierSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",supplierSpace.warehouse?supplierSpace.warehouse.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="纬度">{supplierSpace.latitude}</Description> 
 <Description term="经度">{supplierSpace.longitude}</Description> 
 <Description term="最后更新时间">{ moment(supplierSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(supplierSpace,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

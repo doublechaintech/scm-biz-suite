@@ -11,7 +11,7 @@ import numeral from 'numeral'
 
 import DashboardTool from '../../common/Dashboard.tool'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import styles from './AccountingDocumentLine.preference.less'
+import styles from './AccountingDocumentLine.profile.less'
 import DescriptionList from '../../components/DescriptionList';
 
 import GlobalComponents from '../../custcomponents';

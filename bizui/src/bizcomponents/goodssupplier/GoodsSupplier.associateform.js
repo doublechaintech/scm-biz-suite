@@ -22,7 +22,7 @@ const testValues = {
   supplyProduct: '洗护用品',
   contactNumber: '18677889999',
   description: '啤酒饮料矿泉水，香肠瓜子方便面都提供',
-  belongToId: 'RSCC000001',
+  belongToId: 'RSCC00000001',
 }
 */
 

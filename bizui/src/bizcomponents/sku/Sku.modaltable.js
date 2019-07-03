@@ -38,7 +38,7 @@ class SkuModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1500 }}
+          scroll={{ x: 1140 }}
         />
       </div>
     )

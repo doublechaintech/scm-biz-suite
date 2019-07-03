@@ -17,11 +17,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2016-11-20',
+  qualifiedTime: '2016-08-16',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
-  employeeId: 'E000001',
+  employeeId: 'E00000001',
 }
 */
 

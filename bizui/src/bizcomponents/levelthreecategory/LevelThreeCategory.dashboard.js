@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(levelThreeCategory)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (levelThreeCategory) =>defaultSettingListOf(levelThreeCategory, optionList)
 const internalLargeTextOf = (levelThreeCategory) =>{
 
@@ -129,7 +129,7 @@ class LevelThreeCategoryDashboard extends Component {
     const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",
     	cardsSource: this.props.levelThreeCategory,returnURL,displayName,
   		subItems: [
-{name: 'productList', displayName:'产品',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo},
+{name: 'productList', displayName:'产品',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
     
       	],
   	};
@@ -144,6 +144,8 @@ class LevelThreeCategoryDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -156,10 +158,11 @@ class LevelThreeCategoryDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

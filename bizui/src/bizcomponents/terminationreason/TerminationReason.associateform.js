@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   code: 'ETR0000',
   description: '业务发展，公司转型',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

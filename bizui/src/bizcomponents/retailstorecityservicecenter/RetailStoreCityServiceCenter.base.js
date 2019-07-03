@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -57,27 +58,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({retailStoreCityServiceCenter,targetComponent})=>{
+const renderItemOfList=(retailStoreCityServiceCenter,targetComponent)=>{
 
 	
 	
-	const {RetailStoreCityServiceCenterService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={retailStoreCityServiceCenter.id}>
+	
+	<DescriptionList  key={retailStoreCityServiceCenter.id} size="small" col="4">
 <Description term="序号">{retailStoreCityServiceCenter.id}</Description> 
 <Description term="名称">{retailStoreCityServiceCenter.name}</Description> 
 <Description term="成立">{ moment(retailStoreCityServiceCenter.founded).format('YYYY-MM-DD')}</Description> 
 <Description term="属于">{retailStoreCityServiceCenter.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreCityServiceCenter.belongsTo.displayName}(${retailStoreCityServiceCenter.belongsTo.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"属于","retailStoreProvinceCenter",RetailStoreCityServiceCenterService.requestCandidateBelongsTo,
-	      RetailStoreCityServiceCenterService.transferToAnotherBelongsTo,"anotherBelongsToId",retailStoreCityServiceCenter.belongsTo?retailStoreCityServiceCenter.belongsTo.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="最后更新时间">{ moment(retailStoreCityServiceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(retailStoreCityServiceCenter,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

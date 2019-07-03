@@ -22,7 +22,7 @@ const testValues = {
   madeBy: '李亚青',
   receivedBy: '本公司',
   voucherType: '原始凭证',
-  belongsToId: 'AD000001',
+  belongsToId: 'AD00000001',
 }
 */
 

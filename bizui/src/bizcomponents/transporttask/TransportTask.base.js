@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -65,47 +66,35 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({transportTask,targetComponent})=>{
+const renderItemOfList=(transportTask,targetComponent)=>{
 
 	
 	
-	const {TransportTaskService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={transportTask.id}>
+	
+	<DescriptionList  key={transportTask.id} size="small" col="4">
 <Description term="序号">{transportTask.id}</Description> 
 <Description term="名称">{transportTask.name}</Description> 
 <Description term="开始">{transportTask.start}</Description> 
 <Description term="开始时间">{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</Description> 
 <Description term="结束">{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.end.displayName}(${transportTask.end.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"结束","retailStore",TransportTaskService.requestCandidateEnd,
-	      TransportTaskService.transferToAnotherEnd,"anotherEndId",transportTask.end?transportTask.end.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="司机">{transportTask.driver==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.driver.displayName}(${transportTask.driver.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"司机","truckDriver",TransportTaskService.requestCandidateDriver,
-	      TransportTaskService.transferToAnotherDriver,"anotherDriverId",transportTask.driver?transportTask.driver.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="卡车">{transportTask.truck==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.truck.displayName}(${transportTask.truck.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"卡车","transportTruck",TransportTaskService.requestCandidateTruck,
-	      TransportTaskService.transferToAnotherTruck,"anotherTruckId",transportTask.truck?transportTask.truck.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="属于">{transportTask.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.belongsTo.displayName}(${transportTask.belongsTo.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"属于","transportFleet",TransportTaskService.requestCandidateBelongsTo,
-	      TransportTaskService.transferToAnotherBelongsTo,"anotherBelongsToId",transportTask.belongsTo?transportTask.belongsTo.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="纬度">{transportTask.latitude}</Description> 
 <Description term="经度">{transportTask.longitude}</Description> 
 	
-        {buildTransferModal(transportTask,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -52,21 +53,25 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({employeeBoarding,targetComponent})=>{
+const renderItemOfList=(employeeBoarding,targetComponent)=>{
 
 	
 	
-	const {EmployeeBoardingService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={employeeBoarding.id}>
+	
+	<DescriptionList  key={employeeBoarding.id} size="small" col="4">
 <Description term="序号">{employeeBoarding.id}</Description> 
 <Description term="谁">{employeeBoarding.who}</Description> 
 <Description term="使用时间">{ moment(employeeBoarding.employTime).format('YYYY-MM-DD')}</Description> 
 <Description term="评论">{employeeBoarding.comments}</Description> 
 	
-        {buildTransferModal(employeeBoarding,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

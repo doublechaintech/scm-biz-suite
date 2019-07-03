@@ -88,8 +88,6 @@ class LoginHistoryTable extends PureComponent {
           
           { hasReadPermission(metaInfo)&&<Link to={`/loginHistory/${record.id}/dashboard`}>{appLocaleName(userContext,"View")}</Link>}
 
-          {  hasUpdatePermission(metaInfo)&&<span className={styles.splitLine} /> } {hasUpdatePermission(metaInfo)&&<a key="__2" onClick={()=>this.gotoEdit(text, record)}>{appLocaleName(userContext,"Edit")}</a>}
-
           {
             record.actionList&&record.actionList.map((item)=>(<a key={item.actionId} onClick={()=>this.executeAction(item,text, record)}><span className={styles.splitLine} />{item.actionName}</a>))
 
@@ -176,7 +174,7 @@ class LoginHistoryTable extends PureComponent {
           <Alert
             message={selectedRowKeys.length===0?(
               <span>
-                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")}, {appLocaleName(userContext,"PleaseSelectItemtoProceed")} 
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")}
               </span>
             ):(
               <span>
@@ -193,8 +191,6 @@ class LoginHistoryTable extends PureComponent {
           size="default"
           rowKey={record => record.id}
            
-          rowSelection={rowSelection}
-          
           dataSource={data}
           columns={calcDisplayColumns()}
           pagination={paginationProps}

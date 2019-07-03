@@ -11,7 +11,7 @@ import numeral from 'numeral'
 
 import DashboardTool from '../../common/Dashboard.tool'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
-import styles from './CityEvent.preference.less'
+import styles from './CityEvent.profile.less'
 import DescriptionList from '../../components/DescriptionList';
 
 import GlobalComponents from '../../custcomponents';

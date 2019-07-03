@@ -138,17 +138,17 @@ Telephone|电话
 Owner|业主
 Retail Store Country Center|双链小超全国运营中心
 City Service Center|城市服务中心
-Creation|创建
 Create|创建
-Investment Invitation|招商
-Invite Investment|邀请投资
-Franchising|加盟
+Create|创建
+Invite Investment|Invite Investment
+Invite Investment|Invite Investment
 Franchise|特许经营
-Decoration|装修
+Franchise|特许经营
 Decorate|装修
-Opening|开业
+Decorate|装修
 Open|开放
-Closing|关闭
+Open|开放
+Close|关闭
 Close|关闭
 Founded|成立
 Latitude|纬度
@@ -191,15 +191,15 @@ Consumer Order|消费者订单
 Id|序号
 Title|头衔
 Consumer|消费者
-Confirmation|确认
 Confirm|确认
-Approval|验收
+Confirm|确认
 Approve|批准
-Processing|处理
+Approve|批准
 Process|过程
-Shipment|装运
+Process|过程
 Ship|船
-Delivery|送货
+Ship|船
+Deliver|交付
 Deliver|交付
 Store|商场
 Last Update Time|最后更新时间
@@ -339,17 +339,17 @@ Buyer|买方
 Seller|卖方
 Title|头衔
 Total Amount|总金额
-Confirmation|确认
 Confirm|确认
-Approval|验收
+Confirm|确认
 Approve|批准
-Processing|处理
+Approve|批准
 Process|过程
-Picking|捡货
+Process|过程
 Pick|选择
-Shipment|装运
+Pick|选择
 Ship|船
-Delivery|送货
+Ship|船
+Deliver|交付
 Deliver|交付
 Last Update Time|最后更新时间
 Current Status|当前状态
@@ -411,17 +411,17 @@ Buyer|买方
 Seller|卖方
 Title|头衔
 Total Amount|总金额
-Confirmation|确认
 Confirm|确认
-Approval|验收
+Confirm|确认
 Approve|批准
-Processing|处理
+Approve|批准
 Process|过程
-Picking|捡货
+Process|过程
 Pick|选择
-Shipment|装运
+Pick|选择
 Ship|船
-Delivery|送货
+Ship|船
+Deliver|交付
 Deliver|交付
 Last Update Time|最后更新时间
 Current Status|当前状态
@@ -552,7 +552,7 @@ Transport Task|运输任务
 Retail Store|双链小超
 Biz Order|订单
 Retail Store Order|生超的订单
-Packaging|包装
+Pack|包
 Pack|包
 Current Status|当前状态
 Version|版本
@@ -711,13 +711,13 @@ Name|名称
 Accounting Document Date|会计凭证日期
 Accounting Period|会计期间
 Document Type|文档类型
-Creation|创建
 Create|创建
-Confirmation|确认
+Create|创建
 Confirm|确认
-Auditing|审计
+Confirm|确认
 Audit|审计
-Posting|过账
+Audit|审计
+Post|帖子
 Post|帖子
 Current Status|当前状态
 Version|版本
@@ -753,11 +753,11 @@ Received By|受
 Voucher Type|凭证类型
 Voucher Image|凭证图像
 Belongs To|属于
-Creation|创建
 Create|创建
-Confirmation|确认
+Create|创建
 Confirm|确认
-Auditing|审计
+Confirm|确认
+Audit|审计
 Audit|审计
 Current Status|当前状态
 Version|版本
@@ -905,19 +905,19 @@ Occupation|职业
 Responsible For|负责
 Current Salary Grade|目前工资等级
 Salary Account|工资账户
-Job Application|工作申请
 Apply Job|申请的工作
-Profession Interview|专业面试
+Apply Job|申请的工作
 Interview With Profession|采访的职业
-Hr Interview|人力资源部面试
+Interview With Profession|采访的职业
 Interview By Hr|面试由人力资源
-Offer Approval|审批工作要约
+Interview By Hr|面试由人力资源
 Approve Offer|通过提供
-Offer Acceptance|接受工作要约
+Approve Offer|通过提供
 Accept Offer|接受报价
-Employee Boarding|员工入职
+Accept Offer|接受报价
 Board Employee|董事会员工
-Termination|雇佣终止
+Board Employee|董事会员工
+Terminate|终止
 Terminate|终止
 Last Update Time|最后更新时间
 Current Status|当前状态
@@ -989,7 +989,7 @@ Employee Company Training|员工参与的公司培训
 Id|序号
 Employee|员工
 Training|训练
-Scoring|评分
+Score|分数
 Score|分数
 Current Status|当前状态
 Version|版本
@@ -1066,7 +1066,7 @@ Personal Tax|个人所得税
 Social Security|社会保险
 Housing Found|住房公积金
 Job Insurance|失业保险
-Paying Off|工资支付
+PayOff|回报
 PayOff|回报
 Current Status|当前状态
 Version|版本
@@ -1093,11 +1093,14 @@ Login|登录
 Mobile|手机
 Email|电子邮件
 Pwd|PWD
+Weixin Openid|Weixin Openid
+Weixin Appid|Weixin Appid
+Access Token|访问令牌
 Verification Code|验证码
 Verification Code Expire|验证码过期
 Last Login Time|最后登录时间
 Domain|域
-Blocking|屏蔽
+Block|屏蔽
 Block|屏蔽
 Current Status|当前状态
 Version|版本

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,22 +55,26 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({goodsPackaging,targetComponent})=>{
+const renderItemOfList=(goodsPackaging,targetComponent)=>{
 
 	
 	
-	const {GoodsPackagingService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={goodsPackaging.id}>
+	
+	<DescriptionList  key={goodsPackaging.id} size="small" col="4">
 <Description term="序号">{goodsPackaging.id}</Description> 
 <Description term="包的名字">{goodsPackaging.packageName}</Description> 
 <Description term="RFID">{goodsPackaging.rfid}</Description> 
 <Description term="包的时间">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
 <Description term="描述">{goodsPackaging.description}</Description> 
 	
-        {buildTransferModal(goodsPackaging,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

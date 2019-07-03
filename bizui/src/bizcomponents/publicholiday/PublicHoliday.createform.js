@@ -20,7 +20,7 @@ const testValues = {
   code: 'PH00',
   name: '元旦节',
   description: '节日快乐，万事如意！',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

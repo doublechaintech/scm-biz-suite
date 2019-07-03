@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -52,21 +53,25 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({secUserBlocking,targetComponent})=>{
+const renderItemOfList=(secUserBlocking,targetComponent)=>{
 
 	
 	
-	const {SecUserBlockingService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={secUserBlocking.id}>
+	
+	<DescriptionList  key={secUserBlocking.id} size="small" col="4">
 <Description term="序号">{secUserBlocking.id}</Description> 
 <Description term="谁">{secUserBlocking.who}</Description> 
 <Description term="块时间">{ moment(secUserBlocking.blockTime).format('YYYY-MM-DD')}</Description> 
 <Description term="评论">{secUserBlocking.comments}</Description> 
 	
-        {buildTransferModal(secUserBlocking,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -51,26 +52,26 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({memberRewardPointRedemption,targetComponent})=>{
+const renderItemOfList=(memberRewardPointRedemption,targetComponent)=>{
 
 	
 	
-	const {MemberRewardPointRedemptionService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={memberRewardPointRedemption.id}>
+	
+	<DescriptionList  key={memberRewardPointRedemption.id} size="small" col="4">
 <Description term="序号">{memberRewardPointRedemption.id}</Description> 
 <Description term="名称">{memberRewardPointRedemption.name}</Description> 
 <Description term="点">{memberRewardPointRedemption.point}</Description> 
 <Description term="业主">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",MemberRewardPointRedemptionService.requestCandidateOwner,
-	      MemberRewardPointRedemptionService.transferToAnotherOwner,"anotherOwnerId",memberRewardPointRedemption.owner?memberRewardPointRedemption.owner.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(memberRewardPointRedemption,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

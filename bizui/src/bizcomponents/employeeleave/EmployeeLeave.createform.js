@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   leaveDurationHour: '8',
   remark: '请年假，出去耍！！！！',
-  whoId: 'E000001',
-  typeId: 'LT000001',
+  whoId: 'E00000001',
+  typeId: 'LT00000001',
 }
 */
 

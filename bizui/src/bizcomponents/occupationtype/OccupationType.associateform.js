@@ -21,7 +21,7 @@ const testValues = {
   code: 'OT0000',
   description: '需求分析员',
   detailDescription: '故事还得从遥远的古代开始.................................................',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

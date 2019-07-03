@@ -20,7 +20,7 @@ const testValues = {
   code: 'SG0000',
   name: '一级薪资',
   detailDescription: '故事还得从遥远的古代开始.................................................',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

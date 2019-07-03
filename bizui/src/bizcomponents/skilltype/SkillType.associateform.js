@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   code: 'S0000',
   description: 'JAVA编程',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

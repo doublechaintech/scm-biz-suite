@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -55,28 +56,28 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({employeeWorkExperience,targetComponent})=>{
+const renderItemOfList=(employeeWorkExperience,targetComponent)=>{
 
 	
 	
-	const {EmployeeWorkExperienceService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={employeeWorkExperience.id}>
+	
+	<DescriptionList  key={employeeWorkExperience.id} size="small" col="4">
 <Description term="序号">{employeeWorkExperience.id}</Description> 
 <Description term="员工">{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeWorkExperienceService.requestCandidateEmployee,
-	      EmployeeWorkExperienceService.transferToAnotherEmployee,"anotherEmployeeId",employeeWorkExperience.employee?employeeWorkExperience.employee.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="开始">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
 <Description term="结束">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
 <Description term="公司">{employeeWorkExperience.company}</Description> 
 <Description term="描述">{employeeWorkExperience.description}</Description> 
 	
-        {buildTransferModal(employeeWorkExperience,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

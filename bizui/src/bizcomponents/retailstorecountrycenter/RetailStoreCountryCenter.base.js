@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -75,14 +76,16 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({retailStoreCountryCenter,targetComponent})=>{
+const renderItemOfList=(retailStoreCountryCenter,targetComponent)=>{
 
 	
 	
-	const {RetailStoreCountryCenterService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={retailStoreCountryCenter.id}>
+	
+	<DescriptionList  key={retailStoreCountryCenter.id} size="small" col="4">
 <Description term="序号">{retailStoreCountryCenter.id}</Description> 
 <Description term="名称">{retailStoreCountryCenter.name}</Description> 
 <Description term="服务号码">{retailStoreCountryCenter.serviceNumber}</Description> 
@@ -93,8 +96,10 @@ const renderItemOfList=({retailStoreCountryCenter,targetComponent})=>{
 <Description term="法定代表人">{retailStoreCountryCenter.legalRepresentative}</Description> 
 <Description term="描述">{retailStoreCountryCenter.description}</Description> 
 	
-        {buildTransferModal(retailStoreCountryCenter,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

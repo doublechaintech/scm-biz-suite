@@ -20,7 +20,7 @@ const testValues = {
   code: 'S0000',
   baseDescription: '合规管理',
   detailDescription: '负责集团及其他分公司信息系统有效运作，并使集团在技术上领先',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

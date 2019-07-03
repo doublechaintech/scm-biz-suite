@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '每周购买清单',
-  ownerId: 'RSM000001',
+  ownerId: 'RSM00000001',
 }
 */
 

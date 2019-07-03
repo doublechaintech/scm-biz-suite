@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -43,6 +44,9 @@ const fieldLabels = {
   mobile: '手机',
   email: '电子邮件',
   pwd: 'PWD',
+  weixinOpenid: 'Weixin Openid',
+  weixinAppid: 'Weixin Appid',
+  accessToken: '访问令牌',
   verificationCode: '验证码',
   verificationCodeExpire: '验证码过期',
   lastLoginTime: '最后登录时间',
@@ -58,6 +62,9 @@ const displayColumns = [
   { title: fieldLabels.mobile, debugtype: 'string_china_mobile_phone', dataIndex: 'mobile', width: '15',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.email, debugtype: 'string', dataIndex: 'email', width: '23',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.pwd, debugtype: 'string_password', dataIndex: 'pwd', width: '11',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.weixinOpenid, debugtype: 'string', dataIndex: 'weixinOpenid', width: '29',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.weixinAppid, debugtype: 'string', dataIndex: 'weixinAppid', width: '23',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.accessToken, debugtype: 'string', dataIndex: 'accessToken', width: '22',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.verificationCode, debugtype: 'int', dataIndex: 'verificationCode', width: '11',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.verificationCodeExpire, dataIndex: 'verificationCodeExpire', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
   { title: fieldLabels.lastLoginTime, dataIndex: 'lastLoginTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
@@ -67,26 +74,33 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({secUser,targetComponent})=>{
+const renderItemOfList=(secUser,targetComponent)=>{
 
 	
 	
-	const {SecUserService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={secUser.id}>
+	
+	<DescriptionList  key={secUser.id} size="small" col="4">
 <Description term="序号">{secUser.id}</Description> 
 <Description term="登录">{secUser.login}</Description> 
 <Description term="手机">{secUser.mobile}</Description> 
 <Description term="电子邮件">{secUser.email}</Description> 
 <Description term="PWD">{secUser.pwd}</Description> 
+<Description term="Weixin Openid">{secUser.weixinOpenid}</Description> 
+<Description term="Weixin Appid">{secUser.weixinAppid}</Description> 
+<Description term="访问令牌">{secUser.accessToken}</Description> 
 <Description term="验证码">{secUser.verificationCode}</Description> 
 <Description term="验证码过期">{ moment(secUser.verificationCodeExpire).format('YYYY-MM-DD')}</Description> 
 <Description term="最后登录时间">{ moment(secUser.lastLoginTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{secUser.currentStatus}</Description> 
 	
-        {buildTransferModal(secUser,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

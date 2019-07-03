@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(retailStoreCityServiceCenter)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (retailStoreCityServiceCenter) =>defaultSettingListOf(retailStoreCityServiceCenter, optionList)
 const internalLargeTextOf = (retailStoreCityServiceCenter) =>{
 
@@ -131,10 +131,10 @@ class RetailStoreCityServiceCenterDashboard extends Component {
     const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",
     	cardsSource: this.props.retailStoreCityServiceCenter,returnURL,displayName,
   		subItems: [
-{name: 'cityPartnerList', displayName:'城市合伙人',type:'cityPartner',count:cityPartnerCount,addFunction: true, role: 'cityPartner', metaInfo: cityPartnerListMetaInfo},
-{name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo},
-{name: 'cityEventList', displayName:'城市活动',type:'cityEvent',count:cityEventCount,addFunction: true, role: 'cityEvent', metaInfo: cityEventListMetaInfo},
-{name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo},
+{name: 'cityPartnerList', displayName:'城市合伙人',type:'cityPartner',count:cityPartnerCount,addFunction: true, role: 'cityPartner', metaInfo: cityPartnerListMetaInfo, renderItem: GlobalComponents.CityPartnerBase.renderItemOfList},
+{name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
+{name: 'cityEventList', displayName:'城市活动',type:'cityEvent',count:cityEventCount,addFunction: true, role: 'cityEvent', metaInfo: cityEventListMetaInfo, renderItem: GlobalComponents.CityEventBase.renderItemOfList},
+{name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
     
       	],
   	};
@@ -149,6 +149,8 @@ class RetailStoreCityServiceCenterDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -161,10 +163,11 @@ class RetailStoreCityServiceCenterDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

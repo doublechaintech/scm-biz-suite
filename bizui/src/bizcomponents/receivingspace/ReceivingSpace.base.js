@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -62,31 +63,31 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({receivingSpace,targetComponent})=>{
+const renderItemOfList=(receivingSpace,targetComponent)=>{
 
 	
 	
-	const {ReceivingSpaceService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={receivingSpace.id}>
+	
+	<DescriptionList  key={receivingSpace.id} size="small" col="4">
 <Description term="序号">{receivingSpace.id}</Description> 
 <Description term="位置">{receivingSpace.location}</Description> 
 <Description term="联系电话">{receivingSpace.contactNumber}</Description> 
 <Description term="描述">{receivingSpace.description}</Description> 
 <Description term="总面积">{receivingSpace.totalArea}</Description> 
 <Description term="仓库">{receivingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${receivingSpace.warehouse.displayName}(${receivingSpace.warehouse.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",ReceivingSpaceService.requestCandidateWarehouse,
-	      ReceivingSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",receivingSpace.warehouse?receivingSpace.warehouse.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="纬度">{receivingSpace.latitude}</Description> 
 <Description term="经度">{receivingSpace.longitude}</Description> 
 <Description term="最后更新时间">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(receivingSpace,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

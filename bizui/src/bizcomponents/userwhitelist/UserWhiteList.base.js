@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -51,20 +52,24 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({userWhiteList,targetComponent})=>{
+const renderItemOfList=(userWhiteList,targetComponent)=>{
 
 	
 	
-	const {UserWhiteListService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={userWhiteList.id}>
+	
+	<DescriptionList  key={userWhiteList.id} size="small" col="4">
 <Description term="序号">{userWhiteList.id}</Description> 
 <Description term="用户身份">{userWhiteList.userIdentity}</Description> 
 <Description term="用户特殊功能">{userWhiteList.userSpecialFunctions}</Description> 
 	
-        {buildTransferModal(userWhiteList,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

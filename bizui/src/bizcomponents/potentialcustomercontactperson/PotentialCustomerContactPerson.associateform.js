@@ -21,7 +21,7 @@ const testValues = {
   name: '赵先生',
   mobile: '13677778888',
   description: '这人在决策中战友较大的权重，密切观察中.....',
-  potentialCustomerId: 'PC000001',
+  potentialCustomerId: 'PC00000001',
 }
 */
 

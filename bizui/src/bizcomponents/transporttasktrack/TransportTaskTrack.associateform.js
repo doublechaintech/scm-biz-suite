@@ -18,10 +18,10 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2018-03-22',
-  latitude: '32.77776208496111',
-  longitude: '105.81693854742218',
-  movementId: 'TT000001',
+  trackTime: '2017-01-12',
+  latitude: '31.636608816763246',
+  longitude: '103.90714785525027',
+  movementId: 'TT00000001',
 }
 */
 

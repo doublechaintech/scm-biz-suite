@@ -18,11 +18,11 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2016-07-23',
+  timeStart: '2017-06-06',
   durationHours: '3',
-  companyId: 'RSCC000001',
-  instructorId: 'I000001',
-  trainingCourseTypeId: 'TCT000001',
+  companyId: 'RSCC00000001',
+  instructorId: 'I00000001',
+  trainingCourseTypeId: 'TCT00000001',
 }
 */
 

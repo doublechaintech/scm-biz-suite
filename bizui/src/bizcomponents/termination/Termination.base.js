@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -52,31 +53,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({termination,targetComponent})=>{
+const renderItemOfList=(termination,targetComponent)=>{
 
 	
 	
-	const {TerminationService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={termination.id}>
+	
+	<DescriptionList  key={termination.id} size="small" col="4">
 <Description term="序号">{termination.id}</Description> 
 <Description term="原因">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"原因","terminationReason",TerminationService.requestCandidateReason,
-	      TerminationService.transferToAnotherReason,"anotherReasonId",termination.reason?termination.reason.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="类型">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"类型","terminationType",TerminationService.requestCandidateType,
-	      TerminationService.transferToAnotherType,"anotherTypeId",termination.type?termination.type.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="评论">{termination.comment}</Description> 
 	
-        {buildTransferModal(termination,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

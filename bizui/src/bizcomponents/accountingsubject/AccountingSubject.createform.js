@@ -21,7 +21,7 @@ const testValues = {
   accountingSubjectName: '银行存款',
   accountingSubjectClassCode: '1',
   accountingSubjectClassName: '资产类',
-  accountSetId: 'AS000001',
+  accountSetId: 'AS00000001',
 }
 */
 

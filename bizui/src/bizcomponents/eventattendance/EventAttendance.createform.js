@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   name: '小超见面会参加信息',
   description: '体会不错，考虑加盟',
-  potentialCustomerId: 'PC000001',
-  cityEventId: 'CE000001',
+  potentialCustomerId: 'PC00000001',
+  cityEventId: 'CE00000001',
 }
 */
 

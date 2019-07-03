@@ -21,7 +21,7 @@ const testValues = {
   name: '家里',
   mobilePhone: '18099887766',
   address: '四川省成都市科学城北路33号',
-  ownerId: 'RSM000001',
+  ownerId: 'RSM00000001',
 }
 */
 

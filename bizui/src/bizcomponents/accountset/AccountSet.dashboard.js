@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(accountSet)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (accountSet) =>defaultSettingListOf(accountSet, optionList)
 const internalLargeTextOf = (accountSet) =>{
 
@@ -143,9 +143,9 @@ class AccountSetDashboard extends Component {
     const cardsData = {cardsName:"账套",cardsFor: "accountSet",
     	cardsSource: this.props.accountSet,returnURL,displayName,
   		subItems: [
-{name: 'accountingSubjectList', displayName:'会计科目',type:'accountingSubject',count:accountingSubjectCount,addFunction: true, role: 'accountingSubject', metaInfo: accountingSubjectListMetaInfo},
-{name: 'accountingPeriodList', displayName:'会计期间',type:'accountingPeriod',count:accountingPeriodCount,addFunction: true, role: 'accountingPeriod', metaInfo: accountingPeriodListMetaInfo},
-{name: 'accountingDocumentTypeList', displayName:'会计凭证类型',type:'accountingDocumentType',count:accountingDocumentTypeCount,addFunction: true, role: 'accountingDocumentType', metaInfo: accountingDocumentTypeListMetaInfo},
+{name: 'accountingSubjectList', displayName:'会计科目',type:'accountingSubject',count:accountingSubjectCount,addFunction: true, role: 'accountingSubject', metaInfo: accountingSubjectListMetaInfo, renderItem: GlobalComponents.AccountingSubjectBase.renderItemOfList},
+{name: 'accountingPeriodList', displayName:'会计期间',type:'accountingPeriod',count:accountingPeriodCount,addFunction: true, role: 'accountingPeriod', metaInfo: accountingPeriodListMetaInfo, renderItem: GlobalComponents.AccountingPeriodBase.renderItemOfList},
+{name: 'accountingDocumentTypeList', displayName:'会计凭证类型',type:'accountingDocumentType',count:accountingDocumentTypeCount,addFunction: true, role: 'accountingDocumentType', metaInfo: accountingDocumentTypeListMetaInfo, renderItem: GlobalComponents.AccountingDocumentTypeBase.renderItemOfList},
     
       	],
   	};
@@ -160,6 +160,8 @@ class AccountSetDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -172,10 +174,11 @@ class AccountSetDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

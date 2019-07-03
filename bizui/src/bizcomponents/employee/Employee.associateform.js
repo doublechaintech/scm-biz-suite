@@ -26,11 +26,11 @@ const testValues = {
   address: '学院路234号',
   cellPhone: '18677778888',
   salaryAccount: '6226 7788 9908 ',
-  companyId: 'RSCC000001',
-  departmentId: 'LTD000001',
-  occupationId: 'OT000001',
-  responsibleForId: 'RT000001',
-  currentSalaryGradeId: 'SG000001',
+  companyId: 'RSCC00000001',
+  departmentId: 'LTD00000001',
+  occupationId: 'OT00000001',
+  responsibleForId: 'RT00000001',
+  currentSalaryGradeId: 'SG00000001',
 }
 */
 

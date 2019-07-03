@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -60,30 +61,30 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({storageSpace,targetComponent})=>{
+const renderItemOfList=(storageSpace,targetComponent)=>{
 
 	
 	
-	const {StorageSpaceService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={storageSpace.id}>
+	
+	<DescriptionList  key={storageSpace.id} size="small" col="4">
 <Description term="序号">{storageSpace.id}</Description> 
 <Description term="位置">{storageSpace.location}</Description> 
 <Description term="联系电话">{storageSpace.contactNumber}</Description> 
 <Description term="总面积">{storageSpace.totalArea}</Description> 
 <Description term="仓库">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",StorageSpaceService.requestCandidateWarehouse,
-	      StorageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",storageSpace.warehouse?storageSpace.warehouse.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="纬度">{storageSpace.latitude}</Description> 
 <Description term="经度">{storageSpace.longitude}</Description> 
 <Description term="最后更新时间">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(storageSpace,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

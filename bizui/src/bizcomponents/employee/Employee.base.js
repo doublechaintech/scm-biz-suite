@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -62,13 +63,13 @@ const fieldLabels = {
   responsibleFor: '负责',
   currentSalaryGrade: '目前工资等级',
   salaryAccount: '工资账户',
-  jobApplication: '工作申请',
-  professionInterview: '专业面试',
-  hrInterview: '人力资源部面试',
-  offerApproval: '审批工作要约',
-  offerAcceptance: '接受工作要约',
-  employeeBoarding: '员工入职',
-  termination: '雇佣终止',
+  jobApplication: '申请的工作',
+  professionInterview: '采访的职业',
+  hrInterview: '面试由人力资源',
+  offerApproval: '通过提供',
+  offerAcceptance: '接受报价',
+  employeeBoarding: '董事会员工',
+  termination: '终止',
   lastUpdateTime: '最后更新时间',
   currentStatus: '当前状态',
 
@@ -101,21 +102,19 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({employee,targetComponent})=>{
+const renderItemOfList=(employee,targetComponent)=>{
 
 	
 	
-	const {EmployeeService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={employee.id}>
+	
+	<DescriptionList  key={employee.id} size="small" col="4">
 <Description term="序号">{employee.id}</Description> 
 <Description term="头衔">{employee.title}</Description> 
 <Description term="部门">{employee.department==null?appLocaleName(userContext,"NotAssigned"):`${employee.department.displayName}(${employee.department.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"部门","levelThreeDepartment",EmployeeService.requestCandidateDepartment,
-	      EmployeeService.transferToAnotherDepartment,"anotherDepartmentId",employee.department?employee.department.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="姓">{employee.familyName}</Description> 
 <Description term="名">{employee.givenName}</Description> 
@@ -124,35 +123,21 @@ const renderItemOfList=({employee,targetComponent})=>{
 <Description term="地址">{employee.address}</Description> 
 <Description term="手机">{employee.cellPhone}</Description> 
 <Description term="职业">{employee.occupation==null?appLocaleName(userContext,"NotAssigned"):`${employee.occupation.displayName}(${employee.occupation.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"职业","occupationType",EmployeeService.requestCandidateOccupation,
-	      EmployeeService.transferToAnotherOccupation,"anotherOccupationId",employee.occupation?employee.occupation.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="负责">{employee.responsibleFor==null?appLocaleName(userContext,"NotAssigned"):`${employee.responsibleFor.displayName}(${employee.responsibleFor.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"负责","responsibilityType",EmployeeService.requestCandidateResponsibleFor,
-	      EmployeeService.transferToAnotherResponsibleFor,"anotherResponsibleForId",employee.responsibleFor?employee.responsibleFor.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="目前工资等级">{employee.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employee.currentSalaryGrade.displayName}(${employee.currentSalaryGrade.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"目前工资等级","salaryGrade",EmployeeService.requestCandidateCurrentSalaryGrade,
-	      EmployeeService.transferToAnotherCurrentSalaryGrade,"anotherCurrentSalaryGradeId",employee.currentSalaryGrade?employee.currentSalaryGrade.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="工资账户">{employee.salaryAccount}</Description> 
-<Description term="雇佣终止">{employee.termination==null?appLocaleName(userContext,"NotAssigned"):`${employee.termination.displayName}(${employee.termination.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"雇佣终止","termination",EmployeeService.requestCandidateTermination,
-	      EmployeeService.transferToAnotherTermination,"anotherTerminationId",employee.termination?employee.termination.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
+<Description term="终止">{employee.termination==null?appLocaleName(userContext,"NotAssigned"):`${employee.termination.displayName}(${employee.termination.id})`}
 </Description>
 <Description term="最后更新时间">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{employee.currentStatus}</Description> 
 	
-        {buildTransferModal(employee,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

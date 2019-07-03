@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({payingOff,targetComponent})=>{
+const renderItemOfList=(payingOff,targetComponent)=>{
 
 	
 	
-	const {PayingOffService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={payingOff.id}>
+	
+	<DescriptionList  key={payingOff.id} size="small" col="4">
 <Description term="序号">{payingOff.id}</Description> 
 <Description term="谁">{payingOff.who}</Description> 
 <Description term="支付">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"支付","employee",PayingOffService.requestCandidatePaidFor,
-	      PayingOffService.transferToAnotherPaidFor,"anotherPaidForId",payingOff.paidFor?payingOff.paidFor.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="支付时间">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
 <Description term="金额">{payingOff.amount}</Description> 
 	
-        {buildTransferModal(payingOff,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

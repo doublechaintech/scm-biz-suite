@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -46,7 +47,7 @@ const fieldLabels = {
   socialSecurity: '社会保险',
   housingFound: '住房公积金',
   jobInsurance: '失业保险',
-  payingOff: '工资支付',
+  payingOff: '回报',
   currentStatus: '当前状态',
 
 }
@@ -67,26 +68,20 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({employeeSalarySheet,targetComponent})=>{
+const renderItemOfList=(employeeSalarySheet,targetComponent)=>{
 
 	
 	
-	const {EmployeeSalarySheetService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={employeeSalarySheet.id}>
+	
+	<DescriptionList  key={employeeSalarySheet.id} size="small" col="4">
 <Description term="序号">{employeeSalarySheet.id}</Description> 
 <Description term="员工">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeSalarySheetService.requestCandidateEmployee,
-	      EmployeeSalarySheetService.transferToAnotherEmployee,"anotherEmployeeId",employeeSalarySheet.employee?employeeSalarySheet.employee.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="目前工资等级">{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"目前工资等级","salaryGrade",EmployeeSalarySheetService.requestCandidateCurrentSalaryGrade,
-	      EmployeeSalarySheetService.transferToAnotherCurrentSalaryGrade,"anotherCurrentSalaryGradeId",employeeSalarySheet.currentSalaryGrade?employeeSalarySheet.currentSalaryGrade.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="基本工资">{employeeSalarySheet.baseSalary}</Description> 
 <Description term="奖金">{employeeSalarySheet.bonus}</Description> 
@@ -95,16 +90,14 @@ const renderItemOfList=({employeeSalarySheet,targetComponent})=>{
 <Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
 <Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
 <Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
-<Description term="工资支付">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"工资支付","payingOff",EmployeeSalarySheetService.requestCandidatePayingOff,
-	      EmployeeSalarySheetService.transferToAnotherPayingOff,"anotherPayingOffId",employeeSalarySheet.payingOff?employeeSalarySheet.payingOff.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
+<Description term="回报">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
 </Description>
 <Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
 	
-        {buildTransferModal(employeeSalarySheet,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

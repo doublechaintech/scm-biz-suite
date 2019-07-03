@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   name: '信息系统部大数据部门',
   description: '主要执行集团信息系统建设，维护，规划',
-  founded: '2017-01-18',
-  belongsToId: 'LOD000001',
+  founded: '2019-04-07',
+  belongsToId: 'LOD00000001',
 }
 */
 

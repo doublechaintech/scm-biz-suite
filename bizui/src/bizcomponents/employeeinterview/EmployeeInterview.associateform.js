@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   remark: '结果不错，面试通过！',
-  employeeId: 'E000001',
-  interviewTypeId: 'IT000001',
+  employeeId: 'E00000001',
+  interviewTypeId: 'IT00000001',
 }
 */
 

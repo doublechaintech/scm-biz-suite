@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -53,27 +54,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({retailStoreMemberCoupon,targetComponent})=>{
+const renderItemOfList=(retailStoreMemberCoupon,targetComponent)=>{
 
 	
 	
-	const {RetailStoreMemberCouponService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={retailStoreMemberCoupon.id}>
+	
+	<DescriptionList  key={retailStoreMemberCoupon.id} size="small" col="4">
 <Description term="序号">{retailStoreMemberCoupon.id}</Description> 
 <Description term="名称">{retailStoreMemberCoupon.name}</Description> 
 <Description term="业主">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberCouponService.requestCandidateOwner,
-	      RetailStoreMemberCouponService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberCoupon.owner?retailStoreMemberCoupon.owner.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="数">{retailStoreMemberCoupon.number}</Description> 
 <Description term="最后更新时间">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(retailStoreMemberCoupon,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

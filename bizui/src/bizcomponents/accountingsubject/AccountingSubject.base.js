@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -56,28 +57,28 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({accountingSubject,targetComponent})=>{
+const renderItemOfList=(accountingSubject,targetComponent)=>{
 
 	
 	
-	const {AccountingSubjectService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={accountingSubject.id}>
+	
+	<DescriptionList  key={accountingSubject.id} size="small" col="4">
 <Description term="序号">{accountingSubject.id}</Description> 
 <Description term="会计科目代码">{accountingSubject.accountingSubjectCode}</Description> 
 <Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
 <Description term="会计科目类别代码">{accountingSubject.accountingSubjectClassCode}</Description> 
 <Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
 <Description term="账套">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"账套","accountSet",AccountingSubjectService.requestCandidateAccountSet,
-	      AccountingSubjectService.transferToAnotherAccountSet,"anotherAccountSetId",accountingSubject.accountSet?accountingSubject.accountSet.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(accountingSubject,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

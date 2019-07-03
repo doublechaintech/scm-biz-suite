@@ -21,7 +21,7 @@ const testValues = {
   code: 'ETT0000',
   baseDescription: '合同解除',
   detailDescription: '这个终止原因的描述是这样的.................................................',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

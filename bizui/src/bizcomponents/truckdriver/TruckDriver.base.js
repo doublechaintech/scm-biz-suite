@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({truckDriver,targetComponent})=>{
+const renderItemOfList=(truckDriver,targetComponent)=>{
 
 	
 	
-	const {TruckDriverService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={truckDriver.id}>
+	
+	<DescriptionList  key={truckDriver.id} size="small" col="4">
 <Description term="序号">{truckDriver.id}</Description> 
 <Description term="名称">{truckDriver.name}</Description> 
 <Description term="驾驶执照号码">{truckDriver.driverLicenseNumber}</Description> 
 <Description term="联系电话">{truckDriver.contactNumber}</Description> 
 <Description term="属于">{truckDriver.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${truckDriver.belongsTo.displayName}(${truckDriver.belongsTo.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"属于","transportFleet",TruckDriverService.requestCandidateBelongsTo,
-	      TruckDriverService.transferToAnotherBelongsTo,"anotherBelongsToId",truckDriver.belongsTo?truckDriver.belongsTo.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(truckDriver,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

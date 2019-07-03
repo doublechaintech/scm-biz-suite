@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -53,27 +54,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({stockCountIssueTrack,targetComponent})=>{
+const renderItemOfList=(stockCountIssueTrack,targetComponent)=>{
 
 	
 	
-	const {StockCountIssueTrackService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={stockCountIssueTrack.id}>
+	
+	<DescriptionList  key={stockCountIssueTrack.id} size="small" col="4">
 <Description term="序号">{stockCountIssueTrack.id}</Description> 
 <Description term="头衔">{stockCountIssueTrack.title}</Description> 
 <Description term="计数时间">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
 <Description term="概览">{stockCountIssueTrack.summary}</Description> 
 <Description term="盘点">{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"盘点","goodsShelfStockCount",StockCountIssueTrackService.requestCandidateStockCount,
-	      StockCountIssueTrackService.transferToAnotherStockCount,"anotherStockCountId",stockCountIssueTrack.stockCount?stockCountIssueTrack.stockCount.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(stockCountIssueTrack,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

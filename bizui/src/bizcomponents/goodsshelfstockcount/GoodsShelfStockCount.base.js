@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({goodsShelfStockCount,targetComponent})=>{
+const renderItemOfList=(goodsShelfStockCount,targetComponent)=>{
 
 	
 	
-	const {GoodsShelfStockCountService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={goodsShelfStockCount.id}>
+	
+	<DescriptionList  key={goodsShelfStockCount.id} size="small" col="4">
 <Description term="序号">{goodsShelfStockCount.id}</Description> 
 <Description term="头衔">{goodsShelfStockCount.title}</Description> 
 <Description term="计数时间">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
 <Description term="概览">{goodsShelfStockCount.summary}</Description> 
 <Description term="架">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"架","goodsShelf",GoodsShelfStockCountService.requestCandidateShelf,
-	      GoodsShelfStockCountService.transferToAnotherShelf,"anotherShelfId",goodsShelfStockCount.shelf?goodsShelfStockCount.shelf.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(goodsShelfStockCount,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -62,30 +63,30 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({sku,targetComponent})=>{
+const renderItemOfList=(sku,targetComponent)=>{
 
 	
 	
-	const {SkuService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={sku.id}>
+	
+	<DescriptionList  key={sku.id} size="small" col="4">
 <Description term="序号">{sku.id}</Description> 
 <Description term="名称">{sku.name}</Description> 
 <Description term="大小">{sku.size}</Description> 
 <Description term="产品">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"产品","product",SkuService.requestCandidateProduct,
-	      SkuService.transferToAnotherProduct,"anotherProductId",sku.product?sku.product.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="条码">{sku.barcode}</Description> 
 <Description term="包装类型">{sku.packageType}</Description> 
 <Description term="净含量">{sku.netContent}</Description> 
 <Description term="价格">{sku.price}</Description> 
 	
-        {buildTransferModal(sku,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

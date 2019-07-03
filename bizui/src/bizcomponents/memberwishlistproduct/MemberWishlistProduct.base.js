@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -49,25 +50,25 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({memberWishlistProduct,targetComponent})=>{
+const renderItemOfList=(memberWishlistProduct,targetComponent)=>{
 
 	
 	
-	const {MemberWishlistProductService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={memberWishlistProduct.id}>
+	
+	<DescriptionList  key={memberWishlistProduct.id} size="small" col="4">
 <Description term="序号">{memberWishlistProduct.id}</Description> 
 <Description term="名称">{memberWishlistProduct.name}</Description> 
 <Description term="业主">{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","memberWishlist",MemberWishlistProductService.requestCandidateOwner,
-	      MemberWishlistProductService.transferToAnotherOwner,"anotherOwnerId",memberWishlistProduct.owner?memberWishlistProduct.owner.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(memberWishlistProduct,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

@@ -20,7 +20,7 @@ const testValues = {
   name: '曾倩',
   mobile: '13677778888',
   description: '负责开拓市场，具有极强的开拓能力',
-  cityServiceCenterId: 'RSCSC000001',
+  cityServiceCenterId: 'RSCSC00000001',
 }
 */
 

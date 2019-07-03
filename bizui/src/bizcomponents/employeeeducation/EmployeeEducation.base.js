@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -53,27 +54,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({employeeEducation,targetComponent})=>{
+const renderItemOfList=(employeeEducation,targetComponent)=>{
 
 	
 	
-	const {EmployeeEducationService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={employeeEducation.id}>
+	
+	<DescriptionList  key={employeeEducation.id} size="small" col="4">
 <Description term="序号">{employeeEducation.id}</Description> 
 <Description term="员工">{employeeEducation.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeEducation.employee.displayName}(${employeeEducation.employee.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeEducationService.requestCandidateEmployee,
-	      EmployeeEducationService.transferToAnotherEmployee,"anotherEmployeeId",employeeEducation.employee?employeeEducation.employee.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="完成时间">{ moment(employeeEducation.completeTime).format('YYYY-MM-DD')}</Description> 
 <Description term="类型">{employeeEducation.type}</Description> 
 <Description term="备注">{employeeEducation.remark}</Description> 
 	
-        {buildTransferModal(employeeEducation,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

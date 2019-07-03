@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   fromIp: '192.168.1.1',
   description: '登陆成功',
-  secUserId: 'SU000001',
+  secUserId: 'SU00000001',
 }
 */
 

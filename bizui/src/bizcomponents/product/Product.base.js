@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -60,29 +61,29 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({product,targetComponent})=>{
+const renderItemOfList=(product,targetComponent)=>{
 
 	
 	
-	const {ProductService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={product.id}>
+	
+	<DescriptionList  key={product.id} size="small" col="4">
 <Description term="序号">{product.id}</Description> 
 <Description term="名称">{product.name}</Description> 
 <Description term="父类">{product.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${product.parentCategory.displayName}(${product.parentCategory.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"父类","levelThreeCategory",ProductService.requestCandidateParentCategory,
-	      ProductService.transferToAnotherParentCategory,"anotherParentCategoryId",product.parentCategory?product.parentCategory.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="产地">{product.origin}</Description> 
 <Description term="备注">{product.remark}</Description> 
 <Description term="品牌">{product.brand}</Description> 
 <Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(product,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

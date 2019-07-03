@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -72,14 +73,16 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({accountSet,targetComponent})=>{
+const renderItemOfList=(accountSet,targetComponent)=>{
 
 	
 	
-	const {AccountSetService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={accountSet.id}>
+	
+	<DescriptionList  key={accountSet.id} size="small" col="4">
 <Description term="序号">{accountSet.id}</Description> 
 <Description term="名称">{accountSet.name}</Description> 
 <Description term="年组">{accountSet.yearSet}</Description> 
@@ -90,21 +93,15 @@ const renderItemOfList=({accountSet,targetComponent})=>{
 <Description term="开户银行">{accountSet.openingBank}</Description> 
 <Description term="帐户号码">{accountSet.accountNumber}</Description> 
 <Description term="双链小超">{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.retailStore.displayName}(${accountSet.retailStore.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"双链小超","retailStore",AccountSetService.requestCandidateRetailStore,
-	      AccountSetService.transferToAnotherRetailStore,"anotherRetailStoreId",accountSet.retailStore?accountSet.retailStore.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="产品供应商">{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.goodsSupplier.displayName}(${accountSet.goodsSupplier.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"产品供应商","goodsSupplier",AccountSetService.requestCandidateGoodsSupplier,
-	      AccountSetService.transferToAnotherGoodsSupplier,"anotherGoodsSupplierId",accountSet.goodsSupplier?accountSet.goodsSupplier.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="最后更新时间">{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(accountSet,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

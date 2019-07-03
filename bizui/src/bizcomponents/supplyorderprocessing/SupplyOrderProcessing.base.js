@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -51,20 +52,24 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({supplyOrderProcessing,targetComponent})=>{
+const renderItemOfList=(supplyOrderProcessing,targetComponent)=>{
 
 	
 	
-	const {SupplyOrderProcessingService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={supplyOrderProcessing.id}>
+	
+	<DescriptionList  key={supplyOrderProcessing.id} size="small" col="4">
 <Description term="序号">{supplyOrderProcessing.id}</Description> 
 <Description term="谁">{supplyOrderProcessing.who}</Description> 
 <Description term="过程的时间">{ moment(supplyOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(supplyOrderProcessing,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

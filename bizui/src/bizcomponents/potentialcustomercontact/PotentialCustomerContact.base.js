@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -61,41 +62,33 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({potentialCustomerContact,targetComponent})=>{
+const renderItemOfList=(potentialCustomerContact,targetComponent)=>{
 
 	
 	
-	const {PotentialCustomerContactService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={potentialCustomerContact.id}>
+	
+	<DescriptionList  key={potentialCustomerContact.id} size="small" col="4">
 <Description term="序号">{potentialCustomerContact.id}</Description> 
 <Description term="名称">{potentialCustomerContact.name}</Description> 
 <Description term="接触日期">{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</Description> 
 <Description term="接触法">{potentialCustomerContact.contactMethod}</Description> 
 <Description term="潜在的客户">{potentialCustomerContact.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.potentialCustomer.displayName}(${potentialCustomerContact.potentialCustomer.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"潜在的客户","potentialCustomer",PotentialCustomerContactService.requestCandidatePotentialCustomer,
-	      PotentialCustomerContactService.transferToAnotherPotentialCustomer,"anotherPotentialCustomerId",potentialCustomerContact.potentialCustomer?potentialCustomerContact.potentialCustomer.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="城市合伙人">{potentialCustomerContact.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.cityPartner.displayName}(${potentialCustomerContact.cityPartner.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市合伙人","cityPartner",PotentialCustomerContactService.requestCandidateCityPartner,
-	      PotentialCustomerContactService.transferToAnotherCityPartner,"anotherCityPartnerId",potentialCustomerContact.cityPartner?potentialCustomerContact.cityPartner.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="接触">{potentialCustomerContact.contactTo==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.contactTo.displayName}(${potentialCustomerContact.contactTo.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"接触","potentialCustomerContactPerson",PotentialCustomerContactService.requestCandidateContactTo,
-	      PotentialCustomerContactService.transferToAnotherContactTo,"anotherContactToId",potentialCustomerContact.contactTo?potentialCustomerContact.contactTo.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="描述">{potentialCustomerContact.description}</Description> 
 <Description term="最后更新时间">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(potentialCustomerContact,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -46,7 +47,7 @@ const fieldLabels = {
   creation: '创建',
   confirmation: '确认',
   auditing: '审计',
-  posting: '过账',
+  posting: '帖子',
   currentStatus: '当前状态',
 
 }
@@ -65,33 +66,29 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({accountingDocument,targetComponent})=>{
+const renderItemOfList=(accountingDocument,targetComponent)=>{
 
 	
 	
-	const {AccountingDocumentService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={accountingDocument.id}>
+	
+	<DescriptionList  key={accountingDocument.id} size="small" col="4">
 <Description term="序号">{accountingDocument.id}</Description> 
 <Description term="名称">{accountingDocument.name}</Description> 
 <Description term="会计凭证日期">{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</Description> 
 <Description term="会计期间">{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.accountingPeriod.displayName}(${accountingDocument.accountingPeriod.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"会计期间","accountingPeriod",AccountingDocumentService.requestCandidateAccountingPeriod,
-	      AccountingDocumentService.transferToAnotherAccountingPeriod,"anotherAccountingPeriodId",accountingDocument.accountingPeriod?accountingDocument.accountingPeriod.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="文档类型">{accountingDocument.documentType==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.documentType.displayName}(${accountingDocument.documentType.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"文档类型","accountingDocumentType",AccountingDocumentService.requestCandidateDocumentType,
-	      AccountingDocumentService.transferToAnotherDocumentType,"anotherDocumentTypeId",accountingDocument.documentType?accountingDocument.documentType.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="当前状态">{accountingDocument.currentStatus}</Description> 
 	
-        {buildTransferModal(accountingDocument,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

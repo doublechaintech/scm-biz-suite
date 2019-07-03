@@ -20,12 +20,12 @@ const testValues = {
   name: '中和社区小超',
   telephone: '02887654321',
   owner: '吕刚',
-  founded: '2018-01-30',
-  latitude: '42.766831709441405',
-  longitude: '129.4169056520242',
+  founded: '2018-11-14',
+  latitude: '42.49863394098968',
+  longitude: '131.24658184509943',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
-  retailStoreCountryCenterId: 'RSCC000001',
-  cityServiceCenterId: 'RSCSC000001',
+  retailStoreCountryCenterId: 'RSCC00000001',
+  cityServiceCenterId: 'RSCSC00000001',
 }
 */
 

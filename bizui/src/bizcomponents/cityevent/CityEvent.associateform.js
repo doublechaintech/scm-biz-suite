@@ -21,7 +21,7 @@ const testValues = {
   name: '小超见面会',
   mobile: '13677778888',
   description: '给大家讲解小超的发展蓝图',
-  cityServiceCenterId: 'RSCSC000001',
+  cityServiceCenterId: 'RSCSC00000001',
 }
 */
 

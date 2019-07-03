@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '付款办法',
   cardNumber: '4111 1111 1111 - ',
-  bizOrderId: 'RSO000001',
+  bizOrderId: 'RSO00000001',
 }
 */
 

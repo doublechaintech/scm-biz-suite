@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -39,7 +40,7 @@ const fieldLabels = {
   id: '序号',
   employee: '员工',
   training: '训练',
-  scoring: '评分',
+  scoring: '分数',
   currentStatus: '当前状态',
 
 }
@@ -53,31 +54,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({employeeCompanyTraining,targetComponent})=>{
+const renderItemOfList=(employeeCompanyTraining,targetComponent)=>{
 
 	
 	
-	const {EmployeeCompanyTrainingService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={employeeCompanyTraining.id}>
+	
+	<DescriptionList  key={employeeCompanyTraining.id} size="small" col="4">
 <Description term="序号">{employeeCompanyTraining.id}</Description> 
 <Description term="员工">{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeCompanyTrainingService.requestCandidateEmployee,
-	      EmployeeCompanyTrainingService.transferToAnotherEmployee,"anotherEmployeeId",employeeCompanyTraining.employee?employeeCompanyTraining.employee.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="训练">{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"训练","companyTraining",EmployeeCompanyTrainingService.requestCandidateTraining,
-	      EmployeeCompanyTrainingService.transferToAnotherTraining,"anotherTrainingId",employeeCompanyTraining.training?employeeCompanyTraining.training.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="当前状态">{employeeCompanyTraining.currentStatus}</Description> 
 	
-        {buildTransferModal(employeeCompanyTraining,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

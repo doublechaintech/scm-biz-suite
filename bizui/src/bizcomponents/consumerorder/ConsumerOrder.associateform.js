@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   title: '消费订单',
-  consumerId: 'RSM000001',
-  storeId: 'RS000001',
+  consumerId: 'RSM00000001',
+  storeId: 'RS00000001',
 }
 */
 

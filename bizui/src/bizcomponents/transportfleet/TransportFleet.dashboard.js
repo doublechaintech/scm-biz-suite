@@ -27,10 +27,9 @@ const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
   defaultSubListsOf,defaultRenderAnalytics,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,defaultQuickFunctions
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
 }= DashboardTool
-
-
 
 
 
@@ -50,6 +49,7 @@ const optionList =(transportFleet)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+const internalRenderSubjectList = defaultRenderSubjectList
 const internalSettingListOf = (transportFleet) =>defaultSettingListOf(transportFleet, optionList)
 const internalLargeTextOf = (transportFleet) =>{
 
@@ -125,9 +125,9 @@ class TransportFleetDashboard extends Component {
     const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",
     	cardsSource: this.props.transportFleet,returnURL,displayName,
   		subItems: [
-{name: 'transportTruckList', displayName:'运输车',type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo},
-{name: 'truckDriverList', displayName:'卡车司机',type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo},
-{name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo},
+{name: 'transportTruckList', displayName:'运输车',type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo, renderItem: GlobalComponents.TransportTruckBase.renderItemOfList},
+{name: 'truckDriverList', displayName:'卡车司机',type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo, renderItem: GlobalComponents.TruckDriverBase.renderItemOfList},
+{name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
     
       	],
   	};
@@ -142,6 +142,8 @@ class TransportFleetDashboard extends Component {
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
     return (
 
       <PageHeaderLayout
@@ -154,10 +156,11 @@ class TransportFleetDashboard extends Component {
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}        
+        {imageListOf(cardsData.cardsSource)}  
+        {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}
-  
+  		
       </PageHeaderLayout>
     
     )

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -48,10 +49,10 @@ const fieldLabels = {
   retailStoreCountryCenter: '双链小超全国运营中心',
   cityServiceCenter: '城市服务中心',
   creation: '创建',
-  investmentInvitation: '招商',
-  franchising: '加盟',
+  investmentInvitation: 'Invite Investment',
+  franchising: '特许经营',
   decoration: '装修',
-  opening: '开业',
+  opening: '开放',
   closing: '关闭',
   founded: '成立',
   latitude: '纬度',
@@ -84,23 +85,21 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({retailStore,targetComponent})=>{
+const renderItemOfList=(retailStore,targetComponent)=>{
 
 	
 	
-	const {RetailStoreService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={retailStore.id}>
+	
+	<DescriptionList  key={retailStore.id} size="small" col="4">
 <Description term="序号">{retailStore.id}</Description> 
 <Description term="名称">{retailStore.name}</Description> 
 <Description term="电话">{retailStore.telephone}</Description> 
 <Description term="业主">{retailStore.owner}</Description> 
 <Description term="城市服务中心">{retailStore.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${retailStore.cityServiceCenter.displayName}(${retailStore.cityServiceCenter.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",RetailStoreService.requestCandidateCityServiceCenter,
-	      RetailStoreService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",retailStore.cityServiceCenter?retailStore.cityServiceCenter.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="成立">{ moment(retailStore.founded).format('YYYY-MM-DD')}</Description> 
 <Description term="纬度">{retailStore.latitude}</Description> 
@@ -109,8 +108,10 @@ const renderItemOfList=({retailStore,targetComponent})=>{
 <Description term="最后更新时间">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 <Description term="当前状态">{retailStore.currentStatus}</Description> 
 	
-        {buildTransferModal(retailStore,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

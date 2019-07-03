@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({goodsAllocation,targetComponent})=>{
+const renderItemOfList=(goodsAllocation,targetComponent)=>{
 
 	
 	
-	const {GoodsAllocationService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={goodsAllocation.id}>
+	
+	<DescriptionList  key={goodsAllocation.id} size="small" col="4">
 <Description term="序号">{goodsAllocation.id}</Description> 
 <Description term="位置">{goodsAllocation.location}</Description> 
 <Description term="纬度">{goodsAllocation.latitude}</Description> 
 <Description term="经度">{goodsAllocation.longitude}</Description> 
 <Description term="货架">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"货架","goodsShelf",GoodsAllocationService.requestCandidateGoodsShelf,
-	      GoodsAllocationService.transferToAnotherGoodsShelf,"anotherGoodsShelfId",goodsAllocation.goodsShelf?goodsAllocation.goodsShelf.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(goodsAllocation,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

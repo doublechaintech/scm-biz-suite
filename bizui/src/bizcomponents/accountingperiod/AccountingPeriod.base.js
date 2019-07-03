@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,27 +55,27 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({accountingPeriod,targetComponent})=>{
+const renderItemOfList=(accountingPeriod,targetComponent)=>{
 
 	
 	
-	const {AccountingPeriodService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={accountingPeriod.id}>
+	
+	<DescriptionList  key={accountingPeriod.id} size="small" col="4">
 <Description term="序号">{accountingPeriod.id}</Description> 
 <Description term="名称">{accountingPeriod.name}</Description> 
 <Description term="开始日期">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
 <Description term="结束日期">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
 <Description term="账套">{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"账套","accountSet",AccountingPeriodService.requestCandidateAccountSet,
-	      AccountingPeriodService.transferToAnotherAccountSet,"anotherAccountSetId",accountingPeriod.accountSet?accountingPeriod.accountSet.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(accountingPeriod,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

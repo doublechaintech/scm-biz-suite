@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到刘强家',
-  amount: '440.19',
-  bizOrderId: 'CO000001',
+  amount: '456.24',
+  bizOrderId: 'CO00000001',
 }
 */
 

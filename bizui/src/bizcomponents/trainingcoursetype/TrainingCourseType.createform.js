@@ -20,7 +20,7 @@ const testValues = {
   code: 'TC00',
   name: '入职培训',
   description: '培训是提升个人和企业竞争力的法宝',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

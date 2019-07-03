@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -60,14 +61,16 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({damageSpace,targetComponent})=>{
+const renderItemOfList=(damageSpace,targetComponent)=>{
 
 	
 	
-	const {DamageSpaceService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={damageSpace.id}>
+	
+	<DescriptionList  key={damageSpace.id} size="small" col="4">
 <Description term="序号">{damageSpace.id}</Description> 
 <Description term="位置">{damageSpace.location}</Description> 
 <Description term="联系电话">{damageSpace.contactNumber}</Description> 
@@ -75,15 +78,13 @@ const renderItemOfList=({damageSpace,targetComponent})=>{
 <Description term="纬度">{damageSpace.latitude}</Description> 
 <Description term="经度">{damageSpace.longitude}</Description> 
 <Description term="仓库">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",DamageSpaceService.requestCandidateWarehouse,
-	      DamageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",damageSpace.warehouse?damageSpace.warehouse.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="最后更新时间">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(damageSpace,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

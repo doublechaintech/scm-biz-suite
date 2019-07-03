@@ -23,14 +23,14 @@ const load = (targetObjectId, parameters) => {
 
 
 const addSecUser = (targetObjectId, parameters) => {
-  const url = `${PREFIX}secUserBlockingManager/addSecUser/secUserBlockingId/login/mobile/email/pwd/verificationCode/verificationCodeExpire/lastLoginTime/domainId/tokensExpr/`
+  const url = `${PREFIX}secUserBlockingManager/addSecUser/secUserBlockingId/login/mobile/email/pwd/weixinOpenid/weixinAppid/accessToken/verificationCode/verificationCodeExpire/lastLoginTime/domainId/tokensExpr/`
   const secUserBlockingId = targetObjectId
   const requestParameters = { ...parameters, secUserBlockingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateSecUser = (targetObjectId, parameters) => {
-  const url = `${PREFIX}secUserBlockingManager/updateSecUserProperties/secUserBlockingId/id/login/mobile/email/pwd/verificationCode/verificationCodeExpire/lastLoginTime/tokensExpr/`
+  const url = `${PREFIX}secUserBlockingManager/updateSecUserProperties/secUserBlockingId/id/login/mobile/email/pwd/weixinOpenid/weixinAppid/accessToken/verificationCode/verificationCodeExpire/lastLoginTime/tokensExpr/`
   const secUserBlockingId = targetObjectId
   const requestParameters = { ...parameters, secUserBlockingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

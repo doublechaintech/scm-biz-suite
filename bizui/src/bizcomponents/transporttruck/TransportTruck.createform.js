@@ -22,10 +22,10 @@ const testValues = {
   contactNumber: '02887654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2017-08-11',
+  makeDate: '2018-06-25',
   mileage: '100万公里',
   bodyColor: '红色',
-  ownerId: 'TF000001',
+  ownerId: 'TF00000001',
 }
 */
 

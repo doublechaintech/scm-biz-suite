@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -51,21 +52,25 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({view,targetComponent})=>{
+const renderItemOfList=(view,targetComponent)=>{
 
 	
 	
-	const {ViewService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={view.id}>
+	
+	<DescriptionList  key={view.id} size="small" col="4">
 <Description term="序号">{view.id}</Description> 
 <Description term="谁">{view.who}</Description> 
 <Description term="评估">{view.assessment}</Description> 
 <Description term="面试时间">{ moment(view.interviewTime).format('YYYY-MM-DD')}</Description> 
 	
-        {buildTransferModal(view,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

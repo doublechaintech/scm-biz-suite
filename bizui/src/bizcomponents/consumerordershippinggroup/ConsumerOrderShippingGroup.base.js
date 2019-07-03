@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -51,26 +52,26 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({consumerOrderShippingGroup,targetComponent})=>{
+const renderItemOfList=(consumerOrderShippingGroup,targetComponent)=>{
 
 	
 	
-	const {ConsumerOrderShippingGroupService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={consumerOrderShippingGroup.id}>
+	
+	<DescriptionList  key={consumerOrderShippingGroup.id} size="small" col="4">
 <Description term="序号">{consumerOrderShippingGroup.id}</Description> 
 <Description term="名称">{consumerOrderShippingGroup.name}</Description> 
 <Description term="订单">{consumerOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderShippingGroup.bizOrder.displayName}(${consumerOrderShippingGroup.bizOrder.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderShippingGroupService.requestCandidateBizOrder,
-	      ConsumerOrderShippingGroupService.transferToAnotherBizOrder,"anotherBizOrderId",consumerOrderShippingGroup.bizOrder?consumerOrderShippingGroup.bizOrder.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="金额">{consumerOrderShippingGroup.amount}</Description> 
 	
-        {buildTransferModal(consumerOrderShippingGroup,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

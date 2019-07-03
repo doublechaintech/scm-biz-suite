@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -50,25 +51,25 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({levelOneCategory,targetComponent})=>{
+const renderItemOfList=(levelOneCategory,targetComponent)=>{
 
 	
 	
-	const {LevelOneCategoryService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={levelOneCategory.id}>
+	
+	<DescriptionList  key={levelOneCategory.id} size="small" col="4">
 <Description term="序号">{levelOneCategory.id}</Description> 
 <Description term="目录">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"目录","catalog",LevelOneCategoryService.requestCandidateCatalog,
-	      LevelOneCategoryService.transferToAnotherCatalog,"anotherCatalogId",levelOneCategory.catalog?levelOneCategory.catalog.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="名称">{levelOneCategory.name}</Description> 
 	
-        {buildTransferModal(levelOneCategory,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

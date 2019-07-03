@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  catalogId: 'C000001',
+  catalogId: 'C00000001',
 }
 */
 

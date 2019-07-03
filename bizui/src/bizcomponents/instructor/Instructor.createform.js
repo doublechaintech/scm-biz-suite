@@ -23,7 +23,7 @@ const testValues = {
   cellPhone: '18699990000',
   email: 'instructor@gmail.com',
   introduction: '这是一个长长长长长长长长的介绍',
-  companyId: 'RSCC000001',
+  companyId: 'RSCC00000001',
 }
 */
 

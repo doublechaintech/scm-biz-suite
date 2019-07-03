@@ -18,12 +18,12 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2017-06-01',
+  contactDate: '2017-04-07',
   contactMethod: '电话',
   description: '转化希望很大',
-  potentialCustomerId: 'PC000001',
-  cityPartnerId: 'CP000001',
-  contactToId: 'PCCP000001',
+  potentialCustomerId: 'PC00000001',
+  cityPartnerId: 'CP00000001',
+  contactToId: 'PCCP00000001',
 }
 */
 

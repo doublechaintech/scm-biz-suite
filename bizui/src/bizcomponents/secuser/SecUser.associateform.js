@@ -21,11 +21,14 @@ const testValues = {
   login: 'login',
   mobile: '13900000001',
   email: '',
-  pwd: 'C183EC89F92A462CF45B95504792EC4625E847C90536EEFE512D1C9DB8602E95',
+  pwd: '1B0837F50CCED8BAC0DE12C3834F69EA018EF13A11DB9EE48C74FA07E606A32B',
+  weixinOpenid: 'wx123456789abcdefghijklmn',
+  weixinAppid: 'wxapp12098410239840',
+  accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-05-13 16:28:11',
-  lastLoginTime: '2019-05-15 19:43:41',
-  domainId: 'UD000001',
+  verificationCodeExpire: '2019-06-18 21:34:54',
+  lastLoginTime: '2019-06-21 12:41:58',
+  domainId: 'UD00000001',
 }
 */
 
@@ -177,6 +180,36 @@ class SecUserAssociateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="PWD" />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.weixinOpenid} {...formItemLayout}>
+                  {getFieldDecorator('weixinOpenid', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="Weixin Openid" />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.weixinAppid} {...formItemLayout}>
+                  {getFieldDecorator('weixinAppid', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="Weixin Appid" />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.accessToken} {...formItemLayout}>
+                  {getFieldDecorator('accessToken', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="访问令牌" />
                   )}
                 </Form.Item>
               </Col>

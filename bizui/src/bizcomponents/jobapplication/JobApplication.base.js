@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -52,21 +53,25 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({jobApplication,targetComponent})=>{
+const renderItemOfList=(jobApplication,targetComponent)=>{
 
 	
 	
-	const {JobApplicationService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={jobApplication.id}>
+	
+	<DescriptionList  key={jobApplication.id} size="small" col="4">
 <Description term="序号">{jobApplication.id}</Description> 
 <Description term="申请时间">{ moment(jobApplication.applicationTime).format('YYYY-MM-DD')}</Description> 
 <Description term="谁">{jobApplication.who}</Description> 
 <Description term="评论">{jobApplication.comments}</Description> 
 	
-        {buildTransferModal(jobApplication,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }

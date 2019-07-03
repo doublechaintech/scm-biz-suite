@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon,Divider } from 'antd'
+
 import { Link } from 'dva/router'
 import moment from 'moment'
 import ImagePreview from '../../components/ImagePreview'
@@ -7,7 +8,7 @@ import appLocaleName from '../../common/Locale.tool'
 import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
-
+const { Description } = DescriptionList
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -69,14 +70,16 @@ const displayColumns = [
 
 ]
 // refernce to https://ant.design/components/list-cn/
-const renderItemOfList=({objectAccess,targetComponent})=>{
+const renderItemOfList=(objectAccess,targetComponent)=>{
 
 	
 	
-	const {ObjectAccessService} = GlobalComponents
-	// const userContext = null
+	
+	const userContext = null
 	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
+	<div key={objectAccess.id}>
+	
+	<DescriptionList  key={objectAccess.id} size="small" col="4">
 <Description term="序号">{objectAccess.id}</Description> 
 <Description term="名称">{objectAccess.name}</Description> 
 <Description term="对象类型">{objectAccess.objectType}</Description> 
@@ -90,14 +93,12 @@ const renderItemOfList=({objectAccess,targetComponent})=>{
 <Description term="list8">{objectAccess.list8}</Description> 
 <Description term="list9">{objectAccess.list9}</Description> 
 <Description term="应用程序">{objectAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${objectAccess.app.displayName}(${objectAccess.app.id})`}
- <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"应用程序","userApp",ObjectAccessService.requestCandidateApp,
-	      ObjectAccessService.transferToAnotherApp,"anotherAppId",objectAccess.app?objectAccess.app.id:"")} 
-  style={{fontSize: 20,color:"red"}} />
 </Description>
 	
-        {buildTransferModal(objectAccess,targetComponent)}
+        
       </DescriptionList>
+       <Divider style={{ height: '2px' }} />
+      </div>
 	)
 
 }
