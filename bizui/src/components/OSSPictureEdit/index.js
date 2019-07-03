@@ -135,7 +135,8 @@ export default class OSSPictureEdit extends React.Component {
         getURLPrefix() + 'secUserManager/testoss/'
       );
     };
-    axios.get(getSTSURL()).then(res => {
+
+    axios.get(getSTSURL(),{headers:{"X-App-Version":35}}).then(res => {
       const token = res.data;
       this.setState({ token });
     });
