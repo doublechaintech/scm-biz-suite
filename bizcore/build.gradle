@@ -1,10 +1,9 @@
-
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
     }
 }
 
@@ -32,10 +31,10 @@ sourceSets {
         java.outputDir = file('WEB-INF/classes')
         
         java {
-            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src', 'WEB-INF/retailscm_core_src', 'WEB-INF/retailscm_custom_src']
+            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src', 'WEB-INF/<%=name%>_core_src', 'WEB-INF/<%=name%>_custom_src']
         }
         resources {
-            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src', 'WEB-INF/retailscm_core_src', 'WEB-INF/retailscm_custom_src']
+            srcDirs = ['WEB-INF/caf_core_src', 'WEB-INF/caf_custom_src', 'WEB-INF/<%=name%>_core_src', 'WEB-INF/<%=name%>_custom_src']
         }
     }
     test {
@@ -80,16 +79,3 @@ task copyJars(type: Copy) {
   from configurations.runtime
   into 'WEB-INF/lib' // 目标位置
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
