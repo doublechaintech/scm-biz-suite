@@ -128,7 +128,31 @@ cd  resin-3.1.16/ && bin/httpd.sh
 
 这一步非常简单，拷贝这个文件到 /etc/nginx/sites-enabled/demo, 然后 service ngnix start
 
+### SpringBoot开发指南
 
+在正式环境下，使用SpringBoot完全更容易，源代码的位置在：
+
+com.skynet.bootstrap.AppEntrance
+
+```
+public class AppEntrance {
+    public static void main(String[] args) {
+        SpringApplication.run(AppEntrance.class, args);
+    }
+
+    @Bean
+    public ServletRegistrationBean dispatcherRegistration(DispatcherServlet dispatcherServlet) {
+        ServletRegistrationBean reg = new ServletRegistrationBean(dispatcherServlet);
+        reg.getUrlMappings().clear();
+        reg.addUrlMappings("*.css");
+        reg.addUrlMappings("*.txt");
+        reg.addUrlMappings("*.js");
+        reg.addUrlMappings("*.jpg");
+        return reg;
+    }
+}
+
+```
 
 ### 使用Tomcat容器）
 
