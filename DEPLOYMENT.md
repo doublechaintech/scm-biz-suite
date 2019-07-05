@@ -130,7 +130,7 @@ cd  resin-3.1.16/ && bin/httpd.sh
 
 ### SpringBoot开发指南
 
-在正式环境下，使用SpringBoot完全更容易，源代码的位置在：
+在正式生产环境下，使用SpringBoot部署更容易，源代码的位置在：
 
 com.skynet.bootstrap.AppEntrance
 
