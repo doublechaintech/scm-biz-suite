@@ -56,7 +56,7 @@ class UserAppProfile extends Component {
     const  userApp = this.props.userApp;
     const { id,displayName, listAccessCount, objectAccessCount } = userApp
 
-    const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",cardsSource: userApp,
+    const cardsData = {cardsName:"User App",cardsFor: "userApp",cardsSource: userApp,
   		subItems: [
      
       	],

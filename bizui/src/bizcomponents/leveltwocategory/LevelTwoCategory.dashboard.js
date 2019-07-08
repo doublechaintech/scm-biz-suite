@@ -81,14 +81,14 @@ const internalSummaryOf = (levelTwoCategory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelTwoCategory.id}</Description> 
-<Description term="父类">{levelTwoCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoCategory.parentCategory.displayName}(${levelTwoCategory.parentCategory.id})`}
+<Description term="Id">{levelTwoCategory.id}</Description> 
+<Description term="Parent Category">{levelTwoCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoCategory.parentCategory.displayName}(${levelTwoCategory.parentCategory.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"父类","levelOneCategory",LevelTwoCategoryService.requestCandidateParentCategory,
+  showTransferModel(targetComponent,"Parent Category","levelOneCategory",LevelTwoCategoryService.requestCandidateParentCategory,
 	      LevelTwoCategoryService.transferToAnotherParentCategory,"anotherParentCategoryId",levelTwoCategory.parentCategory?levelTwoCategory.parentCategory.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="名称">{levelTwoCategory.name}</Description> 
+<Description term="Name">{levelTwoCategory.name}</Description> 
 	
         {buildTransferModal(levelTwoCategory,targetComponent)}
       </DescriptionList>
@@ -126,10 +126,10 @@ class LevelTwoCategoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"二级分类",cardsFor: "levelTwoCategory",
+    const cardsData = {cardsName:"Level Two Category",cardsFor: "levelTwoCategory",
     	cardsSource: this.props.levelTwoCategory,returnURL,displayName,
   		subItems: [
-{name: 'levelThreeCategoryList', displayName:'三级分类',type:'levelThreeCategory',count:levelThreeCategoryCount,addFunction: true, role: 'levelThreeCategory', metaInfo: levelThreeCategoryListMetaInfo, renderItem: GlobalComponents.LevelThreeCategoryBase.renderItemOfList},
+{name: 'levelThreeCategoryList', displayName:'Level Three Category',type:'levelThreeCategory',count:levelThreeCategoryCount,addFunction: true, role: 'levelThreeCategory', metaInfo: levelThreeCategoryListMetaInfo, renderItem: GlobalComponents.LevelThreeCategoryBase.renderItemOfList},
     
       	],
   	};

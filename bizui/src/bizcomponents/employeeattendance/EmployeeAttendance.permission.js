@@ -28,11 +28,11 @@ const internalSummaryOf = (employeeAttendance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeAttendance.id}</Description> 
-<Description term="进入时间">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
-<Description term="离开的时候">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="持续时间">{employeeAttendance.durationHours}</Description> 
-<Description term="备注">{employeeAttendance.remark}</Description> 
+<Description term="Id">{employeeAttendance.id}</Description> 
+<Description term="Enter Time">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Leave Time">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Duration Hours">{employeeAttendance.durationHours}</Description> 
+<Description term="Remark">{employeeAttendance.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class EmployeeAttendancePermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeAttendance = this.props.employeeAttendance;
     const { id,displayName,  } = employeeAttendance
-    const cardsData = {cardsName:"员工考勤",cardsFor: "employeeAttendance",cardsSource: employeeAttendance,
+    const cardsData = {cardsName:"Employee Attendance",cardsFor: "employeeAttendance",cardsSource: employeeAttendance,
   		subItems: [
     
       	],

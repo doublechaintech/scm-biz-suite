@@ -81,10 +81,10 @@ const internalSummaryOf = (salaryGrade,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{salaryGrade.id}</Description> 
-<Description term="代码">{salaryGrade.code}</Description> 
-<Description term="名称">{salaryGrade.name}</Description> 
-<Description term="详细描述">{salaryGrade.detailDescription}</Description> 
+<Description term="Id">{salaryGrade.id}</Description> 
+<Description term="Code">{salaryGrade.code}</Description> 
+<Description term="Name">{salaryGrade.name}</Description> 
+<Description term="Detail Description">{salaryGrade.detailDescription}</Description> 
 	
         {buildTransferModal(salaryGrade,targetComponent)}
       </DescriptionList>
@@ -122,11 +122,11 @@ class SalaryGradeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",
+    const cardsData = {cardsName:"Salary Grade",cardsFor: "salaryGrade",
     	cardsSource: this.props.salaryGrade,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
-{name: 'employeeSalarySheetList', displayName:'工资单',type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
+{name: 'employeeList', displayName:'Employee',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeSalarySheetList', displayName:'Employee Salary Sheet',type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
     
       	],
   	};

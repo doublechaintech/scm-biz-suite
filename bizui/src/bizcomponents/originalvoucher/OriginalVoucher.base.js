@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"原始凭证", menuFor: "originalVoucher",
+const menuData = {menuName:"Original Voucher", menuFor: "originalVoucher",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  title: '头衔',
-  madeBy: '由',
-  receivedBy: '受',
-  voucherType: '凭证类型',
-  voucherImage: '凭证图像',
-  belongsTo: '属于',
-  creation: '创建',
-  confirmation: '确认',
-  auditing: '审计',
-  currentStatus: '当前状态',
+  id: 'Id',
+  title: 'Title',
+  madeBy: 'Made By',
+  receivedBy: 'Received By',
+  voucherType: 'Voucher Type',
+  voucherImage: 'Voucher Image',
+  belongsTo: 'Belongs To',
+  creation: 'Creation',
+  confirmation: 'Confirmation',
+  auditing: 'Auditing',
+  currentStatus: 'Current Status',
 
 }
 
@@ -57,7 +57,7 @@ const displayColumns = [
   { title: fieldLabels.madeBy, debugtype: 'string', dataIndex: 'madeBy', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.receivedBy, debugtype: 'string', dataIndex: 'receivedBy', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.voucherType, debugtype: 'string', dataIndex: 'voucherType', width: '8',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.voucherImage, dataIndex: 'voucherImage', render: (text, record) => renderImageCell(text,record,'凭证图像') },
+  { title: fieldLabels.voucherImage, dataIndex: 'voucherImage', render: (text, record) => renderImageCell(text,record,'Voucher Image') },
   { title: fieldLabels.belongsTo, dataIndex: 'belongsTo', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.creation, dataIndex: 'creation', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.confirmation, dataIndex: 'confirmation', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -76,14 +76,14 @@ const renderItemOfList=(originalVoucher,targetComponent)=>{
 	<div key={originalVoucher.id}>
 	
 	<DescriptionList  key={originalVoucher.id} size="small" col="4">
-<Description term="序号">{originalVoucher.id}</Description> 
-<Description term="头衔">{originalVoucher.title}</Description> 
-<Description term="由">{originalVoucher.madeBy}</Description> 
-<Description term="受">{originalVoucher.receivedBy}</Description> 
-<Description term="凭证类型">{originalVoucher.voucherType}</Description> 
-<Description term="属于">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
+<Description term="Id">{originalVoucher.id}</Description> 
+<Description term="Title">{originalVoucher.title}</Description> 
+<Description term="Made By">{originalVoucher.madeBy}</Description> 
+<Description term="Received By">{originalVoucher.receivedBy}</Description> 
+<Description term="Voucher Type">{originalVoucher.voucherType}</Description> 
+<Description term="Belongs To">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
 </Description>
-<Description term="当前状态">{originalVoucher.currentStatus}</Description> 
+<Description term="Current Status">{originalVoucher.currentStatus}</Description> 
 	
         
       </DescriptionList>

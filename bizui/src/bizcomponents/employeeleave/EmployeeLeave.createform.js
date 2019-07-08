@@ -17,10 +17,10 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  leaveDurationHour: '8',
+  leaveDurationHour: '6',
   remark: '请年假，出去耍！！！！',
-  whoId: 'E00000001',
-  typeId: 'LT00000001',
+  whoId: 'E000001',
+  typeId: 'LT000001',
 }
 */
 
@@ -196,8 +196,8 @@ class EmployeeLeaveCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}请假记录`}
-        content={`${appLocaleName(userContext,"CreateNew")}请假记录`}
+        title={`${appLocaleName(userContext,"CreateNew")}Employee Leave`}
+        content={`${appLocaleName(userContext,"CreateNew")}Employee Leave`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class EmployeeLeaveCreateForm extends Component {
                   {getFieldDecorator('leaveDurationHour', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请假时长" />
+                    <Input size="large" placeholder="Leave Duration Hour" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class EmployeeLeaveCreateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large" placeholder="Remark" />
                   )}
                 </Form.Item>
               </Col>

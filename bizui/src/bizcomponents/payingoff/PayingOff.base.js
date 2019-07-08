@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"工资支付", menuFor: "payingOff",
+const menuData = {menuName:"Paying Off", menuFor: "payingOff",
   		subItems: [
-  {name: 'employeeSalarySheetList', displayName:'工资单', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeSalarySheetList', displayName:'Employee Salary Sheet', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  paidFor: '支付',
-  paidTime: '支付时间',
-  amount: '金额',
+  id: 'Id',
+  who: 'Who',
+  paidFor: 'Paid For',
+  paidTime: 'Paid Time',
+  amount: 'Amount',
 
 }
 
@@ -65,12 +65,12 @@ const renderItemOfList=(payingOff,targetComponent)=>{
 	<div key={payingOff.id}>
 	
 	<DescriptionList  key={payingOff.id} size="small" col="4">
-<Description term="序号">{payingOff.id}</Description> 
-<Description term="谁">{payingOff.who}</Description> 
-<Description term="支付">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
+<Description term="Id">{payingOff.id}</Description> 
+<Description term="Who">{payingOff.who}</Description> 
+<Description term="Paid For">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
 </Description>
-<Description term="支付时间">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
-<Description term="金额">{payingOff.amount}</Description> 
+<Description term="Paid Time">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Amount">{payingOff.amount}</Description> 
 	
         
       </DescriptionList>

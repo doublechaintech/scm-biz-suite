@@ -56,7 +56,7 @@ class RetailStoreOrderPaymentGroupProfile extends Component {
     const  retailStoreOrderPaymentGroup = this.props.retailStoreOrderPaymentGroup;
     const { id,displayName,  } = retailStoreOrderPaymentGroup
 
-    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: retailStoreOrderPaymentGroup,
+    const cardsData = {cardsName:"Retail Store Order Payment Group",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: retailStoreOrderPaymentGroup,
   		subItems: [
      
       	],

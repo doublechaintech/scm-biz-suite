@@ -28,10 +28,10 @@ const internalSummaryOf = (consumerOrder,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrder.id}</Description> 
-<Description term="头衔">{consumerOrder.title}</Description> 
-<Description term="最后更新时间">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{consumerOrder.currentStatus}</Description> 
+<Description term="Id">{consumerOrder.id}</Description> 
+<Description term="Title">{consumerOrder.title}</Description> 
+<Description term="Last Update Time">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{consumerOrder.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class ConsumerOrderPermission extends Component {
     // eslint-disable-next-line max-len
     const  consumerOrder = this.props.consumerOrder;
     const { id,displayName, consumerOrderLineItemCount, consumerOrderShippingGroupCount, consumerOrderPaymentGroupCount, consumerOrderPriceAdjustmentCount, retailStoreMemberGiftCardConsumeRecordCount } = consumerOrder
-    const cardsData = {cardsName:"消费者订单",cardsFor: "consumerOrder",cardsSource: consumerOrder,
+    const cardsData = {cardsName:"Consumer Order",cardsFor: "consumerOrder",cardsSource: consumerOrder,
   		subItems: [
     
       	],

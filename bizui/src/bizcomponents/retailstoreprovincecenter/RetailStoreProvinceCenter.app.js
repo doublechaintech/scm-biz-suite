@@ -167,7 +167,7 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "省中心",
+      name: "Province Center Department",
       role: "provinceCenterDepartment",
       data: state._retailStoreProvinceCenter.provinceCenterDepartmentList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterDepartmentListMetaInfo,
@@ -216,7 +216,7 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "省中心员工",
+      name: "Province Center Employee",
       role: "provinceCenterEmployee",
       data: state._retailStoreProvinceCenter.provinceCenterEmployeeList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterEmployeeListMetaInfo,
@@ -265,7 +265,7 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "双链小超城市服务中心",
+      name: "Retail Store City Service Center",
       role: "retailStoreCityServiceCenter",
       data: state._retailStoreProvinceCenter.retailStoreCityServiceCenterList,
       metaInfo: state._retailStoreProvinceCenter.retailStoreCityServiceCenterListMetaInfo,
@@ -379,10 +379,10 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

@@ -81,20 +81,20 @@ const internalSummaryOf = (termination,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{termination.id}</Description> 
-<Description term="原因">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
+<Description term="Id">{termination.id}</Description> 
+<Description term="Reason">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"原因","terminationReason",TerminationService.requestCandidateReason,
+  showTransferModel(targetComponent,"Reason","terminationReason",TerminationService.requestCandidateReason,
 	      TerminationService.transferToAnotherReason,"anotherReasonId",termination.reason?termination.reason.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="类型">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
+<Description term="Type">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"类型","terminationType",TerminationService.requestCandidateType,
+  showTransferModel(targetComponent,"Type","terminationType",TerminationService.requestCandidateType,
 	      TerminationService.transferToAnotherType,"anotherTypeId",termination.type?termination.type.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="评论">{termination.comment}</Description> 
+<Description term="Comment">{termination.comment}</Description> 
 	
         {buildTransferModal(termination,targetComponent)}
       </DescriptionList>
@@ -132,10 +132,10 @@ class TerminationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",
+    const cardsData = {cardsName:"Termination",cardsFor: "termination",
     	cardsSource: this.props.termination,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'Employee',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
   	};

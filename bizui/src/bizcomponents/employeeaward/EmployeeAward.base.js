@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工嘉奖", menuFor: "employeeAward",
+const menuData = {menuName:"Employee Award", menuFor: "employeeAward",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  completeTime: '完成时间',
-  type: '类型',
-  remark: '备注',
+  id: 'Id',
+  employee: 'Employee',
+  completeTime: 'Complete Time',
+  type: 'Type',
+  remark: 'Remark',
 
 }
 
@@ -64,12 +64,12 @@ const renderItemOfList=(employeeAward,targetComponent)=>{
 	<div key={employeeAward.id}>
 	
 	<DescriptionList  key={employeeAward.id} size="small" col="4">
-<Description term="序号">{employeeAward.id}</Description> 
-<Description term="员工">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
+<Description term="Id">{employeeAward.id}</Description> 
+<Description term="Employee">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
 </Description>
-<Description term="完成时间">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeAward.type}</Description> 
-<Description term="备注">{employeeAward.remark}</Description> 
+<Description term="Complete Time">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Type">{employeeAward.type}</Description> 
+<Description term="Remark">{employeeAward.remark}</Description> 
 	
         
       </DescriptionList>

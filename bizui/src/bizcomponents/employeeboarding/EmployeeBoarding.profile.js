@@ -56,7 +56,7 @@ class EmployeeBoardingProfile extends Component {
     const  employeeBoarding = this.props.employeeBoarding;
     const { id,displayName, employeeCount } = employeeBoarding
 
-    const cardsData = {cardsName:"员工入职",cardsFor: "employeeBoarding",cardsSource: employeeBoarding,
+    const cardsData = {cardsName:"Employee Boarding",cardsFor: "employeeBoarding",cardsSource: employeeBoarding,
   		subItems: [
      
       	],

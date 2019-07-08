@@ -28,10 +28,10 @@ const internalSummaryOf = (stockCountIssueTrack,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{stockCountIssueTrack.id}</Description> 
-<Description term="头衔">{stockCountIssueTrack.title}</Description> 
-<Description term="计数时间">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="概览">{stockCountIssueTrack.summary}</Description> 
+<Description term="Id">{stockCountIssueTrack.id}</Description> 
+<Description term="Title">{stockCountIssueTrack.title}</Description> 
+<Description term="Count Time">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Summary">{stockCountIssueTrack.summary}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class StockCountIssueTrackPermission extends Component {
     // eslint-disable-next-line max-len
     const  stockCountIssueTrack = this.props.stockCountIssueTrack;
     const { id,displayName,  } = stockCountIssueTrack
-    const cardsData = {cardsName:"库存计数问题跟踪",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,
+    const cardsData = {cardsName:"Stock Count Issue Track",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,
   		subItems: [
     
       	],

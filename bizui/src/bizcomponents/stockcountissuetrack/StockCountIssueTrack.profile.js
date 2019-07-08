@@ -56,7 +56,7 @@ class StockCountIssueTrackProfile extends Component {
     const  stockCountIssueTrack = this.props.stockCountIssueTrack;
     const { id,displayName,  } = stockCountIssueTrack
 
-    const cardsData = {cardsName:"库存计数问题跟踪",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,
+    const cardsData = {cardsName:"Stock Count Issue Track",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,
   		subItems: [
      
       	],

@@ -28,8 +28,8 @@ const internalSummaryOf = (retailStoreFranchising,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreFranchising.id}</Description> 
-<Description term="评论">{retailStoreFranchising.comment}</Description> 
+<Description term="Id">{retailStoreFranchising.id}</Description> 
+<Description term="Comment">{retailStoreFranchising.comment}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,7 +55,7 @@ class RetailStoreFranchisingPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreFranchising = this.props.retailStoreFranchising;
     const { id,displayName, retailStoreCount } = retailStoreFranchising
-    const cardsData = {cardsName:"生超的特许经营",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,
+    const cardsData = {cardsName:"Retail Store Franchising",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,
   		subItems: [
     
       	],

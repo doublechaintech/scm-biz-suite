@@ -81,16 +81,16 @@ const internalSummaryOf = (payingOff,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{payingOff.id}</Description> 
-<Description term="谁">{payingOff.who}</Description> 
-<Description term="支付">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
+<Description term="Id">{payingOff.id}</Description> 
+<Description term="Who">{payingOff.who}</Description> 
+<Description term="Paid For">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"支付","employee",PayingOffService.requestCandidatePaidFor,
+  showTransferModel(targetComponent,"Paid For","employee",PayingOffService.requestCandidatePaidFor,
 	      PayingOffService.transferToAnotherPaidFor,"anotherPaidForId",payingOff.paidFor?payingOff.paidFor.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="支付时间">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
-<Description term="金额">{payingOff.amount}</Description> 
+<Description term="Paid Time">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Amount">{payingOff.amount}</Description> 
 	
         {buildTransferModal(payingOff,targetComponent)}
       </DescriptionList>
@@ -128,10 +128,10 @@ class PayingOffDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",
+    const cardsData = {cardsName:"Paying Off",cardsFor: "payingOff",
     	cardsSource: this.props.payingOff,returnURL,displayName,
   		subItems: [
-{name: 'employeeSalarySheetList', displayName:'工资单',type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
+{name: 'employeeSalarySheetList', displayName:'Employee Salary Sheet',type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
     
       	],
   	};

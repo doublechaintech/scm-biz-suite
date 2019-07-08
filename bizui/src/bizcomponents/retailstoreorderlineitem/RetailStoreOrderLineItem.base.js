@@ -30,20 +30,20 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"双链小超订单行项目", menuFor: "retailStoreOrderLineItem",
+const menuData = {menuName:"Retail Store Order Line Item", menuFor: "retailStoreOrderLineItem",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  bizOrder: '订单',
-  skuId: '产品ID',
-  skuName: '产品名称',
-  amount: '金额',
-  quantity: '数量',
-  unitOfMeasurement: '测量单位',
+  id: 'Id',
+  bizOrder: 'Biz Order',
+  skuId: 'Sku Id',
+  skuName: 'Sku Name',
+  amount: 'Amount',
+  quantity: 'Quantity',
+  unitOfMeasurement: 'Unit Of Measurement',
 
 }
 
@@ -68,14 +68,14 @@ const renderItemOfList=(retailStoreOrderLineItem,targetComponent)=>{
 	<div key={retailStoreOrderLineItem.id}>
 	
 	<DescriptionList  key={retailStoreOrderLineItem.id} size="small" col="4">
-<Description term="序号">{retailStoreOrderLineItem.id}</Description> 
-<Description term="订单">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
+<Description term="Id">{retailStoreOrderLineItem.id}</Description> 
+<Description term="Biz Order">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
 </Description>
-<Description term="产品ID">{retailStoreOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{retailStoreOrderLineItem.skuName}</Description> 
-<Description term="金额">{retailStoreOrderLineItem.amount}</Description> 
-<Description term="数量">{retailStoreOrderLineItem.quantity}</Description> 
-<Description term="测量单位">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
+<Description term="Sku Id">{retailStoreOrderLineItem.skuId}</Description> 
+<Description term="Sku Name">{retailStoreOrderLineItem.skuName}</Description> 
+<Description term="Amount">{retailStoreOrderLineItem.amount}</Description> 
+<Description term="Quantity">{retailStoreOrderLineItem.quantity}</Description> 
+<Description term="Unit Of Measurement">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
 	
         
       </DescriptionList>

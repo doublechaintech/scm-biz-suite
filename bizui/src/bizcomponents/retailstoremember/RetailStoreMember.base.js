@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超会员", menuFor: "retailStoreMember",
+const menuData = {menuName:"Retail Store Member", menuFor: "retailStoreMember",
   		subItems: [
-  {name: 'consumerOrderList', displayName:'消费者订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'retailStoreMemberCouponList', displayName:'生超会员优惠券', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'memberWishlistList', displayName:'会员收藏', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'memberRewardPointList', displayName:'会员奖励点', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'memberRewardPointRedemptionList', displayName:'会员奖励点赎回', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'retailStoreMemberAddressList', displayName:'零售店会员地址', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'retailStoreMemberGiftCardList', displayName:'零售店会员礼品卡', icon:'gift',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderList', displayName:'Consumer Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreMemberCouponList', displayName:'Retail Store Member Coupon', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'memberWishlistList', displayName:'Member Wishlist', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'memberRewardPointList', displayName:'Member Reward Point', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'memberRewardPointRedemptionList', displayName:'Member Reward Point Redemption', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreMemberAddressList', displayName:'Retail Store Member Address', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreMemberGiftCardList', displayName:'Retail Store Member Gift Card', icon:'gift',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  mobilePhone: '移动电话',
-  owner: '业主',
+  id: 'Id',
+  name: 'Name',
+  mobilePhone: 'Mobile Phone',
+  owner: 'Owner',
 
 }
 
@@ -69,9 +69,9 @@ const renderItemOfList=(retailStoreMember,targetComponent)=>{
 	<div key={retailStoreMember.id}>
 	
 	<DescriptionList  key={retailStoreMember.id} size="small" col="4">
-<Description term="序号">{retailStoreMember.id}</Description> 
-<Description term="名称">{retailStoreMember.name}</Description> 
-<Description term="移动电话">{retailStoreMember.mobilePhone}</Description> 
+<Description term="Id">{retailStoreMember.id}</Description> 
+<Description term="Name">{retailStoreMember.name}</Description> 
+<Description term="Mobile Phone">{retailStoreMember.mobilePhone}</Description> 
 	
         
       </DescriptionList>

@@ -28,9 +28,9 @@ const internalSummaryOf = (supplyOrderShippingGroup,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderShippingGroup.id}</Description> 
-<Description term="名称">{supplyOrderShippingGroup.name}</Description> 
-<Description term="金额">{supplyOrderShippingGroup.amount}</Description> 
+<Description term="Id">{supplyOrderShippingGroup.id}</Description> 
+<Description term="Name">{supplyOrderShippingGroup.name}</Description> 
+<Description term="Amount">{supplyOrderShippingGroup.amount}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class SupplyOrderShippingGroupPermission extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrderShippingGroup = this.props.supplyOrderShippingGroup;
     const { id,displayName,  } = supplyOrderShippingGroup
-    const cardsData = {cardsName:"供应订单送货分组",cardsFor: "supplyOrderShippingGroup",cardsSource: supplyOrderShippingGroup,
+    const cardsData = {cardsName:"Supply Order Shipping Group",cardsFor: "supplyOrderShippingGroup",cardsSource: supplyOrderShippingGroup,
   		subItems: [
     
       	],

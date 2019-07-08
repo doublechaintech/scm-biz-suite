@@ -28,11 +28,11 @@ const internalSummaryOf = (accountingSubject,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingSubject.id}</Description> 
-<Description term="会计科目代码">{accountingSubject.accountingSubjectCode}</Description> 
-<Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
-<Description term="会计科目类别代码">{accountingSubject.accountingSubjectClassCode}</Description> 
-<Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
+<Description term="Id">{accountingSubject.id}</Description> 
+<Description term="Accounting Subject Code">{accountingSubject.accountingSubjectCode}</Description> 
+<Description term="Accounting Subject Name">{accountingSubject.accountingSubjectName}</Description> 
+<Description term="Accounting Subject Class Code">{accountingSubject.accountingSubjectClassCode}</Description> 
+<Description term="Accounting Subject Class Name">{accountingSubject.accountingSubjectClassName}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class AccountingSubjectPermission extends Component {
     // eslint-disable-next-line max-len
     const  accountingSubject = this.props.accountingSubject;
     const { id,displayName, accountingDocumentLineCount } = accountingSubject
-    const cardsData = {cardsName:"会计科目",cardsFor: "accountingSubject",cardsSource: accountingSubject,
+    const cardsData = {cardsName:"Accounting Subject",cardsFor: "accountingSubject",cardsSource: accountingSubject,
   		subItems: [
     
       	],

@@ -56,7 +56,7 @@ class SupplyOrderConfirmationProfile extends Component {
     const  supplyOrderConfirmation = this.props.supplyOrderConfirmation;
     const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderConfirmation
 
-    const cardsData = {cardsName:"供应订单确认",cardsFor: "supplyOrderConfirmation",cardsSource: supplyOrderConfirmation,
+    const cardsData = {cardsName:"Supply Order Confirmation",cardsFor: "supplyOrderConfirmation",cardsSource: supplyOrderConfirmation,
   		subItems: [
      
       	],

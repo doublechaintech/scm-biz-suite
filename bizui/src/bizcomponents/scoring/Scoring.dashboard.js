@@ -81,10 +81,10 @@ const internalSummaryOf = (scoring,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{scoring.id}</Description> 
-<Description term="由谁打分">{scoring.scoredBy}</Description> 
-<Description term="分数">{scoring.score}</Description> 
-<Description term="评论">{scoring.comment}</Description> 
+<Description term="Id">{scoring.id}</Description> 
+<Description term="Scored By">{scoring.scoredBy}</Description> 
+<Description term="Score">{scoring.score}</Description> 
+<Description term="Comment">{scoring.comment}</Description> 
 	
         {buildTransferModal(scoring,targetComponent)}
       </DescriptionList>
@@ -122,10 +122,10 @@ class ScoringDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"评分",cardsFor: "scoring",
+    const cardsData = {cardsName:"Scoring",cardsFor: "scoring",
     	cardsSource: this.props.scoring,returnURL,displayName,
   		subItems: [
-{name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
+{name: 'employeeCompanyTrainingList', displayName:'Employee Company Training',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
     
       	],
   	};

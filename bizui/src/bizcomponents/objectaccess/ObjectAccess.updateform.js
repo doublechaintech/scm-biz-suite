@@ -261,7 +261,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.objectType,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="对象类型" />
+                    <Input size="large" placeholder="Object Type" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list1,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="表" />
+                    <Input size="large" placeholder="List1" />
                     
                   )}
                 </Form.Item>
@@ -309,7 +309,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list2,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="清单" />
+                    <Input size="large" placeholder="List2" />
                     
                   )}
                 </Form.Item>
@@ -321,7 +321,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list3,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="目录3" />
+                    <Input size="large" placeholder="List3" />
                     
                   )}
                 </Form.Item>
@@ -333,7 +333,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list4,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="清单" />
+                    <Input size="large" placeholder="List4" />
                     
                   )}
                 </Form.Item>
@@ -345,7 +345,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list5,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="列表6" />
+                    <Input size="large" placeholder="List5" />
                     
                   )}
                 </Form.Item>
@@ -357,7 +357,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list6,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list6" />
+                    <Input size="large" placeholder="List6" />
                     
                   )}
                 </Form.Item>
@@ -369,7 +369,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list7,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list7" />
+                    <Input size="large" placeholder="List7" />
                     
                   )}
                 </Form.Item>
@@ -381,7 +381,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list8,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list8" />
+                    <Input size="large" placeholder="List8" />
                     
                   )}
                 </Form.Item>
@@ -393,7 +393,7 @@ class ObjectAccessUpdateForm extends Component {
                     initialValue: selectedRow.list9,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list9" />
+                    <Input size="large" placeholder="List9" />
                     
                   )}
                 </Form.Item>

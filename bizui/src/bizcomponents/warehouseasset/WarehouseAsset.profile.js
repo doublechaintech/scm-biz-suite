@@ -56,7 +56,7 @@ class WarehouseAssetProfile extends Component {
     const  warehouseAsset = this.props.warehouseAsset;
     const { id,displayName,  } = warehouseAsset
 
-    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,
+    const cardsData = {cardsName:"Warehouse Asset",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,
   		subItems: [
      
       	],

@@ -28,18 +28,18 @@ const internalSummaryOf = (objectAccess,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{objectAccess.id}</Description> 
-<Description term="名称">{objectAccess.name}</Description> 
-<Description term="对象类型">{objectAccess.objectType}</Description> 
-<Description term="表">{objectAccess.list1}</Description> 
-<Description term="清单">{objectAccess.list2}</Description> 
-<Description term="目录3">{objectAccess.list3}</Description> 
-<Description term="清单">{objectAccess.list4}</Description> 
-<Description term="列表6">{objectAccess.list5}</Description> 
-<Description term="list6">{objectAccess.list6}</Description> 
-<Description term="list7">{objectAccess.list7}</Description> 
-<Description term="list8">{objectAccess.list8}</Description> 
-<Description term="list9">{objectAccess.list9}</Description> 
+<Description term="Id">{objectAccess.id}</Description> 
+<Description term="Name">{objectAccess.name}</Description> 
+<Description term="Object Type">{objectAccess.objectType}</Description> 
+<Description term="List1">{objectAccess.list1}</Description> 
+<Description term="List2">{objectAccess.list2}</Description> 
+<Description term="List3">{objectAccess.list3}</Description> 
+<Description term="List4">{objectAccess.list4}</Description> 
+<Description term="List5">{objectAccess.list5}</Description> 
+<Description term="List6">{objectAccess.list6}</Description> 
+<Description term="List7">{objectAccess.list7}</Description> 
+<Description term="List8">{objectAccess.list8}</Description> 
+<Description term="List9">{objectAccess.list9}</Description> 
 	
       </DescriptionList>
 	)
@@ -65,7 +65,7 @@ class ObjectAccessPermission extends Component {
     // eslint-disable-next-line max-len
     const  objectAccess = this.props.objectAccess;
     const { id,displayName,  } = objectAccess
-    const cardsData = {cardsName:"对象访问",cardsFor: "objectAccess",cardsSource: objectAccess,
+    const cardsData = {cardsName:"Object Access",cardsFor: "objectAccess",cardsSource: objectAccess,
   		subItems: [
     
       	],

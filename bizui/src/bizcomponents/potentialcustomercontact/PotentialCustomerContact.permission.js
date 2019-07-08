@@ -28,12 +28,12 @@ const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{potentialCustomerContact.id}</Description> 
-<Description term="名称">{potentialCustomerContact.name}</Description> 
-<Description term="接触日期">{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</Description> 
-<Description term="接触法">{potentialCustomerContact.contactMethod}</Description> 
-<Description term="描述">{potentialCustomerContact.description}</Description> 
-<Description term="最后更新时间">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{potentialCustomerContact.id}</Description> 
+<Description term="Name">{potentialCustomerContact.name}</Description> 
+<Description term="Contact Date">{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Contact Method">{potentialCustomerContact.contactMethod}</Description> 
+<Description term="Description">{potentialCustomerContact.description}</Description> 
+<Description term="Last Update Time">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,7 +59,7 @@ class PotentialCustomerContactPermission extends Component {
     // eslint-disable-next-line max-len
     const  potentialCustomerContact = this.props.potentialCustomerContact;
     const { id,displayName,  } = potentialCustomerContact
-    const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",cardsSource: potentialCustomerContact,
+    const cardsData = {cardsName:"Potential Customer Contact",cardsFor: "potentialCustomerContact",cardsSource: potentialCustomerContact,
   		subItems: [
     
       	],

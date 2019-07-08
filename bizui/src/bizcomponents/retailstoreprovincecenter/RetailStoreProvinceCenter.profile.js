@@ -56,9 +56,9 @@ class RetailStoreProvinceCenterProfile extends Component {
     const  retailStoreProvinceCenter = this.props.retailStoreProvinceCenter;
     const { id,displayName, provinceCenterDepartmentCount, provinceCenterEmployeeCount, retailStoreCityServiceCenterCount } = retailStoreProvinceCenter
 
-    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",cardsSource: retailStoreProvinceCenter,
+    const cardsData = {cardsName:"Retail Store Province Center",cardsFor: "retailStoreProvinceCenter",cardsSource: retailStoreProvinceCenter,
   		subItems: [
-{name: 'provinceCenterDepartmentList', displayName:'省中心',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment',  renderItem: GlobalComponents.ProvinceCenterDepartmentBase.renderItemOfList},
+{name: 'provinceCenterDepartmentList', displayName:'Province Center Department',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment',  renderItem: GlobalComponents.ProvinceCenterDepartmentBase.renderItemOfList},
      
       	],
   	};

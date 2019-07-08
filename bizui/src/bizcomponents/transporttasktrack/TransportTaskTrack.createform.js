@@ -17,10 +17,10 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2018-04-15',
-  latitude: '30.409159364846158',
-  longitude: '103.91840279208607',
-  movementId: 'TT00000001',
+  trackTime: '2018-02-23',
+  latitude: '30.002987176020948',
+  longitude: '105.36490249697538',
+  movementId: 'TT000001',
 }
 */
 
@@ -196,8 +196,8 @@ class TransportTaskTrackCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}运输任务跟踪`}
-        content={`${appLocaleName(userContext,"CreateNew")}运输任务跟踪`}
+        title={`${appLocaleName(userContext,"CreateNew")}Transport Task Track`}
+        content={`${appLocaleName(userContext,"CreateNew")}Transport Task Track`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class TransportTaskTrackCreateForm extends Component {
                   {getFieldDecorator('trackTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="跟踪时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Track Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class TransportTaskTrackCreateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large" placeholder="Latitude" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class TransportTaskTrackCreateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large" placeholder="Longitude" />
                   )}
                 </Form.Item>
               </Col>

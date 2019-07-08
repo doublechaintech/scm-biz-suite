@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"三级部门", menuFor: "levelThreeDepartment",
+const menuData = {menuName:"Level Three Department", menuFor: "levelThreeDepartment",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  belongsTo: '属于',
-  name: '名称',
-  description: '描述',
-  founded: '成立',
+  id: 'Id',
+  belongsTo: 'Belongs To',
+  name: 'Name',
+  description: 'Description',
+  founded: 'Founded',
 
 }
 
@@ -65,12 +65,12 @@ const renderItemOfList=(levelThreeDepartment,targetComponent)=>{
 	<div key={levelThreeDepartment.id}>
 	
 	<DescriptionList  key={levelThreeDepartment.id} size="small" col="4">
-<Description term="序号">{levelThreeDepartment.id}</Description> 
-<Description term="属于">{levelThreeDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeDepartment.belongsTo.displayName}(${levelThreeDepartment.belongsTo.id})`}
+<Description term="Id">{levelThreeDepartment.id}</Description> 
+<Description term="Belongs To">{levelThreeDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeDepartment.belongsTo.displayName}(${levelThreeDepartment.belongsTo.id})`}
 </Description>
-<Description term="名称">{levelThreeDepartment.name}</Description> 
-<Description term="描述">{levelThreeDepartment.description}</Description> 
-<Description term="成立">{ moment(levelThreeDepartment.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Name">{levelThreeDepartment.name}</Description> 
+<Description term="Description">{levelThreeDepartment.description}</Description> 
+<Description term="Founded">{ moment(levelThreeDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

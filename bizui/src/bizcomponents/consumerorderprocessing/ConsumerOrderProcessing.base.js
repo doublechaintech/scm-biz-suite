@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"消费者的订单处理", menuFor: "consumerOrderProcessing",
+const menuData = {menuName:"Consumer Order Processing", menuFor: "consumerOrderProcessing",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  processTime: '过程的时间',
+  id: 'Id',
+  who: 'Who',
+  processTime: 'Process Time',
 
 }
 
@@ -60,9 +60,9 @@ const renderItemOfList=(consumerOrderProcessing,targetComponent)=>{
 	<div key={consumerOrderProcessing.id}>
 	
 	<DescriptionList  key={consumerOrderProcessing.id} size="small" col="4">
-<Description term="序号">{consumerOrderProcessing.id}</Description> 
-<Description term="谁">{consumerOrderProcessing.who}</Description> 
-<Description term="过程的时间">{ moment(consumerOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{consumerOrderProcessing.id}</Description> 
+<Description term="Who">{consumerOrderProcessing.who}</Description> 
+<Description term="Process Time">{ moment(consumerOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

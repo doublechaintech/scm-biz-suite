@@ -28,8 +28,8 @@ const internalSummaryOf = (catalog,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{catalog.id}</Description> 
-<Description term="名称">{catalog.name}</Description> 
+<Description term="Id">{catalog.id}</Description> 
+<Description term="Name">{catalog.name}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,7 +55,7 @@ class CatalogPermission extends Component {
     // eslint-disable-next-line max-len
     const  catalog = this.props.catalog;
     const { id,displayName, levelOneCategoryCount } = catalog
-    const cardsData = {cardsName:"目录",cardsFor: "catalog",cardsSource: catalog,
+    const cardsData = {cardsName:"Catalog",cardsFor: "catalog",cardsSource: catalog,
   		subItems: [
     
       	],

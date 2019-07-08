@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"三级分类", menuFor: "levelThreeCategory",
+const menuData = {menuName:"Level Three Category", menuFor: "levelThreeCategory",
   		subItems: [
-  {name: 'productList', displayName:'产品', icon:'product-hunt',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'productList', displayName:'Product', icon:'product-hunt',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  parentCategory: '父类',
-  name: '名称',
+  id: 'Id',
+  parentCategory: 'Parent Category',
+  name: 'Name',
 
 }
 
@@ -61,10 +61,10 @@ const renderItemOfList=(levelThreeCategory,targetComponent)=>{
 	<div key={levelThreeCategory.id}>
 	
 	<DescriptionList  key={levelThreeCategory.id} size="small" col="4">
-<Description term="序号">{levelThreeCategory.id}</Description> 
-<Description term="父类">{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
+<Description term="Id">{levelThreeCategory.id}</Description> 
+<Description term="Parent Category">{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
 </Description>
-<Description term="名称">{levelThreeCategory.name}</Description> 
+<Description term="Name">{levelThreeCategory.name}</Description> 
 	
         
       </DescriptionList>

@@ -18,8 +18,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  employeeId: 'E00000001',
-  trainingId: 'CT00000001',
+  employeeId: 'E000001',
+  trainingId: 'CT000001',
 }
 */
 

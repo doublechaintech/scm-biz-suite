@@ -28,10 +28,10 @@ const internalSummaryOf = (salaryGrade,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{salaryGrade.id}</Description> 
-<Description term="代码">{salaryGrade.code}</Description> 
-<Description term="名称">{salaryGrade.name}</Description> 
-<Description term="详细描述">{salaryGrade.detailDescription}</Description> 
+<Description term="Id">{salaryGrade.id}</Description> 
+<Description term="Code">{salaryGrade.code}</Description> 
+<Description term="Name">{salaryGrade.name}</Description> 
+<Description term="Detail Description">{salaryGrade.detailDescription}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class SalaryGradePermission extends Component {
     // eslint-disable-next-line max-len
     const  salaryGrade = this.props.salaryGrade;
     const { id,displayName, employeeCount, employeeSalarySheetCount } = salaryGrade
-    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",cardsSource: salaryGrade,
+    const cardsData = {cardsName:"Salary Grade",cardsFor: "salaryGrade",cardsSource: salaryGrade,
   		subItems: [
     
       	],

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '运货者',
-  shipTime: '2017-06-13',
+  shipTime: '2016-12-04',
 }
 */
 
@@ -140,7 +140,7 @@ class SupplyOrderShipmentAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class SupplyOrderShipmentAssociateForm extends Component {
                   {getFieldDecorator('shipTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="船的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Ship Time" />
                   )}
                 </Form.Item>
               </Col>

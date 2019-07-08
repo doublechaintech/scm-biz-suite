@@ -22,7 +22,7 @@ const testValues = {
   madeBy: '李亚青',
   receivedBy: '本公司',
   voucherType: '原始凭证',
-  belongsToId: 'AD00000001',
+  belongsToId: 'AD000001',
 }
 */
 
@@ -142,7 +142,7 @@ class OriginalVoucherAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class OriginalVoucherAssociateForm extends Component {
                   {getFieldDecorator('madeBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由" />
+                    <Input size="large" placeholder="Made By" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class OriginalVoucherAssociateForm extends Component {
                   {getFieldDecorator('receivedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="受" />
+                    <Input size="large" placeholder="Received By" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class OriginalVoucherAssociateForm extends Component {
                   {getFieldDecorator('voucherType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="凭证类型" />
+                    <Input size="large" placeholder="Voucher Type" />
                   )}
                 </Form.Item>
               </Col>
@@ -194,7 +194,7 @@ class OriginalVoucherAssociateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="凭证图像"
+                  buttonTitle="Voucher Image"
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'voucherImage')}
                   fileList={convertedImagesValues.voucherImage}

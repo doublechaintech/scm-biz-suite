@@ -81,30 +81,30 @@ const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{potentialCustomerContact.id}</Description> 
-<Description term="名称">{potentialCustomerContact.name}</Description> 
-<Description term="接触日期">{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</Description> 
-<Description term="接触法">{potentialCustomerContact.contactMethod}</Description> 
-<Description term="潜在的客户">{potentialCustomerContact.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.potentialCustomer.displayName}(${potentialCustomerContact.potentialCustomer.id})`}
+<Description term="Id">{potentialCustomerContact.id}</Description> 
+<Description term="Name">{potentialCustomerContact.name}</Description> 
+<Description term="Contact Date">{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Contact Method">{potentialCustomerContact.contactMethod}</Description> 
+<Description term="Potential Customer">{potentialCustomerContact.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.potentialCustomer.displayName}(${potentialCustomerContact.potentialCustomer.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"潜在的客户","potentialCustomer",PotentialCustomerContactService.requestCandidatePotentialCustomer,
+  showTransferModel(targetComponent,"Potential Customer","potentialCustomer",PotentialCustomerContactService.requestCandidatePotentialCustomer,
 	      PotentialCustomerContactService.transferToAnotherPotentialCustomer,"anotherPotentialCustomerId",potentialCustomerContact.potentialCustomer?potentialCustomerContact.potentialCustomer.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="城市合伙人">{potentialCustomerContact.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.cityPartner.displayName}(${potentialCustomerContact.cityPartner.id})`}
+<Description term="City Partner">{potentialCustomerContact.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.cityPartner.displayName}(${potentialCustomerContact.cityPartner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市合伙人","cityPartner",PotentialCustomerContactService.requestCandidateCityPartner,
+  showTransferModel(targetComponent,"City Partner","cityPartner",PotentialCustomerContactService.requestCandidateCityPartner,
 	      PotentialCustomerContactService.transferToAnotherCityPartner,"anotherCityPartnerId",potentialCustomerContact.cityPartner?potentialCustomerContact.cityPartner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="接触">{potentialCustomerContact.contactTo==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.contactTo.displayName}(${potentialCustomerContact.contactTo.id})`}
+<Description term="Contact To">{potentialCustomerContact.contactTo==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.contactTo.displayName}(${potentialCustomerContact.contactTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"接触","potentialCustomerContactPerson",PotentialCustomerContactService.requestCandidateContactTo,
+  showTransferModel(targetComponent,"Contact To","potentialCustomerContactPerson",PotentialCustomerContactService.requestCandidateContactTo,
 	      PotentialCustomerContactService.transferToAnotherContactTo,"anotherContactToId",potentialCustomerContact.contactTo?potentialCustomerContact.contactTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="描述">{potentialCustomerContact.description}</Description> 
-<Description term="最后更新时间">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{potentialCustomerContact.description}</Description> 
+<Description term="Last Update Time">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(potentialCustomerContact,targetComponent)}
       </DescriptionList>
@@ -142,7 +142,7 @@ class PotentialCustomerContactDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",
+    const cardsData = {cardsName:"Potential Customer Contact",cardsFor: "potentialCustomerContact",
     	cardsSource: this.props.potentialCustomerContact,returnURL,displayName,
   		subItems: [
     

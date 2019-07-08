@@ -56,18 +56,18 @@ class RetailStoreCountryCenterProfile extends Component {
     const  retailStoreCountryCenter = this.props.retailStoreCountryCenter;
     const { id,displayName, catalogCount, retailStoreProvinceCenterCount, retailStoreCount, retailStoreMemberCount, goodsSupplierCount, supplyOrderCount, retailStoreOrderCount, warehouseCount, transportFleetCount, accountSetCount, levelOneDepartmentCount, skillTypeCount, responsibilityTypeCount, terminationReasonCount, terminationTypeCount, occupationTypeCount, leaveTypeCount, salaryGradeCount, interviewTypeCount, trainingCourseTypeCount, publicHolidayCount, employeeCount, instructorCount, companyTrainingCount } = retailStoreCountryCenter
 
-    const cardsData = {cardsName:"双链小超全国运营中心",cardsFor: "retailStoreCountryCenter",cardsSource: retailStoreCountryCenter,
+    const cardsData = {cardsName:"Retail Store Country Center",cardsFor: "retailStoreCountryCenter",cardsSource: retailStoreCountryCenter,
   		subItems: [
-{name: 'skillTypeList', displayName:'技能类型',type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType',  renderItem: GlobalComponents.SkillTypeBase.renderItemOfList},
-{name: 'responsibilityTypeList', displayName:'责任类型',type:'responsibilityType',count:responsibilityTypeCount,addFunction: true, role: 'responsibilityType',  renderItem: GlobalComponents.ResponsibilityTypeBase.renderItemOfList},
-{name: 'terminationReasonList', displayName:'雇佣终止的原因',type:'terminationReason',count:terminationReasonCount,addFunction: true, role: 'terminationReason',  renderItem: GlobalComponents.TerminationReasonBase.renderItemOfList},
-{name: 'terminationTypeList', displayName:'雇佣终止类型',type:'terminationType',count:terminationTypeCount,addFunction: true, role: 'terminationType',  renderItem: GlobalComponents.TerminationTypeBase.renderItemOfList},
-{name: 'occupationTypeList', displayName:'职位类型',type:'occupationType',count:occupationTypeCount,addFunction: true, role: 'occupationType',  renderItem: GlobalComponents.OccupationTypeBase.renderItemOfList},
-{name: 'leaveTypeList', displayName:'请假类型',type:'leaveType',count:leaveTypeCount,addFunction: true, role: 'leaveType',  renderItem: GlobalComponents.LeaveTypeBase.renderItemOfList},
-{name: 'salaryGradeList', displayName:'工资等级',type:'salaryGrade',count:salaryGradeCount,addFunction: true, role: 'salaryGrade',  renderItem: GlobalComponents.SalaryGradeBase.renderItemOfList},
-{name: 'interviewTypeList', displayName:'面试类型',type:'interviewType',count:interviewTypeCount,addFunction: true, role: 'interviewType',  renderItem: GlobalComponents.InterviewTypeBase.renderItemOfList},
-{name: 'trainingCourseTypeList', displayName:'培训课程类型',type:'trainingCourseType',count:trainingCourseTypeCount,addFunction: true, role: 'trainingCourseType',  renderItem: GlobalComponents.TrainingCourseTypeBase.renderItemOfList},
-{name: 'publicHolidayList', displayName:'公共假日',type:'publicHoliday',count:publicHolidayCount,addFunction: true, role: 'publicHoliday',  renderItem: GlobalComponents.PublicHolidayBase.renderItemOfList},
+{name: 'skillTypeList', displayName:'Skill Type',type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType',  renderItem: GlobalComponents.SkillTypeBase.renderItemOfList},
+{name: 'responsibilityTypeList', displayName:'Responsibility Type',type:'responsibilityType',count:responsibilityTypeCount,addFunction: true, role: 'responsibilityType',  renderItem: GlobalComponents.ResponsibilityTypeBase.renderItemOfList},
+{name: 'terminationReasonList', displayName:'Termination Reason',type:'terminationReason',count:terminationReasonCount,addFunction: true, role: 'terminationReason',  renderItem: GlobalComponents.TerminationReasonBase.renderItemOfList},
+{name: 'terminationTypeList', displayName:'Termination Type',type:'terminationType',count:terminationTypeCount,addFunction: true, role: 'terminationType',  renderItem: GlobalComponents.TerminationTypeBase.renderItemOfList},
+{name: 'occupationTypeList', displayName:'Occupation Type',type:'occupationType',count:occupationTypeCount,addFunction: true, role: 'occupationType',  renderItem: GlobalComponents.OccupationTypeBase.renderItemOfList},
+{name: 'leaveTypeList', displayName:'Leave Type',type:'leaveType',count:leaveTypeCount,addFunction: true, role: 'leaveType',  renderItem: GlobalComponents.LeaveTypeBase.renderItemOfList},
+{name: 'salaryGradeList', displayName:'Salary Grade',type:'salaryGrade',count:salaryGradeCount,addFunction: true, role: 'salaryGrade',  renderItem: GlobalComponents.SalaryGradeBase.renderItemOfList},
+{name: 'interviewTypeList', displayName:'Interview Type',type:'interviewType',count:interviewTypeCount,addFunction: true, role: 'interviewType',  renderItem: GlobalComponents.InterviewTypeBase.renderItemOfList},
+{name: 'trainingCourseTypeList', displayName:'Training Course Type',type:'trainingCourseType',count:trainingCourseTypeCount,addFunction: true, role: 'trainingCourseType',  renderItem: GlobalComponents.TrainingCourseTypeBase.renderItemOfList},
+{name: 'publicHolidayList', displayName:'Public Holiday',type:'publicHoliday',count:publicHolidayCount,addFunction: true, role: 'publicHoliday',  renderItem: GlobalComponents.PublicHolidayBase.renderItemOfList},
      
       	],
   	};

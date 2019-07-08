@@ -261,7 +261,7 @@ class EmployeePerformanceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class EmployeePerformanceUpdateForm extends Component {
                     initialValue: selectedRow.performanceComment,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="绩效评价" />
+                    <Input size="large" placeholder="Performance Comment" />
                     
                   )}
                 </Form.Item>

@@ -81,16 +81,16 @@ const internalSummaryOf = (employeeEducation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeEducation.id}</Description> 
-<Description term="员工">{employeeEducation.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeEducation.employee.displayName}(${employeeEducation.employee.id})`}
+<Description term="Id">{employeeEducation.id}</Description> 
+<Description term="Employee">{employeeEducation.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeEducation.employee.displayName}(${employeeEducation.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeEducationService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeEducationService.requestCandidateEmployee,
 	      EmployeeEducationService.transferToAnotherEmployee,"anotherEmployeeId",employeeEducation.employee?employeeEducation.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="完成时间">{ moment(employeeEducation.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeEducation.type}</Description> 
-<Description term="备注">{employeeEducation.remark}</Description> 
+<Description term="Complete Time">{ moment(employeeEducation.completeTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Type">{employeeEducation.type}</Description> 
+<Description term="Remark">{employeeEducation.remark}</Description> 
 	
         {buildTransferModal(employeeEducation,targetComponent)}
       </DescriptionList>
@@ -128,7 +128,7 @@ class EmployeeEducationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工教育",cardsFor: "employeeEducation",
+    const cardsData = {cardsName:"Employee Education",cardsFor: "employeeEducation",
     	cardsSource: this.props.employeeEducation,returnURL,displayName,
   		subItems: [
     

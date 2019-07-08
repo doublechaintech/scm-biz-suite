@@ -167,7 +167,7 @@ class CityEventBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "活动的参与情况",
+      name: "Event Attendance",
       role: "eventAttendance",
       data: state._cityEvent.eventAttendanceList,
       metaInfo: state._cityEvent.eventAttendanceListMetaInfo,
@@ -273,10 +273,10 @@ class CityEventBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

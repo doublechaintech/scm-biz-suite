@@ -81,19 +81,19 @@ const internalSummaryOf = (storageSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{storageSpace.id}</Description> 
-<Description term="位置">{storageSpace.location}</Description> 
-<Description term="联系电话">{storageSpace.contactNumber}</Description> 
-<Description term="总面积">{storageSpace.totalArea}</Description> 
-<Description term="仓库">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
+<Description term="Id">{storageSpace.id}</Description> 
+<Description term="Location">{storageSpace.location}</Description> 
+<Description term="Contact Number">{storageSpace.contactNumber}</Description> 
+<Description term="Total Area">{storageSpace.totalArea}</Description> 
+<Description term="Warehouse">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",StorageSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"Warehouse","warehouse",StorageSpaceService.requestCandidateWarehouse,
 	      StorageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",storageSpace.warehouse?storageSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="纬度">{storageSpace.latitude}</Description> 
-<Description term="经度">{storageSpace.longitude}</Description> 
-<Description term="最后更新时间">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{storageSpace.latitude}</Description> 
+<Description term="Longitude">{storageSpace.longitude}</Description> 
+<Description term="Last Update Time">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(storageSpace,targetComponent)}
       </DescriptionList>
@@ -131,10 +131,10 @@ class StorageSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",
+    const cardsData = {cardsName:"Storage Space",cardsFor: "storageSpace",
     	cardsSource: this.props.storageSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName:'Goods Shelf',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
   	};

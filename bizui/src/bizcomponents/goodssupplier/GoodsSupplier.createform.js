@@ -21,7 +21,7 @@ const testValues = {
   supplyProduct: '洗护用品',
   contactNumber: '18677889999',
   description: '啤酒饮料矿泉水，香肠瓜子方便面都提供',
-  belongToId: 'RSCC00000001',
+  belongToId: 'RSCC000001',
 }
 */
 
@@ -197,8 +197,8 @@ class GoodsSupplierCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}产品供应商`}
-        content={`${appLocaleName(userContext,"CreateNew")}产品供应商`}
+        title={`${appLocaleName(userContext,"CreateNew")}Goods Supplier`}
+        content={`${appLocaleName(userContext,"CreateNew")}Goods Supplier`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('supplyProduct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="供应产品" />
+                    <Input size="large" placeholder="Supply Product" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="联系电话" />
+                    <Input size="large" placeholder="Contact Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

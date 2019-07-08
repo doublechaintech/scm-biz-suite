@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"用户白名单", menuFor: "userWhiteList",
+const menuData = {menuName:"User White List", menuFor: "userWhiteList",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  userIdentity: '用户身份',
-  userSpecialFunctions: '用户特殊功能',
-  domain: '域',
+  id: 'Id',
+  userIdentity: 'User Identity',
+  userSpecialFunctions: 'User Special Functions',
+  domain: 'Domain',
 
 }
 
@@ -62,9 +62,9 @@ const renderItemOfList=(userWhiteList,targetComponent)=>{
 	<div key={userWhiteList.id}>
 	
 	<DescriptionList  key={userWhiteList.id} size="small" col="4">
-<Description term="序号">{userWhiteList.id}</Description> 
-<Description term="用户身份">{userWhiteList.userIdentity}</Description> 
-<Description term="用户特殊功能">{userWhiteList.userSpecialFunctions}</Description> 
+<Description term="Id">{userWhiteList.id}</Description> 
+<Description term="User Identity">{userWhiteList.userIdentity}</Description> 
+<Description term="User Special Functions">{userWhiteList.userSpecialFunctions}</Description> 
 	
         
       </DescriptionList>

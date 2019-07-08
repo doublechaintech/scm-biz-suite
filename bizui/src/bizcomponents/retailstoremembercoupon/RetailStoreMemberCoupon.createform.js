@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '优惠券',
   number: 'CP00001',
-  ownerId: 'RSM00000001',
+  ownerId: 'RSM000001',
 }
 */
 
@@ -195,8 +195,8 @@ class RetailStoreMemberCouponCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}生超会员优惠券`}
-        content={`${appLocaleName(userContext,"CreateNew")}生超会员优惠券`}
+        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Coupon`}
+        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Coupon`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class RetailStoreMemberCouponCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class RetailStoreMemberCouponCreateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large" placeholder="Number" />
                   )}
                 </Form.Item>
               </Col>

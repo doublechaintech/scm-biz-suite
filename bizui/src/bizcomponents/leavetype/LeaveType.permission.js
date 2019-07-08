@@ -28,10 +28,10 @@ const internalSummaryOf = (leaveType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{leaveType.id}</Description> 
-<Description term="代码">{leaveType.code}</Description> 
-<Description term="描述">{leaveType.description}</Description> 
-<Description term="详细描述">{leaveType.detailDescription}</Description> 
+<Description term="Id">{leaveType.id}</Description> 
+<Description term="Code">{leaveType.code}</Description> 
+<Description term="Description">{leaveType.description}</Description> 
+<Description term="Detail Description">{leaveType.detailDescription}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class LeaveTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  leaveType = this.props.leaveType;
     const { id,displayName, employeeLeaveCount } = leaveType
-    const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",cardsSource: leaveType,
+    const cardsData = {cardsName:"Leave Type",cardsFor: "leaveType",cardsSource: leaveType,
   		subItems: [
     
       	],

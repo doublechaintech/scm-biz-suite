@@ -56,7 +56,7 @@ class EmployeeSalarySheetProfile extends Component {
     const  employeeSalarySheet = this.props.employeeSalarySheet;
     const { id,displayName,  } = employeeSalarySheet
 
-    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,
+    const cardsData = {cardsName:"Employee Salary Sheet",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,
   		subItems: [
      
       	],

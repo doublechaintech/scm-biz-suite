@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"供应商的空间", menuFor: "supplierSpace",
+const menuData = {menuName:"Supplier Space", menuFor: "supplierSpace",
   		subItems: [
-  {name: 'goodsShelfList', displayName:'货架', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsShelfList', displayName:'Goods Shelf', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  location: '位置',
-  contactNumber: '联系电话',
-  totalArea: '总面积',
-  warehouse: '仓库',
-  latitude: '纬度',
-  longitude: '经度',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  location: 'Location',
+  contactNumber: 'Contact Number',
+  totalArea: 'Total Area',
+  warehouse: 'Warehouse',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -71,15 +71,15 @@ const renderItemOfList=(supplierSpace,targetComponent)=>{
 	<div key={supplierSpace.id}>
 	
 	<DescriptionList  key={supplierSpace.id} size="small" col="4">
-<Description term="序号">{supplierSpace.id}</Description> 
-<Description term="位置">{supplierSpace.location}</Description> 
-<Description term="联系电话">{supplierSpace.contactNumber}</Description> 
-<Description term="总面积">{supplierSpace.totalArea}</Description> 
-<Description term="仓库">{supplierSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${supplierSpace.warehouse.displayName}(${supplierSpace.warehouse.id})`}
+<Description term="Id">{supplierSpace.id}</Description> 
+<Description term="Location">{supplierSpace.location}</Description> 
+<Description term="Contact Number">{supplierSpace.contactNumber}</Description> 
+<Description term="Total Area">{supplierSpace.totalArea}</Description> 
+<Description term="Warehouse">{supplierSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${supplierSpace.warehouse.displayName}(${supplierSpace.warehouse.id})`}
 </Description>
-<Description term="纬度">{supplierSpace.latitude}</Description> 
-<Description term="经度">{supplierSpace.longitude}</Description> 
-<Description term="最后更新时间">{ moment(supplierSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{supplierSpace.latitude}</Description> 
+<Description term="Longitude">{supplierSpace.longitude}</Description> 
+<Description term="Last Update Time">{ moment(supplierSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

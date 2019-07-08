@@ -28,10 +28,10 @@ const internalSummaryOf = (view,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{view.id}</Description> 
-<Description term="谁">{view.who}</Description> 
-<Description term="评估">{view.assessment}</Description> 
-<Description term="面试时间">{ moment(view.interviewTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{view.id}</Description> 
+<Description term="Who">{view.who}</Description> 
+<Description term="Assessment">{view.assessment}</Description> 
+<Description term="Interview Time">{ moment(view.interviewTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class ViewPermission extends Component {
     // eslint-disable-next-line max-len
     const  view = this.props.view;
     const { id,displayName,  } = view
-    const cardsData = {cardsName:"观",cardsFor: "view",cardsSource: view,
+    const cardsData = {cardsName:"View",cardsFor: "view",cardsSource: view,
   		subItems: [
     
       	],

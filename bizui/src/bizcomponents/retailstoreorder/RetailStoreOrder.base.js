@@ -30,30 +30,30 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超的订单", menuFor: "retailStoreOrder",
+const menuData = {menuName:"Retail Store Order", menuFor: "retailStoreOrder",
   		subItems: [
-  {name: 'retailStoreOrderLineItemList', displayName:'双链小超订单行项目', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'retailStoreOrderShippingGroupList', displayName:'生超订单送货分组', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'retailStoreOrderPaymentGroupList', displayName:'生超订单付款组', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderLineItemList', displayName:'Retail Store Order Line Item', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderShippingGroupList', displayName:'Retail Store Order Shipping Group', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderPaymentGroupList', displayName:'Retail Store Order Payment Group', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName:'Goods', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  buyer: '买方',
-  seller: '卖方',
-  title: '头衔',
-  totalAmount: '总金额',
-  confirmation: '确认',
-  approval: '批准',
-  processing: '过程',
-  picking: '选择',
-  shipment: '船',
-  delivery: '交付',
-  lastUpdateTime: '最后更新时间',
-  currentStatus: '当前状态',
+  id: 'Id',
+  buyer: 'Buyer',
+  seller: 'Seller',
+  title: 'Title',
+  totalAmount: 'Total Amount',
+  confirmation: 'Confirmation',
+  approval: 'Approval',
+  processing: 'Processing',
+  picking: 'Picking',
+  shipment: 'Shipment',
+  delivery: 'Delivery',
+  lastUpdateTime: 'Last Update Time',
+  currentStatus: 'Current Status',
 
 }
 
@@ -84,13 +84,13 @@ const renderItemOfList=(retailStoreOrder,targetComponent)=>{
 	<div key={retailStoreOrder.id}>
 	
 	<DescriptionList  key={retailStoreOrder.id} size="small" col="4">
-<Description term="序号">{retailStoreOrder.id}</Description> 
-<Description term="买方">{retailStoreOrder.buyer==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrder.buyer.displayName}(${retailStoreOrder.buyer.id})`}
+<Description term="Id">{retailStoreOrder.id}</Description> 
+<Description term="Buyer">{retailStoreOrder.buyer==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrder.buyer.displayName}(${retailStoreOrder.buyer.id})`}
 </Description>
-<Description term="头衔">{retailStoreOrder.title}</Description> 
-<Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
+<Description term="Title">{retailStoreOrder.title}</Description> 
+<Description term="Total Amount">{retailStoreOrder.totalAmount}</Description> 
+<Description term="Last Update Time">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{retailStoreOrder.currentStatus}</Description> 
 	
         
       </DescriptionList>

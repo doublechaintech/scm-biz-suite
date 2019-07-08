@@ -28,9 +28,9 @@ const internalSummaryOf = (retailStoreOrderPaymentGroup,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderPaymentGroup.id}</Description> 
-<Description term="名称">{retailStoreOrderPaymentGroup.name}</Description> 
-<Description term="卡号码">{retailStoreOrderPaymentGroup.cardNumber}</Description> 
+<Description term="Id">{retailStoreOrderPaymentGroup.id}</Description> 
+<Description term="Name">{retailStoreOrderPaymentGroup.name}</Description> 
+<Description term="Card Number">{retailStoreOrderPaymentGroup.cardNumber}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class RetailStoreOrderPaymentGroupPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderPaymentGroup = this.props.retailStoreOrderPaymentGroup;
     const { id,displayName,  } = retailStoreOrderPaymentGroup
-    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: retailStoreOrderPaymentGroup,
+    const cardsData = {cardsName:"Retail Store Order Payment Group",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: retailStoreOrderPaymentGroup,
   		subItems: [
     
       	],

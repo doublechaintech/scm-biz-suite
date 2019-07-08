@@ -28,9 +28,9 @@ const internalSummaryOf = (supplyOrderPicking,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderPicking.id}</Description> 
-<Description term="谁">{supplyOrderPicking.who}</Description> 
-<Description term="过程的时间">{ moment(supplyOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{supplyOrderPicking.id}</Description> 
+<Description term="Who">{supplyOrderPicking.who}</Description> 
+<Description term="Process Time">{ moment(supplyOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class SupplyOrderPickingPermission extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrderPicking = this.props.supplyOrderPicking;
     const { id,displayName, supplyOrderCount } = supplyOrderPicking
-    const cardsData = {cardsName:"供应订单拣货",cardsFor: "supplyOrderPicking",cardsSource: supplyOrderPicking,
+    const cardsData = {cardsName:"Supply Order Picking",cardsFor: "supplyOrderPicking",cardsSource: supplyOrderPicking,
   		subItems: [
     
       	],

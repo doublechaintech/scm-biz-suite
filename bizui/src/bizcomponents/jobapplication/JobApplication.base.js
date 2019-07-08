@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"工作申请", menuFor: "jobApplication",
+const menuData = {menuName:"Job Application", menuFor: "jobApplication",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  applicationTime: '申请时间',
-  who: '谁',
-  comments: '评论',
+  id: 'Id',
+  applicationTime: 'Application Time',
+  who: 'Who',
+  comments: 'Comments',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(jobApplication,targetComponent)=>{
 	<div key={jobApplication.id}>
 	
 	<DescriptionList  key={jobApplication.id} size="small" col="4">
-<Description term="序号">{jobApplication.id}</Description> 
-<Description term="申请时间">{ moment(jobApplication.applicationTime).format('YYYY-MM-DD')}</Description> 
-<Description term="谁">{jobApplication.who}</Description> 
-<Description term="评论">{jobApplication.comments}</Description> 
+<Description term="Id">{jobApplication.id}</Description> 
+<Description term="Application Time">{ moment(jobApplication.applicationTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Who">{jobApplication.who}</Description> 
+<Description term="Comments">{jobApplication.comments}</Description> 
 	
         
       </DescriptionList>

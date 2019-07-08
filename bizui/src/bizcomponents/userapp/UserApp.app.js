@@ -167,7 +167,7 @@ class UserAppBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "访问列表",
+      name: "List Access",
       role: "listAccess",
       data: state._userApp.listAccessList,
       metaInfo: state._userApp.listAccessListMetaInfo,
@@ -216,7 +216,7 @@ class UserAppBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "对象访问",
+      name: "Object Access",
       role: "objectAccess",
       data: state._userApp.objectAccessList,
       metaInfo: state._userApp.objectAccessListMetaInfo,
@@ -326,10 +326,10 @@ class UserAppBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

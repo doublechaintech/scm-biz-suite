@@ -81,9 +81,9 @@ const internalSummaryOf = (terminationReason,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{terminationReason.id}</Description> 
-<Description term="代码">{terminationReason.code}</Description> 
-<Description term="描述">{terminationReason.description}</Description> 
+<Description term="Id">{terminationReason.id}</Description> 
+<Description term="Code">{terminationReason.code}</Description> 
+<Description term="Description">{terminationReason.description}</Description> 
 	
         {buildTransferModal(terminationReason,targetComponent)}
       </DescriptionList>
@@ -121,10 +121,10 @@ class TerminationReasonDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",
+    const cardsData = {cardsName:"Termination Reason",cardsFor: "terminationReason",
     	cardsSource: this.props.terminationReason,returnURL,displayName,
   		subItems: [
-{name: 'terminationList', displayName:'雇佣终止',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
+{name: 'terminationList', displayName:'Termination',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
     
       	],
   	};

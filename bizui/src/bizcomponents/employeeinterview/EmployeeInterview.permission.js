@@ -28,8 +28,8 @@ const internalSummaryOf = (employeeInterview,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeInterview.id}</Description> 
-<Description term="备注">{employeeInterview.remark}</Description> 
+<Description term="Id">{employeeInterview.id}</Description> 
+<Description term="Remark">{employeeInterview.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,7 +55,7 @@ class EmployeeInterviewPermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeInterview = this.props.employeeInterview;
     const { id,displayName,  } = employeeInterview
-    const cardsData = {cardsName:"员工面试",cardsFor: "employeeInterview",cardsSource: employeeInterview,
+    const cardsData = {cardsName:"Employee Interview",cardsFor: "employeeInterview",cardsSource: employeeInterview,
   		subItems: [
     
       	],

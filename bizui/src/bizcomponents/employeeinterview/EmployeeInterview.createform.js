@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   remark: '结果不错，面试通过！',
-  employeeId: 'E00000001',
-  interviewTypeId: 'IT00000001',
+  employeeId: 'E000001',
+  interviewTypeId: 'IT000001',
 }
 */
 
@@ -195,8 +195,8 @@ class EmployeeInterviewCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}员工面试`}
-        content={`${appLocaleName(userContext,"CreateNew")}员工面试`}
+        title={`${appLocaleName(userContext,"CreateNew")}Employee Interview`}
+        content={`${appLocaleName(userContext,"CreateNew")}Employee Interview`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class EmployeeInterviewCreateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large" placeholder="Remark" />
                   )}
                 </Form.Item>
               </Col>

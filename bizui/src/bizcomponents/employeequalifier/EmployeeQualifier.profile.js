@@ -56,7 +56,7 @@ class EmployeeQualifierProfile extends Component {
     const  employeeQualifier = this.props.employeeQualifier;
     const { id,displayName,  } = employeeQualifier
 
-    const cardsData = {cardsName:"员工资质",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,
+    const cardsData = {cardsName:"Employee Qualifier",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,
   		subItems: [
      
       	],

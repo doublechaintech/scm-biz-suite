@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会员收藏产品", menuFor: "memberWishlistProduct",
+const menuData = {menuName:"Member Wishlist Product", menuFor: "memberWishlistProduct",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  owner: '业主',
+  id: 'Id',
+  name: 'Name',
+  owner: 'Owner',
 
 }
 
@@ -60,9 +60,9 @@ const renderItemOfList=(memberWishlistProduct,targetComponent)=>{
 	<div key={memberWishlistProduct.id}>
 	
 	<DescriptionList  key={memberWishlistProduct.id} size="small" col="4">
-<Description term="序号">{memberWishlistProduct.id}</Description> 
-<Description term="名称">{memberWishlistProduct.name}</Description> 
-<Description term="业主">{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
+<Description term="Id">{memberWishlistProduct.id}</Description> 
+<Description term="Name">{memberWishlistProduct.name}</Description> 
+<Description term="Owner">{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
 </Description>
 	
         

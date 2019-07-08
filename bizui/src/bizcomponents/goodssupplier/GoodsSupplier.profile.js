@@ -56,7 +56,7 @@ class GoodsSupplierProfile extends Component {
     const  goodsSupplier = this.props.goodsSupplier;
     const { id,displayName, supplierProductCount, supplyOrderCount, accountSetCount } = goodsSupplier
 
-    const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",cardsSource: goodsSupplier,
+    const cardsData = {cardsName:"Goods Supplier",cardsFor: "goodsSupplier",cardsSource: goodsSupplier,
   		subItems: [
      
       	],

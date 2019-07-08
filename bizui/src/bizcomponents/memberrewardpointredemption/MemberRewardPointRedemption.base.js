@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会员奖励点赎回", menuFor: "memberRewardPointRedemption",
+const menuData = {menuName:"Member Reward Point Redemption", menuFor: "memberRewardPointRedemption",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  point: '点',
-  owner: '业主',
+  id: 'Id',
+  name: 'Name',
+  point: 'Point',
+  owner: 'Owner',
 
 }
 
@@ -62,10 +62,10 @@ const renderItemOfList=(memberRewardPointRedemption,targetComponent)=>{
 	<div key={memberRewardPointRedemption.id}>
 	
 	<DescriptionList  key={memberRewardPointRedemption.id} size="small" col="4">
-<Description term="序号">{memberRewardPointRedemption.id}</Description> 
-<Description term="名称">{memberRewardPointRedemption.name}</Description> 
-<Description term="点">{memberRewardPointRedemption.point}</Description> 
-<Description term="业主">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
+<Description term="Id">{memberRewardPointRedemption.id}</Description> 
+<Description term="Name">{memberRewardPointRedemption.name}</Description> 
+<Description term="Point">{memberRewardPointRedemption.point}</Description> 
+<Description term="Owner">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
 </Description>
 	
         

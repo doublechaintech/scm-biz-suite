@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超会员优惠券", menuFor: "retailStoreMemberCoupon",
+const menuData = {menuName:"Retail Store Member Coupon", menuFor: "retailStoreMemberCoupon",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  owner: '业主',
-  number: '数',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  owner: 'Owner',
+  number: 'Number',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -64,12 +64,12 @@ const renderItemOfList=(retailStoreMemberCoupon,targetComponent)=>{
 	<div key={retailStoreMemberCoupon.id}>
 	
 	<DescriptionList  key={retailStoreMemberCoupon.id} size="small" col="4">
-<Description term="序号">{retailStoreMemberCoupon.id}</Description> 
-<Description term="名称">{retailStoreMemberCoupon.name}</Description> 
-<Description term="业主">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
+<Description term="Id">{retailStoreMemberCoupon.id}</Description> 
+<Description term="Name">{retailStoreMemberCoupon.name}</Description> 
+<Description term="Owner">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
 </Description>
-<Description term="数">{retailStoreMemberCoupon.number}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Number">{retailStoreMemberCoupon.number}</Description> 
+<Description term="Last Update Time">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

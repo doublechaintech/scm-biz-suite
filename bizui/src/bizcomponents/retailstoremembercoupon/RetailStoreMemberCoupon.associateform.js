@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '优惠券',
   number: 'CP00001',
-  ownerId: 'RSM00000001',
+  ownerId: 'RSM000001',
 }
 */
 
@@ -139,7 +139,7 @@ class RetailStoreMemberCouponAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class RetailStoreMemberCouponAssociateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large" placeholder="Number" />
                   )}
                 </Form.Item>
               </Col>

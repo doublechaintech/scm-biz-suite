@@ -56,7 +56,7 @@ class SupplyOrderApprovalProfile extends Component {
     const  supplyOrderApproval = this.props.supplyOrderApproval;
     const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderApproval
 
-    const cardsData = {cardsName:"供应订单审批",cardsFor: "supplyOrderApproval",cardsSource: supplyOrderApproval,
+    const cardsData = {cardsName:"Supply Order Approval",cardsFor: "supplyOrderApproval",cardsSource: supplyOrderApproval,
   		subItems: [
      
       	],

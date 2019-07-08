@@ -167,7 +167,7 @@ class GoodsShelfBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "货架库存盘点",
+      name: "Goods Shelf Stock Count",
       role: "goodsShelfStockCount",
       data: state._goodsShelf.goodsShelfStockCountList,
       metaInfo: state._goodsShelf.goodsShelfStockCountListMetaInfo,
@@ -216,7 +216,7 @@ class GoodsShelfBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "货位",
+      name: "Goods Allocation",
       role: "goodsAllocation",
       data: state._goodsShelf.goodsAllocationList,
       metaInfo: state._goodsShelf.goodsAllocationListMetaInfo,
@@ -326,10 +326,10 @@ class GoodsShelfBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

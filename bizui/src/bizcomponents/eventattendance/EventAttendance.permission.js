@@ -28,9 +28,9 @@ const internalSummaryOf = (eventAttendance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{eventAttendance.id}</Description> 
-<Description term="名称">{eventAttendance.name}</Description> 
-<Description term="描述">{eventAttendance.description}</Description> 
+<Description term="Id">{eventAttendance.id}</Description> 
+<Description term="Name">{eventAttendance.name}</Description> 
+<Description term="Description">{eventAttendance.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class EventAttendancePermission extends Component {
     // eslint-disable-next-line max-len
     const  eventAttendance = this.props.eventAttendance;
     const { id,displayName,  } = eventAttendance
-    const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",cardsSource: eventAttendance,
+    const cardsData = {cardsName:"Event Attendance",cardsFor: "eventAttendance",cardsSource: eventAttendance,
   		subItems: [
     
       	],

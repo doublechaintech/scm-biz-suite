@@ -30,36 +30,36 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"双链小超全国运营中心", menuFor: "retailStoreCountryCenter",
+const menuData = {menuName:"Retail Store Country Center", menuFor: "retailStoreCountryCenter",
   		subItems: [
-  {name: 'catalogList', displayName:'目录', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '产品管理'},
-  {name: 'retailStoreProvinceCenterList', displayName:'双链小超省中心', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '组织机构'},
-  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '加盟管理'},
-  {name: 'retailStoreMemberList', displayName:'生超会员', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '会员管理'},
-  {name: 'goodsSupplierList', displayName:'产品供应商', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '供应管理'},
-  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '供应管理'},
-  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '销售管理'},
-  {name: 'warehouseList', displayName:'仓库', icon:'warehouse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '仓配运一体化'},
-  {name: 'transportFleetList', displayName:'运输车队', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '仓配运一体化'},
-  {name: 'accountSetList', displayName:'账套', icon:'headset',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '财务管理'},
-  {name: 'levelOneDepartmentList', displayName:'一级部门', icon:'bone',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '组织机构'},
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'instructorList', displayName:'讲师', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'companyTrainingList', displayName:'公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'catalogList', displayName:'Catalog', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '产品管理'},
+  {name: 'retailStoreProvinceCenterList', displayName:'Retail Store Province Center', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '组织机构'},
+  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '加盟管理'},
+  {name: 'retailStoreMemberList', displayName:'Retail Store Member', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '会员管理'},
+  {name: 'goodsSupplierList', displayName:'Goods Supplier', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '供应管理'},
+  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '供应管理'},
+  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '销售管理'},
+  {name: 'warehouseList', displayName:'Warehouse', icon:'warehouse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '仓配运一体化'},
+  {name: 'transportFleetList', displayName:'Transport Fleet', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '仓配运一体化'},
+  {name: 'accountSetList', displayName:'Account Set', icon:'headset',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '财务管理'},
+  {name: 'levelOneDepartmentList', displayName:'Level One Department', icon:'bone',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '组织机构'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'instructorList', displayName:'Instructor', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'companyTrainingList', displayName:'Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  serviceNumber: '服务号码',
-  founded: '成立',
-  webSite: '网站',
-  address: '地址',
-  operatedBy: '由',
-  legalRepresentative: '法定代表人',
-  description: '描述',
+  id: 'Id',
+  name: 'Name',
+  serviceNumber: 'Service Number',
+  founded: 'Founded',
+  webSite: 'Web Site',
+  address: 'Address',
+  operatedBy: 'Operated By',
+  legalRepresentative: 'Legal Representative',
+  description: 'Description',
 
 }
 
@@ -86,15 +86,15 @@ const renderItemOfList=(retailStoreCountryCenter,targetComponent)=>{
 	<div key={retailStoreCountryCenter.id}>
 	
 	<DescriptionList  key={retailStoreCountryCenter.id} size="small" col="4">
-<Description term="序号">{retailStoreCountryCenter.id}</Description> 
-<Description term="名称">{retailStoreCountryCenter.name}</Description> 
-<Description term="服务号码">{retailStoreCountryCenter.serviceNumber}</Description> 
-<Description term="成立">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="网站">{retailStoreCountryCenter.webSite}</Description> 
-<Description term="地址">{retailStoreCountryCenter.address}</Description> 
-<Description term="由">{retailStoreCountryCenter.operatedBy}</Description> 
-<Description term="法定代表人">{retailStoreCountryCenter.legalRepresentative}</Description> 
-<Description term="描述">{retailStoreCountryCenter.description}</Description> 
+<Description term="Id">{retailStoreCountryCenter.id}</Description> 
+<Description term="Name">{retailStoreCountryCenter.name}</Description> 
+<Description term="Service Number">{retailStoreCountryCenter.serviceNumber}</Description> 
+<Description term="Founded">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Web Site">{retailStoreCountryCenter.webSite}</Description> 
+<Description term="Address">{retailStoreCountryCenter.address}</Description> 
+<Description term="Operated By">{retailStoreCountryCenter.operatedBy}</Description> 
+<Description term="Legal Representative">{retailStoreCountryCenter.legalRepresentative}</Description> 
+<Description term="Description">{retailStoreCountryCenter.description}</Description> 
 	
         
       </DescriptionList>

@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超订单送货分组", menuFor: "retailStoreOrderShippingGroup",
+const menuData = {menuName:"Retail Store Order Shipping Group", menuFor: "retailStoreOrderShippingGroup",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  bizOrder: '订单',
-  amount: '金额',
+  id: 'Id',
+  name: 'Name',
+  bizOrder: 'Biz Order',
+  amount: 'Amount',
 
 }
 
@@ -62,11 +62,11 @@ const renderItemOfList=(retailStoreOrderShippingGroup,targetComponent)=>{
 	<div key={retailStoreOrderShippingGroup.id}>
 	
 	<DescriptionList  key={retailStoreOrderShippingGroup.id} size="small" col="4">
-<Description term="序号">{retailStoreOrderShippingGroup.id}</Description> 
-<Description term="名称">{retailStoreOrderShippingGroup.name}</Description> 
-<Description term="订单">{retailStoreOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderShippingGroup.bizOrder.displayName}(${retailStoreOrderShippingGroup.bizOrder.id})`}
+<Description term="Id">{retailStoreOrderShippingGroup.id}</Description> 
+<Description term="Name">{retailStoreOrderShippingGroup.name}</Description> 
+<Description term="Biz Order">{retailStoreOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderShippingGroup.bizOrder.displayName}(${retailStoreOrderShippingGroup.bizOrder.id})`}
 </Description>
-<Description term="金额">{retailStoreOrderShippingGroup.amount}</Description> 
+<Description term="Amount">{retailStoreOrderShippingGroup.amount}</Description> 
 	
         
       </DescriptionList>

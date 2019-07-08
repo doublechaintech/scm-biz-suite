@@ -167,7 +167,7 @@ class LevelOneCategoryBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "二级分类",
+      name: "Level Two Category",
       role: "levelTwoCategory",
       data: state._levelOneCategory.levelTwoCategoryList,
       metaInfo: state._levelOneCategory.levelTwoCategoryListMetaInfo,
@@ -273,10 +273,10 @@ class LevelOneCategoryBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

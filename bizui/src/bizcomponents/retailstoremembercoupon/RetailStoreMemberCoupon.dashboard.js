@@ -81,16 +81,16 @@ const internalSummaryOf = (retailStoreMemberCoupon,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberCoupon.id}</Description> 
-<Description term="名称">{retailStoreMemberCoupon.name}</Description> 
-<Description term="业主">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
+<Description term="Id">{retailStoreMemberCoupon.id}</Description> 
+<Description term="Name">{retailStoreMemberCoupon.name}</Description> 
+<Description term="Owner">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberCouponService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","retailStoreMember",RetailStoreMemberCouponService.requestCandidateOwner,
 	      RetailStoreMemberCouponService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberCoupon.owner?retailStoreMemberCoupon.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="数">{retailStoreMemberCoupon.number}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Number">{retailStoreMemberCoupon.number}</Description> 
+<Description term="Last Update Time">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreMemberCoupon,targetComponent)}
       </DescriptionList>
@@ -128,7 +128,7 @@ class RetailStoreMemberCouponDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",
+    const cardsData = {cardsName:"Retail Store Member Coupon",cardsFor: "retailStoreMemberCoupon",
     	cardsSource: this.props.retailStoreMemberCoupon,returnURL,displayName,
   		subItems: [
     

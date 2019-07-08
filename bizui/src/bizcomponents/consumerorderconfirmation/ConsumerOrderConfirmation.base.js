@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"客户订单确认", menuFor: "consumerOrderConfirmation",
+const menuData = {menuName:"Consumer Order Confirmation", menuFor: "consumerOrderConfirmation",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  confirmTime: '确认时间',
+  id: 'Id',
+  who: 'Who',
+  confirmTime: 'Confirm Time',
 
 }
 
@@ -60,9 +60,9 @@ const renderItemOfList=(consumerOrderConfirmation,targetComponent)=>{
 	<div key={consumerOrderConfirmation.id}>
 	
 	<DescriptionList  key={consumerOrderConfirmation.id} size="small" col="4">
-<Description term="序号">{consumerOrderConfirmation.id}</Description> 
-<Description term="谁">{consumerOrderConfirmation.who}</Description> 
-<Description term="确认时间">{ moment(consumerOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{consumerOrderConfirmation.id}</Description> 
+<Description term="Who">{consumerOrderConfirmation.who}</Description> 
+<Description term="Confirm Time">{ moment(consumerOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

@@ -28,10 +28,10 @@ const internalSummaryOf = (accountingPeriod,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingPeriod.id}</Description> 
-<Description term="名称">{accountingPeriod.name}</Description> 
-<Description term="开始日期">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
-<Description term="结束日期">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{accountingPeriod.id}</Description> 
+<Description term="Name">{accountingPeriod.name}</Description> 
+<Description term="Start Date">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
+<Description term="End Date">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class AccountingPeriodPermission extends Component {
     // eslint-disable-next-line max-len
     const  accountingPeriod = this.props.accountingPeriod;
     const { id,displayName, accountingDocumentCount } = accountingPeriod
-    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,
+    const cardsData = {cardsName:"Accounting Period",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,
   		subItems: [
     
       	],

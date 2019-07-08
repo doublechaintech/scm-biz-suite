@@ -30,20 +30,20 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"城市活动", menuFor: "cityEvent",
+const menuData = {menuName:"City Event", menuFor: "cityEvent",
   		subItems: [
-  {name: 'eventAttendanceList', displayName:'活动的参与情况', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'eventAttendanceList', displayName:'Event Attendance', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  mobile: '手机',
-  cityServiceCenter: '城市服务中心',
-  description: '描述',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  mobile: 'Mobile',
+  cityServiceCenter: 'City Service Center',
+  description: 'Description',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -67,13 +67,13 @@ const renderItemOfList=(cityEvent,targetComponent)=>{
 	<div key={cityEvent.id}>
 	
 	<DescriptionList  key={cityEvent.id} size="small" col="4">
-<Description term="序号">{cityEvent.id}</Description> 
-<Description term="名称">{cityEvent.name}</Description> 
-<Description term="手机">{cityEvent.mobile}</Description> 
-<Description term="城市服务中心">{cityEvent.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityEvent.cityServiceCenter.displayName}(${cityEvent.cityServiceCenter.id})`}
+<Description term="Id">{cityEvent.id}</Description> 
+<Description term="Name">{cityEvent.name}</Description> 
+<Description term="Mobile">{cityEvent.mobile}</Description> 
+<Description term="City Service Center">{cityEvent.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityEvent.cityServiceCenter.displayName}(${cityEvent.cityServiceCenter.id})`}
 </Description>
-<Description term="描述">{cityEvent.description}</Description> 
-<Description term="最后更新时间">{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{cityEvent.description}</Description> 
+<Description term="Last Update Time">{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

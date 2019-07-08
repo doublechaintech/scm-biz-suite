@@ -28,9 +28,9 @@ const internalSummaryOf = (goodsShelf,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsShelf.id}</Description> 
-<Description term="位置">{goodsShelf.location}</Description> 
-<Description term="最后更新时间">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{goodsShelf.id}</Description> 
+<Description term="Location">{goodsShelf.location}</Description> 
+<Description term="Last Update Time">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class GoodsShelfPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsShelf = this.props.goodsShelf;
     const { id,displayName, goodsShelfStockCountCount, goodsAllocationCount } = goodsShelf
-    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",cardsSource: goodsShelf,
+    const cardsData = {cardsName:"Goods Shelf",cardsFor: "goodsShelf",cardsSource: goodsShelf,
   		subItems: [
     
       	],

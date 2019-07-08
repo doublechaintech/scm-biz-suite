@@ -45,11 +45,11 @@ const imageList =(listAccess)=>{return [
 const internalImageListOf = (listAccess) =>defaultImageListOf(listAccess,imageList)
 
 const optionList =(listAccess)=>{return [ 
-	  {"title":'读权限',"value":listAccess.readPermission,"parameterName":"readPermission"},
-  {"title":'创建权限',"value":listAccess.createPermission,"parameterName":"createPermission"},
-  {"title":'删除权限',"value":listAccess.deletePermission,"parameterName":"deletePermission"},
-  {"title":'更新许可',"value":listAccess.updatePermission,"parameterName":"updatePermission"},
-  {"title":'执行权限',"value":listAccess.executionPermission,"parameterName":"executionPermission"},
+	  {"title":'Read Permission',"value":listAccess.readPermission,"parameterName":"readPermission"},
+  {"title":'Create Permission',"value":listAccess.createPermission,"parameterName":"createPermission"},
+  {"title":'Delete Permission',"value":listAccess.deletePermission,"parameterName":"deletePermission"},
+  {"title":'Update Permission',"value":listAccess.updatePermission,"parameterName":"updatePermission"},
+  {"title":'Execution Permission',"value":listAccess.executionPermission,"parameterName":"executionPermission"},
 ]}
 
 const buildTransferModal = defaultBuildTransferModal
@@ -86,12 +86,12 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{listAccess.id}</Description> 
-<Description term="名称">{listAccess.name}</Description> 
-<Description term="内部名称">{listAccess.internalName}</Description> 
-<Description term="应用程序">{listAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${listAccess.app.displayName}(${listAccess.app.id})`}
+<Description term="Id">{listAccess.id}</Description> 
+<Description term="Name">{listAccess.name}</Description> 
+<Description term="Internal Name">{listAccess.internalName}</Description> 
+<Description term="App">{listAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${listAccess.app.displayName}(${listAccess.app.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"应用程序","userApp",ListAccessService.requestCandidateApp,
+  showTransferModel(targetComponent,"App","userApp",ListAccessService.requestCandidateApp,
 	      ListAccessService.transferToAnotherApp,"anotherAppId",listAccess.app?listAccess.app.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -132,7 +132,7 @@ class ListAccessDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"访问列表",cardsFor: "listAccess",
+    const cardsData = {cardsName:"List Access",cardsFor: "listAccess",
     	cardsSource: this.props.listAccess,returnURL,displayName,
   		subItems: [
     

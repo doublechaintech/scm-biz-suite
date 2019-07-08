@@ -81,16 +81,16 @@ const internalSummaryOf = (levelTwoDepartment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelTwoDepartment.id}</Description> 
-<Description term="属于">{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
+<Description term="Id">{levelTwoDepartment.id}</Description> 
+<Description term="Belongs To">{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"属于","levelOneDepartment",LevelTwoDepartmentService.requestCandidateBelongsTo,
+  showTransferModel(targetComponent,"Belongs To","levelOneDepartment",LevelTwoDepartmentService.requestCandidateBelongsTo,
 	      LevelTwoDepartmentService.transferToAnotherBelongsTo,"anotherBelongsToId",levelTwoDepartment.belongsTo?levelTwoDepartment.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="名称">{levelTwoDepartment.name}</Description> 
-<Description term="描述">{levelTwoDepartment.description}</Description> 
-<Description term="成立">{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Name">{levelTwoDepartment.name}</Description> 
+<Description term="Description">{levelTwoDepartment.description}</Description> 
+<Description term="Founded">{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(levelTwoDepartment,targetComponent)}
       </DescriptionList>
@@ -128,10 +128,10 @@ class LevelTwoDepartmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"二级部门",cardsFor: "levelTwoDepartment",
+    const cardsData = {cardsName:"Level Two Department",cardsFor: "levelTwoDepartment",
     	cardsSource: this.props.levelTwoDepartment,returnURL,displayName,
   		subItems: [
-{name: 'levelThreeDepartmentList', displayName:'三级部门',type:'levelThreeDepartment',count:levelThreeDepartmentCount,addFunction: true, role: 'levelThreeDepartment', metaInfo: levelThreeDepartmentListMetaInfo, renderItem: GlobalComponents.LevelThreeDepartmentBase.renderItemOfList},
+{name: 'levelThreeDepartmentList', displayName:'Level Three Department',type:'levelThreeDepartment',count:levelThreeDepartmentCount,addFunction: true, role: 'levelThreeDepartment', metaInfo: levelThreeDepartmentListMetaInfo, renderItem: GlobalComponents.LevelThreeDepartmentBase.renderItemOfList},
     
       	],
   	};

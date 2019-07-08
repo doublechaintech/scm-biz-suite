@@ -167,7 +167,7 @@ class SalaryGradeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工",
+      name: "Employee",
       role: "employee",
       data: state._salaryGrade.employeeList,
       metaInfo: state._salaryGrade.employeeListMetaInfo,
@@ -216,7 +216,7 @@ class SalaryGradeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "工资单",
+      name: "Employee Salary Sheet",
       role: "employeeSalarySheet",
       data: state._salaryGrade.employeeSalarySheetList,
       metaInfo: state._salaryGrade.employeeSalarySheetListMetaInfo,
@@ -326,10 +326,10 @@ class SalaryGradeBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

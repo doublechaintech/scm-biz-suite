@@ -56,7 +56,7 @@ class OfferApprovalProfile extends Component {
     const  offerApproval = this.props.offerApproval;
     const { id,displayName, employeeCount } = offerApproval
 
-    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",cardsSource: offerApproval,
+    const cardsData = {cardsName:"Offer Approval",cardsFor: "offerApproval",cardsSource: offerApproval,
   		subItems: [
      
       	],

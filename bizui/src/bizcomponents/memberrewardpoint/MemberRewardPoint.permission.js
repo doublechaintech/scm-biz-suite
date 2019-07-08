@@ -28,9 +28,9 @@ const internalSummaryOf = (memberRewardPoint,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberRewardPoint.id}</Description> 
-<Description term="名称">{memberRewardPoint.name}</Description> 
-<Description term="点">{memberRewardPoint.point}</Description> 
+<Description term="Id">{memberRewardPoint.id}</Description> 
+<Description term="Name">{memberRewardPoint.name}</Description> 
+<Description term="Point">{memberRewardPoint.point}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class MemberRewardPointPermission extends Component {
     // eslint-disable-next-line max-len
     const  memberRewardPoint = this.props.memberRewardPoint;
     const { id,displayName,  } = memberRewardPoint
-    const cardsData = {cardsName:"会员奖励点",cardsFor: "memberRewardPoint",cardsSource: memberRewardPoint,
+    const cardsData = {cardsName:"Member Reward Point",cardsFor: "memberRewardPoint",cardsSource: memberRewardPoint,
   		subItems: [
     
       	],

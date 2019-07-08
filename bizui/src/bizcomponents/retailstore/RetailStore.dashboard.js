@@ -81,22 +81,22 @@ const internalSummaryOf = (retailStore,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStore.id}</Description> 
-<Description term="名称">{retailStore.name}</Description> 
-<Description term="电话">{retailStore.telephone}</Description> 
-<Description term="业主">{retailStore.owner}</Description> 
-<Description term="城市服务中心">{retailStore.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${retailStore.cityServiceCenter.displayName}(${retailStore.cityServiceCenter.id})`}
+<Description term="Id">{retailStore.id}</Description> 
+<Description term="Name">{retailStore.name}</Description> 
+<Description term="Telephone">{retailStore.telephone}</Description> 
+<Description term="Owner">{retailStore.owner}</Description> 
+<Description term="City Service Center">{retailStore.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${retailStore.cityServiceCenter.displayName}(${retailStore.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",RetailStoreService.requestCandidateCityServiceCenter,
+  showTransferModel(targetComponent,"City Service Center","retailStoreCityServiceCenter",RetailStoreService.requestCandidateCityServiceCenter,
 	      RetailStoreService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",retailStore.cityServiceCenter?retailStore.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="成立">{ moment(retailStore.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="纬度">{retailStore.latitude}</Description> 
-<Description term="经度">{retailStore.longitude}</Description> 
-<Description term="描述">{retailStore.description}</Description> 
-<Description term="最后更新时间">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{retailStore.currentStatus}</Description> 
+<Description term="Founded">{ moment(retailStore.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{retailStore.latitude}</Description> 
+<Description term="Longitude">{retailStore.longitude}</Description> 
+<Description term="Description">{retailStore.description}</Description> 
+<Description term="Last Update Time">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{retailStore.currentStatus}</Description> 
 	
         {buildTransferModal(retailStore,targetComponent)}
       </DescriptionList>
@@ -134,14 +134,14 @@ class RetailStoreDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"双链小超",cardsFor: "retailStore",
+    const cardsData = {cardsName:"Retail Store",cardsFor: "retailStore",
     	cardsSource: this.props.retailStore,returnURL,displayName,
   		subItems: [
-{name: 'consumerOrderList', displayName:'消费者订单',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
-{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
-{name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
-{name: 'accountSetList', displayName:'账套',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
+{name: 'consumerOrderList', displayName:'Consumer Order',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
+{name: 'retailStoreOrderList', displayName:'Retail Store Order',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'transportTaskList', displayName:'Transport Task',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+{name: 'accountSetList', displayName:'Account Set',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
     
       	],
   	};

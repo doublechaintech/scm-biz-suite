@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会计凭证类型", menuFor: "accountingDocumentType",
+const menuData = {menuName:"Accounting Document Type", menuFor: "accountingDocumentType",
   		subItems: [
-  {name: 'accountingDocumentList', displayName:'会计凭证', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingDocumentList', displayName:'Accounting Document', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  description: '描述',
-  accountingPeriod: '会计期间',
+  id: 'Id',
+  name: 'Name',
+  description: 'Description',
+  accountingPeriod: 'Accounting Period',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(accountingDocumentType,targetComponent)=>{
 	<div key={accountingDocumentType.id}>
 	
 	<DescriptionList  key={accountingDocumentType.id} size="small" col="4">
-<Description term="序号">{accountingDocumentType.id}</Description> 
-<Description term="名称">{accountingDocumentType.name}</Description> 
-<Description term="描述">{accountingDocumentType.description}</Description> 
-<Description term="会计期间">{accountingDocumentType.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentType.accountingPeriod.displayName}(${accountingDocumentType.accountingPeriod.id})`}
+<Description term="Id">{accountingDocumentType.id}</Description> 
+<Description term="Name">{accountingDocumentType.name}</Description> 
+<Description term="Description">{accountingDocumentType.description}</Description> 
+<Description term="Accounting Period">{accountingDocumentType.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentType.accountingPeriod.displayName}(${accountingDocumentType.accountingPeriod.id})`}
 </Description>
 	
         

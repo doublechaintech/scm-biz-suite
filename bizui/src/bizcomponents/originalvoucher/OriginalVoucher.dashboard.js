@@ -40,7 +40,7 @@ const { Option } = Select
 
 
 const imageList =(originalVoucher)=>{return [
-	   {"title":'凭证图像',"imageLocation":originalVoucher.voucherImage},
+	   {"title":'Voucher Image',"imageLocation":originalVoucher.voucherImage},
 ]}
 
 const internalImageListOf = (originalVoucher) =>defaultImageListOf(originalVoucher,imageList)
@@ -82,18 +82,18 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucher.id}</Description> 
-<Description term="头衔">{originalVoucher.title}</Description> 
-<Description term="由">{originalVoucher.madeBy}</Description> 
-<Description term="受">{originalVoucher.receivedBy}</Description> 
-<Description term="凭证类型">{originalVoucher.voucherType}</Description> 
-<Description term="属于">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
+<Description term="Id">{originalVoucher.id}</Description> 
+<Description term="Title">{originalVoucher.title}</Description> 
+<Description term="Made By">{originalVoucher.madeBy}</Description> 
+<Description term="Received By">{originalVoucher.receivedBy}</Description> 
+<Description term="Voucher Type">{originalVoucher.voucherType}</Description> 
+<Description term="Belongs To">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"属于","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,
+  showTransferModel(targetComponent,"Belongs To","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,
 	      OriginalVoucherService.transferToAnotherBelongsTo,"anotherBelongsToId",originalVoucher.belongsTo?originalVoucher.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{originalVoucher.currentStatus}</Description> 
+<Description term="Current Status">{originalVoucher.currentStatus}</Description> 
 	
         {buildTransferModal(originalVoucher,targetComponent)}
       </DescriptionList>
@@ -131,7 +131,7 @@ class OriginalVoucherDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",
+    const cardsData = {cardsName:"Original Voucher",cardsFor: "originalVoucher",
     	cardsSource: this.props.originalVoucher,returnURL,displayName,
   		subItems: [
     

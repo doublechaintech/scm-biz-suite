@@ -81,8 +81,8 @@ const internalSummaryOf = (catalog,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{catalog.id}</Description> 
-<Description term="名称">{catalog.name}</Description> 
+<Description term="Id">{catalog.id}</Description> 
+<Description term="Name">{catalog.name}</Description> 
 	
         {buildTransferModal(catalog,targetComponent)}
       </DescriptionList>
@@ -120,10 +120,10 @@ class CatalogDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"目录",cardsFor: "catalog",
+    const cardsData = {cardsName:"Catalog",cardsFor: "catalog",
     	cardsSource: this.props.catalog,returnURL,displayName,
   		subItems: [
-{name: 'levelOneCategoryList', displayName:'一级分类',type:'levelOneCategory',count:levelOneCategoryCount,addFunction: true, role: 'levelOneCategory', metaInfo: levelOneCategoryListMetaInfo, renderItem: GlobalComponents.LevelOneCategoryBase.renderItemOfList},
+{name: 'levelOneCategoryList', displayName:'Level One Category',type:'levelOneCategory',count:levelOneCategoryCount,addFunction: true, role: 'levelOneCategory', metaInfo: levelOneCategoryListMetaInfo, renderItem: GlobalComponents.LevelOneCategoryBase.renderItemOfList},
     
       	],
   	};

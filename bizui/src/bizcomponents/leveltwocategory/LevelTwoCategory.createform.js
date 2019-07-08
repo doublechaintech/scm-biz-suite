@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  parentCategoryId: 'LOC00000001',
+  parentCategoryId: 'LOC000001',
 }
 */
 
@@ -194,8 +194,8 @@ class LevelTwoCategoryCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}二级分类`}
-        content={`${appLocaleName(userContext,"CreateNew")}二级分类`}
+        title={`${appLocaleName(userContext,"CreateNew")}Level Two Category`}
+        content={`${appLocaleName(userContext,"CreateNew")}Level Two Category`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class LevelTwoCategoryCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

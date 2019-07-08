@@ -56,7 +56,7 @@ class SmartPalletProfile extends Component {
     const  smartPallet = this.props.smartPallet;
     const { id,displayName, goodsCount } = smartPallet
 
-    const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",cardsSource: smartPallet,
+    const cardsData = {cardsName:"Smart Pallet",cardsFor: "smartPallet",cardsSource: smartPallet,
   		subItems: [
      
       	],

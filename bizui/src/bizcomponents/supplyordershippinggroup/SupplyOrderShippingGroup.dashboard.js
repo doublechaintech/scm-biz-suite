@@ -81,15 +81,15 @@ const internalSummaryOf = (supplyOrderShippingGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderShippingGroup.id}</Description> 
-<Description term="名称">{supplyOrderShippingGroup.name}</Description> 
-<Description term="订单">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
+<Description term="Id">{supplyOrderShippingGroup.id}</Description> 
+<Description term="Name">{supplyOrderShippingGroup.name}</Description> 
+<Description term="Biz Order">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","supplyOrder",SupplyOrderShippingGroupService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","supplyOrder",SupplyOrderShippingGroupService.requestCandidateBizOrder,
 	      SupplyOrderShippingGroupService.transferToAnotherBizOrder,"anotherBizOrderId",supplyOrderShippingGroup.bizOrder?supplyOrderShippingGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="金额">{supplyOrderShippingGroup.amount}</Description> 
+<Description term="Amount">{supplyOrderShippingGroup.amount}</Description> 
 	
         {buildTransferModal(supplyOrderShippingGroup,targetComponent)}
       </DescriptionList>
@@ -127,7 +127,7 @@ class SupplyOrderShippingGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应订单送货分组",cardsFor: "supplyOrderShippingGroup",
+    const cardsData = {cardsName:"Supply Order Shipping Group",cardsFor: "supplyOrderShippingGroup",
     	cardsSource: this.props.supplyOrderShippingGroup,returnURL,displayName,
   		subItems: [
     

@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"供应订单交货", menuFor: "supplyOrderDelivery",
+const menuData = {menuName:"Supply Order Delivery", menuFor: "supplyOrderDelivery",
   		subItems: [
-  {name: 'consumerOrderList', displayName:'消费者订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderList', displayName:'Consumer Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  deliveryTime: '交货时间',
+  id: 'Id',
+  who: 'Who',
+  deliveryTime: 'Delivery Time',
 
 }
 
@@ -62,9 +62,9 @@ const renderItemOfList=(supplyOrderDelivery,targetComponent)=>{
 	<div key={supplyOrderDelivery.id}>
 	
 	<DescriptionList  key={supplyOrderDelivery.id} size="small" col="4">
-<Description term="序号">{supplyOrderDelivery.id}</Description> 
-<Description term="谁">{supplyOrderDelivery.who}</Description> 
-<Description term="交货时间">{ moment(supplyOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{supplyOrderDelivery.id}</Description> 
+<Description term="Who">{supplyOrderDelivery.who}</Description> 
+<Description term="Delivery Time">{ moment(supplyOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

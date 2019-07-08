@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   who: '面试官',
   assessment: '小伙子不错，值得培养',
-  interviewTime: '2018-07-31',
+  interviewTime: '2019-06-09',
 }
 */
 
@@ -195,8 +195,8 @@ class ViewCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}观`}
-        content={`${appLocaleName(userContext,"CreateNew")}观`}
+        title={`${appLocaleName(userContext,"CreateNew")}View`}
+        content={`${appLocaleName(userContext,"CreateNew")}View`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class ViewCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class ViewCreateForm extends Component {
                   {getFieldDecorator('assessment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评估" />
+                    <Input size="large" placeholder="Assessment" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class ViewCreateForm extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="面试时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Interview Time" />
                   )}
                 </Form.Item>
               </Col>

@@ -28,13 +28,13 @@ const internalSummaryOf = (goods,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goods.id}</Description> 
-<Description term="名称">{goods.name}</Description> 
-<Description term="RFID">{goods.rfid}</Description> 
-<Description term="计量单位">{goods.uom}</Description> 
-<Description term="最大包装">{goods.maxPackage}</Description> 
-<Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{goods.currentStatus}</Description> 
+<Description term="Id">{goods.id}</Description> 
+<Description term="Name">{goods.name}</Description> 
+<Description term="Rfid">{goods.rfid}</Description> 
+<Description term="Uom">{goods.uom}</Description> 
+<Description term="Max Package">{goods.maxPackage}</Description> 
+<Description term="Expire Time">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{goods.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class GoodsPermission extends Component {
     // eslint-disable-next-line max-len
     const  goods = this.props.goods;
     const { id,displayName, goodsMovementCount } = goods
-    const cardsData = {cardsName:"货物",cardsFor: "goods",cardsSource: goods,
+    const cardsData = {cardsName:"Goods",cardsFor: "goods",cardsSource: goods,
   		subItems: [
     
       	],

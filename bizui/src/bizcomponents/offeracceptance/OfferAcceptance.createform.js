@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '申请者',
-  acceptTime: '2018-10-25',
+  acceptTime: '2016-08-03',
   comments: '谢谢，我一个月内上班',
 }
 */
@@ -195,8 +195,8 @@ class OfferAcceptanceCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}接受工作要约`}
-        content={`${appLocaleName(userContext,"CreateNew")}接受工作要约`}
+        title={`${appLocaleName(userContext,"CreateNew")}Offer Acceptance`}
+        content={`${appLocaleName(userContext,"CreateNew")}Offer Acceptance`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class OfferAcceptanceCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class OfferAcceptanceCreateForm extends Component {
                   {getFieldDecorator('acceptTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="接受时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Accept Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class OfferAcceptanceCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comments" />
                   )}
                 </Form.Item>
               </Col>

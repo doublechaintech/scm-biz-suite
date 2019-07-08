@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链成都2号仓',
-  amount: '5.12',
-  bizOrderId: 'SO00000001',
+  amount: '4.63',
+  bizOrderId: 'SO000001',
 }
 */
 
@@ -195,8 +195,8 @@ class SupplyOrderShippingGroupCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}供应订单送货分组`}
-        content={`${appLocaleName(userContext,"CreateNew")}供应订单送货分组`}
+        title={`${appLocaleName(userContext,"CreateNew")}Supply Order Shipping Group`}
+        content={`${appLocaleName(userContext,"CreateNew")}Supply Order Shipping Group`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class SupplyOrderShippingGroupCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class SupplyOrderShippingGroupCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
                   )}
                 </Form.Item>
               </Col>

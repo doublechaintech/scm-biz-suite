@@ -81,18 +81,18 @@ const internalSummaryOf = (retailStoreOrderLineItem,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderLineItem.id}</Description> 
-<Description term="订单">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
+<Description term="Id">{retailStoreOrderLineItem.id}</Description> 
+<Description term="Biz Order">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","retailStoreOrder",RetailStoreOrderLineItemService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","retailStoreOrder",RetailStoreOrderLineItemService.requestCandidateBizOrder,
 	      RetailStoreOrderLineItemService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreOrderLineItem.bizOrder?retailStoreOrderLineItem.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="产品ID">{retailStoreOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{retailStoreOrderLineItem.skuName}</Description> 
-<Description term="金额">{retailStoreOrderLineItem.amount}</Description> 
-<Description term="数量">{retailStoreOrderLineItem.quantity}</Description> 
-<Description term="测量单位">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
+<Description term="Sku Id">{retailStoreOrderLineItem.skuId}</Description> 
+<Description term="Sku Name">{retailStoreOrderLineItem.skuName}</Description> 
+<Description term="Amount">{retailStoreOrderLineItem.amount}</Description> 
+<Description term="Quantity">{retailStoreOrderLineItem.quantity}</Description> 
+<Description term="Unit Of Measurement">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
 	
         {buildTransferModal(retailStoreOrderLineItem,targetComponent)}
       </DescriptionList>
@@ -130,7 +130,7 @@ class RetailStoreOrderLineItemDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",
+    const cardsData = {cardsName:"Retail Store Order Line Item",cardsFor: "retailStoreOrderLineItem",
     	cardsSource: this.props.retailStoreOrderLineItem,returnURL,displayName,
   		subItems: [
     

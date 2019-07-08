@@ -81,33 +81,33 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeSalarySheet.id}</Description> 
-<Description term="员工">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
+<Description term="Id">{employeeSalarySheet.id}</Description> 
+<Description term="Employee">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeSalarySheetService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeSalarySheetService.requestCandidateEmployee,
 	      EmployeeSalarySheetService.transferToAnotherEmployee,"anotherEmployeeId",employeeSalarySheet.employee?employeeSalarySheet.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="目前工资等级">{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
+<Description term="Current Salary Grade">{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"目前工资等级","salaryGrade",EmployeeSalarySheetService.requestCandidateCurrentSalaryGrade,
+  showTransferModel(targetComponent,"Current Salary Grade","salaryGrade",EmployeeSalarySheetService.requestCandidateCurrentSalaryGrade,
 	      EmployeeSalarySheetService.transferToAnotherCurrentSalaryGrade,"anotherCurrentSalaryGradeId",employeeSalarySheet.currentSalaryGrade?employeeSalarySheet.currentSalaryGrade.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="基本工资">{employeeSalarySheet.baseSalary}</Description> 
-<Description term="奖金">{employeeSalarySheet.bonus}</Description> 
-<Description term="奖励">{employeeSalarySheet.reward}</Description> 
-<Description term="个人所得税">{employeeSalarySheet.personalTax}</Description> 
-<Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
-<Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
-<Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
-<Description term="回报">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
+<Description term="Base Salary">{employeeSalarySheet.baseSalary}</Description> 
+<Description term="Bonus">{employeeSalarySheet.bonus}</Description> 
+<Description term="Reward">{employeeSalarySheet.reward}</Description> 
+<Description term="Personal Tax">{employeeSalarySheet.personalTax}</Description> 
+<Description term="Social Security">{employeeSalarySheet.socialSecurity}</Description> 
+<Description term="Housing Found">{employeeSalarySheet.housingFound}</Description> 
+<Description term="Job Insurance">{employeeSalarySheet.jobInsurance}</Description> 
+<Description term="Paying Off">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"回报","payingOff",EmployeeSalarySheetService.requestCandidatePayingOff,
+  showTransferModel(targetComponent,"Paying Off","payingOff",EmployeeSalarySheetService.requestCandidatePayingOff,
 	      EmployeeSalarySheetService.transferToAnotherPayingOff,"anotherPayingOffId",employeeSalarySheet.payingOff?employeeSalarySheet.payingOff.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
+<Description term="Current Status">{employeeSalarySheet.currentStatus}</Description> 
 	
         {buildTransferModal(employeeSalarySheet,targetComponent)}
       </DescriptionList>
@@ -145,7 +145,7 @@ class EmployeeSalarySheetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",
+    const cardsData = {cardsName:"Employee Salary Sheet",cardsFor: "employeeSalarySheet",
     	cardsSource: this.props.employeeSalarySheet,returnURL,displayName,
   		subItems: [
     

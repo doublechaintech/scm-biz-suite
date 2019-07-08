@@ -261,7 +261,7 @@ class RetailStoreMemberGiftCardUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class RetailStoreMemberGiftCardUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class RetailStoreMemberGiftCardUpdateForm extends Component {
                     initialValue: selectedRow.number,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large" placeholder="Number" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class RetailStoreMemberGiftCardUpdateForm extends Component {
                     initialValue: selectedRow.remain,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="保持" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Remain" />
                     
                   )}
                 </Form.Item>

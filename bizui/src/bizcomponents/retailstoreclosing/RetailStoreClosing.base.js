@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"商店关闭", menuFor: "retailStoreClosing",
+const menuData = {menuName:"Retail Store Closing", menuFor: "retailStoreClosing",
   		subItems: [
-  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  comment: '评论',
+  id: 'Id',
+  comment: 'Comment',
 
 }
 
@@ -59,8 +59,8 @@ const renderItemOfList=(retailStoreClosing,targetComponent)=>{
 	<div key={retailStoreClosing.id}>
 	
 	<DescriptionList  key={retailStoreClosing.id} size="small" col="4">
-<Description term="序号">{retailStoreClosing.id}</Description> 
-<Description term="评论">{retailStoreClosing.comment}</Description> 
+<Description term="Id">{retailStoreClosing.id}</Description> 
+<Description term="Comment">{retailStoreClosing.comment}</Description> 
 	
         
       </DescriptionList>

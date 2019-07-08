@@ -167,7 +167,7 @@ class LevelThreeCategoryBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "产品",
+      name: "Product",
       role: "product",
       data: state._levelThreeCategory.productList,
       metaInfo: state._levelThreeCategory.productListMetaInfo,
@@ -273,10 +273,10 @@ class LevelThreeCategoryBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

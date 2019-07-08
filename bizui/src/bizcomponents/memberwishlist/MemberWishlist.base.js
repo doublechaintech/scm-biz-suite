@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会员收藏", menuFor: "memberWishlist",
+const menuData = {menuName:"Member Wishlist", menuFor: "memberWishlist",
   		subItems: [
-  {name: 'memberWishlistProductList', displayName:'会员收藏产品', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'memberWishlistProductList', displayName:'Member Wishlist Product', icon:'ember',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  owner: '业主',
+  id: 'Id',
+  name: 'Name',
+  owner: 'Owner',
 
 }
 
@@ -61,9 +61,9 @@ const renderItemOfList=(memberWishlist,targetComponent)=>{
 	<div key={memberWishlist.id}>
 	
 	<DescriptionList  key={memberWishlist.id} size="small" col="4">
-<Description term="序号">{memberWishlist.id}</Description> 
-<Description term="名称">{memberWishlist.name}</Description> 
-<Description term="业主">{memberWishlist.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlist.owner.displayName}(${memberWishlist.owner.id})`}
+<Description term="Id">{memberWishlist.id}</Description> 
+<Description term="Name">{memberWishlist.name}</Description> 
+<Description term="Owner">{memberWishlist.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlist.owner.displayName}(${memberWishlist.owner.id})`}
 </Description>
 	
         

@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超订单处理", menuFor: "retailStoreOrderProcessing",
+const menuData = {menuName:"Retail Store Order Processing", menuFor: "retailStoreOrderProcessing",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  processTime: '过程的时间',
+  id: 'Id',
+  who: 'Who',
+  processTime: 'Process Time',
 
 }
 
@@ -61,9 +61,9 @@ const renderItemOfList=(retailStoreOrderProcessing,targetComponent)=>{
 	<div key={retailStoreOrderProcessing.id}>
 	
 	<DescriptionList  key={retailStoreOrderProcessing.id} size="small" col="4">
-<Description term="序号">{retailStoreOrderProcessing.id}</Description> 
-<Description term="谁">{retailStoreOrderProcessing.who}</Description> 
-<Description term="过程的时间">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreOrderProcessing.id}</Description> 
+<Description term="Who">{retailStoreOrderProcessing.who}</Description> 
+<Description term="Process Time">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

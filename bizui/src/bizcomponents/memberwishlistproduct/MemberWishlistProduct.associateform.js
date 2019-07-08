@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '农夫山泉',
-  ownerId: 'MW00000001',
+  ownerId: 'MW000001',
 }
 */
 
@@ -138,7 +138,7 @@ class MemberWishlistProductAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

@@ -81,21 +81,21 @@ const internalSummaryOf = (employeeLeave,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeLeave.id}</Description> 
-<Description term="谁">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
+<Description term="Id">{employeeLeave.id}</Description> 
+<Description term="Who">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"谁","employee",EmployeeLeaveService.requestCandidateWho,
+  showTransferModel(targetComponent,"Who","employee",EmployeeLeaveService.requestCandidateWho,
 	      EmployeeLeaveService.transferToAnotherWho,"anotherWhoId",employeeLeave.who?employeeLeave.who.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="类型">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
+<Description term="Type">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"类型","leaveType",EmployeeLeaveService.requestCandidateType,
+  showTransferModel(targetComponent,"Type","leaveType",EmployeeLeaveService.requestCandidateType,
 	      EmployeeLeaveService.transferToAnotherType,"anotherTypeId",employeeLeave.type?employeeLeave.type.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="请假时长">{employeeLeave.leaveDurationHour}</Description> 
-<Description term="备注">{employeeLeave.remark}</Description> 
+<Description term="Leave Duration Hour">{employeeLeave.leaveDurationHour}</Description> 
+<Description term="Remark">{employeeLeave.remark}</Description> 
 	
         {buildTransferModal(employeeLeave,targetComponent)}
       </DescriptionList>
@@ -133,7 +133,7 @@ class EmployeeLeaveDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",
+    const cardsData = {cardsName:"Employee Leave",cardsFor: "employeeLeave",
     	cardsSource: this.props.employeeLeave,returnURL,displayName,
   		subItems: [
     

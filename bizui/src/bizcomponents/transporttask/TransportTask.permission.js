@@ -28,12 +28,12 @@ const internalSummaryOf = (transportTask,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTask.id}</Description> 
-<Description term="名称">{transportTask.name}</Description> 
-<Description term="开始">{transportTask.start}</Description> 
-<Description term="开始时间">{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="纬度">{transportTask.latitude}</Description> 
-<Description term="经度">{transportTask.longitude}</Description> 
+<Description term="Id">{transportTask.id}</Description> 
+<Description term="Name">{transportTask.name}</Description> 
+<Description term="Start">{transportTask.start}</Description> 
+<Description term="Begin Time">{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{transportTask.latitude}</Description> 
+<Description term="Longitude">{transportTask.longitude}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,7 +59,7 @@ class TransportTaskPermission extends Component {
     // eslint-disable-next-line max-len
     const  transportTask = this.props.transportTask;
     const { id,displayName, goodsCount, transportTaskTrackCount } = transportTask
-    const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",cardsSource: transportTask,
+    const cardsData = {cardsName:"Transport Task",cardsFor: "transportTask",cardsSource: transportTask,
   		subItems: [
     
       	],

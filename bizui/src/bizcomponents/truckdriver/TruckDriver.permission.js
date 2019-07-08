@@ -28,10 +28,10 @@ const internalSummaryOf = (truckDriver,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{truckDriver.id}</Description> 
-<Description term="名称">{truckDriver.name}</Description> 
-<Description term="驾驶执照号码">{truckDriver.driverLicenseNumber}</Description> 
-<Description term="联系电话">{truckDriver.contactNumber}</Description> 
+<Description term="Id">{truckDriver.id}</Description> 
+<Description term="Name">{truckDriver.name}</Description> 
+<Description term="Driver License Number">{truckDriver.driverLicenseNumber}</Description> 
+<Description term="Contact Number">{truckDriver.contactNumber}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class TruckDriverPermission extends Component {
     // eslint-disable-next-line max-len
     const  truckDriver = this.props.truckDriver;
     const { id,displayName, transportTaskCount } = truckDriver
-    const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",cardsSource: truckDriver,
+    const cardsData = {cardsName:"Truck Driver",cardsFor: "truckDriver",cardsSource: truckDriver,
   		subItems: [
     
       	],

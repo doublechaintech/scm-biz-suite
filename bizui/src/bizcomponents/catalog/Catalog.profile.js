@@ -56,7 +56,7 @@ class CatalogProfile extends Component {
     const  catalog = this.props.catalog;
     const { id,displayName, levelOneCategoryCount } = catalog
 
-    const cardsData = {cardsName:"目录",cardsFor: "catalog",cardsSource: catalog,
+    const cardsData = {cardsName:"Catalog",cardsFor: "catalog",cardsSource: catalog,
   		subItems: [
      
       	],

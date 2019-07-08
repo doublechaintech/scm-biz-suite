@@ -56,7 +56,7 @@ class ConsumerOrderConfirmationProfile extends Component {
     const  consumerOrderConfirmation = this.props.consumerOrderConfirmation;
     const { id,displayName,  } = consumerOrderConfirmation
 
-    const cardsData = {cardsName:"客户订单确认",cardsFor: "consumerOrderConfirmation",cardsSource: consumerOrderConfirmation,
+    const cardsData = {cardsName:"Consumer Order Confirmation",cardsFor: "consumerOrderConfirmation",cardsSource: consumerOrderConfirmation,
   		subItems: [
      
       	],

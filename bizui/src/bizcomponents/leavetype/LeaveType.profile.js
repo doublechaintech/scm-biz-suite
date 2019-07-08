@@ -56,7 +56,7 @@ class LeaveTypeProfile extends Component {
     const  leaveType = this.props.leaveType;
     const { id,displayName, employeeLeaveCount } = leaveType
 
-    const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",cardsSource: leaveType,
+    const cardsData = {cardsName:"Leave Type",cardsFor: "leaveType",cardsSource: leaveType,
   		subItems: [
      
       	],

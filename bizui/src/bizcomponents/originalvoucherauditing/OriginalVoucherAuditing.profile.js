@@ -56,7 +56,7 @@ class OriginalVoucherAuditingProfile extends Component {
     const  originalVoucherAuditing = this.props.originalVoucherAuditing;
     const { id,displayName, originalVoucherCount } = originalVoucherAuditing
 
-    const cardsData = {cardsName:"原始凭证的审核",cardsFor: "originalVoucherAuditing",cardsSource: originalVoucherAuditing,
+    const cardsData = {cardsName:"Original Voucher Auditing",cardsFor: "originalVoucherAuditing",cardsSource: originalVoucherAuditing,
   		subItems: [
      
       	],

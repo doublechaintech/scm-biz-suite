@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"供应货", menuFor: "supplyOrderShipment",
+const menuData = {menuName:"Supply Order Shipment", menuFor: "supplyOrderShipment",
   		subItems: [
-  {name: 'consumerOrderList', displayName:'消费者订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderList', displayName:'Consumer Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  shipTime: '船的时间',
+  id: 'Id',
+  who: 'Who',
+  shipTime: 'Ship Time',
 
 }
 
@@ -62,9 +62,9 @@ const renderItemOfList=(supplyOrderShipment,targetComponent)=>{
 	<div key={supplyOrderShipment.id}>
 	
 	<DescriptionList  key={supplyOrderShipment.id} size="small" col="4">
-<Description term="序号">{supplyOrderShipment.id}</Description> 
-<Description term="谁">{supplyOrderShipment.who}</Description> 
-<Description term="船的时间">{ moment(supplyOrderShipment.shipTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{supplyOrderShipment.id}</Description> 
+<Description term="Who">{supplyOrderShipment.who}</Description> 
+<Description term="Ship Time">{ moment(supplyOrderShipment.shipTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

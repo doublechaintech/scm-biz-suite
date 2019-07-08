@@ -20,8 +20,8 @@ const testValues = {
   name: '曾倩',
   mobile: '13677778888',
   description: '负责开拓市场，具有极强的开拓能力',
-  cityServiceCenterId: 'RSCSC00000001',
-  cityPartnerId: 'CP00000001',
+  cityServiceCenterId: 'RSCSC000001',
+  cityPartnerId: 'CP000001',
 }
 */
 
@@ -197,8 +197,8 @@ class PotentialCustomerCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}潜在的客户`}
-        content={`${appLocaleName(userContext,"CreateNew")}潜在的客户`}
+        title={`${appLocaleName(userContext,"CreateNew")}Potential Customer`}
+        content={`${appLocaleName(userContext,"CreateNew")}Potential Customer`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class PotentialCustomerCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class PotentialCustomerCreateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large" placeholder="Mobile" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class PotentialCustomerCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

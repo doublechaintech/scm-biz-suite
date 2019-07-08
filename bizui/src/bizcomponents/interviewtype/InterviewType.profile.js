@@ -56,7 +56,7 @@ class InterviewTypeProfile extends Component {
     const  interviewType = this.props.interviewType;
     const { id,displayName, employeeInterviewCount } = interviewType
 
-    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",cardsSource: interviewType,
+    const cardsData = {cardsName:"Interview Type",cardsFor: "interviewType",cardsSource: interviewType,
   		subItems: [
      
       	],

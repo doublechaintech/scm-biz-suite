@@ -30,29 +30,29 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"消费者订单", menuFor: "consumerOrder",
+const menuData = {menuName:"Consumer Order", menuFor: "consumerOrder",
   		subItems: [
-  {name: 'consumerOrderLineItemList', displayName:'消费者订单行项目', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'consumerOrderShippingGroupList', displayName:'消费订单送货分组', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'consumerOrderPaymentGroupList', displayName:'消费者订单付款组', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'consumerOrderPriceAdjustmentList', displayName:'消费品价格调整', icon:'ad',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录', icon:'gift',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderLineItemList', displayName:'Consumer Order Line Item', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderShippingGroupList', displayName:'Consumer Order Shipping Group', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderPaymentGroupList', displayName:'Consumer Order Payment Group', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderPriceAdjustmentList', displayName:'Consumer Order Price Adjustment', icon:'ad',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'Retail Store Member Gift Card Consume Record', icon:'gift',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  title: '头衔',
-  consumer: '消费者',
-  confirmation: '确认',
-  approval: '批准',
-  processing: '过程',
-  shipment: '船',
-  delivery: '交付',
-  store: '商场',
-  lastUpdateTime: '最后更新时间',
-  currentStatus: '当前状态',
+  id: 'Id',
+  title: 'Title',
+  consumer: 'Consumer',
+  confirmation: 'Confirmation',
+  approval: 'Approval',
+  processing: 'Processing',
+  shipment: 'Shipment',
+  delivery: 'Delivery',
+  store: 'Store',
+  lastUpdateTime: 'Last Update Time',
+  currentStatus: 'Current Status',
 
 }
 
@@ -81,14 +81,14 @@ const renderItemOfList=(consumerOrder,targetComponent)=>{
 	<div key={consumerOrder.id}>
 	
 	<DescriptionList  key={consumerOrder.id} size="small" col="4">
-<Description term="序号">{consumerOrder.id}</Description> 
-<Description term="头衔">{consumerOrder.title}</Description> 
-<Description term="消费者">{consumerOrder.consumer==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.consumer.displayName}(${consumerOrder.consumer.id})`}
+<Description term="Id">{consumerOrder.id}</Description> 
+<Description term="Title">{consumerOrder.title}</Description> 
+<Description term="Consumer">{consumerOrder.consumer==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.consumer.displayName}(${consumerOrder.consumer.id})`}
 </Description>
-<Description term="商场">{consumerOrder.store==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.store.displayName}(${consumerOrder.store.id})`}
+<Description term="Store">{consumerOrder.store==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.store.displayName}(${consumerOrder.store.id})`}
 </Description>
-<Description term="最后更新时间">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{consumerOrder.currentStatus}</Description> 
+<Description term="Last Update Time">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{consumerOrder.currentStatus}</Description> 
 	
         
       </DescriptionList>

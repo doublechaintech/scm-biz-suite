@@ -56,7 +56,7 @@ class EventAttendanceProfile extends Component {
     const  eventAttendance = this.props.eventAttendance;
     const { id,displayName,  } = eventAttendance
 
-    const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",cardsSource: eventAttendance,
+    const cardsData = {cardsName:"Event Attendance",cardsFor: "eventAttendance",cardsSource: eventAttendance,
   		subItems: [
      
       	],

@@ -23,7 +23,7 @@ const testValues = {
   objectType: 'CarInspectionPlatform',
   objectId: 'CIP000001',
   location: '/link/to/app',
-  secUserId: 'SU00000001',
+  secUserId: 'SU000001',
 }
 */
 
@@ -199,8 +199,8 @@ class UserAppCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}用户应用程序`}
-        content={`${appLocaleName(userContext,"CreateNew")}用户应用程序`}
+        title={`${appLocaleName(userContext,"CreateNew")}User App`}
+        content={`${appLocaleName(userContext,"CreateNew")}User App`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -212,7 +212,7 @@ class UserAppCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>
@@ -222,7 +222,7 @@ class UserAppCreateForm extends Component {
                   {getFieldDecorator('appIcon', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="应用程序图标" />
+                    <Input size="large" placeholder="App Icon" />
                   )}
                 </Form.Item>
               </Col>
@@ -232,7 +232,7 @@ class UserAppCreateForm extends Component {
                   {getFieldDecorator('permission', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="许可" />
+                    <Input size="large" placeholder="Permission" />
                   )}
                 </Form.Item>
               </Col>
@@ -242,7 +242,7 @@ class UserAppCreateForm extends Component {
                   {getFieldDecorator('objectType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="对象类型" />
+                    <Input size="large" placeholder="Object Type" />
                   )}
                 </Form.Item>
               </Col>
@@ -252,7 +252,7 @@ class UserAppCreateForm extends Component {
                   {getFieldDecorator('objectId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="对象ID" />
+                    <Input size="large" placeholder="Object Id" />
                   )}
                 </Form.Item>
               </Col>
@@ -262,7 +262,7 @@ class UserAppCreateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large" placeholder="Location" />
                   )}
                 </Form.Item>
               </Col>

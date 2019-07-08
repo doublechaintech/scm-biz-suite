@@ -56,7 +56,7 @@ class MemberWishlistProfile extends Component {
     const  memberWishlist = this.props.memberWishlist;
     const { id,displayName, memberWishlistProductCount } = memberWishlist
 
-    const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",cardsSource: memberWishlist,
+    const cardsData = {cardsName:"Member Wishlist",cardsFor: "memberWishlist",cardsSource: memberWishlist,
   		subItems: [
      
       	],

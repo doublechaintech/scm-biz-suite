@@ -28,10 +28,10 @@ const internalSummaryOf = (accountingDocumentAuditing,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentAuditing.id}</Description> 
-<Description term="谁">{accountingDocumentAuditing.who}</Description> 
-<Description term="评论">{accountingDocumentAuditing.comments}</Description> 
-<Description term="制造日期">{ moment(accountingDocumentAuditing.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{accountingDocumentAuditing.id}</Description> 
+<Description term="Who">{accountingDocumentAuditing.who}</Description> 
+<Description term="Comments">{accountingDocumentAuditing.comments}</Description> 
+<Description term="Make Date">{ moment(accountingDocumentAuditing.makeDate).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class AccountingDocumentAuditingPermission extends Component {
     // eslint-disable-next-line max-len
     const  accountingDocumentAuditing = this.props.accountingDocumentAuditing;
     const { id,displayName, accountingDocumentCount } = accountingDocumentAuditing
-    const cardsData = {cardsName:"会计凭证的审核",cardsFor: "accountingDocumentAuditing",cardsSource: accountingDocumentAuditing,
+    const cardsData = {cardsName:"Accounting Document Auditing",cardsFor: "accountingDocumentAuditing",cardsSource: accountingDocumentAuditing,
   		subItems: [
     
       	],

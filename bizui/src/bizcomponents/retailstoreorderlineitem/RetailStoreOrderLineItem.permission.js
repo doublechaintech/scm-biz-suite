@@ -28,12 +28,12 @@ const internalSummaryOf = (retailStoreOrderLineItem,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderLineItem.id}</Description> 
-<Description term="产品ID">{retailStoreOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{retailStoreOrderLineItem.skuName}</Description> 
-<Description term="金额">{retailStoreOrderLineItem.amount}</Description> 
-<Description term="数量">{retailStoreOrderLineItem.quantity}</Description> 
-<Description term="测量单位">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
+<Description term="Id">{retailStoreOrderLineItem.id}</Description> 
+<Description term="Sku Id">{retailStoreOrderLineItem.skuId}</Description> 
+<Description term="Sku Name">{retailStoreOrderLineItem.skuName}</Description> 
+<Description term="Amount">{retailStoreOrderLineItem.amount}</Description> 
+<Description term="Quantity">{retailStoreOrderLineItem.quantity}</Description> 
+<Description term="Unit Of Measurement">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,7 +59,7 @@ class RetailStoreOrderLineItemPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderLineItem = this.props.retailStoreOrderLineItem;
     const { id,displayName,  } = retailStoreOrderLineItem
-    const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",cardsSource: retailStoreOrderLineItem,
+    const cardsData = {cardsName:"Retail Store Order Line Item",cardsFor: "retailStoreOrderLineItem",cardsSource: retailStoreOrderLineItem,
   		subItems: [
     
       	],

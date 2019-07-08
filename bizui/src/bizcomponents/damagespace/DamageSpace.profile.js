@@ -56,7 +56,7 @@ class DamageSpaceProfile extends Component {
     const  damageSpace = this.props.damageSpace;
     const { id,displayName, goodsShelfCount } = damageSpace
 
-    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",cardsSource: damageSpace,
+    const cardsData = {cardsName:"Damage Space",cardsFor: "damageSpace",cardsSource: damageSpace,
   		subItems: [
      
       	],

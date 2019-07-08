@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/accountingSubject/${id}/list/AccountingDocumentLineList/会计凭证行+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/accountingSubject/${id}/list/AccountingDocumentLineList/Accounting Document Line+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountingDocumentLine({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/accountingSubject/${id}/list/AccountingDocumentLineList/会计凭证行列表`, state: newPlayload }
+      const location = { pathname: `/accountingSubject/${id}/list/AccountingDocumentLineList/Accounting Document Line列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountingDocumentLineUpdateRow({ payload }, { call, put }) {

@@ -81,20 +81,20 @@ const internalSummaryOf = (employeeInterview,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeInterview.id}</Description> 
-<Description term="员工">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
+<Description term="Id">{employeeInterview.id}</Description> 
+<Description term="Employee">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeInterviewService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeInterviewService.requestCandidateEmployee,
 	      EmployeeInterviewService.transferToAnotherEmployee,"anotherEmployeeId",employeeInterview.employee?employeeInterview.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="面试类型">{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.interviewType.displayName}(${employeeInterview.interviewType.id})`}
+<Description term="Interview Type">{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.interviewType.displayName}(${employeeInterview.interviewType.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"面试类型","interviewType",EmployeeInterviewService.requestCandidateInterviewType,
+  showTransferModel(targetComponent,"Interview Type","interviewType",EmployeeInterviewService.requestCandidateInterviewType,
 	      EmployeeInterviewService.transferToAnotherInterviewType,"anotherInterviewTypeId",employeeInterview.interviewType?employeeInterview.interviewType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="备注">{employeeInterview.remark}</Description> 
+<Description term="Remark">{employeeInterview.remark}</Description> 
 	
         {buildTransferModal(employeeInterview,targetComponent)}
       </DescriptionList>
@@ -132,7 +132,7 @@ class EmployeeInterviewDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工面试",cardsFor: "employeeInterview",
+    const cardsData = {cardsName:"Employee Interview",cardsFor: "employeeInterview",
     	cardsSource: this.props.employeeInterview,returnURL,displayName,
   		subItems: [
     

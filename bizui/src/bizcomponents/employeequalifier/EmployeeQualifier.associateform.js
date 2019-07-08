@@ -18,11 +18,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2018-03-23',
+  qualifiedTime: '2019-01-24',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
-  employeeId: 'E00000001',
+  employeeId: 'E000001',
 }
 */
 
@@ -141,7 +141,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('qualifiedTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="合格的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Qualified Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="类型" />
+                    <Input size="large" placeholder="Type" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('level', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="水平" />
+                    <Input size="large" placeholder="Level" />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large" placeholder="Remark" />
                   )}
                 </Form.Item>
               </Col>

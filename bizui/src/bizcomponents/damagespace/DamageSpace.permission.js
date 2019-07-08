@@ -28,13 +28,13 @@ const internalSummaryOf = (damageSpace,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{damageSpace.id}</Description> 
-<Description term="位置">{damageSpace.location}</Description> 
-<Description term="联系电话">{damageSpace.contactNumber}</Description> 
-<Description term="总面积">{damageSpace.totalArea}</Description> 
-<Description term="纬度">{damageSpace.latitude}</Description> 
-<Description term="经度">{damageSpace.longitude}</Description> 
-<Description term="最后更新时间">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{damageSpace.id}</Description> 
+<Description term="Location">{damageSpace.location}</Description> 
+<Description term="Contact Number">{damageSpace.contactNumber}</Description> 
+<Description term="Total Area">{damageSpace.totalArea}</Description> 
+<Description term="Latitude">{damageSpace.latitude}</Description> 
+<Description term="Longitude">{damageSpace.longitude}</Description> 
+<Description term="Last Update Time">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class DamageSpacePermission extends Component {
     // eslint-disable-next-line max-len
     const  damageSpace = this.props.damageSpace;
     const { id,displayName, goodsShelfCount } = damageSpace
-    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",cardsSource: damageSpace,
+    const cardsData = {cardsName:"Damage Space",cardsFor: "damageSpace",cardsSource: damageSpace,
   		subItems: [
     
       	],

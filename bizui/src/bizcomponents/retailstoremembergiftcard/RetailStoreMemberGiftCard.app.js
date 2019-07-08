@@ -167,7 +167,7 @@ class RetailStoreMemberGiftCardBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "零售商店会员卡消费记录",
+      name: "Retail Store Member Gift Card Consume Record",
       role: "retailStoreMemberGiftCardConsumeRecord",
       data: state._retailStoreMemberGiftCard.retailStoreMemberGiftCardConsumeRecordList,
       metaInfo: state._retailStoreMemberGiftCard.retailStoreMemberGiftCardConsumeRecordListMetaInfo,
@@ -273,10 +273,10 @@ class RetailStoreMemberGiftCardBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

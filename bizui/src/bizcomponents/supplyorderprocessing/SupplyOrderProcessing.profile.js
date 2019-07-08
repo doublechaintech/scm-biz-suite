@@ -56,7 +56,7 @@ class SupplyOrderProcessingProfile extends Component {
     const  supplyOrderProcessing = this.props.supplyOrderProcessing;
     const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderProcessing
 
-    const cardsData = {cardsName:"供应订单处理",cardsFor: "supplyOrderProcessing",cardsSource: supplyOrderProcessing,
+    const cardsData = {cardsName:"Supply Order Processing",cardsFor: "supplyOrderProcessing",cardsSource: supplyOrderProcessing,
   		subItems: [
      
       	],

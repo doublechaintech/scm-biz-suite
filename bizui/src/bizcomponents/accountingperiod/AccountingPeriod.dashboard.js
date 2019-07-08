@@ -81,13 +81,13 @@ const internalSummaryOf = (accountingPeriod,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingPeriod.id}</Description> 
-<Description term="名称">{accountingPeriod.name}</Description> 
-<Description term="开始日期">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
-<Description term="结束日期">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
-<Description term="账套">{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
+<Description term="Id">{accountingPeriod.id}</Description> 
+<Description term="Name">{accountingPeriod.name}</Description> 
+<Description term="Start Date">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
+<Description term="End Date">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Account Set">{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"账套","accountSet",AccountingPeriodService.requestCandidateAccountSet,
+  showTransferModel(targetComponent,"Account Set","accountSet",AccountingPeriodService.requestCandidateAccountSet,
 	      AccountingPeriodService.transferToAnotherAccountSet,"anotherAccountSetId",accountingPeriod.accountSet?accountingPeriod.accountSet.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +128,10 @@ class AccountingPeriodDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",
+    const cardsData = {cardsName:"Accounting Period",cardsFor: "accountingPeriod",
     	cardsSource: this.props.accountingPeriod,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
+{name: 'accountingDocumentList', displayName:'Accounting Document',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
     
       	],
   	};

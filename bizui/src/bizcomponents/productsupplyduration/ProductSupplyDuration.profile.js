@@ -56,7 +56,7 @@ class ProductSupplyDurationProfile extends Component {
     const  productSupplyDuration = this.props.productSupplyDuration;
     const { id,displayName,  } = productSupplyDuration
 
-    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,
+    const cardsData = {cardsName:"Product Supply Duration",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,
   		subItems: [
      
       	],

@@ -56,7 +56,7 @@ class RetailStoreOrderApprovalProfile extends Component {
     const  retailStoreOrderApproval = this.props.retailStoreOrderApproval;
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderApproval
 
-    const cardsData = {cardsName:"生超订单批准",cardsFor: "retailStoreOrderApproval",cardsSource: retailStoreOrderApproval,
+    const cardsData = {cardsName:"Retail Store Order Approval",cardsFor: "retailStoreOrderApproval",cardsSource: retailStoreOrderApproval,
   		subItems: [
      
       	],

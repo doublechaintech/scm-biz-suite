@@ -28,9 +28,9 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{listAccess.id}</Description> 
-<Description term="名称">{listAccess.name}</Description> 
-<Description term="内部名称">{listAccess.internalName}</Description> 
+<Description term="Id">{listAccess.id}</Description> 
+<Description term="Name">{listAccess.name}</Description> 
+<Description term="Internal Name">{listAccess.internalName}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class ListAccessPermission extends Component {
     // eslint-disable-next-line max-len
     const  listAccess = this.props.listAccess;
     const { id,displayName,  } = listAccess
-    const cardsData = {cardsName:"访问列表",cardsFor: "listAccess",cardsSource: listAccess,
+    const cardsData = {cardsName:"List Access",cardsFor: "listAccess",cardsSource: listAccess,
   		subItems: [
     
       	],

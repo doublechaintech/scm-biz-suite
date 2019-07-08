@@ -81,14 +81,14 @@ const internalSummaryOf = (accountingSubject,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingSubject.id}</Description> 
-<Description term="会计科目代码">{accountingSubject.accountingSubjectCode}</Description> 
-<Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
-<Description term="会计科目类别代码">{accountingSubject.accountingSubjectClassCode}</Description> 
-<Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
-<Description term="账套">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
+<Description term="Id">{accountingSubject.id}</Description> 
+<Description term="Accounting Subject Code">{accountingSubject.accountingSubjectCode}</Description> 
+<Description term="Accounting Subject Name">{accountingSubject.accountingSubjectName}</Description> 
+<Description term="Accounting Subject Class Code">{accountingSubject.accountingSubjectClassCode}</Description> 
+<Description term="Accounting Subject Class Name">{accountingSubject.accountingSubjectClassName}</Description> 
+<Description term="Account Set">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"账套","accountSet",AccountingSubjectService.requestCandidateAccountSet,
+  showTransferModel(targetComponent,"Account Set","accountSet",AccountingSubjectService.requestCandidateAccountSet,
 	      AccountingSubjectService.transferToAnotherAccountSet,"anotherAccountSetId",accountingSubject.accountSet?accountingSubject.accountSet.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -129,10 +129,10 @@ class AccountingSubjectDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会计科目",cardsFor: "accountingSubject",
+    const cardsData = {cardsName:"Accounting Subject",cardsFor: "accountingSubject",
     	cardsSource: this.props.accountingSubject,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentLineList', displayName:'会计凭证行',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
+{name: 'accountingDocumentLineList', displayName:'Accounting Document Line',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
     
       	],
   	};

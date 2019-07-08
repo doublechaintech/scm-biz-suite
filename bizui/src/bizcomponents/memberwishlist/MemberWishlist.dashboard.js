@@ -81,11 +81,11 @@ const internalSummaryOf = (memberWishlist,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberWishlist.id}</Description> 
-<Description term="名称">{memberWishlist.name}</Description> 
-<Description term="业主">{memberWishlist.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlist.owner.displayName}(${memberWishlist.owner.id})`}
+<Description term="Id">{memberWishlist.id}</Description> 
+<Description term="Name">{memberWishlist.name}</Description> 
+<Description term="Owner">{memberWishlist.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlist.owner.displayName}(${memberWishlist.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",MemberWishlistService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","retailStoreMember",MemberWishlistService.requestCandidateOwner,
 	      MemberWishlistService.transferToAnotherOwner,"anotherOwnerId",memberWishlist.owner?memberWishlist.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -126,10 +126,10 @@ class MemberWishlistDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",
+    const cardsData = {cardsName:"Member Wishlist",cardsFor: "memberWishlist",
     	cardsSource: this.props.memberWishlist,returnURL,displayName,
   		subItems: [
-{name: 'memberWishlistProductList', displayName:'会员收藏产品',type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
+{name: 'memberWishlistProductList', displayName:'Member Wishlist Product',type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
     
       	],
   	};

@@ -28,10 +28,10 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{provinceCenterDepartment.id}</Description> 
-<Description term="名称">{provinceCenterDepartment.name}</Description> 
-<Description term="成立">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="经理">{provinceCenterDepartment.manager}</Description> 
+<Description term="Id">{provinceCenterDepartment.id}</Description> 
+<Description term="Name">{provinceCenterDepartment.name}</Description> 
+<Description term="Founded">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Manager">{provinceCenterDepartment.manager}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class ProvinceCenterDepartmentPermission extends Component {
     // eslint-disable-next-line max-len
     const  provinceCenterDepartment = this.props.provinceCenterDepartment;
     const { id,displayName, provinceCenterEmployeeCount } = provinceCenterDepartment
-    const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",cardsSource: provinceCenterDepartment,
+    const cardsData = {cardsName:"Province Center Department",cardsFor: "provinceCenterDepartment",cardsSource: provinceCenterDepartment,
   		subItems: [
     
       	],

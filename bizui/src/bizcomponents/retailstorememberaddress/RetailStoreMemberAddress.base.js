@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"零售店会员地址", menuFor: "retailStoreMemberAddress",
+const menuData = {menuName:"Retail Store Member Address", menuFor: "retailStoreMemberAddress",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  owner: '业主',
-  mobilePhone: '移动电话',
-  address: '地址',
+  id: 'Id',
+  name: 'Name',
+  owner: 'Owner',
+  mobilePhone: 'Mobile Phone',
+  address: 'Address',
 
 }
 
@@ -64,12 +64,12 @@ const renderItemOfList=(retailStoreMemberAddress,targetComponent)=>{
 	<div key={retailStoreMemberAddress.id}>
 	
 	<DescriptionList  key={retailStoreMemberAddress.id} size="small" col="4">
-<Description term="序号">{retailStoreMemberAddress.id}</Description> 
-<Description term="名称">{retailStoreMemberAddress.name}</Description> 
-<Description term="业主">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
+<Description term="Id">{retailStoreMemberAddress.id}</Description> 
+<Description term="Name">{retailStoreMemberAddress.name}</Description> 
+<Description term="Owner">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
 </Description>
-<Description term="移动电话">{retailStoreMemberAddress.mobilePhone}</Description> 
-<Description term="地址">{retailStoreMemberAddress.address}</Description> 
+<Description term="Mobile Phone">{retailStoreMemberAddress.mobilePhone}</Description> 
+<Description term="Address">{retailStoreMemberAddress.address}</Description> 
 	
         
       </DescriptionList>

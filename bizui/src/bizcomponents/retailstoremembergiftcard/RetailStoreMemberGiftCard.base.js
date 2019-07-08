@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"零售店会员礼品卡", menuFor: "retailStoreMemberGiftCard",
+const menuData = {menuName:"Retail Store Member Gift Card", menuFor: "retailStoreMemberGiftCard",
   		subItems: [
-  {name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录', icon:'gift',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'Retail Store Member Gift Card Consume Record', icon:'gift',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  owner: '业主',
-  number: '数',
-  remain: '保持',
+  id: 'Id',
+  name: 'Name',
+  owner: 'Owner',
+  number: 'Number',
+  remain: 'Remain',
 
 }
 
@@ -65,12 +65,12 @@ const renderItemOfList=(retailStoreMemberGiftCard,targetComponent)=>{
 	<div key={retailStoreMemberGiftCard.id}>
 	
 	<DescriptionList  key={retailStoreMemberGiftCard.id} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCard.id}</Description> 
-<Description term="名称">{retailStoreMemberGiftCard.name}</Description> 
-<Description term="业主">{retailStoreMemberGiftCard.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCard.owner.displayName}(${retailStoreMemberGiftCard.owner.id})`}
+<Description term="Id">{retailStoreMemberGiftCard.id}</Description> 
+<Description term="Name">{retailStoreMemberGiftCard.name}</Description> 
+<Description term="Owner">{retailStoreMemberGiftCard.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCard.owner.displayName}(${retailStoreMemberGiftCard.owner.id})`}
 </Description>
-<Description term="数">{retailStoreMemberGiftCard.number}</Description> 
-<Description term="保持">{retailStoreMemberGiftCard.remain}</Description> 
+<Description term="Number">{retailStoreMemberGiftCard.number}</Description> 
+<Description term="Remain">{retailStoreMemberGiftCard.remain}</Description> 
 	
         
       </DescriptionList>

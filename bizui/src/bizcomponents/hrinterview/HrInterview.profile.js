@@ -56,7 +56,7 @@ class HrInterviewProfile extends Component {
     const  hrInterview = this.props.hrInterview;
     const { id,displayName, employeeCount } = hrInterview
 
-    const cardsData = {cardsName:"人力资源部面试",cardsFor: "hrInterview",cardsSource: hrInterview,
+    const cardsData = {cardsName:"Hr Interview",cardsFor: "hrInterview",cardsSource: hrInterview,
   		subItems: [
      
       	],

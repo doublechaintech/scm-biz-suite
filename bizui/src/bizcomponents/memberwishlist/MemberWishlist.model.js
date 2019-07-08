@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/memberWishlist/${id}/list/MemberWishlistProductList/会员收藏产品+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/memberWishlist/${id}/list/MemberWishlistProductList/Member Wishlist Product+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateMemberWishlistProduct({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/memberWishlist/${id}/list/MemberWishlistProductList/会员收藏产品列表`, state: newPlayload }
+      const location = { pathname: `/memberWishlist/${id}/list/MemberWishlistProductList/Member Wishlist Product列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextMemberWishlistProductUpdateRow({ payload }, { call, put }) {

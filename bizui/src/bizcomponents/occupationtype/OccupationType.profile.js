@@ -56,7 +56,7 @@ class OccupationTypeProfile extends Component {
     const  occupationType = this.props.occupationType;
     const { id,displayName, employeeCount } = occupationType
 
-    const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",cardsSource: occupationType,
+    const cardsData = {cardsName:"Occupation Type",cardsFor: "occupationType",cardsSource: occupationType,
   		subItems: [
      
       	],

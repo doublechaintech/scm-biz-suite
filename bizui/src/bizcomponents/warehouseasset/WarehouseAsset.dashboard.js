@@ -81,16 +81,16 @@ const internalSummaryOf = (warehouseAsset,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{warehouseAsset.id}</Description> 
-<Description term="名称">{warehouseAsset.name}</Description> 
-<Description term="位置">{warehouseAsset.position}</Description> 
-<Description term="业主">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
+<Description term="Id">{warehouseAsset.id}</Description> 
+<Description term="Name">{warehouseAsset.name}</Description> 
+<Description term="Position">{warehouseAsset.position}</Description> 
+<Description term="Owner">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","warehouse",WarehouseAssetService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","warehouse",WarehouseAssetService.requestCandidateOwner,
 	      WarehouseAssetService.transferToAnotherOwner,"anotherOwnerId",warehouseAsset.owner?warehouseAsset.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="最后更新时间">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(warehouseAsset,targetComponent)}
       </DescriptionList>
@@ -128,7 +128,7 @@ class WarehouseAssetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",
+    const cardsData = {cardsName:"Warehouse Asset",cardsFor: "warehouseAsset",
     	cardsSource: this.props.warehouseAsset,returnURL,displayName,
   		subItems: [
     

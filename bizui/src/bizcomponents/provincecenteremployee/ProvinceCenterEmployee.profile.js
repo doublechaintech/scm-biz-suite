@@ -56,7 +56,7 @@ class ProvinceCenterEmployeeProfile extends Component {
     const  provinceCenterEmployee = this.props.provinceCenterEmployee;
     const { id,displayName,  } = provinceCenterEmployee
 
-    const cardsData = {cardsName:"省中心员工",cardsFor: "provinceCenterEmployee",cardsSource: provinceCenterEmployee,
+    const cardsData = {cardsName:"Province Center Employee",cardsFor: "provinceCenterEmployee",cardsSource: provinceCenterEmployee,
   		subItems: [
      
       	],

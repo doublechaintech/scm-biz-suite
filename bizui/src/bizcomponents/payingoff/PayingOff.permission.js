@@ -28,10 +28,10 @@ const internalSummaryOf = (payingOff,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{payingOff.id}</Description> 
-<Description term="谁">{payingOff.who}</Description> 
-<Description term="支付时间">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
-<Description term="金额">{payingOff.amount}</Description> 
+<Description term="Id">{payingOff.id}</Description> 
+<Description term="Who">{payingOff.who}</Description> 
+<Description term="Paid Time">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Amount">{payingOff.amount}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class PayingOffPermission extends Component {
     // eslint-disable-next-line max-len
     const  payingOff = this.props.payingOff;
     const { id,displayName, employeeSalarySheetCount } = payingOff
-    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",cardsSource: payingOff,
+    const cardsData = {cardsName:"Paying Off",cardsFor: "payingOff",cardsSource: payingOff,
   		subItems: [
     
       	],

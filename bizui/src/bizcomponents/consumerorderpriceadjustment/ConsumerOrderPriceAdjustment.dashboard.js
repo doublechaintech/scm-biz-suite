@@ -81,16 +81,16 @@ const internalSummaryOf = (consumerOrderPriceAdjustment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
-<Description term="订单">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
+<Description term="Id">{consumerOrderPriceAdjustment.id}</Description> 
+<Description term="Name">{consumerOrderPriceAdjustment.name}</Description> 
+<Description term="Biz Order">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderPriceAdjustmentService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","consumerOrder",ConsumerOrderPriceAdjustmentService.requestCandidateBizOrder,
 	      ConsumerOrderPriceAdjustmentService.transferToAnotherBizOrder,"anotherBizOrderId",consumerOrderPriceAdjustment.bizOrder?consumerOrderPriceAdjustment.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="金额">{consumerOrderPriceAdjustment.amount}</Description> 
-<Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
+<Description term="Amount">{consumerOrderPriceAdjustment.amount}</Description> 
+<Description term="Provider">{consumerOrderPriceAdjustment.provider}</Description> 
 	
         {buildTransferModal(consumerOrderPriceAdjustment,targetComponent)}
       </DescriptionList>
@@ -128,7 +128,7 @@ class ConsumerOrderPriceAdjustmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",
+    const cardsData = {cardsName:"Consumer Order Price Adjustment",cardsFor: "consumerOrderPriceAdjustment",
     	cardsSource: this.props.consumerOrderPriceAdjustment,returnURL,displayName,
   		subItems: [
     

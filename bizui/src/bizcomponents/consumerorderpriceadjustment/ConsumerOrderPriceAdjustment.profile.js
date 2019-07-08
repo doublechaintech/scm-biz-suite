@@ -56,7 +56,7 @@ class ConsumerOrderPriceAdjustmentProfile extends Component {
     const  consumerOrderPriceAdjustment = this.props.consumerOrderPriceAdjustment;
     const { id,displayName,  } = consumerOrderPriceAdjustment
 
-    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,
+    const cardsData = {cardsName:"Consumer Order Price Adjustment",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,
   		subItems: [
      
       	],

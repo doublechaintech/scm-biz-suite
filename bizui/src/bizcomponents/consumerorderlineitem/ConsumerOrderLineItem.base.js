@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"消费者订单行项目", menuFor: "consumerOrderLineItem",
+const menuData = {menuName:"Consumer Order Line Item", menuFor: "consumerOrderLineItem",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  bizOrder: '订单',
-  skuId: '产品ID',
-  skuName: '产品名称',
-  price: '价格',
-  quantity: '数量',
-  amount: '金额',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  bizOrder: 'Biz Order',
+  skuId: 'Sku Id',
+  skuName: 'Sku Name',
+  price: 'Price',
+  quantity: 'Quantity',
+  amount: 'Amount',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -70,15 +70,15 @@ const renderItemOfList=(consumerOrderLineItem,targetComponent)=>{
 	<div key={consumerOrderLineItem.id}>
 	
 	<DescriptionList  key={consumerOrderLineItem.id} size="small" col="4">
-<Description term="序号">{consumerOrderLineItem.id}</Description> 
-<Description term="订单">{consumerOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderLineItem.bizOrder.displayName}(${consumerOrderLineItem.bizOrder.id})`}
+<Description term="Id">{consumerOrderLineItem.id}</Description> 
+<Description term="Biz Order">{consumerOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderLineItem.bizOrder.displayName}(${consumerOrderLineItem.bizOrder.id})`}
 </Description>
-<Description term="产品ID">{consumerOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{consumerOrderLineItem.skuName}</Description> 
-<Description term="价格">{consumerOrderLineItem.price}</Description> 
-<Description term="数量">{consumerOrderLineItem.quantity}</Description> 
-<Description term="金额">{consumerOrderLineItem.amount}</Description> 
-<Description term="最后更新时间">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Sku Id">{consumerOrderLineItem.skuId}</Description> 
+<Description term="Sku Name">{consumerOrderLineItem.skuName}</Description> 
+<Description term="Price">{consumerOrderLineItem.price}</Description> 
+<Description term="Quantity">{consumerOrderLineItem.quantity}</Description> 
+<Description term="Amount">{consumerOrderLineItem.amount}</Description> 
+<Description term="Last Update Time">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

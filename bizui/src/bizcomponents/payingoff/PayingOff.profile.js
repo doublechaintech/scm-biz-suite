@@ -56,7 +56,7 @@ class PayingOffProfile extends Component {
     const  payingOff = this.props.payingOff;
     const { id,displayName, employeeSalarySheetCount } = payingOff
 
-    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",cardsSource: payingOff,
+    const cardsData = {cardsName:"Paying Off",cardsFor: "payingOff",cardsSource: payingOff,
   		subItems: [
      
       	],

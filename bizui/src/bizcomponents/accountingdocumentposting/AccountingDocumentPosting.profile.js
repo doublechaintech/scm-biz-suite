@@ -56,7 +56,7 @@ class AccountingDocumentPostingProfile extends Component {
     const  accountingDocumentPosting = this.props.accountingDocumentPosting;
     const { id,displayName, accountingDocumentCount } = accountingDocumentPosting
 
-    const cardsData = {cardsName:"会计凭证过帐",cardsFor: "accountingDocumentPosting",cardsSource: accountingDocumentPosting,
+    const cardsData = {cardsName:"Accounting Document Posting",cardsFor: "accountingDocumentPosting",cardsSource: accountingDocumentPosting,
   		subItems: [
      
       	],

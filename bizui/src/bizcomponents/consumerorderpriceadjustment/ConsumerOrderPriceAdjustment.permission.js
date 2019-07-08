@@ -28,10 +28,10 @@ const internalSummaryOf = (consumerOrderPriceAdjustment,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
-<Description term="金额">{consumerOrderPriceAdjustment.amount}</Description> 
-<Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
+<Description term="Id">{consumerOrderPriceAdjustment.id}</Description> 
+<Description term="Name">{consumerOrderPriceAdjustment.name}</Description> 
+<Description term="Amount">{consumerOrderPriceAdjustment.amount}</Description> 
+<Description term="Provider">{consumerOrderPriceAdjustment.provider}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class ConsumerOrderPriceAdjustmentPermission extends Component {
     // eslint-disable-next-line max-len
     const  consumerOrderPriceAdjustment = this.props.consumerOrderPriceAdjustment;
     const { id,displayName,  } = consumerOrderPriceAdjustment
-    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,
+    const cardsData = {cardsName:"Consumer Order Price Adjustment",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,
   		subItems: [
     
       	],

@@ -81,13 +81,13 @@ const internalSummaryOf = (productSupplyDuration,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{productSupplyDuration.id}</Description> 
-<Description term="数量">{productSupplyDuration.quantity}</Description> 
-<Description term="持续时间">{productSupplyDuration.duration}</Description> 
-<Description term="价格">{productSupplyDuration.price}</Description> 
-<Description term="产品">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
+<Description term="Id">{productSupplyDuration.id}</Description> 
+<Description term="Quantity">{productSupplyDuration.quantity}</Description> 
+<Description term="Duration">{productSupplyDuration.duration}</Description> 
+<Description term="Price">{productSupplyDuration.price}</Description> 
+<Description term="Product">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"产品","supplierProduct",ProductSupplyDurationService.requestCandidateProduct,
+  showTransferModel(targetComponent,"Product","supplierProduct",ProductSupplyDurationService.requestCandidateProduct,
 	      ProductSupplyDurationService.transferToAnotherProduct,"anotherProductId",productSupplyDuration.product?productSupplyDuration.product.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,7 +128,7 @@ class ProductSupplyDurationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",
+    const cardsData = {cardsName:"Product Supply Duration",cardsFor: "productSupplyDuration",
     	cardsSource: this.props.productSupplyDuration,returnURL,displayName,
   		subItems: [
     

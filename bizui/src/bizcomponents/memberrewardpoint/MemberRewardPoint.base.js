@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会员奖励点", menuFor: "memberRewardPoint",
+const menuData = {menuName:"Member Reward Point", menuFor: "memberRewardPoint",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  point: '点',
-  owner: '业主',
+  id: 'Id',
+  name: 'Name',
+  point: 'Point',
+  owner: 'Owner',
 
 }
 
@@ -62,10 +62,10 @@ const renderItemOfList=(memberRewardPoint,targetComponent)=>{
 	<div key={memberRewardPoint.id}>
 	
 	<DescriptionList  key={memberRewardPoint.id} size="small" col="4">
-<Description term="序号">{memberRewardPoint.id}</Description> 
-<Description term="名称">{memberRewardPoint.name}</Description> 
-<Description term="点">{memberRewardPoint.point}</Description> 
-<Description term="业主">{memberRewardPoint.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPoint.owner.displayName}(${memberRewardPoint.owner.id})`}
+<Description term="Id">{memberRewardPoint.id}</Description> 
+<Description term="Name">{memberRewardPoint.name}</Description> 
+<Description term="Point">{memberRewardPoint.point}</Description> 
+<Description term="Owner">{memberRewardPoint.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPoint.owner.displayName}(${memberRewardPoint.owner.id})`}
 </Description>
 	
         

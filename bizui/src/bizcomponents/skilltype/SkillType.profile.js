@@ -56,7 +56,7 @@ class SkillTypeProfile extends Component {
     const  skillType = this.props.skillType;
     const { id,displayName, employeeSkillCount } = skillType
 
-    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",cardsSource: skillType,
+    const cardsData = {cardsName:"Skill Type",cardsFor: "skillType",cardsSource: skillType,
   		subItems: [
      
       	],

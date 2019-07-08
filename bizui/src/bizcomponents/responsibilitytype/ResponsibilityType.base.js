@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"责任类型", menuFor: "responsibilityType",
+const menuData = {menuName:"Responsibility Type", menuFor: "responsibilityType",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  baseDescription: '基本描述',
-  detailDescription: '详细描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  baseDescription: 'Base Description',
+  detailDescription: 'Detail Description',
 
 }
 
@@ -65,10 +65,10 @@ const renderItemOfList=(responsibilityType,targetComponent)=>{
 	<div key={responsibilityType.id}>
 	
 	<DescriptionList  key={responsibilityType.id} size="small" col="4">
-<Description term="序号">{responsibilityType.id}</Description> 
-<Description term="代码">{responsibilityType.code}</Description> 
-<Description term="基本描述">{responsibilityType.baseDescription}</Description> 
-<Description term="详细描述">{responsibilityType.detailDescription}</Description> 
+<Description term="Id">{responsibilityType.id}</Description> 
+<Description term="Code">{responsibilityType.code}</Description> 
+<Description term="Base Description">{responsibilityType.baseDescription}</Description> 
+<Description term="Detail Description">{responsibilityType.detailDescription}</Description> 
 	
         
       </DescriptionList>

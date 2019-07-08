@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"消费者的订单审批", menuFor: "consumerOrderApproval",
+const menuData = {menuName:"Consumer Order Approval", menuFor: "consumerOrderApproval",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  approveTime: '批准时间',
+  id: 'Id',
+  who: 'Who',
+  approveTime: 'Approve Time',
 
 }
 
@@ -60,9 +60,9 @@ const renderItemOfList=(consumerOrderApproval,targetComponent)=>{
 	<div key={consumerOrderApproval.id}>
 	
 	<DescriptionList  key={consumerOrderApproval.id} size="small" col="4">
-<Description term="序号">{consumerOrderApproval.id}</Description> 
-<Description term="谁">{consumerOrderApproval.who}</Description> 
-<Description term="批准时间">{ moment(consumerOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{consumerOrderApproval.id}</Description> 
+<Description term="Who">{consumerOrderApproval.who}</Description> 
+<Description term="Approve Time">{ moment(consumerOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

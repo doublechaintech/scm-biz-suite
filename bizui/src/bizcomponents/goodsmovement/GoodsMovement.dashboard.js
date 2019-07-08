@@ -54,7 +54,7 @@ const internalSettingListOf = (goodsMovement) =>defaultSettingListOf(goodsMoveme
 const internalLargeTextOf = (goodsMovement) =>{
 
 	return(<div> 
-   <Card title={`用户代理`} ><pre>{goodsMovement.userAgent}</pre></Card>
+   <Card title={`User Agent`} ><pre>{goodsMovement.userAgent}</pre></Card>
 </div>)
 
 	
@@ -84,17 +84,17 @@ const internalSummaryOf = (goodsMovement,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsMovement.id}</Description> 
-<Description term="移动时间">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="设施">{goodsMovement.facility}</Description> 
-<Description term="设备ID">{goodsMovement.facilityId}</Description> 
-<Description term="从IP">{goodsMovement.fromIp}</Description> 
-<Description term="会话ID">{goodsMovement.sessionId}</Description> 
-<Description term="纬度">{goodsMovement.latitude}</Description> 
-<Description term="经度">{goodsMovement.longitude}</Description> 
-<Description term="货物">{goodsMovement.goods==null?appLocaleName(userContext,"NotAssigned"):`${goodsMovement.goods.displayName}(${goodsMovement.goods.id})`}
+<Description term="Id">{goodsMovement.id}</Description> 
+<Description term="Move Time">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Facility">{goodsMovement.facility}</Description> 
+<Description term="Facility Id">{goodsMovement.facilityId}</Description> 
+<Description term="From Ip">{goodsMovement.fromIp}</Description> 
+<Description term="Session Id">{goodsMovement.sessionId}</Description> 
+<Description term="Latitude">{goodsMovement.latitude}</Description> 
+<Description term="Longitude">{goodsMovement.longitude}</Description> 
+<Description term="Goods">{goodsMovement.goods==null?appLocaleName(userContext,"NotAssigned"):`${goodsMovement.goods.displayName}(${goodsMovement.goods.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"货物","goods",GoodsMovementService.requestCandidateGoods,
+  showTransferModel(targetComponent,"Goods","goods",GoodsMovementService.requestCandidateGoods,
 	      GoodsMovementService.transferToAnotherGoods,"anotherGoodsId",goodsMovement.goods?goodsMovement.goods.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -135,7 +135,7 @@ class GoodsMovementDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",
+    const cardsData = {cardsName:"Goods Movement",cardsFor: "goodsMovement",
     	cardsSource: this.props.goodsMovement,returnURL,displayName,
   		subItems: [
     

@@ -56,7 +56,7 @@ class AccountingDocumentCreationProfile extends Component {
     const  accountingDocumentCreation = this.props.accountingDocumentCreation;
     const { id,displayName, accountingDocumentCount } = accountingDocumentCreation
 
-    const cardsData = {cardsName:"会计文件的创建",cardsFor: "accountingDocumentCreation",cardsSource: accountingDocumentCreation,
+    const cardsData = {cardsName:"Accounting Document Creation",cardsFor: "accountingDocumentCreation",cardsSource: accountingDocumentCreation,
   		subItems: [
      
       	],

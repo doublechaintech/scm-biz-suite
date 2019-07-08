@@ -28,9 +28,9 @@ const internalSummaryOf = (employeeLeave,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeLeave.id}</Description> 
-<Description term="请假时长">{employeeLeave.leaveDurationHour}</Description> 
-<Description term="备注">{employeeLeave.remark}</Description> 
+<Description term="Id">{employeeLeave.id}</Description> 
+<Description term="Leave Duration Hour">{employeeLeave.leaveDurationHour}</Description> 
+<Description term="Remark">{employeeLeave.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class EmployeeLeavePermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeLeave = this.props.employeeLeave;
     const { id,displayName,  } = employeeLeave
-    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",cardsSource: employeeLeave,
+    const cardsData = {cardsName:"Employee Leave",cardsFor: "employeeLeave",cardsSource: employeeLeave,
   		subItems: [
     
       	],

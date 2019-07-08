@@ -56,7 +56,7 @@ class EmployeeInterviewProfile extends Component {
     const  employeeInterview = this.props.employeeInterview;
     const { id,displayName,  } = employeeInterview
 
-    const cardsData = {cardsName:"员工面试",cardsFor: "employeeInterview",cardsSource: employeeInterview,
+    const cardsData = {cardsName:"Employee Interview",cardsFor: "employeeInterview",cardsSource: employeeInterview,
   		subItems: [
      
       	],

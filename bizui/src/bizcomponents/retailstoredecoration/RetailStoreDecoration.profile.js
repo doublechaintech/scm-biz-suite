@@ -56,7 +56,7 @@ class RetailStoreDecorationProfile extends Component {
     const  retailStoreDecoration = this.props.retailStoreDecoration;
     const { id,displayName, retailStoreCount } = retailStoreDecoration
 
-    const cardsData = {cardsName:"生超装修",cardsFor: "retailStoreDecoration",cardsSource: retailStoreDecoration,
+    const cardsData = {cardsName:"Retail Store Decoration",cardsFor: "retailStoreDecoration",cardsSource: retailStoreDecoration,
   		subItems: [
      
       	],

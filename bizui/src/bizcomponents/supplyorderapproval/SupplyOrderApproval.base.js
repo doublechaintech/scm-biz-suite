@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"供应订单审批", menuFor: "supplyOrderApproval",
+const menuData = {menuName:"Supply Order Approval", menuFor: "supplyOrderApproval",
   		subItems: [
-  {name: 'consumerOrderList', displayName:'消费者订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderList', displayName:'Consumer Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  approveTime: '批准时间',
+  id: 'Id',
+  who: 'Who',
+  approveTime: 'Approve Time',
 
 }
 
@@ -62,9 +62,9 @@ const renderItemOfList=(supplyOrderApproval,targetComponent)=>{
 	<div key={supplyOrderApproval.id}>
 	
 	<DescriptionList  key={supplyOrderApproval.id} size="small" col="4">
-<Description term="序号">{supplyOrderApproval.id}</Description> 
-<Description term="谁">{supplyOrderApproval.who}</Description> 
-<Description term="批准时间">{ moment(supplyOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{supplyOrderApproval.id}</Description> 
+<Description term="Who">{supplyOrderApproval.who}</Description> 
+<Description term="Approve Time">{ moment(supplyOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

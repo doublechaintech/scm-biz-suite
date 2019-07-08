@@ -167,7 +167,7 @@ class AccountingDocumentBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "原始凭证",
+      name: "Original Voucher",
       role: "originalVoucher",
       data: state._accountingDocument.originalVoucherList,
       metaInfo: state._accountingDocument.originalVoucherListMetaInfo,
@@ -216,7 +216,7 @@ class AccountingDocumentBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会计凭证行",
+      name: "Accounting Document Line",
       role: "accountingDocumentLine",
       data: state._accountingDocument.accountingDocumentLineList,
       metaInfo: state._accountingDocument.accountingDocumentLineListMetaInfo,
@@ -326,10 +326,10 @@ class AccountingDocumentBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

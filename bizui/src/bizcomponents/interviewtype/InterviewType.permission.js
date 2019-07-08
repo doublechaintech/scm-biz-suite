@@ -28,10 +28,10 @@ const internalSummaryOf = (interviewType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{interviewType.id}</Description> 
-<Description term="代码">{interviewType.code}</Description> 
-<Description term="描述">{interviewType.description}</Description> 
-<Description term="详细描述">{interviewType.detailDescription}</Description> 
+<Description term="Id">{interviewType.id}</Description> 
+<Description term="Code">{interviewType.code}</Description> 
+<Description term="Description">{interviewType.description}</Description> 
+<Description term="Detail Description">{interviewType.detailDescription}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class InterviewTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  interviewType = this.props.interviewType;
     const { id,displayName, employeeInterviewCount } = interviewType
-    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",cardsSource: interviewType,
+    const cardsData = {cardsName:"Interview Type",cardsFor: "interviewType",cardsSource: interviewType,
   		subItems: [
     
       	],

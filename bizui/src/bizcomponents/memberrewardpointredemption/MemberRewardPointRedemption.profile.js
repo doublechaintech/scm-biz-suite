@@ -56,7 +56,7 @@ class MemberRewardPointRedemptionProfile extends Component {
     const  memberRewardPointRedemption = this.props.memberRewardPointRedemption;
     const { id,displayName,  } = memberRewardPointRedemption
 
-    const cardsData = {cardsName:"会员奖励点赎回",cardsFor: "memberRewardPointRedemption",cardsSource: memberRewardPointRedemption,
+    const cardsData = {cardsName:"Member Reward Point Redemption",cardsFor: "memberRewardPointRedemption",cardsSource: memberRewardPointRedemption,
   		subItems: [
      
       	],

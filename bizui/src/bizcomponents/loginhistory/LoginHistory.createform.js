@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   fromIp: '192.168.1.1',
   description: '登陆成功',
-  secUserId: 'SU00000001',
+  secUserId: 'SU000001',
 }
 */
 
@@ -195,8 +195,8 @@ class LoginHistoryCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}登录历史`}
-        content={`${appLocaleName(userContext,"CreateNew")}登录历史`}
+        title={`${appLocaleName(userContext,"CreateNew")}Login History`}
+        content={`${appLocaleName(userContext,"CreateNew")}Login History`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class LoginHistoryCreateForm extends Component {
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="从IP" />
+                    <Input size="large" placeholder="From Ip" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class LoginHistoryCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

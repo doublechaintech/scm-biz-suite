@@ -56,7 +56,7 @@ class ProductProfile extends Component {
     const  product = this.props.product;
     const { id,displayName, skuCount } = product
 
-    const cardsData = {cardsName:"产品",cardsFor: "product",cardsSource: product,
+    const cardsData = {cardsName:"Product",cardsFor: "product",cardsSource: product,
   		subItems: [
      
       	],

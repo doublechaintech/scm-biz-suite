@@ -28,9 +28,9 @@ const internalSummaryOf = (memberRewardPointRedemption,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberRewardPointRedemption.id}</Description> 
-<Description term="名称">{memberRewardPointRedemption.name}</Description> 
-<Description term="点">{memberRewardPointRedemption.point}</Description> 
+<Description term="Id">{memberRewardPointRedemption.id}</Description> 
+<Description term="Name">{memberRewardPointRedemption.name}</Description> 
+<Description term="Point">{memberRewardPointRedemption.point}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class MemberRewardPointRedemptionPermission extends Component {
     // eslint-disable-next-line max-len
     const  memberRewardPointRedemption = this.props.memberRewardPointRedemption;
     const { id,displayName,  } = memberRewardPointRedemption
-    const cardsData = {cardsName:"会员奖励点赎回",cardsFor: "memberRewardPointRedemption",cardsSource: memberRewardPointRedemption,
+    const cardsData = {cardsName:"Member Reward Point Redemption",cardsFor: "memberRewardPointRedemption",cardsSource: memberRewardPointRedemption,
   		subItems: [
     
       	],

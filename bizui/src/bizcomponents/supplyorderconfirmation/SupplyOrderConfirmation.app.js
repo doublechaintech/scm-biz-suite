@@ -167,7 +167,7 @@ class SupplyOrderConfirmationBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "消费者订单",
+      name: "Consumer Order",
       role: "consumerOrder",
       data: state._supplyOrderConfirmation.consumerOrderList,
       metaInfo: state._supplyOrderConfirmation.consumerOrderListMetaInfo,
@@ -216,7 +216,7 @@ class SupplyOrderConfirmationBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单",
+      name: "Supply Order",
       role: "supplyOrder",
       data: state._supplyOrderConfirmation.supplyOrderList,
       metaInfo: state._supplyOrderConfirmation.supplyOrderListMetaInfo,
@@ -326,10 +326,10 @@ class SupplyOrderConfirmationBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

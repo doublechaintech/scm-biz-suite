@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"雇佣终止", menuFor: "termination",
+const menuData = {menuName:"Termination", menuFor: "termination",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  reason: '原因',
-  type: '类型',
-  comment: '评论',
+  id: 'Id',
+  reason: 'Reason',
+  type: 'Type',
+  comment: 'Comment',
 
 }
 
@@ -63,12 +63,12 @@ const renderItemOfList=(termination,targetComponent)=>{
 	<div key={termination.id}>
 	
 	<DescriptionList  key={termination.id} size="small" col="4">
-<Description term="序号">{termination.id}</Description> 
-<Description term="原因">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
+<Description term="Id">{termination.id}</Description> 
+<Description term="Reason">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
 </Description>
-<Description term="类型">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
+<Description term="Type">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
 </Description>
-<Description term="评论">{termination.comment}</Description> 
+<Description term="Comment">{termination.comment}</Description> 
 	
         
       </DescriptionList>

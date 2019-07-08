@@ -81,20 +81,20 @@ const internalSummaryOf = (employeeSkill,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeSkill.id}</Description> 
-<Description term="员工">{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
+<Description term="Id">{employeeSkill.id}</Description> 
+<Description term="Employee">{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeSkillService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeSkillService.requestCandidateEmployee,
 	      EmployeeSkillService.transferToAnotherEmployee,"anotherEmployeeId",employeeSkill.employee?employeeSkill.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="技能类型">{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.skillType.displayName}(${employeeSkill.skillType.id})`}
+<Description term="Skill Type">{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.skillType.displayName}(${employeeSkill.skillType.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"技能类型","skillType",EmployeeSkillService.requestCandidateSkillType,
+  showTransferModel(targetComponent,"Skill Type","skillType",EmployeeSkillService.requestCandidateSkillType,
 	      EmployeeSkillService.transferToAnotherSkillType,"anotherSkillTypeId",employeeSkill.skillType?employeeSkill.skillType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="描述">{employeeSkill.description}</Description> 
+<Description term="Description">{employeeSkill.description}</Description> 
 	
         {buildTransferModal(employeeSkill,targetComponent)}
       </DescriptionList>
@@ -132,7 +132,7 @@ class EmployeeSkillDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工技能",cardsFor: "employeeSkill",
+    const cardsData = {cardsName:"Employee Skill",cardsFor: "employeeSkill",
     	cardsSource: this.props.employeeSkill,returnURL,displayName,
   		subItems: [
     

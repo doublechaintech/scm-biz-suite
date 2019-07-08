@@ -81,20 +81,20 @@ const internalSummaryOf = (employeeCompanyTraining,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeCompanyTraining.id}</Description> 
-<Description term="员工">{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
+<Description term="Id">{employeeCompanyTraining.id}</Description> 
+<Description term="Employee">{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeCompanyTrainingService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeCompanyTrainingService.requestCandidateEmployee,
 	      EmployeeCompanyTrainingService.transferToAnotherEmployee,"anotherEmployeeId",employeeCompanyTraining.employee?employeeCompanyTraining.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="训练">{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
+<Description term="Training">{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"训练","companyTraining",EmployeeCompanyTrainingService.requestCandidateTraining,
+  showTransferModel(targetComponent,"Training","companyTraining",EmployeeCompanyTrainingService.requestCandidateTraining,
 	      EmployeeCompanyTrainingService.transferToAnotherTraining,"anotherTrainingId",employeeCompanyTraining.training?employeeCompanyTraining.training.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{employeeCompanyTraining.currentStatus}</Description> 
+<Description term="Current Status">{employeeCompanyTraining.currentStatus}</Description> 
 	
         {buildTransferModal(employeeCompanyTraining,targetComponent)}
       </DescriptionList>
@@ -132,7 +132,7 @@ class EmployeeCompanyTrainingDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工参与的公司培训",cardsFor: "employeeCompanyTraining",
+    const cardsData = {cardsName:"Employee Company Training",cardsFor: "employeeCompanyTraining",
     	cardsSource: this.props.employeeCompanyTraining,returnURL,displayName,
   		subItems: [
     

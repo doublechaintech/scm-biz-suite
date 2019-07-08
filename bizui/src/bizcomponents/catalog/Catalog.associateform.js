@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  ownerId: 'RSCC00000001',
+  ownerId: 'RSCC000001',
 }
 */
 
@@ -139,7 +139,7 @@ class CatalogAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

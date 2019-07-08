@@ -81,10 +81,10 @@ const internalSummaryOf = (transportFleet,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportFleet.id}</Description> 
-<Description term="名称">{transportFleet.name}</Description> 
-<Description term="联系电话">{transportFleet.contactNumber}</Description> 
-<Description term="最后更新时间">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{transportFleet.id}</Description> 
+<Description term="Name">{transportFleet.name}</Description> 
+<Description term="Contact Number">{transportFleet.contactNumber}</Description> 
+<Description term="Last Update Time">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(transportFleet,targetComponent)}
       </DescriptionList>
@@ -122,12 +122,12 @@ class TransportFleetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",
+    const cardsData = {cardsName:"Transport Fleet",cardsFor: "transportFleet",
     	cardsSource: this.props.transportFleet,returnURL,displayName,
   		subItems: [
-{name: 'transportTruckList', displayName:'运输车',type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo, renderItem: GlobalComponents.TransportTruckBase.renderItemOfList},
-{name: 'truckDriverList', displayName:'卡车司机',type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo, renderItem: GlobalComponents.TruckDriverBase.renderItemOfList},
-{name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+{name: 'transportTruckList', displayName:'Transport Truck',type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo, renderItem: GlobalComponents.TransportTruckBase.renderItemOfList},
+{name: 'truckDriverList', displayName:'Truck Driver',type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo, renderItem: GlobalComponents.TruckDriverBase.renderItemOfList},
+{name: 'transportTaskList', displayName:'Transport Task',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
     
       	],
   	};

@@ -30,20 +30,20 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"工资等级", menuFor: "salaryGrade",
+const menuData = {menuName:"Salary Grade", menuFor: "salaryGrade",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeSalarySheetList', displayName:'工资单', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeSalarySheetList', displayName:'Employee Salary Sheet', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  name: '名称',
-  detailDescription: '详细描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  name: 'Name',
+  detailDescription: 'Detail Description',
 
 }
 
@@ -66,10 +66,10 @@ const renderItemOfList=(salaryGrade,targetComponent)=>{
 	<div key={salaryGrade.id}>
 	
 	<DescriptionList  key={salaryGrade.id} size="small" col="4">
-<Description term="序号">{salaryGrade.id}</Description> 
-<Description term="代码">{salaryGrade.code}</Description> 
-<Description term="名称">{salaryGrade.name}</Description> 
-<Description term="详细描述">{salaryGrade.detailDescription}</Description> 
+<Description term="Id">{salaryGrade.id}</Description> 
+<Description term="Code">{salaryGrade.code}</Description> 
+<Description term="Name">{salaryGrade.name}</Description> 
+<Description term="Detail Description">{salaryGrade.detailDescription}</Description> 
 	
         
       </DescriptionList>

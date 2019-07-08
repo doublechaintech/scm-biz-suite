@@ -28,10 +28,10 @@ const internalSummaryOf = (jobApplication,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{jobApplication.id}</Description> 
-<Description term="申请时间">{ moment(jobApplication.applicationTime).format('YYYY-MM-DD')}</Description> 
-<Description term="谁">{jobApplication.who}</Description> 
-<Description term="评论">{jobApplication.comments}</Description> 
+<Description term="Id">{jobApplication.id}</Description> 
+<Description term="Application Time">{ moment(jobApplication.applicationTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Who">{jobApplication.who}</Description> 
+<Description term="Comments">{jobApplication.comments}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class JobApplicationPermission extends Component {
     // eslint-disable-next-line max-len
     const  jobApplication = this.props.jobApplication;
     const { id,displayName, employeeCount } = jobApplication
-    const cardsData = {cardsName:"工作申请",cardsFor: "jobApplication",cardsSource: jobApplication,
+    const cardsData = {cardsName:"Job Application",cardsFor: "jobApplication",cardsSource: jobApplication,
   		subItems: [
     
       	],

@@ -28,11 +28,11 @@ const internalSummaryOf = (companyTraining,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{companyTraining.id}</Description> 
-<Description term="头衔">{companyTraining.title}</Description> 
-<Description term="时间开始">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
-<Description term="持续时间">{companyTraining.durationHours}</Description> 
-<Description term="最后更新时间">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{companyTraining.id}</Description> 
+<Description term="Title">{companyTraining.title}</Description> 
+<Description term="Time Start">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
+<Description term="Duration Hours">{companyTraining.durationHours}</Description> 
+<Description term="Last Update Time">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class CompanyTrainingPermission extends Component {
     // eslint-disable-next-line max-len
     const  companyTraining = this.props.companyTraining;
     const { id,displayName, employeeCompanyTrainingCount } = companyTraining
-    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",cardsSource: companyTraining,
+    const cardsData = {cardsName:"Company Training",cardsFor: "companyTraining",cardsSource: companyTraining,
   		subItems: [
     
       	],

@@ -167,7 +167,7 @@ class LeaveTypeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "请假记录",
+      name: "Employee Leave",
       role: "employeeLeave",
       data: state._leaveType.employeeLeaveList,
       metaInfo: state._leaveType.employeeLeaveListMetaInfo,
@@ -273,10 +273,10 @@ class LeaveTypeBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

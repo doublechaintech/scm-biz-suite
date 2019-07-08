@@ -28,11 +28,11 @@ const internalSummaryOf = (employeeQualifier,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeQualifier.id}</Description> 
-<Description term="合格的时间">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeQualifier.type}</Description> 
-<Description term="水平">{employeeQualifier.level}</Description> 
-<Description term="备注">{employeeQualifier.remark}</Description> 
+<Description term="Id">{employeeQualifier.id}</Description> 
+<Description term="Qualified Time">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Type">{employeeQualifier.type}</Description> 
+<Description term="Level">{employeeQualifier.level}</Description> 
+<Description term="Remark">{employeeQualifier.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class EmployeeQualifierPermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeQualifier = this.props.employeeQualifier;
     const { id,displayName,  } = employeeQualifier
-    const cardsData = {cardsName:"员工资质",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,
+    const cardsData = {cardsName:"Employee Qualifier",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,
   		subItems: [
     
       	],

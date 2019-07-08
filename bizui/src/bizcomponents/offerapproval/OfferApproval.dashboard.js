@@ -81,10 +81,10 @@ const internalSummaryOf = (offerApproval,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{offerApproval.id}</Description> 
-<Description term="谁">{offerApproval.who}</Description> 
-<Description term="批准时间">{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{offerApproval.comments}</Description> 
+<Description term="Id">{offerApproval.id}</Description> 
+<Description term="Who">{offerApproval.who}</Description> 
+<Description term="Approve Time">{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Comments">{offerApproval.comments}</Description> 
 	
         {buildTransferModal(offerApproval,targetComponent)}
       </DescriptionList>
@@ -122,10 +122,10 @@ class OfferApprovalDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",
+    const cardsData = {cardsName:"Offer Approval",cardsFor: "offerApproval",
     	cardsSource: this.props.offerApproval,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'Employee',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
   	};

@@ -81,14 +81,14 @@ const internalSummaryOf = (employeePerformance,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeePerformance.id}</Description> 
-<Description term="员工">{employeePerformance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeePerformance.employee.displayName}(${employeePerformance.employee.id})`}
+<Description term="Id">{employeePerformance.id}</Description> 
+<Description term="Employee">{employeePerformance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeePerformance.employee.displayName}(${employeePerformance.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeePerformanceService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeePerformanceService.requestCandidateEmployee,
 	      EmployeePerformanceService.transferToAnotherEmployee,"anotherEmployeeId",employeePerformance.employee?employeePerformance.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="绩效评价">{employeePerformance.performanceComment}</Description> 
+<Description term="Performance Comment">{employeePerformance.performanceComment}</Description> 
 	
         {buildTransferModal(employeePerformance,targetComponent)}
       </DescriptionList>
@@ -126,7 +126,7 @@ class EmployeePerformanceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工绩效",cardsFor: "employeePerformance",
+    const cardsData = {cardsName:"Employee Performance",cardsFor: "employeePerformance",
     	cardsSource: this.props.employeePerformance,returnURL,displayName,
   		subItems: [
     

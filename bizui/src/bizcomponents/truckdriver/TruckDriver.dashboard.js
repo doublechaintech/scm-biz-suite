@@ -81,13 +81,13 @@ const internalSummaryOf = (truckDriver,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{truckDriver.id}</Description> 
-<Description term="名称">{truckDriver.name}</Description> 
-<Description term="驾驶执照号码">{truckDriver.driverLicenseNumber}</Description> 
-<Description term="联系电话">{truckDriver.contactNumber}</Description> 
-<Description term="属于">{truckDriver.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${truckDriver.belongsTo.displayName}(${truckDriver.belongsTo.id})`}
+<Description term="Id">{truckDriver.id}</Description> 
+<Description term="Name">{truckDriver.name}</Description> 
+<Description term="Driver License Number">{truckDriver.driverLicenseNumber}</Description> 
+<Description term="Contact Number">{truckDriver.contactNumber}</Description> 
+<Description term="Belongs To">{truckDriver.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${truckDriver.belongsTo.displayName}(${truckDriver.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"属于","transportFleet",TruckDriverService.requestCandidateBelongsTo,
+  showTransferModel(targetComponent,"Belongs To","transportFleet",TruckDriverService.requestCandidateBelongsTo,
 	      TruckDriverService.transferToAnotherBelongsTo,"anotherBelongsToId",truckDriver.belongsTo?truckDriver.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +128,10 @@ class TruckDriverDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",
+    const cardsData = {cardsName:"Truck Driver",cardsFor: "truckDriver",
     	cardsSource: this.props.truckDriver,returnURL,displayName,
   		subItems: [
-{name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+{name: 'transportTaskList', displayName:'Transport Task',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
     
       	],
   	};

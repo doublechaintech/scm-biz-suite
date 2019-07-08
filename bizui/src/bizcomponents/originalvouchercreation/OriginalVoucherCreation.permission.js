@@ -28,10 +28,10 @@ const internalSummaryOf = (originalVoucherCreation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucherCreation.id}</Description> 
-<Description term="谁">{originalVoucherCreation.who}</Description> 
-<Description term="评论">{originalVoucherCreation.comments}</Description> 
-<Description term="制造日期">{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{originalVoucherCreation.id}</Description> 
+<Description term="Who">{originalVoucherCreation.who}</Description> 
+<Description term="Comments">{originalVoucherCreation.comments}</Description> 
+<Description term="Make Date">{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class OriginalVoucherCreationPermission extends Component {
     // eslint-disable-next-line max-len
     const  originalVoucherCreation = this.props.originalVoucherCreation;
     const { id,displayName, originalVoucherCount } = originalVoucherCreation
-    const cardsData = {cardsName:"原始凭证制作",cardsFor: "originalVoucherCreation",cardsSource: originalVoucherCreation,
+    const cardsData = {cardsName:"Original Voucher Creation",cardsFor: "originalVoucherCreation",cardsSource: originalVoucherCreation,
   		subItems: [
     
       	],

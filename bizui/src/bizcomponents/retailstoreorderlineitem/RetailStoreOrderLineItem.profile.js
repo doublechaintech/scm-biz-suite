@@ -56,7 +56,7 @@ class RetailStoreOrderLineItemProfile extends Component {
     const  retailStoreOrderLineItem = this.props.retailStoreOrderLineItem;
     const { id,displayName,  } = retailStoreOrderLineItem
 
-    const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",cardsSource: retailStoreOrderLineItem,
+    const cardsData = {cardsName:"Retail Store Order Line Item",cardsFor: "retailStoreOrderLineItem",cardsSource: retailStoreOrderLineItem,
   		subItems: [
      
       	],

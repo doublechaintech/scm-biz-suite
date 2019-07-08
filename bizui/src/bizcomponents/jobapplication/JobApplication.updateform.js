@@ -262,7 +262,7 @@ class JobApplicationUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class JobApplicationUpdateForm extends Component {
                     initialValue: selectedRow.applicationTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="申请时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Application Time" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class JobApplicationUpdateForm extends Component {
                     initialValue: selectedRow.who,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class JobApplicationUpdateForm extends Component {
                     initialValue: selectedRow.comments,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comments" />
                     
                   )}
                 </Form.Item>

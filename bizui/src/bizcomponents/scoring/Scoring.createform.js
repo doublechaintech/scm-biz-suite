@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
-  score: '76',
+  score: '75',
   comment: '这个题做的真不错啊',
 }
 */
@@ -195,8 +195,8 @@ class ScoringCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}评分`}
-        content={`${appLocaleName(userContext,"CreateNew")}评分`}
+        title={`${appLocaleName(userContext,"CreateNew")}Scoring`}
+        content={`${appLocaleName(userContext,"CreateNew")}Scoring`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class ScoringCreateForm extends Component {
                   {getFieldDecorator('scoredBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由谁打分" />
+                    <Input size="large" placeholder="Scored By" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class ScoringCreateForm extends Component {
                   {getFieldDecorator('score', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="分数" />
+                    <Input size="large" placeholder="Score" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class ScoringCreateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comment" />
                   )}
                 </Form.Item>
               </Col>

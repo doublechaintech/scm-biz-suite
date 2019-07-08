@@ -56,7 +56,7 @@ class EmployeeWorkExperienceProfile extends Component {
     const  employeeWorkExperience = this.props.employeeWorkExperience;
     const { id,displayName,  } = employeeWorkExperience
 
-    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",cardsSource: employeeWorkExperience,
+    const cardsData = {cardsName:"Employee Work Experience",cardsFor: "employeeWorkExperience",cardsSource: employeeWorkExperience,
   		subItems: [
      
       	],

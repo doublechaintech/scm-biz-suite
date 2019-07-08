@@ -28,13 +28,13 @@ const internalSummaryOf = (smartPallet,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{smartPallet.id}</Description> 
-<Description term="位置">{smartPallet.location}</Description> 
-<Description term="联系电话">{smartPallet.contactNumber}</Description> 
-<Description term="总面积">{smartPallet.totalArea}</Description> 
-<Description term="纬度">{smartPallet.latitude}</Description> 
-<Description term="经度">{smartPallet.longitude}</Description> 
-<Description term="最后更新时间">{ moment(smartPallet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{smartPallet.id}</Description> 
+<Description term="Location">{smartPallet.location}</Description> 
+<Description term="Contact Number">{smartPallet.contactNumber}</Description> 
+<Description term="Total Area">{smartPallet.totalArea}</Description> 
+<Description term="Latitude">{smartPallet.latitude}</Description> 
+<Description term="Longitude">{smartPallet.longitude}</Description> 
+<Description term="Last Update Time">{ moment(smartPallet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class SmartPalletPermission extends Component {
     // eslint-disable-next-line max-len
     const  smartPallet = this.props.smartPallet;
     const { id,displayName, goodsCount } = smartPallet
-    const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",cardsSource: smartPallet,
+    const cardsData = {cardsName:"Smart Pallet",cardsFor: "smartPallet",cardsSource: smartPallet,
   		subItems: [
     
       	],

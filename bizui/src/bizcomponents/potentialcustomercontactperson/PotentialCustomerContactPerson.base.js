@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"潜在客户联络人", menuFor: "potentialCustomerContactPerson",
+const menuData = {menuName:"Potential Customer Contact Person", menuFor: "potentialCustomerContactPerson",
   		subItems: [
-  {name: 'potentialCustomerContactList', displayName:'潜在客户联系', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'potentialCustomerContactList', displayName:'Potential Customer Contact', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  mobile: '手机',
-  potentialCustomer: '潜在的客户',
-  description: '描述',
+  id: 'Id',
+  name: 'Name',
+  mobile: 'Mobile',
+  potentialCustomer: 'Potential Customer',
+  description: 'Description',
 
 }
 
@@ -65,12 +65,12 @@ const renderItemOfList=(potentialCustomerContactPerson,targetComponent)=>{
 	<div key={potentialCustomerContactPerson.id}>
 	
 	<DescriptionList  key={potentialCustomerContactPerson.id} size="small" col="4">
-<Description term="序号">{potentialCustomerContactPerson.id}</Description> 
-<Description term="名称">{potentialCustomerContactPerson.name}</Description> 
-<Description term="手机">{potentialCustomerContactPerson.mobile}</Description> 
-<Description term="潜在的客户">{potentialCustomerContactPerson.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContactPerson.potentialCustomer.displayName}(${potentialCustomerContactPerson.potentialCustomer.id})`}
+<Description term="Id">{potentialCustomerContactPerson.id}</Description> 
+<Description term="Name">{potentialCustomerContactPerson.name}</Description> 
+<Description term="Mobile">{potentialCustomerContactPerson.mobile}</Description> 
+<Description term="Potential Customer">{potentialCustomerContactPerson.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContactPerson.potentialCustomer.displayName}(${potentialCustomerContactPerson.potentialCustomer.id})`}
 </Description>
-<Description term="描述">{potentialCustomerContactPerson.description}</Description> 
+<Description term="Description">{potentialCustomerContactPerson.description}</Description> 
 	
         
       </DescriptionList>

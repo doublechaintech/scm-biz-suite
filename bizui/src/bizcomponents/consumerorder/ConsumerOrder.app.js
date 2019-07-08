@@ -167,7 +167,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "消费者订单行项目",
+      name: "Consumer Order Line Item",
       role: "consumerOrderLineItem",
       data: state._consumerOrder.consumerOrderLineItemList,
       metaInfo: state._consumerOrder.consumerOrderLineItemListMetaInfo,
@@ -216,7 +216,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "消费订单送货分组",
+      name: "Consumer Order Shipping Group",
       role: "consumerOrderShippingGroup",
       data: state._consumerOrder.consumerOrderShippingGroupList,
       metaInfo: state._consumerOrder.consumerOrderShippingGroupListMetaInfo,
@@ -265,7 +265,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "消费者订单付款组",
+      name: "Consumer Order Payment Group",
       role: "consumerOrderPaymentGroup",
       data: state._consumerOrder.consumerOrderPaymentGroupList,
       metaInfo: state._consumerOrder.consumerOrderPaymentGroupListMetaInfo,
@@ -314,7 +314,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "消费品价格调整",
+      name: "Consumer Order Price Adjustment",
       role: "consumerOrderPriceAdjustment",
       data: state._consumerOrder.consumerOrderPriceAdjustmentList,
       metaInfo: state._consumerOrder.consumerOrderPriceAdjustmentListMetaInfo,
@@ -363,7 +363,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "零售商店会员卡消费记录",
+      name: "Retail Store Member Gift Card Consume Record",
       role: "retailStoreMemberGiftCardConsumeRecord",
       data: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordList,
       metaInfo: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordListMetaInfo,
@@ -485,10 +485,10 @@ class ConsumerOrderBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

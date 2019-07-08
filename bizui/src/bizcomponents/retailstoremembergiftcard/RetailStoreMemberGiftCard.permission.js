@@ -28,10 +28,10 @@ const internalSummaryOf = (retailStoreMemberGiftCard,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCard.id}</Description> 
-<Description term="名称">{retailStoreMemberGiftCard.name}</Description> 
-<Description term="数">{retailStoreMemberGiftCard.number}</Description> 
-<Description term="保持">{retailStoreMemberGiftCard.remain}</Description> 
+<Description term="Id">{retailStoreMemberGiftCard.id}</Description> 
+<Description term="Name">{retailStoreMemberGiftCard.name}</Description> 
+<Description term="Number">{retailStoreMemberGiftCard.number}</Description> 
+<Description term="Remain">{retailStoreMemberGiftCard.remain}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class RetailStoreMemberGiftCardPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberGiftCard = this.props.retailStoreMemberGiftCard;
     const { id,displayName, retailStoreMemberGiftCardConsumeRecordCount } = retailStoreMemberGiftCard
-    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,
+    const cardsData = {cardsName:"Retail Store Member Gift Card",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,
   		subItems: [
     
       	],

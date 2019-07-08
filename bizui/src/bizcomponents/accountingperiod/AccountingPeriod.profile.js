@@ -56,7 +56,7 @@ class AccountingPeriodProfile extends Component {
     const  accountingPeriod = this.props.accountingPeriod;
     const { id,displayName, accountingDocumentCount } = accountingPeriod
 
-    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,
+    const cardsData = {cardsName:"Accounting Period",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,
   		subItems: [
      
       	],

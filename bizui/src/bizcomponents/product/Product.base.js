@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"产品", menuFor: "product",
+const menuData = {menuName:"Product", menuFor: "product",
   		subItems: [
-  {name: 'skuList', displayName:'SKU', icon:'skull',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'skuList', displayName:'Sku', icon:'skull',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  parentCategory: '父类',
-  origin: '产地',
-  remark: '备注',
-  brand: '品牌',
-  picture: '图片',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  parentCategory: 'Parent Category',
+  origin: 'Origin',
+  remark: 'Remark',
+  brand: 'Brand',
+  picture: 'Picture',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -56,7 +56,7 @@ const displayColumns = [
   { title: fieldLabels.origin, debugtype: 'string', dataIndex: 'origin', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.remark, debugtype: 'string', dataIndex: 'remark', width: '26',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.brand, debugtype: 'string', dataIndex: 'brand', width: '27',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.picture, dataIndex: 'picture', render: (text, record) => renderImageCell(text,record,'图片') },
+  { title: fieldLabels.picture, dataIndex: 'picture', render: (text, record) => renderImageCell(text,record,'Picture') },
   { title: fieldLabels.lastUpdateTime, dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
 
 ]
@@ -71,14 +71,14 @@ const renderItemOfList=(product,targetComponent)=>{
 	<div key={product.id}>
 	
 	<DescriptionList  key={product.id} size="small" col="4">
-<Description term="序号">{product.id}</Description> 
-<Description term="名称">{product.name}</Description> 
-<Description term="父类">{product.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${product.parentCategory.displayName}(${product.parentCategory.id})`}
+<Description term="Id">{product.id}</Description> 
+<Description term="Name">{product.name}</Description> 
+<Description term="Parent Category">{product.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${product.parentCategory.displayName}(${product.parentCategory.id})`}
 </Description>
-<Description term="产地">{product.origin}</Description> 
-<Description term="备注">{product.remark}</Description> 
-<Description term="品牌">{product.brand}</Description> 
-<Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Origin">{product.origin}</Description> 
+<Description term="Remark">{product.remark}</Description> 
+<Description term="Brand">{product.brand}</Description> 
+<Description term="Last Update Time">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

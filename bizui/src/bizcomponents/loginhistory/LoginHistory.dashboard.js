@@ -81,13 +81,13 @@ const internalSummaryOf = (loginHistory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{loginHistory.id}</Description> 
-<Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="从IP">{loginHistory.fromIp}</Description> 
-<Description term="描述">{loginHistory.description}</Description> 
-<Description term="SEC的用户">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
+<Description term="Id">{loginHistory.id}</Description> 
+<Description term="Login Time">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
+<Description term="From Ip">{loginHistory.fromIp}</Description> 
+<Description term="Description">{loginHistory.description}</Description> 
+<Description term="Sec User">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"SEC的用户","secUser",LoginHistoryService.requestCandidateSecUser,
+  showTransferModel(targetComponent,"Sec User","secUser",LoginHistoryService.requestCandidateSecUser,
 	      LoginHistoryService.transferToAnotherSecUser,"anotherSecUserId",loginHistory.secUser?loginHistory.secUser.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,7 +128,7 @@ class LoginHistoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"登录历史",cardsFor: "loginHistory",
+    const cardsData = {cardsName:"Login History",cardsFor: "loginHistory",
     	cardsSource: this.props.loginHistory,returnURL,displayName,
   		subItems: [
     

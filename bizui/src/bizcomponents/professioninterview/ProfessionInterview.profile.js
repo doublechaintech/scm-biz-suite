@@ -56,7 +56,7 @@ class ProfessionInterviewProfile extends Component {
     const  professionInterview = this.props.professionInterview;
     const { id,displayName, employeeCount } = professionInterview
 
-    const cardsData = {cardsName:"专业面试",cardsFor: "professionInterview",cardsSource: professionInterview,
+    const cardsData = {cardsName:"Profession Interview",cardsFor: "professionInterview",cardsSource: professionInterview,
   		subItems: [
      
       	],

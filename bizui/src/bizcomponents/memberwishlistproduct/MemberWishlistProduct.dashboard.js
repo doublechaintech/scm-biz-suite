@@ -81,11 +81,11 @@ const internalSummaryOf = (memberWishlistProduct,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberWishlistProduct.id}</Description> 
-<Description term="名称">{memberWishlistProduct.name}</Description> 
-<Description term="业主">{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
+<Description term="Id">{memberWishlistProduct.id}</Description> 
+<Description term="Name">{memberWishlistProduct.name}</Description> 
+<Description term="Owner">{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","memberWishlist",MemberWishlistProductService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","memberWishlist",MemberWishlistProductService.requestCandidateOwner,
 	      MemberWishlistProductService.transferToAnotherOwner,"anotherOwnerId",memberWishlistProduct.owner?memberWishlistProduct.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -126,7 +126,7 @@ class MemberWishlistProductDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员收藏产品",cardsFor: "memberWishlistProduct",
+    const cardsData = {cardsName:"Member Wishlist Product",cardsFor: "memberWishlistProduct",
     	cardsSource: this.props.memberWishlistProduct,returnURL,displayName,
   		subItems: [
     

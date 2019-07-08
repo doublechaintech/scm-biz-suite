@@ -28,12 +28,12 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucher.id}</Description> 
-<Description term="头衔">{originalVoucher.title}</Description> 
-<Description term="由">{originalVoucher.madeBy}</Description> 
-<Description term="受">{originalVoucher.receivedBy}</Description> 
-<Description term="凭证类型">{originalVoucher.voucherType}</Description> 
-<Description term="当前状态">{originalVoucher.currentStatus}</Description> 
+<Description term="Id">{originalVoucher.id}</Description> 
+<Description term="Title">{originalVoucher.title}</Description> 
+<Description term="Made By">{originalVoucher.madeBy}</Description> 
+<Description term="Received By">{originalVoucher.receivedBy}</Description> 
+<Description term="Voucher Type">{originalVoucher.voucherType}</Description> 
+<Description term="Current Status">{originalVoucher.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,7 +59,7 @@ class OriginalVoucherPermission extends Component {
     // eslint-disable-next-line max-len
     const  originalVoucher = this.props.originalVoucher;
     const { id,displayName,  } = originalVoucher
-    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",cardsSource: originalVoucher,
+    const cardsData = {cardsName:"Original Voucher",cardsFor: "originalVoucher",cardsSource: originalVoucher,
   		subItems: [
     
       	],

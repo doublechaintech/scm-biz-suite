@@ -81,19 +81,19 @@ const internalSummaryOf = (damageSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{damageSpace.id}</Description> 
-<Description term="位置">{damageSpace.location}</Description> 
-<Description term="联系电话">{damageSpace.contactNumber}</Description> 
-<Description term="总面积">{damageSpace.totalArea}</Description> 
-<Description term="纬度">{damageSpace.latitude}</Description> 
-<Description term="经度">{damageSpace.longitude}</Description> 
-<Description term="仓库">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
+<Description term="Id">{damageSpace.id}</Description> 
+<Description term="Location">{damageSpace.location}</Description> 
+<Description term="Contact Number">{damageSpace.contactNumber}</Description> 
+<Description term="Total Area">{damageSpace.totalArea}</Description> 
+<Description term="Latitude">{damageSpace.latitude}</Description> 
+<Description term="Longitude">{damageSpace.longitude}</Description> 
+<Description term="Warehouse">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",DamageSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"Warehouse","warehouse",DamageSpaceService.requestCandidateWarehouse,
 	      DamageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",damageSpace.warehouse?damageSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="最后更新时间">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(damageSpace,targetComponent)}
       </DescriptionList>
@@ -131,10 +131,10 @@ class DamageSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",
+    const cardsData = {cardsName:"Damage Space",cardsFor: "damageSpace",
     	cardsSource: this.props.damageSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName:'Goods Shelf',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
   	};

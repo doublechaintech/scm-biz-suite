@@ -56,7 +56,7 @@ class AccountSetProfile extends Component {
     const  accountSet = this.props.accountSet;
     const { id,displayName, accountingSubjectCount, accountingPeriodCount, accountingDocumentTypeCount } = accountSet
 
-    const cardsData = {cardsName:"账套",cardsFor: "accountSet",cardsSource: accountSet,
+    const cardsData = {cardsName:"Account Set",cardsFor: "accountSet",cardsSource: accountSet,
   		subItems: [
      
       	],

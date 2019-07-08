@@ -56,7 +56,7 @@ class SecUserProfile extends Component {
     const  secUser = this.props.secUser;
     const { id,displayName, userAppCount, loginHistoryCount } = secUser
 
-    const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",cardsSource: secUser,
+    const cardsData = {cardsName:"Sec User",cardsFor: "secUser",cardsSource: secUser,
   		subItems: [
      
       	],

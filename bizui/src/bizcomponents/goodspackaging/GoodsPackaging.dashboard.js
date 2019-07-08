@@ -81,11 +81,11 @@ const internalSummaryOf = (goodsPackaging,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsPackaging.id}</Description> 
-<Description term="包的名字">{goodsPackaging.packageName}</Description> 
-<Description term="RFID">{goodsPackaging.rfid}</Description> 
-<Description term="包的时间">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
-<Description term="描述">{goodsPackaging.description}</Description> 
+<Description term="Id">{goodsPackaging.id}</Description> 
+<Description term="Package Name">{goodsPackaging.packageName}</Description> 
+<Description term="Rfid">{goodsPackaging.rfid}</Description> 
+<Description term="Package Time">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{goodsPackaging.description}</Description> 
 	
         {buildTransferModal(goodsPackaging,targetComponent)}
       </DescriptionList>
@@ -123,10 +123,10 @@ class GoodsPackagingDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货物包装",cardsFor: "goodsPackaging",
+    const cardsData = {cardsName:"Goods Packaging",cardsFor: "goodsPackaging",
     	cardsSource: this.props.goodsPackaging,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};

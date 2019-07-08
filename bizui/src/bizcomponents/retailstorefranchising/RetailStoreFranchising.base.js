@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超的特许经营", menuFor: "retailStoreFranchising",
+const menuData = {menuName:"Retail Store Franchising", menuFor: "retailStoreFranchising",
   		subItems: [
-  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  comment: '评论',
+  id: 'Id',
+  comment: 'Comment',
 
 }
 
@@ -59,8 +59,8 @@ const renderItemOfList=(retailStoreFranchising,targetComponent)=>{
 	<div key={retailStoreFranchising.id}>
 	
 	<DescriptionList  key={retailStoreFranchising.id} size="small" col="4">
-<Description term="序号">{retailStoreFranchising.id}</Description> 
-<Description term="评论">{retailStoreFranchising.comment}</Description> 
+<Description term="Id">{retailStoreFranchising.id}</Description> 
+<Description term="Comment">{retailStoreFranchising.comment}</Description> 
 	
         
       </DescriptionList>

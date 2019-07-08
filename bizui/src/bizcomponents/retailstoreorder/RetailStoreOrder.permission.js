@@ -28,11 +28,11 @@ const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrder.id}</Description> 
-<Description term="头衔">{retailStoreOrder.title}</Description> 
-<Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
+<Description term="Id">{retailStoreOrder.id}</Description> 
+<Description term="Title">{retailStoreOrder.title}</Description> 
+<Description term="Total Amount">{retailStoreOrder.totalAmount}</Description> 
+<Description term="Last Update Time">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{retailStoreOrder.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class RetailStoreOrderPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrder = this.props.retailStoreOrder;
     const { id,displayName, retailStoreOrderLineItemCount, retailStoreOrderShippingGroupCount, retailStoreOrderPaymentGroupCount, goodsCount } = retailStoreOrder
-    const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",cardsSource: retailStoreOrder,
+    const cardsData = {cardsName:"Retail Store Order",cardsFor: "retailStoreOrder",cardsSource: retailStoreOrder,
   		subItems: [
     
       	],

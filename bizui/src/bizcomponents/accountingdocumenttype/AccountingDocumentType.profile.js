@@ -56,7 +56,7 @@ class AccountingDocumentTypeProfile extends Component {
     const  accountingDocumentType = this.props.accountingDocumentType;
     const { id,displayName, accountingDocumentCount } = accountingDocumentType
 
-    const cardsData = {cardsName:"会计凭证类型",cardsFor: "accountingDocumentType",cardsSource: accountingDocumentType,
+    const cardsData = {cardsName:"Accounting Document Type",cardsFor: "accountingDocumentType",cardsSource: accountingDocumentType,
   		subItems: [
      
       	],

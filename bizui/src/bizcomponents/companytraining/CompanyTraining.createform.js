@@ -18,11 +18,11 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2019-02-06',
+  timeStart: '2018-10-02',
   durationHours: '3',
-  companyId: 'RSCC00000001',
-  instructorId: 'I00000001',
-  trainingCourseTypeId: 'TCT00000001',
+  companyId: 'RSCC000001',
+  instructorId: 'I000001',
+  trainingCourseTypeId: 'TCT000001',
 }
 */
 
@@ -198,8 +198,8 @@ class CompanyTrainingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}公司培训`}
-        content={`${appLocaleName(userContext,"CreateNew")}公司培训`}
+        title={`${appLocaleName(userContext,"CreateNew")}Company Training`}
+        content={`${appLocaleName(userContext,"CreateNew")}Company Training`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class CompanyTrainingCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class CompanyTrainingCreateForm extends Component {
                   {getFieldDecorator('timeStart', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="时间开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Time Start" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class CompanyTrainingCreateForm extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="持续时间" />
+                    <Input size="large" placeholder="Duration Hours" />
                   )}
                 </Form.Item>
               </Col>

@@ -56,7 +56,7 @@ class RetailStoreOrderPickingProfile extends Component {
     const  retailStoreOrderPicking = this.props.retailStoreOrderPicking;
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderPicking
 
-    const cardsData = {cardsName:"生超订单拣货",cardsFor: "retailStoreOrderPicking",cardsSource: retailStoreOrderPicking,
+    const cardsData = {cardsName:"Retail Store Order Picking",cardsFor: "retailStoreOrderPicking",cardsSource: retailStoreOrderPicking,
   		subItems: [
      
       	],

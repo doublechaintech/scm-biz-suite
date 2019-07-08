@@ -40,7 +40,7 @@ const { Option } = Select
 
 
 const imageList =(sku)=>{return [
-	   {"title":'图片',"imageLocation":sku.picture},
+	   {"title":'Picture',"imageLocation":sku.picture},
 ]}
 
 const internalImageListOf = (sku) =>defaultImageListOf(sku,imageList)
@@ -82,19 +82,19 @@ const internalSummaryOf = (sku,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{sku.id}</Description> 
-<Description term="名称">{sku.name}</Description> 
-<Description term="大小">{sku.size}</Description> 
-<Description term="产品">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
+<Description term="Id">{sku.id}</Description> 
+<Description term="Name">{sku.name}</Description> 
+<Description term="Size">{sku.size}</Description> 
+<Description term="Product">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"产品","product",SkuService.requestCandidateProduct,
+  showTransferModel(targetComponent,"Product","product",SkuService.requestCandidateProduct,
 	      SkuService.transferToAnotherProduct,"anotherProductId",sku.product?sku.product.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="条码">{sku.barcode}</Description> 
-<Description term="包装类型">{sku.packageType}</Description> 
-<Description term="净含量">{sku.netContent}</Description> 
-<Description term="价格">{sku.price}</Description> 
+<Description term="Barcode">{sku.barcode}</Description> 
+<Description term="Package Type">{sku.packageType}</Description> 
+<Description term="Net Content">{sku.netContent}</Description> 
+<Description term="Price">{sku.price}</Description> 
 	
         {buildTransferModal(sku,targetComponent)}
       </DescriptionList>
@@ -132,10 +132,10 @@ class SkuDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"SKU",cardsFor: "sku",
+    const cardsData = {cardsName:"Sku",cardsFor: "sku",
     	cardsSource: this.props.sku,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};

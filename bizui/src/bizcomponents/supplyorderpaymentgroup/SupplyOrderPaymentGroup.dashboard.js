@@ -81,15 +81,15 @@ const internalSummaryOf = (supplyOrderPaymentGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderPaymentGroup.id}</Description> 
-<Description term="名称">{supplyOrderPaymentGroup.name}</Description> 
-<Description term="订单">{supplyOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderPaymentGroup.bizOrder.displayName}(${supplyOrderPaymentGroup.bizOrder.id})`}
+<Description term="Id">{supplyOrderPaymentGroup.id}</Description> 
+<Description term="Name">{supplyOrderPaymentGroup.name}</Description> 
+<Description term="Biz Order">{supplyOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderPaymentGroup.bizOrder.displayName}(${supplyOrderPaymentGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","supplyOrder",SupplyOrderPaymentGroupService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","supplyOrder",SupplyOrderPaymentGroupService.requestCandidateBizOrder,
 	      SupplyOrderPaymentGroupService.transferToAnotherBizOrder,"anotherBizOrderId",supplyOrderPaymentGroup.bizOrder?supplyOrderPaymentGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="卡号码">{supplyOrderPaymentGroup.cardNumber}</Description> 
+<Description term="Card Number">{supplyOrderPaymentGroup.cardNumber}</Description> 
 	
         {buildTransferModal(supplyOrderPaymentGroup,targetComponent)}
       </DescriptionList>
@@ -127,7 +127,7 @@ class SupplyOrderPaymentGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应订单付款组",cardsFor: "supplyOrderPaymentGroup",
+    const cardsData = {cardsName:"Supply Order Payment Group",cardsFor: "supplyOrderPaymentGroup",
     	cardsSource: this.props.supplyOrderPaymentGroup,returnURL,displayName,
   		subItems: [
     

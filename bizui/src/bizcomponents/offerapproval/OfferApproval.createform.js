@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '总经理',
-  approveTime: '2017-07-19',
+  approveTime: '2019-07-06',
   comments: '该员工发展潜力不错，',
 }
 */
@@ -195,8 +195,8 @@ class OfferApprovalCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}审批工作要约`}
-        content={`${appLocaleName(userContext,"CreateNew")}审批工作要约`}
+        title={`${appLocaleName(userContext,"CreateNew")}Offer Approval`}
+        content={`${appLocaleName(userContext,"CreateNew")}Offer Approval`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class OfferApprovalCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class OfferApprovalCreateForm extends Component {
                   {getFieldDecorator('approveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="批准时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Approve Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class OfferApprovalCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comments" />
                   )}
                 </Form.Item>
               </Col>

@@ -56,7 +56,7 @@ class TerminationReasonProfile extends Component {
     const  terminationReason = this.props.terminationReason;
     const { id,displayName, terminationCount } = terminationReason
 
-    const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",cardsSource: terminationReason,
+    const cardsData = {cardsName:"Termination Reason",cardsFor: "terminationReason",cardsSource: terminationReason,
   		subItems: [
      
       	],

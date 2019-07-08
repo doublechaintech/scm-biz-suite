@@ -28,10 +28,10 @@ const internalSummaryOf = (productSupplyDuration,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{productSupplyDuration.id}</Description> 
-<Description term="数量">{productSupplyDuration.quantity}</Description> 
-<Description term="持续时间">{productSupplyDuration.duration}</Description> 
-<Description term="价格">{productSupplyDuration.price}</Description> 
+<Description term="Id">{productSupplyDuration.id}</Description> 
+<Description term="Quantity">{productSupplyDuration.quantity}</Description> 
+<Description term="Duration">{productSupplyDuration.duration}</Description> 
+<Description term="Price">{productSupplyDuration.price}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class ProductSupplyDurationPermission extends Component {
     // eslint-disable-next-line max-len
     const  productSupplyDuration = this.props.productSupplyDuration;
     const { id,displayName,  } = productSupplyDuration
-    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,
+    const cardsData = {cardsName:"Product Supply Duration",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,
   		subItems: [
     
       	],

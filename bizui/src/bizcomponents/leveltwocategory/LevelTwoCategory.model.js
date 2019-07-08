@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/levelTwoCategory/${id}/list/LevelThreeCategoryList/三级分类+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/levelTwoCategory/${id}/list/LevelThreeCategoryList/Level Three Category+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateLevelThreeCategory({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/levelTwoCategory/${id}/list/LevelThreeCategoryList/三级分类列表`, state: newPlayload }
+      const location = { pathname: `/levelTwoCategory/${id}/list/LevelThreeCategoryList/Level Three Category列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextLevelThreeCategoryUpdateRow({ payload }, { call, put }) {

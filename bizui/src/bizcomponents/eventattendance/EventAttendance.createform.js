@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   name: '小超见面会参加信息',
   description: '体会不错，考虑加盟',
-  potentialCustomerId: 'PC00000001',
-  cityEventId: 'CE00000001',
+  potentialCustomerId: 'PC000001',
+  cityEventId: 'CE000001',
 }
 */
 
@@ -196,8 +196,8 @@ class EventAttendanceCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}活动的参与情况`}
-        content={`${appLocaleName(userContext,"CreateNew")}活动的参与情况`}
+        title={`${appLocaleName(userContext,"CreateNew")}Event Attendance`}
+        content={`${appLocaleName(userContext,"CreateNew")}Event Attendance`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class EventAttendanceCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class EventAttendanceCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

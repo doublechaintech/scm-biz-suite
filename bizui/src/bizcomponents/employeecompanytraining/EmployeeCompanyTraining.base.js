@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工参与的公司培训", menuFor: "employeeCompanyTraining",
+const menuData = {menuName:"Employee Company Training", menuFor: "employeeCompanyTraining",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  training: '训练',
-  scoring: '分数',
-  currentStatus: '当前状态',
+  id: 'Id',
+  employee: 'Employee',
+  training: 'Training',
+  scoring: 'Scoring',
+  currentStatus: 'Current Status',
 
 }
 
@@ -64,12 +64,12 @@ const renderItemOfList=(employeeCompanyTraining,targetComponent)=>{
 	<div key={employeeCompanyTraining.id}>
 	
 	<DescriptionList  key={employeeCompanyTraining.id} size="small" col="4">
-<Description term="序号">{employeeCompanyTraining.id}</Description> 
-<Description term="员工">{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
+<Description term="Id">{employeeCompanyTraining.id}</Description> 
+<Description term="Employee">{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
 </Description>
-<Description term="训练">{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
+<Description term="Training">{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
 </Description>
-<Description term="当前状态">{employeeCompanyTraining.currentStatus}</Description> 
+<Description term="Current Status">{employeeCompanyTraining.currentStatus}</Description> 
 	
         
       </DescriptionList>

@@ -81,16 +81,16 @@ const internalSummaryOf = (retailStoreMemberGiftCard,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCard.id}</Description> 
-<Description term="名称">{retailStoreMemberGiftCard.name}</Description> 
-<Description term="业主">{retailStoreMemberGiftCard.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCard.owner.displayName}(${retailStoreMemberGiftCard.owner.id})`}
+<Description term="Id">{retailStoreMemberGiftCard.id}</Description> 
+<Description term="Name">{retailStoreMemberGiftCard.name}</Description> 
+<Description term="Owner">{retailStoreMemberGiftCard.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCard.owner.displayName}(${retailStoreMemberGiftCard.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberGiftCardService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","retailStoreMember",RetailStoreMemberGiftCardService.requestCandidateOwner,
 	      RetailStoreMemberGiftCardService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberGiftCard.owner?retailStoreMemberGiftCard.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="数">{retailStoreMemberGiftCard.number}</Description> 
-<Description term="保持">{retailStoreMemberGiftCard.remain}</Description> 
+<Description term="Number">{retailStoreMemberGiftCard.number}</Description> 
+<Description term="Remain">{retailStoreMemberGiftCard.remain}</Description> 
 	
         {buildTransferModal(retailStoreMemberGiftCard,targetComponent)}
       </DescriptionList>
@@ -128,10 +128,10 @@ class RetailStoreMemberGiftCardDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",
+    const cardsData = {cardsName:"Retail Store Member Gift Card",cardsFor: "retailStoreMemberGiftCard",
     	cardsSource: this.props.retailStoreMemberGiftCard,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardConsumeRecordBase.renderItemOfList},
+{name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'Retail Store Member Gift Card Consume Record',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardConsumeRecordBase.renderItemOfList},
     
       	],
   	};

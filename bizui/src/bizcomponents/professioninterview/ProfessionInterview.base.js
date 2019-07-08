@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"专业面试", menuFor: "professionInterview",
+const menuData = {menuName:"Profession Interview", menuFor: "professionInterview",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  interviewTime: '面试时间',
-  comments: '评论',
+  id: 'Id',
+  who: 'Who',
+  interviewTime: 'Interview Time',
+  comments: 'Comments',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(professionInterview,targetComponent)=>{
 	<div key={professionInterview.id}>
 	
 	<DescriptionList  key={professionInterview.id} size="small" col="4">
-<Description term="序号">{professionInterview.id}</Description> 
-<Description term="谁">{professionInterview.who}</Description> 
-<Description term="面试时间">{ moment(professionInterview.interviewTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{professionInterview.comments}</Description> 
+<Description term="Id">{professionInterview.id}</Description> 
+<Description term="Who">{professionInterview.who}</Description> 
+<Description term="Interview Time">{ moment(professionInterview.interviewTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Comments">{professionInterview.comments}</Description> 
 	
         
       </DescriptionList>

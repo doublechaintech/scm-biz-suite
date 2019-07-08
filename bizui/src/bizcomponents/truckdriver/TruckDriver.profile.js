@@ -56,7 +56,7 @@ class TruckDriverProfile extends Component {
     const  truckDriver = this.props.truckDriver;
     const { id,displayName, transportTaskCount } = truckDriver
 
-    const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",cardsSource: truckDriver,
+    const cardsData = {cardsName:"Truck Driver",cardsFor: "truckDriver",cardsSource: truckDriver,
   		subItems: [
      
       	],

@@ -81,9 +81,9 @@ const internalSummaryOf = (consumerOrderProcessing,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderProcessing.id}</Description> 
-<Description term="谁">{consumerOrderProcessing.who}</Description> 
-<Description term="过程的时间">{ moment(consumerOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{consumerOrderProcessing.id}</Description> 
+<Description term="Who">{consumerOrderProcessing.who}</Description> 
+<Description term="Process Time">{ moment(consumerOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(consumerOrderProcessing,targetComponent)}
       </DescriptionList>
@@ -121,7 +121,7 @@ class ConsumerOrderProcessingDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"消费者的订单处理",cardsFor: "consumerOrderProcessing",
+    const cardsData = {cardsName:"Consumer Order Processing",cardsFor: "consumerOrderProcessing",
     	cardsSource: this.props.consumerOrderProcessing,returnURL,displayName,
   		subItems: [
     

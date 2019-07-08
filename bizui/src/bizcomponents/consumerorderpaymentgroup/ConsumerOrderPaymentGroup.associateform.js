@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '信用卡',
   cardNumber: '4111 1111 1111 - ',
-  bizOrderId: 'CO00000001',
+  bizOrderId: 'CO000001',
 }
 */
 
@@ -139,7 +139,7 @@ class ConsumerOrderPaymentGroupAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class ConsumerOrderPaymentGroupAssociateForm extends Component {
                   {getFieldDecorator('cardNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="卡号码" />
+                    <Input size="large" placeholder="Card Number" />
                   )}
                 </Form.Item>
               </Col>

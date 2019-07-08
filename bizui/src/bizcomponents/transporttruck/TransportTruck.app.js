@@ -167,7 +167,7 @@ class TransportTruckBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "运输任务",
+      name: "Transport Task",
       role: "transportTask",
       data: state._transportTruck.transportTaskList,
       metaInfo: state._transportTruck.transportTaskListMetaInfo,
@@ -273,10 +273,10 @@ class TransportTruckBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

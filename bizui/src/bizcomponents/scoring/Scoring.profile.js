@@ -56,7 +56,7 @@ class ScoringProfile extends Component {
     const  scoring = this.props.scoring;
     const { id,displayName, employeeCompanyTrainingCount } = scoring
 
-    const cardsData = {cardsName:"评分",cardsFor: "scoring",cardsSource: scoring,
+    const cardsData = {cardsName:"Scoring",cardsFor: "scoring",cardsSource: scoring,
   		subItems: [
      
       	],

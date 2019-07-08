@@ -81,15 +81,15 @@ const internalSummaryOf = (retailStoreOrderPaymentGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderPaymentGroup.id}</Description> 
-<Description term="名称">{retailStoreOrderPaymentGroup.name}</Description> 
-<Description term="订单">{retailStoreOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderPaymentGroup.bizOrder.displayName}(${retailStoreOrderPaymentGroup.bizOrder.id})`}
+<Description term="Id">{retailStoreOrderPaymentGroup.id}</Description> 
+<Description term="Name">{retailStoreOrderPaymentGroup.name}</Description> 
+<Description term="Biz Order">{retailStoreOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderPaymentGroup.bizOrder.displayName}(${retailStoreOrderPaymentGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","retailStoreOrder",RetailStoreOrderPaymentGroupService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","retailStoreOrder",RetailStoreOrderPaymentGroupService.requestCandidateBizOrder,
 	      RetailStoreOrderPaymentGroupService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreOrderPaymentGroup.bizOrder?retailStoreOrderPaymentGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="卡号码">{retailStoreOrderPaymentGroup.cardNumber}</Description> 
+<Description term="Card Number">{retailStoreOrderPaymentGroup.cardNumber}</Description> 
 	
         {buildTransferModal(retailStoreOrderPaymentGroup,targetComponent)}
       </DescriptionList>
@@ -127,7 +127,7 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",
+    const cardsData = {cardsName:"Retail Store Order Payment Group",cardsFor: "retailStoreOrderPaymentGroup",
     	cardsSource: this.props.retailStoreOrderPaymentGroup,returnURL,displayName,
   		subItems: [
     

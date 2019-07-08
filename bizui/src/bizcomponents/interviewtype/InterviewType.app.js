@@ -167,7 +167,7 @@ class InterviewTypeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工面试",
+      name: "Employee Interview",
       role: "employeeInterview",
       data: state._interviewType.employeeInterviewList,
       metaInfo: state._interviewType.employeeInterviewListMetaInfo,
@@ -273,10 +273,10 @@ class InterviewTypeBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

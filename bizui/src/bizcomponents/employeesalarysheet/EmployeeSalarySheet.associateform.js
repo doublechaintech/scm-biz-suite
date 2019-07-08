@@ -18,15 +18,15 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2359.78',
-  bonus: '808.02',
-  reward: '717.05',
-  personalTax: '618.70',
-  socialSecurity: '996.41',
-  housingFound: '1136.29',
-  jobInsurance: '8.83',
-  employeeId: 'E00000001',
-  currentSalaryGradeId: 'SG00000001',
+  baseSalary: '2602.25',
+  bonus: '981.99',
+  reward: '837.03',
+  personalTax: '605.31',
+  socialSecurity: '942.30',
+  housingFound: '1204.14',
+  jobInsurance: '8.88',
+  employeeId: 'E000001',
+  currentSalaryGradeId: 'SG000001',
 }
 */
 
@@ -145,7 +145,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('baseSalary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="基本工资" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Base Salary" />
                   )}
                 </Form.Item>
               </Col>
@@ -155,7 +155,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('bonus', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖金" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Bonus" />
                   )}
                 </Form.Item>
               </Col>
@@ -165,7 +165,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('reward', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖励" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Reward" />
                   )}
                 </Form.Item>
               </Col>
@@ -175,7 +175,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('personalTax', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="个人所得税" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Personal Tax" />
                   )}
                 </Form.Item>
               </Col>
@@ -185,7 +185,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('socialSecurity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="社会保险" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Social Security" />
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +195,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('housingFound', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="住房公积金" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Housing Found" />
                   )}
                 </Form.Item>
               </Col>
@@ -205,7 +205,7 @@ class EmployeeSalarySheetAssociateForm extends Component {
                   {getFieldDecorator('jobInsurance', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="失业保险" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Job Insurance" />
                   )}
                 </Form.Item>
               </Col>

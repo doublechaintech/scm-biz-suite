@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"雇佣终止类型", menuFor: "terminationType",
+const menuData = {menuName:"Termination Type", menuFor: "terminationType",
   		subItems: [
-  {name: 'terminationList', displayName:'雇佣终止', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'terminationList', displayName:'Termination', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  baseDescription: '基本描述',
-  detailDescription: '详细描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  baseDescription: 'Base Description',
+  detailDescription: 'Detail Description',
 
 }
 
@@ -65,10 +65,10 @@ const renderItemOfList=(terminationType,targetComponent)=>{
 	<div key={terminationType.id}>
 	
 	<DescriptionList  key={terminationType.id} size="small" col="4">
-<Description term="序号">{terminationType.id}</Description> 
-<Description term="代码">{terminationType.code}</Description> 
-<Description term="基本描述">{terminationType.baseDescription}</Description> 
-<Description term="详细描述">{terminationType.detailDescription}</Description> 
+<Description term="Id">{terminationType.id}</Description> 
+<Description term="Code">{terminationType.code}</Description> 
+<Description term="Base Description">{terminationType.baseDescription}</Description> 
+<Description term="Detail Description">{terminationType.detailDescription}</Description> 
 	
         
       </DescriptionList>

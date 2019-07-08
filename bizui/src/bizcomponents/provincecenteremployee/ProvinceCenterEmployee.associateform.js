@@ -21,9 +21,9 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2018-09-10',
-  departmentId: 'PCD00000001',
-  provinceCenterId: 'RSPC00000001',
+  founded: '2016-08-05',
+  departmentId: 'PCD000001',
+  provinceCenterId: 'RSPC000001',
 }
 */
 
@@ -142,7 +142,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large" placeholder="Mobile" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large" placeholder="Email" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
                   )}
                 </Form.Item>
               </Col>

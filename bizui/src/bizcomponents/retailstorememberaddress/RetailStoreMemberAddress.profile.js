@@ -56,7 +56,7 @@ class RetailStoreMemberAddressProfile extends Component {
     const  retailStoreMemberAddress = this.props.retailStoreMemberAddress;
     const { id,displayName,  } = retailStoreMemberAddress
 
-    const cardsData = {cardsName:"零售店会员地址",cardsFor: "retailStoreMemberAddress",cardsSource: retailStoreMemberAddress,
+    const cardsData = {cardsName:"Retail Store Member Address",cardsFor: "retailStoreMemberAddress",cardsSource: retailStoreMemberAddress,
   		subItems: [
      
       	],

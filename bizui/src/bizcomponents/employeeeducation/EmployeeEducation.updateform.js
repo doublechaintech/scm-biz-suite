@@ -262,7 +262,7 @@ class EmployeeEducationUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class EmployeeEducationUpdateForm extends Component {
                     initialValue: selectedRow.completeTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="完成时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Complete Time" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class EmployeeEducationUpdateForm extends Component {
                     initialValue: selectedRow.type,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="类型" />
+                    <Input size="large" placeholder="Type" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class EmployeeEducationUpdateForm extends Component {
                     initialValue: selectedRow.remark,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large" placeholder="Remark" />
                     
                   )}
                 </Form.Item>

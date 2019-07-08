@@ -21,9 +21,9 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '949847.19',
-  belongsToId: 'AD00000001',
-  accountingSubjectId: 'AS00000001',
+  amount: '890271.00',
+  belongsToId: 'AD000001',
+  accountingSubjectId: 'AS000001',
 }
 */
 
@@ -142,7 +142,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large" placeholder="Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('direct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="直接" />
+                    <Input size="large" placeholder="Direct" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
                   )}
                 </Form.Item>
               </Col>

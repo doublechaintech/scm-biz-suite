@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会计文件的创建", menuFor: "accountingDocumentCreation",
+const menuData = {menuName:"Accounting Document Creation", menuFor: "accountingDocumentCreation",
   		subItems: [
-  {name: 'accountingDocumentList', displayName:'会计凭证', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingDocumentList', displayName:'Accounting Document', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  comments: '评论',
-  makeDate: '制造日期',
+  id: 'Id',
+  who: 'Who',
+  comments: 'Comments',
+  makeDate: 'Make Date',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(accountingDocumentCreation,targetComponent)=>{
 	<div key={accountingDocumentCreation.id}>
 	
 	<DescriptionList  key={accountingDocumentCreation.id} size="small" col="4">
-<Description term="序号">{accountingDocumentCreation.id}</Description> 
-<Description term="谁">{accountingDocumentCreation.who}</Description> 
-<Description term="评论">{accountingDocumentCreation.comments}</Description> 
-<Description term="制造日期">{ moment(accountingDocumentCreation.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{accountingDocumentCreation.id}</Description> 
+<Description term="Who">{accountingDocumentCreation.who}</Description> 
+<Description term="Comments">{accountingDocumentCreation.comments}</Description> 
+<Description term="Make Date">{ moment(accountingDocumentCreation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

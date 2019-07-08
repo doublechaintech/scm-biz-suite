@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工面试", menuFor: "employeeInterview",
+const menuData = {menuName:"Employee Interview", menuFor: "employeeInterview",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  interviewType: '面试类型',
-  remark: '备注',
+  id: 'Id',
+  employee: 'Employee',
+  interviewType: 'Interview Type',
+  remark: 'Remark',
 
 }
 
@@ -62,12 +62,12 @@ const renderItemOfList=(employeeInterview,targetComponent)=>{
 	<div key={employeeInterview.id}>
 	
 	<DescriptionList  key={employeeInterview.id} size="small" col="4">
-<Description term="序号">{employeeInterview.id}</Description> 
-<Description term="员工">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
+<Description term="Id">{employeeInterview.id}</Description> 
+<Description term="Employee">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
 </Description>
-<Description term="面试类型">{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.interviewType.displayName}(${employeeInterview.interviewType.id})`}
+<Description term="Interview Type">{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.interviewType.displayName}(${employeeInterview.interviewType.id})`}
 </Description>
-<Description term="备注">{employeeInterview.remark}</Description> 
+<Description term="Remark">{employeeInterview.remark}</Description> 
 	
         
       </DescriptionList>

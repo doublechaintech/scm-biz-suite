@@ -28,10 +28,10 @@ const internalSummaryOf = (terminationType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{terminationType.id}</Description> 
-<Description term="代码">{terminationType.code}</Description> 
-<Description term="基本描述">{terminationType.baseDescription}</Description> 
-<Description term="详细描述">{terminationType.detailDescription}</Description> 
+<Description term="Id">{terminationType.id}</Description> 
+<Description term="Code">{terminationType.code}</Description> 
+<Description term="Base Description">{terminationType.baseDescription}</Description> 
+<Description term="Detail Description">{terminationType.detailDescription}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class TerminationTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  terminationType = this.props.terminationType;
     const { id,displayName, terminationCount } = terminationType
-    const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",cardsSource: terminationType,
+    const cardsData = {cardsName:"Termination Type",cardsFor: "terminationType",cardsSource: terminationType,
   		subItems: [
     
       	],

@@ -56,7 +56,7 @@ class AccountingDocumentLineProfile extends Component {
     const  accountingDocumentLine = this.props.accountingDocumentLine;
     const { id,displayName,  } = accountingDocumentLine
 
-    const cardsData = {cardsName:"会计凭证行",cardsFor: "accountingDocumentLine",cardsSource: accountingDocumentLine,
+    const cardsData = {cardsName:"Accounting Document Line",cardsFor: "accountingDocumentLine",cardsSource: accountingDocumentLine,
   		subItems: [
      
       	],

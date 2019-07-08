@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/goodsShelf/${id}/list/GoodsShelfStockCountList/货架库存盘点+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsShelfStockCountList/Goods Shelf Stock Count+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoodsShelfStockCount({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/goodsShelf/${id}/list/GoodsShelfStockCountList/货架库存盘点列表`, state: newPlayload }
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsShelfStockCountList/Goods Shelf Stock Count列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsShelfStockCountUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/goodsShelf/${id}/list/GoodsAllocationList/货位+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsAllocationList/Goods Allocation+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoodsAllocation({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/goodsShelf/${id}/list/GoodsAllocationList/货位列表`, state: newPlayload }
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsAllocationList/Goods Allocation列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsAllocationUpdateRow({ payload }, { call, put }) {

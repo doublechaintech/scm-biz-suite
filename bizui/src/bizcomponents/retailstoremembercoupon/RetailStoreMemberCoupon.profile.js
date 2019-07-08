@@ -56,7 +56,7 @@ class RetailStoreMemberCouponProfile extends Component {
     const  retailStoreMemberCoupon = this.props.retailStoreMemberCoupon;
     const { id,displayName,  } = retailStoreMemberCoupon
 
-    const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",cardsSource: retailStoreMemberCoupon,
+    const cardsData = {cardsName:"Retail Store Member Coupon",cardsFor: "retailStoreMemberCoupon",cardsSource: retailStoreMemberCoupon,
   		subItems: [
      
       	],

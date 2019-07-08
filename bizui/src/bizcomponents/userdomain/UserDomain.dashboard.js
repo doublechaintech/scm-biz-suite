@@ -81,8 +81,8 @@ const internalSummaryOf = (userDomain,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{userDomain.id}</Description> 
-<Description term="名称">{userDomain.name}</Description> 
+<Description term="Id">{userDomain.id}</Description> 
+<Description term="Name">{userDomain.name}</Description> 
 	
         {buildTransferModal(userDomain,targetComponent)}
       </DescriptionList>
@@ -120,10 +120,10 @@ class UserDomainDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"用户域",cardsFor: "userDomain",
+    const cardsData = {cardsName:"User Domain",cardsFor: "userDomain",
     	cardsSource: this.props.userDomain,returnURL,displayName,
   		subItems: [
-{name: 'secUserList', displayName:'SEC的用户',type:'secUser',count:secUserCount,addFunction: true, role: 'secUser', metaInfo: secUserListMetaInfo, renderItem: GlobalComponents.SecUserBase.renderItemOfList},
+{name: 'secUserList', displayName:'Sec User',type:'secUser',count:secUserCount,addFunction: true, role: 'secUser', metaInfo: secUserListMetaInfo, renderItem: GlobalComponents.SecUserBase.renderItemOfList},
     
       	],
   	};

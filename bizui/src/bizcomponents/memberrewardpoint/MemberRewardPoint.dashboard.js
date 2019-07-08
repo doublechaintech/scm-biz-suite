@@ -81,12 +81,12 @@ const internalSummaryOf = (memberRewardPoint,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberRewardPoint.id}</Description> 
-<Description term="名称">{memberRewardPoint.name}</Description> 
-<Description term="点">{memberRewardPoint.point}</Description> 
-<Description term="业主">{memberRewardPoint.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPoint.owner.displayName}(${memberRewardPoint.owner.id})`}
+<Description term="Id">{memberRewardPoint.id}</Description> 
+<Description term="Name">{memberRewardPoint.name}</Description> 
+<Description term="Point">{memberRewardPoint.point}</Description> 
+<Description term="Owner">{memberRewardPoint.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPoint.owner.displayName}(${memberRewardPoint.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",MemberRewardPointService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","retailStoreMember",MemberRewardPointService.requestCandidateOwner,
 	      MemberRewardPointService.transferToAnotherOwner,"anotherOwnerId",memberRewardPoint.owner?memberRewardPoint.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -127,7 +127,7 @@ class MemberRewardPointDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员奖励点",cardsFor: "memberRewardPoint",
+    const cardsData = {cardsName:"Member Reward Point",cardsFor: "memberRewardPoint",
     	cardsSource: this.props.memberRewardPoint,returnURL,displayName,
   		subItems: [
     

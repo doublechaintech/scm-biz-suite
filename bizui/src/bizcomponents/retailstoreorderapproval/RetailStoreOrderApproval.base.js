@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超订单批准", menuFor: "retailStoreOrderApproval",
+const menuData = {menuName:"Retail Store Order Approval", menuFor: "retailStoreOrderApproval",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  approveTime: '批准时间',
+  id: 'Id',
+  who: 'Who',
+  approveTime: 'Approve Time',
 
 }
 
@@ -61,9 +61,9 @@ const renderItemOfList=(retailStoreOrderApproval,targetComponent)=>{
 	<div key={retailStoreOrderApproval.id}>
 	
 	<DescriptionList  key={retailStoreOrderApproval.id} size="small" col="4">
-<Description term="序号">{retailStoreOrderApproval.id}</Description> 
-<Description term="谁">{retailStoreOrderApproval.who}</Description> 
-<Description term="批准时间">{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreOrderApproval.id}</Description> 
+<Description term="Who">{retailStoreOrderApproval.who}</Description> 
+<Description term="Approve Time">{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

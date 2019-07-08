@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"面试类型", menuFor: "interviewType",
+const menuData = {menuName:"Interview Type", menuFor: "interviewType",
   		subItems: [
-  {name: 'employeeInterviewList', displayName:'员工面试', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeInterviewList', displayName:'Employee Interview', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  description: '描述',
-  detailDescription: '详细描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  description: 'Description',
+  detailDescription: 'Detail Description',
 
 }
 
@@ -65,10 +65,10 @@ const renderItemOfList=(interviewType,targetComponent)=>{
 	<div key={interviewType.id}>
 	
 	<DescriptionList  key={interviewType.id} size="small" col="4">
-<Description term="序号">{interviewType.id}</Description> 
-<Description term="代码">{interviewType.code}</Description> 
-<Description term="描述">{interviewType.description}</Description> 
-<Description term="详细描述">{interviewType.detailDescription}</Description> 
+<Description term="Id">{interviewType.id}</Description> 
+<Description term="Code">{interviewType.code}</Description> 
+<Description term="Description">{interviewType.description}</Description> 
+<Description term="Detail Description">{interviewType.detailDescription}</Description> 
 	
         
       </DescriptionList>

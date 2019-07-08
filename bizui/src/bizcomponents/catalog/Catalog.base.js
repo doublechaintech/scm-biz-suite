@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"目录", menuFor: "catalog",
+const menuData = {menuName:"Catalog", menuFor: "catalog",
   		subItems: [
-  {name: 'levelOneCategoryList', displayName:'一级分类', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'levelOneCategoryList', displayName:'Level One Category', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  owner: '业主',
+  id: 'Id',
+  name: 'Name',
+  owner: 'Owner',
 
 }
 
@@ -61,8 +61,8 @@ const renderItemOfList=(catalog,targetComponent)=>{
 	<div key={catalog.id}>
 	
 	<DescriptionList  key={catalog.id} size="small" col="4">
-<Description term="序号">{catalog.id}</Description> 
-<Description term="名称">{catalog.name}</Description> 
+<Description term="Id">{catalog.id}</Description> 
+<Description term="Name">{catalog.name}</Description> 
 	
         
       </DescriptionList>

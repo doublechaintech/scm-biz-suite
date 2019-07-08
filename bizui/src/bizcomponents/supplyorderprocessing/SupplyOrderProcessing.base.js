@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"供应订单处理", menuFor: "supplyOrderProcessing",
+const menuData = {menuName:"Supply Order Processing", menuFor: "supplyOrderProcessing",
   		subItems: [
-  {name: 'consumerOrderList', displayName:'消费者订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderList', displayName:'Consumer Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  processTime: '过程的时间',
+  id: 'Id',
+  who: 'Who',
+  processTime: 'Process Time',
 
 }
 
@@ -62,9 +62,9 @@ const renderItemOfList=(supplyOrderProcessing,targetComponent)=>{
 	<div key={supplyOrderProcessing.id}>
 	
 	<DescriptionList  key={supplyOrderProcessing.id} size="small" col="4">
-<Description term="序号">{supplyOrderProcessing.id}</Description> 
-<Description term="谁">{supplyOrderProcessing.who}</Description> 
-<Description term="过程的时间">{ moment(supplyOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{supplyOrderProcessing.id}</Description> 
+<Description term="Who">{supplyOrderProcessing.who}</Description> 
+<Description term="Process Time">{ moment(supplyOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

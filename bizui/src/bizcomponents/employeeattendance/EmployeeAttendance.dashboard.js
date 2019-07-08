@@ -81,17 +81,17 @@ const internalSummaryOf = (employeeAttendance,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeAttendance.id}</Description> 
-<Description term="员工">{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
+<Description term="Id">{employeeAttendance.id}</Description> 
+<Description term="Employee">{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeAttendanceService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeAttendanceService.requestCandidateEmployee,
 	      EmployeeAttendanceService.transferToAnotherEmployee,"anotherEmployeeId",employeeAttendance.employee?employeeAttendance.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="进入时间">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
-<Description term="离开的时候">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="持续时间">{employeeAttendance.durationHours}</Description> 
-<Description term="备注">{employeeAttendance.remark}</Description> 
+<Description term="Enter Time">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Leave Time">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Duration Hours">{employeeAttendance.durationHours}</Description> 
+<Description term="Remark">{employeeAttendance.remark}</Description> 
 	
         {buildTransferModal(employeeAttendance,targetComponent)}
       </DescriptionList>
@@ -129,7 +129,7 @@ class EmployeeAttendanceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工考勤",cardsFor: "employeeAttendance",
+    const cardsData = {cardsName:"Employee Attendance",cardsFor: "employeeAttendance",
     	cardsSource: this.props.employeeAttendance,returnURL,displayName,
   		subItems: [
     

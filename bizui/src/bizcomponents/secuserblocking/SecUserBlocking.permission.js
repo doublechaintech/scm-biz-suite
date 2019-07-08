@@ -28,10 +28,10 @@ const internalSummaryOf = (secUserBlocking,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{secUserBlocking.id}</Description> 
-<Description term="谁">{secUserBlocking.who}</Description> 
-<Description term="块时间">{ moment(secUserBlocking.blockTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{secUserBlocking.comments}</Description> 
+<Description term="Id">{secUserBlocking.id}</Description> 
+<Description term="Who">{secUserBlocking.who}</Description> 
+<Description term="Block Time">{ moment(secUserBlocking.blockTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Comments">{secUserBlocking.comments}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class SecUserBlockingPermission extends Component {
     // eslint-disable-next-line max-len
     const  secUserBlocking = this.props.secUserBlocking;
     const { id,displayName, secUserCount } = secUserBlocking
-    const cardsData = {cardsName:"用户屏蔽",cardsFor: "secUserBlocking",cardsSource: secUserBlocking,
+    const cardsData = {cardsName:"Sec User Blocking",cardsFor: "secUserBlocking",cardsSource: secUserBlocking,
   		subItems: [
     
       	],

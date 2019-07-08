@@ -56,7 +56,7 @@ class SkuProfile extends Component {
     const  sku = this.props.sku;
     const { id,displayName, goodsCount } = sku
 
-    const cardsData = {cardsName:"SKU",cardsFor: "sku",cardsSource: sku,
+    const cardsData = {cardsName:"Sku",cardsFor: "sku",cardsSource: sku,
   		subItems: [
      
       	],

@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"培训课程类型", menuFor: "trainingCourseType",
+const menuData = {menuName:"Training Course Type", menuFor: "trainingCourseType",
   		subItems: [
-  {name: 'companyTrainingList', displayName:'公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'companyTrainingList', displayName:'Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  name: '名称',
-  description: '描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  name: 'Name',
+  description: 'Description',
 
 }
 
@@ -65,10 +65,10 @@ const renderItemOfList=(trainingCourseType,targetComponent)=>{
 	<div key={trainingCourseType.id}>
 	
 	<DescriptionList  key={trainingCourseType.id} size="small" col="4">
-<Description term="序号">{trainingCourseType.id}</Description> 
-<Description term="代码">{trainingCourseType.code}</Description> 
-<Description term="名称">{trainingCourseType.name}</Description> 
-<Description term="描述">{trainingCourseType.description}</Description> 
+<Description term="Id">{trainingCourseType.id}</Description> 
+<Description term="Code">{trainingCourseType.code}</Description> 
+<Description term="Name">{trainingCourseType.name}</Description> 
+<Description term="Description">{trainingCourseType.description}</Description> 
 	
         
       </DescriptionList>
