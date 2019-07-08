@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   userIdentity: 'clariones',
   userSpecialFunctions: 'tester;ios-spokesperson',
-  domainId: 'UD00000001',
+  domainId: 'UD000001',
 }
 */
 
@@ -139,7 +139,7 @@ class UserWhiteListAssociateForm extends Component {
                   {getFieldDecorator('userIdentity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="用户身份" />
+                    <Input size="large" placeholder="User Identity" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class UserWhiteListAssociateForm extends Component {
                   {getFieldDecorator('userSpecialFunctions', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="用户特殊功能" />
+                    <Input size="large" placeholder="User Special Functions" />
                   )}
                 </Form.Item>
               </Col>

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   performanceComment: '绩效大大的不错',
-  employeeId: 'E00000001',
+  employeeId: 'E000001',
 }
 */
 
@@ -138,7 +138,7 @@ class EmployeePerformanceAssociateForm extends Component {
                   {getFieldDecorator('performanceComment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="绩效评价" />
+                    <Input size="large" placeholder="Performance Comment" />
                   )}
                 </Form.Item>
               </Col>

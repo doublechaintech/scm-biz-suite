@@ -81,13 +81,13 @@ const internalSummaryOf = (transportTaskTrack,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTaskTrack.id}</Description> 
-<Description term="跟踪时间">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
-<Description term="纬度">{transportTaskTrack.latitude}</Description> 
-<Description term="经度">{transportTaskTrack.longitude}</Description> 
-<Description term="运动">{transportTaskTrack.movement==null?appLocaleName(userContext,"NotAssigned"):`${transportTaskTrack.movement.displayName}(${transportTaskTrack.movement.id})`}
+<Description term="Id">{transportTaskTrack.id}</Description> 
+<Description term="Track Time">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{transportTaskTrack.latitude}</Description> 
+<Description term="Longitude">{transportTaskTrack.longitude}</Description> 
+<Description term="Movement">{transportTaskTrack.movement==null?appLocaleName(userContext,"NotAssigned"):`${transportTaskTrack.movement.displayName}(${transportTaskTrack.movement.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"运动","transportTask",TransportTaskTrackService.requestCandidateMovement,
+  showTransferModel(targetComponent,"Movement","transportTask",TransportTaskTrackService.requestCandidateMovement,
 	      TransportTaskTrackService.transferToAnotherMovement,"anotherMovementId",transportTaskTrack.movement?transportTaskTrack.movement.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,7 +128,7 @@ class TransportTaskTrackDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",
+    const cardsData = {cardsName:"Transport Task Track",cardsFor: "transportTaskTrack",
     	cardsSource: this.props.transportTaskTrack,returnURL,displayName,
   		subItems: [
     

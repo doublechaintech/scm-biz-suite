@@ -76,7 +76,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public SmartPallet load(String id,Map<String,Object> options) throws Exception{
@@ -382,7 +382,7 @@ public class SmartPalletJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//SmartPallet.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("智能托盘");
+		lastUpdateTimeStatsItem.setDisplayName("Smart Pallet");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SmartPallet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SmartPallet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

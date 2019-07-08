@@ -56,7 +56,7 @@ class TerminationTypeProfile extends Component {
     const  terminationType = this.props.terminationType;
     const { id,displayName, terminationCount } = terminationType
 
-    const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",cardsSource: terminationType,
+    const cardsData = {cardsName:"Termination Type",cardsFor: "terminationType",cardsSource: terminationType,
   		subItems: [
      
       	],

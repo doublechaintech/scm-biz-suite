@@ -55,7 +55,7 @@ public class FormFieldJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public FormField load(String id,Map<String,Object> options) throws Exception{

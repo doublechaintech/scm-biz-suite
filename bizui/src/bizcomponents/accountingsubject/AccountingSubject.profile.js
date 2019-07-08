@@ -56,7 +56,7 @@ class AccountingSubjectProfile extends Component {
     const  accountingSubject = this.props.accountingSubject;
     const { id,displayName, accountingDocumentLineCount } = accountingSubject
 
-    const cardsData = {cardsName:"会计科目",cardsFor: "accountingSubject",cardsSource: accountingSubject,
+    const cardsData = {cardsName:"Accounting Subject",cardsFor: "accountingSubject",cardsSource: accountingSubject,
   		subItems: [
      
       	],

@@ -24,7 +24,7 @@ const testValues = {
   cellPhone: '18699990000',
   email: 'instructor@gmail.com',
   introduction: '这是一个长长长长长长长长的介绍',
-  companyId: 'RSCC00000001',
+  companyId: 'RSCC000001',
 }
 */
 
@@ -144,7 +144,7 @@ class InstructorAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +154,7 @@ class InstructorAssociateForm extends Component {
                   {getFieldDecorator('familyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="姓" />
+                    <Input size="large" placeholder="Family Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -164,7 +164,7 @@ class InstructorAssociateForm extends Component {
                   {getFieldDecorator('givenName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名" />
+                    <Input size="large" placeholder="Given Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -174,7 +174,7 @@ class InstructorAssociateForm extends Component {
                   {getFieldDecorator('cellPhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large" placeholder="Cell Phone" />
                   )}
                 </Form.Item>
               </Col>
@@ -184,7 +184,7 @@ class InstructorAssociateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large" placeholder="Email" />
                   )}
                 </Form.Item>
               </Col>
@@ -194,7 +194,7 @@ class InstructorAssociateForm extends Component {
                   {getFieldDecorator('introduction', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="介绍" />
+                    <Input size="large" placeholder="Introduction" />
                   )}
                 </Form.Item>
               </Col>

@@ -28,10 +28,10 @@ const internalSummaryOf = (occupationType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{occupationType.id}</Description> 
-<Description term="代码">{occupationType.code}</Description> 
-<Description term="描述">{occupationType.description}</Description> 
-<Description term="详细描述">{occupationType.detailDescription}</Description> 
+<Description term="Id">{occupationType.id}</Description> 
+<Description term="Code">{occupationType.code}</Description> 
+<Description term="Description">{occupationType.description}</Description> 
+<Description term="Detail Description">{occupationType.detailDescription}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class OccupationTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  occupationType = this.props.occupationType;
     const { id,displayName, employeeCount } = occupationType
-    const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",cardsSource: occupationType,
+    const cardsData = {cardsName:"Occupation Type",cardsFor: "occupationType",cardsSource: occupationType,
   		subItems: [
     
       	],

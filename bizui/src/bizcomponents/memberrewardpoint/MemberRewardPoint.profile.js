@@ -56,7 +56,7 @@ class MemberRewardPointProfile extends Component {
     const  memberRewardPoint = this.props.memberRewardPoint;
     const { id,displayName,  } = memberRewardPoint
 
-    const cardsData = {cardsName:"会员奖励点",cardsFor: "memberRewardPoint",cardsSource: memberRewardPoint,
+    const cardsData = {cardsName:"Member Reward Point",cardsFor: "memberRewardPoint",cardsSource: memberRewardPoint,
   		subItems: [
      
       	],

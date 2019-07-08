@@ -30,20 +30,20 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会计科目", menuFor: "accountingSubject",
+const menuData = {menuName:"Accounting Subject", menuFor: "accountingSubject",
   		subItems: [
-  {name: 'accountingDocumentLineList', displayName:'会计凭证行', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingDocumentLineList', displayName:'Accounting Document Line', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  accountingSubjectCode: '会计科目代码',
-  accountingSubjectName: '会计科目名称',
-  accountingSubjectClassCode: '会计科目类别代码',
-  accountingSubjectClassName: '会计科目类别名称',
-  accountSet: '账套',
+  id: 'Id',
+  accountingSubjectCode: 'Accounting Subject Code',
+  accountingSubjectName: 'Accounting Subject Name',
+  accountingSubjectClassCode: 'Accounting Subject Class Code',
+  accountingSubjectClassName: 'Accounting Subject Class Name',
+  accountSet: 'Account Set',
 
 }
 
@@ -67,12 +67,12 @@ const renderItemOfList=(accountingSubject,targetComponent)=>{
 	<div key={accountingSubject.id}>
 	
 	<DescriptionList  key={accountingSubject.id} size="small" col="4">
-<Description term="序号">{accountingSubject.id}</Description> 
-<Description term="会计科目代码">{accountingSubject.accountingSubjectCode}</Description> 
-<Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
-<Description term="会计科目类别代码">{accountingSubject.accountingSubjectClassCode}</Description> 
-<Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
-<Description term="账套">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
+<Description term="Id">{accountingSubject.id}</Description> 
+<Description term="Accounting Subject Code">{accountingSubject.accountingSubjectCode}</Description> 
+<Description term="Accounting Subject Name">{accountingSubject.accountingSubjectName}</Description> 
+<Description term="Accounting Subject Class Code">{accountingSubject.accountingSubjectClassCode}</Description> 
+<Description term="Accounting Subject Class Name">{accountingSubject.accountingSubjectClassName}</Description> 
+<Description term="Account Set">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
 </Description>
 	
         

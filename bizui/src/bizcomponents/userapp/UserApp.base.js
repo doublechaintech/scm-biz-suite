@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"用户应用程序", menuFor: "userApp",
+const menuData = {menuName:"User App", menuFor: "userApp",
   		subItems: [
-  {name: 'listAccessList', displayName:'访问列表', icon:'list',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'objectAccessList', displayName:'对象访问', icon:'accessible-icon',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'listAccessList', displayName:'List Access', icon:'list',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'objectAccessList', displayName:'Object Access', icon:'accessible-icon',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  title: '头衔',
-  secUser: 'SEC的用户',
-  appIcon: '应用程序图标',
-  fullAccess: '完全访问',
-  permission: '许可',
-  objectType: '对象类型',
-  objectId: '对象ID',
-  location: '位置',
+  id: 'Id',
+  title: 'Title',
+  secUser: 'Sec User',
+  appIcon: 'App Icon',
+  fullAccess: 'Full Access',
+  permission: 'Permission',
+  objectType: 'Object Type',
+  objectId: 'Object Id',
+  location: 'Location',
 
 }
 
@@ -74,15 +74,15 @@ const renderItemOfList=(userApp,targetComponent)=>{
 	<div key={userApp.id}>
 	
 	<DescriptionList  key={userApp.id} size="small" col="4">
-<Description term="序号">{userApp.id}</Description> 
-<Description term="头衔">{userApp.title}</Description> 
-<Description term="SEC的用户">{userApp.secUser==null?appLocaleName(userContext,"NotAssigned"):`${userApp.secUser.displayName}(${userApp.secUser.id})`}
+<Description term="Id">{userApp.id}</Description> 
+<Description term="Title">{userApp.title}</Description> 
+<Description term="Sec User">{userApp.secUser==null?appLocaleName(userContext,"NotAssigned"):`${userApp.secUser.displayName}(${userApp.secUser.id})`}
 </Description>
-<Description term="应用程序图标">{userApp.appIcon}</Description> 
-<Description term="许可">{userApp.permission}</Description> 
-<Description term="对象类型">{userApp.objectType}</Description> 
-<Description term="对象ID">{userApp.objectId}</Description> 
-<Description term="位置">{userApp.location}</Description> 
+<Description term="App Icon">{userApp.appIcon}</Description> 
+<Description term="Permission">{userApp.permission}</Description> 
+<Description term="Object Type">{userApp.objectType}</Description> 
+<Description term="Object Id">{userApp.objectId}</Description> 
+<Description term="Location">{userApp.location}</Description> 
 	
         
       </DescriptionList>

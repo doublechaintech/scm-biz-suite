@@ -118,7 +118,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public TransportFleet load(String id,Map<String,Object> options) throws Exception{
@@ -582,7 +582,7 @@ public class TransportFleetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//TransportFleet.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("运输车队");
+		lastUpdateTimeStatsItem.setDisplayName("Transport Fleet");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(TransportFleet.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(TransportFleet.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

@@ -56,7 +56,7 @@ class ProvinceCenterDepartmentProfile extends Component {
     const  provinceCenterDepartment = this.props.provinceCenterDepartment;
     const { id,displayName, provinceCenterEmployeeCount } = provinceCenterDepartment
 
-    const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",cardsSource: provinceCenterDepartment,
+    const cardsData = {cardsName:"Province Center Department",cardsFor: "provinceCenterDepartment",cardsSource: provinceCenterDepartment,
   		subItems: [
      
       	],

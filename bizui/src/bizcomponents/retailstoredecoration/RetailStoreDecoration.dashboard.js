@@ -81,8 +81,8 @@ const internalSummaryOf = (retailStoreDecoration,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreDecoration.id}</Description> 
-<Description term="评论">{retailStoreDecoration.comment}</Description> 
+<Description term="Id">{retailStoreDecoration.id}</Description> 
+<Description term="Comment">{retailStoreDecoration.comment}</Description> 
 	
         {buildTransferModal(retailStoreDecoration,targetComponent)}
       </DescriptionList>
@@ -120,10 +120,10 @@ class RetailStoreDecorationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超装修",cardsFor: "retailStoreDecoration",
+    const cardsData = {cardsName:"Retail Store Decoration",cardsFor: "retailStoreDecoration",
     	cardsSource: this.props.retailStoreDecoration,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
+{name: 'retailStoreList', displayName:'Retail Store',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
     
       	],
   	};

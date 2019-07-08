@@ -28,10 +28,10 @@ const internalSummaryOf = (responsibilityType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{responsibilityType.id}</Description> 
-<Description term="代码">{responsibilityType.code}</Description> 
-<Description term="基本描述">{responsibilityType.baseDescription}</Description> 
-<Description term="详细描述">{responsibilityType.detailDescription}</Description> 
+<Description term="Id">{responsibilityType.id}</Description> 
+<Description term="Code">{responsibilityType.code}</Description> 
+<Description term="Base Description">{responsibilityType.baseDescription}</Description> 
+<Description term="Detail Description">{responsibilityType.detailDescription}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class ResponsibilityTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  responsibilityType = this.props.responsibilityType;
     const { id,displayName, employeeCount } = responsibilityType
-    const cardsData = {cardsName:"责任类型",cardsFor: "responsibilityType",cardsSource: responsibilityType,
+    const cardsData = {cardsName:"Responsibility Type",cardsFor: "responsibilityType",cardsSource: responsibilityType,
   		subItems: [
     
       	],

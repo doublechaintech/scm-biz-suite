@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   name: '礼品卡',
   number: 'CP00001',
-  remain: '174.30',
-  ownerId: 'RSM00000001',
+  remain: '155.60',
+  ownerId: 'RSM000001',
 }
 */
 
@@ -141,7 +141,7 @@ class RetailStoreMemberGiftCardAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class RetailStoreMemberGiftCardAssociateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large" placeholder="Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class RetailStoreMemberGiftCardAssociateForm extends Component {
                   {getFieldDecorator('remain', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="保持" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Remain" />
                   )}
                 </Form.Item>
               </Col>

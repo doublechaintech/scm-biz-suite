@@ -262,7 +262,7 @@ class ConsumerOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class ConsumerOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.skuId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品ID" />
+                    <Input size="large" placeholder="Sku Id" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class ConsumerOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.skuName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品名称" />
+                    <Input size="large" placeholder="Sku Name" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class ConsumerOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.price,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Price" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class ConsumerOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.quantity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数量" />
+                    <Input size="large" placeholder="Quantity" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class ConsumerOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.amount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
                     
                   )}
                 </Form.Item>

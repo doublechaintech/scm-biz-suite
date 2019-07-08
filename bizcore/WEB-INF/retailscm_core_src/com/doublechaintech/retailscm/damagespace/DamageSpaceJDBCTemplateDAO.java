@@ -76,7 +76,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public DamageSpace load(String id,Map<String,Object> options) throws Exception{
@@ -382,7 +382,7 @@ public class DamageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//DamageSpace.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("残次货物存放区");
+		lastUpdateTimeStatsItem.setDisplayName("Damage Space");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(DamageSpace.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(DamageSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

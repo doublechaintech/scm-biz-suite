@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '列表',
   internalName: 'levelOneCategoryList',
-  appId: 'UA00000001',
+  appId: 'UA000001',
 }
 */
 
@@ -139,7 +139,7 @@ class ListAccessAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class ListAccessAssociateForm extends Component {
                   {getFieldDecorator('internalName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="内部名称" />
+                    <Input size="large" placeholder="Internal Name" />
                   )}
                 </Form.Item>
               </Col>

@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"运输车", menuFor: "transportTruck",
+const menuData = {menuName:"Transport Truck", menuFor: "transportTruck",
   		subItems: [
-  {name: 'transportTaskList', displayName:'运输任务', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'transportTaskList', displayName:'Transport Task', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  plateNumber: '车牌号码',
-  contactNumber: '联系电话',
-  vehicleLicenseNumber: '汽车牌照号码',
-  engineNumber: '发动机号',
-  makeDate: '制造日期',
-  mileage: '里程',
-  bodyColor: '车身颜色',
-  owner: '业主',
+  id: 'Id',
+  name: 'Name',
+  plateNumber: 'Plate Number',
+  contactNumber: 'Contact Number',
+  vehicleLicenseNumber: 'Vehicle License Number',
+  engineNumber: 'Engine Number',
+  makeDate: 'Make Date',
+  mileage: 'Mileage',
+  bodyColor: 'Body Color',
+  owner: 'Owner',
 
 }
 
@@ -75,16 +75,16 @@ const renderItemOfList=(transportTruck,targetComponent)=>{
 	<div key={transportTruck.id}>
 	
 	<DescriptionList  key={transportTruck.id} size="small" col="4">
-<Description term="序号">{transportTruck.id}</Description> 
-<Description term="名称">{transportTruck.name}</Description> 
-<Description term="车牌号码">{transportTruck.plateNumber}</Description> 
-<Description term="联系电话">{transportTruck.contactNumber}</Description> 
-<Description term="汽车牌照号码">{transportTruck.vehicleLicenseNumber}</Description> 
-<Description term="发动机号">{transportTruck.engineNumber}</Description> 
-<Description term="制造日期">{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</Description> 
-<Description term="里程">{transportTruck.mileage}</Description> 
-<Description term="车身颜色">{transportTruck.bodyColor}</Description> 
-<Description term="业主">{transportTruck.owner==null?appLocaleName(userContext,"NotAssigned"):`${transportTruck.owner.displayName}(${transportTruck.owner.id})`}
+<Description term="Id">{transportTruck.id}</Description> 
+<Description term="Name">{transportTruck.name}</Description> 
+<Description term="Plate Number">{transportTruck.plateNumber}</Description> 
+<Description term="Contact Number">{transportTruck.contactNumber}</Description> 
+<Description term="Vehicle License Number">{transportTruck.vehicleLicenseNumber}</Description> 
+<Description term="Engine Number">{transportTruck.engineNumber}</Description> 
+<Description term="Make Date">{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Mileage">{transportTruck.mileage}</Description> 
+<Description term="Body Color">{transportTruck.bodyColor}</Description> 
+<Description term="Owner">{transportTruck.owner==null?appLocaleName(userContext,"NotAssigned"):`${transportTruck.owner.displayName}(${transportTruck.owner.id})`}
 </Description>
 	
         

@@ -81,19 +81,19 @@ const internalSummaryOf = (smartPallet,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{smartPallet.id}</Description> 
-<Description term="位置">{smartPallet.location}</Description> 
-<Description term="联系电话">{smartPallet.contactNumber}</Description> 
-<Description term="总面积">{smartPallet.totalArea}</Description> 
-<Description term="纬度">{smartPallet.latitude}</Description> 
-<Description term="经度">{smartPallet.longitude}</Description> 
-<Description term="仓库">{smartPallet.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${smartPallet.warehouse.displayName}(${smartPallet.warehouse.id})`}
+<Description term="Id">{smartPallet.id}</Description> 
+<Description term="Location">{smartPallet.location}</Description> 
+<Description term="Contact Number">{smartPallet.contactNumber}</Description> 
+<Description term="Total Area">{smartPallet.totalArea}</Description> 
+<Description term="Latitude">{smartPallet.latitude}</Description> 
+<Description term="Longitude">{smartPallet.longitude}</Description> 
+<Description term="Warehouse">{smartPallet.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${smartPallet.warehouse.displayName}(${smartPallet.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",SmartPalletService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"Warehouse","warehouse",SmartPalletService.requestCandidateWarehouse,
 	      SmartPalletService.transferToAnotherWarehouse,"anotherWarehouseId",smartPallet.warehouse?smartPallet.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="最后更新时间">{ moment(smartPallet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(smartPallet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(smartPallet,targetComponent)}
       </DescriptionList>
@@ -131,10 +131,10 @@ class SmartPalletDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",
+    const cardsData = {cardsName:"Smart Pallet",cardsFor: "smartPallet",
     	cardsSource: this.props.smartPallet,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};

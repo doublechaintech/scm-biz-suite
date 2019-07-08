@@ -261,7 +261,7 @@ class ResponsibilityTypeUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class ResponsibilityTypeUpdateForm extends Component {
                     initialValue: selectedRow.code,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large" placeholder="Code" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class ResponsibilityTypeUpdateForm extends Component {
                     initialValue: selectedRow.baseDescription,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="基本描述" />
+                    <Input size="large" placeholder="Base Description" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class ResponsibilityTypeUpdateForm extends Component {
                     initialValue: selectedRow.detailDescription,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="详细描述" />
+                    <Input size="large" placeholder="Detail Description" />
                     
                   )}
                 </Form.Item>

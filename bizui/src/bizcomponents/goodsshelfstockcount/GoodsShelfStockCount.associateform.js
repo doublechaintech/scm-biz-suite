@@ -19,9 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   title: '每日盘点',
-  countTime: '2017-06-16',
+  countTime: '2016-08-08',
   summary: '使用先进的rfid技术，没有任何错误',
-  shelfId: 'GS00000001',
+  shelfId: 'GS000001',
 }
 */
 
@@ -141,7 +141,7 @@ class GoodsShelfStockCountAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class GoodsShelfStockCountAssociateForm extends Component {
                   {getFieldDecorator('countTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="计数时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Count Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class GoodsShelfStockCountAssociateForm extends Component {
                   {getFieldDecorator('summary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="概览" />
+                    <Input size="large" placeholder="Summary" />
                   )}
                 </Form.Item>
               </Col>

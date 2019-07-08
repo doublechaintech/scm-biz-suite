@@ -22,7 +22,7 @@ const testValues = {
   accountingSubjectName: '银行存款',
   accountingSubjectClassCode: '1',
   accountingSubjectClassName: '资产类',
-  accountSetId: 'AS00000001',
+  accountSetId: 'AS000001',
 }
 */
 
@@ -142,7 +142,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目代码" />
+                    <Input size="large" placeholder="Accounting Subject Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目名称" />
+                    <Input size="large" placeholder="Accounting Subject Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目类别代码" />
+                    <Input size="large" placeholder="Accounting Subject Class Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目类别名称" />
+                    <Input size="large" placeholder="Accounting Subject Class Name" />
                   )}
                 </Form.Item>
               </Col>

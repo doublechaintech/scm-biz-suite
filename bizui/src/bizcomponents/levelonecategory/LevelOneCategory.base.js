@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"一级分类", menuFor: "levelOneCategory",
+const menuData = {menuName:"Level One Category", menuFor: "levelOneCategory",
   		subItems: [
-  {name: 'levelTwoCategoryList', displayName:'二级分类', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'levelTwoCategoryList', displayName:'Level Two Category', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  catalog: '目录',
-  name: '名称',
+  id: 'Id',
+  catalog: 'Catalog',
+  name: 'Name',
 
 }
 
@@ -61,10 +61,10 @@ const renderItemOfList=(levelOneCategory,targetComponent)=>{
 	<div key={levelOneCategory.id}>
 	
 	<DescriptionList  key={levelOneCategory.id} size="small" col="4">
-<Description term="序号">{levelOneCategory.id}</Description> 
-<Description term="目录">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
+<Description term="Id">{levelOneCategory.id}</Description> 
+<Description term="Catalog">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
 </Description>
-<Description term="名称">{levelOneCategory.name}</Description> 
+<Description term="Name">{levelOneCategory.name}</Description> 
 	
         
       </DescriptionList>

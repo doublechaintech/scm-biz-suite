@@ -139,7 +139,7 @@ class SecUserBlockingAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class SecUserBlockingAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comments" />
                   )}
                 </Form.Item>
               </Col>

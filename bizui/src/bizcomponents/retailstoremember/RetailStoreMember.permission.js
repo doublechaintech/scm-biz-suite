@@ -28,9 +28,9 @@ const internalSummaryOf = (retailStoreMember,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMember.id}</Description> 
-<Description term="名称">{retailStoreMember.name}</Description> 
-<Description term="移动电话">{retailStoreMember.mobilePhone}</Description> 
+<Description term="Id">{retailStoreMember.id}</Description> 
+<Description term="Name">{retailStoreMember.name}</Description> 
+<Description term="Mobile Phone">{retailStoreMember.mobilePhone}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class RetailStoreMemberPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMember = this.props.retailStoreMember;
     const { id,displayName, consumerOrderCount, retailStoreMemberCouponCount, memberWishlistCount, memberRewardPointCount, memberRewardPointRedemptionCount, retailStoreMemberAddressCount, retailStoreMemberGiftCardCount } = retailStoreMember
-    const cardsData = {cardsName:"生超会员",cardsFor: "retailStoreMember",cardsSource: retailStoreMember,
+    const cardsData = {cardsName:"Retail Store Member",cardsFor: "retailStoreMember",cardsSource: retailStoreMember,
   		subItems: [
     
       	],

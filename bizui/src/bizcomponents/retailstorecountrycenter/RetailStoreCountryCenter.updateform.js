@@ -262,7 +262,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.serviceNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="服务号码" />
+                    <Input size="large" placeholder="Service Number" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.founded,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.webSite,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="网站" />
+                    <Input size="large" placeholder="Web Site" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.address,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="地址" />
+                    <Input size="large" placeholder="Address" />
                     
                   )}
                 </Form.Item>
@@ -334,7 +334,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.operatedBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由" />
+                    <Input size="large" placeholder="Operated By" />
                     
                   )}
                 </Form.Item>
@@ -346,7 +346,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.legalRepresentative,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="法定代表人" />
+                    <Input size="large" placeholder="Legal Representative" />
                     
                   )}
                 </Form.Item>
@@ -358,7 +358,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                     
                   )}
                 </Form.Item>

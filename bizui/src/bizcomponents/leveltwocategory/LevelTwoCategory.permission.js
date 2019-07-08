@@ -28,8 +28,8 @@ const internalSummaryOf = (levelTwoCategory,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelTwoCategory.id}</Description> 
-<Description term="名称">{levelTwoCategory.name}</Description> 
+<Description term="Id">{levelTwoCategory.id}</Description> 
+<Description term="Name">{levelTwoCategory.name}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,7 +55,7 @@ class LevelTwoCategoryPermission extends Component {
     // eslint-disable-next-line max-len
     const  levelTwoCategory = this.props.levelTwoCategory;
     const { id,displayName, levelThreeCategoryCount } = levelTwoCategory
-    const cardsData = {cardsName:"二级分类",cardsFor: "levelTwoCategory",cardsSource: levelTwoCategory,
+    const cardsData = {cardsName:"Level Two Category",cardsFor: "levelTwoCategory",cardsSource: levelTwoCategory,
   		subItems: [
     
       	],

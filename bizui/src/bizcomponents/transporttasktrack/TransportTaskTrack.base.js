@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"运输任务跟踪", menuFor: "transportTaskTrack",
+const menuData = {menuName:"Transport Task Track", menuFor: "transportTaskTrack",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  trackTime: '跟踪时间',
-  latitude: '纬度',
-  longitude: '经度',
-  movement: '运动',
+  id: 'Id',
+  trackTime: 'Track Time',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+  movement: 'Movement',
 
 }
 
@@ -64,11 +64,11 @@ const renderItemOfList=(transportTaskTrack,targetComponent)=>{
 	<div key={transportTaskTrack.id}>
 	
 	<DescriptionList  key={transportTaskTrack.id} size="small" col="4">
-<Description term="序号">{transportTaskTrack.id}</Description> 
-<Description term="跟踪时间">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
-<Description term="纬度">{transportTaskTrack.latitude}</Description> 
-<Description term="经度">{transportTaskTrack.longitude}</Description> 
-<Description term="运动">{transportTaskTrack.movement==null?appLocaleName(userContext,"NotAssigned"):`${transportTaskTrack.movement.displayName}(${transportTaskTrack.movement.id})`}
+<Description term="Id">{transportTaskTrack.id}</Description> 
+<Description term="Track Time">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{transportTaskTrack.latitude}</Description> 
+<Description term="Longitude">{transportTaskTrack.longitude}</Description> 
+<Description term="Movement">{transportTaskTrack.movement==null?appLocaleName(userContext,"NotAssigned"):`${transportTaskTrack.movement.displayName}(${transportTaskTrack.movement.id})`}
 </Description>
 	
         

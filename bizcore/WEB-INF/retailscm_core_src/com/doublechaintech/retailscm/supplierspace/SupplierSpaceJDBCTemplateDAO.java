@@ -76,7 +76,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public SupplierSpace load(String id,Map<String,Object> options) throws Exception{
@@ -382,7 +382,7 @@ public class SupplierSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//SupplierSpace.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("供应商的空间");
+		lastUpdateTimeStatsItem.setDisplayName("Supplier Space");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(SupplierSpace.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(SupplierSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

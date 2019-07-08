@@ -17,8 +17,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  employeeId: 'E00000001',
-  trainingId: 'CT00000001',
+  employeeId: 'E000001',
+  trainingId: 'CT000001',
 }
 */
 
@@ -194,8 +194,8 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}员工参与的公司培训`}
-        content={`${appLocaleName(userContext,"CreateNew")}员工参与的公司培训`}
+        title={`${appLocaleName(userContext,"CreateNew")}Employee Company Training`}
+        content={`${appLocaleName(userContext,"CreateNew")}Employee Company Training`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>

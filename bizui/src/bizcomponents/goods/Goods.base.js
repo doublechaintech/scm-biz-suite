@@ -30,31 +30,31 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"货物", menuFor: "goods",
+const menuData = {menuName:"Goods", menuFor: "goods",
   		subItems: [
-  {name: 'goodsMovementList', displayName:'货物移动', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsMovementList', displayName:'Goods Movement', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  rfid: 'RFID',
-  uom: '计量单位',
-  maxPackage: '最大包装',
-  expireTime: '到期时间',
-  sku: 'SKU',
-  receivingSpace: '收货区',
-  goodsAllocation: '货位',
-  smartPallet: '智能托盘',
-  shippingSpace: '发货区',
-  transportTask: '运输任务',
-  retailStore: '双链小超',
-  bizOrder: '订单',
-  retailStoreOrder: '生超的订单',
-  packaging: '包',
-  currentStatus: '当前状态',
+  id: 'Id',
+  name: 'Name',
+  rfid: 'Rfid',
+  uom: 'Uom',
+  maxPackage: 'Max Package',
+  expireTime: 'Expire Time',
+  sku: 'Sku',
+  receivingSpace: 'Receiving Space',
+  goodsAllocation: 'Goods Allocation',
+  smartPallet: 'Smart Pallet',
+  shippingSpace: 'Shipping Space',
+  transportTask: 'Transport Task',
+  retailStore: 'Retail Store',
+  bizOrder: 'Biz Order',
+  retailStoreOrder: 'Retail Store Order',
+  packaging: 'Packaging',
+  currentStatus: 'Current Status',
 
 }
 
@@ -89,31 +89,31 @@ const renderItemOfList=(goods,targetComponent)=>{
 	<div key={goods.id}>
 	
 	<DescriptionList  key={goods.id} size="small" col="4">
-<Description term="序号">{goods.id}</Description> 
-<Description term="名称">{goods.name}</Description> 
-<Description term="RFID">{goods.rfid}</Description> 
-<Description term="计量单位">{goods.uom}</Description> 
-<Description term="最大包装">{goods.maxPackage}</Description> 
-<Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
-<Description term="SKU">{goods.sku==null?appLocaleName(userContext,"NotAssigned"):`${goods.sku.displayName}(${goods.sku.id})`}
+<Description term="Id">{goods.id}</Description> 
+<Description term="Name">{goods.name}</Description> 
+<Description term="Rfid">{goods.rfid}</Description> 
+<Description term="Uom">{goods.uom}</Description> 
+<Description term="Max Package">{goods.maxPackage}</Description> 
+<Description term="Expire Time">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Sku">{goods.sku==null?appLocaleName(userContext,"NotAssigned"):`${goods.sku.displayName}(${goods.sku.id})`}
 </Description>
-<Description term="收货区">{goods.receivingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.receivingSpace.displayName}(${goods.receivingSpace.id})`}
+<Description term="Receiving Space">{goods.receivingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.receivingSpace.displayName}(${goods.receivingSpace.id})`}
 </Description>
-<Description term="货位">{goods.goodsAllocation==null?appLocaleName(userContext,"NotAssigned"):`${goods.goodsAllocation.displayName}(${goods.goodsAllocation.id})`}
+<Description term="Goods Allocation">{goods.goodsAllocation==null?appLocaleName(userContext,"NotAssigned"):`${goods.goodsAllocation.displayName}(${goods.goodsAllocation.id})`}
 </Description>
-<Description term="智能托盘">{goods.smartPallet==null?appLocaleName(userContext,"NotAssigned"):`${goods.smartPallet.displayName}(${goods.smartPallet.id})`}
+<Description term="Smart Pallet">{goods.smartPallet==null?appLocaleName(userContext,"NotAssigned"):`${goods.smartPallet.displayName}(${goods.smartPallet.id})`}
 </Description>
-<Description term="发货区">{goods.shippingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.shippingSpace.displayName}(${goods.shippingSpace.id})`}
+<Description term="Shipping Space">{goods.shippingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.shippingSpace.displayName}(${goods.shippingSpace.id})`}
 </Description>
-<Description term="运输任务">{goods.transportTask==null?appLocaleName(userContext,"NotAssigned"):`${goods.transportTask.displayName}(${goods.transportTask.id})`}
+<Description term="Transport Task">{goods.transportTask==null?appLocaleName(userContext,"NotAssigned"):`${goods.transportTask.displayName}(${goods.transportTask.id})`}
 </Description>
-<Description term="双链小超">{goods.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStore.displayName}(${goods.retailStore.id})`}
+<Description term="Retail Store">{goods.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStore.displayName}(${goods.retailStore.id})`}
 </Description>
-<Description term="订单">{goods.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.bizOrder.displayName}(${goods.bizOrder.id})`}
+<Description term="Biz Order">{goods.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.bizOrder.displayName}(${goods.bizOrder.id})`}
 </Description>
-<Description term="生超的订单">{goods.retailStoreOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStoreOrder.displayName}(${goods.retailStoreOrder.id})`}
+<Description term="Retail Store Order">{goods.retailStoreOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStoreOrder.displayName}(${goods.retailStoreOrder.id})`}
 </Description>
-<Description term="当前状态">{goods.currentStatus}</Description> 
+<Description term="Current Status">{goods.currentStatus}</Description> 
 	
         
       </DescriptionList>

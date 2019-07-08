@@ -56,7 +56,7 @@ class AccountingDocumentConfirmationProfile extends Component {
     const  accountingDocumentConfirmation = this.props.accountingDocumentConfirmation;
     const { id,displayName, accountingDocumentCount } = accountingDocumentConfirmation
 
-    const cardsData = {cardsName:"会计的确认文件",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,
+    const cardsData = {cardsName:"Accounting Document Confirmation",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,
   		subItems: [
      
       	],

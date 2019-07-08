@@ -81,27 +81,27 @@ const internalSummaryOf = (goodsShelf,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsShelf.id}</Description> 
-<Description term="位置">{goodsShelf.location}</Description> 
-<Description term="存货区">{goodsShelf.storageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.storageSpace.displayName}(${goodsShelf.storageSpace.id})`}
+<Description term="Id">{goodsShelf.id}</Description> 
+<Description term="Location">{goodsShelf.location}</Description> 
+<Description term="Storage Space">{goodsShelf.storageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.storageSpace.displayName}(${goodsShelf.storageSpace.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"存货区","storageSpace",GoodsShelfService.requestCandidateStorageSpace,
+  showTransferModel(targetComponent,"Storage Space","storageSpace",GoodsShelfService.requestCandidateStorageSpace,
 	      GoodsShelfService.transferToAnotherStorageSpace,"anotherStorageSpaceId",goodsShelf.storageSpace?goodsShelf.storageSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="供应商的空间">{goodsShelf.supplierSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.supplierSpace.displayName}(${goodsShelf.supplierSpace.id})`}
+<Description term="Supplier Space">{goodsShelf.supplierSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.supplierSpace.displayName}(${goodsShelf.supplierSpace.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"供应商的空间","supplierSpace",GoodsShelfService.requestCandidateSupplierSpace,
+  showTransferModel(targetComponent,"Supplier Space","supplierSpace",GoodsShelfService.requestCandidateSupplierSpace,
 	      GoodsShelfService.transferToAnotherSupplierSpace,"anotherSupplierSpaceId",goodsShelf.supplierSpace?goodsShelf.supplierSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="残次货物存放区">{goodsShelf.damageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.damageSpace.displayName}(${goodsShelf.damageSpace.id})`}
+<Description term="Damage Space">{goodsShelf.damageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.damageSpace.displayName}(${goodsShelf.damageSpace.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"残次货物存放区","damageSpace",GoodsShelfService.requestCandidateDamageSpace,
+  showTransferModel(targetComponent,"Damage Space","damageSpace",GoodsShelfService.requestCandidateDamageSpace,
 	      GoodsShelfService.transferToAnotherDamageSpace,"anotherDamageSpaceId",goodsShelf.damageSpace?goodsShelf.damageSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="最后更新时间">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(goodsShelf,targetComponent)}
       </DescriptionList>
@@ -139,11 +139,11 @@ class GoodsShelfDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",
+    const cardsData = {cardsName:"Goods Shelf",cardsFor: "goodsShelf",
     	cardsSource: this.props.goodsShelf,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfStockCountList', displayName:'货架库存盘点',type:'goodsShelfStockCount',count:goodsShelfStockCountCount,addFunction: true, role: 'goodsShelfStockCount', metaInfo: goodsShelfStockCountListMetaInfo, renderItem: GlobalComponents.GoodsShelfStockCountBase.renderItemOfList},
-{name: 'goodsAllocationList', displayName:'货位',type:'goodsAllocation',count:goodsAllocationCount,addFunction: true, role: 'goodsAllocation', metaInfo: goodsAllocationListMetaInfo, renderItem: GlobalComponents.GoodsAllocationBase.renderItemOfList},
+{name: 'goodsShelfStockCountList', displayName:'Goods Shelf Stock Count',type:'goodsShelfStockCount',count:goodsShelfStockCountCount,addFunction: true, role: 'goodsShelfStockCount', metaInfo: goodsShelfStockCountListMetaInfo, renderItem: GlobalComponents.GoodsShelfStockCountBase.renderItemOfList},
+{name: 'goodsAllocationList', displayName:'Goods Allocation',type:'goodsAllocation',count:goodsAllocationCount,addFunction: true, role: 'goodsAllocation', metaInfo: goodsAllocationListMetaInfo, renderItem: GlobalComponents.GoodsAllocationBase.renderItemOfList},
     
       	],
   	};

@@ -81,19 +81,19 @@ const internalSummaryOf = (supplierSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplierSpace.id}</Description> 
-<Description term="位置">{supplierSpace.location}</Description> 
-<Description term="联系电话">{supplierSpace.contactNumber}</Description> 
-<Description term="总面积">{supplierSpace.totalArea}</Description> 
-<Description term="仓库">{supplierSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${supplierSpace.warehouse.displayName}(${supplierSpace.warehouse.id})`}
+<Description term="Id">{supplierSpace.id}</Description> 
+<Description term="Location">{supplierSpace.location}</Description> 
+<Description term="Contact Number">{supplierSpace.contactNumber}</Description> 
+<Description term="Total Area">{supplierSpace.totalArea}</Description> 
+<Description term="Warehouse">{supplierSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${supplierSpace.warehouse.displayName}(${supplierSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",SupplierSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"Warehouse","warehouse",SupplierSpaceService.requestCandidateWarehouse,
 	      SupplierSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",supplierSpace.warehouse?supplierSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="纬度">{supplierSpace.latitude}</Description> 
-<Description term="经度">{supplierSpace.longitude}</Description> 
-<Description term="最后更新时间">{ moment(supplierSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{supplierSpace.latitude}</Description> 
+<Description term="Longitude">{supplierSpace.longitude}</Description> 
+<Description term="Last Update Time">{ moment(supplierSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(supplierSpace,targetComponent)}
       </DescriptionList>
@@ -131,10 +131,10 @@ class SupplierSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应商的空间",cardsFor: "supplierSpace",
+    const cardsData = {cardsName:"Supplier Space",cardsFor: "supplierSpace",
     	cardsSource: this.props.supplierSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName:'Goods Shelf',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
   	};

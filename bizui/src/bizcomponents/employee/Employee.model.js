@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeCompanyTrainingList/员工参与的公司培训+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeCompanyTrainingList/Employee Company Training+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeCompanyTraining({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeCompanyTrainingList/员工参与的公司培训列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeCompanyTrainingList/Employee Company Training列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeCompanyTrainingUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeSkillList/员工技能+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeSkillList/Employee Skill+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeSkill({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeSkillList/员工技能列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeSkillList/Employee Skill列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeSkillUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeePerformanceList/员工绩效+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeePerformanceList/Employee Performance+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeePerformance({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeePerformanceList/员工绩效列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeePerformanceList/Employee Performance列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeePerformanceUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeWorkExperienceList/员工工作经验+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeWorkExperienceList/Employee Work Experience+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeWorkExperience({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeWorkExperienceList/员工工作经验列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeWorkExperienceList/Employee Work Experience列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeWorkExperienceUpdateRow({ payload }, { call, put }) {
@@ -413,7 +413,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeLeaveList/请假记录+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeLeaveList/Employee Leave+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeLeave({ payload }, { call, put }) {
@@ -435,7 +435,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeLeaveList/请假记录列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeLeaveList/Employee Leave列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeLeaveUpdateRow({ payload }, { call, put }) {
@@ -482,7 +482,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeInterviewList/员工面试+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeInterviewList/Employee Interview+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeInterview({ payload }, { call, put }) {
@@ -504,7 +504,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeInterviewList/员工面试列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeInterviewList/Employee Interview列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeInterviewUpdateRow({ payload }, { call, put }) {
@@ -551,7 +551,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeAttendanceList/员工考勤+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeAttendanceList/Employee Attendance+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeAttendance({ payload }, { call, put }) {
@@ -573,7 +573,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeAttendanceList/员工考勤列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeAttendanceList/Employee Attendance列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeAttendanceUpdateRow({ payload }, { call, put }) {
@@ -620,7 +620,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeQualifierList/员工资质+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeQualifierList/Employee Qualifier+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeQualifier({ payload }, { call, put }) {
@@ -642,7 +642,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeQualifierList/员工资质列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeQualifierList/Employee Qualifier列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeQualifierUpdateRow({ payload }, { call, put }) {
@@ -689,7 +689,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeEducationList/员工教育+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeEducationList/Employee Education+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeEducation({ payload }, { call, put }) {
@@ -711,7 +711,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeEducationList/员工教育列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeEducationList/Employee Education列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeEducationUpdateRow({ payload }, { call, put }) {
@@ -758,7 +758,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeAwardList/员工嘉奖+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeAwardList/Employee Award+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeAward({ payload }, { call, put }) {
@@ -780,7 +780,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeAwardList/员工嘉奖列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeAwardList/Employee Award列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeAwardUpdateRow({ payload }, { call, put }) {
@@ -827,7 +827,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/EmployeeSalarySheetList/工资单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/EmployeeSalarySheetList/Employee Salary Sheet+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeSalarySheet({ payload }, { call, put }) {
@@ -849,7 +849,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/EmployeeSalarySheetList/工资单列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/EmployeeSalarySheetList/Employee Salary Sheet列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeSalarySheetUpdateRow({ payload }, { call, put }) {
@@ -896,7 +896,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/employee/${id}/list/PayingOffList/工资支付+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/employee/${id}/list/PayingOffList/Paying Off+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePayingOff({ payload }, { call, put }) {
@@ -918,7 +918,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/employee/${id}/list/PayingOffList/工资支付列表`, state: newPlayload }
+      const location = { pathname: `/employee/${id}/list/PayingOffList/Paying Off列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextPayingOffUpdateRow({ payload }, { call, put }) {

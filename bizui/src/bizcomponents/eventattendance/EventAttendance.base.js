@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"活动的参与情况", menuFor: "eventAttendance",
+const menuData = {menuName:"Event Attendance", menuFor: "eventAttendance",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  potentialCustomer: '潜在的客户',
-  cityEvent: '城市活动',
-  description: '描述',
+  id: 'Id',
+  name: 'Name',
+  potentialCustomer: 'Potential Customer',
+  cityEvent: 'City Event',
+  description: 'Description',
 
 }
 
@@ -64,13 +64,13 @@ const renderItemOfList=(eventAttendance,targetComponent)=>{
 	<div key={eventAttendance.id}>
 	
 	<DescriptionList  key={eventAttendance.id} size="small" col="4">
-<Description term="序号">{eventAttendance.id}</Description> 
-<Description term="名称">{eventAttendance.name}</Description> 
-<Description term="潜在的客户">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
+<Description term="Id">{eventAttendance.id}</Description> 
+<Description term="Name">{eventAttendance.name}</Description> 
+<Description term="Potential Customer">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
 </Description>
-<Description term="城市活动">{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
+<Description term="City Event">{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
 </Description>
-<Description term="描述">{eventAttendance.description}</Description> 
+<Description term="Description">{eventAttendance.description}</Description> 
 	
         
       </DescriptionList>

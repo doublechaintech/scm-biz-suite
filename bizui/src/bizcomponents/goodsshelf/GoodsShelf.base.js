@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"货架", menuFor: "goodsShelf",
+const menuData = {menuName:"Goods Shelf", menuFor: "goodsShelf",
   		subItems: [
-  {name: 'goodsShelfStockCountList', displayName:'货架库存盘点', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'goodsAllocationList', displayName:'货位', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsShelfStockCountList', displayName:'Goods Shelf Stock Count', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsAllocationList', displayName:'Goods Allocation', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  location: '位置',
-  storageSpace: '存货区',
-  supplierSpace: '供应商的空间',
-  damageSpace: '残次货物存放区',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  location: 'Location',
+  storageSpace: 'Storage Space',
+  supplierSpace: 'Supplier Space',
+  damageSpace: 'Damage Space',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -68,15 +68,15 @@ const renderItemOfList=(goodsShelf,targetComponent)=>{
 	<div key={goodsShelf.id}>
 	
 	<DescriptionList  key={goodsShelf.id} size="small" col="4">
-<Description term="序号">{goodsShelf.id}</Description> 
-<Description term="位置">{goodsShelf.location}</Description> 
-<Description term="存货区">{goodsShelf.storageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.storageSpace.displayName}(${goodsShelf.storageSpace.id})`}
+<Description term="Id">{goodsShelf.id}</Description> 
+<Description term="Location">{goodsShelf.location}</Description> 
+<Description term="Storage Space">{goodsShelf.storageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.storageSpace.displayName}(${goodsShelf.storageSpace.id})`}
 </Description>
-<Description term="供应商的空间">{goodsShelf.supplierSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.supplierSpace.displayName}(${goodsShelf.supplierSpace.id})`}
+<Description term="Supplier Space">{goodsShelf.supplierSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.supplierSpace.displayName}(${goodsShelf.supplierSpace.id})`}
 </Description>
-<Description term="残次货物存放区">{goodsShelf.damageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.damageSpace.displayName}(${goodsShelf.damageSpace.id})`}
+<Description term="Damage Space">{goodsShelf.damageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.damageSpace.displayName}(${goodsShelf.damageSpace.id})`}
 </Description>
-<Description term="最后更新时间">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

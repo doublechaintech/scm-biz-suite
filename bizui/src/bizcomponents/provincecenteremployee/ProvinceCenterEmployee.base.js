@@ -30,20 +30,20 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"省中心员工", menuFor: "provinceCenterEmployee",
+const menuData = {menuName:"Province Center Employee", menuFor: "provinceCenterEmployee",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  mobile: '手机',
-  email: '电子邮件',
-  founded: '成立',
-  department: '部门',
-  provinceCenter: '省中心',
+  id: 'Id',
+  name: 'Name',
+  mobile: 'Mobile',
+  email: 'Email',
+  founded: 'Founded',
+  department: 'Department',
+  provinceCenter: 'Province Center',
 
 }
 
@@ -68,14 +68,14 @@ const renderItemOfList=(provinceCenterEmployee,targetComponent)=>{
 	<div key={provinceCenterEmployee.id}>
 	
 	<DescriptionList  key={provinceCenterEmployee.id} size="small" col="4">
-<Description term="序号">{provinceCenterEmployee.id}</Description> 
-<Description term="名称">{provinceCenterEmployee.name}</Description> 
-<Description term="手机">{provinceCenterEmployee.mobile}</Description> 
-<Description term="电子邮件">{provinceCenterEmployee.email}</Description> 
-<Description term="成立">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="部门">{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
+<Description term="Id">{provinceCenterEmployee.id}</Description> 
+<Description term="Name">{provinceCenterEmployee.name}</Description> 
+<Description term="Mobile">{provinceCenterEmployee.mobile}</Description> 
+<Description term="Email">{provinceCenterEmployee.email}</Description> 
+<Description term="Founded">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Department">{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
 </Description>
-<Description term="省中心">{provinceCenterEmployee.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.provinceCenter.displayName}(${provinceCenterEmployee.provinceCenter.id})`}
+<Description term="Province Center">{provinceCenterEmployee.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.provinceCenter.displayName}(${provinceCenterEmployee.provinceCenter.id})`}
 </Description>
 	
         

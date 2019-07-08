@@ -28,12 +28,12 @@ const internalSummaryOf = (product,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{product.id}</Description> 
-<Description term="名称">{product.name}</Description> 
-<Description term="产地">{product.origin}</Description> 
-<Description term="备注">{product.remark}</Description> 
-<Description term="品牌">{product.brand}</Description> 
-<Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{product.id}</Description> 
+<Description term="Name">{product.name}</Description> 
+<Description term="Origin">{product.origin}</Description> 
+<Description term="Remark">{product.remark}</Description> 
+<Description term="Brand">{product.brand}</Description> 
+<Description term="Last Update Time">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,7 +59,7 @@ class ProductPermission extends Component {
     // eslint-disable-next-line max-len
     const  product = this.props.product;
     const { id,displayName, skuCount } = product
-    const cardsData = {cardsName:"产品",cardsFor: "product",cardsSource: product,
+    const cardsData = {cardsName:"Product",cardsFor: "product",cardsSource: product,
   		subItems: [
     
       	],

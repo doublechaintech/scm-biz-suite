@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"原始凭证制作", menuFor: "originalVoucherCreation",
+const menuData = {menuName:"Original Voucher Creation", menuFor: "originalVoucherCreation",
   		subItems: [
-  {name: 'originalVoucherList', displayName:'原始凭证', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'originalVoucherList', displayName:'Original Voucher', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  comments: '评论',
-  makeDate: '制造日期',
+  id: 'Id',
+  who: 'Who',
+  comments: 'Comments',
+  makeDate: 'Make Date',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(originalVoucherCreation,targetComponent)=>{
 	<div key={originalVoucherCreation.id}>
 	
 	<DescriptionList  key={originalVoucherCreation.id} size="small" col="4">
-<Description term="序号">{originalVoucherCreation.id}</Description> 
-<Description term="谁">{originalVoucherCreation.who}</Description> 
-<Description term="评论">{originalVoucherCreation.comments}</Description> 
-<Description term="制造日期">{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{originalVoucherCreation.id}</Description> 
+<Description term="Who">{originalVoucherCreation.who}</Description> 
+<Description term="Comments">{originalVoucherCreation.comments}</Description> 
+<Description term="Make Date">{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

@@ -56,7 +56,7 @@ class TerminationProfile extends Component {
     const  termination = this.props.termination;
     const { id,displayName, employeeCount } = termination
 
-    const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",cardsSource: termination,
+    const cardsData = {cardsName:"Termination",cardsFor: "termination",cardsSource: termination,
   		subItems: [
      
       	],

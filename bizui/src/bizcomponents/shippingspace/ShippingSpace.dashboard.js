@@ -81,20 +81,20 @@ const internalSummaryOf = (shippingSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{shippingSpace.id}</Description> 
-<Description term="位置">{shippingSpace.location}</Description> 
-<Description term="联系电话">{shippingSpace.contactNumber}</Description> 
-<Description term="总面积">{shippingSpace.totalArea}</Description> 
-<Description term="仓库">{shippingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${shippingSpace.warehouse.displayName}(${shippingSpace.warehouse.id})`}
+<Description term="Id">{shippingSpace.id}</Description> 
+<Description term="Location">{shippingSpace.location}</Description> 
+<Description term="Contact Number">{shippingSpace.contactNumber}</Description> 
+<Description term="Total Area">{shippingSpace.totalArea}</Description> 
+<Description term="Warehouse">{shippingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${shippingSpace.warehouse.displayName}(${shippingSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"仓库","warehouse",ShippingSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"Warehouse","warehouse",ShippingSpaceService.requestCandidateWarehouse,
 	      ShippingSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",shippingSpace.warehouse?shippingSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="纬度">{shippingSpace.latitude}</Description> 
-<Description term="经度">{shippingSpace.longitude}</Description> 
-<Description term="描述">{shippingSpace.description}</Description> 
-<Description term="最后更新时间">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{shippingSpace.latitude}</Description> 
+<Description term="Longitude">{shippingSpace.longitude}</Description> 
+<Description term="Description">{shippingSpace.description}</Description> 
+<Description term="Last Update Time">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(shippingSpace,targetComponent)}
       </DescriptionList>
@@ -132,10 +132,10 @@ class ShippingSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",
+    const cardsData = {cardsName:"Shipping Space",cardsFor: "shippingSpace",
     	cardsSource: this.props.shippingSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};

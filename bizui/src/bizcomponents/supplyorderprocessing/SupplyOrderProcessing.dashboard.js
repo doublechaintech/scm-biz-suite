@@ -81,9 +81,9 @@ const internalSummaryOf = (supplyOrderProcessing,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderProcessing.id}</Description> 
-<Description term="谁">{supplyOrderProcessing.who}</Description> 
-<Description term="过程的时间">{ moment(supplyOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{supplyOrderProcessing.id}</Description> 
+<Description term="Who">{supplyOrderProcessing.who}</Description> 
+<Description term="Process Time">{ moment(supplyOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(supplyOrderProcessing,targetComponent)}
       </DescriptionList>
@@ -121,11 +121,11 @@ class SupplyOrderProcessingDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应订单处理",cardsFor: "supplyOrderProcessing",
+    const cardsData = {cardsName:"Supply Order Processing",cardsFor: "supplyOrderProcessing",
     	cardsSource: this.props.supplyOrderProcessing,returnURL,displayName,
   		subItems: [
-{name: 'consumerOrderList', displayName:'消费者订单',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
-{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+{name: 'consumerOrderList', displayName:'Consumer Order',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
+{name: 'supplyOrderList', displayName:'Supply Order',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
     
       	],
   	};

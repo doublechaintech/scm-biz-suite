@@ -81,22 +81,22 @@ const internalSummaryOf = (retailStoreMemberGiftCardConsumeRecord,targetComponen
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
-<Description term="发生时间">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
-<Description term="业主">{retailStoreMemberGiftCardConsumeRecord.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.owner.displayName}(${retailStoreMemberGiftCardConsumeRecord.owner.id})`}
+<Description term="Id">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
+<Description term="Occure Time">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Owner">{retailStoreMemberGiftCardConsumeRecord.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.owner.displayName}(${retailStoreMemberGiftCardConsumeRecord.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMemberGiftCard",RetailStoreMemberGiftCardConsumeRecordService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","retailStoreMemberGiftCard",RetailStoreMemberGiftCardConsumeRecordService.requestCandidateOwner,
 	      RetailStoreMemberGiftCardConsumeRecordService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberGiftCardConsumeRecord.owner?retailStoreMemberGiftCardConsumeRecord.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="订单">{retailStoreMemberGiftCardConsumeRecord.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.bizOrder.displayName}(${retailStoreMemberGiftCardConsumeRecord.bizOrder.id})`}
+<Description term="Biz Order">{retailStoreMemberGiftCardConsumeRecord.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.bizOrder.displayName}(${retailStoreMemberGiftCardConsumeRecord.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","consumerOrder",RetailStoreMemberGiftCardConsumeRecordService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","consumerOrder",RetailStoreMemberGiftCardConsumeRecordService.requestCandidateBizOrder,
 	      RetailStoreMemberGiftCardConsumeRecordService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreMemberGiftCardConsumeRecord.bizOrder?retailStoreMemberGiftCardConsumeRecord.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="数">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
-<Description term="金额">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
+<Description term="Number">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
+<Description term="Amount">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
 	
         {buildTransferModal(retailStoreMemberGiftCardConsumeRecord,targetComponent)}
       </DescriptionList>
@@ -134,7 +134,7 @@ class RetailStoreMemberGiftCardConsumeRecordDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",
+    const cardsData = {cardsName:"Retail Store Member Gift Card Consume Record",cardsFor: "retailStoreMemberGiftCardConsumeRecord",
     	cardsSource: this.props.retailStoreMemberGiftCardConsumeRecord,returnURL,displayName,
   		subItems: [
     

@@ -28,11 +28,11 @@ const internalSummaryOf = (supplyOrder,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrder.id}</Description> 
-<Description term="头衔">{supplyOrder.title}</Description> 
-<Description term="总金额">{supplyOrder.totalAmount}</Description> 
-<Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{supplyOrder.currentStatus}</Description> 
+<Description term="Id">{supplyOrder.id}</Description> 
+<Description term="Title">{supplyOrder.title}</Description> 
+<Description term="Total Amount">{supplyOrder.totalAmount}</Description> 
+<Description term="Last Update Time">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{supplyOrder.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class SupplyOrderPermission extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrder = this.props.supplyOrder;
     const { id,displayName, supplyOrderLineItemCount, supplyOrderShippingGroupCount, supplyOrderPaymentGroupCount, goodsCount } = supplyOrder
-    const cardsData = {cardsName:"供应订单",cardsFor: "supplyOrder",cardsSource: supplyOrder,
+    const cardsData = {cardsName:"Supply Order",cardsFor: "supplyOrder",cardsSource: supplyOrder,
   		subItems: [
     
       	],

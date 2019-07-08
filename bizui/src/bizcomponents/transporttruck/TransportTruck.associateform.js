@@ -23,10 +23,10 @@ const testValues = {
   contactNumber: '02887654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2018-08-09',
+  makeDate: '2017-07-17',
   mileage: '100万公里',
   bodyColor: '红色',
-  ownerId: 'TF00000001',
+  ownerId: 'TF000001',
 }
 */
 
@@ -146,7 +146,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -156,7 +156,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('plateNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="车牌号码" />
+                    <Input size="large" placeholder="Plate Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -166,7 +166,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="联系电话" />
+                    <Input size="large" placeholder="Contact Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -176,7 +176,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('vehicleLicenseNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="汽车牌照号码" />
+                    <Input size="large" placeholder="Vehicle License Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -186,7 +186,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('engineNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="发动机号" />
+                    <Input size="large" placeholder="Engine Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -196,7 +196,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Make Date" />
                   )}
                 </Form.Item>
               </Col>
@@ -206,7 +206,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('mileage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="里程" />
+                    <Input size="large" placeholder="Mileage" />
                   )}
                 </Form.Item>
               </Col>
@@ -216,7 +216,7 @@ class TransportTruckAssociateForm extends Component {
                   {getFieldDecorator('bodyColor', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="车身颜色" />
+                    <Input size="large" placeholder="Body Color" />
                   )}
                 </Form.Item>
               </Col>

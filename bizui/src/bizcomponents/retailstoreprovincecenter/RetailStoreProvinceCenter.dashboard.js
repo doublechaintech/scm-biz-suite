@@ -81,10 +81,10 @@ const internalSummaryOf = (retailStoreProvinceCenter,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreProvinceCenter.id}</Description> 
-<Description term="名称">{retailStoreProvinceCenter.name}</Description> 
-<Description term="成立">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreProvinceCenter.id}</Description> 
+<Description term="Name">{retailStoreProvinceCenter.name}</Description> 
+<Description term="Founded">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreProvinceCenter,targetComponent)}
       </DescriptionList>
@@ -122,11 +122,11 @@ class RetailStoreProvinceCenterDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",
+    const cardsData = {cardsName:"Retail Store Province Center",cardsFor: "retailStoreProvinceCenter",
     	cardsSource: this.props.retailStoreProvinceCenter,returnURL,displayName,
   		subItems: [
-{name: 'provinceCenterEmployeeList', displayName:'省中心员工',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
-{name: 'retailStoreCityServiceCenterList', displayName:'双链小超城市服务中心',type:'retailStoreCityServiceCenter',count:retailStoreCityServiceCenterCount,addFunction: true, role: 'retailStoreCityServiceCenter', metaInfo: retailStoreCityServiceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreCityServiceCenterBase.renderItemOfList},
+{name: 'provinceCenterEmployeeList', displayName:'Province Center Employee',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
+{name: 'retailStoreCityServiceCenterList', displayName:'Retail Store City Service Center',type:'retailStoreCityServiceCenter',count:retailStoreCityServiceCenterCount,addFunction: true, role: 'retailStoreCityServiceCenter', metaInfo: retailStoreCityServiceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreCityServiceCenterBase.renderItemOfList},
     
       	],
   	};

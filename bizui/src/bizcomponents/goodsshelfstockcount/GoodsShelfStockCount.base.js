@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"货架库存盘点", menuFor: "goodsShelfStockCount",
+const menuData = {menuName:"Goods Shelf Stock Count", menuFor: "goodsShelfStockCount",
   		subItems: [
-  {name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'stockCountIssueTrackList', displayName:'Stock Count Issue Track', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  title: '头衔',
-  countTime: '计数时间',
-  summary: '概览',
-  shelf: '架',
+  id: 'Id',
+  title: 'Title',
+  countTime: 'Count Time',
+  summary: 'Summary',
+  shelf: 'Shelf',
 
 }
 
@@ -65,11 +65,11 @@ const renderItemOfList=(goodsShelfStockCount,targetComponent)=>{
 	<div key={goodsShelfStockCount.id}>
 	
 	<DescriptionList  key={goodsShelfStockCount.id} size="small" col="4">
-<Description term="序号">{goodsShelfStockCount.id}</Description> 
-<Description term="头衔">{goodsShelfStockCount.title}</Description> 
-<Description term="计数时间">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="概览">{goodsShelfStockCount.summary}</Description> 
-<Description term="架">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
+<Description term="Id">{goodsShelfStockCount.id}</Description> 
+<Description term="Title">{goodsShelfStockCount.title}</Description> 
+<Description term="Count Time">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Summary">{goodsShelfStockCount.summary}</Description> 
+<Description term="Shelf">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
 </Description>
 	
         

@@ -28,11 +28,11 @@ const internalSummaryOf = (potentialCustomer,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{potentialCustomer.id}</Description> 
-<Description term="名称">{potentialCustomer.name}</Description> 
-<Description term="手机">{potentialCustomer.mobile}</Description> 
-<Description term="描述">{potentialCustomer.description}</Description> 
-<Description term="最后更新时间">{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{potentialCustomer.id}</Description> 
+<Description term="Name">{potentialCustomer.name}</Description> 
+<Description term="Mobile">{potentialCustomer.mobile}</Description> 
+<Description term="Description">{potentialCustomer.description}</Description> 
+<Description term="Last Update Time">{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class PotentialCustomerPermission extends Component {
     // eslint-disable-next-line max-len
     const  potentialCustomer = this.props.potentialCustomer;
     const { id,displayName, potentialCustomerContactPersonCount, potentialCustomerContactCount, eventAttendanceCount } = potentialCustomer
-    const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",cardsSource: potentialCustomer,
+    const cardsData = {cardsName:"Potential Customer",cardsFor: "potentialCustomer",cardsSource: potentialCustomer,
   		subItems: [
     
       	],

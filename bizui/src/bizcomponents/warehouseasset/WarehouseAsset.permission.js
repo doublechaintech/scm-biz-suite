@@ -28,10 +28,10 @@ const internalSummaryOf = (warehouseAsset,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{warehouseAsset.id}</Description> 
-<Description term="名称">{warehouseAsset.name}</Description> 
-<Description term="位置">{warehouseAsset.position}</Description> 
-<Description term="最后更新时间">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{warehouseAsset.id}</Description> 
+<Description term="Name">{warehouseAsset.name}</Description> 
+<Description term="Position">{warehouseAsset.position}</Description> 
+<Description term="Last Update Time">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class WarehouseAssetPermission extends Component {
     // eslint-disable-next-line max-len
     const  warehouseAsset = this.props.warehouseAsset;
     const { id,displayName,  } = warehouseAsset
-    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,
+    const cardsData = {cardsName:"Warehouse Asset",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,
   		subItems: [
     
       	],

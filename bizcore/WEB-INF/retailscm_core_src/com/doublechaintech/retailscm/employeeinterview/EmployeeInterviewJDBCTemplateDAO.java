@@ -66,7 +66,7 @@ public class EmployeeInterviewJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public EmployeeInterview load(String id,Map<String,Object> options) throws Exception{

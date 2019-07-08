@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/leaveType/${id}/list/EmployeeLeaveList/请假记录+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/leaveType/${id}/list/EmployeeLeaveList/Employee Leave+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeLeave({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/leaveType/${id}/list/EmployeeLeaveList/请假记录列表`, state: newPlayload }
+      const location = { pathname: `/leaveType/${id}/list/EmployeeLeaveList/Employee Leave列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeLeaveUpdateRow({ payload }, { call, put }) {

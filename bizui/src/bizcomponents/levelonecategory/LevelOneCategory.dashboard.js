@@ -81,14 +81,14 @@ const internalSummaryOf = (levelOneCategory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelOneCategory.id}</Description> 
-<Description term="目录">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
+<Description term="Id">{levelOneCategory.id}</Description> 
+<Description term="Catalog">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"目录","catalog",LevelOneCategoryService.requestCandidateCatalog,
+  showTransferModel(targetComponent,"Catalog","catalog",LevelOneCategoryService.requestCandidateCatalog,
 	      LevelOneCategoryService.transferToAnotherCatalog,"anotherCatalogId",levelOneCategory.catalog?levelOneCategory.catalog.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="名称">{levelOneCategory.name}</Description> 
+<Description term="Name">{levelOneCategory.name}</Description> 
 	
         {buildTransferModal(levelOneCategory,targetComponent)}
       </DescriptionList>
@@ -126,10 +126,10 @@ class LevelOneCategoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",
+    const cardsData = {cardsName:"Level One Category",cardsFor: "levelOneCategory",
     	cardsSource: this.props.levelOneCategory,returnURL,displayName,
   		subItems: [
-{name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
+{name: 'levelTwoCategoryList', displayName:'Level Two Category',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
     
       	],
   	};

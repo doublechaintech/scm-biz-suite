@@ -28,10 +28,10 @@ const internalSummaryOf = (offerAcceptance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{offerAcceptance.id}</Description> 
-<Description term="谁">{offerAcceptance.who}</Description> 
-<Description term="接受时间">{ moment(offerAcceptance.acceptTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{offerAcceptance.comments}</Description> 
+<Description term="Id">{offerAcceptance.id}</Description> 
+<Description term="Who">{offerAcceptance.who}</Description> 
+<Description term="Accept Time">{ moment(offerAcceptance.acceptTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Comments">{offerAcceptance.comments}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class OfferAcceptancePermission extends Component {
     // eslint-disable-next-line max-len
     const  offerAcceptance = this.props.offerAcceptance;
     const { id,displayName, employeeCount } = offerAcceptance
-    const cardsData = {cardsName:"接受工作要约",cardsFor: "offerAcceptance",cardsSource: offerAcceptance,
+    const cardsData = {cardsName:"Offer Acceptance",cardsFor: "offerAcceptance",cardsSource: offerAcceptance,
   		subItems: [
     
       	],

@@ -56,7 +56,7 @@ class LevelTwoCategoryProfile extends Component {
     const  levelTwoCategory = this.props.levelTwoCategory;
     const { id,displayName, levelThreeCategoryCount } = levelTwoCategory
 
-    const cardsData = {cardsName:"二级分类",cardsFor: "levelTwoCategory",cardsSource: levelTwoCategory,
+    const cardsData = {cardsName:"Level Two Category",cardsFor: "levelTwoCategory",cardsSource: levelTwoCategory,
   		subItems: [
      
       	],

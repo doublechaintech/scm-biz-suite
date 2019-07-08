@@ -30,26 +30,26 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"对象访问", menuFor: "objectAccess",
+const menuData = {menuName:"Object Access", menuFor: "objectAccess",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  objectType: '对象类型',
-  list1: '表',
-  list2: '清单',
-  list3: '目录3',
-  list4: '清单',
-  list5: '列表6',
-  list6: 'list6',
-  list7: 'list7',
-  list8: 'list8',
-  list9: 'list9',
-  app: '应用程序',
+  id: 'Id',
+  name: 'Name',
+  objectType: 'Object Type',
+  list1: 'List1',
+  list2: 'List2',
+  list3: 'List3',
+  list4: 'List4',
+  list5: 'List5',
+  list6: 'List6',
+  list7: 'List7',
+  list8: 'List8',
+  list9: 'List9',
+  app: 'App',
 
 }
 
@@ -80,19 +80,19 @@ const renderItemOfList=(objectAccess,targetComponent)=>{
 	<div key={objectAccess.id}>
 	
 	<DescriptionList  key={objectAccess.id} size="small" col="4">
-<Description term="序号">{objectAccess.id}</Description> 
-<Description term="名称">{objectAccess.name}</Description> 
-<Description term="对象类型">{objectAccess.objectType}</Description> 
-<Description term="表">{objectAccess.list1}</Description> 
-<Description term="清单">{objectAccess.list2}</Description> 
-<Description term="目录3">{objectAccess.list3}</Description> 
-<Description term="清单">{objectAccess.list4}</Description> 
-<Description term="列表6">{objectAccess.list5}</Description> 
-<Description term="list6">{objectAccess.list6}</Description> 
-<Description term="list7">{objectAccess.list7}</Description> 
-<Description term="list8">{objectAccess.list8}</Description> 
-<Description term="list9">{objectAccess.list9}</Description> 
-<Description term="应用程序">{objectAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${objectAccess.app.displayName}(${objectAccess.app.id})`}
+<Description term="Id">{objectAccess.id}</Description> 
+<Description term="Name">{objectAccess.name}</Description> 
+<Description term="Object Type">{objectAccess.objectType}</Description> 
+<Description term="List1">{objectAccess.list1}</Description> 
+<Description term="List2">{objectAccess.list2}</Description> 
+<Description term="List3">{objectAccess.list3}</Description> 
+<Description term="List4">{objectAccess.list4}</Description> 
+<Description term="List5">{objectAccess.list5}</Description> 
+<Description term="List6">{objectAccess.list6}</Description> 
+<Description term="List7">{objectAccess.list7}</Description> 
+<Description term="List8">{objectAccess.list8}</Description> 
+<Description term="List9">{objectAccess.list9}</Description> 
+<Description term="App">{objectAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${objectAccess.app.displayName}(${objectAccess.app.id})`}
 </Description>
 	
         

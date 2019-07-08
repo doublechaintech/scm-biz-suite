@@ -167,7 +167,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "城市合伙人",
+      name: "City Partner",
       role: "cityPartner",
       data: state._retailStoreCityServiceCenter.cityPartnerList,
       metaInfo: state._retailStoreCityServiceCenter.cityPartnerListMetaInfo,
@@ -216,7 +216,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "潜在的客户",
+      name: "Potential Customer",
       role: "potentialCustomer",
       data: state._retailStoreCityServiceCenter.potentialCustomerList,
       metaInfo: state._retailStoreCityServiceCenter.potentialCustomerListMetaInfo,
@@ -265,7 +265,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "城市活动",
+      name: "City Event",
       role: "cityEvent",
       data: state._retailStoreCityServiceCenter.cityEventList,
       metaInfo: state._retailStoreCityServiceCenter.cityEventListMetaInfo,
@@ -314,7 +314,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "双链小超",
+      name: "Retail Store",
       role: "retailStore",
       data: state._retailStoreCityServiceCenter.retailStoreList,
       metaInfo: state._retailStoreCityServiceCenter.retailStoreListMetaInfo,
@@ -432,10 +432,10 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

@@ -21,7 +21,7 @@ const testValues = {
   origin: '四川',
   remark: '可口可乐，销售百年的糖水，获得了全世界额青睐',
   brand: '品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品牌品',
-  parentCategoryId: 'LTC00000001',
+  parentCategoryId: 'LTC000001',
 }
 */
 
@@ -198,8 +198,8 @@ class ProductCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}产品`}
-        content={`${appLocaleName(userContext,"CreateNew")}产品`}
+        title={`${appLocaleName(userContext,"CreateNew")}Product`}
+        content={`${appLocaleName(userContext,"CreateNew")}Product`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('origin', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产地" />
+                    <Input size="large" placeholder="Origin" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large" placeholder="Remark" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class ProductCreateForm extends Component {
                   {getFieldDecorator('brand', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="品牌" />
+                    <Input size="large" placeholder="Brand" />
                   )}
                 </Form.Item>
               </Col>
@@ -267,7 +267,7 @@ class ProductCreateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="图片"
+                  buttonTitle="Picture"
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'picture')}
                   fileList={convertedImagesValues.picture}

@@ -56,9 +56,9 @@ class UserDomainProfile extends Component {
     const  userDomain = this.props.userDomain;
     const { id,displayName, userWhiteListCount, secUserCount } = userDomain
 
-    const cardsData = {cardsName:"用户域",cardsFor: "userDomain",cardsSource: userDomain,
+    const cardsData = {cardsName:"User Domain",cardsFor: "userDomain",cardsSource: userDomain,
   		subItems: [
-{name: 'userWhiteListList', displayName:'用户白名单',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList',  renderItem: GlobalComponents.UserWhiteListBase.renderItemOfList},
+{name: 'userWhiteListList', displayName:'User White List',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList',  renderItem: GlobalComponents.UserWhiteListBase.renderItemOfList},
      
       	],
   	};

@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"SKU", menuFor: "sku",
+const menuData = {menuName:"Sku", menuFor: "sku",
   		subItems: [
-  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName:'Goods', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  size: '大小',
-  product: '产品',
-  barcode: '条码',
-  packageType: '包装类型',
-  netContent: '净含量',
-  price: '价格',
-  picture: '图片',
+  id: 'Id',
+  name: 'Name',
+  size: 'Size',
+  product: 'Product',
+  barcode: 'Barcode',
+  packageType: 'Package Type',
+  netContent: 'Net Content',
+  price: 'Price',
+  picture: 'Picture',
 
 }
 
@@ -59,7 +59,7 @@ const displayColumns = [
   { title: fieldLabels.packageType, debugtype: 'string', dataIndex: 'packageType', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.netContent, debugtype: 'string', dataIndex: 'netContent', width: '27',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.price, dataIndex: 'price', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
-  { title: fieldLabels.picture, dataIndex: 'picture', render: (text, record) => renderImageCell(text,record,'图片') },
+  { title: fieldLabels.picture, dataIndex: 'picture', render: (text, record) => renderImageCell(text,record,'Picture') },
 
 ]
 // refernce to https://ant.design/components/list-cn/
@@ -73,15 +73,15 @@ const renderItemOfList=(sku,targetComponent)=>{
 	<div key={sku.id}>
 	
 	<DescriptionList  key={sku.id} size="small" col="4">
-<Description term="序号">{sku.id}</Description> 
-<Description term="名称">{sku.name}</Description> 
-<Description term="大小">{sku.size}</Description> 
-<Description term="产品">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
+<Description term="Id">{sku.id}</Description> 
+<Description term="Name">{sku.name}</Description> 
+<Description term="Size">{sku.size}</Description> 
+<Description term="Product">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
 </Description>
-<Description term="条码">{sku.barcode}</Description> 
-<Description term="包装类型">{sku.packageType}</Description> 
-<Description term="净含量">{sku.netContent}</Description> 
-<Description term="价格">{sku.price}</Description> 
+<Description term="Barcode">{sku.barcode}</Description> 
+<Description term="Package Type">{sku.packageType}</Description> 
+<Description term="Net Content">{sku.netContent}</Description> 
+<Description term="Price">{sku.price}</Description> 
 	
         
       </DescriptionList>

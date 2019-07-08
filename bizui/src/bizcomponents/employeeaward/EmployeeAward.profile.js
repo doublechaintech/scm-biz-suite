@@ -56,7 +56,7 @@ class EmployeeAwardProfile extends Component {
     const  employeeAward = this.props.employeeAward;
     const { id,displayName,  } = employeeAward
 
-    const cardsData = {cardsName:"员工嘉奖",cardsFor: "employeeAward",cardsSource: employeeAward,
+    const cardsData = {cardsName:"Employee Award",cardsFor: "employeeAward",cardsSource: employeeAward,
   		subItems: [
      
       	],

@@ -20,12 +20,12 @@ const testValues = {
   name: '中和社区小超',
   telephone: '02887654321',
   owner: '吕刚',
-  founded: '2018-03-16',
-  latitude: '40.893407072696945',
-  longitude: '130.74252718140093',
+  founded: '2018-03-10',
+  latitude: '41.582797388544805',
+  longitude: '130.3275740607493',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
-  retailStoreCountryCenterId: 'RSCC00000001',
-  cityServiceCenterId: 'RSCSC00000001',
+  retailStoreCountryCenterId: 'RSCC000001',
+  cityServiceCenterId: 'RSCSC000001',
 }
 */
 
@@ -201,8 +201,8 @@ class RetailStoreCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}双链小超`}
-        content={`${appLocaleName(userContext,"CreateNew")}双链小超`}
+        title={`${appLocaleName(userContext,"CreateNew")}Retail Store`}
+        content={`${appLocaleName(userContext,"CreateNew")}Retail Store`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -214,7 +214,7 @@ class RetailStoreCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -224,7 +224,7 @@ class RetailStoreCreateForm extends Component {
                   {getFieldDecorator('telephone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电话" />
+                    <Input size="large" placeholder="Telephone" />
                   )}
                 </Form.Item>
               </Col>
@@ -234,7 +234,7 @@ class RetailStoreCreateForm extends Component {
                   {getFieldDecorator('owner', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="业主" />
+                    <Input size="large" placeholder="Owner" />
                   )}
                 </Form.Item>
               </Col>
@@ -244,7 +244,7 @@ class RetailStoreCreateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
                   )}
                 </Form.Item>
               </Col>
@@ -254,7 +254,7 @@ class RetailStoreCreateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large" placeholder="Latitude" />
                   )}
                 </Form.Item>
               </Col>
@@ -264,7 +264,7 @@ class RetailStoreCreateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large" placeholder="Longitude" />
                   )}
                 </Form.Item>
               </Col>
@@ -274,7 +274,7 @@ class RetailStoreCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

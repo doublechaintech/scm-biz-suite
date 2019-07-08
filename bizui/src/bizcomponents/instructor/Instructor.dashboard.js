@@ -81,14 +81,14 @@ const internalSummaryOf = (instructor,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{instructor.id}</Description> 
-<Description term="头衔">{instructor.title}</Description> 
-<Description term="姓">{instructor.familyName}</Description> 
-<Description term="名">{instructor.givenName}</Description> 
-<Description term="手机">{instructor.cellPhone}</Description> 
-<Description term="电子邮件">{instructor.email}</Description> 
-<Description term="介绍">{instructor.introduction}</Description> 
-<Description term="最后更新时间">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{instructor.id}</Description> 
+<Description term="Title">{instructor.title}</Description> 
+<Description term="Family Name">{instructor.familyName}</Description> 
+<Description term="Given Name">{instructor.givenName}</Description> 
+<Description term="Cell Phone">{instructor.cellPhone}</Description> 
+<Description term="Email">{instructor.email}</Description> 
+<Description term="Introduction">{instructor.introduction}</Description> 
+<Description term="Last Update Time">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(instructor,targetComponent)}
       </DescriptionList>
@@ -126,10 +126,10 @@ class InstructorDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"讲师",cardsFor: "instructor",
+    const cardsData = {cardsName:"Instructor",cardsFor: "instructor",
     	cardsSource: this.props.instructor,returnURL,displayName,
   		subItems: [
-{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'companyTrainingList', displayName:'Company Training',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
   	};

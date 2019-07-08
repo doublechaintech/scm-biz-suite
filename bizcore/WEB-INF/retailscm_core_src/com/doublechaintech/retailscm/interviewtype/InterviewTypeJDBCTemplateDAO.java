@@ -76,7 +76,7 @@ public class InterviewTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public InterviewType load(String id,Map<String,Object> options) throws Exception{

@@ -81,13 +81,13 @@ const internalSummaryOf = (goodsAllocation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsAllocation.id}</Description> 
-<Description term="位置">{goodsAllocation.location}</Description> 
-<Description term="纬度">{goodsAllocation.latitude}</Description> 
-<Description term="经度">{goodsAllocation.longitude}</Description> 
-<Description term="货架">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
+<Description term="Id">{goodsAllocation.id}</Description> 
+<Description term="Location">{goodsAllocation.location}</Description> 
+<Description term="Latitude">{goodsAllocation.latitude}</Description> 
+<Description term="Longitude">{goodsAllocation.longitude}</Description> 
+<Description term="Goods Shelf">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"货架","goodsShelf",GoodsAllocationService.requestCandidateGoodsShelf,
+  showTransferModel(targetComponent,"Goods Shelf","goodsShelf",GoodsAllocationService.requestCandidateGoodsShelf,
 	      GoodsAllocationService.transferToAnotherGoodsShelf,"anotherGoodsShelfId",goodsAllocation.goodsShelf?goodsAllocation.goodsShelf.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +128,10 @@ class GoodsAllocationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",
+    const cardsData = {cardsName:"Goods Allocation",cardsFor: "goodsAllocation",
     	cardsSource: this.props.goodsAllocation,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};

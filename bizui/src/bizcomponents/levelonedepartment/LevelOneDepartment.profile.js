@@ -56,7 +56,7 @@ class LevelOneDepartmentProfile extends Component {
     const  levelOneDepartment = this.props.levelOneDepartment;
     const { id,displayName, levelTwoDepartmentCount } = levelOneDepartment
 
-    const cardsData = {cardsName:"一级部门",cardsFor: "levelOneDepartment",cardsSource: levelOneDepartment,
+    const cardsData = {cardsName:"Level One Department",cardsFor: "levelOneDepartment",cardsSource: levelOneDepartment,
   		subItems: [
      
       	],

@@ -77,7 +77,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public PotentialCustomerContact load(String id,Map<String,Object> options) throws Exception{
@@ -380,7 +380,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("潜在客户联系");
+		lastUpdateTimeStatsItem.setDisplayName("Potential Customer Contact");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -430,7 +430,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("潜在客户联系");
+		lastUpdateTimeStatsItem.setDisplayName("Potential Customer Contact");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -480,7 +480,7 @@ public class PotentialCustomerContactJDBCTemplateDAO extends RetailscmNamingServ
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("潜在客户联系");
+		lastUpdateTimeStatsItem.setDisplayName("Potential Customer Contact");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(PotentialCustomerContact.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

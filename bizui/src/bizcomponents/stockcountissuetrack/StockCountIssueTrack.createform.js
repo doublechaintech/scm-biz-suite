@@ -18,9 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2017-08-21',
+  countTime: '2017-04-10',
   summary: '发现错误已经修正完成',
-  stockCountId: 'GSSC00000001',
+  stockCountId: 'GSSC000001',
 }
 */
 
@@ -196,8 +196,8 @@ class StockCountIssueTrackCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}库存计数问题跟踪`}
-        content={`${appLocaleName(userContext,"CreateNew")}库存计数问题跟踪`}
+        title={`${appLocaleName(userContext,"CreateNew")}Stock Count Issue Track`}
+        content={`${appLocaleName(userContext,"CreateNew")}Stock Count Issue Track`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class StockCountIssueTrackCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class StockCountIssueTrackCreateForm extends Component {
                   {getFieldDecorator('countTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="计数时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Count Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class StockCountIssueTrackCreateForm extends Component {
                   {getFieldDecorator('summary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="概览" />
+                    <Input size="large" placeholder="Summary" />
                   )}
                 </Form.Item>
               </Col>

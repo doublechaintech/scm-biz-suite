@@ -28,15 +28,15 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeSalarySheet.id}</Description> 
-<Description term="基本工资">{employeeSalarySheet.baseSalary}</Description> 
-<Description term="奖金">{employeeSalarySheet.bonus}</Description> 
-<Description term="奖励">{employeeSalarySheet.reward}</Description> 
-<Description term="个人所得税">{employeeSalarySheet.personalTax}</Description> 
-<Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
-<Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
-<Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
-<Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
+<Description term="Id">{employeeSalarySheet.id}</Description> 
+<Description term="Base Salary">{employeeSalarySheet.baseSalary}</Description> 
+<Description term="Bonus">{employeeSalarySheet.bonus}</Description> 
+<Description term="Reward">{employeeSalarySheet.reward}</Description> 
+<Description term="Personal Tax">{employeeSalarySheet.personalTax}</Description> 
+<Description term="Social Security">{employeeSalarySheet.socialSecurity}</Description> 
+<Description term="Housing Found">{employeeSalarySheet.housingFound}</Description> 
+<Description term="Job Insurance">{employeeSalarySheet.jobInsurance}</Description> 
+<Description term="Current Status">{employeeSalarySheet.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -62,7 +62,7 @@ class EmployeeSalarySheetPermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeSalarySheet = this.props.employeeSalarySheet;
     const { id,displayName,  } = employeeSalarySheet
-    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,
+    const cardsData = {cardsName:"Employee Salary Sheet",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,
   		subItems: [
     
       	],

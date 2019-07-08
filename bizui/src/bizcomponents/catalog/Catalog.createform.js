@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  ownerId: 'RSCC00000001',
+  ownerId: 'RSCC000001',
 }
 */
 
@@ -194,8 +194,8 @@ class CatalogCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}目录`}
-        content={`${appLocaleName(userContext,"CreateNew")}目录`}
+        title={`${appLocaleName(userContext,"CreateNew")}Catalog`}
+        content={`${appLocaleName(userContext,"CreateNew")}Catalog`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class CatalogCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

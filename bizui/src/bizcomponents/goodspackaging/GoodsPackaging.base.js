@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"货物包装", menuFor: "goodsPackaging",
+const menuData = {menuName:"Goods Packaging", menuFor: "goodsPackaging",
   		subItems: [
-  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName:'Goods', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  packageName: '包的名字',
-  rfid: 'RFID',
-  packageTime: '包的时间',
-  description: '描述',
+  id: 'Id',
+  packageName: 'Package Name',
+  rfid: 'Rfid',
+  packageTime: 'Package Time',
+  description: 'Description',
 
 }
 
@@ -65,11 +65,11 @@ const renderItemOfList=(goodsPackaging,targetComponent)=>{
 	<div key={goodsPackaging.id}>
 	
 	<DescriptionList  key={goodsPackaging.id} size="small" col="4">
-<Description term="序号">{goodsPackaging.id}</Description> 
-<Description term="包的名字">{goodsPackaging.packageName}</Description> 
-<Description term="RFID">{goodsPackaging.rfid}</Description> 
-<Description term="包的时间">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
-<Description term="描述">{goodsPackaging.description}</Description> 
+<Description term="Id">{goodsPackaging.id}</Description> 
+<Description term="Package Name">{goodsPackaging.packageName}</Description> 
+<Description term="Rfid">{goodsPackaging.rfid}</Description> 
+<Description term="Package Time">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{goodsPackaging.description}</Description> 
 	
         
       </DescriptionList>

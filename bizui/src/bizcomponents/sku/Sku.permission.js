@@ -28,13 +28,13 @@ const internalSummaryOf = (sku,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{sku.id}</Description> 
-<Description term="名称">{sku.name}</Description> 
-<Description term="大小">{sku.size}</Description> 
-<Description term="条码">{sku.barcode}</Description> 
-<Description term="包装类型">{sku.packageType}</Description> 
-<Description term="净含量">{sku.netContent}</Description> 
-<Description term="价格">{sku.price}</Description> 
+<Description term="Id">{sku.id}</Description> 
+<Description term="Name">{sku.name}</Description> 
+<Description term="Size">{sku.size}</Description> 
+<Description term="Barcode">{sku.barcode}</Description> 
+<Description term="Package Type">{sku.packageType}</Description> 
+<Description term="Net Content">{sku.netContent}</Description> 
+<Description term="Price">{sku.price}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class SkuPermission extends Component {
     // eslint-disable-next-line max-len
     const  sku = this.props.sku;
     const { id,displayName, goodsCount } = sku
-    const cardsData = {cardsName:"SKU",cardsFor: "sku",cardsSource: sku,
+    const cardsData = {cardsName:"Sku",cardsFor: "sku",cardsSource: sku,
   		subItems: [
     
       	],

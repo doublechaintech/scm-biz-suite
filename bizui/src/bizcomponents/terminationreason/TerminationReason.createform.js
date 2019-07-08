@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   code: 'ETR0000',
   description: '业务发展，公司转型',
-  companyId: 'RSCC00000001',
+  companyId: 'RSCC000001',
 }
 */
 
@@ -195,8 +195,8 @@ class TerminationReasonCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}雇佣终止的原因`}
-        content={`${appLocaleName(userContext,"CreateNew")}雇佣终止的原因`}
+        title={`${appLocaleName(userContext,"CreateNew")}Termination Reason`}
+        content={`${appLocaleName(userContext,"CreateNew")}Termination Reason`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class TerminationReasonCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large" placeholder="Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class TerminationReasonCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

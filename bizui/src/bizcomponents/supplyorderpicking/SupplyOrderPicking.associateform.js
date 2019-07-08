@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '处理者',
-  processTime: '2017-02-06',
+  processTime: '2018-09-21',
 }
 */
 
@@ -139,7 +139,7 @@ class SupplyOrderPickingAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class SupplyOrderPickingAssociateForm extends Component {
                   {getFieldDecorator('processTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="过程的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Process Time" />
                   )}
                 </Form.Item>
               </Col>

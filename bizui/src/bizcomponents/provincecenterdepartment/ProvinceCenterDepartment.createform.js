@@ -18,9 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-  founded: '2018-06-16',
+  founded: '2019-02-12',
   manager: '刘强',
-  provinceCenterId: 'RSPC00000001',
+  provinceCenterId: 'RSPC000001',
 }
 */
 
@@ -196,8 +196,8 @@ class ProvinceCenterDepartmentCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}省中心`}
-        content={`${appLocaleName(userContext,"CreateNew")}省中心`}
+        title={`${appLocaleName(userContext,"CreateNew")}Province Center Department`}
+        content={`${appLocaleName(userContext,"CreateNew")}Province Center Department`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class ProvinceCenterDepartmentCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class ProvinceCenterDepartmentCreateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class ProvinceCenterDepartmentCreateForm extends Component {
                   {getFieldDecorator('manager', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经理" />
+                    <Input size="large" placeholder="Manager" />
                   )}
                 </Form.Item>
               </Col>

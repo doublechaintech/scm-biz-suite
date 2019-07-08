@@ -119,7 +119,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public GoodsShelf load(String id,Map<String,Object> options) throws Exception{
@@ -580,7 +580,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("货架");
+		lastUpdateTimeStatsItem.setDisplayName("Goods Shelf");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -630,7 +630,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("货架");
+		lastUpdateTimeStatsItem.setDisplayName("Goods Shelf");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -680,7 +680,7 @@ public class GoodsShelfJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsShelf.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("货架");
+		lastUpdateTimeStatsItem.setDisplayName("Goods Shelf");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsShelf.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsShelf.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

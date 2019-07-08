@@ -20,8 +20,8 @@ const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
   manager: '刘强',
-  founded: '2019-02-08',
-  belongsToId: 'RSCC00000001',
+  founded: '2018-06-20',
+  belongsToId: 'RSCC000001',
 }
 */
 
@@ -197,8 +197,8 @@ class LevelOneDepartmentCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}一级部门`}
-        content={`${appLocaleName(userContext,"CreateNew")}一级部门`}
+        title={`${appLocaleName(userContext,"CreateNew")}Level One Department`}
+        content={`${appLocaleName(userContext,"CreateNew")}Level One Department`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class LevelOneDepartmentCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class LevelOneDepartmentCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class LevelOneDepartmentCreateForm extends Component {
                   {getFieldDecorator('manager', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经理" />
+                    <Input size="large" placeholder="Manager" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class LevelOneDepartmentCreateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
                   )}
                 </Form.Item>
               </Col>

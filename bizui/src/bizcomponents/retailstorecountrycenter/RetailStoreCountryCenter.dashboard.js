@@ -81,15 +81,15 @@ const internalSummaryOf = (retailStoreCountryCenter,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreCountryCenter.id}</Description> 
-<Description term="名称">{retailStoreCountryCenter.name}</Description> 
-<Description term="服务号码">{retailStoreCountryCenter.serviceNumber}</Description> 
-<Description term="成立">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="网站">{retailStoreCountryCenter.webSite}</Description> 
-<Description term="地址">{retailStoreCountryCenter.address}</Description> 
-<Description term="由">{retailStoreCountryCenter.operatedBy}</Description> 
-<Description term="法定代表人">{retailStoreCountryCenter.legalRepresentative}</Description> 
-<Description term="描述">{retailStoreCountryCenter.description}</Description> 
+<Description term="Id">{retailStoreCountryCenter.id}</Description> 
+<Description term="Name">{retailStoreCountryCenter.name}</Description> 
+<Description term="Service Number">{retailStoreCountryCenter.serviceNumber}</Description> 
+<Description term="Founded">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Web Site">{retailStoreCountryCenter.webSite}</Description> 
+<Description term="Address">{retailStoreCountryCenter.address}</Description> 
+<Description term="Operated By">{retailStoreCountryCenter.operatedBy}</Description> 
+<Description term="Legal Representative">{retailStoreCountryCenter.legalRepresentative}</Description> 
+<Description term="Description">{retailStoreCountryCenter.description}</Description> 
 	
         {buildTransferModal(retailStoreCountryCenter,targetComponent)}
       </DescriptionList>
@@ -127,23 +127,23 @@ class RetailStoreCountryCenterDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"双链小超全国运营中心",cardsFor: "retailStoreCountryCenter",
+    const cardsData = {cardsName:"Retail Store Country Center",cardsFor: "retailStoreCountryCenter",
     	cardsSource: this.props.retailStoreCountryCenter,returnURL,displayName,
   		subItems: [
-{name: 'catalogList', displayName:'目录',type:'catalog',count:catalogCount,addFunction: true, role: 'catalog', metaInfo: catalogListMetaInfo, renderItem: GlobalComponents.CatalogBase.renderItemOfList},
-{name: 'retailStoreProvinceCenterList', displayName:'双链小超省中心',type:'retailStoreProvinceCenter',count:retailStoreProvinceCenterCount,addFunction: true, role: 'retailStoreProvinceCenter', metaInfo: retailStoreProvinceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreProvinceCenterBase.renderItemOfList},
-{name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
-{name: 'retailStoreMemberList', displayName:'生超会员',type:'retailStoreMember',count:retailStoreMemberCount,addFunction: true, role: 'retailStoreMember', metaInfo: retailStoreMemberListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberBase.renderItemOfList},
-{name: 'goodsSupplierList', displayName:'产品供应商',type:'goodsSupplier',count:goodsSupplierCount,addFunction: true, role: 'goodsSupplier', metaInfo: goodsSupplierListMetaInfo, renderItem: GlobalComponents.GoodsSupplierBase.renderItemOfList},
-{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
-{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
-{name: 'warehouseList', displayName:'仓库',type:'warehouse',count:warehouseCount,addFunction: true, role: 'warehouse', metaInfo: warehouseListMetaInfo, renderItem: GlobalComponents.WarehouseBase.renderItemOfList},
-{name: 'transportFleetList', displayName:'运输车队',type:'transportFleet',count:transportFleetCount,addFunction: true, role: 'transportFleet', metaInfo: transportFleetListMetaInfo, renderItem: GlobalComponents.TransportFleetBase.renderItemOfList},
-{name: 'accountSetList', displayName:'账套',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
-{name: 'levelOneDepartmentList', displayName:'一级部门',type:'levelOneDepartment',count:levelOneDepartmentCount,addFunction: true, role: 'levelOneDepartment', metaInfo: levelOneDepartmentListMetaInfo, renderItem: GlobalComponents.LevelOneDepartmentBase.renderItemOfList},
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
-{name: 'instructorList', displayName:'讲师',type:'instructor',count:instructorCount,addFunction: true, role: 'instructor', metaInfo: instructorListMetaInfo, renderItem: GlobalComponents.InstructorBase.renderItemOfList},
-{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'catalogList', displayName:'Catalog',type:'catalog',count:catalogCount,addFunction: true, role: 'catalog', metaInfo: catalogListMetaInfo, renderItem: GlobalComponents.CatalogBase.renderItemOfList},
+{name: 'retailStoreProvinceCenterList', displayName:'Retail Store Province Center',type:'retailStoreProvinceCenter',count:retailStoreProvinceCenterCount,addFunction: true, role: 'retailStoreProvinceCenter', metaInfo: retailStoreProvinceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreProvinceCenterBase.renderItemOfList},
+{name: 'retailStoreList', displayName:'Retail Store',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
+{name: 'retailStoreMemberList', displayName:'Retail Store Member',type:'retailStoreMember',count:retailStoreMemberCount,addFunction: true, role: 'retailStoreMember', metaInfo: retailStoreMemberListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberBase.renderItemOfList},
+{name: 'goodsSupplierList', displayName:'Goods Supplier',type:'goodsSupplier',count:goodsSupplierCount,addFunction: true, role: 'goodsSupplier', metaInfo: goodsSupplierListMetaInfo, renderItem: GlobalComponents.GoodsSupplierBase.renderItemOfList},
+{name: 'supplyOrderList', displayName:'Supply Order',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+{name: 'retailStoreOrderList', displayName:'Retail Store Order',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+{name: 'warehouseList', displayName:'Warehouse',type:'warehouse',count:warehouseCount,addFunction: true, role: 'warehouse', metaInfo: warehouseListMetaInfo, renderItem: GlobalComponents.WarehouseBase.renderItemOfList},
+{name: 'transportFleetList', displayName:'Transport Fleet',type:'transportFleet',count:transportFleetCount,addFunction: true, role: 'transportFleet', metaInfo: transportFleetListMetaInfo, renderItem: GlobalComponents.TransportFleetBase.renderItemOfList},
+{name: 'accountSetList', displayName:'Account Set',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
+{name: 'levelOneDepartmentList', displayName:'Level One Department',type:'levelOneDepartment',count:levelOneDepartmentCount,addFunction: true, role: 'levelOneDepartment', metaInfo: levelOneDepartmentListMetaInfo, renderItem: GlobalComponents.LevelOneDepartmentBase.renderItemOfList},
+{name: 'employeeList', displayName:'Employee',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'instructorList', displayName:'Instructor',type:'instructor',count:instructorCount,addFunction: true, role: 'instructor', metaInfo: instructorListMetaInfo, renderItem: GlobalComponents.InstructorBase.renderItemOfList},
+{name: 'companyTrainingList', displayName:'Company Training',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
   	};

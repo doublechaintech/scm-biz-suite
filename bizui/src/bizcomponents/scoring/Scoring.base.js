@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"评分", menuFor: "scoring",
+const menuData = {menuName:"Scoring", menuFor: "scoring",
   		subItems: [
-  {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeCompanyTrainingList', displayName:'Employee Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  scoredBy: '由谁打分',
-  score: '分数',
-  comment: '评论',
+  id: 'Id',
+  scoredBy: 'Scored By',
+  score: 'Score',
+  comment: 'Comment',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(scoring,targetComponent)=>{
 	<div key={scoring.id}>
 	
 	<DescriptionList  key={scoring.id} size="small" col="4">
-<Description term="序号">{scoring.id}</Description> 
-<Description term="由谁打分">{scoring.scoredBy}</Description> 
-<Description term="分数">{scoring.score}</Description> 
-<Description term="评论">{scoring.comment}</Description> 
+<Description term="Id">{scoring.id}</Description> 
+<Description term="Scored By">{scoring.scoredBy}</Description> 
+<Description term="Score">{scoring.score}</Description> 
+<Description term="Comment">{scoring.comment}</Description> 
 	
         
       </DescriptionList>

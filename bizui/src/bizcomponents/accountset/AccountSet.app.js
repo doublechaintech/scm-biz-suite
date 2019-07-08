@@ -167,7 +167,7 @@ class AccountSetBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会计科目",
+      name: "Accounting Subject",
       role: "accountingSubject",
       data: state._accountSet.accountingSubjectList,
       metaInfo: state._accountSet.accountingSubjectListMetaInfo,
@@ -216,7 +216,7 @@ class AccountSetBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会计期间",
+      name: "Accounting Period",
       role: "accountingPeriod",
       data: state._accountSet.accountingPeriodList,
       metaInfo: state._accountSet.accountingPeriodListMetaInfo,
@@ -265,7 +265,7 @@ class AccountSetBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会计凭证类型",
+      name: "Accounting Document Type",
       role: "accountingDocumentType",
       data: state._accountSet.accountingDocumentTypeList,
       metaInfo: state._accountSet.accountingDocumentTypeListMetaInfo,
@@ -379,10 +379,10 @@ class AccountSetBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

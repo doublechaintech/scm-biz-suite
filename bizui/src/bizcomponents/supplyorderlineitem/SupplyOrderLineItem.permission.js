@@ -28,12 +28,12 @@ const internalSummaryOf = (supplyOrderLineItem,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderLineItem.id}</Description> 
-<Description term="产品ID">{supplyOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{supplyOrderLineItem.skuName}</Description> 
-<Description term="金额">{supplyOrderLineItem.amount}</Description> 
-<Description term="数量">{supplyOrderLineItem.quantity}</Description> 
-<Description term="测量单位">{supplyOrderLineItem.unitOfMeasurement}</Description> 
+<Description term="Id">{supplyOrderLineItem.id}</Description> 
+<Description term="Sku Id">{supplyOrderLineItem.skuId}</Description> 
+<Description term="Sku Name">{supplyOrderLineItem.skuName}</Description> 
+<Description term="Amount">{supplyOrderLineItem.amount}</Description> 
+<Description term="Quantity">{supplyOrderLineItem.quantity}</Description> 
+<Description term="Unit Of Measurement">{supplyOrderLineItem.unitOfMeasurement}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,7 +59,7 @@ class SupplyOrderLineItemPermission extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrderLineItem = this.props.supplyOrderLineItem;
     const { id,displayName,  } = supplyOrderLineItem
-    const cardsData = {cardsName:"供应订单行项目",cardsFor: "supplyOrderLineItem",cardsSource: supplyOrderLineItem,
+    const cardsData = {cardsName:"Supply Order Line Item",cardsFor: "supplyOrderLineItem",cardsSource: supplyOrderLineItem,
   		subItems: [
     
       	],

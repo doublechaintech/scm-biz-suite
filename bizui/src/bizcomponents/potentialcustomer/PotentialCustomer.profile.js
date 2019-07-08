@@ -56,7 +56,7 @@ class PotentialCustomerProfile extends Component {
     const  potentialCustomer = this.props.potentialCustomer;
     const { id,displayName, potentialCustomerContactPersonCount, potentialCustomerContactCount, eventAttendanceCount } = potentialCustomer
 
-    const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",cardsSource: potentialCustomer,
+    const cardsData = {cardsName:"Potential Customer",cardsFor: "potentialCustomer",cardsSource: potentialCustomer,
   		subItems: [
      
       	],

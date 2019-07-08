@@ -56,7 +56,7 @@ class SupplyOrderLineItemProfile extends Component {
     const  supplyOrderLineItem = this.props.supplyOrderLineItem;
     const { id,displayName,  } = supplyOrderLineItem
 
-    const cardsData = {cardsName:"供应订单行项目",cardsFor: "supplyOrderLineItem",cardsSource: supplyOrderLineItem,
+    const cardsData = {cardsName:"Supply Order Line Item",cardsFor: "supplyOrderLineItem",cardsSource: supplyOrderLineItem,
   		subItems: [
      
       	],

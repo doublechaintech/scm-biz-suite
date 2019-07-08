@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '技术部',
-  interviewTime: '2016-12-12',
+  interviewTime: '2017-09-18',
   comments: '能力各方面表现不错，进入下一轮',
 }
 */
@@ -195,8 +195,8 @@ class ProfessionInterviewCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}专业面试`}
-        content={`${appLocaleName(userContext,"CreateNew")}专业面试`}
+        title={`${appLocaleName(userContext,"CreateNew")}Profession Interview`}
+        content={`${appLocaleName(userContext,"CreateNew")}Profession Interview`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class ProfessionInterviewCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class ProfessionInterviewCreateForm extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="面试时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Interview Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class ProfessionInterviewCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comments" />
                   )}
                 </Form.Item>
               </Col>

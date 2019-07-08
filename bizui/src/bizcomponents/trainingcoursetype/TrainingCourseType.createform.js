@@ -20,7 +20,7 @@ const testValues = {
   code: 'TC00',
   name: '入职培训',
   description: '培训是提升个人和企业竞争力的法宝',
-  companyId: 'RSCC00000001',
+  companyId: 'RSCC000001',
 }
 */
 
@@ -196,8 +196,8 @@ class TrainingCourseTypeCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}培训课程类型`}
-        content={`${appLocaleName(userContext,"CreateNew")}培训课程类型`}
+        title={`${appLocaleName(userContext,"CreateNew")}Training Course Type`}
+        content={`${appLocaleName(userContext,"CreateNew")}Training Course Type`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class TrainingCourseTypeCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large" placeholder="Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class TrainingCourseTypeCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class TrainingCourseTypeCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

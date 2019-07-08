@@ -167,7 +167,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "存货区",
+      name: "Storage Space",
       role: "storageSpace",
       data: state._warehouse.storageSpaceList,
       metaInfo: state._warehouse.storageSpaceListMetaInfo,
@@ -216,7 +216,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "智能托盘",
+      name: "Smart Pallet",
       role: "smartPallet",
       data: state._warehouse.smartPalletList,
       metaInfo: state._warehouse.smartPalletListMetaInfo,
@@ -265,7 +265,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应商的空间",
+      name: "Supplier Space",
       role: "supplierSpace",
       data: state._warehouse.supplierSpaceList,
       metaInfo: state._warehouse.supplierSpaceListMetaInfo,
@@ -314,7 +314,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "收货区",
+      name: "Receiving Space",
       role: "receivingSpace",
       data: state._warehouse.receivingSpaceList,
       metaInfo: state._warehouse.receivingSpaceListMetaInfo,
@@ -363,7 +363,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "发货区",
+      name: "Shipping Space",
       role: "shippingSpace",
       data: state._warehouse.shippingSpaceList,
       metaInfo: state._warehouse.shippingSpaceListMetaInfo,
@@ -412,7 +412,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "残次货物存放区",
+      name: "Damage Space",
       role: "damageSpace",
       data: state._warehouse.damageSpaceList,
       metaInfo: state._warehouse.damageSpaceListMetaInfo,
@@ -461,7 +461,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "仓库资产",
+      name: "Warehouse Asset",
       role: "warehouseAsset",
       data: state._warehouse.warehouseAssetList,
       metaInfo: state._warehouse.warehouseAssetListMetaInfo,
@@ -591,10 +591,10 @@ class WarehouseBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

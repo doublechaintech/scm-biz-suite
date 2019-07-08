@@ -81,10 +81,10 @@ const internalSummaryOf = (interviewType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{interviewType.id}</Description> 
-<Description term="代码">{interviewType.code}</Description> 
-<Description term="描述">{interviewType.description}</Description> 
-<Description term="详细描述">{interviewType.detailDescription}</Description> 
+<Description term="Id">{interviewType.id}</Description> 
+<Description term="Code">{interviewType.code}</Description> 
+<Description term="Description">{interviewType.description}</Description> 
+<Description term="Detail Description">{interviewType.detailDescription}</Description> 
 	
         {buildTransferModal(interviewType,targetComponent)}
       </DescriptionList>
@@ -122,10 +122,10 @@ class InterviewTypeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",
+    const cardsData = {cardsName:"Interview Type",cardsFor: "interviewType",
     	cardsSource: this.props.interviewType,returnURL,displayName,
   		subItems: [
-{name: 'employeeInterviewList', displayName:'员工面试',type:'employeeInterview',count:employeeInterviewCount,addFunction: true, role: 'employeeInterview', metaInfo: employeeInterviewListMetaInfo, renderItem: GlobalComponents.EmployeeInterviewBase.renderItemOfList},
+{name: 'employeeInterviewList', displayName:'Employee Interview',type:'employeeInterview',count:employeeInterviewCount,addFunction: true, role: 'employeeInterview', metaInfo: employeeInterviewListMetaInfo, renderItem: GlobalComponents.EmployeeInterviewBase.renderItemOfList},
     
       	],
   	};

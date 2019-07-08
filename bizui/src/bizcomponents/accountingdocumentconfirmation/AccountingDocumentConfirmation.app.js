@@ -167,7 +167,7 @@ class AccountingDocumentConfirmationBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会计凭证",
+      name: "Accounting Document",
       role: "accountingDocument",
       data: state._accountingDocumentConfirmation.accountingDocumentList,
       metaInfo: state._accountingDocumentConfirmation.accountingDocumentListMetaInfo,
@@ -273,10 +273,10 @@ class AccountingDocumentConfirmationBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

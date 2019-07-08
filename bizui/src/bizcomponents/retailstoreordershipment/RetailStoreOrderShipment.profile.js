@@ -56,7 +56,7 @@ class RetailStoreOrderShipmentProfile extends Component {
     const  retailStoreOrderShipment = this.props.retailStoreOrderShipment;
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderShipment
 
-    const cardsData = {cardsName:"生超订单出货",cardsFor: "retailStoreOrderShipment",cardsSource: retailStoreOrderShipment,
+    const cardsData = {cardsName:"Retail Store Order Shipment",cardsFor: "retailStoreOrderShipment",cardsSource: retailStoreOrderShipment,
   		subItems: [
      
       	],

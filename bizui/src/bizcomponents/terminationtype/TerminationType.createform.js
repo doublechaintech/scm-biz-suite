@@ -20,7 +20,7 @@ const testValues = {
   code: 'ETT0000',
   baseDescription: '合同解除',
   detailDescription: '这个终止原因的描述是这样的.................................................',
-  companyId: 'RSCC00000001',
+  companyId: 'RSCC000001',
 }
 */
 
@@ -196,8 +196,8 @@ class TerminationTypeCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}雇佣终止类型`}
-        content={`${appLocaleName(userContext,"CreateNew")}雇佣终止类型`}
+        title={`${appLocaleName(userContext,"CreateNew")}Termination Type`}
+        content={`${appLocaleName(userContext,"CreateNew")}Termination Type`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class TerminationTypeCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large" placeholder="Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class TerminationTypeCreateForm extends Component {
                   {getFieldDecorator('baseDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="基本描述" />
+                    <Input size="large" placeholder="Base Description" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class TerminationTypeCreateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="详细描述" />
+                    <Input size="large" placeholder="Detail Description" />
                   )}
                 </Form.Item>
               </Col>

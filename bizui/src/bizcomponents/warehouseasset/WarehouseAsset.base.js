@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"仓库资产", menuFor: "warehouseAsset",
+const menuData = {menuName:"Warehouse Asset", menuFor: "warehouseAsset",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  position: '位置',
-  owner: '业主',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  position: 'Position',
+  owner: 'Owner',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -64,12 +64,12 @@ const renderItemOfList=(warehouseAsset,targetComponent)=>{
 	<div key={warehouseAsset.id}>
 	
 	<DescriptionList  key={warehouseAsset.id} size="small" col="4">
-<Description term="序号">{warehouseAsset.id}</Description> 
-<Description term="名称">{warehouseAsset.name}</Description> 
-<Description term="位置">{warehouseAsset.position}</Description> 
-<Description term="业主">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
+<Description term="Id">{warehouseAsset.id}</Description> 
+<Description term="Name">{warehouseAsset.name}</Description> 
+<Description term="Position">{warehouseAsset.position}</Description> 
+<Description term="Owner">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
 </Description>
-<Description term="最后更新时间">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

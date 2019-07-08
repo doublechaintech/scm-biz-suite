@@ -193,8 +193,8 @@ class RetailStoreClosingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}商店关闭`}
-        content={`${appLocaleName(userContext,"CreateNew")}商店关闭`}
+        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Closing`}
+        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Closing`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -206,7 +206,7 @@ class RetailStoreClosingCreateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comment" />
                   )}
                 </Form.Item>
               </Col>

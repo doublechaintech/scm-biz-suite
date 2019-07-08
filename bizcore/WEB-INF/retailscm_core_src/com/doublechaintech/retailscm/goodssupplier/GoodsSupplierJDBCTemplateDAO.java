@@ -118,7 +118,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public GoodsSupplier load(String id,Map<String,Object> options) throws Exception{
@@ -582,7 +582,7 @@ public class GoodsSupplierJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//GoodsSupplier.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("产品供应商");
+		lastUpdateTimeStatsItem.setDisplayName("Goods Supplier");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(GoodsSupplier.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(GoodsSupplier.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

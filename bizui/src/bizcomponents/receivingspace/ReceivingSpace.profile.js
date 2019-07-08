@@ -56,7 +56,7 @@ class ReceivingSpaceProfile extends Component {
     const  receivingSpace = this.props.receivingSpace;
     const { id,displayName, goodsCount } = receivingSpace
 
-    const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",cardsSource: receivingSpace,
+    const cardsData = {cardsName:"Receiving Space",cardsFor: "receivingSpace",cardsSource: receivingSpace,
   		subItems: [
      
       	],

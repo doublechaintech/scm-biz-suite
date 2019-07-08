@@ -56,7 +56,7 @@ class ResponsibilityTypeProfile extends Component {
     const  responsibilityType = this.props.responsibilityType;
     const { id,displayName, employeeCount } = responsibilityType
 
-    const cardsData = {cardsName:"责任类型",cardsFor: "responsibilityType",cardsSource: responsibilityType,
+    const cardsData = {cardsName:"Responsibility Type",cardsFor: "responsibilityType",cardsSource: responsibilityType,
   		subItems: [
      
       	],

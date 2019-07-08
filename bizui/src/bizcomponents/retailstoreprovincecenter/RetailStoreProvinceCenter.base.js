@@ -30,20 +30,20 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"双链小超省中心", menuFor: "retailStoreProvinceCenter",
+const menuData = {menuName:"Retail Store Province Center", menuFor: "retailStoreProvinceCenter",
   		subItems: [
-  {name: 'provinceCenterEmployeeList', displayName:'省中心员工', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'retailStoreCityServiceCenterList', displayName:'双链小超城市服务中心', icon:'city',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'provinceCenterEmployeeList', displayName:'Province Center Employee', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreCityServiceCenterList', displayName:'Retail Store City Service Center', icon:'city',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  founded: '成立',
-  country: '国',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  founded: 'Founded',
+  country: 'Country',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -66,10 +66,10 @@ const renderItemOfList=(retailStoreProvinceCenter,targetComponent)=>{
 	<div key={retailStoreProvinceCenter.id}>
 	
 	<DescriptionList  key={retailStoreProvinceCenter.id} size="small" col="4">
-<Description term="序号">{retailStoreProvinceCenter.id}</Description> 
-<Description term="名称">{retailStoreProvinceCenter.name}</Description> 
-<Description term="成立">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreProvinceCenter.id}</Description> 
+<Description term="Name">{retailStoreProvinceCenter.name}</Description> 
+<Description term="Founded">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

@@ -81,12 +81,12 @@ const internalSummaryOf = (accountingDocumentType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentType.id}</Description> 
-<Description term="名称">{accountingDocumentType.name}</Description> 
-<Description term="描述">{accountingDocumentType.description}</Description> 
-<Description term="会计期间">{accountingDocumentType.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentType.accountingPeriod.displayName}(${accountingDocumentType.accountingPeriod.id})`}
+<Description term="Id">{accountingDocumentType.id}</Description> 
+<Description term="Name">{accountingDocumentType.name}</Description> 
+<Description term="Description">{accountingDocumentType.description}</Description> 
+<Description term="Accounting Period">{accountingDocumentType.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentType.accountingPeriod.displayName}(${accountingDocumentType.accountingPeriod.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"会计期间","accountSet",AccountingDocumentTypeService.requestCandidateAccountingPeriod,
+  showTransferModel(targetComponent,"Accounting Period","accountSet",AccountingDocumentTypeService.requestCandidateAccountingPeriod,
 	      AccountingDocumentTypeService.transferToAnotherAccountingPeriod,"anotherAccountingPeriodId",accountingDocumentType.accountingPeriod?accountingDocumentType.accountingPeriod.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -127,10 +127,10 @@ class AccountingDocumentTypeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会计凭证类型",cardsFor: "accountingDocumentType",
+    const cardsData = {cardsName:"Accounting Document Type",cardsFor: "accountingDocumentType",
     	cardsSource: this.props.accountingDocumentType,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
+{name: 'accountingDocumentList', displayName:'Accounting Document',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
     
       	],
   	};

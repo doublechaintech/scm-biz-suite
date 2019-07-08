@@ -28,16 +28,16 @@ const internalSummaryOf = (retailStore,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStore.id}</Description> 
-<Description term="名称">{retailStore.name}</Description> 
-<Description term="电话">{retailStore.telephone}</Description> 
-<Description term="业主">{retailStore.owner}</Description> 
-<Description term="成立">{ moment(retailStore.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="纬度">{retailStore.latitude}</Description> 
-<Description term="经度">{retailStore.longitude}</Description> 
-<Description term="描述">{retailStore.description}</Description> 
-<Description term="最后更新时间">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{retailStore.currentStatus}</Description> 
+<Description term="Id">{retailStore.id}</Description> 
+<Description term="Name">{retailStore.name}</Description> 
+<Description term="Telephone">{retailStore.telephone}</Description> 
+<Description term="Owner">{retailStore.owner}</Description> 
+<Description term="Founded">{ moment(retailStore.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{retailStore.latitude}</Description> 
+<Description term="Longitude">{retailStore.longitude}</Description> 
+<Description term="Description">{retailStore.description}</Description> 
+<Description term="Last Update Time">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{retailStore.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -63,7 +63,7 @@ class RetailStorePermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStore = this.props.retailStore;
     const { id,displayName, consumerOrderCount, retailStoreOrderCount, goodsCount, transportTaskCount, accountSetCount } = retailStore
-    const cardsData = {cardsName:"双链小超",cardsFor: "retailStore",cardsSource: retailStore,
+    const cardsData = {cardsName:"Retail Store",cardsFor: "retailStore",cardsSource: retailStore,
   		subItems: [
     
       	],

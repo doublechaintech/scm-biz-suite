@@ -56,7 +56,7 @@ class CityPartnerProfile extends Component {
     const  cityPartner = this.props.cityPartner;
     const { id,displayName, potentialCustomerCount, potentialCustomerContactCount } = cityPartner
 
-    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",cardsSource: cityPartner,
+    const cardsData = {cardsName:"City Partner",cardsFor: "cityPartner",cardsSource: cityPartner,
   		subItems: [
      
       	],

@@ -81,15 +81,15 @@ const internalSummaryOf = (retailStoreOrderShippingGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderShippingGroup.id}</Description> 
-<Description term="名称">{retailStoreOrderShippingGroup.name}</Description> 
-<Description term="订单">{retailStoreOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderShippingGroup.bizOrder.displayName}(${retailStoreOrderShippingGroup.bizOrder.id})`}
+<Description term="Id">{retailStoreOrderShippingGroup.id}</Description> 
+<Description term="Name">{retailStoreOrderShippingGroup.name}</Description> 
+<Description term="Biz Order">{retailStoreOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderShippingGroup.bizOrder.displayName}(${retailStoreOrderShippingGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","retailStoreOrder",RetailStoreOrderShippingGroupService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","retailStoreOrder",RetailStoreOrderShippingGroupService.requestCandidateBizOrder,
 	      RetailStoreOrderShippingGroupService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreOrderShippingGroup.bizOrder?retailStoreOrderShippingGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="金额">{retailStoreOrderShippingGroup.amount}</Description> 
+<Description term="Amount">{retailStoreOrderShippingGroup.amount}</Description> 
 	
         {buildTransferModal(retailStoreOrderShippingGroup,targetComponent)}
       </DescriptionList>
@@ -127,7 +127,7 @@ class RetailStoreOrderShippingGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超订单送货分组",cardsFor: "retailStoreOrderShippingGroup",
+    const cardsData = {cardsName:"Retail Store Order Shipping Group",cardsFor: "retailStoreOrderShippingGroup",
     	cardsSource: this.props.retailStoreOrderShippingGroup,returnURL,displayName,
   		subItems: [
     

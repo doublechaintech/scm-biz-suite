@@ -199,7 +199,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label="Id">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -207,7 +207,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="名称">
+         <FormItem label="Name">
            {getFieldDecorator('name')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -254,7 +254,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label="Id">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -262,7 +262,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="名称">
+            <FormItem label="Name">
               {getFieldDecorator('name')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -270,7 +270,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="年组">
+            <FormItem label="Year Set">
               {getFieldDecorator('yearSet')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -278,7 +278,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="会计制度">
+            <FormItem label="Accounting System">
               {getFieldDecorator('accountingSystem')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -286,7 +286,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="本币代码">
+            <FormItem label="Domestic Currency Code">
               {getFieldDecorator('domesticCurrencyCode')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -294,7 +294,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="本币名称">
+            <FormItem label="Domestic Currency Name">
               {getFieldDecorator('domesticCurrencyName')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -302,7 +302,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="开户银行">
+            <FormItem label="Opening Bank">
               {getFieldDecorator('openingBank')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -310,14 +310,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="帐户号码">
+            <FormItem label="Account Number">
               {getFieldDecorator('accountNumber')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="全国运营中心">
+                    <Form.Item label="Country Center">
                   {getFieldDecorator('countryCenter', {
                     initialValue: tryinit('countryCenter'),
                    
@@ -332,7 +332,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="双链小超">
+                    <Form.Item label="Retail Store">
                   {getFieldDecorator('retailStore', {
                     initialValue: tryinit('retailStore'),
                    
@@ -347,7 +347,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="产品供应商">
+                    <Form.Item label="Goods Supplier">
                   {getFieldDecorator('goodsSupplier', {
                     initialValue: tryinit('goodsSupplier'),
                    

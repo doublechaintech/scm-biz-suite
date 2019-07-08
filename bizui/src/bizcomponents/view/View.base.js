@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"观", menuFor: "view",
+const menuData = {menuName:"View", menuFor: "view",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  assessment: '评估',
-  interviewTime: '面试时间',
+  id: 'Id',
+  who: 'Who',
+  assessment: 'Assessment',
+  interviewTime: 'Interview Time',
 
 }
 
@@ -62,10 +62,10 @@ const renderItemOfList=(view,targetComponent)=>{
 	<div key={view.id}>
 	
 	<DescriptionList  key={view.id} size="small" col="4">
-<Description term="序号">{view.id}</Description> 
-<Description term="谁">{view.who}</Description> 
-<Description term="评估">{view.assessment}</Description> 
-<Description term="面试时间">{ moment(view.interviewTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{view.id}</Description> 
+<Description term="Who">{view.who}</Description> 
+<Description term="Assessment">{view.assessment}</Description> 
+<Description term="Interview Time">{ moment(view.interviewTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

@@ -76,7 +76,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public ShippingSpace load(String id,Map<String,Object> options) throws Exception{
@@ -382,7 +382,7 @@ public class ShippingSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ShippingSpace.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("发货区");
+		lastUpdateTimeStatsItem.setDisplayName("Shipping Space");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ShippingSpace.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ShippingSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

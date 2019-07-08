@@ -28,11 +28,11 @@ const internalSummaryOf = (cityPartner,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{cityPartner.id}</Description> 
-<Description term="名称">{cityPartner.name}</Description> 
-<Description term="手机">{cityPartner.mobile}</Description> 
-<Description term="描述">{cityPartner.description}</Description> 
-<Description term="最后更新时间">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{cityPartner.id}</Description> 
+<Description term="Name">{cityPartner.name}</Description> 
+<Description term="Mobile">{cityPartner.mobile}</Description> 
+<Description term="Description">{cityPartner.description}</Description> 
+<Description term="Last Update Time">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class CityPartnerPermission extends Component {
     // eslint-disable-next-line max-len
     const  cityPartner = this.props.cityPartner;
     const { id,displayName, potentialCustomerCount, potentialCustomerContactCount } = cityPartner
-    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",cardsSource: cityPartner,
+    const cardsData = {cardsName:"City Partner",cardsFor: "cityPartner",cardsSource: cityPartner,
   		subItems: [
     
       	],

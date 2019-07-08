@@ -76,7 +76,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public StorageSpace load(String id,Map<String,Object> options) throws Exception{
@@ -382,7 +382,7 @@ public class StorageSpaceJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//StorageSpace.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("存货区");
+		lastUpdateTimeStatsItem.setDisplayName("Storage Space");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(StorageSpace.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(StorageSpace.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

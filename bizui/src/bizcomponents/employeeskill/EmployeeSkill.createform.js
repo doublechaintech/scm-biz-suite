@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   description: '高手高手高高手',
-  employeeId: 'E00000001',
-  skillTypeId: 'ST00000001',
+  employeeId: 'E000001',
+  skillTypeId: 'ST000001',
 }
 */
 
@@ -195,8 +195,8 @@ class EmployeeSkillCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}员工技能`}
-        content={`${appLocaleName(userContext,"CreateNew")}员工技能`}
+        title={`${appLocaleName(userContext,"CreateNew")}Employee Skill`}
+        content={`${appLocaleName(userContext,"CreateNew")}Employee Skill`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class EmployeeSkillCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

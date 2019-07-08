@@ -18,9 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
-  latitude: '41.67204215972131',
-  longitude: '130.68360997555467',
-  goodsShelfId: 'GS00000001',
+  latitude: '41.610851440878164',
+  longitude: '130.0079359542075',
+  goodsShelfId: 'GS000001',
 }
 */
 
@@ -196,8 +196,8 @@ class GoodsAllocationCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}货位`}
-        content={`${appLocaleName(userContext,"CreateNew")}货位`}
+        title={`${appLocaleName(userContext,"CreateNew")}Goods Allocation`}
+        content={`${appLocaleName(userContext,"CreateNew")}Goods Allocation`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class GoodsAllocationCreateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large" placeholder="Location" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class GoodsAllocationCreateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large" placeholder="Latitude" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class GoodsAllocationCreateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large" placeholder="Longitude" />
                   )}
                 </Form.Item>
               </Col>

@@ -55,7 +55,7 @@ public class EmployeeQualifierJDBCTemplateDAO extends RetailscmNamingServiceDAO 
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public EmployeeQualifier load(String id,Map<String,Object> options) throws Exception{

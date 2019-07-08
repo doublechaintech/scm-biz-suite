@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   name: '信息系统部大数据部门',
   description: '主要执行集团信息系统建设，维护，规划',
-  founded: '2016-10-15',
-  belongsToId: 'LOD00000001',
+  founded: '2019-01-31',
+  belongsToId: 'LOD000001',
 }
 */
 
@@ -141,7 +141,7 @@ class LevelTwoDepartmentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class LevelTwoDepartmentAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class LevelTwoDepartmentAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
                   )}
                 </Form.Item>
               </Col>

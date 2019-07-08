@@ -262,7 +262,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large" placeholder="Mobile" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large" placeholder="Email" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.founded,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
                     
                   )}
                 </Form.Item>

@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工技能", menuFor: "employeeSkill",
+const menuData = {menuName:"Employee Skill", menuFor: "employeeSkill",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  skillType: '技能类型',
-  description: '描述',
+  id: 'Id',
+  employee: 'Employee',
+  skillType: 'Skill Type',
+  description: 'Description',
 
 }
 
@@ -62,12 +62,12 @@ const renderItemOfList=(employeeSkill,targetComponent)=>{
 	<div key={employeeSkill.id}>
 	
 	<DescriptionList  key={employeeSkill.id} size="small" col="4">
-<Description term="序号">{employeeSkill.id}</Description> 
-<Description term="员工">{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
+<Description term="Id">{employeeSkill.id}</Description> 
+<Description term="Employee">{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
 </Description>
-<Description term="技能类型">{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.skillType.displayName}(${employeeSkill.skillType.id})`}
+<Description term="Skill Type">{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.skillType.displayName}(${employeeSkill.skillType.id})`}
 </Description>
-<Description term="描述">{employeeSkill.description}</Description> 
+<Description term="Description">{employeeSkill.description}</Description> 
 	
         
       </DescriptionList>

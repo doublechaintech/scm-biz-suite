@@ -81,9 +81,9 @@ const internalSummaryOf = (retailStoreOrderProcessing,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderProcessing.id}</Description> 
-<Description term="谁">{retailStoreOrderProcessing.who}</Description> 
-<Description term="过程的时间">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreOrderProcessing.id}</Description> 
+<Description term="Who">{retailStoreOrderProcessing.who}</Description> 
+<Description term="Process Time">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreOrderProcessing,targetComponent)}
       </DescriptionList>
@@ -121,10 +121,10 @@ class RetailStoreOrderProcessingDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超订单处理",cardsFor: "retailStoreOrderProcessing",
+    const cardsData = {cardsName:"Retail Store Order Processing",cardsFor: "retailStoreOrderProcessing",
     	cardsSource: this.props.retailStoreOrderProcessing,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+{name: 'retailStoreOrderList', displayName:'Retail Store Order',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
     
       	],
   	};

@@ -167,7 +167,7 @@ class OriginalVoucherCreationBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "原始凭证",
+      name: "Original Voucher",
       role: "originalVoucher",
       data: state._originalVoucherCreation.originalVoucherList,
       metaInfo: state._originalVoucherCreation.originalVoucherListMetaInfo,
@@ -273,10 +273,10 @@ class OriginalVoucherCreationBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

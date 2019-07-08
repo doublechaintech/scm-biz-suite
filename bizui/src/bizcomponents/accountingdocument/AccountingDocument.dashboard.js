@@ -81,22 +81,22 @@ const internalSummaryOf = (accountingDocument,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocument.id}</Description> 
-<Description term="名称">{accountingDocument.name}</Description> 
-<Description term="会计凭证日期">{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</Description> 
-<Description term="会计期间">{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.accountingPeriod.displayName}(${accountingDocument.accountingPeriod.id})`}
+<Description term="Id">{accountingDocument.id}</Description> 
+<Description term="Name">{accountingDocument.name}</Description> 
+<Description term="Accounting Document Date">{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Accounting Period">{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.accountingPeriod.displayName}(${accountingDocument.accountingPeriod.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"会计期间","accountingPeriod",AccountingDocumentService.requestCandidateAccountingPeriod,
+  showTransferModel(targetComponent,"Accounting Period","accountingPeriod",AccountingDocumentService.requestCandidateAccountingPeriod,
 	      AccountingDocumentService.transferToAnotherAccountingPeriod,"anotherAccountingPeriodId",accountingDocument.accountingPeriod?accountingDocument.accountingPeriod.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="文档类型">{accountingDocument.documentType==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.documentType.displayName}(${accountingDocument.documentType.id})`}
+<Description term="Document Type">{accountingDocument.documentType==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.documentType.displayName}(${accountingDocument.documentType.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"文档类型","accountingDocumentType",AccountingDocumentService.requestCandidateDocumentType,
+  showTransferModel(targetComponent,"Document Type","accountingDocumentType",AccountingDocumentService.requestCandidateDocumentType,
 	      AccountingDocumentService.transferToAnotherDocumentType,"anotherDocumentTypeId",accountingDocument.documentType?accountingDocument.documentType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{accountingDocument.currentStatus}</Description> 
+<Description term="Current Status">{accountingDocument.currentStatus}</Description> 
 	
         {buildTransferModal(accountingDocument,targetComponent)}
       </DescriptionList>
@@ -134,11 +134,11 @@ class AccountingDocumentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会计凭证",cardsFor: "accountingDocument",
+    const cardsData = {cardsName:"Accounting Document",cardsFor: "accountingDocument",
     	cardsSource: this.props.accountingDocument,returnURL,displayName,
   		subItems: [
-{name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
-{name: 'accountingDocumentLineList', displayName:'会计凭证行',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
+{name: 'originalVoucherList', displayName:'Original Voucher',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
+{name: 'accountingDocumentLineList', displayName:'Accounting Document Line',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
     
       	],
   	};

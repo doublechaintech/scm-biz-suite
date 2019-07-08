@@ -28,8 +28,8 @@ const internalSummaryOf = (levelOneCategory,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelOneCategory.id}</Description> 
-<Description term="名称">{levelOneCategory.name}</Description> 
+<Description term="Id">{levelOneCategory.id}</Description> 
+<Description term="Name">{levelOneCategory.name}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,7 +55,7 @@ class LevelOneCategoryPermission extends Component {
     // eslint-disable-next-line max-len
     const  levelOneCategory = this.props.levelOneCategory;
     const { id,displayName, levelTwoCategoryCount } = levelOneCategory
-    const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",cardsSource: levelOneCategory,
+    const cardsData = {cardsName:"Level One Category",cardsFor: "levelOneCategory",cardsSource: levelOneCategory,
   		subItems: [
     
       	],

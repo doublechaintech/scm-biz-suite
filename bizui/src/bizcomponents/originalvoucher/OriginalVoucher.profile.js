@@ -56,7 +56,7 @@ class OriginalVoucherProfile extends Component {
     const  originalVoucher = this.props.originalVoucher;
     const { id,displayName,  } = originalVoucher
 
-    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",cardsSource: originalVoucher,
+    const cardsData = {cardsName:"Original Voucher",cardsFor: "originalVoucher",cardsSource: originalVoucher,
   		subItems: [
      
       	],

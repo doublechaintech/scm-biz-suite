@@ -55,7 +55,7 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public WarehouseAsset load(String id,Map<String,Object> options) throws Exception{
@@ -282,7 +282,7 @@ public class WarehouseAssetJDBCTemplateDAO extends RetailscmNamingServiceDAO imp
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//WarehouseAsset.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("仓库资产");
+		lastUpdateTimeStatsItem.setDisplayName("Warehouse Asset");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(WarehouseAsset.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(WarehouseAsset.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

@@ -56,7 +56,7 @@ class RetailStoreFranchisingProfile extends Component {
     const  retailStoreFranchising = this.props.retailStoreFranchising;
     const { id,displayName, retailStoreCount } = retailStoreFranchising
 
-    const cardsData = {cardsName:"生超的特许经营",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,
+    const cardsData = {cardsName:"Retail Store Franchising",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,
   		subItems: [
      
       	],

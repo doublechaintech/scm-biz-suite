@@ -56,7 +56,7 @@ class EmployeeCompanyTrainingProfile extends Component {
     const  employeeCompanyTraining = this.props.employeeCompanyTraining;
     const { id,displayName,  } = employeeCompanyTraining
 
-    const cardsData = {cardsName:"员工参与的公司培训",cardsFor: "employeeCompanyTraining",cardsSource: employeeCompanyTraining,
+    const cardsData = {cardsName:"Employee Company Training",cardsFor: "employeeCompanyTraining",cardsSource: employeeCompanyTraining,
   		subItems: [
      
       	],

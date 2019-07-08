@@ -76,7 +76,7 @@ public class PotentialCustomerContactPersonJDBCTemplateDAO extends RetailscmNami
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public PotentialCustomerContactPerson load(String id,Map<String,Object> options) throws Exception{

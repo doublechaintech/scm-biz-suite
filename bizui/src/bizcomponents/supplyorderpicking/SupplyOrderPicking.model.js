@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/supplyOrderPicking/${id}/list/SupplyOrderList/供应订单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/supplyOrderPicking/${id}/list/SupplyOrderList/Supply Order+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSupplyOrder({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/supplyOrderPicking/${id}/list/SupplyOrderList/供应订单列表`, state: newPlayload }
+      const location = { pathname: `/supplyOrderPicking/${id}/list/SupplyOrderList/Supply Order列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSupplyOrderUpdateRow({ payload }, { call, put }) {

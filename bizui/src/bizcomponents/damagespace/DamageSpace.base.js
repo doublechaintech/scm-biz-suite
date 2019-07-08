@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"残次货物存放区", menuFor: "damageSpace",
+const menuData = {menuName:"Damage Space", menuFor: "damageSpace",
   		subItems: [
-  {name: 'goodsShelfList', displayName:'货架', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsShelfList', displayName:'Goods Shelf', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  location: '位置',
-  contactNumber: '联系电话',
-  totalArea: '总面积',
-  latitude: '纬度',
-  longitude: '经度',
-  warehouse: '仓库',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  location: 'Location',
+  contactNumber: 'Contact Number',
+  totalArea: 'Total Area',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+  warehouse: 'Warehouse',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -71,15 +71,15 @@ const renderItemOfList=(damageSpace,targetComponent)=>{
 	<div key={damageSpace.id}>
 	
 	<DescriptionList  key={damageSpace.id} size="small" col="4">
-<Description term="序号">{damageSpace.id}</Description> 
-<Description term="位置">{damageSpace.location}</Description> 
-<Description term="联系电话">{damageSpace.contactNumber}</Description> 
-<Description term="总面积">{damageSpace.totalArea}</Description> 
-<Description term="纬度">{damageSpace.latitude}</Description> 
-<Description term="经度">{damageSpace.longitude}</Description> 
-<Description term="仓库">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
+<Description term="Id">{damageSpace.id}</Description> 
+<Description term="Location">{damageSpace.location}</Description> 
+<Description term="Contact Number">{damageSpace.contactNumber}</Description> 
+<Description term="Total Area">{damageSpace.totalArea}</Description> 
+<Description term="Latitude">{damageSpace.latitude}</Description> 
+<Description term="Longitude">{damageSpace.longitude}</Description> 
+<Description term="Warehouse">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
 </Description>
-<Description term="最后更新时间">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

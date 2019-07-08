@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"城市合伙人", menuFor: "cityPartner",
+const menuData = {menuName:"City Partner", menuFor: "cityPartner",
   		subItems: [
-  {name: 'potentialCustomerList', displayName:'潜在的客户', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'potentialCustomerContactList', displayName:'潜在客户联系', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'potentialCustomerList', displayName:'Potential Customer', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'potentialCustomerContactList', displayName:'Potential Customer Contact', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  mobile: '手机',
-  cityServiceCenter: '城市服务中心',
-  description: '描述',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  mobile: 'Mobile',
+  cityServiceCenter: 'City Service Center',
+  description: 'Description',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -68,13 +68,13 @@ const renderItemOfList=(cityPartner,targetComponent)=>{
 	<div key={cityPartner.id}>
 	
 	<DescriptionList  key={cityPartner.id} size="small" col="4">
-<Description term="序号">{cityPartner.id}</Description> 
-<Description term="名称">{cityPartner.name}</Description> 
-<Description term="手机">{cityPartner.mobile}</Description> 
-<Description term="城市服务中心">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
+<Description term="Id">{cityPartner.id}</Description> 
+<Description term="Name">{cityPartner.name}</Description> 
+<Description term="Mobile">{cityPartner.mobile}</Description> 
+<Description term="City Service Center">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
 </Description>
-<Description term="描述">{cityPartner.description}</Description> 
-<Description term="最后更新时间">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{cityPartner.description}</Description> 
+<Description term="Last Update Time">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

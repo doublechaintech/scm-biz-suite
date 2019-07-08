@@ -56,7 +56,7 @@ class EmployeePerformanceProfile extends Component {
     const  employeePerformance = this.props.employeePerformance;
     const { id,displayName,  } = employeePerformance
 
-    const cardsData = {cardsName:"员工绩效",cardsFor: "employeePerformance",cardsSource: employeePerformance,
+    const cardsData = {cardsName:"Employee Performance",cardsFor: "employeePerformance",cardsSource: employeePerformance,
   		subItems: [
      
       	],

@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"库存计数问题跟踪", menuFor: "stockCountIssueTrack",
+const menuData = {menuName:"Stock Count Issue Track", menuFor: "stockCountIssueTrack",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  title: '头衔',
-  countTime: '计数时间',
-  summary: '概览',
-  stockCount: '盘点',
+  id: 'Id',
+  title: 'Title',
+  countTime: 'Count Time',
+  summary: 'Summary',
+  stockCount: 'Stock Count',
 
 }
 
@@ -64,11 +64,11 @@ const renderItemOfList=(stockCountIssueTrack,targetComponent)=>{
 	<div key={stockCountIssueTrack.id}>
 	
 	<DescriptionList  key={stockCountIssueTrack.id} size="small" col="4">
-<Description term="序号">{stockCountIssueTrack.id}</Description> 
-<Description term="头衔">{stockCountIssueTrack.title}</Description> 
-<Description term="计数时间">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="概览">{stockCountIssueTrack.summary}</Description> 
-<Description term="盘点">{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
+<Description term="Id">{stockCountIssueTrack.id}</Description> 
+<Description term="Title">{stockCountIssueTrack.title}</Description> 
+<Description term="Count Time">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Summary">{stockCountIssueTrack.summary}</Description> 
+<Description term="Stock Count">{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
 </Description>
 	
         

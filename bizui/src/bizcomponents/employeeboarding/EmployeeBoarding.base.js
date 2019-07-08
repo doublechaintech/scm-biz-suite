@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工入职", menuFor: "employeeBoarding",
+const menuData = {menuName:"Employee Boarding", menuFor: "employeeBoarding",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  employTime: '使用时间',
-  comments: '评论',
+  id: 'Id',
+  who: 'Who',
+  employTime: 'Employ Time',
+  comments: 'Comments',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(employeeBoarding,targetComponent)=>{
 	<div key={employeeBoarding.id}>
 	
 	<DescriptionList  key={employeeBoarding.id} size="small" col="4">
-<Description term="序号">{employeeBoarding.id}</Description> 
-<Description term="谁">{employeeBoarding.who}</Description> 
-<Description term="使用时间">{ moment(employeeBoarding.employTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{employeeBoarding.comments}</Description> 
+<Description term="Id">{employeeBoarding.id}</Description> 
+<Description term="Who">{employeeBoarding.who}</Description> 
+<Description term="Employ Time">{ moment(employeeBoarding.employTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Comments">{employeeBoarding.comments}</Description> 
 	
         
       </DescriptionList>

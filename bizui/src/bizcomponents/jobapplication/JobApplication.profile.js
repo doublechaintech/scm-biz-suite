@@ -56,7 +56,7 @@ class JobApplicationProfile extends Component {
     const  jobApplication = this.props.jobApplication;
     const { id,displayName, employeeCount } = jobApplication
 
-    const cardsData = {cardsName:"工作申请",cardsFor: "jobApplication",cardsSource: jobApplication,
+    const cardsData = {cardsName:"Job Application",cardsFor: "jobApplication",cardsSource: jobApplication,
   		subItems: [
      
       	],

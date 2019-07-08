@@ -56,7 +56,7 @@ class EmployeeLeaveProfile extends Component {
     const  employeeLeave = this.props.employeeLeave;
     const { id,displayName,  } = employeeLeave
 
-    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",cardsSource: employeeLeave,
+    const cardsData = {cardsName:"Employee Leave",cardsFor: "employeeLeave",cardsSource: employeeLeave,
   		subItems: [
      
       	],

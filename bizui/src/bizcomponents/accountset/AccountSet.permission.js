@@ -28,16 +28,16 @@ const internalSummaryOf = (accountSet,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountSet.id}</Description> 
-<Description term="名称">{accountSet.name}</Description> 
-<Description term="年组">{accountSet.yearSet}</Description> 
-<Description term="生效日期">{ moment(accountSet.effectiveDate).format('YYYY-MM-DD')}</Description> 
-<Description term="会计制度">{accountSet.accountingSystem}</Description> 
-<Description term="本币代码">{accountSet.domesticCurrencyCode}</Description> 
-<Description term="本币名称">{accountSet.domesticCurrencyName}</Description> 
-<Description term="开户银行">{accountSet.openingBank}</Description> 
-<Description term="帐户号码">{accountSet.accountNumber}</Description> 
-<Description term="最后更新时间">{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{accountSet.id}</Description> 
+<Description term="Name">{accountSet.name}</Description> 
+<Description term="Year Set">{accountSet.yearSet}</Description> 
+<Description term="Effective Date">{ moment(accountSet.effectiveDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Accounting System">{accountSet.accountingSystem}</Description> 
+<Description term="Domestic Currency Code">{accountSet.domesticCurrencyCode}</Description> 
+<Description term="Domestic Currency Name">{accountSet.domesticCurrencyName}</Description> 
+<Description term="Opening Bank">{accountSet.openingBank}</Description> 
+<Description term="Account Number">{accountSet.accountNumber}</Description> 
+<Description term="Last Update Time">{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -63,7 +63,7 @@ class AccountSetPermission extends Component {
     // eslint-disable-next-line max-len
     const  accountSet = this.props.accountSet;
     const { id,displayName, accountingSubjectCount, accountingPeriodCount, accountingDocumentTypeCount } = accountSet
-    const cardsData = {cardsName:"账套",cardsFor: "accountSet",cardsSource: accountSet,
+    const cardsData = {cardsName:"Account Set",cardsFor: "accountSet",cardsSource: accountSet,
   		subItems: [
     
       	],

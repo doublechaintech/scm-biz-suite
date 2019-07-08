@@ -28,10 +28,10 @@ const internalSummaryOf = (levelThreeDepartment,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelThreeDepartment.id}</Description> 
-<Description term="名称">{levelThreeDepartment.name}</Description> 
-<Description term="描述">{levelThreeDepartment.description}</Description> 
-<Description term="成立">{ moment(levelThreeDepartment.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{levelThreeDepartment.id}</Description> 
+<Description term="Name">{levelThreeDepartment.name}</Description> 
+<Description term="Description">{levelThreeDepartment.description}</Description> 
+<Description term="Founded">{ moment(levelThreeDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class LevelThreeDepartmentPermission extends Component {
     // eslint-disable-next-line max-len
     const  levelThreeDepartment = this.props.levelThreeDepartment;
     const { id,displayName, employeeCount } = levelThreeDepartment
-    const cardsData = {cardsName:"三级部门",cardsFor: "levelThreeDepartment",cardsSource: levelThreeDepartment,
+    const cardsData = {cardsName:"Level Three Department",cardsFor: "levelThreeDepartment",cardsSource: levelThreeDepartment,
   		subItems: [
     
       	],

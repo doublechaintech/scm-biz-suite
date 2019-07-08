@@ -237,7 +237,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public RetailStore load(String id,Map<String,Object> options) throws Exception{
@@ -1125,7 +1125,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1175,7 +1175,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1225,7 +1225,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1275,7 +1275,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1325,7 +1325,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1375,7 +1375,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1425,7 +1425,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);
@@ -1475,7 +1475,7 @@ public class RetailStoreJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStore.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStore.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStore.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

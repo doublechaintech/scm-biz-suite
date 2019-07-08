@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"产品供应时间", menuFor: "productSupplyDuration",
+const menuData = {menuName:"Product Supply Duration", menuFor: "productSupplyDuration",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  quantity: '数量',
-  duration: '持续时间',
-  price: '价格',
-  product: '产品',
+  id: 'Id',
+  quantity: 'Quantity',
+  duration: 'Duration',
+  price: 'Price',
+  product: 'Product',
 
 }
 
@@ -64,11 +64,11 @@ const renderItemOfList=(productSupplyDuration,targetComponent)=>{
 	<div key={productSupplyDuration.id}>
 	
 	<DescriptionList  key={productSupplyDuration.id} size="small" col="4">
-<Description term="序号">{productSupplyDuration.id}</Description> 
-<Description term="数量">{productSupplyDuration.quantity}</Description> 
-<Description term="持续时间">{productSupplyDuration.duration}</Description> 
-<Description term="价格">{productSupplyDuration.price}</Description> 
-<Description term="产品">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
+<Description term="Id">{productSupplyDuration.id}</Description> 
+<Description term="Quantity">{productSupplyDuration.quantity}</Description> 
+<Description term="Duration">{productSupplyDuration.duration}</Description> 
+<Description term="Price">{productSupplyDuration.price}</Description> 
+<Description term="Product">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
 </Description>
 	
         

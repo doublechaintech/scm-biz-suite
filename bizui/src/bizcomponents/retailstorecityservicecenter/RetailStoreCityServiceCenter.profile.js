@@ -56,7 +56,7 @@ class RetailStoreCityServiceCenterProfile extends Component {
     const  retailStoreCityServiceCenter = this.props.retailStoreCityServiceCenter;
     const { id,displayName, cityPartnerCount, potentialCustomerCount, cityEventCount, retailStoreCount } = retailStoreCityServiceCenter
 
-    const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",cardsSource: retailStoreCityServiceCenter,
+    const cardsData = {cardsName:"Retail Store City Service Center",cardsFor: "retailStoreCityServiceCenter",cardsSource: retailStoreCityServiceCenter,
   		subItems: [
      
       	],

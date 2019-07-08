@@ -28,9 +28,9 @@ const internalSummaryOf = (accountingDocumentType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentType.id}</Description> 
-<Description term="名称">{accountingDocumentType.name}</Description> 
-<Description term="描述">{accountingDocumentType.description}</Description> 
+<Description term="Id">{accountingDocumentType.id}</Description> 
+<Description term="Name">{accountingDocumentType.name}</Description> 
+<Description term="Description">{accountingDocumentType.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class AccountingDocumentTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  accountingDocumentType = this.props.accountingDocumentType;
     const { id,displayName, accountingDocumentCount } = accountingDocumentType
-    const cardsData = {cardsName:"会计凭证类型",cardsFor: "accountingDocumentType",cardsSource: accountingDocumentType,
+    const cardsData = {cardsName:"Accounting Document Type",cardsFor: "accountingDocumentType",cardsSource: accountingDocumentType,
   		subItems: [
     
       	],

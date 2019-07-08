@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"货物移动", menuFor: "goodsMovement",
+const menuData = {menuName:"Goods Movement", menuFor: "goodsMovement",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  moveTime: '移动时间',
-  facility: '设施',
-  facilityId: '设备ID',
-  fromIp: '从IP',
-  userAgent: '用户代理',
-  sessionId: '会话ID',
-  latitude: '纬度',
-  longitude: '经度',
-  goods: '货物',
+  id: 'Id',
+  moveTime: 'Move Time',
+  facility: 'Facility',
+  facilityId: 'Facility Id',
+  fromIp: 'From Ip',
+  userAgent: 'User Agent',
+  sessionId: 'Session Id',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+  goods: 'Goods',
 
 }
 
@@ -74,15 +74,15 @@ const renderItemOfList=(goodsMovement,targetComponent)=>{
 	<div key={goodsMovement.id}>
 	
 	<DescriptionList  key={goodsMovement.id} size="small" col="4">
-<Description term="序号">{goodsMovement.id}</Description> 
-<Description term="移动时间">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="设施">{goodsMovement.facility}</Description> 
-<Description term="设备ID">{goodsMovement.facilityId}</Description> 
-<Description term="从IP">{goodsMovement.fromIp}</Description> 
-<Description term="会话ID">{goodsMovement.sessionId}</Description> 
-<Description term="纬度">{goodsMovement.latitude}</Description> 
-<Description term="经度">{goodsMovement.longitude}</Description> 
-<Description term="货物">{goodsMovement.goods==null?appLocaleName(userContext,"NotAssigned"):`${goodsMovement.goods.displayName}(${goodsMovement.goods.id})`}
+<Description term="Id">{goodsMovement.id}</Description> 
+<Description term="Move Time">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Facility">{goodsMovement.facility}</Description> 
+<Description term="Facility Id">{goodsMovement.facilityId}</Description> 
+<Description term="From Ip">{goodsMovement.fromIp}</Description> 
+<Description term="Session Id">{goodsMovement.sessionId}</Description> 
+<Description term="Latitude">{goodsMovement.latitude}</Description> 
+<Description term="Longitude">{goodsMovement.longitude}</Description> 
+<Description term="Goods">{goodsMovement.goods==null?appLocaleName(userContext,"NotAssigned"):`${goodsMovement.goods.displayName}(${goodsMovement.goods.id})`}
 </Description>
 	
         

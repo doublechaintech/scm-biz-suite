@@ -56,7 +56,7 @@ class PublicHolidayProfile extends Component {
     const  publicHoliday = this.props.publicHoliday;
     const { id,displayName,  } = publicHoliday
 
-    const cardsData = {cardsName:"公共假日",cardsFor: "publicHoliday",cardsSource: publicHoliday,
+    const cardsData = {cardsName:"Public Holiday",cardsFor: "publicHoliday",cardsSource: publicHoliday,
   		subItems: [
      
       	],

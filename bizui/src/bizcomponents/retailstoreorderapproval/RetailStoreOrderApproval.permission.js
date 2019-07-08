@@ -28,9 +28,9 @@ const internalSummaryOf = (retailStoreOrderApproval,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderApproval.id}</Description> 
-<Description term="谁">{retailStoreOrderApproval.who}</Description> 
-<Description term="批准时间">{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreOrderApproval.id}</Description> 
+<Description term="Who">{retailStoreOrderApproval.who}</Description> 
+<Description term="Approve Time">{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class RetailStoreOrderApprovalPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderApproval = this.props.retailStoreOrderApproval;
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderApproval
-    const cardsData = {cardsName:"生超订单批准",cardsFor: "retailStoreOrderApproval",cardsSource: retailStoreOrderApproval,
+    const cardsData = {cardsName:"Retail Store Order Approval",cardsFor: "retailStoreOrderApproval",cardsSource: retailStoreOrderApproval,
   		subItems: [
     
       	],

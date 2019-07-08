@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   title: '消费订单',
-  consumerId: 'RSM00000001',
-  storeId: 'RS00000001',
+  consumerId: 'RSM000001',
+  storeId: 'RS000001',
 }
 */
 
@@ -144,7 +144,7 @@ class ConsumerOrderAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>

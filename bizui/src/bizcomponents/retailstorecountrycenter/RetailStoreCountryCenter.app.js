@@ -167,7 +167,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "目录",
+      name: "Catalog",
       role: "catalog",
       data: state._retailStoreCountryCenter.catalogList,
       metaInfo: state._retailStoreCountryCenter.catalogListMetaInfo,
@@ -216,7 +216,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "双链小超省中心",
+      name: "Retail Store Province Center",
       role: "retailStoreProvinceCenter",
       data: state._retailStoreCountryCenter.retailStoreProvinceCenterList,
       metaInfo: state._retailStoreCountryCenter.retailStoreProvinceCenterListMetaInfo,
@@ -265,7 +265,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "双链小超",
+      name: "Retail Store",
       role: "retailStore",
       data: state._retailStoreCountryCenter.retailStoreList,
       metaInfo: state._retailStoreCountryCenter.retailStoreListMetaInfo,
@@ -314,7 +314,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "生超会员",
+      name: "Retail Store Member",
       role: "retailStoreMember",
       data: state._retailStoreCountryCenter.retailStoreMemberList,
       metaInfo: state._retailStoreCountryCenter.retailStoreMemberListMetaInfo,
@@ -363,7 +363,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "产品供应商",
+      name: "Goods Supplier",
       role: "goodsSupplier",
       data: state._retailStoreCountryCenter.goodsSupplierList,
       metaInfo: state._retailStoreCountryCenter.goodsSupplierListMetaInfo,
@@ -412,7 +412,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单",
+      name: "Supply Order",
       role: "supplyOrder",
       data: state._retailStoreCountryCenter.supplyOrderList,
       metaInfo: state._retailStoreCountryCenter.supplyOrderListMetaInfo,
@@ -461,7 +461,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "生超的订单",
+      name: "Retail Store Order",
       role: "retailStoreOrder",
       data: state._retailStoreCountryCenter.retailStoreOrderList,
       metaInfo: state._retailStoreCountryCenter.retailStoreOrderListMetaInfo,
@@ -510,7 +510,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "仓库",
+      name: "Warehouse",
       role: "warehouse",
       data: state._retailStoreCountryCenter.warehouseList,
       metaInfo: state._retailStoreCountryCenter.warehouseListMetaInfo,
@@ -559,7 +559,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "运输车队",
+      name: "Transport Fleet",
       role: "transportFleet",
       data: state._retailStoreCountryCenter.transportFleetList,
       metaInfo: state._retailStoreCountryCenter.transportFleetListMetaInfo,
@@ -608,7 +608,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "账套",
+      name: "Account Set",
       role: "accountSet",
       data: state._retailStoreCountryCenter.accountSetList,
       metaInfo: state._retailStoreCountryCenter.accountSetListMetaInfo,
@@ -657,7 +657,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "一级部门",
+      name: "Level One Department",
       role: "levelOneDepartment",
       data: state._retailStoreCountryCenter.levelOneDepartmentList,
       metaInfo: state._retailStoreCountryCenter.levelOneDepartmentListMetaInfo,
@@ -706,7 +706,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "技能类型",
+      name: "Skill Type",
       role: "skillType",
       data: state._retailStoreCountryCenter.skillTypeList,
       metaInfo: state._retailStoreCountryCenter.skillTypeListMetaInfo,
@@ -755,7 +755,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "责任类型",
+      name: "Responsibility Type",
       role: "responsibilityType",
       data: state._retailStoreCountryCenter.responsibilityTypeList,
       metaInfo: state._retailStoreCountryCenter.responsibilityTypeListMetaInfo,
@@ -804,7 +804,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "雇佣终止的原因",
+      name: "Termination Reason",
       role: "terminationReason",
       data: state._retailStoreCountryCenter.terminationReasonList,
       metaInfo: state._retailStoreCountryCenter.terminationReasonListMetaInfo,
@@ -853,7 +853,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "雇佣终止类型",
+      name: "Termination Type",
       role: "terminationType",
       data: state._retailStoreCountryCenter.terminationTypeList,
       metaInfo: state._retailStoreCountryCenter.terminationTypeListMetaInfo,
@@ -902,7 +902,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "职位类型",
+      name: "Occupation Type",
       role: "occupationType",
       data: state._retailStoreCountryCenter.occupationTypeList,
       metaInfo: state._retailStoreCountryCenter.occupationTypeListMetaInfo,
@@ -951,7 +951,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "请假类型",
+      name: "Leave Type",
       role: "leaveType",
       data: state._retailStoreCountryCenter.leaveTypeList,
       metaInfo: state._retailStoreCountryCenter.leaveTypeListMetaInfo,
@@ -1000,7 +1000,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "工资等级",
+      name: "Salary Grade",
       role: "salaryGrade",
       data: state._retailStoreCountryCenter.salaryGradeList,
       metaInfo: state._retailStoreCountryCenter.salaryGradeListMetaInfo,
@@ -1049,7 +1049,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "面试类型",
+      name: "Interview Type",
       role: "interviewType",
       data: state._retailStoreCountryCenter.interviewTypeList,
       metaInfo: state._retailStoreCountryCenter.interviewTypeListMetaInfo,
@@ -1098,7 +1098,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "培训课程类型",
+      name: "Training Course Type",
       role: "trainingCourseType",
       data: state._retailStoreCountryCenter.trainingCourseTypeList,
       metaInfo: state._retailStoreCountryCenter.trainingCourseTypeListMetaInfo,
@@ -1147,7 +1147,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "公共假日",
+      name: "Public Holiday",
       role: "publicHoliday",
       data: state._retailStoreCountryCenter.publicHolidayList,
       metaInfo: state._retailStoreCountryCenter.publicHolidayListMetaInfo,
@@ -1196,7 +1196,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工",
+      name: "Employee",
       role: "employee",
       data: state._retailStoreCountryCenter.employeeList,
       metaInfo: state._retailStoreCountryCenter.employeeListMetaInfo,
@@ -1245,7 +1245,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "讲师",
+      name: "Instructor",
       role: "instructor",
       data: state._retailStoreCountryCenter.instructorList,
       metaInfo: state._retailStoreCountryCenter.instructorListMetaInfo,
@@ -1294,7 +1294,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "公司培训",
+      name: "Company Training",
       role: "companyTraining",
       data: state._retailStoreCountryCenter.companyTrainingList,
       metaInfo: state._retailStoreCountryCenter.companyTrainingListMetaInfo,
@@ -1492,10 +1492,10 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

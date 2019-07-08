@@ -56,7 +56,7 @@ class AccountingDocumentAuditingProfile extends Component {
     const  accountingDocumentAuditing = this.props.accountingDocumentAuditing;
     const { id,displayName, accountingDocumentCount } = accountingDocumentAuditing
 
-    const cardsData = {cardsName:"会计凭证的审核",cardsFor: "accountingDocumentAuditing",cardsSource: accountingDocumentAuditing,
+    const cardsData = {cardsName:"Accounting Document Auditing",cardsFor: "accountingDocumentAuditing",cardsSource: accountingDocumentAuditing,
   		subItems: [
      
       	],

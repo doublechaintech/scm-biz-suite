@@ -261,7 +261,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目代码" />
+                    <Input size="large" placeholder="Accounting Subject Code" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目名称" />
+                    <Input size="large" placeholder="Accounting Subject Name" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectClassCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目类别代码" />
+                    <Input size="large" placeholder="Accounting Subject Class Code" />
                     
                   )}
                 </Form.Item>
@@ -309,7 +309,7 @@ class AccountingSubjectUpdateForm extends Component {
                     initialValue: selectedRow.accountingSubjectClassName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计科目类别名称" />
+                    <Input size="large" placeholder="Accounting Subject Class Name" />
                     
                   )}
                 </Form.Item>

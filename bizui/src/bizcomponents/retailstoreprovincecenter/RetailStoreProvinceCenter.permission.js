@@ -28,10 +28,10 @@ const internalSummaryOf = (retailStoreProvinceCenter,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreProvinceCenter.id}</Description> 
-<Description term="名称">{retailStoreProvinceCenter.name}</Description> 
-<Description term="成立">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="最后更新时间">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreProvinceCenter.id}</Description> 
+<Description term="Name">{retailStoreProvinceCenter.name}</Description> 
+<Description term="Founded">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,9 +57,9 @@ class RetailStoreProvinceCenterPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreProvinceCenter = this.props.retailStoreProvinceCenter;
     const { id,displayName, provinceCenterDepartmentCount, provinceCenterEmployeeCount, retailStoreCityServiceCenterCount } = retailStoreProvinceCenter
-    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",cardsSource: retailStoreProvinceCenter,
+    const cardsData = {cardsName:"Retail Store Province Center",cardsFor: "retailStoreProvinceCenter",cardsSource: retailStoreProvinceCenter,
   		subItems: [
-{name: 'provinceCenterDepartmentList', displayName:'省中心',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment', data: retailStoreProvinceCenter.provinceCenterDepartmentList},
+{name: 'provinceCenterDepartmentList', displayName:'Province Center Department',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment', data: retailStoreProvinceCenter.provinceCenterDepartmentList},
     
       	],
   	};

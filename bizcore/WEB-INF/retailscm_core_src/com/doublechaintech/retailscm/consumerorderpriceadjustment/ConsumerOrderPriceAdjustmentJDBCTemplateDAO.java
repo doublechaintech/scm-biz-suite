@@ -55,7 +55,7 @@ public class ConsumerOrderPriceAdjustmentJDBCTemplateDAO extends RetailscmNaming
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public ConsumerOrderPriceAdjustment load(String id,Map<String,Object> options) throws Exception{

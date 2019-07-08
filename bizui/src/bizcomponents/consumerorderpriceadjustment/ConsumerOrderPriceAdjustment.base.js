@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"消费品价格调整", menuFor: "consumerOrderPriceAdjustment",
+const menuData = {menuName:"Consumer Order Price Adjustment", menuFor: "consumerOrderPriceAdjustment",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  bizOrder: '订单',
-  amount: '金额',
-  provider: '供应商',
+  id: 'Id',
+  name: 'Name',
+  bizOrder: 'Biz Order',
+  amount: 'Amount',
+  provider: 'Provider',
 
 }
 
@@ -64,12 +64,12 @@ const renderItemOfList=(consumerOrderPriceAdjustment,targetComponent)=>{
 	<div key={consumerOrderPriceAdjustment.id}>
 	
 	<DescriptionList  key={consumerOrderPriceAdjustment.id} size="small" col="4">
-<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
-<Description term="订单">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
+<Description term="Id">{consumerOrderPriceAdjustment.id}</Description> 
+<Description term="Name">{consumerOrderPriceAdjustment.name}</Description> 
+<Description term="Biz Order">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
 </Description>
-<Description term="金额">{consumerOrderPriceAdjustment.amount}</Description> 
-<Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
+<Description term="Amount">{consumerOrderPriceAdjustment.amount}</Description> 
+<Description term="Provider">{consumerOrderPriceAdjustment.provider}</Description> 
 	
         
       </DescriptionList>

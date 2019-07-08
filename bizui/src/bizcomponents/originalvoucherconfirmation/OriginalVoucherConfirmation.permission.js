@@ -28,10 +28,10 @@ const internalSummaryOf = (originalVoucherConfirmation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucherConfirmation.id}</Description> 
-<Description term="谁">{originalVoucherConfirmation.who}</Description> 
-<Description term="评论">{originalVoucherConfirmation.comments}</Description> 
-<Description term="制造日期">{ moment(originalVoucherConfirmation.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{originalVoucherConfirmation.id}</Description> 
+<Description term="Who">{originalVoucherConfirmation.who}</Description> 
+<Description term="Comments">{originalVoucherConfirmation.comments}</Description> 
+<Description term="Make Date">{ moment(originalVoucherConfirmation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class OriginalVoucherConfirmationPermission extends Component {
     // eslint-disable-next-line max-len
     const  originalVoucherConfirmation = this.props.originalVoucherConfirmation;
     const { id,displayName, originalVoucherCount } = originalVoucherConfirmation
-    const cardsData = {cardsName:"原始凭证的确认",cardsFor: "originalVoucherConfirmation",cardsSource: originalVoucherConfirmation,
+    const cardsData = {cardsName:"Original Voucher Confirmation",cardsFor: "originalVoucherConfirmation",cardsSource: originalVoucherConfirmation,
   		subItems: [
     
       	],

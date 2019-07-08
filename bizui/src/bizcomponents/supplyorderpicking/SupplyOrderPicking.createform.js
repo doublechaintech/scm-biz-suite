@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '处理者',
-  processTime: '2019-04-28',
+  processTime: '2018-12-19',
 }
 */
 
@@ -194,8 +194,8 @@ class SupplyOrderPickingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}供应订单拣货`}
-        content={`${appLocaleName(userContext,"CreateNew")}供应订单拣货`}
+        title={`${appLocaleName(userContext,"CreateNew")}Supply Order Picking`}
+        content={`${appLocaleName(userContext,"CreateNew")}Supply Order Picking`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class SupplyOrderPickingCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +217,7 @@ class SupplyOrderPickingCreateForm extends Component {
                   {getFieldDecorator('processTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="过程的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Process Time" />
                   )}
                 </Form.Item>
               </Col>

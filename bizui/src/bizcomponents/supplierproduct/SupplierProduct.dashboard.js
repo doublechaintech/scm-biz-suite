@@ -81,13 +81,13 @@ const internalSummaryOf = (supplierProduct,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplierProduct.id}</Description> 
-<Description term="品名">{supplierProduct.productName}</Description> 
-<Description term="产品描述">{supplierProduct.productDescription}</Description> 
-<Description term="产品单元">{supplierProduct.productUnit}</Description> 
-<Description term="供应商">{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${supplierProduct.supplier.displayName}(${supplierProduct.supplier.id})`}
+<Description term="Id">{supplierProduct.id}</Description> 
+<Description term="Product Name">{supplierProduct.productName}</Description> 
+<Description term="Product Description">{supplierProduct.productDescription}</Description> 
+<Description term="Product Unit">{supplierProduct.productUnit}</Description> 
+<Description term="Supplier">{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${supplierProduct.supplier.displayName}(${supplierProduct.supplier.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"供应商","goodsSupplier",SupplierProductService.requestCandidateSupplier,
+  showTransferModel(targetComponent,"Supplier","goodsSupplier",SupplierProductService.requestCandidateSupplier,
 	      SupplierProductService.transferToAnotherSupplier,"anotherSupplierId",supplierProduct.supplier?supplierProduct.supplier.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +128,10 @@ class SupplierProductDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",
+    const cardsData = {cardsName:"Supplier Product",cardsFor: "supplierProduct",
     	cardsSource: this.props.supplierProduct,returnURL,displayName,
   		subItems: [
-{name: 'productSupplyDurationList', displayName:'产品供应时间',type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo, renderItem: GlobalComponents.ProductSupplyDurationBase.renderItemOfList},
+{name: 'productSupplyDurationList', displayName:'Product Supply Duration',type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo, renderItem: GlobalComponents.ProductSupplyDurationBase.renderItemOfList},
     
       	],
   	};

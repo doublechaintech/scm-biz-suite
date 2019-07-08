@@ -81,12 +81,12 @@ const internalSummaryOf = (goodsSupplier,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsSupplier.id}</Description> 
-<Description term="名称">{goodsSupplier.name}</Description> 
-<Description term="供应产品">{goodsSupplier.supplyProduct}</Description> 
-<Description term="联系电话">{goodsSupplier.contactNumber}</Description> 
-<Description term="描述">{goodsSupplier.description}</Description> 
-<Description term="最后更新时间">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{goodsSupplier.id}</Description> 
+<Description term="Name">{goodsSupplier.name}</Description> 
+<Description term="Supply Product">{goodsSupplier.supplyProduct}</Description> 
+<Description term="Contact Number">{goodsSupplier.contactNumber}</Description> 
+<Description term="Description">{goodsSupplier.description}</Description> 
+<Description term="Last Update Time">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(goodsSupplier,targetComponent)}
       </DescriptionList>
@@ -124,12 +124,12 @@ class GoodsSupplierDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",
+    const cardsData = {cardsName:"Goods Supplier",cardsFor: "goodsSupplier",
     	cardsSource: this.props.goodsSupplier,returnURL,displayName,
   		subItems: [
-{name: 'supplierProductList', displayName:'供应商的产品',type:'supplierProduct',count:supplierProductCount,addFunction: true, role: 'supplierProduct', metaInfo: supplierProductListMetaInfo, renderItem: GlobalComponents.SupplierProductBase.renderItemOfList},
-{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
-{name: 'accountSetList', displayName:'账套',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
+{name: 'supplierProductList', displayName:'Supplier Product',type:'supplierProduct',count:supplierProductCount,addFunction: true, role: 'supplierProduct', metaInfo: supplierProductListMetaInfo, renderItem: GlobalComponents.SupplierProductBase.renderItemOfList},
+{name: 'supplyOrderList', displayName:'Supply Order',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+{name: 'accountSetList', displayName:'Account Set',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
     
       	],
   	};

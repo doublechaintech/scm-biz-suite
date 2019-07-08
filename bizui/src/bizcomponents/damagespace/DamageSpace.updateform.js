@@ -262,7 +262,7 @@ class DamageSpaceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class DamageSpaceUpdateForm extends Component {
                     initialValue: selectedRow.location,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large" placeholder="Location" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class DamageSpaceUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="联系电话" />
+                    <Input size="large" placeholder="Contact Number" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class DamageSpaceUpdateForm extends Component {
                     initialValue: selectedRow.totalArea,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="总面积" />
+                    <Input size="large" placeholder="Total Area" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class DamageSpaceUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large" placeholder="Latitude" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class DamageSpaceUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large" placeholder="Longitude" />
                     
                   )}
                 </Form.Item>

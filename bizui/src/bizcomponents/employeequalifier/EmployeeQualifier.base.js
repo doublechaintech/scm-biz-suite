@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工资质", menuFor: "employeeQualifier",
+const menuData = {menuName:"Employee Qualifier", menuFor: "employeeQualifier",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  qualifiedTime: '合格的时间',
-  type: '类型',
-  level: '水平',
-  remark: '备注',
+  id: 'Id',
+  employee: 'Employee',
+  qualifiedTime: 'Qualified Time',
+  type: 'Type',
+  level: 'Level',
+  remark: 'Remark',
 
 }
 
@@ -66,13 +66,13 @@ const renderItemOfList=(employeeQualifier,targetComponent)=>{
 	<div key={employeeQualifier.id}>
 	
 	<DescriptionList  key={employeeQualifier.id} size="small" col="4">
-<Description term="序号">{employeeQualifier.id}</Description> 
-<Description term="员工">{employeeQualifier.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeQualifier.employee.displayName}(${employeeQualifier.employee.id})`}
+<Description term="Id">{employeeQualifier.id}</Description> 
+<Description term="Employee">{employeeQualifier.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeQualifier.employee.displayName}(${employeeQualifier.employee.id})`}
 </Description>
-<Description term="合格的时间">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeQualifier.type}</Description> 
-<Description term="水平">{employeeQualifier.level}</Description> 
-<Description term="备注">{employeeQualifier.remark}</Description> 
+<Description term="Qualified Time">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Type">{employeeQualifier.type}</Description> 
+<Description term="Level">{employeeQualifier.level}</Description> 
+<Description term="Remark">{employeeQualifier.remark}</Description> 
 	
         
       </DescriptionList>

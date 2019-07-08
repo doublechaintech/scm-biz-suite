@@ -76,7 +76,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public CityEvent load(String id,Map<String,Object> options) throws Exception{
@@ -382,7 +382,7 @@ public class CityEventJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityEvent.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("城市活动");
+		lastUpdateTimeStatsItem.setDisplayName("City Event");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityEvent.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityEvent.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

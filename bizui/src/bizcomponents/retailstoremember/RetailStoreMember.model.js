@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/ConsumerOrderList/消费者订单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/ConsumerOrderList/Consumer Order+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrder({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreMember/${id}/list/ConsumerOrderList/消费者订单列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreMember/${id}/list/ConsumerOrderList/Consumer Order列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextConsumerOrderUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberCouponList/生超会员优惠券+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberCouponList/Retail Store Member Coupon+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberCoupon({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberCouponList/生超会员优惠券列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberCouponList/Retail Store Member Coupon列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreMemberCouponUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/MemberWishlistList/会员收藏+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/MemberWishlistList/Member Wishlist+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateMemberWishlist({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreMember/${id}/list/MemberWishlistList/会员收藏列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreMember/${id}/list/MemberWishlistList/Member Wishlist列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextMemberWishlistUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointList/会员奖励点+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointList/Member Reward Point+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateMemberRewardPoint({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointList/会员奖励点列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointList/Member Reward Point列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextMemberRewardPointUpdateRow({ payload }, { call, put }) {
@@ -413,7 +413,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointRedemptionList/会员奖励点赎回+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointRedemptionList/Member Reward Point Redemption+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateMemberRewardPointRedemption({ payload }, { call, put }) {
@@ -435,7 +435,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointRedemptionList/会员奖励点赎回列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreMember/${id}/list/MemberRewardPointRedemptionList/Member Reward Point Redemption列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextMemberRewardPointRedemptionUpdateRow({ payload }, { call, put }) {
@@ -482,7 +482,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberAddressList/零售店会员地址+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberAddressList/Retail Store Member Address+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberAddress({ payload }, { call, put }) {
@@ -504,7 +504,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberAddressList/零售店会员地址列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberAddressList/Retail Store Member Address列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreMemberAddressUpdateRow({ payload }, { call, put }) {
@@ -551,7 +551,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberGiftCardList/零售店会员礼品卡+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberGiftCardList/Retail Store Member Gift Card+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberGiftCard({ payload }, { call, put }) {
@@ -573,7 +573,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberGiftCardList/零售店会员礼品卡列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreMember/${id}/list/RetailStoreMemberGiftCardList/Retail Store Member Gift Card列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreMemberGiftCardUpdateRow({ payload }, { call, put }) {

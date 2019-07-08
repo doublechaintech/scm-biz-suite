@@ -56,7 +56,7 @@ class OfferAcceptanceProfile extends Component {
     const  offerAcceptance = this.props.offerAcceptance;
     const { id,displayName, employeeCount } = offerAcceptance
 
-    const cardsData = {cardsName:"接受工作要约",cardsFor: "offerAcceptance",cardsSource: offerAcceptance,
+    const cardsData = {cardsName:"Offer Acceptance",cardsFor: "offerAcceptance",cardsSource: offerAcceptance,
   		subItems: [
      
       	],

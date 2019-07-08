@@ -55,7 +55,7 @@ public class ObjectAccessJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public ObjectAccess load(String id,Map<String,Object> options) throws Exception{

@@ -44,7 +44,7 @@ public class ConsumerOrderApprovalJDBCTemplateDAO extends RetailscmNamingService
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public ConsumerOrderApproval load(String id,Map<String,Object> options) throws Exception{

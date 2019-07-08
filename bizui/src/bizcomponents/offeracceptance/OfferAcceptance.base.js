@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"接受工作要约", menuFor: "offerAcceptance",
+const menuData = {menuName:"Offer Acceptance", menuFor: "offerAcceptance",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  acceptTime: '接受时间',
-  comments: '评论',
+  id: 'Id',
+  who: 'Who',
+  acceptTime: 'Accept Time',
+  comments: 'Comments',
 
 }
 
@@ -63,10 +63,10 @@ const renderItemOfList=(offerAcceptance,targetComponent)=>{
 	<div key={offerAcceptance.id}>
 	
 	<DescriptionList  key={offerAcceptance.id} size="small" col="4">
-<Description term="序号">{offerAcceptance.id}</Description> 
-<Description term="谁">{offerAcceptance.who}</Description> 
-<Description term="接受时间">{ moment(offerAcceptance.acceptTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{offerAcceptance.comments}</Description> 
+<Description term="Id">{offerAcceptance.id}</Description> 
+<Description term="Who">{offerAcceptance.who}</Description> 
+<Description term="Accept Time">{ moment(offerAcceptance.acceptTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Comments">{offerAcceptance.comments}</Description> 
 	
         
       </DescriptionList>

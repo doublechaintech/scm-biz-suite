@@ -76,7 +76,7 @@ public class TrainingCourseTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public TrainingCourseType load(String id,Map<String,Object> options) throws Exception{

@@ -28,11 +28,11 @@ const internalSummaryOf = (goodsPackaging,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsPackaging.id}</Description> 
-<Description term="包的名字">{goodsPackaging.packageName}</Description> 
-<Description term="RFID">{goodsPackaging.rfid}</Description> 
-<Description term="包的时间">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
-<Description term="描述">{goodsPackaging.description}</Description> 
+<Description term="Id">{goodsPackaging.id}</Description> 
+<Description term="Package Name">{goodsPackaging.packageName}</Description> 
+<Description term="Rfid">{goodsPackaging.rfid}</Description> 
+<Description term="Package Time">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{goodsPackaging.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class GoodsPackagingPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsPackaging = this.props.goodsPackaging;
     const { id,displayName, goodsCount } = goodsPackaging
-    const cardsData = {cardsName:"货物包装",cardsFor: "goodsPackaging",cardsSource: goodsPackaging,
+    const cardsData = {cardsName:"Goods Packaging",cardsFor: "goodsPackaging",cardsSource: goodsPackaging,
   		subItems: [
     
       	],

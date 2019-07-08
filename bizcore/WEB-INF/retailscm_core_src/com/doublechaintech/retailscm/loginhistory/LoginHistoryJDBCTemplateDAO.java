@@ -55,7 +55,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public LoginHistory load(String id,Map<String,Object> options) throws Exception{
@@ -282,7 +282,7 @@ public class LoginHistoryJDBCTemplateDAO extends RetailscmNamingServiceDAO imple
  
 		StatsItem loginTimeStatsItem = new StatsItem();
 		//LoginHistory.LOGIN_TIME_PROPERTY
-		loginTimeStatsItem.setDisplayName("登录历史");
+		loginTimeStatsItem.setDisplayName("Login History");
 		loginTimeStatsItem.setInternalName(formatKeyForDateLine(LoginHistory.LOGIN_TIME_PROPERTY));
 		loginTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(LoginHistory.LOGIN_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(loginTimeStatsItem);

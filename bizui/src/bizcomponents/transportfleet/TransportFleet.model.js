@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/transportFleet/${id}/list/TransportTruckList/运输车+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/transportFleet/${id}/list/TransportTruckList/Transport Truck+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTransportTruck({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/transportFleet/${id}/list/TransportTruckList/运输车列表`, state: newPlayload }
+      const location = { pathname: `/transportFleet/${id}/list/TransportTruckList/Transport Truck列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTransportTruckUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/transportFleet/${id}/list/TruckDriverList/卡车司机+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/transportFleet/${id}/list/TruckDriverList/Truck Driver+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTruckDriver({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/transportFleet/${id}/list/TruckDriverList/卡车司机列表`, state: newPlayload }
+      const location = { pathname: `/transportFleet/${id}/list/TruckDriverList/Truck Driver列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTruckDriverUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/transportFleet/${id}/list/TransportTaskList/运输任务+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/transportFleet/${id}/list/TransportTaskList/Transport Task+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTransportTask({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/transportFleet/${id}/list/TransportTaskList/运输任务列表`, state: newPlayload }
+      const location = { pathname: `/transportFleet/${id}/list/TransportTaskList/Transport Task列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTransportTaskUpdateRow({ payload }, { call, put }) {

@@ -56,7 +56,7 @@ class ConsumerOrderLineItemProfile extends Component {
     const  consumerOrderLineItem = this.props.consumerOrderLineItem;
     const { id,displayName,  } = consumerOrderLineItem
 
-    const cardsData = {cardsName:"消费者订单行项目",cardsFor: "consumerOrderLineItem",cardsSource: consumerOrderLineItem,
+    const cardsData = {cardsName:"Consumer Order Line Item",cardsFor: "consumerOrderLineItem",cardsSource: consumerOrderLineItem,
   		subItems: [
      
       	],

@@ -28,10 +28,10 @@ const internalSummaryOf = (hrInterview,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{hrInterview.id}</Description> 
-<Description term="谁">{hrInterview.who}</Description> 
-<Description term="面试时间">{ moment(hrInterview.interviewTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{hrInterview.comments}</Description> 
+<Description term="Id">{hrInterview.id}</Description> 
+<Description term="Who">{hrInterview.who}</Description> 
+<Description term="Interview Time">{ moment(hrInterview.interviewTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Comments">{hrInterview.comments}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class HrInterviewPermission extends Component {
     // eslint-disable-next-line max-len
     const  hrInterview = this.props.hrInterview;
     const { id,displayName, employeeCount } = hrInterview
-    const cardsData = {cardsName:"人力资源部面试",cardsFor: "hrInterview",cardsSource: hrInterview,
+    const cardsData = {cardsName:"Hr Interview",cardsFor: "hrInterview",cardsSource: hrInterview,
   		subItems: [
     
       	],

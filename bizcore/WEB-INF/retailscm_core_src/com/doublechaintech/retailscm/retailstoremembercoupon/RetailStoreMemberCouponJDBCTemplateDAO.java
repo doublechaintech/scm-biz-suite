@@ -55,7 +55,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public RetailStoreMemberCoupon load(String id,Map<String,Object> options) throws Exception{
@@ -282,7 +282,7 @@ public class RetailStoreMemberCouponJDBCTemplateDAO extends RetailscmNamingServi
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("生超会员优惠券");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Member Coupon");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreMemberCoupon.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

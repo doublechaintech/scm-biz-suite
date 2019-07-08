@@ -56,7 +56,7 @@ class ConsumerOrderShippingGroupProfile extends Component {
     const  consumerOrderShippingGroup = this.props.consumerOrderShippingGroup;
     const { id,displayName,  } = consumerOrderShippingGroup
 
-    const cardsData = {cardsName:"消费订单送货分组",cardsFor: "consumerOrderShippingGroup",cardsSource: consumerOrderShippingGroup,
+    const cardsData = {cardsName:"Consumer Order Shipping Group",cardsFor: "consumerOrderShippingGroup",cardsSource: consumerOrderShippingGroup,
   		subItems: [
      
       	],

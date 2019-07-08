@@ -30,28 +30,28 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"仓库", menuFor: "warehouse",
+const menuData = {menuName:"Warehouse", menuFor: "warehouse",
   		subItems: [
-  {name: 'storageSpaceList', displayName:'存货区', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'smartPalletList', displayName:'智能托盘', icon:'pallet',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplierSpaceList', displayName:'供应商的空间', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'receivingSpaceList', displayName:'收货区', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'shippingSpaceList', displayName:'发货区', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'damageSpaceList', displayName:'残次货物存放区', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'warehouseAssetList', displayName:'仓库资产', icon:'warehouse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'storageSpaceList', displayName:'Storage Space', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'smartPalletList', displayName:'Smart Pallet', icon:'pallet',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplierSpaceList', displayName:'Supplier Space', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'receivingSpaceList', displayName:'Receiving Space', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'shippingSpaceList', displayName:'Shipping Space', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'damageSpaceList', displayName:'Damage Space', icon:'backspace',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'warehouseAssetList', displayName:'Warehouse Asset', icon:'warehouse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  location: '位置',
-  contactNumber: '联系电话',
-  totalArea: '总面积',
-  owner: '业主',
-  latitude: '纬度',
-  longitude: '经度',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  location: 'Location',
+  contactNumber: 'Contact Number',
+  totalArea: 'Total Area',
+  owner: 'Owner',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -77,13 +77,13 @@ const renderItemOfList=(warehouse,targetComponent)=>{
 	<div key={warehouse.id}>
 	
 	<DescriptionList  key={warehouse.id} size="small" col="4">
-<Description term="序号">{warehouse.id}</Description> 
-<Description term="位置">{warehouse.location}</Description> 
-<Description term="联系电话">{warehouse.contactNumber}</Description> 
-<Description term="总面积">{warehouse.totalArea}</Description> 
-<Description term="纬度">{warehouse.latitude}</Description> 
-<Description term="经度">{warehouse.longitude}</Description> 
-<Description term="最后更新时间">{ moment(warehouse.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{warehouse.id}</Description> 
+<Description term="Location">{warehouse.location}</Description> 
+<Description term="Contact Number">{warehouse.contactNumber}</Description> 
+<Description term="Total Area">{warehouse.totalArea}</Description> 
+<Description term="Latitude">{warehouse.latitude}</Description> 
+<Description term="Longitude">{warehouse.longitude}</Description> 
+<Description term="Last Update Time">{ moment(warehouse.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

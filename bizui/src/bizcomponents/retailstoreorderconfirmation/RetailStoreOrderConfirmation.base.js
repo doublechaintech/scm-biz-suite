@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超订单确认", menuFor: "retailStoreOrderConfirmation",
+const menuData = {menuName:"Retail Store Order Confirmation", menuFor: "retailStoreOrderConfirmation",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  confirmTime: '确认时间',
+  id: 'Id',
+  who: 'Who',
+  confirmTime: 'Confirm Time',
 
 }
 
@@ -61,9 +61,9 @@ const renderItemOfList=(retailStoreOrderConfirmation,targetComponent)=>{
 	<div key={retailStoreOrderConfirmation.id}>
 	
 	<DescriptionList  key={retailStoreOrderConfirmation.id} size="small" col="4">
-<Description term="序号">{retailStoreOrderConfirmation.id}</Description> 
-<Description term="谁">{retailStoreOrderConfirmation.who}</Description> 
-<Description term="确认时间">{ moment(retailStoreOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreOrderConfirmation.id}</Description> 
+<Description term="Who">{retailStoreOrderConfirmation.who}</Description> 
+<Description term="Confirm Time">{ moment(retailStoreOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

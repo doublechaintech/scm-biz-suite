@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  parentCategoryId: 'LOC00000001',
+  parentCategoryId: 'LOC000001',
 }
 */
 
@@ -139,7 +139,7 @@ class LevelTwoCategoryAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

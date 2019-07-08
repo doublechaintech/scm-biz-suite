@@ -263,7 +263,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.yearSet,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="年组" />
+                    <Input size="large" placeholder="Year Set" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.effectiveDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="生效日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Effective Date" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.accountingSystem,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计制度" />
+                    <Input size="large" placeholder="Accounting System" />
                     
                   )}
                 </Form.Item>
@@ -323,7 +323,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.domesticCurrencyCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="本币代码" />
+                    <Input size="large" placeholder="Domestic Currency Code" />
                     
                   )}
                 </Form.Item>
@@ -335,7 +335,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.domesticCurrencyName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="本币名称" />
+                    <Input size="large" placeholder="Domestic Currency Name" />
                     
                   )}
                 </Form.Item>
@@ -347,7 +347,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.openingBank,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="开户银行" />
+                    <Input size="large" placeholder="Opening Bank" />
                     
                   )}
                 </Form.Item>
@@ -359,7 +359,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.accountNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="帐户号码" />
+                    <Input size="large" placeholder="Account Number" />
                     
                   )}
                 </Form.Item>

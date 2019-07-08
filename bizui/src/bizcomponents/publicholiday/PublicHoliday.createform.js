@@ -20,7 +20,7 @@ const testValues = {
   code: 'PH00',
   name: '元旦节',
   description: '节日快乐，万事如意！',
-  companyId: 'RSCC00000001',
+  companyId: 'RSCC000001',
 }
 */
 
@@ -196,8 +196,8 @@ class PublicHolidayCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}公共假日`}
-        content={`${appLocaleName(userContext,"CreateNew")}公共假日`}
+        title={`${appLocaleName(userContext,"CreateNew")}Public Holiday`}
+        content={`${appLocaleName(userContext,"CreateNew")}Public Holiday`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class PublicHolidayCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large" placeholder="Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class PublicHolidayCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class PublicHolidayCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>

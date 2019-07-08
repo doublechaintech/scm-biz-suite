@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"请假类型", menuFor: "leaveType",
+const menuData = {menuName:"Leave Type", menuFor: "leaveType",
   		subItems: [
-  {name: 'employeeLeaveList', displayName:'请假记录', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeLeaveList', displayName:'Employee Leave', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  description: '描述',
-  detailDescription: '详细描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  description: 'Description',
+  detailDescription: 'Detail Description',
 
 }
 
@@ -65,10 +65,10 @@ const renderItemOfList=(leaveType,targetComponent)=>{
 	<div key={leaveType.id}>
 	
 	<DescriptionList  key={leaveType.id} size="small" col="4">
-<Description term="序号">{leaveType.id}</Description> 
-<Description term="代码">{leaveType.code}</Description> 
-<Description term="描述">{leaveType.description}</Description> 
-<Description term="详细描述">{leaveType.detailDescription}</Description> 
+<Description term="Id">{leaveType.id}</Description> 
+<Description term="Code">{leaveType.code}</Description> 
+<Description term="Description">{leaveType.description}</Description> 
+<Description term="Detail Description">{leaveType.detailDescription}</Description> 
 	
         
       </DescriptionList>

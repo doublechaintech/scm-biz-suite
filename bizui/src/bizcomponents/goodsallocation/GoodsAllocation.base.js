@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"货位", menuFor: "goodsAllocation",
+const menuData = {menuName:"Goods Allocation", menuFor: "goodsAllocation",
   		subItems: [
-  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName:'Goods', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  location: '位置',
-  latitude: '纬度',
-  longitude: '经度',
-  goodsShelf: '货架',
+  id: 'Id',
+  location: 'Location',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+  goodsShelf: 'Goods Shelf',
 
 }
 
@@ -65,11 +65,11 @@ const renderItemOfList=(goodsAllocation,targetComponent)=>{
 	<div key={goodsAllocation.id}>
 	
 	<DescriptionList  key={goodsAllocation.id} size="small" col="4">
-<Description term="序号">{goodsAllocation.id}</Description> 
-<Description term="位置">{goodsAllocation.location}</Description> 
-<Description term="纬度">{goodsAllocation.latitude}</Description> 
-<Description term="经度">{goodsAllocation.longitude}</Description> 
-<Description term="货架">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
+<Description term="Id">{goodsAllocation.id}</Description> 
+<Description term="Location">{goodsAllocation.location}</Description> 
+<Description term="Latitude">{goodsAllocation.latitude}</Description> 
+<Description term="Longitude">{goodsAllocation.longitude}</Description> 
+<Description term="Goods Shelf">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
 </Description>
 	
         

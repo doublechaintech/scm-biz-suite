@@ -56,7 +56,7 @@ class OriginalVoucherConfirmationProfile extends Component {
     const  originalVoucherConfirmation = this.props.originalVoucherConfirmation;
     const { id,displayName, originalVoucherCount } = originalVoucherConfirmation
 
-    const cardsData = {cardsName:"原始凭证的确认",cardsFor: "originalVoucherConfirmation",cardsSource: originalVoucherConfirmation,
+    const cardsData = {cardsName:"Original Voucher Confirmation",cardsFor: "originalVoucherConfirmation",cardsSource: originalVoucherConfirmation,
   		subItems: [
      
       	],

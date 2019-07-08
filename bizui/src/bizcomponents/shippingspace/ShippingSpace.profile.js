@@ -56,7 +56,7 @@ class ShippingSpaceProfile extends Component {
     const  shippingSpace = this.props.shippingSpace;
     const { id,displayName, goodsCount } = shippingSpace
 
-    const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",cardsSource: shippingSpace,
+    const cardsData = {cardsName:"Shipping Space",cardsFor: "shippingSpace",cardsSource: shippingSpace,
   		subItems: [
      
       	],

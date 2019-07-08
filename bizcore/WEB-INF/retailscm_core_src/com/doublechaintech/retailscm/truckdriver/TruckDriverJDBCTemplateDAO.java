@@ -76,7 +76,7 @@ public class TruckDriverJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public TruckDriver load(String id,Map<String,Object> options) throws Exception{

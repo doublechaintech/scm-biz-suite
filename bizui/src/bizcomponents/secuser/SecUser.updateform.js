@@ -263,7 +263,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.login,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="登录" />
+                    <Input size="large" placeholder="Login" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large" placeholder="Mobile" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large" placeholder="Email" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.pwd,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="PWD" />
+                    <Input size="large" placeholder="Pwd" />
                     
                   )}
                 </Form.Item>
@@ -347,7 +347,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.accessToken,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="访问令牌" />
+                    <Input size="large" placeholder="Access Token" />
                     
                   )}
                 </Form.Item>
@@ -359,7 +359,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="验证码" />
+                    <Input size="large" placeholder="Verification Code" />
                     
                   )}
                 </Form.Item>
@@ -371,7 +371,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCodeExpire,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="验证码过期" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="Verification Code Expire" />
                     
                   )}
                 </Form.Item>
@@ -383,7 +383,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.lastLoginTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="最后登录时间" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="Last Login Time" />
                     
                   )}
                 </Form.Item>

@@ -56,7 +56,7 @@ class TransportTaskProfile extends Component {
     const  transportTask = this.props.transportTask;
     const { id,displayName, goodsCount, transportTaskTrackCount } = transportTask
 
-    const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",cardsSource: transportTask,
+    const cardsData = {cardsName:"Transport Task",cardsFor: "transportTask",cardsSource: transportTask,
   		subItems: [
      
       	],

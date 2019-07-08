@@ -56,7 +56,7 @@ class RetailStoreMemberProfile extends Component {
     const  retailStoreMember = this.props.retailStoreMember;
     const { id,displayName, consumerOrderCount, retailStoreMemberCouponCount, memberWishlistCount, memberRewardPointCount, memberRewardPointRedemptionCount, retailStoreMemberAddressCount, retailStoreMemberGiftCardCount } = retailStoreMember
 
-    const cardsData = {cardsName:"生超会员",cardsFor: "retailStoreMember",cardsSource: retailStoreMember,
+    const cardsData = {cardsName:"Retail Store Member",cardsFor: "retailStoreMember",cardsSource: retailStoreMember,
   		subItems: [
      
       	],

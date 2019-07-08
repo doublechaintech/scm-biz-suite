@@ -56,7 +56,7 @@ class GoodsShelfStockCountProfile extends Component {
     const  goodsShelfStockCount = this.props.goodsShelfStockCount;
     const { id,displayName, stockCountIssueTrackCount } = goodsShelfStockCount
 
-    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,
+    const cardsData = {cardsName:"Goods Shelf Stock Count",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,
   		subItems: [
      
       	],

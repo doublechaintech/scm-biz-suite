@@ -81,20 +81,20 @@ const internalSummaryOf = (provinceCenterEmployee,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{provinceCenterEmployee.id}</Description> 
-<Description term="名称">{provinceCenterEmployee.name}</Description> 
-<Description term="手机">{provinceCenterEmployee.mobile}</Description> 
-<Description term="电子邮件">{provinceCenterEmployee.email}</Description> 
-<Description term="成立">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="部门">{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
+<Description term="Id">{provinceCenterEmployee.id}</Description> 
+<Description term="Name">{provinceCenterEmployee.name}</Description> 
+<Description term="Mobile">{provinceCenterEmployee.mobile}</Description> 
+<Description term="Email">{provinceCenterEmployee.email}</Description> 
+<Description term="Founded">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Department">{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"部门","provinceCenterDepartment",ProvinceCenterEmployeeService.requestCandidateDepartment,
+  showTransferModel(targetComponent,"Department","provinceCenterDepartment",ProvinceCenterEmployeeService.requestCandidateDepartment,
 	      ProvinceCenterEmployeeService.transferToAnotherDepartment,"anotherDepartmentId",provinceCenterEmployee.department?provinceCenterEmployee.department.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="省中心">{provinceCenterEmployee.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.provinceCenter.displayName}(${provinceCenterEmployee.provinceCenter.id})`}
+<Description term="Province Center">{provinceCenterEmployee.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.provinceCenter.displayName}(${provinceCenterEmployee.provinceCenter.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"省中心","retailStoreProvinceCenter",ProvinceCenterEmployeeService.requestCandidateProvinceCenter,
+  showTransferModel(targetComponent,"Province Center","retailStoreProvinceCenter",ProvinceCenterEmployeeService.requestCandidateProvinceCenter,
 	      ProvinceCenterEmployeeService.transferToAnotherProvinceCenter,"anotherProvinceCenterId",provinceCenterEmployee.provinceCenter?provinceCenterEmployee.provinceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -135,7 +135,7 @@ class ProvinceCenterEmployeeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"省中心员工",cardsFor: "provinceCenterEmployee",
+    const cardsData = {cardsName:"Province Center Employee",cardsFor: "provinceCenterEmployee",
     	cardsSource: this.props.provinceCenterEmployee,returnURL,displayName,
   		subItems: [
     

@@ -81,16 +81,16 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{provinceCenterDepartment.id}</Description> 
-<Description term="名称">{provinceCenterDepartment.name}</Description> 
-<Description term="成立">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="省中心">{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterDepartment.provinceCenter.displayName}(${provinceCenterDepartment.provinceCenter.id})`}
+<Description term="Id">{provinceCenterDepartment.id}</Description> 
+<Description term="Name">{provinceCenterDepartment.name}</Description> 
+<Description term="Founded">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Province Center">{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterDepartment.provinceCenter.displayName}(${provinceCenterDepartment.provinceCenter.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"省中心","retailStoreProvinceCenter",ProvinceCenterDepartmentService.requestCandidateProvinceCenter,
+  showTransferModel(targetComponent,"Province Center","retailStoreProvinceCenter",ProvinceCenterDepartmentService.requestCandidateProvinceCenter,
 	      ProvinceCenterDepartmentService.transferToAnotherProvinceCenter,"anotherProvinceCenterId",provinceCenterDepartment.provinceCenter?provinceCenterDepartment.provinceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="经理">{provinceCenterDepartment.manager}</Description> 
+<Description term="Manager">{provinceCenterDepartment.manager}</Description> 
 	
         {buildTransferModal(provinceCenterDepartment,targetComponent)}
       </DescriptionList>
@@ -128,10 +128,10 @@ class ProvinceCenterDepartmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",
+    const cardsData = {cardsName:"Province Center Department",cardsFor: "provinceCenterDepartment",
     	cardsSource: this.props.provinceCenterDepartment,returnURL,displayName,
   		subItems: [
-{name: 'provinceCenterEmployeeList', displayName:'省中心员工',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
+{name: 'provinceCenterEmployeeList', displayName:'Province Center Employee',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
     
       	],
   	};

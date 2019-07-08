@@ -19,11 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2017-05-10',
+  timeStart: '2017-03-05',
   durationHours: '3',
-  companyId: 'RSCC00000001',
-  instructorId: 'I00000001',
-  trainingCourseTypeId: 'TCT00000001',
+  companyId: 'RSCC000001',
+  instructorId: 'I000001',
+  trainingCourseTypeId: 'TCT000001',
 }
 */
 
@@ -143,7 +143,7 @@ class CompanyTrainingAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +153,7 @@ class CompanyTrainingAssociateForm extends Component {
                   {getFieldDecorator('timeStart', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="时间开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Time Start" />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +163,7 @@ class CompanyTrainingAssociateForm extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="持续时间" />
+                    <Input size="large" placeholder="Duration Hours" />
                   )}
                 </Form.Item>
               </Col>

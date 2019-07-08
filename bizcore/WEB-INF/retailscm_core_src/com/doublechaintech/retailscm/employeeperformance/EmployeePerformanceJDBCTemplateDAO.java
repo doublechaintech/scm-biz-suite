@@ -55,7 +55,7 @@ public class EmployeePerformanceJDBCTemplateDAO extends RetailscmNamingServiceDA
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public EmployeePerformance load(String id,Map<String,Object> options) throws Exception{

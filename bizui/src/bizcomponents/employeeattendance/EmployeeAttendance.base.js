@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工考勤", menuFor: "employeeAttendance",
+const menuData = {menuName:"Employee Attendance", menuFor: "employeeAttendance",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  enterTime: '进入时间',
-  leaveTime: '离开的时候',
-  durationHours: '持续时间',
-  remark: '备注',
+  id: 'Id',
+  employee: 'Employee',
+  enterTime: 'Enter Time',
+  leaveTime: 'Leave Time',
+  durationHours: 'Duration Hours',
+  remark: 'Remark',
 
 }
 
@@ -66,13 +66,13 @@ const renderItemOfList=(employeeAttendance,targetComponent)=>{
 	<div key={employeeAttendance.id}>
 	
 	<DescriptionList  key={employeeAttendance.id} size="small" col="4">
-<Description term="序号">{employeeAttendance.id}</Description> 
-<Description term="员工">{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
+<Description term="Id">{employeeAttendance.id}</Description> 
+<Description term="Employee">{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
 </Description>
-<Description term="进入时间">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
-<Description term="离开的时候">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="持续时间">{employeeAttendance.durationHours}</Description> 
-<Description term="备注">{employeeAttendance.remark}</Description> 
+<Description term="Enter Time">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Leave Time">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Duration Hours">{employeeAttendance.durationHours}</Description> 
+<Description term="Remark">{employeeAttendance.remark}</Description> 
 	
         
       </DescriptionList>

@@ -56,7 +56,7 @@ class LevelThreeDepartmentProfile extends Component {
     const  levelThreeDepartment = this.props.levelThreeDepartment;
     const { id,displayName, employeeCount } = levelThreeDepartment
 
-    const cardsData = {cardsName:"三级部门",cardsFor: "levelThreeDepartment",cardsSource: levelThreeDepartment,
+    const cardsData = {cardsName:"Level Three Department",cardsFor: "levelThreeDepartment",cardsSource: levelThreeDepartment,
   		subItems: [
      
       	],

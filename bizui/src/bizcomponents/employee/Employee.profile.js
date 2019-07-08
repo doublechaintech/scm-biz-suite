@@ -56,7 +56,7 @@ class EmployeeProfile extends Component {
     const  employee = this.props.employee;
     const { id,displayName, employeeCompanyTrainingCount, employeeSkillCount, employeePerformanceCount, employeeWorkExperienceCount, employeeLeaveCount, employeeInterviewCount, employeeAttendanceCount, employeeQualifierCount, employeeEducationCount, employeeAwardCount, employeeSalarySheetCount, payingOffCount } = employee
 
-    const cardsData = {cardsName:"员工",cardsFor: "employee",cardsSource: employee,
+    const cardsData = {cardsName:"Employee",cardsFor: "employee",cardsSource: employee,
   		subItems: [
      
       	],

@@ -81,9 +81,9 @@ const internalSummaryOf = (supplyOrderApproval,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderApproval.id}</Description> 
-<Description term="谁">{supplyOrderApproval.who}</Description> 
-<Description term="批准时间">{ moment(supplyOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{supplyOrderApproval.id}</Description> 
+<Description term="Who">{supplyOrderApproval.who}</Description> 
+<Description term="Approve Time">{ moment(supplyOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(supplyOrderApproval,targetComponent)}
       </DescriptionList>
@@ -121,11 +121,11 @@ class SupplyOrderApprovalDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应订单审批",cardsFor: "supplyOrderApproval",
+    const cardsData = {cardsName:"Supply Order Approval",cardsFor: "supplyOrderApproval",
     	cardsSource: this.props.supplyOrderApproval,returnURL,displayName,
   		subItems: [
-{name: 'consumerOrderList', displayName:'消费者订单',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
-{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+{name: 'consumerOrderList', displayName:'Consumer Order',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
+{name: 'supplyOrderList', displayName:'Supply Order',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
     
       	],
   	};

@@ -56,7 +56,7 @@ class ViewProfile extends Component {
     const  view = this.props.view;
     const { id,displayName,  } = view
 
-    const cardsData = {cardsName:"观",cardsFor: "view",cardsSource: view,
+    const cardsData = {cardsName:"View",cardsFor: "view",cardsSource: view,
   		subItems: [
      
       	],

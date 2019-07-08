@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CatalogList/目录+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CatalogList/Catalog+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateCatalog({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CatalogList/目录列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CatalogList/Catalog列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextCatalogUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreProvinceCenterList/双链小超省中心+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreProvinceCenterList/Retail Store Province Center+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreProvinceCenter({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreProvinceCenterList/双链小超省中心列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreProvinceCenterList/Retail Store Province Center列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreProvinceCenterUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreList/双链小超+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreList/Retail Store+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStore({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreList/双链小超列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreList/Retail Store列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreMemberList/生超会员+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreMemberList/Retail Store Member+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMember({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreMemberList/生超会员列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreMemberList/Retail Store Member列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreMemberUpdateRow({ payload }, { call, put }) {
@@ -413,7 +413,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/GoodsSupplierList/产品供应商+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/GoodsSupplierList/Goods Supplier+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoodsSupplier({ payload }, { call, put }) {
@@ -435,7 +435,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/GoodsSupplierList/产品供应商列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/GoodsSupplierList/Goods Supplier列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsSupplierUpdateRow({ payload }, { call, put }) {
@@ -482,7 +482,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SupplyOrderList/供应订单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SupplyOrderList/Supply Order+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSupplyOrder({ payload }, { call, put }) {
@@ -504,7 +504,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SupplyOrderList/供应订单列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SupplyOrderList/Supply Order列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSupplyOrderUpdateRow({ payload }, { call, put }) {
@@ -551,7 +551,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreOrderList/生超的订单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreOrderList/Retail Store Order+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreOrder({ payload }, { call, put }) {
@@ -573,7 +573,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreOrderList/生超的订单列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/RetailStoreOrderList/Retail Store Order列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreOrderUpdateRow({ payload }, { call, put }) {
@@ -620,7 +620,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/WarehouseList/仓库+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/WarehouseList/Warehouse+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateWarehouse({ payload }, { call, put }) {
@@ -642,7 +642,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/WarehouseList/仓库列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/WarehouseList/Warehouse列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextWarehouseUpdateRow({ payload }, { call, put }) {
@@ -689,7 +689,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TransportFleetList/运输车队+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TransportFleetList/Transport Fleet+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTransportFleet({ payload }, { call, put }) {
@@ -711,7 +711,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TransportFleetList/运输车队列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TransportFleetList/Transport Fleet列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTransportFleetUpdateRow({ payload }, { call, put }) {
@@ -758,7 +758,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/AccountSetList/账套+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/AccountSetList/Account Set+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountSet({ payload }, { call, put }) {
@@ -780,7 +780,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/AccountSetList/账套列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/AccountSetList/Account Set列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountSetUpdateRow({ payload }, { call, put }) {
@@ -827,7 +827,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LevelOneDepartmentList/一级部门+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LevelOneDepartmentList/Level One Department+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateLevelOneDepartment({ payload }, { call, put }) {
@@ -849,7 +849,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LevelOneDepartmentList/一级部门列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LevelOneDepartmentList/Level One Department列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextLevelOneDepartmentUpdateRow({ payload }, { call, put }) {
@@ -896,7 +896,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SkillTypeList/技能类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SkillTypeList/Skill Type+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSkillType({ payload }, { call, put }) {
@@ -918,7 +918,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SkillTypeList/技能类型列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SkillTypeList/Skill Type列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSkillTypeUpdateRow({ payload }, { call, put }) {
@@ -965,7 +965,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/ResponsibilityTypeList/责任类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/ResponsibilityTypeList/Responsibility Type+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateResponsibilityType({ payload }, { call, put }) {
@@ -987,7 +987,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/ResponsibilityTypeList/责任类型列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/ResponsibilityTypeList/Responsibility Type列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextResponsibilityTypeUpdateRow({ payload }, { call, put }) {
@@ -1034,7 +1034,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationReasonList/雇佣终止的原因+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationReasonList/Termination Reason+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTerminationReason({ payload }, { call, put }) {
@@ -1056,7 +1056,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationReasonList/雇佣终止的原因列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationReasonList/Termination Reason列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTerminationReasonUpdateRow({ payload }, { call, put }) {
@@ -1103,7 +1103,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationTypeList/雇佣终止类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationTypeList/Termination Type+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTerminationType({ payload }, { call, put }) {
@@ -1125,7 +1125,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationTypeList/雇佣终止类型列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TerminationTypeList/Termination Type列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTerminationTypeUpdateRow({ payload }, { call, put }) {
@@ -1172,7 +1172,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/OccupationTypeList/职位类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/OccupationTypeList/Occupation Type+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateOccupationType({ payload }, { call, put }) {
@@ -1194,7 +1194,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/OccupationTypeList/职位类型列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/OccupationTypeList/Occupation Type列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextOccupationTypeUpdateRow({ payload }, { call, put }) {
@@ -1241,7 +1241,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LeaveTypeList/请假类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LeaveTypeList/Leave Type+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateLeaveType({ payload }, { call, put }) {
@@ -1263,7 +1263,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LeaveTypeList/请假类型列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/LeaveTypeList/Leave Type列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextLeaveTypeUpdateRow({ payload }, { call, put }) {
@@ -1310,7 +1310,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SalaryGradeList/工资等级+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SalaryGradeList/Salary Grade+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSalaryGrade({ payload }, { call, put }) {
@@ -1332,7 +1332,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SalaryGradeList/工资等级列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/SalaryGradeList/Salary Grade列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSalaryGradeUpdateRow({ payload }, { call, put }) {
@@ -1379,7 +1379,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InterviewTypeList/面试类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InterviewTypeList/Interview Type+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateInterviewType({ payload }, { call, put }) {
@@ -1401,7 +1401,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InterviewTypeList/面试类型列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InterviewTypeList/Interview Type列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextInterviewTypeUpdateRow({ payload }, { call, put }) {
@@ -1448,7 +1448,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TrainingCourseTypeList/培训课程类型+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TrainingCourseTypeList/Training Course Type+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTrainingCourseType({ payload }, { call, put }) {
@@ -1470,7 +1470,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TrainingCourseTypeList/培训课程类型列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/TrainingCourseTypeList/Training Course Type列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTrainingCourseTypeUpdateRow({ payload }, { call, put }) {
@@ -1517,7 +1517,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/PublicHolidayList/公共假日+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/PublicHolidayList/Public Holiday+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePublicHoliday({ payload }, { call, put }) {
@@ -1539,7 +1539,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/PublicHolidayList/公共假日列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/PublicHolidayList/Public Holiday列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextPublicHolidayUpdateRow({ payload }, { call, put }) {
@@ -1586,7 +1586,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/EmployeeList/员工+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/EmployeeList/Employee+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployee({ payload }, { call, put }) {
@@ -1608,7 +1608,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/EmployeeList/员工列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/EmployeeList/Employee列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeUpdateRow({ payload }, { call, put }) {
@@ -1655,7 +1655,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InstructorList/讲师+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InstructorList/Instructor+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateInstructor({ payload }, { call, put }) {
@@ -1677,7 +1677,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InstructorList/讲师列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/InstructorList/Instructor列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextInstructorUpdateRow({ payload }, { call, put }) {
@@ -1724,7 +1724,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CompanyTrainingList/公司培训+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CompanyTrainingList/Company Training+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateCompanyTraining({ payload }, { call, put }) {
@@ -1746,7 +1746,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CompanyTrainingList/公司培训列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCountryCenter/${id}/list/CompanyTrainingList/Company Training列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextCompanyTrainingUpdateRow({ payload }, { call, put }) {

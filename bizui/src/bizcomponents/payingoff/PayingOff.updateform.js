@@ -262,7 +262,7 @@ class PayingOffUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class PayingOffUpdateForm extends Component {
                     initialValue: selectedRow.who,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class PayingOffUpdateForm extends Component {
                     initialValue: selectedRow.paidTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="支付时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Paid Time" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class PayingOffUpdateForm extends Component {
                     initialValue: selectedRow.amount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
                     
                   )}
                 </Form.Item>

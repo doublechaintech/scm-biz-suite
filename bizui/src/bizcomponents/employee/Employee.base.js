@@ -30,48 +30,48 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工", menuFor: "employee",
+const menuData = {menuName:"Employee", menuFor: "employee",
   		subItems: [
-  {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeSkillList', displayName:'员工技能', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeePerformanceList', displayName:'员工绩效', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeWorkExperienceList', displayName:'员工工作经验', icon:'phoenix-framework',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeLeaveList', displayName:'请假记录', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeInterviewList', displayName:'员工面试', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeAttendanceList', displayName:'员工考勤', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeQualifierList', displayName:'员工资质', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeEducationList', displayName:'员工教育', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeAwardList', displayName:'员工嘉奖', icon:'award',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'employeeSalarySheetList', displayName:'工资单', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'payingOffList', displayName:'工资支付', icon:'coffee',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeCompanyTrainingList', displayName:'Employee Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeSkillList', displayName:'Employee Skill', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeePerformanceList', displayName:'Employee Performance', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeWorkExperienceList', displayName:'Employee Work Experience', icon:'phoenix-framework',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeLeaveList', displayName:'Employee Leave', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeInterviewList', displayName:'Employee Interview', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeAttendanceList', displayName:'Employee Attendance', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeQualifierList', displayName:'Employee Qualifier', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeEducationList', displayName:'Employee Education', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeAwardList', displayName:'Employee Award', icon:'award',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeSalarySheetList', displayName:'Employee Salary Sheet', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'payingOffList', displayName:'Paying Off', icon:'coffee',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  company: '公司',
-  title: '头衔',
-  department: '部门',
-  familyName: '姓',
-  givenName: '名',
-  email: '电子邮件',
-  city: '城市',
-  address: '地址',
-  cellPhone: '手机',
-  occupation: '职业',
-  responsibleFor: '负责',
-  currentSalaryGrade: '目前工资等级',
-  salaryAccount: '工资账户',
-  jobApplication: '申请的工作',
-  professionInterview: '采访的职业',
-  hrInterview: '面试由人力资源',
-  offerApproval: '通过提供',
-  offerAcceptance: '接受报价',
-  employeeBoarding: '董事会员工',
-  termination: '终止',
-  lastUpdateTime: '最后更新时间',
-  currentStatus: '当前状态',
+  id: 'Id',
+  company: 'Company',
+  title: 'Title',
+  department: 'Department',
+  familyName: 'Family Name',
+  givenName: 'Given Name',
+  email: 'Email',
+  city: 'City',
+  address: 'Address',
+  cellPhone: 'Cell Phone',
+  occupation: 'Occupation',
+  responsibleFor: 'Responsible For',
+  currentSalaryGrade: 'Current Salary Grade',
+  salaryAccount: 'Salary Account',
+  jobApplication: 'Job Application',
+  professionInterview: 'Profession Interview',
+  hrInterview: 'Hr Interview',
+  offerApproval: 'Offer Approval',
+  offerAcceptance: 'Offer Acceptance',
+  employeeBoarding: 'Employee Boarding',
+  termination: 'Termination',
+  lastUpdateTime: 'Last Update Time',
+  currentStatus: 'Current Status',
 
 }
 
@@ -112,27 +112,27 @@ const renderItemOfList=(employee,targetComponent)=>{
 	<div key={employee.id}>
 	
 	<DescriptionList  key={employee.id} size="small" col="4">
-<Description term="序号">{employee.id}</Description> 
-<Description term="头衔">{employee.title}</Description> 
-<Description term="部门">{employee.department==null?appLocaleName(userContext,"NotAssigned"):`${employee.department.displayName}(${employee.department.id})`}
+<Description term="Id">{employee.id}</Description> 
+<Description term="Title">{employee.title}</Description> 
+<Description term="Department">{employee.department==null?appLocaleName(userContext,"NotAssigned"):`${employee.department.displayName}(${employee.department.id})`}
 </Description>
-<Description term="姓">{employee.familyName}</Description> 
-<Description term="名">{employee.givenName}</Description> 
-<Description term="电子邮件">{employee.email}</Description> 
-<Description term="城市">{employee.city}</Description> 
-<Description term="地址">{employee.address}</Description> 
-<Description term="手机">{employee.cellPhone}</Description> 
-<Description term="职业">{employee.occupation==null?appLocaleName(userContext,"NotAssigned"):`${employee.occupation.displayName}(${employee.occupation.id})`}
+<Description term="Family Name">{employee.familyName}</Description> 
+<Description term="Given Name">{employee.givenName}</Description> 
+<Description term="Email">{employee.email}</Description> 
+<Description term="City">{employee.city}</Description> 
+<Description term="Address">{employee.address}</Description> 
+<Description term="Cell Phone">{employee.cellPhone}</Description> 
+<Description term="Occupation">{employee.occupation==null?appLocaleName(userContext,"NotAssigned"):`${employee.occupation.displayName}(${employee.occupation.id})`}
 </Description>
-<Description term="负责">{employee.responsibleFor==null?appLocaleName(userContext,"NotAssigned"):`${employee.responsibleFor.displayName}(${employee.responsibleFor.id})`}
+<Description term="Responsible For">{employee.responsibleFor==null?appLocaleName(userContext,"NotAssigned"):`${employee.responsibleFor.displayName}(${employee.responsibleFor.id})`}
 </Description>
-<Description term="目前工资等级">{employee.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employee.currentSalaryGrade.displayName}(${employee.currentSalaryGrade.id})`}
+<Description term="Current Salary Grade">{employee.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employee.currentSalaryGrade.displayName}(${employee.currentSalaryGrade.id})`}
 </Description>
-<Description term="工资账户">{employee.salaryAccount}</Description> 
-<Description term="终止">{employee.termination==null?appLocaleName(userContext,"NotAssigned"):`${employee.termination.displayName}(${employee.termination.id})`}
+<Description term="Salary Account">{employee.salaryAccount}</Description> 
+<Description term="Termination">{employee.termination==null?appLocaleName(userContext,"NotAssigned"):`${employee.termination.displayName}(${employee.termination.id})`}
 </Description>
-<Description term="最后更新时间">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{employee.currentStatus}</Description> 
+<Description term="Last Update Time">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Current Status">{employee.currentStatus}</Description> 
 	
         
       </DescriptionList>

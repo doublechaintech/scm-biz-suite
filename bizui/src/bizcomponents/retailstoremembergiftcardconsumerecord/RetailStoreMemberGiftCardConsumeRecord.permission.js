@@ -28,10 +28,10 @@ const internalSummaryOf = (retailStoreMemberGiftCardConsumeRecord,targetComponen
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
-<Description term="发生时间">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
-<Description term="数">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
-<Description term="金额">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
+<Description term="Id">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
+<Description term="Occure Time">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Number">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
+<Description term="Amount">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class RetailStoreMemberGiftCardConsumeRecordPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberGiftCardConsumeRecord = this.props.retailStoreMemberGiftCardConsumeRecord;
     const { id,displayName,  } = retailStoreMemberGiftCardConsumeRecord
-    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: retailStoreMemberGiftCardConsumeRecord,
+    const cardsData = {cardsName:"Retail Store Member Gift Card Consume Record",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: retailStoreMemberGiftCardConsumeRecord,
   		subItems: [
     
       	],

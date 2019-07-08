@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/secUser/${id}/list/UserAppList/用户应用程序+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/secUser/${id}/list/UserAppList/User App+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateUserApp({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/secUser/${id}/list/UserAppList/用户应用程序列表`, state: newPlayload }
+      const location = { pathname: `/secUser/${id}/list/UserAppList/User App列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextUserAppUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/secUser/${id}/list/LoginHistoryList/登录历史+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/secUser/${id}/list/LoginHistoryList/Login History+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateLoginHistory({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/secUser/${id}/list/LoginHistoryList/登录历史列表`, state: newPlayload }
+      const location = { pathname: `/secUser/${id}/list/LoginHistoryList/Login History列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextLoginHistoryUpdateRow({ payload }, { call, put }) {

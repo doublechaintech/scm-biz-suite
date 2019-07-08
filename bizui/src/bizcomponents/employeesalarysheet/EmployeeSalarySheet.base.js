@@ -30,25 +30,25 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
+const menuData = {menuName:"Employee Salary Sheet", menuFor: "employeeSalarySheet",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  currentSalaryGrade: '目前工资等级',
-  baseSalary: '基本工资',
-  bonus: '奖金',
-  reward: '奖励',
-  personalTax: '个人所得税',
-  socialSecurity: '社会保险',
-  housingFound: '住房公积金',
-  jobInsurance: '失业保险',
-  payingOff: '回报',
-  currentStatus: '当前状态',
+  id: 'Id',
+  employee: 'Employee',
+  currentSalaryGrade: 'Current Salary Grade',
+  baseSalary: 'Base Salary',
+  bonus: 'Bonus',
+  reward: 'Reward',
+  personalTax: 'Personal Tax',
+  socialSecurity: 'Social Security',
+  housingFound: 'Housing Found',
+  jobInsurance: 'Job Insurance',
+  payingOff: 'Paying Off',
+  currentStatus: 'Current Status',
 
 }
 
@@ -78,21 +78,21 @@ const renderItemOfList=(employeeSalarySheet,targetComponent)=>{
 	<div key={employeeSalarySheet.id}>
 	
 	<DescriptionList  key={employeeSalarySheet.id} size="small" col="4">
-<Description term="序号">{employeeSalarySheet.id}</Description> 
-<Description term="员工">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
+<Description term="Id">{employeeSalarySheet.id}</Description> 
+<Description term="Employee">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
 </Description>
-<Description term="目前工资等级">{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
+<Description term="Current Salary Grade">{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
 </Description>
-<Description term="基本工资">{employeeSalarySheet.baseSalary}</Description> 
-<Description term="奖金">{employeeSalarySheet.bonus}</Description> 
-<Description term="奖励">{employeeSalarySheet.reward}</Description> 
-<Description term="个人所得税">{employeeSalarySheet.personalTax}</Description> 
-<Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
-<Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
-<Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
-<Description term="回报">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
+<Description term="Base Salary">{employeeSalarySheet.baseSalary}</Description> 
+<Description term="Bonus">{employeeSalarySheet.bonus}</Description> 
+<Description term="Reward">{employeeSalarySheet.reward}</Description> 
+<Description term="Personal Tax">{employeeSalarySheet.personalTax}</Description> 
+<Description term="Social Security">{employeeSalarySheet.socialSecurity}</Description> 
+<Description term="Housing Found">{employeeSalarySheet.housingFound}</Description> 
+<Description term="Job Insurance">{employeeSalarySheet.jobInsurance}</Description> 
+<Description term="Paying Off">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
 </Description>
-<Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
+<Description term="Current Status">{employeeSalarySheet.currentStatus}</Description> 
 	
         
       </DescriptionList>

@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/goodsSupplier/${id}/list/SupplierProductList/供应商的产品+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/goodsSupplier/${id}/list/SupplierProductList/Supplier Product+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSupplierProduct({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/goodsSupplier/${id}/list/SupplierProductList/供应商的产品列表`, state: newPlayload }
+      const location = { pathname: `/goodsSupplier/${id}/list/SupplierProductList/Supplier Product列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSupplierProductUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/goodsSupplier/${id}/list/SupplyOrderList/供应订单+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/goodsSupplier/${id}/list/SupplyOrderList/Supply Order+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSupplyOrder({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/goodsSupplier/${id}/list/SupplyOrderList/供应订单列表`, state: newPlayload }
+      const location = { pathname: `/goodsSupplier/${id}/list/SupplyOrderList/Supply Order列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSupplyOrderUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/goodsSupplier/${id}/list/AccountSetList/账套+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/goodsSupplier/${id}/list/AccountSetList/Account Set+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountSet({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/goodsSupplier/${id}/list/AccountSetList/账套列表`, state: newPlayload }
+      const location = { pathname: `/goodsSupplier/${id}/list/AccountSetList/Account Set列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountSetUpdateRow({ payload }, { call, put }) {

@@ -167,7 +167,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "消费者订单",
+      name: "Consumer Order",
       role: "consumerOrder",
       data: state._retailStoreMember.consumerOrderList,
       metaInfo: state._retailStoreMember.consumerOrderListMetaInfo,
@@ -216,7 +216,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "生超会员优惠券",
+      name: "Retail Store Member Coupon",
       role: "retailStoreMemberCoupon",
       data: state._retailStoreMember.retailStoreMemberCouponList,
       metaInfo: state._retailStoreMember.retailStoreMemberCouponListMetaInfo,
@@ -265,7 +265,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会员收藏",
+      name: "Member Wishlist",
       role: "memberWishlist",
       data: state._retailStoreMember.memberWishlistList,
       metaInfo: state._retailStoreMember.memberWishlistListMetaInfo,
@@ -314,7 +314,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会员奖励点",
+      name: "Member Reward Point",
       role: "memberRewardPoint",
       data: state._retailStoreMember.memberRewardPointList,
       metaInfo: state._retailStoreMember.memberRewardPointListMetaInfo,
@@ -363,7 +363,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "会员奖励点赎回",
+      name: "Member Reward Point Redemption",
       role: "memberRewardPointRedemption",
       data: state._retailStoreMember.memberRewardPointRedemptionList,
       metaInfo: state._retailStoreMember.memberRewardPointRedemptionListMetaInfo,
@@ -412,7 +412,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "零售店会员地址",
+      name: "Retail Store Member Address",
       role: "retailStoreMemberAddress",
       data: state._retailStoreMember.retailStoreMemberAddressList,
       metaInfo: state._retailStoreMember.retailStoreMemberAddressListMetaInfo,
@@ -461,7 +461,7 @@ class RetailStoreMemberBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "零售店会员礼品卡",
+      name: "Retail Store Member Gift Card",
       role: "retailStoreMemberGiftCard",
       data: state._retailStoreMember.retailStoreMemberGiftCardList,
       metaInfo: state._retailStoreMember.retailStoreMemberGiftCardListMetaInfo,
@@ -591,10 +591,10 @@ class RetailStoreMemberBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

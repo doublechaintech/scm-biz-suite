@@ -28,10 +28,10 @@ const internalSummaryOf = (goodsAllocation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsAllocation.id}</Description> 
-<Description term="位置">{goodsAllocation.location}</Description> 
-<Description term="纬度">{goodsAllocation.latitude}</Description> 
-<Description term="经度">{goodsAllocation.longitude}</Description> 
+<Description term="Id">{goodsAllocation.id}</Description> 
+<Description term="Location">{goodsAllocation.location}</Description> 
+<Description term="Latitude">{goodsAllocation.latitude}</Description> 
+<Description term="Longitude">{goodsAllocation.longitude}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class GoodsAllocationPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsAllocation = this.props.goodsAllocation;
     const { id,displayName, goodsCount } = goodsAllocation
-    const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",cardsSource: goodsAllocation,
+    const cardsData = {cardsName:"Goods Allocation",cardsFor: "goodsAllocation",cardsSource: goodsAllocation,
   		subItems: [
     
       	],

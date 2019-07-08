@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"存货区", menuFor: "storageSpace",
+const menuData = {menuName:"Storage Space", menuFor: "storageSpace",
   		subItems: [
-  {name: 'goodsShelfList', displayName:'货架', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsShelfList', displayName:'Goods Shelf', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  location: '位置',
-  contactNumber: '联系电话',
-  totalArea: '总面积',
-  warehouse: '仓库',
-  latitude: '纬度',
-  longitude: '经度',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  location: 'Location',
+  contactNumber: 'Contact Number',
+  totalArea: 'Total Area',
+  warehouse: 'Warehouse',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -71,15 +71,15 @@ const renderItemOfList=(storageSpace,targetComponent)=>{
 	<div key={storageSpace.id}>
 	
 	<DescriptionList  key={storageSpace.id} size="small" col="4">
-<Description term="序号">{storageSpace.id}</Description> 
-<Description term="位置">{storageSpace.location}</Description> 
-<Description term="联系电话">{storageSpace.contactNumber}</Description> 
-<Description term="总面积">{storageSpace.totalArea}</Description> 
-<Description term="仓库">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
+<Description term="Id">{storageSpace.id}</Description> 
+<Description term="Location">{storageSpace.location}</Description> 
+<Description term="Contact Number">{storageSpace.contactNumber}</Description> 
+<Description term="Total Area">{storageSpace.totalArea}</Description> 
+<Description term="Warehouse">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
 </Description>
-<Description term="纬度">{storageSpace.latitude}</Description> 
-<Description term="经度">{storageSpace.longitude}</Description> 
-<Description term="最后更新时间">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Latitude">{storageSpace.latitude}</Description> 
+<Description term="Longitude">{storageSpace.longitude}</Description> 
+<Description term="Last Update Time">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

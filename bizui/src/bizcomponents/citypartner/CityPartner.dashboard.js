@@ -81,17 +81,17 @@ const internalSummaryOf = (cityPartner,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{cityPartner.id}</Description> 
-<Description term="名称">{cityPartner.name}</Description> 
-<Description term="手机">{cityPartner.mobile}</Description> 
-<Description term="城市服务中心">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
+<Description term="Id">{cityPartner.id}</Description> 
+<Description term="Name">{cityPartner.name}</Description> 
+<Description term="Mobile">{cityPartner.mobile}</Description> 
+<Description term="City Service Center">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",CityPartnerService.requestCandidateCityServiceCenter,
+  showTransferModel(targetComponent,"City Service Center","retailStoreCityServiceCenter",CityPartnerService.requestCandidateCityServiceCenter,
 	      CityPartnerService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",cityPartner.cityServiceCenter?cityPartner.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="描述">{cityPartner.description}</Description> 
-<Description term="最后更新时间">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{cityPartner.description}</Description> 
+<Description term="Last Update Time">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(cityPartner,targetComponent)}
       </DescriptionList>
@@ -129,11 +129,11 @@ class CityPartnerDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",
+    const cardsData = {cardsName:"City Partner",cardsFor: "cityPartner",
     	cardsSource: this.props.cityPartner,returnURL,displayName,
   		subItems: [
-{name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
-{name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+{name: 'potentialCustomerList', displayName:'Potential Customer',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
+{name: 'potentialCustomerContactList', displayName:'Potential Customer Contact',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
     
       	],
   	};

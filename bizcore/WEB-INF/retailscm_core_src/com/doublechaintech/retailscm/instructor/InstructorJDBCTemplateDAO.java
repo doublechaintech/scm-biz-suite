@@ -76,7 +76,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public Instructor load(String id,Map<String,Object> options) throws Exception{
@@ -382,7 +382,7 @@ public class InstructorJDBCTemplateDAO extends RetailscmNamingServiceDAO impleme
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Instructor.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("讲师");
+		lastUpdateTimeStatsItem.setDisplayName("Instructor");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Instructor.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Instructor.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

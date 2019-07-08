@@ -202,7 +202,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public Warehouse load(String id,Map<String,Object> options) throws Exception{
@@ -982,7 +982,7 @@ public class WarehouseJDBCTemplateDAO extends RetailscmNamingServiceDAO implemen
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//Warehouse.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("仓库");
+		lastUpdateTimeStatsItem.setDisplayName("Warehouse");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(Warehouse.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(Warehouse.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

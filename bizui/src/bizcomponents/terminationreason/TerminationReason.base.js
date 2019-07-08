@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"雇佣终止的原因", menuFor: "terminationReason",
+const menuData = {menuName:"Termination Reason", menuFor: "terminationReason",
   		subItems: [
-  {name: 'terminationList', displayName:'雇佣终止', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'terminationList', displayName:'Termination', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  description: '描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  description: 'Description',
 
 }
 
@@ -63,9 +63,9 @@ const renderItemOfList=(terminationReason,targetComponent)=>{
 	<div key={terminationReason.id}>
 	
 	<DescriptionList  key={terminationReason.id} size="small" col="4">
-<Description term="序号">{terminationReason.id}</Description> 
-<Description term="代码">{terminationReason.code}</Description> 
-<Description term="描述">{terminationReason.description}</Description> 
+<Description term="Id">{terminationReason.id}</Description> 
+<Description term="Code">{terminationReason.code}</Description> 
+<Description term="Description">{terminationReason.description}</Description> 
 	
         
       </DescriptionList>

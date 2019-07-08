@@ -548,7 +548,7 @@ public class RetailStoreCountryCenterJDBCTemplateDAO extends RetailscmNamingServ
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public RetailStoreCountryCenter load(String id,Map<String,Object> options) throws Exception{

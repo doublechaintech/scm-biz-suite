@@ -28,8 +28,8 @@ const internalSummaryOf = (userDomain,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{userDomain.id}</Description> 
-<Description term="名称">{userDomain.name}</Description> 
+<Description term="Id">{userDomain.id}</Description> 
+<Description term="Name">{userDomain.name}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +55,9 @@ class UserDomainPermission extends Component {
     // eslint-disable-next-line max-len
     const  userDomain = this.props.userDomain;
     const { id,displayName, userWhiteListCount, secUserCount } = userDomain
-    const cardsData = {cardsName:"用户域",cardsFor: "userDomain",cardsSource: userDomain,
+    const cardsData = {cardsName:"User Domain",cardsFor: "userDomain",cardsSource: userDomain,
   		subItems: [
-{name: 'userWhiteListList', displayName:'用户白名单',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList', data: userDomain.userWhiteListList},
+{name: 'userWhiteListList', displayName:'User White List',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList', data: userDomain.userWhiteListList},
     
       	],
   	};

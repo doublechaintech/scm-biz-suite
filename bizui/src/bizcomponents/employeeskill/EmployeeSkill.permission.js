@@ -28,8 +28,8 @@ const internalSummaryOf = (employeeSkill,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeSkill.id}</Description> 
-<Description term="描述">{employeeSkill.description}</Description> 
+<Description term="Id">{employeeSkill.id}</Description> 
+<Description term="Description">{employeeSkill.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,7 +55,7 @@ class EmployeeSkillPermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeSkill = this.props.employeeSkill;
     const { id,displayName,  } = employeeSkill
-    const cardsData = {cardsName:"员工技能",cardsFor: "employeeSkill",cardsSource: employeeSkill,
+    const cardsData = {cardsName:"Employee Skill",cardsFor: "employeeSkill",cardsSource: employeeSkill,
   		subItems: [
     
       	],

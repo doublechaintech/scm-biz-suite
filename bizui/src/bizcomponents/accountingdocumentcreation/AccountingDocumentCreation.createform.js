@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '确认提交',
-  makeDate: '2018-02-05',
+  makeDate: '2017-03-23',
 }
 */
 
@@ -195,8 +195,8 @@ class AccountingDocumentCreationCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}会计文件的创建`}
-        content={`${appLocaleName(userContext,"CreateNew")}会计文件的创建`}
+        title={`${appLocaleName(userContext,"CreateNew")}Accounting Document Creation`}
+        content={`${appLocaleName(userContext,"CreateNew")}Accounting Document Creation`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class AccountingDocumentCreationCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class AccountingDocumentCreationCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comments" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class AccountingDocumentCreationCreateForm extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Make Date" />
                   )}
                 </Form.Item>
               </Col>

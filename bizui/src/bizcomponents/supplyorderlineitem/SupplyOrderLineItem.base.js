@@ -30,20 +30,20 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"供应订单行项目", menuFor: "supplyOrderLineItem",
+const menuData = {menuName:"Supply Order Line Item", menuFor: "supplyOrderLineItem",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  bizOrder: '订单',
-  skuId: '产品ID',
-  skuName: '产品名称',
-  amount: '金额',
-  quantity: '数量',
-  unitOfMeasurement: '测量单位',
+  id: 'Id',
+  bizOrder: 'Biz Order',
+  skuId: 'Sku Id',
+  skuName: 'Sku Name',
+  amount: 'Amount',
+  quantity: 'Quantity',
+  unitOfMeasurement: 'Unit Of Measurement',
 
 }
 
@@ -68,14 +68,14 @@ const renderItemOfList=(supplyOrderLineItem,targetComponent)=>{
 	<div key={supplyOrderLineItem.id}>
 	
 	<DescriptionList  key={supplyOrderLineItem.id} size="small" col="4">
-<Description term="序号">{supplyOrderLineItem.id}</Description> 
-<Description term="订单">{supplyOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderLineItem.bizOrder.displayName}(${supplyOrderLineItem.bizOrder.id})`}
+<Description term="Id">{supplyOrderLineItem.id}</Description> 
+<Description term="Biz Order">{supplyOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderLineItem.bizOrder.displayName}(${supplyOrderLineItem.bizOrder.id})`}
 </Description>
-<Description term="产品ID">{supplyOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{supplyOrderLineItem.skuName}</Description> 
-<Description term="金额">{supplyOrderLineItem.amount}</Description> 
-<Description term="数量">{supplyOrderLineItem.quantity}</Description> 
-<Description term="测量单位">{supplyOrderLineItem.unitOfMeasurement}</Description> 
+<Description term="Sku Id">{supplyOrderLineItem.skuId}</Description> 
+<Description term="Sku Name">{supplyOrderLineItem.skuName}</Description> 
+<Description term="Amount">{supplyOrderLineItem.amount}</Description> 
+<Description term="Quantity">{supplyOrderLineItem.quantity}</Description> 
+<Description term="Unit Of Measurement">{supplyOrderLineItem.unitOfMeasurement}</Description> 
 	
         
       </DescriptionList>

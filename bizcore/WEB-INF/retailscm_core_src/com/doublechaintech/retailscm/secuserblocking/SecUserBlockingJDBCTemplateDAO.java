@@ -65,7 +65,7 @@ public class SecUserBlockingJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public SecUserBlocking load(String id,Map<String,Object> options) throws Exception{

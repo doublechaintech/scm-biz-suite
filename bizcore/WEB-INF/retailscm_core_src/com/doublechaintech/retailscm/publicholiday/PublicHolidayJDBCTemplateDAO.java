@@ -55,7 +55,7 @@ public class PublicHolidayJDBCTemplateDAO extends RetailscmNamingServiceDAO impl
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public PublicHoliday load(String id,Map<String,Object> options) throws Exception{

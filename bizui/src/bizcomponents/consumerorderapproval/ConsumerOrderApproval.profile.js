@@ -56,7 +56,7 @@ class ConsumerOrderApprovalProfile extends Component {
     const  consumerOrderApproval = this.props.consumerOrderApproval;
     const { id,displayName,  } = consumerOrderApproval
 
-    const cardsData = {cardsName:"消费者的订单审批",cardsFor: "consumerOrderApproval",cardsSource: consumerOrderApproval,
+    const cardsData = {cardsName:"Consumer Order Approval",cardsFor: "consumerOrderApproval",cardsSource: consumerOrderApproval,
   		subItems: [
      
       	],

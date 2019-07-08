@@ -262,7 +262,7 @@ class GoodsShelfStockCountUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class GoodsShelfStockCountUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class GoodsShelfStockCountUpdateForm extends Component {
                     initialValue: selectedRow.countTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="计数时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Count Time" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class GoodsShelfStockCountUpdateForm extends Component {
                     initialValue: selectedRow.summary,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="概览" />
+                    <Input size="large" placeholder="Summary" />
                     
                   )}
                 </Form.Item>

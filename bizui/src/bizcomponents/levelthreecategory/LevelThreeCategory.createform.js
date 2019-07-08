@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
-  parentCategoryId: 'LTC00000001',
+  parentCategoryId: 'LTC000001',
 }
 */
 
@@ -194,8 +194,8 @@ class LevelThreeCategoryCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}三级分类`}
-        content={`${appLocaleName(userContext,"CreateNew")}三级分类`}
+        title={`${appLocaleName(userContext,"CreateNew")}Level Three Category`}
+        content={`${appLocaleName(userContext,"CreateNew")}Level Three Category`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class LevelThreeCategoryCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

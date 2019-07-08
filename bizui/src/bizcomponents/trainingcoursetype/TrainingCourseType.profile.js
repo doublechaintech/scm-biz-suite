@@ -56,7 +56,7 @@ class TrainingCourseTypeProfile extends Component {
     const  trainingCourseType = this.props.trainingCourseType;
     const { id,displayName, companyTrainingCount } = trainingCourseType
 
-    const cardsData = {cardsName:"培训课程类型",cardsFor: "trainingCourseType",cardsSource: trainingCourseType,
+    const cardsData = {cardsName:"Training Course Type",cardsFor: "trainingCourseType",cardsSource: trainingCourseType,
   		subItems: [
      
       	],

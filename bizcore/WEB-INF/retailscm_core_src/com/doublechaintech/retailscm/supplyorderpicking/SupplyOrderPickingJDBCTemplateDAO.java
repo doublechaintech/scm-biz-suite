@@ -65,7 +65,7 @@ public class SupplyOrderPickingJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public SupplyOrderPicking load(String id,Map<String,Object> options) throws Exception{

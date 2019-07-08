@@ -30,29 +30,29 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"账套", menuFor: "accountSet",
+const menuData = {menuName:"Account Set", menuFor: "accountSet",
   		subItems: [
-  {name: 'accountingSubjectList', displayName:'会计科目', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'accountingPeriodList', displayName:'会计期间', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'accountingDocumentTypeList', displayName:'会计凭证类型', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingSubjectList', displayName:'Accounting Subject', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingPeriodList', displayName:'Accounting Period', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingDocumentTypeList', displayName:'Accounting Document Type', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  yearSet: '年组',
-  effectiveDate: '生效日期',
-  accountingSystem: '会计制度',
-  domesticCurrencyCode: '本币代码',
-  domesticCurrencyName: '本币名称',
-  openingBank: '开户银行',
-  accountNumber: '帐户号码',
-  countryCenter: '全国运营中心',
-  retailStore: '双链小超',
-  goodsSupplier: '产品供应商',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  yearSet: 'Year Set',
+  effectiveDate: 'Effective Date',
+  accountingSystem: 'Accounting System',
+  domesticCurrencyCode: 'Domestic Currency Code',
+  domesticCurrencyName: 'Domestic Currency Name',
+  openingBank: 'Opening Bank',
+  accountNumber: 'Account Number',
+  countryCenter: 'Country Center',
+  retailStore: 'Retail Store',
+  goodsSupplier: 'Goods Supplier',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -83,20 +83,20 @@ const renderItemOfList=(accountSet,targetComponent)=>{
 	<div key={accountSet.id}>
 	
 	<DescriptionList  key={accountSet.id} size="small" col="4">
-<Description term="序号">{accountSet.id}</Description> 
-<Description term="名称">{accountSet.name}</Description> 
-<Description term="年组">{accountSet.yearSet}</Description> 
-<Description term="生效日期">{ moment(accountSet.effectiveDate).format('YYYY-MM-DD')}</Description> 
-<Description term="会计制度">{accountSet.accountingSystem}</Description> 
-<Description term="本币代码">{accountSet.domesticCurrencyCode}</Description> 
-<Description term="本币名称">{accountSet.domesticCurrencyName}</Description> 
-<Description term="开户银行">{accountSet.openingBank}</Description> 
-<Description term="帐户号码">{accountSet.accountNumber}</Description> 
-<Description term="双链小超">{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.retailStore.displayName}(${accountSet.retailStore.id})`}
+<Description term="Id">{accountSet.id}</Description> 
+<Description term="Name">{accountSet.name}</Description> 
+<Description term="Year Set">{accountSet.yearSet}</Description> 
+<Description term="Effective Date">{ moment(accountSet.effectiveDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Accounting System">{accountSet.accountingSystem}</Description> 
+<Description term="Domestic Currency Code">{accountSet.domesticCurrencyCode}</Description> 
+<Description term="Domestic Currency Name">{accountSet.domesticCurrencyName}</Description> 
+<Description term="Opening Bank">{accountSet.openingBank}</Description> 
+<Description term="Account Number">{accountSet.accountNumber}</Description> 
+<Description term="Retail Store">{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.retailStore.displayName}(${accountSet.retailStore.id})`}
 </Description>
-<Description term="产品供应商">{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.goodsSupplier.displayName}(${accountSet.goodsSupplier.id})`}
+<Description term="Goods Supplier">{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.goodsSupplier.displayName}(${accountSet.goodsSupplier.id})`}
 </Description>
-<Description term="最后更新时间">{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Last Update Time">{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

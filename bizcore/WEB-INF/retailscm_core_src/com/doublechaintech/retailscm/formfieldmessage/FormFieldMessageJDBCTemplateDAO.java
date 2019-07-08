@@ -55,7 +55,7 @@ public class FormFieldMessageJDBCTemplateDAO extends RetailscmNamingServiceDAO i
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public FormFieldMessage load(String id,Map<String,Object> options) throws Exception{

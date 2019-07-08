@@ -28,7 +28,7 @@ const testValues = {
   list7: 'catalogList',
   list8: 'catalogList',
   list9: 'catalogList',
-  appId: 'UA00000001',
+  appId: 'UA000001',
 }
 */
 
@@ -204,8 +204,8 @@ class ObjectAccessCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}对象访问`}
-        content={`${appLocaleName(userContext,"CreateNew")}对象访问`}
+        title={`${appLocaleName(userContext,"CreateNew")}Object Access`}
+        content={`${appLocaleName(userContext,"CreateNew")}Object Access`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -217,7 +217,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -227,7 +227,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('objectType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="对象类型" />
+                    <Input size="large" placeholder="Object Type" />
                   )}
                 </Form.Item>
               </Col>
@@ -237,7 +237,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list1', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="表" />
+                    <Input size="large" placeholder="List1" />
                   )}
                 </Form.Item>
               </Col>
@@ -247,7 +247,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list2', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="清单" />
+                    <Input size="large" placeholder="List2" />
                   )}
                 </Form.Item>
               </Col>
@@ -257,7 +257,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list3', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="目录3" />
+                    <Input size="large" placeholder="List3" />
                   )}
                 </Form.Item>
               </Col>
@@ -267,7 +267,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list4', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="清单" />
+                    <Input size="large" placeholder="List4" />
                   )}
                 </Form.Item>
               </Col>
@@ -277,7 +277,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list5', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="列表6" />
+                    <Input size="large" placeholder="List5" />
                   )}
                 </Form.Item>
               </Col>
@@ -287,7 +287,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list6', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list6" />
+                    <Input size="large" placeholder="List6" />
                   )}
                 </Form.Item>
               </Col>
@@ -297,7 +297,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list7', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list7" />
+                    <Input size="large" placeholder="List7" />
                   )}
                 </Form.Item>
               </Col>
@@ -307,7 +307,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list8', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list8" />
+                    <Input size="large" placeholder="List8" />
                   )}
                 </Form.Item>
               </Col>
@@ -317,7 +317,7 @@ class ObjectAccessCreateForm extends Component {
                   {getFieldDecorator('list9', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="list9" />
+                    <Input size="large" placeholder="List9" />
                   )}
                 </Form.Item>
               </Col>

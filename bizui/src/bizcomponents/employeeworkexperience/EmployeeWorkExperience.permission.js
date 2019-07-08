@@ -28,11 +28,11 @@ const internalSummaryOf = (employeeWorkExperience,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeWorkExperience.id}</Description> 
-<Description term="开始">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
-<Description term="结束">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
-<Description term="公司">{employeeWorkExperience.company}</Description> 
-<Description term="描述">{employeeWorkExperience.description}</Description> 
+<Description term="Id">{employeeWorkExperience.id}</Description> 
+<Description term="Start">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
+<Description term="End">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
+<Description term="Company">{employeeWorkExperience.company}</Description> 
+<Description term="Description">{employeeWorkExperience.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,7 +58,7 @@ class EmployeeWorkExperiencePermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeWorkExperience = this.props.employeeWorkExperience;
     const { id,displayName,  } = employeeWorkExperience
-    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",cardsSource: employeeWorkExperience,
+    const cardsData = {cardsName:"Employee Work Experience",cardsFor: "employeeWorkExperience",cardsSource: employeeWorkExperience,
   		subItems: [
     
       	],

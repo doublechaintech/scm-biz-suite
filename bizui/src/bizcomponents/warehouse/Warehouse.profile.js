@@ -56,7 +56,7 @@ class WarehouseProfile extends Component {
     const  warehouse = this.props.warehouse;
     const { id,displayName, storageSpaceCount, smartPalletCount, supplierSpaceCount, receivingSpaceCount, shippingSpaceCount, damageSpaceCount, warehouseAssetCount } = warehouse
 
-    const cardsData = {cardsName:"仓库",cardsFor: "warehouse",cardsSource: warehouse,
+    const cardsData = {cardsName:"Warehouse",cardsFor: "warehouse",cardsSource: warehouse,
   		subItems: [
      
       	],

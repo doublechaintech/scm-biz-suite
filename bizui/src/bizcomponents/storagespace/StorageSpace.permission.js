@@ -28,13 +28,13 @@ const internalSummaryOf = (storageSpace,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{storageSpace.id}</Description> 
-<Description term="位置">{storageSpace.location}</Description> 
-<Description term="联系电话">{storageSpace.contactNumber}</Description> 
-<Description term="总面积">{storageSpace.totalArea}</Description> 
-<Description term="纬度">{storageSpace.latitude}</Description> 
-<Description term="经度">{storageSpace.longitude}</Description> 
-<Description term="最后更新时间">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{storageSpace.id}</Description> 
+<Description term="Location">{storageSpace.location}</Description> 
+<Description term="Contact Number">{storageSpace.contactNumber}</Description> 
+<Description term="Total Area">{storageSpace.totalArea}</Description> 
+<Description term="Latitude">{storageSpace.latitude}</Description> 
+<Description term="Longitude">{storageSpace.longitude}</Description> 
+<Description term="Last Update Time">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,7 +60,7 @@ class StorageSpacePermission extends Component {
     // eslint-disable-next-line max-len
     const  storageSpace = this.props.storageSpace;
     const { id,displayName, goodsShelfCount } = storageSpace
-    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",cardsSource: storageSpace,
+    const cardsData = {cardsName:"Storage Space",cardsFor: "storageSpace",cardsSource: storageSpace,
   		subItems: [
     
       	],

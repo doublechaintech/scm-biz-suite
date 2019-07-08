@@ -21,7 +21,7 @@ const testValues = {
   code: 'INTRVW00',
   description: '特别情况面试',
   detailDescription: '故事还得从遥远的古代开始.................................................',
-  companyId: 'RSCC00000001',
+  companyId: 'RSCC000001',
 }
 */
 
@@ -141,7 +141,7 @@ class InterviewTypeAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large" placeholder="Code" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class InterviewTypeAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large" placeholder="Description" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class InterviewTypeAssociateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="详细描述" />
+                    <Input size="large" placeholder="Detail Description" />
                   )}
                 </Form.Item>
               </Col>

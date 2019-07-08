@@ -28,14 +28,14 @@ const internalSummaryOf = (goodsMovement,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsMovement.id}</Description> 
-<Description term="移动时间">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="设施">{goodsMovement.facility}</Description> 
-<Description term="设备ID">{goodsMovement.facilityId}</Description> 
-<Description term="从IP">{goodsMovement.fromIp}</Description> 
-<Description term="会话ID">{goodsMovement.sessionId}</Description> 
-<Description term="纬度">{goodsMovement.latitude}</Description> 
-<Description term="经度">{goodsMovement.longitude}</Description> 
+<Description term="Id">{goodsMovement.id}</Description> 
+<Description term="Move Time">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Facility">{goodsMovement.facility}</Description> 
+<Description term="Facility Id">{goodsMovement.facilityId}</Description> 
+<Description term="From Ip">{goodsMovement.fromIp}</Description> 
+<Description term="Session Id">{goodsMovement.sessionId}</Description> 
+<Description term="Latitude">{goodsMovement.latitude}</Description> 
+<Description term="Longitude">{goodsMovement.longitude}</Description> 
 	
       </DescriptionList>
 	)
@@ -61,7 +61,7 @@ class GoodsMovementPermission extends Component {
     // eslint-disable-next-line max-len
     const  goodsMovement = this.props.goodsMovement;
     const { id,displayName,  } = goodsMovement
-    const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",cardsSource: goodsMovement,
+    const cardsData = {cardsName:"Goods Movement",cardsFor: "goodsMovement",cardsSource: goodsMovement,
   		subItems: [
     
       	],

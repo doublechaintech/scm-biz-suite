@@ -118,7 +118,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public RetailStoreProvinceCenter load(String id,Map<String,Object> options) throws Exception{
@@ -582,7 +582,7 @@ public class RetailStoreProvinceCenterJDBCTemplateDAO extends RetailscmNamingSer
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("双链小超省中心");
+		lastUpdateTimeStatsItem.setDisplayName("Retail Store Province Center");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(RetailStoreProvinceCenter.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

@@ -56,7 +56,7 @@ class GoodsShelfProfile extends Component {
     const  goodsShelf = this.props.goodsShelf;
     const { id,displayName, goodsShelfStockCountCount, goodsAllocationCount } = goodsShelf
 
-    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",cardsSource: goodsShelf,
+    const cardsData = {cardsName:"Goods Shelf",cardsFor: "goodsShelf",cardsSource: goodsShelf,
   		subItems: [
      
       	],

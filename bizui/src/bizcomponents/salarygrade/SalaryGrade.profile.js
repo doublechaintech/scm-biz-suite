@@ -56,7 +56,7 @@ class SalaryGradeProfile extends Component {
     const  salaryGrade = this.props.salaryGrade;
     const { id,displayName, employeeCount, employeeSalarySheetCount } = salaryGrade
 
-    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",cardsSource: salaryGrade,
+    const cardsData = {cardsName:"Salary Grade",cardsFor: "salaryGrade",cardsSource: salaryGrade,
   		subItems: [
      
       	],

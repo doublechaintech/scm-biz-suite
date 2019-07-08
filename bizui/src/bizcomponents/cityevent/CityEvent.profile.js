@@ -56,7 +56,7 @@ class CityEventProfile extends Component {
     const  cityEvent = this.props.cityEvent;
     const { id,displayName, eventAttendanceCount } = cityEvent
 
-    const cardsData = {cardsName:"城市活动",cardsFor: "cityEvent",cardsSource: cityEvent,
+    const cardsData = {cardsName:"City Event",cardsFor: "cityEvent",cardsSource: cityEvent,
   		subItems: [
      
       	],

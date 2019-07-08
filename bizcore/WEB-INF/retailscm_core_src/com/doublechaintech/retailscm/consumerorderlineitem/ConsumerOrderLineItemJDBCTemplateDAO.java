@@ -55,7 +55,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmNamingService
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public ConsumerOrderLineItem load(String id,Map<String,Object> options) throws Exception{
@@ -282,7 +282,7 @@ public class ConsumerOrderLineItemJDBCTemplateDAO extends RetailscmNamingService
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("消费者订单行项目");
+		lastUpdateTimeStatsItem.setDisplayName("Consumer Order Line Item");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(ConsumerOrderLineItem.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

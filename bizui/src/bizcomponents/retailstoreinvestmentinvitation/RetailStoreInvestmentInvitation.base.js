@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超招商", menuFor: "retailStoreInvestmentInvitation",
+const menuData = {menuName:"Retail Store Investment Invitation", menuFor: "retailStoreInvestmentInvitation",
   		subItems: [
-  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  comment: '评论',
+  id: 'Id',
+  comment: 'Comment',
 
 }
 
@@ -59,8 +59,8 @@ const renderItemOfList=(retailStoreInvestmentInvitation,targetComponent)=>{
 	<div key={retailStoreInvestmentInvitation.id}>
 	
 	<DescriptionList  key={retailStoreInvestmentInvitation.id} size="small" col="4">
-<Description term="序号">{retailStoreInvestmentInvitation.id}</Description> 
-<Description term="评论">{retailStoreInvestmentInvitation.comment}</Description> 
+<Description term="Id">{retailStoreInvestmentInvitation.id}</Description> 
+<Description term="Comment">{retailStoreInvestmentInvitation.comment}</Description> 
 	
         
       </DescriptionList>

@@ -81,14 +81,14 @@ const internalSummaryOf = (levelThreeCategory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelThreeCategory.id}</Description> 
-<Description term="父类">{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
+<Description term="Id">{levelThreeCategory.id}</Description> 
+<Description term="Parent Category">{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"父类","levelTwoCategory",LevelThreeCategoryService.requestCandidateParentCategory,
+  showTransferModel(targetComponent,"Parent Category","levelTwoCategory",LevelThreeCategoryService.requestCandidateParentCategory,
 	      LevelThreeCategoryService.transferToAnotherParentCategory,"anotherParentCategoryId",levelThreeCategory.parentCategory?levelThreeCategory.parentCategory.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="名称">{levelThreeCategory.name}</Description> 
+<Description term="Name">{levelThreeCategory.name}</Description> 
 	
         {buildTransferModal(levelThreeCategory,targetComponent)}
       </DescriptionList>
@@ -126,10 +126,10 @@ class LevelThreeCategoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",
+    const cardsData = {cardsName:"Level Three Category",cardsFor: "levelThreeCategory",
     	cardsSource: this.props.levelThreeCategory,returnURL,displayName,
   		subItems: [
-{name: 'productList', displayName:'产品',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
+{name: 'productList', displayName:'Product',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
     
       	],
   	};

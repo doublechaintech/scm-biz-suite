@@ -81,17 +81,17 @@ const internalSummaryOf = (cityEvent,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{cityEvent.id}</Description> 
-<Description term="名称">{cityEvent.name}</Description> 
-<Description term="手机">{cityEvent.mobile}</Description> 
-<Description term="城市服务中心">{cityEvent.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityEvent.cityServiceCenter.displayName}(${cityEvent.cityServiceCenter.id})`}
+<Description term="Id">{cityEvent.id}</Description> 
+<Description term="Name">{cityEvent.name}</Description> 
+<Description term="Mobile">{cityEvent.mobile}</Description> 
+<Description term="City Service Center">{cityEvent.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityEvent.cityServiceCenter.displayName}(${cityEvent.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",CityEventService.requestCandidateCityServiceCenter,
+  showTransferModel(targetComponent,"City Service Center","retailStoreCityServiceCenter",CityEventService.requestCandidateCityServiceCenter,
 	      CityEventService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",cityEvent.cityServiceCenter?cityEvent.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="描述">{cityEvent.description}</Description> 
-<Description term="最后更新时间">{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{cityEvent.description}</Description> 
+<Description term="Last Update Time">{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(cityEvent,targetComponent)}
       </DescriptionList>
@@ -129,10 +129,10 @@ class CityEventDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"城市活动",cardsFor: "cityEvent",
+    const cardsData = {cardsName:"City Event",cardsFor: "cityEvent",
     	cardsSource: this.props.cityEvent,returnURL,displayName,
   		subItems: [
-{name: 'eventAttendanceList', displayName:'活动的参与情况',type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
+{name: 'eventAttendanceList', displayName:'Event Attendance',type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
     
       	],
   	};

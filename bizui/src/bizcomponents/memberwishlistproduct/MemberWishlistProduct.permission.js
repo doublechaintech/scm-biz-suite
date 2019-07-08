@@ -28,8 +28,8 @@ const internalSummaryOf = (memberWishlistProduct,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberWishlistProduct.id}</Description> 
-<Description term="名称">{memberWishlistProduct.name}</Description> 
+<Description term="Id">{memberWishlistProduct.id}</Description> 
+<Description term="Name">{memberWishlistProduct.name}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,7 +55,7 @@ class MemberWishlistProductPermission extends Component {
     // eslint-disable-next-line max-len
     const  memberWishlistProduct = this.props.memberWishlistProduct;
     const { id,displayName,  } = memberWishlistProduct
-    const cardsData = {cardsName:"会员收藏产品",cardsFor: "memberWishlistProduct",cardsSource: memberWishlistProduct,
+    const cardsData = {cardsName:"Member Wishlist Product",cardsFor: "memberWishlistProduct",cardsSource: memberWishlistProduct,
   		subItems: [
     
       	],

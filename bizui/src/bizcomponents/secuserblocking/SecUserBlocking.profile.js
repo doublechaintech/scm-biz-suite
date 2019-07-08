@@ -56,7 +56,7 @@ class SecUserBlockingProfile extends Component {
     const  secUserBlocking = this.props.secUserBlocking;
     const { id,displayName, secUserCount } = secUserBlocking
 
-    const cardsData = {cardsName:"用户屏蔽",cardsFor: "secUserBlocking",cardsSource: secUserBlocking,
+    const cardsData = {cardsName:"Sec User Blocking",cardsFor: "secUserBlocking",cardsSource: secUserBlocking,
   		subItems: [
      
       	],

@@ -17,11 +17,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2017-06-25',
+  occureTime: '2018-04-02',
   number: 'GF00001',
-  amount: '20.12',
-  ownerId: 'RSMGC00000001',
-  bizOrderId: 'CO00000001',
+  amount: '17.98',
+  ownerId: 'RSMGC000001',
+  bizOrderId: 'CO000001',
 }
 */
 
@@ -197,8 +197,8 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
-        content={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
+        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Gift Card Consume Record`}
+        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Gift Card Consume Record`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('occureTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="发生时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Occure Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large" placeholder="Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
                   )}
                 </Form.Item>
               </Col>

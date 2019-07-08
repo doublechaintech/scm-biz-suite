@@ -28,15 +28,15 @@ const internalSummaryOf = (transportTruck,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTruck.id}</Description> 
-<Description term="名称">{transportTruck.name}</Description> 
-<Description term="车牌号码">{transportTruck.plateNumber}</Description> 
-<Description term="联系电话">{transportTruck.contactNumber}</Description> 
-<Description term="汽车牌照号码">{transportTruck.vehicleLicenseNumber}</Description> 
-<Description term="发动机号">{transportTruck.engineNumber}</Description> 
-<Description term="制造日期">{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</Description> 
-<Description term="里程">{transportTruck.mileage}</Description> 
-<Description term="车身颜色">{transportTruck.bodyColor}</Description> 
+<Description term="Id">{transportTruck.id}</Description> 
+<Description term="Name">{transportTruck.name}</Description> 
+<Description term="Plate Number">{transportTruck.plateNumber}</Description> 
+<Description term="Contact Number">{transportTruck.contactNumber}</Description> 
+<Description term="Vehicle License Number">{transportTruck.vehicleLicenseNumber}</Description> 
+<Description term="Engine Number">{transportTruck.engineNumber}</Description> 
+<Description term="Make Date">{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="Mileage">{transportTruck.mileage}</Description> 
+<Description term="Body Color">{transportTruck.bodyColor}</Description> 
 	
       </DescriptionList>
 	)
@@ -62,7 +62,7 @@ class TransportTruckPermission extends Component {
     // eslint-disable-next-line max-len
     const  transportTruck = this.props.transportTruck;
     const { id,displayName, transportTaskCount } = transportTruck
-    const cardsData = {cardsName:"运输车",cardsFor: "transportTruck",cardsSource: transportTruck,
+    const cardsData = {cardsName:"Transport Truck",cardsFor: "transportTruck",cardsSource: transportTruck,
   		subItems: [
     
       	],

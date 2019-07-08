@@ -81,9 +81,9 @@ const internalSummaryOf = (userWhiteList,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{userWhiteList.id}</Description> 
-<Description term="用户身份">{userWhiteList.userIdentity}</Description> 
-<Description term="用户特殊功能">{userWhiteList.userSpecialFunctions}</Description> 
+<Description term="Id">{userWhiteList.id}</Description> 
+<Description term="User Identity">{userWhiteList.userIdentity}</Description> 
+<Description term="User Special Functions">{userWhiteList.userSpecialFunctions}</Description> 
 	
         {buildTransferModal(userWhiteList,targetComponent)}
       </DescriptionList>
@@ -121,7 +121,7 @@ class UserWhiteListDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"用户白名单",cardsFor: "userWhiteList",
+    const cardsData = {cardsName:"User White List",cardsFor: "userWhiteList",
     	cardsSource: this.props.userWhiteList,returnURL,displayName,
   		subItems: [
     

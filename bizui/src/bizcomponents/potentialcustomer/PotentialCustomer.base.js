@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"潜在的客户", menuFor: "potentialCustomer",
+const menuData = {menuName:"Potential Customer", menuFor: "potentialCustomer",
   		subItems: [
-  {name: 'potentialCustomerContactPersonList', displayName:'潜在客户联络人', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'potentialCustomerContactList', displayName:'潜在客户联系', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'eventAttendanceList', displayName:'活动的参与情况', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'potentialCustomerContactPersonList', displayName:'Potential Customer Contact Person', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'potentialCustomerContactList', displayName:'Potential Customer Contact', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'eventAttendanceList', displayName:'Event Attendance', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  mobile: '手机',
-  cityServiceCenter: '城市服务中心',
-  cityPartner: '城市合伙人',
-  description: '描述',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  mobile: 'Mobile',
+  cityServiceCenter: 'City Service Center',
+  cityPartner: 'City Partner',
+  description: 'Description',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -71,15 +71,15 @@ const renderItemOfList=(potentialCustomer,targetComponent)=>{
 	<div key={potentialCustomer.id}>
 	
 	<DescriptionList  key={potentialCustomer.id} size="small" col="4">
-<Description term="序号">{potentialCustomer.id}</Description> 
-<Description term="名称">{potentialCustomer.name}</Description> 
-<Description term="手机">{potentialCustomer.mobile}</Description> 
-<Description term="城市服务中心">{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityServiceCenter.displayName}(${potentialCustomer.cityServiceCenter.id})`}
+<Description term="Id">{potentialCustomer.id}</Description> 
+<Description term="Name">{potentialCustomer.name}</Description> 
+<Description term="Mobile">{potentialCustomer.mobile}</Description> 
+<Description term="City Service Center">{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityServiceCenter.displayName}(${potentialCustomer.cityServiceCenter.id})`}
 </Description>
-<Description term="城市合伙人">{potentialCustomer.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityPartner.displayName}(${potentialCustomer.cityPartner.id})`}
+<Description term="City Partner">{potentialCustomer.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityPartner.displayName}(${potentialCustomer.cityPartner.id})`}
 </Description>
-<Description term="描述">{potentialCustomer.description}</Description> 
-<Description term="最后更新时间">{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Description">{potentialCustomer.description}</Description> 
+<Description term="Last Update Time">{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

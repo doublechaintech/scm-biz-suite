@@ -81,13 +81,13 @@ const internalSummaryOf = (goodsShelfStockCount,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsShelfStockCount.id}</Description> 
-<Description term="头衔">{goodsShelfStockCount.title}</Description> 
-<Description term="计数时间">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="概览">{goodsShelfStockCount.summary}</Description> 
-<Description term="架">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
+<Description term="Id">{goodsShelfStockCount.id}</Description> 
+<Description term="Title">{goodsShelfStockCount.title}</Description> 
+<Description term="Count Time">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Summary">{goodsShelfStockCount.summary}</Description> 
+<Description term="Shelf">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"架","goodsShelf",GoodsShelfStockCountService.requestCandidateShelf,
+  showTransferModel(targetComponent,"Shelf","goodsShelf",GoodsShelfStockCountService.requestCandidateShelf,
 	      GoodsShelfStockCountService.transferToAnotherShelf,"anotherShelfId",goodsShelfStockCount.shelf?goodsShelfStockCount.shelf.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +128,10 @@ class GoodsShelfStockCountDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",
+    const cardsData = {cardsName:"Goods Shelf Stock Count",cardsFor: "goodsShelfStockCount",
     	cardsSource: this.props.goodsShelfStockCount,returnURL,displayName,
   		subItems: [
-{name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
+{name: 'stockCountIssueTrackList', displayName:'Stock Count Issue Track',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
     
       	],
   	};

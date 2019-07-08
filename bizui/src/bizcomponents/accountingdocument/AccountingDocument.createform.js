@@ -18,9 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2017-03-07',
-  accountingPeriodId: 'AP00000001',
-  documentTypeId: 'ADT00000001',
+  accountingDocumentDate: '2019-03-20',
+  accountingPeriodId: 'AP000001',
+  documentTypeId: 'ADT000001',
 }
 */
 
@@ -196,8 +196,8 @@ class AccountingDocumentCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}会计凭证`}
-        content={`${appLocaleName(userContext,"CreateNew")}会计凭证`}
+        title={`${appLocaleName(userContext,"CreateNew")}Accounting Document`}
+        content={`${appLocaleName(userContext,"CreateNew")}Accounting Document`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class AccountingDocumentCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class AccountingDocumentCreateForm extends Component {
                   {getFieldDecorator('accountingDocumentDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="会计凭证日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Accounting Document Date" />
                   )}
                 </Form.Item>
               </Col>

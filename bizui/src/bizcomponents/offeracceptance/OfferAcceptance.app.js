@@ -167,7 +167,7 @@ class OfferAcceptanceBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工",
+      name: "Employee",
       role: "employee",
       data: state._offerAcceptance.employeeList,
       metaInfo: state._offerAcceptance.employeeListMetaInfo,
@@ -273,10 +273,10 @@ class OfferAcceptanceBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

@@ -56,7 +56,7 @@ class RetailStoreOrderConfirmationProfile extends Component {
     const  retailStoreOrderConfirmation = this.props.retailStoreOrderConfirmation;
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderConfirmation
 
-    const cardsData = {cardsName:"生超订单确认",cardsFor: "retailStoreOrderConfirmation",cardsSource: retailStoreOrderConfirmation,
+    const cardsData = {cardsName:"Retail Store Order Confirmation",cardsFor: "retailStoreOrderConfirmation",cardsSource: retailStoreOrderConfirmation,
   		subItems: [
      
       	],

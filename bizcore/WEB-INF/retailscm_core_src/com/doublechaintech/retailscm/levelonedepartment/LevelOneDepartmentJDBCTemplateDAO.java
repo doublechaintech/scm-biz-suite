@@ -76,7 +76,7 @@ public class LevelOneDepartmentJDBCTemplateDAO extends RetailscmNamingServiceDAO
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public LevelOneDepartment load(String id,Map<String,Object> options) throws Exception{

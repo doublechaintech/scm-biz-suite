@@ -30,19 +30,19 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"二级部门", menuFor: "levelTwoDepartment",
+const menuData = {menuName:"Level Two Department", menuFor: "levelTwoDepartment",
   		subItems: [
-  {name: 'levelThreeDepartmentList', displayName:'三级部门', icon:'battery-three-quarters',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'levelThreeDepartmentList', displayName:'Level Three Department', icon:'battery-three-quarters',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  belongsTo: '属于',
-  name: '名称',
-  description: '描述',
-  founded: '成立',
+  id: 'Id',
+  belongsTo: 'Belongs To',
+  name: 'Name',
+  description: 'Description',
+  founded: 'Founded',
 
 }
 
@@ -65,12 +65,12 @@ const renderItemOfList=(levelTwoDepartment,targetComponent)=>{
 	<div key={levelTwoDepartment.id}>
 	
 	<DescriptionList  key={levelTwoDepartment.id} size="small" col="4">
-<Description term="序号">{levelTwoDepartment.id}</Description> 
-<Description term="属于">{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
+<Description term="Id">{levelTwoDepartment.id}</Description> 
+<Description term="Belongs To">{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
 </Description>
-<Description term="名称">{levelTwoDepartment.name}</Description> 
-<Description term="描述">{levelTwoDepartment.description}</Description> 
-<Description term="成立">{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="Name">{levelTwoDepartment.name}</Description> 
+<Description term="Description">{levelTwoDepartment.description}</Description> 
+<Description term="Founded">{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

@@ -28,9 +28,9 @@ const internalSummaryOf = (skillType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{skillType.id}</Description> 
-<Description term="代码">{skillType.code}</Description> 
-<Description term="描述">{skillType.description}</Description> 
+<Description term="Id">{skillType.id}</Description> 
+<Description term="Code">{skillType.code}</Description> 
+<Description term="Description">{skillType.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class SkillTypePermission extends Component {
     // eslint-disable-next-line max-len
     const  skillType = this.props.skillType;
     const { id,displayName, employeeSkillCount } = skillType
-    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",cardsSource: skillType,
+    const cardsData = {cardsName:"Skill Type",cardsFor: "skillType",cardsSource: skillType,
   		subItems: [
     
       	],

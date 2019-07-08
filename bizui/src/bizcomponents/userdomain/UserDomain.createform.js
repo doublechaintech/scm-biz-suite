@@ -193,8 +193,8 @@ class UserDomainCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}用户域`}
-        content={`${appLocaleName(userContext,"CreateNew")}用户域`}
+        title={`${appLocaleName(userContext,"CreateNew")}User Domain`}
+        content={`${appLocaleName(userContext,"CreateNew")}User Domain`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -206,7 +206,7 @@ class UserDomainCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

@@ -167,7 +167,7 @@ class PotentialCustomerBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "潜在客户联络人",
+      name: "Potential Customer Contact Person",
       role: "potentialCustomerContactPerson",
       data: state._potentialCustomer.potentialCustomerContactPersonList,
       metaInfo: state._potentialCustomer.potentialCustomerContactPersonListMetaInfo,
@@ -216,7 +216,7 @@ class PotentialCustomerBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "潜在客户联系",
+      name: "Potential Customer Contact",
       role: "potentialCustomerContact",
       data: state._potentialCustomer.potentialCustomerContactList,
       metaInfo: state._potentialCustomer.potentialCustomerContactListMetaInfo,
@@ -265,7 +265,7 @@ class PotentialCustomerBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "活动的参与情况",
+      name: "Event Attendance",
       role: "eventAttendance",
       data: state._potentialCustomer.eventAttendanceList,
       metaInfo: state._potentialCustomer.eventAttendanceListMetaInfo,
@@ -379,10 +379,10 @@ class PotentialCustomerBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

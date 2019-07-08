@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   name: '礼品卡',
   number: 'CP00001',
-  remain: '166.32',
-  ownerId: 'RSM00000001',
+  remain: '207.93',
+  ownerId: 'RSM000001',
 }
 */
 
@@ -196,8 +196,8 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}零售店会员礼品卡`}
-        content={`${appLocaleName(userContext,"CreateNew")}零售店会员礼品卡`}
+        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Gift Card`}
+        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Gift Card`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large" placeholder="Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
                   {getFieldDecorator('remain', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="保持" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Remain" />
                   )}
                 </Form.Item>
               </Col>

@@ -97,7 +97,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public CityPartner load(String id,Map<String,Object> options) throws Exception{
@@ -482,7 +482,7 @@ public class CityPartnerJDBCTemplateDAO extends RetailscmNamingServiceDAO implem
  
 		StatsItem lastUpdateTimeStatsItem = new StatsItem();
 		//CityPartner.LAST_UPDATE_TIME_PROPERTY
-		lastUpdateTimeStatsItem.setDisplayName("城市合伙人");
+		lastUpdateTimeStatsItem.setDisplayName("City Partner");
 		lastUpdateTimeStatsItem.setInternalName(formatKeyForDateLine(CityPartner.LAST_UPDATE_TIME_PROPERTY));
 		lastUpdateTimeStatsItem.setResult(statsWithGroup(DateKey.class,wrapWithDate(CityPartner.LAST_UPDATE_TIME_PROPERTY),filterKey,emptyOptions));
 		info.addItem(lastUpdateTimeStatsItem);

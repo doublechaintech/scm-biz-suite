@@ -56,7 +56,7 @@ class StorageSpaceProfile extends Component {
     const  storageSpace = this.props.storageSpace;
     const { id,displayName, goodsShelfCount } = storageSpace
 
-    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",cardsSource: storageSpace,
+    const cardsData = {cardsName:"Storage Space",cardsFor: "storageSpace",cardsSource: storageSpace,
   		subItems: [
      
       	],

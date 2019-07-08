@@ -167,7 +167,7 @@ class GoodsShelfStockCountBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "库存计数问题跟踪",
+      name: "Stock Count Issue Track",
       role: "stockCountIssueTrack",
       data: state._goodsShelfStockCount.stockCountIssueTrackList,
       metaInfo: state._goodsShelfStockCount.stockCountIssueTrackListMetaInfo,
@@ -273,10 +273,10 @@ class GoodsShelfStockCountBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

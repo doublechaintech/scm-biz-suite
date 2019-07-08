@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"请假记录", menuFor: "employeeLeave",
+const menuData = {menuName:"Employee Leave", menuFor: "employeeLeave",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  type: '类型',
-  leaveDurationHour: '请假时长',
-  remark: '备注',
+  id: 'Id',
+  who: 'Who',
+  type: 'Type',
+  leaveDurationHour: 'Leave Duration Hour',
+  remark: 'Remark',
 
 }
 
@@ -64,13 +64,13 @@ const renderItemOfList=(employeeLeave,targetComponent)=>{
 	<div key={employeeLeave.id}>
 	
 	<DescriptionList  key={employeeLeave.id} size="small" col="4">
-<Description term="序号">{employeeLeave.id}</Description> 
-<Description term="谁">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
+<Description term="Id">{employeeLeave.id}</Description> 
+<Description term="Who">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
 </Description>
-<Description term="类型">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
+<Description term="Type">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
 </Description>
-<Description term="请假时长">{employeeLeave.leaveDurationHour}</Description> 
-<Description term="备注">{employeeLeave.remark}</Description> 
+<Description term="Leave Duration Hour">{employeeLeave.leaveDurationHour}</Description> 
+<Description term="Remark">{employeeLeave.remark}</Description> 
 	
         
       </DescriptionList>

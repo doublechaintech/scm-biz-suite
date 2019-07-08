@@ -56,7 +56,7 @@ class RetailStoreOpeningProfile extends Component {
     const  retailStoreOpening = this.props.retailStoreOpening;
     const { id,displayName, retailStoreCount } = retailStoreOpening
 
-    const cardsData = {cardsName:"生超开业",cardsFor: "retailStoreOpening",cardsSource: retailStoreOpening,
+    const cardsData = {cardsName:"Retail Store Opening",cardsFor: "retailStoreOpening",cardsSource: retailStoreOpening,
   		subItems: [
      
       	],

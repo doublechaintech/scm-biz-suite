@@ -56,7 +56,7 @@ class GoodsAllocationProfile extends Component {
     const  goodsAllocation = this.props.goodsAllocation;
     const { id,displayName, goodsCount } = goodsAllocation
 
-    const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",cardsSource: goodsAllocation,
+    const cardsData = {cardsName:"Goods Allocation",cardsFor: "goodsAllocation",cardsSource: goodsAllocation,
   		subItems: [
      
       	],

@@ -167,7 +167,7 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "省中心员工",
+      name: "Province Center Employee",
       role: "provinceCenterEmployee",
       data: state._provinceCenterDepartment.provinceCenterEmployeeList,
       metaInfo: state._provinceCenterDepartment.provinceCenterEmployeeListMetaInfo,
@@ -273,10 +273,10 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

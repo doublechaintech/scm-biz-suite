@@ -167,7 +167,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单行项目",
+      name: "Supply Order Line Item",
       role: "supplyOrderLineItem",
       data: state._supplyOrder.supplyOrderLineItemList,
       metaInfo: state._supplyOrder.supplyOrderLineItemListMetaInfo,
@@ -216,7 +216,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单送货分组",
+      name: "Supply Order Shipping Group",
       role: "supplyOrderShippingGroup",
       data: state._supplyOrder.supplyOrderShippingGroupList,
       metaInfo: state._supplyOrder.supplyOrderShippingGroupListMetaInfo,
@@ -265,7 +265,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单付款组",
+      name: "Supply Order Payment Group",
       role: "supplyOrderPaymentGroup",
       data: state._supplyOrder.supplyOrderPaymentGroupList,
       metaInfo: state._supplyOrder.supplyOrderPaymentGroupListMetaInfo,
@@ -314,7 +314,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "货物",
+      name: "Goods",
       role: "goods",
       data: state._supplyOrder.goodsList,
       metaInfo: state._supplyOrder.goodsListMetaInfo,
@@ -432,10 +432,10 @@ class SupplyOrderBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

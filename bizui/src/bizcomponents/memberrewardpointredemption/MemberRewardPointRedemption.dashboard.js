@@ -81,12 +81,12 @@ const internalSummaryOf = (memberRewardPointRedemption,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberRewardPointRedemption.id}</Description> 
-<Description term="名称">{memberRewardPointRedemption.name}</Description> 
-<Description term="点">{memberRewardPointRedemption.point}</Description> 
-<Description term="业主">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
+<Description term="Id">{memberRewardPointRedemption.id}</Description> 
+<Description term="Name">{memberRewardPointRedemption.name}</Description> 
+<Description term="Point">{memberRewardPointRedemption.point}</Description> 
+<Description term="Owner">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"业主","retailStoreMember",MemberRewardPointRedemptionService.requestCandidateOwner,
+  showTransferModel(targetComponent,"Owner","retailStoreMember",MemberRewardPointRedemptionService.requestCandidateOwner,
 	      MemberRewardPointRedemptionService.transferToAnotherOwner,"anotherOwnerId",memberRewardPointRedemption.owner?memberRewardPointRedemption.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -127,7 +127,7 @@ class MemberRewardPointRedemptionDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员奖励点赎回",cardsFor: "memberRewardPointRedemption",
+    const cardsData = {cardsName:"Member Reward Point Redemption",cardsFor: "memberRewardPointRedemption",
     	cardsSource: this.props.memberRewardPointRedemption,returnURL,displayName,
   		subItems: [
     

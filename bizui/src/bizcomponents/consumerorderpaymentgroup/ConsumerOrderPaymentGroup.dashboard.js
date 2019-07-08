@@ -81,15 +81,15 @@ const internalSummaryOf = (consumerOrderPaymentGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderPaymentGroup.id}</Description> 
-<Description term="名称">{consumerOrderPaymentGroup.name}</Description> 
-<Description term="订单">{consumerOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPaymentGroup.bizOrder.displayName}(${consumerOrderPaymentGroup.bizOrder.id})`}
+<Description term="Id">{consumerOrderPaymentGroup.id}</Description> 
+<Description term="Name">{consumerOrderPaymentGroup.name}</Description> 
+<Description term="Biz Order">{consumerOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPaymentGroup.bizOrder.displayName}(${consumerOrderPaymentGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderPaymentGroupService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","consumerOrder",ConsumerOrderPaymentGroupService.requestCandidateBizOrder,
 	      ConsumerOrderPaymentGroupService.transferToAnotherBizOrder,"anotherBizOrderId",consumerOrderPaymentGroup.bizOrder?consumerOrderPaymentGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="卡号码">{consumerOrderPaymentGroup.cardNumber}</Description> 
+<Description term="Card Number">{consumerOrderPaymentGroup.cardNumber}</Description> 
 	
         {buildTransferModal(consumerOrderPaymentGroup,targetComponent)}
       </DescriptionList>
@@ -127,7 +127,7 @@ class ConsumerOrderPaymentGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"消费者订单付款组",cardsFor: "consumerOrderPaymentGroup",
+    const cardsData = {cardsName:"Consumer Order Payment Group",cardsFor: "consumerOrderPaymentGroup",
     	cardsSource: this.props.consumerOrderPaymentGroup,returnURL,displayName,
   		subItems: [
     

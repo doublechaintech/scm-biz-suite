@@ -76,7 +76,7 @@ public class TerminationTypeJDBCTemplateDAO extends RetailscmNamingServiceDAO im
 	
 	protected String getIdFormat()
 	{
-		return getShortName(this.getName())+"%08d";
+		return getShortName(this.getName())+"%06d";
 	}
 	
 	public TerminationType load(String id,Map<String,Object> options) throws Exception{

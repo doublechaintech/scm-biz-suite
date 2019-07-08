@@ -56,7 +56,7 @@ class RetailStoreInvestmentInvitationProfile extends Component {
     const  retailStoreInvestmentInvitation = this.props.retailStoreInvestmentInvitation;
     const { id,displayName, retailStoreCount } = retailStoreInvestmentInvitation
 
-    const cardsData = {cardsName:"生超招商",cardsFor: "retailStoreInvestmentInvitation",cardsSource: retailStoreInvestmentInvitation,
+    const cardsData = {cardsName:"Retail Store Investment Invitation",cardsFor: "retailStoreInvestmentInvitation",cardsSource: retailStoreInvestmentInvitation,
   		subItems: [
      
       	],

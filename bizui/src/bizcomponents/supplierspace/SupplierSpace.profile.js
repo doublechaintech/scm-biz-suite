@@ -56,7 +56,7 @@ class SupplierSpaceProfile extends Component {
     const  supplierSpace = this.props.supplierSpace;
     const { id,displayName, goodsShelfCount } = supplierSpace
 
-    const cardsData = {cardsName:"供应商的空间",cardsFor: "supplierSpace",cardsSource: supplierSpace,
+    const cardsData = {cardsName:"Supplier Space",cardsFor: "supplierSpace",cardsSource: supplierSpace,
   		subItems: [
      
       	],

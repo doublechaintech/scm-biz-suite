@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"供应订单送货分组", menuFor: "supplyOrderShippingGroup",
+const menuData = {menuName:"Supply Order Shipping Group", menuFor: "supplyOrderShippingGroup",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  bizOrder: '订单',
-  amount: '金额',
+  id: 'Id',
+  name: 'Name',
+  bizOrder: 'Biz Order',
+  amount: 'Amount',
 
 }
 
@@ -62,11 +62,11 @@ const renderItemOfList=(supplyOrderShippingGroup,targetComponent)=>{
 	<div key={supplyOrderShippingGroup.id}>
 	
 	<DescriptionList  key={supplyOrderShippingGroup.id} size="small" col="4">
-<Description term="序号">{supplyOrderShippingGroup.id}</Description> 
-<Description term="名称">{supplyOrderShippingGroup.name}</Description> 
-<Description term="订单">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
+<Description term="Id">{supplyOrderShippingGroup.id}</Description> 
+<Description term="Name">{supplyOrderShippingGroup.name}</Description> 
+<Description term="Biz Order">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
 </Description>
-<Description term="金额">{supplyOrderShippingGroup.amount}</Description> 
+<Description term="Amount">{supplyOrderShippingGroup.amount}</Description> 
 	
         
       </DescriptionList>

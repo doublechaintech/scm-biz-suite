@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"公共假日", menuFor: "publicHoliday",
+const menuData = {menuName:"Public Holiday", menuFor: "publicHoliday",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  name: '名称',
-  description: '描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  name: 'Name',
+  description: 'Description',
 
 }
 
@@ -64,10 +64,10 @@ const renderItemOfList=(publicHoliday,targetComponent)=>{
 	<div key={publicHoliday.id}>
 	
 	<DescriptionList  key={publicHoliday.id} size="small" col="4">
-<Description term="序号">{publicHoliday.id}</Description> 
-<Description term="代码">{publicHoliday.code}</Description> 
-<Description term="名称">{publicHoliday.name}</Description> 
-<Description term="描述">{publicHoliday.description}</Description> 
+<Description term="Id">{publicHoliday.id}</Description> 
+<Description term="Code">{publicHoliday.code}</Description> 
+<Description term="Name">{publicHoliday.name}</Description> 
+<Description term="Description">{publicHoliday.description}</Description> 
 	
         
       </DescriptionList>

@@ -56,7 +56,7 @@ class CompanyTrainingProfile extends Component {
     const  companyTraining = this.props.companyTraining;
     const { id,displayName, employeeCompanyTrainingCount } = companyTraining
 
-    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",cardsSource: companyTraining,
+    const cardsData = {cardsName:"Company Training",cardsFor: "companyTraining",cardsSource: companyTraining,
   		subItems: [
      
       	],

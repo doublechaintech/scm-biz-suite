@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"登录历史", menuFor: "loginHistory",
+const menuData = {menuName:"Login History", menuFor: "loginHistory",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  loginTime: '登录时间',
-  fromIp: '从IP',
-  description: '描述',
-  secUser: 'SEC的用户',
+  id: 'Id',
+  loginTime: 'Login Time',
+  fromIp: 'From Ip',
+  description: 'Description',
+  secUser: 'Sec User',
 
 }
 
@@ -64,11 +64,11 @@ const renderItemOfList=(loginHistory,targetComponent)=>{
 	<div key={loginHistory.id}>
 	
 	<DescriptionList  key={loginHistory.id} size="small" col="4">
-<Description term="序号">{loginHistory.id}</Description> 
-<Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="从IP">{loginHistory.fromIp}</Description> 
-<Description term="描述">{loginHistory.description}</Description> 
-<Description term="SEC的用户">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
+<Description term="Id">{loginHistory.id}</Description> 
+<Description term="Login Time">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
+<Description term="From Ip">{loginHistory.fromIp}</Description> 
+<Description term="Description">{loginHistory.description}</Description> 
+<Description term="Sec User">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
 </Description>
 	
         

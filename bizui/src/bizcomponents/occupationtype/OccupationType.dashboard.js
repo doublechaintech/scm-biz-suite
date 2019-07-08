@@ -81,10 +81,10 @@ const internalSummaryOf = (occupationType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{occupationType.id}</Description> 
-<Description term="代码">{occupationType.code}</Description> 
-<Description term="描述">{occupationType.description}</Description> 
-<Description term="详细描述">{occupationType.detailDescription}</Description> 
+<Description term="Id">{occupationType.id}</Description> 
+<Description term="Code">{occupationType.code}</Description> 
+<Description term="Description">{occupationType.description}</Description> 
+<Description term="Detail Description">{occupationType.detailDescription}</Description> 
 	
         {buildTransferModal(occupationType,targetComponent)}
       </DescriptionList>
@@ -122,10 +122,10 @@ class OccupationTypeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",
+    const cardsData = {cardsName:"Occupation Type",cardsFor: "occupationType",
     	cardsSource: this.props.occupationType,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'Employee',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
   	};

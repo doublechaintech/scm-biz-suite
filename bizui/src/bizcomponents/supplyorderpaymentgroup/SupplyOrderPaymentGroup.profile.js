@@ -56,7 +56,7 @@ class SupplyOrderPaymentGroupProfile extends Component {
     const  supplyOrderPaymentGroup = this.props.supplyOrderPaymentGroup;
     const { id,displayName,  } = supplyOrderPaymentGroup
 
-    const cardsData = {cardsName:"供应订单付款组",cardsFor: "supplyOrderPaymentGroup",cardsSource: supplyOrderPaymentGroup,
+    const cardsData = {cardsName:"Supply Order Payment Group",cardsFor: "supplyOrderPaymentGroup",cardsSource: supplyOrderPaymentGroup,
   		subItems: [
      
       	],

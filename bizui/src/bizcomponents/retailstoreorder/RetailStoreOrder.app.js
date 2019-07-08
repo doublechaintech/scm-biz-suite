@@ -167,7 +167,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "双链小超订单行项目",
+      name: "Retail Store Order Line Item",
       role: "retailStoreOrderLineItem",
       data: state._retailStoreOrder.retailStoreOrderLineItemList,
       metaInfo: state._retailStoreOrder.retailStoreOrderLineItemListMetaInfo,
@@ -216,7 +216,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "生超订单送货分组",
+      name: "Retail Store Order Shipping Group",
       role: "retailStoreOrderShippingGroup",
       data: state._retailStoreOrder.retailStoreOrderShippingGroupList,
       metaInfo: state._retailStoreOrder.retailStoreOrderShippingGroupListMetaInfo,
@@ -265,7 +265,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "生超订单付款组",
+      name: "Retail Store Order Payment Group",
       role: "retailStoreOrderPaymentGroup",
       data: state._retailStoreOrder.retailStoreOrderPaymentGroupList,
       metaInfo: state._retailStoreOrder.retailStoreOrderPaymentGroupListMetaInfo,
@@ -314,7 +314,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "货物",
+      name: "Goods",
       role: "goods",
       data: state._retailStoreOrder.goodsList,
       metaInfo: state._retailStoreOrder.goodsListMetaInfo,
@@ -432,10 +432,10 @@ class RetailStoreOrderBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

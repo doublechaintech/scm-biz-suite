@@ -56,7 +56,7 @@ class GoodsPackagingProfile extends Component {
     const  goodsPackaging = this.props.goodsPackaging;
     const { id,displayName, goodsCount } = goodsPackaging
 
-    const cardsData = {cardsName:"货物包装",cardsFor: "goodsPackaging",cardsSource: goodsPackaging,
+    const cardsData = {cardsName:"Goods Packaging",cardsFor: "goodsPackaging",cardsSource: goodsPackaging,
   		subItems: [
      
       	],

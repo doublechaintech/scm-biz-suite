@@ -18,9 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-  paidTime: '2017-09-08',
-  amount: '3871.51',
-  paidForId: 'E00000001',
+  paidTime: '2016-11-14',
+  amount: '4823.17',
+  paidForId: 'E000001',
 }
 */
 
@@ -196,8 +196,8 @@ class PayingOffCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}工资支付`}
-        content={`${appLocaleName(userContext,"CreateNew")}工资支付`}
+        title={`${appLocaleName(userContext,"CreateNew")}Paying Off`}
+        content={`${appLocaleName(userContext,"CreateNew")}Paying Off`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class PayingOffCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large" placeholder="Who" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class PayingOffCreateForm extends Component {
                   {getFieldDecorator('paidTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="支付时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Paid Time" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class PayingOffCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
                   )}
                 </Form.Item>
               </Col>

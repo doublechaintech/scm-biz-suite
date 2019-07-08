@@ -81,10 +81,10 @@ const internalSummaryOf = (publicHoliday,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{publicHoliday.id}</Description> 
-<Description term="代码">{publicHoliday.code}</Description> 
-<Description term="名称">{publicHoliday.name}</Description> 
-<Description term="描述">{publicHoliday.description}</Description> 
+<Description term="Id">{publicHoliday.id}</Description> 
+<Description term="Code">{publicHoliday.code}</Description> 
+<Description term="Name">{publicHoliday.name}</Description> 
+<Description term="Description">{publicHoliday.description}</Description> 
 	
         {buildTransferModal(publicHoliday,targetComponent)}
       </DescriptionList>
@@ -122,7 +122,7 @@ class PublicHolidayDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"公共假日",cardsFor: "publicHoliday",
+    const cardsData = {cardsName:"Public Holiday",cardsFor: "publicHoliday",
     	cardsSource: this.props.publicHoliday,returnURL,displayName,
   		subItems: [
     

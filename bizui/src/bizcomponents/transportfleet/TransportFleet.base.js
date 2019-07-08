@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"运输车队", menuFor: "transportFleet",
+const menuData = {menuName:"Transport Fleet", menuFor: "transportFleet",
   		subItems: [
-  {name: 'transportTruckList', displayName:'运输车', icon:'truck',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'truckDriverList', displayName:'卡车司机', icon:'truck',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'transportTaskList', displayName:'运输任务', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'transportTruckList', displayName:'Transport Truck', icon:'truck',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'truckDriverList', displayName:'Truck Driver', icon:'truck',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'transportTaskList', displayName:'Transport Task', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  contactNumber: '联系电话',
-  owner: '业主',
-  lastUpdateTime: '最后更新时间',
+  id: 'Id',
+  name: 'Name',
+  contactNumber: 'Contact Number',
+  owner: 'Owner',
+  lastUpdateTime: 'Last Update Time',
 
 }
 
@@ -67,10 +67,10 @@ const renderItemOfList=(transportFleet,targetComponent)=>{
 	<div key={transportFleet.id}>
 	
 	<DescriptionList  key={transportFleet.id} size="small" col="4">
-<Description term="序号">{transportFleet.id}</Description> 
-<Description term="名称">{transportFleet.name}</Description> 
-<Description term="联系电话">{transportFleet.contactNumber}</Description> 
-<Description term="最后更新时间">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{transportFleet.id}</Description> 
+<Description term="Name">{transportFleet.name}</Description> 
+<Description term="Contact Number">{transportFleet.contactNumber}</Description> 
+<Description term="Last Update Time">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

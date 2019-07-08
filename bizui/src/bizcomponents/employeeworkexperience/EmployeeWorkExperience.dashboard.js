@@ -81,17 +81,17 @@ const internalSummaryOf = (employeeWorkExperience,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeWorkExperience.id}</Description> 
-<Description term="员工">{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
+<Description term="Id">{employeeWorkExperience.id}</Description> 
+<Description term="Employee">{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeWorkExperienceService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeWorkExperienceService.requestCandidateEmployee,
 	      EmployeeWorkExperienceService.transferToAnotherEmployee,"anotherEmployeeId",employeeWorkExperience.employee?employeeWorkExperience.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="开始">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
-<Description term="结束">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
-<Description term="公司">{employeeWorkExperience.company}</Description> 
-<Description term="描述">{employeeWorkExperience.description}</Description> 
+<Description term="Start">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
+<Description term="End">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
+<Description term="Company">{employeeWorkExperience.company}</Description> 
+<Description term="Description">{employeeWorkExperience.description}</Description> 
 	
         {buildTransferModal(employeeWorkExperience,targetComponent)}
       </DescriptionList>
@@ -129,7 +129,7 @@ class EmployeeWorkExperienceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",
+    const cardsData = {cardsName:"Employee Work Experience",cardsFor: "employeeWorkExperience",
     	cardsSource: this.props.employeeWorkExperience,returnURL,displayName,
   		subItems: [
     

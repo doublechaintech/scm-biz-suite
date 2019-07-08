@@ -30,17 +30,17 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超订单出货", menuFor: "retailStoreOrderShipment",
+const menuData = {menuName:"Retail Store Order Shipment", menuFor: "retailStoreOrderShipment",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  shipTime: '船的时间',
+  id: 'Id',
+  who: 'Who',
+  shipTime: 'Ship Time',
 
 }
 
@@ -61,9 +61,9 @@ const renderItemOfList=(retailStoreOrderShipment,targetComponent)=>{
 	<div key={retailStoreOrderShipment.id}>
 	
 	<DescriptionList  key={retailStoreOrderShipment.id} size="small" col="4">
-<Description term="序号">{retailStoreOrderShipment.id}</Description> 
-<Description term="谁">{retailStoreOrderShipment.who}</Description> 
-<Description term="船的时间">{ moment(retailStoreOrderShipment.shipTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreOrderShipment.id}</Description> 
+<Description term="Who">{retailStoreOrderShipment.who}</Description> 
+<Description term="Ship Time">{ moment(retailStoreOrderShipment.shipTime).format('YYYY-MM-DD')}</Description> 
 	
         
       </DescriptionList>

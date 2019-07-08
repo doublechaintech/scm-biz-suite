@@ -56,7 +56,7 @@ class InstructorProfile extends Component {
     const  instructor = this.props.instructor;
     const { id,displayName, companyTrainingCount } = instructor
 
-    const cardsData = {cardsName:"讲师",cardsFor: "instructor",cardsSource: instructor,
+    const cardsData = {cardsName:"Instructor",cardsFor: "instructor",cardsSource: instructor,
   		subItems: [
      
       	],

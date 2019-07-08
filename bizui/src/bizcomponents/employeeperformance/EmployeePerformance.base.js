@@ -30,16 +30,16 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工绩效", menuFor: "employeePerformance",
+const menuData = {menuName:"Employee Performance", menuFor: "employeePerformance",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  performanceComment: '绩效评价',
+  id: 'Id',
+  employee: 'Employee',
+  performanceComment: 'Performance Comment',
 
 }
 
@@ -60,10 +60,10 @@ const renderItemOfList=(employeePerformance,targetComponent)=>{
 	<div key={employeePerformance.id}>
 	
 	<DescriptionList  key={employeePerformance.id} size="small" col="4">
-<Description term="序号">{employeePerformance.id}</Description> 
-<Description term="员工">{employeePerformance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeePerformance.employee.displayName}(${employeePerformance.employee.id})`}
+<Description term="Id">{employeePerformance.id}</Description> 
+<Description term="Employee">{employeePerformance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeePerformance.employee.displayName}(${employeePerformance.employee.id})`}
 </Description>
-<Description term="绩效评价">{employeePerformance.performanceComment}</Description> 
+<Description term="Performance Comment">{employeePerformance.performanceComment}</Description> 
 	
         
       </DescriptionList>

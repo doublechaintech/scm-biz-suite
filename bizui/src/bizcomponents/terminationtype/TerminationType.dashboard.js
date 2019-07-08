@@ -81,10 +81,10 @@ const internalSummaryOf = (terminationType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{terminationType.id}</Description> 
-<Description term="代码">{terminationType.code}</Description> 
-<Description term="基本描述">{terminationType.baseDescription}</Description> 
-<Description term="详细描述">{terminationType.detailDescription}</Description> 
+<Description term="Id">{terminationType.id}</Description> 
+<Description term="Code">{terminationType.code}</Description> 
+<Description term="Base Description">{terminationType.baseDescription}</Description> 
+<Description term="Detail Description">{terminationType.detailDescription}</Description> 
 	
         {buildTransferModal(terminationType,targetComponent)}
       </DescriptionList>
@@ -122,10 +122,10 @@ class TerminationTypeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",
+    const cardsData = {cardsName:"Termination Type",cardsFor: "terminationType",
     	cardsSource: this.props.terminationType,returnURL,displayName,
   		subItems: [
-{name: 'terminationList', displayName:'雇佣终止',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
+{name: 'terminationList', displayName:'Termination',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
     
       	],
   	};

@@ -81,19 +81,19 @@ const internalSummaryOf = (consumerOrderLineItem,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderLineItem.id}</Description> 
-<Description term="订单">{consumerOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderLineItem.bizOrder.displayName}(${consumerOrderLineItem.bizOrder.id})`}
+<Description term="Id">{consumerOrderLineItem.id}</Description> 
+<Description term="Biz Order">{consumerOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderLineItem.bizOrder.displayName}(${consumerOrderLineItem.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderLineItemService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"Biz Order","consumerOrder",ConsumerOrderLineItemService.requestCandidateBizOrder,
 	      ConsumerOrderLineItemService.transferToAnotherBizOrder,"anotherBizOrderId",consumerOrderLineItem.bizOrder?consumerOrderLineItem.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="产品ID">{consumerOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{consumerOrderLineItem.skuName}</Description> 
-<Description term="价格">{consumerOrderLineItem.price}</Description> 
-<Description term="数量">{consumerOrderLineItem.quantity}</Description> 
-<Description term="金额">{consumerOrderLineItem.amount}</Description> 
-<Description term="最后更新时间">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Sku Id">{consumerOrderLineItem.skuId}</Description> 
+<Description term="Sku Name">{consumerOrderLineItem.skuName}</Description> 
+<Description term="Price">{consumerOrderLineItem.price}</Description> 
+<Description term="Quantity">{consumerOrderLineItem.quantity}</Description> 
+<Description term="Amount">{consumerOrderLineItem.amount}</Description> 
+<Description term="Last Update Time">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(consumerOrderLineItem,targetComponent)}
       </DescriptionList>
@@ -131,7 +131,7 @@ class ConsumerOrderLineItemDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"消费者订单行项目",cardsFor: "consumerOrderLineItem",
+    const cardsData = {cardsName:"Consumer Order Line Item",cardsFor: "consumerOrderLineItem",
     	cardsSource: this.props.consumerOrderLineItem,returnURL,displayName,
   		subItems: [
     

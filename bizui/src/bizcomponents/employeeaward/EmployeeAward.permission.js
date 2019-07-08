@@ -28,10 +28,10 @@ const internalSummaryOf = (employeeAward,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeAward.id}</Description> 
-<Description term="完成时间">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeAward.type}</Description> 
-<Description term="备注">{employeeAward.remark}</Description> 
+<Description term="Id">{employeeAward.id}</Description> 
+<Description term="Complete Time">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Type">{employeeAward.type}</Description> 
+<Description term="Remark">{employeeAward.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,7 +57,7 @@ class EmployeeAwardPermission extends Component {
     // eslint-disable-next-line max-len
     const  employeeAward = this.props.employeeAward;
     const { id,displayName,  } = employeeAward
-    const cardsData = {cardsName:"员工嘉奖",cardsFor: "employeeAward",cardsSource: employeeAward,
+    const cardsData = {cardsName:"Employee Award",cardsFor: "employeeAward",cardsSource: employeeAward,
   		subItems: [
     
       	],

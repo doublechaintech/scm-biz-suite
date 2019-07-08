@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '每周购买清单',
-  ownerId: 'RSM00000001',
+  ownerId: 'RSM000001',
 }
 */
 
@@ -194,8 +194,8 @@ class MemberWishlistCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}会员收藏`}
-        content={`${appLocaleName(userContext,"CreateNew")}会员收藏`}
+        title={`${appLocaleName(userContext,"CreateNew")}Member Wishlist`}
+        content={`${appLocaleName(userContext,"CreateNew")}Member Wishlist`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class MemberWishlistCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large" placeholder="Name" />
                   )}
                 </Form.Item>
               </Col>

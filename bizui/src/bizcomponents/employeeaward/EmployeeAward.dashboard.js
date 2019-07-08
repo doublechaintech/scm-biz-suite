@@ -81,16 +81,16 @@ const internalSummaryOf = (employeeAward,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeAward.id}</Description> 
-<Description term="员工">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
+<Description term="Id">{employeeAward.id}</Description> 
+<Description term="Employee">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"员工","employee",EmployeeAwardService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"Employee","employee",EmployeeAwardService.requestCandidateEmployee,
 	      EmployeeAwardService.transferToAnotherEmployee,"anotherEmployeeId",employeeAward.employee?employeeAward.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="完成时间">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeAward.type}</Description> 
-<Description term="备注">{employeeAward.remark}</Description> 
+<Description term="Complete Time">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Type">{employeeAward.type}</Description> 
+<Description term="Remark">{employeeAward.remark}</Description> 
 	
         {buildTransferModal(employeeAward,targetComponent)}
       </DescriptionList>
@@ -128,7 +128,7 @@ class EmployeeAwardDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工嘉奖",cardsFor: "employeeAward",
+    const cardsData = {cardsName:"Employee Award",cardsFor: "employeeAward",
     	cardsSource: this.props.employeeAward,returnURL,displayName,
   		subItems: [
     

@@ -28,9 +28,9 @@ const internalSummaryOf = (retailStoreOrderProcessing,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderProcessing.id}</Description> 
-<Description term="谁">{retailStoreOrderProcessing.who}</Description> 
-<Description term="过程的时间">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="Id">{retailStoreOrderProcessing.id}</Description> 
+<Description term="Who">{retailStoreOrderProcessing.who}</Description> 
+<Description term="Process Time">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,7 +56,7 @@ class RetailStoreOrderProcessingPermission extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderProcessing = this.props.retailStoreOrderProcessing;
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderProcessing
-    const cardsData = {cardsName:"生超订单处理",cardsFor: "retailStoreOrderProcessing",cardsSource: retailStoreOrderProcessing,
+    const cardsData = {cardsName:"Retail Store Order Processing",cardsFor: "retailStoreOrderProcessing",cardsSource: retailStoreOrderProcessing,
   		subItems: [
     
       	],

@@ -21,9 +21,9 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '42.2735274655309',
-  longitude: '131.9948034046583',
-  warehouseId: 'W00000001',
+  latitude: '40.75815013665602',
+  longitude: '131.32538085253066',
+  warehouseId: 'W000001',
 }
 */
 
@@ -143,7 +143,7 @@ class SmartPalletAssociateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large" placeholder="Location" />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +153,7 @@ class SmartPalletAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="联系电话" />
+                    <Input size="large" placeholder="Contact Number" />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +163,7 @@ class SmartPalletAssociateForm extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="总面积" />
+                    <Input size="large" placeholder="Total Area" />
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +173,7 @@ class SmartPalletAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large" placeholder="Latitude" />
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +183,7 @@ class SmartPalletAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large" placeholder="Longitude" />
                   )}
                 </Form.Item>
               </Col>

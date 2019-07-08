@@ -56,7 +56,7 @@ class SupplyOrderPickingProfile extends Component {
     const  supplyOrderPicking = this.props.supplyOrderPicking;
     const { id,displayName, supplyOrderCount } = supplyOrderPicking
 
-    const cardsData = {cardsName:"供应订单拣货",cardsFor: "supplyOrderPicking",cardsSource: supplyOrderPicking,
+    const cardsData = {cardsName:"Supply Order Picking",cardsFor: "supplyOrderPicking",cardsSource: supplyOrderPicking,
   		subItems: [
      
       	],

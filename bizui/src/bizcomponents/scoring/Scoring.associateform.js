@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
-  score: '96',
+  score: '77',
   comment: '这个题做的真不错啊',
 }
 */
@@ -140,7 +140,7 @@ class ScoringAssociateForm extends Component {
                   {getFieldDecorator('scoredBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由谁打分" />
+                    <Input size="large" placeholder="Scored By" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class ScoringAssociateForm extends Component {
                   {getFieldDecorator('score', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="分数" />
+                    <Input size="large" placeholder="Score" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class ScoringAssociateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large" placeholder="Comment" />
                   )}
                 </Form.Item>
               </Col>

@@ -30,18 +30,18 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"技能类型", menuFor: "skillType",
+const menuData = {menuName:"Skill Type", menuFor: "skillType",
   		subItems: [
-  {name: 'employeeSkillList', displayName:'员工技能', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeSkillList', displayName:'Employee Skill', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  description: '描述',
+  id: 'Id',
+  code: 'Code',
+  company: 'Company',
+  description: 'Description',
 
 }
 
@@ -63,9 +63,9 @@ const renderItemOfList=(skillType,targetComponent)=>{
 	<div key={skillType.id}>
 	
 	<DescriptionList  key={skillType.id} size="small" col="4">
-<Description term="序号">{skillType.id}</Description> 
-<Description term="代码">{skillType.code}</Description> 
-<Description term="描述">{skillType.description}</Description> 
+<Description term="Id">{skillType.id}</Description> 
+<Description term="Code">{skillType.code}</Description> 
+<Description term="Description">{skillType.description}</Description> 
 	
         
       </DescriptionList>

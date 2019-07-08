@@ -167,7 +167,7 @@ class UserDomainBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "用户白名单",
+      name: "User White List",
       role: "userWhiteList",
       data: state._userDomain.userWhiteListList,
       metaInfo: state._userDomain.userWhiteListListMetaInfo,
@@ -216,7 +216,7 @@ class UserDomainBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "SEC的用户",
+      name: "Sec User",
       role: "secUser",
       data: state._userDomain.secUserList,
       metaInfo: state._userDomain.secUserListMetaInfo,
@@ -326,10 +326,10 @@ class UserDomainBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-     const { breadcrumb }  = this.props
+     
   
      const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
      const userContext = null
      const renderBreadcrumbText=(value)=>{
      	if(value==null){

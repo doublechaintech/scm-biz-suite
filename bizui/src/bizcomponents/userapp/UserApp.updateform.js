@@ -261,7 +261,7 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large" placeholder="Id" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large" placeholder="Title" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.appIcon,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="应用程序图标" />
+                    <Input size="large" placeholder="App Icon" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.permission,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="许可" />
+                    <Input size="large" placeholder="Permission" />
                     
                   )}
                 </Form.Item>
@@ -309,7 +309,7 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.objectType,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="对象类型" />
+                    <Input size="large" placeholder="Object Type" />
                     
                   )}
                 </Form.Item>
@@ -321,7 +321,7 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.objectId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="对象ID" />
+                    <Input size="large" placeholder="Object Id" />
                     
                   )}
                 </Form.Item>
@@ -333,7 +333,7 @@ class UserAppUpdateForm extends Component {
                     initialValue: selectedRow.location,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large" placeholder="Location" />
                     
                   )}
                 </Form.Item>
