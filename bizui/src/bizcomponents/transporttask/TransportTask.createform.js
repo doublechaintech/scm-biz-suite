@@ -19,9 +19,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2018-07-25',
-  latitude: '41.45764538108958',
-  longitude: '130.264388994792',
+  beginTime: '2017-06-15',
+  latitude: '40.52659318156384',
+  longitude: '130.10867702965422',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',

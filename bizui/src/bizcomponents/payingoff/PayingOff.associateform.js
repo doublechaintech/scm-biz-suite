@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-  paidTime: '2017-05-28',
-  amount: '4444.59',
+  paidTime: '2017-11-19',
+  amount: '4088.85',
   paidForId: 'E000001',
 }
 */
