@@ -6,7 +6,7 @@
 
 
 
-[部署指南 ](/DEPLOYMENT.md)
+
 
 智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
@@ -29,6 +29,9 @@
 
 本系统提供商业化系统支持和基于Issue的免费的技术支持
 
+## 部署
+
+如果要自行部署，请参照 [部署指南 ](/DEPLOYMENT.md)
 
 ## 在线演示系统(不支持IE，最好使用Chrome）
 
