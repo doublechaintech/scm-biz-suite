@@ -1,9 +1,6 @@
 # 零售供应链中台基础系统 运行指南
 
-
-
-
-系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS
+系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS，不支持Tomcat服务器的war部署方式。
 
 ## 前端 
 
@@ -153,10 +150,15 @@ public class AppEntrance {
 }
 
 ```
+最新的SpringBoot2.1.6配置文件 retailscm_custom_src/application.properties, 确保能够重载已经存在的bean来修改相关行为。
 
-### 使用Tomcat容器）
+```
+server.servlet.context-path=/retailscm
+spring.main.allow-bean-definition-overriding=true
+```
 
-url-pattern 参数无法配置，未成功
+
+
 
 
 
