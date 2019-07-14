@@ -79,8 +79,22 @@ public class SimpleInvocationContext implements InvocationContext {
 			wrapString(stringBuilder,parameter.toString());
 			return;
 		}
+		if(parameter instanceof Byte){
+			wrapByte(stringBuilder,parameter.toString());
+			return;
+		}
 		//
+		
+		if(ReflectionTool.isArrayOfBytesType(parameter.getClass())) {
+			ReflectionTool.appendBytes(stringBuilder,(byte[])parameter,31);
+			return;
+		}
+		
 		if(isArrayType(parameter.getClass())){
+			
+			//
+			
+			
 			Object []objects =(Object []) parameter;
 			stringBuilder.append("[");
 			for(int i=0;i<objects.length;i++){
@@ -115,7 +129,14 @@ public class SimpleInvocationContext implements InvocationContext {
 		stringBuilder.append("\"");
 		
 	}
-	
+	protected void wrapByte(StringBuilder stringBuilder,String parameter)
+	{
+		
+		
+		stringBuilder.append(parameter);
+		
+		
+	}
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		

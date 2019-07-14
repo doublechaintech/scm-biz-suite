@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -249,12 +250,14 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 			throw new IllegalArgumentException(
 					"For put method without a userContext parameter, only one parameter allowed");
 		}
+		
+		
+		if(ReflectionTool.isFirstParameterByteArray(types)) {
+			return new Object[] {this.readBodyAsBytes(request)};
+		}
 		// only one parameter allowed, the body should be a json object string
 		String strExpr = this.readBodyAsString(request);
-		System.out.print("PUT CONTENT: " + strExpr);
-
 		Object object = ReflectionTool.convertOnlyOneParameter(types, strExpr);
-
 		// return new Object[] {strExpr};
 		return new Object[] { object };
 
@@ -355,6 +358,35 @@ public class ServletInvocationContextFactory extends ReflectionTool implements I
 			return null;
 		}
 	}
+	static final int MAX_ALLOWED_BYTES_LENGTH = 1024*128;
+	protected byte[] readBodyAsBytes(HttpServletRequest request) {
+		
+		int length = request.getContentLength();
+		
+		if(length==0) {
+			return new byte[] {};
+		}
+		if(length>1024*128) {
+			throw new IllegalArgumentException("The length '"+length+"' is large than allowed size from MAX_ALLOWED_BYTES_LENGTH: "+ MAX_ALLOWED_BYTES_LENGTH);
+			
+		}
+		byte [] buffer = new byte[1024];
+		
+		ByteBuffer resultString = ByteBuffer.allocate(request.getContentLength());
+		try {
+			
+			int readLength = 0;
+			
+			while ((readLength = request.getInputStream().read(buffer)) >0) {
+				resultString.put(buffer, 0, readLength);
+			}
+			return resultString.array();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+	
 
 	protected List<String> parsePut(HttpServletRequest request) throws InvocationException {
 

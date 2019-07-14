@@ -39,11 +39,31 @@ public class ReflectionTool {
 	}
 	
 	
-	
+	public static void appendBytes(StringBuilder stringBuilder, byte[] parameter, int maxToShow) {
+		
+		byte []objects = parameter;
+		stringBuilder.append("[");
+		for(int i=0;i<objects.length;i++){
+			if(i>0){
+				stringBuilder.append(" ");
+			}
+			byte object = objects[i];
+			stringBuilder.append(String.format("%02X", object));
+			if((i+1)>maxToShow) {//only print 31 bytes
+				stringBuilder.append(" ... ");
+				stringBuilder.append(objects.length);
+				stringBuilder.append(" bytes...");
+				break;
+			}
+		}
+		stringBuilder.append("]");
+		
+		
+	}
 	
 	
 
-	protected boolean isArrayType(Type type) {
+	protected static boolean isArrayType(Type type) {
 		
 		
 		Class typeClazz = (Class) type;
@@ -76,7 +96,35 @@ public class ReflectionTool {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 	}
-	
+	public static boolean isByteType(Type type) {
+		Class clazz = (Class)type;
+		if (clazz == byte.class) {
+			return true;
+		}
+		return false;
+	}
+	protected static boolean isArrayOfBytesType(Type type) {
+		Class typeClazz = (Class) type;
+		if (!typeClazz.isArray()) {
+			return false;
+		}
+		Class clazz = typeClazz.getComponentType();
+		if (isByteType(clazz)) {
+			return true;
+		}
+		return false;
+	}
+	public static boolean isFirstParameterByteArray(Type[] types) {
+		int length = types.length;
+		
+		if(length == 0) {
+			throw new IllegalArgumentException("Only one type allowed here, but the length of the length is: "+length);
+			
+		}
+		Type firstParameterType = types[0];
+		return isArrayOfBytesType(firstParameterType);
+
+	}
 	public static Object convertOnlyOneParameter(Type[] types, String value) {
 		int length = types.length;
 		
@@ -90,6 +138,9 @@ public class ReflectionTool {
 		if(firstParameterType == java.lang.String.class) {
 			return value;
 		}
+		
+		
+		
 		//otherwise this should be a json object with a class
 		if(!hasRemoteInitiableInterface(firstParameterType)) {
 			throw new IllegalArgumentException("The type should implement a RemoteInitiable interface, but the class is: " + firstParameterType.getTypeName());
