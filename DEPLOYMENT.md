@@ -124,6 +124,8 @@ cd  resin-3.1.16/ && bin/httpd.sh
 ### 配置nginx（ 非生产环境的话，不是必要步骤）
 
 这一步非常简单，拷贝下面内容文件到 ubuntu上 /etc/nginx/sites-enabled/demo, 然后 service ngnix restart
+请注意替换服务器名字
+server_name demo.doublechaintech.com;
 
 ```
 
