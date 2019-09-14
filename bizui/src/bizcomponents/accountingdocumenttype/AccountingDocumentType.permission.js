@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (accountingDocumentType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{accountingDocumentType.id}</Description> 
-<Description term="Name">{accountingDocumentType.name}</Description> 
-<Description term="Description">{accountingDocumentType.description}</Description> 
+<Description term="序号">{accountingDocumentType.id}</Description> 
+<Description term="名称">{accountingDocumentType.name}</Description> 
+<Description term="描述">{accountingDocumentType.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class AccountingDocumentTypePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  accountingDocumentType = this.props.accountingDocumentType;
+    const  accountingDocumentType = this.props.accountingDocumentType
     const { id,displayName, accountingDocumentCount } = accountingDocumentType
-    const cardsData = {cardsName:"Accounting Document Type",cardsFor: "accountingDocumentType",cardsSource: accountingDocumentType,
+    const  returnURL = `/accountingDocumentType/${id}/dashboard`
+    const cardsData = {cardsName:"会计凭证类型",cardsFor: "accountingDocumentType",cardsSource: accountingDocumentType,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class AccountingDocumentTypePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

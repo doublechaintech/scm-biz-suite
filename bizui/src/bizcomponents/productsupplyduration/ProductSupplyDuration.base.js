@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Product Supply Duration", menuFor: "productSupplyDuration",
+const menuData = {menuName:"产品供应时间", menuFor: "productSupplyDuration",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  quantity: 'Quantity',
-  duration: 'Duration',
-  price: 'Price',
-  product: 'Product',
+  id: '序号',
+  quantity: '数量',
+  duration: '持续时间',
+  price: '价格',
+  product: '产品',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'productSupplyDuration') , sorter: true },
   { title: fieldLabels.quantity, debugtype: 'int', dataIndex: 'quantity', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.duration, debugtype: 'string', dataIndex: 'duration', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.price, dataIndex: 'price', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
@@ -56,25 +56,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(productSupplyDuration,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={productSupplyDuration.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={productSupplyDuration.id}>
-	
-	<DescriptionList  key={productSupplyDuration.id} size="small" col="4">
-<Description term="Id">{productSupplyDuration.id}</Description> 
-<Description term="Quantity">{productSupplyDuration.quantity}</Description> 
-<Description term="Duration">{productSupplyDuration.duration}</Description> 
-<Description term="Price">{productSupplyDuration.price}</Description> 
-<Description term="Product">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
-</Description>
+      <DescriptionList  key={productSupplyDuration.id} size="small" col="4">
+        <Description term="序号">{productSupplyDuration.id}</Description> 
+        <Description term="数量"><div style={{"color":"red"}}>{productSupplyDuration.quantity}</div></Description> 
+        <Description term="持续时间">{productSupplyDuration.duration}</Description> 
+        <Description term="价格"><div style={{"color":"red"}}>{productSupplyDuration.price}</div></Description> 
+        <Description term="产品"><div>{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

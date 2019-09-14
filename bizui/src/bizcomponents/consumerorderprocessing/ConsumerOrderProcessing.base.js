@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Consumer Order Processing", menuFor: "consumerOrderProcessing",
+const menuData = {menuName:"消费者的订单处理", menuFor: "consumerOrderProcessing",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  processTime: 'Process Time',
+  id: '序号',
+  who: '谁',
+  processTime: '过程的时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'consumerOrderProcessing') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.processTime, dataIndex: 'processTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
@@ -52,22 +52,19 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(consumerOrderProcessing,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={consumerOrderProcessing.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={consumerOrderProcessing.id}>
-	
-	<DescriptionList  key={consumerOrderProcessing.id} size="small" col="4">
-<Description term="Id">{consumerOrderProcessing.id}</Description> 
-<Description term="Who">{consumerOrderProcessing.who}</Description> 
-<Description term="Process Time">{ moment(consumerOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={consumerOrderProcessing.id} size="small" col="4">
+        <Description term="序号">{consumerOrderProcessing.id}</Description> 
+        <Description term="谁">{consumerOrderProcessing.who}</Description> 
+        <Description term="过程的时间"><div>{ moment(consumerOrderProcessing.processTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

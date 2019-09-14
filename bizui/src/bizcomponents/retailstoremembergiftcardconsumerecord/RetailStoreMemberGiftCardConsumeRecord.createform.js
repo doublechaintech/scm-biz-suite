@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2016-09-22',
+  occureTime: '2018-04-22',
   number: 'GF00001',
-  amount: '20.07',
+  amount: '16.31',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -197,8 +197,8 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Gift Card Consume Record`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Gift Card Consume Record`}
+        title={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
+        content={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('occureTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Occure Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="发生时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Number" />
+                    <Input size="large" placeholder="数" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

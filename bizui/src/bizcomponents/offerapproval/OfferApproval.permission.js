@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (offerApproval,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{offerApproval.id}</Description> 
-<Description term="Who">{offerApproval.who}</Description> 
-<Description term="Approve Time">{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Comments">{offerApproval.comments}</Description> 
+<Description term="序号">{offerApproval.id}</Description> 
+<Description term="谁">{offerApproval.who}</Description> 
+<Description term="批准时间">{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="评论">{offerApproval.comments}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class OfferApprovalPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  offerApproval = this.props.offerApproval;
+    const  offerApproval = this.props.offerApproval
     const { id,displayName, employeeCount } = offerApproval
-    const cardsData = {cardsName:"Offer Approval",cardsFor: "offerApproval",cardsSource: offerApproval,
+    const  returnURL = `/offerApproval/${id}/dashboard`
+    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",cardsSource: offerApproval,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class OfferApprovalPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

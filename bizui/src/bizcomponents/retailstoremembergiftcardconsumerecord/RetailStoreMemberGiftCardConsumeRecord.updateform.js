@@ -262,7 +262,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.occureTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Occure Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="发生时间" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.number,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Number" />
+                    <Input size="large" placeholder="数" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.amount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                     
                   )}
                 </Form.Item>

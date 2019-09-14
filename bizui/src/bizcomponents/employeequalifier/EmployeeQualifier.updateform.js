@@ -262,7 +262,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.qualifiedTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Qualified Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="合格的时间" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.type,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Type" />
+                    <Input size="large" placeholder="类型" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.level,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Level" />
+                    <Input size="large" placeholder="水平" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class EmployeeQualifierUpdateForm extends Component {
                     initialValue: selectedRow.remark,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Remark" />
+                    <Input size="large" placeholder="备注" />
                     
                   )}
                 </Form.Item>

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,20 +23,24 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (retailStoreCountryCenter,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreCountryCenter.id}</Description> 
-<Description term="Name">{retailStoreCountryCenter.name}</Description> 
-<Description term="Service Number">{retailStoreCountryCenter.serviceNumber}</Description> 
-<Description term="Founded">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="Web Site">{retailStoreCountryCenter.webSite}</Description> 
-<Description term="Address">{retailStoreCountryCenter.address}</Description> 
-<Description term="Operated By">{retailStoreCountryCenter.operatedBy}</Description> 
-<Description term="Legal Representative">{retailStoreCountryCenter.legalRepresentative}</Description> 
-<Description term="Description">{retailStoreCountryCenter.description}</Description> 
+<Description term="序号">{retailStoreCountryCenter.id}</Description> 
+<Description term="名称">{retailStoreCountryCenter.name}</Description> 
+<Description term="服务号码">{retailStoreCountryCenter.serviceNumber}</Description> 
+<Description term="成立">{ moment(retailStoreCountryCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="网站">{retailStoreCountryCenter.webSite}</Description> 
+<Description term="地址">{retailStoreCountryCenter.address}</Description> 
+<Description term="由">{retailStoreCountryCenter.operatedBy}</Description> 
+<Description term="法定代表人">{retailStoreCountryCenter.legalRepresentative}</Description> 
+<Description term="描述">{retailStoreCountryCenter.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,20 +64,21 @@ class RetailStoreCountryCenterPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  retailStoreCountryCenter = this.props.retailStoreCountryCenter;
+    const  retailStoreCountryCenter = this.props.retailStoreCountryCenter
     const { id,displayName, catalogCount, retailStoreProvinceCenterCount, retailStoreCount, retailStoreMemberCount, goodsSupplierCount, supplyOrderCount, retailStoreOrderCount, warehouseCount, transportFleetCount, accountSetCount, levelOneDepartmentCount, skillTypeCount, responsibilityTypeCount, terminationReasonCount, terminationTypeCount, occupationTypeCount, leaveTypeCount, salaryGradeCount, interviewTypeCount, trainingCourseTypeCount, publicHolidayCount, employeeCount, instructorCount, companyTrainingCount } = retailStoreCountryCenter
-    const cardsData = {cardsName:"Retail Store Country Center",cardsFor: "retailStoreCountryCenter",cardsSource: retailStoreCountryCenter,
+    const  returnURL = `/retailStoreCountryCenter/${id}/dashboard`
+    const cardsData = {cardsName:"双链小超全国运营中心",cardsFor: "retailStoreCountryCenter",cardsSource: retailStoreCountryCenter,displayName,returnURL,
   		subItems: [
-{name: 'skillTypeList', displayName:'Skill Type',type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType', data: retailStoreCountryCenter.skillTypeList},
-{name: 'responsibilityTypeList', displayName:'Responsibility Type',type:'responsibilityType',count:responsibilityTypeCount,addFunction: true, role: 'responsibilityType', data: retailStoreCountryCenter.responsibilityTypeList},
-{name: 'terminationReasonList', displayName:'Termination Reason',type:'terminationReason',count:terminationReasonCount,addFunction: true, role: 'terminationReason', data: retailStoreCountryCenter.terminationReasonList},
-{name: 'terminationTypeList', displayName:'Termination Type',type:'terminationType',count:terminationTypeCount,addFunction: true, role: 'terminationType', data: retailStoreCountryCenter.terminationTypeList},
-{name: 'occupationTypeList', displayName:'Occupation Type',type:'occupationType',count:occupationTypeCount,addFunction: true, role: 'occupationType', data: retailStoreCountryCenter.occupationTypeList},
-{name: 'leaveTypeList', displayName:'Leave Type',type:'leaveType',count:leaveTypeCount,addFunction: true, role: 'leaveType', data: retailStoreCountryCenter.leaveTypeList},
-{name: 'salaryGradeList', displayName:'Salary Grade',type:'salaryGrade',count:salaryGradeCount,addFunction: true, role: 'salaryGrade', data: retailStoreCountryCenter.salaryGradeList},
-{name: 'interviewTypeList', displayName:'Interview Type',type:'interviewType',count:interviewTypeCount,addFunction: true, role: 'interviewType', data: retailStoreCountryCenter.interviewTypeList},
-{name: 'trainingCourseTypeList', displayName:'Training Course Type',type:'trainingCourseType',count:trainingCourseTypeCount,addFunction: true, role: 'trainingCourseType', data: retailStoreCountryCenter.trainingCourseTypeList},
-{name: 'publicHolidayList', displayName:'Public Holiday',type:'publicHoliday',count:publicHolidayCount,addFunction: true, role: 'publicHoliday', data: retailStoreCountryCenter.publicHolidayList},
+{name: 'skillTypeList', displayName:'技能类型',type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType', data: retailStoreCountryCenter.skillTypeList},
+{name: 'responsibilityTypeList', displayName:'责任类型',type:'responsibilityType',count:responsibilityTypeCount,addFunction: true, role: 'responsibilityType', data: retailStoreCountryCenter.responsibilityTypeList},
+{name: 'terminationReasonList', displayName:'雇佣终止的原因',type:'terminationReason',count:terminationReasonCount,addFunction: true, role: 'terminationReason', data: retailStoreCountryCenter.terminationReasonList},
+{name: 'terminationTypeList', displayName:'雇佣终止类型',type:'terminationType',count:terminationTypeCount,addFunction: true, role: 'terminationType', data: retailStoreCountryCenter.terminationTypeList},
+{name: 'occupationTypeList', displayName:'职位类型',type:'occupationType',count:occupationTypeCount,addFunction: true, role: 'occupationType', data: retailStoreCountryCenter.occupationTypeList},
+{name: 'leaveTypeList', displayName:'请假类型',type:'leaveType',count:leaveTypeCount,addFunction: true, role: 'leaveType', data: retailStoreCountryCenter.leaveTypeList},
+{name: 'salaryGradeList', displayName:'工资等级',type:'salaryGrade',count:salaryGradeCount,addFunction: true, role: 'salaryGrade', data: retailStoreCountryCenter.salaryGradeList},
+{name: 'interviewTypeList', displayName:'面试类型',type:'interviewType',count:interviewTypeCount,addFunction: true, role: 'interviewType', data: retailStoreCountryCenter.interviewTypeList},
+{name: 'trainingCourseTypeList', displayName:'培训课程类型',type:'trainingCourseType',count:trainingCourseTypeCount,addFunction: true, role: 'trainingCourseType', data: retailStoreCountryCenter.trainingCourseTypeList},
+{name: 'publicHolidayList', displayName:'公共假日',type:'publicHoliday',count:publicHolidayCount,addFunction: true, role: 'publicHoliday', data: retailStoreCountryCenter.publicHolidayList},
     
       	],
   	};
@@ -83,7 +88,7 @@ class RetailStoreCountryCenterPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

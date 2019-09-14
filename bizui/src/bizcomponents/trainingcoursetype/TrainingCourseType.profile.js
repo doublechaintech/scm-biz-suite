@@ -55,8 +55,8 @@ class TrainingCourseTypeProfile extends Component {
     // eslint-disable-next-line max-len
     const  trainingCourseType = this.props.trainingCourseType;
     const { id,displayName, companyTrainingCount } = trainingCourseType
-
-    const cardsData = {cardsName:"Training Course Type",cardsFor: "trainingCourseType",cardsSource: trainingCourseType,
+    const  returnURL = `/trainingCourseType/${id}/dashboard`
+    const cardsData = {cardsName:"培训课程类型",cardsFor: "trainingCourseType",cardsSource: trainingCourseType,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class TrainingCourseTypeProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

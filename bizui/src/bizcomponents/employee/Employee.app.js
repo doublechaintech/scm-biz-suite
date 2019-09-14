@@ -145,15 +145,7 @@ class EmployeeBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/employee/${this.props.employee.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/employee/${this.props.employee.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Company Training",
+      name: "员工参与的公司培训",
       role: "employeeCompanyTraining",
       data: state._employee.employeeCompanyTrainingList,
       metaInfo: state._employee.employeeCompanyTrainingListMetaInfo,
@@ -216,7 +208,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Skill",
+      name: "员工技能",
       role: "employeeSkill",
       data: state._employee.employeeSkillList,
       metaInfo: state._employee.employeeSkillListMetaInfo,
@@ -265,7 +257,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Performance",
+      name: "员工绩效",
       role: "employeePerformance",
       data: state._employee.employeePerformanceList,
       metaInfo: state._employee.employeePerformanceListMetaInfo,
@@ -314,7 +306,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Work Experience",
+      name: "员工工作经验",
       role: "employeeWorkExperience",
       data: state._employee.employeeWorkExperienceList,
       metaInfo: state._employee.employeeWorkExperienceListMetaInfo,
@@ -363,7 +355,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Leave",
+      name: "请假记录",
       role: "employeeLeave",
       data: state._employee.employeeLeaveList,
       metaInfo: state._employee.employeeLeaveListMetaInfo,
@@ -412,7 +404,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Interview",
+      name: "员工面试",
       role: "employeeInterview",
       data: state._employee.employeeInterviewList,
       metaInfo: state._employee.employeeInterviewListMetaInfo,
@@ -461,7 +453,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Attendance",
+      name: "员工考勤",
       role: "employeeAttendance",
       data: state._employee.employeeAttendanceList,
       metaInfo: state._employee.employeeAttendanceListMetaInfo,
@@ -510,7 +502,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Qualifier",
+      name: "员工资质",
       role: "employeeQualifier",
       data: state._employee.employeeQualifierList,
       metaInfo: state._employee.employeeQualifierListMetaInfo,
@@ -559,7 +551,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Education",
+      name: "员工教育",
       role: "employeeEducation",
       data: state._employee.employeeEducationList,
       metaInfo: state._employee.employeeEducationListMetaInfo,
@@ -608,7 +600,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Award",
+      name: "员工嘉奖",
       role: "employeeAward",
       data: state._employee.employeeAwardList,
       metaInfo: state._employee.employeeAwardListMetaInfo,
@@ -657,7 +649,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Employee Salary Sheet",
+      name: "工资单",
       role: "employeeSalarySheet",
       data: state._employee.employeeSalarySheetList,
       metaInfo: state._employee.employeeSalarySheetListMetaInfo,
@@ -706,7 +698,7 @@ class EmployeeBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Paying Off",
+      name: "工资支付",
       role: "payingOff",
       data: state._employee.payingOffList,
       metaInfo: state._employee.payingOffListMetaInfo,

@@ -195,8 +195,8 @@ class RetailStoreMemberCouponCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Coupon`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Coupon`}
+        title={`${appLocaleName(userContext,"CreateNew")}生超会员优惠券`}
+        content={`${appLocaleName(userContext,"CreateNew")}生超会员优惠券`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class RetailStoreMemberCouponCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class RetailStoreMemberCouponCreateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Number" />
+                    <Input size="large" placeholder="数" />
                   )}
                 </Form.Item>
               </Col>

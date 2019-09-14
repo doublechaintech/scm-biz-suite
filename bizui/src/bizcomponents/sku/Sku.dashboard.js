@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -40,7 +40,7 @@ const { Option } = Select
 
 
 const imageList =(sku)=>{return [
-	   {"title":'Picture',"imageLocation":sku.picture},
+	   {"title":'图片',"imageLocation":sku.picture},
 ]}
 
 const internalImageListOf = (sku) =>defaultImageListOf(sku,imageList)
@@ -66,11 +66,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/sku/${targetComponent.props.sku.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/sku/${targetComponent.props.sku.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -82,19 +107,19 @@ const internalSummaryOf = (sku,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{sku.id}</Description> 
-<Description term="Name">{sku.name}</Description> 
-<Description term="Size">{sku.size}</Description> 
-<Description term="Product">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
+<Description term="序号">{sku.id}</Description> 
+<Description term="名称">{sku.name}</Description> 
+<Description term="大小">{sku.size}</Description> 
+<Description term="产品">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Product","product",SkuService.requestCandidateProduct,
+  showTransferModel(targetComponent,"产品","product",SkuService.requestCandidateProduct,
 	      SkuService.transferToAnotherProduct,"anotherProductId",sku.product?sku.product.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Barcode">{sku.barcode}</Description> 
-<Description term="Package Type">{sku.packageType}</Description> 
-<Description term="Net Content">{sku.netContent}</Description> 
-<Description term="Price">{sku.price}</Description> 
+<Description term="条码">{sku.barcode}</Description> 
+<Description term="包装类型">{sku.packageType}</Description> 
+<Description term="净含量">{sku.netContent}</Description> 
+<Description term="价格">{sku.price}</Description> 
 	
         {buildTransferModal(sku,targetComponent)}
       </DescriptionList>
@@ -132,10 +157,10 @@ class SkuDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Sku",cardsFor: "sku",
+    const cardsData = {cardsName:"SKU",cardsFor: "sku",
     	cardsSource: this.props.sku,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};
@@ -161,10 +186,10 @@ class SkuDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

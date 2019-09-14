@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Employee Work Experience", menuFor: "employeeWorkExperience",
+const menuData = {menuName:"员工工作经验", menuFor: "employeeWorkExperience",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  employee: 'Employee',
-  start: 'Start',
-  end: 'End',
-  company: 'Company',
-  description: 'Description',
+  id: '序号',
+  employee: '员工',
+  start: '开始',
+  end: '结束',
+  company: '公司',
+  description: '描述',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeWorkExperience') , sorter: true },
   { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.start, dataIndex: 'start', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.end, dataIndex: 'end', render: (text, record) =>renderDateCell(text,record), sorter: true },
@@ -58,26 +58,23 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(employeeWorkExperience,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={employeeWorkExperience.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={employeeWorkExperience.id}>
-	
-	<DescriptionList  key={employeeWorkExperience.id} size="small" col="4">
-<Description term="Id">{employeeWorkExperience.id}</Description> 
-<Description term="Employee">{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
-</Description>
-<Description term="Start">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
-<Description term="End">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
-<Description term="Company">{employeeWorkExperience.company}</Description> 
-<Description term="Description">{employeeWorkExperience.description}</Description> 
+      <DescriptionList  key={employeeWorkExperience.id} size="small" col="4">
+        <Description term="序号">{employeeWorkExperience.id}</Description> 
+        <Description term="员工"><div>{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
+        </div></Description>
+        <Description term="开始"><div>{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="结束"><div>{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="公司">{employeeWorkExperience.company}</Description> 
+        <Description term="描述">{employeeWorkExperience.description}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

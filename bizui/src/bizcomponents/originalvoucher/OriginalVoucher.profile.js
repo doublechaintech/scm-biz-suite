@@ -55,8 +55,8 @@ class OriginalVoucherProfile extends Component {
     // eslint-disable-next-line max-len
     const  originalVoucher = this.props.originalVoucher;
     const { id,displayName,  } = originalVoucher
-
-    const cardsData = {cardsName:"Original Voucher",cardsFor: "originalVoucher",cardsSource: originalVoucher,
+    const  returnURL = `/originalVoucher/${id}/dashboard`
+    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",cardsSource: originalVoucher,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class OriginalVoucherProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

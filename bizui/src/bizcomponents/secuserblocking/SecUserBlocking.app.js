@@ -145,15 +145,7 @@ class SecUserBlockingBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class SecUserBlockingBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Sec User",
+      name: "安全用户",
       role: "secUser",
       data: state._secUserBlocking.secUserList,
       metaInfo: state._secUserBlocking.secUserListMetaInfo,

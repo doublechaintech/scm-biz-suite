@@ -195,8 +195,8 @@ class EmployeeInterviewCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Employee Interview`}
-        content={`${appLocaleName(userContext,"CreateNew")}Employee Interview`}
+        title={`${appLocaleName(userContext,"CreateNew")}员工面试`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工面试`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class EmployeeInterviewCreateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Remark" />
+                    <Input size="large" placeholder="备注" />
                   )}
                 </Form.Item>
               </Col>

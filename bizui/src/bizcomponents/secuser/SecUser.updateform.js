@@ -263,7 +263,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="ID" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.login,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Login" />
+                    <Input size="large" placeholder="登录" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mobile" />
+                    <Input size="large" placeholder="手机号码" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Email" />
+                    <Input size="large" placeholder="电子邮件" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.pwd,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Pwd" />
+                    <Input size="large" placeholder="密码" />
                     
                   )}
                 </Form.Item>
@@ -323,7 +323,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.weixinOpenid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Weixin Openid" />
+                    <Input size="large" placeholder="微信openid" />
                     
                   )}
                 </Form.Item>
@@ -335,7 +335,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.weixinAppid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Weixin Appid" />
+                    <Input size="large" placeholder="微信Appid" />
                     
                   )}
                 </Form.Item>
@@ -347,7 +347,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.accessToken,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Access Token" />
+                    <Input size="large" placeholder="访问令牌" />
                     
                   )}
                 </Form.Item>
@@ -359,7 +359,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Verification Code" />
+                    <Input size="large" placeholder="验证码" />
                     
                   )}
                 </Form.Item>
@@ -371,7 +371,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCodeExpire,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="Verification Code Expire" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="验证码过期" />
                     
                   )}
                 </Form.Item>
@@ -383,7 +383,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.lastLoginTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="Last Login Time" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="最后登录时间" />
                     
                   )}
                 </Form.Item>

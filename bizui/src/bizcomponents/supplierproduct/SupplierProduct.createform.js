@@ -196,8 +196,8 @@ class SupplierProductCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Supplier Product`}
-        content={`${appLocaleName(userContext,"CreateNew")}Supplier Product`}
+        title={`${appLocaleName(userContext,"CreateNew")}供应商的产品`}
+        content={`${appLocaleName(userContext,"CreateNew")}供应商的产品`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Product Name" />
+                    <Input size="large" placeholder="品名" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Product Description" />
+                    <Input size="large" placeholder="产品描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class SupplierProductCreateForm extends Component {
                   {getFieldDecorator('productUnit', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Product Unit" />
+                    <Input size="large" placeholder="产品单元" />
                   )}
                 </Form.Item>
               </Col>

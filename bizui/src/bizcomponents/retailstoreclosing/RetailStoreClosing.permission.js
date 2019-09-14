@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,13 +23,17 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (retailStoreClosing,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreClosing.id}</Description> 
-<Description term="Comment">{retailStoreClosing.comment}</Description> 
+<Description term="序号">{retailStoreClosing.id}</Description> 
+<Description term="评论">{retailStoreClosing.comment}</Description> 
 	
       </DescriptionList>
 	)
@@ -53,9 +57,10 @@ class RetailStoreClosingPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  retailStoreClosing = this.props.retailStoreClosing;
+    const  retailStoreClosing = this.props.retailStoreClosing
     const { id,displayName, retailStoreCount } = retailStoreClosing
-    const cardsData = {cardsName:"Retail Store Closing",cardsFor: "retailStoreClosing",cardsSource: retailStoreClosing,
+    const  returnURL = `/retailStoreClosing/${id}/dashboard`
+    const cardsData = {cardsName:"商店关闭",cardsFor: "retailStoreClosing",cardsSource: retailStoreClosing,displayName,returnURL,
   		subItems: [
     
       	],
@@ -66,7 +71,7 @@ class RetailStoreClosingPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

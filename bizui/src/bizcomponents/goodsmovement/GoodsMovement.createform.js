@@ -17,13 +17,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-07-06 14:54:31',
+  moveTime: '2019-09-07 18:34:41',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '41.717301375173406',
-  longitude: '131.81245451760665',
+  latitude: '39.88397546877659',
+  longitude: '129.72285688011124',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -201,8 +201,8 @@ class GoodsMovementCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Goods Movement`}
-        content={`${appLocaleName(userContext,"CreateNew")}Goods Movement`}
+        title={`${appLocaleName(userContext,"CreateNew")}货物移动`}
+        content={`${appLocaleName(userContext,"CreateNew")}货物移动`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -214,7 +214,7 @@ class GoodsMovementCreateForm extends Component {
                   {getFieldDecorator('moveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="Move Time" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -224,7 +224,7 @@ class GoodsMovementCreateForm extends Component {
                   {getFieldDecorator('facility', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Facility" />
+                    <Input size="large" placeholder="设施" />
                   )}
                 </Form.Item>
               </Col>
@@ -234,7 +234,7 @@ class GoodsMovementCreateForm extends Component {
                   {getFieldDecorator('facilityId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Facility Id" />
+                    <Input size="large" placeholder="设备ID" />
                   )}
                 </Form.Item>
               </Col>
@@ -244,7 +244,7 @@ class GoodsMovementCreateForm extends Component {
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="From Ip" />
+                    <Input size="large" placeholder="从IP" />
                   )}
                 </Form.Item>
               </Col>
@@ -254,7 +254,7 @@ class GoodsMovementCreateForm extends Component {
                   {getFieldDecorator('sessionId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Session Id" />
+                    <Input size="large" placeholder="会话ID" />
                   )}
                 </Form.Item>
               </Col>
@@ -264,7 +264,7 @@ class GoodsMovementCreateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Latitude" />
+                    <Input size="large" placeholder="纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -274,7 +274,7 @@ class GoodsMovementCreateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Longitude" />
+                    <Input size="large" placeholder="经度" />
                   )}
                 </Form.Item>
               </Col>
@@ -292,7 +292,7 @@ class GoodsMovementCreateForm extends Component {
 
 
 
-        <Card title="User Agent" className={styles.card} bordered={false}>
+        <Card title="用户代理" className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
               <Col lg={24} md={24} sm={24}>

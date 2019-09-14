@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/offerApproval/${targetComponent.props.offerApproval.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/offerApproval/${targetComponent.props.offerApproval.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,10 +106,10 @@ const internalSummaryOf = (offerApproval,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{offerApproval.id}</Description> 
-<Description term="Who">{offerApproval.who}</Description> 
-<Description term="Approve Time">{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Comments">{offerApproval.comments}</Description> 
+<Description term="序号">{offerApproval.id}</Description> 
+<Description term="谁">{offerApproval.who}</Description> 
+<Description term="批准时间">{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="评论">{offerApproval.comments}</Description> 
 	
         {buildTransferModal(offerApproval,targetComponent)}
       </DescriptionList>
@@ -122,10 +147,10 @@ class OfferApprovalDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Offer Approval",cardsFor: "offerApproval",
+    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",
     	cardsSource: this.props.offerApproval,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'Employee',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
   	};
@@ -151,10 +176,10 @@ class OfferApprovalDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

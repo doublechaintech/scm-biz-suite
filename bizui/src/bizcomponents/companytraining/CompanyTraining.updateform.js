@@ -263,7 +263,7 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.timeStart,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Time Start" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="时间开始" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.durationHours,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Duration Hours" />
+                    <Input size="large" placeholder="持续时间" />
                     
                   )}
                 </Form.Item>

@@ -55,8 +55,8 @@ class ReceivingSpaceProfile extends Component {
     // eslint-disable-next-line max-len
     const  receivingSpace = this.props.receivingSpace;
     const { id,displayName, goodsCount } = receivingSpace
-
-    const cardsData = {cardsName:"Receiving Space",cardsFor: "receivingSpace",cardsSource: receivingSpace,
+    const  returnURL = `/receivingSpace/${id}/dashboard`
+    const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",cardsSource: receivingSpace,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ReceivingSpaceProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

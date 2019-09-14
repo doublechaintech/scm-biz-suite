@@ -198,7 +198,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="Id">
+         <FormItem label="ID">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -206,7 +206,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="Login">
+         <FormItem label="登录">
            {getFieldDecorator('login')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -253,7 +253,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="Id">
+            <FormItem label="ID">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -261,7 +261,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Login">
+            <FormItem label="登录">
               {getFieldDecorator('login')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -269,7 +269,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Mobile">
+            <FormItem label="手机号码">
               {getFieldDecorator('mobile')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -277,7 +277,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Email">
+            <FormItem label="电子邮件">
               {getFieldDecorator('email')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -285,7 +285,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Pwd">
+            <FormItem label="密码">
               {getFieldDecorator('pwd')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -293,7 +293,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Weixin Openid">
+            <FormItem label="微信openid">
               {getFieldDecorator('weixinOpenid')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -301,7 +301,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Weixin Appid">
+            <FormItem label="微信Appid">
               {getFieldDecorator('weixinAppid')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -309,14 +309,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Access Token">
+            <FormItem label="访问令牌">
               {getFieldDecorator('accessToken')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Domain">
+                    <Form.Item label="域">
                   {getFieldDecorator('domain', {
                     initialValue: tryinit('domain'),
                    
@@ -332,7 +332,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Current Status">
+            <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}

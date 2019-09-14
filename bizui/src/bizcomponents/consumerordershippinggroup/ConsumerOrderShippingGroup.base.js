@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Consumer Order Shipping Group", menuFor: "consumerOrderShippingGroup",
+const menuData = {menuName:"消费订单送货分组", menuFor: "consumerOrderShippingGroup",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  bizOrder: 'Biz Order',
-  amount: 'Amount',
+  id: '序号',
+  name: '名称',
+  bizOrder: '订单',
+  amount: '金额',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'consumerOrderShippingGroup') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.amount, dataIndex: 'amount', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
@@ -54,24 +54,21 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(consumerOrderShippingGroup,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={consumerOrderShippingGroup.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={consumerOrderShippingGroup.id}>
-	
-	<DescriptionList  key={consumerOrderShippingGroup.id} size="small" col="4">
-<Description term="Id">{consumerOrderShippingGroup.id}</Description> 
-<Description term="Name">{consumerOrderShippingGroup.name}</Description> 
-<Description term="Biz Order">{consumerOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderShippingGroup.bizOrder.displayName}(${consumerOrderShippingGroup.bizOrder.id})`}
-</Description>
-<Description term="Amount">{consumerOrderShippingGroup.amount}</Description> 
+      <DescriptionList  key={consumerOrderShippingGroup.id} size="small" col="4">
+        <Description term="序号">{consumerOrderShippingGroup.id}</Description> 
+        <Description term="名称">{consumerOrderShippingGroup.name}</Description> 
+        <Description term="订单"><div>{consumerOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderShippingGroup.bizOrder.displayName}(${consumerOrderShippingGroup.bizOrder.id})`}
+        </div></Description>
+        <Description term="金额"><div style={{"color":"red"}}>{consumerOrderShippingGroup.amount}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

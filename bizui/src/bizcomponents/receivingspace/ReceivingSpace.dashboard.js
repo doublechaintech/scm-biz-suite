@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/receivingSpace/${targetComponent.props.receivingSpace.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/receivingSpace/${targetComponent.props.receivingSpace.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,20 +106,20 @@ const internalSummaryOf = (receivingSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{receivingSpace.id}</Description> 
-<Description term="Location">{receivingSpace.location}</Description> 
-<Description term="Contact Number">{receivingSpace.contactNumber}</Description> 
-<Description term="Description">{receivingSpace.description}</Description> 
-<Description term="Total Area">{receivingSpace.totalArea}</Description> 
-<Description term="Warehouse">{receivingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${receivingSpace.warehouse.displayName}(${receivingSpace.warehouse.id})`}
+<Description term="序号">{receivingSpace.id}</Description> 
+<Description term="位置">{receivingSpace.location}</Description> 
+<Description term="联系电话">{receivingSpace.contactNumber}</Description> 
+<Description term="描述">{receivingSpace.description}</Description> 
+<Description term="总面积">{receivingSpace.totalArea}</Description> 
+<Description term="仓库">{receivingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${receivingSpace.warehouse.displayName}(${receivingSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Warehouse","warehouse",ReceivingSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"仓库","warehouse",ReceivingSpaceService.requestCandidateWarehouse,
 	      ReceivingSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",receivingSpace.warehouse?receivingSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Latitude">{receivingSpace.latitude}</Description> 
-<Description term="Longitude">{receivingSpace.longitude}</Description> 
-<Description term="Last Update Time">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="纬度">{receivingSpace.latitude}</Description> 
+<Description term="经度">{receivingSpace.longitude}</Description> 
+<Description term="最后更新时间">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(receivingSpace,targetComponent)}
       </DescriptionList>
@@ -132,10 +157,10 @@ class ReceivingSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Receiving Space",cardsFor: "receivingSpace",
+    const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",
     	cardsSource: this.props.receivingSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};
@@ -161,10 +186,10 @@ class ReceivingSpaceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

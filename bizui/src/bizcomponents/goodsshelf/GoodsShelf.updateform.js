@@ -262,7 +262,7 @@ class GoodsShelfUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class GoodsShelfUpdateForm extends Component {
                     initialValue: selectedRow.location,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Location" />
+                    <Input size="large" placeholder="位置" />
                     
                   )}
                 </Form.Item>

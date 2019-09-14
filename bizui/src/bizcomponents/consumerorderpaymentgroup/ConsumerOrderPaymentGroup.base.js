@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Consumer Order Payment Group", menuFor: "consumerOrderPaymentGroup",
+const menuData = {menuName:"消费者订单付款组", menuFor: "consumerOrderPaymentGroup",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  bizOrder: 'Biz Order',
-  cardNumber: 'Card Number',
+  id: '序号',
+  name: '名称',
+  bizOrder: '订单',
+  cardNumber: '卡号码',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'consumerOrderPaymentGroup') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.cardNumber, debugtype: 'string', dataIndex: 'cardNumber', width: '21',render: (text, record)=>renderTextCell(text,record)},
@@ -54,24 +54,21 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(consumerOrderPaymentGroup,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={consumerOrderPaymentGroup.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={consumerOrderPaymentGroup.id}>
-	
-	<DescriptionList  key={consumerOrderPaymentGroup.id} size="small" col="4">
-<Description term="Id">{consumerOrderPaymentGroup.id}</Description> 
-<Description term="Name">{consumerOrderPaymentGroup.name}</Description> 
-<Description term="Biz Order">{consumerOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPaymentGroup.bizOrder.displayName}(${consumerOrderPaymentGroup.bizOrder.id})`}
-</Description>
-<Description term="Card Number">{consumerOrderPaymentGroup.cardNumber}</Description> 
+      <DescriptionList  key={consumerOrderPaymentGroup.id} size="small" col="4">
+        <Description term="序号">{consumerOrderPaymentGroup.id}</Description> 
+        <Description term="名称">{consumerOrderPaymentGroup.name}</Description> 
+        <Description term="订单"><div>{consumerOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPaymentGroup.bizOrder.displayName}(${consumerOrderPaymentGroup.bizOrder.id})`}
+        </div></Description>
+        <Description term="卡号码">{consumerOrderPaymentGroup.cardNumber}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

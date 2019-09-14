@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '积分换锅',
-  point: '18',
+  point: '20',
   ownerId: 'RSM000001',
 }
 */
@@ -195,8 +195,8 @@ class MemberRewardPointRedemptionCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Member Reward Point Redemption`}
-        content={`${appLocaleName(userContext,"CreateNew")}Member Reward Point Redemption`}
+        title={`${appLocaleName(userContext,"CreateNew")}会员奖励点赎回`}
+        content={`${appLocaleName(userContext,"CreateNew")}会员奖励点赎回`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class MemberRewardPointRedemptionCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class MemberRewardPointRedemptionCreateForm extends Component {
                   {getFieldDecorator('point', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Point" />
+                    <Input size="large" placeholder="点" />
                   )}
                 </Form.Item>
               </Col>

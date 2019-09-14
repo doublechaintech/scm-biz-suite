@@ -30,25 +30,25 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Accounting Document Line", menuFor: "accountingDocumentLine",
+const menuData = {menuName:"会计凭证行", menuFor: "accountingDocumentLine",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  code: 'Code',
-  direct: 'Direct',
-  amount: 'Amount',
-  belongsTo: 'Belongs To',
-  accountingSubject: 'Accounting Subject',
+  id: '序号',
+  name: '名称',
+  code: '代码',
+  direct: '直接',
+  amount: '金额',
+  belongsTo: '属于',
+  accountingSubject: '会计科目',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'accountingDocumentLine') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.code, debugtype: 'string', dataIndex: 'code', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.direct, debugtype: 'string', dataIndex: 'direct', width: '5',render: (text, record)=>renderTextCell(text,record)},
@@ -60,28 +60,25 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(accountingDocumentLine,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={accountingDocumentLine.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={accountingDocumentLine.id}>
-	
-	<DescriptionList  key={accountingDocumentLine.id} size="small" col="4">
-<Description term="Id">{accountingDocumentLine.id}</Description> 
-<Description term="Name">{accountingDocumentLine.name}</Description> 
-<Description term="Code">{accountingDocumentLine.code}</Description> 
-<Description term="Direct">{accountingDocumentLine.direct}</Description> 
-<Description term="Amount">{accountingDocumentLine.amount}</Description> 
-<Description term="Belongs To">{accountingDocumentLine.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.belongsTo.displayName}(${accountingDocumentLine.belongsTo.id})`}
-</Description>
-<Description term="Accounting Subject">{accountingDocumentLine.accountingSubject==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.accountingSubject.displayName}(${accountingDocumentLine.accountingSubject.id})`}
-</Description>
+      <DescriptionList  key={accountingDocumentLine.id} size="small" col="4">
+        <Description term="序号">{accountingDocumentLine.id}</Description> 
+        <Description term="名称">{accountingDocumentLine.name}</Description> 
+        <Description term="代码">{accountingDocumentLine.code}</Description> 
+        <Description term="直接">{accountingDocumentLine.direct}</Description> 
+        <Description term="金额"><div style={{"color":"red"}}>{accountingDocumentLine.amount}</div></Description> 
+        <Description term="属于"><div>{accountingDocumentLine.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.belongsTo.displayName}(${accountingDocumentLine.belongsTo.id})`}
+        </div></Description>
+        <Description term="会计科目"><div>{accountingDocumentLine.accountingSubject==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.accountingSubject.displayName}(${accountingDocumentLine.accountingSubject.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

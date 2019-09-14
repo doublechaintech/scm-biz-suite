@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreMember/${targetComponent.props.retailStoreMember.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/retailStoreMember/${targetComponent.props.retailStoreMember.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,9 +106,9 @@ const internalSummaryOf = (retailStoreMember,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreMember.id}</Description> 
-<Description term="Name">{retailStoreMember.name}</Description> 
-<Description term="Mobile Phone">{retailStoreMember.mobilePhone}</Description> 
+<Description term="序号">{retailStoreMember.id}</Description> 
+<Description term="名称">{retailStoreMember.name}</Description> 
+<Description term="移动电话">{retailStoreMember.mobilePhone}</Description> 
 	
         {buildTransferModal(retailStoreMember,targetComponent)}
       </DescriptionList>
@@ -121,16 +146,16 @@ class RetailStoreMemberDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Retail Store Member",cardsFor: "retailStoreMember",
+    const cardsData = {cardsName:"生超会员",cardsFor: "retailStoreMember",
     	cardsSource: this.props.retailStoreMember,returnURL,displayName,
   		subItems: [
-{name: 'consumerOrderList', displayName:'Consumer Order',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
-{name: 'retailStoreMemberCouponList', displayName:'Retail Store Member Coupon',type:'retailStoreMemberCoupon',count:retailStoreMemberCouponCount,addFunction: true, role: 'retailStoreMemberCoupon', metaInfo: retailStoreMemberCouponListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberCouponBase.renderItemOfList},
-{name: 'memberWishlistList', displayName:'Member Wishlist',type:'memberWishlist',count:memberWishlistCount,addFunction: true, role: 'memberWishlist', metaInfo: memberWishlistListMetaInfo, renderItem: GlobalComponents.MemberWishlistBase.renderItemOfList},
-{name: 'memberRewardPointList', displayName:'Member Reward Point',type:'memberRewardPoint',count:memberRewardPointCount,addFunction: true, role: 'memberRewardPoint', metaInfo: memberRewardPointListMetaInfo, renderItem: GlobalComponents.MemberRewardPointBase.renderItemOfList},
-{name: 'memberRewardPointRedemptionList', displayName:'Member Reward Point Redemption',type:'memberRewardPointRedemption',count:memberRewardPointRedemptionCount,addFunction: true, role: 'memberRewardPointRedemption', metaInfo: memberRewardPointRedemptionListMetaInfo, renderItem: GlobalComponents.MemberRewardPointRedemptionBase.renderItemOfList},
-{name: 'retailStoreMemberAddressList', displayName:'Retail Store Member Address',type:'retailStoreMemberAddress',count:retailStoreMemberAddressCount,addFunction: true, role: 'retailStoreMemberAddress', metaInfo: retailStoreMemberAddressListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberAddressBase.renderItemOfList},
-{name: 'retailStoreMemberGiftCardList', displayName:'Retail Store Member Gift Card',type:'retailStoreMemberGiftCard',count:retailStoreMemberGiftCardCount,addFunction: true, role: 'retailStoreMemberGiftCard', metaInfo: retailStoreMemberGiftCardListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardBase.renderItemOfList},
+{name: 'consumerOrderList', displayName:'消费者订单',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
+{name: 'retailStoreMemberCouponList', displayName:'生超会员优惠券',type:'retailStoreMemberCoupon',count:retailStoreMemberCouponCount,addFunction: true, role: 'retailStoreMemberCoupon', metaInfo: retailStoreMemberCouponListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberCouponBase.renderItemOfList},
+{name: 'memberWishlistList', displayName:'会员收藏',type:'memberWishlist',count:memberWishlistCount,addFunction: true, role: 'memberWishlist', metaInfo: memberWishlistListMetaInfo, renderItem: GlobalComponents.MemberWishlistBase.renderItemOfList},
+{name: 'memberRewardPointList', displayName:'会员奖励点',type:'memberRewardPoint',count:memberRewardPointCount,addFunction: true, role: 'memberRewardPoint', metaInfo: memberRewardPointListMetaInfo, renderItem: GlobalComponents.MemberRewardPointBase.renderItemOfList},
+{name: 'memberRewardPointRedemptionList', displayName:'会员奖励点赎回',type:'memberRewardPointRedemption',count:memberRewardPointRedemptionCount,addFunction: true, role: 'memberRewardPointRedemption', metaInfo: memberRewardPointRedemptionListMetaInfo, renderItem: GlobalComponents.MemberRewardPointRedemptionBase.renderItemOfList},
+{name: 'retailStoreMemberAddressList', displayName:'零售店会员地址',type:'retailStoreMemberAddress',count:retailStoreMemberAddressCount,addFunction: true, role: 'retailStoreMemberAddress', metaInfo: retailStoreMemberAddressListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberAddressBase.renderItemOfList},
+{name: 'retailStoreMemberGiftCardList', displayName:'零售店会员礼品卡',type:'retailStoreMemberGiftCard',count:retailStoreMemberGiftCardCount,addFunction: true, role: 'retailStoreMemberGiftCard', metaInfo: retailStoreMemberGiftCardListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardBase.renderItemOfList},
     
       	],
   	};
@@ -156,10 +181,10 @@ class RetailStoreMemberDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
-  employTime: '2018-06-13',
+  employTime: '2017-09-15',
   comments: '欢迎加入植物医生大家庭',
 }
 */
@@ -195,8 +195,8 @@ class EmployeeBoardingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Employee Boarding`}
-        content={`${appLocaleName(userContext,"CreateNew")}Employee Boarding`}
+        title={`${appLocaleName(userContext,"CreateNew")}员工入职`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工入职`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class EmployeeBoardingCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class EmployeeBoardingCreateForm extends Component {
                   {getFieldDecorator('employTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Employ Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="使用时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class EmployeeBoardingCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comments" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

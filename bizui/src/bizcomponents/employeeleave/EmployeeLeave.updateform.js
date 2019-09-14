@@ -261,7 +261,7 @@ class EmployeeLeaveUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class EmployeeLeaveUpdateForm extends Component {
                     initialValue: selectedRow.leaveDurationHour,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Leave Duration Hour" />
+                    <Input size="large" placeholder="请假时长" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class EmployeeLeaveUpdateForm extends Component {
                     initialValue: selectedRow.remark,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Remark" />
+                    <Input size="large" placeholder="备注" />
                     
                   )}
                 </Form.Item>

@@ -145,15 +145,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/consumerOrder/${this.props.consumerOrder.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/consumerOrder/${this.props.consumerOrder.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Consumer Order Line Item",
+      name: "消费者订单行项目",
       role: "consumerOrderLineItem",
       data: state._consumerOrder.consumerOrderLineItemList,
       metaInfo: state._consumerOrder.consumerOrderLineItemListMetaInfo,
@@ -216,7 +208,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Consumer Order Shipping Group",
+      name: "消费订单送货分组",
       role: "consumerOrderShippingGroup",
       data: state._consumerOrder.consumerOrderShippingGroupList,
       metaInfo: state._consumerOrder.consumerOrderShippingGroupListMetaInfo,
@@ -265,7 +257,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Consumer Order Payment Group",
+      name: "消费者订单付款组",
       role: "consumerOrderPaymentGroup",
       data: state._consumerOrder.consumerOrderPaymentGroupList,
       metaInfo: state._consumerOrder.consumerOrderPaymentGroupListMetaInfo,
@@ -314,7 +306,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Consumer Order Price Adjustment",
+      name: "消费品价格调整",
       role: "consumerOrderPriceAdjustment",
       data: state._consumerOrder.consumerOrderPriceAdjustmentList,
       metaInfo: state._consumerOrder.consumerOrderPriceAdjustmentListMetaInfo,
@@ -363,7 +355,7 @@ class ConsumerOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Retail Store Member Gift Card Consume Record",
+      name: "零售商店会员卡消费记录",
       role: "retailStoreMemberGiftCardConsumeRecord",
       data: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordList,
       metaInfo: state._consumerOrder.retailStoreMemberGiftCardConsumeRecordListMetaInfo,

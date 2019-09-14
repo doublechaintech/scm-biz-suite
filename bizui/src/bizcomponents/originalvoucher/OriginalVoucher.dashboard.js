@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -40,7 +40,7 @@ const { Option } = Select
 
 
 const imageList =(originalVoucher)=>{return [
-	   {"title":'Voucher Image',"imageLocation":originalVoucher.voucherImage},
+	   {"title":'凭证图像',"imageLocation":originalVoucher.voucherImage},
 ]}
 
 const internalImageListOf = (originalVoucher) =>defaultImageListOf(originalVoucher,imageList)
@@ -66,11 +66,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/originalVoucher/${targetComponent.props.originalVoucher.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/originalVoucher/${targetComponent.props.originalVoucher.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -82,18 +107,18 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{originalVoucher.id}</Description> 
-<Description term="Title">{originalVoucher.title}</Description> 
-<Description term="Made By">{originalVoucher.madeBy}</Description> 
-<Description term="Received By">{originalVoucher.receivedBy}</Description> 
-<Description term="Voucher Type">{originalVoucher.voucherType}</Description> 
-<Description term="Belongs To">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
+<Description term="序号">{originalVoucher.id}</Description> 
+<Description term="头衔">{originalVoucher.title}</Description> 
+<Description term="由">{originalVoucher.madeBy}</Description> 
+<Description term="受">{originalVoucher.receivedBy}</Description> 
+<Description term="凭证类型">{originalVoucher.voucherType}</Description> 
+<Description term="属于">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Belongs To","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,
+  showTransferModel(targetComponent,"属于","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,
 	      OriginalVoucherService.transferToAnotherBelongsTo,"anotherBelongsToId",originalVoucher.belongsTo?originalVoucher.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Current Status">{originalVoucher.currentStatus}</Description> 
+<Description term="当前状态">{originalVoucher.currentStatus}</Description> 
 	
         {buildTransferModal(originalVoucher,targetComponent)}
       </DescriptionList>
@@ -131,7 +156,7 @@ class OriginalVoucherDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Original Voucher",cardsFor: "originalVoucher",
+    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",
     	cardsSource: this.props.originalVoucher,returnURL,displayName,
   		subItems: [
     
@@ -159,10 +184,10 @@ class OriginalVoucherDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

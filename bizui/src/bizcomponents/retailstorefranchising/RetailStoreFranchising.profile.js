@@ -55,8 +55,8 @@ class RetailStoreFranchisingProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreFranchising = this.props.retailStoreFranchising;
     const { id,displayName, retailStoreCount } = retailStoreFranchising
-
-    const cardsData = {cardsName:"Retail Store Franchising",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,
+    const  returnURL = `/retailStoreFranchising/${id}/dashboard`
+    const cardsData = {cardsName:"生超的特许经营",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class RetailStoreFranchisingProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

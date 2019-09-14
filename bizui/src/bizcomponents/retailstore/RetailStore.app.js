@@ -145,15 +145,7 @@ class RetailStoreBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/retailStore/${this.props.retailStore.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/retailStore/${this.props.retailStore.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class RetailStoreBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Consumer Order",
+      name: "消费者订单",
       role: "consumerOrder",
       data: state._retailStore.consumerOrderList,
       metaInfo: state._retailStore.consumerOrderListMetaInfo,
@@ -216,7 +208,7 @@ class RetailStoreBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Retail Store Order",
+      name: "生超的订单",
       role: "retailStoreOrder",
       data: state._retailStore.retailStoreOrderList,
       metaInfo: state._retailStore.retailStoreOrderListMetaInfo,
@@ -265,7 +257,7 @@ class RetailStoreBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Goods",
+      name: "货物",
       role: "goods",
       data: state._retailStore.goodsList,
       metaInfo: state._retailStore.goodsListMetaInfo,
@@ -314,7 +306,7 @@ class RetailStoreBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Transport Task",
+      name: "运输任务",
       role: "transportTask",
       data: state._retailStore.transportTaskList,
       metaInfo: state._retailStore.transportTaskListMetaInfo,
@@ -363,7 +355,7 @@ class RetailStoreBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Account Set",
+      name: "账套",
       role: "accountSet",
       data: state._retailStore.accountSetList,
       metaInfo: state._retailStore.accountSetListMetaInfo,

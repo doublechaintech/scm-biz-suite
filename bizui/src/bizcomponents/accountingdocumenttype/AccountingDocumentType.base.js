@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Accounting Document Type", menuFor: "accountingDocumentType",
+const menuData = {menuName:"会计凭证类型", menuFor: "accountingDocumentType",
   		subItems: [
-  {name: 'accountingDocumentList', displayName:'Accounting Document', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingDocumentList', displayName:'会计凭证', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  description: 'Description',
-  accountingPeriod: 'Accounting Period',
+  id: '序号',
+  name: '名称',
+  description: '描述',
+  accountingPeriod: '会计期间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'accountingDocumentType') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'accountingDocumentType') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.description, debugtype: 'string', dataIndex: 'description', width: '74',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.accountingPeriod, dataIndex: 'accountingPeriod', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -55,24 +55,21 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(accountingDocumentType,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={accountingDocumentType.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={accountingDocumentType.id}>
-	
-	<DescriptionList  key={accountingDocumentType.id} size="small" col="4">
-<Description term="Id">{accountingDocumentType.id}</Description> 
-<Description term="Name">{accountingDocumentType.name}</Description> 
-<Description term="Description">{accountingDocumentType.description}</Description> 
-<Description term="Accounting Period">{accountingDocumentType.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentType.accountingPeriod.displayName}(${accountingDocumentType.accountingPeriod.id})`}
-</Description>
+      <DescriptionList  key={accountingDocumentType.id} size="small" col="4">
+        <Description term="序号">{accountingDocumentType.id}</Description> 
+        <Description term="名称">{accountingDocumentType.name}</Description> 
+        <Description term="描述">{accountingDocumentType.description}</Description> 
+        <Description term="会计期间"><div>{accountingDocumentType.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentType.accountingPeriod.displayName}(${accountingDocumentType.accountingPeriod.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

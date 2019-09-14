@@ -55,8 +55,8 @@ class JobApplicationProfile extends Component {
     // eslint-disable-next-line max-len
     const  jobApplication = this.props.jobApplication;
     const { id,displayName, employeeCount } = jobApplication
-
-    const cardsData = {cardsName:"Job Application",cardsFor: "jobApplication",cardsSource: jobApplication,
+    const  returnURL = `/jobApplication/${id}/dashboard`
+    const cardsData = {cardsName:"工作申请",cardsFor: "jobApplication",cardsSource: jobApplication,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class JobApplicationProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

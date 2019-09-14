@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (retailStoreMemberGiftCard,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreMemberGiftCard.id}</Description> 
-<Description term="Name">{retailStoreMemberGiftCard.name}</Description> 
-<Description term="Number">{retailStoreMemberGiftCard.number}</Description> 
-<Description term="Remain">{retailStoreMemberGiftCard.remain}</Description> 
+<Description term="序号">{retailStoreMemberGiftCard.id}</Description> 
+<Description term="名称">{retailStoreMemberGiftCard.name}</Description> 
+<Description term="数">{retailStoreMemberGiftCard.number}</Description> 
+<Description term="保持">{retailStoreMemberGiftCard.remain}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class RetailStoreMemberGiftCardPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  retailStoreMemberGiftCard = this.props.retailStoreMemberGiftCard;
+    const  retailStoreMemberGiftCard = this.props.retailStoreMemberGiftCard
     const { id,displayName, retailStoreMemberGiftCardConsumeRecordCount } = retailStoreMemberGiftCard
-    const cardsData = {cardsName:"Retail Store Member Gift Card",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,
+    const  returnURL = `/retailStoreMemberGiftCard/${id}/dashboard`
+    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class RetailStoreMemberGiftCardPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

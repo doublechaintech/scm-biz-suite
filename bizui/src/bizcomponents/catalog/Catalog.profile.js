@@ -55,8 +55,8 @@ class CatalogProfile extends Component {
     // eslint-disable-next-line max-len
     const  catalog = this.props.catalog;
     const { id,displayName, levelOneCategoryCount } = catalog
-
-    const cardsData = {cardsName:"Catalog",cardsFor: "catalog",cardsSource: catalog,
+    const  returnURL = `/catalog/${id}/dashboard`
+    const cardsData = {cardsName:"目录",cardsFor: "catalog",cardsSource: catalog,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class CatalogProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

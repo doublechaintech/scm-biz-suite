@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStore/${id}/list/ConsumerOrderList/Consumer Order+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStore/${id}/list/ConsumerOrderList/消费者订单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrder({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStore/${id}/list/ConsumerOrderList/Consumer Order列表`, state: newPlayload }
+      const location = { pathname: `/retailStore/${id}/list/ConsumerOrderList/消费者订单列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextConsumerOrderUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStore/${id}/list/RetailStoreOrderList/Retail Store Order+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStore/${id}/list/RetailStoreOrderList/生超的订单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreOrder({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStore/${id}/list/RetailStoreOrderList/Retail Store Order列表`, state: newPlayload }
+      const location = { pathname: `/retailStore/${id}/list/RetailStoreOrderList/生超的订单列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreOrderUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStore/${id}/list/GoodsList/Goods+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStore/${id}/list/GoodsList/货物+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoods({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStore/${id}/list/GoodsList/Goods列表`, state: newPlayload }
+      const location = { pathname: `/retailStore/${id}/list/GoodsList/货物列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStore/${id}/list/TransportTaskList/Transport Task+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStore/${id}/list/TransportTaskList/运输任务+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTransportTask({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStore/${id}/list/TransportTaskList/Transport Task列表`, state: newPlayload }
+      const location = { pathname: `/retailStore/${id}/list/TransportTaskList/运输任务列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTransportTaskUpdateRow({ payload }, { call, put }) {
@@ -413,7 +413,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStore/${id}/list/AccountSetList/Account Set+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStore/${id}/list/AccountSetList/账套+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountSet({ payload }, { call, put }) {
@@ -435,7 +435,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStore/${id}/list/AccountSetList/Account Set列表`, state: newPlayload }
+      const location = { pathname: `/retailStore/${id}/list/AccountSetList/账套列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountSetUpdateRow({ payload }, { call, put }) {

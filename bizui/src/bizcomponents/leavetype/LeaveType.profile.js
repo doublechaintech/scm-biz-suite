@@ -55,8 +55,8 @@ class LeaveTypeProfile extends Component {
     // eslint-disable-next-line max-len
     const  leaveType = this.props.leaveType;
     const { id,displayName, employeeLeaveCount } = leaveType
-
-    const cardsData = {cardsName:"Leave Type",cardsFor: "leaveType",cardsSource: leaveType,
+    const  returnURL = `/leaveType/${id}/dashboard`
+    const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",cardsSource: leaveType,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class LeaveTypeProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

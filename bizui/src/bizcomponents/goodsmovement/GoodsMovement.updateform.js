@@ -262,7 +262,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.moveTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="Move Time" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.facility,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Facility" />
+                    <Input size="large" placeholder="设施" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.facilityId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Facility Id" />
+                    <Input size="large" placeholder="设备ID" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.fromIp,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="From Ip" />
+                    <Input size="large" placeholder="从IP" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.sessionId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Session Id" />
+                    <Input size="large" placeholder="会话ID" />
                     
                   )}
                 </Form.Item>
@@ -334,7 +334,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Latitude" />
+                    <Input size="large" placeholder="纬度" />
                     
                   )}
                 </Form.Item>
@@ -346,7 +346,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Longitude" />
+                    <Input size="large" placeholder="经度" />
                     
                   )}
                 </Form.Item>
@@ -360,7 +360,7 @@ class GoodsMovementUpdateForm extends Component {
         
         
 
-        <Card title="User Agent" className={styles.card} bordered={false}>
+        <Card title="用户代理" className={styles.card} bordered={false}>
           <Form >
             <Row gutter={16}>
               <Col lg={24} md={24} sm={24}>

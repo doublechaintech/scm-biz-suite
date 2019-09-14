@@ -55,8 +55,8 @@ class ResponsibilityTypeProfile extends Component {
     // eslint-disable-next-line max-len
     const  responsibilityType = this.props.responsibilityType;
     const { id,displayName, employeeCount } = responsibilityType
-
-    const cardsData = {cardsName:"Responsibility Type",cardsFor: "responsibilityType",cardsSource: responsibilityType,
+    const  returnURL = `/responsibilityType/${id}/dashboard`
+    const cardsData = {cardsName:"责任类型",cardsFor: "responsibilityType",cardsSource: responsibilityType,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ResponsibilityTypeProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

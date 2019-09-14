@@ -145,15 +145,7 @@ class UserDomainBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/userDomain/${this.props.userDomain.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/userDomain/${this.props.userDomain.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class UserDomainBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "User White List",
+      name: "用户白名单",
       role: "userWhiteList",
       data: state._userDomain.userWhiteListList,
       metaInfo: state._userDomain.userWhiteListListMetaInfo,
@@ -216,7 +208,7 @@ class UserDomainBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Sec User",
+      name: "安全用户",
       role: "secUser",
       data: state._userDomain.secUserList,
       metaInfo: state._userDomain.secUserListMetaInfo,

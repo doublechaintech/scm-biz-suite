@@ -194,8 +194,8 @@ class SecUserBlockingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Sec User Blocking`}
-        content={`${appLocaleName(userContext,"CreateNew")}Sec User Blocking`}
+        title={`${appLocaleName(userContext,"CreateNew")}用户屏蔽`}
+        content={`${appLocaleName(userContext,"CreateNew")}用户屏蔽`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class SecUserBlockingCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +217,7 @@ class SecUserBlockingCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comments" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

@@ -145,15 +145,7 @@ class PotentialCustomerContactPersonBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/potentialCustomerContactPerson/${this.props.potentialCustomerContactPerson.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/potentialCustomerContactPerson/${this.props.potentialCustomerContactPerson.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class PotentialCustomerContactPersonBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Potential Customer Contact",
+      name: "潜在客户联系",
       role: "potentialCustomerContact",
       data: state._potentialCustomerContactPerson.potentialCustomerContactList,
       metaInfo: state._potentialCustomerContactPerson.potentialCustomerContactListMetaInfo,

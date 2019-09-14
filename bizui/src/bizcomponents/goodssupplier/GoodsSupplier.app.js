@@ -145,15 +145,7 @@ class GoodsSupplierBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/goodsSupplier/${this.props.goodsSupplier.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/goodsSupplier/${this.props.goodsSupplier.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class GoodsSupplierBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Supplier Product",
+      name: "供应商的产品",
       role: "supplierProduct",
       data: state._goodsSupplier.supplierProductList,
       metaInfo: state._goodsSupplier.supplierProductListMetaInfo,
@@ -216,7 +208,7 @@ class GoodsSupplierBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Supply Order",
+      name: "供应订单",
       role: "supplyOrder",
       data: state._goodsSupplier.supplyOrderList,
       metaInfo: state._goodsSupplier.supplyOrderListMetaInfo,
@@ -265,7 +257,7 @@ class GoodsSupplierBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Account Set",
+      name: "账套",
       role: "accountSet",
       data: state._goodsSupplier.accountSetList,
       metaInfo: state._goodsSupplier.accountSetListMetaInfo,

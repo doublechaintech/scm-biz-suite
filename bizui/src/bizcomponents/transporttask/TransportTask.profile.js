@@ -55,8 +55,8 @@ class TransportTaskProfile extends Component {
     // eslint-disable-next-line max-len
     const  transportTask = this.props.transportTask;
     const { id,displayName, goodsCount, transportTaskTrackCount } = transportTask
-
-    const cardsData = {cardsName:"Transport Task",cardsFor: "transportTask",cardsSource: transportTask,
+    const  returnURL = `/transportTask/${id}/dashboard`
+    const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",cardsSource: transportTask,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class TransportTaskProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,17 +23,21 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (originalVoucher,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{originalVoucher.id}</Description> 
-<Description term="Title">{originalVoucher.title}</Description> 
-<Description term="Made By">{originalVoucher.madeBy}</Description> 
-<Description term="Received By">{originalVoucher.receivedBy}</Description> 
-<Description term="Voucher Type">{originalVoucher.voucherType}</Description> 
-<Description term="Current Status">{originalVoucher.currentStatus}</Description> 
+<Description term="序号">{originalVoucher.id}</Description> 
+<Description term="头衔">{originalVoucher.title}</Description> 
+<Description term="由">{originalVoucher.madeBy}</Description> 
+<Description term="受">{originalVoucher.receivedBy}</Description> 
+<Description term="凭证类型">{originalVoucher.voucherType}</Description> 
+<Description term="当前状态">{originalVoucher.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,9 +61,10 @@ class OriginalVoucherPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  originalVoucher = this.props.originalVoucher;
+    const  originalVoucher = this.props.originalVoucher
     const { id,displayName,  } = originalVoucher
-    const cardsData = {cardsName:"Original Voucher",cardsFor: "originalVoucher",cardsSource: originalVoucher,
+    const  returnURL = `/originalVoucher/${id}/dashboard`
+    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",cardsSource: originalVoucher,displayName,returnURL,
   		subItems: [
     
       	],
@@ -70,7 +75,7 @@ class OriginalVoucherPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

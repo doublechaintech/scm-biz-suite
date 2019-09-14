@@ -30,42 +30,39 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Decoration", menuFor: "retailStoreDecoration",
+const menuData = {menuName:"生超装修", menuFor: "retailStoreDecoration",
   		subItems: [
-  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  comment: 'Comment',
+  id: '序号',
+  comment: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'retailStoreDecoration') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreDecoration') , sorter: true },
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '6',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreDecoration,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreDecoration.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreDecoration.id}>
-	
-	<DescriptionList  key={retailStoreDecoration.id} size="small" col="4">
-<Description term="Id">{retailStoreDecoration.id}</Description> 
-<Description term="Comment">{retailStoreDecoration.comment}</Description> 
+      <DescriptionList  key={retailStoreDecoration.id} size="small" col="4">
+        <Description term="序号">{retailStoreDecoration.id}</Description> 
+        <Description term="评论">{retailStoreDecoration.comment}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

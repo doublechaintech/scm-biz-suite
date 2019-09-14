@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (consumerOrderPriceAdjustment,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="Name">{consumerOrderPriceAdjustment.name}</Description> 
-<Description term="Amount">{consumerOrderPriceAdjustment.amount}</Description> 
-<Description term="Provider">{consumerOrderPriceAdjustment.provider}</Description> 
+<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
+<Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
+<Description term="金额">{consumerOrderPriceAdjustment.amount}</Description> 
+<Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class ConsumerOrderPriceAdjustmentPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  consumerOrderPriceAdjustment = this.props.consumerOrderPriceAdjustment;
+    const  consumerOrderPriceAdjustment = this.props.consumerOrderPriceAdjustment
     const { id,displayName,  } = consumerOrderPriceAdjustment
-    const cardsData = {cardsName:"Consumer Order Price Adjustment",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,
+    const  returnURL = `/consumerOrderPriceAdjustment/${id}/dashboard`
+    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class ConsumerOrderPriceAdjustmentPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

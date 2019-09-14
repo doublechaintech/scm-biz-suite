@@ -55,8 +55,8 @@ class PotentialCustomerProfile extends Component {
     // eslint-disable-next-line max-len
     const  potentialCustomer = this.props.potentialCustomer;
     const { id,displayName, potentialCustomerContactPersonCount, potentialCustomerContactCount, eventAttendanceCount } = potentialCustomer
-
-    const cardsData = {cardsName:"Potential Customer",cardsFor: "potentialCustomer",cardsSource: potentialCustomer,
+    const  returnURL = `/potentialCustomer/${id}/dashboard`
+    const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",cardsSource: potentialCustomer,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class PotentialCustomerProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

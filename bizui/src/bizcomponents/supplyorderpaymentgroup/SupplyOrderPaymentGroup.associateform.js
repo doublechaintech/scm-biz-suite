@@ -139,7 +139,7 @@ class SupplyOrderPaymentGroupAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class SupplyOrderPaymentGroupAssociateForm extends Component {
                   {getFieldDecorator('cardNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Card Number" />
+                    <Input size="large" placeholder="卡号码" />
                   )}
                 </Form.Item>
               </Col>

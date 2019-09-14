@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '确认提交',
-  makeDate: '2018-05-29',
+  makeDate: '2019-01-26',
 }
 */
 
@@ -195,8 +195,8 @@ class OriginalVoucherCreationCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Original Voucher Creation`}
-        content={`${appLocaleName(userContext,"CreateNew")}Original Voucher Creation`}
+        title={`${appLocaleName(userContext,"CreateNew")}原始凭证制作`}
+        content={`${appLocaleName(userContext,"CreateNew")}原始凭证制作`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class OriginalVoucherCreationCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class OriginalVoucherCreationCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comments" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class OriginalVoucherCreationCreateForm extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Make Date" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
                   )}
                 </Form.Item>
               </Col>

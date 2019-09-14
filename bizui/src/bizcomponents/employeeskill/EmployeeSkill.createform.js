@@ -195,8 +195,8 @@ class EmployeeSkillCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Employee Skill`}
-        content={`${appLocaleName(userContext,"CreateNew")}Employee Skill`}
+        title={`${appLocaleName(userContext,"CreateNew")}员工技能`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工技能`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class EmployeeSkillCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

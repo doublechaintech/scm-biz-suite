@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Consumer Order Price Adjustment", menuFor: "consumerOrderPriceAdjustment",
+const menuData = {menuName:"消费品价格调整", menuFor: "consumerOrderPriceAdjustment",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  bizOrder: 'Biz Order',
-  amount: 'Amount',
-  provider: 'Provider',
+  id: '序号',
+  name: '名称',
+  bizOrder: '订单',
+  amount: '金额',
+  provider: '供应商',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'consumerOrderPriceAdjustment') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.amount, dataIndex: 'amount', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
@@ -56,25 +56,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(consumerOrderPriceAdjustment,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={consumerOrderPriceAdjustment.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={consumerOrderPriceAdjustment.id}>
-	
-	<DescriptionList  key={consumerOrderPriceAdjustment.id} size="small" col="4">
-<Description term="Id">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="Name">{consumerOrderPriceAdjustment.name}</Description> 
-<Description term="Biz Order">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
-</Description>
-<Description term="Amount">{consumerOrderPriceAdjustment.amount}</Description> 
-<Description term="Provider">{consumerOrderPriceAdjustment.provider}</Description> 
+      <DescriptionList  key={consumerOrderPriceAdjustment.id} size="small" col="4">
+        <Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
+        <Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
+        <Description term="订单"><div>{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
+        </div></Description>
+        <Description term="金额"><div style={{"color":"red"}}>{consumerOrderPriceAdjustment.amount}</div></Description> 
+        <Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

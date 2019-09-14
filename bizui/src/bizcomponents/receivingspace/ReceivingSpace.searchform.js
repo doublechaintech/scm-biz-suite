@@ -194,7 +194,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="Id">
+         <FormItem label="序号">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -202,7 +202,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="Location">
+         <FormItem label="位置">
            {getFieldDecorator('location')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -249,7 +249,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="Id">
+            <FormItem label="序号">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -257,7 +257,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Location">
+            <FormItem label="位置">
               {getFieldDecorator('location')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -265,7 +265,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Contact Number">
+            <FormItem label="联系电话">
               {getFieldDecorator('contactNumber')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -273,7 +273,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Description">
+            <FormItem label="描述">
               {getFieldDecorator('description')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -281,14 +281,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Total Area">
+            <FormItem label="总面积">
               {getFieldDecorator('totalArea')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Warehouse">
+                    <Form.Item label="仓库">
                   {getFieldDecorator('warehouse', {
                     initialValue: tryinit('warehouse'),
                    

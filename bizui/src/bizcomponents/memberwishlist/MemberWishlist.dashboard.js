@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/memberWishlist/${targetComponent.props.memberWishlist.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/memberWishlist/${targetComponent.props.memberWishlist.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,11 +106,11 @@ const internalSummaryOf = (memberWishlist,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{memberWishlist.id}</Description> 
-<Description term="Name">{memberWishlist.name}</Description> 
-<Description term="Owner">{memberWishlist.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlist.owner.displayName}(${memberWishlist.owner.id})`}
+<Description term="序号">{memberWishlist.id}</Description> 
+<Description term="名称">{memberWishlist.name}</Description> 
+<Description term="业主">{memberWishlist.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlist.owner.displayName}(${memberWishlist.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Owner","retailStoreMember",MemberWishlistService.requestCandidateOwner,
+  showTransferModel(targetComponent,"业主","retailStoreMember",MemberWishlistService.requestCandidateOwner,
 	      MemberWishlistService.transferToAnotherOwner,"anotherOwnerId",memberWishlist.owner?memberWishlist.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -126,10 +151,10 @@ class MemberWishlistDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Member Wishlist",cardsFor: "memberWishlist",
+    const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",
     	cardsSource: this.props.memberWishlist,returnURL,displayName,
   		subItems: [
-{name: 'memberWishlistProductList', displayName:'Member Wishlist Product',type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
+{name: 'memberWishlistProductList', displayName:'会员收藏产品',type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
     
       	],
   	};
@@ -155,10 +180,10 @@ class MemberWishlistDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

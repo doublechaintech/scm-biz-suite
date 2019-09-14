@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/employeeWorkExperience/${targetComponent.props.employeeWorkExperience.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/employeeWorkExperience/${targetComponent.props.employeeWorkExperience.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,17 +106,17 @@ const internalSummaryOf = (employeeWorkExperience,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeWorkExperience.id}</Description> 
-<Description term="Employee">{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
+<Description term="序号">{employeeWorkExperience.id}</Description> 
+<Description term="员工">{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Employee","employee",EmployeeWorkExperienceService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"员工","employee",EmployeeWorkExperienceService.requestCandidateEmployee,
 	      EmployeeWorkExperienceService.transferToAnotherEmployee,"anotherEmployeeId",employeeWorkExperience.employee?employeeWorkExperience.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Start">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
-<Description term="End">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
-<Description term="Company">{employeeWorkExperience.company}</Description> 
-<Description term="Description">{employeeWorkExperience.description}</Description> 
+<Description term="开始">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
+<Description term="结束">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
+<Description term="公司">{employeeWorkExperience.company}</Description> 
+<Description term="描述">{employeeWorkExperience.description}</Description> 
 	
         {buildTransferModal(employeeWorkExperience,targetComponent)}
       </DescriptionList>
@@ -129,7 +154,7 @@ class EmployeeWorkExperienceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Employee Work Experience",cardsFor: "employeeWorkExperience",
+    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",
     	cardsSource: this.props.employeeWorkExperience,returnURL,displayName,
   		subItems: [
     
@@ -157,10 +182,10 @@ class EmployeeWorkExperienceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

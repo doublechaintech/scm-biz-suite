@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/transportTask/${targetComponent.props.transportTask.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/transportTask/${targetComponent.props.transportTask.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,36 +106,36 @@ const internalSummaryOf = (transportTask,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{transportTask.id}</Description> 
-<Description term="Name">{transportTask.name}</Description> 
-<Description term="Start">{transportTask.start}</Description> 
-<Description term="Begin Time">{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="End">{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.end.displayName}(${transportTask.end.id})`}
+<Description term="序号">{transportTask.id}</Description> 
+<Description term="名称">{transportTask.name}</Description> 
+<Description term="开始">{transportTask.start}</Description> 
+<Description term="开始时间">{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</Description> 
+<Description term="结束">{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.end.displayName}(${transportTask.end.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"End","retailStore",TransportTaskService.requestCandidateEnd,
+  showTransferModel(targetComponent,"结束","retailStore",TransportTaskService.requestCandidateEnd,
 	      TransportTaskService.transferToAnotherEnd,"anotherEndId",transportTask.end?transportTask.end.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Driver">{transportTask.driver==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.driver.displayName}(${transportTask.driver.id})`}
+<Description term="司机">{transportTask.driver==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.driver.displayName}(${transportTask.driver.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Driver","truckDriver",TransportTaskService.requestCandidateDriver,
+  showTransferModel(targetComponent,"司机","truckDriver",TransportTaskService.requestCandidateDriver,
 	      TransportTaskService.transferToAnotherDriver,"anotherDriverId",transportTask.driver?transportTask.driver.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Truck">{transportTask.truck==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.truck.displayName}(${transportTask.truck.id})`}
+<Description term="卡车">{transportTask.truck==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.truck.displayName}(${transportTask.truck.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Truck","transportTruck",TransportTaskService.requestCandidateTruck,
+  showTransferModel(targetComponent,"卡车","transportTruck",TransportTaskService.requestCandidateTruck,
 	      TransportTaskService.transferToAnotherTruck,"anotherTruckId",transportTask.truck?transportTask.truck.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Belongs To">{transportTask.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.belongsTo.displayName}(${transportTask.belongsTo.id})`}
+<Description term="属于">{transportTask.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.belongsTo.displayName}(${transportTask.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Belongs To","transportFleet",TransportTaskService.requestCandidateBelongsTo,
+  showTransferModel(targetComponent,"属于","transportFleet",TransportTaskService.requestCandidateBelongsTo,
 	      TransportTaskService.transferToAnotherBelongsTo,"anotherBelongsToId",transportTask.belongsTo?transportTask.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Latitude">{transportTask.latitude}</Description> 
-<Description term="Longitude">{transportTask.longitude}</Description> 
+<Description term="纬度">{transportTask.latitude}</Description> 
+<Description term="经度">{transportTask.longitude}</Description> 
 	
         {buildTransferModal(transportTask,targetComponent)}
       </DescriptionList>
@@ -148,11 +173,11 @@ class TransportTaskDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Transport Task",cardsFor: "transportTask",
+    const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",
     	cardsSource: this.props.transportTask,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
-{name: 'transportTaskTrackList', displayName:'Transport Task Track',type:'transportTaskTrack',count:transportTaskTrackCount,addFunction: true, role: 'transportTaskTrack', metaInfo: transportTaskTrackListMetaInfo, renderItem: GlobalComponents.TransportTaskTrackBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'transportTaskTrackList', displayName:'运输任务跟踪',type:'transportTaskTrack',count:transportTaskTrackCount,addFunction: true, role: 'transportTaskTrack', metaInfo: transportTaskTrackListMetaInfo, renderItem: GlobalComponents.TransportTaskTrackBase.renderItemOfList},
     
       	],
   	};
@@ -178,10 +203,10 @@ class TransportTaskDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

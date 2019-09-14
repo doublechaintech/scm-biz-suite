@@ -195,8 +195,8 @@ class SkillTypeCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Skill Type`}
-        content={`${appLocaleName(userContext,"CreateNew")}Skill Type`}
+        title={`${appLocaleName(userContext,"CreateNew")}技能类型`}
+        content={`${appLocaleName(userContext,"CreateNew")}技能类型`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class SkillTypeCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Code" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class SkillTypeCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

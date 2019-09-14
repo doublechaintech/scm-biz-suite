@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/accountingDocumentLine/${targetComponent.props.accountingDocumentLine.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/accountingDocumentLine/${targetComponent.props.accountingDocumentLine.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,20 +106,20 @@ const internalSummaryOf = (accountingDocumentLine,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{accountingDocumentLine.id}</Description> 
-<Description term="Name">{accountingDocumentLine.name}</Description> 
-<Description term="Code">{accountingDocumentLine.code}</Description> 
-<Description term="Direct">{accountingDocumentLine.direct}</Description> 
-<Description term="Amount">{accountingDocumentLine.amount}</Description> 
-<Description term="Belongs To">{accountingDocumentLine.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.belongsTo.displayName}(${accountingDocumentLine.belongsTo.id})`}
+<Description term="序号">{accountingDocumentLine.id}</Description> 
+<Description term="名称">{accountingDocumentLine.name}</Description> 
+<Description term="代码">{accountingDocumentLine.code}</Description> 
+<Description term="直接">{accountingDocumentLine.direct}</Description> 
+<Description term="金额">{accountingDocumentLine.amount}</Description> 
+<Description term="属于">{accountingDocumentLine.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.belongsTo.displayName}(${accountingDocumentLine.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Belongs To","accountingDocument",AccountingDocumentLineService.requestCandidateBelongsTo,
+  showTransferModel(targetComponent,"属于","accountingDocument",AccountingDocumentLineService.requestCandidateBelongsTo,
 	      AccountingDocumentLineService.transferToAnotherBelongsTo,"anotherBelongsToId",accountingDocumentLine.belongsTo?accountingDocumentLine.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Accounting Subject">{accountingDocumentLine.accountingSubject==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.accountingSubject.displayName}(${accountingDocumentLine.accountingSubject.id})`}
+<Description term="会计科目">{accountingDocumentLine.accountingSubject==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.accountingSubject.displayName}(${accountingDocumentLine.accountingSubject.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Accounting Subject","accountingSubject",AccountingDocumentLineService.requestCandidateAccountingSubject,
+  showTransferModel(targetComponent,"会计科目","accountingSubject",AccountingDocumentLineService.requestCandidateAccountingSubject,
 	      AccountingDocumentLineService.transferToAnotherAccountingSubject,"anotherAccountingSubjectId",accountingDocumentLine.accountingSubject?accountingDocumentLine.accountingSubject.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -135,7 +160,7 @@ class AccountingDocumentLineDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Accounting Document Line",cardsFor: "accountingDocumentLine",
+    const cardsData = {cardsName:"会计凭证行",cardsFor: "accountingDocumentLine",
     	cardsSource: this.props.accountingDocumentLine,returnURL,displayName,
   		subItems: [
     
@@ -163,10 +188,10 @@ class AccountingDocumentLineDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

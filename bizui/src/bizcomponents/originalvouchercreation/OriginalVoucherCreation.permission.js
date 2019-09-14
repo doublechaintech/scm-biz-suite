@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (originalVoucherCreation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{originalVoucherCreation.id}</Description> 
-<Description term="Who">{originalVoucherCreation.who}</Description> 
-<Description term="Comments">{originalVoucherCreation.comments}</Description> 
-<Description term="Make Date">{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{originalVoucherCreation.id}</Description> 
+<Description term="谁">{originalVoucherCreation.who}</Description> 
+<Description term="评论">{originalVoucherCreation.comments}</Description> 
+<Description term="制造日期">{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class OriginalVoucherCreationPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  originalVoucherCreation = this.props.originalVoucherCreation;
+    const  originalVoucherCreation = this.props.originalVoucherCreation
     const { id,displayName, originalVoucherCount } = originalVoucherCreation
-    const cardsData = {cardsName:"Original Voucher Creation",cardsFor: "originalVoucherCreation",cardsSource: originalVoucherCreation,
+    const  returnURL = `/originalVoucherCreation/${id}/dashboard`
+    const cardsData = {cardsName:"原始凭证制作",cardsFor: "originalVoucherCreation",cardsSource: originalVoucherCreation,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class OriginalVoucherCreationPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

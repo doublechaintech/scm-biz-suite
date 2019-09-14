@@ -141,7 +141,7 @@ class OccupationTypeAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Code" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class OccupationTypeAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class OccupationTypeAssociateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Detail Description" />
+                    <Input size="large" placeholder="详细描述" />
                   )}
                 </Form.Item>
               </Col>

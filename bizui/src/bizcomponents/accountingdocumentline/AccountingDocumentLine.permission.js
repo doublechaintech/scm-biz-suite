@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,16 +23,20 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (accountingDocumentLine,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{accountingDocumentLine.id}</Description> 
-<Description term="Name">{accountingDocumentLine.name}</Description> 
-<Description term="Code">{accountingDocumentLine.code}</Description> 
-<Description term="Direct">{accountingDocumentLine.direct}</Description> 
-<Description term="Amount">{accountingDocumentLine.amount}</Description> 
+<Description term="序号">{accountingDocumentLine.id}</Description> 
+<Description term="名称">{accountingDocumentLine.name}</Description> 
+<Description term="代码">{accountingDocumentLine.code}</Description> 
+<Description term="直接">{accountingDocumentLine.direct}</Description> 
+<Description term="金额">{accountingDocumentLine.amount}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,9 +60,10 @@ class AccountingDocumentLinePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  accountingDocumentLine = this.props.accountingDocumentLine;
+    const  accountingDocumentLine = this.props.accountingDocumentLine
     const { id,displayName,  } = accountingDocumentLine
-    const cardsData = {cardsName:"Accounting Document Line",cardsFor: "accountingDocumentLine",cardsSource: accountingDocumentLine,
+    const  returnURL = `/accountingDocumentLine/${id}/dashboard`
+    const cardsData = {cardsName:"会计凭证行",cardsFor: "accountingDocumentLine",cardsSource: accountingDocumentLine,displayName,returnURL,
   		subItems: [
     
       	],
@@ -69,7 +74,7 @@ class AccountingDocumentLinePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

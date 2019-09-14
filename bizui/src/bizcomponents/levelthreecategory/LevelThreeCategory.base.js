@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Level Three Category", menuFor: "levelThreeCategory",
+const menuData = {menuName:"三级分类", menuFor: "levelThreeCategory",
   		subItems: [
-  {name: 'productList', displayName:'Product', icon:'product-hunt',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'productList', displayName:'产品', icon:'product-hunt',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  parentCategory: 'Parent Category',
-  name: 'Name',
+  id: '序号',
+  parentCategory: '父类',
+  name: '名称',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'levelThreeCategory') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'levelThreeCategory') , sorter: true },
   { title: fieldLabels.parentCategory, dataIndex: 'parentCategory', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
 
@@ -53,23 +53,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(levelThreeCategory,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={levelThreeCategory.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={levelThreeCategory.id}>
-	
-	<DescriptionList  key={levelThreeCategory.id} size="small" col="4">
-<Description term="Id">{levelThreeCategory.id}</Description> 
-<Description term="Parent Category">{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
-</Description>
-<Description term="Name">{levelThreeCategory.name}</Description> 
+      <DescriptionList  key={levelThreeCategory.id} size="small" col="4">
+        <Description term="序号">{levelThreeCategory.id}</Description> 
+        <Description term="父类"><div>{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
+        </div></Description>
+        <Description term="名称">{levelThreeCategory.name}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

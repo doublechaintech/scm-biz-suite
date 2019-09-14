@@ -30,35 +30,35 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Supply Order", menuFor: "supplyOrder",
+const menuData = {menuName:"供应订单", menuFor: "supplyOrder",
   		subItems: [
-  {name: 'supplyOrderLineItemList', displayName:'Supply Order Line Item', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderShippingGroupList', displayName:'Supply Order Shipping Group', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderPaymentGroupList', displayName:'Supply Order Payment Group', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'goodsList', displayName:'Goods', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderLineItemList', displayName:'供应订单行项目', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderShippingGroupList', displayName:'供应订单送货分组', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderPaymentGroupList', displayName:'供应订单付款组', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  buyer: 'Buyer',
-  seller: 'Seller',
-  title: 'Title',
-  totalAmount: 'Total Amount',
-  confirmation: 'Confirmation',
-  approval: 'Approval',
-  processing: 'Processing',
-  picking: 'Picking',
-  shipment: 'Shipment',
-  delivery: 'Delivery',
-  lastUpdateTime: 'Last Update Time',
-  currentStatus: 'Current Status',
+  id: '序号',
+  buyer: '买方',
+  seller: '卖方',
+  title: '头衔',
+  totalAmount: '总金额',
+  confirmation: '确认',
+  approval: '验收',
+  processing: '处理',
+  picking: '捡货',
+  shipment: '装运',
+  delivery: '送货',
+  lastUpdateTime: '最后更新时间',
+  currentStatus: '当前状态',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'supplyOrder') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'supplyOrder') , sorter: true },
   { title: fieldLabels.buyer, dataIndex: 'buyer', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.seller, dataIndex: 'seller', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.title, debugtype: 'string', dataIndex: 'title', width: '14',render: (text, record)=>renderTextCell(text,record)},
@@ -76,26 +76,23 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(supplyOrder,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={supplyOrder.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={supplyOrder.id}>
-	
-	<DescriptionList  key={supplyOrder.id} size="small" col="4">
-<Description term="Id">{supplyOrder.id}</Description> 
-<Description term="Seller">{supplyOrder.seller==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrder.seller.displayName}(${supplyOrder.seller.id})`}
-</Description>
-<Description term="Title">{supplyOrder.title}</Description> 
-<Description term="Total Amount">{supplyOrder.totalAmount}</Description> 
-<Description term="Last Update Time">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Current Status">{supplyOrder.currentStatus}</Description> 
+      <DescriptionList  key={supplyOrder.id} size="small" col="4">
+        <Description term="序号">{supplyOrder.id}</Description> 
+        <Description term="卖方"><div>{supplyOrder.seller==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrder.seller.displayName}(${supplyOrder.seller.id})`}
+        </div></Description>
+        <Description term="头衔">{supplyOrder.title}</Description> 
+        <Description term="总金额"><div style={{"color":"red"}}>{supplyOrder.totalAmount}</div></Description> 
+        <Description term="最后更新时间"><div>{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
+        <Description term="当前状态">{supplyOrder.currentStatus}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -195,8 +195,8 @@ class ListAccessCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}List Access`}
-        content={`${appLocaleName(userContext,"CreateNew")}List Access`}
+        title={`${appLocaleName(userContext,"CreateNew")}访问列表`}
+        content={`${appLocaleName(userContext,"CreateNew")}访问列表`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class ListAccessCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class ListAccessCreateForm extends Component {
                   {getFieldDecorator('internalName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Internal Name" />
+                    <Input size="large" placeholder="内部名称" />
                   )}
                 </Form.Item>
               </Col>

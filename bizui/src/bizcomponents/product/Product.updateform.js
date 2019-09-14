@@ -263,7 +263,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="ID" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.origin,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Origin" />
+                    <Input size="large" placeholder="产地" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.remark,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Remark" />
+                    <Input size="large" placeholder="备注" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class ProductUpdateForm extends Component {
                     initialValue: selectedRow.brand,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Brand" />
+                    <Input size="large" placeholder="品牌" />
                     
                   )}
                 </Form.Item>
@@ -332,7 +332,7 @@ class ProductUpdateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="Picture"
+                  buttonTitle="图片"
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'picture')}
                   fileList={convertedImagesValues.picture}

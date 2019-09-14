@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreOrder/${targetComponent.props.retailStoreOrder.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/retailStoreOrder/${targetComponent.props.retailStoreOrder.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,17 +106,17 @@ const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreOrder.id}</Description> 
-<Description term="Buyer">{retailStoreOrder.buyer==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrder.buyer.displayName}(${retailStoreOrder.buyer.id})`}
+<Description term="序号">{retailStoreOrder.id}</Description> 
+<Description term="买方">{retailStoreOrder.buyer==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrder.buyer.displayName}(${retailStoreOrder.buyer.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Buyer","retailStore",RetailStoreOrderService.requestCandidateBuyer,
+  showTransferModel(targetComponent,"买方","retailStore",RetailStoreOrderService.requestCandidateBuyer,
 	      RetailStoreOrderService.transferToAnotherBuyer,"anotherBuyerId",retailStoreOrder.buyer?retailStoreOrder.buyer.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Title">{retailStoreOrder.title}</Description> 
-<Description term="Total Amount">{retailStoreOrder.totalAmount}</Description> 
-<Description term="Last Update Time">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Current Status">{retailStoreOrder.currentStatus}</Description> 
+<Description term="头衔">{retailStoreOrder.title}</Description> 
+<Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
+<Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
 	
         {buildTransferModal(retailStoreOrder,targetComponent)}
       </DescriptionList>
@@ -129,13 +154,13 @@ class RetailStoreOrderDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Retail Store Order",cardsFor: "retailStoreOrder",
+    const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",
     	cardsSource: this.props.retailStoreOrder,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreOrderLineItemList', displayName:'Retail Store Order Line Item',type:'retailStoreOrderLineItem',count:retailStoreOrderLineItemCount,addFunction: true, role: 'retailStoreOrderLineItem', metaInfo: retailStoreOrderLineItemListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderLineItemBase.renderItemOfList},
-{name: 'retailStoreOrderShippingGroupList', displayName:'Retail Store Order Shipping Group',type:'retailStoreOrderShippingGroup',count:retailStoreOrderShippingGroupCount,addFunction: true, role: 'retailStoreOrderShippingGroup', metaInfo: retailStoreOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderShippingGroupBase.renderItemOfList},
-{name: 'retailStoreOrderPaymentGroupList', displayName:'Retail Store Order Payment Group',type:'retailStoreOrderPaymentGroup',count:retailStoreOrderPaymentGroupCount,addFunction: true, role: 'retailStoreOrderPaymentGroup', metaInfo: retailStoreOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderPaymentGroupBase.renderItemOfList},
-{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'retailStoreOrderLineItemList', displayName:'双链小超订单行项目',type:'retailStoreOrderLineItem',count:retailStoreOrderLineItemCount,addFunction: true, role: 'retailStoreOrderLineItem', metaInfo: retailStoreOrderLineItemListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderLineItemBase.renderItemOfList},
+{name: 'retailStoreOrderShippingGroupList', displayName:'生超订单送货分组',type:'retailStoreOrderShippingGroup',count:retailStoreOrderShippingGroupCount,addFunction: true, role: 'retailStoreOrderShippingGroup', metaInfo: retailStoreOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderShippingGroupBase.renderItemOfList},
+{name: 'retailStoreOrderPaymentGroupList', displayName:'生超订单付款组',type:'retailStoreOrderPaymentGroup',count:retailStoreOrderPaymentGroupCount,addFunction: true, role: 'retailStoreOrderPaymentGroup', metaInfo: retailStoreOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderPaymentGroupBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};
@@ -161,10 +186,10 @@ class RetailStoreOrderDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

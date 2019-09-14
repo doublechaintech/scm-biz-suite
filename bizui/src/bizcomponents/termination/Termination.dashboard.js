@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/termination/${targetComponent.props.termination.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/termination/${targetComponent.props.termination.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,20 +106,20 @@ const internalSummaryOf = (termination,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{termination.id}</Description> 
-<Description term="Reason">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
+<Description term="序号">{termination.id}</Description> 
+<Description term="原因">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Reason","terminationReason",TerminationService.requestCandidateReason,
+  showTransferModel(targetComponent,"原因","terminationReason",TerminationService.requestCandidateReason,
 	      TerminationService.transferToAnotherReason,"anotherReasonId",termination.reason?termination.reason.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Type">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
+<Description term="类型">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Type","terminationType",TerminationService.requestCandidateType,
+  showTransferModel(targetComponent,"类型","terminationType",TerminationService.requestCandidateType,
 	      TerminationService.transferToAnotherType,"anotherTypeId",termination.type?termination.type.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Comment">{termination.comment}</Description> 
+<Description term="评论">{termination.comment}</Description> 
 	
         {buildTransferModal(termination,targetComponent)}
       </DescriptionList>
@@ -132,10 +157,10 @@ class TerminationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Termination",cardsFor: "termination",
+    const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",
     	cardsSource: this.props.termination,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'Employee',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
   	};
@@ -161,10 +186,10 @@ class TerminationDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

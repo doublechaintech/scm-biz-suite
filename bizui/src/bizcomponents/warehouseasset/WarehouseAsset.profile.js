@@ -55,8 +55,8 @@ class WarehouseAssetProfile extends Component {
     // eslint-disable-next-line max-len
     const  warehouseAsset = this.props.warehouseAsset;
     const { id,displayName,  } = warehouseAsset
-
-    const cardsData = {cardsName:"Warehouse Asset",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,
+    const  returnURL = `/warehouseAsset/${id}/dashboard`
+    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",cardsSource: warehouseAsset,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class WarehouseAssetProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

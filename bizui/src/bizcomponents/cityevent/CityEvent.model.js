@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/cityEvent/${id}/list/EventAttendanceList/Event Attendance+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/cityEvent/${id}/list/EventAttendanceList/活动的参与情况+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEventAttendance({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/cityEvent/${id}/list/EventAttendanceList/Event Attendance列表`, state: newPlayload }
+      const location = { pathname: `/cityEvent/${id}/list/EventAttendanceList/活动的参与情况列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEventAttendanceUpdateRow({ payload }, { call, put }) {

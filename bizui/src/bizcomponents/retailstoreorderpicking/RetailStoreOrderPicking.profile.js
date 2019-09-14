@@ -55,8 +55,8 @@ class RetailStoreOrderPickingProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderPicking = this.props.retailStoreOrderPicking;
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderPicking
-
-    const cardsData = {cardsName:"Retail Store Order Picking",cardsFor: "retailStoreOrderPicking",cardsSource: retailStoreOrderPicking,
+    const  returnURL = `/retailStoreOrderPicking/${id}/dashboard`
+    const cardsData = {cardsName:"生超订单拣货",cardsFor: "retailStoreOrderPicking",cardsSource: retailStoreOrderPicking,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class RetailStoreOrderPickingProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

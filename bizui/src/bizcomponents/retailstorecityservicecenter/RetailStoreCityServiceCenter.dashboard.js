@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreCityServiceCenter/${targetComponent.props.retailStoreCityServiceCenter.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/retailStoreCityServiceCenter/${targetComponent.props.retailStoreCityServiceCenter.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,16 +106,16 @@ const internalSummaryOf = (retailStoreCityServiceCenter,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreCityServiceCenter.id}</Description> 
-<Description term="Name">{retailStoreCityServiceCenter.name}</Description> 
-<Description term="Founded">{ moment(retailStoreCityServiceCenter.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="Belongs To">{retailStoreCityServiceCenter.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreCityServiceCenter.belongsTo.displayName}(${retailStoreCityServiceCenter.belongsTo.id})`}
+<Description term="序号">{retailStoreCityServiceCenter.id}</Description> 
+<Description term="名称">{retailStoreCityServiceCenter.name}</Description> 
+<Description term="成立">{ moment(retailStoreCityServiceCenter.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="属于">{retailStoreCityServiceCenter.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreCityServiceCenter.belongsTo.displayName}(${retailStoreCityServiceCenter.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Belongs To","retailStoreProvinceCenter",RetailStoreCityServiceCenterService.requestCandidateBelongsTo,
+  showTransferModel(targetComponent,"属于","retailStoreProvinceCenter",RetailStoreCityServiceCenterService.requestCandidateBelongsTo,
 	      RetailStoreCityServiceCenterService.transferToAnotherBelongsTo,"anotherBelongsToId",retailStoreCityServiceCenter.belongsTo?retailStoreCityServiceCenter.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Last Update Time">{ moment(retailStoreCityServiceCenter.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreCityServiceCenter.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(retailStoreCityServiceCenter,targetComponent)}
       </DescriptionList>
@@ -128,13 +153,13 @@ class RetailStoreCityServiceCenterDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Retail Store City Service Center",cardsFor: "retailStoreCityServiceCenter",
+    const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",
     	cardsSource: this.props.retailStoreCityServiceCenter,returnURL,displayName,
   		subItems: [
-{name: 'cityPartnerList', displayName:'City Partner',type:'cityPartner',count:cityPartnerCount,addFunction: true, role: 'cityPartner', metaInfo: cityPartnerListMetaInfo, renderItem: GlobalComponents.CityPartnerBase.renderItemOfList},
-{name: 'potentialCustomerList', displayName:'Potential Customer',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
-{name: 'cityEventList', displayName:'City Event',type:'cityEvent',count:cityEventCount,addFunction: true, role: 'cityEvent', metaInfo: cityEventListMetaInfo, renderItem: GlobalComponents.CityEventBase.renderItemOfList},
-{name: 'retailStoreList', displayName:'Retail Store',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
+{name: 'cityPartnerList', displayName:'城市合伙人',type:'cityPartner',count:cityPartnerCount,addFunction: true, role: 'cityPartner', metaInfo: cityPartnerListMetaInfo, renderItem: GlobalComponents.CityPartnerBase.renderItemOfList},
+{name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
+{name: 'cityEventList', displayName:'城市活动',type:'cityEvent',count:cityEventCount,addFunction: true, role: 'cityEvent', metaInfo: cityEventListMetaInfo, renderItem: GlobalComponents.CityEventBase.renderItemOfList},
+{name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
     
       	],
   	};
@@ -160,10 +185,10 @@ class RetailStoreCityServiceCenterDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

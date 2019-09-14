@@ -55,8 +55,8 @@ class AccountSetProfile extends Component {
     // eslint-disable-next-line max-len
     const  accountSet = this.props.accountSet;
     const { id,displayName, accountingSubjectCount, accountingPeriodCount, accountingDocumentTypeCount } = accountSet
-
-    const cardsData = {cardsName:"Account Set",cardsFor: "accountSet",cardsSource: accountSet,
+    const  returnURL = `/accountSet/${id}/dashboard`
+    const cardsData = {cardsName:"账套",cardsFor: "accountSet",cardsSource: accountSet,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class AccountSetProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

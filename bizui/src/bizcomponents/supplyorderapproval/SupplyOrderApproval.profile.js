@@ -55,8 +55,8 @@ class SupplyOrderApprovalProfile extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrderApproval = this.props.supplyOrderApproval;
     const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderApproval
-
-    const cardsData = {cardsName:"Supply Order Approval",cardsFor: "supplyOrderApproval",cardsSource: supplyOrderApproval,
+    const  returnURL = `/supplyOrderApproval/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单审批",cardsFor: "supplyOrderApproval",cardsSource: supplyOrderApproval,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SupplyOrderApprovalProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/employeeInterview/${targetComponent.props.employeeInterview.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/employeeInterview/${targetComponent.props.employeeInterview.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,20 +106,20 @@ const internalSummaryOf = (employeeInterview,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeInterview.id}</Description> 
-<Description term="Employee">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
+<Description term="序号">{employeeInterview.id}</Description> 
+<Description term="员工">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Employee","employee",EmployeeInterviewService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"员工","employee",EmployeeInterviewService.requestCandidateEmployee,
 	      EmployeeInterviewService.transferToAnotherEmployee,"anotherEmployeeId",employeeInterview.employee?employeeInterview.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Interview Type">{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.interviewType.displayName}(${employeeInterview.interviewType.id})`}
+<Description term="面试类型">{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.interviewType.displayName}(${employeeInterview.interviewType.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Interview Type","interviewType",EmployeeInterviewService.requestCandidateInterviewType,
+  showTransferModel(targetComponent,"面试类型","interviewType",EmployeeInterviewService.requestCandidateInterviewType,
 	      EmployeeInterviewService.transferToAnotherInterviewType,"anotherInterviewTypeId",employeeInterview.interviewType?employeeInterview.interviewType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Remark">{employeeInterview.remark}</Description> 
+<Description term="备注">{employeeInterview.remark}</Description> 
 	
         {buildTransferModal(employeeInterview,targetComponent)}
       </DescriptionList>
@@ -132,7 +157,7 @@ class EmployeeInterviewDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Employee Interview",cardsFor: "employeeInterview",
+    const cardsData = {cardsName:"员工面试",cardsFor: "employeeInterview",
     	cardsSource: this.props.employeeInterview,returnURL,displayName,
   		subItems: [
     
@@ -160,10 +185,10 @@ class EmployeeInterviewDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

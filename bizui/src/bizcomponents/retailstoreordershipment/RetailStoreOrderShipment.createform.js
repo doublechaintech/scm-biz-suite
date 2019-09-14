@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '运货者',
-  shipTime: '2018-10-22',
+  shipTime: '2018-09-21',
 }
 */
 
@@ -194,8 +194,8 @@ class RetailStoreOrderShipmentCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Order Shipment`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Order Shipment`}
+        title={`${appLocaleName(userContext,"CreateNew")}生超订单出货`}
+        content={`${appLocaleName(userContext,"CreateNew")}生超订单出货`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class RetailStoreOrderShipmentCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +217,7 @@ class RetailStoreOrderShipmentCreateForm extends Component {
                   {getFieldDecorator('shipTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Ship Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="船的时间" />
                   )}
                 </Form.Item>
               </Col>

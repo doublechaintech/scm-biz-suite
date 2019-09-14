@@ -21,7 +21,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '948595.38',
+  amount: '857954.81',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -142,7 +142,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Code" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('direct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Direct" />
+                    <Input size="large" placeholder="直接" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class AccountingDocumentLineAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

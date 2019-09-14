@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,16 +23,20 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (employeeQualifier,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeQualifier.id}</Description> 
-<Description term="Qualified Time">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Type">{employeeQualifier.type}</Description> 
-<Description term="Level">{employeeQualifier.level}</Description> 
-<Description term="Remark">{employeeQualifier.remark}</Description> 
+<Description term="序号">{employeeQualifier.id}</Description> 
+<Description term="合格的时间">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
+<Description term="类型">{employeeQualifier.type}</Description> 
+<Description term="水平">{employeeQualifier.level}</Description> 
+<Description term="备注">{employeeQualifier.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,9 +60,10 @@ class EmployeeQualifierPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  employeeQualifier = this.props.employeeQualifier;
+    const  employeeQualifier = this.props.employeeQualifier
     const { id,displayName,  } = employeeQualifier
-    const cardsData = {cardsName:"Employee Qualifier",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,
+    const  returnURL = `/employeeQualifier/${id}/dashboard`
+    const cardsData = {cardsName:"员工资质",cardsFor: "employeeQualifier",cardsSource: employeeQualifier,displayName,returnURL,
   		subItems: [
     
       	],
@@ -69,7 +74,7 @@ class EmployeeQualifierPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

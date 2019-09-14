@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超四川省运营中心',
-  founded: '2016-10-23',
+  founded: '2018-05-16',
   countryId: 'RSCC000001',
 }
 */
@@ -195,8 +195,8 @@ class RetailStoreProvinceCenterCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Province Center`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Province Center`}
+        title={`${appLocaleName(userContext,"CreateNew")}双链小超省中心`}
+        content={`${appLocaleName(userContext,"CreateNew")}双链小超省中心`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class RetailStoreProvinceCenterCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class RetailStoreProvinceCenterCreateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
                   )}
                 </Form.Item>
               </Col>

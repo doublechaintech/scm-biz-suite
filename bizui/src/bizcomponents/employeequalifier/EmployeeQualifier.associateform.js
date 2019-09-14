@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2016-12-13',
+  qualifiedTime: '2019-09-12',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -141,7 +141,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('qualifiedTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Qualified Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="合格的时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Type" />
+                    <Input size="large" placeholder="类型" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('level', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Level" />
+                    <Input size="large" placeholder="水平" />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Remark" />
+                    <Input size="large" placeholder="备注" />
                   )}
                 </Form.Item>
               </Col>

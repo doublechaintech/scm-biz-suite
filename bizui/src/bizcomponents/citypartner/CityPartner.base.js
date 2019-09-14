@@ -30,26 +30,26 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"City Partner", menuFor: "cityPartner",
+const menuData = {menuName:"城市合伙人", menuFor: "cityPartner",
   		subItems: [
-  {name: 'potentialCustomerList', displayName:'Potential Customer', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'potentialCustomerContactList', displayName:'Potential Customer Contact', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'potentialCustomerList', displayName:'潜在的客户', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'potentialCustomerContactList', displayName:'潜在客户联系', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  mobile: 'Mobile',
-  cityServiceCenter: 'City Service Center',
-  description: 'Description',
-  lastUpdateTime: 'Last Update Time',
+  id: '序号',
+  name: '名称',
+  mobile: '手机',
+  cityServiceCenter: '城市服务中心',
+  description: '描述',
+  lastUpdateTime: '最后更新时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'cityPartner') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'cityPartner') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.mobile, debugtype: 'string_china_mobile_phone', dataIndex: 'mobile', width: '15',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.cityServiceCenter, dataIndex: 'cityServiceCenter', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -60,26 +60,23 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(cityPartner,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={cityPartner.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={cityPartner.id}>
-	
-	<DescriptionList  key={cityPartner.id} size="small" col="4">
-<Description term="Id">{cityPartner.id}</Description> 
-<Description term="Name">{cityPartner.name}</Description> 
-<Description term="Mobile">{cityPartner.mobile}</Description> 
-<Description term="City Service Center">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
-</Description>
-<Description term="Description">{cityPartner.description}</Description> 
-<Description term="Last Update Time">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={cityPartner.id} size="small" col="4">
+        <Description term="序号">{cityPartner.id}</Description> 
+        <Description term="名称">{cityPartner.name}</Description> 
+        <Description term="手机">{cityPartner.mobile}</Description> 
+        <Description term="城市服务中心"><div>{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
+        </div></Description>
+        <Description term="描述">{cityPartner.description}</Description> 
+        <Description term="最后更新时间"><div>{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

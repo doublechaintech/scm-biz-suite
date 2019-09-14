@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Order Confirmation", menuFor: "retailStoreOrderConfirmation",
+const menuData = {menuName:"生超订单确认", menuFor: "retailStoreOrderConfirmation",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  confirmTime: 'Confirm Time',
+  id: '序号',
+  who: '谁',
+  confirmTime: '确认时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderConfirmation') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderConfirmation') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.confirmTime, dataIndex: 'confirmTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
@@ -53,22 +53,19 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreOrderConfirmation,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreOrderConfirmation.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreOrderConfirmation.id}>
-	
-	<DescriptionList  key={retailStoreOrderConfirmation.id} size="small" col="4">
-<Description term="Id">{retailStoreOrderConfirmation.id}</Description> 
-<Description term="Who">{retailStoreOrderConfirmation.who}</Description> 
-<Description term="Confirm Time">{ moment(retailStoreOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={retailStoreOrderConfirmation.id} size="small" col="4">
+        <Description term="序号">{retailStoreOrderConfirmation.id}</Description> 
+        <Description term="谁">{retailStoreOrderConfirmation.who}</Description> 
+        <Description term="确认时间"><div>{ moment(retailStoreOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

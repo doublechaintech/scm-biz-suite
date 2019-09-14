@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
-  employTime: '2018-10-23',
+  employTime: '2019-08-29',
   comments: '欢迎加入植物医生大家庭',
 }
 */
@@ -140,7 +140,7 @@ class EmployeeBoardingAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class EmployeeBoardingAssociateForm extends Component {
                   {getFieldDecorator('employTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Employ Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="使用时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class EmployeeBoardingAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comments" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

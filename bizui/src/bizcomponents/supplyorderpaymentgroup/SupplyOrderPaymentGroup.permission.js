@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (supplyOrderPaymentGroup,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{supplyOrderPaymentGroup.id}</Description> 
-<Description term="Name">{supplyOrderPaymentGroup.name}</Description> 
-<Description term="Card Number">{supplyOrderPaymentGroup.cardNumber}</Description> 
+<Description term="序号">{supplyOrderPaymentGroup.id}</Description> 
+<Description term="名称">{supplyOrderPaymentGroup.name}</Description> 
+<Description term="卡号码">{supplyOrderPaymentGroup.cardNumber}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class SupplyOrderPaymentGroupPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  supplyOrderPaymentGroup = this.props.supplyOrderPaymentGroup;
+    const  supplyOrderPaymentGroup = this.props.supplyOrderPaymentGroup
     const { id,displayName,  } = supplyOrderPaymentGroup
-    const cardsData = {cardsName:"Supply Order Payment Group",cardsFor: "supplyOrderPaymentGroup",cardsSource: supplyOrderPaymentGroup,
+    const  returnURL = `/supplyOrderPaymentGroup/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单付款组",cardsFor: "supplyOrderPaymentGroup",cardsSource: supplyOrderPaymentGroup,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class SupplyOrderPaymentGroupPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

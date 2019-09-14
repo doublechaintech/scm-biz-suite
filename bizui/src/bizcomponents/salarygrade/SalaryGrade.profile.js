@@ -55,8 +55,8 @@ class SalaryGradeProfile extends Component {
     // eslint-disable-next-line max-len
     const  salaryGrade = this.props.salaryGrade;
     const { id,displayName, employeeCount, employeeSalarySheetCount } = salaryGrade
-
-    const cardsData = {cardsName:"Salary Grade",cardsFor: "salaryGrade",cardsSource: salaryGrade,
+    const  returnURL = `/salaryGrade/${id}/dashboard`
+    const cardsData = {cardsName:"工资等级",cardsFor: "salaryGrade",cardsSource: salaryGrade,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SalaryGradeProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

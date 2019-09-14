@@ -55,8 +55,8 @@ class EmployeeInterviewProfile extends Component {
     // eslint-disable-next-line max-len
     const  employeeInterview = this.props.employeeInterview;
     const { id,displayName,  } = employeeInterview
-
-    const cardsData = {cardsName:"Employee Interview",cardsFor: "employeeInterview",cardsSource: employeeInterview,
+    const  returnURL = `/employeeInterview/${id}/dashboard`
+    const cardsData = {cardsName:"员工面试",cardsFor: "employeeInterview",cardsSource: employeeInterview,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class EmployeeInterviewProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/accountSet/${id}/list/AccountingSubjectList/Accounting Subject+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/accountSet/${id}/list/AccountingSubjectList/会计科目+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountingSubject({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/accountSet/${id}/list/AccountingSubjectList/Accounting Subject列表`, state: newPlayload }
+      const location = { pathname: `/accountSet/${id}/list/AccountingSubjectList/会计科目列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountingSubjectUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/accountSet/${id}/list/AccountingPeriodList/Accounting Period+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/accountSet/${id}/list/AccountingPeriodList/会计期间+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountingPeriod({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/accountSet/${id}/list/AccountingPeriodList/Accounting Period列表`, state: newPlayload }
+      const location = { pathname: `/accountSet/${id}/list/AccountingPeriodList/会计期间列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountingPeriodUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/accountSet/${id}/list/AccountingDocumentTypeList/Accounting Document Type+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/accountSet/${id}/list/AccountingDocumentTypeList/会计凭证类型+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountingDocumentType({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/accountSet/${id}/list/AccountingDocumentTypeList/Accounting Document Type列表`, state: newPlayload }
+      const location = { pathname: `/accountSet/${id}/list/AccountingDocumentTypeList/会计凭证类型列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountingDocumentTypeUpdateRow({ payload }, { call, put }) {

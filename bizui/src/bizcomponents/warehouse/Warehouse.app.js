@@ -145,15 +145,7 @@ class WarehouseBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/warehouse/${this.props.warehouse.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/warehouse/${this.props.warehouse.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Storage Space",
+      name: "存货区",
       role: "storageSpace",
       data: state._warehouse.storageSpaceList,
       metaInfo: state._warehouse.storageSpaceListMetaInfo,
@@ -216,7 +208,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Smart Pallet",
+      name: "智能托盘",
       role: "smartPallet",
       data: state._warehouse.smartPalletList,
       metaInfo: state._warehouse.smartPalletListMetaInfo,
@@ -265,7 +257,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Supplier Space",
+      name: "供应商的空间",
       role: "supplierSpace",
       data: state._warehouse.supplierSpaceList,
       metaInfo: state._warehouse.supplierSpaceListMetaInfo,
@@ -314,7 +306,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Receiving Space",
+      name: "收货区",
       role: "receivingSpace",
       data: state._warehouse.receivingSpaceList,
       metaInfo: state._warehouse.receivingSpaceListMetaInfo,
@@ -363,7 +355,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Shipping Space",
+      name: "发货区",
       role: "shippingSpace",
       data: state._warehouse.shippingSpaceList,
       metaInfo: state._warehouse.shippingSpaceListMetaInfo,
@@ -412,7 +404,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Damage Space",
+      name: "残次货物存放区",
       role: "damageSpace",
       data: state._warehouse.damageSpaceList,
       metaInfo: state._warehouse.damageSpaceListMetaInfo,
@@ -461,7 +453,7 @@ class WarehouseBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Warehouse Asset",
+      name: "仓库资产",
       role: "warehouseAsset",
       data: state._warehouse.warehouseAssetList,
       metaInfo: state._warehouse.warehouseAssetListMetaInfo,

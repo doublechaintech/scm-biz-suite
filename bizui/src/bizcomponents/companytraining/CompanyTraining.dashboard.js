@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/companyTraining/${targetComponent.props.companyTraining.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/companyTraining/${targetComponent.props.companyTraining.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,23 +106,23 @@ const internalSummaryOf = (companyTraining,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{companyTraining.id}</Description> 
-<Description term="Title">{companyTraining.title}</Description> 
-<Description term="Instructor">{companyTraining.instructor==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.instructor.displayName}(${companyTraining.instructor.id})`}
+<Description term="序号">{companyTraining.id}</Description> 
+<Description term="头衔">{companyTraining.title}</Description> 
+<Description term="讲师">{companyTraining.instructor==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.instructor.displayName}(${companyTraining.instructor.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Instructor","instructor",CompanyTrainingService.requestCandidateInstructor,
+  showTransferModel(targetComponent,"讲师","instructor",CompanyTrainingService.requestCandidateInstructor,
 	      CompanyTrainingService.transferToAnotherInstructor,"anotherInstructorId",companyTraining.instructor?companyTraining.instructor.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Training Course Type">{companyTraining.trainingCourseType==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.trainingCourseType.displayName}(${companyTraining.trainingCourseType.id})`}
+<Description term="培训课程类型">{companyTraining.trainingCourseType==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.trainingCourseType.displayName}(${companyTraining.trainingCourseType.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Training Course Type","trainingCourseType",CompanyTrainingService.requestCandidateTrainingCourseType,
+  showTransferModel(targetComponent,"培训课程类型","trainingCourseType",CompanyTrainingService.requestCandidateTrainingCourseType,
 	      CompanyTrainingService.transferToAnotherTrainingCourseType,"anotherTrainingCourseTypeId",companyTraining.trainingCourseType?companyTraining.trainingCourseType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Time Start">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
-<Description term="Duration Hours">{companyTraining.durationHours}</Description> 
-<Description term="Last Update Time">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="时间开始">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
+<Description term="持续时间">{companyTraining.durationHours}</Description> 
+<Description term="最后更新时间">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(companyTraining,targetComponent)}
       </DescriptionList>
@@ -135,10 +160,10 @@ class CompanyTrainingDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Company Training",cardsFor: "companyTraining",
+    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",
     	cardsSource: this.props.companyTraining,returnURL,displayName,
   		subItems: [
-{name: 'employeeCompanyTrainingList', displayName:'Employee Company Training',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
+{name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
     
       	],
   	};
@@ -164,10 +189,10 @@ class CompanyTrainingDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

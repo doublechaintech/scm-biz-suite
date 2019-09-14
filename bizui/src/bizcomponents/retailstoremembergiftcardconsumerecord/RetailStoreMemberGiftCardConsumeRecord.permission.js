@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (retailStoreMemberGiftCardConsumeRecord,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
-<Description term="Occure Time">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Number">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
-<Description term="Amount">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
+<Description term="序号">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
+<Description term="发生时间">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
+<Description term="数">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
+<Description term="金额">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class RetailStoreMemberGiftCardConsumeRecordPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  retailStoreMemberGiftCardConsumeRecord = this.props.retailStoreMemberGiftCardConsumeRecord;
+    const  retailStoreMemberGiftCardConsumeRecord = this.props.retailStoreMemberGiftCardConsumeRecord
     const { id,displayName,  } = retailStoreMemberGiftCardConsumeRecord
-    const cardsData = {cardsName:"Retail Store Member Gift Card Consume Record",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: retailStoreMemberGiftCardConsumeRecord,
+    const  returnURL = `/retailStoreMemberGiftCardConsumeRecord/${id}/dashboard`
+    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: retailStoreMemberGiftCardConsumeRecord,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class RetailStoreMemberGiftCardConsumeRecordPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

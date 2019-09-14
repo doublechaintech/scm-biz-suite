@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/instructor/${targetComponent.props.instructor.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/instructor/${targetComponent.props.instructor.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,14 +106,14 @@ const internalSummaryOf = (instructor,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{instructor.id}</Description> 
-<Description term="Title">{instructor.title}</Description> 
-<Description term="Family Name">{instructor.familyName}</Description> 
-<Description term="Given Name">{instructor.givenName}</Description> 
-<Description term="Cell Phone">{instructor.cellPhone}</Description> 
-<Description term="Email">{instructor.email}</Description> 
-<Description term="Introduction">{instructor.introduction}</Description> 
-<Description term="Last Update Time">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{instructor.id}</Description> 
+<Description term="头衔">{instructor.title}</Description> 
+<Description term="姓">{instructor.familyName}</Description> 
+<Description term="名">{instructor.givenName}</Description> 
+<Description term="手机">{instructor.cellPhone}</Description> 
+<Description term="电子邮件">{instructor.email}</Description> 
+<Description term="介绍">{instructor.introduction}</Description> 
+<Description term="最后更新时间">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(instructor,targetComponent)}
       </DescriptionList>
@@ -126,10 +151,10 @@ class InstructorDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Instructor",cardsFor: "instructor",
+    const cardsData = {cardsName:"讲师",cardsFor: "instructor",
     	cardsSource: this.props.instructor,returnURL,displayName,
   		subItems: [
-{name: 'companyTrainingList', displayName:'Company Training',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
   	};
@@ -155,10 +180,10 @@ class InstructorDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

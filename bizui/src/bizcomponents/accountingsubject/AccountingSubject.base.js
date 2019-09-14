@@ -30,25 +30,25 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Accounting Subject", menuFor: "accountingSubject",
+const menuData = {menuName:"会计科目", menuFor: "accountingSubject",
   		subItems: [
-  {name: 'accountingDocumentLineList', displayName:'Accounting Document Line', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingDocumentLineList', displayName:'会计凭证行', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  accountingSubjectCode: 'Accounting Subject Code',
-  accountingSubjectName: 'Accounting Subject Name',
-  accountingSubjectClassCode: 'Accounting Subject Class Code',
-  accountingSubjectClassName: 'Accounting Subject Class Name',
-  accountSet: 'Account Set',
+  id: '序号',
+  accountingSubjectCode: '会计科目代码',
+  accountingSubjectName: '会计科目名称',
+  accountingSubjectClassCode: '会计科目类别代码',
+  accountingSubjectClassName: '会计科目类别名称',
+  accountSet: '账套',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'accountingSubject') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'accountingSubject') , sorter: true },
   { title: fieldLabels.accountingSubjectCode, debugtype: 'string', dataIndex: 'accountingSubjectCode', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.accountingSubjectName, debugtype: 'string', dataIndex: 'accountingSubjectName', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.accountingSubjectClassCode, debugtype: 'int', dataIndex: 'accountingSubjectClassCode', width: '5',render: (text, record)=>renderTextCell(text,record)},
@@ -59,26 +59,23 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(accountingSubject,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={accountingSubject.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={accountingSubject.id}>
-	
-	<DescriptionList  key={accountingSubject.id} size="small" col="4">
-<Description term="Id">{accountingSubject.id}</Description> 
-<Description term="Accounting Subject Code">{accountingSubject.accountingSubjectCode}</Description> 
-<Description term="Accounting Subject Name">{accountingSubject.accountingSubjectName}</Description> 
-<Description term="Accounting Subject Class Code">{accountingSubject.accountingSubjectClassCode}</Description> 
-<Description term="Accounting Subject Class Name">{accountingSubject.accountingSubjectClassName}</Description> 
-<Description term="Account Set">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
-</Description>
+      <DescriptionList  key={accountingSubject.id} size="small" col="4">
+        <Description term="序号">{accountingSubject.id}</Description> 
+        <Description term="会计科目代码">{accountingSubject.accountingSubjectCode}</Description> 
+        <Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
+        <Description term="会计科目类别代码"><div style={{"color":"red"}}>{accountingSubject.accountingSubjectClassCode}</div></Description> 
+        <Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
+        <Description term="账套"><div>{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

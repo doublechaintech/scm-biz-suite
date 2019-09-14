@@ -55,8 +55,8 @@ class ConsumerOrderPriceAdjustmentProfile extends Component {
     // eslint-disable-next-line max-len
     const  consumerOrderPriceAdjustment = this.props.consumerOrderPriceAdjustment;
     const { id,displayName,  } = consumerOrderPriceAdjustment
-
-    const cardsData = {cardsName:"Consumer Order Price Adjustment",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,
+    const  returnURL = `/consumerOrderPriceAdjustment/${id}/dashboard`
+    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",cardsSource: consumerOrderPriceAdjustment,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ConsumerOrderPriceAdjustmentProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

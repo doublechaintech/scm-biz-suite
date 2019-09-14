@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/eventAttendance/${targetComponent.props.eventAttendance.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/eventAttendance/${targetComponent.props.eventAttendance.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,21 +106,21 @@ const internalSummaryOf = (eventAttendance,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{eventAttendance.id}</Description> 
-<Description term="Name">{eventAttendance.name}</Description> 
-<Description term="Potential Customer">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
+<Description term="序号">{eventAttendance.id}</Description> 
+<Description term="名称">{eventAttendance.name}</Description> 
+<Description term="潜在的客户">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Potential Customer","potentialCustomer",EventAttendanceService.requestCandidatePotentialCustomer,
+  showTransferModel(targetComponent,"潜在的客户","potentialCustomer",EventAttendanceService.requestCandidatePotentialCustomer,
 	      EventAttendanceService.transferToAnotherPotentialCustomer,"anotherPotentialCustomerId",eventAttendance.potentialCustomer?eventAttendance.potentialCustomer.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="City Event">{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
+<Description term="城市活动">{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"City Event","cityEvent",EventAttendanceService.requestCandidateCityEvent,
+  showTransferModel(targetComponent,"城市活动","cityEvent",EventAttendanceService.requestCandidateCityEvent,
 	      EventAttendanceService.transferToAnotherCityEvent,"anotherCityEventId",eventAttendance.cityEvent?eventAttendance.cityEvent.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Description">{eventAttendance.description}</Description> 
+<Description term="描述">{eventAttendance.description}</Description> 
 	
         {buildTransferModal(eventAttendance,targetComponent)}
       </DescriptionList>
@@ -133,7 +158,7 @@ class EventAttendanceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Event Attendance",cardsFor: "eventAttendance",
+    const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",
     	cardsSource: this.props.eventAttendance,returnURL,displayName,
   		subItems: [
     
@@ -161,10 +186,10 @@ class EventAttendanceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

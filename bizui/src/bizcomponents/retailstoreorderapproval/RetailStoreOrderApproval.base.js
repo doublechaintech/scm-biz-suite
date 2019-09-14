@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Order Approval", menuFor: "retailStoreOrderApproval",
+const menuData = {menuName:"生超订单批准", menuFor: "retailStoreOrderApproval",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  approveTime: 'Approve Time',
+  id: '序号',
+  who: '谁',
+  approveTime: '批准时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderApproval') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderApproval') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.approveTime, dataIndex: 'approveTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
@@ -53,22 +53,19 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreOrderApproval,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreOrderApproval.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreOrderApproval.id}>
-	
-	<DescriptionList  key={retailStoreOrderApproval.id} size="small" col="4">
-<Description term="Id">{retailStoreOrderApproval.id}</Description> 
-<Description term="Who">{retailStoreOrderApproval.who}</Description> 
-<Description term="Approve Time">{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={retailStoreOrderApproval.id} size="small" col="4">
+        <Description term="序号">{retailStoreOrderApproval.id}</Description> 
+        <Description term="谁">{retailStoreOrderApproval.who}</Description> 
+        <Description term="批准时间"><div>{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Training Course Type", menuFor: "trainingCourseType",
+const menuData = {menuName:"培训课程类型", menuFor: "trainingCourseType",
   		subItems: [
-  {name: 'companyTrainingList', displayName:'Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'companyTrainingList', displayName:'公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  code: 'Code',
-  company: 'Company',
-  name: 'Name',
-  description: 'Description',
+  id: '序号',
+  code: '代码',
+  company: '公司',
+  name: '名称',
+  description: '描述',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'trainingCourseType') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'trainingCourseType') , sorter: true },
   { title: fieldLabels.code, debugtype: 'string', dataIndex: 'code', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.company, dataIndex: 'company', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
@@ -57,23 +57,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(trainingCourseType,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={trainingCourseType.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={trainingCourseType.id}>
-	
-	<DescriptionList  key={trainingCourseType.id} size="small" col="4">
-<Description term="Id">{trainingCourseType.id}</Description> 
-<Description term="Code">{trainingCourseType.code}</Description> 
-<Description term="Name">{trainingCourseType.name}</Description> 
-<Description term="Description">{trainingCourseType.description}</Description> 
+      <DescriptionList  key={trainingCourseType.id} size="small" col="4">
+        <Description term="序号">{trainingCourseType.id}</Description> 
+        <Description term="代码">{trainingCourseType.code}</Description> 
+        <Description term="名称">{trainingCourseType.name}</Description> 
+        <Description term="描述">{trainingCourseType.description}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

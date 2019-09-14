@@ -195,8 +195,8 @@ class TransportFleetCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Transport Fleet`}
-        content={`${appLocaleName(userContext,"CreateNew")}Transport Fleet`}
+        title={`${appLocaleName(userContext,"CreateNew")}运输车队`}
+        content={`${appLocaleName(userContext,"CreateNew")}运输车队`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class TransportFleetCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class TransportFleetCreateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>

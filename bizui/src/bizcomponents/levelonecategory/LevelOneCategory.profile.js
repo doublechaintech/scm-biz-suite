@@ -55,8 +55,8 @@ class LevelOneCategoryProfile extends Component {
     // eslint-disable-next-line max-len
     const  levelOneCategory = this.props.levelOneCategory;
     const { id,displayName, levelTwoCategoryCount } = levelOneCategory
-
-    const cardsData = {cardsName:"Level One Category",cardsFor: "levelOneCategory",cardsSource: levelOneCategory,
+    const  returnURL = `/levelOneCategory/${id}/dashboard`
+    const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",cardsSource: levelOneCategory,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class LevelOneCategoryProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

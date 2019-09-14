@@ -263,7 +263,7 @@ class AccountingPeriodUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class AccountingPeriodUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class AccountingPeriodUpdateForm extends Component {
                     initialValue: selectedRow.startDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Start Date" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始日期" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class AccountingPeriodUpdateForm extends Component {
                     initialValue: selectedRow.endDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="End Date" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束日期" />
                     
                   )}
                 </Form.Item>

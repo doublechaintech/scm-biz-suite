@@ -145,15 +145,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/retailStoreCityServiceCenter/${this.props.retailStoreCityServiceCenter.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/retailStoreCityServiceCenter/${this.props.retailStoreCityServiceCenter.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "City Partner",
+      name: "城市合伙人",
       role: "cityPartner",
       data: state._retailStoreCityServiceCenter.cityPartnerList,
       metaInfo: state._retailStoreCityServiceCenter.cityPartnerListMetaInfo,
@@ -216,7 +208,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Potential Customer",
+      name: "潜在的客户",
       role: "potentialCustomer",
       data: state._retailStoreCityServiceCenter.potentialCustomerList,
       metaInfo: state._retailStoreCityServiceCenter.potentialCustomerListMetaInfo,
@@ -265,7 +257,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "City Event",
+      name: "城市活动",
       role: "cityEvent",
       data: state._retailStoreCityServiceCenter.cityEventList,
       metaInfo: state._retailStoreCityServiceCenter.cityEventListMetaInfo,
@@ -314,7 +306,7 @@ class RetailStoreCityServiceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Retail Store",
+      name: "双链小超",
       role: "retailStore",
       data: state._retailStoreCityServiceCenter.retailStoreList,
       metaInfo: state._retailStoreCityServiceCenter.retailStoreListMetaInfo,

@@ -197,8 +197,8 @@ class GoodsSupplierCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Goods Supplier`}
-        content={`${appLocaleName(userContext,"CreateNew")}Goods Supplier`}
+        title={`${appLocaleName(userContext,"CreateNew")}产品供应商`}
+        content={`${appLocaleName(userContext,"CreateNew")}产品供应商`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('supplyProduct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Supply Product" />
+                    <Input size="large" placeholder="供应产品" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class GoodsSupplierCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

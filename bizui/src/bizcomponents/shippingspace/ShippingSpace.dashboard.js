@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/shippingSpace/${targetComponent.props.shippingSpace.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/shippingSpace/${targetComponent.props.shippingSpace.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,20 +106,20 @@ const internalSummaryOf = (shippingSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{shippingSpace.id}</Description> 
-<Description term="Location">{shippingSpace.location}</Description> 
-<Description term="Contact Number">{shippingSpace.contactNumber}</Description> 
-<Description term="Total Area">{shippingSpace.totalArea}</Description> 
-<Description term="Warehouse">{shippingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${shippingSpace.warehouse.displayName}(${shippingSpace.warehouse.id})`}
+<Description term="序号">{shippingSpace.id}</Description> 
+<Description term="位置">{shippingSpace.location}</Description> 
+<Description term="联系电话">{shippingSpace.contactNumber}</Description> 
+<Description term="总面积">{shippingSpace.totalArea}</Description> 
+<Description term="仓库">{shippingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${shippingSpace.warehouse.displayName}(${shippingSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Warehouse","warehouse",ShippingSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"仓库","warehouse",ShippingSpaceService.requestCandidateWarehouse,
 	      ShippingSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",shippingSpace.warehouse?shippingSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Latitude">{shippingSpace.latitude}</Description> 
-<Description term="Longitude">{shippingSpace.longitude}</Description> 
-<Description term="Description">{shippingSpace.description}</Description> 
-<Description term="Last Update Time">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="纬度">{shippingSpace.latitude}</Description> 
+<Description term="经度">{shippingSpace.longitude}</Description> 
+<Description term="描述">{shippingSpace.description}</Description> 
+<Description term="最后更新时间">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(shippingSpace,targetComponent)}
       </DescriptionList>
@@ -132,10 +157,10 @@ class ShippingSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Shipping Space",cardsFor: "shippingSpace",
+    const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",
     	cardsSource: this.props.shippingSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};
@@ -161,10 +186,10 @@ class ShippingSpaceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

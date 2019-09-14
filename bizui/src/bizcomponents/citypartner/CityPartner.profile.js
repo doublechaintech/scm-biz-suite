@@ -55,8 +55,8 @@ class CityPartnerProfile extends Component {
     // eslint-disable-next-line max-len
     const  cityPartner = this.props.cityPartner;
     const { id,displayName, potentialCustomerCount, potentialCustomerContactCount } = cityPartner
-
-    const cardsData = {cardsName:"City Partner",cardsFor: "cityPartner",cardsSource: cityPartner,
+    const  returnURL = `/cityPartner/${id}/dashboard`
+    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",cardsSource: cityPartner,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class CityPartnerProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

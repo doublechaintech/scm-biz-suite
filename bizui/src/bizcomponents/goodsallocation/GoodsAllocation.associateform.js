@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
-  latitude: '42.39687264456626',
-  longitude: '130.85371890483827',
+  latitude: '41.41325359618791',
+  longitude: '130.31332766376147',
   goodsShelfId: 'GS000001',
 }
 */
@@ -141,7 +141,7 @@ class GoodsAllocationAssociateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Location" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class GoodsAllocationAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Latitude" />
+                    <Input size="large" placeholder="纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class GoodsAllocationAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Longitude" />
+                    <Input size="large" placeholder="经度" />
                   )}
                 </Form.Item>
               </Col>

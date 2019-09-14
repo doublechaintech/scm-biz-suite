@@ -144,7 +144,7 @@ class ConsumerOrderAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>

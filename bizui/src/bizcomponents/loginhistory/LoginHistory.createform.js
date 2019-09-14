@@ -195,8 +195,8 @@ class LoginHistoryCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Login History`}
-        content={`${appLocaleName(userContext,"CreateNew")}Login History`}
+        title={`${appLocaleName(userContext,"CreateNew")}登录历史`}
+        content={`${appLocaleName(userContext,"CreateNew")}登录历史`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class LoginHistoryCreateForm extends Component {
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="From Ip" />
+                    <Input size="large" placeholder="来自IP" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class LoginHistoryCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

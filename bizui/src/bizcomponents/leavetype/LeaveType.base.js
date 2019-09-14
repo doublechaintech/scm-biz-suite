@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Leave Type", menuFor: "leaveType",
+const menuData = {menuName:"请假类型", menuFor: "leaveType",
   		subItems: [
-  {name: 'employeeLeaveList', displayName:'Employee Leave', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeLeaveList', displayName:'请假记录', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  code: 'Code',
-  company: 'Company',
-  description: 'Description',
-  detailDescription: 'Detail Description',
+  id: '序号',
+  code: '代码',
+  company: '公司',
+  description: '描述',
+  detailDescription: '详细描述',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'leaveType') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'leaveType') , sorter: true },
   { title: fieldLabels.code, debugtype: 'string', dataIndex: 'code', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.company, dataIndex: 'company', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.description, debugtype: 'string', dataIndex: 'description', width: '8',render: (text, record)=>renderTextCell(text,record)},
@@ -57,23 +57,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(leaveType,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={leaveType.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={leaveType.id}>
-	
-	<DescriptionList  key={leaveType.id} size="small" col="4">
-<Description term="Id">{leaveType.id}</Description> 
-<Description term="Code">{leaveType.code}</Description> 
-<Description term="Description">{leaveType.description}</Description> 
-<Description term="Detail Description">{leaveType.detailDescription}</Description> 
+      <DescriptionList  key={leaveType.id} size="small" col="4">
+        <Description term="序号">{leaveType.id}</Description> 
+        <Description term="代码">{leaveType.code}</Description> 
+        <Description term="描述">{leaveType.description}</Description> 
+        <Description term="详细描述">{leaveType.detailDescription}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

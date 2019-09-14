@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,13 +23,17 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (levelThreeCategory,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{levelThreeCategory.id}</Description> 
-<Description term="Name">{levelThreeCategory.name}</Description> 
+<Description term="序号">{levelThreeCategory.id}</Description> 
+<Description term="名称">{levelThreeCategory.name}</Description> 
 	
       </DescriptionList>
 	)
@@ -53,9 +57,10 @@ class LevelThreeCategoryPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  levelThreeCategory = this.props.levelThreeCategory;
+    const  levelThreeCategory = this.props.levelThreeCategory
     const { id,displayName, productCount } = levelThreeCategory
-    const cardsData = {cardsName:"Level Three Category",cardsFor: "levelThreeCategory",cardsSource: levelThreeCategory,
+    const  returnURL = `/levelThreeCategory/${id}/dashboard`
+    const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",cardsSource: levelThreeCategory,displayName,returnURL,
   		subItems: [
     
       	],
@@ -66,7 +71,7 @@ class LevelThreeCategoryPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

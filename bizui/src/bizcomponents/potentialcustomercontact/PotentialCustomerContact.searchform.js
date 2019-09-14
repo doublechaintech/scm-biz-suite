@@ -195,7 +195,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="Id">
+         <FormItem label="序号">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -203,7 +203,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="Name">
+         <FormItem label="名称">
            {getFieldDecorator('name')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -250,7 +250,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="Id">
+            <FormItem label="序号">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -258,7 +258,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Name">
+            <FormItem label="名称">
               {getFieldDecorator('name')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -266,14 +266,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Contact Method">
+            <FormItem label="接触法">
               {getFieldDecorator('contactMethod')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Potential Customer">
+                    <Form.Item label="潜在的客户">
                   {getFieldDecorator('potentialCustomer', {
                     initialValue: tryinit('potentialCustomer'),
                    
@@ -288,7 +288,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="City Partner">
+                    <Form.Item label="城市合伙人">
                   {getFieldDecorator('cityPartner', {
                     initialValue: tryinit('cityPartner'),
                    
@@ -303,7 +303,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Contact To">
+                    <Form.Item label="接触">
                   {getFieldDecorator('contactTo', {
                     initialValue: tryinit('contactTo'),
                    
@@ -319,7 +319,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Description">
+            <FormItem label="描述">
               {getFieldDecorator('description')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}

@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Member Wishlist Product", menuFor: "memberWishlistProduct",
+const menuData = {menuName:"会员收藏产品", menuFor: "memberWishlistProduct",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  owner: 'Owner',
+  id: '序号',
+  name: '名称',
+  owner: '业主',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'memberWishlistProduct') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '9',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
@@ -52,23 +52,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(memberWishlistProduct,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={memberWishlistProduct.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={memberWishlistProduct.id}>
-	
-	<DescriptionList  key={memberWishlistProduct.id} size="small" col="4">
-<Description term="Id">{memberWishlistProduct.id}</Description> 
-<Description term="Name">{memberWishlistProduct.name}</Description> 
-<Description term="Owner">{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
-</Description>
+      <DescriptionList  key={memberWishlistProduct.id} size="small" col="4">
+        <Description term="序号">{memberWishlistProduct.id}</Description> 
+        <Description term="名称">{memberWishlistProduct.name}</Description> 
+        <Description term="业主"><div>{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

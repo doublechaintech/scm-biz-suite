@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/consumerOrder/${targetComponent.props.consumerOrder.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/consumerOrder/${targetComponent.props.consumerOrder.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,22 +106,22 @@ const internalSummaryOf = (consumerOrder,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{consumerOrder.id}</Description> 
-<Description term="Title">{consumerOrder.title}</Description> 
-<Description term="Consumer">{consumerOrder.consumer==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.consumer.displayName}(${consumerOrder.consumer.id})`}
+<Description term="序号">{consumerOrder.id}</Description> 
+<Description term="头衔">{consumerOrder.title}</Description> 
+<Description term="消费者">{consumerOrder.consumer==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.consumer.displayName}(${consumerOrder.consumer.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Consumer","retailStoreMember",ConsumerOrderService.requestCandidateConsumer,
+  showTransferModel(targetComponent,"消费者","retailStoreMember",ConsumerOrderService.requestCandidateConsumer,
 	      ConsumerOrderService.transferToAnotherConsumer,"anotherConsumerId",consumerOrder.consumer?consumerOrder.consumer.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Store">{consumerOrder.store==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.store.displayName}(${consumerOrder.store.id})`}
+<Description term="商场">{consumerOrder.store==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.store.displayName}(${consumerOrder.store.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Store","retailStore",ConsumerOrderService.requestCandidateStore,
+  showTransferModel(targetComponent,"商场","retailStore",ConsumerOrderService.requestCandidateStore,
 	      ConsumerOrderService.transferToAnotherStore,"anotherStoreId",consumerOrder.store?consumerOrder.store.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Last Update Time">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Current Status">{consumerOrder.currentStatus}</Description> 
+<Description term="最后更新时间">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
+<Description term="当前状态">{consumerOrder.currentStatus}</Description> 
 	
         {buildTransferModal(consumerOrder,targetComponent)}
       </DescriptionList>
@@ -134,14 +159,14 @@ class ConsumerOrderDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Consumer Order",cardsFor: "consumerOrder",
+    const cardsData = {cardsName:"消费者订单",cardsFor: "consumerOrder",
     	cardsSource: this.props.consumerOrder,returnURL,displayName,
   		subItems: [
-{name: 'consumerOrderLineItemList', displayName:'Consumer Order Line Item',type:'consumerOrderLineItem',count:consumerOrderLineItemCount,addFunction: true, role: 'consumerOrderLineItem', metaInfo: consumerOrderLineItemListMetaInfo, renderItem: GlobalComponents.ConsumerOrderLineItemBase.renderItemOfList},
-{name: 'consumerOrderShippingGroupList', displayName:'Consumer Order Shipping Group',type:'consumerOrderShippingGroup',count:consumerOrderShippingGroupCount,addFunction: true, role: 'consumerOrderShippingGroup', metaInfo: consumerOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderShippingGroupBase.renderItemOfList},
-{name: 'consumerOrderPaymentGroupList', displayName:'Consumer Order Payment Group',type:'consumerOrderPaymentGroup',count:consumerOrderPaymentGroupCount,addFunction: true, role: 'consumerOrderPaymentGroup', metaInfo: consumerOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPaymentGroupBase.renderItemOfList},
-{name: 'consumerOrderPriceAdjustmentList', displayName:'Consumer Order Price Adjustment',type:'consumerOrderPriceAdjustment',count:consumerOrderPriceAdjustmentCount,addFunction: true, role: 'consumerOrderPriceAdjustment', metaInfo: consumerOrderPriceAdjustmentListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPriceAdjustmentBase.renderItemOfList},
-{name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'Retail Store Member Gift Card Consume Record',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardConsumeRecordBase.renderItemOfList},
+{name: 'consumerOrderLineItemList', displayName:'消费者订单行项目',type:'consumerOrderLineItem',count:consumerOrderLineItemCount,addFunction: true, role: 'consumerOrderLineItem', metaInfo: consumerOrderLineItemListMetaInfo, renderItem: GlobalComponents.ConsumerOrderLineItemBase.renderItemOfList},
+{name: 'consumerOrderShippingGroupList', displayName:'消费订单送货分组',type:'consumerOrderShippingGroup',count:consumerOrderShippingGroupCount,addFunction: true, role: 'consumerOrderShippingGroup', metaInfo: consumerOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderShippingGroupBase.renderItemOfList},
+{name: 'consumerOrderPaymentGroupList', displayName:'消费者订单付款组',type:'consumerOrderPaymentGroup',count:consumerOrderPaymentGroupCount,addFunction: true, role: 'consumerOrderPaymentGroup', metaInfo: consumerOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPaymentGroupBase.renderItemOfList},
+{name: 'consumerOrderPriceAdjustmentList', displayName:'消费品价格调整',type:'consumerOrderPriceAdjustment',count:consumerOrderPriceAdjustmentCount,addFunction: true, role: 'consumerOrderPriceAdjustment', metaInfo: consumerOrderPriceAdjustmentListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPriceAdjustmentBase.renderItemOfList},
+{name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardConsumeRecordBase.renderItemOfList},
     
       	],
   	};
@@ -167,10 +192,10 @@ class ConsumerOrderDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

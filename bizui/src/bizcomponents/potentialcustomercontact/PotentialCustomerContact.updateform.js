@@ -263,7 +263,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.contactDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Contact Date" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="接触日期" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.contactMethod,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Method" />
+                    <Input size="large" placeholder="接触法" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class PotentialCustomerContactUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                     
                   )}
                 </Form.Item>

@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Catalog", menuFor: "catalog",
+const menuData = {menuName:"目录", menuFor: "catalog",
   		subItems: [
-  {name: 'levelOneCategoryList', displayName:'Level One Category', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'levelOneCategoryList', displayName:'一级分类', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  owner: 'Owner',
+  id: '序号',
+  name: '名称',
+  owner: '业主',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'catalog') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'catalog') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
@@ -53,21 +53,18 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(catalog,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={catalog.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={catalog.id}>
-	
-	<DescriptionList  key={catalog.id} size="small" col="4">
-<Description term="Id">{catalog.id}</Description> 
-<Description term="Name">{catalog.name}</Description> 
+      <DescriptionList  key={catalog.id} size="small" col="4">
+        <Description term="序号">{catalog.id}</Description> 
+        <Description term="名称">{catalog.name}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

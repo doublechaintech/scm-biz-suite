@@ -22,7 +22,7 @@ const testValues = {
   contactNumber: '02887654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2018-08-19',
+  makeDate: '2019-03-30',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -201,8 +201,8 @@ class TransportTruckCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Transport Truck`}
-        content={`${appLocaleName(userContext,"CreateNew")}Transport Truck`}
+        title={`${appLocaleName(userContext,"CreateNew")}运输车`}
+        content={`${appLocaleName(userContext,"CreateNew")}运输车`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -214,7 +214,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -224,7 +224,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('plateNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Plate Number" />
+                    <Input size="large" placeholder="车牌号码" />
                   )}
                 </Form.Item>
               </Col>
@@ -234,7 +234,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -244,7 +244,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('vehicleLicenseNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Vehicle License Number" />
+                    <Input size="large" placeholder="汽车牌照号码" />
                   )}
                 </Form.Item>
               </Col>
@@ -254,7 +254,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('engineNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Engine Number" />
+                    <Input size="large" placeholder="发动机号" />
                   )}
                 </Form.Item>
               </Col>
@@ -264,7 +264,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Make Date" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
                   )}
                 </Form.Item>
               </Col>
@@ -274,7 +274,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('mileage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mileage" />
+                    <Input size="large" placeholder="里程" />
                   )}
                 </Form.Item>
               </Col>
@@ -284,7 +284,7 @@ class TransportTruckCreateForm extends Component {
                   {getFieldDecorator('bodyColor', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Body Color" />
+                    <Input size="large" placeholder="车身颜色" />
                   )}
                 </Form.Item>
               </Col>

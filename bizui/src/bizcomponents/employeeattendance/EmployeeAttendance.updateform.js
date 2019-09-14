@@ -263,7 +263,7 @@ class EmployeeAttendanceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class EmployeeAttendanceUpdateForm extends Component {
                     initialValue: selectedRow.enterTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Enter Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="进入时间" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class EmployeeAttendanceUpdateForm extends Component {
                     initialValue: selectedRow.leaveTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Leave Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="离开的时候" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class EmployeeAttendanceUpdateForm extends Component {
                     initialValue: selectedRow.durationHours,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Duration Hours" />
+                    <Input size="large" placeholder="持续时间" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class EmployeeAttendanceUpdateForm extends Component {
                     initialValue: selectedRow.remark,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Remark" />
+                    <Input size="large" placeholder="备注" />
                     
                   )}
                 </Form.Item>

@@ -55,8 +55,8 @@ class SupplyOrderShippingGroupProfile extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrderShippingGroup = this.props.supplyOrderShippingGroup;
     const { id,displayName,  } = supplyOrderShippingGroup
-
-    const cardsData = {cardsName:"Supply Order Shipping Group",cardsFor: "supplyOrderShippingGroup",cardsSource: supplyOrderShippingGroup,
+    const  returnURL = `/supplyOrderShippingGroup/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单送货分组",cardsFor: "supplyOrderShippingGroup",cardsSource: supplyOrderShippingGroup,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SupplyOrderShippingGroupProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

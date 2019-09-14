@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/product/${id}/list/SkuList/Sku+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/product/${id}/list/SkuList/SKU+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSku({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/product/${id}/list/SkuList/Sku列表`, state: newPlayload }
+      const location = { pathname: `/product/${id}/list/SkuList/SKU列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSkuUpdateRow({ payload }, { call, put }) {

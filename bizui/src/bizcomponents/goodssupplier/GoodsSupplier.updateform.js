@@ -262,7 +262,7 @@ class GoodsSupplierUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class GoodsSupplierUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class GoodsSupplierUpdateForm extends Component {
                     initialValue: selectedRow.supplyProduct,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Supply Product" />
+                    <Input size="large" placeholder="供应产品" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class GoodsSupplierUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class GoodsSupplierUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                     
                   )}
                 </Form.Item>

@@ -55,8 +55,8 @@ class SkillTypeProfile extends Component {
     // eslint-disable-next-line max-len
     const  skillType = this.props.skillType;
     const { id,displayName, employeeSkillCount } = skillType
-
-    const cardsData = {cardsName:"Skill Type",cardsFor: "skillType",cardsSource: skillType,
+    const  returnURL = `/skillType/${id}/dashboard`
+    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",cardsSource: skillType,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SkillTypeProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

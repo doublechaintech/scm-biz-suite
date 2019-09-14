@@ -55,8 +55,8 @@ class OriginalVoucherAuditingProfile extends Component {
     // eslint-disable-next-line max-len
     const  originalVoucherAuditing = this.props.originalVoucherAuditing;
     const { id,displayName, originalVoucherCount } = originalVoucherAuditing
-
-    const cardsData = {cardsName:"Original Voucher Auditing",cardsFor: "originalVoucherAuditing",cardsSource: originalVoucherAuditing,
+    const  returnURL = `/originalVoucherAuditing/${id}/dashboard`
+    const cardsData = {cardsName:"原始凭证的审核",cardsFor: "originalVoucherAuditing",cardsSource: originalVoucherAuditing,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class OriginalVoucherAuditingProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

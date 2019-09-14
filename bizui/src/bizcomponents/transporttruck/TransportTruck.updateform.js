@@ -262,7 +262,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.plateNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Plate Number" />
+                    <Input size="large" placeholder="车牌号码" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.vehicleLicenseNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Vehicle License Number" />
+                    <Input size="large" placeholder="汽车牌照号码" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.engineNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Engine Number" />
+                    <Input size="large" placeholder="发动机号" />
                     
                   )}
                 </Form.Item>
@@ -334,7 +334,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.makeDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Make Date" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
                     
                   )}
                 </Form.Item>
@@ -346,7 +346,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.mileage,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mileage" />
+                    <Input size="large" placeholder="里程" />
                     
                   )}
                 </Form.Item>
@@ -358,7 +358,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.bodyColor,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Body Color" />
+                    <Input size="large" placeholder="车身颜色" />
                     
                   )}
                 </Form.Item>

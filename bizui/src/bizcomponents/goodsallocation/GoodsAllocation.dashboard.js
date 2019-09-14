@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/goodsAllocation/${targetComponent.props.goodsAllocation.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/goodsAllocation/${targetComponent.props.goodsAllocation.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,13 +106,13 @@ const internalSummaryOf = (goodsAllocation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goodsAllocation.id}</Description> 
-<Description term="Location">{goodsAllocation.location}</Description> 
-<Description term="Latitude">{goodsAllocation.latitude}</Description> 
-<Description term="Longitude">{goodsAllocation.longitude}</Description> 
-<Description term="Goods Shelf">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
+<Description term="序号">{goodsAllocation.id}</Description> 
+<Description term="位置">{goodsAllocation.location}</Description> 
+<Description term="纬度">{goodsAllocation.latitude}</Description> 
+<Description term="经度">{goodsAllocation.longitude}</Description> 
+<Description term="货架">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Goods Shelf","goodsShelf",GoodsAllocationService.requestCandidateGoodsShelf,
+  showTransferModel(targetComponent,"货架","goodsShelf",GoodsAllocationService.requestCandidateGoodsShelf,
 	      GoodsAllocationService.transferToAnotherGoodsShelf,"anotherGoodsShelfId",goodsAllocation.goodsShelf?goodsAllocation.goodsShelf.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +153,10 @@ class GoodsAllocationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Goods Allocation",cardsFor: "goodsAllocation",
+    const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",
     	cardsSource: this.props.goodsAllocation,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};
@@ -157,10 +182,10 @@ class GoodsAllocationDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

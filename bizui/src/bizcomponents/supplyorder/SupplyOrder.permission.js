@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,16 +23,20 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (supplyOrder,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{supplyOrder.id}</Description> 
-<Description term="Title">{supplyOrder.title}</Description> 
-<Description term="Total Amount">{supplyOrder.totalAmount}</Description> 
-<Description term="Last Update Time">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Current Status">{supplyOrder.currentStatus}</Description> 
+<Description term="序号">{supplyOrder.id}</Description> 
+<Description term="头衔">{supplyOrder.title}</Description> 
+<Description term="总金额">{supplyOrder.totalAmount}</Description> 
+<Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="当前状态">{supplyOrder.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,9 +60,10 @@ class SupplyOrderPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  supplyOrder = this.props.supplyOrder;
+    const  supplyOrder = this.props.supplyOrder
     const { id,displayName, supplyOrderLineItemCount, supplyOrderShippingGroupCount, supplyOrderPaymentGroupCount, goodsCount } = supplyOrder
-    const cardsData = {cardsName:"Supply Order",cardsFor: "supplyOrder",cardsSource: supplyOrder,
+    const  returnURL = `/supplyOrder/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单",cardsFor: "supplyOrder",cardsSource: supplyOrder,displayName,returnURL,
   		subItems: [
     
       	],
@@ -69,7 +74,7 @@ class SupplyOrderPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

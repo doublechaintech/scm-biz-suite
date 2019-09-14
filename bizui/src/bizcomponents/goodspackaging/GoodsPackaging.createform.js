@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
-  packageTime: '2017-09-08',
+  packageTime: '2017-04-30',
   description: '打包完成，准备起运',
 }
 */
@@ -196,8 +196,8 @@ class GoodsPackagingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Goods Packaging`}
-        content={`${appLocaleName(userContext,"CreateNew")}Goods Packaging`}
+        title={`${appLocaleName(userContext,"CreateNew")}货物包装`}
+        content={`${appLocaleName(userContext,"CreateNew")}货物包装`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class GoodsPackagingCreateForm extends Component {
                   {getFieldDecorator('packageName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Package Name" />
+                    <Input size="large" placeholder="包的名字" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class GoodsPackagingCreateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Rfid" />
+                    <Input size="large" placeholder="RFID" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class GoodsPackagingCreateForm extends Component {
                   {getFieldDecorator('packageTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Package Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="包的时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -239,7 +239,7 @@ class GoodsPackagingCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

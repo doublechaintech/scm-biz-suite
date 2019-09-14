@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/interviewType/${id}/list/EmployeeInterviewList/Employee Interview+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/interviewType/${id}/list/EmployeeInterviewList/员工面试+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeInterview({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/interviewType/${id}/list/EmployeeInterviewList/Employee Interview列表`, state: newPlayload }
+      const location = { pathname: `/interviewType/${id}/list/EmployeeInterviewList/员工面试列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeInterviewUpdateRow({ payload }, { call, put }) {

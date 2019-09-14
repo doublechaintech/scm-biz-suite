@@ -55,8 +55,8 @@ class AccountingDocumentLineProfile extends Component {
     // eslint-disable-next-line max-len
     const  accountingDocumentLine = this.props.accountingDocumentLine;
     const { id,displayName,  } = accountingDocumentLine
-
-    const cardsData = {cardsName:"Accounting Document Line",cardsFor: "accountingDocumentLine",cardsSource: accountingDocumentLine,
+    const  returnURL = `/accountingDocumentLine/${id}/dashboard`
+    const cardsData = {cardsName:"会计凭证行",cardsFor: "accountingDocumentLine",cardsSource: accountingDocumentLine,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class AccountingDocumentLineProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

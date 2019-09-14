@@ -30,42 +30,39 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Franchising", menuFor: "retailStoreFranchising",
+const menuData = {menuName:"生超的特许经营", menuFor: "retailStoreFranchising",
   		subItems: [
-  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  comment: 'Comment',
+  id: '序号',
+  comment: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'retailStoreFranchising') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreFranchising') , sorter: true },
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '8',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreFranchising,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreFranchising.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreFranchising.id}>
-	
-	<DescriptionList  key={retailStoreFranchising.id} size="small" col="4">
-<Description term="Id">{retailStoreFranchising.id}</Description> 
-<Description term="Comment">{retailStoreFranchising.comment}</Description> 
+      <DescriptionList  key={retailStoreFranchising.id} size="small" col="4">
+        <Description term="序号">{retailStoreFranchising.id}</Description> 
+        <Description term="评论">{retailStoreFranchising.comment}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

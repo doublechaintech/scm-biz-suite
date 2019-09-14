@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链中和社区店',
-  amount: '4.63',
+  amount: '4.73',
   bizOrderId: 'RSO000001',
 }
 */
@@ -139,7 +139,7 @@ class RetailStoreOrderShippingGroupAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class RetailStoreOrderShippingGroupAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

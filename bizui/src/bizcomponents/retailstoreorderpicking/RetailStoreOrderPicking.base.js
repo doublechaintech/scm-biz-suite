@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Order Picking", menuFor: "retailStoreOrderPicking",
+const menuData = {menuName:"生超订单拣货", menuFor: "retailStoreOrderPicking",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'Retail Store Order', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  processTime: 'Process Time',
+  id: '序号',
+  who: '谁',
+  processTime: '过程的时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderPicking') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderPicking') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.processTime, dataIndex: 'processTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
@@ -53,22 +53,19 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreOrderPicking,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreOrderPicking.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreOrderPicking.id}>
-	
-	<DescriptionList  key={retailStoreOrderPicking.id} size="small" col="4">
-<Description term="Id">{retailStoreOrderPicking.id}</Description> 
-<Description term="Who">{retailStoreOrderPicking.who}</Description> 
-<Description term="Process Time">{ moment(retailStoreOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={retailStoreOrderPicking.id} size="small" col="4">
+        <Description term="序号">{retailStoreOrderPicking.id}</Description> 
+        <Description term="谁">{retailStoreOrderPicking.who}</Description> 
+        <Description term="过程的时间"><div>{ moment(retailStoreOrderPicking.processTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

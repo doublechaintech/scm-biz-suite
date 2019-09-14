@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/consumerOrderDelivery/${targetComponent.props.consumerOrderDelivery.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/consumerOrderDelivery/${targetComponent.props.consumerOrderDelivery.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,9 +106,9 @@ const internalSummaryOf = (consumerOrderDelivery,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{consumerOrderDelivery.id}</Description> 
-<Description term="Who">{consumerOrderDelivery.who}</Description> 
-<Description term="Delivery Time">{ moment(consumerOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{consumerOrderDelivery.id}</Description> 
+<Description term="谁">{consumerOrderDelivery.who}</Description> 
+<Description term="交货时间">{ moment(consumerOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(consumerOrderDelivery,targetComponent)}
       </DescriptionList>
@@ -121,7 +146,7 @@ class ConsumerOrderDeliveryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Consumer Order Delivery",cardsFor: "consumerOrderDelivery",
+    const cardsData = {cardsName:"消费者订单交货",cardsFor: "consumerOrderDelivery",
     	cardsSource: this.props.consumerOrderDelivery,returnURL,displayName,
   		subItems: [
     
@@ -149,10 +174,10 @@ class ConsumerOrderDeliveryDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

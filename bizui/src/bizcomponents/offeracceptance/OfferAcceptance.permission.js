@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (offerAcceptance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{offerAcceptance.id}</Description> 
-<Description term="Who">{offerAcceptance.who}</Description> 
-<Description term="Accept Time">{ moment(offerAcceptance.acceptTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Comments">{offerAcceptance.comments}</Description> 
+<Description term="序号">{offerAcceptance.id}</Description> 
+<Description term="谁">{offerAcceptance.who}</Description> 
+<Description term="接受时间">{ moment(offerAcceptance.acceptTime).format('YYYY-MM-DD')}</Description> 
+<Description term="评论">{offerAcceptance.comments}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class OfferAcceptancePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  offerAcceptance = this.props.offerAcceptance;
+    const  offerAcceptance = this.props.offerAcceptance
     const { id,displayName, employeeCount } = offerAcceptance
-    const cardsData = {cardsName:"Offer Acceptance",cardsFor: "offerAcceptance",cardsSource: offerAcceptance,
+    const  returnURL = `/offerAcceptance/${id}/dashboard`
+    const cardsData = {cardsName:"接受工作要约",cardsFor: "offerAcceptance",cardsSource: offerAcceptance,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class OfferAcceptancePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

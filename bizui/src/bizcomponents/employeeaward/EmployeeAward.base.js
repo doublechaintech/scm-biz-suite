@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Employee Award", menuFor: "employeeAward",
+const menuData = {menuName:"员工嘉奖", menuFor: "employeeAward",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  employee: 'Employee',
-  completeTime: 'Complete Time',
-  type: 'Type',
-  remark: 'Remark',
+  id: '序号',
+  employee: '员工',
+  completeTime: '完成时间',
+  type: '类型',
+  remark: '备注',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeAward') , sorter: true },
   { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.completeTime, dataIndex: 'completeTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.type, debugtype: 'string', dataIndex: 'type', width: '9',render: (text, record)=>renderTextCell(text,record)},
@@ -56,25 +56,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(employeeAward,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={employeeAward.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={employeeAward.id}>
-	
-	<DescriptionList  key={employeeAward.id} size="small" col="4">
-<Description term="Id">{employeeAward.id}</Description> 
-<Description term="Employee">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
-</Description>
-<Description term="Complete Time">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Type">{employeeAward.type}</Description> 
-<Description term="Remark">{employeeAward.remark}</Description> 
+      <DescriptionList  key={employeeAward.id} size="small" col="4">
+        <Description term="序号">{employeeAward.id}</Description> 
+        <Description term="员工"><div>{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
+        </div></Description>
+        <Description term="完成时间"><div>{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="类型">{employeeAward.type}</Description> 
+        <Description term="备注">{employeeAward.remark}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

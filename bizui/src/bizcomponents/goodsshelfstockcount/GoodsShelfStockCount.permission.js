@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (goodsShelfStockCount,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goodsShelfStockCount.id}</Description> 
-<Description term="Title">{goodsShelfStockCount.title}</Description> 
-<Description term="Count Time">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Summary">{goodsShelfStockCount.summary}</Description> 
+<Description term="序号">{goodsShelfStockCount.id}</Description> 
+<Description term="头衔">{goodsShelfStockCount.title}</Description> 
+<Description term="计数时间">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
+<Description term="概览">{goodsShelfStockCount.summary}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class GoodsShelfStockCountPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  goodsShelfStockCount = this.props.goodsShelfStockCount;
+    const  goodsShelfStockCount = this.props.goodsShelfStockCount
     const { id,displayName, stockCountIssueTrackCount } = goodsShelfStockCount
-    const cardsData = {cardsName:"Goods Shelf Stock Count",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,
+    const  returnURL = `/goodsShelfStockCount/${id}/dashboard`
+    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class GoodsShelfStockCountPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

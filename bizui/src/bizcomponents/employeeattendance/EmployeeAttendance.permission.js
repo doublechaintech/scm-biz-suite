@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,16 +23,20 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (employeeAttendance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeAttendance.id}</Description> 
-<Description term="Enter Time">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Leave Time">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Duration Hours">{employeeAttendance.durationHours}</Description> 
-<Description term="Remark">{employeeAttendance.remark}</Description> 
+<Description term="序号">{employeeAttendance.id}</Description> 
+<Description term="进入时间">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
+<Description term="离开的时候">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="持续时间">{employeeAttendance.durationHours}</Description> 
+<Description term="备注">{employeeAttendance.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,9 +60,10 @@ class EmployeeAttendancePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  employeeAttendance = this.props.employeeAttendance;
+    const  employeeAttendance = this.props.employeeAttendance
     const { id,displayName,  } = employeeAttendance
-    const cardsData = {cardsName:"Employee Attendance",cardsFor: "employeeAttendance",cardsSource: employeeAttendance,
+    const  returnURL = `/employeeAttendance/${id}/dashboard`
+    const cardsData = {cardsName:"员工考勤",cardsFor: "employeeAttendance",cardsSource: employeeAttendance,displayName,returnURL,
   		subItems: [
     
       	],
@@ -69,7 +74,7 @@ class EmployeeAttendancePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

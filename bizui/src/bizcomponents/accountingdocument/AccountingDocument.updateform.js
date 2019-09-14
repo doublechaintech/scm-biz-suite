@@ -262,7 +262,7 @@ class AccountingDocumentUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class AccountingDocumentUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class AccountingDocumentUpdateForm extends Component {
                     initialValue: selectedRow.accountingDocumentDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Accounting Document Date" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="会计凭证日期" />
                     
                   )}
                 </Form.Item>

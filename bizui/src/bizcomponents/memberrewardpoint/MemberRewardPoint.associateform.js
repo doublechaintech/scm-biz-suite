@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '购买积分',
-  point: '18',
+  point: '15',
   ownerId: 'RSM000001',
 }
 */
@@ -139,7 +139,7 @@ class MemberRewardPointAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class MemberRewardPointAssociateForm extends Component {
                   {getFieldDecorator('point', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Point" />
+                    <Input size="large" placeholder="点" />
                   )}
                 </Form.Item>
               </Col>

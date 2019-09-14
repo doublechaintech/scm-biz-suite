@@ -5,6 +5,8 @@ import LauncherService from './Launcher.service';
 import GlobalComponents from '../custcomponents';
 import SystemConfig from '../axios/config';
 import defaultLocaleName from './Launcher.locale';
+
+
 let currentLocation = '';
 
 const launcherLocaleName = defaultLocaleName; //you can define your version here to replace default

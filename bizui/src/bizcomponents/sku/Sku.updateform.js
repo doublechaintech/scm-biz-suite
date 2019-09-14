@@ -262,7 +262,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.size,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Size" />
+                    <Input size="large" placeholder="大小" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.barcode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Barcode" />
+                    <Input size="large" placeholder="条码" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.packageType,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Package Type" />
+                    <Input size="large" placeholder="包装类型" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.netContent,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Net Content" />
+                    <Input size="large" placeholder="净含量" />
                     
                   )}
                 </Form.Item>
@@ -334,7 +334,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.price,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Price" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
                     
                   )}
                 </Form.Item>
@@ -355,7 +355,7 @@ class SkuUpdateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="Picture"
+                  buttonTitle="图片"
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'picture')}
                   fileList={convertedImagesValues.picture}

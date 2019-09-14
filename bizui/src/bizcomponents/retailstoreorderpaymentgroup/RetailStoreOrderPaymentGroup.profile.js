@@ -55,8 +55,8 @@ class RetailStoreOrderPaymentGroupProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreOrderPaymentGroup = this.props.retailStoreOrderPaymentGroup;
     const { id,displayName,  } = retailStoreOrderPaymentGroup
-
-    const cardsData = {cardsName:"Retail Store Order Payment Group",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: retailStoreOrderPaymentGroup,
+    const  returnURL = `/retailStoreOrderPaymentGroup/${id}/dashboard`
+    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",cardsSource: retailStoreOrderPaymentGroup,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class RetailStoreOrderPaymentGroupProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

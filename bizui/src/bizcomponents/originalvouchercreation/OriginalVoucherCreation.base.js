@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Original Voucher Creation", menuFor: "originalVoucherCreation",
+const menuData = {menuName:"原始凭证制作", menuFor: "originalVoucherCreation",
   		subItems: [
-  {name: 'originalVoucherList', displayName:'Original Voucher', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'originalVoucherList', displayName:'原始凭证', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  comments: 'Comments',
-  makeDate: 'Make Date',
+  id: '序号',
+  who: '谁',
+  comments: '评论',
+  makeDate: '制造日期',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'originalVoucherCreation') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'originalVoucherCreation') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.comments, debugtype: 'string', dataIndex: 'comments', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.makeDate, dataIndex: 'makeDate', render: (text, record) =>renderDateCell(text,record), sorter: true },
@@ -55,23 +55,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(originalVoucherCreation,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={originalVoucherCreation.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={originalVoucherCreation.id}>
-	
-	<DescriptionList  key={originalVoucherCreation.id} size="small" col="4">
-<Description term="Id">{originalVoucherCreation.id}</Description> 
-<Description term="Who">{originalVoucherCreation.who}</Description> 
-<Description term="Comments">{originalVoucherCreation.comments}</Description> 
-<Description term="Make Date">{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={originalVoucherCreation.id} size="small" col="4">
+        <Description term="序号">{originalVoucherCreation.id}</Description> 
+        <Description term="谁">{originalVoucherCreation.who}</Description> 
+        <Description term="评论">{originalVoucherCreation.comments}</Description> 
+        <Description term="制造日期"><div>{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

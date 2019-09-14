@@ -21,8 +21,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库损坏货物堆放区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '40.14054072556138',
-  longitude: '131.80429308933893',
+  latitude: '41.40516495906212',
+  longitude: '130.09738843485',
   warehouseId: 'W000001',
 }
 */
@@ -143,7 +143,7 @@ class DamageSpaceAssociateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Location" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +153,7 @@ class DamageSpaceAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +163,7 @@ class DamageSpaceAssociateForm extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Total Area" />
+                    <Input size="large" placeholder="总面积" />
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +173,7 @@ class DamageSpaceAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Latitude" />
+                    <Input size="large" placeholder="纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +183,7 @@ class DamageSpaceAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Longitude" />
+                    <Input size="large" placeholder="经度" />
                   )}
                 </Form.Item>
               </Col>

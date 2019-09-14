@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/employeeLeave/${targetComponent.props.employeeLeave.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/employeeLeave/${targetComponent.props.employeeLeave.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,21 +106,21 @@ const internalSummaryOf = (employeeLeave,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeLeave.id}</Description> 
-<Description term="Who">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
+<Description term="序号">{employeeLeave.id}</Description> 
+<Description term="谁">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Who","employee",EmployeeLeaveService.requestCandidateWho,
+  showTransferModel(targetComponent,"谁","employee",EmployeeLeaveService.requestCandidateWho,
 	      EmployeeLeaveService.transferToAnotherWho,"anotherWhoId",employeeLeave.who?employeeLeave.who.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Type">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
+<Description term="类型">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Type","leaveType",EmployeeLeaveService.requestCandidateType,
+  showTransferModel(targetComponent,"类型","leaveType",EmployeeLeaveService.requestCandidateType,
 	      EmployeeLeaveService.transferToAnotherType,"anotherTypeId",employeeLeave.type?employeeLeave.type.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Leave Duration Hour">{employeeLeave.leaveDurationHour}</Description> 
-<Description term="Remark">{employeeLeave.remark}</Description> 
+<Description term="请假时长">{employeeLeave.leaveDurationHour}</Description> 
+<Description term="备注">{employeeLeave.remark}</Description> 
 	
         {buildTransferModal(employeeLeave,targetComponent)}
       </DescriptionList>
@@ -133,7 +158,7 @@ class EmployeeLeaveDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Employee Leave",cardsFor: "employeeLeave",
+    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",
     	cardsSource: this.props.employeeLeave,returnURL,displayName,
   		subItems: [
     
@@ -161,10 +186,10 @@ class EmployeeLeaveDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

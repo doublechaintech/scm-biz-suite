@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Member Reward Point Redemption", menuFor: "memberRewardPointRedemption",
+const menuData = {menuName:"会员奖励点赎回", menuFor: "memberRewardPointRedemption",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  point: 'Point',
-  owner: 'Owner',
+  id: '序号',
+  name: '名称',
+  point: '点',
+  owner: '业主',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'memberRewardPointRedemption') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.point, debugtype: 'int', dataIndex: 'point', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -54,24 +54,21 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(memberRewardPointRedemption,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={memberRewardPointRedemption.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={memberRewardPointRedemption.id}>
-	
-	<DescriptionList  key={memberRewardPointRedemption.id} size="small" col="4">
-<Description term="Id">{memberRewardPointRedemption.id}</Description> 
-<Description term="Name">{memberRewardPointRedemption.name}</Description> 
-<Description term="Point">{memberRewardPointRedemption.point}</Description> 
-<Description term="Owner">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
-</Description>
+      <DescriptionList  key={memberRewardPointRedemption.id} size="small" col="4">
+        <Description term="序号">{memberRewardPointRedemption.id}</Description> 
+        <Description term="名称">{memberRewardPointRedemption.name}</Description> 
+        <Description term="点"><div style={{"color":"red"}}>{memberRewardPointRedemption.point}</div></Description> 
+        <Description term="业主"><div>{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

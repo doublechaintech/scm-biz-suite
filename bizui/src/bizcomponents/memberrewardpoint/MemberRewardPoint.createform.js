@@ -195,8 +195,8 @@ class MemberRewardPointCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Member Reward Point`}
-        content={`${appLocaleName(userContext,"CreateNew")}Member Reward Point`}
+        title={`${appLocaleName(userContext,"CreateNew")}会员奖励点`}
+        content={`${appLocaleName(userContext,"CreateNew")}会员奖励点`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class MemberRewardPointCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class MemberRewardPointCreateForm extends Component {
                   {getFieldDecorator('point', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Point" />
+                    <Input size="large" placeholder="点" />
                   )}
                 </Form.Item>
               </Col>

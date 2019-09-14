@@ -55,10 +55,10 @@ class RetailStoreProvinceCenterProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreProvinceCenter = this.props.retailStoreProvinceCenter;
     const { id,displayName, provinceCenterDepartmentCount, provinceCenterEmployeeCount, retailStoreCityServiceCenterCount } = retailStoreProvinceCenter
-
-    const cardsData = {cardsName:"Retail Store Province Center",cardsFor: "retailStoreProvinceCenter",cardsSource: retailStoreProvinceCenter,
+    const  returnURL = `/retailStoreProvinceCenter/${id}/dashboard`
+    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",cardsSource: retailStoreProvinceCenter,displayName,returnURL,
   		subItems: [
-{name: 'provinceCenterDepartmentList', displayName:'Province Center Department',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment',  renderItem: GlobalComponents.ProvinceCenterDepartmentBase.renderItemOfList},
+{name: 'provinceCenterDepartmentList', displayName:'省中心',type:'provinceCenterDepartment',count:provinceCenterDepartmentCount,addFunction: true, role: 'provinceCenterDepartment',  renderItem: GlobalComponents.ProvinceCenterDepartmentBase.renderItemOfList},
      
       	],
   	};
@@ -71,8 +71,8 @@ class RetailStoreProvinceCenterProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

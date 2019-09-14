@@ -261,7 +261,7 @@ class UserWhiteListUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="ID" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class UserWhiteListUpdateForm extends Component {
                     initialValue: selectedRow.userIdentity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="User Identity" />
+                    <Input size="large" placeholder="用户身份" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class UserWhiteListUpdateForm extends Component {
                     initialValue: selectedRow.userSpecialFunctions,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="User Special Functions" />
+                    <Input size="large" placeholder="用户特殊功能" />
                     
                   )}
                 </Form.Item>

@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/terminationReason/${id}/list/TerminationList/Termination+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/terminationReason/${id}/list/TerminationList/雇佣终止+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTermination({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/terminationReason/${id}/list/TerminationList/Termination列表`, state: newPlayload }
+      const location = { pathname: `/terminationReason/${id}/list/TerminationList/雇佣终止列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTerminationUpdateRow({ payload }, { call, put }) {

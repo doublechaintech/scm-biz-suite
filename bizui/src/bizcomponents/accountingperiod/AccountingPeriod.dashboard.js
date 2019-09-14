@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/accountingPeriod/${targetComponent.props.accountingPeriod.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/accountingPeriod/${targetComponent.props.accountingPeriod.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,13 +106,13 @@ const internalSummaryOf = (accountingPeriod,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{accountingPeriod.id}</Description> 
-<Description term="Name">{accountingPeriod.name}</Description> 
-<Description term="Start Date">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
-<Description term="End Date">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
-<Description term="Account Set">{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
+<Description term="序号">{accountingPeriod.id}</Description> 
+<Description term="名称">{accountingPeriod.name}</Description> 
+<Description term="开始日期">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
+<Description term="结束日期">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
+<Description term="账套">{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Account Set","accountSet",AccountingPeriodService.requestCandidateAccountSet,
+  showTransferModel(targetComponent,"账套","accountSet",AccountingPeriodService.requestCandidateAccountSet,
 	      AccountingPeriodService.transferToAnotherAccountSet,"anotherAccountSetId",accountingPeriod.accountSet?accountingPeriod.accountSet.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +153,10 @@ class AccountingPeriodDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Accounting Period",cardsFor: "accountingPeriod",
+    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",
     	cardsSource: this.props.accountingPeriod,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentList', displayName:'Accounting Document',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
+{name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
     
       	],
   	};
@@ -157,10 +182,10 @@ class AccountingPeriodDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

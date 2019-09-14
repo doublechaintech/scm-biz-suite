@@ -55,8 +55,8 @@ class StorageSpaceProfile extends Component {
     // eslint-disable-next-line max-len
     const  storageSpace = this.props.storageSpace;
     const { id,displayName, goodsShelfCount } = storageSpace
-
-    const cardsData = {cardsName:"Storage Space",cardsFor: "storageSpace",cardsSource: storageSpace,
+    const  returnURL = `/storageSpace/${id}/dashboard`
+    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",cardsSource: storageSpace,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class StorageSpaceProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

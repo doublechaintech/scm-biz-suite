@@ -140,7 +140,7 @@ class RetailStoreMemberAddressAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class RetailStoreMemberAddressAssociateForm extends Component {
                   {getFieldDecorator('mobilePhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mobile Phone" />
+                    <Input size="large" placeholder="移动电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class RetailStoreMemberAddressAssociateForm extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Address" />
+                    <Input size="large" placeholder="地址" />
                   )}
                 </Form.Item>
               </Col>

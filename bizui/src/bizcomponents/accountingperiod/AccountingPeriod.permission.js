@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (accountingPeriod,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{accountingPeriod.id}</Description> 
-<Description term="Name">{accountingPeriod.name}</Description> 
-<Description term="Start Date">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
-<Description term="End Date">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{accountingPeriod.id}</Description> 
+<Description term="名称">{accountingPeriod.name}</Description> 
+<Description term="开始日期">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
+<Description term="结束日期">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class AccountingPeriodPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  accountingPeriod = this.props.accountingPeriod;
+    const  accountingPeriod = this.props.accountingPeriod
     const { id,displayName, accountingDocumentCount } = accountingPeriod
-    const cardsData = {cardsName:"Accounting Period",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,
+    const  returnURL = `/accountingPeriod/${id}/dashboard`
+    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class AccountingPeriodPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

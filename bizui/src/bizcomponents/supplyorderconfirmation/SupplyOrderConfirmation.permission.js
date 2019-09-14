@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (supplyOrderConfirmation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{supplyOrderConfirmation.id}</Description> 
-<Description term="Who">{supplyOrderConfirmation.who}</Description> 
-<Description term="Confirm Time">{ moment(supplyOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{supplyOrderConfirmation.id}</Description> 
+<Description term="谁">{supplyOrderConfirmation.who}</Description> 
+<Description term="确认时间">{ moment(supplyOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class SupplyOrderConfirmationPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  supplyOrderConfirmation = this.props.supplyOrderConfirmation;
+    const  supplyOrderConfirmation = this.props.supplyOrderConfirmation
     const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderConfirmation
-    const cardsData = {cardsName:"Supply Order Confirmation",cardsFor: "supplyOrderConfirmation",cardsSource: supplyOrderConfirmation,
+    const  returnURL = `/supplyOrderConfirmation/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单确认",cardsFor: "supplyOrderConfirmation",cardsSource: supplyOrderConfirmation,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class SupplyOrderConfirmationPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

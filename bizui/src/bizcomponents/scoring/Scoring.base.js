@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Scoring", menuFor: "scoring",
+const menuData = {menuName:"评分", menuFor: "scoring",
   		subItems: [
-  {name: 'employeeCompanyTrainingList', displayName:'Employee Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  scoredBy: 'Scored By',
-  score: 'Score',
-  comment: 'Comment',
+  id: '序号',
+  scoredBy: '由谁打分',
+  score: '分数',
+  comment: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'scoring') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'scoring') , sorter: true },
   { title: fieldLabels.scoredBy, debugtype: 'string', dataIndex: 'scoredBy', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.score, debugtype: 'int', dataIndex: 'score', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '13',render: (text, record)=>renderTextCell(text,record)},
@@ -55,23 +55,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(scoring,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={scoring.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={scoring.id}>
-	
-	<DescriptionList  key={scoring.id} size="small" col="4">
-<Description term="Id">{scoring.id}</Description> 
-<Description term="Scored By">{scoring.scoredBy}</Description> 
-<Description term="Score">{scoring.score}</Description> 
-<Description term="Comment">{scoring.comment}</Description> 
+      <DescriptionList  key={scoring.id} size="small" col="4">
+        <Description term="序号">{scoring.id}</Description> 
+        <Description term="由谁打分">{scoring.scoredBy}</Description> 
+        <Description term="分数"><div style={{"color":"red"}}>{scoring.score}</div></Description> 
+        <Description term="评论">{scoring.comment}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

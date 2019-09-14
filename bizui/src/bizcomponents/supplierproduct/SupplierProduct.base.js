@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Supplier Product", menuFor: "supplierProduct",
+const menuData = {menuName:"供应商的产品", menuFor: "supplierProduct",
   		subItems: [
-  {name: 'productSupplyDurationList', displayName:'Product Supply Duration', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'productSupplyDurationList', displayName:'产品供应时间', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  productName: 'Product Name',
-  productDescription: 'Product Description',
-  productUnit: 'Product Unit',
-  supplier: 'Supplier',
+  id: '序号',
+  productName: '品名',
+  productDescription: '产品描述',
+  productUnit: '产品单元',
+  supplier: '供应商',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'supplierProduct') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'supplierProduct') , sorter: true },
   { title: fieldLabels.productName, debugtype: 'string', dataIndex: 'productName', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.productDescription, debugtype: 'string', dataIndex: 'productDescription', width: '17',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.productUnit, debugtype: 'string', dataIndex: 'productUnit', width: '6',render: (text, record)=>renderTextCell(text,record)},
@@ -57,25 +57,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(supplierProduct,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={supplierProduct.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={supplierProduct.id}>
-	
-	<DescriptionList  key={supplierProduct.id} size="small" col="4">
-<Description term="Id">{supplierProduct.id}</Description> 
-<Description term="Product Name">{supplierProduct.productName}</Description> 
-<Description term="Product Description">{supplierProduct.productDescription}</Description> 
-<Description term="Product Unit">{supplierProduct.productUnit}</Description> 
-<Description term="Supplier">{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${supplierProduct.supplier.displayName}(${supplierProduct.supplier.id})`}
-</Description>
+      <DescriptionList  key={supplierProduct.id} size="small" col="4">
+        <Description term="序号">{supplierProduct.id}</Description> 
+        <Description term="品名">{supplierProduct.productName}</Description> 
+        <Description term="产品描述">{supplierProduct.productDescription}</Description> 
+        <Description term="产品单元">{supplierProduct.productUnit}</Description> 
+        <Description term="供应商"><div>{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${supplierProduct.supplier.displayName}(${supplierProduct.supplier.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

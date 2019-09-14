@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/accountingDocument/${id}/list/OriginalVoucherList/Original Voucher+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/accountingDocument/${id}/list/OriginalVoucherList/原始凭证+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateOriginalVoucher({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/accountingDocument/${id}/list/OriginalVoucherList/Original Voucher列表`, state: newPlayload }
+      const location = { pathname: `/accountingDocument/${id}/list/OriginalVoucherList/原始凭证列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextOriginalVoucherUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/accountingDocument/${id}/list/AccountingDocumentLineList/Accounting Document Line+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/accountingDocument/${id}/list/AccountingDocumentLineList/会计凭证行+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountingDocumentLine({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/accountingDocument/${id}/list/AccountingDocumentLineList/Accounting Document Line列表`, state: newPlayload }
+      const location = { pathname: `/accountingDocument/${id}/list/AccountingDocumentLineList/会计凭证行列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountingDocumentLineUpdateRow({ payload }, { call, put }) {

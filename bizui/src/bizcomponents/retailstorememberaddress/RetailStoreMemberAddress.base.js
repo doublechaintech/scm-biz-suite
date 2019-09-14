@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Member Address", menuFor: "retailStoreMemberAddress",
+const menuData = {menuName:"零售店会员地址", menuFor: "retailStoreMemberAddress",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  owner: 'Owner',
-  mobilePhone: 'Mobile Phone',
-  address: 'Address',
+  id: '序号',
+  name: '名称',
+  owner: '业主',
+  mobilePhone: '移动电话',
+  address: '地址',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreMemberAddress') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.mobilePhone, debugtype: 'string_china_mobile_phone', dataIndex: 'mobilePhone', width: '15',render: (text, record)=>renderTextCell(text,record)},
@@ -56,25 +56,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreMemberAddress,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreMemberAddress.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreMemberAddress.id}>
-	
-	<DescriptionList  key={retailStoreMemberAddress.id} size="small" col="4">
-<Description term="Id">{retailStoreMemberAddress.id}</Description> 
-<Description term="Name">{retailStoreMemberAddress.name}</Description> 
-<Description term="Owner">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
-</Description>
-<Description term="Mobile Phone">{retailStoreMemberAddress.mobilePhone}</Description> 
-<Description term="Address">{retailStoreMemberAddress.address}</Description> 
+      <DescriptionList  key={retailStoreMemberAddress.id} size="small" col="4">
+        <Description term="序号">{retailStoreMemberAddress.id}</Description> 
+        <Description term="名称">{retailStoreMemberAddress.name}</Description> 
+        <Description term="业主"><div>{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
+        </div></Description>
+        <Description term="移动电话">{retailStoreMemberAddress.mobilePhone}</Description> 
+        <Description term="地址">{retailStoreMemberAddress.address}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

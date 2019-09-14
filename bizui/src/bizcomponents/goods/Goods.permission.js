@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,18 +23,22 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (goods,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goods.id}</Description> 
-<Description term="Name">{goods.name}</Description> 
-<Description term="Rfid">{goods.rfid}</Description> 
-<Description term="Uom">{goods.uom}</Description> 
-<Description term="Max Package">{goods.maxPackage}</Description> 
-<Description term="Expire Time">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Current Status">{goods.currentStatus}</Description> 
+<Description term="序号">{goods.id}</Description> 
+<Description term="名称">{goods.name}</Description> 
+<Description term="RFID">{goods.rfid}</Description> 
+<Description term="计量单位">{goods.uom}</Description> 
+<Description term="最大包装">{goods.maxPackage}</Description> 
+<Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
+<Description term="当前状态">{goods.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,9 +62,10 @@ class GoodsPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  goods = this.props.goods;
+    const  goods = this.props.goods
     const { id,displayName, goodsMovementCount } = goods
-    const cardsData = {cardsName:"Goods",cardsFor: "goods",cardsSource: goods,
+    const  returnURL = `/goods/${id}/dashboard`
+    const cardsData = {cardsName:"货物",cardsFor: "goods",cardsSource: goods,displayName,returnURL,
   		subItems: [
     
       	],
@@ -71,7 +76,7 @@ class GoodsPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

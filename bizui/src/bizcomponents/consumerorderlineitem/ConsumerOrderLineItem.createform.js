@@ -19,9 +19,9 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  price: '5.37',
-  quantity: '753.46',
-  amount: '9764.88',
+  price: '4.40',
+  quantity: '971.04',
+  amount: '7003.61',
   bizOrderId: 'CO000001',
 }
 */
@@ -198,8 +198,8 @@ class ConsumerOrderLineItemCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Consumer Order Line Item`}
-        content={`${appLocaleName(userContext,"CreateNew")}Consumer Order Line Item`}
+        title={`${appLocaleName(userContext,"CreateNew")}消费者订单行项目`}
+        content={`${appLocaleName(userContext,"CreateNew")}消费者订单行项目`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class ConsumerOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('skuId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Sku Id" />
+                    <Input size="large" placeholder="产品ID" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class ConsumerOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('skuName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Sku Name" />
+                    <Input size="large" placeholder="产品名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class ConsumerOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Price" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class ConsumerOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Quantity" />
+                    <Input size="large" placeholder="数量" />
                   )}
                 </Form.Item>
               </Col>
@@ -251,7 +251,7 @@ class ConsumerOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

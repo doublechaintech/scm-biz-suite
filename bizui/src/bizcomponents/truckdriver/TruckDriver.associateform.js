@@ -141,7 +141,7 @@ class TruckDriverAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class TruckDriverAssociateForm extends Component {
                   {getFieldDecorator('driverLicenseNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Driver License Number" />
+                    <Input size="large" placeholder="驾驶执照号码" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class TruckDriverAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>

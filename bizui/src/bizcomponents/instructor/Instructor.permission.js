@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,19 +23,23 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (instructor,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{instructor.id}</Description> 
-<Description term="Title">{instructor.title}</Description> 
-<Description term="Family Name">{instructor.familyName}</Description> 
-<Description term="Given Name">{instructor.givenName}</Description> 
-<Description term="Cell Phone">{instructor.cellPhone}</Description> 
-<Description term="Email">{instructor.email}</Description> 
-<Description term="Introduction">{instructor.introduction}</Description> 
-<Description term="Last Update Time">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{instructor.id}</Description> 
+<Description term="头衔">{instructor.title}</Description> 
+<Description term="姓">{instructor.familyName}</Description> 
+<Description term="名">{instructor.givenName}</Description> 
+<Description term="手机">{instructor.cellPhone}</Description> 
+<Description term="电子邮件">{instructor.email}</Description> 
+<Description term="介绍">{instructor.introduction}</Description> 
+<Description term="最后更新时间">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,9 +63,10 @@ class InstructorPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  instructor = this.props.instructor;
+    const  instructor = this.props.instructor
     const { id,displayName, companyTrainingCount } = instructor
-    const cardsData = {cardsName:"Instructor",cardsFor: "instructor",cardsSource: instructor,
+    const  returnURL = `/instructor/${id}/dashboard`
+    const cardsData = {cardsName:"讲师",cardsFor: "instructor",cardsSource: instructor,displayName,returnURL,
   		subItems: [
     
       	],
@@ -72,7 +77,7 @@ class InstructorPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

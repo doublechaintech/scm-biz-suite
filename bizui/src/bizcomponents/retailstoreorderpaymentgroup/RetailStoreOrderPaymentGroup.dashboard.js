@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreOrderPaymentGroup/${targetComponent.props.retailStoreOrderPaymentGroup.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/retailStoreOrderPaymentGroup/${targetComponent.props.retailStoreOrderPaymentGroup.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,15 +106,15 @@ const internalSummaryOf = (retailStoreOrderPaymentGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreOrderPaymentGroup.id}</Description> 
-<Description term="Name">{retailStoreOrderPaymentGroup.name}</Description> 
-<Description term="Biz Order">{retailStoreOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderPaymentGroup.bizOrder.displayName}(${retailStoreOrderPaymentGroup.bizOrder.id})`}
+<Description term="序号">{retailStoreOrderPaymentGroup.id}</Description> 
+<Description term="名称">{retailStoreOrderPaymentGroup.name}</Description> 
+<Description term="订单">{retailStoreOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderPaymentGroup.bizOrder.displayName}(${retailStoreOrderPaymentGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Biz Order","retailStoreOrder",RetailStoreOrderPaymentGroupService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"订单","retailStoreOrder",RetailStoreOrderPaymentGroupService.requestCandidateBizOrder,
 	      RetailStoreOrderPaymentGroupService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreOrderPaymentGroup.bizOrder?retailStoreOrderPaymentGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Card Number">{retailStoreOrderPaymentGroup.cardNumber}</Description> 
+<Description term="卡号码">{retailStoreOrderPaymentGroup.cardNumber}</Description> 
 	
         {buildTransferModal(retailStoreOrderPaymentGroup,targetComponent)}
       </DescriptionList>
@@ -127,7 +152,7 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Retail Store Order Payment Group",cardsFor: "retailStoreOrderPaymentGroup",
+    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",
     	cardsSource: this.props.retailStoreOrderPaymentGroup,returnURL,displayName,
   		subItems: [
     
@@ -155,10 +180,10 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

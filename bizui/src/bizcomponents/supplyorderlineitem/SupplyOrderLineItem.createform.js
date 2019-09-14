@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  amount: '4.86',
-  quantity: '7345',
+  amount: '4.35',
+  quantity: '7976',
   unitOfMeasurement: '件',
   bizOrderId: 'SO000001',
 }
@@ -198,8 +198,8 @@ class SupplyOrderLineItemCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Supply Order Line Item`}
-        content={`${appLocaleName(userContext,"CreateNew")}Supply Order Line Item`}
+        title={`${appLocaleName(userContext,"CreateNew")}供应订单行项目`}
+        content={`${appLocaleName(userContext,"CreateNew")}供应订单行项目`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class SupplyOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('skuId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Sku Id" />
+                    <Input size="large" placeholder="产品ID" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class SupplyOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('skuName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Sku Name" />
+                    <Input size="large" placeholder="产品名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class SupplyOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class SupplyOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Quantity" />
+                    <Input size="large" placeholder="数量" />
                   )}
                 </Form.Item>
               </Col>
@@ -251,7 +251,7 @@ class SupplyOrderLineItemCreateForm extends Component {
                   {getFieldDecorator('unitOfMeasurement', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Unit Of Measurement" />
+                    <Input size="large" placeholder="测量单位" />
                   )}
                 </Form.Item>
               </Col>

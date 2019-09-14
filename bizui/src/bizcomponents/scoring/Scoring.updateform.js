@@ -261,7 +261,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.scoredBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Scored By" />
+                    <Input size="large" placeholder="由谁打分" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.score,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Score" />
+                    <Input size="large" placeholder="分数" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.comment,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comment" />
+                    <Input size="large" placeholder="评论" />
                     
                   )}
                 </Form.Item>

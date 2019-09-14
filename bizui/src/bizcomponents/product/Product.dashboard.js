@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -40,7 +40,7 @@ const { Option } = Select
 
 
 const imageList =(product)=>{return [
-	   {"title":'Picture',"imageLocation":product.picture},
+	   {"title":'图片',"imageLocation":product.picture},
 ]}
 
 const internalImageListOf = (product) =>defaultImageListOf(product,imageList)
@@ -66,11 +66,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/product/${targetComponent.props.product.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/product/${targetComponent.props.product.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -82,18 +107,18 @@ const internalSummaryOf = (product,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{product.id}</Description> 
-<Description term="Name">{product.name}</Description> 
-<Description term="Parent Category">{product.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${product.parentCategory.displayName}(${product.parentCategory.id})`}
+<Description term="ID">{product.id}</Description> 
+<Description term="名称">{product.name}</Description> 
+<Description term="父类">{product.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${product.parentCategory.displayName}(${product.parentCategory.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Parent Category","levelThreeCategory",ProductService.requestCandidateParentCategory,
+  showTransferModel(targetComponent,"父类","levelThreeCategory",ProductService.requestCandidateParentCategory,
 	      ProductService.transferToAnotherParentCategory,"anotherParentCategoryId",product.parentCategory?product.parentCategory.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Origin">{product.origin}</Description> 
-<Description term="Remark">{product.remark}</Description> 
-<Description term="Brand">{product.brand}</Description> 
-<Description term="Last Update Time">{ moment(product.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="产地">{product.origin}</Description> 
+<Description term="备注">{product.remark}</Description> 
+<Description term="品牌">{product.brand}</Description> 
+<Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(product,targetComponent)}
       </DescriptionList>
@@ -131,10 +156,10 @@ class ProductDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Product",cardsFor: "product",
+    const cardsData = {cardsName:"产品",cardsFor: "product",
     	cardsSource: this.props.product,returnURL,displayName,
   		subItems: [
-{name: 'skuList', displayName:'Sku',type:'sku',count:skuCount,addFunction: true, role: 'sku', metaInfo: skuListMetaInfo, renderItem: GlobalComponents.SkuBase.renderItemOfList},
+{name: 'skuList', displayName:'SKU',type:'sku',count:skuCount,addFunction: true, role: 'sku', metaInfo: skuListMetaInfo, renderItem: GlobalComponents.SkuBase.renderItemOfList},
     
       	],
   	};
@@ -160,10 +185,10 @@ class ProductDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (employeeEducation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeEducation.id}</Description> 
-<Description term="Complete Time">{ moment(employeeEducation.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Type">{employeeEducation.type}</Description> 
-<Description term="Remark">{employeeEducation.remark}</Description> 
+<Description term="序号">{employeeEducation.id}</Description> 
+<Description term="完成时间">{ moment(employeeEducation.completeTime).format('YYYY-MM-DD')}</Description> 
+<Description term="类型">{employeeEducation.type}</Description> 
+<Description term="备注">{employeeEducation.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class EmployeeEducationPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  employeeEducation = this.props.employeeEducation;
+    const  employeeEducation = this.props.employeeEducation
     const { id,displayName,  } = employeeEducation
-    const cardsData = {cardsName:"Employee Education",cardsFor: "employeeEducation",cardsSource: employeeEducation,
+    const  returnURL = `/employeeEducation/${id}/dashboard`
+    const cardsData = {cardsName:"员工教育",cardsFor: "employeeEducation",cardsSource: employeeEducation,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class EmployeeEducationPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

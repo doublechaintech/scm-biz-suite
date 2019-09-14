@@ -55,8 +55,8 @@ class SupplyOrderProcessingProfile extends Component {
     // eslint-disable-next-line max-len
     const  supplyOrderProcessing = this.props.supplyOrderProcessing;
     const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderProcessing
-
-    const cardsData = {cardsName:"Supply Order Processing",cardsFor: "supplyOrderProcessing",cardsSource: supplyOrderProcessing,
+    const  returnURL = `/supplyOrderProcessing/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单处理",cardsFor: "supplyOrderProcessing",cardsSource: supplyOrderProcessing,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SupplyOrderProcessingProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

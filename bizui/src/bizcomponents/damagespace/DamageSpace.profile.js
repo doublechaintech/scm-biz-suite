@@ -55,8 +55,8 @@ class DamageSpaceProfile extends Component {
     // eslint-disable-next-line max-len
     const  damageSpace = this.props.damageSpace;
     const { id,displayName, goodsShelfCount } = damageSpace
-
-    const cardsData = {cardsName:"Damage Space",cardsFor: "damageSpace",cardsSource: damageSpace,
+    const  returnURL = `/damageSpace/${id}/dashboard`
+    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",cardsSource: damageSpace,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class DamageSpaceProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

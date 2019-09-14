@@ -55,8 +55,8 @@ class CompanyTrainingProfile extends Component {
     // eslint-disable-next-line max-len
     const  companyTraining = this.props.companyTraining;
     const { id,displayName, employeeCompanyTrainingCount } = companyTraining
-
-    const cardsData = {cardsName:"Company Training",cardsFor: "companyTraining",cardsSource: companyTraining,
+    const  returnURL = `/companyTraining/${id}/dashboard`
+    const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",cardsSource: companyTraining,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class CompanyTrainingProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

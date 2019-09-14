@@ -55,8 +55,8 @@ class EmployeeSalarySheetProfile extends Component {
     // eslint-disable-next-line max-len
     const  employeeSalarySheet = this.props.employeeSalarySheet;
     const { id,displayName,  } = employeeSalarySheet
-
-    const cardsData = {cardsName:"Employee Salary Sheet",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,
+    const  returnURL = `/employeeSalarySheet/${id}/dashboard`
+    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class EmployeeSalarySheetProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

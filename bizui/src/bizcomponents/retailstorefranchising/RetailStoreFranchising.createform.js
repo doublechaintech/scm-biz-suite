@@ -193,8 +193,8 @@ class RetailStoreFranchisingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Franchising`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Franchising`}
+        title={`${appLocaleName(userContext,"CreateNew")}生超的特许经营`}
+        content={`${appLocaleName(userContext,"CreateNew")}生超的特许经营`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -206,7 +206,7 @@ class RetailStoreFranchisingCreateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comment" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

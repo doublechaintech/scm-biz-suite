@@ -20,7 +20,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2017-01-07',
+  founded: '2019-07-16',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -198,8 +198,8 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Province Center Employee`}
-        content={`${appLocaleName(userContext,"CreateNew")}Province Center Employee`}
+        title={`${appLocaleName(userContext,"CreateNew")}省中心员工`}
+        content={`${appLocaleName(userContext,"CreateNew")}省中心员工`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mobile" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Email" />
+                    <Input size="large" placeholder="电子邮件" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
                   )}
                 </Form.Item>
               </Col>

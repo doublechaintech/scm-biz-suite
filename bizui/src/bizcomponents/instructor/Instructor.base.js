@@ -30,28 +30,28 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Instructor", menuFor: "instructor",
+const menuData = {menuName:"讲师", menuFor: "instructor",
   		subItems: [
-  {name: 'companyTrainingList', displayName:'Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'companyTrainingList', displayName:'公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  title: 'Title',
-  familyName: 'Family Name',
-  givenName: 'Given Name',
-  cellPhone: 'Cell Phone',
-  email: 'Email',
-  company: 'Company',
-  introduction: 'Introduction',
-  lastUpdateTime: 'Last Update Time',
+  id: '序号',
+  title: '头衔',
+  familyName: '姓',
+  givenName: '名',
+  cellPhone: '手机',
+  email: '电子邮件',
+  company: '公司',
+  introduction: '介绍',
+  lastUpdateTime: '最后更新时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'instructor') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'instructor') , sorter: true },
   { title: fieldLabels.title, debugtype: 'string', dataIndex: 'title', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.familyName, debugtype: 'string', dataIndex: 'familyName', width: '5',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.givenName, debugtype: 'string', dataIndex: 'givenName', width: '6',render: (text, record)=>renderTextCell(text,record)},
@@ -65,27 +65,24 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(instructor,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={instructor.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={instructor.id}>
-	
-	<DescriptionList  key={instructor.id} size="small" col="4">
-<Description term="Id">{instructor.id}</Description> 
-<Description term="Title">{instructor.title}</Description> 
-<Description term="Family Name">{instructor.familyName}</Description> 
-<Description term="Given Name">{instructor.givenName}</Description> 
-<Description term="Cell Phone">{instructor.cellPhone}</Description> 
-<Description term="Email">{instructor.email}</Description> 
-<Description term="Introduction">{instructor.introduction}</Description> 
-<Description term="Last Update Time">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={instructor.id} size="small" col="4">
+        <Description term="序号">{instructor.id}</Description> 
+        <Description term="头衔">{instructor.title}</Description> 
+        <Description term="姓">{instructor.familyName}</Description> 
+        <Description term="名">{instructor.givenName}</Description> 
+        <Description term="手机">{instructor.cellPhone}</Description> 
+        <Description term="电子邮件">{instructor.email}</Description> 
+        <Description term="介绍">{instructor.introduction}</Description> 
+        <Description term="最后更新时间"><div>{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

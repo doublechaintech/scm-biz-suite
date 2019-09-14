@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (supplyOrderPicking,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{supplyOrderPicking.id}</Description> 
-<Description term="Who">{supplyOrderPicking.who}</Description> 
-<Description term="Process Time">{ moment(supplyOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{supplyOrderPicking.id}</Description> 
+<Description term="谁">{supplyOrderPicking.who}</Description> 
+<Description term="过程的时间">{ moment(supplyOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class SupplyOrderPickingPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  supplyOrderPicking = this.props.supplyOrderPicking;
+    const  supplyOrderPicking = this.props.supplyOrderPicking
     const { id,displayName, supplyOrderCount } = supplyOrderPicking
-    const cardsData = {cardsName:"Supply Order Picking",cardsFor: "supplyOrderPicking",cardsSource: supplyOrderPicking,
+    const  returnURL = `/supplyOrderPicking/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单拣货",cardsFor: "supplyOrderPicking",cardsSource: supplyOrderPicking,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class SupplyOrderPickingPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

@@ -55,8 +55,8 @@ class RetailStoreMemberCouponProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberCoupon = this.props.retailStoreMemberCoupon;
     const { id,displayName,  } = retailStoreMemberCoupon
-
-    const cardsData = {cardsName:"Retail Store Member Coupon",cardsFor: "retailStoreMemberCoupon",cardsSource: retailStoreMemberCoupon,
+    const  returnURL = `/retailStoreMemberCoupon/${id}/dashboard`
+    const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",cardsSource: retailStoreMemberCoupon,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class RetailStoreMemberCouponProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,16 +23,20 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (provinceCenterEmployee,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{provinceCenterEmployee.id}</Description> 
-<Description term="Name">{provinceCenterEmployee.name}</Description> 
-<Description term="Mobile">{provinceCenterEmployee.mobile}</Description> 
-<Description term="Email">{provinceCenterEmployee.email}</Description> 
-<Description term="Founded">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{provinceCenterEmployee.id}</Description> 
+<Description term="名称">{provinceCenterEmployee.name}</Description> 
+<Description term="手机">{provinceCenterEmployee.mobile}</Description> 
+<Description term="电子邮件">{provinceCenterEmployee.email}</Description> 
+<Description term="成立">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -56,9 +60,10 @@ class ProvinceCenterEmployeePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  provinceCenterEmployee = this.props.provinceCenterEmployee;
+    const  provinceCenterEmployee = this.props.provinceCenterEmployee
     const { id,displayName,  } = provinceCenterEmployee
-    const cardsData = {cardsName:"Province Center Employee",cardsFor: "provinceCenterEmployee",cardsSource: provinceCenterEmployee,
+    const  returnURL = `/provinceCenterEmployee/${id}/dashboard`
+    const cardsData = {cardsName:"省中心员工",cardsFor: "provinceCenterEmployee",cardsSource: provinceCenterEmployee,displayName,returnURL,
   		subItems: [
     
       	],
@@ -69,7 +74,7 @@ class ProvinceCenterEmployeePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

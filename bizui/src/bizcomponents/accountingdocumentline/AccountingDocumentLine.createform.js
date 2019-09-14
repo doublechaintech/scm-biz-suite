@@ -20,7 +20,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '711190.94',
+  amount: '774084.75',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -198,8 +198,8 @@ class AccountingDocumentLineCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Accounting Document Line`}
-        content={`${appLocaleName(userContext,"CreateNew")}Accounting Document Line`}
+        title={`${appLocaleName(userContext,"CreateNew")}会计凭证行`}
+        content={`${appLocaleName(userContext,"CreateNew")}会计凭证行`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Code" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('direct', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Direct" />
+                    <Input size="large" placeholder="直接" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class AccountingDocumentLineCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

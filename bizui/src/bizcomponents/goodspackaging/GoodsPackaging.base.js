@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Goods Packaging", menuFor: "goodsPackaging",
+const menuData = {menuName:"货物包装", menuFor: "goodsPackaging",
   		subItems: [
-  {name: 'goodsList', displayName:'Goods', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  packageName: 'Package Name',
-  rfid: 'Rfid',
-  packageTime: 'Package Time',
-  description: 'Description',
+  id: '序号',
+  packageName: '包的名字',
+  rfid: 'RFID',
+  packageTime: '包的时间',
+  description: '描述',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'goodsPackaging') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'goodsPackaging') , sorter: true },
   { title: fieldLabels.packageName, debugtype: 'string', dataIndex: 'packageName', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.rfid, debugtype: 'string', dataIndex: 'rfid', width: '11',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.packageTime, dataIndex: 'packageTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
@@ -57,24 +57,21 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(goodsPackaging,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={goodsPackaging.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={goodsPackaging.id}>
-	
-	<DescriptionList  key={goodsPackaging.id} size="small" col="4">
-<Description term="Id">{goodsPackaging.id}</Description> 
-<Description term="Package Name">{goodsPackaging.packageName}</Description> 
-<Description term="Rfid">{goodsPackaging.rfid}</Description> 
-<Description term="Package Time">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Description">{goodsPackaging.description}</Description> 
+      <DescriptionList  key={goodsPackaging.id} size="small" col="4">
+        <Description term="序号">{goodsPackaging.id}</Description> 
+        <Description term="包的名字">{goodsPackaging.packageName}</Description> 
+        <Description term="RFID">{goodsPackaging.rfid}</Description> 
+        <Description term="包的时间"><div>{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="描述">{goodsPackaging.description}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -55,8 +55,8 @@ class ViewProfile extends Component {
     // eslint-disable-next-line max-len
     const  view = this.props.view;
     const { id,displayName,  } = view
-
-    const cardsData = {cardsName:"View",cardsFor: "view",cardsSource: view,
+    const  returnURL = `/view/${id}/dashboard`
+    const cardsData = {cardsName:"观",cardsFor: "view",cardsSource: view,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ViewProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

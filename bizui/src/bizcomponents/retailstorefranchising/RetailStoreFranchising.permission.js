@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,13 +23,17 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (retailStoreFranchising,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreFranchising.id}</Description> 
-<Description term="Comment">{retailStoreFranchising.comment}</Description> 
+<Description term="序号">{retailStoreFranchising.id}</Description> 
+<Description term="评论">{retailStoreFranchising.comment}</Description> 
 	
       </DescriptionList>
 	)
@@ -53,9 +57,10 @@ class RetailStoreFranchisingPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  retailStoreFranchising = this.props.retailStoreFranchising;
+    const  retailStoreFranchising = this.props.retailStoreFranchising
     const { id,displayName, retailStoreCount } = retailStoreFranchising
-    const cardsData = {cardsName:"Retail Store Franchising",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,
+    const  returnURL = `/retailStoreFranchising/${id}/dashboard`
+    const cardsData = {cardsName:"生超的特许经营",cardsFor: "retailStoreFranchising",cardsSource: retailStoreFranchising,displayName,returnURL,
   		subItems: [
     
       	],
@@ -66,7 +71,7 @@ class RetailStoreFranchisingPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

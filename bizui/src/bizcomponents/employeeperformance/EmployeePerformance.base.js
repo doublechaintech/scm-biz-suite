@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Employee Performance", menuFor: "employeePerformance",
+const menuData = {menuName:"员工绩效", menuFor: "employeePerformance",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  employee: 'Employee',
-  performanceComment: 'Performance Comment',
+  id: '序号',
+  employee: '员工',
+  performanceComment: '绩效评价',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeePerformance') , sorter: true },
   { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.performanceComment, debugtype: 'string', dataIndex: 'performanceComment', width: '11',render: (text, record)=>renderTextCell(text,record)},
 
@@ -52,23 +52,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(employeePerformance,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={employeePerformance.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={employeePerformance.id}>
-	
-	<DescriptionList  key={employeePerformance.id} size="small" col="4">
-<Description term="Id">{employeePerformance.id}</Description> 
-<Description term="Employee">{employeePerformance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeePerformance.employee.displayName}(${employeePerformance.employee.id})`}
-</Description>
-<Description term="Performance Comment">{employeePerformance.performanceComment}</Description> 
+      <DescriptionList  key={employeePerformance.id} size="small" col="4">
+        <Description term="序号">{employeePerformance.id}</Description> 
+        <Description term="员工"><div>{employeePerformance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeePerformance.employee.displayName}(${employeePerformance.employee.id})`}
+        </div></Description>
+        <Description term="绩效评价">{employeePerformance.performanceComment}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/warehouse/${id}/list/StorageSpaceList/Storage Space+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/warehouse/${id}/list/StorageSpaceList/存货区+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateStorageSpace({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/warehouse/${id}/list/StorageSpaceList/Storage Space列表`, state: newPlayload }
+      const location = { pathname: `/warehouse/${id}/list/StorageSpaceList/存货区列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextStorageSpaceUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/warehouse/${id}/list/SmartPalletList/Smart Pallet+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/warehouse/${id}/list/SmartPalletList/智能托盘+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSmartPallet({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/warehouse/${id}/list/SmartPalletList/Smart Pallet列表`, state: newPlayload }
+      const location = { pathname: `/warehouse/${id}/list/SmartPalletList/智能托盘列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSmartPalletUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/warehouse/${id}/list/SupplierSpaceList/Supplier Space+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/warehouse/${id}/list/SupplierSpaceList/供应商的空间+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSupplierSpace({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/warehouse/${id}/list/SupplierSpaceList/Supplier Space列表`, state: newPlayload }
+      const location = { pathname: `/warehouse/${id}/list/SupplierSpaceList/供应商的空间列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSupplierSpaceUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/warehouse/${id}/list/ReceivingSpaceList/Receiving Space+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/warehouse/${id}/list/ReceivingSpaceList/收货区+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateReceivingSpace({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/warehouse/${id}/list/ReceivingSpaceList/Receiving Space列表`, state: newPlayload }
+      const location = { pathname: `/warehouse/${id}/list/ReceivingSpaceList/收货区列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextReceivingSpaceUpdateRow({ payload }, { call, put }) {
@@ -413,7 +413,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/warehouse/${id}/list/ShippingSpaceList/Shipping Space+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/warehouse/${id}/list/ShippingSpaceList/发货区+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateShippingSpace({ payload }, { call, put }) {
@@ -435,7 +435,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/warehouse/${id}/list/ShippingSpaceList/Shipping Space列表`, state: newPlayload }
+      const location = { pathname: `/warehouse/${id}/list/ShippingSpaceList/发货区列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextShippingSpaceUpdateRow({ payload }, { call, put }) {
@@ -482,7 +482,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/warehouse/${id}/list/DamageSpaceList/Damage Space+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/warehouse/${id}/list/DamageSpaceList/残次货物存放区+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateDamageSpace({ payload }, { call, put }) {
@@ -504,7 +504,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/warehouse/${id}/list/DamageSpaceList/Damage Space列表`, state: newPlayload }
+      const location = { pathname: `/warehouse/${id}/list/DamageSpaceList/残次货物存放区列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextDamageSpaceUpdateRow({ payload }, { call, put }) {
@@ -551,7 +551,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/warehouse/${id}/list/WarehouseAssetList/Warehouse Asset+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/warehouse/${id}/list/WarehouseAssetList/仓库资产+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateWarehouseAsset({ payload }, { call, put }) {
@@ -573,7 +573,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/warehouse/${id}/list/WarehouseAssetList/Warehouse Asset列表`, state: newPlayload }
+      const location = { pathname: `/warehouse/${id}/list/WarehouseAssetList/仓库资产列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextWarehouseAssetUpdateRow({ payload }, { call, put }) {

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链中和社区店',
-  amount: '5.08',
+  amount: '4.21',
   bizOrderId: 'RSO000001',
 }
 */
@@ -195,8 +195,8 @@ class RetailStoreOrderShippingGroupCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Order Shipping Group`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Order Shipping Group`}
+        title={`${appLocaleName(userContext,"CreateNew")}生超订单送货分组`}
+        content={`${appLocaleName(userContext,"CreateNew")}生超订单送货分组`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class RetailStoreOrderShippingGroupCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class RetailStoreOrderShippingGroupCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

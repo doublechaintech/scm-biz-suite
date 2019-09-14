@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/objectAccess/${targetComponent.props.objectAccess.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/objectAccess/${targetComponent.props.objectAccess.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,21 +106,21 @@ const internalSummaryOf = (objectAccess,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{objectAccess.id}</Description> 
-<Description term="Name">{objectAccess.name}</Description> 
-<Description term="Object Type">{objectAccess.objectType}</Description> 
-<Description term="List1">{objectAccess.list1}</Description> 
-<Description term="List2">{objectAccess.list2}</Description> 
-<Description term="List3">{objectAccess.list3}</Description> 
-<Description term="List4">{objectAccess.list4}</Description> 
-<Description term="List5">{objectAccess.list5}</Description> 
-<Description term="List6">{objectAccess.list6}</Description> 
-<Description term="List7">{objectAccess.list7}</Description> 
-<Description term="List8">{objectAccess.list8}</Description> 
-<Description term="List9">{objectAccess.list9}</Description> 
-<Description term="App">{objectAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${objectAccess.app.displayName}(${objectAccess.app.id})`}
+<Description term="ID">{objectAccess.id}</Description> 
+<Description term="名称">{objectAccess.name}</Description> 
+<Description term="访问对象类型">{objectAccess.objectType}</Description> 
+<Description term="列表1">{objectAccess.list1}</Description> 
+<Description term="列表2">{objectAccess.list2}</Description> 
+<Description term="列表3">{objectAccess.list3}</Description> 
+<Description term="列表4">{objectAccess.list4}</Description> 
+<Description term="列表5">{objectAccess.list5}</Description> 
+<Description term="列表6">{objectAccess.list6}</Description> 
+<Description term="列表7">{objectAccess.list7}</Description> 
+<Description term="列表8">{objectAccess.list8}</Description> 
+<Description term="列表9">{objectAccess.list9}</Description> 
+<Description term="应用程序">{objectAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${objectAccess.app.displayName}(${objectAccess.app.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"App","userApp",ObjectAccessService.requestCandidateApp,
+  showTransferModel(targetComponent,"应用程序","userApp",ObjectAccessService.requestCandidateApp,
 	      ObjectAccessService.transferToAnotherApp,"anotherAppId",objectAccess.app?objectAccess.app.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -136,7 +161,7 @@ class ObjectAccessDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Object Access",cardsFor: "objectAccess",
+    const cardsData = {cardsName:"对象访问",cardsFor: "objectAccess",
     	cardsSource: this.props.objectAccess,returnURL,displayName,
   		subItems: [
     
@@ -164,10 +189,10 @@ class ObjectAccessDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

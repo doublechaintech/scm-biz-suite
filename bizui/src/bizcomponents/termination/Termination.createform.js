@@ -195,8 +195,8 @@ class TerminationCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Termination`}
-        content={`${appLocaleName(userContext,"CreateNew")}Termination`}
+        title={`${appLocaleName(userContext,"CreateNew")}雇佣终止`}
+        content={`${appLocaleName(userContext,"CreateNew")}雇佣终止`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class TerminationCreateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comment" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

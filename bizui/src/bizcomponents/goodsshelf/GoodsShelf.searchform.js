@@ -193,7 +193,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="Id">
+         <FormItem label="序号">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -201,7 +201,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="Location">
+         <FormItem label="位置">
            {getFieldDecorator('location')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -248,7 +248,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="Id">
+            <FormItem label="序号">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -256,14 +256,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Location">
+            <FormItem label="位置">
               {getFieldDecorator('location')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Storage Space">
+                    <Form.Item label="存货区">
                   {getFieldDecorator('storageSpace', {
                     initialValue: tryinit('storageSpace'),
                    
@@ -278,7 +278,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Supplier Space">
+                    <Form.Item label="供应商的空间">
                   {getFieldDecorator('supplierSpace', {
                     initialValue: tryinit('supplierSpace'),
                    
@@ -293,7 +293,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Damage Space">
+                    <Form.Item label="残次货物存放区">
                   {getFieldDecorator('damageSpace', {
                     initialValue: tryinit('damageSpace'),
                    

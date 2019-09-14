@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Supply Order Picking", menuFor: "supplyOrderPicking",
+const menuData = {menuName:"供应订单拣货", menuFor: "supplyOrderPicking",
   		subItems: [
-  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  processTime: 'Process Time',
+  id: '序号',
+  who: '谁',
+  processTime: '过程的时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'supplyOrderPicking') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'supplyOrderPicking') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.processTime, dataIndex: 'processTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
@@ -53,22 +53,19 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(supplyOrderPicking,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={supplyOrderPicking.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={supplyOrderPicking.id}>
-	
-	<DescriptionList  key={supplyOrderPicking.id} size="small" col="4">
-<Description term="Id">{supplyOrderPicking.id}</Description> 
-<Description term="Who">{supplyOrderPicking.who}</Description> 
-<Description term="Process Time">{ moment(supplyOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={supplyOrderPicking.id} size="small" col="4">
+        <Description term="序号">{supplyOrderPicking.id}</Description> 
+        <Description term="谁">{supplyOrderPicking.who}</Description> 
+        <Description term="过程的时间"><div>{ moment(supplyOrderPicking.processTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -55,8 +55,8 @@ class OccupationTypeProfile extends Component {
     // eslint-disable-next-line max-len
     const  occupationType = this.props.occupationType;
     const { id,displayName, employeeCount } = occupationType
-
-    const cardsData = {cardsName:"Occupation Type",cardsFor: "occupationType",cardsSource: occupationType,
+    const  returnURL = `/occupationType/${id}/dashboard`
+    const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",cardsSource: occupationType,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class OccupationTypeProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

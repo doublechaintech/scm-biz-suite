@@ -55,8 +55,8 @@ class ConsumerOrderShipmentProfile extends Component {
     // eslint-disable-next-line max-len
     const  consumerOrderShipment = this.props.consumerOrderShipment;
     const { id,displayName,  } = consumerOrderShipment
-
-    const cardsData = {cardsName:"Consumer Order Shipment",cardsFor: "consumerOrderShipment",cardsSource: consumerOrderShipment,
+    const  returnURL = `/consumerOrderShipment/${id}/dashboard`
+    const cardsData = {cardsName:"消费者的订单发货",cardsFor: "consumerOrderShipment",cardsSource: consumerOrderShipment,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ConsumerOrderShipmentProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

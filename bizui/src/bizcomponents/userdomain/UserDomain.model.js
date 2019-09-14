@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/userDomain/${id}/list/UserWhiteListList/User White List+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/userDomain/${id}/list/UserWhiteListList/用户白名单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateUserWhiteList({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/userDomain/${id}/list/UserWhiteListList/User White List列表`, state: newPlayload }
+      const location = { pathname: `/userDomain/${id}/list/UserWhiteListList/用户白名单列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextUserWhiteListUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/userDomain/${id}/list/SecUserList/Sec User+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/userDomain/${id}/list/SecUserList/安全用户+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSecUser({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/userDomain/${id}/list/SecUserList/Sec User列表`, state: newPlayload }
+      const location = { pathname: `/userDomain/${id}/list/SecUserList/安全用户列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSecUserUpdateRow({ payload }, { call, put }) {

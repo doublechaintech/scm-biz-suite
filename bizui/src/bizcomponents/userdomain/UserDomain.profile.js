@@ -55,10 +55,10 @@ class UserDomainProfile extends Component {
     // eslint-disable-next-line max-len
     const  userDomain = this.props.userDomain;
     const { id,displayName, userWhiteListCount, secUserCount } = userDomain
-
-    const cardsData = {cardsName:"User Domain",cardsFor: "userDomain",cardsSource: userDomain,
+    const  returnURL = `/userDomain/${id}/dashboard`
+    const cardsData = {cardsName:"用户域",cardsFor: "userDomain",cardsSource: userDomain,displayName,returnURL,
   		subItems: [
-{name: 'userWhiteListList', displayName:'User White List',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList',  renderItem: GlobalComponents.UserWhiteListBase.renderItemOfList},
+{name: 'userWhiteListList', displayName:'用户白名单',type:'userWhiteList',count:userWhiteListCount,addFunction: true, role: 'userWhiteList',  renderItem: GlobalComponents.UserWhiteListBase.renderItemOfList},
      
       	],
   	};
@@ -71,8 +71,8 @@ class UserDomainProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

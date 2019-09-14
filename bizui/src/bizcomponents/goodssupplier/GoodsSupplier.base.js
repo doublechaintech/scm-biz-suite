@@ -30,28 +30,28 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Goods Supplier", menuFor: "goodsSupplier",
+const menuData = {menuName:"产品供应商", menuFor: "goodsSupplier",
   		subItems: [
-  {name: 'supplierProductList', displayName:'Supplier Product', icon:'product-hunt',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'accountSetList', displayName:'Account Set', icon:'headset',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplierProductList', displayName:'供应商的产品', icon:'product-hunt',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountSetList', displayName:'账套', icon:'headset',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  supplyProduct: 'Supply Product',
-  belongTo: 'Belong To',
-  contactNumber: 'Contact Number',
-  description: 'Description',
-  lastUpdateTime: 'Last Update Time',
+  id: '序号',
+  name: '名称',
+  supplyProduct: '供应产品',
+  belongTo: '属于',
+  contactNumber: '联系电话',
+  description: '描述',
+  lastUpdateTime: '最后更新时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'goodsSupplier') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'goodsSupplier') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.supplyProduct, debugtype: 'string', dataIndex: 'supplyProduct', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.belongTo, dataIndex: 'belongTo', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -63,25 +63,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(goodsSupplier,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={goodsSupplier.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={goodsSupplier.id}>
-	
-	<DescriptionList  key={goodsSupplier.id} size="small" col="4">
-<Description term="Id">{goodsSupplier.id}</Description> 
-<Description term="Name">{goodsSupplier.name}</Description> 
-<Description term="Supply Product">{goodsSupplier.supplyProduct}</Description> 
-<Description term="Contact Number">{goodsSupplier.contactNumber}</Description> 
-<Description term="Description">{goodsSupplier.description}</Description> 
-<Description term="Last Update Time">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={goodsSupplier.id} size="small" col="4">
+        <Description term="序号">{goodsSupplier.id}</Description> 
+        <Description term="名称">{goodsSupplier.name}</Description> 
+        <Description term="供应产品">{goodsSupplier.supplyProduct}</Description> 
+        <Description term="联系电话">{goodsSupplier.contactNumber}</Description> 
+        <Description term="描述">{goodsSupplier.description}</Description> 
+        <Description term="最后更新时间"><div>{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

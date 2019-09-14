@@ -55,8 +55,8 @@ class SecUserProfile extends Component {
     // eslint-disable-next-line max-len
     const  secUser = this.props.secUser;
     const { id,displayName, userAppCount, loginHistoryCount } = secUser
-
-    const cardsData = {cardsName:"Sec User",cardsFor: "secUser",cardsSource: secUser,
+    const  returnURL = `/secUser/${id}/dashboard`
+    const cardsData = {cardsName:"安全用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SecUserProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

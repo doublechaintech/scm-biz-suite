@@ -194,8 +194,8 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Employee Company Training`}
-        content={`${appLocaleName(userContext,"CreateNew")}Employee Company Training`}
+        title={`${appLocaleName(userContext,"CreateNew")}员工参与的公司培训`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工参与的公司培训`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>

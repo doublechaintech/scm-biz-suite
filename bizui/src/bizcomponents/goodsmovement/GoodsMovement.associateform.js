@@ -18,13 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-06-23 09:49:07',
+  moveTime: '2019-08-30 15:37:25',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '40.58175739735948',
-  longitude: '130.4264424366045',
+  latitude: '41.781689024801',
+  longitude: '131.57863568535254',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -145,7 +145,7 @@ class GoodsMovementAssociateForm extends Component {
                   {getFieldDecorator('moveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="Move Time" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -155,7 +155,7 @@ class GoodsMovementAssociateForm extends Component {
                   {getFieldDecorator('facility', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Facility" />
+                    <Input size="large" placeholder="设施" />
                   )}
                 </Form.Item>
               </Col>
@@ -165,7 +165,7 @@ class GoodsMovementAssociateForm extends Component {
                   {getFieldDecorator('facilityId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Facility Id" />
+                    <Input size="large" placeholder="设备ID" />
                   )}
                 </Form.Item>
               </Col>
@@ -175,7 +175,7 @@ class GoodsMovementAssociateForm extends Component {
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="From Ip" />
+                    <Input size="large" placeholder="从IP" />
                   )}
                 </Form.Item>
               </Col>
@@ -185,7 +185,7 @@ class GoodsMovementAssociateForm extends Component {
                   {getFieldDecorator('sessionId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Session Id" />
+                    <Input size="large" placeholder="会话ID" />
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +195,7 @@ class GoodsMovementAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Latitude" />
+                    <Input size="large" placeholder="纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -205,7 +205,7 @@ class GoodsMovementAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Longitude" />
+                    <Input size="large" placeholder="经度" />
                   )}
                 </Form.Item>
               </Col>

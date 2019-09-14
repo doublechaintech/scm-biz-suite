@@ -261,7 +261,7 @@ class InterviewTypeUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class InterviewTypeUpdateForm extends Component {
                     initialValue: selectedRow.code,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Code" />
+                    <Input size="large" placeholder="代码" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class InterviewTypeUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class InterviewTypeUpdateForm extends Component {
                     initialValue: selectedRow.detailDescription,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Detail Description" />
+                    <Input size="large" placeholder="详细描述" />
                     
                   )}
                 </Form.Item>

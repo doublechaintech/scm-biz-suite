@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/supplyOrder/${targetComponent.props.supplyOrder.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/supplyOrder/${targetComponent.props.supplyOrder.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,17 +106,17 @@ const internalSummaryOf = (supplyOrder,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{supplyOrder.id}</Description> 
-<Description term="Seller">{supplyOrder.seller==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrder.seller.displayName}(${supplyOrder.seller.id})`}
+<Description term="序号">{supplyOrder.id}</Description> 
+<Description term="卖方">{supplyOrder.seller==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrder.seller.displayName}(${supplyOrder.seller.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Seller","goodsSupplier",SupplyOrderService.requestCandidateSeller,
+  showTransferModel(targetComponent,"卖方","goodsSupplier",SupplyOrderService.requestCandidateSeller,
 	      SupplyOrderService.transferToAnotherSeller,"anotherSellerId",supplyOrder.seller?supplyOrder.seller.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Title">{supplyOrder.title}</Description> 
-<Description term="Total Amount">{supplyOrder.totalAmount}</Description> 
-<Description term="Last Update Time">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Current Status">{supplyOrder.currentStatus}</Description> 
+<Description term="头衔">{supplyOrder.title}</Description> 
+<Description term="总金额">{supplyOrder.totalAmount}</Description> 
+<Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
+<Description term="当前状态">{supplyOrder.currentStatus}</Description> 
 	
         {buildTransferModal(supplyOrder,targetComponent)}
       </DescriptionList>
@@ -129,13 +154,13 @@ class SupplyOrderDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Supply Order",cardsFor: "supplyOrder",
+    const cardsData = {cardsName:"供应订单",cardsFor: "supplyOrder",
     	cardsSource: this.props.supplyOrder,returnURL,displayName,
   		subItems: [
-{name: 'supplyOrderLineItemList', displayName:'Supply Order Line Item',type:'supplyOrderLineItem',count:supplyOrderLineItemCount,addFunction: true, role: 'supplyOrderLineItem', metaInfo: supplyOrderLineItemListMetaInfo, renderItem: GlobalComponents.SupplyOrderLineItemBase.renderItemOfList},
-{name: 'supplyOrderShippingGroupList', displayName:'Supply Order Shipping Group',type:'supplyOrderShippingGroup',count:supplyOrderShippingGroupCount,addFunction: true, role: 'supplyOrderShippingGroup', metaInfo: supplyOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderShippingGroupBase.renderItemOfList},
-{name: 'supplyOrderPaymentGroupList', displayName:'Supply Order Payment Group',type:'supplyOrderPaymentGroup',count:supplyOrderPaymentGroupCount,addFunction: true, role: 'supplyOrderPaymentGroup', metaInfo: supplyOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderPaymentGroupBase.renderItemOfList},
-{name: 'goodsList', displayName:'Goods',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'supplyOrderLineItemList', displayName:'供应订单行项目',type:'supplyOrderLineItem',count:supplyOrderLineItemCount,addFunction: true, role: 'supplyOrderLineItem', metaInfo: supplyOrderLineItemListMetaInfo, renderItem: GlobalComponents.SupplyOrderLineItemBase.renderItemOfList},
+{name: 'supplyOrderShippingGroupList', displayName:'供应订单送货分组',type:'supplyOrderShippingGroup',count:supplyOrderShippingGroupCount,addFunction: true, role: 'supplyOrderShippingGroup', metaInfo: supplyOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderShippingGroupBase.renderItemOfList},
+{name: 'supplyOrderPaymentGroupList', displayName:'供应订单付款组',type:'supplyOrderPaymentGroup',count:supplyOrderPaymentGroupCount,addFunction: true, role: 'supplyOrderPaymentGroup', metaInfo: supplyOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderPaymentGroupBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
   	};
@@ -161,10 +186,10 @@ class SupplyOrderDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

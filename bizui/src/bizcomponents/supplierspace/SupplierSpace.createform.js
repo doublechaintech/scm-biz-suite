@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号供货商独立管理区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '41.034108290396766',
-  longitude: '131.89695536780806',
+  latitude: '42.21191372128338',
+  longitude: '129.3490728393684',
   warehouseId: 'W000001',
 }
 */
@@ -198,8 +198,8 @@ class SupplierSpaceCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Supplier Space`}
-        content={`${appLocaleName(userContext,"CreateNew")}Supplier Space`}
+        title={`${appLocaleName(userContext,"CreateNew")}供应商的空间`}
+        content={`${appLocaleName(userContext,"CreateNew")}供应商的空间`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class SupplierSpaceCreateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Location" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class SupplierSpaceCreateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class SupplierSpaceCreateForm extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Total Area" />
+                    <Input size="large" placeholder="总面积" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class SupplierSpaceCreateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Latitude" />
+                    <Input size="large" placeholder="纬度" />
                   )}
                 </Form.Item>
               </Col>
@@ -251,7 +251,7 @@ class SupplierSpaceCreateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Longitude" />
+                    <Input size="large" placeholder="经度" />
                   )}
                 </Form.Item>
               </Col>

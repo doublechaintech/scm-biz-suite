@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/potentialCustomer/${targetComponent.props.potentialCustomer.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/potentialCustomer/${targetComponent.props.potentialCustomer.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,23 +106,23 @@ const internalSummaryOf = (potentialCustomer,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{potentialCustomer.id}</Description> 
-<Description term="Name">{potentialCustomer.name}</Description> 
-<Description term="Mobile">{potentialCustomer.mobile}</Description> 
-<Description term="City Service Center">{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityServiceCenter.displayName}(${potentialCustomer.cityServiceCenter.id})`}
+<Description term="序号">{potentialCustomer.id}</Description> 
+<Description term="名称">{potentialCustomer.name}</Description> 
+<Description term="手机">{potentialCustomer.mobile}</Description> 
+<Description term="城市服务中心">{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityServiceCenter.displayName}(${potentialCustomer.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"City Service Center","retailStoreCityServiceCenter",PotentialCustomerService.requestCandidateCityServiceCenter,
+  showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",PotentialCustomerService.requestCandidateCityServiceCenter,
 	      PotentialCustomerService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",potentialCustomer.cityServiceCenter?potentialCustomer.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="City Partner">{potentialCustomer.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityPartner.displayName}(${potentialCustomer.cityPartner.id})`}
+<Description term="城市合伙人">{potentialCustomer.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityPartner.displayName}(${potentialCustomer.cityPartner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"City Partner","cityPartner",PotentialCustomerService.requestCandidateCityPartner,
+  showTransferModel(targetComponent,"城市合伙人","cityPartner",PotentialCustomerService.requestCandidateCityPartner,
 	      PotentialCustomerService.transferToAnotherCityPartner,"anotherCityPartnerId",potentialCustomer.cityPartner?potentialCustomer.cityPartner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Description">{potentialCustomer.description}</Description> 
-<Description term="Last Update Time">{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="描述">{potentialCustomer.description}</Description> 
+<Description term="最后更新时间">{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(potentialCustomer,targetComponent)}
       </DescriptionList>
@@ -135,12 +160,12 @@ class PotentialCustomerDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Potential Customer",cardsFor: "potentialCustomer",
+    const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",
     	cardsSource: this.props.potentialCustomer,returnURL,displayName,
   		subItems: [
-{name: 'potentialCustomerContactPersonList', displayName:'Potential Customer Contact Person',type:'potentialCustomerContactPerson',count:potentialCustomerContactPersonCount,addFunction: true, role: 'potentialCustomerContactPerson', metaInfo: potentialCustomerContactPersonListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactPersonBase.renderItemOfList},
-{name: 'potentialCustomerContactList', displayName:'Potential Customer Contact',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
-{name: 'eventAttendanceList', displayName:'Event Attendance',type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
+{name: 'potentialCustomerContactPersonList', displayName:'潜在客户联络人',type:'potentialCustomerContactPerson',count:potentialCustomerContactPersonCount,addFunction: true, role: 'potentialCustomerContactPerson', metaInfo: potentialCustomerContactPersonListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactPersonBase.renderItemOfList},
+{name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+{name: 'eventAttendanceList', displayName:'活动的参与情况',type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
     
       	],
   	};
@@ -166,10 +191,10 @@ class PotentialCustomerDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

@@ -23,7 +23,7 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
-  price: '1017.67',
+  price: '1176.64',
   productId: 'P000001',
 }
 */
@@ -145,7 +145,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -155,7 +155,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('size', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Size" />
+                    <Input size="large" placeholder="大小" />
                   )}
                 </Form.Item>
               </Col>
@@ -165,7 +165,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('barcode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Barcode" />
+                    <Input size="large" placeholder="条码" />
                   )}
                 </Form.Item>
               </Col>
@@ -175,7 +175,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('packageType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Package Type" />
+                    <Input size="large" placeholder="包装类型" />
                   )}
                 </Form.Item>
               </Col>
@@ -185,7 +185,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('netContent', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Net Content" />
+                    <Input size="large" placeholder="净含量" />
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +195,7 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Price" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +217,7 @@ class SkuAssociateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="Picture"
+                  buttonTitle="图片"
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'picture')}
                   fileList={convertedImagesValues.picture}

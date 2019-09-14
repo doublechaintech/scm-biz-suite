@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -54,7 +54,7 @@ const internalSettingListOf = (goodsMovement) =>defaultSettingListOf(goodsMoveme
 const internalLargeTextOf = (goodsMovement) =>{
 
 	return(<div> 
-   <Card title={`User Agent`} ><pre>{goodsMovement.userAgent}</pre></Card>
+   <Card title={`用户代理`} ><pre>{goodsMovement.userAgent}</pre></Card>
 </div>)
 
 	
@@ -68,11 +68,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/goodsMovement/${targetComponent.props.goodsMovement.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/goodsMovement/${targetComponent.props.goodsMovement.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -84,17 +109,17 @@ const internalSummaryOf = (goodsMovement,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goodsMovement.id}</Description> 
-<Description term="Move Time">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Facility">{goodsMovement.facility}</Description> 
-<Description term="Facility Id">{goodsMovement.facilityId}</Description> 
-<Description term="From Ip">{goodsMovement.fromIp}</Description> 
-<Description term="Session Id">{goodsMovement.sessionId}</Description> 
-<Description term="Latitude">{goodsMovement.latitude}</Description> 
-<Description term="Longitude">{goodsMovement.longitude}</Description> 
-<Description term="Goods">{goodsMovement.goods==null?appLocaleName(userContext,"NotAssigned"):`${goodsMovement.goods.displayName}(${goodsMovement.goods.id})`}
+<Description term="序号">{goodsMovement.id}</Description> 
+<Description term="移动时间">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD HH:mm')}</Description> 
+<Description term="设施">{goodsMovement.facility}</Description> 
+<Description term="设备ID">{goodsMovement.facilityId}</Description> 
+<Description term="从IP">{goodsMovement.fromIp}</Description> 
+<Description term="会话ID">{goodsMovement.sessionId}</Description> 
+<Description term="纬度">{goodsMovement.latitude}</Description> 
+<Description term="经度">{goodsMovement.longitude}</Description> 
+<Description term="货物">{goodsMovement.goods==null?appLocaleName(userContext,"NotAssigned"):`${goodsMovement.goods.displayName}(${goodsMovement.goods.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Goods","goods",GoodsMovementService.requestCandidateGoods,
+  showTransferModel(targetComponent,"货物","goods",GoodsMovementService.requestCandidateGoods,
 	      GoodsMovementService.transferToAnotherGoods,"anotherGoodsId",goodsMovement.goods?goodsMovement.goods.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -135,7 +160,7 @@ class GoodsMovementDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Goods Movement",cardsFor: "goodsMovement",
+    const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",
     	cardsSource: this.props.goodsMovement,returnURL,displayName,
   		subItems: [
     
@@ -163,10 +188,10 @@ class GoodsMovementDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

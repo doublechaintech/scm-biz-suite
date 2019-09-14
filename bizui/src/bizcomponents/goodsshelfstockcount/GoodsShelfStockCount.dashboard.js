@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/goodsShelfStockCount/${targetComponent.props.goodsShelfStockCount.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/goodsShelfStockCount/${targetComponent.props.goodsShelfStockCount.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,13 +106,13 @@ const internalSummaryOf = (goodsShelfStockCount,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goodsShelfStockCount.id}</Description> 
-<Description term="Title">{goodsShelfStockCount.title}</Description> 
-<Description term="Count Time">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Summary">{goodsShelfStockCount.summary}</Description> 
-<Description term="Shelf">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
+<Description term="序号">{goodsShelfStockCount.id}</Description> 
+<Description term="头衔">{goodsShelfStockCount.title}</Description> 
+<Description term="计数时间">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
+<Description term="概览">{goodsShelfStockCount.summary}</Description> 
+<Description term="架">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Shelf","goodsShelf",GoodsShelfStockCountService.requestCandidateShelf,
+  showTransferModel(targetComponent,"架","goodsShelf",GoodsShelfStockCountService.requestCandidateShelf,
 	      GoodsShelfStockCountService.transferToAnotherShelf,"anotherShelfId",goodsShelfStockCount.shelf?goodsShelfStockCount.shelf.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,10 +153,10 @@ class GoodsShelfStockCountDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Goods Shelf Stock Count",cardsFor: "goodsShelfStockCount",
+    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",
     	cardsSource: this.props.goodsShelfStockCount,returnURL,displayName,
   		subItems: [
-{name: 'stockCountIssueTrackList', displayName:'Stock Count Issue Track',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
+{name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
     
       	],
   	};
@@ -157,10 +182,10 @@ class GoodsShelfStockCountDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

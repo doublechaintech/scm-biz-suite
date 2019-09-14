@@ -55,8 +55,8 @@ class TerminationReasonProfile extends Component {
     // eslint-disable-next-line max-len
     const  terminationReason = this.props.terminationReason;
     const { id,displayName, terminationCount } = terminationReason
-
-    const cardsData = {cardsName:"Termination Reason",cardsFor: "terminationReason",cardsSource: terminationReason,
+    const  returnURL = `/terminationReason/${id}/dashboard`
+    const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",cardsSource: terminationReason,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class TerminationReasonProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

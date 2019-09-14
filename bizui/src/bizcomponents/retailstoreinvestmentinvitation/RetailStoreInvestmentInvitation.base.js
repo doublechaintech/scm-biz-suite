@@ -30,42 +30,39 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Investment Invitation", menuFor: "retailStoreInvestmentInvitation",
+const menuData = {menuName:"生超招商", menuFor: "retailStoreInvestmentInvitation",
   		subItems: [
-  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  comment: 'Comment',
+  id: '序号',
+  comment: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'retailStoreInvestmentInvitation') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreInvestmentInvitation') , sorter: true },
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '10',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreInvestmentInvitation,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreInvestmentInvitation.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreInvestmentInvitation.id}>
-	
-	<DescriptionList  key={retailStoreInvestmentInvitation.id} size="small" col="4">
-<Description term="Id">{retailStoreInvestmentInvitation.id}</Description> 
-<Description term="Comment">{retailStoreInvestmentInvitation.comment}</Description> 
+      <DescriptionList  key={retailStoreInvestmentInvitation.id} size="small" col="4">
+        <Description term="序号">{retailStoreInvestmentInvitation.id}</Description> 
+        <Description term="评论">{retailStoreInvestmentInvitation.comment}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Warehouse Asset", menuFor: "warehouseAsset",
+const menuData = {menuName:"仓库资产", menuFor: "warehouseAsset",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  position: 'Position',
-  owner: 'Owner',
-  lastUpdateTime: 'Last Update Time',
+  id: '序号',
+  name: '名称',
+  position: '位置',
+  owner: '业主',
+  lastUpdateTime: '最后更新时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'warehouseAsset') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '9',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.position, debugtype: 'string', dataIndex: 'position', width: '14',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -56,25 +56,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(warehouseAsset,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={warehouseAsset.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={warehouseAsset.id}>
-	
-	<DescriptionList  key={warehouseAsset.id} size="small" col="4">
-<Description term="Id">{warehouseAsset.id}</Description> 
-<Description term="Name">{warehouseAsset.name}</Description> 
-<Description term="Position">{warehouseAsset.position}</Description> 
-<Description term="Owner">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
-</Description>
-<Description term="Last Update Time">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={warehouseAsset.id} size="small" col="4">
+        <Description term="序号">{warehouseAsset.id}</Description> 
+        <Description term="名称">{warehouseAsset.name}</Description> 
+        <Description term="位置">{warehouseAsset.position}</Description> 
+        <Description term="业主"><div>{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
+        </div></Description>
+        <Description term="最后更新时间"><div>{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

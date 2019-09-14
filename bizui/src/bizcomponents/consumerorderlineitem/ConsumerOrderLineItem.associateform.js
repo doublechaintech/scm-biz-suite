@@ -20,9 +20,9 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  price: '4.46',
-  quantity: '754.71',
-  amount: '7034.80',
+  price: '4.59',
+  quantity: '849.88',
+  amount: '9829.91',
   bizOrderId: 'CO000001',
 }
 */
@@ -142,7 +142,7 @@ class ConsumerOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('skuId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Sku Id" />
+                    <Input size="large" placeholder="产品ID" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class ConsumerOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('skuName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Sku Name" />
+                    <Input size="large" placeholder="产品名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class ConsumerOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Price" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class ConsumerOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Quantity" />
+                    <Input size="large" placeholder="数量" />
                   )}
                 </Form.Item>
               </Col>
@@ -182,7 +182,7 @@ class ConsumerOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>

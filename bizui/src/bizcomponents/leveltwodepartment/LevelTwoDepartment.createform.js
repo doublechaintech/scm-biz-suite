@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '信息系统部大数据部门',
   description: '主要执行集团信息系统建设，维护，规划',
-  founded: '2018-06-08',
+  founded: '2016-11-25',
   belongsToId: 'LOD000001',
 }
 */
@@ -196,8 +196,8 @@ class LevelTwoDepartmentCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Level Two Department`}
-        content={`${appLocaleName(userContext,"CreateNew")}Level Two Department`}
+        title={`${appLocaleName(userContext,"CreateNew")}二级部门`}
+        content={`${appLocaleName(userContext,"CreateNew")}二级部门`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class LevelTwoDepartmentCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class LevelTwoDepartmentCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class LevelTwoDepartmentCreateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
                   )}
                 </Form.Item>
               </Col>

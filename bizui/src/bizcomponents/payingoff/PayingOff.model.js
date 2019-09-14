@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/payingOff/${id}/list/EmployeeSalarySheetList/Employee Salary Sheet+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/payingOff/${id}/list/EmployeeSalarySheetList/工资单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeSalarySheet({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/payingOff/${id}/list/EmployeeSalarySheetList/Employee Salary Sheet列表`, state: newPlayload }
+      const location = { pathname: `/payingOff/${id}/list/EmployeeSalarySheetList/工资单列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeSalarySheetUpdateRow({ payload }, { call, put }) {

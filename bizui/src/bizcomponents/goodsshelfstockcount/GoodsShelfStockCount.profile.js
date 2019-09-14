@@ -55,8 +55,8 @@ class GoodsShelfStockCountProfile extends Component {
     // eslint-disable-next-line max-len
     const  goodsShelfStockCount = this.props.goodsShelfStockCount;
     const { id,displayName, stockCountIssueTrackCount } = goodsShelfStockCount
-
-    const cardsData = {cardsName:"Goods Shelf Stock Count",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,
+    const  returnURL = `/goodsShelfStockCount/${id}/dashboard`
+    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",cardsSource: goodsShelfStockCount,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class GoodsShelfStockCountProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Paying Off", menuFor: "payingOff",
+const menuData = {menuName:"工资支付", menuFor: "payingOff",
   		subItems: [
-  {name: 'employeeSalarySheetList', displayName:'Employee Salary Sheet', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeSalarySheetList', displayName:'工资单', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  paidFor: 'Paid For',
-  paidTime: 'Paid Time',
-  amount: 'Amount',
+  id: '序号',
+  who: '谁',
+  paidFor: '支付',
+  paidTime: '支付时间',
+  amount: '金额',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'payingOff') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'payingOff') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.paidFor, dataIndex: 'paidFor', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.paidTime, dataIndex: 'paidTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
@@ -57,25 +57,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(payingOff,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={payingOff.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={payingOff.id}>
-	
-	<DescriptionList  key={payingOff.id} size="small" col="4">
-<Description term="Id">{payingOff.id}</Description> 
-<Description term="Who">{payingOff.who}</Description> 
-<Description term="Paid For">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
-</Description>
-<Description term="Paid Time">{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Amount">{payingOff.amount}</Description> 
+      <DescriptionList  key={payingOff.id} size="small" col="4">
+        <Description term="序号">{payingOff.id}</Description> 
+        <Description term="谁">{payingOff.who}</Description> 
+        <Description term="支付"><div>{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
+        </div></Description>
+        <Description term="支付时间"><div>{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="金额"><div style={{"color":"red"}}>{payingOff.amount}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

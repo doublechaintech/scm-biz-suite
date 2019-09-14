@@ -30,42 +30,39 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"User Domain", menuFor: "userDomain",
+const menuData = {menuName:"用户域", menuFor: "userDomain",
   		subItems: [
-  {name: 'secUserList', displayName:'Sec User', icon:'user',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'secUserList', displayName:'安全用户', icon:'user',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
+  id: 'ID',
+  name: '名称',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'userDomain') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'userDomain') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(userDomain,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={userDomain.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={userDomain.id}>
-	
-	<DescriptionList  key={userDomain.id} size="small" col="4">
-<Description term="Id">{userDomain.id}</Description> 
-<Description term="Name">{userDomain.name}</Description> 
+      <DescriptionList  key={userDomain.id} size="small" col="4">
+        <Description term="ID">{userDomain.id}</Description> 
+        <Description term="名称">{userDomain.name}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

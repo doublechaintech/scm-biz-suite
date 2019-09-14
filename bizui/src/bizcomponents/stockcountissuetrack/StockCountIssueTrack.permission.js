@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (stockCountIssueTrack,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{stockCountIssueTrack.id}</Description> 
-<Description term="Title">{stockCountIssueTrack.title}</Description> 
-<Description term="Count Time">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Summary">{stockCountIssueTrack.summary}</Description> 
+<Description term="序号">{stockCountIssueTrack.id}</Description> 
+<Description term="头衔">{stockCountIssueTrack.title}</Description> 
+<Description term="计数时间">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
+<Description term="概览">{stockCountIssueTrack.summary}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class StockCountIssueTrackPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  stockCountIssueTrack = this.props.stockCountIssueTrack;
+    const  stockCountIssueTrack = this.props.stockCountIssueTrack
     const { id,displayName,  } = stockCountIssueTrack
-    const cardsData = {cardsName:"Stock Count Issue Track",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,
+    const  returnURL = `/stockCountIssueTrack/${id}/dashboard`
+    const cardsData = {cardsName:"库存计数问题跟踪",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class StockCountIssueTrackPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

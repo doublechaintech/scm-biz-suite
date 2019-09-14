@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (transportTaskTrack,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{transportTaskTrack.id}</Description> 
-<Description term="Track Time">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Latitude">{transportTaskTrack.latitude}</Description> 
-<Description term="Longitude">{transportTaskTrack.longitude}</Description> 
+<Description term="序号">{transportTaskTrack.id}</Description> 
+<Description term="跟踪时间">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
+<Description term="纬度">{transportTaskTrack.latitude}</Description> 
+<Description term="经度">{transportTaskTrack.longitude}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class TransportTaskTrackPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  transportTaskTrack = this.props.transportTaskTrack;
+    const  transportTaskTrack = this.props.transportTaskTrack
     const { id,displayName,  } = transportTaskTrack
-    const cardsData = {cardsName:"Transport Task Track",cardsFor: "transportTaskTrack",cardsSource: transportTaskTrack,
+    const  returnURL = `/transportTaskTrack/${id}/dashboard`
+    const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",cardsSource: transportTaskTrack,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class TransportTaskTrackPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

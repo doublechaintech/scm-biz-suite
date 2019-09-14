@@ -263,7 +263,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -275,7 +275,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.start,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Start" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始" />
                     
                   )}
                 </Form.Item>
@@ -287,7 +287,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.end,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="End" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束" />
                     
                   )}
                 </Form.Item>
@@ -299,7 +299,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.company,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Company" />
+                    <Input size="large" placeholder="公司" />
                     
                   )}
                 </Form.Item>
@@ -311,7 +311,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                     
                   )}
                 </Form.Item>

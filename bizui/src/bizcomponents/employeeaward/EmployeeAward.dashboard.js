@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/employeeAward/${targetComponent.props.employeeAward.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/employeeAward/${targetComponent.props.employeeAward.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,16 +106,16 @@ const internalSummaryOf = (employeeAward,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeAward.id}</Description> 
-<Description term="Employee">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
+<Description term="序号">{employeeAward.id}</Description> 
+<Description term="员工">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Employee","employee",EmployeeAwardService.requestCandidateEmployee,
+  showTransferModel(targetComponent,"员工","employee",EmployeeAwardService.requestCandidateEmployee,
 	      EmployeeAwardService.transferToAnotherEmployee,"anotherEmployeeId",employeeAward.employee?employeeAward.employee.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Complete Time">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Type">{employeeAward.type}</Description> 
-<Description term="Remark">{employeeAward.remark}</Description> 
+<Description term="完成时间">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
+<Description term="类型">{employeeAward.type}</Description> 
+<Description term="备注">{employeeAward.remark}</Description> 
 	
         {buildTransferModal(employeeAward,targetComponent)}
       </DescriptionList>
@@ -128,7 +153,7 @@ class EmployeeAwardDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Employee Award",cardsFor: "employeeAward",
+    const cardsData = {cardsName:"员工嘉奖",cardsFor: "employeeAward",
     	cardsSource: this.props.employeeAward,returnURL,displayName,
   		subItems: [
     
@@ -156,10 +181,10 @@ class EmployeeAwardDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

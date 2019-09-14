@@ -145,15 +145,7 @@ class SupplyOrderApprovalBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/supplyOrderApproval/${this.props.supplyOrderApproval.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/supplyOrderApproval/${this.props.supplyOrderApproval.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class SupplyOrderApprovalBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Consumer Order",
+      name: "消费者订单",
       role: "consumerOrder",
       data: state._supplyOrderApproval.consumerOrderList,
       metaInfo: state._supplyOrderApproval.consumerOrderListMetaInfo,
@@ -216,7 +208,7 @@ class SupplyOrderApprovalBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Supply Order",
+      name: "供应订单",
       role: "supplyOrder",
       data: state._supplyOrderApproval.supplyOrderList,
       metaInfo: state._supplyOrderApproval.supplyOrderListMetaInfo,

@@ -139,7 +139,7 @@ class RetailStoreMemberCouponAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class RetailStoreMemberCouponAssociateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Number" />
+                    <Input size="large" placeholder="数" />
                   )}
                 </Form.Item>
               </Col>

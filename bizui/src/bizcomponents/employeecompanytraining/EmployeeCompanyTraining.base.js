@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Employee Company Training", menuFor: "employeeCompanyTraining",
+const menuData = {menuName:"员工参与的公司培训", menuFor: "employeeCompanyTraining",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  employee: 'Employee',
-  training: 'Training',
-  scoring: 'Scoring',
-  currentStatus: 'Current Status',
+  id: '序号',
+  employee: '员工',
+  training: '训练',
+  scoring: '评分',
+  currentStatus: '当前状态',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeCompanyTraining') , sorter: true },
   { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.training, dataIndex: 'training', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.scoring, dataIndex: 'scoring', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -56,25 +56,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(employeeCompanyTraining,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={employeeCompanyTraining.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={employeeCompanyTraining.id}>
-	
-	<DescriptionList  key={employeeCompanyTraining.id} size="small" col="4">
-<Description term="Id">{employeeCompanyTraining.id}</Description> 
-<Description term="Employee">{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
-</Description>
-<Description term="Training">{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
-</Description>
-<Description term="Current Status">{employeeCompanyTraining.currentStatus}</Description> 
+      <DescriptionList  key={employeeCompanyTraining.id} size="small" col="4">
+        <Description term="序号">{employeeCompanyTraining.id}</Description> 
+        <Description term="员工"><div>{employeeCompanyTraining.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.employee.displayName}(${employeeCompanyTraining.employee.id})`}
+        </div></Description>
+        <Description term="训练"><div>{employeeCompanyTraining.training==null?appLocaleName(userContext,"NotAssigned"):`${employeeCompanyTraining.training.displayName}(${employeeCompanyTraining.training.id})`}
+        </div></Description>
+        <Description term="当前状态">{employeeCompanyTraining.currentStatus}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/levelOneCategory/${targetComponent.props.levelOneCategory.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/levelOneCategory/${targetComponent.props.levelOneCategory.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,14 +106,14 @@ const internalSummaryOf = (levelOneCategory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{levelOneCategory.id}</Description> 
-<Description term="Catalog">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
+<Description term="序号">{levelOneCategory.id}</Description> 
+<Description term="目录">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Catalog","catalog",LevelOneCategoryService.requestCandidateCatalog,
+  showTransferModel(targetComponent,"目录","catalog",LevelOneCategoryService.requestCandidateCatalog,
 	      LevelOneCategoryService.transferToAnotherCatalog,"anotherCatalogId",levelOneCategory.catalog?levelOneCategory.catalog.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Name">{levelOneCategory.name}</Description> 
+<Description term="名称">{levelOneCategory.name}</Description> 
 	
         {buildTransferModal(levelOneCategory,targetComponent)}
       </DescriptionList>
@@ -126,10 +151,10 @@ class LevelOneCategoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Level One Category",cardsFor: "levelOneCategory",
+    const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",
     	cardsSource: this.props.levelOneCategory,returnURL,displayName,
   		subItems: [
-{name: 'levelTwoCategoryList', displayName:'Level Two Category',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
+{name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
     
       	],
   	};
@@ -155,10 +180,10 @@ class LevelOneCategoryDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

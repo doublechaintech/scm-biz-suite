@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,18 +23,22 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (damageSpace,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{damageSpace.id}</Description> 
-<Description term="Location">{damageSpace.location}</Description> 
-<Description term="Contact Number">{damageSpace.contactNumber}</Description> 
-<Description term="Total Area">{damageSpace.totalArea}</Description> 
-<Description term="Latitude">{damageSpace.latitude}</Description> 
-<Description term="Longitude">{damageSpace.longitude}</Description> 
-<Description term="Last Update Time">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{damageSpace.id}</Description> 
+<Description term="位置">{damageSpace.location}</Description> 
+<Description term="联系电话">{damageSpace.contactNumber}</Description> 
+<Description term="总面积">{damageSpace.totalArea}</Description> 
+<Description term="纬度">{damageSpace.latitude}</Description> 
+<Description term="经度">{damageSpace.longitude}</Description> 
+<Description term="最后更新时间">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -58,9 +62,10 @@ class DamageSpacePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  damageSpace = this.props.damageSpace;
+    const  damageSpace = this.props.damageSpace
     const { id,displayName, goodsShelfCount } = damageSpace
-    const cardsData = {cardsName:"Damage Space",cardsFor: "damageSpace",cardsSource: damageSpace,
+    const  returnURL = `/damageSpace/${id}/dashboard`
+    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",cardsSource: damageSpace,displayName,returnURL,
   		subItems: [
     
       	],
@@ -71,7 +76,7 @@ class DamageSpacePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

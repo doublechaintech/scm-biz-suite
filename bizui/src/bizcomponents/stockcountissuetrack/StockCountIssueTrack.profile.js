@@ -55,8 +55,8 @@ class StockCountIssueTrackProfile extends Component {
     // eslint-disable-next-line max-len
     const  stockCountIssueTrack = this.props.stockCountIssueTrack;
     const { id,displayName,  } = stockCountIssueTrack
-
-    const cardsData = {cardsName:"Stock Count Issue Track",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,
+    const  returnURL = `/stockCountIssueTrack/${id}/dashboard`
+    const cardsData = {cardsName:"库存计数问题跟踪",cardsFor: "stockCountIssueTrack",cardsSource: stockCountIssueTrack,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class StockCountIssueTrackProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

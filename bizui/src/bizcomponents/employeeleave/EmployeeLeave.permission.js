@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (employeeLeave,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeLeave.id}</Description> 
-<Description term="Leave Duration Hour">{employeeLeave.leaveDurationHour}</Description> 
-<Description term="Remark">{employeeLeave.remark}</Description> 
+<Description term="序号">{employeeLeave.id}</Description> 
+<Description term="请假时长">{employeeLeave.leaveDurationHour}</Description> 
+<Description term="备注">{employeeLeave.remark}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class EmployeeLeavePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  employeeLeave = this.props.employeeLeave;
+    const  employeeLeave = this.props.employeeLeave
     const { id,displayName,  } = employeeLeave
-    const cardsData = {cardsName:"Employee Leave",cardsFor: "employeeLeave",cardsSource: employeeLeave,
+    const  returnURL = `/employeeLeave/${id}/dashboard`
+    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",cardsSource: employeeLeave,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class EmployeeLeavePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/loginHistory/${targetComponent.props.loginHistory.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/loginHistory/${targetComponent.props.loginHistory.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,13 +106,13 @@ const internalSummaryOf = (loginHistory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{loginHistory.id}</Description> 
-<Description term="Login Time">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="From Ip">{loginHistory.fromIp}</Description> 
-<Description term="Description">{loginHistory.description}</Description> 
-<Description term="Sec User">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
+<Description term="ID">{loginHistory.id}</Description> 
+<Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD HH:mm')}</Description> 
+<Description term="来自IP">{loginHistory.fromIp}</Description> 
+<Description term="描述">{loginHistory.description}</Description> 
+<Description term="安全用户">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Sec User","secUser",LoginHistoryService.requestCandidateSecUser,
+  showTransferModel(targetComponent,"安全用户","secUser",LoginHistoryService.requestCandidateSecUser,
 	      LoginHistoryService.transferToAnotherSecUser,"anotherSecUserId",loginHistory.secUser?loginHistory.secUser.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -128,7 +153,7 @@ class LoginHistoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Login History",cardsFor: "loginHistory",
+    const cardsData = {cardsName:"登录历史",cardsFor: "loginHistory",
     	cardsSource: this.props.loginHistory,returnURL,displayName,
   		subItems: [
     
@@ -156,10 +181,10 @@ class LoginHistoryDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

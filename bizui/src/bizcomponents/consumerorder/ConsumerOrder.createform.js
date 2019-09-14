@@ -195,8 +195,8 @@ class ConsumerOrderCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Consumer Order`}
-        content={`${appLocaleName(userContext,"CreateNew")}Consumer Order`}
+        title={`${appLocaleName(userContext,"CreateNew")}消费者订单`}
+        content={`${appLocaleName(userContext,"CreateNew")}消费者订单`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class ConsumerOrderCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>

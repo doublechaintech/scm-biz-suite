@@ -145,15 +145,7 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/retailStoreProvinceCenter/${this.props.retailStoreProvinceCenter.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/retailStoreProvinceCenter/${this.props.retailStoreProvinceCenter.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Province Center Department",
+      name: "省中心",
       role: "provinceCenterDepartment",
       data: state._retailStoreProvinceCenter.provinceCenterDepartmentList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterDepartmentListMetaInfo,
@@ -216,7 +208,7 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Province Center Employee",
+      name: "省中心员工",
       role: "provinceCenterEmployee",
       data: state._retailStoreProvinceCenter.provinceCenterEmployeeList,
       metaInfo: state._retailStoreProvinceCenter.provinceCenterEmployeeListMetaInfo,
@@ -265,7 +257,7 @@ class RetailStoreProvinceCenterBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Retail Store City Service Center",
+      name: "双链小超城市服务中心",
       role: "retailStoreCityServiceCenter",
       data: state._retailStoreProvinceCenter.retailStoreCityServiceCenterList,
       metaInfo: state._retailStoreProvinceCenter.retailStoreCityServiceCenterListMetaInfo,

@@ -55,8 +55,8 @@ class TruckDriverProfile extends Component {
     // eslint-disable-next-line max-len
     const  truckDriver = this.props.truckDriver;
     const { id,displayName, transportTaskCount } = truckDriver
-
-    const cardsData = {cardsName:"Truck Driver",cardsFor: "truckDriver",cardsSource: truckDriver,
+    const  returnURL = `/truckDriver/${id}/dashboard`
+    const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",cardsSource: truckDriver,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class TruckDriverProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -197,8 +197,8 @@ class PotentialCustomerCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Potential Customer`}
-        content={`${appLocaleName(userContext,"CreateNew")}Potential Customer`}
+        title={`${appLocaleName(userContext,"CreateNew")}潜在的客户`}
+        content={`${appLocaleName(userContext,"CreateNew")}潜在的客户`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class PotentialCustomerCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class PotentialCustomerCreateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mobile" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class PotentialCustomerCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

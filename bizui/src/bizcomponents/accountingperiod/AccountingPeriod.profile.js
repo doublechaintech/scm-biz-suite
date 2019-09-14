@@ -55,8 +55,8 @@ class AccountingPeriodProfile extends Component {
     // eslint-disable-next-line max-len
     const  accountingPeriod = this.props.accountingPeriod;
     const { id,displayName, accountingDocumentCount } = accountingPeriod
-
-    const cardsData = {cardsName:"Accounting Period",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,
+    const  returnURL = `/accountingPeriod/${id}/dashboard`
+    const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",cardsSource: accountingPeriod,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class AccountingPeriodProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '批准者',
-  approveTime: '2019-06-25',
+  approveTime: '2019-06-29',
 }
 */
 
@@ -194,8 +194,8 @@ class SupplyOrderApprovalCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Supply Order Approval`}
-        content={`${appLocaleName(userContext,"CreateNew")}Supply Order Approval`}
+        title={`${appLocaleName(userContext,"CreateNew")}供应订单审批`}
+        content={`${appLocaleName(userContext,"CreateNew")}供应订单审批`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class SupplyOrderApprovalCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +217,7 @@ class SupplyOrderApprovalCreateForm extends Component {
                   {getFieldDecorator('approveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Approve Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="批准时间" />
                   )}
                 </Form.Item>
               </Col>

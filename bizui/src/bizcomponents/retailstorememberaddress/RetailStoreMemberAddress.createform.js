@@ -196,8 +196,8 @@ class RetailStoreMemberAddressCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Address`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Member Address`}
+        title={`${appLocaleName(userContext,"CreateNew")}零售店会员地址`}
+        content={`${appLocaleName(userContext,"CreateNew")}零售店会员地址`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class RetailStoreMemberAddressCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class RetailStoreMemberAddressCreateForm extends Component {
                   {getFieldDecorator('mobilePhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mobile Phone" />
+                    <Input size="large" placeholder="移动电话" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class RetailStoreMemberAddressCreateForm extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Address" />
+                    <Input size="large" placeholder="地址" />
                   )}
                 </Form.Item>
               </Col>

@@ -143,7 +143,7 @@ const handleDeletionModalVisible = (event,targetComponent) => {
   const convertToBackendSorter=({listName,sorter})=>{
 
     const sortProperties = {}
-    
+    console.log("list", listName, "sorter", sorter)
     if(!sorter){
       return sortProperties
     }
@@ -172,14 +172,15 @@ const handleDeletionModalVisible = (event,targetComponent) => {
     listParameters[listName]=1;
     listParameters[`${listName}CurrentPage`]=pagination.current;
     listParameters[`${listName}RowsPerPage`]=pagination.pageSize;
-
+    
     const sortProperties = convertToBackendSorter({listName,sorter})
-    const newSearchParameters = {...searchParameters,...listParameters,...sortProperties}
-    console.log("newSearchParameters",newSearchParameters)
+
     if(!sorter.field){
-      delete newSearchParameters[`${listName}.orderBy.0`]
-      delete newSearchParameters[`${listName}..descOrAsc.0`]
+      listParameters[`${listName}.orderBy.0`]="id";
+      listParameters[`${listName}.descOrAsc.0`]="asc";
+     
     }
+    const newSearchParameters = {...searchParameters,...listParameters,...sortProperties}
     const params = {
       ...searchParameters,
       ...listParameters,
@@ -188,8 +189,6 @@ const handleDeletionModalVisible = (event,targetComponent) => {
       ...filters,
 
     }
-    
-    console.log("handleStandardTableChange", params,"sorter",sorter)
     
     dispatch({
       type: `${owner.type}/load`,

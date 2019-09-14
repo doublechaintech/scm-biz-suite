@@ -138,7 +138,7 @@ class EmployeePerformanceAssociateForm extends Component {
                   {getFieldDecorator('performanceComment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Performance Comment" />
+                    <Input size="large" placeholder="绩效评价" />
                   )}
                 </Form.Item>
               </Col>

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2016-09-26',
+  timeStart: '2019-02-28',
   durationHours: '3',
   companyId: 'RSCC000001',
   instructorId: 'I000001',
@@ -198,8 +198,8 @@ class CompanyTrainingCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Company Training`}
-        content={`${appLocaleName(userContext,"CreateNew")}Company Training`}
+        title={`${appLocaleName(userContext,"CreateNew")}公司培训`}
+        content={`${appLocaleName(userContext,"CreateNew")}公司培训`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class CompanyTrainingCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class CompanyTrainingCreateForm extends Component {
                   {getFieldDecorator('timeStart', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Time Start" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="时间开始" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class CompanyTrainingCreateForm extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Duration Hours" />
+                    <Input size="large" placeholder="持续时间" />
                   )}
                 </Form.Item>
               </Col>

@@ -55,8 +55,8 @@ class SmartPalletProfile extends Component {
     // eslint-disable-next-line max-len
     const  smartPallet = this.props.smartPallet;
     const { id,displayName, goodsCount } = smartPallet
-
-    const cardsData = {cardsName:"Smart Pallet",cardsFor: "smartPallet",cardsSource: smartPallet,
+    const  returnURL = `/smartPallet/${id}/dashboard`
+    const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",cardsSource: smartPallet,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SmartPalletProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

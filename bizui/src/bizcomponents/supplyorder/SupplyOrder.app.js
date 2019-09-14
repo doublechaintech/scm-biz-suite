@@ -145,15 +145,7 @@ class SupplyOrderBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/supplyOrder/${this.props.supplyOrder.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/supplyOrder/${this.props.supplyOrder.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Supply Order Line Item",
+      name: "供应订单行项目",
       role: "supplyOrderLineItem",
       data: state._supplyOrder.supplyOrderLineItemList,
       metaInfo: state._supplyOrder.supplyOrderLineItemListMetaInfo,
@@ -216,7 +208,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Supply Order Shipping Group",
+      name: "供应订单送货分组",
       role: "supplyOrderShippingGroup",
       data: state._supplyOrder.supplyOrderShippingGroupList,
       metaInfo: state._supplyOrder.supplyOrderShippingGroupListMetaInfo,
@@ -265,7 +257,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Supply Order Payment Group",
+      name: "供应订单付款组",
       role: "supplyOrderPaymentGroup",
       data: state._supplyOrder.supplyOrderPaymentGroupList,
       metaInfo: state._supplyOrder.supplyOrderPaymentGroupListMetaInfo,
@@ -314,7 +306,7 @@ class SupplyOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Goods",
+      name: "货物",
       role: "goods",
       data: state._supplyOrder.goodsList,
       metaInfo: state._supplyOrder.goodsListMetaInfo,

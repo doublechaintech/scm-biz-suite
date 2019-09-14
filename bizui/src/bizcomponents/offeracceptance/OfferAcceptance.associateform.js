@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '申请者',
-  acceptTime: '2017-01-14',
+  acceptTime: '2018-06-28',
   comments: '谢谢，我一个月内上班',
 }
 */
@@ -140,7 +140,7 @@ class OfferAcceptanceAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class OfferAcceptanceAssociateForm extends Component {
                   {getFieldDecorator('acceptTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Accept Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="接受时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class OfferAcceptanceAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comments" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

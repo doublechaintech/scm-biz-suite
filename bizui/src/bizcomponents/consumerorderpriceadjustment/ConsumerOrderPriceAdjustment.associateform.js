@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-  amount: '442.25',
+  amount: '574.04',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -140,7 +140,7 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
                   {getFieldDecorator('provider', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Provider" />
+                    <Input size="large" placeholder="供应商" />
                   )}
                 </Form.Item>
               </Col>

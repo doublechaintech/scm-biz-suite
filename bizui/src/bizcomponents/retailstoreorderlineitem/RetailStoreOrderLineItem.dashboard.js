@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreOrderLineItem/${targetComponent.props.retailStoreOrderLineItem.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/retailStoreOrderLineItem/${targetComponent.props.retailStoreOrderLineItem.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,18 +106,18 @@ const internalSummaryOf = (retailStoreOrderLineItem,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreOrderLineItem.id}</Description> 
-<Description term="Biz Order">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
+<Description term="序号">{retailStoreOrderLineItem.id}</Description> 
+<Description term="订单">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Biz Order","retailStoreOrder",RetailStoreOrderLineItemService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"订单","retailStoreOrder",RetailStoreOrderLineItemService.requestCandidateBizOrder,
 	      RetailStoreOrderLineItemService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreOrderLineItem.bizOrder?retailStoreOrderLineItem.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Sku Id">{retailStoreOrderLineItem.skuId}</Description> 
-<Description term="Sku Name">{retailStoreOrderLineItem.skuName}</Description> 
-<Description term="Amount">{retailStoreOrderLineItem.amount}</Description> 
-<Description term="Quantity">{retailStoreOrderLineItem.quantity}</Description> 
-<Description term="Unit Of Measurement">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
+<Description term="产品ID">{retailStoreOrderLineItem.skuId}</Description> 
+<Description term="产品名称">{retailStoreOrderLineItem.skuName}</Description> 
+<Description term="金额">{retailStoreOrderLineItem.amount}</Description> 
+<Description term="数量">{retailStoreOrderLineItem.quantity}</Description> 
+<Description term="测量单位">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
 	
         {buildTransferModal(retailStoreOrderLineItem,targetComponent)}
       </DescriptionList>
@@ -130,7 +155,7 @@ class RetailStoreOrderLineItemDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Retail Store Order Line Item",cardsFor: "retailStoreOrderLineItem",
+    const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",
     	cardsSource: this.props.retailStoreOrderLineItem,returnURL,displayName,
   		subItems: [
     
@@ -158,10 +183,10 @@ class RetailStoreOrderLineItemDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

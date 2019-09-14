@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/instructor/${id}/list/CompanyTrainingList/Company Training+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/instructor/${id}/list/CompanyTrainingList/公司培训+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateCompanyTraining({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/instructor/${id}/list/CompanyTrainingList/Company Training列表`, state: newPlayload }
+      const location = { pathname: `/instructor/${id}/list/CompanyTrainingList/公司培训列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextCompanyTrainingUpdateRow({ payload }, { call, put }) {

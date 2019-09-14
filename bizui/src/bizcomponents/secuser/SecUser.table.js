@@ -48,17 +48,26 @@ class SecUserTable extends PureComponent {
     if(!referenceName){
       return displayColumns
     }
+    console.log("searchParameters",searchParameters)
+    
     const remainColumns = displayColumns.filter((item,index)=> item.dataIndex!==referenceName&&index<7&&item.dataIndex!=='content')
     
     if(!searchParameters){
       return remainColumns
     }
-    if(!searchParameters[listName]){
-      return remainColumns
-    }
-    const sorter = {field: searchParameters[`${listName}.orderBy.0`], order:searchParameters[`${listName}.descOrAsc.0`]}
-    console.log("sorter in table", sorter)
-    const convertSorter=(targetSorter)=>{
+    const field = searchParameters[`${listName}.orderBy.0`] || "id"
+    const order = searchParameters[`${listName}.descOrAsc.0`] || "desc"
+    const sorter = { field , order}
+    const convertSorter=(item,targetSorter)=>{
+
+      console.log("item", item)
+      if(item.sortOrder==="descend"){
+        return "ascend"
+      }
+      if(item.sortOrder==="ascend"){
+        return "descend"
+      }
+
       if(targetSorter.order==="desc"){
         return "descend"
       }
@@ -67,10 +76,13 @@ class SecUserTable extends PureComponent {
     }
     const enhancedColumns = remainColumns.map(item=>{
       if(sorter.field===item.dataIndex){
-        return {...item, sortOrder: convertSorter(sorter)}
+        return {...item, sortOrder: convertSorter(item,sorter)}
       }
       return item
     })
+
+    console.log("enhancedColumns",enhancedColumns)
+
     return enhancedColumns
 
   }

@@ -17,8 +17,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  start: '2016-08-15',
-  end: '2018-09-16',
+  start: '2017-02-09',
+  end: '2017-07-13',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -197,8 +197,8 @@ class EmployeeWorkExperienceCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Employee Work Experience`}
-        content={`${appLocaleName(userContext,"CreateNew")}Employee Work Experience`}
+        title={`${appLocaleName(userContext,"CreateNew")}员工工作经验`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工工作经验`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Start" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('end', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="End" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('company', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Company" />
+                    <Input size="large" placeholder="公司" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Description" />
+                    <Input size="large" placeholder="描述" />
                   )}
                 </Form.Item>
               </Col>

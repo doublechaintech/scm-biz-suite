@@ -55,8 +55,8 @@ class EmployeeWorkExperienceProfile extends Component {
     // eslint-disable-next-line max-len
     const  employeeWorkExperience = this.props.employeeWorkExperience;
     const { id,displayName,  } = employeeWorkExperience
-
-    const cardsData = {cardsName:"Employee Work Experience",cardsFor: "employeeWorkExperience",cardsSource: employeeWorkExperience,
+    const  returnURL = `/employeeWorkExperience/${id}/dashboard`
+    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",cardsSource: employeeWorkExperience,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class EmployeeWorkExperienceProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

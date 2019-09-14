@@ -192,7 +192,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="Id">
+         <FormItem label="ID">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -200,7 +200,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="From Ip">
+         <FormItem label="来自IP">
            {getFieldDecorator('fromIp')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -247,7 +247,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="Id">
+            <FormItem label="ID">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -255,7 +255,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="From Ip">
+            <FormItem label="来自IP">
               {getFieldDecorator('fromIp')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -263,14 +263,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Description">
+            <FormItem label="描述">
               {getFieldDecorator('description')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Sec User">
+                    <Form.Item label="安全用户">
                   {getFieldDecorator('secUser', {
                     initialValue: tryinit('secUser'),
                    
@@ -304,13 +304,5 @@ componentDidMount() {
 }
 
 export default Form.create()(LoginHistorySearchForm)
-
-
-
-
-
-
-
-
 
 

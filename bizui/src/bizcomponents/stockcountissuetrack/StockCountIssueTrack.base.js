@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Stock Count Issue Track", menuFor: "stockCountIssueTrack",
+const menuData = {menuName:"库存计数问题跟踪", menuFor: "stockCountIssueTrack",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  title: 'Title',
-  countTime: 'Count Time',
-  summary: 'Summary',
-  stockCount: 'Stock Count',
+  id: '序号',
+  title: '头衔',
+  countTime: '计数时间',
+  summary: '概览',
+  stockCount: '盘点',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'stockCountIssueTrack') , sorter: true },
   { title: fieldLabels.title, debugtype: 'string', dataIndex: 'title', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.countTime, dataIndex: 'countTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.summary, debugtype: 'string', dataIndex: 'summary', width: '14',render: (text, record)=>renderTextCell(text,record)},
@@ -56,25 +56,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(stockCountIssueTrack,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={stockCountIssueTrack.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={stockCountIssueTrack.id}>
-	
-	<DescriptionList  key={stockCountIssueTrack.id} size="small" col="4">
-<Description term="Id">{stockCountIssueTrack.id}</Description> 
-<Description term="Title">{stockCountIssueTrack.title}</Description> 
-<Description term="Count Time">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Summary">{stockCountIssueTrack.summary}</Description> 
-<Description term="Stock Count">{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
-</Description>
+      <DescriptionList  key={stockCountIssueTrack.id} size="small" col="4">
+        <Description term="序号">{stockCountIssueTrack.id}</Description> 
+        <Description term="头衔">{stockCountIssueTrack.title}</Description> 
+        <Description term="计数时间"><div>{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="概览">{stockCountIssueTrack.summary}</Description> 
+        <Description term="盘点"><div>{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

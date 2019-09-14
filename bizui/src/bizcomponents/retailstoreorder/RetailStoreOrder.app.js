@@ -145,15 +145,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/retailStoreOrder/${this.props.retailStoreOrder.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/retailStoreOrder/${this.props.retailStoreOrder.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Retail Store Order Line Item",
+      name: "双链小超订单行项目",
       role: "retailStoreOrderLineItem",
       data: state._retailStoreOrder.retailStoreOrderLineItemList,
       metaInfo: state._retailStoreOrder.retailStoreOrderLineItemListMetaInfo,
@@ -216,7 +208,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Retail Store Order Shipping Group",
+      name: "生超订单送货分组",
       role: "retailStoreOrderShippingGroup",
       data: state._retailStoreOrder.retailStoreOrderShippingGroupList,
       metaInfo: state._retailStoreOrder.retailStoreOrderShippingGroupListMetaInfo,
@@ -265,7 +257,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Retail Store Order Payment Group",
+      name: "生超订单付款组",
       role: "retailStoreOrderPaymentGroup",
       data: state._retailStoreOrder.retailStoreOrderPaymentGroupList,
       metaInfo: state._retailStoreOrder.retailStoreOrderPaymentGroupListMetaInfo,
@@ -314,7 +306,7 @@ class RetailStoreOrderBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Goods",
+      name: "货物",
       role: "goods",
       data: state._retailStoreOrder.goodsList,
       metaInfo: state._retailStoreOrder.goodsListMetaInfo,

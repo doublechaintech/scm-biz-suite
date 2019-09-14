@@ -261,7 +261,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.mobilePhone,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mobile Phone" />
+                    <Input size="large" placeholder="移动电话" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class RetailStoreMemberAddressUpdateForm extends Component {
                     initialValue: selectedRow.address,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Address" />
+                    <Input size="large" placeholder="地址" />
                     
                   )}
                 </Form.Item>

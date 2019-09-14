@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/goods/${targetComponent.props.goods.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/goods/${targetComponent.props.goods.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,67 +106,67 @@ const internalSummaryOf = (goods,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goods.id}</Description> 
-<Description term="Name">{goods.name}</Description> 
-<Description term="Rfid">{goods.rfid}</Description> 
-<Description term="Uom">{goods.uom}</Description> 
-<Description term="Max Package">{goods.maxPackage}</Description> 
-<Description term="Expire Time">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Sku">{goods.sku==null?appLocaleName(userContext,"NotAssigned"):`${goods.sku.displayName}(${goods.sku.id})`}
+<Description term="序号">{goods.id}</Description> 
+<Description term="名称">{goods.name}</Description> 
+<Description term="RFID">{goods.rfid}</Description> 
+<Description term="计量单位">{goods.uom}</Description> 
+<Description term="最大包装">{goods.maxPackage}</Description> 
+<Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
+<Description term="SKU">{goods.sku==null?appLocaleName(userContext,"NotAssigned"):`${goods.sku.displayName}(${goods.sku.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Sku","sku",GoodsService.requestCandidateSku,
+  showTransferModel(targetComponent,"SKU","sku",GoodsService.requestCandidateSku,
 	      GoodsService.transferToAnotherSku,"anotherSkuId",goods.sku?goods.sku.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Receiving Space">{goods.receivingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.receivingSpace.displayName}(${goods.receivingSpace.id})`}
+<Description term="收货区">{goods.receivingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.receivingSpace.displayName}(${goods.receivingSpace.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Receiving Space","receivingSpace",GoodsService.requestCandidateReceivingSpace,
+  showTransferModel(targetComponent,"收货区","receivingSpace",GoodsService.requestCandidateReceivingSpace,
 	      GoodsService.transferToAnotherReceivingSpace,"anotherReceivingSpaceId",goods.receivingSpace?goods.receivingSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Goods Allocation">{goods.goodsAllocation==null?appLocaleName(userContext,"NotAssigned"):`${goods.goodsAllocation.displayName}(${goods.goodsAllocation.id})`}
+<Description term="货位">{goods.goodsAllocation==null?appLocaleName(userContext,"NotAssigned"):`${goods.goodsAllocation.displayName}(${goods.goodsAllocation.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Goods Allocation","goodsAllocation",GoodsService.requestCandidateGoodsAllocation,
+  showTransferModel(targetComponent,"货位","goodsAllocation",GoodsService.requestCandidateGoodsAllocation,
 	      GoodsService.transferToAnotherGoodsAllocation,"anotherGoodsAllocationId",goods.goodsAllocation?goods.goodsAllocation.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Smart Pallet">{goods.smartPallet==null?appLocaleName(userContext,"NotAssigned"):`${goods.smartPallet.displayName}(${goods.smartPallet.id})`}
+<Description term="智能托盘">{goods.smartPallet==null?appLocaleName(userContext,"NotAssigned"):`${goods.smartPallet.displayName}(${goods.smartPallet.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Smart Pallet","smartPallet",GoodsService.requestCandidateSmartPallet,
+  showTransferModel(targetComponent,"智能托盘","smartPallet",GoodsService.requestCandidateSmartPallet,
 	      GoodsService.transferToAnotherSmartPallet,"anotherSmartPalletId",goods.smartPallet?goods.smartPallet.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Shipping Space">{goods.shippingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.shippingSpace.displayName}(${goods.shippingSpace.id})`}
+<Description term="发货区">{goods.shippingSpace==null?appLocaleName(userContext,"NotAssigned"):`${goods.shippingSpace.displayName}(${goods.shippingSpace.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Shipping Space","shippingSpace",GoodsService.requestCandidateShippingSpace,
+  showTransferModel(targetComponent,"发货区","shippingSpace",GoodsService.requestCandidateShippingSpace,
 	      GoodsService.transferToAnotherShippingSpace,"anotherShippingSpaceId",goods.shippingSpace?goods.shippingSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Transport Task">{goods.transportTask==null?appLocaleName(userContext,"NotAssigned"):`${goods.transportTask.displayName}(${goods.transportTask.id})`}
+<Description term="运输任务">{goods.transportTask==null?appLocaleName(userContext,"NotAssigned"):`${goods.transportTask.displayName}(${goods.transportTask.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Transport Task","transportTask",GoodsService.requestCandidateTransportTask,
+  showTransferModel(targetComponent,"运输任务","transportTask",GoodsService.requestCandidateTransportTask,
 	      GoodsService.transferToAnotherTransportTask,"anotherTransportTaskId",goods.transportTask?goods.transportTask.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Retail Store">{goods.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStore.displayName}(${goods.retailStore.id})`}
+<Description term="双链小超">{goods.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStore.displayName}(${goods.retailStore.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Retail Store","retailStore",GoodsService.requestCandidateRetailStore,
+  showTransferModel(targetComponent,"双链小超","retailStore",GoodsService.requestCandidateRetailStore,
 	      GoodsService.transferToAnotherRetailStore,"anotherRetailStoreId",goods.retailStore?goods.retailStore.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Biz Order">{goods.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.bizOrder.displayName}(${goods.bizOrder.id})`}
+<Description term="订单">{goods.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.bizOrder.displayName}(${goods.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Biz Order","supplyOrder",GoodsService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"订单","supplyOrder",GoodsService.requestCandidateBizOrder,
 	      GoodsService.transferToAnotherBizOrder,"anotherBizOrderId",goods.bizOrder?goods.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Retail Store Order">{goods.retailStoreOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStoreOrder.displayName}(${goods.retailStoreOrder.id})`}
+<Description term="生超的订单">{goods.retailStoreOrder==null?appLocaleName(userContext,"NotAssigned"):`${goods.retailStoreOrder.displayName}(${goods.retailStoreOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Retail Store Order","retailStoreOrder",GoodsService.requestCandidateRetailStoreOrder,
+  showTransferModel(targetComponent,"生超的订单","retailStoreOrder",GoodsService.requestCandidateRetailStoreOrder,
 	      GoodsService.transferToAnotherRetailStoreOrder,"anotherRetailStoreOrderId",goods.retailStoreOrder?goods.retailStoreOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Current Status">{goods.currentStatus}</Description> 
+<Description term="当前状态">{goods.currentStatus}</Description> 
 	
         {buildTransferModal(goods,targetComponent)}
       </DescriptionList>
@@ -179,10 +204,10 @@ class GoodsDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Goods",cardsFor: "goods",
+    const cardsData = {cardsName:"货物",cardsFor: "goods",
     	cardsSource: this.props.goods,returnURL,displayName,
   		subItems: [
-{name: 'goodsMovementList', displayName:'Goods Movement',type:'goodsMovement',count:goodsMovementCount,addFunction: true, role: 'goodsMovement', metaInfo: goodsMovementListMetaInfo, renderItem: GlobalComponents.GoodsMovementBase.renderItemOfList},
+{name: 'goodsMovementList', displayName:'货物移动',type:'goodsMovement',count:goodsMovementCount,addFunction: true, role: 'goodsMovement', metaInfo: goodsMovementListMetaInfo, renderItem: GlobalComponents.GoodsMovementBase.renderItemOfList},
     
       	],
   	};
@@ -208,10 +233,10 @@ class GoodsDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

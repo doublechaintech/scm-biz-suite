@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '送货者',
-  deliveryTime: '2018-01-14',
+  deliveryTime: '2019-05-24',
 }
 */
 
@@ -194,8 +194,8 @@ class RetailStoreOrderDeliveryCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Order Delivery`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Order Delivery`}
+        title={`${appLocaleName(userContext,"CreateNew")}生超订单交付`}
+        content={`${appLocaleName(userContext,"CreateNew")}生超订单交付`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class RetailStoreOrderDeliveryCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +217,7 @@ class RetailStoreOrderDeliveryCreateForm extends Component {
                   {getFieldDecorator('deliveryTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Delivery Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="交货时间" />
                   )}
                 </Form.Item>
               </Col>

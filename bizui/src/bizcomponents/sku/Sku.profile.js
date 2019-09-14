@@ -55,8 +55,8 @@ class SkuProfile extends Component {
     // eslint-disable-next-line max-len
     const  sku = this.props.sku;
     const { id,displayName, goodsCount } = sku
-
-    const cardsData = {cardsName:"Sku",cardsFor: "sku",cardsSource: sku,
+    const  returnURL = `/sku/${id}/dashboard`
+    const cardsData = {cardsName:"SKU",cardsFor: "sku",cardsSource: sku,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SkuProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

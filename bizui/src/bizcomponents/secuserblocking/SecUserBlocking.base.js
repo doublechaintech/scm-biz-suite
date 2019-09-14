@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Sec User Blocking", menuFor: "secUserBlocking",
+const menuData = {menuName:"用户屏蔽", menuFor: "secUserBlocking",
   		subItems: [
-  {name: 'secUserList', displayName:'Sec User', icon:'user',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'secUserList', displayName:'安全用户', icon:'user',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  blockTime: 'Block Time',
-  comments: 'Comments',
+  id: 'ID',
+  who: '谁',
+  blockTime: '块时间',
+  comments: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'secUserBlocking') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'secUserBlocking') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '17',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.blockTime, dataIndex: 'blockTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
   { title: fieldLabels.comments, debugtype: 'string', dataIndex: 'comments', width: '28',render: (text, record)=>renderTextCell(text,record)},
@@ -55,23 +55,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(secUserBlocking,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={secUserBlocking.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={secUserBlocking.id}>
-	
-	<DescriptionList  key={secUserBlocking.id} size="small" col="4">
-<Description term="Id">{secUserBlocking.id}</Description> 
-<Description term="Who">{secUserBlocking.who}</Description> 
-<Description term="Block Time">{ moment(secUserBlocking.blockTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Comments">{secUserBlocking.comments}</Description> 
+      <DescriptionList  key={secUserBlocking.id} size="small" col="4">
+        <Description term="ID">{secUserBlocking.id}</Description> 
+        <Description term="谁">{secUserBlocking.who}</Description> 
+        <Description term="块时间"><div>{ moment(secUserBlocking.blockTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
+        <Description term="评论">{secUserBlocking.comments}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

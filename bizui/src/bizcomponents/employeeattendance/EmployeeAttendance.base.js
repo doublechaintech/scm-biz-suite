@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Employee Attendance", menuFor: "employeeAttendance",
+const menuData = {menuName:"员工考勤", menuFor: "employeeAttendance",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  employee: 'Employee',
-  enterTime: 'Enter Time',
-  leaveTime: 'Leave Time',
-  durationHours: 'Duration Hours',
-  remark: 'Remark',
+  id: '序号',
+  employee: '员工',
+  enterTime: '进入时间',
+  leaveTime: '离开的时候',
+  durationHours: '持续时间',
+  remark: '备注',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeAttendance') , sorter: true },
   { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.enterTime, dataIndex: 'enterTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.leaveTime, dataIndex: 'leaveTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
@@ -58,26 +58,23 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(employeeAttendance,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={employeeAttendance.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={employeeAttendance.id}>
-	
-	<DescriptionList  key={employeeAttendance.id} size="small" col="4">
-<Description term="Id">{employeeAttendance.id}</Description> 
-<Description term="Employee">{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
-</Description>
-<Description term="Enter Time">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Leave Time">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Duration Hours">{employeeAttendance.durationHours}</Description> 
-<Description term="Remark">{employeeAttendance.remark}</Description> 
+      <DescriptionList  key={employeeAttendance.id} size="small" col="4">
+        <Description term="序号">{employeeAttendance.id}</Description> 
+        <Description term="员工"><div>{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
+        </div></Description>
+        <Description term="进入时间"><div>{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="离开的时候"><div>{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="持续时间"><div style={{"color":"red"}}>{employeeAttendance.durationHours}</div></Description> 
+        <Description term="备注">{employeeAttendance.remark}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

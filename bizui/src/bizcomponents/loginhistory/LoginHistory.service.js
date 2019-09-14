@@ -43,12 +43,3 @@ const LoginHistoryService = { view,
   transferToAnotherSecUser }
 export default LoginHistoryService
 
-
-
-
-
-
-
-
-
-

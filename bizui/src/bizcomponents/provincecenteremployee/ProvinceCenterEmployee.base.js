@@ -30,25 +30,25 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Province Center Employee", menuFor: "provinceCenterEmployee",
+const menuData = {menuName:"省中心员工", menuFor: "provinceCenterEmployee",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  mobile: 'Mobile',
-  email: 'Email',
-  founded: 'Founded',
-  department: 'Department',
-  provinceCenter: 'Province Center',
+  id: '序号',
+  name: '名称',
+  mobile: '手机',
+  email: '电子邮件',
+  founded: '成立',
+  department: '部门',
+  provinceCenter: '省中心',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'provinceCenterEmployee') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.mobile, debugtype: 'string_china_mobile_phone', dataIndex: 'mobile', width: '15',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.email, debugtype: 'string_email', dataIndex: 'email', width: '24',render: (text, record)=>renderTextCell(text,record)},
@@ -60,28 +60,25 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(provinceCenterEmployee,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={provinceCenterEmployee.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={provinceCenterEmployee.id}>
-	
-	<DescriptionList  key={provinceCenterEmployee.id} size="small" col="4">
-<Description term="Id">{provinceCenterEmployee.id}</Description> 
-<Description term="Name">{provinceCenterEmployee.name}</Description> 
-<Description term="Mobile">{provinceCenterEmployee.mobile}</Description> 
-<Description term="Email">{provinceCenterEmployee.email}</Description> 
-<Description term="Founded">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="Department">{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
-</Description>
-<Description term="Province Center">{provinceCenterEmployee.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.provinceCenter.displayName}(${provinceCenterEmployee.provinceCenter.id})`}
-</Description>
+      <DescriptionList  key={provinceCenterEmployee.id} size="small" col="4">
+        <Description term="序号">{provinceCenterEmployee.id}</Description> 
+        <Description term="名称">{provinceCenterEmployee.name}</Description> 
+        <Description term="手机">{provinceCenterEmployee.mobile}</Description> 
+        <Description term="电子邮件">{provinceCenterEmployee.email}</Description> 
+        <Description term="成立"><div>{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="部门"><div>{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
+        </div></Description>
+        <Description term="省中心"><div>{provinceCenterEmployee.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.provinceCenter.displayName}(${provinceCenterEmployee.provinceCenter.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

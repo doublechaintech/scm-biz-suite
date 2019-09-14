@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (goodsShelf,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goodsShelf.id}</Description> 
-<Description term="Location">{goodsShelf.location}</Description> 
-<Description term="Last Update Time">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{goodsShelf.id}</Description> 
+<Description term="位置">{goodsShelf.location}</Description> 
+<Description term="最后更新时间">{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class GoodsShelfPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  goodsShelf = this.props.goodsShelf;
+    const  goodsShelf = this.props.goodsShelf
     const { id,displayName, goodsShelfStockCountCount, goodsAllocationCount } = goodsShelf
-    const cardsData = {cardsName:"Goods Shelf",cardsFor: "goodsShelf",cardsSource: goodsShelf,
+    const  returnURL = `/goodsShelf/${id}/dashboard`
+    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",cardsSource: goodsShelf,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class GoodsShelfPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

@@ -194,8 +194,8 @@ class CatalogCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Catalog`}
-        content={`${appLocaleName(userContext,"CreateNew")}Catalog`}
+        title={`${appLocaleName(userContext,"CreateNew")}目录`}
+        content={`${appLocaleName(userContext,"CreateNew")}目录`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class CatalogCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>

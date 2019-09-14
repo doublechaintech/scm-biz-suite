@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/supplierProduct/${id}/list/ProductSupplyDurationList/Product Supply Duration+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/supplierProduct/${id}/list/ProductSupplyDurationList/产品供应时间+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateProductSupplyDuration({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/supplierProduct/${id}/list/ProductSupplyDurationList/Product Supply Duration列表`, state: newPlayload }
+      const location = { pathname: `/supplierProduct/${id}/list/ProductSupplyDurationList/产品供应时间列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextProductSupplyDurationUpdateRow({ payload }, { call, put }) {

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '技术部',
-  interviewTime: '2017-12-11',
+  interviewTime: '2018-11-14',
   comments: '能力各方面表现不错，进入下一轮',
 }
 */
@@ -140,7 +140,7 @@ class ProfessionInterviewAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class ProfessionInterviewAssociateForm extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Interview Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="面试时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class ProfessionInterviewAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comments" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

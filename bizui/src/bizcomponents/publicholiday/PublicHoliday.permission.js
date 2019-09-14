@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (publicHoliday,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{publicHoliday.id}</Description> 
-<Description term="Code">{publicHoliday.code}</Description> 
-<Description term="Name">{publicHoliday.name}</Description> 
-<Description term="Description">{publicHoliday.description}</Description> 
+<Description term="序号">{publicHoliday.id}</Description> 
+<Description term="代码">{publicHoliday.code}</Description> 
+<Description term="名称">{publicHoliday.name}</Description> 
+<Description term="描述">{publicHoliday.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class PublicHolidayPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  publicHoliday = this.props.publicHoliday;
+    const  publicHoliday = this.props.publicHoliday
     const { id,displayName,  } = publicHoliday
-    const cardsData = {cardsName:"Public Holiday",cardsFor: "publicHoliday",cardsSource: publicHoliday,
+    const  returnURL = `/publicHoliday/${id}/dashboard`
+    const cardsData = {cardsName:"公共假日",cardsFor: "publicHoliday",cardsSource: publicHoliday,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class PublicHolidayPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

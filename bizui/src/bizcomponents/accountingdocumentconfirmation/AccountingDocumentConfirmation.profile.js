@@ -55,8 +55,8 @@ class AccountingDocumentConfirmationProfile extends Component {
     // eslint-disable-next-line max-len
     const  accountingDocumentConfirmation = this.props.accountingDocumentConfirmation;
     const { id,displayName, accountingDocumentCount } = accountingDocumentConfirmation
-
-    const cardsData = {cardsName:"Accounting Document Confirmation",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,
+    const  returnURL = `/accountingDocumentConfirmation/${id}/dashboard`
+    const cardsData = {cardsName:"会计的确认文件",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class AccountingDocumentConfirmationProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/cityPartner/${targetComponent.props.cityPartner.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/cityPartner/${targetComponent.props.cityPartner.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,17 +106,17 @@ const internalSummaryOf = (cityPartner,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{cityPartner.id}</Description> 
-<Description term="Name">{cityPartner.name}</Description> 
-<Description term="Mobile">{cityPartner.mobile}</Description> 
-<Description term="City Service Center">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
+<Description term="序号">{cityPartner.id}</Description> 
+<Description term="名称">{cityPartner.name}</Description> 
+<Description term="手机">{cityPartner.mobile}</Description> 
+<Description term="城市服务中心">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"City Service Center","retailStoreCityServiceCenter",CityPartnerService.requestCandidateCityServiceCenter,
+  showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",CityPartnerService.requestCandidateCityServiceCenter,
 	      CityPartnerService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",cityPartner.cityServiceCenter?cityPartner.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Description">{cityPartner.description}</Description> 
-<Description term="Last Update Time">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="描述">{cityPartner.description}</Description> 
+<Description term="最后更新时间">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(cityPartner,targetComponent)}
       </DescriptionList>
@@ -129,11 +154,11 @@ class CityPartnerDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"City Partner",cardsFor: "cityPartner",
+    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",
     	cardsSource: this.props.cityPartner,returnURL,displayName,
   		subItems: [
-{name: 'potentialCustomerList', displayName:'Potential Customer',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
-{name: 'potentialCustomerContactList', displayName:'Potential Customer Contact',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+{name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
+{name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
     
       	],
   	};
@@ -159,10 +184,10 @@ class CityPartnerDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

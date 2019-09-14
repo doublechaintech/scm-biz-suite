@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/warehouseAsset/${targetComponent.props.warehouseAsset.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/warehouseAsset/${targetComponent.props.warehouseAsset.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,16 +106,16 @@ const internalSummaryOf = (warehouseAsset,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{warehouseAsset.id}</Description> 
-<Description term="Name">{warehouseAsset.name}</Description> 
-<Description term="Position">{warehouseAsset.position}</Description> 
-<Description term="Owner">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
+<Description term="序号">{warehouseAsset.id}</Description> 
+<Description term="名称">{warehouseAsset.name}</Description> 
+<Description term="位置">{warehouseAsset.position}</Description> 
+<Description term="业主">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Owner","warehouse",WarehouseAssetService.requestCandidateOwner,
+  showTransferModel(targetComponent,"业主","warehouse",WarehouseAssetService.requestCandidateOwner,
 	      WarehouseAssetService.transferToAnotherOwner,"anotherOwnerId",warehouseAsset.owner?warehouseAsset.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Last Update Time">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="最后更新时间">{ moment(warehouseAsset.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(warehouseAsset,targetComponent)}
       </DescriptionList>
@@ -128,7 +153,7 @@ class WarehouseAssetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Warehouse Asset",cardsFor: "warehouseAsset",
+    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",
     	cardsSource: this.props.warehouseAsset,returnURL,displayName,
   		subItems: [
     
@@ -156,10 +181,10 @@ class WarehouseAssetDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

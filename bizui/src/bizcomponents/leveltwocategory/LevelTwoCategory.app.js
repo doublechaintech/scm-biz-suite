@@ -145,15 +145,7 @@ class LevelTwoCategoryBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/levelTwoCategory/${this.props.levelTwoCategory.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/levelTwoCategory/${this.props.levelTwoCategory.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class LevelTwoCategoryBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Level Three Category",
+      name: "三级分类",
       role: "levelThreeCategory",
       data: state._levelTwoCategory.levelThreeCategoryList,
       metaInfo: state._levelTwoCategory.levelThreeCategoryListMetaInfo,

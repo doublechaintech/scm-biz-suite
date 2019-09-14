@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/memberRewardPointRedemption/${targetComponent.props.memberRewardPointRedemption.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/memberRewardPointRedemption/${targetComponent.props.memberRewardPointRedemption.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,12 +106,12 @@ const internalSummaryOf = (memberRewardPointRedemption,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{memberRewardPointRedemption.id}</Description> 
-<Description term="Name">{memberRewardPointRedemption.name}</Description> 
-<Description term="Point">{memberRewardPointRedemption.point}</Description> 
-<Description term="Owner">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
+<Description term="序号">{memberRewardPointRedemption.id}</Description> 
+<Description term="名称">{memberRewardPointRedemption.name}</Description> 
+<Description term="点">{memberRewardPointRedemption.point}</Description> 
+<Description term="业主">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Owner","retailStoreMember",MemberRewardPointRedemptionService.requestCandidateOwner,
+  showTransferModel(targetComponent,"业主","retailStoreMember",MemberRewardPointRedemptionService.requestCandidateOwner,
 	      MemberRewardPointRedemptionService.transferToAnotherOwner,"anotherOwnerId",memberRewardPointRedemption.owner?memberRewardPointRedemption.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
@@ -127,7 +152,7 @@ class MemberRewardPointRedemptionDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Member Reward Point Redemption",cardsFor: "memberRewardPointRedemption",
+    const cardsData = {cardsName:"会员奖励点赎回",cardsFor: "memberRewardPointRedemption",
     	cardsSource: this.props.memberRewardPointRedemption,returnURL,displayName,
   		subItems: [
     
@@ -155,10 +180,10 @@ class MemberRewardPointRedemptionDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

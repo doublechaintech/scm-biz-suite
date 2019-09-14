@@ -145,15 +145,7 @@ class AccountingDocumentPostingBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/accountingDocumentPosting/${this.props.accountingDocumentPosting.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/accountingDocumentPosting/${this.props.accountingDocumentPosting.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class AccountingDocumentPostingBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Accounting Document",
+      name: "会计凭证",
       role: "accountingDocument",
       data: state._accountingDocumentPosting.accountingDocumentList,
       metaInfo: state._accountingDocumentPosting.accountingDocumentListMetaInfo,

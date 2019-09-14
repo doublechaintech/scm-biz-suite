@@ -30,28 +30,28 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Shipping Space", menuFor: "shippingSpace",
+const menuData = {menuName:"发货区", menuFor: "shippingSpace",
   		subItems: [
-  {name: 'goodsList', displayName:'Goods', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  location: 'Location',
-  contactNumber: 'Contact Number',
-  totalArea: 'Total Area',
-  warehouse: 'Warehouse',
-  latitude: 'Latitude',
-  longitude: 'Longitude',
-  description: 'Description',
-  lastUpdateTime: 'Last Update Time',
+  id: '序号',
+  location: '位置',
+  contactNumber: '联系电话',
+  totalArea: '总面积',
+  warehouse: '仓库',
+  latitude: '纬度',
+  longitude: '经度',
+  description: '描述',
+  lastUpdateTime: '最后更新时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'shippingSpace') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'shippingSpace') , sorter: true },
   { title: fieldLabels.location, debugtype: 'string', dataIndex: 'location', width: '18',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.contactNumber, debugtype: 'string', dataIndex: 'contactNumber', width: '15',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.totalArea, debugtype: 'string', dataIndex: 'totalArea', width: '11',render: (text, record)=>renderTextCell(text,record)},
@@ -65,29 +65,26 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(shippingSpace,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={shippingSpace.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={shippingSpace.id}>
-	
-	<DescriptionList  key={shippingSpace.id} size="small" col="4">
-<Description term="Id">{shippingSpace.id}</Description> 
-<Description term="Location">{shippingSpace.location}</Description> 
-<Description term="Contact Number">{shippingSpace.contactNumber}</Description> 
-<Description term="Total Area">{shippingSpace.totalArea}</Description> 
-<Description term="Warehouse">{shippingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${shippingSpace.warehouse.displayName}(${shippingSpace.warehouse.id})`}
-</Description>
-<Description term="Latitude">{shippingSpace.latitude}</Description> 
-<Description term="Longitude">{shippingSpace.longitude}</Description> 
-<Description term="Description">{shippingSpace.description}</Description> 
-<Description term="Last Update Time">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={shippingSpace.id} size="small" col="4">
+        <Description term="序号">{shippingSpace.id}</Description> 
+        <Description term="位置">{shippingSpace.location}</Description> 
+        <Description term="联系电话">{shippingSpace.contactNumber}</Description> 
+        <Description term="总面积">{shippingSpace.totalArea}</Description> 
+        <Description term="仓库"><div>{shippingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${shippingSpace.warehouse.displayName}(${shippingSpace.warehouse.id})`}
+        </div></Description>
+        <Description term="纬度"><div style={{"color":"red"}}>{shippingSpace.latitude}</div></Description> 
+        <Description term="经度"><div style={{"color":"red"}}>{shippingSpace.longitude}</div></Description> 
+        <Description term="描述">{shippingSpace.description}</Description> 
+        <Description term="最后更新时间"><div>{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

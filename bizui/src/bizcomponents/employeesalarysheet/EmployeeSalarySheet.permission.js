@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,20 +23,24 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{employeeSalarySheet.id}</Description> 
-<Description term="Base Salary">{employeeSalarySheet.baseSalary}</Description> 
-<Description term="Bonus">{employeeSalarySheet.bonus}</Description> 
-<Description term="Reward">{employeeSalarySheet.reward}</Description> 
-<Description term="Personal Tax">{employeeSalarySheet.personalTax}</Description> 
-<Description term="Social Security">{employeeSalarySheet.socialSecurity}</Description> 
-<Description term="Housing Found">{employeeSalarySheet.housingFound}</Description> 
-<Description term="Job Insurance">{employeeSalarySheet.jobInsurance}</Description> 
-<Description term="Current Status">{employeeSalarySheet.currentStatus}</Description> 
+<Description term="序号">{employeeSalarySheet.id}</Description> 
+<Description term="基本工资">{employeeSalarySheet.baseSalary}</Description> 
+<Description term="奖金">{employeeSalarySheet.bonus}</Description> 
+<Description term="奖励">{employeeSalarySheet.reward}</Description> 
+<Description term="个人所得税">{employeeSalarySheet.personalTax}</Description> 
+<Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
+<Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
+<Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
+<Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,9 +64,10 @@ class EmployeeSalarySheetPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  employeeSalarySheet = this.props.employeeSalarySheet;
+    const  employeeSalarySheet = this.props.employeeSalarySheet
     const { id,displayName,  } = employeeSalarySheet
-    const cardsData = {cardsName:"Employee Salary Sheet",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,
+    const  returnURL = `/employeeSalarySheet/${id}/dashboard`
+    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",cardsSource: employeeSalarySheet,displayName,returnURL,
   		subItems: [
     
       	],
@@ -73,7 +78,7 @@ class EmployeeSalarySheetPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

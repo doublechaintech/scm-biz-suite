@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-  amount: '437.47',
+  amount: '450.30',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -196,8 +196,8 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Consumer Order Price Adjustment`}
-        content={`${appLocaleName(userContext,"CreateNew")}Consumer Order Price Adjustment`}
+        title={`${appLocaleName(userContext,"CreateNew")}消费品价格调整`}
+        content={`${appLocaleName(userContext,"CreateNew")}消费品价格调整`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
                   {getFieldDecorator('provider', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Provider" />
+                    <Input size="large" placeholder="供应商" />
                   )}
                 </Form.Item>
               </Col>

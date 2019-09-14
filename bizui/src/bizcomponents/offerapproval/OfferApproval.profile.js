@@ -55,8 +55,8 @@ class OfferApprovalProfile extends Component {
     // eslint-disable-next-line max-len
     const  offerApproval = this.props.offerApproval;
     const { id,displayName, employeeCount } = offerApproval
-
-    const cardsData = {cardsName:"Offer Approval",cardsFor: "offerApproval",cardsSource: offerApproval,
+    const  returnURL = `/offerApproval/${id}/dashboard`
+    const cardsData = {cardsName:"审批工作要约",cardsFor: "offerApproval",cardsSource: offerApproval,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class OfferApprovalProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

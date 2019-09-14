@@ -262,7 +262,7 @@ class RetailStoreOrderApprovalUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class RetailStoreOrderApprovalUpdateForm extends Component {
                     initialValue: selectedRow.who,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class RetailStoreOrderApprovalUpdateForm extends Component {
                     initialValue: selectedRow.approveTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Approve Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="批准时间" />
                     
                   )}
                 </Form.Item>

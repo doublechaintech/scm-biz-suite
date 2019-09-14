@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Truck Driver", menuFor: "truckDriver",
+const menuData = {menuName:"卡车司机", menuFor: "truckDriver",
   		subItems: [
-  {name: 'transportTaskList', displayName:'Transport Task', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'transportTaskList', displayName:'运输任务', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  driverLicenseNumber: 'Driver License Number',
-  contactNumber: 'Contact Number',
-  belongsTo: 'Belongs To',
+  id: '序号',
+  name: '名称',
+  driverLicenseNumber: '驾驶执照号码',
+  contactNumber: '联系电话',
+  belongsTo: '属于',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'truckDriver') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'truckDriver') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.driverLicenseNumber, debugtype: 'string', dataIndex: 'driverLicenseNumber', width: '15',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.contactNumber, debugtype: 'string_china_mobile_phone', dataIndex: 'contactNumber', width: '15',render: (text, record)=>renderTextCell(text,record)},
@@ -57,25 +57,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(truckDriver,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={truckDriver.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={truckDriver.id}>
-	
-	<DescriptionList  key={truckDriver.id} size="small" col="4">
-<Description term="Id">{truckDriver.id}</Description> 
-<Description term="Name">{truckDriver.name}</Description> 
-<Description term="Driver License Number">{truckDriver.driverLicenseNumber}</Description> 
-<Description term="Contact Number">{truckDriver.contactNumber}</Description> 
-<Description term="Belongs To">{truckDriver.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${truckDriver.belongsTo.displayName}(${truckDriver.belongsTo.id})`}
-</Description>
+      <DescriptionList  key={truckDriver.id} size="small" col="4">
+        <Description term="序号">{truckDriver.id}</Description> 
+        <Description term="名称">{truckDriver.name}</Description> 
+        <Description term="驾驶执照号码">{truckDriver.driverLicenseNumber}</Description> 
+        <Description term="联系电话">{truckDriver.contactNumber}</Description> 
+        <Description term="属于"><div>{truckDriver.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${truckDriver.belongsTo.displayName}(${truckDriver.belongsTo.id})`}
+        </div></Description>
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

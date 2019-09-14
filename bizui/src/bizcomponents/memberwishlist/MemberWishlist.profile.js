@@ -55,8 +55,8 @@ class MemberWishlistProfile extends Component {
     // eslint-disable-next-line max-len
     const  memberWishlist = this.props.memberWishlist;
     const { id,displayName, memberWishlistProductCount } = memberWishlist
-
-    const cardsData = {cardsName:"Member Wishlist",cardsFor: "memberWishlist",cardsSource: memberWishlist,
+    const  returnURL = `/memberWishlist/${id}/dashboard`
+    const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",cardsSource: memberWishlist,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class MemberWishlistProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

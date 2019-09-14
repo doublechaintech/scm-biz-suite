@@ -55,8 +55,8 @@ class LevelThreeDepartmentProfile extends Component {
     // eslint-disable-next-line max-len
     const  levelThreeDepartment = this.props.levelThreeDepartment;
     const { id,displayName, employeeCount } = levelThreeDepartment
-
-    const cardsData = {cardsName:"Level Three Department",cardsFor: "levelThreeDepartment",cardsSource: levelThreeDepartment,
+    const  returnURL = `/levelThreeDepartment/${id}/dashboard`
+    const cardsData = {cardsName:"三级部门",cardsFor: "levelThreeDepartment",cardsSource: levelThreeDepartment,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class LevelThreeDepartmentProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

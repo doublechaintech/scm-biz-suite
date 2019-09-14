@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Supply Order Processing", menuFor: "supplyOrderProcessing",
+const menuData = {menuName:"供应订单处理", menuFor: "supplyOrderProcessing",
   		subItems: [
-  {name: 'consumerOrderList', displayName:'Consumer Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'supplyOrderList', displayName:'Supply Order', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'consumerOrderList', displayName:'消费者订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'supplyOrderList', displayName:'供应订单', icon:'first-order',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  processTime: 'Process Time',
+  id: '序号',
+  who: '谁',
+  processTime: '过程的时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'supplyOrderProcessing') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'supplyOrderProcessing') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.processTime, dataIndex: 'processTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
@@ -54,22 +54,19 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(supplyOrderProcessing,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={supplyOrderProcessing.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={supplyOrderProcessing.id}>
-	
-	<DescriptionList  key={supplyOrderProcessing.id} size="small" col="4">
-<Description term="Id">{supplyOrderProcessing.id}</Description> 
-<Description term="Who">{supplyOrderProcessing.who}</Description> 
-<Description term="Process Time">{ moment(supplyOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={supplyOrderProcessing.id} size="small" col="4">
+        <Description term="序号">{supplyOrderProcessing.id}</Description> 
+        <Description term="谁">{supplyOrderProcessing.who}</Description> 
+        <Description term="过程的时间"><div>{ moment(supplyOrderProcessing.processTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

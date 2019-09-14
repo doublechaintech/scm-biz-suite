@@ -55,8 +55,8 @@ class SupplierSpaceProfile extends Component {
     // eslint-disable-next-line max-len
     const  supplierSpace = this.props.supplierSpace;
     const { id,displayName, goodsShelfCount } = supplierSpace
-
-    const cardsData = {cardsName:"Supplier Space",cardsFor: "supplierSpace",cardsSource: supplierSpace,
+    const  returnURL = `/supplierSpace/${id}/dashboard`
+    const cardsData = {cardsName:"供应商的空间",cardsFor: "supplierSpace",cardsSource: supplierSpace,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SupplierSpaceProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

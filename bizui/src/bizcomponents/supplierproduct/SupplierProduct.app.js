@@ -145,15 +145,7 @@ class SupplierProductBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/supplierProduct/${this.props.supplierProduct.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/supplierProduct/${this.props.supplierProduct.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class SupplierProductBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Product Supply Duration",
+      name: "产品供应时间",
       role: "productSupplyDuration",
       data: state._supplierProduct.productSupplyDurationList,
       metaInfo: state._supplierProduct.productSupplyDurationListMetaInfo,

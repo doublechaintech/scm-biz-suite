@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Public Holiday", menuFor: "publicHoliday",
+const menuData = {menuName:"公共假日", menuFor: "publicHoliday",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  code: 'Code',
-  company: 'Company',
-  name: 'Name',
-  description: 'Description',
+  id: '序号',
+  code: '代码',
+  company: '公司',
+  name: '名称',
+  description: '描述',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'publicHoliday') , sorter: true },
   { title: fieldLabels.code, debugtype: 'string', dataIndex: 'code', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.company, dataIndex: 'company', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '7',render: (text, record)=>renderTextCell(text,record)},
@@ -56,23 +56,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(publicHoliday,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={publicHoliday.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={publicHoliday.id}>
-	
-	<DescriptionList  key={publicHoliday.id} size="small" col="4">
-<Description term="Id">{publicHoliday.id}</Description> 
-<Description term="Code">{publicHoliday.code}</Description> 
-<Description term="Name">{publicHoliday.name}</Description> 
-<Description term="Description">{publicHoliday.description}</Description> 
+      <DescriptionList  key={publicHoliday.id} size="small" col="4">
+        <Description term="序号">{publicHoliday.id}</Description> 
+        <Description term="代码">{publicHoliday.code}</Description> 
+        <Description term="名称">{publicHoliday.name}</Description> 
+        <Description term="描述">{publicHoliday.description}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

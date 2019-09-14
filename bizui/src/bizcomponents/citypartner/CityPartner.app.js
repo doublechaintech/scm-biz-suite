@@ -145,15 +145,7 @@ class CityPartnerBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/cityPartner/${this.props.cityPartner.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/cityPartner/${this.props.cityPartner.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class CityPartnerBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Potential Customer",
+      name: "潜在的客户",
       role: "potentialCustomer",
       data: state._cityPartner.potentialCustomerList,
       metaInfo: state._cityPartner.potentialCustomerListMetaInfo,
@@ -216,7 +208,7 @@ class CityPartnerBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Potential Customer Contact",
+      name: "潜在客户联系",
       role: "potentialCustomerContact",
       data: state._cityPartner.potentialCustomerContactList,
       metaInfo: state._cityPartner.potentialCustomerContactListMetaInfo,

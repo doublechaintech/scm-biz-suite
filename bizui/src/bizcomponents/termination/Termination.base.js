@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Termination", menuFor: "termination",
+const menuData = {menuName:"雇佣终止", menuFor: "termination",
   		subItems: [
-  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  reason: 'Reason',
-  type: 'Type',
-  comment: 'Comment',
+  id: '序号',
+  reason: '原因',
+  type: '类型',
+  comment: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'termination') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'termination') , sorter: true },
   { title: fieldLabels.reason, dataIndex: 'reason', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.type, dataIndex: 'type', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '8',render: (text, record)=>renderTextCell(text,record)},
@@ -55,25 +55,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(termination,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={termination.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={termination.id}>
-	
-	<DescriptionList  key={termination.id} size="small" col="4">
-<Description term="Id">{termination.id}</Description> 
-<Description term="Reason">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
-</Description>
-<Description term="Type">{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
-</Description>
-<Description term="Comment">{termination.comment}</Description> 
+      <DescriptionList  key={termination.id} size="small" col="4">
+        <Description term="序号">{termination.id}</Description> 
+        <Description term="原因"><div>{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
+        </div></Description>
+        <Description term="类型"><div>{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
+        </div></Description>
+        <Description term="评论">{termination.comment}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

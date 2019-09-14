@@ -55,8 +55,8 @@ class RetailStoreDecorationProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreDecoration = this.props.retailStoreDecoration;
     const { id,displayName, retailStoreCount } = retailStoreDecoration
-
-    const cardsData = {cardsName:"Retail Store Decoration",cardsFor: "retailStoreDecoration",cardsSource: retailStoreDecoration,
+    const  returnURL = `/retailStoreDecoration/${id}/dashboard`
+    const cardsData = {cardsName:"生超装修",cardsFor: "retailStoreDecoration",cardsSource: retailStoreDecoration,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class RetailStoreDecorationProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

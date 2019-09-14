@@ -195,8 +195,8 @@ class WarehouseAssetCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Warehouse Asset`}
-        content={`${appLocaleName(userContext,"CreateNew")}Warehouse Asset`}
+        title={`${appLocaleName(userContext,"CreateNew")}仓库资产`}
+        content={`${appLocaleName(userContext,"CreateNew")}仓库资产`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class WarehouseAssetCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class WarehouseAssetCreateForm extends Component {
                   {getFieldDecorator('position', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Position" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>

@@ -30,27 +30,27 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Company Training", menuFor: "companyTraining",
+const menuData = {menuName:"公司培训", menuFor: "companyTraining",
   		subItems: [
-  {name: 'employeeCompanyTrainingList', displayName:'Employee Company Training', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  title: 'Title',
-  company: 'Company',
-  instructor: 'Instructor',
-  trainingCourseType: 'Training Course Type',
-  timeStart: 'Time Start',
-  durationHours: 'Duration Hours',
-  lastUpdateTime: 'Last Update Time',
+  id: '序号',
+  title: '头衔',
+  company: '公司',
+  instructor: '讲师',
+  trainingCourseType: '培训课程类型',
+  timeStart: '时间开始',
+  durationHours: '持续时间',
+  lastUpdateTime: '最后更新时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'companyTraining') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'companyTraining') , sorter: true },
   { title: fieldLabels.title, debugtype: 'string', dataIndex: 'title', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.company, dataIndex: 'company', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.instructor, dataIndex: 'instructor', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -63,28 +63,25 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(companyTraining,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={companyTraining.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={companyTraining.id}>
-	
-	<DescriptionList  key={companyTraining.id} size="small" col="4">
-<Description term="Id">{companyTraining.id}</Description> 
-<Description term="Title">{companyTraining.title}</Description> 
-<Description term="Instructor">{companyTraining.instructor==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.instructor.displayName}(${companyTraining.instructor.id})`}
-</Description>
-<Description term="Training Course Type">{companyTraining.trainingCourseType==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.trainingCourseType.displayName}(${companyTraining.trainingCourseType.id})`}
-</Description>
-<Description term="Time Start">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
-<Description term="Duration Hours">{companyTraining.durationHours}</Description> 
-<Description term="Last Update Time">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={companyTraining.id} size="small" col="4">
+        <Description term="序号">{companyTraining.id}</Description> 
+        <Description term="头衔">{companyTraining.title}</Description> 
+        <Description term="讲师"><div>{companyTraining.instructor==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.instructor.displayName}(${companyTraining.instructor.id})`}
+        </div></Description>
+        <Description term="培训课程类型"><div>{companyTraining.trainingCourseType==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.trainingCourseType.displayName}(${companyTraining.trainingCourseType.id})`}
+        </div></Description>
+        <Description term="时间开始"><div>{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="持续时间"><div style={{"color":"red"}}>{companyTraining.durationHours}</div></Description> 
+        <Description term="最后更新时间"><div>{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

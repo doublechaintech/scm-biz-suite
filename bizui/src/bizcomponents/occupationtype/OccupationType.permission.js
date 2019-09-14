@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (occupationType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{occupationType.id}</Description> 
-<Description term="Code">{occupationType.code}</Description> 
-<Description term="Description">{occupationType.description}</Description> 
-<Description term="Detail Description">{occupationType.detailDescription}</Description> 
+<Description term="序号">{occupationType.id}</Description> 
+<Description term="代码">{occupationType.code}</Description> 
+<Description term="描述">{occupationType.description}</Description> 
+<Description term="详细描述">{occupationType.detailDescription}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class OccupationTypePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  occupationType = this.props.occupationType;
+    const  occupationType = this.props.occupationType
     const { id,displayName, employeeCount } = occupationType
-    const cardsData = {cardsName:"Occupation Type",cardsFor: "occupationType",cardsSource: occupationType,
+    const  returnURL = `/occupationType/${id}/dashboard`
+    const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",cardsSource: occupationType,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class OccupationTypePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

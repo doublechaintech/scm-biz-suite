@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (professionInterview,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{professionInterview.id}</Description> 
-<Description term="Who">{professionInterview.who}</Description> 
-<Description term="Interview Time">{ moment(professionInterview.interviewTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Comments">{professionInterview.comments}</Description> 
+<Description term="序号">{professionInterview.id}</Description> 
+<Description term="谁">{professionInterview.who}</Description> 
+<Description term="面试时间">{ moment(professionInterview.interviewTime).format('YYYY-MM-DD')}</Description> 
+<Description term="评论">{professionInterview.comments}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class ProfessionInterviewPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  professionInterview = this.props.professionInterview;
+    const  professionInterview = this.props.professionInterview
     const { id,displayName, employeeCount } = professionInterview
-    const cardsData = {cardsName:"Profession Interview",cardsFor: "professionInterview",cardsSource: professionInterview,
+    const  returnURL = `/professionInterview/${id}/dashboard`
+    const cardsData = {cardsName:"专业面试",cardsFor: "professionInterview",cardsSource: professionInterview,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class ProfessionInterviewPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

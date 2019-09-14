@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (loginHistory,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{loginHistory.id}</Description> 
-<Description term="Login Time">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="From Ip">{loginHistory.fromIp}</Description> 
-<Description term="Description">{loginHistory.description}</Description> 
+<Description term="ID">{loginHistory.id}</Description> 
+<Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
+<Description term="来自IP">{loginHistory.fromIp}</Description> 
+<Description term="描述">{loginHistory.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class LoginHistoryPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  loginHistory = this.props.loginHistory;
+    const  loginHistory = this.props.loginHistory
     const { id,displayName,  } = loginHistory
-    const cardsData = {cardsName:"Login History",cardsFor: "loginHistory",cardsSource: loginHistory,
+    const  returnURL = `/loginHistory/${id}/dashboard`
+    const cardsData = {cardsName:"登录历史",cardsFor: "loginHistory",cardsSource: loginHistory,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class LoginHistoryPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

@@ -21,7 +21,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2019-06-28',
+  founded: '2018-09-29',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -142,7 +142,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Mobile" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +162,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Email" />
+                    <Input size="large" placeholder="电子邮件" />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class ProvinceCenterEmployeeAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Founded" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
                   )}
                 </Form.Item>
               </Col>

@@ -145,15 +145,7 @@ class TransportFleetBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/transportFleet/${this.props.transportFleet.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/transportFleet/${this.props.transportFleet.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class TransportFleetBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Transport Truck",
+      name: "运输车",
       role: "transportTruck",
       data: state._transportFleet.transportTruckList,
       metaInfo: state._transportFleet.transportTruckListMetaInfo,
@@ -216,7 +208,7 @@ class TransportFleetBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Truck Driver",
+      name: "卡车司机",
       role: "truckDriver",
       data: state._transportFleet.truckDriverList,
       metaInfo: state._transportFleet.truckDriverListMetaInfo,
@@ -265,7 +257,7 @@ class TransportFleetBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Transport Task",
+      name: "运输任务",
       role: "transportTask",
       data: state._transportFleet.transportTaskList,
       metaInfo: state._transportFleet.transportTaskListMetaInfo,

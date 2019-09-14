@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Employee Boarding", menuFor: "employeeBoarding",
+const menuData = {menuName:"员工入职", menuFor: "employeeBoarding",
   		subItems: [
-  {name: 'employeeList', displayName:'Employee', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  employTime: 'Employ Time',
-  comments: 'Comments',
+  id: '序号',
+  who: '谁',
+  employTime: '使用时间',
+  comments: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'employeeBoarding') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeBoarding') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '9',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.employTime, dataIndex: 'employTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.comments, debugtype: 'string', dataIndex: 'comments', width: '15',render: (text, record)=>renderTextCell(text,record)},
@@ -55,23 +55,20 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(employeeBoarding,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={employeeBoarding.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={employeeBoarding.id}>
-	
-	<DescriptionList  key={employeeBoarding.id} size="small" col="4">
-<Description term="Id">{employeeBoarding.id}</Description> 
-<Description term="Who">{employeeBoarding.who}</Description> 
-<Description term="Employ Time">{ moment(employeeBoarding.employTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Comments">{employeeBoarding.comments}</Description> 
+      <DescriptionList  key={employeeBoarding.id} size="small" col="4">
+        <Description term="序号">{employeeBoarding.id}</Description> 
+        <Description term="谁">{employeeBoarding.who}</Description> 
+        <Description term="使用时间"><div>{ moment(employeeBoarding.employTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="评论">{employeeBoarding.comments}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

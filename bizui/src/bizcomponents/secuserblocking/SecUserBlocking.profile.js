@@ -55,8 +55,8 @@ class SecUserBlockingProfile extends Component {
     // eslint-disable-next-line max-len
     const  secUserBlocking = this.props.secUserBlocking;
     const { id,displayName, secUserCount } = secUserBlocking
-
-    const cardsData = {cardsName:"Sec User Blocking",cardsFor: "secUserBlocking",cardsSource: secUserBlocking,
+    const  returnURL = `/secUserBlocking/${id}/dashboard`
+    const cardsData = {cardsName:"用户屏蔽",cardsFor: "secUserBlocking",cardsSource: secUserBlocking,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class SecUserBlockingProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

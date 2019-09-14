@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (retailStoreMemberAddress,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreMemberAddress.id}</Description> 
-<Description term="Name">{retailStoreMemberAddress.name}</Description> 
-<Description term="Mobile Phone">{retailStoreMemberAddress.mobilePhone}</Description> 
-<Description term="Address">{retailStoreMemberAddress.address}</Description> 
+<Description term="序号">{retailStoreMemberAddress.id}</Description> 
+<Description term="名称">{retailStoreMemberAddress.name}</Description> 
+<Description term="移动电话">{retailStoreMemberAddress.mobilePhone}</Description> 
+<Description term="地址">{retailStoreMemberAddress.address}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class RetailStoreMemberAddressPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  retailStoreMemberAddress = this.props.retailStoreMemberAddress;
+    const  retailStoreMemberAddress = this.props.retailStoreMemberAddress
     const { id,displayName,  } = retailStoreMemberAddress
-    const cardsData = {cardsName:"Retail Store Member Address",cardsFor: "retailStoreMemberAddress",cardsSource: retailStoreMemberAddress,
+    const  returnURL = `/retailStoreMemberAddress/${id}/dashboard`
+    const cardsData = {cardsName:"零售店会员地址",cardsFor: "retailStoreMemberAddress",cardsSource: retailStoreMemberAddress,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class RetailStoreMemberAddressPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

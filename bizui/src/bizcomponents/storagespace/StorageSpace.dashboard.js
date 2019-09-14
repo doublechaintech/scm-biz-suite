@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/storageSpace/${targetComponent.props.storageSpace.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/storageSpace/${targetComponent.props.storageSpace.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,19 +106,19 @@ const internalSummaryOf = (storageSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{storageSpace.id}</Description> 
-<Description term="Location">{storageSpace.location}</Description> 
-<Description term="Contact Number">{storageSpace.contactNumber}</Description> 
-<Description term="Total Area">{storageSpace.totalArea}</Description> 
-<Description term="Warehouse">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
+<Description term="序号">{storageSpace.id}</Description> 
+<Description term="位置">{storageSpace.location}</Description> 
+<Description term="联系电话">{storageSpace.contactNumber}</Description> 
+<Description term="总面积">{storageSpace.totalArea}</Description> 
+<Description term="仓库">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Warehouse","warehouse",StorageSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"仓库","warehouse",StorageSpaceService.requestCandidateWarehouse,
 	      StorageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",storageSpace.warehouse?storageSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Latitude">{storageSpace.latitude}</Description> 
-<Description term="Longitude">{storageSpace.longitude}</Description> 
-<Description term="Last Update Time">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="纬度">{storageSpace.latitude}</Description> 
+<Description term="经度">{storageSpace.longitude}</Description> 
+<Description term="最后更新时间">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(storageSpace,targetComponent)}
       </DescriptionList>
@@ -131,10 +156,10 @@ class StorageSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Storage Space",cardsFor: "storageSpace",
+    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",
     	cardsSource: this.props.storageSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'Goods Shelf',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
   	};
@@ -160,10 +185,10 @@ class StorageSpaceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/transportTask/${id}/list/GoodsList/Goods+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/transportTask/${id}/list/GoodsList/货物+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoods({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/transportTask/${id}/list/GoodsList/Goods列表`, state: newPlayload }
+      const location = { pathname: `/transportTask/${id}/list/GoodsList/货物列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/transportTask/${id}/list/TransportTaskTrackList/Transport Task Track+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/transportTask/${id}/list/TransportTaskTrackList/运输任务跟踪+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateTransportTaskTrack({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/transportTask/${id}/list/TransportTaskTrackList/Transport Task Track列表`, state: newPlayload }
+      const location = { pathname: `/transportTask/${id}/list/TransportTaskTrackList/运输任务跟踪列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextTransportTaskTrackUpdateRow({ payload }, { call, put }) {

@@ -262,7 +262,7 @@ class InstructorUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class InstructorUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class InstructorUpdateForm extends Component {
                     initialValue: selectedRow.familyName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Family Name" />
+                    <Input size="large" placeholder="姓" />
                     
                   )}
                 </Form.Item>
@@ -298,7 +298,7 @@ class InstructorUpdateForm extends Component {
                     initialValue: selectedRow.givenName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Given Name" />
+                    <Input size="large" placeholder="名" />
                     
                   )}
                 </Form.Item>
@@ -310,7 +310,7 @@ class InstructorUpdateForm extends Component {
                     initialValue: selectedRow.cellPhone,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Cell Phone" />
+                    <Input size="large" placeholder="手机" />
                     
                   )}
                 </Form.Item>
@@ -322,7 +322,7 @@ class InstructorUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Email" />
+                    <Input size="large" placeholder="电子邮件" />
                     
                   )}
                 </Form.Item>
@@ -334,7 +334,7 @@ class InstructorUpdateForm extends Component {
                     initialValue: selectedRow.introduction,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Introduction" />
+                    <Input size="large" placeholder="介绍" />
                     
                   )}
                 </Form.Item>

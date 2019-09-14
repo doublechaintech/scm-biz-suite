@@ -30,25 +30,25 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Order Line Item", menuFor: "retailStoreOrderLineItem",
+const menuData = {menuName:"双链小超订单行项目", menuFor: "retailStoreOrderLineItem",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  bizOrder: 'Biz Order',
-  skuId: 'Sku Id',
-  skuName: 'Sku Name',
-  amount: 'Amount',
-  quantity: 'Quantity',
-  unitOfMeasurement: 'Unit Of Measurement',
+  id: '序号',
+  bizOrder: '订单',
+  skuId: '产品ID',
+  skuName: '产品名称',
+  amount: '金额',
+  quantity: '数量',
+  unitOfMeasurement: '测量单位',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderLineItem') , sorter: true },
   { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.skuId, debugtype: 'string', dataIndex: 'skuId', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.skuName, debugtype: 'string', dataIndex: 'skuName', width: '8',render: (text, record)=>renderTextCell(text,record)},
@@ -60,27 +60,24 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreOrderLineItem,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreOrderLineItem.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreOrderLineItem.id}>
-	
-	<DescriptionList  key={retailStoreOrderLineItem.id} size="small" col="4">
-<Description term="Id">{retailStoreOrderLineItem.id}</Description> 
-<Description term="Biz Order">{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
-</Description>
-<Description term="Sku Id">{retailStoreOrderLineItem.skuId}</Description> 
-<Description term="Sku Name">{retailStoreOrderLineItem.skuName}</Description> 
-<Description term="Amount">{retailStoreOrderLineItem.amount}</Description> 
-<Description term="Quantity">{retailStoreOrderLineItem.quantity}</Description> 
-<Description term="Unit Of Measurement">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
+      <DescriptionList  key={retailStoreOrderLineItem.id} size="small" col="4">
+        <Description term="序号">{retailStoreOrderLineItem.id}</Description> 
+        <Description term="订单"><div>{retailStoreOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderLineItem.bizOrder.displayName}(${retailStoreOrderLineItem.bizOrder.id})`}
+        </div></Description>
+        <Description term="产品ID">{retailStoreOrderLineItem.skuId}</Description> 
+        <Description term="产品名称">{retailStoreOrderLineItem.skuName}</Description> 
+        <Description term="金额"><div style={{"color":"red"}}>{retailStoreOrderLineItem.amount}</div></Description> 
+        <Description term="数量"><div style={{"color":"red"}}>{retailStoreOrderLineItem.quantity}</div></Description> 
+        <Description term="测量单位">{retailStoreOrderLineItem.unitOfMeasurement}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (eventAttendance,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{eventAttendance.id}</Description> 
-<Description term="Name">{eventAttendance.name}</Description> 
-<Description term="Description">{eventAttendance.description}</Description> 
+<Description term="序号">{eventAttendance.id}</Description> 
+<Description term="名称">{eventAttendance.name}</Description> 
+<Description term="描述">{eventAttendance.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class EventAttendancePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  eventAttendance = this.props.eventAttendance;
+    const  eventAttendance = this.props.eventAttendance
     const { id,displayName,  } = eventAttendance
-    const cardsData = {cardsName:"Event Attendance",cardsFor: "eventAttendance",cardsSource: eventAttendance,
+    const  returnURL = `/eventAttendance/${id}/dashboard`
+    const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",cardsSource: eventAttendance,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class EventAttendancePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

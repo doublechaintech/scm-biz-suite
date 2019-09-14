@@ -21,8 +21,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '9',
-  expireTime: '2019-05-25',
+  maxPackage: '10',
+  expireTime: '2017-07-30',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -151,7 +151,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Rfid" />
+                    <Input size="large" placeholder="RFID" />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('uom', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Uom" />
+                    <Input size="large" placeholder="计量单位" />
                   )}
                 </Form.Item>
               </Col>
@@ -181,7 +181,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('maxPackage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Max Package" />
+                    <Input size="large" placeholder="最大包装" />
                   )}
                 </Form.Item>
               </Col>
@@ -191,7 +191,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('expireTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Expire Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="到期时间" />
                   )}
                 </Form.Item>
               </Col>

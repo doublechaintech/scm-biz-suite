@@ -55,8 +55,8 @@ class ListAccessProfile extends Component {
     // eslint-disable-next-line max-len
     const  listAccess = this.props.listAccess;
     const { id,displayName,  } = listAccess
-
-    const cardsData = {cardsName:"List Access",cardsFor: "listAccess",cardsSource: listAccess,
+    const  returnURL = `/listAccess/${id}/dashboard`
+    const cardsData = {cardsName:"访问列表",cardsFor: "listAccess",cardsSource: listAccess,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ListAccessProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

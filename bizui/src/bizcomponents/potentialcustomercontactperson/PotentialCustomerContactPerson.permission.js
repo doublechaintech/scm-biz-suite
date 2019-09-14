@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (potentialCustomerContactPerson,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{potentialCustomerContactPerson.id}</Description> 
-<Description term="Name">{potentialCustomerContactPerson.name}</Description> 
-<Description term="Mobile">{potentialCustomerContactPerson.mobile}</Description> 
-<Description term="Description">{potentialCustomerContactPerson.description}</Description> 
+<Description term="序号">{potentialCustomerContactPerson.id}</Description> 
+<Description term="名称">{potentialCustomerContactPerson.name}</Description> 
+<Description term="手机">{potentialCustomerContactPerson.mobile}</Description> 
+<Description term="描述">{potentialCustomerContactPerson.description}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class PotentialCustomerContactPersonPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  potentialCustomerContactPerson = this.props.potentialCustomerContactPerson;
+    const  potentialCustomerContactPerson = this.props.potentialCustomerContactPerson
     const { id,displayName, potentialCustomerContactCount } = potentialCustomerContactPerson
-    const cardsData = {cardsName:"Potential Customer Contact Person",cardsFor: "potentialCustomerContactPerson",cardsSource: potentialCustomerContactPerson,
+    const  returnURL = `/potentialCustomerContactPerson/${id}/dashboard`
+    const cardsData = {cardsName:"潜在客户联络人",cardsFor: "potentialCustomerContactPerson",cardsSource: potentialCustomerContactPerson,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class PotentialCustomerContactPersonPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

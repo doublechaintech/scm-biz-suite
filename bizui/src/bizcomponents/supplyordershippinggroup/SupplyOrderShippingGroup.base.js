@@ -30,22 +30,22 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Supply Order Shipping Group", menuFor: "supplyOrderShippingGroup",
+const menuData = {menuName:"供应订单送货分组", menuFor: "supplyOrderShippingGroup",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  bizOrder: 'Biz Order',
-  amount: 'Amount',
+  id: '序号',
+  name: '名称',
+  bizOrder: '订单',
+  amount: '金额',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'supplyOrderShippingGroup') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '14',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.amount, dataIndex: 'amount', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
@@ -54,24 +54,21 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(supplyOrderShippingGroup,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={supplyOrderShippingGroup.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={supplyOrderShippingGroup.id}>
-	
-	<DescriptionList  key={supplyOrderShippingGroup.id} size="small" col="4">
-<Description term="Id">{supplyOrderShippingGroup.id}</Description> 
-<Description term="Name">{supplyOrderShippingGroup.name}</Description> 
-<Description term="Biz Order">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
-</Description>
-<Description term="Amount">{supplyOrderShippingGroup.amount}</Description> 
+      <DescriptionList  key={supplyOrderShippingGroup.id} size="small" col="4">
+        <Description term="序号">{supplyOrderShippingGroup.id}</Description> 
+        <Description term="名称">{supplyOrderShippingGroup.name}</Description> 
+        <Description term="订单"><div>{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
+        </div></Description>
+        <Description term="金额"><div style={{"color":"red"}}>{supplyOrderShippingGroup.amount}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

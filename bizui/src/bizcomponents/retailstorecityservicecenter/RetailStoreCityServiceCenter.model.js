@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityPartnerList/City Partner+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityPartnerList/城市合伙人+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateCityPartner({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityPartnerList/City Partner列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityPartnerList/城市合伙人列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextCityPartnerUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/PotentialCustomerList/Potential Customer+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/PotentialCustomerList/潜在的客户+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePotentialCustomer({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/PotentialCustomerList/Potential Customer列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/PotentialCustomerList/潜在的客户列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextPotentialCustomerUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityEventList/City Event+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityEventList/城市活动+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateCityEvent({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityEventList/City Event列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityEventList/城市活动列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextCityEventUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/RetailStoreList/Retail Store+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/RetailStoreList/双链小超+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStore({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/RetailStoreList/Retail Store列表`, state: newPlayload }
+      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/RetailStoreList/双链小超列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreUpdateRow({ payload }, { call, put }) {

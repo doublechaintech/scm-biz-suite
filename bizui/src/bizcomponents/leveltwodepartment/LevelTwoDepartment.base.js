@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Level Two Department", menuFor: "levelTwoDepartment",
+const menuData = {menuName:"二级部门", menuFor: "levelTwoDepartment",
   		subItems: [
-  {name: 'levelThreeDepartmentList', displayName:'Level Three Department', icon:'battery-three-quarters',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'levelThreeDepartmentList', displayName:'三级部门', icon:'battery-three-quarters',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  belongsTo: 'Belongs To',
-  name: 'Name',
-  description: 'Description',
-  founded: 'Founded',
+  id: '序号',
+  belongsTo: '属于',
+  name: '名称',
+  description: '描述',
+  founded: '成立',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'levelTwoDepartment') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'levelTwoDepartment') , sorter: true },
   { title: fieldLabels.belongsTo, dataIndex: 'belongsTo', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '14',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.description, debugtype: 'string', dataIndex: 'description', width: '22',render: (text, record)=>renderTextCell(text,record)},
@@ -57,25 +57,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(levelTwoDepartment,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={levelTwoDepartment.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={levelTwoDepartment.id}>
-	
-	<DescriptionList  key={levelTwoDepartment.id} size="small" col="4">
-<Description term="Id">{levelTwoDepartment.id}</Description> 
-<Description term="Belongs To">{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
-</Description>
-<Description term="Name">{levelTwoDepartment.name}</Description> 
-<Description term="Description">{levelTwoDepartment.description}</Description> 
-<Description term="Founded">{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={levelTwoDepartment.id} size="small" col="4">
+        <Description term="序号">{levelTwoDepartment.id}</Description> 
+        <Description term="属于"><div>{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
+        </div></Description>
+        <Description term="名称">{levelTwoDepartment.name}</Description> 
+        <Description term="描述">{levelTwoDepartment.description}</Description> 
+        <Description term="成立"><div>{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

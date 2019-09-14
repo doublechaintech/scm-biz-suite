@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
-  totalAmount: '2844218880.00',
+  totalAmount: '2552038400.00',
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
 }
@@ -196,8 +196,8 @@ class RetailStoreOrderCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Retail Store Order`}
-        content={`${appLocaleName(userContext,"CreateNew")}Retail Store Order`}
+        title={`${appLocaleName(userContext,"CreateNew")}生超的订单`}
+        content={`${appLocaleName(userContext,"CreateNew")}生超的订单`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class RetailStoreOrderCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class RetailStoreOrderCreateForm extends Component {
                   {getFieldDecorator('totalAmount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Total Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="总金额" />
                   )}
                 </Form.Item>
               </Col>

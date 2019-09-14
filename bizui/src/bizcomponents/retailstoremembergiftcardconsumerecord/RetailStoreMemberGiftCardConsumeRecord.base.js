@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Member Gift Card Consume Record", menuFor: "retailStoreMemberGiftCardConsumeRecord",
+const menuData = {menuName:"零售商店会员卡消费记录", menuFor: "retailStoreMemberGiftCardConsumeRecord",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  occureTime: 'Occure Time',
-  owner: 'Owner',
-  bizOrder: 'Biz Order',
-  number: 'Number',
-  amount: 'Amount',
+  id: '序号',
+  occureTime: '发生时间',
+  owner: '业主',
+  bizOrder: '订单',
+  number: '数',
+  amount: '金额',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreMemberGiftCardConsumeRecord') , sorter: true },
   { title: fieldLabels.occureTime, dataIndex: 'occureTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -58,27 +58,24 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreMemberGiftCardConsumeRecord,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreMemberGiftCardConsumeRecord.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreMemberGiftCardConsumeRecord.id}>
-	
-	<DescriptionList  key={retailStoreMemberGiftCardConsumeRecord.id} size="small" col="4">
-<Description term="Id">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
-<Description term="Occure Time">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Owner">{retailStoreMemberGiftCardConsumeRecord.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.owner.displayName}(${retailStoreMemberGiftCardConsumeRecord.owner.id})`}
-</Description>
-<Description term="Biz Order">{retailStoreMemberGiftCardConsumeRecord.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.bizOrder.displayName}(${retailStoreMemberGiftCardConsumeRecord.bizOrder.id})`}
-</Description>
-<Description term="Number">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
-<Description term="Amount">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
+      <DescriptionList  key={retailStoreMemberGiftCardConsumeRecord.id} size="small" col="4">
+        <Description term="序号">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
+        <Description term="发生时间"><div>{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="业主"><div>{retailStoreMemberGiftCardConsumeRecord.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.owner.displayName}(${retailStoreMemberGiftCardConsumeRecord.owner.id})`}
+        </div></Description>
+        <Description term="订单"><div>{retailStoreMemberGiftCardConsumeRecord.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.bizOrder.displayName}(${retailStoreMemberGiftCardConsumeRecord.bizOrder.id})`}
+        </div></Description>
+        <Description term="数">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
+        <Description term="金额"><div style={{"color":"red"}}>{retailStoreMemberGiftCardConsumeRecord.amount}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

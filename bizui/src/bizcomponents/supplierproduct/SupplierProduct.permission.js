@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (supplierProduct,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{supplierProduct.id}</Description> 
-<Description term="Product Name">{supplierProduct.productName}</Description> 
-<Description term="Product Description">{supplierProduct.productDescription}</Description> 
-<Description term="Product Unit">{supplierProduct.productUnit}</Description> 
+<Description term="序号">{supplierProduct.id}</Description> 
+<Description term="品名">{supplierProduct.productName}</Description> 
+<Description term="产品描述">{supplierProduct.productDescription}</Description> 
+<Description term="产品单元">{supplierProduct.productUnit}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class SupplierProductPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  supplierProduct = this.props.supplierProduct;
+    const  supplierProduct = this.props.supplierProduct
     const { id,displayName, productSupplyDurationCount } = supplierProduct
-    const cardsData = {cardsName:"Supplier Product",cardsFor: "supplierProduct",cardsSource: supplierProduct,
+    const  returnURL = `/supplierProduct/${id}/dashboard`
+    const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",cardsSource: supplierProduct,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class SupplierProductPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

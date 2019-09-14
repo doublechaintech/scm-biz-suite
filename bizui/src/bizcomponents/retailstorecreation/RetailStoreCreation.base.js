@@ -30,42 +30,39 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Retail Store Creation", menuFor: "retailStoreCreation",
+const menuData = {menuName:"双链小超的创作", menuFor: "retailStoreCreation",
   		subItems: [
-  {name: 'retailStoreList', displayName:'Retail Store', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  comment: 'Comment',
+  id: '序号',
+  comment: '评论',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'retailStoreCreation') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreCreation') , sorter: true },
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '9',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(retailStoreCreation,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={retailStoreCreation.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={retailStoreCreation.id}>
-	
-	<DescriptionList  key={retailStoreCreation.id} size="small" col="4">
-<Description term="Id">{retailStoreCreation.id}</Description> 
-<Description term="Comment">{retailStoreCreation.comment}</Description> 
+      <DescriptionList  key={retailStoreCreation.id} size="small" col="4">
+        <Description term="序号">{retailStoreCreation.id}</Description> 
+        <Description term="评论">{retailStoreCreation.comment}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

@@ -145,15 +145,7 @@ class TransportTaskBizApp extends React.PureComponent {
         )}
         )}
 
-       		<SubMenu key="sub4" title={<span><Icon type="setting" /><span>{appLocaleName(userContext,"Setting")}</span></span>} >
-       			<Menu.Item key="profile">
-               		<Link to={`/transportTask/${this.props.transportTask.id}/permission`}><Icon type="safety-certificate" /><span>{appLocaleName(userContext,"Permission")}</span></Link>
-             	</Menu.Item>
-             	<Menu.Item key="permission">
-               		<Link to={`/transportTask/${this.props.transportTask.id}/profile`}><Icon type="cluster" /><span>{appLocaleName(userContext,"Profile")}</span></Link>
-             	</Menu.Item> 
-      
-        	</SubMenu>
+       		
         
            </Menu>
     )
@@ -167,7 +159,7 @@ class TransportTaskBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Goods",
+      name: "货物",
       role: "goods",
       data: state._transportTask.goodsList,
       metaInfo: state._transportTask.goodsListMetaInfo,
@@ -216,7 +208,7 @@ class TransportTaskBizApp extends React.PureComponent {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "Transport Task Track",
+      name: "运输任务跟踪",
       role: "transportTaskTrack",
       data: state._transportTask.transportTaskTrackList,
       metaInfo: state._transportTask.transportTaskTrackListMetaInfo,

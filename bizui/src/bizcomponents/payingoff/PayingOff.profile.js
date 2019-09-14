@@ -55,8 +55,8 @@ class PayingOffProfile extends Component {
     // eslint-disable-next-line max-len
     const  payingOff = this.props.payingOff;
     const { id,displayName, employeeSalarySheetCount } = payingOff
-
-    const cardsData = {cardsName:"Paying Off",cardsFor: "payingOff",cardsSource: payingOff,
+    const  returnURL = `/payingOff/${id}/dashboard`
+    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",cardsSource: payingOff,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class PayingOffProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

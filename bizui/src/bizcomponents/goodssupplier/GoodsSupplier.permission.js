@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,17 +23,21 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (goodsSupplier,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goodsSupplier.id}</Description> 
-<Description term="Name">{goodsSupplier.name}</Description> 
-<Description term="Supply Product">{goodsSupplier.supplyProduct}</Description> 
-<Description term="Contact Number">{goodsSupplier.contactNumber}</Description> 
-<Description term="Description">{goodsSupplier.description}</Description> 
-<Description term="Last Update Time">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{goodsSupplier.id}</Description> 
+<Description term="名称">{goodsSupplier.name}</Description> 
+<Description term="供应产品">{goodsSupplier.supplyProduct}</Description> 
+<Description term="联系电话">{goodsSupplier.contactNumber}</Description> 
+<Description term="描述">{goodsSupplier.description}</Description> 
+<Description term="最后更新时间">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -57,9 +61,10 @@ class GoodsSupplierPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  goodsSupplier = this.props.goodsSupplier;
+    const  goodsSupplier = this.props.goodsSupplier
     const { id,displayName, supplierProductCount, supplyOrderCount, accountSetCount } = goodsSupplier
-    const cardsData = {cardsName:"Goods Supplier",cardsFor: "goodsSupplier",cardsSource: goodsSupplier,
+    const  returnURL = `/goodsSupplier/${id}/dashboard`
+    const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",cardsSource: goodsSupplier,displayName,returnURL,
   		subItems: [
     
       	],
@@ -70,7 +75,7 @@ class GoodsSupplierPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

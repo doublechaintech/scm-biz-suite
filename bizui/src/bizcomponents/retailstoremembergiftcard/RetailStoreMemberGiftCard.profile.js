@@ -55,8 +55,8 @@ class RetailStoreMemberGiftCardProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreMemberGiftCard = this.props.retailStoreMemberGiftCard;
     const { id,displayName, retailStoreMemberGiftCardConsumeRecordCount } = retailStoreMemberGiftCard
-
-    const cardsData = {cardsName:"Retail Store Member Gift Card",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,
+    const  returnURL = `/retailStoreMemberGiftCard/${id}/dashboard`
+    const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",cardsSource: retailStoreMemberGiftCard,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class RetailStoreMemberGiftCardProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

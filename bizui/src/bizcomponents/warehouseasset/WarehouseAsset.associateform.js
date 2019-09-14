@@ -139,7 +139,7 @@ class WarehouseAssetAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class WarehouseAssetAssociateForm extends Component {
                   {getFieldDecorator('position', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Position" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>

@@ -30,27 +30,27 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Damage Space", menuFor: "damageSpace",
+const menuData = {menuName:"残次货物存放区", menuFor: "damageSpace",
   		subItems: [
-  {name: 'goodsShelfList', displayName:'Goods Shelf', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsShelfList', displayName:'货架', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  location: 'Location',
-  contactNumber: 'Contact Number',
-  totalArea: 'Total Area',
-  latitude: 'Latitude',
-  longitude: 'Longitude',
-  warehouse: 'Warehouse',
-  lastUpdateTime: 'Last Update Time',
+  id: '序号',
+  location: '位置',
+  contactNumber: '联系电话',
+  totalArea: '总面积',
+  latitude: '纬度',
+  longitude: '经度',
+  warehouse: '仓库',
+  lastUpdateTime: '最后更新时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'damageSpace') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'damageSpace') , sorter: true },
   { title: fieldLabels.location, debugtype: 'string', dataIndex: 'location', width: '24',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.contactNumber, debugtype: 'string', dataIndex: 'contactNumber', width: '15',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.totalArea, debugtype: 'string', dataIndex: 'totalArea', width: '11',render: (text, record)=>renderTextCell(text,record)},
@@ -63,28 +63,25 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(damageSpace,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={damageSpace.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={damageSpace.id}>
-	
-	<DescriptionList  key={damageSpace.id} size="small" col="4">
-<Description term="Id">{damageSpace.id}</Description> 
-<Description term="Location">{damageSpace.location}</Description> 
-<Description term="Contact Number">{damageSpace.contactNumber}</Description> 
-<Description term="Total Area">{damageSpace.totalArea}</Description> 
-<Description term="Latitude">{damageSpace.latitude}</Description> 
-<Description term="Longitude">{damageSpace.longitude}</Description> 
-<Description term="Warehouse">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
-</Description>
-<Description term="Last Update Time">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={damageSpace.id} size="small" col="4">
+        <Description term="序号">{damageSpace.id}</Description> 
+        <Description term="位置">{damageSpace.location}</Description> 
+        <Description term="联系电话">{damageSpace.contactNumber}</Description> 
+        <Description term="总面积">{damageSpace.totalArea}</Description> 
+        <Description term="纬度"><div style={{"color":"red"}}>{damageSpace.latitude}</div></Description> 
+        <Description term="经度"><div style={{"color":"red"}}>{damageSpace.longitude}</div></Description> 
+        <Description term="仓库"><div>{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
+        </div></Description>
+        <Description term="最后更新时间"><div>{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

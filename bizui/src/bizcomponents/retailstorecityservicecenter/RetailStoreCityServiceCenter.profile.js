@@ -55,8 +55,8 @@ class RetailStoreCityServiceCenterProfile extends Component {
     // eslint-disable-next-line max-len
     const  retailStoreCityServiceCenter = this.props.retailStoreCityServiceCenter;
     const { id,displayName, cityPartnerCount, potentialCustomerCount, cityEventCount, retailStoreCount } = retailStoreCityServiceCenter
-
-    const cardsData = {cardsName:"Retail Store City Service Center",cardsFor: "retailStoreCityServiceCenter",cardsSource: retailStoreCityServiceCenter,
+    const  returnURL = `/retailStoreCityServiceCenter/${id}/dashboard`
+    const cardsData = {cardsName:"双链小超城市服务中心",cardsFor: "retailStoreCityServiceCenter",cardsSource: retailStoreCityServiceCenter,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class RetailStoreCityServiceCenterProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

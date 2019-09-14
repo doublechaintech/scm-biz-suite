@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,20 +23,24 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (transportTruck,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{transportTruck.id}</Description> 
-<Description term="Name">{transportTruck.name}</Description> 
-<Description term="Plate Number">{transportTruck.plateNumber}</Description> 
-<Description term="Contact Number">{transportTruck.contactNumber}</Description> 
-<Description term="Vehicle License Number">{transportTruck.vehicleLicenseNumber}</Description> 
-<Description term="Engine Number">{transportTruck.engineNumber}</Description> 
-<Description term="Make Date">{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</Description> 
-<Description term="Mileage">{transportTruck.mileage}</Description> 
-<Description term="Body Color">{transportTruck.bodyColor}</Description> 
+<Description term="序号">{transportTruck.id}</Description> 
+<Description term="名称">{transportTruck.name}</Description> 
+<Description term="车牌号码">{transportTruck.plateNumber}</Description> 
+<Description term="联系电话">{transportTruck.contactNumber}</Description> 
+<Description term="汽车牌照号码">{transportTruck.vehicleLicenseNumber}</Description> 
+<Description term="发动机号">{transportTruck.engineNumber}</Description> 
+<Description term="制造日期">{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="里程">{transportTruck.mileage}</Description> 
+<Description term="车身颜色">{transportTruck.bodyColor}</Description> 
 	
       </DescriptionList>
 	)
@@ -60,9 +64,10 @@ class TransportTruckPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  transportTruck = this.props.transportTruck;
+    const  transportTruck = this.props.transportTruck
     const { id,displayName, transportTaskCount } = transportTruck
-    const cardsData = {cardsName:"Transport Truck",cardsFor: "transportTruck",cardsSource: transportTruck,
+    const  returnURL = `/transportTruck/${id}/dashboard`
+    const cardsData = {cardsName:"运输车",cardsFor: "transportTruck",cardsSource: transportTruck,displayName,returnURL,
   		subItems: [
     
       	],
@@ -73,7 +78,7 @@ class TransportTruckPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/goodsShelfStockCount/${id}/list/StockCountIssueTrackList/Stock Count Issue Track+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/goodsShelfStockCount/${id}/list/StockCountIssueTrackList/库存计数问题跟踪+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateStockCountIssueTrack({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/goodsShelfStockCount/${id}/list/StockCountIssueTrackList/Stock Count Issue Track列表`, state: newPlayload }
+      const location = { pathname: `/goodsShelfStockCount/${id}/list/StockCountIssueTrackList/库存计数问题跟踪列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextStockCountIssueTrackUpdateRow({ payload }, { call, put }) {

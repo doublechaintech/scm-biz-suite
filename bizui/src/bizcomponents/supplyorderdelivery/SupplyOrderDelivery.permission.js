@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (supplyOrderDelivery,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{supplyOrderDelivery.id}</Description> 
-<Description term="Who">{supplyOrderDelivery.who}</Description> 
-<Description term="Delivery Time">{ moment(supplyOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{supplyOrderDelivery.id}</Description> 
+<Description term="谁">{supplyOrderDelivery.who}</Description> 
+<Description term="交货时间">{ moment(supplyOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class SupplyOrderDeliveryPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  supplyOrderDelivery = this.props.supplyOrderDelivery;
+    const  supplyOrderDelivery = this.props.supplyOrderDelivery
     const { id,displayName, consumerOrderCount, supplyOrderCount } = supplyOrderDelivery
-    const cardsData = {cardsName:"Supply Order Delivery",cardsFor: "supplyOrderDelivery",cardsSource: supplyOrderDelivery,
+    const  returnURL = `/supplyOrderDelivery/${id}/dashboard`
+    const cardsData = {cardsName:"供应订单交货",cardsFor: "supplyOrderDelivery",cardsSource: supplyOrderDelivery,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class SupplyOrderDeliveryPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

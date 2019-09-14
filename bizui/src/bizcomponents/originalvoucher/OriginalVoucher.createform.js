@@ -198,8 +198,8 @@ class OriginalVoucherCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Original Voucher`}
-        content={`${appLocaleName(userContext,"CreateNew")}Original Voucher`}
+        title={`${appLocaleName(userContext,"CreateNew")}原始凭证`}
+        content={`${appLocaleName(userContext,"CreateNew")}原始凭证`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -211,7 +211,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -221,7 +221,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('madeBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Made By" />
+                    <Input size="large" placeholder="由" />
                   )}
                 </Form.Item>
               </Col>
@@ -231,7 +231,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('receivedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Received By" />
+                    <Input size="large" placeholder="受" />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +241,7 @@ class OriginalVoucherCreateForm extends Component {
                   {getFieldDecorator('voucherType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Voucher Type" />
+                    <Input size="large" placeholder="凭证类型" />
                   )}
                 </Form.Item>
               </Col>
@@ -267,7 +267,7 @@ class OriginalVoucherCreateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="Voucher Image"
+                  buttonTitle="凭证图像"
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'voucherImage')}
                   fileList={convertedImagesValues.voucherImage}

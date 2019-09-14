@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderLineItemList/Consumer Order Line Item+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderLineItemList/消费者订单行项目+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrderLineItem({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderLineItemList/Consumer Order Line Item列表`, state: newPlayload }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderLineItemList/消费者订单行项目列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextConsumerOrderLineItemUpdateRow({ payload }, { call, put }) {
@@ -206,7 +206,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderShippingGroupList/Consumer Order Shipping Group+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderShippingGroupList/消费订单送货分组+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrderShippingGroup({ payload }, { call, put }) {
@@ -228,7 +228,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderShippingGroupList/Consumer Order Shipping Group列表`, state: newPlayload }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderShippingGroupList/消费订单送货分组列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextConsumerOrderShippingGroupUpdateRow({ payload }, { call, put }) {
@@ -275,7 +275,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPaymentGroupList/Consumer Order Payment Group+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPaymentGroupList/消费者订单付款组+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrderPaymentGroup({ payload }, { call, put }) {
@@ -297,7 +297,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPaymentGroupList/Consumer Order Payment Group列表`, state: newPlayload }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPaymentGroupList/消费者订单付款组列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextConsumerOrderPaymentGroupUpdateRow({ payload }, { call, put }) {
@@ -344,7 +344,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPriceAdjustmentList/Consumer Order Price Adjustment+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPriceAdjustmentList/消费品价格调整+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateConsumerOrderPriceAdjustment({ payload }, { call, put }) {
@@ -366,7 +366,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPriceAdjustmentList/Consumer Order Price Adjustment列表`, state: newPlayload }
+      const location = { pathname: `/consumerOrder/${id}/list/ConsumerOrderPriceAdjustmentList/消费品价格调整列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextConsumerOrderPriceAdjustmentUpdateRow({ payload }, { call, put }) {
@@ -413,7 +413,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/Retail Store Member Gift Card Consume Record+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/零售商店会员卡消费记录+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberGiftCardConsumeRecord({ payload }, { call, put }) {
@@ -435,7 +435,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/Retail Store Member Gift Card Consume Record列表`, state: newPlayload }
+      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/零售商店会员卡消费记录列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreMemberGiftCardConsumeRecordUpdateRow({ payload }, { call, put }) {

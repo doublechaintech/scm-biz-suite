@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,14 +23,18 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (retailStoreOrderProcessing,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreOrderProcessing.id}</Description> 
-<Description term="Who">{retailStoreOrderProcessing.who}</Description> 
-<Description term="Process Time">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{retailStoreOrderProcessing.id}</Description> 
+<Description term="谁">{retailStoreOrderProcessing.who}</Description> 
+<Description term="过程的时间">{ moment(retailStoreOrderProcessing.processTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -54,9 +58,10 @@ class RetailStoreOrderProcessingPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  retailStoreOrderProcessing = this.props.retailStoreOrderProcessing;
+    const  retailStoreOrderProcessing = this.props.retailStoreOrderProcessing
     const { id,displayName, retailStoreOrderCount } = retailStoreOrderProcessing
-    const cardsData = {cardsName:"Retail Store Order Processing",cardsFor: "retailStoreOrderProcessing",cardsSource: retailStoreOrderProcessing,
+    const  returnURL = `/retailStoreOrderProcessing/${id}/dashboard`
+    const cardsData = {cardsName:"生超订单处理",cardsFor: "retailStoreOrderProcessing",cardsSource: retailStoreOrderProcessing,displayName,returnURL,
   		subItems: [
     
       	],
@@ -67,7 +72,7 @@ class RetailStoreOrderProcessingPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

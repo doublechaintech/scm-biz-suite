@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (view,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{view.id}</Description> 
-<Description term="Who">{view.who}</Description> 
-<Description term="Assessment">{view.assessment}</Description> 
-<Description term="Interview Time">{ moment(view.interviewTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{view.id}</Description> 
+<Description term="谁">{view.who}</Description> 
+<Description term="评估">{view.assessment}</Description> 
+<Description term="面试时间">{ moment(view.interviewTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class ViewPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  view = this.props.view;
+    const  view = this.props.view
     const { id,displayName,  } = view
-    const cardsData = {cardsName:"View",cardsFor: "view",cardsSource: view,
+    const  returnURL = `/view/${id}/dashboard`
+    const cardsData = {cardsName:"观",cardsFor: "view",cardsSource: view,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class ViewPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

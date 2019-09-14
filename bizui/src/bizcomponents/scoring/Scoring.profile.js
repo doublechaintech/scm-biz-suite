@@ -55,8 +55,8 @@ class ScoringProfile extends Component {
     // eslint-disable-next-line max-len
     const  scoring = this.props.scoring;
     const { id,displayName, employeeCompanyTrainingCount } = scoring
-
-    const cardsData = {cardsName:"Scoring",cardsFor: "scoring",cardsSource: scoring,
+    const  returnURL = `/scoring/${id}/dashboard`
+    const cardsData = {cardsName:"评分",cardsFor: "scoring",cardsSource: scoring,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ScoringProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

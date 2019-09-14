@@ -138,7 +138,7 @@ class RetailStoreOpeningAssociateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comment" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

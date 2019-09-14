@@ -55,8 +55,8 @@ class TerminationProfile extends Component {
     // eslint-disable-next-line max-len
     const  termination = this.props.termination;
     const { id,displayName, employeeCount } = termination
-
-    const cardsData = {cardsName:"Termination",cardsFor: "termination",cardsSource: termination,
+    const  returnURL = `/termination/${id}/dashboard`
+    const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",cardsSource: termination,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class TerminationProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

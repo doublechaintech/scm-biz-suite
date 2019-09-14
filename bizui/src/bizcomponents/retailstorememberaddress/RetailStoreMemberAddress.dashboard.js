@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreMemberAddress/${targetComponent.props.retailStoreMemberAddress.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/retailStoreMemberAddress/${targetComponent.props.retailStoreMemberAddress.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,16 +106,16 @@ const internalSummaryOf = (retailStoreMemberAddress,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreMemberAddress.id}</Description> 
-<Description term="Name">{retailStoreMemberAddress.name}</Description> 
-<Description term="Owner">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
+<Description term="序号">{retailStoreMemberAddress.id}</Description> 
+<Description term="名称">{retailStoreMemberAddress.name}</Description> 
+<Description term="业主">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Owner","retailStoreMember",RetailStoreMemberAddressService.requestCandidateOwner,
+  showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberAddressService.requestCandidateOwner,
 	      RetailStoreMemberAddressService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberAddress.owner?retailStoreMemberAddress.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Mobile Phone">{retailStoreMemberAddress.mobilePhone}</Description> 
-<Description term="Address">{retailStoreMemberAddress.address}</Description> 
+<Description term="移动电话">{retailStoreMemberAddress.mobilePhone}</Description> 
+<Description term="地址">{retailStoreMemberAddress.address}</Description> 
 	
         {buildTransferModal(retailStoreMemberAddress,targetComponent)}
       </DescriptionList>
@@ -128,7 +153,7 @@ class RetailStoreMemberAddressDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Retail Store Member Address",cardsFor: "retailStoreMemberAddress",
+    const cardsData = {cardsName:"零售店会员地址",cardsFor: "retailStoreMemberAddress",
     	cardsSource: this.props.retailStoreMemberAddress,returnURL,displayName,
   		subItems: [
     
@@ -156,10 +181,10 @@ class RetailStoreMemberAddressDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

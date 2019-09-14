@@ -12,7 +12,7 @@ import {
   Select,
   Form,
   AutoComplete,
-  Modal,Divider,Collapse
+  Modal,Divider,Collapse,Tabs,
 } from 'antd';
 import styles from './Dashboard.tool.less';
 import ImagePreview from '../components/ImagePreview';
@@ -132,7 +132,7 @@ const renderForNumbers = aggregatedData => {
           return null;
         }
 
-        if (visitData.length < 5) {
+        if (visitData.length < 10) {
           return null;
         }
         let ChartComp = MiniArea;
@@ -144,6 +144,25 @@ const renderForNumbers = aggregatedData => {
         console.log('index: ', colorIndex, colors[colorIndex % colors.length]);
 
         const chartColor = colors[colorIndex % colors.length];
+
+        const trend=(target)=>{
+
+          return target.lastWeek> target.thisWeek?"down":"up";
+
+        }
+        const change=(target)=>{
+          if(target.thisWeek===0){
+            return `${numeral(0).format('0.00')}%`
+          }
+          if(target.lastWeek===0){
+            return "NA"
+          }
+          const percent=(target.thisWeek-target.lastWeek)/target.lastWeek*100
+          return `${numeral(Math.abs(percent)).format('0.00')}%`
+        }
+        
+
+
         return (
           <Col key={item} {...topColResponsiveProps}>
             <ChartCard
@@ -157,11 +176,11 @@ const renderForNumbers = aggregatedData => {
               total={numeral(itemTotal).format('0,0')}
               footer={
                 <div>
-                  <Trend flag="down" style={{ marginRight: 16 }}>
-                    周对比({numeral(weekData.lastWeek).format('0,0')}/{numeral(
+                  <Trend flag={trend(weekData)} style={{ marginRight: 16 }}>
+                    上周: {numeral(weekData.lastWeek).format('0,0')}/本周: {numeral(
                       weekData.thisWeek
-                    ).format('0,0')})
-                    <span className={styles.trendText}>100%</span>
+                    ).format('0,0')}
+                    <span className={styles.trendText}>环比{change(weekData)}</span>
                   </Trend>
                 </div>
               }
@@ -187,7 +206,7 @@ const renderForTimeLine = aggregatedData => {
   if (!data.dataArray) {
     return null;
   }
-  if (data.dataArray.length === 0) {
+  if (data.dataArray.length < 10) {
     return null;
   }
   const option = {
@@ -357,9 +376,10 @@ const defaultImageListOf = (mainObject, imageList) => {
     <Card title="图片列表" className={styles.card}>
       <Row type="flex" justify="start" align="bottom">
         {filteredList.map((item, index) => (
-          <Col span={4} key={index}>
+          <Col span={6} key={index}>
             <ImagePreview
               imageTitle={item.title}
+              imageStyle={{width:400}}
               showTitleUnderImage={true}
               imageLocation={item.imageLocation}
             >
@@ -580,8 +600,7 @@ const legalListForDisplay=(targetObject, listItem)=>{
   return true
 
 }
-
-const defaultRenderSubjectList = cardsData => {
+const defaultRenderSubjectList2 = cardsData => {
   
   // listItem.renderItem(item)
   const targetObject = cardsData.cardsSource
@@ -606,6 +625,40 @@ const defaultRenderSubjectList = cardsData => {
           </Col>
          
         ))}
+    </Row>
+    
+  );
+};
+const defaultRenderSubjectList = cardsData => {
+  
+  // listItem.renderItem(item)
+  const targetObject = cardsData.cardsSource
+  const { TabPane } = Tabs;
+  function callback(key) {
+    console.log(key);
+  }
+  return (
+    <Row gutter={16}>
+      <Tabs  onChange={callback}>
+      {cardsData.subItems
+        
+        .filter(listItem=>legalListForDisplay(targetObject,listItem))
+        .map(listItem => (
+          <TabPane tab={listItem.displayName} key={listItem.displayName}>
+          <Col key={listItem.displayName} span={24} {...wholeLineColProps}>
+            
+             <Card title={listItem.displayName} style={{ marginBottom: 24 }} >
+
+            {
+             
+              targetObject[listItem.name].map(item=>(listItem.renderItem(item)))
+            }
+           
+             </Card>
+          </Col>
+          </TabPane>
+        ))}
+        </Tabs>
     </Row>
     
   );

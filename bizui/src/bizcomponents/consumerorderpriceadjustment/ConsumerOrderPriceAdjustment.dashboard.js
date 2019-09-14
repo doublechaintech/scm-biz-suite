@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/consumerOrderPriceAdjustment/${targetComponent.props.consumerOrderPriceAdjustment.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/consumerOrderPriceAdjustment/${targetComponent.props.consumerOrderPriceAdjustment.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,16 +106,16 @@ const internalSummaryOf = (consumerOrderPriceAdjustment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="Name">{consumerOrderPriceAdjustment.name}</Description> 
-<Description term="Biz Order">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
+<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
+<Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
+<Description term="订单">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Biz Order","consumerOrder",ConsumerOrderPriceAdjustmentService.requestCandidateBizOrder,
+  showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderPriceAdjustmentService.requestCandidateBizOrder,
 	      ConsumerOrderPriceAdjustmentService.transferToAnotherBizOrder,"anotherBizOrderId",consumerOrderPriceAdjustment.bizOrder?consumerOrderPriceAdjustment.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Amount">{consumerOrderPriceAdjustment.amount}</Description> 
-<Description term="Provider">{consumerOrderPriceAdjustment.provider}</Description> 
+<Description term="金额">{consumerOrderPriceAdjustment.amount}</Description> 
+<Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
 	
         {buildTransferModal(consumerOrderPriceAdjustment,targetComponent)}
       </DescriptionList>
@@ -128,7 +153,7 @@ class ConsumerOrderPriceAdjustmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Consumer Order Price Adjustment",cardsFor: "consumerOrderPriceAdjustment",
+    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",
     	cardsSource: this.props.consumerOrderPriceAdjustment,returnURL,displayName,
   		subItems: [
     
@@ -156,10 +181,10 @@ class ConsumerOrderPriceAdjustmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

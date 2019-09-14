@@ -194,8 +194,8 @@ class EmployeePerformanceCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Employee Performance`}
-        content={`${appLocaleName(userContext,"CreateNew")}Employee Performance`}
+        title={`${appLocaleName(userContext,"CreateNew")}员工绩效`}
+        content={`${appLocaleName(userContext,"CreateNew")}员工绩效`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class EmployeePerformanceCreateForm extends Component {
                   {getFieldDecorator('performanceComment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Performance Comment" />
+                    <Input size="large" placeholder="绩效评价" />
                   )}
                 </Form.Item>
               </Col>

@@ -193,14 +193,14 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="Id">
+         <FormItem label="序号">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
-                 <Form.Item label="Buyer">
+                 <Form.Item label="买方">
                {getFieldDecorator('buyer', {
                  initialValue: tryinit('buyer'),
                 
@@ -255,14 +255,14 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="Id">
+            <FormItem label="序号">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Buyer">
+                    <Form.Item label="买方">
                   {getFieldDecorator('buyer', {
                     initialValue: tryinit('buyer'),
                    
@@ -277,7 +277,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Seller">
+                    <Form.Item label="卖方">
                   {getFieldDecorator('seller', {
                     initialValue: tryinit('seller'),
                    
@@ -293,7 +293,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Title">
+            <FormItem label="头衔">
               {getFieldDecorator('title')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -301,7 +301,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Current Status">
+            <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}

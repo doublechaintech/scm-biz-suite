@@ -30,24 +30,24 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Province Center Department", menuFor: "provinceCenterDepartment",
+const menuData = {menuName:"省中心", menuFor: "provinceCenterDepartment",
   		subItems: [
-  {name: 'provinceCenterEmployeeList', displayName:'Province Center Employee', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'provinceCenterEmployeeList', displayName:'省中心员工', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  founded: 'Founded',
-  provinceCenter: 'Province Center',
-  manager: 'Manager',
+  id: '序号',
+  name: '名称',
+  founded: '成立',
+  provinceCenter: '省中心',
+  manager: '经理',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'provinceCenterDepartment') , sorter: true },
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'provinceCenterDepartment') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '9',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.founded, dataIndex: 'founded', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.provinceCenter, dataIndex: 'provinceCenter', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -57,25 +57,22 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(provinceCenterDepartment,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={provinceCenterDepartment.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={provinceCenterDepartment.id}>
-	
-	<DescriptionList  key={provinceCenterDepartment.id} size="small" col="4">
-<Description term="Id">{provinceCenterDepartment.id}</Description> 
-<Description term="Name">{provinceCenterDepartment.name}</Description> 
-<Description term="Founded">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="Province Center">{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterDepartment.provinceCenter.displayName}(${provinceCenterDepartment.provinceCenter.id})`}
-</Description>
-<Description term="Manager">{provinceCenterDepartment.manager}</Description> 
+      <DescriptionList  key={provinceCenterDepartment.id} size="small" col="4">
+        <Description term="序号">{provinceCenterDepartment.id}</Description> 
+        <Description term="名称">{provinceCenterDepartment.name}</Description> 
+        <Description term="成立"><div>{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</div></Description> 
+        <Description term="省中心"><div>{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterDepartment.provinceCenter.displayName}(${provinceCenterDepartment.provinceCenter.id})`}
+        </div></Description>
+        <Description term="经理">{provinceCenterDepartment.manager}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

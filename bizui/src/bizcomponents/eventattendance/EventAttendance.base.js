@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Event Attendance", menuFor: "eventAttendance",
+const menuData = {menuName:"活动的参与情况", menuFor: "eventAttendance",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  name: 'Name',
-  potentialCustomer: 'Potential Customer',
-  cityEvent: 'City Event',
-  description: 'Description',
+  id: '序号',
+  name: '名称',
+  potentialCustomer: '潜在的客户',
+  cityEvent: '城市活动',
+  description: '描述',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'eventAttendance') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '13',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.potentialCustomer, dataIndex: 'potentialCustomer', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.cityEvent, dataIndex: 'cityEvent', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -56,26 +56,23 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(eventAttendance,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={eventAttendance.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={eventAttendance.id}>
-	
-	<DescriptionList  key={eventAttendance.id} size="small" col="4">
-<Description term="Id">{eventAttendance.id}</Description> 
-<Description term="Name">{eventAttendance.name}</Description> 
-<Description term="Potential Customer">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
-</Description>
-<Description term="City Event">{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
-</Description>
-<Description term="Description">{eventAttendance.description}</Description> 
+      <DescriptionList  key={eventAttendance.id} size="small" col="4">
+        <Description term="序号">{eventAttendance.id}</Description> 
+        <Description term="名称">{eventAttendance.name}</Description> 
+        <Description term="潜在的客户"><div>{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
+        </div></Description>
+        <Description term="城市活动"><div>{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
+        </div></Description>
+        <Description term="描述">{eventAttendance.description}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

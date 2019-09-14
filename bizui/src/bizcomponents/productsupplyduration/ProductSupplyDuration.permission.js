@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (productSupplyDuration,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{productSupplyDuration.id}</Description> 
-<Description term="Quantity">{productSupplyDuration.quantity}</Description> 
-<Description term="Duration">{productSupplyDuration.duration}</Description> 
-<Description term="Price">{productSupplyDuration.price}</Description> 
+<Description term="序号">{productSupplyDuration.id}</Description> 
+<Description term="数量">{productSupplyDuration.quantity}</Description> 
+<Description term="持续时间">{productSupplyDuration.duration}</Description> 
+<Description term="价格">{productSupplyDuration.price}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class ProductSupplyDurationPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  productSupplyDuration = this.props.productSupplyDuration;
+    const  productSupplyDuration = this.props.productSupplyDuration
     const { id,displayName,  } = productSupplyDuration
-    const cardsData = {cardsName:"Product Supply Duration",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,
+    const  returnURL = `/productSupplyDuration/${id}/dashboard`
+    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class ProductSupplyDurationPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

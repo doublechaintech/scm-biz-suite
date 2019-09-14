@@ -55,8 +55,8 @@ class ProductSupplyDurationProfile extends Component {
     // eslint-disable-next-line max-len
     const  productSupplyDuration = this.props.productSupplyDuration;
     const { id,displayName,  } = productSupplyDuration
-
-    const cardsData = {cardsName:"Product Supply Duration",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,
+    const  returnURL = `/productSupplyDuration/${id}/dashboard`
+    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",cardsSource: productSupplyDuration,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class ProductSupplyDurationProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

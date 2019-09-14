@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,15 +23,19 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (accountingDocumentConfirmation,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{accountingDocumentConfirmation.id}</Description> 
-<Description term="Who">{accountingDocumentConfirmation.who}</Description> 
-<Description term="Comments">{accountingDocumentConfirmation.comments}</Description> 
-<Description term="Make Date">{ moment(accountingDocumentConfirmation.makeDate).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{accountingDocumentConfirmation.id}</Description> 
+<Description term="谁">{accountingDocumentConfirmation.who}</Description> 
+<Description term="评论">{accountingDocumentConfirmation.comments}</Description> 
+<Description term="制造日期">{ moment(accountingDocumentConfirmation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -55,9 +59,10 @@ class AccountingDocumentConfirmationPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  accountingDocumentConfirmation = this.props.accountingDocumentConfirmation;
+    const  accountingDocumentConfirmation = this.props.accountingDocumentConfirmation
     const { id,displayName, accountingDocumentCount } = accountingDocumentConfirmation
-    const cardsData = {cardsName:"Accounting Document Confirmation",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,
+    const  returnURL = `/accountingDocumentConfirmation/${id}/dashboard`
+    const cardsData = {cardsName:"会计的确认文件",cardsFor: "accountingDocumentConfirmation",cardsSource: accountingDocumentConfirmation,displayName,returnURL,
   		subItems: [
     
       	],
@@ -68,7 +73,7 @@ class AccountingDocumentConfirmationPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

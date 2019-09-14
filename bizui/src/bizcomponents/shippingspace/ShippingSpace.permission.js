@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,19 +23,23 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (shippingSpace,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{shippingSpace.id}</Description> 
-<Description term="Location">{shippingSpace.location}</Description> 
-<Description term="Contact Number">{shippingSpace.contactNumber}</Description> 
-<Description term="Total Area">{shippingSpace.totalArea}</Description> 
-<Description term="Latitude">{shippingSpace.latitude}</Description> 
-<Description term="Longitude">{shippingSpace.longitude}</Description> 
-<Description term="Description">{shippingSpace.description}</Description> 
-<Description term="Last Update Time">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{shippingSpace.id}</Description> 
+<Description term="位置">{shippingSpace.location}</Description> 
+<Description term="联系电话">{shippingSpace.contactNumber}</Description> 
+<Description term="总面积">{shippingSpace.totalArea}</Description> 
+<Description term="纬度">{shippingSpace.latitude}</Description> 
+<Description term="经度">{shippingSpace.longitude}</Description> 
+<Description term="描述">{shippingSpace.description}</Description> 
+<Description term="最后更新时间">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,9 +63,10 @@ class ShippingSpacePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  shippingSpace = this.props.shippingSpace;
+    const  shippingSpace = this.props.shippingSpace
     const { id,displayName, goodsCount } = shippingSpace
-    const cardsData = {cardsName:"Shipping Space",cardsFor: "shippingSpace",cardsSource: shippingSpace,
+    const  returnURL = `/shippingSpace/${id}/dashboard`
+    const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",cardsSource: shippingSpace,displayName,returnURL,
   		subItems: [
     
       	],
@@ -72,7 +77,7 @@ class ShippingSpacePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

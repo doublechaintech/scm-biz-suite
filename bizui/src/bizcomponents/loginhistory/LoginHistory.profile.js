@@ -55,8 +55,8 @@ class LoginHistoryProfile extends Component {
     // eslint-disable-next-line max-len
     const  loginHistory = this.props.loginHistory;
     const { id,displayName,  } = loginHistory
-
-    const cardsData = {cardsName:"Login History",cardsFor: "loginHistory",cardsSource: loginHistory,
+    const  returnURL = `/loginHistory/${id}/dashboard`
+    const cardsData = {cardsName:"登录历史",cardsFor: "loginHistory",cardsSource: loginHistory,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class LoginHistoryProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

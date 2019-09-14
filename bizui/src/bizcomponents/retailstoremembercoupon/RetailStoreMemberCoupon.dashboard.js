@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreMemberCoupon/${targetComponent.props.retailStoreMemberCoupon.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/retailStoreMemberCoupon/${targetComponent.props.retailStoreMemberCoupon.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,16 +106,16 @@ const internalSummaryOf = (retailStoreMemberCoupon,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{retailStoreMemberCoupon.id}</Description> 
-<Description term="Name">{retailStoreMemberCoupon.name}</Description> 
-<Description term="Owner">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
+<Description term="序号">{retailStoreMemberCoupon.id}</Description> 
+<Description term="名称">{retailStoreMemberCoupon.name}</Description> 
+<Description term="业主">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Owner","retailStoreMember",RetailStoreMemberCouponService.requestCandidateOwner,
+  showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberCouponService.requestCandidateOwner,
 	      RetailStoreMemberCouponService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberCoupon.owner?retailStoreMemberCoupon.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Number">{retailStoreMemberCoupon.number}</Description> 
-<Description term="Last Update Time">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="数">{retailStoreMemberCoupon.number}</Description> 
+<Description term="最后更新时间">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(retailStoreMemberCoupon,targetComponent)}
       </DescriptionList>
@@ -128,7 +153,7 @@ class RetailStoreMemberCouponDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Retail Store Member Coupon",cardsFor: "retailStoreMemberCoupon",
+    const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",
     	cardsSource: this.props.retailStoreMemberCoupon,returnURL,displayName,
   		subItems: [
     
@@ -156,10 +181,10 @@ class RetailStoreMemberCouponDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

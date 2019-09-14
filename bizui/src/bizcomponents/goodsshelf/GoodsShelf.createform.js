@@ -196,8 +196,8 @@ class GoodsShelfCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Goods Shelf`}
-        content={`${appLocaleName(userContext,"CreateNew")}Goods Shelf`}
+        title={`${appLocaleName(userContext,"CreateNew")}货架`}
+        content={`${appLocaleName(userContext,"CreateNew")}货架`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class GoodsShelfCreateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Location" />
+                    <Input size="large" placeholder="位置" />
                   )}
                 </Form.Item>
               </Col>

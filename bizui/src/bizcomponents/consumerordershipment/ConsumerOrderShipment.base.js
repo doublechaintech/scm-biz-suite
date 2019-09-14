@@ -30,21 +30,21 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Consumer Order Shipment", menuFor: "consumerOrderShipment",
+const menuData = {menuName:"消费者的订单发货", menuFor: "consumerOrderShipment",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  shipTime: 'Ship Time',
+  id: '序号',
+  who: '谁',
+  shipTime: '船的时间',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'consumerOrderShipment') , sorter: true },
   { title: fieldLabels.who, debugtype: 'string', dataIndex: 'who', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.shipTime, dataIndex: 'shipTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
@@ -52,22 +52,19 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(consumerOrderShipment,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={consumerOrderShipment.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={consumerOrderShipment.id}>
-	
-	<DescriptionList  key={consumerOrderShipment.id} size="small" col="4">
-<Description term="Id">{consumerOrderShipment.id}</Description> 
-<Description term="Who">{consumerOrderShipment.who}</Description> 
-<Description term="Ship Time">{ moment(consumerOrderShipment.shipTime).format('YYYY-MM-DD')}</Description> 
+      <DescriptionList  key={consumerOrderShipment.id} size="small" col="4">
+        <Description term="序号">{consumerOrderShipment.id}</Description> 
+        <Description term="谁">{consumerOrderShipment.who}</Description> 
+        <Description term="船的时间"><div>{ moment(consumerOrderShipment.shipTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

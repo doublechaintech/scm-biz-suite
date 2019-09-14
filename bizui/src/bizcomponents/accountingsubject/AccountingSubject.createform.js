@@ -197,8 +197,8 @@ class AccountingSubjectCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Accounting Subject`}
-        content={`${appLocaleName(userContext,"CreateNew")}Accounting Subject`}
+        title={`${appLocaleName(userContext,"CreateNew")}会计科目`}
+        content={`${appLocaleName(userContext,"CreateNew")}会计科目`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -210,7 +210,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Accounting Subject Code" />
+                    <Input size="large" placeholder="会计科目代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +220,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Accounting Subject Name" />
+                    <Input size="large" placeholder="会计科目名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +230,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Accounting Subject Class Code" />
+                    <Input size="large" placeholder="会计科目类别代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +240,7 @@ class AccountingSubjectCreateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Accounting Subject Class Name" />
+                    <Input size="large" placeholder="会计科目类别名称" />
                   )}
                 </Form.Item>
               </Col>

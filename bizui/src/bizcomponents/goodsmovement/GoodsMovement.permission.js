@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,19 +23,23 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (goodsMovement,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{goodsMovement.id}</Description> 
-<Description term="Move Time">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="Facility">{goodsMovement.facility}</Description> 
-<Description term="Facility Id">{goodsMovement.facilityId}</Description> 
-<Description term="From Ip">{goodsMovement.fromIp}</Description> 
-<Description term="Session Id">{goodsMovement.sessionId}</Description> 
-<Description term="Latitude">{goodsMovement.latitude}</Description> 
-<Description term="Longitude">{goodsMovement.longitude}</Description> 
+<Description term="序号">{goodsMovement.id}</Description> 
+<Description term="移动时间">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD')}</Description> 
+<Description term="设施">{goodsMovement.facility}</Description> 
+<Description term="设备ID">{goodsMovement.facilityId}</Description> 
+<Description term="从IP">{goodsMovement.fromIp}</Description> 
+<Description term="会话ID">{goodsMovement.sessionId}</Description> 
+<Description term="纬度">{goodsMovement.latitude}</Description> 
+<Description term="经度">{goodsMovement.longitude}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,9 +63,10 @@ class GoodsMovementPermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  goodsMovement = this.props.goodsMovement;
+    const  goodsMovement = this.props.goodsMovement
     const { id,displayName,  } = goodsMovement
-    const cardsData = {cardsName:"Goods Movement",cardsFor: "goodsMovement",cardsSource: goodsMovement,
+    const  returnURL = `/goodsMovement/${id}/dashboard`
+    const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",cardsSource: goodsMovement,displayName,returnURL,
   		subItems: [
     
       	],
@@ -72,7 +77,7 @@ class GoodsMovementPermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -23,19 +23,23 @@ const {defaultRenderExtraHeader}= DashboardTool
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
 
+}
 const internalSummaryOf = (receivingSpace,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{receivingSpace.id}</Description> 
-<Description term="Location">{receivingSpace.location}</Description> 
-<Description term="Contact Number">{receivingSpace.contactNumber}</Description> 
-<Description term="Description">{receivingSpace.description}</Description> 
-<Description term="Total Area">{receivingSpace.totalArea}</Description> 
-<Description term="Latitude">{receivingSpace.latitude}</Description> 
-<Description term="Longitude">{receivingSpace.longitude}</Description> 
-<Description term="Last Update Time">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="序号">{receivingSpace.id}</Description> 
+<Description term="位置">{receivingSpace.location}</Description> 
+<Description term="联系电话">{receivingSpace.contactNumber}</Description> 
+<Description term="描述">{receivingSpace.description}</Description> 
+<Description term="总面积">{receivingSpace.totalArea}</Description> 
+<Description term="纬度">{receivingSpace.latitude}</Description> 
+<Description term="经度">{receivingSpace.longitude}</Description> 
+<Description term="最后更新时间">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>
 	)
@@ -59,9 +63,10 @@ class ReceivingSpacePermission extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const  receivingSpace = this.props.receivingSpace;
+    const  receivingSpace = this.props.receivingSpace
     const { id,displayName, goodsCount } = receivingSpace
-    const cardsData = {cardsName:"Receiving Space",cardsFor: "receivingSpace",cardsSource: receivingSpace,
+    const  returnURL = `/receivingSpace/${id}/dashboard`
+    const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",cardsSource: receivingSpace,displayName,returnURL,
   		subItems: [
     
       	],
@@ -72,7 +77,7 @@ class ReceivingSpacePermission extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
+        title={internalRenderTitle(cardsData,this)}
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >

@@ -202,7 +202,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="Id">
+         <FormItem label="序号">
            {getFieldDecorator('id')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -210,7 +210,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="Name">
+         <FormItem label="名称">
            {getFieldDecorator('name')(
              <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -257,7 +257,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="Id">
+            <FormItem label="序号">
               {getFieldDecorator('id')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -265,7 +265,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Name">
+            <FormItem label="名称">
               {getFieldDecorator('name')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -273,7 +273,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Rfid">
+            <FormItem label="RFID">
               {getFieldDecorator('rfid')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -281,14 +281,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Uom">
+            <FormItem label="计量单位">
               {getFieldDecorator('uom')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Sku">
+                    <Form.Item label="SKU">
                   {getFieldDecorator('sku', {
                     initialValue: tryinit('sku'),
                    
@@ -303,7 +303,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Receiving Space">
+                    <Form.Item label="收货区">
                   {getFieldDecorator('receivingSpace', {
                     initialValue: tryinit('receivingSpace'),
                    
@@ -318,7 +318,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Goods Allocation">
+                    <Form.Item label="货位">
                   {getFieldDecorator('goodsAllocation', {
                     initialValue: tryinit('goodsAllocation'),
                    
@@ -333,7 +333,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Smart Pallet">
+                    <Form.Item label="智能托盘">
                   {getFieldDecorator('smartPallet', {
                     initialValue: tryinit('smartPallet'),
                    
@@ -348,7 +348,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Shipping Space">
+                    <Form.Item label="发货区">
                   {getFieldDecorator('shippingSpace', {
                     initialValue: tryinit('shippingSpace'),
                    
@@ -363,7 +363,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Transport Task">
+                    <Form.Item label="运输任务">
                   {getFieldDecorator('transportTask', {
                     initialValue: tryinit('transportTask'),
                    
@@ -378,7 +378,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Retail Store">
+                    <Form.Item label="双链小超">
                   {getFieldDecorator('retailStore', {
                     initialValue: tryinit('retailStore'),
                    
@@ -393,7 +393,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Biz Order">
+                    <Form.Item label="订单">
                   {getFieldDecorator('bizOrder', {
                     initialValue: tryinit('bizOrder'),
                    
@@ -408,7 +408,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="Retail Store Order">
+                    <Form.Item label="生超的订单">
                   {getFieldDecorator('retailStoreOrder', {
                     initialValue: tryinit('retailStoreOrder'),
                    
@@ -424,7 +424,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="Current Status">
+            <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
                 <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}

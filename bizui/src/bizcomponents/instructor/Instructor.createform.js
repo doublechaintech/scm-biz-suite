@@ -199,8 +199,8 @@ class InstructorCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Instructor`}
-        content={`${appLocaleName(userContext,"CreateNew")}Instructor`}
+        title={`${appLocaleName(userContext,"CreateNew")}讲师`}
+        content={`${appLocaleName(userContext,"CreateNew")}讲师`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -212,7 +212,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                   )}
                 </Form.Item>
               </Col>
@@ -222,7 +222,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('familyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Family Name" />
+                    <Input size="large" placeholder="姓" />
                   )}
                 </Form.Item>
               </Col>
@@ -232,7 +232,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('givenName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Given Name" />
+                    <Input size="large" placeholder="名" />
                   )}
                 </Form.Item>
               </Col>
@@ -242,7 +242,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('cellPhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Cell Phone" />
+                    <Input size="large" placeholder="手机" />
                   )}
                 </Form.Item>
               </Col>
@@ -252,7 +252,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Email" />
+                    <Input size="large" placeholder="电子邮件" />
                   )}
                 </Form.Item>
               </Col>
@@ -262,7 +262,7 @@ class InstructorCreateForm extends Component {
                   {getFieldDecorator('introduction', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Introduction" />
+                    <Input size="large" placeholder="介绍" />
                   )}
                 </Form.Item>
               </Col>

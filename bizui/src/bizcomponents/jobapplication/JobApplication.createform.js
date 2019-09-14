@@ -17,7 +17,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  applicationTime: '2019-02-15',
+  applicationTime: '2018-01-02',
   who: '申请者本人',
   comments: '我觉得我符合职位要求，请给我一个机会为公司发展做出贡献，谢谢！',
 }
@@ -195,8 +195,8 @@ class JobApplicationCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Job Application`}
-        content={`${appLocaleName(userContext,"CreateNew")}Job Application`}
+        title={`${appLocaleName(userContext,"CreateNew")}工作申请`}
+        content={`${appLocaleName(userContext,"CreateNew")}工作申请`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -208,7 +208,7 @@ class JobApplicationCreateForm extends Component {
                   {getFieldDecorator('applicationTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Application Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="申请时间" />
                   )}
                 </Form.Item>
               </Col>
@@ -218,7 +218,7 @@ class JobApplicationCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -228,7 +228,7 @@ class JobApplicationCreateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Comments" />
+                    <Input size="large" placeholder="评论" />
                   )}
                 </Form.Item>
               </Col>

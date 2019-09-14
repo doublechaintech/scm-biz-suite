@@ -30,23 +30,23 @@ const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"Employee Leave", menuFor: "employeeLeave",
+const menuData = {menuName:"请假记录", menuFor: "employeeLeave",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'Id',
-  who: 'Who',
-  type: 'Type',
-  leaveDurationHour: 'Leave Duration Hour',
-  remark: 'Remark',
+  id: '序号',
+  who: '谁',
+  type: '类型',
+  leaveDurationHour: '请假时长',
+  remark: '备注',
 
 }
 
 const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeLeave') , sorter: true },
   { title: fieldLabels.who, dataIndex: 'who', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.type, dataIndex: 'type', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.leaveDurationHour, debugtype: 'int', dataIndex: 'leaveDurationHour', width: '5',render: (text, record)=>renderTextCell(text,record)},
@@ -56,26 +56,23 @@ const displayColumns = [
 // refernce to https://ant.design/components/list-cn/
 const renderItemOfList=(employeeLeave,targetComponent)=>{
 
+  const userContext = null
+  return (
+    <div key={employeeLeave.id}>
 	
-	
-	
-	const userContext = null
-	return (
-	<div key={employeeLeave.id}>
-	
-	<DescriptionList  key={employeeLeave.id} size="small" col="4">
-<Description term="Id">{employeeLeave.id}</Description> 
-<Description term="Who">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
-</Description>
-<Description term="Type">{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
-</Description>
-<Description term="Leave Duration Hour">{employeeLeave.leaveDurationHour}</Description> 
-<Description term="Remark">{employeeLeave.remark}</Description> 
+      <DescriptionList  key={employeeLeave.id} size="small" col="4">
+        <Description term="序号">{employeeLeave.id}</Description> 
+        <Description term="谁"><div>{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
+        </div></Description>
+        <Description term="类型"><div>{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
+        </div></Description>
+        <Description term="请假时长"><div style={{"color":"red"}}>{employeeLeave.leaveDurationHour}</div></Description> 
+        <Description term="备注">{employeeLeave.remark}</Description> 
 	
         
       </DescriptionList>
-       <Divider style={{ height: '2px' }} />
-      </div>
+      <Divider style={{ height: '2px' }} />
+    </div>
 	)
 
 }

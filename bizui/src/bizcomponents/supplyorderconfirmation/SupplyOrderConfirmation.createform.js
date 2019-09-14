@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '确认者',
-  confirmTime: '2016-12-13',
+  confirmTime: '2019-01-21',
 }
 */
 
@@ -194,8 +194,8 @@ class SupplyOrderConfirmationCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Supply Order Confirmation`}
-        content={`${appLocaleName(userContext,"CreateNew")}Supply Order Confirmation`}
+        title={`${appLocaleName(userContext,"CreateNew")}供应订单确认`}
+        content={`${appLocaleName(userContext,"CreateNew")}供应订单确认`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -207,7 +207,7 @@ class SupplyOrderConfirmationCreateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Who" />
+                    <Input size="large" placeholder="谁" />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +217,7 @@ class SupplyOrderConfirmationCreateForm extends Component {
                   {getFieldDecorator('confirmTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="Confirm Time" />
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="确认时间" />
                   )}
                 </Form.Item>
               </Col>

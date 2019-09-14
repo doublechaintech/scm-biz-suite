@@ -55,8 +55,8 @@ class AccountingDocumentAuditingProfile extends Component {
     // eslint-disable-next-line max-len
     const  accountingDocumentAuditing = this.props.accountingDocumentAuditing;
     const { id,displayName, accountingDocumentCount } = accountingDocumentAuditing
-
-    const cardsData = {cardsName:"Accounting Document Auditing",cardsFor: "accountingDocumentAuditing",cardsSource: accountingDocumentAuditing,
+    const  returnURL = `/accountingDocumentAuditing/${id}/dashboard`
+    const cardsData = {cardsName:"会计凭证的审核",cardsFor: "accountingDocumentAuditing",cardsSource: accountingDocumentAuditing,displayName,returnURL,
   		subItems: [
      
       	],
@@ -70,8 +70,8 @@ class AccountingDocumentAuditingProfile extends Component {
     return (
 
       <PageHeaderLayout
-        title={`${cardsData.cardsName}: ${displayName}`}
-        content={summaryOf(cardsData.cardsSource,this)}
+        title={internalRenderTitle(cardsData, this)}
+        content={summaryOf(cardsData.cardsSource, this)}
         wrapperClassName={styles.advancedForm}
       >
       {renderExtraHeader(cardsData.cardsSource)}

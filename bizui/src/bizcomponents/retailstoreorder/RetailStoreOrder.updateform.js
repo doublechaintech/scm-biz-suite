@@ -262,7 +262,7 @@ class RetailStoreOrderUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -274,7 +274,7 @@ class RetailStoreOrderUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Title" />
+                    <Input size="large" placeholder="头衔" />
                     
                   )}
                 </Form.Item>
@@ -286,7 +286,7 @@ class RetailStoreOrderUpdateForm extends Component {
                     initialValue: selectedRow.totalAmount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="Total Amount" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="总金额" />
                     
                   )}
                 </Form.Item>

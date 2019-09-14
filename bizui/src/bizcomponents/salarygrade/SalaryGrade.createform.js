@@ -196,8 +196,8 @@ class SalaryGradeCreateForm extends Component {
     }
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}Salary Grade`}
-        content={`${appLocaleName(userContext,"CreateNew")}Salary Grade`}
+        title={`${appLocaleName(userContext,"CreateNew")}工资等级`}
+        content={`${appLocaleName(userContext,"CreateNew")}工资等级`}
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
@@ -209,7 +209,7 @@ class SalaryGradeCreateForm extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Code" />
+                    <Input size="large" placeholder="代码" />
                   )}
                 </Form.Item>
               </Col>
@@ -219,7 +219,7 @@ class SalaryGradeCreateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -229,7 +229,7 @@ class SalaryGradeCreateForm extends Component {
                   {getFieldDecorator('detailDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Detail Description" />
+                    <Input size="large" placeholder="详细描述" />
                   )}
                 </Form.Item>
               </Col>

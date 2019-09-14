@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
+import BooleanOption from '../../components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
@@ -65,11 +65,36 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight">
+        <Icon
+          type="setting"
+        />
+      </Dropdown>)
+
+
+}
+
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/damageSpace/${targetComponent.props.damageSpace.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Item key="permission">
+  			<Link to={`/damageSpace/${targetComponent.props.damageSpace.id}/profile`}><Icon type="cluster"  twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Profile")}</span></Link>
+			</Menu.Item>
+		</Menu>)
+
+}
+
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
 
 }
 
@@ -81,19 +106,19 @@ const internalSummaryOf = (damageSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="Id">{damageSpace.id}</Description> 
-<Description term="Location">{damageSpace.location}</Description> 
-<Description term="Contact Number">{damageSpace.contactNumber}</Description> 
-<Description term="Total Area">{damageSpace.totalArea}</Description> 
-<Description term="Latitude">{damageSpace.latitude}</Description> 
-<Description term="Longitude">{damageSpace.longitude}</Description> 
-<Description term="Warehouse">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
+<Description term="序号">{damageSpace.id}</Description> 
+<Description term="位置">{damageSpace.location}</Description> 
+<Description term="联系电话">{damageSpace.contactNumber}</Description> 
+<Description term="总面积">{damageSpace.totalArea}</Description> 
+<Description term="纬度">{damageSpace.latitude}</Description> 
+<Description term="经度">{damageSpace.longitude}</Description> 
+<Description term="仓库">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"Warehouse","warehouse",DamageSpaceService.requestCandidateWarehouse,
+  showTransferModel(targetComponent,"仓库","warehouse",DamageSpaceService.requestCandidateWarehouse,
 	      DamageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",damageSpace.warehouse?damageSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="Last Update Time">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<Description term="最后更新时间">{ moment(damageSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(damageSpace,targetComponent)}
       </DescriptionList>
@@ -131,10 +156,10 @@ class DamageSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"Damage Space",cardsFor: "damageSpace",
+    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",
     	cardsSource: this.props.damageSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'Goods Shelf',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
   	};
@@ -160,10 +185,10 @@ class DamageSpaceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
         {quickFunctions(cardsData)} 
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
         {renderSubjectList(cardsData)}       
         {largeTextOf(cardsData.cardsSource)}
         {renderExtraFooter(cardsData.cardsSource)}

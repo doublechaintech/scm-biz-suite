@@ -261,7 +261,7 @@ class TruckDriverUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Id" disabled/>
+                    <Input size="large" placeholder="序号" disabled/>
                     
                   )}
                 </Form.Item>
@@ -273,7 +273,7 @@ class TruckDriverUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Name" />
+                    <Input size="large" placeholder="名称" />
                     
                   )}
                 </Form.Item>
@@ -285,7 +285,7 @@ class TruckDriverUpdateForm extends Component {
                     initialValue: selectedRow.driverLicenseNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Driver License Number" />
+                    <Input size="large" placeholder="驾驶执照号码" />
                     
                   )}
                 </Form.Item>
@@ -297,7 +297,7 @@ class TruckDriverUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="Contact Number" />
+                    <Input size="large" placeholder="联系电话" />
                     
                   )}
                 </Form.Item>
