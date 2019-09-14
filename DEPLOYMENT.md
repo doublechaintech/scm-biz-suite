@@ -123,7 +123,55 @@ cd  resin-3.1.16/ && bin/httpd.sh
 
 ### 配置nginx（ 非生产环境的话，不是必要步骤）
 
-这一步非常简单，拷贝这个文件到 /etc/nginx/sites-enabled/demo, 然后 service ngnix start
+这一步非常简单，拷贝下面内容文件到 ubuntu上 /etc/nginx/sites-enabled/demo, 然后 service ngnix restart
+请注意替换服务器名字
+server_name demo.doublechaintech.com;
+
+```
+
+server {
+
+	gzip on;
+	gzip_disable "msie6";
+	
+	gzip_comp_level 6;
+	gzip_min_length 1100;
+	gzip_buffers 16 8k;
+	gzip_proxied any;
+	gzip_types
+	    text/plain
+	    text/css
+	    text/js
+	    text/xml
+	    text/javascript
+	    application/javascript
+	    application/x-javascript
+	    application/json
+	    application/xml
+	    application/rss+xml
+	    image/svg+xml;
+
+	root /var/www/html;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name demo.doublechaintech.com;
+
+	location / {
+
+	        proxy_pass http://127.0.0.1:8080;
+        	proxy_set_header        Host               $host;
+        	proxy_set_header        X-Real-IP          $remote_addr;
+        	proxy_set_header        X-Forwarded-For    $proxy_add_x_forwarded_for;
+        	proxy_set_header        X-Forwarded-Host   $host;
+        	proxy_set_header        X-Forwarded-Server $host;
+        	proxy_set_header        X-Forwarded-Port   80;
+        	proxy_set_header        X-Forwarded-Proto  http;
+       }
+}
+```
+
+
 
 ### SpringBoot开发指南
 

@@ -153,13 +153,5 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
 
 
-## 欢迎加微信，共同学习探讨供应链系统以及相关技术
 
-
-<img src="/doc/philip-wechat-qr.jpeg" alt="WechatQRCode" title="WechatQRCode" width="150"  />
-
-* 探讨供应链发展趋势
-* 探讨供应链相关技术和产品
-* 探讨分享市场机遇
-* 验证时请输入任何有关供应链相关的名词
 
