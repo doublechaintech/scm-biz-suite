@@ -164,6 +164,7 @@ class InstructorBizApp extends React.PureComponent {
       data: state._instructor.companyTrainingList,
       metaInfo: state._instructor.companyTrainingListMetaInfo,
       count: state._instructor.companyTrainingCount,
+      returnURL: `/instructor/${state._instructor.id}/dashboard`,
       currentPage: state._instructor.companyTrainingCurrentPageNumber,
       searchFormParameters: state._instructor.companyTrainingSearchFormParameters,
       searchParameters: {...state._instructor.searchParameters},

@@ -37,6 +37,13 @@ const menuData = {menuName:"技能类型", menuFor: "skillType",
   		],
 }
 
+
+const settingMenuData = {menuName:"技能类型", menuFor: "skillType",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

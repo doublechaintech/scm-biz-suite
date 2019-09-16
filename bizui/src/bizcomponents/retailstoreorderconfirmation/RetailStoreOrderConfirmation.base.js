@@ -37,6 +37,13 @@ const menuData = {menuName:"生超订单确认", menuFor: "retailStoreOrderConfi
   		],
 }
 
+
+const settingMenuData = {menuName:"生超订单确认", menuFor: "retailStoreOrderConfirmation",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

@@ -36,6 +36,13 @@ const menuData = {menuName:"供应订单付款组", menuFor: "supplyOrderPayment
   		],
 }
 
+
+const settingMenuData = {menuName:"供应订单付款组", menuFor: "supplyOrderPaymentGroup",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

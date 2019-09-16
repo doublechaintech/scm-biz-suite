@@ -37,6 +37,13 @@ const menuData = {menuName:"原始凭证的确认", menuFor: "originalVoucherCon
   		],
 }
 
+
+const settingMenuData = {menuName:"原始凭证的确认", menuFor: "originalVoucherConfirmation",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

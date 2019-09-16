@@ -164,6 +164,7 @@ class OriginalVoucherCreationBizApp extends React.PureComponent {
       data: state._originalVoucherCreation.originalVoucherList,
       metaInfo: state._originalVoucherCreation.originalVoucherListMetaInfo,
       count: state._originalVoucherCreation.originalVoucherCount,
+      returnURL: `/originalVoucherCreation/${state._originalVoucherCreation.id}/dashboard`,
       currentPage: state._originalVoucherCreation.originalVoucherCurrentPageNumber,
       searchFormParameters: state._originalVoucherCreation.originalVoucherSearchFormParameters,
       searchParameters: {...state._originalVoucherCreation.searchParameters},

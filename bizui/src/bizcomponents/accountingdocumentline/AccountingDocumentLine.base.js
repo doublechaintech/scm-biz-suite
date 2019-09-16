@@ -36,6 +36,13 @@ const menuData = {menuName:"会计凭证行", menuFor: "accountingDocumentLine",
   		],
 }
 
+
+const settingMenuData = {menuName:"会计凭证行", menuFor: "accountingDocumentLine",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

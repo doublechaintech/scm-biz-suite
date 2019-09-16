@@ -164,6 +164,7 @@ class EmployeeBoardingBizApp extends React.PureComponent {
       data: state._employeeBoarding.employeeList,
       metaInfo: state._employeeBoarding.employeeListMetaInfo,
       count: state._employeeBoarding.employeeCount,
+      returnURL: `/employeeBoarding/${state._employeeBoarding.id}/dashboard`,
       currentPage: state._employeeBoarding.employeeCurrentPageNumber,
       searchFormParameters: state._employeeBoarding.employeeSearchFormParameters,
       searchParameters: {...state._employeeBoarding.searchParameters},

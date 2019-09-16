@@ -164,6 +164,7 @@ class SupplierProductBizApp extends React.PureComponent {
       data: state._supplierProduct.productSupplyDurationList,
       metaInfo: state._supplierProduct.productSupplyDurationListMetaInfo,
       count: state._supplierProduct.productSupplyDurationCount,
+      returnURL: `/supplierProduct/${state._supplierProduct.id}/dashboard`,
       currentPage: state._supplierProduct.productSupplyDurationCurrentPageNumber,
       searchFormParameters: state._supplierProduct.productSupplyDurationSearchFormParameters,
       searchParameters: {...state._supplierProduct.searchParameters},

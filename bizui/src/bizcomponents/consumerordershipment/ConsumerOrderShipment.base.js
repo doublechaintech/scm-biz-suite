@@ -36,6 +36,13 @@ const menuData = {menuName:"消费者的订单发货", menuFor: "consumerOrderSh
   		],
 }
 
+
+const settingMenuData = {menuName:"消费者的订单发货", menuFor: "consumerOrderShipment",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

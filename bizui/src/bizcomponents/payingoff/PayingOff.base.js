@@ -37,6 +37,13 @@ const menuData = {menuName:"工资支付", menuFor: "payingOff",
   		],
 }
 
+
+const settingMenuData = {menuName:"工资支付", menuFor: "payingOff",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

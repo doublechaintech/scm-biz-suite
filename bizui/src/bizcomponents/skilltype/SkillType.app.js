@@ -164,6 +164,7 @@ class SkillTypeBizApp extends React.PureComponent {
       data: state._skillType.employeeSkillList,
       metaInfo: state._skillType.employeeSkillListMetaInfo,
       count: state._skillType.employeeSkillCount,
+      returnURL: `/skillType/${state._skillType.id}/dashboard`,
       currentPage: state._skillType.employeeSkillCurrentPageNumber,
       searchFormParameters: state._skillType.employeeSkillSearchFormParameters,
       searchParameters: {...state._skillType.searchParameters},

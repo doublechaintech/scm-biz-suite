@@ -37,6 +37,13 @@ const menuData = {menuName:"培训课程类型", menuFor: "trainingCourseType",
   		],
 }
 
+
+const settingMenuData = {menuName:"培训课程类型", menuFor: "trainingCourseType",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

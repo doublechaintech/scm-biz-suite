@@ -164,6 +164,7 @@ class SkuBizApp extends React.PureComponent {
       data: state._sku.goodsList,
       metaInfo: state._sku.goodsListMetaInfo,
       count: state._sku.goodsCount,
+      returnURL: `/sku/${state._sku.id}/dashboard`,
       currentPage: state._sku.goodsCurrentPageNumber,
       searchFormParameters: state._sku.goodsSearchFormParameters,
       searchParameters: {...state._sku.searchParameters},

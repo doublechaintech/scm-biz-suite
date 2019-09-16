@@ -38,6 +38,13 @@ const menuData = {menuName:"会计凭证", menuFor: "accountingDocument",
   		],
 }
 
+
+const settingMenuData = {menuName:"会计凭证", menuFor: "accountingDocument",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

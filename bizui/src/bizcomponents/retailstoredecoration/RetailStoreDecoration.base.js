@@ -37,6 +37,13 @@ const menuData = {menuName:"生超装修", menuFor: "retailStoreDecoration",
   		],
 }
 
+
+const settingMenuData = {menuName:"生超装修", menuFor: "retailStoreDecoration",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   comment: '评论',

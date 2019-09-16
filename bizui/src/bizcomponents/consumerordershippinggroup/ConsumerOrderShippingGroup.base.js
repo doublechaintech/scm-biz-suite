@@ -36,6 +36,13 @@ const menuData = {menuName:"消费订单送货分组", menuFor: "consumerOrderSh
   		],
 }
 
+
+const settingMenuData = {menuName:"消费订单送货分组", menuFor: "consumerOrderShippingGroup",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

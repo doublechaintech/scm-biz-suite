@@ -164,6 +164,7 @@ class RetailStoreCreationBizApp extends React.PureComponent {
       data: state._retailStoreCreation.retailStoreList,
       metaInfo: state._retailStoreCreation.retailStoreListMetaInfo,
       count: state._retailStoreCreation.retailStoreCount,
+      returnURL: `/retailStoreCreation/${state._retailStoreCreation.id}/dashboard`,
       currentPage: state._retailStoreCreation.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreCreation.retailStoreSearchFormParameters,
       searchParameters: {...state._retailStoreCreation.searchParameters},

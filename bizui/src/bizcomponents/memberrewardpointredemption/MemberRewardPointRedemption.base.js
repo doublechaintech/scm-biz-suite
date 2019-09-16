@@ -36,6 +36,13 @@ const menuData = {menuName:"会员奖励点赎回", menuFor: "memberRewardPointR
   		],
 }
 
+
+const settingMenuData = {menuName:"会员奖励点赎回", menuFor: "memberRewardPointRedemption",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

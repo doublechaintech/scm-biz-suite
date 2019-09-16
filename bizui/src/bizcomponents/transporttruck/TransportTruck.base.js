@@ -37,6 +37,13 @@ const menuData = {menuName:"运输车", menuFor: "transportTruck",
   		],
 }
 
+
+const settingMenuData = {menuName:"运输车", menuFor: "transportTruck",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

@@ -164,6 +164,7 @@ class ResponsibilityTypeBizApp extends React.PureComponent {
       data: state._responsibilityType.employeeList,
       metaInfo: state._responsibilityType.employeeListMetaInfo,
       count: state._responsibilityType.employeeCount,
+      returnURL: `/responsibilityType/${state._responsibilityType.id}/dashboard`,
       currentPage: state._responsibilityType.employeeCurrentPageNumber,
       searchFormParameters: state._responsibilityType.employeeSearchFormParameters,
       searchParameters: {...state._responsibilityType.searchParameters},

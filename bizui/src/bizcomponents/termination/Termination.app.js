@@ -164,6 +164,7 @@ class TerminationBizApp extends React.PureComponent {
       data: state._termination.employeeList,
       metaInfo: state._termination.employeeListMetaInfo,
       count: state._termination.employeeCount,
+      returnURL: `/termination/${state._termination.id}/dashboard`,
       currentPage: state._termination.employeeCurrentPageNumber,
       searchFormParameters: state._termination.employeeSearchFormParameters,
       searchParameters: {...state._termination.searchParameters},

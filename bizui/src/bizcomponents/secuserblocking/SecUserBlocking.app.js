@@ -164,6 +164,7 @@ class SecUserBlockingBizApp extends React.PureComponent {
       data: state._secUserBlocking.secUserList,
       metaInfo: state._secUserBlocking.secUserListMetaInfo,
       count: state._secUserBlocking.secUserCount,
+      returnURL: `/secUserBlocking/${state._secUserBlocking.id}/dashboard`,
       currentPage: state._secUserBlocking.secUserCurrentPageNumber,
       searchFormParameters: state._secUserBlocking.secUserSearchFormParameters,
       searchParameters: {...state._secUserBlocking.searchParameters},

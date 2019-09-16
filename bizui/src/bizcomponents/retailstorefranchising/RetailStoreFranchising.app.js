@@ -164,6 +164,7 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
       data: state._retailStoreFranchising.retailStoreList,
       metaInfo: state._retailStoreFranchising.retailStoreListMetaInfo,
       count: state._retailStoreFranchising.retailStoreCount,
+      returnURL: `/retailStoreFranchising/${state._retailStoreFranchising.id}/dashboard`,
       currentPage: state._retailStoreFranchising.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreFranchising.retailStoreSearchFormParameters,
       searchParameters: {...state._retailStoreFranchising.searchParameters},

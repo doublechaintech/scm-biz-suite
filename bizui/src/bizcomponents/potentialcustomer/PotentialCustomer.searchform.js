@@ -273,10 +273,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="城市服务中心">
-                  {getFieldDecorator('cityServiceCenter', {
-                    initialValue: tryinit('cityServiceCenter'),
-                   
-                  })(
+                  {getFieldDecorator('cityServiceCenter', {initialValue: tryinit('cityServiceCenter')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('cityServiceCenter')}
@@ -288,10 +285,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="城市合伙人">
-                  {getFieldDecorator('cityPartner', {
-                    initialValue: tryinit('cityPartner'),
-                   
-                  })(
+                  {getFieldDecorator('cityPartner', {initialValue: tryinit('cityPartner')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('cityPartner')}

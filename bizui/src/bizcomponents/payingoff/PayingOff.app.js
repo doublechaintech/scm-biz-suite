@@ -164,6 +164,7 @@ class PayingOffBizApp extends React.PureComponent {
       data: state._payingOff.employeeSalarySheetList,
       metaInfo: state._payingOff.employeeSalarySheetListMetaInfo,
       count: state._payingOff.employeeSalarySheetCount,
+      returnURL: `/payingOff/${state._payingOff.id}/dashboard`,
       currentPage: state._payingOff.employeeSalarySheetCurrentPageNumber,
       searchFormParameters: state._payingOff.employeeSalarySheetSearchFormParameters,
       searchParameters: {...state._payingOff.searchParameters},

@@ -164,6 +164,7 @@ class RetailStoreInvestmentInvitationBizApp extends React.PureComponent {
       data: state._retailStoreInvestmentInvitation.retailStoreList,
       metaInfo: state._retailStoreInvestmentInvitation.retailStoreListMetaInfo,
       count: state._retailStoreInvestmentInvitation.retailStoreCount,
+      returnURL: `/retailStoreInvestmentInvitation/${state._retailStoreInvestmentInvitation.id}/dashboard`,
       currentPage: state._retailStoreInvestmentInvitation.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreInvestmentInvitation.retailStoreSearchFormParameters,
       searchParameters: {...state._retailStoreInvestmentInvitation.searchParameters},

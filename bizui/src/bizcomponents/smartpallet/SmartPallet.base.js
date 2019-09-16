@@ -37,6 +37,13 @@ const menuData = {menuName:"智能托盘", menuFor: "smartPallet",
   		],
 }
 
+
+const settingMenuData = {menuName:"智能托盘", menuFor: "smartPallet",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   location: '位置',

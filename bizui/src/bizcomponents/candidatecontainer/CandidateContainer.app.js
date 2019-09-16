@@ -164,6 +164,7 @@ class CandidateContainerBizApp extends React.PureComponent {
       data: state._candidateContainer.candidateElementList,
       metaInfo: state._candidateContainer.candidateElementListMetaInfo,
       count: state._candidateContainer.candidateElementCount,
+      returnURL: `/candidateContainer/${state._candidateContainer.id}/dashboard`,
       currentPage: state._candidateContainer.candidateElementCurrentPageNumber,
       searchFormParameters: state._candidateContainer.candidateElementSearchFormParameters,
       searchParameters: {...state._candidateContainer.searchParameters},

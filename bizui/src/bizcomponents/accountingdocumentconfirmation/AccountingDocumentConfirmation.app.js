@@ -164,6 +164,7 @@ class AccountingDocumentConfirmationBizApp extends React.PureComponent {
       data: state._accountingDocumentConfirmation.accountingDocumentList,
       metaInfo: state._accountingDocumentConfirmation.accountingDocumentListMetaInfo,
       count: state._accountingDocumentConfirmation.accountingDocumentCount,
+      returnURL: `/accountingDocumentConfirmation/${state._accountingDocumentConfirmation.id}/dashboard`,
       currentPage: state._accountingDocumentConfirmation.accountingDocumentCurrentPageNumber,
       searchFormParameters: state._accountingDocumentConfirmation.accountingDocumentSearchFormParameters,
       searchParameters: {...state._accountingDocumentConfirmation.searchParameters},

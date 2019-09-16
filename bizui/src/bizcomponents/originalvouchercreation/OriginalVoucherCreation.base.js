@@ -37,6 +37,13 @@ const menuData = {menuName:"原始凭证制作", menuFor: "originalVoucherCreati
   		],
 }
 
+
+const settingMenuData = {menuName:"原始凭证制作", menuFor: "originalVoucherCreation",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

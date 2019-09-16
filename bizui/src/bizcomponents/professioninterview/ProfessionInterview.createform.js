@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '技术部',
-  interviewTime: '2018-09-17',
+  interviewTime: '2016-11-07',
   comments: '能力各方面表现不错，进入下一轮',
 }
 */

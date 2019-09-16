@@ -164,6 +164,7 @@ class JobApplicationBizApp extends React.PureComponent {
       data: state._jobApplication.employeeList,
       metaInfo: state._jobApplication.employeeListMetaInfo,
       count: state._jobApplication.employeeCount,
+      returnURL: `/jobApplication/${state._jobApplication.id}/dashboard`,
       currentPage: state._jobApplication.employeeCurrentPageNumber,
       searchFormParameters: state._jobApplication.employeeSearchFormParameters,
       searchParameters: {...state._jobApplication.searchParameters},

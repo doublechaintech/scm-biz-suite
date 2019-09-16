@@ -164,6 +164,7 @@ class DamageSpaceBizApp extends React.PureComponent {
       data: state._damageSpace.goodsShelfList,
       metaInfo: state._damageSpace.goodsShelfListMetaInfo,
       count: state._damageSpace.goodsShelfCount,
+      returnURL: `/damageSpace/${state._damageSpace.id}/dashboard`,
       currentPage: state._damageSpace.goodsShelfCurrentPageNumber,
       searchFormParameters: state._damageSpace.goodsShelfSearchFormParameters,
       searchParameters: {...state._damageSpace.searchParameters},

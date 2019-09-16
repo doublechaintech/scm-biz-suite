@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
-  latitude: '41.60395068833635',
-  longitude: '131.57673895525716',
+  latitude: '41.686337012138026',
+  longitude: '130.5670144833882',
   goodsShelfId: 'GS000001',
 }
 */

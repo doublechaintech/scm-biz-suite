@@ -37,6 +37,13 @@ const menuData = {menuName:"货架库存盘点", menuFor: "goodsShelfStockCount"
   		],
 }
 
+
+const settingMenuData = {menuName:"货架库存盘点", menuFor: "goodsShelfStockCount",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   title: '头衔',

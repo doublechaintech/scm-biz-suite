@@ -164,6 +164,7 @@ class RetailStoreMemberGiftCardBizApp extends React.PureComponent {
       data: state._retailStoreMemberGiftCard.retailStoreMemberGiftCardConsumeRecordList,
       metaInfo: state._retailStoreMemberGiftCard.retailStoreMemberGiftCardConsumeRecordListMetaInfo,
       count: state._retailStoreMemberGiftCard.retailStoreMemberGiftCardConsumeRecordCount,
+      returnURL: `/retailStoreMemberGiftCard/${state._retailStoreMemberGiftCard.id}/dashboard`,
       currentPage: state._retailStoreMemberGiftCard.retailStoreMemberGiftCardConsumeRecordCurrentPageNumber,
       searchFormParameters: state._retailStoreMemberGiftCard.retailStoreMemberGiftCardConsumeRecordSearchFormParameters,
       searchParameters: {...state._retailStoreMemberGiftCard.searchParameters},

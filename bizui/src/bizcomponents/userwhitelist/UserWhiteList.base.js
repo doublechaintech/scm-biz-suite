@@ -36,6 +36,13 @@ const menuData = {menuName:"用户白名单", menuFor: "userWhiteList",
   		],
 }
 
+
+const settingMenuData = {menuName:"用户白名单", menuFor: "userWhiteList",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   userIdentity: '用户身份',

@@ -37,6 +37,13 @@ const menuData = {menuName:"用户屏蔽", menuFor: "secUserBlocking",
   		],
 }
 
+
+const settingMenuData = {menuName:"用户屏蔽", menuFor: "secUserBlocking",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   who: '谁',

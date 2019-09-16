@@ -37,6 +37,13 @@ const menuData = {menuName:"供应商的空间", menuFor: "supplierSpace",
   		],
 }
 
+
+const settingMenuData = {menuName:"供应商的空间", menuFor: "supplierSpace",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   location: '位置',

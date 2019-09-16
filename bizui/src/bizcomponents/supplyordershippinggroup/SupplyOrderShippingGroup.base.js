@@ -36,6 +36,13 @@ const menuData = {menuName:"供应订单送货分组", menuFor: "supplyOrderShip
   		],
 }
 
+
+const settingMenuData = {menuName:"供应订单送货分组", menuFor: "supplyOrderShippingGroup",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

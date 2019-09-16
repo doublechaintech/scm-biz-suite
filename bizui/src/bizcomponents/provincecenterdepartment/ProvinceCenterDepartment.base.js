@@ -37,6 +37,13 @@ const menuData = {menuName:"省中心", menuFor: "provinceCenterDepartment",
   		],
 }
 
+
+const settingMenuData = {menuName:"省中心", menuFor: "provinceCenterDepartment",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

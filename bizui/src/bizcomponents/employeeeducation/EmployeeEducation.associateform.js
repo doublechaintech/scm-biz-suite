@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  completeTime: '2017-12-31',
+  completeTime: '2017-08-17',
   type: '小学',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',

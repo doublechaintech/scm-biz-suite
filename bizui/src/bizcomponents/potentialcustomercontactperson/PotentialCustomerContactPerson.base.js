@@ -37,6 +37,13 @@ const menuData = {menuName:"潜在客户联络人", menuFor: "potentialCustomerC
   		],
 }
 
+
+const settingMenuData = {menuName:"潜在客户联络人", menuFor: "potentialCustomerContactPerson",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

@@ -37,6 +37,13 @@ const menuData = {menuName:"会计期间", menuFor: "accountingPeriod",
   		],
 }
 
+
+const settingMenuData = {menuName:"会计期间", menuFor: "accountingPeriod",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

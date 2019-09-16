@@ -164,6 +164,7 @@ class ScoringBizApp extends React.PureComponent {
       data: state._scoring.employeeCompanyTrainingList,
       metaInfo: state._scoring.employeeCompanyTrainingListMetaInfo,
       count: state._scoring.employeeCompanyTrainingCount,
+      returnURL: `/scoring/${state._scoring.id}/dashboard`,
       currentPage: state._scoring.employeeCompanyTrainingCurrentPageNumber,
       searchFormParameters: state._scoring.employeeCompanyTrainingSearchFormParameters,
       searchParameters: {...state._scoring.searchParameters},

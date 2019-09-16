@@ -164,6 +164,7 @@ class SmartPalletBizApp extends React.PureComponent {
       data: state._smartPallet.goodsList,
       metaInfo: state._smartPallet.goodsListMetaInfo,
       count: state._smartPallet.goodsCount,
+      returnURL: `/smartPallet/${state._smartPallet.id}/dashboard`,
       currentPage: state._smartPallet.goodsCurrentPageNumber,
       searchFormParameters: state._smartPallet.goodsSearchFormParameters,
       searchParameters: {...state._smartPallet.searchParameters},

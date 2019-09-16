@@ -164,6 +164,7 @@ class LevelTwoDepartmentBizApp extends React.PureComponent {
       data: state._levelTwoDepartment.levelThreeDepartmentList,
       metaInfo: state._levelTwoDepartment.levelThreeDepartmentListMetaInfo,
       count: state._levelTwoDepartment.levelThreeDepartmentCount,
+      returnURL: `/levelTwoDepartment/${state._levelTwoDepartment.id}/dashboard`,
       currentPage: state._levelTwoDepartment.levelThreeDepartmentCurrentPageNumber,
       searchFormParameters: state._levelTwoDepartment.levelThreeDepartmentSearchFormParameters,
       searchParameters: {...state._levelTwoDepartment.searchParameters},

@@ -36,6 +36,13 @@ const menuData = {menuName:"员工面试", menuFor: "employeeInterview",
   		],
 }
 
+
+const settingMenuData = {menuName:"员工面试", menuFor: "employeeInterview",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   employee: '员工',

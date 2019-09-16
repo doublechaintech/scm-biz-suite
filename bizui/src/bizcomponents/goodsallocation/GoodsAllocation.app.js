@@ -164,6 +164,7 @@ class GoodsAllocationBizApp extends React.PureComponent {
       data: state._goodsAllocation.goodsList,
       metaInfo: state._goodsAllocation.goodsListMetaInfo,
       count: state._goodsAllocation.goodsCount,
+      returnURL: `/goodsAllocation/${state._goodsAllocation.id}/dashboard`,
       currentPage: state._goodsAllocation.goodsCurrentPageNumber,
       searchFormParameters: state._goodsAllocation.goodsSearchFormParameters,
       searchParameters: {...state._goodsAllocation.searchParameters},

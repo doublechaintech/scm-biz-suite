@@ -38,6 +38,13 @@ const menuData = {menuName:"供应订单交货", menuFor: "supplyOrderDelivery",
   		],
 }
 
+
+const settingMenuData = {menuName:"供应订单交货", menuFor: "supplyOrderDelivery",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

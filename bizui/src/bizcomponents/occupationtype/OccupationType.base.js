@@ -37,6 +37,13 @@ const menuData = {menuName:"职位类型", menuFor: "occupationType",
   		],
 }
 
+
+const settingMenuData = {menuName:"职位类型", menuFor: "occupationType",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

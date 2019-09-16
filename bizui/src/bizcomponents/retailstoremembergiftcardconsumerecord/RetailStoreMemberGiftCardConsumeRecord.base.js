@@ -36,6 +36,13 @@ const menuData = {menuName:"零售商店会员卡消费记录", menuFor: "retail
   		],
 }
 
+
+const settingMenuData = {menuName:"零售商店会员卡消费记录", menuFor: "retailStoreMemberGiftCardConsumeRecord",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   occureTime: '发生时间',

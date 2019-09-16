@@ -37,6 +37,13 @@ const menuData = {menuName:"三级分类", menuFor: "levelThreeCategory",
   		],
 }
 
+
+const settingMenuData = {menuName:"三级分类", menuFor: "levelThreeCategory",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   parentCategory: '父类',

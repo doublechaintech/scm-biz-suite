@@ -37,6 +37,13 @@ const menuData = {menuName:"审批工作要约", menuFor: "offerApproval",
   		],
 }
 
+
+const settingMenuData = {menuName:"审批工作要约", menuFor: "offerApproval",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

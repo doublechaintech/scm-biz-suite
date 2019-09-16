@@ -164,6 +164,7 @@ class MemberWishlistBizApp extends React.PureComponent {
       data: state._memberWishlist.memberWishlistProductList,
       metaInfo: state._memberWishlist.memberWishlistProductListMetaInfo,
       count: state._memberWishlist.memberWishlistProductCount,
+      returnURL: `/memberWishlist/${state._memberWishlist.id}/dashboard`,
       currentPage: state._memberWishlist.memberWishlistProductCurrentPageNumber,
       searchFormParameters: state._memberWishlist.memberWishlistProductSearchFormParameters,
       searchParameters: {...state._memberWishlist.searchParameters},

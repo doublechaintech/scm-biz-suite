@@ -37,6 +37,13 @@ const menuData = {menuName:"专业面试", menuFor: "professionInterview",
   		],
 }
 
+
+const settingMenuData = {menuName:"专业面试", menuFor: "professionInterview",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

@@ -36,6 +36,13 @@ const menuData = {menuName:"消费品价格调整", menuFor: "consumerOrderPrice
   		],
 }
 
+
+const settingMenuData = {menuName:"消费品价格调整", menuFor: "consumerOrderPriceAdjustment",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

@@ -36,6 +36,13 @@ const menuData = {menuName:"访问列表", menuFor: "listAccess",
   		],
 }
 
+
+const settingMenuData = {menuName:"访问列表", menuFor: "listAccess",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   name: '名称',

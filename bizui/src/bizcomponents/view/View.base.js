@@ -36,6 +36,13 @@ const menuData = {menuName:"观", menuFor: "view",
   		],
 }
 
+
+const settingMenuData = {menuName:"观", menuFor: "view",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

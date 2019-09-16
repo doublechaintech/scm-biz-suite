@@ -164,6 +164,7 @@ class OriginalVoucherConfirmationBizApp extends React.PureComponent {
       data: state._originalVoucherConfirmation.originalVoucherList,
       metaInfo: state._originalVoucherConfirmation.originalVoucherListMetaInfo,
       count: state._originalVoucherConfirmation.originalVoucherCount,
+      returnURL: `/originalVoucherConfirmation/${state._originalVoucherConfirmation.id}/dashboard`,
       currentPage: state._originalVoucherConfirmation.originalVoucherCurrentPageNumber,
       searchFormParameters: state._originalVoucherConfirmation.originalVoucherSearchFormParameters,
       searchParameters: {...state._originalVoucherConfirmation.searchParameters},

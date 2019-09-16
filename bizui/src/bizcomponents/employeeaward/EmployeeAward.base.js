@@ -36,6 +36,13 @@ const menuData = {menuName:"员工嘉奖", menuFor: "employeeAward",
   		],
 }
 
+
+const settingMenuData = {menuName:"员工嘉奖", menuFor: "employeeAward",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   employee: '员工',

@@ -37,6 +37,13 @@ const menuData = {menuName:"一级部门", menuFor: "levelOneDepartment",
   		],
 }
 
+
+const settingMenuData = {menuName:"一级部门", menuFor: "levelOneDepartment",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   belongsTo: '属于',

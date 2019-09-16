@@ -164,6 +164,7 @@ class CityEventBizApp extends React.PureComponent {
       data: state._cityEvent.eventAttendanceList,
       metaInfo: state._cityEvent.eventAttendanceListMetaInfo,
       count: state._cityEvent.eventAttendanceCount,
+      returnURL: `/cityEvent/${state._cityEvent.id}/dashboard`,
       currentPage: state._cityEvent.eventAttendanceCurrentPageNumber,
       searchFormParameters: state._cityEvent.eventAttendanceSearchFormParameters,
       searchParameters: {...state._cityEvent.searchParameters},

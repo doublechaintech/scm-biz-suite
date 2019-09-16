@@ -37,6 +37,13 @@ const menuData = {menuName:"责任类型", menuFor: "responsibilityType",
   		],
 }
 
+
+const settingMenuData = {menuName:"责任类型", menuFor: "responsibilityType",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

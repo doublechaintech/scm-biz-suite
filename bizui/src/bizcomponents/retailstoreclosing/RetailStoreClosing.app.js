@@ -164,6 +164,7 @@ class RetailStoreClosingBizApp extends React.PureComponent {
       data: state._retailStoreClosing.retailStoreList,
       metaInfo: state._retailStoreClosing.retailStoreListMetaInfo,
       count: state._retailStoreClosing.retailStoreCount,
+      returnURL: `/retailStoreClosing/${state._retailStoreClosing.id}/dashboard`,
       currentPage: state._retailStoreClosing.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreClosing.retailStoreSearchFormParameters,
       searchParameters: {...state._retailStoreClosing.searchParameters},

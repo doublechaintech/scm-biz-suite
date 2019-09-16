@@ -37,6 +37,13 @@ const menuData = {menuName:"员工入职", menuFor: "employeeBoarding",
   		],
 }
 
+
+const settingMenuData = {menuName:"员工入职", menuFor: "employeeBoarding",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

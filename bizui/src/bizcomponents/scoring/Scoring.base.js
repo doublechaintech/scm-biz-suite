@@ -37,6 +37,13 @@ const menuData = {menuName:"评分", menuFor: "scoring",
   		],
 }
 
+
+const settingMenuData = {menuName:"评分", menuFor: "scoring",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   scoredBy: '由谁打分',

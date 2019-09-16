@@ -164,6 +164,7 @@ class HrInterviewBizApp extends React.PureComponent {
       data: state._hrInterview.employeeList,
       metaInfo: state._hrInterview.employeeListMetaInfo,
       count: state._hrInterview.employeeCount,
+      returnURL: `/hrInterview/${state._hrInterview.id}/dashboard`,
       currentPage: state._hrInterview.employeeCurrentPageNumber,
       searchFormParameters: state._hrInterview.employeeSearchFormParameters,
       searchParameters: {...state._hrInterview.searchParameters},

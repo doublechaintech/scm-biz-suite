@@ -36,6 +36,13 @@ const menuData = {menuName:"生超订单付款组", menuFor: "retailStoreOrderPa
   		],
 }
 
+
+const settingMenuData = {menuName:"生超订单付款组", menuFor: "retailStoreOrderPaymentGroup",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

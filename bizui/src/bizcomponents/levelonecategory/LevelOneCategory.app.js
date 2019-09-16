@@ -164,6 +164,7 @@ class LevelOneCategoryBizApp extends React.PureComponent {
       data: state._levelOneCategory.levelTwoCategoryList,
       metaInfo: state._levelOneCategory.levelTwoCategoryListMetaInfo,
       count: state._levelOneCategory.levelTwoCategoryCount,
+      returnURL: `/levelOneCategory/${state._levelOneCategory.id}/dashboard`,
       currentPage: state._levelOneCategory.levelTwoCategoryCurrentPageNumber,
       searchFormParameters: state._levelOneCategory.levelTwoCategorySearchFormParameters,
       searchParameters: {...state._levelOneCategory.searchParameters},

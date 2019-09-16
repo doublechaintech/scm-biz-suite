@@ -281,10 +281,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="属于">
-                  {getFieldDecorator('belongsTo', {
-                    initialValue: tryinit('belongsTo'),
-                   
-                  })(
+                  {getFieldDecorator('belongsTo', {initialValue: tryinit('belongsTo')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('belongsTo')}
@@ -296,10 +293,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="会计科目">
-                  {getFieldDecorator('accountingSubject', {
-                    initialValue: tryinit('accountingSubject'),
-                   
-                  })(
+                  {getFieldDecorator('accountingSubject', {initialValue: tryinit('accountingSubject')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('accountingSubject')}

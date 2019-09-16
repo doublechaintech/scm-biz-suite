@@ -37,6 +37,13 @@ const menuData = {menuName:"产品", menuFor: "product",
   		],
 }
 
+
+const settingMenuData = {menuName:"产品", menuFor: "product",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   name: '名称',

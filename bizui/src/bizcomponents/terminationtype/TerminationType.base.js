@@ -37,6 +37,13 @@ const menuData = {menuName:"雇佣终止类型", menuFor: "terminationType",
   		],
 }
 
+
+const settingMenuData = {menuName:"雇佣终止类型", menuFor: "terminationType",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

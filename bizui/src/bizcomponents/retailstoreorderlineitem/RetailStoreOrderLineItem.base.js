@@ -36,6 +36,13 @@ const menuData = {menuName:"双链小超订单行项目", menuFor: "retailStoreO
   		],
 }
 
+
+const settingMenuData = {menuName:"双链小超订单行项目", menuFor: "retailStoreOrderLineItem",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   bizOrder: '订单',

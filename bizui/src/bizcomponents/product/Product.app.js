@@ -164,6 +164,7 @@ class ProductBizApp extends React.PureComponent {
       data: state._product.skuList,
       metaInfo: state._product.skuListMetaInfo,
       count: state._product.skuCount,
+      returnURL: `/product/${state._product.id}/dashboard`,
       currentPage: state._product.skuCurrentPageNumber,
       searchFormParameters: state._product.skuSearchFormParameters,
       searchParameters: {...state._product.searchParameters},

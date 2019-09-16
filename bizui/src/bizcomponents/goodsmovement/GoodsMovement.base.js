@@ -36,6 +36,13 @@ const menuData = {menuName:"货物移动", menuFor: "goodsMovement",
   		],
 }
 
+
+const settingMenuData = {menuName:"货物移动", menuFor: "goodsMovement",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   moveTime: '移动时间',

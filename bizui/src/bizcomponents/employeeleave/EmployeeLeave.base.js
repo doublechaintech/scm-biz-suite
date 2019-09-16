@@ -36,6 +36,13 @@ const menuData = {menuName:"请假记录", menuFor: "employeeLeave",
   		],
 }
 
+
+const settingMenuData = {menuName:"请假记录", menuFor: "employeeLeave",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

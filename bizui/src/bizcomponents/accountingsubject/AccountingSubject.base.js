@@ -37,6 +37,13 @@ const menuData = {menuName:"会计科目", menuFor: "accountingSubject",
   		],
 }
 
+
+const settingMenuData = {menuName:"会计科目", menuFor: "accountingSubject",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   accountingSubjectCode: '会计科目代码',

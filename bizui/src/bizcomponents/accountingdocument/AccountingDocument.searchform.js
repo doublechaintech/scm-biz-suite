@@ -264,10 +264,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="会计期间">
-                  {getFieldDecorator('accountingPeriod', {
-                    initialValue: tryinit('accountingPeriod'),
-                   
-                  })(
+                  {getFieldDecorator('accountingPeriod', {initialValue: tryinit('accountingPeriod')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('accountingPeriod')}
@@ -279,10 +276,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="文档类型">
-                  {getFieldDecorator('documentType', {
-                    initialValue: tryinit('documentType'),
-                   
-                  })(
+                  {getFieldDecorator('documentType', {initialValue: tryinit('documentType')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('documentType')}

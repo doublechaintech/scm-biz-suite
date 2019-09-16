@@ -164,6 +164,7 @@ class GoodsShelfStockCountBizApp extends React.PureComponent {
       data: state._goodsShelfStockCount.stockCountIssueTrackList,
       metaInfo: state._goodsShelfStockCount.stockCountIssueTrackListMetaInfo,
       count: state._goodsShelfStockCount.stockCountIssueTrackCount,
+      returnURL: `/goodsShelfStockCount/${state._goodsShelfStockCount.id}/dashboard`,
       currentPage: state._goodsShelfStockCount.stockCountIssueTrackCurrentPageNumber,
       searchFormParameters: state._goodsShelfStockCount.stockCountIssueTrackSearchFormParameters,
       searchParameters: {...state._goodsShelfStockCount.searchParameters},

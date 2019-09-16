@@ -164,6 +164,7 @@ class CompanyTrainingBizApp extends React.PureComponent {
       data: state._companyTraining.employeeCompanyTrainingList,
       metaInfo: state._companyTraining.employeeCompanyTrainingListMetaInfo,
       count: state._companyTraining.employeeCompanyTrainingCount,
+      returnURL: `/companyTraining/${state._companyTraining.id}/dashboard`,
       currentPage: state._companyTraining.employeeCompanyTrainingCurrentPageNumber,
       searchFormParameters: state._companyTraining.employeeCompanyTrainingSearchFormParameters,
       searchParameters: {...state._companyTraining.searchParameters},

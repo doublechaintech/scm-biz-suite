@@ -21,7 +21,7 @@ const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
   manager: '刘强',
-  founded: '2017-03-13',
+  founded: '2016-09-27',
   belongsToId: 'RSCC000001',
 }
 */

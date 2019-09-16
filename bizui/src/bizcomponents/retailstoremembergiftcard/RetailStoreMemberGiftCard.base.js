@@ -37,6 +37,13 @@ const menuData = {menuName:"零售店会员礼品卡", menuFor: "retailStoreMemb
   		],
 }
 
+
+const settingMenuData = {menuName:"零售店会员礼品卡", menuFor: "retailStoreMemberGiftCard",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

@@ -37,6 +37,13 @@ const menuData = {menuName:"供应订单拣货", menuFor: "supplyOrderPicking",
   		],
 }
 
+
+const settingMenuData = {menuName:"供应订单拣货", menuFor: "supplyOrderPicking",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

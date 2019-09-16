@@ -9,6 +9,10 @@ import styles from './SecUserBlocking.search.less'
 import ListViewTool from '../../common/ListView.tool'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+
+import FontAwesome from 'react-fontawesome';
+import { Link, Route, Redirect} from 'dva/router'
+
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
 
 
@@ -100,10 +104,15 @@ class SecUserBlockingSearch extends PureComponent {
     
     const userContext = null
     
-    
+    const renderTitle=()=>{
+      const {returnURL} = this.props
+      
+      const linkComp=returnURL?<Link to={returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
+      return (<div>{linkComp}{`${displayName}:${this.props.name}${appLocaleName(userContext,"List")}`}</div>);
+    }
   
     return (
-      <PageHeaderLayout title={`${displayName}:${this.props.name}${appLocaleName(userContext,"List")}`}>
+      <PageHeaderLayout title={renderTitle()}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>

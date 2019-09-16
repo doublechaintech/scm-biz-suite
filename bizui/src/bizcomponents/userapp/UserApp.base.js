@@ -39,6 +39,13 @@ const menuData = {menuName:"用户应用程序", menuFor: "userApp",
   		],
 }
 
+
+const settingMenuData = {menuName:"用户应用程序", menuFor: "userApp",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   title: '标题',

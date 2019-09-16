@@ -38,6 +38,13 @@ const menuData = {menuName:"货架", menuFor: "goodsShelf",
   		],
 }
 
+
+const settingMenuData = {menuName:"货架", menuFor: "goodsShelf",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   location: '位置',

@@ -38,6 +38,13 @@ const menuData = {menuName:"运输任务", menuFor: "transportTask",
   		],
 }
 
+
+const settingMenuData = {menuName:"运输任务", menuFor: "transportTask",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

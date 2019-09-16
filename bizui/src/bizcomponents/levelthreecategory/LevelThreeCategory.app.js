@@ -164,6 +164,7 @@ class LevelThreeCategoryBizApp extends React.PureComponent {
       data: state._levelThreeCategory.productList,
       metaInfo: state._levelThreeCategory.productListMetaInfo,
       count: state._levelThreeCategory.productCount,
+      returnURL: `/levelThreeCategory/${state._levelThreeCategory.id}/dashboard`,
       currentPage: state._levelThreeCategory.productCurrentPageNumber,
       searchFormParameters: state._levelThreeCategory.productSearchFormParameters,
       searchParameters: {...state._levelThreeCategory.searchParameters},

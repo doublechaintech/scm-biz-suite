@@ -36,6 +36,13 @@ const menuData = {menuName:"会员奖励点", menuFor: "memberRewardPoint",
   		],
 }
 
+
+const settingMenuData = {menuName:"会员奖励点", menuFor: "memberRewardPoint",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

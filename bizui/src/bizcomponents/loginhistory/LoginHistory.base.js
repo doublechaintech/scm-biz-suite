@@ -36,6 +36,13 @@ const menuData = {menuName:"登录历史", menuFor: "loginHistory",
   		],
 }
 
+
+const settingMenuData = {menuName:"登录历史", menuFor: "loginHistory",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   loginTime: '登录时间',

@@ -37,6 +37,13 @@ const menuData = {menuName:"会计凭证的审核", menuFor: "accountingDocument
   		],
 }
 
+
+const settingMenuData = {menuName:"会计凭证的审核", menuFor: "accountingDocumentAuditing",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

@@ -164,6 +164,7 @@ class GoodsPackagingBizApp extends React.PureComponent {
       data: state._goodsPackaging.goodsList,
       metaInfo: state._goodsPackaging.goodsListMetaInfo,
       count: state._goodsPackaging.goodsCount,
+      returnURL: `/goodsPackaging/${state._goodsPackaging.id}/dashboard`,
       currentPage: state._goodsPackaging.goodsCurrentPageNumber,
       searchFormParameters: state._goodsPackaging.goodsSearchFormParameters,
       searchParameters: {...state._goodsPackaging.searchParameters},

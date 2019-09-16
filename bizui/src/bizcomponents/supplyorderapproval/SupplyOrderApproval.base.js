@@ -38,6 +38,13 @@ const menuData = {menuName:"供应订单审批", menuFor: "supplyOrderApproval",
   		],
 }
 
+
+const settingMenuData = {menuName:"供应订单审批", menuFor: "supplyOrderApproval",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

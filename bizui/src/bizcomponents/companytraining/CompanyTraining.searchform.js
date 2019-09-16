@@ -264,10 +264,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="公司">
-                  {getFieldDecorator('company', {
-                    initialValue: tryinit('company'),
-                   
-                  })(
+                  {getFieldDecorator('company', {initialValue: tryinit('company')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('company')}
@@ -279,10 +276,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="讲师">
-                  {getFieldDecorator('instructor', {
-                    initialValue: tryinit('instructor'),
-                   
-                  })(
+                  {getFieldDecorator('instructor', {initialValue: tryinit('instructor')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('instructor')}
@@ -294,10 +288,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="培训课程类型">
-                  {getFieldDecorator('trainingCourseType', {
-                    initialValue: tryinit('trainingCourseType'),
-                   
-                  })(
+                  {getFieldDecorator('trainingCourseType', {initialValue: tryinit('trainingCourseType')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('trainingCourseType')}

@@ -198,10 +198,7 @@ componentDidMount() {
        </Col>
  <Col md={8} sm={24}>
                  <Form.Item label="运动">
-               {getFieldDecorator('movement', {
-                 initialValue: tryinit('movement'),
-                
-               })(
+               {getFieldDecorator('movement', {initialValue: tryinit('movement')})(
                
                <SelectObject 
                  disabled={!availableForEdit('movement')}
@@ -260,10 +257,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="运动">
-                  {getFieldDecorator('movement', {
-                    initialValue: tryinit('movement'),
-                   
-                  })(
+                  {getFieldDecorator('movement', {initialValue: tryinit('movement')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('movement')}

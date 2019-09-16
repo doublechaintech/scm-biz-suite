@@ -36,6 +36,13 @@ const menuData = {menuName:"生超会员优惠券", menuFor: "retailStoreMemberC
   		],
 }
 
+
+const settingMenuData = {menuName:"生超会员优惠券", menuFor: "retailStoreMemberCoupon",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

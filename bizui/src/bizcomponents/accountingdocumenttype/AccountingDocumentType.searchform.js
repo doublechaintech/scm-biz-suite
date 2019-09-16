@@ -271,10 +271,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="会计期间">
-                  {getFieldDecorator('accountingPeriod', {
-                    initialValue: tryinit('accountingPeriod'),
-                   
-                  })(
+                  {getFieldDecorator('accountingPeriod', {initialValue: tryinit('accountingPeriod')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('accountingPeriod')}

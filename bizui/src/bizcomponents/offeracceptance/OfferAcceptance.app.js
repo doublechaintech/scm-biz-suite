@@ -164,6 +164,7 @@ class OfferAcceptanceBizApp extends React.PureComponent {
       data: state._offerAcceptance.employeeList,
       metaInfo: state._offerAcceptance.employeeListMetaInfo,
       count: state._offerAcceptance.employeeCount,
+      returnURL: `/offerAcceptance/${state._offerAcceptance.id}/dashboard`,
       currentPage: state._offerAcceptance.employeeCurrentPageNumber,
       searchFormParameters: state._offerAcceptance.employeeSearchFormParameters,
       searchParameters: {...state._offerAcceptance.searchParameters},

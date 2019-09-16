@@ -38,6 +38,13 @@ const menuData = {menuName:"城市合伙人", menuFor: "cityPartner",
   		],
 }
 
+
+const settingMenuData = {menuName:"城市合伙人", menuFor: "cityPartner",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

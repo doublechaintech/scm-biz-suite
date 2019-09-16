@@ -37,6 +37,13 @@ const menuData = {menuName:"面试类型", menuFor: "interviewType",
   		],
 }
 
+
+const settingMenuData = {menuName:"面试类型", menuFor: "interviewType",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

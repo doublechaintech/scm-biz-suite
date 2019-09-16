@@ -164,6 +164,7 @@ class ReceivingSpaceBizApp extends React.PureComponent {
       data: state._receivingSpace.goodsList,
       metaInfo: state._receivingSpace.goodsListMetaInfo,
       count: state._receivingSpace.goodsCount,
+      returnURL: `/receivingSpace/${state._receivingSpace.id}/dashboard`,
       currentPage: state._receivingSpace.goodsCurrentPageNumber,
       searchFormParameters: state._receivingSpace.goodsSearchFormParameters,
       searchParameters: {...state._receivingSpace.searchParameters},

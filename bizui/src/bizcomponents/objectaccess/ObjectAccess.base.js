@@ -36,6 +36,13 @@ const menuData = {menuName:"对象访问", menuFor: "objectAccess",
   		],
 }
 
+
+const settingMenuData = {menuName:"对象访问", menuFor: "objectAccess",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   name: '名称',

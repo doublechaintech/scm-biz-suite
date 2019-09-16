@@ -36,6 +36,13 @@ const menuData = {menuName:"库存计数问题跟踪", menuFor: "stockCountIssue
   		],
 }
 
+
+const settingMenuData = {menuName:"库存计数问题跟踪", menuFor: "stockCountIssueTrack",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   title: '头衔',

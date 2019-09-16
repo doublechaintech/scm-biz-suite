@@ -164,6 +164,7 @@ class RetailStoreOrderApprovalBizApp extends React.PureComponent {
       data: state._retailStoreOrderApproval.retailStoreOrderList,
       metaInfo: state._retailStoreOrderApproval.retailStoreOrderListMetaInfo,
       count: state._retailStoreOrderApproval.retailStoreOrderCount,
+      returnURL: `/retailStoreOrderApproval/${state._retailStoreOrderApproval.id}/dashboard`,
       currentPage: state._retailStoreOrderApproval.retailStoreOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreOrderApproval.retailStoreOrderSearchFormParameters,
       searchParameters: {...state._retailStoreOrderApproval.searchParameters},

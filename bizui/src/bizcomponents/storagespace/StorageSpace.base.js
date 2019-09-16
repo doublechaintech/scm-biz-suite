@@ -37,6 +37,13 @@ const menuData = {menuName:"存货区", menuFor: "storageSpace",
   		],
 }
 
+
+const settingMenuData = {menuName:"存货区", menuFor: "storageSpace",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   location: '位置',

@@ -164,6 +164,7 @@ class CatalogBizApp extends React.PureComponent {
       data: state._catalog.levelOneCategoryList,
       metaInfo: state._catalog.levelOneCategoryListMetaInfo,
       count: state._catalog.levelOneCategoryCount,
+      returnURL: `/catalog/${state._catalog.id}/dashboard`,
       currentPage: state._catalog.levelOneCategoryCurrentPageNumber,
       searchFormParameters: state._catalog.levelOneCategorySearchFormParameters,
       searchParameters: {...state._catalog.searchParameters},

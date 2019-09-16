@@ -37,6 +37,13 @@ const menuData = {menuName:"双链小超的创作", menuFor: "retailStoreCreatio
   		],
 }
 
+
+const settingMenuData = {menuName:"双链小超的创作", menuFor: "retailStoreCreation",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   comment: '评论',

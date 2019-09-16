@@ -37,6 +37,13 @@ const menuData = {menuName:"讲师", menuFor: "instructor",
   		],
 }
 
+
+const settingMenuData = {menuName:"讲师", menuFor: "instructor",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   title: '头衔',

@@ -37,6 +37,13 @@ const menuData = {menuName:"会计凭证过帐", menuFor: "accountingDocumentPos
   		],
 }
 
+
+const settingMenuData = {menuName:"会计凭证过帐", menuFor: "accountingDocumentPosting",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

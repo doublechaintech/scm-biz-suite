@@ -37,6 +37,13 @@ const menuData = {menuName:"原始凭证的审核", menuFor: "originalVoucherAud
   		],
 }
 
+
+const settingMenuData = {menuName:"原始凭证的审核", menuFor: "originalVoucherAuditing",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

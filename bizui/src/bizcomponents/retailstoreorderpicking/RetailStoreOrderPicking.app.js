@@ -164,6 +164,7 @@ class RetailStoreOrderPickingBizApp extends React.PureComponent {
       data: state._retailStoreOrderPicking.retailStoreOrderList,
       metaInfo: state._retailStoreOrderPicking.retailStoreOrderListMetaInfo,
       count: state._retailStoreOrderPicking.retailStoreOrderCount,
+      returnURL: `/retailStoreOrderPicking/${state._retailStoreOrderPicking.id}/dashboard`,
       currentPage: state._retailStoreOrderPicking.retailStoreOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreOrderPicking.retailStoreOrderSearchFormParameters,
       searchParameters: {...state._retailStoreOrderPicking.searchParameters},

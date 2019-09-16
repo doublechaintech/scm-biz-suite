@@ -39,6 +39,13 @@ const menuData = {menuName:"潜在的客户", menuFor: "potentialCustomer",
   		],
 }
 
+
+const settingMenuData = {menuName:"潜在的客户", menuFor: "potentialCustomer",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

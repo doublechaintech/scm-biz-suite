@@ -37,6 +37,13 @@ const menuData = {menuName:"生超开业", menuFor: "retailStoreOpening",
   		],
 }
 
+
+const settingMenuData = {menuName:"生超开业", menuFor: "retailStoreOpening",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   comment: '评论',

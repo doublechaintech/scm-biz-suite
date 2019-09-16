@@ -36,6 +36,13 @@ const menuData = {menuName:"产品供应时间", menuFor: "productSupplyDuration
   		],
 }
 
+
+const settingMenuData = {menuName:"产品供应时间", menuFor: "productSupplyDuration",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   quantity: '数量',

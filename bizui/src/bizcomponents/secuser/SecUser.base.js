@@ -38,6 +38,13 @@ const menuData = {menuName:"安全用户", menuFor: "secUser",
   		],
 }
 
+
+const settingMenuData = {menuName:"安全用户", menuFor: "secUser",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   login: '登录',

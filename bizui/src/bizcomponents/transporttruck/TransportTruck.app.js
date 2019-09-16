@@ -164,6 +164,7 @@ class TransportTruckBizApp extends React.PureComponent {
       data: state._transportTruck.transportTaskList,
       metaInfo: state._transportTruck.transportTaskListMetaInfo,
       count: state._transportTruck.transportTaskCount,
+      returnURL: `/transportTruck/${state._transportTruck.id}/dashboard`,
       currentPage: state._transportTruck.transportTaskCurrentPageNumber,
       searchFormParameters: state._transportTruck.transportTaskSearchFormParameters,
       searchParameters: {...state._transportTruck.searchParameters},

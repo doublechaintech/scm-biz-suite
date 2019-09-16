@@ -164,6 +164,7 @@ class OccupationTypeBizApp extends React.PureComponent {
       data: state._occupationType.employeeList,
       metaInfo: state._occupationType.employeeListMetaInfo,
       count: state._occupationType.employeeCount,
+      returnURL: `/occupationType/${state._occupationType.id}/dashboard`,
       currentPage: state._occupationType.employeeCurrentPageNumber,
       searchFormParameters: state._occupationType.employeeSearchFormParameters,
       searchParameters: {...state._occupationType.searchParameters},

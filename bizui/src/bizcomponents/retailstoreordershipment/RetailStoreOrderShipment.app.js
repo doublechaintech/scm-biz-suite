@@ -164,6 +164,7 @@ class RetailStoreOrderShipmentBizApp extends React.PureComponent {
       data: state._retailStoreOrderShipment.retailStoreOrderList,
       metaInfo: state._retailStoreOrderShipment.retailStoreOrderListMetaInfo,
       count: state._retailStoreOrderShipment.retailStoreOrderCount,
+      returnURL: `/retailStoreOrderShipment/${state._retailStoreOrderShipment.id}/dashboard`,
       currentPage: state._retailStoreOrderShipment.retailStoreOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreOrderShipment.retailStoreOrderSearchFormParameters,
       searchParameters: {...state._retailStoreOrderShipment.searchParameters},

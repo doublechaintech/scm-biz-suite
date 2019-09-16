@@ -164,6 +164,7 @@ class OriginalVoucherAuditingBizApp extends React.PureComponent {
       data: state._originalVoucherAuditing.originalVoucherList,
       metaInfo: state._originalVoucherAuditing.originalVoucherListMetaInfo,
       count: state._originalVoucherAuditing.originalVoucherCount,
+      returnURL: `/originalVoucherAuditing/${state._originalVoucherAuditing.id}/dashboard`,
       currentPage: state._originalVoucherAuditing.originalVoucherCurrentPageNumber,
       searchFormParameters: state._originalVoucherAuditing.originalVoucherSearchFormParameters,
       searchParameters: {...state._originalVoucherAuditing.searchParameters},

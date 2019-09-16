@@ -37,6 +37,13 @@ const menuData = {menuName:"候选人容器", menuFor: "candidateContainer",
   		],
 }
 
+
+const settingMenuData = {menuName:"候选人容器", menuFor: "candidateContainer",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   name: '名称',

@@ -289,10 +289,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="SKU">
-                  {getFieldDecorator('sku', {
-                    initialValue: tryinit('sku'),
-                   
-                  })(
+                  {getFieldDecorator('sku', {initialValue: tryinit('sku')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('sku')}
@@ -304,10 +301,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="收货区">
-                  {getFieldDecorator('receivingSpace', {
-                    initialValue: tryinit('receivingSpace'),
-                   
-                  })(
+                  {getFieldDecorator('receivingSpace', {initialValue: tryinit('receivingSpace')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('receivingSpace')}
@@ -319,10 +313,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="货位">
-                  {getFieldDecorator('goodsAllocation', {
-                    initialValue: tryinit('goodsAllocation'),
-                   
-                  })(
+                  {getFieldDecorator('goodsAllocation', {initialValue: tryinit('goodsAllocation')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('goodsAllocation')}
@@ -334,10 +325,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="智能托盘">
-                  {getFieldDecorator('smartPallet', {
-                    initialValue: tryinit('smartPallet'),
-                   
-                  })(
+                  {getFieldDecorator('smartPallet', {initialValue: tryinit('smartPallet')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('smartPallet')}
@@ -349,10 +337,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="发货区">
-                  {getFieldDecorator('shippingSpace', {
-                    initialValue: tryinit('shippingSpace'),
-                   
-                  })(
+                  {getFieldDecorator('shippingSpace', {initialValue: tryinit('shippingSpace')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('shippingSpace')}
@@ -364,10 +349,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="运输任务">
-                  {getFieldDecorator('transportTask', {
-                    initialValue: tryinit('transportTask'),
-                   
-                  })(
+                  {getFieldDecorator('transportTask', {initialValue: tryinit('transportTask')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('transportTask')}
@@ -379,10 +361,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="双链小超">
-                  {getFieldDecorator('retailStore', {
-                    initialValue: tryinit('retailStore'),
-                   
-                  })(
+                  {getFieldDecorator('retailStore', {initialValue: tryinit('retailStore')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('retailStore')}
@@ -394,10 +373,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="订单">
-                  {getFieldDecorator('bizOrder', {
-                    initialValue: tryinit('bizOrder'),
-                   
-                  })(
+                  {getFieldDecorator('bizOrder', {initialValue: tryinit('bizOrder')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('bizOrder')}
@@ -409,10 +385,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="生超的订单">
-                  {getFieldDecorator('retailStoreOrder', {
-                    initialValue: tryinit('retailStoreOrder'),
-                   
-                  })(
+                  {getFieldDecorator('retailStoreOrder', {initialValue: tryinit('retailStoreOrder')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('retailStoreOrder')}

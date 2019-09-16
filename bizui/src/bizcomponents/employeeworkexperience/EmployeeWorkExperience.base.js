@@ -36,6 +36,13 @@ const menuData = {menuName:"员工工作经验", menuFor: "employeeWorkExperienc
   		],
 }
 
+
+const settingMenuData = {menuName:"员工工作经验", menuFor: "employeeWorkExperience",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   employee: '员工',

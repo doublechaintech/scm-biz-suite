@@ -164,6 +164,7 @@ class RetailStoreOrderConfirmationBizApp extends React.PureComponent {
       data: state._retailStoreOrderConfirmation.retailStoreOrderList,
       metaInfo: state._retailStoreOrderConfirmation.retailStoreOrderListMetaInfo,
       count: state._retailStoreOrderConfirmation.retailStoreOrderCount,
+      returnURL: `/retailStoreOrderConfirmation/${state._retailStoreOrderConfirmation.id}/dashboard`,
       currentPage: state._retailStoreOrderConfirmation.retailStoreOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreOrderConfirmation.retailStoreOrderSearchFormParameters,
       searchParameters: {...state._retailStoreOrderConfirmation.searchParameters},

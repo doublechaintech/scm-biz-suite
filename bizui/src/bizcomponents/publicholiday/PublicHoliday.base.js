@@ -36,6 +36,13 @@ const menuData = {menuName:"公共假日", menuFor: "publicHoliday",
   		],
 }
 
+
+const settingMenuData = {menuName:"公共假日", menuFor: "publicHoliday",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

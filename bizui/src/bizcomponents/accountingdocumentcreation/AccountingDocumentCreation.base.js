@@ -37,6 +37,13 @@ const menuData = {menuName:"会计文件的创建", menuFor: "accountingDocument
   		],
 }
 
+
+const settingMenuData = {menuName:"会计文件的创建", menuFor: "accountingDocumentCreation",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

@@ -262,10 +262,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="属于">
-                  {getFieldDecorator('belongsTo', {
-                    initialValue: tryinit('belongsTo'),
-                   
-                  })(
+                  {getFieldDecorator('belongsTo', {initialValue: tryinit('belongsTo')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('belongsTo')}

@@ -164,6 +164,7 @@ class PotentialCustomerContactPersonBizApp extends React.PureComponent {
       data: state._potentialCustomerContactPerson.potentialCustomerContactList,
       metaInfo: state._potentialCustomerContactPerson.potentialCustomerContactListMetaInfo,
       count: state._potentialCustomerContactPerson.potentialCustomerContactCount,
+      returnURL: `/potentialCustomerContactPerson/${state._potentialCustomerContactPerson.id}/dashboard`,
       currentPage: state._potentialCustomerContactPerson.potentialCustomerContactCurrentPageNumber,
       searchFormParameters: state._potentialCustomerContactPerson.potentialCustomerContactSearchFormParameters,
       searchParameters: {...state._potentialCustomerContactPerson.searchParameters},

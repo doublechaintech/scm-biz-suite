@@ -36,6 +36,13 @@ const menuData = {menuName:"会员收藏产品", menuFor: "memberWishlistProduct
   		],
 }
 
+
+const settingMenuData = {menuName:"会员收藏产品", menuFor: "memberWishlistProduct",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

@@ -41,6 +41,13 @@ const menuData = {menuName:"双链小超", menuFor: "retailStore",
   		],
 }
 
+
+const settingMenuData = {menuName:"双链小超", menuFor: "retailStore",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

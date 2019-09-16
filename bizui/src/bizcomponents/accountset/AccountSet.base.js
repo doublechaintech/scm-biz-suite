@@ -39,6 +39,13 @@ const menuData = {menuName:"账套", menuFor: "accountSet",
   		],
 }
 
+
+const settingMenuData = {menuName:"账套", menuFor: "accountSet",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

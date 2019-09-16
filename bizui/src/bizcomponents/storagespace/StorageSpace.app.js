@@ -164,6 +164,7 @@ class StorageSpaceBizApp extends React.PureComponent {
       data: state._storageSpace.goodsShelfList,
       metaInfo: state._storageSpace.goodsShelfListMetaInfo,
       count: state._storageSpace.goodsShelfCount,
+      returnURL: `/storageSpace/${state._storageSpace.id}/dashboard`,
       currentPage: state._storageSpace.goodsShelfCurrentPageNumber,
       searchFormParameters: state._storageSpace.goodsShelfSearchFormParameters,
       searchParameters: {...state._storageSpace.searchParameters},

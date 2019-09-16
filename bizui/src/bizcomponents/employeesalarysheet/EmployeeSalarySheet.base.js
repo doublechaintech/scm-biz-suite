@@ -36,6 +36,13 @@ const menuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
   		],
 }
 
+
+const settingMenuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   employee: '员工',

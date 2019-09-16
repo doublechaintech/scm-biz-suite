@@ -318,10 +318,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="全国运营中心">
-                  {getFieldDecorator('countryCenter', {
-                    initialValue: tryinit('countryCenter'),
-                   
-                  })(
+                  {getFieldDecorator('countryCenter', {initialValue: tryinit('countryCenter')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('countryCenter')}
@@ -333,10 +330,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="双链小超">
-                  {getFieldDecorator('retailStore', {
-                    initialValue: tryinit('retailStore'),
-                   
-                  })(
+                  {getFieldDecorator('retailStore', {initialValue: tryinit('retailStore')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('retailStore')}
@@ -348,10 +342,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="产品供应商">
-                  {getFieldDecorator('goodsSupplier', {
-                    initialValue: tryinit('goodsSupplier'),
-                   
-                  })(
+                  {getFieldDecorator('goodsSupplier', {initialValue: tryinit('goodsSupplier')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('goodsSupplier')}

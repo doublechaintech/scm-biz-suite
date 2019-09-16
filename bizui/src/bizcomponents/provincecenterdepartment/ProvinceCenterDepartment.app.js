@@ -164,6 +164,7 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
       data: state._provinceCenterDepartment.provinceCenterEmployeeList,
       metaInfo: state._provinceCenterDepartment.provinceCenterEmployeeListMetaInfo,
       count: state._provinceCenterDepartment.provinceCenterEmployeeCount,
+      returnURL: `/provinceCenterDepartment/${state._provinceCenterDepartment.id}/dashboard`,
       currentPage: state._provinceCenterDepartment.provinceCenterEmployeeCurrentPageNumber,
       searchFormParameters: state._provinceCenterDepartment.provinceCenterEmployeeSearchFormParameters,
       searchParameters: {...state._provinceCenterDepartment.searchParameters},

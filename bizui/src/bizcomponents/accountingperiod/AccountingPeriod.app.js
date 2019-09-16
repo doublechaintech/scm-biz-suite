@@ -164,6 +164,7 @@ class AccountingPeriodBizApp extends React.PureComponent {
       data: state._accountingPeriod.accountingDocumentList,
       metaInfo: state._accountingPeriod.accountingDocumentListMetaInfo,
       count: state._accountingPeriod.accountingDocumentCount,
+      returnURL: `/accountingPeriod/${state._accountingPeriod.id}/dashboard`,
       currentPage: state._accountingPeriod.accountingDocumentCurrentPageNumber,
       searchFormParameters: state._accountingPeriod.accountingDocumentSearchFormParameters,
       searchParameters: {...state._accountingPeriod.searchParameters},

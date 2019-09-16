@@ -40,6 +40,13 @@ const menuData = {menuName:"双链小超城市服务中心", menuFor: "retailSto
   		],
 }
 
+
+const settingMenuData = {menuName:"双链小超城市服务中心", menuFor: "retailStoreCityServiceCenter",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

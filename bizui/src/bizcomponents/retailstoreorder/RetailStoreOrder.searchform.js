@@ -201,10 +201,7 @@ componentDidMount() {
        </Col>
  <Col md={8} sm={24}>
                  <Form.Item label="买方">
-               {getFieldDecorator('buyer', {
-                 initialValue: tryinit('buyer'),
-                
-               })(
+               {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                
                <SelectObject 
                  disabled={!availableForEdit('buyer')}
@@ -263,10 +260,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="买方">
-                  {getFieldDecorator('buyer', {
-                    initialValue: tryinit('buyer'),
-                   
-                  })(
+                  {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('buyer')}
@@ -278,10 +272,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="卖方">
-                  {getFieldDecorator('seller', {
-                    initialValue: tryinit('seller'),
-                   
-                  })(
+                  {getFieldDecorator('seller', {initialValue: tryinit('seller')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('seller')}

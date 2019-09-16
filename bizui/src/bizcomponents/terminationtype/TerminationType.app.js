@@ -164,6 +164,7 @@ class TerminationTypeBizApp extends React.PureComponent {
       data: state._terminationType.terminationList,
       metaInfo: state._terminationType.terminationListMetaInfo,
       count: state._terminationType.terminationCount,
+      returnURL: `/terminationType/${state._terminationType.id}/dashboard`,
       currentPage: state._terminationType.terminationCurrentPageNumber,
       searchFormParameters: state._terminationType.terminationSearchFormParameters,
       searchParameters: {...state._terminationType.searchParameters},

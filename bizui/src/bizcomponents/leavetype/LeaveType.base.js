@@ -37,6 +37,13 @@ const menuData = {menuName:"请假类型", menuFor: "leaveType",
   		],
 }
 
+
+const settingMenuData = {menuName:"请假类型", menuFor: "leaveType",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

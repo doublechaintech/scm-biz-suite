@@ -37,6 +37,13 @@ const menuData = {menuName:"生超订单批准", menuFor: "retailStoreOrderAppro
   		],
 }
 
+
+const settingMenuData = {menuName:"生超订单批准", menuFor: "retailStoreOrderApproval",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

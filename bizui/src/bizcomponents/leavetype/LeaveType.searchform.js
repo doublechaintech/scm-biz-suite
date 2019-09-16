@@ -264,10 +264,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="公司">
-                  {getFieldDecorator('company', {
-                    initialValue: tryinit('company'),
-                   
-                  })(
+                  {getFieldDecorator('company', {initialValue: tryinit('company')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('company')}

@@ -164,6 +164,7 @@ class SupplierSpaceBizApp extends React.PureComponent {
       data: state._supplierSpace.goodsShelfList,
       metaInfo: state._supplierSpace.goodsShelfListMetaInfo,
       count: state._supplierSpace.goodsShelfCount,
+      returnURL: `/supplierSpace/${state._supplierSpace.id}/dashboard`,
       currentPage: state._supplierSpace.goodsShelfCurrentPageNumber,
       searchFormParameters: state._supplierSpace.goodsShelfSearchFormParameters,
       searchParameters: {...state._supplierSpace.searchParameters},

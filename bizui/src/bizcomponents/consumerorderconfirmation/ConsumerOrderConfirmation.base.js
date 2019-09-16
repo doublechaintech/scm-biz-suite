@@ -36,6 +36,13 @@ const menuData = {menuName:"客户订单确认", menuFor: "consumerOrderConfirma
   		],
 }
 
+
+const settingMenuData = {menuName:"客户订单确认", menuFor: "consumerOrderConfirmation",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

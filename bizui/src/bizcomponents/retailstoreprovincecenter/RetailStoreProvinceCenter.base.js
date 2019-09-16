@@ -38,6 +38,14 @@ const menuData = {menuName:"双链小超省中心", menuFor: "retailStoreProvinc
   		],
 }
 
+
+const settingMenuData = {menuName:"双链小超省中心", menuFor: "retailStoreProvinceCenter",
+  		subItems: [
+  {name: 'provinceCenterDepartmentList', displayName:'省中心', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

@@ -50,6 +50,23 @@ const menuData = {menuName:"双链小超全国运营中心", menuFor: "retailSto
   		],
 }
 
+
+const settingMenuData = {menuName:"双链小超全国运营中心", menuFor: "retailStoreCountryCenter",
+  		subItems: [
+  {name: 'skillTypeList', displayName:'技能类型', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'responsibilityTypeList', displayName:'责任类型', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'terminationReasonList', displayName:'雇佣终止的原因', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'terminationTypeList', displayName:'雇佣终止类型', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'occupationTypeList', displayName:'职位类型', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'leaveTypeList', displayName:'请假类型', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'salaryGradeList', displayName:'工资等级', icon:'ad',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'interviewTypeList', displayName:'面试类型', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'trainingCourseTypeList', displayName:'培训课程类型', icon:'discourse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'publicHolidayList', displayName:'公共假日', icon:'galactic-republic',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

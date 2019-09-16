@@ -39,6 +39,13 @@ const menuData = {menuName:"产品供应商", menuFor: "goodsSupplier",
   		],
 }
 
+
+const settingMenuData = {menuName:"产品供应商", menuFor: "goodsSupplier",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

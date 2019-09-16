@@ -265,10 +265,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="父类">
-                  {getFieldDecorator('parentCategory', {
-                    initialValue: tryinit('parentCategory'),
-                   
-                  })(
+                  {getFieldDecorator('parentCategory', {initialValue: tryinit('parentCategory')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('parentCategory')}

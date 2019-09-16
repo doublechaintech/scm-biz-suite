@@ -37,6 +37,13 @@ const menuData = {menuName:"生超订单出货", menuFor: "retailStoreOrderShipm
   		],
 }
 
+
+const settingMenuData = {menuName:"生超订单出货", menuFor: "retailStoreOrderShipment",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

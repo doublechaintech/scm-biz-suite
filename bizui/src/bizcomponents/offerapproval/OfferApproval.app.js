@@ -164,6 +164,7 @@ class OfferApprovalBizApp extends React.PureComponent {
       data: state._offerApproval.employeeList,
       metaInfo: state._offerApproval.employeeListMetaInfo,
       count: state._offerApproval.employeeCount,
+      returnURL: `/offerApproval/${state._offerApproval.id}/dashboard`,
       currentPage: state._offerApproval.employeeCurrentPageNumber,
       searchFormParameters: state._offerApproval.employeeSearchFormParameters,
       searchParameters: {...state._offerApproval.searchParameters},

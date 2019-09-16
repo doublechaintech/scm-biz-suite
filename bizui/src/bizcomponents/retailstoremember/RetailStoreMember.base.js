@@ -43,6 +43,13 @@ const menuData = {menuName:"生超会员", menuFor: "retailStoreMember",
   		],
 }
 
+
+const settingMenuData = {menuName:"生超会员", menuFor: "retailStoreMember",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

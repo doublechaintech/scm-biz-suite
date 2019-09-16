@@ -274,10 +274,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="潜在的客户">
-                  {getFieldDecorator('potentialCustomer', {
-                    initialValue: tryinit('potentialCustomer'),
-                   
-                  })(
+                  {getFieldDecorator('potentialCustomer', {initialValue: tryinit('potentialCustomer')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('potentialCustomer')}
@@ -289,10 +286,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="城市合伙人">
-                  {getFieldDecorator('cityPartner', {
-                    initialValue: tryinit('cityPartner'),
-                   
-                  })(
+                  {getFieldDecorator('cityPartner', {initialValue: tryinit('cityPartner')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('cityPartner')}
@@ -304,10 +298,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="接触">
-                  {getFieldDecorator('contactTo', {
-                    initialValue: tryinit('contactTo'),
-                   
-                  })(
+                  {getFieldDecorator('contactTo', {initialValue: tryinit('contactTo')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('contactTo')}

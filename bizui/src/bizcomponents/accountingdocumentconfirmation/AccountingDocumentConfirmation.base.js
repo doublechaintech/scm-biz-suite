@@ -37,6 +37,13 @@ const menuData = {menuName:"会计的确认文件", menuFor: "accountingDocument
   		],
 }
 
+
+const settingMenuData = {menuName:"会计的确认文件", menuFor: "accountingDocumentConfirmation",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   who: '谁',

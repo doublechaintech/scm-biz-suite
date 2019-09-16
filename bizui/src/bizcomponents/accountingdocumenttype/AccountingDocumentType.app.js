@@ -164,6 +164,7 @@ class AccountingDocumentTypeBizApp extends React.PureComponent {
       data: state._accountingDocumentType.accountingDocumentList,
       metaInfo: state._accountingDocumentType.accountingDocumentListMetaInfo,
       count: state._accountingDocumentType.accountingDocumentCount,
+      returnURL: `/accountingDocumentType/${state._accountingDocumentType.id}/dashboard`,
       currentPage: state._accountingDocumentType.accountingDocumentCurrentPageNumber,
       searchFormParameters: state._accountingDocumentType.accountingDocumentSearchFormParameters,
       searchParameters: {...state._accountingDocumentType.searchParameters},

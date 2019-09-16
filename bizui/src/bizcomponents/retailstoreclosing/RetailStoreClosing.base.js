@@ -37,6 +37,13 @@ const menuData = {menuName:"商店关闭", menuFor: "retailStoreClosing",
   		],
 }
 
+
+const settingMenuData = {menuName:"商店关闭", menuFor: "retailStoreClosing",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   comment: '评论',

@@ -164,6 +164,7 @@ class SupplyOrderPickingBizApp extends React.PureComponent {
       data: state._supplyOrderPicking.supplyOrderList,
       metaInfo: state._supplyOrderPicking.supplyOrderListMetaInfo,
       count: state._supplyOrderPicking.supplyOrderCount,
+      returnURL: `/supplyOrderPicking/${state._supplyOrderPicking.id}/dashboard`,
       currentPage: state._supplyOrderPicking.supplyOrderCurrentPageNumber,
       searchFormParameters: state._supplyOrderPicking.supplyOrderSearchFormParameters,
       searchParameters: {...state._supplyOrderPicking.searchParameters},

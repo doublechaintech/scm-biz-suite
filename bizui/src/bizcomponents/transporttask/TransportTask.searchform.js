@@ -274,10 +274,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="结束">
-                  {getFieldDecorator('end', {
-                    initialValue: tryinit('end'),
-                   
-                  })(
+                  {getFieldDecorator('end', {initialValue: tryinit('end')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('end')}
@@ -289,10 +286,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="司机">
-                  {getFieldDecorator('driver', {
-                    initialValue: tryinit('driver'),
-                   
-                  })(
+                  {getFieldDecorator('driver', {initialValue: tryinit('driver')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('driver')}
@@ -304,10 +298,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="卡车">
-                  {getFieldDecorator('truck', {
-                    initialValue: tryinit('truck'),
-                   
-                  })(
+                  {getFieldDecorator('truck', {initialValue: tryinit('truck')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('truck')}
@@ -319,10 +310,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="属于">
-                  {getFieldDecorator('belongsTo', {
-                    initialValue: tryinit('belongsTo'),
-                   
-                  })(
+                  {getFieldDecorator('belongsTo', {initialValue: tryinit('belongsTo')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('belongsTo')}

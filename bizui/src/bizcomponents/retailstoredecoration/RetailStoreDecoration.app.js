@@ -164,6 +164,7 @@ class RetailStoreDecorationBizApp extends React.PureComponent {
       data: state._retailStoreDecoration.retailStoreList,
       metaInfo: state._retailStoreDecoration.retailStoreListMetaInfo,
       count: state._retailStoreDecoration.retailStoreCount,
+      returnURL: `/retailStoreDecoration/${state._retailStoreDecoration.id}/dashboard`,
       currentPage: state._retailStoreDecoration.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreDecoration.retailStoreSearchFormParameters,
       searchParameters: {...state._retailStoreDecoration.searchParameters},

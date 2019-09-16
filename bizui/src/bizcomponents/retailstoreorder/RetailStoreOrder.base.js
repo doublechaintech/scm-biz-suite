@@ -40,6 +40,13 @@ const menuData = {menuName:"生超的订单", menuFor: "retailStoreOrder",
   		],
 }
 
+
+const settingMenuData = {menuName:"生超的订单", menuFor: "retailStoreOrder",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   buyer: '买方',

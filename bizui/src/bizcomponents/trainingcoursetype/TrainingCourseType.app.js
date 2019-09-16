@@ -164,6 +164,7 @@ class TrainingCourseTypeBizApp extends React.PureComponent {
       data: state._trainingCourseType.companyTrainingList,
       metaInfo: state._trainingCourseType.companyTrainingListMetaInfo,
       count: state._trainingCourseType.companyTrainingCount,
+      returnURL: `/trainingCourseType/${state._trainingCourseType.id}/dashboard`,
       currentPage: state._trainingCourseType.companyTrainingCurrentPageNumber,
       searchFormParameters: state._trainingCourseType.companyTrainingSearchFormParameters,
       searchParameters: {...state._trainingCourseType.searchParameters},

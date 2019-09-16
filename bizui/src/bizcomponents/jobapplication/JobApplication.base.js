@@ -37,6 +37,13 @@ const menuData = {menuName:"工作申请", menuFor: "jobApplication",
   		],
 }
 
+
+const settingMenuData = {menuName:"工作申请", menuFor: "jobApplication",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   applicationTime: '申请时间',

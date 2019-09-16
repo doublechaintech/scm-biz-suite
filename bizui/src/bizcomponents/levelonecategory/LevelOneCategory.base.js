@@ -37,6 +37,13 @@ const menuData = {menuName:"一级分类", menuFor: "levelOneCategory",
   		],
 }
 
+
+const settingMenuData = {menuName:"一级分类", menuFor: "levelOneCategory",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   catalog: '目录',

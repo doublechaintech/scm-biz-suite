@@ -164,6 +164,7 @@ class LeaveTypeBizApp extends React.PureComponent {
       data: state._leaveType.employeeLeaveList,
       metaInfo: state._leaveType.employeeLeaveListMetaInfo,
       count: state._leaveType.employeeLeaveCount,
+      returnURL: `/leaveType/${state._leaveType.id}/dashboard`,
       currentPage: state._leaveType.employeeLeaveCurrentPageNumber,
       searchFormParameters: state._leaveType.employeeLeaveSearchFormParameters,
       searchParameters: {...state._leaveType.searchParameters},

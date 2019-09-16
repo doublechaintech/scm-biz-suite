@@ -37,6 +37,13 @@ const menuData = {menuName:"生超的特许经营", menuFor: "retailStoreFranchi
   		],
 }
 
+
+const settingMenuData = {menuName:"生超的特许经营", menuFor: "retailStoreFranchising",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   comment: '评论',

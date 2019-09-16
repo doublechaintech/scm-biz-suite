@@ -36,6 +36,13 @@ const menuData = {menuName:"运输任务跟踪", menuFor: "transportTaskTrack",
   		],
 }
 
+
+const settingMenuData = {menuName:"运输任务跟踪", menuFor: "transportTaskTrack",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   trackTime: '跟踪时间',

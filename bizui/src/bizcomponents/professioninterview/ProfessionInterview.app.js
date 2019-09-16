@@ -164,6 +164,7 @@ class ProfessionInterviewBizApp extends React.PureComponent {
       data: state._professionInterview.employeeList,
       metaInfo: state._professionInterview.employeeListMetaInfo,
       count: state._professionInterview.employeeCount,
+      returnURL: `/professionInterview/${state._professionInterview.id}/dashboard`,
       currentPage: state._professionInterview.employeeCurrentPageNumber,
       searchFormParameters: state._professionInterview.employeeSearchFormParameters,
       searchParameters: {...state._professionInterview.searchParameters},

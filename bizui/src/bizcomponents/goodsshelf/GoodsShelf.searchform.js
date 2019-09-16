@@ -264,10 +264,7 @@ componentDidMount() {
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="存货区">
-                  {getFieldDecorator('storageSpace', {
-                    initialValue: tryinit('storageSpace'),
-                   
-                  })(
+                  {getFieldDecorator('storageSpace', {initialValue: tryinit('storageSpace')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('storageSpace')}
@@ -279,10 +276,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="供应商的空间">
-                  {getFieldDecorator('supplierSpace', {
-                    initialValue: tryinit('supplierSpace'),
-                   
-                  })(
+                  {getFieldDecorator('supplierSpace', {initialValue: tryinit('supplierSpace')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('supplierSpace')}
@@ -294,10 +288,7 @@ componentDidMount() {
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="残次货物存放区">
-                  {getFieldDecorator('damageSpace', {
-                    initialValue: tryinit('damageSpace'),
-                   
-                  })(
+                  {getFieldDecorator('damageSpace', {initialValue: tryinit('damageSpace')})(
                   
                   <SelectObject 
                     disabled={!availableForEdit('damageSpace')}

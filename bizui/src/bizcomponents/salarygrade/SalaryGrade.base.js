@@ -38,6 +38,13 @@ const menuData = {menuName:"工资等级", menuFor: "salaryGrade",
   		],
 }
 
+
+const settingMenuData = {menuName:"工资等级", menuFor: "salaryGrade",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   code: '代码',

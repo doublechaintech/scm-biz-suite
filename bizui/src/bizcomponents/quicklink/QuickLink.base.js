@@ -36,6 +36,13 @@ const menuData = {menuName:"快速链接", menuFor: "quickLink",
   		],
 }
 
+
+const settingMenuData = {menuName:"快速链接", menuFor: "quickLink",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   name: '名称',

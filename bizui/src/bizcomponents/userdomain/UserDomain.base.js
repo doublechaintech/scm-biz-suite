@@ -37,6 +37,14 @@ const menuData = {menuName:"用户域", menuFor: "userDomain",
   		],
 }
 
+
+const settingMenuData = {menuName:"用户域", menuFor: "userDomain",
+  		subItems: [
+  {name: 'userWhiteListList', displayName:'用户白名单', icon:'list',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  
+  		],
+}
+
 const fieldLabels = {
   id: 'ID',
   name: '名称',

@@ -164,6 +164,7 @@ class InterviewTypeBizApp extends React.PureComponent {
       data: state._interviewType.employeeInterviewList,
       metaInfo: state._interviewType.employeeInterviewListMetaInfo,
       count: state._interviewType.employeeInterviewCount,
+      returnURL: `/interviewType/${state._interviewType.id}/dashboard`,
       currentPage: state._interviewType.employeeInterviewCurrentPageNumber,
       searchFormParameters: state._interviewType.employeeInterviewSearchFormParameters,
       searchParameters: {...state._interviewType.searchParameters},

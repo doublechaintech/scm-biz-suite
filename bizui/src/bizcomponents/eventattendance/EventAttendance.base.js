@@ -36,6 +36,13 @@ const menuData = {menuName:"活动的参与情况", menuFor: "eventAttendance",
   		],
 }
 
+
+const settingMenuData = {menuName:"活动的参与情况", menuFor: "eventAttendance",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   name: '名称',

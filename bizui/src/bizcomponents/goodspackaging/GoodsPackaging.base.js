@@ -37,6 +37,13 @@ const menuData = {menuName:"货物包装", menuFor: "goodsPackaging",
   		],
 }
 
+
+const settingMenuData = {menuName:"货物包装", menuFor: "goodsPackaging",
+  		subItems: [
+  
+  		],
+}
+
 const fieldLabels = {
   id: '序号',
   packageName: '包的名字',

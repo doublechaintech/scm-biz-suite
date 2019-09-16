@@ -164,6 +164,7 @@ class ShippingSpaceBizApp extends React.PureComponent {
       data: state._shippingSpace.goodsList,
       metaInfo: state._shippingSpace.goodsListMetaInfo,
       count: state._shippingSpace.goodsCount,
+      returnURL: `/shippingSpace/${state._shippingSpace.id}/dashboard`,
       currentPage: state._shippingSpace.goodsCurrentPageNumber,
       searchFormParameters: state._shippingSpace.goodsSearchFormParameters,
       searchParameters: {...state._shippingSpace.searchParameters},
