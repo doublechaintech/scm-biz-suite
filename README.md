@@ -30,9 +30,9 @@
 本系统提供商业化系统支持和基于Issue的免费的技术支持
 ## 兼容性，以下环境测试通过
 
-硬件环境：Amd64/ARM64/华为鲲鹏服务器
-软件环境：CentOS 6+/Ubuntu 16.04+
-数据库：MySQL 5.7+， GBase 8s，Informix 11， PostgreSQL 9.3+
+* 硬件环境：Amd64/ARM64/华为鲲鹏服务器
+* 软件环境：CentOS 6+/Ubuntu 16.04+
+* 数据库：MySQL 5.7+， GBase 8s，Informix 11， PostgreSQL 9.3+
 
 
 ## 部署
