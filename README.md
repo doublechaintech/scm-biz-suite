@@ -31,8 +31,11 @@
 ## 兼容性，以下环境测试通过
 
 * 硬件环境：Amd64/ARM64/华为鲲鹏服务器
-* 软件环境：CentOS 6+/Ubuntu 16.04+
+* 操作系统环境：CentOS 6+/Ubuntu 16.04+
 * 数据库：MySQL 5.7+， GBase 8s，Informix 11， PostgreSQL 9.3+
+* 缓存系统: Redis 3.2+
+* 事件流系统: Kafka
+
 
 
 ## 部署
