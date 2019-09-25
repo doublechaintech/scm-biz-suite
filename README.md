@@ -160,7 +160,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 
 * PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html, 密码为: admin123
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
-* 鲲鹏服务器演示地址: http://lab-arm-kunpeng.doublechaintech.com/admin/retailscm/#/retailStoreCountryCenter/RSCC000001/dashboard
+* 鲲鹏服务器演示地址: http://lab-arm-kunpeng.doublechaintech.com/admin/retailscm/
 
 
 
