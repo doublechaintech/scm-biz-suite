@@ -5,7 +5,7 @@
 ## 复制代码到本地
 
 ```
-https://github.com/doublechaintech/retailscm-biz-suite.git
+git clone https://github.com/doublechaintech/retailscm-biz-suite.git
 ```
 
 
