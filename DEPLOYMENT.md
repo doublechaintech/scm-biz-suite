@@ -2,6 +2,13 @@
 
 系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS，不支持Tomcat服务器的war部署方式。
 
+## 复制代码到本地
+
+```
+git clone https://github.com/doublechaintech/retailscm-biz-suite.git
+```
+
+
 ## 前端 
 
 ### 安装nodejs

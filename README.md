@@ -28,6 +28,15 @@
 ## 技术支持
 
 本系统提供商业化系统支持和基于Issue的免费的技术支持
+## 兼容性，以下环境测试通过
+
+* 硬件环境：Amd64/ARM64/华为鲲鹏服务器
+* 操作系统环境：CentOS 6+/Ubuntu 16.04+
+* 数据库：MySQL 5.7+， GBase 8s，Informix 11， PostgreSQL 9.3+
+* 缓存系统: Redis 3.2+
+* 事件流系统: Kafka
+
+
 
 ## 部署
 
@@ -151,6 +160,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 
 * PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html, 密码为: admin123
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
+* 鲲鹏服务器演示地址: http://lab-arm-kunpeng.doublechaintech.com/admin/retailscm/, 密码为: admin123
 
 
 
