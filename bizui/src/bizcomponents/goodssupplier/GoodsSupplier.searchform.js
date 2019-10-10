@@ -196,7 +196,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -204,7 +204,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -251,7 +251,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -259,7 +259,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -267,7 +267,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="供应产品">
               {getFieldDecorator('supplyProduct')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -278,8 +278,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('belongTo')}
                     targetType={"belongTo"} 
-                    requestFunction={GoodsSupplierService.requestCandidateBelongTo}/>
-                  
+                    requestFunction={GoodsSupplierService.requestCandidateBelongTo} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -287,7 +287,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="联系电话">
               {getFieldDecorator('contactNumber')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -295,7 +295,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

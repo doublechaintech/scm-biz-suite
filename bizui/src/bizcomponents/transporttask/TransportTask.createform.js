@@ -9,6 +9,7 @@ import styles from './TransportTask.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import TransportTaskBase from './TransportTask.base'
+import TransportTaskCreateFormBody from './TransportTask.createformbody'
 import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,9 +20,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2017-05-11',
-  latitude: '40.29881629018488',
-  longitude: '130.30976568027353',
+  beginTime: '2018-10-22',
+  latitude: '42.66654870899781',
+  longitude: '131.61584547756922',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -175,6 +176,9 @@ class TransportTaskCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+      if(!owner){
+      	return null
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -184,6 +188,9 @@ class TransportTaskCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+      if(!owner){
+      	return true
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -192,165 +199,28 @@ class TransportTaskCreateForm extends Component {
     
     }
     const formItemLayout = {
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
     const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输任务</div>)
+    }
+
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}运输任务`}
+        title={internalRenderTitle()}
         content={`${appLocaleName(userContext,"CreateNew")}运输任务`}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
+   			
+   		<TransportTaskCreateFormBody	 {...this.props} />
 
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.start} {...formItemLayout}>
-                  {getFieldDecorator('start', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="开始" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.beginTime} {...formItemLayout}>
-                  {getFieldDecorator('beginTime', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始时间" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
-                  {getFieldDecorator('latitude', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="纬度" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
-                  {getFieldDecorator('longitude', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="经度" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.end} {...formItemLayout}>
-                  {getFieldDecorator('endId', {
-                  	initialValue: tryinit('end'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('end')}
-                    targetType={"end"} 
-                    requestFunction={TransportTaskService.requestCandidateEnd}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.driver} {...formItemLayout}>
-                  {getFieldDecorator('driverId', {
-                  	initialValue: tryinit('driver'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('driver')}
-                    targetType={"driver"} 
-                    requestFunction={TransportTaskService.requestCandidateDriver}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.truck} {...formItemLayout}>
-                  {getFieldDecorator('truckId', {
-                  	initialValue: tryinit('truck'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('truck')}
-                    targetType={"truck"} 
-                    requestFunction={TransportTaskService.requestCandidateTruck}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
-                  {getFieldDecorator('belongsToId', {
-                  	initialValue: tryinit('belongsTo'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('belongsTo')}
-                    targetType={"belongsTo"} 
-                    requestFunction={TransportTaskService.requestCandidateBelongsTo}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
 
         <FooterToolbar>
           {getErrorInfo()}
@@ -364,6 +234,7 @@ class TransportTaskCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
+      
       </PageHeaderLayout>
     )
   }

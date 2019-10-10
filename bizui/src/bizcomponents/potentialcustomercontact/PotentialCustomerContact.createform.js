@@ -9,6 +9,7 @@ import styles from './PotentialCustomerContact.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import PotentialCustomerContactBase from './PotentialCustomerContact.base'
+import PotentialCustomerContactCreateFormBody from './PotentialCustomerContact.createformbody'
 import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -18,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2017-03-05',
+  contactDate: '2017-04-06',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -173,6 +174,9 @@ class PotentialCustomerContactCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+      if(!owner){
+      	return null
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -182,6 +186,9 @@ class PotentialCustomerContactCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+      if(!owner){
+      	return true
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -190,138 +197,28 @@ class PotentialCustomerContactCreateForm extends Component {
     
     }
     const formItemLayout = {
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
     const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}潜在客户联系</div>)
+    }
+
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}潜在客户联系`}
+        title={internalRenderTitle()}
         content={`${appLocaleName(userContext,"CreateNew")}潜在客户联系`}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
+   			
+   		<PotentialCustomerContactCreateFormBody	 {...this.props} />
 
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.contactDate} {...formItemLayout}>
-                  {getFieldDecorator('contactDate', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="接触日期" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.contactMethod} {...formItemLayout}>
-                  {getFieldDecorator('contactMethod', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="接触法" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.description} {...formItemLayout}>
-                  {getFieldDecorator('description', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="描述" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.potentialCustomer} {...formItemLayout}>
-                  {getFieldDecorator('potentialCustomerId', {
-                  	initialValue: tryinit('potentialCustomer'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('potentialCustomer')}
-                    targetType={"potentialCustomer"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidatePotentialCustomer}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.cityPartner} {...formItemLayout}>
-                  {getFieldDecorator('cityPartnerId', {
-                  	initialValue: tryinit('cityPartner'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('cityPartner')}
-                    targetType={"cityPartner"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidateCityPartner}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.contactTo} {...formItemLayout}>
-                  {getFieldDecorator('contactToId', {
-                  	initialValue: tryinit('contactTo'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('contactTo')}
-                    targetType={"contactTo"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidateContactTo}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
 
         <FooterToolbar>
           {getErrorInfo()}
@@ -335,6 +232,7 @@ class PotentialCustomerContactCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
+      
       </PageHeaderLayout>
     )
   }

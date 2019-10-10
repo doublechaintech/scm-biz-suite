@@ -194,7 +194,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -205,9 +205,9 @@ componentDidMount() {
                <SelectObject 
                  disabled={!availableForEdit('employee')}
                  targetType={"employee"} 
-                 requestFunction={EmployeeAwardService.requestCandidateEmployee}/>
-               
-              
+                 requestFunction={EmployeeAwardService.requestCandidateEmployee} useForSearch />
+               	 
+       
                )}
              </Form.Item></Col>
 
@@ -253,7 +253,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -264,8 +264,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('employee')}
                     targetType={"employee"} 
-                    requestFunction={EmployeeAwardService.requestCandidateEmployee}/>
-                  
+                    requestFunction={EmployeeAwardService.requestCandidateEmployee} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -273,7 +273,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="类型">
               {getFieldDecorator('type')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -281,7 +281,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="备注">
               {getFieldDecorator('remark')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

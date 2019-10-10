@@ -10,9 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-  AutoComplete,
+  AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
+import TopMenu from '../../launcher/TopMenu'
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -48,6 +49,36 @@ const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
 const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
 const renderMenuItem=defaultRenderMenuItem
 
+
+
+const userBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+
+const searchBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 12,
+  xl: 12,
+  
+};
+
+
+const naviBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
 
 
 const query = {
@@ -118,27 +149,24 @@ class WarehouseBizApp extends React.PureComponent {
 	const {objectId}=targetApp;
   	const userContext = null
     return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
+	  <Menu
+        theme="dark"
+        mode="inline"
+        
+        onOpenChange={this.handleOpenChange}
+        defaultOpenKeys={['firstOne']}
+        style={{ width: '256px' }}
+       >
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/warehouse/${this.props.warehouse.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
+               <Link to={`/warehouse/${this.props.warehouse.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
            
         {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
@@ -186,6 +214,7 @@ class WarehouseBizApp extends React.PureComponent {
       data: state._warehouse.storageSpaceList,
       metaInfo: state._warehouse.storageSpaceListMetaInfo,
       count: state._warehouse.storageSpaceCount,
+      returnURL: `/warehouse/${state._warehouse.id}/list`,
       currentPage: state._warehouse.storageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.storageSpaceSearchFormParameters,
       loading: state._warehouse.loading,
@@ -236,6 +265,7 @@ class WarehouseBizApp extends React.PureComponent {
       data: state._warehouse.smartPalletList,
       metaInfo: state._warehouse.smartPalletListMetaInfo,
       count: state._warehouse.smartPalletCount,
+      returnURL: `/warehouse/${state._warehouse.id}/list`,
       currentPage: state._warehouse.smartPalletCurrentPageNumber,
       searchFormParameters: state._warehouse.smartPalletSearchFormParameters,
       loading: state._warehouse.loading,
@@ -286,6 +316,7 @@ class WarehouseBizApp extends React.PureComponent {
       data: state._warehouse.supplierSpaceList,
       metaInfo: state._warehouse.supplierSpaceListMetaInfo,
       count: state._warehouse.supplierSpaceCount,
+      returnURL: `/warehouse/${state._warehouse.id}/list`,
       currentPage: state._warehouse.supplierSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.supplierSpaceSearchFormParameters,
       loading: state._warehouse.loading,
@@ -336,6 +367,7 @@ class WarehouseBizApp extends React.PureComponent {
       data: state._warehouse.receivingSpaceList,
       metaInfo: state._warehouse.receivingSpaceListMetaInfo,
       count: state._warehouse.receivingSpaceCount,
+      returnURL: `/warehouse/${state._warehouse.id}/list`,
       currentPage: state._warehouse.receivingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.receivingSpaceSearchFormParameters,
       loading: state._warehouse.loading,
@@ -386,6 +418,7 @@ class WarehouseBizApp extends React.PureComponent {
       data: state._warehouse.shippingSpaceList,
       metaInfo: state._warehouse.shippingSpaceListMetaInfo,
       count: state._warehouse.shippingSpaceCount,
+      returnURL: `/warehouse/${state._warehouse.id}/list`,
       currentPage: state._warehouse.shippingSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.shippingSpaceSearchFormParameters,
       loading: state._warehouse.loading,
@@ -436,6 +469,7 @@ class WarehouseBizApp extends React.PureComponent {
       data: state._warehouse.damageSpaceList,
       metaInfo: state._warehouse.damageSpaceListMetaInfo,
       count: state._warehouse.damageSpaceCount,
+      returnURL: `/warehouse/${state._warehouse.id}/list`,
       currentPage: state._warehouse.damageSpaceCurrentPageNumber,
       searchFormParameters: state._warehouse.damageSpaceSearchFormParameters,
       loading: state._warehouse.loading,
@@ -486,6 +520,7 @@ class WarehouseBizApp extends React.PureComponent {
       data: state._warehouse.warehouseAssetList,
       metaInfo: state._warehouse.warehouseAssetListMetaInfo,
       count: state._warehouse.warehouseAssetCount,
+      returnURL: `/warehouse/${state._warehouse.id}/list`,
       currentPage: state._warehouse.warehouseAssetCurrentPageNumber,
       searchFormParameters: state._warehouse.warehouseAssetSearchFormParameters,
       loading: state._warehouse.loading,
@@ -610,43 +645,65 @@ class WarehouseBizApp extends React.PureComponent {
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
+     const renderBreadcrumbMenuItem=(breadcrumbMenuItem)=>{
+
+      return (
+      <Menu.Item key={breadcrumbMenuItem.link}>
+      <Link key={breadcrumbMenuItem.link} to={`${breadcrumbMenuItem.link}`} className={styles.breadcrumbLink}>
+        <Icon type="heart" style={{marginRight:"10px",color:"red"}} />
+        {renderBreadcrumbText(breadcrumbMenuItem.name)}
+      </Link></Menu.Item>)
+
+     }
+     const breadcrumbMenu=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <Menu mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
+      </Menu>)
+  
+
+     }
+     const { Search } = Input;
      const layout = (
      <Layout>
-        <Header>
+ <Header>
           
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          {appLocaleName(userContext,"Exit")}</Button>
-          </div>
+        <Row type="flex" justify="start" align="bottom">
+        
+        <Col {...naviBarResponsiveStyle} >
+            <Dropdown overlay= {this.getNavMenuItems(this.props.warehouse)}>
+              <a  className={styles.menuLink}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
+              </a>
+            </Dropdown>            
+            <Dropdown overlay={breadcrumbMenu()}>
+              <a  className={styles.menuLink}>
+                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
+              </a>
+            </Dropdown>
+        </Col>
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+          </Col>
+          <Col  {...userBarResponsiveStyle}  > 
+            <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
+                <a  className={styles.menuLink}>
+                  <Icon type="user" style={{fontSize:"20px",marginRight:"10px"}}/> 账户
+                </a>
+            </Dropdown>
+            
+           </Col>  
+         
+         </Row>
         </Header>
        <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.warehouse)}
-		 
-         </Sider>
+       
+         
          <Layout>
+         
+            
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

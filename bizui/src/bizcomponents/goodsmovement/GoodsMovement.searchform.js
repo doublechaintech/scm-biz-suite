@@ -197,7 +197,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -205,7 +205,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="设施">
            {getFieldDecorator('facility')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -252,7 +252,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -260,7 +260,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="设施">
               {getFieldDecorator('facility')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -268,7 +268,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="设备ID">
               {getFieldDecorator('facilityId')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -276,7 +276,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="从IP">
               {getFieldDecorator('fromIp')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -284,7 +284,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="用户代理">
               {getFieldDecorator('userAgent')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -292,7 +292,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="会话ID">
               {getFieldDecorator('sessionId')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -303,8 +303,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('goods')}
                     targetType={"goods"} 
-                    requestFunction={GoodsMovementService.requestCandidateGoods}/>
-                  
+                    requestFunction={GoodsMovementService.requestCandidateGoods} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

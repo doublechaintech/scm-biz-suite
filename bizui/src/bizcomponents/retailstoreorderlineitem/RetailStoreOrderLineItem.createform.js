@@ -9,6 +9,7 @@ import styles from './RetailStoreOrderLineItem.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreOrderLineItemBase from './RetailStoreOrderLineItem.base'
+import RetailStoreOrderLineItemCreateFormBody from './RetailStoreOrderLineItem.createformbody'
 import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,8 +20,8 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  amount: '3.68',
-  quantity: '7428',
+  amount: '3.64',
+  quantity: '7594',
   unitOfMeasurement: '件',
   bizOrderId: 'RSO000001',
 }
@@ -172,6 +173,9 @@ class RetailStoreOrderLineItemCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+      if(!owner){
+      	return null
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -181,6 +185,9 @@ class RetailStoreOrderLineItemCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+      if(!owner){
+      	return true
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -189,114 +196,28 @@ class RetailStoreOrderLineItemCreateForm extends Component {
     
     }
     const formItemLayout = {
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
     const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超订单行项目</div>)
+    }
+
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}双链小超订单行项目`}
+        title={internalRenderTitle()}
         content={`${appLocaleName(userContext,"CreateNew")}双链小超订单行项目`}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
+   			
+   		<RetailStoreOrderLineItemCreateFormBody	 {...this.props} />
 
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.skuId} {...formItemLayout}>
-                  {getFieldDecorator('skuId', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="产品ID" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.skuName} {...formItemLayout}>
-                  {getFieldDecorator('skuName', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="产品名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.amount} {...formItemLayout}>
-                  {getFieldDecorator('amount', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.quantity} {...formItemLayout}>
-                  {getFieldDecorator('quantity', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="数量" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.unitOfMeasurement} {...formItemLayout}>
-                  {getFieldDecorator('unitOfMeasurement', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="测量单位" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
-                  {getFieldDecorator('bizOrderId', {
-                  	initialValue: tryinit('bizOrder'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={RetailStoreOrderLineItemService.requestCandidateBizOrder}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
 
         <FooterToolbar>
           {getErrorInfo()}
@@ -310,6 +231,7 @@ class RetailStoreOrderLineItemCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
+      
       </PageHeaderLayout>
     )
   }

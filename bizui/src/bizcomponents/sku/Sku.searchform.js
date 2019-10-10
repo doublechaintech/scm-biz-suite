@@ -197,7 +197,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -205,7 +205,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -252,7 +252,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -260,7 +260,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -268,7 +268,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="大小">
               {getFieldDecorator('size')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -279,8 +279,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('product')}
                     targetType={"product"} 
-                    requestFunction={SkuService.requestCandidateProduct}/>
-                  
+                    requestFunction={SkuService.requestCandidateProduct} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -288,7 +288,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="条码">
               {getFieldDecorator('barcode')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -296,7 +296,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="包装类型">
               {getFieldDecorator('packageType')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -304,7 +304,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="净含量">
               {getFieldDecorator('netContent')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

@@ -9,6 +9,7 @@ import styles from './RetailStoreMemberGiftCardConsumeRecord.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreMemberGiftCardConsumeRecordBase from './RetailStoreMemberGiftCardConsumeRecord.base'
+import RetailStoreMemberGiftCardConsumeRecordCreateFormBody from './RetailStoreMemberGiftCardConsumeRecord.createformbody'
 import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -17,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2017-12-10',
+  occureTime: '2019-07-21',
   number: 'GF00001',
-  amount: '15.16',
+  amount: '18.74',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -171,6 +172,9 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+      if(!owner){
+      	return null
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -180,6 +184,9 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+      if(!owner){
+      	return true
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -188,111 +195,28 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     }
     const formItemLayout = {
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
     const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录</div>)
+    }
+
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
+        title={internalRenderTitle()}
         content={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
+   			
+   		<RetailStoreMemberGiftCardConsumeRecordCreateFormBody	 {...this.props} />
 
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.occureTime} {...formItemLayout}>
-                  {getFieldDecorator('occureTime', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="发生时间" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.number} {...formItemLayout}>
-                  {getFieldDecorator('number', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="数" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.amount} {...formItemLayout}>
-                  {getFieldDecorator('amount', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.owner} {...formItemLayout}>
-                  {getFieldDecorator('ownerId', {
-                  	initialValue: tryinit('owner'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('owner')}
-                    targetType={"owner"} 
-                    requestFunction={RetailStoreMemberGiftCardConsumeRecordService.requestCandidateOwner}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
-                  {getFieldDecorator('bizOrderId', {
-                  	initialValue: tryinit('bizOrder'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={RetailStoreMemberGiftCardConsumeRecordService.requestCandidateBizOrder}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
 
         <FooterToolbar>
           {getErrorInfo()}
@@ -306,6 +230,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
+      
       </PageHeaderLayout>
     )
   }

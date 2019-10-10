@@ -199,7 +199,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -207,7 +207,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -254,7 +254,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -262,7 +262,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -270,7 +270,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="车牌号码">
               {getFieldDecorator('plateNumber')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -278,7 +278,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="联系电话">
               {getFieldDecorator('contactNumber')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -286,7 +286,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="汽车牌照号码">
               {getFieldDecorator('vehicleLicenseNumber')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -294,7 +294,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="发动机号">
               {getFieldDecorator('engineNumber')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -302,7 +302,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="里程">
               {getFieldDecorator('mileage')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -310,7 +310,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="车身颜色">
               {getFieldDecorator('bodyColor')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -321,8 +321,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('owner')}
                     targetType={"owner"} 
-                    requestFunction={TransportTruckService.requestCandidateOwner}/>
-                  
+                    requestFunction={TransportTruckService.requestCandidateOwner} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

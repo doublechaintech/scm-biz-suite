@@ -197,7 +197,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -205,7 +205,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -252,7 +252,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -260,7 +260,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -268,7 +268,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="接触法">
               {getFieldDecorator('contactMethod')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -279,8 +279,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('potentialCustomer')}
                     targetType={"potentialCustomer"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidatePotentialCustomer}/>
-                  
+                    requestFunction={PotentialCustomerContactService.requestCandidatePotentialCustomer} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -291,8 +291,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('cityPartner')}
                     targetType={"cityPartner"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidateCityPartner}/>
-                  
+                    requestFunction={PotentialCustomerContactService.requestCandidateCityPartner} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -303,8 +303,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('contactTo')}
                     targetType={"contactTo"} 
-                    requestFunction={PotentialCustomerContactService.requestCandidateContactTo}/>
-                  
+                    requestFunction={PotentialCustomerContactService.requestCandidateContactTo} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -312,7 +312,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

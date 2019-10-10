@@ -197,7 +197,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -205,7 +205,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -252,7 +252,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -260,7 +260,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -268,7 +268,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="开始">
               {getFieldDecorator('start')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -279,8 +279,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('end')}
                     targetType={"end"} 
-                    requestFunction={TransportTaskService.requestCandidateEnd}/>
-                  
+                    requestFunction={TransportTaskService.requestCandidateEnd} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -291,8 +291,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('driver')}
                     targetType={"driver"} 
-                    requestFunction={TransportTaskService.requestCandidateDriver}/>
-                  
+                    requestFunction={TransportTaskService.requestCandidateDriver} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -303,8 +303,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('truck')}
                     targetType={"truck"} 
-                    requestFunction={TransportTaskService.requestCandidateTruck}/>
-                  
+                    requestFunction={TransportTaskService.requestCandidateTruck} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -315,8 +315,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('belongsTo')}
                     targetType={"belongsTo"} 
-                    requestFunction={TransportTaskService.requestCandidateBelongsTo}/>
-                  
+                    requestFunction={TransportTaskService.requestCandidateBelongsTo} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

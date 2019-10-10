@@ -82,8 +82,8 @@ export const getURLPrefix = () => {
     //return `http://${url.hostname}:8080/naf/`
     return `http://clariones.doublechaintech.com/naf/`;
   }
-  if (url.hostname === '30.30.126.37') {
-    return `http://${url.hostname}:8080/naf/`;
+  if (url.hostname === '192.168.0.219') {
+    return `https://demo.doublechaintech.com/retailscm/`;
   }
   if (url.hostname === 'localhost') {
     return `http://${url.hostname}:8080/${SYSTEM_SHORT_NAME}/`

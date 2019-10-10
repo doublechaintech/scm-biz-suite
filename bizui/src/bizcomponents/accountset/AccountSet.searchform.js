@@ -201,7 +201,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -209,7 +209,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -256,7 +256,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -264,7 +264,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -272,7 +272,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="年组">
               {getFieldDecorator('yearSet')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -280,7 +280,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="会计制度">
               {getFieldDecorator('accountingSystem')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -288,7 +288,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="本币代码">
               {getFieldDecorator('domesticCurrencyCode')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -296,7 +296,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="本币名称">
               {getFieldDecorator('domesticCurrencyName')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -304,7 +304,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="开户银行">
               {getFieldDecorator('openingBank')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -312,7 +312,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="帐户号码">
               {getFieldDecorator('accountNumber')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -323,8 +323,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('countryCenter')}
                     targetType={"countryCenter"} 
-                    requestFunction={AccountSetService.requestCandidateCountryCenter}/>
-                  
+                    requestFunction={AccountSetService.requestCandidateCountryCenter} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -335,8 +335,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('retailStore')}
                     targetType={"retailStore"} 
-                    requestFunction={AccountSetService.requestCandidateRetailStore}/>
-                  
+                    requestFunction={AccountSetService.requestCandidateRetailStore} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -347,8 +347,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('goodsSupplier')}
                     targetType={"goodsSupplier"} 
-                    requestFunction={AccountSetService.requestCandidateGoodsSupplier}/>
-                  
+                    requestFunction={AccountSetService.requestCandidateGoodsSupplier} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

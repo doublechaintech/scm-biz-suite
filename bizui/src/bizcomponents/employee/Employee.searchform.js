@@ -205,7 +205,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -216,9 +216,9 @@ componentDidMount() {
                <SelectObject 
                  disabled={!availableForEdit('company')}
                  targetType={"company"} 
-                 requestFunction={EmployeeService.requestCandidateCompany}/>
-               
-              
+                 requestFunction={EmployeeService.requestCandidateCompany} useForSearch />
+               	 
+       
                )}
              </Form.Item></Col>
 
@@ -264,7 +264,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -275,8 +275,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('company')}
                     targetType={"company"} 
-                    requestFunction={EmployeeService.requestCandidateCompany}/>
-                  
+                    requestFunction={EmployeeService.requestCandidateCompany} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -284,7 +284,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="头衔">
               {getFieldDecorator('title')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -295,8 +295,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('department')}
                     targetType={"department"} 
-                    requestFunction={EmployeeService.requestCandidateDepartment}/>
-                  
+                    requestFunction={EmployeeService.requestCandidateDepartment} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -304,7 +304,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="姓">
               {getFieldDecorator('familyName')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -312,7 +312,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名">
               {getFieldDecorator('givenName')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -320,7 +320,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="电子邮件">
               {getFieldDecorator('email')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -328,7 +328,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="城市">
               {getFieldDecorator('city')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -336,7 +336,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="地址">
               {getFieldDecorator('address')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -344,7 +344,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="手机">
               {getFieldDecorator('cellPhone')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -355,8 +355,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('occupation')}
                     targetType={"occupation"} 
-                    requestFunction={EmployeeService.requestCandidateOccupation}/>
-                  
+                    requestFunction={EmployeeService.requestCandidateOccupation} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -367,8 +367,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('responsibleFor')}
                     targetType={"responsibleFor"} 
-                    requestFunction={EmployeeService.requestCandidateResponsibleFor}/>
-                  
+                    requestFunction={EmployeeService.requestCandidateResponsibleFor} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -379,8 +379,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('currentSalaryGrade')}
                     targetType={"currentSalaryGrade"} 
-                    requestFunction={EmployeeService.requestCandidateCurrentSalaryGrade}/>
-                  
+                    requestFunction={EmployeeService.requestCandidateCurrentSalaryGrade} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -388,7 +388,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="工资账户">
               {getFieldDecorator('salaryAccount')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -396,7 +396,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

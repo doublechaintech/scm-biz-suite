@@ -204,7 +204,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -212,7 +212,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -259,7 +259,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -267,7 +267,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -275,7 +275,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="RFID">
               {getFieldDecorator('rfid')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -283,7 +283,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="计量单位">
               {getFieldDecorator('uom')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -294,8 +294,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('sku')}
                     targetType={"sku"} 
-                    requestFunction={GoodsService.requestCandidateSku}/>
-                  
+                    requestFunction={GoodsService.requestCandidateSku} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -306,8 +306,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('receivingSpace')}
                     targetType={"receivingSpace"} 
-                    requestFunction={GoodsService.requestCandidateReceivingSpace}/>
-                  
+                    requestFunction={GoodsService.requestCandidateReceivingSpace} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -318,8 +318,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('goodsAllocation')}
                     targetType={"goodsAllocation"} 
-                    requestFunction={GoodsService.requestCandidateGoodsAllocation}/>
-                  
+                    requestFunction={GoodsService.requestCandidateGoodsAllocation} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -330,8 +330,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('smartPallet')}
                     targetType={"smartPallet"} 
-                    requestFunction={GoodsService.requestCandidateSmartPallet}/>
-                  
+                    requestFunction={GoodsService.requestCandidateSmartPallet} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -342,8 +342,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('shippingSpace')}
                     targetType={"shippingSpace"} 
-                    requestFunction={GoodsService.requestCandidateShippingSpace}/>
-                  
+                    requestFunction={GoodsService.requestCandidateShippingSpace} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -354,8 +354,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('transportTask')}
                     targetType={"transportTask"} 
-                    requestFunction={GoodsService.requestCandidateTransportTask}/>
-                  
+                    requestFunction={GoodsService.requestCandidateTransportTask} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -366,8 +366,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('retailStore')}
                     targetType={"retailStore"} 
-                    requestFunction={GoodsService.requestCandidateRetailStore}/>
-                  
+                    requestFunction={GoodsService.requestCandidateRetailStore} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -378,8 +378,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('bizOrder')}
                     targetType={"bizOrder"} 
-                    requestFunction={GoodsService.requestCandidateBizOrder}/>
-                  
+                    requestFunction={GoodsService.requestCandidateBizOrder} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -390,8 +390,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('retailStoreOrder')}
                     targetType={"retailStoreOrder"} 
-                    requestFunction={GoodsService.requestCandidateRetailStoreOrder}/>
-                  
+                    requestFunction={GoodsService.requestCandidateRetailStoreOrder} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -399,7 +399,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

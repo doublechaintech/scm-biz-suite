@@ -198,7 +198,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="ID">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -206,7 +206,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="标题">
            {getFieldDecorator('title')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -253,7 +253,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="ID">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -261,7 +261,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="标题">
               {getFieldDecorator('title')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -272,8 +272,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('secUser')}
                     targetType={"secUser"} 
-                    requestFunction={UserAppService.requestCandidateSecUser}/>
-                  
+                    requestFunction={UserAppService.requestCandidateSecUser} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -281,7 +281,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="应用程序图标">
               {getFieldDecorator('appIcon')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -289,7 +289,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="许可">
               {getFieldDecorator('permission')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -297,7 +297,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="访问对象类型">
               {getFieldDecorator('objectType')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -305,7 +305,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="对象ID">
               {getFieldDecorator('objectId')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -313,7 +313,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="位置">
               {getFieldDecorator('location')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

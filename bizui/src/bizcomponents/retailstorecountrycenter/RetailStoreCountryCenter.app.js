@@ -10,9 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-  AutoComplete,
+  AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
+import TopMenu from '../../launcher/TopMenu'
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -48,6 +49,36 @@ const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
 const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
 const renderMenuItem=defaultRenderMenuItem
 
+
+
+const userBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+
+const searchBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 12,
+  xl: 12,
+  
+};
+
+
+const naviBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
 
 
 const query = {
@@ -118,27 +149,24 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
 	const {objectId}=targetApp;
   	const userContext = null
     return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
+	  <Menu
+        theme="dark"
+        mode="inline"
+        
+        onOpenChange={this.handleOpenChange}
+        defaultOpenKeys={['firstOne']}
+        style={{ width: '256px' }}
+       >
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/retailStoreCountryCenter/${this.props.retailStoreCountryCenter.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
+               <Link to={`/retailStoreCountryCenter/${this.props.retailStoreCountryCenter.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
            
         {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
@@ -186,6 +214,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.catalogList,
       metaInfo: state._retailStoreCountryCenter.catalogListMetaInfo,
       count: state._retailStoreCountryCenter.catalogCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.catalogCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.catalogSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -236,6 +265,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.retailStoreProvinceCenterList,
       metaInfo: state._retailStoreCountryCenter.retailStoreProvinceCenterListMetaInfo,
       count: state._retailStoreCountryCenter.retailStoreProvinceCenterCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.retailStoreProvinceCenterCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreProvinceCenterSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -286,6 +316,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.retailStoreList,
       metaInfo: state._retailStoreCountryCenter.retailStoreListMetaInfo,
       count: state._retailStoreCountryCenter.retailStoreCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -336,6 +367,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.retailStoreMemberList,
       metaInfo: state._retailStoreCountryCenter.retailStoreMemberListMetaInfo,
       count: state._retailStoreCountryCenter.retailStoreMemberCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.retailStoreMemberCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreMemberSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -386,6 +418,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.goodsSupplierList,
       metaInfo: state._retailStoreCountryCenter.goodsSupplierListMetaInfo,
       count: state._retailStoreCountryCenter.goodsSupplierCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.goodsSupplierCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.goodsSupplierSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -436,6 +469,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.supplyOrderList,
       metaInfo: state._retailStoreCountryCenter.supplyOrderListMetaInfo,
       count: state._retailStoreCountryCenter.supplyOrderCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.supplyOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.supplyOrderSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -486,6 +520,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.retailStoreOrderList,
       metaInfo: state._retailStoreCountryCenter.retailStoreOrderListMetaInfo,
       count: state._retailStoreCountryCenter.retailStoreOrderCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.retailStoreOrderCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.retailStoreOrderSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -536,6 +571,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.warehouseList,
       metaInfo: state._retailStoreCountryCenter.warehouseListMetaInfo,
       count: state._retailStoreCountryCenter.warehouseCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.warehouseCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.warehouseSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -586,6 +622,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.transportFleetList,
       metaInfo: state._retailStoreCountryCenter.transportFleetListMetaInfo,
       count: state._retailStoreCountryCenter.transportFleetCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.transportFleetCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.transportFleetSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -636,6 +673,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.accountSetList,
       metaInfo: state._retailStoreCountryCenter.accountSetListMetaInfo,
       count: state._retailStoreCountryCenter.accountSetCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.accountSetCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.accountSetSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -686,6 +724,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.levelOneDepartmentList,
       metaInfo: state._retailStoreCountryCenter.levelOneDepartmentListMetaInfo,
       count: state._retailStoreCountryCenter.levelOneDepartmentCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.levelOneDepartmentCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.levelOneDepartmentSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -736,6 +775,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.skillTypeList,
       metaInfo: state._retailStoreCountryCenter.skillTypeListMetaInfo,
       count: state._retailStoreCountryCenter.skillTypeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.skillTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.skillTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -786,6 +826,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.responsibilityTypeList,
       metaInfo: state._retailStoreCountryCenter.responsibilityTypeListMetaInfo,
       count: state._retailStoreCountryCenter.responsibilityTypeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.responsibilityTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.responsibilityTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -836,6 +877,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.terminationReasonList,
       metaInfo: state._retailStoreCountryCenter.terminationReasonListMetaInfo,
       count: state._retailStoreCountryCenter.terminationReasonCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.terminationReasonCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.terminationReasonSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -886,6 +928,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.terminationTypeList,
       metaInfo: state._retailStoreCountryCenter.terminationTypeListMetaInfo,
       count: state._retailStoreCountryCenter.terminationTypeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.terminationTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.terminationTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -936,6 +979,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.occupationTypeList,
       metaInfo: state._retailStoreCountryCenter.occupationTypeListMetaInfo,
       count: state._retailStoreCountryCenter.occupationTypeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.occupationTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.occupationTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -986,6 +1030,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.leaveTypeList,
       metaInfo: state._retailStoreCountryCenter.leaveTypeListMetaInfo,
       count: state._retailStoreCountryCenter.leaveTypeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.leaveTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.leaveTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1036,6 +1081,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.salaryGradeList,
       metaInfo: state._retailStoreCountryCenter.salaryGradeListMetaInfo,
       count: state._retailStoreCountryCenter.salaryGradeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.salaryGradeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.salaryGradeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1086,6 +1132,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.interviewTypeList,
       metaInfo: state._retailStoreCountryCenter.interviewTypeListMetaInfo,
       count: state._retailStoreCountryCenter.interviewTypeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.interviewTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.interviewTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1136,6 +1183,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.trainingCourseTypeList,
       metaInfo: state._retailStoreCountryCenter.trainingCourseTypeListMetaInfo,
       count: state._retailStoreCountryCenter.trainingCourseTypeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.trainingCourseTypeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.trainingCourseTypeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1186,6 +1234,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.publicHolidayList,
       metaInfo: state._retailStoreCountryCenter.publicHolidayListMetaInfo,
       count: state._retailStoreCountryCenter.publicHolidayCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.publicHolidayCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.publicHolidaySearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1236,6 +1285,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.employeeList,
       metaInfo: state._retailStoreCountryCenter.employeeListMetaInfo,
       count: state._retailStoreCountryCenter.employeeCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.employeeCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.employeeSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1286,6 +1336,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.instructorList,
       metaInfo: state._retailStoreCountryCenter.instructorListMetaInfo,
       count: state._retailStoreCountryCenter.instructorCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.instructorCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.instructorSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1336,6 +1387,7 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
       data: state._retailStoreCountryCenter.companyTrainingList,
       metaInfo: state._retailStoreCountryCenter.companyTrainingListMetaInfo,
       count: state._retailStoreCountryCenter.companyTrainingCount,
+      returnURL: `/retailStoreCountryCenter/${state._retailStoreCountryCenter.id}/list`,
       currentPage: state._retailStoreCountryCenter.companyTrainingCurrentPageNumber,
       searchFormParameters: state._retailStoreCountryCenter.companyTrainingSearchFormParameters,
       loading: state._retailStoreCountryCenter.loading,
@@ -1528,43 +1580,65 @@ class RetailStoreCountryCenterBizApp extends React.PureComponent {
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
+     const renderBreadcrumbMenuItem=(breadcrumbMenuItem)=>{
+
+      return (
+      <Menu.Item key={breadcrumbMenuItem.link}>
+      <Link key={breadcrumbMenuItem.link} to={`${breadcrumbMenuItem.link}`} className={styles.breadcrumbLink}>
+        <Icon type="heart" style={{marginRight:"10px",color:"red"}} />
+        {renderBreadcrumbText(breadcrumbMenuItem.name)}
+      </Link></Menu.Item>)
+
+     }
+     const breadcrumbMenu=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <Menu mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
+      </Menu>)
+  
+
+     }
+     const { Search } = Input;
      const layout = (
      <Layout>
-        <Header>
+ <Header>
           
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          {appLocaleName(userContext,"Exit")}</Button>
-          </div>
+        <Row type="flex" justify="start" align="bottom">
+        
+        <Col {...naviBarResponsiveStyle} >
+            <Dropdown overlay= {this.getNavMenuItems(this.props.retailStoreCountryCenter)}>
+              <a  className={styles.menuLink}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
+              </a>
+            </Dropdown>            
+            <Dropdown overlay={breadcrumbMenu()}>
+              <a  className={styles.menuLink}>
+                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
+              </a>
+            </Dropdown>
+        </Col>
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+          </Col>
+          <Col  {...userBarResponsiveStyle}  > 
+            <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
+                <a  className={styles.menuLink}>
+                  <Icon type="user" style={{fontSize:"20px",marginRight:"10px"}}/> 账户
+                </a>
+            </Dropdown>
+            
+           </Col>  
+         
+         </Row>
         </Header>
        <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.retailStoreCountryCenter)}
-		 
-         </Sider>
+       
+         
          <Layout>
+         
+            
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

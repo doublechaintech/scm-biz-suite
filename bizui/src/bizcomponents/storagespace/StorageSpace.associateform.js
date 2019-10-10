@@ -21,8 +21,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '40.267386362236856',
-  longitude: '131.87439256273316',
+  latitude: '41.1517975354936',
+  longitude: '131.71170257877384',
   warehouseId: 'W000001',
 }
 */

@@ -195,7 +195,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -203,7 +203,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="位置">
            {getFieldDecorator('location')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -250,7 +250,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -258,7 +258,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="位置">
               {getFieldDecorator('location')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -269,8 +269,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('storageSpace')}
                     targetType={"storageSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateStorageSpace}/>
-                  
+                    requestFunction={GoodsShelfService.requestCandidateStorageSpace} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -281,8 +281,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('supplierSpace')}
                     targetType={"supplierSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateSupplierSpace}/>
-                  
+                    requestFunction={GoodsShelfService.requestCandidateSupplierSpace} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -293,8 +293,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('damageSpace')}
                     targetType={"damageSpace"} 
-                    requestFunction={GoodsShelfService.requestCandidateDamageSpace}/>
-                  
+                    requestFunction={GoodsShelfService.requestCandidateDamageSpace} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

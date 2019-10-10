@@ -203,7 +203,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="ID">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -211,7 +211,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -258,7 +258,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="ID">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -266,7 +266,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -274,7 +274,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="访问对象类型">
               {getFieldDecorator('objectType')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -282,7 +282,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表1">
               {getFieldDecorator('list1')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -290,7 +290,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表2">
               {getFieldDecorator('list2')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -298,7 +298,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表3">
               {getFieldDecorator('list3')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -306,7 +306,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表4">
               {getFieldDecorator('list4')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -314,7 +314,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表5">
               {getFieldDecorator('list5')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -322,7 +322,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表6">
               {getFieldDecorator('list6')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -330,7 +330,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表7">
               {getFieldDecorator('list7')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -338,7 +338,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表8">
               {getFieldDecorator('list8')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -346,7 +346,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="列表9">
               {getFieldDecorator('list9')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -357,8 +357,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('app')}
                     targetType={"app"} 
-                    requestFunction={ObjectAccessService.requestCandidateApp}/>
-                  
+                    requestFunction={ObjectAccessService.requestCandidateApp} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

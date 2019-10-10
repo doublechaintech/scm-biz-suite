@@ -18,13 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2601.24',
-  bonus: '721.17',
-  reward: '944.02',
-  personalTax: '724.36',
-  socialSecurity: '854.72',
-  housingFound: '1051.74',
-  jobInsurance: '6.89',
+  baseSalary: '2460.82',
+  bonus: '728.39',
+  reward: '992.27',
+  personalTax: '604.60',
+  socialSecurity: '1048.10',
+  housingFound: '1033.21',
+  jobInsurance: '8.20',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
 }

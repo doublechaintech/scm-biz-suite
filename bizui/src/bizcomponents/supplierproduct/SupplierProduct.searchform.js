@@ -195,7 +195,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -203,7 +203,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="品名">
            {getFieldDecorator('productName')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -250,7 +250,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -258,7 +258,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="品名">
               {getFieldDecorator('productName')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -266,7 +266,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="产品描述">
               {getFieldDecorator('productDescription')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -274,7 +274,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="产品单元">
               {getFieldDecorator('productUnit')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -285,8 +285,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('supplier')}
                     targetType={"supplier"} 
-                    requestFunction={SupplierProductService.requestCandidateSupplier}/>
-                  
+                    requestFunction={SupplierProductService.requestCandidateSupplier} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

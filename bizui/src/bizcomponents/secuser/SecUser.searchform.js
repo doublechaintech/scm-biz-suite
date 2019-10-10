@@ -200,7 +200,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="ID">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -208,7 +208,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="登录">
            {getFieldDecorator('login')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -255,7 +255,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="ID">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -263,7 +263,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="登录">
               {getFieldDecorator('login')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -271,7 +271,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="手机号码">
               {getFieldDecorator('mobile')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -279,7 +279,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="电子邮件">
               {getFieldDecorator('email')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -287,7 +287,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="密码">
               {getFieldDecorator('pwd')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -295,7 +295,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="微信openid">
               {getFieldDecorator('weixinOpenid')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -303,7 +303,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="微信Appid">
               {getFieldDecorator('weixinAppid')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -311,7 +311,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="访问令牌">
               {getFieldDecorator('accessToken')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -322,8 +322,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('domain')}
                     targetType={"domain"} 
-                    requestFunction={SecUserService.requestCandidateDomain}/>
-                  
+                    requestFunction={SecUserService.requestCandidateDomain} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -331,7 +331,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

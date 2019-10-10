@@ -237,17 +237,22 @@ class GoodsMovementUpdateForm extends Component {
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}货物移动: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        title={internalRenderTitle()}
         content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
         wrapperClassName={styles.advancedForm}
       >
@@ -256,7 +261,7 @@ class GoodsMovementUpdateForm extends Component {
             <Row gutter={16}>
             
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
                     initialValue: selectedRow.id,
@@ -268,7 +273,7 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.moveTime} {...formItemLayout}>
                   {getFieldDecorator('moveTime', {
                     initialValue: selectedRow.moveTime,
@@ -280,7 +285,7 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.facility} {...formItemLayout}>
                   {getFieldDecorator('facility', {
                     initialValue: selectedRow.facility,
@@ -292,7 +297,7 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.facilityId} {...formItemLayout}>
                   {getFieldDecorator('facilityId', {
                     initialValue: selectedRow.facilityId,
@@ -304,7 +309,7 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.fromIp} {...formItemLayout}>
                   {getFieldDecorator('fromIp', {
                     initialValue: selectedRow.fromIp,
@@ -316,7 +321,7 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.sessionId} {...formItemLayout}>
                   {getFieldDecorator('sessionId', {
                     initialValue: selectedRow.sessionId,
@@ -328,7 +333,7 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
                     initialValue: selectedRow.latitude,
@@ -340,7 +345,7 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
                     initialValue: selectedRow.longitude,
@@ -352,17 +357,23 @@ class GoodsMovementUpdateForm extends Component {
                 </Form.Item>
               </Col>
 
-            </Row>
-          </Form>  
-        </Card>
+            
        
         
         
         
 
-        <Card title="用户代理" className={styles.card} bordered={false}>
+
+			</Row>
+          </Form>
+        </Card>
+
+
+
+
+       <Card title={`用户代理`} className={styles.card} bordered={false}>
           <Form >
-            <Row gutter={16}>
+          	<Row gutter={16}> 
               <Col lg={24} md={24} sm={24}>
                 <Form.Item>
                   {getFieldDecorator('userAgent', {
@@ -373,9 +384,11 @@ class GoodsMovementUpdateForm extends Component {
                   )}
                 </Form.Item>
               </Col>
-            </Row>
+          </Row>
           </Form>
-        </Card>
+        </Card>   
+
+
 
 
         <FooterToolbar>

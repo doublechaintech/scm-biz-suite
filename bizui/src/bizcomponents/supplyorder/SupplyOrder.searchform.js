@@ -195,7 +195,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -206,9 +206,9 @@ componentDidMount() {
                <SelectObject 
                  disabled={!availableForEdit('buyer')}
                  targetType={"buyer"} 
-                 requestFunction={SupplyOrderService.requestCandidateBuyer}/>
-               
-              
+                 requestFunction={SupplyOrderService.requestCandidateBuyer} useForSearch />
+               	 
+       
                )}
              </Form.Item></Col>
 
@@ -254,7 +254,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -265,8 +265,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('buyer')}
                     targetType={"buyer"} 
-                    requestFunction={SupplyOrderService.requestCandidateBuyer}/>
-                  
+                    requestFunction={SupplyOrderService.requestCandidateBuyer} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -277,8 +277,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('seller')}
                     targetType={"seller"} 
-                    requestFunction={SupplyOrderService.requestCandidateSeller}/>
-                  
+                    requestFunction={SupplyOrderService.requestCandidateSeller} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -286,7 +286,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="头衔">
               {getFieldDecorator('title')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -294,7 +294,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

@@ -10,9 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-  AutoComplete,
+  AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
+import TopMenu from '../../launcher/TopMenu'
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -48,6 +49,36 @@ const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
 const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
 const renderMenuItem=defaultRenderMenuItem
 
+
+
+const userBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+
+const searchBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 12,
+  xl: 12,
+  
+};
+
+
+const naviBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
 
 
 const query = {
@@ -118,27 +149,24 @@ class EmployeeBizApp extends React.PureComponent {
 	const {objectId}=targetApp;
   	const userContext = null
     return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
+	  <Menu
+        theme="dark"
+        mode="inline"
+        
+        onOpenChange={this.handleOpenChange}
+        defaultOpenKeys={['firstOne']}
+        style={{ width: '256px' }}
+       >
            
 
              <Menu.Item key="dashboard">
-               <Link to={`/employee/${this.props.employee.id}/dashboard`}><Icon type="dashboard" /><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
+               <Link to={`/employee/${this.props.employee.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
              </Menu.Item>
            
         {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
         {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
           return(
-    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
       {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
     </SubMenu>
 
@@ -186,6 +214,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeCompanyTrainingList,
       metaInfo: state._employee.employeeCompanyTrainingListMetaInfo,
       count: state._employee.employeeCompanyTrainingCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeCompanyTrainingCurrentPageNumber,
       searchFormParameters: state._employee.employeeCompanyTrainingSearchFormParameters,
       loading: state._employee.loading,
@@ -236,6 +265,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeSkillList,
       metaInfo: state._employee.employeeSkillListMetaInfo,
       count: state._employee.employeeSkillCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeSkillCurrentPageNumber,
       searchFormParameters: state._employee.employeeSkillSearchFormParameters,
       loading: state._employee.loading,
@@ -286,6 +316,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeePerformanceList,
       metaInfo: state._employee.employeePerformanceListMetaInfo,
       count: state._employee.employeePerformanceCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeePerformanceCurrentPageNumber,
       searchFormParameters: state._employee.employeePerformanceSearchFormParameters,
       loading: state._employee.loading,
@@ -336,6 +367,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeWorkExperienceList,
       metaInfo: state._employee.employeeWorkExperienceListMetaInfo,
       count: state._employee.employeeWorkExperienceCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeWorkExperienceCurrentPageNumber,
       searchFormParameters: state._employee.employeeWorkExperienceSearchFormParameters,
       loading: state._employee.loading,
@@ -386,6 +418,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeLeaveList,
       metaInfo: state._employee.employeeLeaveListMetaInfo,
       count: state._employee.employeeLeaveCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeLeaveCurrentPageNumber,
       searchFormParameters: state._employee.employeeLeaveSearchFormParameters,
       loading: state._employee.loading,
@@ -436,6 +469,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeInterviewList,
       metaInfo: state._employee.employeeInterviewListMetaInfo,
       count: state._employee.employeeInterviewCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeInterviewCurrentPageNumber,
       searchFormParameters: state._employee.employeeInterviewSearchFormParameters,
       loading: state._employee.loading,
@@ -486,6 +520,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeAttendanceList,
       metaInfo: state._employee.employeeAttendanceListMetaInfo,
       count: state._employee.employeeAttendanceCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeAttendanceCurrentPageNumber,
       searchFormParameters: state._employee.employeeAttendanceSearchFormParameters,
       loading: state._employee.loading,
@@ -536,6 +571,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeQualifierList,
       metaInfo: state._employee.employeeQualifierListMetaInfo,
       count: state._employee.employeeQualifierCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeQualifierCurrentPageNumber,
       searchFormParameters: state._employee.employeeQualifierSearchFormParameters,
       loading: state._employee.loading,
@@ -586,6 +622,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeEducationList,
       metaInfo: state._employee.employeeEducationListMetaInfo,
       count: state._employee.employeeEducationCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeEducationCurrentPageNumber,
       searchFormParameters: state._employee.employeeEducationSearchFormParameters,
       loading: state._employee.loading,
@@ -636,6 +673,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeAwardList,
       metaInfo: state._employee.employeeAwardListMetaInfo,
       count: state._employee.employeeAwardCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeAwardCurrentPageNumber,
       searchFormParameters: state._employee.employeeAwardSearchFormParameters,
       loading: state._employee.loading,
@@ -686,6 +724,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.employeeSalarySheetList,
       metaInfo: state._employee.employeeSalarySheetListMetaInfo,
       count: state._employee.employeeSalarySheetCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.employeeSalarySheetCurrentPageNumber,
       searchFormParameters: state._employee.employeeSalarySheetSearchFormParameters,
       loading: state._employee.loading,
@@ -736,6 +775,7 @@ class EmployeeBizApp extends React.PureComponent {
       data: state._employee.payingOffList,
       metaInfo: state._employee.payingOffListMetaInfo,
       count: state._employee.payingOffCount,
+      returnURL: `/employee/${state._employee.id}/list`,
       currentPage: state._employee.payingOffCurrentPageNumber,
       searchFormParameters: state._employee.payingOffSearchFormParameters,
       loading: state._employee.loading,
@@ -880,43 +920,65 @@ class EmployeeBizApp extends React.PureComponent {
      const menuProps = collapsed ? {} : {
        openKeys: this.state.openKeys,
      }
+     const renderBreadcrumbMenuItem=(breadcrumbMenuItem)=>{
+
+      return (
+      <Menu.Item key={breadcrumbMenuItem.link}>
+      <Link key={breadcrumbMenuItem.link} to={`${breadcrumbMenuItem.link}`} className={styles.breadcrumbLink}>
+        <Icon type="heart" style={{marginRight:"10px",color:"red"}} />
+        {renderBreadcrumbText(breadcrumbMenuItem.name)}
+      </Link></Menu.Item>)
+
+     }
+     const breadcrumbMenu=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <Menu mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
+      </Menu>)
+  
+
+     }
+     const { Search } = Input;
      const layout = (
      <Layout>
-        <Header>
+ <Header>
           
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          /><Link key={"__home"} to={"/home"} className={styles.breadcrumbLink}><Icon type="home" />&nbsp;{appLocaleName(userContext,"Home")}</Link>
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}><Icon type="caret-right" />{renderBreadcrumbText(item.name)}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          {appLocaleName(userContext,"Exit")}</Button>
-          </div>
+        <Row type="flex" justify="start" align="bottom">
+        
+        <Col {...naviBarResponsiveStyle} >
+            <Dropdown overlay= {this.getNavMenuItems(this.props.employee)}>
+              <a  className={styles.menuLink}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
+              </a>
+            </Dropdown>            
+            <Dropdown overlay={breadcrumbMenu()}>
+              <a  className={styles.menuLink}>
+                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
+              </a>
+            </Dropdown>
+        </Col>
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+          </Col>
+          <Col  {...userBarResponsiveStyle}  > 
+            <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
+                <a  className={styles.menuLink}>
+                  <Icon type="user" style={{fontSize:"20px",marginRight:"10px"}}/> 账户
+                </a>
+            </Dropdown>
+            
+           </Col>  
+         
+         </Row>
         </Header>
        <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.employee)}
-		 
-         </Sider>
+       
+         
          <Layout>
+         
+            
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

@@ -194,7 +194,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="ID">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -202,7 +202,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="来自IP">
            {getFieldDecorator('fromIp')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -249,7 +249,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="ID">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -257,7 +257,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="来自IP">
               {getFieldDecorator('fromIp')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -265,7 +265,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -276,8 +276,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('secUser')}
                     targetType={"secUser"} 
-                    requestFunction={LoginHistoryService.requestCandidateSecUser}/>
-                  
+                    requestFunction={LoginHistoryService.requestCandidateSecUser} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

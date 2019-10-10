@@ -196,7 +196,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -204,7 +204,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="位置">
            {getFieldDecorator('location')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -251,7 +251,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -259,7 +259,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="位置">
               {getFieldDecorator('location')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -267,7 +267,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="联系电话">
               {getFieldDecorator('contactNumber')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -275,7 +275,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -283,7 +283,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="总面积">
               {getFieldDecorator('totalArea')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -294,8 +294,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('warehouse')}
                     targetType={"warehouse"} 
-                    requestFunction={ReceivingSpaceService.requestCandidateWarehouse}/>
-                  
+                    requestFunction={ReceivingSpaceService.requestCandidateWarehouse} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>

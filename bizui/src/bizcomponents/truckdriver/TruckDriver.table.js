@@ -50,7 +50,7 @@ class TruckDriverTable extends PureComponent {
     }
     console.log("searchParameters",searchParameters)
     
-    const remainColumns = displayColumns.filter((item,index)=> item.dataIndex!==referenceName&&index<7&&item.dataIndex!=='content')
+    const remainColumns = displayColumns.filter((item,index)=> item.dataIndex!==referenceName&&index<10&&item.dataIndex!=='content')
     
     if(!searchParameters){
       return remainColumns
@@ -168,7 +168,7 @@ class TruckDriverTable extends PureComponent {
 	const calcDisplayColumns = this.props.calcDisplayColumns||this.calcDisplayColumns
 	const userContext = null
     const paginationProps = {
-      pageSize: 20,
+      pageSize: 10,
       total: count,
       current,
       
@@ -197,12 +197,12 @@ class TruckDriverTable extends PureComponent {
               </span>
             )}
             type="info"
-            showIcon
+            
           />
         </div>
         <Table
           loading={false}
-          size="default"
+          size="small"
           rowKey={record => record.id}
            
           rowSelection={rowSelection}

@@ -195,7 +195,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -203,7 +203,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -250,7 +250,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -258,7 +258,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -269,8 +269,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('potentialCustomer')}
                     targetType={"potentialCustomer"} 
-                    requestFunction={EventAttendanceService.requestCandidatePotentialCustomer}/>
-                  
+                    requestFunction={EventAttendanceService.requestCandidatePotentialCustomer} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -281,8 +281,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('cityEvent')}
                     targetType={"cityEvent"} 
-                    requestFunction={EventAttendanceService.requestCandidateCityEvent}/>
-                  
+                    requestFunction={EventAttendanceService.requestCandidateCityEvent} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -290,7 +290,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

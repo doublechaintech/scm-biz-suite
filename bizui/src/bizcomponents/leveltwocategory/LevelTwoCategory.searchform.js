@@ -193,7 +193,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -204,9 +204,9 @@ componentDidMount() {
                <SelectObject 
                  disabled={!availableForEdit('parentCategory')}
                  targetType={"parentCategory"} 
-                 requestFunction={LevelTwoCategoryService.requestCandidateParentCategory}/>
-               
-              
+                 requestFunction={LevelTwoCategoryService.requestCandidateParentCategory} useForSearch />
+               	 
+       
                )}
              </Form.Item></Col>
 
@@ -252,7 +252,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -263,8 +263,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('parentCategory')}
                     targetType={"parentCategory"} 
-                    requestFunction={LevelTwoCategoryService.requestCandidateParentCategory}/>
-                  
+                    requestFunction={LevelTwoCategoryService.requestCandidateParentCategory} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -272,7 +272,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

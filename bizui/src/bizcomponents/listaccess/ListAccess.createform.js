@@ -9,6 +9,7 @@ import styles from './ListAccess.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ListAccessBase from './ListAccess.base'
+import ListAccessCreateFormBody from './ListAccess.createformbody'
 import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -169,6 +170,9 @@ class ListAccessCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+      if(!owner){
+      	return null
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -178,6 +182,9 @@ class ListAccessCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+      if(!owner){
+      	return true
+      }
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -186,153 +193,28 @@ class ListAccessCreateForm extends Component {
     
     }
     const formItemLayout = {
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
     const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
     }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}访问列表</div>)
+    }
+
 	return (
       <PageHeaderLayout
-        title={`${appLocaleName(userContext,"CreateNew")}访问列表`}
+        title={internalRenderTitle()}
         content={`${appLocaleName(userContext,"CreateNew")}访问列表`}
         wrapperClassName={styles.advancedForm}
       >
-        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
+   			
+   		<ListAccessCreateFormBody	 {...this.props} />
 
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.internalName} {...formItemLayout}>
-                  {getFieldDecorator('internalName', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                    <Input size="large" placeholder="内部名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-        
-        <Card title={appLocaleName(userContext,"Preference")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-            
-
-              <Col lg={8} md={12} sm={24}>
-                <Form.Item label={fieldLabels.readPermission}  {...switchFormItemLayout}>
-                  {getFieldDecorator('readPermission', {
-                    initialValue: false,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={8} md={12} sm={24}>
-                <Form.Item label={fieldLabels.createPermission}  {...switchFormItemLayout}>
-                  {getFieldDecorator('createPermission', {
-                    initialValue: false,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={8} md={12} sm={24}>
-                <Form.Item label={fieldLabels.deletePermission}  {...switchFormItemLayout}>
-                  {getFieldDecorator('deletePermission', {
-                    initialValue: false,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={8} md={12} sm={24}>
-                <Form.Item label={fieldLabels.updatePermission}  {...switchFormItemLayout}>
-                  {getFieldDecorator('updatePermission', {
-                    initialValue: false,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={8} md={12} sm={24}>
-                <Form.Item label={fieldLabels.executionPermission}  {...switchFormItemLayout}>
-                  {getFieldDecorator('executionPermission', {
-                    initialValue: false,
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>        
-        
-        
-
-
-
-
-
-
-
-
-
-        <Card title={appLocaleName(userContext,"Associate")} className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.app} {...formItemLayout}>
-                  {getFieldDecorator('appId', {
-                  	initialValue: tryinit('app'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('app')}
-                    targetType={"app"} 
-                    requestFunction={ListAccessService.requestCandidateApp}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
 
         <FooterToolbar>
           {getErrorInfo()}
@@ -346,6 +228,7 @@ class ListAccessCreateForm extends Component {
             {appLocaleName(userContext,"Discard")}
           </Button>
         </FooterToolbar>
+      
       </PageHeaderLayout>
     )
   }

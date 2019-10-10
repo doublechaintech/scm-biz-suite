@@ -198,7 +198,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -206,7 +206,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-             <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+             <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
@@ -253,7 +253,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -261,7 +261,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -269,7 +269,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="电话">
               {getFieldDecorator('telephone')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -277,7 +277,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="业主">
               {getFieldDecorator('owner')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -288,8 +288,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('retailStoreCountryCenter')}
                     targetType={"retailStoreCountryCenter"} 
-                    requestFunction={RetailStoreService.requestCandidateRetailStoreCountryCenter}/>
-                  
+                    requestFunction={RetailStoreService.requestCandidateRetailStoreCountryCenter} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -300,8 +300,8 @@ componentDidMount() {
                   <SelectObject 
                     disabled={!availableForEdit('cityServiceCenter')}
                     targetType={"cityServiceCenter"} 
-                    requestFunction={RetailStoreService.requestCandidateCityServiceCenter}/>
-                  
+                    requestFunction={RetailStoreService.requestCandidateCityServiceCenter} useForSearch />
+                  	
                  
                   )}
                 </Form.Item></Col>
@@ -309,7 +309,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
@@ -317,7 +317,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
-                <Input size="large" placeholder={appLocaleName(userContext,"PleaseInput")} />
+                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>

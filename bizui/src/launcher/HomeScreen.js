@@ -55,73 +55,66 @@ class HomeScreen extends React.Component {
     //return '/login';
   };
 
-  showAppList = () =>{
-    const styleList = 'icon-effect-1 icon-effect-1a icon-item'
-    
+  showAppList = () => {
+    const styleList = 'icon-effect-1 icon-effect-1a icon-item';
+
     var effectClasses = classNames({
       styleList,
     });
 
-    if(!this.props.launcher.data || !this.props.launcher.data.userAppList){
+    if (!this.props.launcher.data || !this.props.launcher.data.userAppList) {
       return (
-      <Row key="3" className="icon-item-list" justify="center" align="middle" id="more">
-        <Col
-          className={styleList}
-          key={i}
-          span={6}
-          style={{ textAlign: 'center' }}
-          onClick={e => this.gotoApp(e, app)}
-        >
-         登录成功，但是没有分配到任何App
-        </Col>
-
-    </Row>)
+        <Row key="3" className="icon-item-list" justify="center" align="middle" id="more">
+          <Col
+            className={styleList}
+            key={i}
+            span={6}
+            style={{ textAlign: 'center' }}
+            onClick={e => this.gotoApp(e, app)}
+          >
+            登录成功，但是没有分配到任何App
+          </Col>
+        </Row>
+      );
     }
 
     const appList = this.props.launcher.data.userAppList;
 
-    return(<Row key="3" className="icon-item-list" justify="center" align="middle" id="more">
-          {appList.map((app, i) => (
-            <Col
-              className={styleList}
-              key={i}
-              span={6}
-              style={{ textAlign: 'center' }}
-              onClick={e => this.gotoApp(e, app)}
-            >
-              <div className="icon-item-box">
-                <FontAwesome name={app.appIcon} style={{ color: 'brown' }} className={'icon'} />
-                <p>{app.title}</p>
-              </div>
-            </Col>
-          ))}
-        </Row>)
-
-
-
-  }
+    return (
+      <Row key="3" className="icon-item-list" justify="center" align="middle" id="more">
+        {appList.map((app, i) => (
+          <Col
+            className={styleList}
+            key={i}
+            span={6}
+            style={{ textAlign: 'center' }}
+            onClick={e => this.gotoApp(e, app)}
+          >
+            <div className="icon-item-box">
+              <FontAwesome name={app.appIcon} style={{ color: 'brown' }} className={'icon'} />
+              <p>{app.title}</p>
+            </div>
+          </Col>
+        ))}
+      </Row>
+    );
+  };
 
   render() {
-    
-
     const appList = this.props.launcher.data.userAppList;
     const calcLink = this.calcLink;
 
     const { systemName } = this.props.launcher;
     const userContext = this.props.launcher.data;
-    
 
     // console.log(styleList);
-
-    
-
 
     return (
       <div className={'wrapper'}>
         <Row key="1">
           <Col className="gutter-row" span={24}>
             <span className="logo" />
-            <TopMenu {...this.props} />
+            <TopMenu {...this.props} onHomePage />
           </Col>
         </Row>
         <Row key="2">
@@ -135,8 +128,6 @@ class HomeScreen extends React.Component {
         </Row>
 
         {this.showAppList()}
-
-       
       </div>
     );
   }
