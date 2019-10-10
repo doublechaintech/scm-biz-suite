@@ -118,7 +118,7 @@ cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
 
 然后把执行 
 ```
-ln -s  bizcore  ~/resin-3.1.16/webapps/retailscm
+ln -s  $PWD/bizcore  ~/resin-3.1.16/webapps/retailscm
 ```
 ### 启动Resin
 
