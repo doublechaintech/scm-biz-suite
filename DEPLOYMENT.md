@@ -127,6 +127,13 @@ cd  resin-3.1.16/ && bin/httpd.sh
 ```
 这样服务器就启动了
 
+### 访问后台
+
+```
+http://localhost:8080/retailscm/secUserManager/home/
+```
+
+
 
 ### 配置nginx（ 非生产环境的话，不是必要步骤）
 
