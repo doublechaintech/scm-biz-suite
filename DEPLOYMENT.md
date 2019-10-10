@@ -129,6 +129,8 @@ cd  resin-3.1.16/ && bin/httpd.sh
 
 ### 访问后台
 
+云服务器记得打开端口8080
+
 ```
 http://localhost:8080/retailscm/secUserManager/home/
 ```
