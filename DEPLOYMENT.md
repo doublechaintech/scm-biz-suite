@@ -33,7 +33,21 @@ sudo apt-get update && sudo apt-get install yarn
 export NODE_OPTIONS=--max-old-space-size=10230
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 
-新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证
+新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证, 不设置环境变量会导致
+
+```
+==== JS stack trace =========================================
+
+    0: ExitFrame [pc: 0x1b1e8aadbe1d]
+    1: StubFrame [pc: 0x1b1e8d56aba2]
+Security context: 0x2be87309e6e9 <JSObject>
+    2: getOptions(aka getOptions) [0x19d718b916d1] [/home/philip/githome/retailscm-biz-suite/bizui/node_modules/acorn/dist/acorn.js:403] [bytecode=0x19e0b9bbeaa9 offset=85](this=0x1a01d14026f1 <undefined>,opts=0x0b7c125f33f9 <Object map = 0x27e6b3c63c59>)
+    3: new constructor(aka Parser) [0x41cc263b091] [/home/philip/g...
+
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+ 1: 0x8fa0c0 node::Abort() [/usr/bin/node]
+
+```
 
 
 
