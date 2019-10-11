@@ -46,7 +46,9 @@ cd retailscm-biz-suite/bizui/ && yarn install && yarn build
 
 下载时间随网络情况而定，编译时间大约从300秒到700秒，此步骤需要一颗强劲的CPU
 
-在bizui目录下面的dist目录就会有需要部署的所有的js文件和其他文件，可以部署到任何地方,使用CDN对响应速度帮助很大
+在bizui目录下面的dist目录就会有需要部署的所有的js文件和其他文件，可以部署到任何地方, 使用CDN对响应速度帮助很大，这个步骤是获得基于前后端分离的，基于Ant Design的前端部署包。
+
+
 
 ## 后端
 
@@ -118,7 +120,7 @@ cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
 
 然后把执行 
 ```
-ln -s  bizcore  ~/resin-3.1.16/webapps/retailscm
+ln -s  $PWD/bizcore  ~/resin-3.1.16/webapps/retailscm
 ```
 ### 启动Resin
 
@@ -126,6 +128,15 @@ ln -s  bizcore  ~/resin-3.1.16/webapps/retailscm
 cd  resin-3.1.16/ && bin/httpd.sh
 ```
 这样服务器就启动了
+
+### 访问后台
+
+云服务器记得打开端口8080, 此步骤是运行后端，后端除了提供了REST API以外，还提供了基于JSP的操作界面，这个界面主要用于调试的时候显示大量数据用于验证程序逻辑。
+
+```
+http://localhost:8080/retailscm/secUserManager/home/
+```
+
 
 
 ### 配置nginx（ 非生产环境的话，不是必要步骤）
