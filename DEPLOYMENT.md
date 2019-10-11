@@ -34,7 +34,8 @@ sudo apt-get update && sudo apt-get install yarn
 export NODE_OPTIONS=--max-old-space-size=10230
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 ```
-新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证, 不设置环境变量会导致
+
+不设置环境变量会导致
 
 ```
 ==== JS stack trace =========================================
@@ -49,6 +50,9 @@ FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaS
  1: 0x8fa0c0 node::Abort() [/usr/bin/node]
 
 ```
+
+
+新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证, 
 
 
 
