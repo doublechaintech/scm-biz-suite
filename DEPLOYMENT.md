@@ -166,6 +166,15 @@ cd  resin-3.1.16/ && bin/httpd.sh
 http://localhost:8080/retailscm/secUserManager/home/
 ```
 
+### 测试前端
+
+```
+mkdir -p ~/resin-3.1.16/webapps/ROOT/admin
+cd  retailscm-biz-suite/bizui && copy -R dist/* ~/resin-3.1.16/webapps/ROOT/admin
+
+```
+访问 http://localhost:8080/admin/index.html
+
 
 
 ### 配置nginx（ 非生产环境的话，不是必要步骤）
