@@ -63,6 +63,16 @@ cd retailscm-biz-suite/bizui/ && yarn install && yarn build
 
 ```
 
+如何之前使用过旧的版本，可能出现错误，
+```
+bizui/src/index.js: helpers(...).minVersion is not a function
+```
+解决办法，清理掉node_modules
+
+```
+rm -rf node_modules && yarn install && yarn build
+```
+
 下载时间随网络情况而定，编译时间大约从300秒到700秒，此步骤需要一颗强劲的CPU
 
 在bizui目录下面的dist目录就会有需要部署的所有的js文件和其他文件，可以部署到任何地方, 使用CDN对响应速度帮助很大，这个步骤是获得基于前后端分离的，基于Ant Design的前端部署包。
