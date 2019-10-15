@@ -36,7 +36,9 @@
 * 缓存系统: Redis 3.2+
 * 事件流系统: Kafka
 
+## 二次开发
 
+数据库设计文档已经开放 [数据库设计 ](/doc/retailscm-database-design.pdf)
 
 ## 部署
 
