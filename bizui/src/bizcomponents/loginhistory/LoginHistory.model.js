@@ -1,19 +1,9 @@
 
-<<<<<<< HEAD
-
-=======
 import React from 'react'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
 import GlobalComponents from '../../custcomponents';
-<<<<<<< HEAD
-
-import modeltool from '../../utils/modeltool'
-const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
-
-=======
 import appLocaleName from '../../common/Locale.tool'
 import modeltool from '../../utils/modeltool'
 const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
@@ -27,7 +17,6 @@ const notifySuccess=(userContext)=>{
 
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 export default {
 
@@ -88,25 +77,15 @@ export default {
     },
     
     *doJob({ payload }, { call, put }) { 
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {TaskService} = GlobalComponents;
       //yield put({ type: 'showLoading', payload })      
       const {serviceNameToCall, id, parameters} = payload;
       if(!serviceNameToCall){
-<<<<<<< HEAD
-      	handleClientError("没有提供后台服务的名字, 该服务没有注册")
-      	return;
-      }
-      
-=======
       	handleClientError(appLocaleName(userContext,'ServiceNotRegistered'))
       	return;
       }
       "react/dva_object_model.jsp"
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       const data = yield call(serviceNameToCall, id, parameters)
       if(handleServerError(data)){
@@ -152,12 +131,3 @@ export default {
   },
 }
 
-<<<<<<< HEAD
-
-
-
-
-
-
-=======
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854

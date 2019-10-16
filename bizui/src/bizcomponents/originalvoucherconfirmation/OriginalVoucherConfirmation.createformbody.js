@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '确认通过',
-  makeDate: '2019-01-04',
+  makeDate: '2017-12-19',
 }
 */
 
@@ -80,12 +80,6 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -19,8 +19,8 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  amount: '2.83',
-  quantity: '8045',
+  amount: '2.78',
+  quantity: '9583',
   unitOfMeasurement: '件',
   bizOrderId: 'RSO000001',
 }
@@ -83,12 +83,6 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class RetailStoreOrderLineItemCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

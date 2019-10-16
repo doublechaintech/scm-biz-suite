@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-  amount: '546.62',
+  amount: '516.34',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -81,12 +81,6 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

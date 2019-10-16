@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class ScoringBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class ScoringBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/scoring/${this.props.scoring.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/scoring/${this.props.scoring.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class ScoringBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class ScoringBizApp extends React.PureComponent {
 
   getEmployeeCompanyTrainingSearch = () => {
     const {EmployeeCompanyTrainingSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "员工参与的公司培训",
@@ -264,10 +192,7 @@ class ScoringBizApp extends React.PureComponent {
       data: state._scoring.employeeCompanyTrainingList,
       metaInfo: state._scoring.employeeCompanyTrainingListMetaInfo,
       count: state._scoring.employeeCompanyTrainingCount,
-<<<<<<< HEAD
-=======
       returnURL: `/scoring/${state._scoring.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._scoring.employeeCompanyTrainingCurrentPageNumber,
       searchFormParameters: state._scoring.employeeCompanyTrainingSearchFormParameters,
       searchParameters: {...state._scoring.searchParameters},
@@ -277,55 +202,34 @@ class ScoringBizApp extends React.PureComponent {
       owner: { type: '_scoring', id: state._scoring.id, 
       referenceName: 'scoring', 
       listName: 'employeeCompanyTrainingList', ref:state._scoring, 
-<<<<<<< HEAD
-      listDisplayName: '员工参与的公司培训列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(EmployeeCompanyTrainingSearch)
   }
   getEmployeeCompanyTrainingCreateForm = () => {
    	const {EmployeeCompanyTrainingCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "employeeCompanyTraining",
       data: state._scoring.employeeCompanyTrainingList,
       metaInfo: state._scoring.employeeCompanyTrainingListMetaInfo,
       count: state._scoring.employeeCompanyTrainingCount,
-<<<<<<< HEAD
-      currentPage: state._scoring.employeeCompanyTrainingCurrentPageNumber,
-      searchFormParameters: state._scoring.employeeCompanyTrainingSearchFormParameters,
-      loading: state._scoring.loading,
-      owner: { type: '_scoring', id: state._scoring.id, referenceName: 'scoring', listName: 'employeeCompanyTrainingList', ref:state._scoring, listDisplayName: '员工参与的公司培训列表'}, // this is for model namespace and
-=======
       returnURL: `/scoring/${state._scoring.id}/list`,
       currentPage: state._scoring.employeeCompanyTrainingCurrentPageNumber,
       searchFormParameters: state._scoring.employeeCompanyTrainingSearchFormParameters,
       loading: state._scoring.loading,
       owner: { type: '_scoring', id: state._scoring.id, referenceName: 'scoring', listName: 'employeeCompanyTrainingList', ref:state._scoring, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(EmployeeCompanyTrainingCreateForm)
   }
   
   getEmployeeCompanyTrainingUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {EmployeeCompanyTrainingUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._scoring.selectedRows,
       role: "employeeCompanyTraining",
       currentUpdateIndex: state._scoring.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_scoring', id: state._scoring.id, listName: 'employeeCompanyTrainingList', ref:state._scoring, listDisplayName: '员工参与的公司培训列表' }, // this is for model namespace and
-=======
       owner: { type: '_scoring', id: state._scoring.id, listName: 'employeeCompanyTrainingList', ref:state._scoring, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(EmployeeCompanyTrainingUpdateForm)
   }
 
@@ -333,22 +237,14 @@ class ScoringBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {ScoringDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {ScoringPreference} = GlobalComponents
-=======
   	const {ScoringPermission} = GlobalComponents
   	const {ScoringProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/scoring/:id/dashboard", component: ScoringDashboard},
-<<<<<<< HEAD
-  	{path:"/scoring/:id/preference", component: ScoringPreference},
-=======
   	{path:"/scoring/:id/profile", component: ScoringProfile},
   	{path:"/scoring/:id/permission", component: ScoringPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -399,59 +295,6 @@ class ScoringBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {ScoringEditDetail} = GlobalComponents
-     //const {ScoringViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.scoring)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -493,7 +336,7 @@ class ScoringBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -525,13 +368,12 @@ class ScoringBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

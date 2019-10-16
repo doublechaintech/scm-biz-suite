@@ -9,12 +9,8 @@ import styles from './ConsumerOrderPriceAdjustment.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ConsumerOrderPriceAdjustmentBase from './ConsumerOrderPriceAdjustment.base'
-<<<<<<< HEAD
-
-=======
 import ConsumerOrderPriceAdjustmentCreateFormBody from './ConsumerOrderPriceAdjustment.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -23,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-<<<<<<< HEAD
-  amount: '582.45',
-=======
-  amount: '496.88',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  amount: '578.34',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -78,11 +70,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ConsumerOrderPriceAdjustmentBase
     const {ConsumerOrderPriceAdjustmentService} = GlobalComponents
@@ -131,16 +119,10 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'consumerOrderPriceAdjustment',listName:'消费品价格调整列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'consumerOrderPriceAdjustment',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -171,11 +153,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -193,12 +171,9 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -208,12 +183,9 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -221,99 +193,9 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个消费品价格调整"
-        content="新建一个消费品价格调整"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.amount} {...formItemLayout}>
-                  {getFieldDecorator('amount', {
-                    rules: [{ required: true, message: '请输入金额' }],
-                  })(
-                    <Input placeholder="请输入金额" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.provider} {...formItemLayout}>
-                  {getFieldDecorator('provider', {
-                    rules: [{ required: true, message: '请输入供应商' }],
-                  })(
-                    <Input placeholder="请输入供应商" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
-                  {getFieldDecorator('bizOrderId', {
-                  	initialValue: tryinit('bizOrder'),
-                    rules: [{ required: true, message: '请输入订单' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={ConsumerOrderPriceAdjustmentService.requestCandidateBizOrder}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -334,22 +216,10 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
    			
    		<ConsumerOrderPriceAdjustmentCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -360,7 +230,6 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

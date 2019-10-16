@@ -9,12 +9,8 @@ import styles from './UserApp.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import UserAppBase from './UserApp.base'
-<<<<<<< HEAD
-
-=======
 import UserAppCreateFormBody from './UserApp.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -77,11 +73,7 @@ class UserAppCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = UserAppBase
     const {UserAppService} = GlobalComponents
@@ -130,16 +122,10 @@ class UserAppCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'userApp',listName:'用户应用程序列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'userApp',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -170,11 +156,7 @@ class UserAppCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -192,12 +174,9 @@ class UserAppCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -207,12 +186,9 @@ class UserAppCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -220,150 +196,9 @@ class UserAppCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个用户应用程序"
-        content="新建一个用户应用程序"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.title} {...formItemLayout}>
-                  {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
-                  })(
-                    <Input placeholder="请输入头衔" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.appIcon} {...formItemLayout}>
-                  {getFieldDecorator('appIcon', {
-                    rules: [{ required: true, message: '请输入应用程序图标' }],
-                  })(
-                    <Input placeholder="请输入应用程序图标" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.permission} {...formItemLayout}>
-                  {getFieldDecorator('permission', {
-                    rules: [{ required: true, message: '请输入许可' }],
-                  })(
-                    <Input placeholder="请输入许可" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.objectType} {...formItemLayout}>
-                  {getFieldDecorator('objectType', {
-                    rules: [{ required: true, message: '请输入对象类型' }],
-                  })(
-                    <Input placeholder="请输入对象类型" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.objectId} {...formItemLayout}>
-                  {getFieldDecorator('objectId', {
-                    rules: [{ required: true, message: '请输入对象ID' }],
-                  })(
-                    <Input placeholder="请输入对象ID" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.location} {...formItemLayout}>
-                  {getFieldDecorator('location', {
-                    rules: [{ required: true, message: '请输入位置' }],
-                  })(
-                    <Input placeholder="请输入位置" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-        
-        <Card title="设置" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-            
-
-              <Col lg={8} md={12} sm={24}>
-                <Form.Item label={fieldLabels.fullAccess}  {...switchFormItemLayout}>
-                  {getFieldDecorator('fullAccess', {
-                    initialValue: false,
-                    rules: [{ required: true, message: '请输入完全访问' }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入完全访问bool" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>        
-        
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.secUser} {...formItemLayout}>
-                  {getFieldDecorator('secUserId', {
-                  	initialValue: tryinit('secUser'),
-                    rules: [{ required: true, message: '请输入SEC的用户' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('secUser')}
-                    targetType={"secUser"} 
-                    requestFunction={UserAppService.requestCandidateSecUser}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -384,22 +219,10 @@ class UserAppCreateForm extends Component {
    			
    		<UserAppCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -410,7 +233,6 @@ class UserAppCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

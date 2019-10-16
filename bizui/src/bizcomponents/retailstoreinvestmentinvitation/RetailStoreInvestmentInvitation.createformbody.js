@@ -78,12 +78,6 @@ class RetailStoreInvestmentInvitationCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -113,6 +107,7 @@ class RetailStoreInvestmentInvitationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

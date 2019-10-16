@@ -31,7 +31,7 @@ const internalSummaryOf = (product,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{product.id}</Description> 
+<Description term="序号">{product.id}</Description> 
 <Description term="名称">{product.name}</Description> 
 <Description term="产地">{product.origin}</Description> 
 <Description term="备注">{product.remark}</Description> 

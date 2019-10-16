@@ -9,12 +9,8 @@ import styles from './RetailStoreOrderApproval.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreOrderApprovalBase from './RetailStoreOrderApproval.base'
-<<<<<<< HEAD
-
-=======
 import RetailStoreOrderApprovalCreateFormBody from './RetailStoreOrderApproval.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -23,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '批准者',
-<<<<<<< HEAD
-  approveTime: '2018-03-21',
-=======
-  approveTime: '2018-08-06',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  approveTime: '2017-11-10',
 }
 */
 
@@ -76,11 +68,7 @@ class RetailStoreOrderApprovalCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = RetailStoreOrderApprovalBase
     const {RetailStoreOrderApprovalService} = GlobalComponents
@@ -129,16 +117,10 @@ class RetailStoreOrderApprovalCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'retailStoreOrderApproval',listName:'生超订单批准列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'retailStoreOrderApproval',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -169,11 +151,7 @@ class RetailStoreOrderApprovalCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -191,12 +169,9 @@ class RetailStoreOrderApprovalCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -206,12 +181,9 @@ class RetailStoreOrderApprovalCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -219,63 +191,9 @@ class RetailStoreOrderApprovalCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个生超订单批准"
-        content="新建一个生超订单批准"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.who} {...formItemLayout}>
-                  {getFieldDecorator('who', {
-                    rules: [{ required: true, message: '请输入谁' }],
-                  })(
-                    <Input placeholder="请输入谁" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.approveTime} {...formItemLayout}>
-                  {getFieldDecorator('approveTime', {
-                    rules: [{ required: true, message: '请输入批准时间' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入批准时间" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -295,23 +213,11 @@ class RetailStoreOrderApprovalCreateForm extends Component {
       >
    			
    		<RetailStoreOrderApprovalCreateFormBody	 {...this.props} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -322,7 +228,6 @@ class RetailStoreOrderApprovalCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

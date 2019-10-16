@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '审核通过，要都审核过了才通过哦',
-  makeDate: '2018-08-30',
+  makeDate: '2017-10-28',
 }
 */
 
@@ -80,12 +80,6 @@ class AccountingDocumentPostingCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class AccountingDocumentPostingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

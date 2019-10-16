@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
-  founded: '2017-08-28',
+  founded: '2017-04-03',
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',
@@ -85,12 +85,6 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -120,6 +114,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

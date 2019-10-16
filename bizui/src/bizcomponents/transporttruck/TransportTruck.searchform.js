@@ -7,10 +7,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 import styles from './TransportTruck.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -105,11 +102,7 @@ componentDidMount() {
     }
   }
   */
-<<<<<<< HEAD
-  buildStringSearchParameters = (formValues, searchVerb, fieldName) => {
-=======
   buildStringSearchParameters = (listName, formValues, searchVerb, fieldName) => {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const fieldValue = formValues[fieldName]
     if (!fieldValue) {
       return null
@@ -118,15 +111,9 @@ componentDidMount() {
     //paramHolder.length
     const value = {}
 
-<<<<<<< HEAD
-    value[`transportTruckList.searchField`] = fieldName
-    value[`transportTruckList.searchVerb`] =  searchVerb
-    value[`transportTruckList.searchValue`] = fieldValue
-=======
     value[`${listName}.searchField`] = fieldName
     value[`${listName}.searchVerb`] =  searchVerb
     value[`${listName}.searchValue`] = fieldValue
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     return value
 
@@ -140,19 +127,6 @@ componentDidMount() {
     form.validateFields((err, fieldsValue) => {
       if (err) return
       const paramList = []
-<<<<<<< HEAD
-      
-     
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'id'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'name'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'plateNumber'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'contactNumber'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'vehicleLicenseNumber'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'engineNumber'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'mileage'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'bodyColor'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'owner'))
-=======
       const { owner } = this.props
       const {listName} = owner
      
@@ -165,7 +139,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'mileage'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'bodyColor'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'owner'))
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
      
       console.log("the final parameter", paramList)
@@ -181,20 +154,12 @@ componentDidMount() {
 
       }
      
-<<<<<<< HEAD
-      params['transportTruckList'] = 1
-      params['transportTruckList.orderBy.0'] = "id"
-      params['transportTruckList.descOrAsc.0'] = "desc"
-      
-      const { owner } = this.props
-=======
       
       params[`${listName}`] = 1
       params[`${listName}.orderBy.0`] = "id"
       params[`${listName}.descOrAsc.0`] = "desc"
       
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const expandForm = overrideValue([this.state.expandForm],false)
       dispatch({
         type: `${owner.type}/load`,
@@ -208,10 +173,7 @@ componentDidMount() {
       
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {TransportTruckService} = GlobalComponents
     const tryinit  = (fieldName) => {
       const { owner } = this.props
@@ -237,11 +199,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-<<<<<<< HEAD
-             <Input placeholder="请输入序号" />
-=======
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            )}
          </FormItem>
        </Col>
@@ -249,26 +207,16 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-<<<<<<< HEAD
-             <Input placeholder="请输入名称" />
-=======
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            )}
          </FormItem>
        </Col>
 
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
-<<<<<<< HEAD
-              <Button type="primary" htmlType="submit">查询</Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> 展开 <Icon type="down" /> </a>
-=======
               <Button  icon="search" type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
               <Button  icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> {appLocaleName(userContext,"Expand")} <Icon type="down" /> </a>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             </span>
           </Col>
         </Row>
@@ -278,11 +226,7 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {TransportTruckService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
-<<<<<<< HEAD
-    
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       const { referenceName } = owner
@@ -310,11 +254,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-<<<<<<< HEAD
-                <Input placeholder="请输入序号" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -322,11 +262,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-<<<<<<< HEAD
-                <Input placeholder="请输入名称" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -334,11 +270,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="车牌号码">
               {getFieldDecorator('plateNumber')(
-<<<<<<< HEAD
-                <Input placeholder="请输入车牌号码" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -346,11 +278,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="联系电话">
               {getFieldDecorator('contactNumber')(
-<<<<<<< HEAD
-                <Input placeholder="请输入联系电话" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -358,11 +286,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="汽车牌照号码">
               {getFieldDecorator('vehicleLicenseNumber')(
-<<<<<<< HEAD
-                <Input placeholder="请输入汽车牌照号码" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -370,11 +294,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="发动机号">
               {getFieldDecorator('engineNumber')(
-<<<<<<< HEAD
-                <Input placeholder="请输入发动机号" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -382,11 +302,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="里程">
               {getFieldDecorator('mileage')(
-<<<<<<< HEAD
-                <Input placeholder="请输入里程" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -394,35 +310,19 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="车身颜色">
               {getFieldDecorator('bodyColor')(
-<<<<<<< HEAD
-                <Input placeholder="请输入车身颜色" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="业主">
-<<<<<<< HEAD
-                  {getFieldDecorator('owner', {
-                    initialValue: tryinit('owner'),
-                   
-                  })(
-=======
                   {getFieldDecorator('owner', {initialValue: tryinit('owner')})(
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   
                   <SelectObject 
                     disabled={!availableForEdit('owner')}
                     targetType={"owner"} 
-<<<<<<< HEAD
-                    requestFunction={TransportTruckService.requestCandidateOwner}/>
-                  
-=======
                     requestFunction={TransportTruckService.requestCandidateOwner} useForSearch />
                   	
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                  
                   )}
                 </Form.Item></Col>
@@ -430,15 +330,9 @@ componentDidMount() {
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
-<<<<<<< HEAD
-            <Button type="primary" htmlType="submit">查询</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>收起 <Icon type="up" /></a>
-=======
             <Button type="primary" icon="search" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
             <Button icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
             <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>{appLocaleName(userContext,"Collapse")} <Icon type="up" /></a>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </span>
         </div>
       </Form>

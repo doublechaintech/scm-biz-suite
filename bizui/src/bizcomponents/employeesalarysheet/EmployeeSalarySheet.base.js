@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,7 +28,6 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
@@ -45,78 +36,6 @@ const menuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record) },
-  { title: '员工', dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '目前工资等级', dataIndex: 'currentSalaryGrade', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '基本工资', dataIndex: 'baseSalary', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '奖金', dataIndex: 'bonus', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '奖励', dataIndex: 'reward', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '个人所得税', dataIndex: 'personalTax', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '社会保险', dataIndex: 'socialSecurity', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '住房公积金', dataIndex: 'housingFound', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '失业保险', dataIndex: 'jobInsurance', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '工资支付', dataIndex: 'payingOff', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '当前状态', debugtype: 'string', dataIndex: 'currentStatus', width: '12',render: (text, record)=>renderTextCell(text,record) },
-
-]
-
-=======
 
 const settingMenuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
   		subItems: [
@@ -124,7 +43,6 @@ const settingMenuData = {menuName:"工资单", menuFor: "employeeSalarySheet",
   		],
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const fieldLabels = {
   id: '序号',
   employee: '员工',
@@ -141,10 +59,6 @@ const fieldLabels = {
 
 }
 
-<<<<<<< HEAD
-
-const EmployeeSalarySheetBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
 const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeSalarySheet') , sorter: true },
   { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -192,11 +106,22 @@ const renderItemOfList=(employeeSalarySheet,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {baseSalary, bonus, reward, personalTax, socialSecurity, housingFound, jobInsurance, employeeId, currentSalaryGradeId} = formValuesToPack
+	const employee = {id: employeeId, version: 2^31}
+	const currentSalaryGrade = {id: currentSalaryGradeId, version: 2^31}
+	const data = {baseSalary, bonus, reward, personalTax, socialSecurity, housingFound, jobInsurance, employee, currentSalaryGrade}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {baseSalary, bonus, reward, personalTax, socialSecurity, housingFound, jobInsurance, employee, currentSalaryGrade} = objectToUnpack
+	const employeeId = employee ? employee.id : null
+	const currentSalaryGradeId = currentSalaryGrade ? currentSalaryGrade.id : null
+	const data = {baseSalary, bonus, reward, personalTax, socialSecurity, housingFound, jobInsurance, employeeId, currentSalaryGradeId}
+	return data
+}
 
-
-
-const EmployeeSalarySheetBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const EmployeeSalarySheetBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default EmployeeSalarySheetBase
 
 

@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class AccountSetBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class AccountSetBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/accountSet/${this.props.accountSet.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/accountSet/${this.props.accountSet.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class AccountSetBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class AccountSetBizApp extends React.PureComponent {
 
   getAccountingSubjectSearch = () => {
     const {AccountingSubjectSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "会计科目",
@@ -264,10 +192,7 @@ class AccountSetBizApp extends React.PureComponent {
       data: state._accountSet.accountingSubjectList,
       metaInfo: state._accountSet.accountingSubjectListMetaInfo,
       count: state._accountSet.accountingSubjectCount,
-<<<<<<< HEAD
-=======
       returnURL: `/accountSet/${state._accountSet.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._accountSet.accountingSubjectCurrentPageNumber,
       searchFormParameters: state._accountSet.accountingSubjectSearchFormParameters,
       searchParameters: {...state._accountSet.searchParameters},
@@ -277,64 +202,40 @@ class AccountSetBizApp extends React.PureComponent {
       owner: { type: '_accountSet', id: state._accountSet.id, 
       referenceName: 'accountSet', 
       listName: 'accountingSubjectList', ref:state._accountSet, 
-<<<<<<< HEAD
-      listDisplayName: '会计科目列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingSubjectSearch)
   }
   getAccountingSubjectCreateForm = () => {
    	const {AccountingSubjectCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "accountingSubject",
       data: state._accountSet.accountingSubjectList,
       metaInfo: state._accountSet.accountingSubjectListMetaInfo,
       count: state._accountSet.accountingSubjectCount,
-<<<<<<< HEAD
-      currentPage: state._accountSet.accountingSubjectCurrentPageNumber,
-      searchFormParameters: state._accountSet.accountingSubjectSearchFormParameters,
-      loading: state._accountSet.loading,
-      owner: { type: '_accountSet', id: state._accountSet.id, referenceName: 'accountSet', listName: 'accountingSubjectList', ref:state._accountSet, listDisplayName: '会计科目列表'}, // this is for model namespace and
-=======
       returnURL: `/accountSet/${state._accountSet.id}/list`,
       currentPage: state._accountSet.accountingSubjectCurrentPageNumber,
       searchFormParameters: state._accountSet.accountingSubjectSearchFormParameters,
       loading: state._accountSet.loading,
       owner: { type: '_accountSet', id: state._accountSet.id, referenceName: 'accountSet', listName: 'accountingSubjectList', ref:state._accountSet, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingSubjectCreateForm)
   }
   
   getAccountingSubjectUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {AccountingSubjectUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountSet.selectedRows,
       role: "accountingSubject",
       currentUpdateIndex: state._accountSet.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_accountSet', id: state._accountSet.id, listName: 'accountingSubjectList', ref:state._accountSet, listDisplayName: '会计科目列表' }, // this is for model namespace and
-=======
       owner: { type: '_accountSet', id: state._accountSet.id, listName: 'accountingSubjectList', ref:state._accountSet, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingSubjectUpdateForm)
   }
 
   getAccountingPeriodSearch = () => {
     const {AccountingPeriodSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "会计期间",
@@ -342,10 +243,7 @@ class AccountSetBizApp extends React.PureComponent {
       data: state._accountSet.accountingPeriodList,
       metaInfo: state._accountSet.accountingPeriodListMetaInfo,
       count: state._accountSet.accountingPeriodCount,
-<<<<<<< HEAD
-=======
       returnURL: `/accountSet/${state._accountSet.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._accountSet.accountingPeriodCurrentPageNumber,
       searchFormParameters: state._accountSet.accountingPeriodSearchFormParameters,
       searchParameters: {...state._accountSet.searchParameters},
@@ -355,64 +253,40 @@ class AccountSetBizApp extends React.PureComponent {
       owner: { type: '_accountSet', id: state._accountSet.id, 
       referenceName: 'accountSet', 
       listName: 'accountingPeriodList', ref:state._accountSet, 
-<<<<<<< HEAD
-      listDisplayName: '会计期间列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingPeriodSearch)
   }
   getAccountingPeriodCreateForm = () => {
    	const {AccountingPeriodCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "accountingPeriod",
       data: state._accountSet.accountingPeriodList,
       metaInfo: state._accountSet.accountingPeriodListMetaInfo,
       count: state._accountSet.accountingPeriodCount,
-<<<<<<< HEAD
-      currentPage: state._accountSet.accountingPeriodCurrentPageNumber,
-      searchFormParameters: state._accountSet.accountingPeriodSearchFormParameters,
-      loading: state._accountSet.loading,
-      owner: { type: '_accountSet', id: state._accountSet.id, referenceName: 'accountSet', listName: 'accountingPeriodList', ref:state._accountSet, listDisplayName: '会计期间列表'}, // this is for model namespace and
-=======
       returnURL: `/accountSet/${state._accountSet.id}/list`,
       currentPage: state._accountSet.accountingPeriodCurrentPageNumber,
       searchFormParameters: state._accountSet.accountingPeriodSearchFormParameters,
       loading: state._accountSet.loading,
       owner: { type: '_accountSet', id: state._accountSet.id, referenceName: 'accountSet', listName: 'accountingPeriodList', ref:state._accountSet, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingPeriodCreateForm)
   }
   
   getAccountingPeriodUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {AccountingPeriodUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountSet.selectedRows,
       role: "accountingPeriod",
       currentUpdateIndex: state._accountSet.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_accountSet', id: state._accountSet.id, listName: 'accountingPeriodList', ref:state._accountSet, listDisplayName: '会计期间列表' }, // this is for model namespace and
-=======
       owner: { type: '_accountSet', id: state._accountSet.id, listName: 'accountingPeriodList', ref:state._accountSet, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingPeriodUpdateForm)
   }
 
   getAccountingDocumentTypeSearch = () => {
     const {AccountingDocumentTypeSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "会计凭证类型",
@@ -420,10 +294,7 @@ class AccountSetBizApp extends React.PureComponent {
       data: state._accountSet.accountingDocumentTypeList,
       metaInfo: state._accountSet.accountingDocumentTypeListMetaInfo,
       count: state._accountSet.accountingDocumentTypeCount,
-<<<<<<< HEAD
-=======
       returnURL: `/accountSet/${state._accountSet.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._accountSet.accountingDocumentTypeCurrentPageNumber,
       searchFormParameters: state._accountSet.accountingDocumentTypeSearchFormParameters,
       searchParameters: {...state._accountSet.searchParameters},
@@ -433,55 +304,34 @@ class AccountSetBizApp extends React.PureComponent {
       owner: { type: '_accountSet', id: state._accountSet.id, 
       referenceName: 'accountingPeriod', 
       listName: 'accountingDocumentTypeList', ref:state._accountSet, 
-<<<<<<< HEAD
-      listDisplayName: '会计凭证类型列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentTypeSearch)
   }
   getAccountingDocumentTypeCreateForm = () => {
    	const {AccountingDocumentTypeCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "accountingDocumentType",
       data: state._accountSet.accountingDocumentTypeList,
       metaInfo: state._accountSet.accountingDocumentTypeListMetaInfo,
       count: state._accountSet.accountingDocumentTypeCount,
-<<<<<<< HEAD
-      currentPage: state._accountSet.accountingDocumentTypeCurrentPageNumber,
-      searchFormParameters: state._accountSet.accountingDocumentTypeSearchFormParameters,
-      loading: state._accountSet.loading,
-      owner: { type: '_accountSet', id: state._accountSet.id, referenceName: 'accountingPeriod', listName: 'accountingDocumentTypeList', ref:state._accountSet, listDisplayName: '会计凭证类型列表'}, // this is for model namespace and
-=======
       returnURL: `/accountSet/${state._accountSet.id}/list`,
       currentPage: state._accountSet.accountingDocumentTypeCurrentPageNumber,
       searchFormParameters: state._accountSet.accountingDocumentTypeSearchFormParameters,
       loading: state._accountSet.loading,
       owner: { type: '_accountSet', id: state._accountSet.id, referenceName: 'accountingPeriod', listName: 'accountingDocumentTypeList', ref:state._accountSet, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentTypeCreateForm)
   }
   
   getAccountingDocumentTypeUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {AccountingDocumentTypeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountSet.selectedRows,
       role: "accountingDocumentType",
       currentUpdateIndex: state._accountSet.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_accountSet', id: state._accountSet.id, listName: 'accountingDocumentTypeList', ref:state._accountSet, listDisplayName: '会计凭证类型列表' }, // this is for model namespace and
-=======
       owner: { type: '_accountSet', id: state._accountSet.id, listName: 'accountingDocumentTypeList', ref:state._accountSet, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentTypeUpdateForm)
   }
 
@@ -489,22 +339,14 @@ class AccountSetBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {AccountSetDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {AccountSetPreference} = GlobalComponents
-=======
   	const {AccountSetPermission} = GlobalComponents
   	const {AccountSetProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/accountSet/:id/dashboard", component: AccountSetDashboard},
-<<<<<<< HEAD
-  	{path:"/accountSet/:id/preference", component: AccountSetPreference},
-=======
   	{path:"/accountSet/:id/profile", component: AccountSetProfile},
   	{path:"/accountSet/:id/permission", component: AccountSetPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -563,59 +405,6 @@ class AccountSetBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {AccountSetEditDetail} = GlobalComponents
-     //const {AccountSetViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.accountSet)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -657,7 +446,7 @@ class AccountSetBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -689,13 +478,12 @@ class AccountSetBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

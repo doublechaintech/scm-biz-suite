@@ -25,8 +25,8 @@ const testValues = {
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-09-26 23:38:48',
-  lastLoginTime: '2019-10-04 00:51:54',
+  verificationCodeExpire: '2019-09-27 02:07:51',
+  lastLoginTime: '2019-10-02 08:48:03',
   domainId: 'UD000001',
 }
 */
@@ -88,12 +88,6 @@ class SecUserCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -123,6 +117,7 @@ class SecUserCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

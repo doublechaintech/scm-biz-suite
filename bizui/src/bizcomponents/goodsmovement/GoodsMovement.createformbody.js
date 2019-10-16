@@ -17,13 +17,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-09-23 22:33:45',
+  moveTime: '2019-10-13 18:22:41',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '41.38000761034003',
-  longitude: '131.48294113774048',
+  latitude: '39.835134470144475',
+  longitude: '132.0225106107532',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -86,12 +86,6 @@ class GoodsMovementCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -121,6 +115,7 @@ class GoodsMovementCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -1,19 +1,9 @@
 
-<<<<<<< HEAD
-
-=======
 import React from 'react'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
 import GlobalComponents from '../../custcomponents';
-<<<<<<< HEAD
-
-import modeltool from '../../utils/modeltool'
-const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
-
-=======
 import appLocaleName from '../../common/Locale.tool'
 import modeltool from '../../utils/modeltool'
 const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
@@ -27,7 +17,6 @@ const notifySuccess=(userContext)=>{
 
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 export default {
 
@@ -88,25 +77,15 @@ export default {
     },
     
     *doJob({ payload }, { call, put }) { 
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {TaskService} = GlobalComponents;
       //yield put({ type: 'showLoading', payload })      
       const {serviceNameToCall, id, parameters} = payload;
       if(!serviceNameToCall){
-<<<<<<< HEAD
-      	handleClientError("没有提供后台服务的名字, 该服务没有注册")
-      	return;
-      }
-      
-=======
       	handleClientError(appLocaleName(userContext,'ServiceNotRegistered'))
       	return;
       }
       "react/dva_object_model.jsp"
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       const data = yield call(serviceNameToCall, id, parameters)
       if(handleServerError(data)){
@@ -138,9 +117,6 @@ export default {
 
 
 
-<<<<<<< HEAD
-    *addListAccess({ payload }, { call, put }) {
-=======
     *addQuickLink({ payload }, { call, put }) {
       const userContext = null
       const {UserAppService} = GlobalComponents;
@@ -212,7 +188,6 @@ export default {
 
     *addListAccess({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {UserAppService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -225,31 +200,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/userApp/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/userApp/${id}/list/\ListAccessList/访问列表列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateListAccess({ payload }, { call, put }) {
-=======
       const location = { pathname: `/userApp/${id}/list/ListAccessList/访问列表+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateListAccess({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {UserAppService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -262,23 +223,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/userApp/${id}/list/\ListAccessList/访问列表列表`, state: newPlayload }
-=======
       const location = { pathname: `/userApp/${id}/list/ListAccessList/访问列表列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextListAccessUpdateRow({ payload }, { call, put }) {
@@ -287,10 +237,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeListAccessList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {UserAppService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -302,27 +249,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addObjectAccess({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {UserAppService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -335,31 +269,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/userApp/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/userApp/${id}/list/\ObjectAccessList/对象访问列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateObjectAccess({ payload }, { call, put }) {
-=======
       const location = { pathname: `/userApp/${id}/list/ObjectAccessList/对象访问+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateObjectAccess({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {UserAppService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -372,23 +292,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/userApp/${id}/list/\ObjectAccessList/对象访问列表`, state: newPlayload }
-=======
       const location = { pathname: `/userApp/${id}/list/ObjectAccessList/对象访问列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextObjectAccessUpdateRow({ payload }, { call, put }) {
@@ -397,10 +306,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeObjectAccessList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {UserAppService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -412,17 +318,7 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
   },

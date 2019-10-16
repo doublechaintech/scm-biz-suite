@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '批准者',
-  approveTime: '2016-10-20',
+  approveTime: '2019-03-12',
 }
 */
 
@@ -79,12 +79,6 @@ class ConsumerOrderApprovalCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -114,6 +108,7 @@ class ConsumerOrderApprovalCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

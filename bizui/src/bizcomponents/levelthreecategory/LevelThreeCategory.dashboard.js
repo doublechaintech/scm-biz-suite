@@ -1,18 +1,10 @@
 
 
 import React, { Component } from 'react'
-<<<<<<< HEAD
-import FontAwesome from 'react-fontawesome';
-import { connect } from 'dva'
-import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
-import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
-=======
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
 import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
 import {
@@ -27,24 +19,15 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
-<<<<<<< HEAD
-  defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers
-=======
   defaultSubListsOf,defaultRenderAnalytics,
   defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
   defaultQuickFunctions, defaultRenderSubjectList,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 }= DashboardTool
 
 
@@ -65,10 +48,7 @@ const optionList =(levelThreeCategory)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
-<<<<<<< HEAD
-=======
 const internalRenderSubjectList = defaultRenderSubjectList
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const internalSettingListOf = (levelThreeCategory) =>defaultSettingListOf(levelThreeCategory, optionList)
 const internalLargeTextOf = (levelThreeCategory) =>{
 
@@ -84,13 +64,6 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
-<<<<<<< HEAD
-const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
-  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
-=======
 const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
@@ -132,7 +105,6 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
@@ -141,19 +113,11 @@ const internalSummaryOf = (levelThreeCategory,targetComponent) =>{
 	
 	
 	const {LevelThreeCategoryService} = GlobalComponents
-<<<<<<< HEAD
-	
-	return (
-	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelThreeCategory.id}</Description> 
-<Description term="父类">{levelThreeCategory.parentCategory==null?"未分配":levelThreeCategory.parentCategory.displayName}
-=======
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{levelThreeCategory.id}</Description> 
 <Description term="父类">{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"父类","levelTwoCategory",LevelThreeCategoryService.requestCandidateParentCategory,
 	      LevelThreeCategoryService.transferToAnotherParentCategory,"anotherParentCategoryId",levelThreeCategory.parentCategory?levelThreeCategory.parentCategory.id:"")} 
@@ -167,10 +131,7 @@ const internalSummaryOf = (levelThreeCategory,targetComponent) =>{
 
 }
 
-<<<<<<< HEAD
-=======
 const internalQuickFunctions = defaultQuickFunctions
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 class LevelThreeCategoryDashboard extends Component {
 
@@ -179,11 +140,7 @@ class LevelThreeCategoryDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-<<<<<<< HEAD
-    targetLocalName:"城市",
-=======
     targetLocalName:"",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -207,13 +164,6 @@ class LevelThreeCategoryDashboard extends Component {
     const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",
     	cardsSource: this.props.levelThreeCategory,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'productList', displayName:'产品',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo},
-    
-      	],
-  	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
-=======
 {name: 'productList', displayName:'产品',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
     
       	],
@@ -222,7 +172,6 @@ class LevelThreeCategoryDashboard extends Component {
       	],     	
       	
   	};
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
@@ -232,13 +181,10 @@ class LevelThreeCategoryDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
-<<<<<<< HEAD
-=======
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return (
 
       <PageHeaderLayout
@@ -246,17 +192,6 @@ class LevelThreeCategoryDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-<<<<<<< HEAD
-      {renderExtraHeader(cardsData.cardsSource)}
-        <div>
-        {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}
-        {subListsOf(cardsData)} 
-        {largeTextOf(cardsData.cardsSource)}
-          
-        </div>
-      </PageHeaderLayout>
-=======
        
         {renderExtraHeader(cardsData.cardsSource)}
         {imageListOf(cardsData.cardsSource)}  
@@ -269,7 +204,6 @@ class LevelThreeCategoryDashboard extends Component {
   		
       </PageHeaderLayout>
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     )
   }
 }

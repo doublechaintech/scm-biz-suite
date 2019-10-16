@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2017-04-02',
-  latitude: '32.164875070153705',
-  longitude: '103.98171540581573',
+  trackTime: '2019-07-30',
+  latitude: '32.36164995021908',
+  longitude: '105.70520603655912',
   movementId: 'TT000001',
 }
 */
@@ -81,12 +81,6 @@ class TransportTaskTrackCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class TransportTaskTrackCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

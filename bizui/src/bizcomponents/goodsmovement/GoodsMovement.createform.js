@@ -9,12 +9,8 @@ import styles from './GoodsMovement.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import GoodsMovementBase from './GoodsMovement.base'
-<<<<<<< HEAD
-
-=======
 import GoodsMovementCreateFormBody from './GoodsMovement.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -22,22 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  moveTime: '2019-01-08 18:43:51',
-=======
-  moveTime: '2019-09-18 20:42:20',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  moveTime: '2019-10-09 15:44:36',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-<<<<<<< HEAD
-  latitude: '40.94712686832807',
-  longitude: '130.98037748268558',
-=======
-  latitude: '40.28242955974914',
-  longitude: '132.23784011280435',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  latitude: '42.69642235753341',
+  longitude: '130.98062064586867',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -88,11 +75,7 @@ class GoodsMovementCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = GoodsMovementBase
     const {GoodsMovementService} = GlobalComponents
@@ -141,16 +124,10 @@ class GoodsMovementCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'goodsMovement',listName:'货物移动列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'goodsMovement',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -181,11 +158,7 @@ class GoodsMovementCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -203,12 +176,9 @@ class GoodsMovementCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -218,12 +188,9 @@ class GoodsMovementCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -231,155 +198,9 @@ class GoodsMovementCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个货物移动"
-        content="新建一个货物移动"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.moveTime} {...formItemLayout}>
-                  {getFieldDecorator('moveTime', {
-                    rules: [{ required: true, message: '请输入移动时间' }],
-                  })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入移动时间" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.facility} {...formItemLayout}>
-                  {getFieldDecorator('facility', {
-                    rules: [{ required: true, message: '请输入设施' }],
-                  })(
-                    <Input placeholder="请输入设施" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.facilityId} {...formItemLayout}>
-                  {getFieldDecorator('facilityId', {
-                    rules: [{ required: true, message: '请输入设备ID' }],
-                  })(
-                    <Input placeholder="请输入设备ID" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.fromIp} {...formItemLayout}>
-                  {getFieldDecorator('fromIp', {
-                    rules: [{ required: true, message: '请输入从IP' }],
-                  })(
-                    <Input placeholder="请输入从IP" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.sessionId} {...formItemLayout}>
-                  {getFieldDecorator('sessionId', {
-                    rules: [{ required: true, message: '请输入会话ID' }],
-                  })(
-                    <Input placeholder="请输入会话ID" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
-                  {getFieldDecorator('latitude', {
-                    rules: [{ required: true, message: '请输入纬度' }],
-                  })(
-                    <Input placeholder="请输入纬度" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
-                  {getFieldDecorator('longitude', {
-                    rules: [{ required: true, message: '请输入经度' }],
-                  })(
-                    <Input placeholder="请输入经度" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-        <Card title="用户代理" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item>
-                  {getFieldDecorator('userAgent', {
-                    rules: [{ required: true, message: '请输入用户代理' }],
-                  })(
-                    <TextArea rows={4} placeholder="请输入请输入用户代理" />
-                  )}
-                </Form.Item>
-              </Col>
-      </Row>
-          </Form>  
-        </Card>
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.goods} {...formItemLayout}>
-                  {getFieldDecorator('goodsId', {
-                  	initialValue: tryinit('goods'),
-                    rules: [{ required: true, message: '请输入货物' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('goods')}
-                    targetType={"goods"} 
-                    requestFunction={GoodsMovementService.requestCandidateGoods}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -400,22 +221,10 @@ class GoodsMovementCreateForm extends Component {
    			
    		<GoodsMovementCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -426,7 +235,6 @@ class GoodsMovementCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

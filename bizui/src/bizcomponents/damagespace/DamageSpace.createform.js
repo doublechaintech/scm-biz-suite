@@ -9,12 +9,8 @@ import styles from './DamageSpace.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import DamageSpaceBase from './DamageSpace.base'
-<<<<<<< HEAD
-
-=======
 import DamageSpaceCreateFormBody from './DamageSpace.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -25,13 +21,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库损坏货物堆放区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-<<<<<<< HEAD
-  latitude: '41.47363782767813',
-  longitude: '130.60769376124443',
-=======
-  latitude: '41.31306564660719',
-  longitude: '131.83567053889536',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  latitude: '40.71201853004022',
+  longitude: '130.22500532624142',
   warehouseId: 'W000001',
 }
 */
@@ -81,11 +72,7 @@ class DamageSpaceCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = DamageSpaceBase
     const {DamageSpaceService} = GlobalComponents
@@ -134,16 +121,10 @@ class DamageSpaceCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'damageSpace',listName:'残次货物存放区列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'damageSpace',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -174,11 +155,7 @@ class DamageSpaceCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -196,12 +173,9 @@ class DamageSpaceCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -211,12 +185,9 @@ class DamageSpaceCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -224,119 +195,9 @@ class DamageSpaceCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个残次货物存放区"
-        content="新建一个残次货物存放区"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.location} {...formItemLayout}>
-                  {getFieldDecorator('location', {
-                    rules: [{ required: true, message: '请输入位置' }],
-                  })(
-                    <Input placeholder="请输入位置" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.contactNumber} {...formItemLayout}>
-                  {getFieldDecorator('contactNumber', {
-                    rules: [{ required: true, message: '请输入联系电话' }],
-                  })(
-                    <Input placeholder="请输入联系电话" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.totalArea} {...formItemLayout}>
-                  {getFieldDecorator('totalArea', {
-                    rules: [{ required: true, message: '请输入总面积' }],
-                  })(
-                    <Input placeholder="请输入总面积" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
-                  {getFieldDecorator('latitude', {
-                    rules: [{ required: true, message: '请输入纬度' }],
-                  })(
-                    <Input placeholder="请输入纬度" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
-                  {getFieldDecorator('longitude', {
-                    rules: [{ required: true, message: '请输入经度' }],
-                  })(
-                    <Input placeholder="请输入经度" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.warehouse} {...formItemLayout}>
-                  {getFieldDecorator('warehouseId', {
-                  	initialValue: tryinit('warehouse'),
-                    rules: [{ required: true, message: '请输入仓库' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('warehouse')}
-                    targetType={"warehouse"} 
-                    requestFunction={DamageSpaceService.requestCandidateWarehouse}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -357,22 +218,10 @@ class DamageSpaceCreateForm extends Component {
    			
    		<DamageSpaceCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -383,7 +232,6 @@ class DamageSpaceCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

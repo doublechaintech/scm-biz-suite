@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class SupplyOrderProcessingBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/supplyOrderProcessing/${this.props.supplyOrderProcessing.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/supplyOrderProcessing/${this.props.supplyOrderProcessing.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
 
   getConsumerOrderSearch = () => {
     const {ConsumerOrderSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "消费者订单",
@@ -264,10 +192,7 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
       data: state._supplyOrderProcessing.consumerOrderList,
       metaInfo: state._supplyOrderProcessing.consumerOrderListMetaInfo,
       count: state._supplyOrderProcessing.consumerOrderCount,
-<<<<<<< HEAD
-=======
       returnURL: `/supplyOrderProcessing/${state._supplyOrderProcessing.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._supplyOrderProcessing.consumerOrderCurrentPageNumber,
       searchFormParameters: state._supplyOrderProcessing.consumerOrderSearchFormParameters,
       searchParameters: {...state._supplyOrderProcessing.searchParameters},
@@ -277,64 +202,40 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
       owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, 
       referenceName: 'processing', 
       listName: 'consumerOrderList', ref:state._supplyOrderProcessing, 
-<<<<<<< HEAD
-      listDisplayName: '消费者订单列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(ConsumerOrderSearch)
   }
   getConsumerOrderCreateForm = () => {
    	const {ConsumerOrderCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "consumerOrder",
       data: state._supplyOrderProcessing.consumerOrderList,
       metaInfo: state._supplyOrderProcessing.consumerOrderListMetaInfo,
       count: state._supplyOrderProcessing.consumerOrderCount,
-<<<<<<< HEAD
-      currentPage: state._supplyOrderProcessing.consumerOrderCurrentPageNumber,
-      searchFormParameters: state._supplyOrderProcessing.consumerOrderSearchFormParameters,
-      loading: state._supplyOrderProcessing.loading,
-      owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, referenceName: 'processing', listName: 'consumerOrderList', ref:state._supplyOrderProcessing, listDisplayName: '消费者订单列表'}, // this is for model namespace and
-=======
       returnURL: `/supplyOrderProcessing/${state._supplyOrderProcessing.id}/list`,
       currentPage: state._supplyOrderProcessing.consumerOrderCurrentPageNumber,
       searchFormParameters: state._supplyOrderProcessing.consumerOrderSearchFormParameters,
       loading: state._supplyOrderProcessing.loading,
       owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, referenceName: 'processing', listName: 'consumerOrderList', ref:state._supplyOrderProcessing, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(ConsumerOrderCreateForm)
   }
   
   getConsumerOrderUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {ConsumerOrderUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._supplyOrderProcessing.selectedRows,
       role: "consumerOrder",
       currentUpdateIndex: state._supplyOrderProcessing.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, listName: 'consumerOrderList', ref:state._supplyOrderProcessing, listDisplayName: '消费者订单列表' }, // this is for model namespace and
-=======
       owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, listName: 'consumerOrderList', ref:state._supplyOrderProcessing, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(ConsumerOrderUpdateForm)
   }
 
   getSupplyOrderSearch = () => {
     const {SupplyOrderSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "供应订单",
@@ -342,10 +243,7 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
       data: state._supplyOrderProcessing.supplyOrderList,
       metaInfo: state._supplyOrderProcessing.supplyOrderListMetaInfo,
       count: state._supplyOrderProcessing.supplyOrderCount,
-<<<<<<< HEAD
-=======
       returnURL: `/supplyOrderProcessing/${state._supplyOrderProcessing.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._supplyOrderProcessing.supplyOrderCurrentPageNumber,
       searchFormParameters: state._supplyOrderProcessing.supplyOrderSearchFormParameters,
       searchParameters: {...state._supplyOrderProcessing.searchParameters},
@@ -355,55 +253,34 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
       owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, 
       referenceName: 'processing', 
       listName: 'supplyOrderList', ref:state._supplyOrderProcessing, 
-<<<<<<< HEAD
-      listDisplayName: '供应订单列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SupplyOrderSearch)
   }
   getSupplyOrderCreateForm = () => {
    	const {SupplyOrderCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "supplyOrder",
       data: state._supplyOrderProcessing.supplyOrderList,
       metaInfo: state._supplyOrderProcessing.supplyOrderListMetaInfo,
       count: state._supplyOrderProcessing.supplyOrderCount,
-<<<<<<< HEAD
-      currentPage: state._supplyOrderProcessing.supplyOrderCurrentPageNumber,
-      searchFormParameters: state._supplyOrderProcessing.supplyOrderSearchFormParameters,
-      loading: state._supplyOrderProcessing.loading,
-      owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, referenceName: 'processing', listName: 'supplyOrderList', ref:state._supplyOrderProcessing, listDisplayName: '供应订单列表'}, // this is for model namespace and
-=======
       returnURL: `/supplyOrderProcessing/${state._supplyOrderProcessing.id}/list`,
       currentPage: state._supplyOrderProcessing.supplyOrderCurrentPageNumber,
       searchFormParameters: state._supplyOrderProcessing.supplyOrderSearchFormParameters,
       loading: state._supplyOrderProcessing.loading,
       owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, referenceName: 'processing', listName: 'supplyOrderList', ref:state._supplyOrderProcessing, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SupplyOrderCreateForm)
   }
   
   getSupplyOrderUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {SupplyOrderUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._supplyOrderProcessing.selectedRows,
       role: "supplyOrder",
       currentUpdateIndex: state._supplyOrderProcessing.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, listName: 'supplyOrderList', ref:state._supplyOrderProcessing, listDisplayName: '供应订单列表' }, // this is for model namespace and
-=======
       owner: { type: '_supplyOrderProcessing', id: state._supplyOrderProcessing.id, listName: 'supplyOrderList', ref:state._supplyOrderProcessing, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SupplyOrderUpdateForm)
   }
 
@@ -411,22 +288,14 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {SupplyOrderProcessingDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {SupplyOrderProcessingPreference} = GlobalComponents
-=======
   	const {SupplyOrderProcessingPermission} = GlobalComponents
   	const {SupplyOrderProcessingProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/supplyOrderProcessing/:id/dashboard", component: SupplyOrderProcessingDashboard},
-<<<<<<< HEAD
-  	{path:"/supplyOrderProcessing/:id/preference", component: SupplyOrderProcessingPreference},
-=======
   	{path:"/supplyOrderProcessing/:id/profile", component: SupplyOrderProcessingProfile},
   	{path:"/supplyOrderProcessing/:id/permission", component: SupplyOrderProcessingPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -481,59 +350,6 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {SupplyOrderProcessingEditDetail} = GlobalComponents
-     //const {SupplyOrderProcessingViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.supplyOrderProcessing)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -575,7 +391,7 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -607,13 +423,12 @@ class SupplyOrderProcessingBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

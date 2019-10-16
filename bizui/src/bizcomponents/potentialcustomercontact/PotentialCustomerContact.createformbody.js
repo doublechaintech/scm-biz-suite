@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2018-12-15',
+  contactDate: '2018-04-20',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -84,12 +84,6 @@ class PotentialCustomerContactCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -119,6 +113,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

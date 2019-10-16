@@ -9,12 +9,8 @@ import styles from './ProvinceCenterEmployee.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ProvinceCenterEmployeeBase from './ProvinceCenterEmployee.base'
-<<<<<<< HEAD
-
-=======
 import ProvinceCenterEmployeeCreateFormBody from './ProvinceCenterEmployee.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -25,11 +21,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-<<<<<<< HEAD
-  founded: '2017-05-31',
-=======
-  founded: '2016-10-28',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  founded: '2018-01-13',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -80,11 +72,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ProvinceCenterEmployeeBase
     const {ProvinceCenterEmployeeService} = GlobalComponents
@@ -133,16 +121,10 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'provinceCenterEmployee',listName:'省中心员工列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'provinceCenterEmployee',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -173,11 +155,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -195,12 +173,9 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -210,12 +185,9 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -223,126 +195,9 @@ class ProvinceCenterEmployeeCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个省中心员工"
-        content="新建一个省中心员工"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.mobile} {...formItemLayout}>
-                  {getFieldDecorator('mobile', {
-                    rules: [{ required: true, message: '请输入手机' }],
-                  })(
-                    <Input placeholder="请输入手机" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.email} {...formItemLayout}>
-                  {getFieldDecorator('email', {
-                    rules: [{ required: true, message: '请输入电子邮件' }],
-                  })(
-                    <Input placeholder="请输入电子邮件" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.founded} {...formItemLayout}>
-                  {getFieldDecorator('founded', {
-                    rules: [{ required: true, message: '请输入成立' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.department} {...formItemLayout}>
-                  {getFieldDecorator('departmentId', {
-                  	initialValue: tryinit('department'),
-                    rules: [{ required: true, message: '请输入部门' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('department')}
-                    targetType={"department"} 
-                    requestFunction={ProvinceCenterEmployeeService.requestCandidateDepartment}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.provinceCenter} {...formItemLayout}>
-                  {getFieldDecorator('provinceCenterId', {
-                  	initialValue: tryinit('provinceCenter'),
-                    rules: [{ required: true, message: '请输入省中心' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('provinceCenter')}
-                    targetType={"provinceCenter"} 
-                    requestFunction={ProvinceCenterEmployeeService.requestCandidateProvinceCenter}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -363,22 +218,10 @@ class ProvinceCenterEmployeeCreateForm extends Component {
    			
    		<ProvinceCenterEmployeeCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -389,7 +232,6 @@ class ProvinceCenterEmployeeCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

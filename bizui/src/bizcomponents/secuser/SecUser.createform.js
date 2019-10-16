@@ -9,12 +9,8 @@ import styles from './SecUser.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SecUserBase from './SecUser.base'
-<<<<<<< HEAD
-
-=======
 import SecUserCreateFormBody from './SecUser.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -26,18 +22,12 @@ const testValues = {
   mobile: '13900000001',
   email: '',
   pwd: 'C183EC89F92A462CF45B95504792EC4625E847C90536EEFE512D1C9DB8602E95',
-<<<<<<< HEAD
-  verificationCode: '0',
-  verificationCodeExpire: '2019-01-07 14:01:17',
-  lastLoginTime: '2019-01-06 18:29:00',
-=======
   weixinOpenid: 'wx123456789abcdefghijklmn',
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-09-30 17:12:36',
-  lastLoginTime: '2019-09-21 23:19:29',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  verificationCodeExpire: '2019-10-14 00:44:20',
+  lastLoginTime: '2019-09-26 21:26:41',
   domainId: 'UD000001',
 }
 */
@@ -87,11 +77,7 @@ class SecUserCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = SecUserBase
     const {SecUserService} = GlobalComponents
@@ -140,16 +126,10 @@ class SecUserCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'secUser',listName:'SEC的用户列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'secUser',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -180,11 +160,7 @@ class SecUserCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -202,12 +178,9 @@ class SecUserCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -217,12 +190,9 @@ class SecUserCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -230,139 +200,9 @@ class SecUserCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个SEC的用户"
-        content="新建一个SEC的用户"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.login} {...formItemLayout}>
-                  {getFieldDecorator('login', {
-                    rules: [{ required: true, message: '请输入登录' }],
-                  })(
-                    <Input placeholder="请输入登录" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.mobile} {...formItemLayout}>
-                  {getFieldDecorator('mobile', {
-                    rules: [{ required: true, message: '请输入手机' }],
-                  })(
-                    <Input placeholder="请输入手机" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.email} {...formItemLayout}>
-                  {getFieldDecorator('email', {
-                    rules: [{ required: false, message: '请输入电子邮件' }],
-                  })(
-                    <Input placeholder="请输入电子邮件" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.pwd} {...formItemLayout}>
-                  {getFieldDecorator('pwd', {
-                    rules: [{ required: true, message: '请输入PWD' }],
-                  })(
-                    <Input placeholder="请输入PWD" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.verificationCode} {...formItemLayout}>
-                  {getFieldDecorator('verificationCode', {
-                    rules: [{ required: true, message: '请输入验证码' }],
-                  })(
-                    <Input placeholder="请输入验证码" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.verificationCodeExpire} {...formItemLayout}>
-                  {getFieldDecorator('verificationCodeExpire', {
-                    rules: [{ required: true, message: '请输入验证码过期' }],
-                  })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入验证码过期" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.lastLoginTime} {...formItemLayout}>
-                  {getFieldDecorator('lastLoginTime', {
-                    rules: [{ required: true, message: '请输入最后登录时间' }],
-                  })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入最后登录时间" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.domain} {...formItemLayout}>
-                  {getFieldDecorator('domainId', {
-                  	initialValue: tryinit('domain'),
-                    rules: [{ required: true, message: '请输入域' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('domain')}
-                    targetType={"domain"} 
-                    requestFunction={SecUserService.requestCandidateDomain}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -383,22 +223,10 @@ class SecUserCreateForm extends Component {
    			
    		<SecUserCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -409,7 +237,6 @@ class SecUserCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

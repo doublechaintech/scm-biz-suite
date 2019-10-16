@@ -10,10 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './RetailStoreProvinceCenter.updateform.less'
 import RetailStoreProvinceCenterBase from './RetailStoreProvinceCenter.base'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -94,10 +91,7 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = RetailStoreProvinceCenterBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -110,11 +104,7 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-<<<<<<< HEAD
-
-=======
 		
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const retailStoreProvinceCenterId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -198,11 +188,7 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'retailStoreProvinceCenter',
-<<<<<<< HEAD
-          listName:'双链小超省中心列表' 
-=======
           listName:appLocaleName(userContext,"List") 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -233,11 +219,7 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -251,32 +233,11 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-<<<<<<< HEAD
-      return (<div>缺少被更新的对象</div>)
-=======
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-
-    return (
-      <PageHeaderLayout
-        title={"更新双链小超省中心"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新双链小超省中心"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-=======
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
@@ -297,20 +258,10 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.id} {...formItemLayout}>
-                  {getFieldDecorator('id', {
-                    initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
-                  })(
-                    <Input placeholder="请输入序号" disabled/>
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -318,21 +269,11 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="序号" disabled/>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    initialValue: selectedRow.name,
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
@@ -340,21 +281,11 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="名称" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.founded} {...formItemLayout}>
-                  {getFieldDecorator('founded', {
-                    initialValue: selectedRow.founded,
-                    rules: [{ required: true, message: '请输入成立' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
@@ -362,40 +293,18 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-            </Row>
-          </Form>  
-        </Card>
-=======
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
 
-<<<<<<< HEAD
-        <FooterToolbar>
-          {getErrorInfo()}
-          <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
-          </Button>
-          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
-          </Button>
-          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
-          </Button>
-          <Button type="default" onClick={goback} loading={submitting}>
-            取消
-=======
 			</Row>
           </Form>
         </Card>
@@ -419,7 +328,6 @@ class RetailStoreProvinceCenterUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             {appLocaleName(userContext,"Cancel")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

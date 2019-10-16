@@ -336,7 +336,7 @@ class CandidateContainerBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -368,7 +368,7 @@ class CandidateContainerBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>

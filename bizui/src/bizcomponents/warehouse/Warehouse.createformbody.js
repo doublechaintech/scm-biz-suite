@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号',
   contactNumber: '02887654321',
   totalArea: '187672平方米',
-  latitude: '42.6840598843711',
-  longitude: '130.1676439742065',
+  latitude: '40.690738445805586',
+  longitude: '129.40180852961126',
   ownerId: 'RSCC000001',
 }
 */
@@ -83,12 +83,6 @@ class WarehouseCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class WarehouseCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

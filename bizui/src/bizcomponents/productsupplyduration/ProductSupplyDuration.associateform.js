@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ProductSupplyDurationBase from './ProductSupplyDuration.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -24,11 +20,7 @@ const testValues = {};
 const testValues = {
   quantity: '100',
   duration: '现货',
-<<<<<<< HEAD
-  price: '8021.87',
-=======
-  price: '9553.57',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  price: '7030.07',
   productId: 'SP000001',
 }
 */
@@ -81,11 +73,8 @@ class ProductSupplyDurationAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {ProductSupplyDurationService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -132,43 +121,26 @@ class ProductSupplyDurationAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.quantity} {...formItemLayout}>
                   {getFieldDecorator('quantity', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入数量' }],
-                  })(
-                    <Input placeholder="请输入数量" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="数量" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -176,15 +148,9 @@ class ProductSupplyDurationAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.duration} {...formItemLayout}>
                   {getFieldDecorator('duration', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入持续时间' }],
-                  })(
-                    <Input placeholder="请输入持续时间" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="持续时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -192,15 +158,9 @@ class ProductSupplyDurationAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.price} {...formItemLayout}>
                   {getFieldDecorator('price', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入价格' }],
-                  })(
-                    <Input placeholder="请输入价格" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -226,11 +186,7 @@ class ProductSupplyDurationAssociateForm extends Component {
                 <Form.Item label={fieldLabels.product} {...formItemLayout}>
                   {getFieldDecorator('productId', {
                   	initialValue: tryinit('product'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入产品' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('product')}

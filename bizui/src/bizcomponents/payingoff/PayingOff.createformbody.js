@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-  paidTime: '2017-12-22',
-  amount: '4341.66',
+  paidTime: '2019-03-12',
+  amount: '4645.69',
   paidForId: 'E000001',
 }
 */
@@ -81,12 +81,6 @@ class PayingOffCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class PayingOffCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
-  employTime: '2016-11-28',
+  employTime: '2017-10-16',
   comments: '欢迎加入植物医生大家庭',
 }
 */
@@ -80,12 +80,6 @@ class EmployeeBoardingCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class EmployeeBoardingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

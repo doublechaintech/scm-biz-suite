@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库损坏货物堆放区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '41.937357951509796',
-  longitude: '129.98592050491834',
+  latitude: '41.178330945909934',
+  longitude: '131.095542440539',
   warehouseId: 'W000001',
 }
 */
@@ -83,12 +83,6 @@ class DamageSpaceCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class DamageSpaceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

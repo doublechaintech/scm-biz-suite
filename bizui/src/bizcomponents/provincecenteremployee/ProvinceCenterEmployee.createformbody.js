@@ -20,7 +20,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2017-08-25',
+  founded: '2016-11-22',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -83,12 +83,6 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

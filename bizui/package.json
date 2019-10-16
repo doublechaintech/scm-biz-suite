@@ -25,25 +25,6 @@
     "echarts-for-react": "^2.0.14",
     "@antv/data-set": "^0.8.0",
     "@babel/polyfill": "^7.0.0-beta.36",
-<<<<<<< HEAD
-    "antd": "^3.10.8",
-    "axios": "^0.16.2",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-env": "^1.7.0",
-    "babel-runtime": "^6.9.2",
-    "bizcharts": "^3.1.5",
-    "bizcharts-plugin-slider": "^2.0.1",
-    "classnames": "^2.2.5",
-    "dva": "^2.2.3",
-    "dva-loading": "^1.0.4",
-    "echarts-for-react": "^2.0.14",
-    "enquire-js": "^0.2.1",
-    "keymaster": "^1.6.2",
-    "less": "2.7.2",
-    "lodash": "^4.17.4",
-    "lodash-decorators": "^4.4.1",
-    "moment": "^2.19.1",
-=======
     "antd": "^3.8.0",
     "bizcharts": "^3.1.10",
     "bizcharts-plugin-slider": "^2.0.1",
@@ -54,7 +35,6 @@
     "lodash": "^4.17.10",
     "lodash-decorators": "^6.0.0",
     "moment": "^2.19.3",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     "numeral": "^2.0.6",
     "omit.js": "^1.0.0",
     "path-to-regexp": "^2.1.0",
@@ -64,13 +44,9 @@
     "react": "^16.4.1",
     "react-container-query": "^0.11.0",
     "react-document-title": "^2.0.3",
-<<<<<<< HEAD
-    "react-dom": "^16.2.0",
-=======
     "react-dom": "^16.4.1",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     "react-fittext": "^1.0.0",
-    "react-fontawesome": "^1.6.1",
+
     "rollbar": "^2.3.4",
     "setprototypeof": "^1.1.0",
     "url-polyfill": "^1.0.10",
@@ -78,13 +54,7 @@
     "axios": "^0.19.0"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@babel/cli": "^7.2.0",
-    "@babel/core": "^7.2.0",
-    "@babel/node": "^7.2.0",
-=======
 	     "echarts": "^4.1.0",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     "babel-eslint": "^8.1.2",
     "babel-plugin-dva-hmr": "^0.4.1",
     "babel-plugin-import": "^1.6.7",

@@ -10,10 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './EmployeeLeave.updateform.less'
 import EmployeeLeaveBase from './EmployeeLeave.base'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -92,10 +89,7 @@ class EmployeeLeaveUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = EmployeeLeaveBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -108,11 +102,7 @@ class EmployeeLeaveUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-<<<<<<< HEAD
-
-=======
 		
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const employeeLeaveId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -196,11 +186,7 @@ class EmployeeLeaveUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'employeeLeave',
-<<<<<<< HEAD
-          listName:'请假记录列表' 
-=======
           listName:appLocaleName(userContext,"List") 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -231,11 +217,7 @@ class EmployeeLeaveUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -249,32 +231,11 @@ class EmployeeLeaveUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-<<<<<<< HEAD
-      return (<div>缺少被更新的对象</div>)
-=======
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-
-    return (
-      <PageHeaderLayout
-        title={"更新请假记录"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新请假记录"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-=======
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
@@ -295,20 +256,10 @@ class EmployeeLeaveUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.id} {...formItemLayout}>
-                  {getFieldDecorator('id', {
-                    initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
-                  })(
-                    <Input placeholder="请输入序号" disabled/>
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -316,21 +267,11 @@ class EmployeeLeaveUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="序号" disabled/>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.leaveDurationHour} {...formItemLayout}>
-                  {getFieldDecorator('leaveDurationHour', {
-                    initialValue: selectedRow.leaveDurationHour,
-                    rules: [{ required: true, message: '请输入请假时长' }],
-                  })(
-                    <Input placeholder="请输入请假时长" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.leaveDurationHour} {...formItemLayout}>
                   {getFieldDecorator('leaveDurationHour', {
@@ -338,21 +279,11 @@ class EmployeeLeaveUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="请假时长" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.remark} {...formItemLayout}>
-                  {getFieldDecorator('remark', {
-                    initialValue: selectedRow.remark,
-                    rules: [{ required: true, message: '请输入备注' }],
-                  })(
-                    <Input placeholder="请输入备注" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.remark} {...formItemLayout}>
                   {getFieldDecorator('remark', {
@@ -360,40 +291,18 @@ class EmployeeLeaveUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="备注" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-            </Row>
-          </Form>  
-        </Card>
-=======
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
 
-<<<<<<< HEAD
-        <FooterToolbar>
-          {getErrorInfo()}
-          <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
-          </Button>
-          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
-          </Button>
-          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
-          </Button>
-          <Button type="default" onClick={goback} loading={submitting}>
-            取消
-=======
 			</Row>
           </Form>
         </Card>
@@ -417,7 +326,6 @@ class EmployeeLeaveUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             {appLocaleName(userContext,"Cancel")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

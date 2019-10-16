@@ -9,12 +9,8 @@ import styles from './AccountSet.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountSetBase from './AccountSet.base'
-<<<<<<< HEAD
-
-=======
 import AccountSetCreateFormBody from './AccountSet.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -24,11 +20,7 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-<<<<<<< HEAD
-  effectiveDate: '2016-07-03',
-=======
-  effectiveDate: '2018-03-04',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  effectiveDate: '2019-09-17',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
@@ -85,11 +77,7 @@ class AccountSetCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = AccountSetBase
     const {AccountSetService} = GlobalComponents
@@ -138,16 +126,10 @@ class AccountSetCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'accountSet',listName:'账套列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'accountSet',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -178,11 +160,7 @@ class AccountSetCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -200,12 +178,9 @@ class AccountSetCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -215,12 +190,9 @@ class AccountSetCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -228,183 +200,9 @@ class AccountSetCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个账套"
-        content="新建一个账套"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.yearSet} {...formItemLayout}>
-                  {getFieldDecorator('yearSet', {
-                    rules: [{ required: true, message: '请输入年组' }],
-                  })(
-                    <Input placeholder="请输入年组" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.effectiveDate} {...formItemLayout}>
-                  {getFieldDecorator('effectiveDate', {
-                    rules: [{ required: true, message: '请输入生效日期' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入生效日期" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.accountingSystem} {...formItemLayout}>
-                  {getFieldDecorator('accountingSystem', {
-                    rules: [{ required: true, message: '请输入会计制度' }],
-                  })(
-                    <Input placeholder="请输入会计制度" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.domesticCurrencyCode} {...formItemLayout}>
-                  {getFieldDecorator('domesticCurrencyCode', {
-                    rules: [{ required: true, message: '请输入本币代码' }],
-                  })(
-                    <Input placeholder="请输入本币代码" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.domesticCurrencyName} {...formItemLayout}>
-                  {getFieldDecorator('domesticCurrencyName', {
-                    rules: [{ required: true, message: '请输入本币名称' }],
-                  })(
-                    <Input placeholder="请输入本币名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.openingBank} {...formItemLayout}>
-                  {getFieldDecorator('openingBank', {
-                    rules: [{ required: true, message: '请输入开户银行' }],
-                  })(
-                    <Input placeholder="请输入开户银行" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.accountNumber} {...formItemLayout}>
-                  {getFieldDecorator('accountNumber', {
-                    rules: [{ required: true, message: '请输入帐户号码' }],
-                  })(
-                    <Input placeholder="请输入帐户号码" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.countryCenter} {...formItemLayout}>
-                  {getFieldDecorator('countryCenterId', {
-                  	initialValue: tryinit('countryCenter'),
-                    rules: [{ required: true, message: '请输入全国运营中心' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('countryCenter')}
-                    targetType={"countryCenter"} 
-                    requestFunction={AccountSetService.requestCandidateCountryCenter}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.retailStore} {...formItemLayout}>
-                  {getFieldDecorator('retailStoreId', {
-                  	initialValue: tryinit('retailStore'),
-                    rules: [{ required: true, message: '请输入双链小超' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('retailStore')}
-                    targetType={"retailStore"} 
-                    requestFunction={AccountSetService.requestCandidateRetailStore}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.goodsSupplier} {...formItemLayout}>
-                  {getFieldDecorator('goodsSupplierId', {
-                  	initialValue: tryinit('goodsSupplier'),
-                    rules: [{ required: true, message: '请输入产品供应商' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('goodsSupplier')}
-                    targetType={"goodsSupplier"} 
-                    requestFunction={AccountSetService.requestCandidateGoodsSupplier}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -425,22 +223,10 @@ class AccountSetCreateForm extends Component {
    			
    		<AccountSetCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -451,7 +237,6 @@ class AccountSetCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

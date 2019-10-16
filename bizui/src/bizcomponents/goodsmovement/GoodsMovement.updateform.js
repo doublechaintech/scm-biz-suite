@@ -10,10 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './GoodsMovement.updateform.less'
 import GoodsMovementBase from './GoodsMovement.base'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -93,10 +90,7 @@ class GoodsMovementUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = GoodsMovementBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -109,11 +103,7 @@ class GoodsMovementUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-<<<<<<< HEAD
-
-=======
 		
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const goodsMovementId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -197,11 +187,7 @@ class GoodsMovementUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'goodsMovement',
-<<<<<<< HEAD
-          listName:'货物移动列表' 
-=======
           listName:appLocaleName(userContext,"List") 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -232,11 +218,7 @@ class GoodsMovementUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -250,32 +232,11 @@ class GoodsMovementUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-<<<<<<< HEAD
-      return (<div>缺少被更新的对象</div>)
-=======
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-
-    return (
-      <PageHeaderLayout
-        title={"更新货物移动"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新货物移动"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-=======
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
@@ -296,20 +257,10 @@ class GoodsMovementUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.id} {...formItemLayout}>
-                  {getFieldDecorator('id', {
-                    initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
-                  })(
-                    <Input placeholder="请输入序号" disabled/>
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -317,21 +268,11 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="序号" disabled/>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.moveTime} {...formItemLayout}>
-                  {getFieldDecorator('moveTime', {
-                    initialValue: selectedRow.moveTime,
-                    rules: [{ required: true, message: '请输入移动时间' }],
-                  })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入移动时间" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.moveTime} {...formItemLayout}>
                   {getFieldDecorator('moveTime', {
@@ -339,21 +280,11 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.facility} {...formItemLayout}>
-                  {getFieldDecorator('facility', {
-                    initialValue: selectedRow.facility,
-                    rules: [{ required: true, message: '请输入设施' }],
-                  })(
-                    <Input placeholder="请输入设施" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.facility} {...formItemLayout}>
                   {getFieldDecorator('facility', {
@@ -361,21 +292,11 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="设施" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.facilityId} {...formItemLayout}>
-                  {getFieldDecorator('facilityId', {
-                    initialValue: selectedRow.facilityId,
-                    rules: [{ required: true, message: '请输入设备ID' }],
-                  })(
-                    <Input placeholder="请输入设备ID" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.facilityId} {...formItemLayout}>
                   {getFieldDecorator('facilityId', {
@@ -383,21 +304,11 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="设备ID" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.fromIp} {...formItemLayout}>
-                  {getFieldDecorator('fromIp', {
-                    initialValue: selectedRow.fromIp,
-                    rules: [{ required: true, message: '请输入从IP' }],
-                  })(
-                    <Input placeholder="请输入从IP" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.fromIp} {...formItemLayout}>
                   {getFieldDecorator('fromIp', {
@@ -405,21 +316,11 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="从IP" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.sessionId} {...formItemLayout}>
-                  {getFieldDecorator('sessionId', {
-                    initialValue: selectedRow.sessionId,
-                    rules: [{ required: true, message: '请输入会话ID' }],
-                  })(
-                    <Input placeholder="请输入会话ID" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.sessionId} {...formItemLayout}>
                   {getFieldDecorator('sessionId', {
@@ -427,21 +328,11 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="会话ID" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
-                  {getFieldDecorator('latitude', {
-                    initialValue: selectedRow.latitude,
-                    rules: [{ required: true, message: '请输入纬度' }],
-                  })(
-                    <Input placeholder="请输入纬度" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
@@ -449,21 +340,11 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="纬度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
-                  {getFieldDecorator('longitude', {
-                    initialValue: selectedRow.longitude,
-                    rules: [{ required: true, message: '请输入经度' }],
-                  })(
-                    <Input placeholder="请输入经度" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
@@ -471,29 +352,17 @@ class GoodsMovementUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="经度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-            </Row>
-          </Form>  
-        </Card>
-=======
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
-<<<<<<< HEAD
-        <Card title="用户代理" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-=======
 
 			</Row>
           </Form>
@@ -505,22 +374,10 @@ class GoodsMovementUpdateForm extends Component {
        <Card title={`用户代理`} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}> 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               <Col lg={24} md={24} sm={24}>
                 <Form.Item>
                   {getFieldDecorator('userAgent', {
                   	initialValue: selectedRow.userAgent,
-<<<<<<< HEAD
-                    rules: [{  required: true, message: '请输入用户代理' }],
-                  })(
-                    <TextArea rows={4} placeholder="请输入请输入用户代理" />
-                  )}
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
-        </Card>
-=======
                     rules: [{  required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <TextArea rows={4} placeholder={appLocaleName(userContext,"PleaseInput")} />
@@ -532,24 +389,11 @@ class GoodsMovementUpdateForm extends Component {
         </Card>   
 
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            更新
-          </Button>
-          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
-          </Button>
-          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
-          </Button>
-          <Button type="default" onClick={goback} loading={submitting}>
-            取消
-=======
             {appLocaleName(userContext,"Update")}
           </Button>
           <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
@@ -560,7 +404,6 @@ class GoodsMovementUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             {appLocaleName(userContext,"Cancel")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

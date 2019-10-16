@@ -17,15 +17,6 @@ class CandidateElementTable extends PureComponent {
     selectedRowKeys: [],
   }
 
-  componentWillReceiveProps(nextProps) {
-    // clean state
-    if (nextProps.selectedRows.length === 0) {
-      this.setState({
-        selectedRowKeys: [],
-      })
-    }
-  }
-
   handleRowSelectChange = (selectedRowKeys, selectedRows) => {
     if (this.props.onSelectRow) {
       this.props.onSelectRow(selectedRows)

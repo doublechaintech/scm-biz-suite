@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '礼品卡',
   number: 'CP00001',
-  remain: '194.78',
+  remain: '175.48',
   ownerId: 'RSM000001',
 }
 */
@@ -81,12 +81,6 @@ class RetailStoreMemberGiftCardCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class RetailStoreMemberGiftCardCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

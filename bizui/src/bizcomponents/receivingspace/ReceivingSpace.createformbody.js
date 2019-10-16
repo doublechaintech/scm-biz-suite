@@ -21,8 +21,8 @@ const testValues = {
   contactNumber: '02887654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-  latitude: '40.698245010321074',
-  longitude: '131.93153045503297',
+  latitude: '42.66648205723954',
+  longitude: '130.77404455207372',
   warehouseId: 'W000001',
 }
 */
@@ -84,12 +84,6 @@ class ReceivingSpaceCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -119,6 +113,7 @@ class ReceivingSpaceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

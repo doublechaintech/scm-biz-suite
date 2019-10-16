@@ -1,19 +1,9 @@
 
-<<<<<<< HEAD
-
-=======
 import React from 'react'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
 import GlobalComponents from '../../custcomponents';
-<<<<<<< HEAD
-
-import modeltool from '../../utils/modeltool'
-const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
-
-=======
 import appLocaleName from '../../common/Locale.tool'
 import modeltool from '../../utils/modeltool'
 const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
@@ -27,7 +17,6 @@ const notifySuccess=(userContext)=>{
 
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 export default {
 
@@ -88,25 +77,15 @@ export default {
     },
     
     *doJob({ payload }, { call, put }) { 
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {TaskService} = GlobalComponents;
       //yield put({ type: 'showLoading', payload })      
       const {serviceNameToCall, id, parameters} = payload;
       if(!serviceNameToCall){
-<<<<<<< HEAD
-      	handleClientError("没有提供后台服务的名字, 该服务没有注册")
-      	return;
-      }
-      
-=======
       	handleClientError(appLocaleName(userContext,'ServiceNotRegistered'))
       	return;
       }
       "react/dva_object_model.jsp"
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       const data = yield call(serviceNameToCall, id, parameters)
       if(handleServerError(data)){
@@ -139,10 +118,7 @@ export default {
 
 
     *addCityPartner({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -155,31 +131,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreCityServiceCenter/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\CityPartnerList/城市合伙人列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateCityPartner({ payload }, { call, put }) {
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityPartnerList/城市合伙人+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateCityPartner({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -192,23 +154,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\CityPartnerList/城市合伙人列表`, state: newPlayload }
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityPartnerList/城市合伙人列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextCityPartnerUpdateRow({ payload }, { call, put }) {
@@ -217,10 +168,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeCityPartnerList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -232,27 +180,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addPotentialCustomer({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -265,31 +200,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreCityServiceCenter/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\PotentialCustomerList/潜在的客户列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updatePotentialCustomer({ payload }, { call, put }) {
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/PotentialCustomerList/潜在的客户+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePotentialCustomer({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -302,23 +223,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\PotentialCustomerList/潜在的客户列表`, state: newPlayload }
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/PotentialCustomerList/潜在的客户列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextPotentialCustomerUpdateRow({ payload }, { call, put }) {
@@ -327,10 +237,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removePotentialCustomerList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -342,27 +249,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addCityEvent({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -375,31 +269,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreCityServiceCenter/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\CityEventList/城市活动列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateCityEvent({ payload }, { call, put }) {
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityEventList/城市活动+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateCityEvent({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -412,23 +292,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\CityEventList/城市活动列表`, state: newPlayload }
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/CityEventList/城市活动列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextCityEventUpdateRow({ payload }, { call, put }) {
@@ -437,10 +306,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeCityEventList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -452,27 +318,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addRetailStore({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -485,31 +338,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/retailStoreCityServiceCenter/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\RetailStoreList/双链小超列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateRetailStore({ payload }, { call, put }) {
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/RetailStoreList/双链小超+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStore({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -522,23 +361,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/\RetailStoreList/双链小超列表`, state: newPlayload }
-=======
       const location = { pathname: `/retailStoreCityServiceCenter/${id}/list/RetailStoreList/双链小超列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreUpdateRow({ payload }, { call, put }) {
@@ -547,10 +375,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeRetailStoreList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {RetailStoreCityServiceCenterService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -562,17 +387,7 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
   },

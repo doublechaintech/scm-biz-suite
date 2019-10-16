@@ -11,11 +11,6 @@ git filter-branch --force --index-filter 'git rm -r —cached --ignore-unmatch b
 git filter-branch --force --index-filter 'git rm -r —cached --ignore-unmatch bizcore/README.md' --prune-empty --tag-name-filter cat -- --all
 git filter-branch --force --index-filter 'git rm -r —cached --ignore-unmatch bizcore/build' --prune-empty --tag-name-filter cat -- --all
 git filter-branch --force --index-filter 'git rm -r —cached --ignore-unmatch bizui/dist' --prune-empty --tag-name-filter cat -- --all
-<<<<<<< HEAD
-git filter-branch --force --index-filter 'git rm -r —cached --ignore-unmatch bizui/.vscode' --prune-empty --tag-name-filter cat -- --all
-git filter-branch --force --index-filter 'git rm -r —cached --ignore-unmatch .history' --prune-empty --tag-name-filter cat -- --all
-=======
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 git commit -m"remove  extra class"
 git push origin --force --all
 

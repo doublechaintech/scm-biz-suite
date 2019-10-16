@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '申请者',
-  acceptTime: '2018-10-15',
+  acceptTime: '2019-06-16',
   comments: '谢谢，我一个月内上班',
 }
 */
@@ -80,12 +80,6 @@ class OfferAcceptanceCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class OfferAcceptanceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

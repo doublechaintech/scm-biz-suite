@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
-  totalAmount: '2976180480.00',
+  totalAmount: '2984652544.00',
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
 }
@@ -81,12 +81,6 @@ class RetailStoreOrderCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class RetailStoreOrderCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

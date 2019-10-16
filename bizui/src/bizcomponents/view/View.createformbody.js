@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   who: '面试官',
   assessment: '小伙子不错，值得培养',
-  interviewTime: '2019-09-04',
+  interviewTime: '2019-07-27',
 }
 */
 
@@ -80,12 +80,6 @@ class ViewCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class ViewCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

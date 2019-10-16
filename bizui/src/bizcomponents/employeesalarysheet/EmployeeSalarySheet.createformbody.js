@@ -17,13 +17,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2962.85',
-  bonus: '915.50',
-  reward: '704.10',
-  personalTax: '626.00',
-  socialSecurity: '939.98',
-  housingFound: '1202.50',
-  jobInsurance: '6.23',
+  baseSalary: '2730.04',
+  bonus: '983.98',
+  reward: '862.82',
+  personalTax: '731.08',
+  socialSecurity: '964.99',
+  housingFound: '1194.80',
+  jobInsurance: '7.85',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
 }
@@ -86,12 +86,6 @@ class EmployeeSalarySheetCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -121,6 +115,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
-  packageTime: '2018-05-15',
+  packageTime: '2016-11-05',
   description: '打包完成，准备起运',
 }
 */
@@ -81,12 +81,6 @@ class GoodsPackagingCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class GoodsPackagingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

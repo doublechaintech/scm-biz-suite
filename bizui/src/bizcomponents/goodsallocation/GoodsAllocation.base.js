@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,73 +28,15 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"货位", menuFor: "goodsAllocation",
   		subItems: [
-<<<<<<< HEAD
-  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false},
-=======
   {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-=======
 
 const settingMenuData = {menuName:"货位", menuFor: "goodsAllocation",
   		subItems: [
@@ -116,32 +50,10 @@ const fieldLabels = {
   latitude: '纬度',
   longitude: '经度',
   goodsShelf: '货架',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
 const displayColumns = [
-<<<<<<< HEAD
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'goodsAllocation') },
-  { title: '位置', debugtype: 'string', dataIndex: 'location', width: '25',render: (text, record)=>renderTextCell(text,record) },
-  { title: '纬度', debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record) },
-  { title: '经度', debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record) },
-  { title: '货架', dataIndex: 'goodsShelf', render: (text, record) => renderReferenceCell(text, record)},
-
-]
-
-const fieldLabels = {
-  id: '序号',
-  location: '位置',
-  latitude: '纬度',
-  longitude: '经度',
-  goodsShelf: '货架',
-
-}
-
-
-const GoodsAllocationBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'goodsAllocation') , sorter: true },
   { title: fieldLabels.location, debugtype: 'string', dataIndex: 'location', width: '25',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.latitude, debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record)},
@@ -172,11 +84,20 @@ const renderItemOfList=(goodsAllocation,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {location, latitude, longitude, goodsShelfId} = formValuesToPack
+	const goodsShelf = {id: goodsShelfId, version: 2^31}
+	const data = {location, latitude, longitude, goodsShelf}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {location, latitude, longitude, goodsShelf} = objectToUnpack
+	const goodsShelfId = goodsShelf ? goodsShelf.id : null
+	const data = {location, latitude, longitude, goodsShelfId}
+	return data
+}
 
-
-
-const GoodsAllocationBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const GoodsAllocationBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default GoodsAllocationBase
 
 

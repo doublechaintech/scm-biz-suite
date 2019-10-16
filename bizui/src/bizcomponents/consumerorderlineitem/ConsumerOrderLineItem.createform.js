@@ -9,12 +9,8 @@ import styles from './ConsumerOrderLineItem.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ConsumerOrderLineItemBase from './ConsumerOrderLineItem.base'
-<<<<<<< HEAD
-
-=======
 import ConsumerOrderLineItemCreateFormBody from './ConsumerOrderLineItem.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -24,15 +20,9 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-<<<<<<< HEAD
-  price: '5.75',
-  quantity: '991.60',
-  amount: '8059.98',
-=======
-  price: '4.20',
-  quantity: '933.77',
-  amount: '9991.24',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  price: '4.77',
+  quantity: '892.42',
+  amount: '8048.95',
   bizOrderId: 'CO000001',
 }
 */
@@ -82,11 +72,7 @@ class ConsumerOrderLineItemCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ConsumerOrderLineItemBase
     const {ConsumerOrderLineItemService} = GlobalComponents
@@ -135,16 +121,10 @@ class ConsumerOrderLineItemCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'consumerOrderLineItem',listName:'消费者订单行项目列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'consumerOrderLineItem',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -175,11 +155,7 @@ class ConsumerOrderLineItemCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -197,12 +173,9 @@ class ConsumerOrderLineItemCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -212,12 +185,9 @@ class ConsumerOrderLineItemCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -225,119 +195,9 @@ class ConsumerOrderLineItemCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个消费者订单行项目"
-        content="新建一个消费者订单行项目"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.skuId} {...formItemLayout}>
-                  {getFieldDecorator('skuId', {
-                    rules: [{ required: true, message: '请输入产品ID' }],
-                  })(
-                    <Input placeholder="请输入产品ID" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.skuName} {...formItemLayout}>
-                  {getFieldDecorator('skuName', {
-                    rules: [{ required: true, message: '请输入产品名称' }],
-                  })(
-                    <Input placeholder="请输入产品名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.price} {...formItemLayout}>
-                  {getFieldDecorator('price', {
-                    rules: [{ required: true, message: '请输入价格' }],
-                  })(
-                    <Input placeholder="请输入价格" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.quantity} {...formItemLayout}>
-                  {getFieldDecorator('quantity', {
-                    rules: [{ required: true, message: '请输入数量' }],
-                  })(
-                    <Input placeholder="请输入数量" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.amount} {...formItemLayout}>
-                  {getFieldDecorator('amount', {
-                    rules: [{ required: true, message: '请输入金额' }],
-                  })(
-                    <Input placeholder="请输入金额" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
-                  {getFieldDecorator('bizOrderId', {
-                  	initialValue: tryinit('bizOrder'),
-                    rules: [{ required: true, message: '请输入订单' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('bizOrder')}
-                    targetType={"bizOrder"} 
-                    requestFunction={ConsumerOrderLineItemService.requestCandidateBizOrder}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -358,22 +218,10 @@ class ConsumerOrderLineItemCreateForm extends Component {
    			
    		<ConsumerOrderLineItemCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -384,7 +232,6 @@ class ConsumerOrderLineItemCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

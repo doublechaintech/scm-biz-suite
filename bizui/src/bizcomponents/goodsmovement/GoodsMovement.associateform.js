@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import GoodsMovementBase from './GoodsMovement.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -22,22 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  moveTime: '2019-01-12 08:16:29',
-=======
-  moveTime: '2019-09-18 14:32:58',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  moveTime: '2019-09-28 08:53:56',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-<<<<<<< HEAD
-  latitude: '40.729362618531326',
-  longitude: '129.87497761664332',
-=======
-  latitude: '41.46887778595451',
-  longitude: '131.19130328724438',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  latitude: '42.28133399334374',
+  longitude: '131.29593170432742',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -91,11 +78,8 @@ class GoodsMovementAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {GoodsMovementService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -142,43 +126,26 @@ class GoodsMovementAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.moveTime} {...formItemLayout}>
                   {getFieldDecorator('moveTime', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入移动时间' }],
-                  })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入移动时间" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -186,15 +153,9 @@ class GoodsMovementAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.facility} {...formItemLayout}>
                   {getFieldDecorator('facility', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入设施' }],
-                  })(
-                    <Input placeholder="请输入设施" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="设施" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -202,15 +163,9 @@ class GoodsMovementAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.facilityId} {...formItemLayout}>
                   {getFieldDecorator('facilityId', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入设备ID' }],
-                  })(
-                    <Input placeholder="请输入设备ID" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="设备ID" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -218,15 +173,9 @@ class GoodsMovementAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.fromIp} {...formItemLayout}>
                   {getFieldDecorator('fromIp', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入从IP' }],
-                  })(
-                    <Input placeholder="请输入从IP" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="从IP" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -234,15 +183,9 @@ class GoodsMovementAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.sessionId} {...formItemLayout}>
                   {getFieldDecorator('sessionId', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入会话ID' }],
-                  })(
-                    <Input placeholder="请输入会话ID" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="会话ID" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -250,15 +193,9 @@ class GoodsMovementAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入纬度' }],
-                  })(
-                    <Input placeholder="请输入纬度" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="纬度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -266,15 +203,9 @@ class GoodsMovementAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入经度' }],
-                  })(
-                    <Input placeholder="请输入经度" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="经度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -294,15 +225,9 @@ class GoodsMovementAssociateForm extends Component {
               <Col lg={24} md={24} sm={24}>
                 <Form.Item>
                   {getFieldDecorator('userAgent', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入用户代理' }],
-                  })(
-                    <TextArea rows={4} placeholder="请输入请输入用户代理" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <TextArea rows={4} placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -320,11 +245,7 @@ class GoodsMovementAssociateForm extends Component {
                 <Form.Item label={fieldLabels.goods} {...formItemLayout}>
                   {getFieldDecorator('goodsId', {
                   	initialValue: tryinit('goods'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入货物' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('goods')}

@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class SecUserBlockingBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class SecUserBlockingBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/secUserBlocking/${this.props.secUserBlocking.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class SecUserBlockingBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,24 +184,15 @@ class SecUserBlockingBizApp extends React.PureComponent {
 
   getSecUserSearch = () => {
     const {SecUserSearch} = GlobalComponents;
-<<<<<<< HEAD
-    return connect(state => ({
-      rule: state.rule,
-      name: "SEC的用户",
-=======
     const userContext = null
     return connect(state => ({
       rule: state.rule,
       name: "安全用户",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       role: "secUser",
       data: state._secUserBlocking.secUserList,
       metaInfo: state._secUserBlocking.secUserListMetaInfo,
       count: state._secUserBlocking.secUserCount,
-<<<<<<< HEAD
-=======
       returnURL: `/secUserBlocking/${state._secUserBlocking.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._secUserBlocking.secUserCurrentPageNumber,
       searchFormParameters: state._secUserBlocking.secUserSearchFormParameters,
       searchParameters: {...state._secUserBlocking.searchParameters},
@@ -280,55 +202,34 @@ class SecUserBlockingBizApp extends React.PureComponent {
       owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, 
       referenceName: 'blocking', 
       listName: 'secUserList', ref:state._secUserBlocking, 
-<<<<<<< HEAD
-      listDisplayName: 'SEC的用户列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SecUserSearch)
   }
   getSecUserCreateForm = () => {
    	const {SecUserCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "secUser",
       data: state._secUserBlocking.secUserList,
       metaInfo: state._secUserBlocking.secUserListMetaInfo,
       count: state._secUserBlocking.secUserCount,
-<<<<<<< HEAD
-      currentPage: state._secUserBlocking.secUserCurrentPageNumber,
-      searchFormParameters: state._secUserBlocking.secUserSearchFormParameters,
-      loading: state._secUserBlocking.loading,
-      owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, referenceName: 'blocking', listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: 'SEC的用户列表'}, // this is for model namespace and
-=======
       returnURL: `/secUserBlocking/${state._secUserBlocking.id}/list`,
       currentPage: state._secUserBlocking.secUserCurrentPageNumber,
       searchFormParameters: state._secUserBlocking.secUserSearchFormParameters,
       loading: state._secUserBlocking.loading,
       owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, referenceName: 'blocking', listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SecUserCreateForm)
   }
   
   getSecUserUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {SecUserUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._secUserBlocking.selectedRows,
       role: "secUser",
       currentUpdateIndex: state._secUserBlocking.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: 'SEC的用户列表' }, // this is for model namespace and
-=======
       owner: { type: '_secUserBlocking', id: state._secUserBlocking.id, listName: 'secUserList', ref:state._secUserBlocking, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SecUserUpdateForm)
   }
 
@@ -336,22 +237,14 @@ class SecUserBlockingBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {SecUserBlockingDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {SecUserBlockingPreference} = GlobalComponents
-=======
   	const {SecUserBlockingPermission} = GlobalComponents
   	const {SecUserBlockingProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/secUserBlocking/:id/dashboard", component: SecUserBlockingDashboard},
-<<<<<<< HEAD
-  	{path:"/secUserBlocking/:id/preference", component: SecUserBlockingPreference},
-=======
   	{path:"/secUserBlocking/:id/profile", component: SecUserBlockingProfile},
   	{path:"/secUserBlocking/:id/permission", component: SecUserBlockingPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -402,59 +295,6 @@ class SecUserBlockingBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {SecUserBlockingEditDetail} = GlobalComponents
-     //const {SecUserBlockingViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.secUserBlocking)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -496,7 +336,7 @@ class SecUserBlockingBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -528,13 +368,12 @@ class SecUserBlockingBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

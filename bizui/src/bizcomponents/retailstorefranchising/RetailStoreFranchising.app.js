@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class RetailStoreFranchisingBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/retailStoreFranchising/${this.props.retailStoreFranchising.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/retailStoreFranchising/${this.props.retailStoreFranchising.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
 
   getRetailStoreSearch = () => {
     const {RetailStoreSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "双链小超",
@@ -264,10 +192,7 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
       data: state._retailStoreFranchising.retailStoreList,
       metaInfo: state._retailStoreFranchising.retailStoreListMetaInfo,
       count: state._retailStoreFranchising.retailStoreCount,
-<<<<<<< HEAD
-=======
       returnURL: `/retailStoreFranchising/${state._retailStoreFranchising.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._retailStoreFranchising.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreFranchising.retailStoreSearchFormParameters,
       searchParameters: {...state._retailStoreFranchising.searchParameters},
@@ -277,55 +202,34 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
       owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, 
       referenceName: 'franchising', 
       listName: 'retailStoreList', ref:state._retailStoreFranchising, 
-<<<<<<< HEAD
-      listDisplayName: '双链小超列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(RetailStoreSearch)
   }
   getRetailStoreCreateForm = () => {
    	const {RetailStoreCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "retailStore",
       data: state._retailStoreFranchising.retailStoreList,
       metaInfo: state._retailStoreFranchising.retailStoreListMetaInfo,
       count: state._retailStoreFranchising.retailStoreCount,
-<<<<<<< HEAD
-      currentPage: state._retailStoreFranchising.retailStoreCurrentPageNumber,
-      searchFormParameters: state._retailStoreFranchising.retailStoreSearchFormParameters,
-      loading: state._retailStoreFranchising.loading,
-      owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, referenceName: 'franchising', listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: '双链小超列表'}, // this is for model namespace and
-=======
       returnURL: `/retailStoreFranchising/${state._retailStoreFranchising.id}/list`,
       currentPage: state._retailStoreFranchising.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreFranchising.retailStoreSearchFormParameters,
       loading: state._retailStoreFranchising.loading,
       owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, referenceName: 'franchising', listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(RetailStoreCreateForm)
   }
   
   getRetailStoreUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {RetailStoreUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreFranchising.selectedRows,
       role: "retailStore",
       currentUpdateIndex: state._retailStoreFranchising.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: '双链小超列表' }, // this is for model namespace and
-=======
       owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(RetailStoreUpdateForm)
   }
 
@@ -333,22 +237,14 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {RetailStoreFranchisingDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {RetailStoreFranchisingPreference} = GlobalComponents
-=======
   	const {RetailStoreFranchisingPermission} = GlobalComponents
   	const {RetailStoreFranchisingProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/retailStoreFranchising/:id/dashboard", component: RetailStoreFranchisingDashboard},
-<<<<<<< HEAD
-  	{path:"/retailStoreFranchising/:id/preference", component: RetailStoreFranchisingPreference},
-=======
   	{path:"/retailStoreFranchising/:id/profile", component: RetailStoreFranchisingProfile},
   	{path:"/retailStoreFranchising/:id/permission", component: RetailStoreFranchisingPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -399,59 +295,6 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {RetailStoreFranchisingEditDetail} = GlobalComponents
-     //const {RetailStoreFranchisingViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.retailStoreFranchising)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -493,7 +336,7 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -525,13 +368,12 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

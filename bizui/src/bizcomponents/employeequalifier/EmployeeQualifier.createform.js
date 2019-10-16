@@ -9,12 +9,8 @@ import styles from './EmployeeQualifier.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeQualifierBase from './EmployeeQualifier.base'
-<<<<<<< HEAD
-
-=======
 import EmployeeQualifierCreateFormBody from './EmployeeQualifier.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -22,11 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  qualifiedTime: '2016-07-16',
-=======
-  qualifiedTime: '2019-03-15',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  qualifiedTime: '2017-01-20',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -79,11 +71,7 @@ class EmployeeQualifierCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeQualifierBase
     const {EmployeeQualifierService} = GlobalComponents
@@ -132,16 +120,10 @@ class EmployeeQualifierCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'employeeQualifier',listName:'员工资质列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'employeeQualifier',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -172,11 +154,7 @@ class EmployeeQualifierCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -194,12 +172,9 @@ class EmployeeQualifierCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -209,12 +184,9 @@ class EmployeeQualifierCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -222,109 +194,9 @@ class EmployeeQualifierCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个员工资质"
-        content="新建一个员工资质"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.qualifiedTime} {...formItemLayout}>
-                  {getFieldDecorator('qualifiedTime', {
-                    rules: [{ required: true, message: '请输入合格的时间' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入合格的时间" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.type} {...formItemLayout}>
-                  {getFieldDecorator('type', {
-                    rules: [{ required: true, message: '请输入类型' }],
-                  })(
-                    <Input placeholder="请输入类型" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.level} {...formItemLayout}>
-                  {getFieldDecorator('level', {
-                    rules: [{ required: true, message: '请输入水平' }],
-                  })(
-                    <Input placeholder="请输入水平" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.remark} {...formItemLayout}>
-                  {getFieldDecorator('remark', {
-                    rules: [{ required: true, message: '请输入备注' }],
-                  })(
-                    <Input placeholder="请输入备注" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.employee} {...formItemLayout}>
-                  {getFieldDecorator('employeeId', {
-                  	initialValue: tryinit('employee'),
-                    rules: [{ required: true, message: '请输入员工' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('employee')}
-                    targetType={"employee"} 
-                    requestFunction={EmployeeQualifierService.requestCandidateEmployee}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -345,22 +217,10 @@ class EmployeeQualifierCreateForm extends Component {
    			
    		<EmployeeQualifierCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -371,7 +231,6 @@ class EmployeeQualifierCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

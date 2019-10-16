@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,86 +28,15 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"一级部门", menuFor: "levelOneDepartment",
   		subItems: [
-<<<<<<< HEAD
-  {name: 'levelTwoDepartmentList', displayName:'二级部门', icon:'dice-two',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false},
-=======
   {name: 'levelTwoDepartmentList', displayName:'二级部门', icon:'dice-two',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'levelOneDepartment') },
-  { title: '属于', dataIndex: 'belongsTo', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '名称', debugtype: 'string', dataIndex: 'name', width: '9',render: (text, record)=>renderTextCell(text,record) },
-  { title: '描述', debugtype: 'string', dataIndex: 'description', width: '22',render: (text, record)=>renderTextCell(text,record) },
-  { title: '经理', debugtype: 'string', dataIndex: 'manager', width: '7',render: (text, record)=>renderTextCell(text,record) },
-  { title: '成立', dataIndex: 'founded', render: (text, record) =>renderDateCell(text,record) },
-
-]
-
-=======
 
 const settingMenuData = {menuName:"一级部门", menuFor: "levelOneDepartment",
   		subItems: [
@@ -123,7 +44,6 @@ const settingMenuData = {menuName:"一级部门", menuFor: "levelOneDepartment",
   		],
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const fieldLabels = {
   id: '序号',
   belongsTo: '属于',
@@ -134,10 +54,6 @@ const fieldLabels = {
 
 }
 
-<<<<<<< HEAD
-
-const LevelOneDepartmentBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
 const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'levelOneDepartment') , sorter: true },
   { title: fieldLabels.belongsTo, dataIndex: 'belongsTo', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -169,11 +85,20 @@ const renderItemOfList=(levelOneDepartment,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name, description, manager, founded, belongsToId} = formValuesToPack
+	const belongsTo = {id: belongsToId, version: 2^31}
+	const data = {name, description, manager, founded, belongsTo}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name, description, manager, founded, belongsTo} = objectToUnpack
+	const belongsToId = belongsTo ? belongsTo.id : null
+	const data = {name, description, manager, founded, belongsToId}
+	return data
+}
 
-
-
-const LevelOneDepartmentBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const LevelOneDepartmentBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default LevelOneDepartmentBase
 
 

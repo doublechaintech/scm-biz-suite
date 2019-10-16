@@ -45,22 +45,14 @@ const removeUserWhiteListList = (targetObjectId, parameters) => {
 
 
 const addSecUser = (targetObjectId, parameters) => {
-<<<<<<< HEAD
-  const url = `${PREFIX}userDomainManager/addSecUser/userDomainId/login/mobile/email/pwd/verificationCode/verificationCodeExpire/lastLoginTime/tokensExpr/`
-=======
   const url = `${PREFIX}userDomainManager/addSecUser/userDomainId/login/mobile/email/pwd/weixinOpenid/weixinAppid/accessToken/verificationCode/verificationCodeExpire/lastLoginTime/tokensExpr/`
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   const userDomainId = targetObjectId
   const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateSecUser = (targetObjectId, parameters) => {
-<<<<<<< HEAD
-  const url = `${PREFIX}userDomainManager/updateSecUserProperties/userDomainId/id/login/mobile/email/pwd/verificationCode/verificationCodeExpire/lastLoginTime/tokensExpr/`
-=======
   const url = `${PREFIX}userDomainManager/updateSecUserProperties/userDomainId/id/login/mobile/email/pwd/weixinOpenid/weixinAppid/accessToken/verificationCode/verificationCodeExpire/lastLoginTime/tokensExpr/`
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   const userDomainId = targetObjectId
   const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

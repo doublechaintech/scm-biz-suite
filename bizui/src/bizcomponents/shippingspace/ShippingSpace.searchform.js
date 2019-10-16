@@ -7,10 +7,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 import styles from './ShippingSpace.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -105,11 +102,7 @@ componentDidMount() {
     }
   }
   */
-<<<<<<< HEAD
-  buildStringSearchParameters = (formValues, searchVerb, fieldName) => {
-=======
   buildStringSearchParameters = (listName, formValues, searchVerb, fieldName) => {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const fieldValue = formValues[fieldName]
     if (!fieldValue) {
       return null
@@ -118,15 +111,9 @@ componentDidMount() {
     //paramHolder.length
     const value = {}
 
-<<<<<<< HEAD
-    value[`shippingSpaceList.searchField`] = fieldName
-    value[`shippingSpaceList.searchVerb`] =  searchVerb
-    value[`shippingSpaceList.searchValue`] = fieldValue
-=======
     value[`${listName}.searchField`] = fieldName
     value[`${listName}.searchVerb`] =  searchVerb
     value[`${listName}.searchValue`] = fieldValue
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     return value
 
@@ -140,16 +127,6 @@ componentDidMount() {
     form.validateFields((err, fieldsValue) => {
       if (err) return
       const paramList = []
-<<<<<<< HEAD
-      
-     
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'id'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'location'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'contactNumber'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'totalArea'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'warehouse'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'description'))
-=======
       const { owner } = this.props
       const {listName} = owner
      
@@ -159,7 +136,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'totalArea'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'warehouse'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'description'))
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
      
       console.log("the final parameter", paramList)
@@ -175,20 +151,12 @@ componentDidMount() {
 
       }
      
-<<<<<<< HEAD
-      params['shippingSpaceList'] = 1
-      params['shippingSpaceList.orderBy.0'] = "id"
-      params['shippingSpaceList.descOrAsc.0'] = "desc"
-      
-      const { owner } = this.props
-=======
       
       params[`${listName}`] = 1
       params[`${listName}.orderBy.0`] = "id"
       params[`${listName}.descOrAsc.0`] = "desc"
       
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const expandForm = overrideValue([this.state.expandForm],false)
       dispatch({
         type: `${owner.type}/load`,
@@ -202,10 +170,7 @@ componentDidMount() {
       
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {ShippingSpaceService} = GlobalComponents
     const tryinit  = (fieldName) => {
       const { owner } = this.props
@@ -231,11 +196,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-<<<<<<< HEAD
-             <Input placeholder="请输入序号" />
-=======
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            )}
          </FormItem>
        </Col>
@@ -243,26 +204,16 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="位置">
            {getFieldDecorator('location')(
-<<<<<<< HEAD
-             <Input placeholder="请输入位置" />
-=======
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            )}
          </FormItem>
        </Col>
 
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
-<<<<<<< HEAD
-              <Button type="primary" htmlType="submit">查询</Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> 展开 <Icon type="down" /> </a>
-=======
               <Button  icon="search" type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
               <Button  icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> {appLocaleName(userContext,"Expand")} <Icon type="down" /> </a>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             </span>
           </Col>
         </Row>
@@ -272,11 +223,7 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {ShippingSpaceService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
-<<<<<<< HEAD
-    
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       const { referenceName } = owner
@@ -304,11 +251,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-<<<<<<< HEAD
-                <Input placeholder="请输入序号" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -316,11 +259,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="位置">
               {getFieldDecorator('location')(
-<<<<<<< HEAD
-                <Input placeholder="请输入位置" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -328,11 +267,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="联系电话">
               {getFieldDecorator('contactNumber')(
-<<<<<<< HEAD
-                <Input placeholder="请输入联系电话" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -340,35 +275,19 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="总面积">
               {getFieldDecorator('totalArea')(
-<<<<<<< HEAD
-                <Input placeholder="请输入总面积" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="仓库">
-<<<<<<< HEAD
-                  {getFieldDecorator('warehouse', {
-                    initialValue: tryinit('warehouse'),
-                   
-                  })(
-=======
                   {getFieldDecorator('warehouse', {initialValue: tryinit('warehouse')})(
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   
                   <SelectObject 
                     disabled={!availableForEdit('warehouse')}
                     targetType={"warehouse"} 
-<<<<<<< HEAD
-                    requestFunction={ShippingSpaceService.requestCandidateWarehouse}/>
-                  
-=======
                     requestFunction={ShippingSpaceService.requestCandidateWarehouse} useForSearch />
                   	
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                  
                   )}
                 </Form.Item></Col>
@@ -376,11 +295,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-<<<<<<< HEAD
-                <Input placeholder="请输入描述" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -388,15 +303,9 @@ componentDidMount() {
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
-<<<<<<< HEAD
-            <Button type="primary" htmlType="submit">查询</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>收起 <Icon type="up" /></a>
-=======
             <Button type="primary" icon="search" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
             <Button icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
             <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>{appLocaleName(userContext,"Collapse")} <Icon type="up" /></a>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </span>
         </div>
       </Form>

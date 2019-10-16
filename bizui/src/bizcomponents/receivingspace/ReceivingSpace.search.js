@@ -8,13 +8,10 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './ReceivingSpace.search.less'
 import ListViewTool from '../../common/ListView.tool'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
 
 import { Link, Route, Redirect} from 'dva/router'
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
 
 
@@ -23,15 +20,6 @@ const {handleSelectRows,handleStandardTableChange,
   handleElementCreate,toggleAssociateModalVisible,handleCloseAlert}=ListViewTool
 
 
-<<<<<<< HEAD
-const buttonMenuFor =(targetComponent, internalName, localeName)=> (
-  <Menu >
-    <Menu.Item key="1" onClick={()=>toggleAssociateModalVisible(targetComponent,internalName)}>新建{localeName}</Menu.Item>
-    <Menu.Item key="2">合并{localeName}</Menu.Item>
-   
-  </Menu>
-);
-=======
 const buttonMenuFor =(targetComponent, internalName, localeName)=> {
   const userContext = null
   return (
@@ -42,7 +30,6 @@ const buttonMenuFor =(targetComponent, internalName, localeName)=> {
   )
 
 }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
  
@@ -51,23 +38,6 @@ const showListActionBar = (targetComponent)=>{
   const {selectedRows} = targetComponent.state
   const {metaInfo} = targetComponent.props
   const disable = (selectedRows.length === 0)
-<<<<<<< HEAD
-
-  return (<div className={styles.tableListOperator}>
-        
- 
-              {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>新建</Button>}
-              
- {hasDeletePermission(metaInfo)&&<Button onClick={(event)=>handleDeletionModalVisible(event,targetComponent)} type="danger" icon="delete" disabled={disable}>批量删除</Button>}
-               
-
-               {hasUpdatePermission(metaInfo)&&<Button onClick={()=>handleUpdate(targetComponent)} icon="update" disabled={disable}>批量更新</Button>}
- 
- 	
-    
-               
-	</div> )
-=======
   const userContext = null
   return (<div className={styles.tableListOperator}>
   
@@ -81,7 +51,6 @@ const showListActionBar = (targetComponent)=>{
     {hasDeletePermission(metaInfo)&&<Button onClick={(event)=>handleDeletionModalVisible(event,targetComponent)} type="danger" icon="delete" disabled={disable}>{appLocaleName(userContext,"BatchDelete")}</Button>}
 
 </div> )
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 }
@@ -133,12 +102,6 @@ class ReceivingSpaceSearch extends PureComponent {
     const {ReceivingSpaceSearchForm} = GlobalComponents;
     const {ReceivingSpaceModalTable} = GlobalComponents;
     
-<<<<<<< HEAD
-    
-  
-    return (
-      <PageHeaderLayout title={`${displayName}:${this.props.name}列表`}>
-=======
     const userContext = null
     
     const renderTitle=()=>{
@@ -150,7 +113,6 @@ class ReceivingSpaceSearch extends PureComponent {
   
     return (
       <PageHeaderLayout title={renderTitle()}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>
@@ -162,11 +124,7 @@ class ReceivingSpaceSearch extends PureComponent {
               {showListActionBar(this)}
               {partialList&&(
               <div className={styles.searchAlert}>
-<<<<<<< HEAD
-                	<Alert message="下面显示最近更新结果，关闭显示全部" type="success" closable  afterClose={()=>handleCloseAlert(displayName, this)}/>
-=======
                 	<Alert message={appLocaleName(userContext,"CloseToShowAll")} type="success" closable  afterClose={()=>handleCloseAlert(displayName, this)}/>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               </div>  	
               )}
               

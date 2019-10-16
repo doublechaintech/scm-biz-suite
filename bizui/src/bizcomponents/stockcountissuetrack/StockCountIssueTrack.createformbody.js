@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2019-10-01',
+  countTime: '2017-12-01',
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }
@@ -81,12 +81,6 @@ class StockCountIssueTrackCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreOrderPickingBase from './RetailStoreOrderPicking.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -23,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '处理者',
-<<<<<<< HEAD
-  processTime: '2017-08-05',
-=======
-  processTime: '2019-06-16',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  processTime: '2019-04-25',
 }
 */
 
@@ -79,11 +71,8 @@ class RetailStoreOrderPickingAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {RetailStoreOrderPickingService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {RetailStoreOrderModalTable} = GlobalComponents;
 
 
@@ -131,43 +120,26 @@ class RetailStoreOrderPickingAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.who} {...formItemLayout}>
                   {getFieldDecorator('who', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入谁' }],
-                  })(
-                    <Input placeholder="请输入谁" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="谁" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -175,15 +147,9 @@ class RetailStoreOrderPickingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.processTime} {...formItemLayout}>
                   {getFieldDecorator('processTime', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入过程的时间' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入过程的时间" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="过程的时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>

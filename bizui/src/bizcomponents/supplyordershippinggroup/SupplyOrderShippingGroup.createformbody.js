@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链成都2号仓',
-  amount: '4.76',
+  amount: '5.80',
   bizOrderId: 'SO000001',
 }
 */
@@ -80,12 +80,6 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

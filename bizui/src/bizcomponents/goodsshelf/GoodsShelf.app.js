@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class GoodsShelfBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class GoodsShelfBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/goodsShelf/${this.props.goodsShelf.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/goodsShelf/${this.props.goodsShelf.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class GoodsShelfBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class GoodsShelfBizApp extends React.PureComponent {
 
   getGoodsShelfStockCountSearch = () => {
     const {GoodsShelfStockCountSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "货架库存盘点",
@@ -264,10 +192,7 @@ class GoodsShelfBizApp extends React.PureComponent {
       data: state._goodsShelf.goodsShelfStockCountList,
       metaInfo: state._goodsShelf.goodsShelfStockCountListMetaInfo,
       count: state._goodsShelf.goodsShelfStockCountCount,
-<<<<<<< HEAD
-=======
       returnURL: `/goodsShelf/${state._goodsShelf.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._goodsShelf.goodsShelfStockCountCurrentPageNumber,
       searchFormParameters: state._goodsShelf.goodsShelfStockCountSearchFormParameters,
       searchParameters: {...state._goodsShelf.searchParameters},
@@ -277,64 +202,40 @@ class GoodsShelfBizApp extends React.PureComponent {
       owner: { type: '_goodsShelf', id: state._goodsShelf.id, 
       referenceName: 'shelf', 
       listName: 'goodsShelfStockCountList', ref:state._goodsShelf, 
-<<<<<<< HEAD
-      listDisplayName: '货架库存盘点列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsShelfStockCountSearch)
   }
   getGoodsShelfStockCountCreateForm = () => {
    	const {GoodsShelfStockCountCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "goodsShelfStockCount",
       data: state._goodsShelf.goodsShelfStockCountList,
       metaInfo: state._goodsShelf.goodsShelfStockCountListMetaInfo,
       count: state._goodsShelf.goodsShelfStockCountCount,
-<<<<<<< HEAD
-      currentPage: state._goodsShelf.goodsShelfStockCountCurrentPageNumber,
-      searchFormParameters: state._goodsShelf.goodsShelfStockCountSearchFormParameters,
-      loading: state._goodsShelf.loading,
-      owner: { type: '_goodsShelf', id: state._goodsShelf.id, referenceName: 'shelf', listName: 'goodsShelfStockCountList', ref:state._goodsShelf, listDisplayName: '货架库存盘点列表'}, // this is for model namespace and
-=======
       returnURL: `/goodsShelf/${state._goodsShelf.id}/list`,
       currentPage: state._goodsShelf.goodsShelfStockCountCurrentPageNumber,
       searchFormParameters: state._goodsShelf.goodsShelfStockCountSearchFormParameters,
       loading: state._goodsShelf.loading,
       owner: { type: '_goodsShelf', id: state._goodsShelf.id, referenceName: 'shelf', listName: 'goodsShelfStockCountList', ref:state._goodsShelf, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsShelfStockCountCreateForm)
   }
   
   getGoodsShelfStockCountUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {GoodsShelfStockCountUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._goodsShelf.selectedRows,
       role: "goodsShelfStockCount",
       currentUpdateIndex: state._goodsShelf.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_goodsShelf', id: state._goodsShelf.id, listName: 'goodsShelfStockCountList', ref:state._goodsShelf, listDisplayName: '货架库存盘点列表' }, // this is for model namespace and
-=======
       owner: { type: '_goodsShelf', id: state._goodsShelf.id, listName: 'goodsShelfStockCountList', ref:state._goodsShelf, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsShelfStockCountUpdateForm)
   }
 
   getGoodsAllocationSearch = () => {
     const {GoodsAllocationSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "货位",
@@ -342,10 +243,7 @@ class GoodsShelfBizApp extends React.PureComponent {
       data: state._goodsShelf.goodsAllocationList,
       metaInfo: state._goodsShelf.goodsAllocationListMetaInfo,
       count: state._goodsShelf.goodsAllocationCount,
-<<<<<<< HEAD
-=======
       returnURL: `/goodsShelf/${state._goodsShelf.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._goodsShelf.goodsAllocationCurrentPageNumber,
       searchFormParameters: state._goodsShelf.goodsAllocationSearchFormParameters,
       searchParameters: {...state._goodsShelf.searchParameters},
@@ -355,55 +253,34 @@ class GoodsShelfBizApp extends React.PureComponent {
       owner: { type: '_goodsShelf', id: state._goodsShelf.id, 
       referenceName: 'goodsShelf', 
       listName: 'goodsAllocationList', ref:state._goodsShelf, 
-<<<<<<< HEAD
-      listDisplayName: '货位列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsAllocationSearch)
   }
   getGoodsAllocationCreateForm = () => {
    	const {GoodsAllocationCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "goodsAllocation",
       data: state._goodsShelf.goodsAllocationList,
       metaInfo: state._goodsShelf.goodsAllocationListMetaInfo,
       count: state._goodsShelf.goodsAllocationCount,
-<<<<<<< HEAD
-      currentPage: state._goodsShelf.goodsAllocationCurrentPageNumber,
-      searchFormParameters: state._goodsShelf.goodsAllocationSearchFormParameters,
-      loading: state._goodsShelf.loading,
-      owner: { type: '_goodsShelf', id: state._goodsShelf.id, referenceName: 'goodsShelf', listName: 'goodsAllocationList', ref:state._goodsShelf, listDisplayName: '货位列表'}, // this is for model namespace and
-=======
       returnURL: `/goodsShelf/${state._goodsShelf.id}/list`,
       currentPage: state._goodsShelf.goodsAllocationCurrentPageNumber,
       searchFormParameters: state._goodsShelf.goodsAllocationSearchFormParameters,
       loading: state._goodsShelf.loading,
       owner: { type: '_goodsShelf', id: state._goodsShelf.id, referenceName: 'goodsShelf', listName: 'goodsAllocationList', ref:state._goodsShelf, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsAllocationCreateForm)
   }
   
   getGoodsAllocationUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {GoodsAllocationUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._goodsShelf.selectedRows,
       role: "goodsAllocation",
       currentUpdateIndex: state._goodsShelf.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_goodsShelf', id: state._goodsShelf.id, listName: 'goodsAllocationList', ref:state._goodsShelf, listDisplayName: '货位列表' }, // this is for model namespace and
-=======
       owner: { type: '_goodsShelf', id: state._goodsShelf.id, listName: 'goodsAllocationList', ref:state._goodsShelf, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsAllocationUpdateForm)
   }
 
@@ -411,22 +288,14 @@ class GoodsShelfBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {GoodsShelfDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {GoodsShelfPreference} = GlobalComponents
-=======
   	const {GoodsShelfPermission} = GlobalComponents
   	const {GoodsShelfProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/goodsShelf/:id/dashboard", component: GoodsShelfDashboard},
-<<<<<<< HEAD
-  	{path:"/goodsShelf/:id/preference", component: GoodsShelfPreference},
-=======
   	{path:"/goodsShelf/:id/profile", component: GoodsShelfProfile},
   	{path:"/goodsShelf/:id/permission", component: GoodsShelfPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -481,59 +350,6 @@ class GoodsShelfBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {GoodsShelfEditDetail} = GlobalComponents
-     //const {GoodsShelfViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.goodsShelf)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -575,7 +391,7 @@ class GoodsShelfBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -607,13 +423,12 @@ class GoodsShelfBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

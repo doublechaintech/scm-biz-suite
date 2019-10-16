@@ -1,18 +1,10 @@
 
 
 import React, { Component } from 'react'
-<<<<<<< HEAD
-import FontAwesome from 'react-fontawesome';
-import { connect } from 'dva'
-import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
-import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
-=======
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
 import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
 import {
@@ -27,24 +19,15 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
-<<<<<<< HEAD
-  defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers
-=======
   defaultSubListsOf,defaultRenderAnalytics,
   defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
   defaultQuickFunctions, defaultRenderSubjectList,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 }= DashboardTool
 
 
@@ -65,10 +48,7 @@ const optionList =(accountingDocument)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
-<<<<<<< HEAD
-=======
 const internalRenderSubjectList = defaultRenderSubjectList
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const internalSettingListOf = (accountingDocument) =>defaultSettingListOf(accountingDocument, optionList)
 const internalLargeTextOf = (accountingDocument) =>{
 
@@ -84,13 +64,6 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
-<<<<<<< HEAD
-const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
-  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
-=======
 const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
@@ -132,7 +105,6 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
@@ -141,31 +113,19 @@ const internalSummaryOf = (accountingDocument,targetComponent) =>{
 	
 	
 	const {AccountingDocumentService} = GlobalComponents
-<<<<<<< HEAD
-	
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{accountingDocument.id}</Description> 
 <Description term="名称">{accountingDocument.name}</Description> 
 <Description term="会计凭证日期">{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</Description> 
-<<<<<<< HEAD
-<Description term="会计期间">{accountingDocument.accountingPeriod==null?"未分配":accountingDocument.accountingPeriod.displayName}
-=======
 <Description term="会计期间">{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.accountingPeriod.displayName}(${accountingDocument.accountingPeriod.id})`}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"会计期间","accountingPeriod",AccountingDocumentService.requestCandidateAccountingPeriod,
 	      AccountingDocumentService.transferToAnotherAccountingPeriod,"anotherAccountingPeriodId",accountingDocument.accountingPeriod?accountingDocument.accountingPeriod.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<<<<<<< HEAD
-<Description term="文档类型">{accountingDocument.documentType==null?"未分配":accountingDocument.documentType.displayName}
-=======
 <Description term="文档类型">{accountingDocument.documentType==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.documentType.displayName}(${accountingDocument.documentType.id})`}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"文档类型","accountingDocumentType",AccountingDocumentService.requestCandidateDocumentType,
 	      AccountingDocumentService.transferToAnotherDocumentType,"anotherDocumentTypeId",accountingDocument.documentType?accountingDocument.documentType.id:"")} 
@@ -179,10 +139,7 @@ const internalSummaryOf = (accountingDocument,targetComponent) =>{
 
 }
 
-<<<<<<< HEAD
-=======
 const internalQuickFunctions = defaultQuickFunctions
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 class AccountingDocumentDashboard extends Component {
 
@@ -191,11 +148,7 @@ class AccountingDocumentDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-<<<<<<< HEAD
-    targetLocalName:"城市",
-=======
     targetLocalName:"",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -219,14 +172,6 @@ class AccountingDocumentDashboard extends Component {
     const cardsData = {cardsName:"会计凭证",cardsFor: "accountingDocument",
     	cardsSource: this.props.accountingDocument,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo},
-{name: 'accountingDocumentLineList', displayName:'会计凭证行',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo},
-    
-      	],
-  	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
-=======
 {name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
 {name: 'accountingDocumentLineList', displayName:'会计凭证行',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
     
@@ -236,7 +181,6 @@ class AccountingDocumentDashboard extends Component {
       	],     	
       	
   	};
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
@@ -246,13 +190,10 @@ class AccountingDocumentDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
-<<<<<<< HEAD
-=======
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return (
 
       <PageHeaderLayout
@@ -260,17 +201,6 @@ class AccountingDocumentDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-<<<<<<< HEAD
-      {renderExtraHeader(cardsData.cardsSource)}
-        <div>
-        {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}
-        {subListsOf(cardsData)} 
-        {largeTextOf(cardsData.cardsSource)}
-          
-        </div>
-      </PageHeaderLayout>
-=======
        
         {renderExtraHeader(cardsData.cardsSource)}
         {imageListOf(cardsData.cardsSource)}  
@@ -283,7 +213,6 @@ class AccountingDocumentDashboard extends Component {
   		
       </PageHeaderLayout>
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     )
   }
 }

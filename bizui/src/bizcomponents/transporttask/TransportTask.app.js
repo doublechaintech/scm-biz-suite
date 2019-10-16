@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class TransportTaskBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class TransportTaskBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/transportTask/${this.props.transportTask.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/transportTask/${this.props.transportTask.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class TransportTaskBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class TransportTaskBizApp extends React.PureComponent {
 
   getGoodsSearch = () => {
     const {GoodsSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "货物",
@@ -264,10 +192,7 @@ class TransportTaskBizApp extends React.PureComponent {
       data: state._transportTask.goodsList,
       metaInfo: state._transportTask.goodsListMetaInfo,
       count: state._transportTask.goodsCount,
-<<<<<<< HEAD
-=======
       returnURL: `/transportTask/${state._transportTask.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._transportTask.goodsCurrentPageNumber,
       searchFormParameters: state._transportTask.goodsSearchFormParameters,
       searchParameters: {...state._transportTask.searchParameters},
@@ -277,64 +202,40 @@ class TransportTaskBizApp extends React.PureComponent {
       owner: { type: '_transportTask', id: state._transportTask.id, 
       referenceName: 'transportTask', 
       listName: 'goodsList', ref:state._transportTask, 
-<<<<<<< HEAD
-      listDisplayName: '货物列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsSearch)
   }
   getGoodsCreateForm = () => {
    	const {GoodsCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "goods",
       data: state._transportTask.goodsList,
       metaInfo: state._transportTask.goodsListMetaInfo,
       count: state._transportTask.goodsCount,
-<<<<<<< HEAD
-      currentPage: state._transportTask.goodsCurrentPageNumber,
-      searchFormParameters: state._transportTask.goodsSearchFormParameters,
-      loading: state._transportTask.loading,
-      owner: { type: '_transportTask', id: state._transportTask.id, referenceName: 'transportTask', listName: 'goodsList', ref:state._transportTask, listDisplayName: '货物列表'}, // this is for model namespace and
-=======
       returnURL: `/transportTask/${state._transportTask.id}/list`,
       currentPage: state._transportTask.goodsCurrentPageNumber,
       searchFormParameters: state._transportTask.goodsSearchFormParameters,
       loading: state._transportTask.loading,
       owner: { type: '_transportTask', id: state._transportTask.id, referenceName: 'transportTask', listName: 'goodsList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsCreateForm)
   }
   
   getGoodsUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {GoodsUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._transportTask.selectedRows,
       role: "goods",
       currentUpdateIndex: state._transportTask.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_transportTask', id: state._transportTask.id, listName: 'goodsList', ref:state._transportTask, listDisplayName: '货物列表' }, // this is for model namespace and
-=======
       owner: { type: '_transportTask', id: state._transportTask.id, listName: 'goodsList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsUpdateForm)
   }
 
   getTransportTaskTrackSearch = () => {
     const {TransportTaskTrackSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "运输任务跟踪",
@@ -342,10 +243,7 @@ class TransportTaskBizApp extends React.PureComponent {
       data: state._transportTask.transportTaskTrackList,
       metaInfo: state._transportTask.transportTaskTrackListMetaInfo,
       count: state._transportTask.transportTaskTrackCount,
-<<<<<<< HEAD
-=======
       returnURL: `/transportTask/${state._transportTask.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._transportTask.transportTaskTrackCurrentPageNumber,
       searchFormParameters: state._transportTask.transportTaskTrackSearchFormParameters,
       searchParameters: {...state._transportTask.searchParameters},
@@ -355,55 +253,34 @@ class TransportTaskBizApp extends React.PureComponent {
       owner: { type: '_transportTask', id: state._transportTask.id, 
       referenceName: 'movement', 
       listName: 'transportTaskTrackList', ref:state._transportTask, 
-<<<<<<< HEAD
-      listDisplayName: '运输任务跟踪列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(TransportTaskTrackSearch)
   }
   getTransportTaskTrackCreateForm = () => {
    	const {TransportTaskTrackCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "transportTaskTrack",
       data: state._transportTask.transportTaskTrackList,
       metaInfo: state._transportTask.transportTaskTrackListMetaInfo,
       count: state._transportTask.transportTaskTrackCount,
-<<<<<<< HEAD
-      currentPage: state._transportTask.transportTaskTrackCurrentPageNumber,
-      searchFormParameters: state._transportTask.transportTaskTrackSearchFormParameters,
-      loading: state._transportTask.loading,
-      owner: { type: '_transportTask', id: state._transportTask.id, referenceName: 'movement', listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: '运输任务跟踪列表'}, // this is for model namespace and
-=======
       returnURL: `/transportTask/${state._transportTask.id}/list`,
       currentPage: state._transportTask.transportTaskTrackCurrentPageNumber,
       searchFormParameters: state._transportTask.transportTaskTrackSearchFormParameters,
       loading: state._transportTask.loading,
       owner: { type: '_transportTask', id: state._transportTask.id, referenceName: 'movement', listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(TransportTaskTrackCreateForm)
   }
   
   getTransportTaskTrackUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {TransportTaskTrackUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._transportTask.selectedRows,
       role: "transportTaskTrack",
       currentUpdateIndex: state._transportTask.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_transportTask', id: state._transportTask.id, listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: '运输任务跟踪列表' }, // this is for model namespace and
-=======
       owner: { type: '_transportTask', id: state._transportTask.id, listName: 'transportTaskTrackList', ref:state._transportTask, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(TransportTaskTrackUpdateForm)
   }
 
@@ -411,22 +288,14 @@ class TransportTaskBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {TransportTaskDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {TransportTaskPreference} = GlobalComponents
-=======
   	const {TransportTaskPermission} = GlobalComponents
   	const {TransportTaskProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/transportTask/:id/dashboard", component: TransportTaskDashboard},
-<<<<<<< HEAD
-  	{path:"/transportTask/:id/preference", component: TransportTaskPreference},
-=======
   	{path:"/transportTask/:id/profile", component: TransportTaskProfile},
   	{path:"/transportTask/:id/permission", component: TransportTaskPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -481,59 +350,6 @@ class TransportTaskBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {TransportTaskEditDetail} = GlobalComponents
-     //const {TransportTaskViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.transportTask)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -575,7 +391,7 @@ class TransportTaskBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -607,13 +423,12 @@ class TransportTaskBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

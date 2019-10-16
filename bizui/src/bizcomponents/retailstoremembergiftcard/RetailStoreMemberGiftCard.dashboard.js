@@ -1,18 +1,10 @@
 
 
 import React, { Component } from 'react'
-<<<<<<< HEAD
-import FontAwesome from 'react-fontawesome';
-import { connect } from 'dva'
-import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
-import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
-=======
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
 import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
 import {
@@ -27,24 +19,15 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
-<<<<<<< HEAD
-  defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers
-=======
   defaultSubListsOf,defaultRenderAnalytics,
   defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
   defaultQuickFunctions, defaultRenderSubjectList,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 }= DashboardTool
 
 
@@ -65,10 +48,7 @@ const optionList =(retailStoreMemberGiftCard)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
-<<<<<<< HEAD
-=======
 const internalRenderSubjectList = defaultRenderSubjectList
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const internalSettingListOf = (retailStoreMemberGiftCard) =>defaultSettingListOf(retailStoreMemberGiftCard, optionList)
 const internalLargeTextOf = (retailStoreMemberGiftCard) =>{
 
@@ -84,13 +64,6 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
-<<<<<<< HEAD
-const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
-  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
-=======
 const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
@@ -132,7 +105,6 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
@@ -141,20 +113,12 @@ const internalSummaryOf = (retailStoreMemberGiftCard,targetComponent) =>{
 	
 	
 	const {RetailStoreMemberGiftCardService} = GlobalComponents
-<<<<<<< HEAD
-	
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{retailStoreMemberGiftCard.id}</Description> 
 <Description term="名称">{retailStoreMemberGiftCard.name}</Description> 
-<<<<<<< HEAD
-<Description term="业主">{retailStoreMemberGiftCard.owner==null?"未分配":retailStoreMemberGiftCard.owner.displayName}
-=======
 <Description term="业主">{retailStoreMemberGiftCard.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCard.owner.displayName}(${retailStoreMemberGiftCard.owner.id})`}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberGiftCardService.requestCandidateOwner,
 	      RetailStoreMemberGiftCardService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberGiftCard.owner?retailStoreMemberGiftCard.owner.id:"")} 
@@ -169,10 +133,7 @@ const internalSummaryOf = (retailStoreMemberGiftCard,targetComponent) =>{
 
 }
 
-<<<<<<< HEAD
-=======
 const internalQuickFunctions = defaultQuickFunctions
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 class RetailStoreMemberGiftCardDashboard extends Component {
 
@@ -181,11 +142,7 @@ class RetailStoreMemberGiftCardDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-<<<<<<< HEAD
-    targetLocalName:"城市",
-=======
     targetLocalName:"",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -209,13 +166,6 @@ class RetailStoreMemberGiftCardDashboard extends Component {
     const cardsData = {cardsName:"零售店会员礼品卡",cardsFor: "retailStoreMemberGiftCard",
     	cardsSource: this.props.retailStoreMemberGiftCard,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo},
-    
-      	],
-  	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
-=======
 {name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardConsumeRecordBase.renderItemOfList},
     
       	],
@@ -224,7 +174,6 @@ class RetailStoreMemberGiftCardDashboard extends Component {
       	],     	
       	
   	};
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
@@ -234,13 +183,10 @@ class RetailStoreMemberGiftCardDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
-<<<<<<< HEAD
-=======
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return (
 
       <PageHeaderLayout
@@ -248,17 +194,6 @@ class RetailStoreMemberGiftCardDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-<<<<<<< HEAD
-      {renderExtraHeader(cardsData.cardsSource)}
-        <div>
-        {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}
-        {subListsOf(cardsData)} 
-        {largeTextOf(cardsData.cardsSource)}
-          
-        </div>
-      </PageHeaderLayout>
-=======
        
         {renderExtraHeader(cardsData.cardsSource)}
         {imageListOf(cardsData.cardsSource)}  
@@ -271,7 +206,6 @@ class RetailStoreMemberGiftCardDashboard extends Component {
   		
       </PageHeaderLayout>
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     )
   }
 }

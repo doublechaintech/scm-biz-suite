@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,7 +28,6 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"双链小超订单行项目", menuFor: "retailStoreOrderLineItem",
@@ -45,73 +36,6 @@ const menuData = {menuName:"双链小超订单行项目", menuFor: "retailStoreO
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record) },
-  { title: '订单', dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '产品ID', debugtype: 'string', dataIndex: 'skuId', width: '7',render: (text, record)=>renderTextCell(text,record) },
-  { title: '产品名称', debugtype: 'string', dataIndex: 'skuName', width: '8',render: (text, record)=>renderTextCell(text,record) },
-  { title: '金额', dataIndex: 'amount', className:'money', render: (text, record) => renderMoneyCell(text, record) },
-  { title: '数量', debugtype: 'int', dataIndex: 'quantity', width: '9',render: (text, record)=>renderTextCell(text,record) },
-  { title: '测量单位', debugtype: 'string', dataIndex: 'unitOfMeasurement', width: '6',render: (text, record)=>renderTextCell(text,record) },
-
-]
-
-=======
 
 const settingMenuData = {menuName:"双链小超订单行项目", menuFor: "retailStoreOrderLineItem",
   		subItems: [
@@ -119,7 +43,6 @@ const settingMenuData = {menuName:"双链小超订单行项目", menuFor: "retai
   		],
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const fieldLabels = {
   id: '序号',
   bizOrder: '订单',
@@ -131,10 +54,6 @@ const fieldLabels = {
 
 }
 
-<<<<<<< HEAD
-
-const RetailStoreOrderLineItemBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
 const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStoreOrderLineItem') , sorter: true },
   { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -170,11 +89,20 @@ const renderItemOfList=(retailStoreOrderLineItem,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {skuId, skuName, amount, quantity, unitOfMeasurement, bizOrderId} = formValuesToPack
+	const bizOrder = {id: bizOrderId, version: 2^31}
+	const data = {skuId, skuName, amount, quantity, unitOfMeasurement, bizOrder}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {skuId, skuName, amount, quantity, unitOfMeasurement, bizOrder} = objectToUnpack
+	const bizOrderId = bizOrder ? bizOrder.id : null
+	const data = {skuId, skuName, amount, quantity, unitOfMeasurement, bizOrderId}
+	return data
+}
 
-
-
-const RetailStoreOrderLineItemBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const RetailStoreOrderLineItemBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default RetailStoreOrderLineItemBase
 
 

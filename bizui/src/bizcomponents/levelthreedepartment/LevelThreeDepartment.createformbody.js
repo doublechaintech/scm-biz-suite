@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '信息系统部大数据清洗组',
   description: '主要执行集团信息系统建设，维护，规划',
-  founded: '2019-01-11',
+  founded: '2018-11-09',
   belongsToId: 'LTD000001',
 }
 */
@@ -81,12 +81,6 @@ class LevelThreeDepartmentCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class LevelThreeDepartmentCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

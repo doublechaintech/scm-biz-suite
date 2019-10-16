@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '送货者',
-  deliveryTime: '2019-07-12',
+  deliveryTime: '2017-02-21',
 }
 */
 
@@ -79,12 +79,6 @@ class RetailStoreOrderDeliveryCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -114,6 +108,7 @@ class RetailStoreOrderDeliveryCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

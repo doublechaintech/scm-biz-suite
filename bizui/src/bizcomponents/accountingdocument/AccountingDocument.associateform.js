@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountingDocumentBase from './AccountingDocument.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -23,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-<<<<<<< HEAD
-  accountingDocumentDate: '2017-10-02',
-=======
-  accountingDocumentDate: '2017-03-03',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  accountingDocumentDate: '2018-03-25',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
 }
@@ -81,11 +73,8 @@ class AccountingDocumentAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {AccountingDocumentService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {OriginalVoucherModalTable} = GlobalComponents;
  const {AccountingDocumentLineModalTable} = GlobalComponents;
 
@@ -134,43 +123,26 @@ class AccountingDocumentAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="名称" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -178,15 +150,9 @@ class AccountingDocumentAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.accountingDocumentDate} {...formItemLayout}>
                   {getFieldDecorator('accountingDocumentDate', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入会计凭证日期' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入会计凭证日期" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="会计凭证日期" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -212,11 +178,7 @@ class AccountingDocumentAssociateForm extends Component {
                 <Form.Item label={fieldLabels.accountingPeriod} {...formItemLayout}>
                   {getFieldDecorator('accountingPeriodId', {
                   	initialValue: tryinit('accountingPeriod'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入会计期间' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('accountingPeriod')}
@@ -231,11 +193,7 @@ class AccountingDocumentAssociateForm extends Component {
                 <Form.Item label={fieldLabels.documentType} {...formItemLayout}>
                   {getFieldDecorator('documentTypeId', {
                   	initialValue: tryinit('documentType'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入文档类型' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('documentType')}

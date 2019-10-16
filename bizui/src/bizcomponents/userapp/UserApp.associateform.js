@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import UserAppBase from './UserApp.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -80,12 +76,9 @@ class UserAppAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {UserAppService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
  const {QuickLinkModalTable} = GlobalComponents;
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {ListAccessModalTable} = GlobalComponents;
  const {ObjectAccessModalTable} = GlobalComponents;
 
@@ -134,43 +127,26 @@ class UserAppAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入头衔' }],
-                  })(
-                    <Input placeholder="请输入头衔" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="标题" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -178,15 +154,9 @@ class UserAppAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.appIcon} {...formItemLayout}>
                   {getFieldDecorator('appIcon', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入应用程序图标' }],
-                  })(
-                    <Input placeholder="请输入应用程序图标" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="应用程序图标" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -194,15 +164,9 @@ class UserAppAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.permission} {...formItemLayout}>
                   {getFieldDecorator('permission', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入许可' }],
-                  })(
-                    <Input placeholder="请输入许可" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="许可" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -210,15 +174,9 @@ class UserAppAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.objectType} {...formItemLayout}>
                   {getFieldDecorator('objectType', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入对象类型' }],
-                  })(
-                    <Input placeholder="请输入对象类型" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="访问对象类型" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -226,15 +184,9 @@ class UserAppAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.objectId} {...formItemLayout}>
                   {getFieldDecorator('objectId', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入对象ID' }],
-                  })(
-                    <Input placeholder="请输入对象ID" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="对象ID" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -242,15 +194,9 @@ class UserAppAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.location} {...formItemLayout}>
                   {getFieldDecorator('location', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入位置' }],
-                  })(
-                    <Input placeholder="请输入位置" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="位置" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -267,17 +213,10 @@ class UserAppAssociateForm extends Component {
                 <Form.Item label={fieldLabels.fullAccess}  {...switchFormItemLayout}>
                   {getFieldDecorator('fullAccess', {
                     initialValue: false,
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入完全访问' }],
-                    valuePropName: 'checked'
-                  })(
-                    <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入完全访问bool" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                     valuePropName: 'checked'
                   })(
                     <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -302,11 +241,7 @@ class UserAppAssociateForm extends Component {
                 <Form.Item label={fieldLabels.secUser} {...formItemLayout}>
                   {getFieldDecorator('secUserId', {
                   	initialValue: tryinit('secUser'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入SEC的用户' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('secUser')}
@@ -328,10 +263,7 @@ class UserAppAssociateForm extends Component {
 			
         </Card>
         
-<<<<<<< HEAD
-=======
 	<QuickLinkModalTable data={data.quickLinkList} owner={owner} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	<ListAccessModalTable data={data.listAccessList} owner={owner} />
 	<ObjectAccessModalTable data={data.objectAccessList} owner={owner} />
         

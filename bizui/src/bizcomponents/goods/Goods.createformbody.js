@@ -20,8 +20,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '9',
-  expireTime: '2016-10-24',
+  maxPackage: '10',
+  expireTime: '2019-08-23',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -91,12 +91,6 @@ class GoodsCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -126,6 +120,7 @@ class GoodsCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

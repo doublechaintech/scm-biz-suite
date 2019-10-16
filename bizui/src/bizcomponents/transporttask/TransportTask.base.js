@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,92 +28,16 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"运输任务", menuFor: "transportTask",
   		subItems: [
-<<<<<<< HEAD
-  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false},
-  {name: 'transportTaskTrackList', displayName:'运输任务跟踪', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false},
-=======
   {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'transportTaskTrackList', displayName:'运输任务跟踪', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'transportTask') },
-  { title: '名称', debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record) },
-  { title: '开始', debugtype: 'string', dataIndex: 'start', width: '9',render: (text, record)=>renderTextCell(text,record) },
-  { title: '开始时间', dataIndex: 'beginTime', render: (text, record) =>renderDateCell(text,record) },
-  { title: '结束', dataIndex: 'end', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '司机', dataIndex: 'driver', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '卡车', dataIndex: 'truck', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '属于', dataIndex: 'belongsTo', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '纬度', debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record) },
-  { title: '经度', debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record) },
-
-]
-
-=======
 
 const settingMenuData = {menuName:"运输任务", menuFor: "transportTask",
   		subItems: [
@@ -129,7 +45,6 @@ const settingMenuData = {menuName:"运输任务", menuFor: "transportTask",
   		],
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const fieldLabels = {
   id: '序号',
   name: '名称',
@@ -144,10 +59,6 @@ const fieldLabels = {
 
 }
 
-<<<<<<< HEAD
-
-const TransportTaskBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
 const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'transportTask') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
@@ -192,11 +103,26 @@ const renderItemOfList=(transportTask,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name, start, beginTime, latitude, longitude, endId, driverId, truckId, belongsToId} = formValuesToPack
+	const end = {id: endId, version: 2^31}
+	const driver = {id: driverId, version: 2^31}
+	const truck = {id: truckId, version: 2^31}
+	const belongsTo = {id: belongsToId, version: 2^31}
+	const data = {name, start, beginTime, latitude, longitude, end, driver, truck, belongsTo}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name, start, beginTime, latitude, longitude, end, driver, truck, belongsTo} = objectToUnpack
+	const endId = end ? end.id : null
+	const driverId = driver ? driver.id : null
+	const truckId = truck ? truck.id : null
+	const belongsToId = belongsTo ? belongsTo.id : null
+	const data = {name, start, beginTime, latitude, longitude, endId, driverId, truckId, belongsToId}
+	return data
+}
 
-
-
-const TransportTaskBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const TransportTaskBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default TransportTaskBase
 
 

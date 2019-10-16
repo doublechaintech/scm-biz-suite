@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   quantity: '100',
   duration: '现货',
-  price: '9045.31',
+  price: '8329.83',
   productId: 'SP000001',
 }
 */
@@ -81,12 +81,6 @@ class ProductSupplyDurationCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class ProductSupplyDurationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

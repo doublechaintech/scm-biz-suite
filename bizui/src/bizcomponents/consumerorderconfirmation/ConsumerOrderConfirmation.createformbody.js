@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '确认者',
-  confirmTime: '2019-03-10',
+  confirmTime: '2019-01-28',
 }
 */
 
@@ -79,12 +79,6 @@ class ConsumerOrderConfirmationCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -114,6 +108,7 @@ class ConsumerOrderConfirmationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

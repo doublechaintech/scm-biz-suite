@@ -20,7 +20,7 @@ const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
   manager: '刘强',
-  founded: '2017-07-11',
+  founded: '2018-03-08',
   belongsToId: 'RSCC000001',
 }
 */
@@ -82,12 +82,6 @@ class LevelOneDepartmentCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -117,6 +111,7 @@ class LevelOneDepartmentCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链给供货商下的订单',
-  totalAmount: '2349344768.00',
+  totalAmount: '2646861568.00',
   buyerId: 'RSCC000001',
   sellerId: 'GS000001',
 }
@@ -81,12 +81,6 @@ class SupplyOrderCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class SupplyOrderCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

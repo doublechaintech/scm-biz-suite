@@ -7,10 +7,7 @@ import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, Inpu
 import styles from './RetailStore.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -105,11 +102,7 @@ componentDidMount() {
     }
   }
   */
-<<<<<<< HEAD
-  buildStringSearchParameters = (formValues, searchVerb, fieldName) => {
-=======
   buildStringSearchParameters = (listName, formValues, searchVerb, fieldName) => {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const fieldValue = formValues[fieldName]
     if (!fieldValue) {
       return null
@@ -118,15 +111,9 @@ componentDidMount() {
     //paramHolder.length
     const value = {}
 
-<<<<<<< HEAD
-    value[`retailStoreList.searchField`] = fieldName
-    value[`retailStoreList.searchVerb`] =  searchVerb
-    value[`retailStoreList.searchValue`] = fieldValue
-=======
     value[`${listName}.searchField`] = fieldName
     value[`${listName}.searchVerb`] =  searchVerb
     value[`${listName}.searchValue`] = fieldValue
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     return value
 
@@ -140,18 +127,6 @@ componentDidMount() {
     form.validateFields((err, fieldsValue) => {
       if (err) return
       const paramList = []
-<<<<<<< HEAD
-      
-     
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'id'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'name'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'telephone'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'owner'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'retailStoreCountryCenter'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'eq', 'cityServiceCenter'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'description'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(fieldsValue,'contains', 'currentStatus'))
-=======
       const { owner } = this.props
       const {listName} = owner
      
@@ -163,7 +138,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'cityServiceCenter'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'description'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
      
       console.log("the final parameter", paramList)
@@ -179,20 +153,12 @@ componentDidMount() {
 
       }
      
-<<<<<<< HEAD
-      params['retailStoreList'] = 1
-      params['retailStoreList.orderBy.0'] = "id"
-      params['retailStoreList.descOrAsc.0'] = "desc"
-      
-      const { owner } = this.props
-=======
       
       params[`${listName}`] = 1
       params[`${listName}.orderBy.0`] = "id"
       params[`${listName}.descOrAsc.0`] = "desc"
       
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const expandForm = overrideValue([this.state.expandForm],false)
       dispatch({
         type: `${owner.type}/load`,
@@ -206,10 +172,7 @@ componentDidMount() {
       
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {RetailStoreService} = GlobalComponents
     const tryinit  = (fieldName) => {
       const { owner } = this.props
@@ -235,11 +198,7 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="序号">
            {getFieldDecorator('id')(
-<<<<<<< HEAD
-             <Input placeholder="请输入序号" />
-=======
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            )}
          </FormItem>
        </Col>
@@ -247,26 +206,16 @@ componentDidMount() {
        <Col md={8} sm={24}>
          <FormItem label="名称">
            {getFieldDecorator('name')(
-<<<<<<< HEAD
-             <Input placeholder="请输入名称" />
-=======
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            )}
          </FormItem>
        </Col>
 
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
-<<<<<<< HEAD
-              <Button type="primary" htmlType="submit">查询</Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> 展开 <Icon type="down" /> </a>
-=======
               <Button  icon="search" type="primary" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
               <Button  icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}> {appLocaleName(userContext,"Expand")} <Icon type="down" /> </a>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             </span>
           </Col>
         </Row>
@@ -276,11 +225,7 @@ componentDidMount() {
   renderAdvancedForm() {
   	const {RetailStoreService} = GlobalComponents
     const { getFieldDecorator } = this.props.form
-<<<<<<< HEAD
-    
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       const { referenceName } = owner
@@ -308,11 +253,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="序号">
               {getFieldDecorator('id')(
-<<<<<<< HEAD
-                <Input placeholder="请输入序号" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -320,11 +261,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="名称">
               {getFieldDecorator('name')(
-<<<<<<< HEAD
-                <Input placeholder="请输入名称" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -332,11 +269,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="电话">
               {getFieldDecorator('telephone')(
-<<<<<<< HEAD
-                <Input placeholder="请输入电话" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -344,59 +277,31 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="业主">
               {getFieldDecorator('owner')(
-<<<<<<< HEAD
-                <Input placeholder="请输入业主" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
                     <Form.Item label="双链小超全国运营中心">
-<<<<<<< HEAD
-                  {getFieldDecorator('retailStoreCountryCenter', {
-                    initialValue: tryinit('retailStoreCountryCenter'),
-                   
-                  })(
-=======
                   {getFieldDecorator('retailStoreCountryCenter', {initialValue: tryinit('retailStoreCountryCenter')})(
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   
                   <SelectObject 
                     disabled={!availableForEdit('retailStoreCountryCenter')}
                     targetType={"retailStoreCountryCenter"} 
-<<<<<<< HEAD
-                    requestFunction={RetailStoreService.requestCandidateRetailStoreCountryCenter}/>
-                  
-=======
                     requestFunction={RetailStoreService.requestCandidateRetailStoreCountryCenter} useForSearch />
                   	
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                  
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label="城市服务中心">
-<<<<<<< HEAD
-                  {getFieldDecorator('cityServiceCenter', {
-                    initialValue: tryinit('cityServiceCenter'),
-                   
-                  })(
-=======
                   {getFieldDecorator('cityServiceCenter', {initialValue: tryinit('cityServiceCenter')})(
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   
                   <SelectObject 
                     disabled={!availableForEdit('cityServiceCenter')}
                     targetType={"cityServiceCenter"} 
-<<<<<<< HEAD
-                    requestFunction={RetailStoreService.requestCandidateCityServiceCenter}/>
-                  
-=======
                     requestFunction={RetailStoreService.requestCandidateCityServiceCenter} useForSearch />
                   	
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                  
                   )}
                 </Form.Item></Col>
@@ -404,11 +309,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="描述">
               {getFieldDecorator('description')(
-<<<<<<< HEAD
-                <Input placeholder="请输入描述" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -416,11 +317,7 @@ componentDidMount() {
           <Col md={8} sm={24}>
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
-<<<<<<< HEAD
-                <Input placeholder="请输入当前状态" />
-=======
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               )}
             </FormItem>
           </Col>
@@ -428,15 +325,9 @@ componentDidMount() {
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
-<<<<<<< HEAD
-            <Button type="primary" htmlType="submit">查询</Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
-            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>收起 <Icon type="up" /></a>
-=======
             <Button type="primary" icon="search" htmlType="submit">{appLocaleName(userContext,"Search")}</Button>
             <Button icon="undo" style={{ marginLeft: 8 }} onClick={this.handleFormReset}>{appLocaleName(userContext,"Reset")}</Button>
             <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>{appLocaleName(userContext,"Collapse")} <Icon type="up" /></a>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </span>
         </div>
       </Form>

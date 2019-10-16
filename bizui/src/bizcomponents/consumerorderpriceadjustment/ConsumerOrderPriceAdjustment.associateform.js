@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ConsumerOrderPriceAdjustmentBase from './ConsumerOrderPriceAdjustment.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -23,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-<<<<<<< HEAD
-  amount: '531.66',
-=======
-  amount: '517.44',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  amount: '454.31',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -81,11 +73,8 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {ConsumerOrderPriceAdjustmentService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -132,43 +121,26 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="名称" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -176,15 +148,9 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.amount} {...formItemLayout}>
                   {getFieldDecorator('amount', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入金额' }],
-                  })(
-                    <Input placeholder="请输入金额" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -192,15 +158,9 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.provider} {...formItemLayout}>
                   {getFieldDecorator('provider', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入供应商' }],
-                  })(
-                    <Input placeholder="请输入供应商" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="供应商" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -226,11 +186,7 @@ class ConsumerOrderPriceAdjustmentAssociateForm extends Component {
                 <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
                   {getFieldDecorator('bizOrderId', {
                   	initialValue: tryinit('bizOrder'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入订单' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('bizOrder')}

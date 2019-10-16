@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class AccountingPeriodBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class AccountingPeriodBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/accountingPeriod/${this.props.accountingPeriod.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/accountingPeriod/${this.props.accountingPeriod.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class AccountingPeriodBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class AccountingPeriodBizApp extends React.PureComponent {
 
   getAccountingDocumentSearch = () => {
     const {AccountingDocumentSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "会计凭证",
@@ -264,10 +192,7 @@ class AccountingPeriodBizApp extends React.PureComponent {
       data: state._accountingPeriod.accountingDocumentList,
       metaInfo: state._accountingPeriod.accountingDocumentListMetaInfo,
       count: state._accountingPeriod.accountingDocumentCount,
-<<<<<<< HEAD
-=======
       returnURL: `/accountingPeriod/${state._accountingPeriod.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._accountingPeriod.accountingDocumentCurrentPageNumber,
       searchFormParameters: state._accountingPeriod.accountingDocumentSearchFormParameters,
       searchParameters: {...state._accountingPeriod.searchParameters},
@@ -277,55 +202,34 @@ class AccountingPeriodBizApp extends React.PureComponent {
       owner: { type: '_accountingPeriod', id: state._accountingPeriod.id, 
       referenceName: 'accountingPeriod', 
       listName: 'accountingDocumentList', ref:state._accountingPeriod, 
-<<<<<<< HEAD
-      listDisplayName: '会计凭证列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentSearch)
   }
   getAccountingDocumentCreateForm = () => {
    	const {AccountingDocumentCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "accountingDocument",
       data: state._accountingPeriod.accountingDocumentList,
       metaInfo: state._accountingPeriod.accountingDocumentListMetaInfo,
       count: state._accountingPeriod.accountingDocumentCount,
-<<<<<<< HEAD
-      currentPage: state._accountingPeriod.accountingDocumentCurrentPageNumber,
-      searchFormParameters: state._accountingPeriod.accountingDocumentSearchFormParameters,
-      loading: state._accountingPeriod.loading,
-      owner: { type: '_accountingPeriod', id: state._accountingPeriod.id, referenceName: 'accountingPeriod', listName: 'accountingDocumentList', ref:state._accountingPeriod, listDisplayName: '会计凭证列表'}, // this is for model namespace and
-=======
       returnURL: `/accountingPeriod/${state._accountingPeriod.id}/list`,
       currentPage: state._accountingPeriod.accountingDocumentCurrentPageNumber,
       searchFormParameters: state._accountingPeriod.accountingDocumentSearchFormParameters,
       loading: state._accountingPeriod.loading,
       owner: { type: '_accountingPeriod', id: state._accountingPeriod.id, referenceName: 'accountingPeriod', listName: 'accountingDocumentList', ref:state._accountingPeriod, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentCreateForm)
   }
   
   getAccountingDocumentUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {AccountingDocumentUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountingPeriod.selectedRows,
       role: "accountingDocument",
       currentUpdateIndex: state._accountingPeriod.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_accountingPeriod', id: state._accountingPeriod.id, listName: 'accountingDocumentList', ref:state._accountingPeriod, listDisplayName: '会计凭证列表' }, // this is for model namespace and
-=======
       owner: { type: '_accountingPeriod', id: state._accountingPeriod.id, listName: 'accountingDocumentList', ref:state._accountingPeriod, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentUpdateForm)
   }
 
@@ -333,22 +237,14 @@ class AccountingPeriodBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {AccountingPeriodDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {AccountingPeriodPreference} = GlobalComponents
-=======
   	const {AccountingPeriodPermission} = GlobalComponents
   	const {AccountingPeriodProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/accountingPeriod/:id/dashboard", component: AccountingPeriodDashboard},
-<<<<<<< HEAD
-  	{path:"/accountingPeriod/:id/preference", component: AccountingPeriodPreference},
-=======
   	{path:"/accountingPeriod/:id/profile", component: AccountingPeriodProfile},
   	{path:"/accountingPeriod/:id/permission", component: AccountingPeriodPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -399,59 +295,6 @@ class AccountingPeriodBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {AccountingPeriodEditDetail} = GlobalComponents
-     //const {AccountingPeriodViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.accountingPeriod)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -493,7 +336,7 @@ class AccountingPeriodBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -525,13 +368,12 @@ class AccountingPeriodBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号装货区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '42.24972886021594',
-  longitude: '130.4835128266745',
+  latitude: '41.1645718523325',
+  longitude: '131.31929975260246',
   description: '每个收货区可以供一辆车装货',
   warehouseId: 'W000001',
 }
@@ -84,12 +84,6 @@ class ShippingSpaceCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -119,6 +113,7 @@ class ShippingSpaceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

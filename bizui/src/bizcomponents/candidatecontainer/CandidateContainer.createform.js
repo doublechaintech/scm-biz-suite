@@ -190,9 +190,9 @@ class CandidateContainerCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },

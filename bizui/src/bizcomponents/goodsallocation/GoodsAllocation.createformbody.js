@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
-  latitude: '42.26158689133955',
-  longitude: '130.4393271487582',
+  latitude: '41.82691871562962',
+  longitude: '129.9163703864063',
   goodsShelfId: 'GS000001',
 }
 */
@@ -81,12 +81,6 @@ class GoodsAllocationCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class GoodsAllocationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

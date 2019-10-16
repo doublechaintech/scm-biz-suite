@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2017-03-23',
-  leaveTime: '2019-04-09',
-  durationHours: '6',
+  enterTime: '2017-03-21',
+  leaveTime: '2018-03-08',
+  durationHours: '7',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -82,12 +82,6 @@ class EmployeeAttendanceCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -117,6 +111,7 @@ class EmployeeAttendanceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -22,7 +22,7 @@ const testValues = {
   contactNumber: '02887654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2017-12-04',
+  makeDate: '2019-10-09',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -86,12 +86,6 @@ class TransportTruckCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -121,6 +115,7 @@ class TransportTruckCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

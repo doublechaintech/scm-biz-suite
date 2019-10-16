@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
-  interviewTime: '2018-10-04',
+  interviewTime: '2019-01-26',
   comments: '软技能，责任感，气质不错啊',
 }
 */
@@ -80,12 +80,6 @@ class HrInterviewCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class HrInterviewCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到刘强家',
-  amount: '520.51',
+  amount: '450.98',
   bizOrderId: 'CO000001',
 }
 */
@@ -80,12 +80,6 @@ class ConsumerOrderShippingGroupCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class ConsumerOrderShippingGroupCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

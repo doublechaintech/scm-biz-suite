@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class ProvinceCenterDepartmentBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/provinceCenterDepartment/${this.props.provinceCenterDepartment.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/provinceCenterDepartment/${this.props.provinceCenterDepartment.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
 
   getProvinceCenterEmployeeSearch = () => {
     const {ProvinceCenterEmployeeSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "省中心员工",
@@ -264,10 +192,7 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
       data: state._provinceCenterDepartment.provinceCenterEmployeeList,
       metaInfo: state._provinceCenterDepartment.provinceCenterEmployeeListMetaInfo,
       count: state._provinceCenterDepartment.provinceCenterEmployeeCount,
-<<<<<<< HEAD
-=======
       returnURL: `/provinceCenterDepartment/${state._provinceCenterDepartment.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._provinceCenterDepartment.provinceCenterEmployeeCurrentPageNumber,
       searchFormParameters: state._provinceCenterDepartment.provinceCenterEmployeeSearchFormParameters,
       searchParameters: {...state._provinceCenterDepartment.searchParameters},
@@ -277,55 +202,34 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
       owner: { type: '_provinceCenterDepartment', id: state._provinceCenterDepartment.id, 
       referenceName: 'department', 
       listName: 'provinceCenterEmployeeList', ref:state._provinceCenterDepartment, 
-<<<<<<< HEAD
-      listDisplayName: '省中心员工列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(ProvinceCenterEmployeeSearch)
   }
   getProvinceCenterEmployeeCreateForm = () => {
    	const {ProvinceCenterEmployeeCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "provinceCenterEmployee",
       data: state._provinceCenterDepartment.provinceCenterEmployeeList,
       metaInfo: state._provinceCenterDepartment.provinceCenterEmployeeListMetaInfo,
       count: state._provinceCenterDepartment.provinceCenterEmployeeCount,
-<<<<<<< HEAD
-      currentPage: state._provinceCenterDepartment.provinceCenterEmployeeCurrentPageNumber,
-      searchFormParameters: state._provinceCenterDepartment.provinceCenterEmployeeSearchFormParameters,
-      loading: state._provinceCenterDepartment.loading,
-      owner: { type: '_provinceCenterDepartment', id: state._provinceCenterDepartment.id, referenceName: 'department', listName: 'provinceCenterEmployeeList', ref:state._provinceCenterDepartment, listDisplayName: '省中心员工列表'}, // this is for model namespace and
-=======
       returnURL: `/provinceCenterDepartment/${state._provinceCenterDepartment.id}/list`,
       currentPage: state._provinceCenterDepartment.provinceCenterEmployeeCurrentPageNumber,
       searchFormParameters: state._provinceCenterDepartment.provinceCenterEmployeeSearchFormParameters,
       loading: state._provinceCenterDepartment.loading,
       owner: { type: '_provinceCenterDepartment', id: state._provinceCenterDepartment.id, referenceName: 'department', listName: 'provinceCenterEmployeeList', ref:state._provinceCenterDepartment, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(ProvinceCenterEmployeeCreateForm)
   }
   
   getProvinceCenterEmployeeUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {ProvinceCenterEmployeeUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._provinceCenterDepartment.selectedRows,
       role: "provinceCenterEmployee",
       currentUpdateIndex: state._provinceCenterDepartment.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_provinceCenterDepartment', id: state._provinceCenterDepartment.id, listName: 'provinceCenterEmployeeList', ref:state._provinceCenterDepartment, listDisplayName: '省中心员工列表' }, // this is for model namespace and
-=======
       owner: { type: '_provinceCenterDepartment', id: state._provinceCenterDepartment.id, listName: 'provinceCenterEmployeeList', ref:state._provinceCenterDepartment, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(ProvinceCenterEmployeeUpdateForm)
   }
 
@@ -333,22 +237,14 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {ProvinceCenterDepartmentDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {ProvinceCenterDepartmentPreference} = GlobalComponents
-=======
   	const {ProvinceCenterDepartmentPermission} = GlobalComponents
   	const {ProvinceCenterDepartmentProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/provinceCenterDepartment/:id/dashboard", component: ProvinceCenterDepartmentDashboard},
-<<<<<<< HEAD
-  	{path:"/provinceCenterDepartment/:id/preference", component: ProvinceCenterDepartmentPreference},
-=======
   	{path:"/provinceCenterDepartment/:id/profile", component: ProvinceCenterDepartmentProfile},
   	{path:"/provinceCenterDepartment/:id/permission", component: ProvinceCenterDepartmentPermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -399,59 +295,6 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {ProvinceCenterDepartmentEditDetail} = GlobalComponents
-     //const {ProvinceCenterDepartmentViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.provinceCenterDepartment)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -493,7 +336,7 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -525,13 +368,12 @@ class ProvinceCenterDepartmentBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2017-08-20',
+  accountingDocumentDate: '2016-10-19',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
 }
@@ -81,12 +81,6 @@ class AccountingDocumentCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class AccountingDocumentCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

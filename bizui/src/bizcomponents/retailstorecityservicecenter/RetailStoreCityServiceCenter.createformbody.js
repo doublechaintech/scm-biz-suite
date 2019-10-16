@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超成都办事处',
-  founded: '2019-01-29',
+  founded: '2018-12-23',
   belongsToId: 'RSPC000001',
 }
 */
@@ -80,12 +80,6 @@ class RetailStoreCityServiceCenterCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class RetailStoreCityServiceCenterCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

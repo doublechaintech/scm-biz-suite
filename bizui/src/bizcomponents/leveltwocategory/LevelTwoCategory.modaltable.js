@@ -5,22 +5,14 @@ import { Table, Alert, Badge } from 'antd'
 import styles from './LevelTwoCategory.table.less'
 import ImagePreview from '../../components/ImagePreview'
 import LevelTwoCategoryBase from './LevelTwoCategory.base'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 class LevelTwoCategoryModalTable extends PureComponent {
   render() {
     // const { data,count,current, owner } = this.props
     const { data } = this.props
 	const {displayColumns} = LevelTwoCategoryBase
-<<<<<<< HEAD
-	
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	if(!data){
 		return null
 	}
@@ -34,11 +26,7 @@ class LevelTwoCategoryModalTable extends PureComponent {
           <Alert
             message={(
               <p>
-<<<<<<< HEAD
-                一共 <a style={{ fontWeight: 600 }}>{data.length}</a> 项 
-=======
                 {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{data.length}</a> {appLocaleName(userContext,"Items")} 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               </p>
             )}
             type="warning"

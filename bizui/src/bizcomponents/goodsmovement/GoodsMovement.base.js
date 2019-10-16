@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,7 +28,6 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"货物移动", menuFor: "goodsMovement",
@@ -45,76 +36,6 @@ const menuData = {menuName:"货物移动", menuFor: "goodsMovement",
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-
-}
-
-const displayColumns = [
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20',render: (text, record)=>renderTextCell(text,record) },
-  { title: '移动时间', dataIndex: 'moveTime', render: (text, record) =>renderDateTimeCell(text,record)  },
-  { title: '设施', debugtype: 'string', dataIndex: 'facility', width: '8',render: (text, record)=>renderTextCell(text,record) },
-  { title: '设备ID', debugtype: 'string', dataIndex: 'facilityId', width: '8',render: (text, record)=>renderTextCell(text,record) },
-  { title: '从IP', debugtype: 'string', dataIndex: 'fromIp', width: '16',render: (text, record)=>renderTextCell(text,record) },
-  { title: '用户代理', debugtype: 'string', dataIndex: 'userAgent', width: '115',render: (text, record)=>renderTextCell(text,record) },
-  { title: '会话ID', debugtype: 'string', dataIndex: 'sessionId', width: '24',render: (text, record)=>renderTextCell(text,record) },
-  { title: '纬度', debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record) },
-  { title: '经度', debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record) },
-  { title: '货物', dataIndex: 'goods', render: (text, record) => renderReferenceCell(text, record)},
-
-]
-
-=======
 
 const settingMenuData = {menuName:"货物移动", menuFor: "goodsMovement",
   		subItems: [
@@ -122,7 +43,6 @@ const settingMenuData = {menuName:"货物移动", menuFor: "goodsMovement",
   		],
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const fieldLabels = {
   id: '序号',
   moveTime: '移动时间',
@@ -137,10 +57,6 @@ const fieldLabels = {
 
 }
 
-<<<<<<< HEAD
-
-const GoodsMovementBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
 const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'goodsMovement') , sorter: true },
   { title: fieldLabels.moveTime, dataIndex: 'moveTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
@@ -181,11 +97,20 @@ const renderItemOfList=(goodsMovement,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {moveTime, facility, facilityId, fromIp, sessionId, latitude, longitude, goodsId, userAgent} = formValuesToPack
+	const goods = {id: goodsId, version: 2^31}
+	const data = {moveTime, facility, facilityId, fromIp, sessionId, latitude, longitude, goods, userAgent}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {moveTime, facility, facilityId, fromIp, sessionId, latitude, longitude, goods, userAgent} = objectToUnpack
+	const goodsId = goods ? goods.id : null
+	const data = {moveTime, facility, facilityId, fromIp, sessionId, latitude, longitude, goodsId, userAgent}
+	return data
+}
 
-
-
-const GoodsMovementBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const GoodsMovementBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default GoodsMovementBase
 
 

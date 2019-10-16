@@ -17,9 +17,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2019-09-26',
+  occureTime: '2017-01-30',
   number: 'GF00001',
-  amount: '16.58',
+  amount: '17.77',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -82,12 +82,6 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -117,6 +111,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

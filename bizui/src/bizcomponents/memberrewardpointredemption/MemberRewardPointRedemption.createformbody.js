@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '积分换锅',
-  point: '18',
+  point: '17',
   ownerId: 'RSM000001',
 }
 */
@@ -80,12 +80,6 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

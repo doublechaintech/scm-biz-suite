@@ -80,12 +80,6 @@ class UserWhiteListCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class UserWhiteListCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -137,7 +132,7 @@ class UserWhiteListCreateFormBody extends Component {
                   {getFieldDecorator('userIdentity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="用户身份" />
+                    <Input size="large" placeholder="用户标识" />
                   )}
                 </Form.Item>
               </Col>

@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SmartPalletBase from './SmartPallet.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -25,13 +21,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-<<<<<<< HEAD
-  latitude: '39.90565695576659',
-  longitude: '131.823036472603',
-=======
-  latitude: '41.53615452829373',
-  longitude: '130.15581273140646',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  latitude: '42.64457787911164',
+  longitude: '131.39897802023802',
   warehouseId: 'W000001',
 }
 */
@@ -84,11 +75,8 @@ class SmartPalletAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {SmartPalletService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {GoodsModalTable} = GlobalComponents;
 
 
@@ -136,43 +124,26 @@ class SmartPalletAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.location} {...formItemLayout}>
                   {getFieldDecorator('location', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入位置' }],
-                  })(
-                    <Input placeholder="请输入位置" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="位置" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -180,15 +151,9 @@ class SmartPalletAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.contactNumber} {...formItemLayout}>
                   {getFieldDecorator('contactNumber', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入联系电话' }],
-                  })(
-                    <Input placeholder="请输入联系电话" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="联系电话" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -196,15 +161,9 @@ class SmartPalletAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.totalArea} {...formItemLayout}>
                   {getFieldDecorator('totalArea', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入总面积' }],
-                  })(
-                    <Input placeholder="请输入总面积" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="总面积" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -212,15 +171,9 @@ class SmartPalletAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入纬度' }],
-                  })(
-                    <Input placeholder="请输入纬度" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="纬度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -228,15 +181,9 @@ class SmartPalletAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入经度' }],
-                  })(
-                    <Input placeholder="请输入经度" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="经度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -262,11 +209,7 @@ class SmartPalletAssociateForm extends Component {
                 <Form.Item label={fieldLabels.warehouse} {...formItemLayout}>
                   {getFieldDecorator('warehouseId', {
                   	initialValue: tryinit('warehouse'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入仓库' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('warehouse')}

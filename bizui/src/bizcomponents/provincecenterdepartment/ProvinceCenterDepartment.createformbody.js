@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-  founded: '2017-06-12',
+  founded: '2018-06-20',
   manager: '刘强',
   provinceCenterId: 'RSPC000001',
 }
@@ -81,12 +81,6 @@ class ProvinceCenterDepartmentCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class ProvinceCenterDepartmentCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

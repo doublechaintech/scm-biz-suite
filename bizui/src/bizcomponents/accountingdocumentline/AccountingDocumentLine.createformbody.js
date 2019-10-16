@@ -20,7 +20,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '750429.44',
+  amount: '960647.88',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -83,12 +83,6 @@ class AccountingDocumentLineCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class AccountingDocumentLineCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

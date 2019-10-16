@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2018-04-13',
-  endDate: '2017-12-26',
+  startDate: '2018-04-19',
+  endDate: '2018-02-14',
   accountSetId: 'AS000001',
 }
 */
@@ -81,12 +81,6 @@ class AccountingPeriodCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class AccountingPeriodCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

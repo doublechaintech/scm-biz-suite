@@ -1,19 +1,9 @@
 
-<<<<<<< HEAD
-
-=======
 import React from 'react'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
 import GlobalComponents from '../../custcomponents';
-<<<<<<< HEAD
-
-import modeltool from '../../utils/modeltool'
-const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
-
-=======
 import appLocaleName from '../../common/Locale.tool'
 import modeltool from '../../utils/modeltool'
 const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
@@ -27,7 +17,6 @@ const notifySuccess=(userContext)=>{
 
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 export default {
 
@@ -88,25 +77,15 @@ export default {
     },
     
     *doJob({ payload }, { call, put }) { 
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {TaskService} = GlobalComponents;
       //yield put({ type: 'showLoading', payload })      
       const {serviceNameToCall, id, parameters} = payload;
       if(!serviceNameToCall){
-<<<<<<< HEAD
-      	handleClientError("没有提供后台服务的名字, 该服务没有注册")
-      	return;
-      }
-      
-=======
       	handleClientError(appLocaleName(userContext,'ServiceNotRegistered'))
       	return;
       }
       "react/dva_object_model.jsp"
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       const data = yield call(serviceNameToCall, id, parameters)
       if(handleServerError(data)){
@@ -139,10 +118,7 @@ export default {
 
 
     *addEmployeeCompanyTraining({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -155,31 +131,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeCompanyTrainingList/员工参与的公司培训列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeCompanyTraining({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeCompanyTrainingList/员工参与的公司培训+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeCompanyTraining({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -192,23 +154,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeCompanyTrainingList/员工参与的公司培训列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeCompanyTrainingList/员工参与的公司培训列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeCompanyTrainingUpdateRow({ payload }, { call, put }) {
@@ -217,10 +168,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeCompanyTrainingList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -232,27 +180,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeSkill({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -265,31 +200,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeSkillList/员工技能列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeSkill({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeSkillList/员工技能+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeSkill({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -302,23 +223,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeSkillList/员工技能列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeSkillList/员工技能列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeSkillUpdateRow({ payload }, { call, put }) {
@@ -327,10 +237,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeSkillList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -342,27 +249,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeePerformance({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -375,31 +269,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeePerformanceList/员工绩效列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeePerformance({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeePerformanceList/员工绩效+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeePerformance({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -412,23 +292,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeePerformanceList/员工绩效列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeePerformanceList/员工绩效列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeePerformanceUpdateRow({ payload }, { call, put }) {
@@ -437,10 +306,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeePerformanceList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -452,27 +318,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeWorkExperience({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -485,31 +338,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeWorkExperienceList/员工工作经验列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeWorkExperience({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeWorkExperienceList/员工工作经验+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeWorkExperience({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -522,23 +361,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeWorkExperienceList/员工工作经验列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeWorkExperienceList/员工工作经验列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeWorkExperienceUpdateRow({ payload }, { call, put }) {
@@ -547,10 +375,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeWorkExperienceList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -562,27 +387,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeLeave({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -595,31 +407,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeLeaveList/请假记录列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeLeave({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeLeaveList/请假记录+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeLeave({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -632,23 +430,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeLeaveList/请假记录列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeLeaveList/请假记录列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeLeaveUpdateRow({ payload }, { call, put }) {
@@ -657,10 +444,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeLeaveList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -672,27 +456,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeInterview({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -705,31 +476,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeInterviewList/员工面试列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeInterview({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeInterviewList/员工面试+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeInterview({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -742,23 +499,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeInterviewList/员工面试列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeInterviewList/员工面试列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeInterviewUpdateRow({ payload }, { call, put }) {
@@ -767,10 +513,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeInterviewList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -782,27 +525,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeAttendance({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -815,31 +545,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeAttendanceList/员工考勤列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeAttendance({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeAttendanceList/员工考勤+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeAttendance({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -852,23 +568,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeAttendanceList/员工考勤列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeAttendanceList/员工考勤列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeAttendanceUpdateRow({ payload }, { call, put }) {
@@ -877,10 +582,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeAttendanceList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -892,27 +594,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeQualifier({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -925,31 +614,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeQualifierList/员工资质列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeQualifier({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeQualifierList/员工资质+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeQualifier({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -962,23 +637,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeQualifierList/员工资质列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeQualifierList/员工资质列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeQualifierUpdateRow({ payload }, { call, put }) {
@@ -987,10 +651,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeQualifierList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -1002,27 +663,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeEducation({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -1035,31 +683,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeEducationList/员工教育列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeEducation({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeEducationList/员工教育+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeEducation({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -1072,23 +706,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeEducationList/员工教育列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeEducationList/员工教育列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeEducationUpdateRow({ payload }, { call, put }) {
@@ -1097,10 +720,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeEducationList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -1112,27 +732,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeAward({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -1145,31 +752,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeAwardList/员工嘉奖列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeAward({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeAwardList/员工嘉奖+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeAward({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -1182,23 +775,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeAwardList/员工嘉奖列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeAwardList/员工嘉奖列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeAwardUpdateRow({ payload }, { call, put }) {
@@ -1207,10 +789,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeAwardList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -1222,27 +801,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addEmployeeSalarySheet({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -1255,31 +821,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeSalarySheetList/工资单列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateEmployeeSalarySheet({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeSalarySheetList/工资单+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateEmployeeSalarySheet({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -1292,23 +844,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\EmployeeSalarySheetList/工资单列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/EmployeeSalarySheetList/工资单列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextEmployeeSalarySheetUpdateRow({ payload }, { call, put }) {
@@ -1317,10 +858,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeEmployeeSalarySheetList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -1332,27 +870,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addPayingOff({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -1365,31 +890,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/employee/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\PayingOffList/工资支付列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updatePayingOff({ payload }, { call, put }) {
-=======
       const location = { pathname: `/employee/${id}/list/PayingOffList/工资支付+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updatePayingOff({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -1402,23 +913,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/employee/${id}/list/\PayingOffList/工资支付列表`, state: newPlayload }
-=======
       const location = { pathname: `/employee/${id}/list/PayingOffList/工资支付列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextPayingOffUpdateRow({ payload }, { call, put }) {
@@ -1427,10 +927,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removePayingOffList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {EmployeeService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -1442,17 +939,7 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
   },

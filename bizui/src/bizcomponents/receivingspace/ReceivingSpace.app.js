@@ -10,16 +10,10 @@ import {
   message,
   Spin,
   Breadcrumb,
-<<<<<<< HEAD
-  AutoComplete,
-  Input,Button
-} from 'antd'
-=======
   AutoComplete,Row, Col,
   Input,Button
 } from 'antd'
 import TopMenu from '../../launcher/TopMenu'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -38,25 +32,6 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
-<<<<<<< HEAD
-
-const  {  filterForMenuPermission } = PermissionSettingService
-
-const isMenuItemForDisplay = (item, targetObject, targetComponent) => {
-  return true
-}
-
-const filteredMenuItems = (targetObject, targetComponent) => {
-    const menuData = sessionObject('menuData')
-    const isMenuItemForDisplayFunc = targetComponent.props.isMenuItemForDisplayFunc||isMenuItemForDisplay
-    return menuData.subItems.filter(item=>filterForMenuPermission(item,targetObject,targetComponent)).filter(item=>isMenuItemForDisplayFunc(item,targetObject,targetComponent))
-}
-
-
-
-const { Header, Sider, Content } = Layout
-const { SubMenu } = Menu
-=======
 import appLocaleName from '../../common/Locale.tool'
 import BizAppTool from '../../common/BizApp.tool'
 
@@ -105,7 +80,6 @@ const naviBarResponsiveStyle = {
   
 };
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -134,13 +108,7 @@ const query = {
 class ReceivingSpaceBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    // 把一级 Layout 的 children 作为菜单项
-    // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
-    this.state = {
-=======
      this.state = {
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -179,42 +147,6 @@ class ReceivingSpaceBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
-<<<<<<< HEAD
-  
-    return (
-      
-		  <Menu
-             theme="dark"
-             mode="inline"
-            
-             
-             onOpenChange={this.handleOpenChange}
-            
-             defaultOpenKeys={['firstOne']}
-             style={{ margin: '16px 0', width: '100%' }}
-           >
-           
-
-             <Menu.Item key="dashboard">
-               <Link to={`/receivingSpace/${this.props.receivingSpace.id}/dashboard`}><Icon type="dashboard" /><span>仪表板</span></Link>
-             </Menu.Item>
-             
-		 <Menu.Item key="homepage">
-               <Link to={"/home"}><Icon type="home" /><span>回到主页</span></Link>
-             </Menu.Item>
-             
-             
-         {filteredMenuItems(targetObject,this).map((item)=>(<Menu.Item key={item.name}>
-          <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}列表`}>
-          <Icon type="bars" /><span>{item.displayName}</span>
-          </Link>
-        </Menu.Item>))}
-       
-       <Menu.Item key="preference">
-               <Link to={`/receivingSpace/${this.props.receivingSpace.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
-             </Menu.Item>
-      
-=======
   	const userContext = null
     return (
 	  <Menu
@@ -243,7 +175,6 @@ class ReceivingSpaceBizApp extends React.PureComponent {
 
        		
         
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -253,10 +184,7 @@ class ReceivingSpaceBizApp extends React.PureComponent {
 
   getGoodsSearch = () => {
     const {GoodsSearch} = GlobalComponents;
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "货物",
@@ -264,10 +192,7 @@ class ReceivingSpaceBizApp extends React.PureComponent {
       data: state._receivingSpace.goodsList,
       metaInfo: state._receivingSpace.goodsListMetaInfo,
       count: state._receivingSpace.goodsCount,
-<<<<<<< HEAD
-=======
       returnURL: `/receivingSpace/${state._receivingSpace.id}/dashboard`,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._receivingSpace.goodsCurrentPageNumber,
       searchFormParameters: state._receivingSpace.goodsSearchFormParameters,
       searchParameters: {...state._receivingSpace.searchParameters},
@@ -277,55 +202,34 @@ class ReceivingSpaceBizApp extends React.PureComponent {
       owner: { type: '_receivingSpace', id: state._receivingSpace.id, 
       referenceName: 'receivingSpace', 
       listName: 'goodsList', ref:state._receivingSpace, 
-<<<<<<< HEAD
-      listDisplayName: '货物列表' }, // this is for model namespace and
-=======
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsSearch)
   }
   getGoodsCreateForm = () => {
    	const {GoodsCreateForm} = GlobalComponents;
-<<<<<<< HEAD
-=======
    	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "goods",
       data: state._receivingSpace.goodsList,
       metaInfo: state._receivingSpace.goodsListMetaInfo,
       count: state._receivingSpace.goodsCount,
-<<<<<<< HEAD
-      currentPage: state._receivingSpace.goodsCurrentPageNumber,
-      searchFormParameters: state._receivingSpace.goodsSearchFormParameters,
-      loading: state._receivingSpace.loading,
-      owner: { type: '_receivingSpace', id: state._receivingSpace.id, referenceName: 'receivingSpace', listName: 'goodsList', ref:state._receivingSpace, listDisplayName: '货物列表'}, // this is for model namespace and
-=======
       returnURL: `/receivingSpace/${state._receivingSpace.id}/list`,
       currentPage: state._receivingSpace.goodsCurrentPageNumber,
       searchFormParameters: state._receivingSpace.goodsSearchFormParameters,
       loading: state._receivingSpace.loading,
       owner: { type: '_receivingSpace', id: state._receivingSpace.id, referenceName: 'receivingSpace', listName: 'goodsList', ref:state._receivingSpace, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsCreateForm)
   }
   
   getGoodsUpdateForm = () => {
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {GoodsUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._receivingSpace.selectedRows,
       role: "goods",
       currentUpdateIndex: state._receivingSpace.currentUpdateIndex,
-<<<<<<< HEAD
-      owner: { type: '_receivingSpace', id: state._receivingSpace.id, listName: 'goodsList', ref:state._receivingSpace, listDisplayName: '货物列表' }, // this is for model namespace and
-=======
       owner: { type: '_receivingSpace', id: state._receivingSpace.id, listName: 'goodsList', ref:state._receivingSpace, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(GoodsUpdateForm)
   }
 
@@ -333,22 +237,14 @@ class ReceivingSpaceBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {ReceivingSpaceDashboard} = GlobalComponents
-<<<<<<< HEAD
-  	const {ReceivingSpacePreference} = GlobalComponents
-=======
   	const {ReceivingSpacePermission} = GlobalComponents
   	const {ReceivingSpaceProfile} = GlobalComponents
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/receivingSpace/:id/dashboard", component: ReceivingSpaceDashboard},
-<<<<<<< HEAD
-  	{path:"/receivingSpace/:id/preference", component: ReceivingSpacePreference},
-=======
   	{path:"/receivingSpace/:id/profile", component: ReceivingSpaceProfile},
   	{path:"/receivingSpace/:id/permission", component: ReceivingSpacePermission},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -399,59 +295,6 @@ class ReceivingSpaceBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
-<<<<<<< HEAD
-     const { breadcrumb }  = this.props
-
-     //const {ReceivingSpaceEditDetail} = GlobalComponents
-     //const {ReceivingSpaceViewDetail} = GlobalComponents
-     
-     
-     const targetApp = sessionObject('targetApp')
-     const currentBreadcrumb =sessionObject(targetApp.id)
-     
-     
-     // Don't show popup menu when it is been collapsed
-     const menuProps = collapsed ? {} : {
-       openKeys: this.state.openKeys,
-     }
-     const layout = (
-     <Layout>
-        <Header>
-          
-          <div className={styles.left}>
-          <img
-            src="./favicon.png"
-            alt="logo"
-            onClick={this.toggle}
-            className={styles.logo}
-          />
-          {currentBreadcrumb.map((item)=>{
-            return (<Link  key={item.link} to={`${item.link}`} className={styles.breadcrumbLink}> &gt;{item.name}</Link>)
-
-          })}
-         </div>
-          <div className={styles.right}  >
-          <Button type="primary"  icon="logout" onClick={()=>this.logout()}>
-          退出</Button>
-          </div>
-          
-        </Header>
-       <Layout>
-         <Sider
-           trigger={null}
-           collapsible
-           collapsed={collapsed}
-           breakpoint="md"
-           onCollapse={()=>this.onCollapse(collapsed)}
-           collapsedWidth={56}
-           className={styles.sider}
-         >
-
-		 {this.getNavMenuItems(this.props.receivingSpace)}
-		 
-         </Sider>
-         <Layout>
-=======
      
   
      const targetApp = sessionObject('targetApp')
@@ -493,7 +336,7 @@ class ReceivingSpaceBizApp extends React.PureComponent {
      const { Search } = Input;
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -525,13 +368,12 @@ class ReceivingSpaceBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
          
          <Layout>
          
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

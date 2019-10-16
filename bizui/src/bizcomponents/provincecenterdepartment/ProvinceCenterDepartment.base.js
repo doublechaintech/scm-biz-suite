@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,73 +28,15 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"省中心", menuFor: "provinceCenterDepartment",
   		subItems: [
-<<<<<<< HEAD
-  {name: 'provinceCenterEmployeeList', displayName:'省中心员工', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false},
-=======
   {name: 'provinceCenterEmployeeList', displayName:'省中心员工', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-=======
 
 const settingMenuData = {menuName:"省中心", menuFor: "provinceCenterDepartment",
   		subItems: [
@@ -116,32 +50,10 @@ const fieldLabels = {
   founded: '成立',
   provinceCenter: '省中心',
   manager: '经理',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
 const displayColumns = [
-<<<<<<< HEAD
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'provinceCenterDepartment') },
-  { title: '名称', debugtype: 'string', dataIndex: 'name', width: '9',render: (text, record)=>renderTextCell(text,record) },
-  { title: '成立', dataIndex: 'founded', render: (text, record) =>renderDateCell(text,record) },
-  { title: '省中心', dataIndex: 'provinceCenter', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '经理', debugtype: 'string', dataIndex: 'manager', width: '7',render: (text, record)=>renderTextCell(text,record) },
-
-]
-
-const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  founded: '成立',
-  provinceCenter: '省中心',
-  manager: '经理',
-
-}
-
-
-const ProvinceCenterDepartmentBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'provinceCenterDepartment') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '9',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.founded, dataIndex: 'founded', render: (text, record) =>renderDateCell(text,record), sorter: true },
@@ -172,11 +84,20 @@ const renderItemOfList=(provinceCenterDepartment,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name, founded, manager, provinceCenterId} = formValuesToPack
+	const provinceCenter = {id: provinceCenterId, version: 2^31}
+	const data = {name, founded, manager, provinceCenter}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name, founded, manager, provinceCenter} = objectToUnpack
+	const provinceCenterId = provinceCenter ? provinceCenter.id : null
+	const data = {name, founded, manager, provinceCenterId}
+	return data
+}
 
-
-
-const ProvinceCenterDepartmentBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const ProvinceCenterDepartmentBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default ProvinceCenterDepartmentBase
 
 

@@ -20,9 +20,9 @@ const testValues = {
   name: '中和社区小超',
   telephone: '02887654321',
   owner: '吕刚',
-  founded: '2018-10-10',
-  latitude: '41.102635566148095',
-  longitude: '131.5332605659328',
+  founded: '2017-10-26',
+  latitude: '40.31221082155156',
+  longitude: '130.3889148731445',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
@@ -86,12 +86,6 @@ class RetailStoreCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -121,6 +115,7 @@ class RetailStoreCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

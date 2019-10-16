@@ -9,12 +9,8 @@ import styles from './AccountingPeriod.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountingPeriodBase from './AccountingPeriod.base'
-<<<<<<< HEAD
-
-=======
 import AccountingPeriodCreateFormBody from './AccountingPeriod.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -23,13 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-<<<<<<< HEAD
-  startDate: '2016-12-16',
-  endDate: '2017-03-29',
-=======
-  startDate: '2017-08-16',
-  endDate: '2017-02-16',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  startDate: '2018-12-02',
+  endDate: '2018-11-26',
   accountSetId: 'AS000001',
 }
 */
@@ -79,11 +70,7 @@ class AccountingPeriodCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = AccountingPeriodBase
     const {AccountingPeriodService} = GlobalComponents
@@ -132,16 +119,10 @@ class AccountingPeriodCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'accountingPeriod',listName:'会计期间列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'accountingPeriod',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -172,11 +153,7 @@ class AccountingPeriodCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -194,12 +171,9 @@ class AccountingPeriodCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -209,12 +183,9 @@ class AccountingPeriodCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -222,99 +193,9 @@ class AccountingPeriodCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个会计期间"
-        content="新建一个会计期间"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.name} {...formItemLayout}>
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.startDate} {...formItemLayout}>
-                  {getFieldDecorator('startDate', {
-                    rules: [{ required: true, message: '请输入开始日期' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入开始日期" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.endDate} {...formItemLayout}>
-                  {getFieldDecorator('endDate', {
-                    rules: [{ required: true, message: '请输入结束日期' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入结束日期" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.accountSet} {...formItemLayout}>
-                  {getFieldDecorator('accountSetId', {
-                  	initialValue: tryinit('accountSet'),
-                    rules: [{ required: true, message: '请输入账套' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('accountSet')}
-                    targetType={"accountSet"} 
-                    requestFunction={AccountingPeriodService.requestCandidateAccountSet}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -335,22 +216,10 @@ class AccountingPeriodCreateForm extends Component {
    			
    		<AccountingPeriodCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -361,7 +230,6 @@ class AccountingPeriodCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

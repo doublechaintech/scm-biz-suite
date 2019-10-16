@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeBase from './Employee.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -86,11 +82,8 @@ class EmployeeAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {EmployeeService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {EmployeeCompanyTrainingModalTable} = GlobalComponents;
  const {EmployeeSkillModalTable} = GlobalComponents;
  const {EmployeePerformanceModalTable} = GlobalComponents;
@@ -149,43 +142,26 @@ class EmployeeAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.title} {...formItemLayout}>
                   {getFieldDecorator('title', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入头衔' }],
-                  })(
-                    <Input placeholder="请输入头衔" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="头衔" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -193,15 +169,9 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.familyName} {...formItemLayout}>
                   {getFieldDecorator('familyName', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入姓' }],
-                  })(
-                    <Input placeholder="请输入姓" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="姓" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -209,15 +179,9 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.givenName} {...formItemLayout}>
                   {getFieldDecorator('givenName', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入名' }],
-                  })(
-                    <Input placeholder="请输入名" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="名" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -225,15 +189,9 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入电子邮件' }],
-                  })(
-                    <Input placeholder="请输入电子邮件" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="电子邮件" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -241,15 +199,9 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.city} {...formItemLayout}>
                   {getFieldDecorator('city', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入城市' }],
-                  })(
-                    <Input placeholder="请输入城市" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="城市" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -257,15 +209,9 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.address} {...formItemLayout}>
                   {getFieldDecorator('address', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入地址' }],
-                  })(
-                    <Input placeholder="请输入地址" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="地址" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -273,15 +219,9 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.cellPhone} {...formItemLayout}>
                   {getFieldDecorator('cellPhone', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入手机' }],
-                  })(
-                    <Input placeholder="请输入手机" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="手机" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -289,15 +229,9 @@ class EmployeeAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.salaryAccount} {...formItemLayout}>
                   {getFieldDecorator('salaryAccount', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入工资账户' }],
-                  })(
-                    <Input placeholder="请输入工资账户" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="工资账户" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -323,11 +257,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.company} {...formItemLayout}>
                   {getFieldDecorator('companyId', {
                   	initialValue: tryinit('company'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入公司' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('company')}
@@ -342,11 +272,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.department} {...formItemLayout}>
                   {getFieldDecorator('departmentId', {
                   	initialValue: tryinit('department'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入部门' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('department')}
@@ -361,11 +287,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.occupation} {...formItemLayout}>
                   {getFieldDecorator('occupationId', {
                   	initialValue: tryinit('occupation'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入职业' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('occupation')}
@@ -380,11 +302,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.responsibleFor} {...formItemLayout}>
                   {getFieldDecorator('responsibleForId', {
                   	initialValue: tryinit('responsibleFor'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入负责' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('responsibleFor')}
@@ -399,11 +317,7 @@ class EmployeeAssociateForm extends Component {
                 <Form.Item label={fieldLabels.currentSalaryGrade} {...formItemLayout}>
                   {getFieldDecorator('currentSalaryGradeId', {
                   	initialValue: tryinit('currentSalaryGrade'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入目前工资等级' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('currentSalaryGrade')}

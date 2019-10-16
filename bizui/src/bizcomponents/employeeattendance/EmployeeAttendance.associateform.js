@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeAttendanceBase from './EmployeeAttendance.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -22,14 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  enterTime: '2017-03-09',
-  leaveTime: '2018-01-10',
-=======
-  enterTime: '2018-01-22',
-  leaveTime: '2017-07-20',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
-  durationHours: '7',
+  enterTime: '2017-01-20',
+  leaveTime: '2017-05-16',
+  durationHours: '8',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -83,11 +74,8 @@ class EmployeeAttendanceAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {EmployeeAttendanceService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -134,43 +122,26 @@ class EmployeeAttendanceAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.enterTime} {...formItemLayout}>
                   {getFieldDecorator('enterTime', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入进入时间' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入进入时间" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="进入时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -178,15 +149,9 @@ class EmployeeAttendanceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.leaveTime} {...formItemLayout}>
                   {getFieldDecorator('leaveTime', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入离开的时候' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入离开的时候" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="离开的时候" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -194,15 +159,9 @@ class EmployeeAttendanceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.durationHours} {...formItemLayout}>
                   {getFieldDecorator('durationHours', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入持续时间' }],
-                  })(
-                    <Input placeholder="请输入持续时间" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="持续时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -210,15 +169,9 @@ class EmployeeAttendanceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.remark} {...formItemLayout}>
                   {getFieldDecorator('remark', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入备注' }],
-                  })(
-                    <Input placeholder="请输入备注" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="备注" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -244,11 +197,7 @@ class EmployeeAttendanceAssociateForm extends Component {
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入员工' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('employee')}

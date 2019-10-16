@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链中和社区店',
-  amount: '4.80',
+  amount: '5.51',
   bizOrderId: 'RSO000001',
 }
 */
@@ -80,12 +80,6 @@ class RetailStoreOrderShippingGroupCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class RetailStoreOrderShippingGroupCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -17,7 +17,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  completeTime: '2016-10-07',
+  completeTime: '2019-04-15',
   type: '小学',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',
@@ -81,12 +81,6 @@ class EmployeeEducationCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -116,6 +110,7 @@ class EmployeeEducationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

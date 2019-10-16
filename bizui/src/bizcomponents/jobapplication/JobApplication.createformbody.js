@@ -17,7 +17,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  applicationTime: '2019-09-28',
+  applicationTime: '2018-04-16',
   who: '申请者本人',
   comments: '我觉得我符合职位要求，请给我一个机会为公司发展做出贡献，谢谢！',
 }
@@ -80,12 +80,6 @@ class JobApplicationCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class JobApplicationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

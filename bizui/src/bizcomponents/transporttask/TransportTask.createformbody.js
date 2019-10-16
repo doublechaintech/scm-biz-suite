@@ -19,9 +19,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2018-09-08',
-  latitude: '41.08360863075564',
-  longitude: '131.72785793427335',
+  beginTime: '2017-12-16',
+  latitude: '41.137199052216985',
+  longitude: '131.0205566063881',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -86,12 +86,6 @@ class TransportTaskCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -121,6 +115,7 @@ class TransportTaskCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

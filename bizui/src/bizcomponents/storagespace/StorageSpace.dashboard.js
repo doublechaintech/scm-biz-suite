@@ -1,18 +1,10 @@
 
 
 import React, { Component } from 'react'
-<<<<<<< HEAD
-import FontAwesome from 'react-fontawesome';
-import { connect } from 'dva'
-import moment from 'moment'
-import BooleanOption from 'components/BooleanOption';
-import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
-=======
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from '../../components/BooleanOption';
 import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
 import {
@@ -27,24 +19,15 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
-<<<<<<< HEAD
-  defaultSubListsOf,
-  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers
-=======
   defaultSubListsOf,defaultRenderAnalytics,
   defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
   defaultQuickFunctions, defaultRenderSubjectList,
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 }= DashboardTool
 
 
@@ -65,10 +48,7 @@ const optionList =(storageSpace)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
-<<<<<<< HEAD
-=======
 const internalRenderSubjectList = defaultRenderSubjectList
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const internalSettingListOf = (storageSpace) =>defaultSettingListOf(storageSpace, optionList)
 const internalLargeTextOf = (storageSpace) =>{
 
@@ -84,13 +64,6 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
-<<<<<<< HEAD
-const internalRenderTitle = (cardsData,targetComponent) =>{
-  
-  
-  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
-  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
-=======
 const renderSettingDropDown = (cardsData,targetComponent)=>{
 
   return (<div style={{float: 'right'}} >
@@ -132,7 +105,6 @@ const internalRenderTitle = (cardsData,targetComponent) =>{
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
@@ -141,22 +113,14 @@ const internalSummaryOf = (storageSpace,targetComponent) =>{
 	
 	
 	const {StorageSpaceService} = GlobalComponents
-<<<<<<< HEAD
-	
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{storageSpace.id}</Description> 
 <Description term="位置">{storageSpace.location}</Description> 
 <Description term="联系电话">{storageSpace.contactNumber}</Description> 
 <Description term="总面积">{storageSpace.totalArea}</Description> 
-<<<<<<< HEAD
-<Description term="仓库">{storageSpace.warehouse==null?"未分配":storageSpace.warehouse.displayName}
-=======
 <Description term="仓库">{storageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${storageSpace.warehouse.displayName}(${storageSpace.warehouse.id})`}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",StorageSpaceService.requestCandidateWarehouse,
 	      StorageSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",storageSpace.warehouse?storageSpace.warehouse.id:"")} 
@@ -164,11 +128,7 @@ const internalSummaryOf = (storageSpace,targetComponent) =>{
 </Description>
 <Description term="纬度">{storageSpace.latitude}</Description> 
 <Description term="经度">{storageSpace.longitude}</Description> 
-<<<<<<< HEAD
-<Description term="最后更新时间">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-=======
 <Description term="最后更新时间">{ moment(storageSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	
         {buildTransferModal(storageSpace,targetComponent)}
       </DescriptionList>
@@ -176,10 +136,7 @@ const internalSummaryOf = (storageSpace,targetComponent) =>{
 
 }
 
-<<<<<<< HEAD
-=======
 const internalQuickFunctions = defaultQuickFunctions
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 class StorageSpaceDashboard extends Component {
 
@@ -188,11 +145,7 @@ class StorageSpaceDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
-<<<<<<< HEAD
-    targetLocalName:"城市",
-=======
     targetLocalName:"",
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -216,13 +169,6 @@ class StorageSpaceDashboard extends Component {
     const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",
     	cardsSource: this.props.storageSpace,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo},
-    
-      	],
-  	};
-    //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
-=======
 {name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
@@ -231,7 +177,6 @@ class StorageSpaceDashboard extends Component {
       	],     	
       	
   	};
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
@@ -241,13 +186,10 @@ class StorageSpaceDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
-<<<<<<< HEAD
-=======
     const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
     const quickFunctions = this.props.quickFunctions || internalQuickFunctions
     const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return (
 
       <PageHeaderLayout
@@ -255,17 +197,6 @@ class StorageSpaceDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
-<<<<<<< HEAD
-      {renderExtraHeader(cardsData.cardsSource)}
-        <div>
-        {settingListOf(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}
-        {subListsOf(cardsData)} 
-        {largeTextOf(cardsData.cardsSource)}
-          
-        </div>
-      </PageHeaderLayout>
-=======
        
         {renderExtraHeader(cardsData.cardsSource)}
         {imageListOf(cardsData.cardsSource)}  
@@ -278,7 +209,6 @@ class StorageSpaceDashboard extends Component {
   		
       </PageHeaderLayout>
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     )
   }
 }

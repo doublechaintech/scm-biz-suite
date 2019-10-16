@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号供货商独立管理区',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '42.01907244779806',
-  longitude: '129.50154670086596',
+  latitude: '40.52363544704866',
+  longitude: '131.9274512270412',
   warehouseId: 'W000001',
 }
 */
@@ -83,12 +83,6 @@ class SupplierSpaceCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class SupplierSpaceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -44,20 +44,15 @@ const updateListAccess = (secUserId,userAppId, displayName, permissionTokens) =>
   return postForm({url,requestParameters})
 }	
 
-
 const hasItemReadPermission=(item)=>{
   if(!item){
     return false
   }
-<<<<<<< HEAD
-  
-=======
   /*
   if(!item.addFunction){
     return false
   }
   */
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   if(!item.metaInfo){
     return true //for old code
   }
@@ -181,7 +176,7 @@ const filterForMenuPermission = (item, targetObject, targetComponent) => {
   
   const metaInfo = targetObject[itemName+"MetaInfo"]
   if(!metaInfo){
-    return true
+    return true //for old code
   }
   
   if(!metaInfo.accessInfo){
@@ -204,5 +199,10 @@ const PermissionSettingService = {
 
 }
 
+
+
+
 export default PermissionSettingService
+
+
 

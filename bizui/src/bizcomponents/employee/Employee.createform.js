@@ -9,12 +9,8 @@ import styles from './Employee.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeBase from './Employee.base'
-<<<<<<< HEAD
-
-=======
 import EmployeeCreateFormBody from './Employee.createformbody'
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -83,11 +79,7 @@ class EmployeeCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
-<<<<<<< HEAD
-
-=======
 	const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeBase
     const {EmployeeService} = GlobalComponents
@@ -136,16 +128,10 @@ class EmployeeCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
-<<<<<<< HEAD
-      dispatch({
-        type: `${owner.type}/goback`,
-        payload: { id: owner.id, type: 'employee',listName:'员工列表' },
-=======
      
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'employee',listName:appLocaleName(userContext,"List") },
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -176,11 +162,7 @@ class EmployeeCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -198,12 +180,9 @@ class EmployeeCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return null
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -213,12 +192,9 @@ class EmployeeCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
-<<<<<<< HEAD
-=======
       if(!owner){
       	return true
       }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -226,217 +202,9 @@ class EmployeeCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-    return (
-      <PageHeaderLayout
-        title="新建一个员工"
-        content="新建一个员工"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.title} {...formItemLayout}>
-                  {getFieldDecorator('title', {
-                    rules: [{ required: true, message: '请输入头衔' }],
-                  })(
-                    <Input placeholder="请输入头衔" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.familyName} {...formItemLayout}>
-                  {getFieldDecorator('familyName', {
-                    rules: [{ required: true, message: '请输入姓' }],
-                  })(
-                    <Input placeholder="请输入姓" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.givenName} {...formItemLayout}>
-                  {getFieldDecorator('givenName', {
-                    rules: [{ required: true, message: '请输入名' }],
-                  })(
-                    <Input placeholder="请输入名" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.email} {...formItemLayout}>
-                  {getFieldDecorator('email', {
-                    rules: [{ required: true, message: '请输入电子邮件' }],
-                  })(
-                    <Input placeholder="请输入电子邮件" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.city} {...formItemLayout}>
-                  {getFieldDecorator('city', {
-                    rules: [{ required: true, message: '请输入城市' }],
-                  })(
-                    <Input placeholder="请输入城市" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.address} {...formItemLayout}>
-                  {getFieldDecorator('address', {
-                    rules: [{ required: true, message: '请输入地址' }],
-                  })(
-                    <Input placeholder="请输入地址" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.cellPhone} {...formItemLayout}>
-                  {getFieldDecorator('cellPhone', {
-                    rules: [{ required: true, message: '请输入手机' }],
-                  })(
-                    <Input placeholder="请输入手机" />
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.salaryAccount} {...formItemLayout}>
-                  {getFieldDecorator('salaryAccount', {
-                    rules: [{ required: true, message: '请输入工资账户' }],
-                  })(
-                    <Input placeholder="请输入工资账户" />
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>
-        </Card>
-
-
-
-       
-        
-
-
-
-
-
-
-
-
-
-        <Card title="关联" className={styles.card} bordered={false}>
-          <Form >
-            <Row gutter={16}>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.company} {...formItemLayout}>
-                  {getFieldDecorator('companyId', {
-                  	initialValue: tryinit('company'),
-                    rules: [{ required: true, message: '请输入公司' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('company')}
-                    targetType={"company"} 
-                    requestFunction={EmployeeService.requestCandidateCompany}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.department} {...formItemLayout}>
-                  {getFieldDecorator('departmentId', {
-                  	initialValue: tryinit('department'),
-                    rules: [{ required: true, message: '请输入部门' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('department')}
-                    targetType={"department"} 
-                    requestFunction={EmployeeService.requestCandidateDepartment}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.occupation} {...formItemLayout}>
-                  {getFieldDecorator('occupationId', {
-                  	initialValue: tryinit('occupation'),
-                    rules: [{ required: true, message: '请输入职业' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('occupation')}
-                    targetType={"occupation"} 
-                    requestFunction={EmployeeService.requestCandidateOccupation}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.responsibleFor} {...formItemLayout}>
-                  {getFieldDecorator('responsibleForId', {
-                  	initialValue: tryinit('responsibleFor'),
-                    rules: [{ required: true, message: '请输入负责' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('responsibleFor')}
-                    targetType={"responsibleFor"} 
-                    requestFunction={EmployeeService.requestCandidateResponsibleFor}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.currentSalaryGrade} {...formItemLayout}>
-                  {getFieldDecorator('currentSalaryGradeId', {
-                  	initialValue: tryinit('currentSalaryGrade'),
-                    rules: [{ required: true, message: '请输入目前工资等级' }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('currentSalaryGrade')}
-                    targetType={"currentSalaryGrade"} 
-                    requestFunction={EmployeeService.requestCandidateCurrentSalaryGrade}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-            </Row>
-          </Form>  
-        </Card>
-=======
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -457,22 +225,10 @@ class EmployeeCreateForm extends Component {
    			
    		<EmployeeCreateFormBody	 {...this.props} />
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
-<<<<<<< HEAD
-            提交
-          </Button>
-          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
-            提交并建下一个
-          </Button>
-          <Button type="danger" onClick={goback} loading={submitting}>
-            放弃
-          </Button>
-        </FooterToolbar>
-=======
             {appLocaleName(userContext,"Submit")}
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -483,7 +239,6 @@ class EmployeeCreateForm extends Component {
           </Button>
         </FooterToolbar>
       
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

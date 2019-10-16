@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-import ImagePreview from '../../components/ImagePreview'
-import { Link } from 'dva/router'
-import moment from 'moment'
-
-
-=======
 import React from 'react'
 import { Icon,Divider } from 'antd'
 
@@ -36,73 +28,15 @@ const renderImageCell=defaultRenderImageCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 const menuData = {menuName:"一级分类", menuFor: "levelOneCategory",
   		subItems: [
-<<<<<<< HEAD
-  {name: 'levelTwoCategoryList', displayName:'二级分类', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false},
-=======
   {name: 'levelTwoCategoryList', displayName:'二级分类', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   
   		],
 }
 
-<<<<<<< HEAD
-const renderTextCell=(value, record)=>{
-
-	if(!value){
-		return '';
-	}
-	if(value==null){
-		return '';
-	}
-	if(value.length>15){
-		return value.substring(0,15)+"...("+value.length+"字)"
-	}
-	return value
-	
-}
-
-const renderIdentifier=(value, record, targtObjectType)=>{
-
-	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
-	
-}
-
-const renderDateCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD');
-}
-const renderDateTimeCell=(value, record)=>{
-	return moment(value).format('YYYY-MM-DD HH:mm');	
-}
-
-const renderImageCell=(value, record, title)=>{
-	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
-}
-
-const renderMoneyCell=(value, record)=>{
-	if(!value){
-		return '空'
-	}
-	if(value == null){
-		return '空'
-	}
-	return (`￥${value.toFixed(2)}`)
-}
-
-const renderBooleanCell=(value, record)=>{
-
-	return  (value? '是' : '否')
-
-}
-
-const renderReferenceCell=(value, record)=>{
-
-	return (value ? value.displayName : '暂无') 
-=======
 
 const settingMenuData = {menuName:"一级分类", menuFor: "levelOneCategory",
   		subItems: [
@@ -114,28 +48,10 @@ const fieldLabels = {
   id: '序号',
   catalog: '目录',
   name: '名称',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
 const displayColumns = [
-<<<<<<< HEAD
-  { title: '序号', debugtype: 'string', dataIndex: 'id', width: '20', render: (text, record)=>renderTextCell(text,record,'levelOneCategory') },
-  { title: '目录', dataIndex: 'catalog', render: (text, record) => renderReferenceCell(text, record)},
-  { title: '名称', debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record) },
-
-]
-
-const fieldLabels = {
-  id: '序号',
-  catalog: '目录',
-  name: '名称',
-
-}
-
-
-const LevelOneCategoryBase={menuData,displayColumns,fieldLabels,displayColumns}
-=======
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'levelOneCategory') , sorter: true },
   { title: fieldLabels.catalog, dataIndex: 'catalog', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
@@ -162,11 +78,20 @@ const renderItemOfList=(levelOneCategory,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name, catalogId} = formValuesToPack
+	const catalog = {id: catalogId, version: 2^31}
+	const data = {name, catalog}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name, catalog} = objectToUnpack
+	const catalogId = catalog ? catalog.id : null
+	const data = {name, catalogId}
+	return data
+}
 
-
-
-const LevelOneCategoryBase={menuData,displayColumns,fieldLabels,renderItemOfList}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+const LevelOneCategoryBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default LevelOneCategoryBase
 
 

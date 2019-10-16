@@ -67,29 +67,6 @@ const renderForNumbers = aggregatedData => {
   }
   //scan all property ends with stats info
 
-<<<<<<< HEAD
-  
-  const renderForNumbers=(aggregatedData)=>{
-
-    if(!aggregatedData){
-      return null;
-    }
-    //scan all property ends with stats info
-   
-  
-    const data = aggregatedData
-    if(!data.dataArray){
-      return null
-    }
-    if(data.dataArray.length==0){
-      return null
-    }
-    // <MiniArea color="#975FE4" data={visitData} />
-
-
-    return (<Row gutter={24}>
-      {
-=======
   const data = aggregatedData;
   if (!data.dataArray) {
     return null;
@@ -146,7 +123,6 @@ const renderForNumbers = aggregatedData => {
               // this week
               weekData.thisWeek += dateItem[item];
             }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
             // console.log("week of the year for ", dateItem.date, " week number",weeknumber)
             itemTotal += dateItem[item];
@@ -171,22 +147,6 @@ const renderForNumbers = aggregatedData => {
 
         const trend=(target)=>{
 
-<<<<<<< HEAD
-          
-          if(itemTotal<5){
-            return null
-          }
-
-          if(visitData.length<5){
-            return null
-          }
-          var ChartComp=MiniArea
-
-          if(visitData.length<3){
-            ChartComp = MiniBar
-          }
-          
-=======
           return target.lastWeek> target.thisWeek?"down":"up";
 
         }
@@ -202,7 +162,6 @@ const renderForNumbers = aggregatedData => {
         }
         
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         return (
           <Col key={item} {...topColResponsiveProps}>
@@ -243,62 +202,6 @@ const renderForTimeLine = aggregatedData => {
   //scan all property ends with stats info
   console.log('aggregatedData', aggregatedData);
 
-<<<<<<< HEAD
-  const renderForTimeLine = (aggregatedData)=>{
-    if(!aggregatedData){
-      return null;
-    }
-    //scan all property ends with stats info
-    console.log("aggregatedData",aggregatedData)
-  
-    const data = aggregatedData
-    if(!data.dataArray){
-      return null
-    }
-    if(data.dataArray.length==0){
-      return null
-    }
-    const option = {
-        legend: {},
-        toolbox: {
-          show: true,
-          orient:'vertical',
-          feature: {
-              dataZoom: {
-                  yAxisIndex: 'none'
-              },
-              dataView: {readOnly: false},
-              magicType: {type: ['line', 'bar']},
-              restore: {},
-              saveAsImage: {}
-          }
-      },
-        tooltip: {
-          trigger: 'axis'
-        },
-        dataset: {
-          dimensions: data.dimensions,
-          source:  data.dataArray
-        },
-  
-        xAxis: {type: 'category'},
-        yAxis: {},
-        dataZoom:[{
-            type: 'slider',
-            show: true,
-            xAxisIndex: [0],
-            start: 1,
-            end: 100
-        }],
-    
-      series: data.series
-    }
-  
-    const click=(event)=>{
-  
-      console.log("clicked",event)
-  
-=======
   const data = aggregatedData;
   if (!data.dataArray) {
     return null;
@@ -402,7 +305,6 @@ const aggregateDataset = mainObject => {
   for (const key in mainObject) {
     if (!key.endsWith('StatsInfo')) {
       continue;
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
     const statsInfo = mainObject[key];
     if (!statsInfo) {
@@ -412,21 +314,6 @@ const aggregateDataset = mainObject => {
     if (!series) {
       continue;
     }
-<<<<<<< HEAD
-    const onEvents={'click':click,'legendselectchanged': legend,'datazoom':datazoom }
-   
-    return (<Card><ReactEcharts
-      option={option}
-      height={600}
-      theme="bizTheme2"
-      
-      style={{height: '400px'}}
-      onEvents={onEvents}
-    /></Card>);
-  
-  
-  }  
-=======
     series.result.map(item => {
       const itemkey = calcKey(item);
       const existedValue = dataMap[itemkey];
@@ -441,7 +328,6 @@ const aggregateDataset = mainObject => {
       dataMap[itemkey] = { ...existedValue, ...itemValue };
     });
   }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
   const dimensions = dimensionSet.toArray();
   const defaultEntry = {};
@@ -897,26 +783,6 @@ const renderListContent=(targetObject, listItem)=>{
   }
   return listContent.map(item=>(listItem.renderItem(item)))
 
-<<<<<<< HEAD
-const defaultRenderExtraHeader = (mainObject) =>{
-   
-  const data = aggregateDataset(mainObject)
-  if(!data.dataArray){
-    return null
-  }
-  if(data.dataArray.length==0){
-    return null
-  }
-    return (<div>
-      {renderForNumbers(data)}
-      {renderForTimeLine(data)}
-    </div>)
-  
-  
-  
-  
-=======
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 }
 const defaultRenderSettingList = cardsData => {
   

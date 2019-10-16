@@ -19,9 +19,9 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  price: '5.22',
-  quantity: '961.00',
-  amount: '8858.12',
+  price: '4.85',
+  quantity: '787.95',
+  amount: '7430.81',
   bizOrderId: 'CO000001',
 }
 */
@@ -83,12 +83,6 @@ class ConsumerOrderLineItemCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class ConsumerOrderLineItemCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import GoodsPackagingBase from './GoodsPackaging.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -24,11 +20,7 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
-<<<<<<< HEAD
-  packageTime: '2018-10-10',
-=======
-  packageTime: '2019-09-27',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  packageTime: '2019-02-20',
   description: '打包完成，准备起运',
 }
 */
@@ -81,11 +73,8 @@ class GoodsPackagingAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {GoodsPackagingService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {GoodsModalTable} = GlobalComponents;
 
 
@@ -133,43 +122,26 @@ class GoodsPackagingAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.packageName} {...formItemLayout}>
                   {getFieldDecorator('packageName', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入包的名字' }],
-                  })(
-                    <Input placeholder="请输入包的名字" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="包的名字" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -177,15 +149,9 @@ class GoodsPackagingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.rfid} {...formItemLayout}>
                   {getFieldDecorator('rfid', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入RFID' }],
-                  })(
-                    <Input placeholder="请输入RFID" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="RFID" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -193,15 +159,9 @@ class GoodsPackagingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.packageTime} {...formItemLayout}>
                   {getFieldDecorator('packageTime', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入包的时间' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入包的时间" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="包的时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -209,15 +169,9 @@ class GoodsPackagingAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入描述' }],
-                  })(
-                    <Input placeholder="请输入描述" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="描述" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>

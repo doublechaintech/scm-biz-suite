@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2018-01-12',
+  effectiveDate: '2019-02-05',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
@@ -88,12 +88,6 @@ class AccountSetCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -123,6 +117,7 @@ class AccountSetCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

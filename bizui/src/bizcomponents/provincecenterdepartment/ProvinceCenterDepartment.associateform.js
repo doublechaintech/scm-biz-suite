@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ProvinceCenterDepartmentBase from './ProvinceCenterDepartment.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -23,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-<<<<<<< HEAD
-  founded: '2017-05-29',
-=======
-  founded: '2019-03-20',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  founded: '2018-02-20',
   manager: '刘强',
   provinceCenterId: 'RSPC000001',
 }
@@ -81,11 +73,8 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {ProvinceCenterDepartmentService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {ProvinceCenterEmployeeModalTable} = GlobalComponents;
 
 
@@ -133,43 +122,26 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="名称" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -177,15 +149,9 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入成立' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -193,15 +159,9 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.manager} {...formItemLayout}>
                   {getFieldDecorator('manager', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入经理' }],
-                  })(
-                    <Input placeholder="请输入经理" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="经理" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -227,11 +187,7 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                 <Form.Item label={fieldLabels.provinceCenter} {...formItemLayout}>
                   {getFieldDecorator('provinceCenterId', {
                   	initialValue: tryinit('provinceCenter'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入省中心' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('provinceCenter')}

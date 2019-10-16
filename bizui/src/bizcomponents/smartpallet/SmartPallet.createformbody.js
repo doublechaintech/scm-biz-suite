@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
   contactNumber: '02887654321',
   totalArea: '1876平方米',
-  latitude: '40.94560157380213',
-  longitude: '132.20739970596549',
+  latitude: '40.137771080002594',
+  longitude: '129.40064733678184',
   warehouseId: 'W000001',
 }
 */
@@ -83,12 +83,6 @@ class SmartPalletCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -118,6 +112,7 @@ class SmartPalletCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

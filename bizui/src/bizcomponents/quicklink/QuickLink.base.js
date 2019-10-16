@@ -88,10 +88,20 @@ const renderItemOfList=(quickLink,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name, icon, linkTarget, appId} = formValuesToPack
+	const app = {id: appId, version: 2^31}
+	const data = {name, icon, linkTarget, app}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name, icon, linkTarget, app} = objectToUnpack
+	const appId = app ? app.id : null
+	const data = {name, icon, linkTarget, appId}
+	return data
+}
 
-
-
-const QuickLinkBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const QuickLinkBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default QuickLinkBase
 
 

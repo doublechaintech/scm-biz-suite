@@ -9,11 +9,7 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import TransportTaskBase from './TransportTask.base'
 import SelectObject from '../../components/SelectObject'
-<<<<<<< HEAD
-
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -24,15 +20,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-<<<<<<< HEAD
-  beginTime: '2017-09-02',
-  latitude: '40.499981867136015',
-  longitude: '130.62694924401978',
-=======
-  beginTime: '2017-11-19',
-  latitude: '40.1661013896558',
-  longitude: '132.07777628534055',
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
+  beginTime: '2017-10-31',
+  latitude: '42.46951442236346',
+  longitude: '130.4888537723481',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -88,11 +78,8 @@ class TransportTaskAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {TransportTaskService} = GlobalComponents
-<<<<<<< HEAD
-=======
     const userContext = null
     
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {GoodsModalTable} = GlobalComponents;
  const {TransportTaskTrackModalTable} = GlobalComponents;
 
@@ -141,43 +128,26 @@ class TransportTaskAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
-<<<<<<< HEAD
-    
-    return (
- <Modal
-          title="创建新的支付"
-=======
    
     return (
  <Modal
           title={appLocaleName(userContext,"CreateNew")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
-<<<<<<< HEAD
-        <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
-=======
         <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入名称' }],
-                  })(
-                    <Input placeholder="请输入名称" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="名称" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -185,15 +155,9 @@ class TransportTaskAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.start} {...formItemLayout}>
                   {getFieldDecorator('start', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入开始' }],
-                  })(
-                    <Input placeholder="请输入开始" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="开始" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -201,15 +165,9 @@ class TransportTaskAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.beginTime} {...formItemLayout}>
                   {getFieldDecorator('beginTime', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入开始时间' }],
-                  })(
-                    <DatePicker format="YYYY-MM-DD" placeholder="请输入开始时间" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -217,15 +175,9 @@ class TransportTaskAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入纬度' }],
-                  })(
-                    <Input placeholder="请输入纬度" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="纬度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -233,15 +185,9 @@ class TransportTaskAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入经度' }],
-                  })(
-                    <Input placeholder="请输入经度" />
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="经度" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -267,11 +213,7 @@ class TransportTaskAssociateForm extends Component {
                 <Form.Item label={fieldLabels.end} {...formItemLayout}>
                   {getFieldDecorator('endId', {
                   	initialValue: tryinit('end'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入结束' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('end')}
@@ -286,11 +228,7 @@ class TransportTaskAssociateForm extends Component {
                 <Form.Item label={fieldLabels.driver} {...formItemLayout}>
                   {getFieldDecorator('driverId', {
                   	initialValue: tryinit('driver'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入司机' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('driver')}
@@ -305,11 +243,7 @@ class TransportTaskAssociateForm extends Component {
                 <Form.Item label={fieldLabels.truck} {...formItemLayout}>
                   {getFieldDecorator('truckId', {
                   	initialValue: tryinit('truck'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入卡车' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('truck')}
@@ -324,11 +258,7 @@ class TransportTaskAssociateForm extends Component {
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
-<<<<<<< HEAD
-                    rules: [{ required: true, message: '请输入属于' }],
-=======
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('belongsTo')}

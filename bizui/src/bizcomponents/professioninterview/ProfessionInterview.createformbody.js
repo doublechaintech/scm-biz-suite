@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '技术部',
-  interviewTime: '2018-01-27',
+  interviewTime: '2018-09-27',
   comments: '能力各方面表现不错，进入下一轮',
 }
 */
@@ -80,12 +80,6 @@ class ProfessionInterviewCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -115,6 +109,7 @@ class ProfessionInterviewCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

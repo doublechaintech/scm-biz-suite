@@ -1,19 +1,9 @@
 
-<<<<<<< HEAD
-
-=======
 import React from 'react'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
 import GlobalComponents from '../../custcomponents';
-<<<<<<< HEAD
-
-import modeltool from '../../utils/modeltool'
-const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
-
-=======
 import appLocaleName from '../../common/Locale.tool'
 import modeltool from '../../utils/modeltool'
 const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
@@ -27,7 +17,6 @@ const notifySuccess=(userContext)=>{
 
 }
 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 export default {
 
@@ -88,25 +77,15 @@ export default {
     },
     
     *doJob({ payload }, { call, put }) { 
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {TaskService} = GlobalComponents;
       //yield put({ type: 'showLoading', payload })      
       const {serviceNameToCall, id, parameters} = payload;
       if(!serviceNameToCall){
-<<<<<<< HEAD
-      	handleClientError("没有提供后台服务的名字, 该服务没有注册")
-      	return;
-      }
-      
-=======
       	handleClientError(appLocaleName(userContext,'ServiceNotRegistered'))
       	return;
       }
       "react/dva_object_model.jsp"
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       const data = yield call(serviceNameToCall, id, parameters)
       if(handleServerError(data)){
@@ -139,10 +118,7 @@ export default {
 
 
     *addOriginalVoucher({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {AccountingDocumentService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -155,31 +131,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/accountingDocument/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/accountingDocument/${id}/list/\OriginalVoucherList/原始凭证列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateOriginalVoucher({ payload }, { call, put }) {
-=======
       const location = { pathname: `/accountingDocument/${id}/list/OriginalVoucherList/原始凭证+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateOriginalVoucher({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {AccountingDocumentService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -192,23 +154,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/accountingDocument/${id}/list/\OriginalVoucherList/原始凭证列表`, state: newPlayload }
-=======
       const location = { pathname: `/accountingDocument/${id}/list/OriginalVoucherList/原始凭证列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextOriginalVoucherUpdateRow({ payload }, { call, put }) {
@@ -217,10 +168,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeOriginalVoucherList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {AccountingDocumentService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -232,27 +180,14 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addAccountingDocumentLine({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {AccountingDocumentService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -265,31 +200,17 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/accountingDocument/${id}/list/${role}CreateForm'))
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
-<<<<<<< HEAD
-      const location = { pathname: `/accountingDocument/${id}/list/\AccountingDocumentLineList/会计凭证行列表`, state: newState }
-      yield put(routerRedux.push(location))
-    },
-    *updateAccountingDocumentLine({ payload }, { call, put }) {
-=======
       const location = { pathname: `/accountingDocument/${id}/list/AccountingDocumentLineList/会计凭证行+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateAccountingDocumentLine({ payload }, { call, put }) {
       const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {AccountingDocumentService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -302,23 +223,12 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
-<<<<<<< HEAD
-      const location = { pathname: `/accountingDocument/${id}/list/\AccountingDocumentLineList/会计凭证行列表`, state: newPlayload }
-=======
       const location = { pathname: `/accountingDocument/${id}/list/AccountingDocumentLineList/会计凭证行列表`, state: newPlayload }
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextAccountingDocumentLineUpdateRow({ payload }, { call, put }) {
@@ -327,10 +237,7 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeAccountingDocumentLineList({ payload }, { call, put }) {
-<<<<<<< HEAD
-=======
      const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {AccountingDocumentService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -342,17 +249,7 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
-<<<<<<< HEAD
-        
-     
-      notification.success({
-        message: '执行成功',
-        description: '执行成功',
-      })
-
-=======
       notifySuccess(userContext)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
   },

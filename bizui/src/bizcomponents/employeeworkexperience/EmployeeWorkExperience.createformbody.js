@@ -17,8 +17,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  start: '2016-11-26',
-  end: '2019-03-19',
+  start: '2019-10-13',
+  end: '2019-06-19',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -82,12 +82,6 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
   	}
     
     
-    
-    
-    
-
-    
-    
     const tryinit  = (fieldName) => {
       const { owner } = this.props
       if(!owner){
@@ -117,6 +111,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 

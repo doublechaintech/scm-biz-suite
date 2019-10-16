@@ -32,7 +32,7 @@ const internalSummaryOf = (userWhiteList,targetComponent) =>{
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="ID">{userWhiteList.id}</Description> 
-<Description term="用户身份">{userWhiteList.userIdentity}</Description> 
+<Description term="用户标识">{userWhiteList.userIdentity}</Description> 
 <Description term="用户特殊功能">{userWhiteList.userSpecialFunctions}</Description> 
 	
       </DescriptionList>

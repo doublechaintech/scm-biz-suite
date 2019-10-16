@@ -74,10 +74,20 @@ const renderItemOfList=(candidateContainer,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name} = formValuesToPack
 
+	const data = {name}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name} = objectToUnpack
 
+	const data = {name}
+	return data
+}
 
-const CandidateContainerBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const CandidateContainerBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
 export default CandidateContainerBase
 
 

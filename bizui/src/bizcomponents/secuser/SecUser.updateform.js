@@ -10,10 +10,7 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './SecUser.updateform.less'
 import SecUserBase from './SecUser.base'
-<<<<<<< HEAD
-=======
 import appLocaleName from '../../common/Locale.tool'
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -94,10 +91,7 @@ class SecUserUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
-<<<<<<< HEAD
-=======
     const userContext = null
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = SecUserBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -110,11 +104,7 @@ class SecUserUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
-<<<<<<< HEAD
-
-=======
 		
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const secUserId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -198,11 +188,7 @@ class SecUserUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'secUser',
-<<<<<<< HEAD
-          listName:'SEC的用户列表' 
-=======
           listName:appLocaleName(userContext,"List") 
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -233,11 +219,7 @@ class SecUserUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
-<<<<<<< HEAD
-            title="表单校验信息"
-=======
             title={appLocaleName(userContext,"FieldValidateInfo")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -251,32 +233,11 @@ class SecUserUpdateForm extends Component {
     }
     
     if (!selectedRows) {
-<<<<<<< HEAD
-      return (<div>缺少被更新的对象</div>)
-=======
       return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
-<<<<<<< HEAD
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 },
-    }
-    const switchFormItemLayout = {
-      labelCol: { span: 14 },
-      wrapperCol: { span: 4 },
-    }
-
-    return (
-      <PageHeaderLayout
-        title={"更新SEC的用户"+(currentUpdateIndex+1)+"/"+selectedRows.length}
-        content="更新SEC的用户"
-        wrapperClassName={styles.advancedForm}
-      >
-        <Card title="基础信息" className={styles.card} bordered={false}>
-=======
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
     }
@@ -297,20 +258,10 @@ class SecUserUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.id} {...formItemLayout}>
-                  {getFieldDecorator('id', {
-                    initialValue: selectedRow.id,
-                    rules: [{ required: true, message: '请输入序号' }],
-                  })(
-                    <Input placeholder="请输入序号" disabled/>
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -318,21 +269,11 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="ID" disabled/>
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.login} {...formItemLayout}>
-                  {getFieldDecorator('login', {
-                    initialValue: selectedRow.login,
-                    rules: [{ required: true, message: '请输入登录' }],
-                  })(
-                    <Input placeholder="请输入登录" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.login} {...formItemLayout}>
                   {getFieldDecorator('login', {
@@ -340,21 +281,11 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="登录" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.mobile} {...formItemLayout}>
-                  {getFieldDecorator('mobile', {
-                    initialValue: selectedRow.mobile,
-                    rules: [{ required: true, message: '请输入手机' }],
-                  })(
-                    <Input placeholder="请输入手机" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.mobile} {...formItemLayout}>
                   {getFieldDecorator('mobile', {
@@ -362,21 +293,11 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="手机号码" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.email} {...formItemLayout}>
-                  {getFieldDecorator('email', {
-                    initialValue: selectedRow.email,
-                    rules: [{ required: false, message: '请输入电子邮件' }],
-                  })(
-                    <Input placeholder="请输入电子邮件" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
@@ -384,21 +305,11 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="电子邮件" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.pwd} {...formItemLayout}>
-                  {getFieldDecorator('pwd', {
-                    initialValue: selectedRow.pwd,
-                    rules: [{ required: true, message: '请输入PWD' }],
-                  })(
-                    <Input placeholder="请输入PWD" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.pwd} {...formItemLayout}>
                   {getFieldDecorator('pwd', {
@@ -442,21 +353,11 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="访问令牌" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.verificationCode} {...formItemLayout}>
-                  {getFieldDecorator('verificationCode', {
-                    initialValue: selectedRow.verificationCode,
-                    rules: [{ required: true, message: '请输入验证码' }],
-                  })(
-                    <Input placeholder="请输入验证码" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.verificationCode} {...formItemLayout}>
                   {getFieldDecorator('verificationCode', {
@@ -464,21 +365,11 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="验证码" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.verificationCodeExpire} {...formItemLayout}>
-                  {getFieldDecorator('verificationCodeExpire', {
-                    initialValue: selectedRow.verificationCodeExpire,
-                    rules: [{ required: true, message: '请输入验证码过期' }],
-                  })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入验证码过期" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.verificationCodeExpire} {...formItemLayout}>
                   {getFieldDecorator('verificationCodeExpire', {
@@ -486,21 +377,11 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="验证码过期" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.lastLoginTime} {...formItemLayout}>
-                  {getFieldDecorator('lastLoginTime', {
-                    initialValue: selectedRow.lastLoginTime,
-                    rules: [{ required: true, message: '请输入最后登录时间' }],
-                  })(
-                    <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入最后登录时间" />
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.lastLoginTime} {...formItemLayout}>
                   {getFieldDecorator('lastLoginTime', {
@@ -508,40 +389,18 @@ class SecUserUpdateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="最后登录时间" />
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
-<<<<<<< HEAD
-            </Row>
-          </Form>  
-        </Card>
-=======
             
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
 
-<<<<<<< HEAD
-        <FooterToolbar>
-          {getErrorInfo()}
-          <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
-            更新
-          </Button>
-          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            更新并装载下一个
-          </Button>
-          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
-            略过
-          </Button>
-          <Button type="default" onClick={goback} loading={submitting}>
-            取消
-=======
 			</Row>
           </Form>
         </Card>
@@ -565,7 +424,6 @@ class SecUserUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             {appLocaleName(userContext,"Cancel")}
->>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>
