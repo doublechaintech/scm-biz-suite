@@ -9,7 +9,12 @@ import styles from './GoodsShelfStockCount.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import GoodsShelfStockCountBase from './GoodsShelfStockCount.base'
+<<<<<<< HEAD
 
+=======
+import GoodsShelfStockCountCreateFormBody from './GoodsShelfStockCount.createformbody'
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -18,7 +23,11 @@ const testValues = {};
 /*
 const testValues = {
   title: '每日盘点',
+<<<<<<< HEAD
   countTime: '2017-12-18',
+=======
+  countTime: '2017-06-23',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   summary: '使用先进的rfid技术，没有任何错误',
   shelfId: 'GS000001',
 }
@@ -69,7 +78,11 @@ class GoodsShelfStockCountCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
+<<<<<<< HEAD
 
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = GoodsShelfStockCountBase
     const {GoodsShelfStockCountService} = GlobalComponents
@@ -118,9 +131,16 @@ class GoodsShelfStockCountCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+<<<<<<< HEAD
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'goodsShelfStockCount',listName:'货架库存盘点列表' },
+=======
+     
+      dispatch({
+        type: `${owner.type}/goback`,
+        payload: { id: owner.id, type: 'goodsShelfStockCount',listName:appLocaleName(userContext,"List") },
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -151,7 +171,11 @@ class GoodsShelfStockCountCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -169,6 +193,12 @@ class GoodsShelfStockCountCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return null
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -178,6 +208,12 @@ class GoodsShelfStockCountCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return true
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -186,6 +222,7 @@ class GoodsShelfStockCountCreateForm extends Component {
     
     }
     const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -274,10 +311,35 @@ class GoodsShelfStockCountCreateForm extends Component {
             </Row>
           </Form>  
         </Card>
+=======
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货架库存盘点</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"CreateNew")}货架库存盘点`}
+        wrapperClassName={styles.advancedForm}
+      >
+   			
+   		<GoodsShelfStockCountCreateFormBody	 {...this.props} />
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
+<<<<<<< HEAD
             提交
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -287,6 +349,18 @@ class GoodsShelfStockCountCreateForm extends Component {
             放弃
           </Button>
         </FooterToolbar>
+=======
+            {appLocaleName(userContext,"Submit")}
+          </Button>
+          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
+            {appLocaleName(userContext,"SubmitAndContinue")}
+          </Button>
+          <Button type="danger" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Discard")}
+          </Button>
+        </FooterToolbar>
+      
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

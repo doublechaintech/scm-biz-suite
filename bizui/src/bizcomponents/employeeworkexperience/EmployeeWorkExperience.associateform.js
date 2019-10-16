@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeWorkExperienceBase from './EmployeeWorkExperience.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -18,8 +22,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   start: '2017-10-02',
   end: '2018-05-12',
+=======
+  start: '2017-05-27',
+  end: '2018-05-23',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -74,6 +83,11 @@ class EmployeeWorkExperienceAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {EmployeeWorkExperienceService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -120,26 +134,43 @@ class EmployeeWorkExperienceAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.start} {...formItemLayout}>
                   {getFieldDecorator('start', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入开始' }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入开始" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -147,9 +178,15 @@ class EmployeeWorkExperienceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.end} {...formItemLayout}>
                   {getFieldDecorator('end', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入结束' }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入结束" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -157,9 +194,15 @@ class EmployeeWorkExperienceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.company} {...formItemLayout}>
                   {getFieldDecorator('company', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入公司' }],
                   })(
                     <Input placeholder="请输入公司" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="公司" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -167,9 +210,15 @@ class EmployeeWorkExperienceAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入描述' }],
                   })(
                     <Input placeholder="请输入描述" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="描述" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +244,11 @@ class EmployeeWorkExperienceAssociateForm extends Component {
                 <Form.Item label={fieldLabels.employee} {...formItemLayout}>
                   {getFieldDecorator('employeeId', {
                   	initialValue: tryinit('employee'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入员工' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('employee')}

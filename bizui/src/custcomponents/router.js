@@ -155,9 +155,12 @@ function RouterConfig({ history }) {
 	const {SecUserBizApp} = GlobalComponents
 	const {SecUserBlockingBizApp} = GlobalComponents
 	const {UserAppBizApp} = GlobalComponents
+	const {QuickLinkBizApp} = GlobalComponents
 	const {ListAccessBizApp} = GlobalComponents
 	const {ObjectAccessBizApp} = GlobalComponents
 	const {LoginHistoryBizApp} = GlobalComponents
+	const {CandidateContainerBizApp} = GlobalComponents
+	const {CandidateElementBizApp} = GlobalComponents
 
 
 
@@ -165,8 +168,13 @@ function RouterConfig({ history }) {
     <LocaleProvider locale={zhCN}>
       <Router history={history}>
         <Switch>
+<<<<<<< HEAD
          <Route path="/home" component={Launcher} />
          <Route path="/forgetpass" component={ForgetPasswordForm} />
+=======
+          <Route path="/home" component={Launcher} />
+          <Route path="/forgetpass" component={ForgetPasswordForm} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Route path="/retailStoreCountryCenter/" component={RetailStoreCountryCenterBizApp} />
           <Route path="/catalog/" component={CatalogBizApp} />
           <Route path="/levelOneCategory/" component={LevelOneCategoryBizApp} />
@@ -309,10 +317,13 @@ function RouterConfig({ history }) {
           <Route path="/secUser/" component={SecUserBizApp} />
           <Route path="/secUserBlocking/" component={SecUserBlockingBizApp} />
           <Route path="/userApp/" component={UserAppBizApp} />
+          <Route path="/quickLink/" component={QuickLinkBizApp} />
           <Route path="/listAccess/" component={ListAccessBizApp} />
           <Route path="/objectAccess/" component={ObjectAccessBizApp} />
           <Route path="/loginHistory/" component={LoginHistoryBizApp} />
-         <Route path="/" component={Launcher} />
+          <Route path="/candidateContainer/" component={CandidateContainerBizApp} />
+          <Route path="/candidateElement/" component={CandidateElementBizApp} />
+          <Route path="/" component={Launcher} />
         </Switch>
       </Router>
     </LocaleProvider>

@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeLeaveBase from './EmployeeLeave.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -18,7 +22,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   leaveDurationHour: '6',
+=======
+  leaveDurationHour: '8',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   remark: '请年假，出去耍！！！！',
   whoId: 'E000001',
   typeId: 'LT000001',
@@ -73,6 +81,11 @@ class EmployeeLeaveAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {EmployeeLeaveService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -119,26 +132,43 @@ class EmployeeLeaveAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.leaveDurationHour} {...formItemLayout}>
                   {getFieldDecorator('leaveDurationHour', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入请假时长' }],
                   })(
                     <Input placeholder="请输入请假时长" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="请假时长" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -146,9 +176,15 @@ class EmployeeLeaveAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.remark} {...formItemLayout}>
                   {getFieldDecorator('remark', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入备注' }],
                   })(
                     <Input placeholder="请输入备注" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="备注" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -174,7 +210,11 @@ class EmployeeLeaveAssociateForm extends Component {
                 <Form.Item label={fieldLabels.who} {...formItemLayout}>
                   {getFieldDecorator('whoId', {
                   	initialValue: tryinit('who'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入谁' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('who')}
@@ -189,7 +229,11 @@ class EmployeeLeaveAssociateForm extends Component {
                 <Form.Item label={fieldLabels.type} {...formItemLayout}>
                   {getFieldDecorator('typeId', {
                   	initialValue: tryinit('type'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入类型' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('type')}

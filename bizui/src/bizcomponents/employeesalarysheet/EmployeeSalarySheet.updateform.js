@@ -10,6 +10,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './EmployeeSalarySheet.updateform.less'
 import EmployeeSalarySheetBase from './EmployeeSalarySheet.base'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -88,6 +92,10 @@ class EmployeeSalarySheetUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = EmployeeSalarySheetBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -100,7 +108,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const employeeSalarySheetId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -184,7 +196,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'employeeSalarySheet',
+<<<<<<< HEAD
           listName:'工资单列表' 
+=======
+          listName:appLocaleName(userContext,"List") 
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -215,7 +231,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -229,11 +249,16 @@ class EmployeeSalarySheetUpdateForm extends Component {
     }
     
     if (!selectedRows) {
+<<<<<<< HEAD
       return (<div>缺少被更新的对象</div>)
+=======
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -249,10 +274,33 @@ class EmployeeSalarySheetUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title="基础信息" className={styles.card} bordered={false}>
+=======
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}工资单: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        wrapperClassName={styles.advancedForm}
+      >
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -260,11 +308,21 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入序号' }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.id} {...formItemLayout}>
+                  {getFieldDecorator('id', {
+                    initialValue: selectedRow.id,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="序号" disabled/>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.baseSalary} {...formItemLayout}>
                   {getFieldDecorator('baseSalary', {
@@ -272,11 +330,21 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入基本工资' }],
                   })(
                     <Input placeholder="请输入基本工资" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.baseSalary} {...formItemLayout}>
+                  {getFieldDecorator('baseSalary', {
+                    initialValue: selectedRow.baseSalary,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="基本工资" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.bonus} {...formItemLayout}>
                   {getFieldDecorator('bonus', {
@@ -284,11 +352,21 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入奖金' }],
                   })(
                     <Input placeholder="请输入奖金" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.bonus} {...formItemLayout}>
+                  {getFieldDecorator('bonus', {
+                    initialValue: selectedRow.bonus,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖金" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.reward} {...formItemLayout}>
                   {getFieldDecorator('reward', {
@@ -296,11 +374,21 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入奖励' }],
                   })(
                     <Input placeholder="请输入奖励" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.reward} {...formItemLayout}>
+                  {getFieldDecorator('reward', {
+                    initialValue: selectedRow.reward,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖励" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.personalTax} {...formItemLayout}>
                   {getFieldDecorator('personalTax', {
@@ -308,11 +396,21 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入个人所得税' }],
                   })(
                     <Input placeholder="请输入个人所得税" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.personalTax} {...formItemLayout}>
+                  {getFieldDecorator('personalTax', {
+                    initialValue: selectedRow.personalTax,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="个人所得税" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.socialSecurity} {...formItemLayout}>
                   {getFieldDecorator('socialSecurity', {
@@ -320,11 +418,21 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入社会保险' }],
                   })(
                     <Input placeholder="请输入社会保险" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.socialSecurity} {...formItemLayout}>
+                  {getFieldDecorator('socialSecurity', {
+                    initialValue: selectedRow.socialSecurity,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="社会保险" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.housingFound} {...formItemLayout}>
                   {getFieldDecorator('housingFound', {
@@ -332,11 +440,21 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入住房公积金' }],
                   })(
                     <Input placeholder="请输入住房公积金" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.housingFound} {...formItemLayout}>
+                  {getFieldDecorator('housingFound', {
+                    initialValue: selectedRow.housingFound,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="住房公积金" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.jobInsurance} {...formItemLayout}>
                   {getFieldDecorator('jobInsurance', {
@@ -344,20 +462,34 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入失业保险' }],
                   })(
                     <Input placeholder="请输入失业保险" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.jobInsurance} {...formItemLayout}>
+                  {getFieldDecorator('jobInsurance', {
+                    initialValue: selectedRow.jobInsurance,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="失业保险" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
             </Row>
           </Form>  
         </Card>
+=======
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
 
+<<<<<<< HEAD
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
@@ -371,6 +503,31 @@ class EmployeeSalarySheetUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             取消
+=======
+			</Row>
+          </Form>
+        </Card>
+
+
+
+
+
+
+
+        <FooterToolbar>
+          {getErrorInfo()}
+          <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
+            {appLocaleName(userContext,"Update")}
+          </Button>
+          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"UpdateAndContinue")}
+          </Button>
+          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"Skip")}
+          </Button>
+          <Button type="default" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Cancel")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

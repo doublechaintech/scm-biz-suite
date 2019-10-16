@@ -9,7 +9,12 @@ import styles from './EmployeeWorkExperience.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import EmployeeWorkExperienceBase from './EmployeeWorkExperience.base'
+<<<<<<< HEAD
 
+=======
+import EmployeeWorkExperienceCreateFormBody from './EmployeeWorkExperience.createformbody'
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -17,8 +22,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   start: '2016-05-19',
   end: '2018-03-10',
+=======
+  start: '2018-04-26',
+  end: '2019-05-01',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -70,7 +80,11 @@ class EmployeeWorkExperienceCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
+<<<<<<< HEAD
 
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = EmployeeWorkExperienceBase
     const {EmployeeWorkExperienceService} = GlobalComponents
@@ -119,9 +133,16 @@ class EmployeeWorkExperienceCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+<<<<<<< HEAD
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'employeeWorkExperience',listName:'员工工作经验列表' },
+=======
+     
+      dispatch({
+        type: `${owner.type}/goback`,
+        payload: { id: owner.id, type: 'employeeWorkExperience',listName:appLocaleName(userContext,"List") },
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -152,7 +173,11 @@ class EmployeeWorkExperienceCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -170,6 +195,12 @@ class EmployeeWorkExperienceCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return null
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -179,6 +210,12 @@ class EmployeeWorkExperienceCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return true
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -187,6 +224,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
     
     }
     const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -285,10 +323,35 @@ class EmployeeWorkExperienceCreateForm extends Component {
             </Row>
           </Form>  
         </Card>
+=======
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工工作经验</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"CreateNew")}员工工作经验`}
+        wrapperClassName={styles.advancedForm}
+      >
+   			
+   		<EmployeeWorkExperienceCreateFormBody	 {...this.props} />
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
+<<<<<<< HEAD
             提交
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -298,6 +361,18 @@ class EmployeeWorkExperienceCreateForm extends Component {
             放弃
           </Button>
         </FooterToolbar>
+=======
+            {appLocaleName(userContext,"Submit")}
+          </Button>
+          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
+            {appLocaleName(userContext,"SubmitAndContinue")}
+          </Button>
+          <Button type="danger" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Discard")}
+          </Button>
+        </FooterToolbar>
+      
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

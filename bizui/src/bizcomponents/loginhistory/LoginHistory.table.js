@@ -8,6 +8,10 @@ import ImagePreview from '../../components/ImagePreview'
 import GlobalComponents from '../../custcomponents';
 import LoginHistoryBase from './LoginHistory.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
 
 
@@ -39,6 +43,7 @@ class LoginHistoryTable extends PureComponent {
   cleanSelectedKeys = () => {
     this.handleRowSelectChange([], [])
   }
+<<<<<<< HEAD
  calcDisplayColumns=()=>{
 
     const {owner, metaInfo} =  this.props
@@ -59,6 +64,67 @@ class LoginHistoryTable extends PureComponent {
          { hasReadPermission(metaInfo)&&<Link to={`/loginHistory/${record.id}/dashboard`}>{'查看'}</Link>}
 
           {  hasUpdatePermission(metaInfo)&&<span className={styles.splitLine} /> } {hasUpdatePermission(metaInfo)&&<a key="__2" onClick={()=>this.gotoEdit(text, record)}>编辑</a>}
+=======
+  
+  enhanceColumnsWithSorter=()=>{
+    const {displayColumns} = LoginHistoryBase
+    const {owner, searchParameters} =  this.props
+    const {referenceName, listName} = owner
+    if(!referenceName){
+      return displayColumns
+    }
+    console.log("searchParameters",searchParameters)
+    
+    const remainColumns = displayColumns.filter((item,index)=> item.dataIndex!==referenceName&&index<10&&item.dataIndex!=='content')
+    
+    if(!searchParameters){
+      return remainColumns
+    }
+    const field = searchParameters[`${listName}.orderBy.0`] || "id"
+    const order = searchParameters[`${listName}.descOrAsc.0`] || "desc"
+    const sorter = { field , order}
+    const convertSorter=(item,targetSorter)=>{
+
+      console.log("item", item)
+      if(item.sortOrder==="descend"){
+        return "ascend"
+      }
+      if(item.sortOrder==="ascend"){
+        return "descend"
+      }
+
+      if(targetSorter.order==="desc"){
+        return "descend"
+      }
+      return "ascend"
+
+    }
+    const enhancedColumns = remainColumns.map(item=>{
+      if(sorter.field===item.dataIndex){
+        return {...item, sortOrder: convertSorter(item,sorter)}
+      }
+      return item
+    })
+
+    console.log("enhancedColumns",enhancedColumns)
+
+    return enhancedColumns
+
+  }
+  
+  calcDisplayColumns=()=>{
+
+    const { metaInfo} =  this.props
+    const userContext = null
+    const enhancedColumns = this.enhanceColumnsWithSorter()
+    
+    const operationColumn={
+      title: appLocaleName(userContext,"Operate"),
+      render: (text, record) => (
+        <span>
+          
+          { hasReadPermission(metaInfo)&&<Link to={`/loginHistory/${record.id}/dashboard`}>{appLocaleName(userContext,"View")}</Link>}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
           {
             record.actionList&&record.actionList.map((item)=>(<a key={item.actionId} onClick={()=>this.executeAction(item,text, record)}><span className={styles.splitLine} />{item.actionName}</a>))
@@ -68,11 +134,19 @@ class LoginHistoryTable extends PureComponent {
       ),
     }
    
+<<<<<<< HEAD
     remainColumns.push(
       operationColumn
     )
     
     return remainColumns
+=======
+    enhancedColumns.push(
+      operationColumn
+    )
+    
+    return enhancedColumns
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
   }
   executeAction = (action, text, record) => {
@@ -124,11 +198,17 @@ class LoginHistoryTable extends PureComponent {
     // const { data, count, current, owner } = this.props
     const { data, count, current } = this.props
 	const calcDisplayColumns = this.props.calcDisplayColumns||this.calcDisplayColumns
+<<<<<<< HEAD
 	
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
       pageSize: 20,
+=======
+	const userContext = null
+    const paginationProps = {
+      pageSize: 10,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       total: count,
       current,
       
@@ -148,6 +228,7 @@ class LoginHistoryTable extends PureComponent {
           <Alert
             message={selectedRowKeys.length===0?(
               <span>
+<<<<<<< HEAD
                 一共 <a style={{ fontWeight: 600 }}>{count}</a> 项, 请选择要操作的项来执行更多功能 
               </span>
             ):(
@@ -158,15 +239,33 @@ class LoginHistoryTable extends PureComponent {
             )}
             type="info"
             showIcon
+=======
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")}
+              </span>
+            ):(
+              <span>
+                {appLocaleName(userContext,"Totally")} <a style={{ fontWeight: 600 }}>{count}</a> {appLocaleName(userContext,"Items")} 
+                {appLocaleName(userContext,"Selected")} <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> {appLocaleName(userContext,"Items")} <a onClick={this.cleanSelectedKeys} style={{ marginLeft: 24 }}>{appLocaleName(userContext,"Clear")}</a>
+              </span>
+            )}
+            type="info"
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           />
         </div>
         <Table
           loading={false}
+<<<<<<< HEAD
           size="middle"
           rowKey={record => record.id}
            
           rowSelection={rowSelection}
           
+=======
+          size="small"
+          rowKey={record => record.id}
+           
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           dataSource={data}
           columns={calcDisplayColumns()}
           pagination={paginationProps}

@@ -1,13 +1,33 @@
 
+<<<<<<< HEAD
 
+=======
+import React from 'react'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { notification } from 'antd'
 import GlobalComponents from '../../custcomponents';
+<<<<<<< HEAD
 
 import modeltool from '../../utils/modeltool'
 const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+import modeltool from '../../utils/modeltool'
+const {setupModel,hasError,handleClientError,handleServerError,keepValueWithKeySuffix}=modeltool
+
+const notifySuccess=(userContext)=>{
+
+	notification.success({
+        message: appLocaleName(userContext,'Success'),
+        description: appLocaleName(userContext,'Success'),
+      })
+
+}
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 export default {
 
@@ -68,14 +88,25 @@ export default {
     },
     
     *doJob({ payload }, { call, put }) { 
+<<<<<<< HEAD
+=======
+      const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {TaskService} = GlobalComponents;
       //yield put({ type: 'showLoading', payload })      
       const {serviceNameToCall, id, parameters} = payload;
       if(!serviceNameToCall){
+<<<<<<< HEAD
       	handleClientError("没有提供后台服务的名字, 该服务没有注册")
       	return;
       }
       
+=======
+      	handleClientError(appLocaleName(userContext,'ServiceNotRegistered'))
+      	return;
+      }
+      "react/dva_object_model.jsp"
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       const data = yield call(serviceNameToCall, id, parameters)
       if(handleServerError(data)){
@@ -108,6 +139,10 @@ export default {
 
 
     *addGoodsShelfStockCount({ payload }, { call, put }) {
+<<<<<<< HEAD
+=======
+      const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {GoodsShelfService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -120,19 +155,31 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/goodsShelf/${id}/list/${role}CreateForm'))
+<<<<<<< HEAD
       notification.success({
         message: '执行成功',
         description: '执行成功',
       })
+=======
+      notifySuccess(userContext)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
+<<<<<<< HEAD
       const location = { pathname: `/goodsShelf/${id}/list/\GoodsShelfStockCountList/货架库存盘点列表`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoodsShelfStockCount({ payload }, { call, put }) {
+=======
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsShelfStockCountList/货架库存盘点+${appLocaleName(userContext,'List')}`, state: newState }
+      yield put(routerRedux.push(location))
+    },
+    *updateGoodsShelfStockCount({ payload }, { call, put }) {
+      const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {GoodsShelfService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -145,15 +192,23 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
+<<<<<<< HEAD
       notification.success({
         message: '执行成功',
         description: '执行成功',
       })
+=======
+      notifySuccess(userContext)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
+<<<<<<< HEAD
       const location = { pathname: `/goodsShelf/${id}/list/\GoodsShelfStockCountList/货架库存盘点列表`, state: newPlayload }
+=======
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsShelfStockCountList/货架库存盘点列表`, state: newPlayload }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsShelfStockCountUpdateRow({ payload }, { call, put }) {
@@ -162,6 +217,10 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeGoodsShelfStockCountList({ payload }, { call, put }) {
+<<<<<<< HEAD
+=======
+     const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {GoodsShelfService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -173,6 +232,7 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
+<<<<<<< HEAD
         
      
       notification.success({
@@ -180,12 +240,19 @@ export default {
         description: '执行成功',
       })
 
+=======
+      notifySuccess(userContext)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
 
 
 
     *addGoodsAllocation({ payload }, { call, put }) {
+<<<<<<< HEAD
+=======
+      const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {GoodsShelfService} = GlobalComponents;
 
       const { id, role, parameters, continueNext } = payload
@@ -198,19 +265,31 @@ export default {
       const newPlayload = { ...payload, ...data }
       yield put({ type: 'updateState', payload: newPlayload })
       // yield put(routerRedux.push(`/goodsShelf/${id}/list/${role}CreateForm'))
+<<<<<<< HEAD
       notification.success({
         message: '执行成功',
         description: '执行成功',
       })
+=======
+      notifySuccess(userContext)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       if (continueNext) {
         return
       }
       const partialList = true
       const newState = {...data, partialList}
+<<<<<<< HEAD
       const location = { pathname: `/goodsShelf/${id}/list/\GoodsAllocationList/货位列表`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateGoodsAllocation({ payload }, { call, put }) {
+=======
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsAllocationList/货位+${appLocaleName(userContext,'List')}`, state: newState }
+      yield put(routerRedux.push(location))
+    },
+    *updateGoodsAllocation({ payload }, { call, put }) {
+      const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {GoodsShelfService} = GlobalComponents;      
       const { id, type, parameters, continueNext, selectedRows, currentUpdateIndex } = payload
       console.log('get form parameters', parameters)
@@ -223,15 +302,23 @@ export default {
       
       const newPlayload = { ...payload, ...data, selectedRows, currentUpdateIndex,partialList }
       yield put({ type: 'updateState', payload: newPlayload })
+<<<<<<< HEAD
       notification.success({
         message: '执行成功',
         description: '执行成功',
       })
+=======
+      notifySuccess(userContext)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       
       if (continueNext) {
         return
       }
+<<<<<<< HEAD
       const location = { pathname: `/goodsShelf/${id}/list/\GoodsAllocationList/货位列表`, state: newPlayload }
+=======
+      const location = { pathname: `/goodsShelf/${id}/list/GoodsAllocationList/货位列表`, state: newPlayload }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       yield put(routerRedux.push(location))
     },
     *gotoNextGoodsAllocationUpdateRow({ payload }, { call, put }) {
@@ -240,6 +327,10 @@ export default {
       yield put({ type: 'updateState', payload: newPlayload })
     },
     *removeGoodsAllocationList({ payload }, { call, put }) {
+<<<<<<< HEAD
+=======
+     const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const {GoodsShelfService} = GlobalComponents; 
       const { id, role, parameters, continueNext } = payload
       console.log('get form parameters', parameters)
@@ -251,6 +342,7 @@ export default {
       const newPlayload = { ...payload, ...data }
 
       yield put({ type: 'updateState', payload: newPlayload })
+<<<<<<< HEAD
         
      
       notification.success({
@@ -258,6 +350,9 @@ export default {
         description: '执行成功',
       })
 
+=======
+      notifySuccess(userContext)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     },
 
   },

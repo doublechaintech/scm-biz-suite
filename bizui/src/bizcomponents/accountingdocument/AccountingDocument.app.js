@@ -10,9 +10,16 @@ import {
   message,
   Spin,
   Breadcrumb,
+<<<<<<< HEAD
   AutoComplete,
   Input,Button
 } from 'antd'
+=======
+  AutoComplete,Row, Col,
+  Input,Button
+} from 'antd'
+import TopMenu from '../../launcher/TopMenu'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -31,6 +38,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+<<<<<<< HEAD
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -48,6 +56,56 @@ const filteredMenuItems = (targetObject, targetComponent) => {
 
 const { Header, Sider, Content } = Layout
 const { SubMenu } = Menu
+=======
+import appLocaleName from '../../common/Locale.tool'
+import BizAppTool from '../../common/BizApp.tool'
+
+const { Header, Sider, Content } = Layout
+const { SubMenu } = Menu
+const {
+  defaultFilteredNoGroupMenuItems,
+  defaultFilteredMenuItemsGroup,
+  defaultRenderMenuItem,
+
+} = BizAppTool
+
+
+const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
+const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
+const renderMenuItem=defaultRenderMenuItem
+
+
+
+const userBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+
+const searchBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 12,
+  xl: 12,
+  
+};
+
+
+const naviBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -76,9 +134,13 @@ const query = {
 class AccountingDocumentBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
+<<<<<<< HEAD
     // 把一级 Layout 的 children 作为菜单项
     // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
     this.state = {
+=======
+     this.state = {
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,6 +179,7 @@ class AccountingDocumentBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
+<<<<<<< HEAD
   
     return (
       
@@ -151,6 +214,36 @@ class AccountingDocumentBizApp extends React.PureComponent {
                <Link to={`/accountingDocument/${this.props.accountingDocument.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
              </Menu.Item>
       
+=======
+  	const userContext = null
+    return (
+	  <Menu
+        theme="dark"
+        mode="inline"
+        
+        onOpenChange={this.handleOpenChange}
+        defaultOpenKeys={['firstOne']}
+        style={{ width: '256px' }}
+       >
+           
+
+             <Menu.Item key="dashboard">
+               <Link to={`/accountingDocument/${this.props.accountingDocument.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
+             </Menu.Item>
+           
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+        {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
+          return(
+    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+      {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
+    </SubMenu>
+
+        )}
+        )}
+
+       		
+        
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -160,6 +253,10 @@ class AccountingDocumentBizApp extends React.PureComponent {
 
   getOriginalVoucherSearch = () => {
     const {OriginalVoucherSearch} = GlobalComponents;
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "原始凭证",
@@ -167,6 +264,10 @@ class AccountingDocumentBizApp extends React.PureComponent {
       data: state._accountingDocument.originalVoucherList,
       metaInfo: state._accountingDocument.originalVoucherListMetaInfo,
       count: state._accountingDocument.originalVoucherCount,
+<<<<<<< HEAD
+=======
+      returnURL: `/accountingDocument/${state._accountingDocument.id}/dashboard`,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._accountingDocument.originalVoucherCurrentPageNumber,
       searchFormParameters: state._accountingDocument.originalVoucherSearchFormParameters,
       searchParameters: {...state._accountingDocument.searchParameters},
@@ -176,36 +277,64 @@ class AccountingDocumentBizApp extends React.PureComponent {
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, 
       referenceName: 'belongsTo', 
       listName: 'originalVoucherList', ref:state._accountingDocument, 
+<<<<<<< HEAD
       listDisplayName: '原始凭证列表' }, // this is for model namespace and
+=======
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(OriginalVoucherSearch)
   }
   getOriginalVoucherCreateForm = () => {
    	const {OriginalVoucherCreateForm} = GlobalComponents;
+<<<<<<< HEAD
+=======
+   	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "originalVoucher",
       data: state._accountingDocument.originalVoucherList,
       metaInfo: state._accountingDocument.originalVoucherListMetaInfo,
       count: state._accountingDocument.originalVoucherCount,
+<<<<<<< HEAD
       currentPage: state._accountingDocument.originalVoucherCurrentPageNumber,
       searchFormParameters: state._accountingDocument.originalVoucherSearchFormParameters,
       loading: state._accountingDocument.loading,
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: '原始凭证列表'}, // this is for model namespace and
+=======
+      returnURL: `/accountingDocument/${state._accountingDocument.id}/list`,
+      currentPage: state._accountingDocument.originalVoucherCurrentPageNumber,
+      searchFormParameters: state._accountingDocument.originalVoucherSearchFormParameters,
+      loading: state._accountingDocument.loading,
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(OriginalVoucherCreateForm)
   }
   
   getOriginalVoucherUpdateForm = () => {
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {OriginalVoucherUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountingDocument.selectedRows,
       role: "originalVoucher",
       currentUpdateIndex: state._accountingDocument.currentUpdateIndex,
+<<<<<<< HEAD
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: '原始凭证列表' }, // this is for model namespace and
+=======
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'originalVoucherList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(OriginalVoucherUpdateForm)
   }
 
   getAccountingDocumentLineSearch = () => {
     const {AccountingDocumentLineSearch} = GlobalComponents;
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "会计凭证行",
@@ -213,6 +342,10 @@ class AccountingDocumentBizApp extends React.PureComponent {
       data: state._accountingDocument.accountingDocumentLineList,
       metaInfo: state._accountingDocument.accountingDocumentLineListMetaInfo,
       count: state._accountingDocument.accountingDocumentLineCount,
+<<<<<<< HEAD
+=======
+      returnURL: `/accountingDocument/${state._accountingDocument.id}/dashboard`,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._accountingDocument.accountingDocumentLineCurrentPageNumber,
       searchFormParameters: state._accountingDocument.accountingDocumentLineSearchFormParameters,
       searchParameters: {...state._accountingDocument.searchParameters},
@@ -222,31 +355,55 @@ class AccountingDocumentBizApp extends React.PureComponent {
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, 
       referenceName: 'belongsTo', 
       listName: 'accountingDocumentLineList', ref:state._accountingDocument, 
+<<<<<<< HEAD
       listDisplayName: '会计凭证行列表' }, // this is for model namespace and
+=======
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentLineSearch)
   }
   getAccountingDocumentLineCreateForm = () => {
    	const {AccountingDocumentLineCreateForm} = GlobalComponents;
+<<<<<<< HEAD
+=======
+   	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "accountingDocumentLine",
       data: state._accountingDocument.accountingDocumentLineList,
       metaInfo: state._accountingDocument.accountingDocumentLineListMetaInfo,
       count: state._accountingDocument.accountingDocumentLineCount,
+<<<<<<< HEAD
       currentPage: state._accountingDocument.accountingDocumentLineCurrentPageNumber,
       searchFormParameters: state._accountingDocument.accountingDocumentLineSearchFormParameters,
       loading: state._accountingDocument.loading,
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: '会计凭证行列表'}, // this is for model namespace and
+=======
+      returnURL: `/accountingDocument/${state._accountingDocument.id}/list`,
+      currentPage: state._accountingDocument.accountingDocumentLineCurrentPageNumber,
+      searchFormParameters: state._accountingDocument.accountingDocumentLineSearchFormParameters,
+      loading: state._accountingDocument.loading,
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, referenceName: 'belongsTo', listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentLineCreateForm)
   }
   
   getAccountingDocumentLineUpdateForm = () => {
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {AccountingDocumentLineUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._accountingDocument.selectedRows,
       role: "accountingDocumentLine",
       currentUpdateIndex: state._accountingDocument.currentUpdateIndex,
+<<<<<<< HEAD
       owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: '会计凭证行列表' }, // this is for model namespace and
+=======
+      owner: { type: '_accountingDocument', id: state._accountingDocument.id, listName: 'accountingDocumentLineList', ref:state._accountingDocument, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(AccountingDocumentLineUpdateForm)
   }
 
@@ -254,12 +411,22 @@ class AccountingDocumentBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {AccountingDocumentDashboard} = GlobalComponents
+<<<<<<< HEAD
   	const {AccountingDocumentPreference} = GlobalComponents
+=======
+  	const {AccountingDocumentPermission} = GlobalComponents
+  	const {AccountingDocumentProfile} = GlobalComponents
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/accountingDocument/:id/dashboard", component: AccountingDocumentDashboard},
+<<<<<<< HEAD
   	{path:"/accountingDocument/:id/preference", component: AccountingDocumentPreference},
+=======
+  	{path:"/accountingDocument/:id/profile", component: AccountingDocumentProfile},
+  	{path:"/accountingDocument/:id/permission", component: AccountingDocumentPermission},
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -314,6 +481,7 @@ class AccountingDocumentBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
+<<<<<<< HEAD
      const { breadcrumb }  = this.props
 
      //const {AccountingDocumentEditDetail} = GlobalComponents
@@ -365,6 +533,87 @@ class AccountingDocumentBizApp extends React.PureComponent {
 		 
          </Sider>
          <Layout>
+=======
+     
+  
+     const targetApp = sessionObject('targetApp')
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
+     
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
+     const menuProps = collapsed ? {} : {
+       openKeys: this.state.openKeys,
+     }
+     const renderBreadcrumbMenuItem=(breadcrumbMenuItem)=>{
+
+      return (
+      <Menu.Item key={breadcrumbMenuItem.link}>
+      <Link key={breadcrumbMenuItem.link} to={`${breadcrumbMenuItem.link}`} className={styles.breadcrumbLink}>
+        <Icon type="heart" style={{marginRight:"10px",color:"red"}} />
+        {renderBreadcrumbText(breadcrumbMenuItem.name)}
+      </Link></Menu.Item>)
+
+     }
+     const breadcrumbMenu=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <Menu mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
+      </Menu>)
+  
+
+     }
+     const { Search } = Input;
+     const layout = (
+     <Layout>
+ <Header>
+          
+        <Row type="flex" justify="start" align="bottom">
+        
+        <Col {...naviBarResponsiveStyle} >
+            <Dropdown overlay= {this.getNavMenuItems(this.props.accountingDocument)}>
+              <a  className={styles.menuLink}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
+              </a>
+            </Dropdown>            
+            <Dropdown overlay={breadcrumbMenu()}>
+              <a  className={styles.menuLink}>
+                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
+              </a>
+            </Dropdown>
+        </Col>
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
+          
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+          </Col>
+          <Col  {...userBarResponsiveStyle}  > 
+            <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
+                <a  className={styles.menuLink}>
+                  <Icon type="user" style={{fontSize:"20px",marginRight:"10px"}}/> 账户
+                </a>
+            </Dropdown>
+            
+           </Col>  
+         
+         </Row>
+        </Header>
+       <Layout>
+       
+         
+         <Layout>
+         
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

@@ -10,6 +10,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './LevelOneDepartment.updateform.less'
 import LevelOneDepartmentBase from './LevelOneDepartment.base'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -89,6 +93,10 @@ class LevelOneDepartmentUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = LevelOneDepartmentBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -101,7 +109,11 @@ class LevelOneDepartmentUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const levelOneDepartmentId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -185,7 +197,11 @@ class LevelOneDepartmentUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'levelOneDepartment',
+<<<<<<< HEAD
           listName:'一级部门列表' 
+=======
+          listName:appLocaleName(userContext,"List") 
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -216,7 +232,11 @@ class LevelOneDepartmentUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -230,11 +250,16 @@ class LevelOneDepartmentUpdateForm extends Component {
     }
     
     if (!selectedRows) {
+<<<<<<< HEAD
       return (<div>缺少被更新的对象</div>)
+=======
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -250,10 +275,33 @@ class LevelOneDepartmentUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title="基础信息" className={styles.card} bordered={false}>
+=======
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}一级部门: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        wrapperClassName={styles.advancedForm}
+      >
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -261,11 +309,21 @@ class LevelOneDepartmentUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入序号' }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.id} {...formItemLayout}>
+                  {getFieldDecorator('id', {
+                    initialValue: selectedRow.id,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="序号" disabled/>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
@@ -273,11 +331,21 @@ class LevelOneDepartmentUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入名称' }],
                   })(
                     <Input placeholder="请输入名称" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.name} {...formItemLayout}>
+                  {getFieldDecorator('name', {
+                    initialValue: selectedRow.name,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
@@ -285,11 +353,21 @@ class LevelOneDepartmentUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入描述' }],
                   })(
                     <Input placeholder="请输入描述" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.description} {...formItemLayout}>
+                  {getFieldDecorator('description', {
+                    initialValue: selectedRow.description,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="描述" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.manager} {...formItemLayout}>
                   {getFieldDecorator('manager', {
@@ -297,11 +375,21 @@ class LevelOneDepartmentUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入经理' }],
                   })(
                     <Input placeholder="请输入经理" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
+                  {getFieldDecorator('manager', {
+                    initialValue: selectedRow.manager,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="经理" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
@@ -309,20 +397,34 @@ class LevelOneDepartmentUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入成立' }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.founded} {...formItemLayout}>
+                  {getFieldDecorator('founded', {
+                    initialValue: selectedRow.founded,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
             </Row>
           </Form>  
         </Card>
+=======
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
 
+<<<<<<< HEAD
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
@@ -336,6 +438,31 @@ class LevelOneDepartmentUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             取消
+=======
+			</Row>
+          </Form>
+        </Card>
+
+
+
+
+
+
+
+        <FooterToolbar>
+          {getErrorInfo()}
+          <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
+            {appLocaleName(userContext,"Update")}
+          </Button>
+          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"UpdateAndContinue")}
+          </Button>
+          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"Skip")}
+          </Button>
+          <Button type="default" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Cancel")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

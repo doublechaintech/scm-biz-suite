@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SecUserBase from './SecUser.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -22,9 +26,18 @@ const testValues = {
   mobile: '13900000001',
   email: '',
   pwd: 'C183EC89F92A462CF45B95504792EC4625E847C90536EEFE512D1C9DB8602E95',
+<<<<<<< HEAD
   verificationCode: '0',
   verificationCodeExpire: '2019-01-02 04:42:16',
   lastLoginTime: '2019-01-06 11:04:32',
+=======
+  weixinOpenid: 'wx123456789abcdefghijklmn',
+  weixinAppid: 'wxapp12098410239840',
+  accessToken: 'jwt_token_12345678',
+  verificationCode: '0',
+  verificationCodeExpire: '2019-09-19 08:22:00',
+  lastLoginTime: '2019-09-13 00:35:07',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   domainId: 'UD000001',
 }
 */
@@ -77,6 +90,11 @@ class SecUserAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {SecUserService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {UserAppModalTable} = GlobalComponents;
  const {LoginHistoryModalTable} = GlobalComponents;
 
@@ -125,26 +143,43 @@ class SecUserAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.login} {...formItemLayout}>
                   {getFieldDecorator('login', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入登录' }],
                   })(
                     <Input placeholder="请输入登录" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="登录" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -152,9 +187,15 @@ class SecUserAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.mobile} {...formItemLayout}>
                   {getFieldDecorator('mobile', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入手机' }],
                   })(
                     <Input placeholder="请输入手机" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="手机号码" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -162,9 +203,15 @@ class SecUserAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
+<<<<<<< HEAD
                     rules: [{ required: false, message: '请输入电子邮件' }],
                   })(
                     <Input placeholder="请输入电子邮件" />
+=======
+                    rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="电子邮件" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -172,9 +219,45 @@ class SecUserAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.pwd} {...formItemLayout}>
                   {getFieldDecorator('pwd', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入PWD' }],
                   })(
                     <Input placeholder="请输入PWD" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="密码" />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.weixinOpenid} {...formItemLayout}>
+                  {getFieldDecorator('weixinOpenid', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="微信openid" />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.weixinAppid} {...formItemLayout}>
+                  {getFieldDecorator('weixinAppid', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="微信Appid" />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.accessToken} {...formItemLayout}>
+                  {getFieldDecorator('accessToken', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="访问令牌" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -182,9 +265,15 @@ class SecUserAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.verificationCode} {...formItemLayout}>
                   {getFieldDecorator('verificationCode', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入验证码' }],
                   })(
                     <Input placeholder="请输入验证码" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="验证码" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -192,9 +281,15 @@ class SecUserAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.verificationCodeExpire} {...formItemLayout}>
                   {getFieldDecorator('verificationCodeExpire', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入验证码过期' }],
                   })(
                     <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入验证码过期" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="验证码过期" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -202,9 +297,15 @@ class SecUserAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.lastLoginTime} {...formItemLayout}>
                   {getFieldDecorator('lastLoginTime', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入最后登录时间' }],
                   })(
                     <DatePicker showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="请输入最后登录时间" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="最后登录时间" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +331,11 @@ class SecUserAssociateForm extends Component {
                 <Form.Item label={fieldLabels.domain} {...formItemLayout}>
                   {getFieldDecorator('domainId', {
                   	initialValue: tryinit('domain'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入域' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('domain')}

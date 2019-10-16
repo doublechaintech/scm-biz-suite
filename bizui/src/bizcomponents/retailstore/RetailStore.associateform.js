@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreBase from './RetailStore.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -21,9 +25,15 @@ const testValues = {
   name: '中和社区小超',
   telephone: '02887654321',
   owner: '吕刚',
+<<<<<<< HEAD
   founded: '2016-08-19',
   latitude: '41.57715903268397',
   longitude: '132.17223045131172',
+=======
+  founded: '2018-02-10',
+  latitude: '40.52906442918287',
+  longitude: '131.65738773362682',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
@@ -78,6 +88,11 @@ class RetailStoreAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {RetailStoreService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {ConsumerOrderModalTable} = GlobalComponents;
  const {RetailStoreOrderModalTable} = GlobalComponents;
  const {GoodsModalTable} = GlobalComponents;
@@ -129,26 +144,43 @@ class RetailStoreAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入名称' }],
                   })(
                     <Input placeholder="请输入名称" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -156,9 +188,15 @@ class RetailStoreAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.telephone} {...formItemLayout}>
                   {getFieldDecorator('telephone', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入电话' }],
                   })(
                     <Input placeholder="请输入电话" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="电话" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -166,9 +204,15 @@ class RetailStoreAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.owner} {...formItemLayout}>
                   {getFieldDecorator('owner', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入业主' }],
                   })(
                     <Input placeholder="请输入业主" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="业主" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -176,9 +220,15 @@ class RetailStoreAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.founded} {...formItemLayout}>
                   {getFieldDecorator('founded', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入成立' }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入成立" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -186,9 +236,15 @@ class RetailStoreAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.latitude} {...formItemLayout}>
                   {getFieldDecorator('latitude', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入纬度' }],
                   })(
                     <Input placeholder="请输入纬度" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="纬度" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -196,9 +252,15 @@ class RetailStoreAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.longitude} {...formItemLayout}>
                   {getFieldDecorator('longitude', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入经度' }],
                   })(
                     <Input placeholder="请输入经度" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="经度" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -206,9 +268,15 @@ class RetailStoreAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入描述' }],
                   })(
                     <Input placeholder="请输入描述" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="描述" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -234,7 +302,11 @@ class RetailStoreAssociateForm extends Component {
                 <Form.Item label={fieldLabels.retailStoreCountryCenter} {...formItemLayout}>
                   {getFieldDecorator('retailStoreCountryCenterId', {
                   	initialValue: tryinit('retailStoreCountryCenter'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入双链小超全国运营中心' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('retailStoreCountryCenter')}
@@ -249,7 +321,11 @@ class RetailStoreAssociateForm extends Component {
                 <Form.Item label={fieldLabels.cityServiceCenter} {...formItemLayout}>
                   {getFieldDecorator('cityServiceCenterId', {
                   	initialValue: tryinit('cityServiceCenter'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入城市服务中心' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('cityServiceCenter')}

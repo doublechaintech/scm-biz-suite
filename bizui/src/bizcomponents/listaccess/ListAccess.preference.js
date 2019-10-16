@@ -20,6 +20,10 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import PermissionSetting from '../../permission/PermissionSetting'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
 const { RangePicker } = DatePicker
@@ -36,7 +40,11 @@ const topColResponsiveProps = {
 
 
 const internalImageListOf = (listAccess) =>{
+<<<<<<< HEAD
 
+=======
+  const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   const imageList = [
 	 ]
   const filteredList = imageList.filter((item)=>item.imageLocation!=null)
@@ -44,7 +52,11 @@ const internalImageListOf = (listAccess) =>{
     return null
   }
 
+<<<<<<< HEAD
   return(<Card title='图片列表' className={styles.card}><Row type="flex" justify="start" align="bottom">
+=======
+  return(<Card title={appLocaleName(userContext,"ImageList")} className={styles.card}><Row type="flex" justify="start" align="bottom">
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   {
       filteredList.map((item,index)=>(<Col span={4} key={index}><ImagePreview imageTitle ={item.title} showTitleUnderImage={true} imageLocation={item.imageLocation} >{item.title}</ImagePreview></Col>))
   }</Row></Card> )
@@ -52,7 +64,11 @@ const internalImageListOf = (listAccess) =>{
 }
 
 const internalSettingListOf = (listAccess) =>{
+<<<<<<< HEAD
 
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	const optionList = [ 
 	  {"title":'读权限',"value":listAccess.readPermission,"parameterName":"readPermission"},
   {"title":'创建权限',"value":listAccess.createPermission,"parameterName":"createPermission"},
@@ -64,11 +80,19 @@ const internalSettingListOf = (listAccess) =>{
   if(optionList.length===0){
     return null
   }
+<<<<<<< HEAD
   return(<Card title='状态集合' className={styles.card}>
   	
   	{
   	  optionList.map((item)=><Col key={item.parameterName} span={6} style={{"height":"60px"}}>
        <Switch  title={item.title} checked={item.value} type={item.value?"success":"error"} checkedChildren="是" unCheckedChildren="否" />
+=======
+  return(<Card title={appLocaleName(userContext,"Switchers")} className={styles.card}>
+  	
+  	{
+  	  optionList.map((item)=><Col key={item.parameterName} span={6} style={{"height":"60px"}}>
+       <Switch  title={item.title} checked={item.value} type={item.value?"success":"error"} checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        <span style={{"margin":"10px"}}>{item.title}</span>
        </Col>)
   	}
@@ -118,14 +142,22 @@ const handleTransferSearch =(targetComponent,filterKey,newRequest)=>{
     targetComponent.setState({
      ...parameters,
       candidateReferenceList,
+<<<<<<< HEAD
       transferModalVisiable:true,transferModalTitle:"重新分配<"+targetLocalName+">"
+=======
+      transferModalVisiable:true,transferModalTitle:appLocaleName(userContext,"Reassign")+targetLocalName+">"
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
      
     })
 
   })
 
 }
+<<<<<<< HEAD
 //  onClick={()=>showTransferModel(targetComponent,"城市","city","requestCandidateDistrict","transferToAnotherDistrict")} 
+=======
+//  onClick={()=>showTransferModel(targetComponent,{appLocaleName(userContext,"City")},"city","requestCandidateDistrict","transferToAnotherDistrict")} 
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const showTransferModel = (targetComponent,targetLocalName,
   candidateObjectType,candidateServiceName, transferServiceName, transferTargetParameterName,currentValue) => {
@@ -206,9 +238,15 @@ const buildTransferModal = (listAccess,targetComponent) => {
             <Row gutter={16}>
 
               <Col lg={24} md={24} sm={24}>
+<<<<<<< HEAD
                 <Form.Item label={`请选择新的${targetLocalName}`} {...formItemLayout}>
                   {getFieldDecorator(transferTargetParameterName, {
                     rules: [{ required: true, message: '请搜索' }],
+=======
+                <Form.Item label={`${appLocaleName(userContext,"PleaseSelectNew")}${targetLocalName}`} {...formItemLayout}>
+                  {getFieldDecorator(transferTargetParameterName, {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseSearch") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     initialValue: currentValue
                   })(
                     <AutoComplete
@@ -245,13 +283,23 @@ const internalRenderExtraFooter = (listAccess) =>{
 }
 const internalSubListsOf = (cardsData) =>{
 	const {id} = cardsData.cardsSource;
+<<<<<<< HEAD
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (<Row gutter={24}>
 
            {cardsData.subItems.sort((x,y)=>x.displayName.localeCompare(y.displayName, 'zh-CN')).map((item)=>(<Col {...topColResponsiveProps} key={item.name}>   
             <Card title={`${item.displayName}(${numeral(item.count).format('0,0')})`}  style={{ width: 180 }}>             
+<<<<<<< HEAD
               <p><Link to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}><FontAwesome name="list"  />&nbsp;管理</Link>
               
               {item.addFunction&&(<Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`}><span className={styles.splitLine}></span><FontAwesome name="plus"  />&nbsp;新增</Link>)}   
+=======
+              <p><Link to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}><FontAwesome name="list"  />&nbsp;{appLocaleName(userContext,"Manage")}</Link>
+              
+              {item.addFunction&&(<Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`}><span className={styles.splitLine}></span><FontAwesome name="plus"  />&nbsp;{appLocaleName(userContext,"Add")}</Link>)}   
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               
               </p>         
           </Card> 
@@ -260,13 +308,21 @@ const internalSubListsOf = (cardsData) =>{
 }
 
 const internalSummaryOf = (listAccess,targetComponent) =>{
+<<<<<<< HEAD
 
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{listAccess.id}</Description> 
 <Description term="名称">{listAccess.name}</Description> 
 <Description term="内部名称">{listAccess.internalName}</Description> 
+<<<<<<< HEAD
 <Description term="应用程序">{listAccess.app==null?"未分配":listAccess.app.displayName}
+=======
+<Description term="应用程序">{listAccess.app==null?appLocaleName(userContext,"NotAssigned"):listAccess.app.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"应用程序","userApp","requestCandidateApp",
 	      "transferToAnotherApp","anotherAppId",listAccess.app?listAccess.app.id:"")} 
@@ -294,8 +350,13 @@ class ListAccessPreference extends Component {
     transferModalVisiable: false,
     candidateReferenceList: {},
     candidateServiceName:"",
+<<<<<<< HEAD
     candidateObjectType:"city",
     targetLocalName:"城市",
+=======
+    candidateObjectType:"",
+    targetLocalName:"",
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:""
@@ -315,7 +376,11 @@ class ListAccessPreference extends Component {
     
       	],
   	};
+<<<<<<< HEAD
     //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
+=======
+    //{appLocaleName(userContext,"EveryPartCanBeCustomed")}_features="custom"{appLocaleName(userContext,"Getacustomsample")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

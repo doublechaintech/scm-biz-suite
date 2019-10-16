@@ -10,6 +10,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './AccountSet.updateform.less'
 import AccountSetBase from './AccountSet.base'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -90,6 +94,10 @@ class AccountSetUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = AccountSetBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -102,7 +110,11 @@ class AccountSetUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const accountSetId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -186,7 +198,11 @@ class AccountSetUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'accountSet',
+<<<<<<< HEAD
           listName:'账套列表' 
+=======
+          listName:appLocaleName(userContext,"List") 
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -217,7 +233,11 @@ class AccountSetUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -231,11 +251,16 @@ class AccountSetUpdateForm extends Component {
     }
     
     if (!selectedRows) {
+<<<<<<< HEAD
       return (<div>缺少被更新的对象</div>)
+=======
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -251,10 +276,33 @@ class AccountSetUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title="基础信息" className={styles.card} bordered={false}>
+=======
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}账套: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        wrapperClassName={styles.advancedForm}
+      >
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -262,11 +310,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入序号' }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.id} {...formItemLayout}>
+                  {getFieldDecorator('id', {
+                    initialValue: selectedRow.id,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="序号" disabled/>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
@@ -274,11 +332,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入名称' }],
                   })(
                     <Input placeholder="请输入名称" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.name} {...formItemLayout}>
+                  {getFieldDecorator('name', {
+                    initialValue: selectedRow.name,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.yearSet} {...formItemLayout}>
                   {getFieldDecorator('yearSet', {
@@ -286,11 +354,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入年组' }],
                   })(
                     <Input placeholder="请输入年组" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.yearSet} {...formItemLayout}>
+                  {getFieldDecorator('yearSet', {
+                    initialValue: selectedRow.yearSet,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="年组" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.effectiveDate} {...formItemLayout}>
                   {getFieldDecorator('effectiveDate', {
@@ -298,11 +376,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入生效日期' }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入生效日期" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.effectiveDate} {...formItemLayout}>
+                  {getFieldDecorator('effectiveDate', {
+                    initialValue: selectedRow.effectiveDate,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="生效日期" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.accountingSystem} {...formItemLayout}>
                   {getFieldDecorator('accountingSystem', {
@@ -310,11 +398,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入会计制度' }],
                   })(
                     <Input placeholder="请输入会计制度" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.accountingSystem} {...formItemLayout}>
+                  {getFieldDecorator('accountingSystem', {
+                    initialValue: selectedRow.accountingSystem,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="会计制度" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.domesticCurrencyCode} {...formItemLayout}>
                   {getFieldDecorator('domesticCurrencyCode', {
@@ -322,11 +420,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入本币代码' }],
                   })(
                     <Input placeholder="请输入本币代码" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.domesticCurrencyCode} {...formItemLayout}>
+                  {getFieldDecorator('domesticCurrencyCode', {
+                    initialValue: selectedRow.domesticCurrencyCode,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="本币代码" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.domesticCurrencyName} {...formItemLayout}>
                   {getFieldDecorator('domesticCurrencyName', {
@@ -334,11 +442,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入本币名称' }],
                   })(
                     <Input placeholder="请输入本币名称" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.domesticCurrencyName} {...formItemLayout}>
+                  {getFieldDecorator('domesticCurrencyName', {
+                    initialValue: selectedRow.domesticCurrencyName,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="本币名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.openingBank} {...formItemLayout}>
                   {getFieldDecorator('openingBank', {
@@ -346,11 +464,21 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入开户银行' }],
                   })(
                     <Input placeholder="请输入开户银行" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.openingBank} {...formItemLayout}>
+                  {getFieldDecorator('openingBank', {
+                    initialValue: selectedRow.openingBank,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="开户银行" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.accountNumber} {...formItemLayout}>
                   {getFieldDecorator('accountNumber', {
@@ -358,20 +486,34 @@ class AccountSetUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入帐户号码' }],
                   })(
                     <Input placeholder="请输入帐户号码" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.accountNumber} {...formItemLayout}>
+                  {getFieldDecorator('accountNumber', {
+                    initialValue: selectedRow.accountNumber,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="帐户号码" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
             </Row>
           </Form>  
         </Card>
+=======
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
 
+<<<<<<< HEAD
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
@@ -385,6 +527,31 @@ class AccountSetUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             取消
+=======
+			</Row>
+          </Form>
+        </Card>
+
+
+
+
+
+
+
+        <FooterToolbar>
+          {getErrorInfo()}
+          <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
+            {appLocaleName(userContext,"Update")}
+          </Button>
+          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"UpdateAndContinue")}
+          </Button>
+          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"Skip")}
+          </Button>
+          <Button type="default" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Cancel")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

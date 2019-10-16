@@ -10,9 +10,16 @@ import {
   message,
   Spin,
   Breadcrumb,
+<<<<<<< HEAD
   AutoComplete,
   Input,Button
 } from 'antd'
+=======
+  AutoComplete,Row, Col,
+  Input,Button
+} from 'antd'
+import TopMenu from '../../launcher/TopMenu'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -31,6 +38,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+<<<<<<< HEAD
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -48,6 +56,56 @@ const filteredMenuItems = (targetObject, targetComponent) => {
 
 const { Header, Sider, Content } = Layout
 const { SubMenu } = Menu
+=======
+import appLocaleName from '../../common/Locale.tool'
+import BizAppTool from '../../common/BizApp.tool'
+
+const { Header, Sider, Content } = Layout
+const { SubMenu } = Menu
+const {
+  defaultFilteredNoGroupMenuItems,
+  defaultFilteredMenuItemsGroup,
+  defaultRenderMenuItem,
+
+} = BizAppTool
+
+
+const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
+const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
+const renderMenuItem=defaultRenderMenuItem
+
+
+
+const userBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+
+const searchBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 12,
+  xl: 12,
+  
+};
+
+
+const naviBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -76,9 +134,13 @@ const query = {
 class RetailStoreFranchisingBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
+<<<<<<< HEAD
     // 把一级 Layout 的 children 作为菜单项
     // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
     this.state = {
+=======
+     this.state = {
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,6 +179,7 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
+<<<<<<< HEAD
   
     return (
       
@@ -151,6 +214,36 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
                <Link to={`/retailStoreFranchising/${this.props.retailStoreFranchising.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
              </Menu.Item>
       
+=======
+  	const userContext = null
+    return (
+	  <Menu
+        theme="dark"
+        mode="inline"
+        
+        onOpenChange={this.handleOpenChange}
+        defaultOpenKeys={['firstOne']}
+        style={{ width: '256px' }}
+       >
+           
+
+             <Menu.Item key="dashboard">
+               <Link to={`/retailStoreFranchising/${this.props.retailStoreFranchising.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
+             </Menu.Item>
+           
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+        {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
+          return(
+    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+      {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
+    </SubMenu>
+
+        )}
+        )}
+
+       		
+        
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -160,6 +253,10 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
 
   getRetailStoreSearch = () => {
     const {RetailStoreSearch} = GlobalComponents;
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "双链小超",
@@ -167,6 +264,10 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
       data: state._retailStoreFranchising.retailStoreList,
       metaInfo: state._retailStoreFranchising.retailStoreListMetaInfo,
       count: state._retailStoreFranchising.retailStoreCount,
+<<<<<<< HEAD
+=======
+      returnURL: `/retailStoreFranchising/${state._retailStoreFranchising.id}/dashboard`,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._retailStoreFranchising.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreFranchising.retailStoreSearchFormParameters,
       searchParameters: {...state._retailStoreFranchising.searchParameters},
@@ -176,31 +277,55 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
       owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, 
       referenceName: 'franchising', 
       listName: 'retailStoreList', ref:state._retailStoreFranchising, 
+<<<<<<< HEAD
       listDisplayName: '双链小超列表' }, // this is for model namespace and
+=======
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(RetailStoreSearch)
   }
   getRetailStoreCreateForm = () => {
    	const {RetailStoreCreateForm} = GlobalComponents;
+<<<<<<< HEAD
+=======
+   	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "retailStore",
       data: state._retailStoreFranchising.retailStoreList,
       metaInfo: state._retailStoreFranchising.retailStoreListMetaInfo,
       count: state._retailStoreFranchising.retailStoreCount,
+<<<<<<< HEAD
       currentPage: state._retailStoreFranchising.retailStoreCurrentPageNumber,
       searchFormParameters: state._retailStoreFranchising.retailStoreSearchFormParameters,
       loading: state._retailStoreFranchising.loading,
       owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, referenceName: 'franchising', listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: '双链小超列表'}, // this is for model namespace and
+=======
+      returnURL: `/retailStoreFranchising/${state._retailStoreFranchising.id}/list`,
+      currentPage: state._retailStoreFranchising.retailStoreCurrentPageNumber,
+      searchFormParameters: state._retailStoreFranchising.retailStoreSearchFormParameters,
+      loading: state._retailStoreFranchising.loading,
+      owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, referenceName: 'franchising', listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(RetailStoreCreateForm)
   }
   
   getRetailStoreUpdateForm = () => {
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {RetailStoreUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._retailStoreFranchising.selectedRows,
       role: "retailStore",
       currentUpdateIndex: state._retailStoreFranchising.currentUpdateIndex,
+<<<<<<< HEAD
       owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: '双链小超列表' }, // this is for model namespace and
+=======
+      owner: { type: '_retailStoreFranchising', id: state._retailStoreFranchising.id, listName: 'retailStoreList', ref:state._retailStoreFranchising, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(RetailStoreUpdateForm)
   }
 
@@ -208,12 +333,22 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {RetailStoreFranchisingDashboard} = GlobalComponents
+<<<<<<< HEAD
   	const {RetailStoreFranchisingPreference} = GlobalComponents
+=======
+  	const {RetailStoreFranchisingPermission} = GlobalComponents
+  	const {RetailStoreFranchisingProfile} = GlobalComponents
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/retailStoreFranchising/:id/dashboard", component: RetailStoreFranchisingDashboard},
+<<<<<<< HEAD
   	{path:"/retailStoreFranchising/:id/preference", component: RetailStoreFranchisingPreference},
+=======
+  	{path:"/retailStoreFranchising/:id/profile", component: RetailStoreFranchisingProfile},
+  	{path:"/retailStoreFranchising/:id/permission", component: RetailStoreFranchisingPermission},
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -264,6 +399,7 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
+<<<<<<< HEAD
      const { breadcrumb }  = this.props
 
      //const {RetailStoreFranchisingEditDetail} = GlobalComponents
@@ -315,6 +451,87 @@ class RetailStoreFranchisingBizApp extends React.PureComponent {
 		 
          </Sider>
          <Layout>
+=======
+     
+  
+     const targetApp = sessionObject('targetApp')
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
+     
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
+     const menuProps = collapsed ? {} : {
+       openKeys: this.state.openKeys,
+     }
+     const renderBreadcrumbMenuItem=(breadcrumbMenuItem)=>{
+
+      return (
+      <Menu.Item key={breadcrumbMenuItem.link}>
+      <Link key={breadcrumbMenuItem.link} to={`${breadcrumbMenuItem.link}`} className={styles.breadcrumbLink}>
+        <Icon type="heart" style={{marginRight:"10px",color:"red"}} />
+        {renderBreadcrumbText(breadcrumbMenuItem.name)}
+      </Link></Menu.Item>)
+
+     }
+     const breadcrumbMenu=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <Menu mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
+      </Menu>)
+  
+
+     }
+     const { Search } = Input;
+     const layout = (
+     <Layout>
+ <Header>
+          
+        <Row type="flex" justify="start" align="bottom">
+        
+        <Col {...naviBarResponsiveStyle} >
+            <Dropdown overlay= {this.getNavMenuItems(this.props.retailStoreFranchising)}>
+              <a  className={styles.menuLink}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
+              </a>
+            </Dropdown>            
+            <Dropdown overlay={breadcrumbMenu()}>
+              <a  className={styles.menuLink}>
+                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
+              </a>
+            </Dropdown>
+        </Col>
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
+          
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+          </Col>
+          <Col  {...userBarResponsiveStyle}  > 
+            <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
+                <a  className={styles.menuLink}>
+                  <Icon type="user" style={{fontSize:"20px",marginRight:"10px"}}/> 账户
+                </a>
+            </Dropdown>
+            
+           </Col>  
+         
+         </Row>
+        </Header>
+       <Layout>
+       
+         
+         <Layout>
+         
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

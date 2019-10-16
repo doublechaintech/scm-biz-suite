@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ScoringBase from './Scoring.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,7 +23,11 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
+<<<<<<< HEAD
   score: '78',
+=======
+  score: '72',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   comment: '这个题做的真不错啊',
 }
 */
@@ -72,6 +80,11 @@ class ScoringAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {ScoringService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {EmployeeCompanyTrainingModalTable} = GlobalComponents;
 
 
@@ -119,26 +132,43 @@ class ScoringAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.scoredBy} {...formItemLayout}>
                   {getFieldDecorator('scoredBy', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入由谁打分' }],
                   })(
                     <Input placeholder="请输入由谁打分" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="由谁打分" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -146,9 +176,15 @@ class ScoringAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.score} {...formItemLayout}>
                   {getFieldDecorator('score', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入分数' }],
                   })(
                     <Input placeholder="请输入分数" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="分数" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -156,9 +192,15 @@ class ScoringAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.comment} {...formItemLayout}>
                   {getFieldDecorator('comment', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入评论' }],
                   })(
                     <Input placeholder="请输入评论" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="评论" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>

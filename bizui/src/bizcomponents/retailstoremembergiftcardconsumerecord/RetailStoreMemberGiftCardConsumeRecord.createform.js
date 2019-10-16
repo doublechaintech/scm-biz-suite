@@ -9,7 +9,12 @@ import styles from './RetailStoreMemberGiftCardConsumeRecord.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreMemberGiftCardConsumeRecordBase from './RetailStoreMemberGiftCardConsumeRecord.base'
+<<<<<<< HEAD
 
+=======
+import RetailStoreMemberGiftCardConsumeRecordCreateFormBody from './RetailStoreMemberGiftCardConsumeRecord.createformbody'
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -17,9 +22,15 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   occureTime: '2018-01-12',
   number: 'GF00001',
   amount: '19.35',
+=======
+  occureTime: '2019-07-21',
+  number: 'GF00001',
+  amount: '18.74',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -70,7 +81,11 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
+<<<<<<< HEAD
 
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = RetailStoreMemberGiftCardConsumeRecordBase
     const {RetailStoreMemberGiftCardConsumeRecordService} = GlobalComponents
@@ -119,9 +134,16 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+<<<<<<< HEAD
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'retailStoreMemberGiftCardConsumeRecord',listName:'零售商店会员卡消费记录列表' },
+=======
+     
+      dispatch({
+        type: `${owner.type}/goback`,
+        payload: { id: owner.id, type: 'retailStoreMemberGiftCardConsumeRecord',listName:appLocaleName(userContext,"List") },
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -152,7 +174,11 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -170,6 +196,12 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return null
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -179,6 +211,12 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return true
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -187,6 +225,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     }
     const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -292,10 +331,35 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
             </Row>
           </Form>  
         </Card>
+=======
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
+        wrapperClassName={styles.advancedForm}
+      >
+   			
+   		<RetailStoreMemberGiftCardConsumeRecordCreateFormBody	 {...this.props} />
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
+<<<<<<< HEAD
             提交
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -305,6 +369,18 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
             放弃
           </Button>
         </FooterToolbar>
+=======
+            {appLocaleName(userContext,"Submit")}
+          </Button>
+          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
+            {appLocaleName(userContext,"SubmitAndContinue")}
+          </Button>
+          <Button type="danger" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Discard")}
+          </Button>
+        </FooterToolbar>
+      
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

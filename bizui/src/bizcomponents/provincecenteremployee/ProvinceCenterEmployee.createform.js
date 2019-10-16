@@ -9,7 +9,12 @@ import styles from './ProvinceCenterEmployee.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ProvinceCenterEmployeeBase from './ProvinceCenterEmployee.base'
+<<<<<<< HEAD
 
+=======
+import ProvinceCenterEmployeeCreateFormBody from './ProvinceCenterEmployee.createformbody'
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -20,7 +25,11 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
+<<<<<<< HEAD
   founded: '2017-05-31',
+=======
+  founded: '2016-10-28',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -71,7 +80,11 @@ class ProvinceCenterEmployeeCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
+<<<<<<< HEAD
 
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = ProvinceCenterEmployeeBase
     const {ProvinceCenterEmployeeService} = GlobalComponents
@@ -120,9 +133,16 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+<<<<<<< HEAD
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'provinceCenterEmployee',listName:'省中心员工列表' },
+=======
+     
+      dispatch({
+        type: `${owner.type}/goback`,
+        payload: { id: owner.id, type: 'provinceCenterEmployee',listName:appLocaleName(userContext,"List") },
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -153,7 +173,11 @@ class ProvinceCenterEmployeeCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -171,6 +195,12 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return null
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -180,6 +210,12 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return true
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -188,6 +224,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     }
     const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -303,10 +340,35 @@ class ProvinceCenterEmployeeCreateForm extends Component {
             </Row>
           </Form>  
         </Card>
+=======
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}省中心员工</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"CreateNew")}省中心员工`}
+        wrapperClassName={styles.advancedForm}
+      >
+   			
+   		<ProvinceCenterEmployeeCreateFormBody	 {...this.props} />
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
+<<<<<<< HEAD
             提交
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -316,6 +378,18 @@ class ProvinceCenterEmployeeCreateForm extends Component {
             放弃
           </Button>
         </FooterToolbar>
+=======
+            {appLocaleName(userContext,"Submit")}
+          </Button>
+          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
+            {appLocaleName(userContext,"SubmitAndContinue")}
+          </Button>
+          <Button type="danger" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Discard")}
+          </Button>
+        </FooterToolbar>
+      
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

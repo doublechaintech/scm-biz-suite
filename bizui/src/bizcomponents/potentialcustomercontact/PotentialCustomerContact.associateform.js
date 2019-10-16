@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import PotentialCustomerContactBase from './PotentialCustomerContact.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -19,7 +23,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
+<<<<<<< HEAD
   contactDate: '2016-10-13',
+=======
+  contactDate: '2017-09-20',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -76,6 +84,11 @@ class PotentialCustomerContactAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {PotentialCustomerContactService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -122,26 +135,43 @@ class PotentialCustomerContactAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入名称' }],
                   })(
                     <Input placeholder="请输入名称" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -149,9 +179,15 @@ class PotentialCustomerContactAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.contactDate} {...formItemLayout}>
                   {getFieldDecorator('contactDate', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入接触日期' }],
                   })(
                     <DatePicker format="YYYY-MM-DD" placeholder="请输入接触日期" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="接触日期" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -159,9 +195,15 @@ class PotentialCustomerContactAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.contactMethod} {...formItemLayout}>
                   {getFieldDecorator('contactMethod', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入接触法' }],
                   })(
                     <Input placeholder="请输入接触法" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="接触法" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -169,9 +211,15 @@ class PotentialCustomerContactAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.description} {...formItemLayout}>
                   {getFieldDecorator('description', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入描述' }],
                   })(
                     <Input placeholder="请输入描述" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="描述" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -197,7 +245,11 @@ class PotentialCustomerContactAssociateForm extends Component {
                 <Form.Item label={fieldLabels.potentialCustomer} {...formItemLayout}>
                   {getFieldDecorator('potentialCustomerId', {
                   	initialValue: tryinit('potentialCustomer'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入潜在的客户' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('potentialCustomer')}
@@ -212,7 +264,11 @@ class PotentialCustomerContactAssociateForm extends Component {
                 <Form.Item label={fieldLabels.cityPartner} {...formItemLayout}>
                   {getFieldDecorator('cityPartnerId', {
                   	initialValue: tryinit('cityPartner'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入城市合伙人' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('cityPartner')}
@@ -227,7 +283,11 @@ class PotentialCustomerContactAssociateForm extends Component {
                 <Form.Item label={fieldLabels.contactTo} {...formItemLayout}>
                   {getFieldDecorator('contactToId', {
                   	initialValue: tryinit('contactTo'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入接触' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('contactTo')}

@@ -10,9 +10,16 @@ import {
   message,
   Spin,
   Breadcrumb,
+<<<<<<< HEAD
   AutoComplete,
   Input,Button
 } from 'antd'
+=======
+  AutoComplete,Row, Col,
+  Input,Button
+} from 'antd'
+import TopMenu from '../../launcher/TopMenu'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import DocumentTitle from 'react-document-title'
 import { connect } from 'dva'
 import { Link, Route, Redirect, Switch } from 'dva/router'
@@ -31,6 +38,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import GlobalComponents from '../../custcomponents';
 
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+<<<<<<< HEAD
 
 const  {  filterForMenuPermission } = PermissionSettingService
 
@@ -48,6 +56,56 @@ const filteredMenuItems = (targetObject, targetComponent) => {
 
 const { Header, Sider, Content } = Layout
 const { SubMenu } = Menu
+=======
+import appLocaleName from '../../common/Locale.tool'
+import BizAppTool from '../../common/BizApp.tool'
+
+const { Header, Sider, Content } = Layout
+const { SubMenu } = Menu
+const {
+  defaultFilteredNoGroupMenuItems,
+  defaultFilteredMenuItemsGroup,
+  defaultRenderMenuItem,
+
+} = BizAppTool
+
+
+const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
+const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
+const renderMenuItem=defaultRenderMenuItem
+
+
+
+const userBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+
+const searchBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 12,
+  xl: 12,
+  
+};
+
+
+const naviBarResponsiveStyle = {
+  xs: 8,
+  sm: 8,
+  md: 8,
+  lg: 6,
+  xl: 6,
+  
+};
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const query = {
   'screen-xs': {
@@ -76,9 +134,13 @@ const query = {
 class UserDomainBizApp extends React.PureComponent {
   constructor(props) {
     super(props)
+<<<<<<< HEAD
     // 把一级 Layout 的 children 作为菜单项
     // this.menus = getNavData().reduce((arr, current) => arr.concat(current.children), [])
     this.state = {
+=======
+     this.state = {
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       openKeys: this.getDefaultCollapsedSubMenus(props),
     }
   }
@@ -117,6 +179,7 @@ class UserDomainBizApp extends React.PureComponent {
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
 	const {objectId}=targetApp;
+<<<<<<< HEAD
   
     return (
       
@@ -151,6 +214,36 @@ class UserDomainBizApp extends React.PureComponent {
                <Link to={`/userDomain/${this.props.userDomain.id}/preference`}><Icon type="setting" /><span>设置</span></Link>
              </Menu.Item>
       
+=======
+  	const userContext = null
+    return (
+	  <Menu
+        theme="dark"
+        mode="inline"
+        
+        onOpenChange={this.handleOpenChange}
+        defaultOpenKeys={['firstOne']}
+        style={{ width: '256px' }}
+       >
+           
+
+             <Menu.Item key="dashboard">
+               <Link to={`/userDomain/${this.props.userDomain.id}/dashboard`}><Icon type="dashboard" style={{marginRight:"20px"}}/><span>{appLocaleName(userContext,"Dashboard")}</span></Link>
+             </Menu.Item>
+           
+        {filteredNoGroupMenuItems(targetObject,this).map((item)=>(renderMenuItem(item)))}  
+        {filteredMenuItemsGroup(targetObject,this).map((groupedMenuItem,index)=>{
+          return(
+    <SubMenu key={`vg${index}`} title={<span><Icon type="folder" style={{marginRight:"20px"}} /><span>{`${groupedMenuItem.viewGroup}`}</span></span>} >
+      {groupedMenuItem.subItems.map((item)=>(renderMenuItem(item)))}  
+    </SubMenu>
+
+        )}
+        )}
+
+       		
+        
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            </Menu>
     )
   }
@@ -160,6 +253,10 @@ class UserDomainBizApp extends React.PureComponent {
 
   getUserWhiteListSearch = () => {
     const {UserWhiteListSearch} = GlobalComponents;
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       name: "用户白名单",
@@ -167,6 +264,10 @@ class UserDomainBizApp extends React.PureComponent {
       data: state._userDomain.userWhiteListList,
       metaInfo: state._userDomain.userWhiteListListMetaInfo,
       count: state._userDomain.userWhiteListCount,
+<<<<<<< HEAD
+=======
+      returnURL: `/userDomain/${state._userDomain.id}/dashboard`,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._userDomain.userWhiteListCurrentPageNumber,
       searchFormParameters: state._userDomain.userWhiteListSearchFormParameters,
       searchParameters: {...state._userDomain.searchParameters},
@@ -176,43 +277,78 @@ class UserDomainBizApp extends React.PureComponent {
       owner: { type: '_userDomain', id: state._userDomain.id, 
       referenceName: 'domain', 
       listName: 'userWhiteListList', ref:state._userDomain, 
+<<<<<<< HEAD
       listDisplayName: '用户白名单列表' }, // this is for model namespace and
+=======
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(UserWhiteListSearch)
   }
   getUserWhiteListCreateForm = () => {
    	const {UserWhiteListCreateForm} = GlobalComponents;
+<<<<<<< HEAD
+=======
+   	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "userWhiteList",
       data: state._userDomain.userWhiteListList,
       metaInfo: state._userDomain.userWhiteListListMetaInfo,
       count: state._userDomain.userWhiteListCount,
+<<<<<<< HEAD
       currentPage: state._userDomain.userWhiteListCurrentPageNumber,
       searchFormParameters: state._userDomain.userWhiteListSearchFormParameters,
       loading: state._userDomain.loading,
       owner: { type: '_userDomain', id: state._userDomain.id, referenceName: 'domain', listName: 'userWhiteListList', ref:state._userDomain, listDisplayName: '用户白名单列表'}, // this is for model namespace and
+=======
+      returnURL: `/userDomain/${state._userDomain.id}/list`,
+      currentPage: state._userDomain.userWhiteListCurrentPageNumber,
+      searchFormParameters: state._userDomain.userWhiteListSearchFormParameters,
+      loading: state._userDomain.loading,
+      owner: { type: '_userDomain', id: state._userDomain.id, referenceName: 'domain', listName: 'userWhiteListList', ref:state._userDomain, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(UserWhiteListCreateForm)
   }
   
   getUserWhiteListUpdateForm = () => {
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {UserWhiteListUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._userDomain.selectedRows,
       role: "userWhiteList",
       currentUpdateIndex: state._userDomain.currentUpdateIndex,
+<<<<<<< HEAD
       owner: { type: '_userDomain', id: state._userDomain.id, listName: 'userWhiteListList', ref:state._userDomain, listDisplayName: '用户白名单列表' }, // this is for model namespace and
+=======
+      owner: { type: '_userDomain', id: state._userDomain.id, listName: 'userWhiteListList', ref:state._userDomain, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(UserWhiteListUpdateForm)
   }
 
   getSecUserSearch = () => {
     const {SecUserSearch} = GlobalComponents;
+<<<<<<< HEAD
     return connect(state => ({
       rule: state.rule,
       name: "SEC的用户",
+=======
+    const userContext = null
+    return connect(state => ({
+      rule: state.rule,
+      name: "安全用户",
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       role: "secUser",
       data: state._userDomain.secUserList,
       metaInfo: state._userDomain.secUserListMetaInfo,
       count: state._userDomain.secUserCount,
+<<<<<<< HEAD
+=======
+      returnURL: `/userDomain/${state._userDomain.id}/dashboard`,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       currentPage: state._userDomain.secUserCurrentPageNumber,
       searchFormParameters: state._userDomain.secUserSearchFormParameters,
       searchParameters: {...state._userDomain.searchParameters},
@@ -222,31 +358,55 @@ class UserDomainBizApp extends React.PureComponent {
       owner: { type: '_userDomain', id: state._userDomain.id, 
       referenceName: 'domain', 
       listName: 'secUserList', ref:state._userDomain, 
+<<<<<<< HEAD
       listDisplayName: 'SEC的用户列表' }, // this is for model namespace and
+=======
+      listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SecUserSearch)
   }
   getSecUserCreateForm = () => {
    	const {SecUserCreateForm} = GlobalComponents;
+<<<<<<< HEAD
+=======
+   	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return connect(state => ({
       rule: state.rule,
       role: "secUser",
       data: state._userDomain.secUserList,
       metaInfo: state._userDomain.secUserListMetaInfo,
       count: state._userDomain.secUserCount,
+<<<<<<< HEAD
       currentPage: state._userDomain.secUserCurrentPageNumber,
       searchFormParameters: state._userDomain.secUserSearchFormParameters,
       loading: state._userDomain.loading,
       owner: { type: '_userDomain', id: state._userDomain.id, referenceName: 'domain', listName: 'secUserList', ref:state._userDomain, listDisplayName: 'SEC的用户列表'}, // this is for model namespace and
+=======
+      returnURL: `/userDomain/${state._userDomain.id}/list`,
+      currentPage: state._userDomain.secUserCurrentPageNumber,
+      searchFormParameters: state._userDomain.secUserSearchFormParameters,
+      loading: state._userDomain.loading,
+      owner: { type: '_userDomain', id: state._userDomain.id, referenceName: 'domain', listName: 'secUserList', ref:state._userDomain, listDisplayName: appLocaleName(userContext,"List")}, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SecUserCreateForm)
   }
   
   getSecUserUpdateForm = () => {
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	const {SecUserUpdateForm} = GlobalComponents;
     return connect(state => ({
       selectedRows: state._userDomain.selectedRows,
       role: "secUser",
       currentUpdateIndex: state._userDomain.currentUpdateIndex,
+<<<<<<< HEAD
       owner: { type: '_userDomain', id: state._userDomain.id, listName: 'secUserList', ref:state._userDomain, listDisplayName: 'SEC的用户列表' }, // this is for model namespace and
+=======
+      owner: { type: '_userDomain', id: state._userDomain.id, listName: 'secUserList', ref:state._userDomain, listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }))(SecUserUpdateForm)
   }
 
@@ -254,12 +414,22 @@ class UserDomainBizApp extends React.PureComponent {
   
   buildRouters = () =>{
   	const {UserDomainDashboard} = GlobalComponents
+<<<<<<< HEAD
   	const {UserDomainPreference} = GlobalComponents
+=======
+  	const {UserDomainPermission} = GlobalComponents
+  	const {UserDomainProfile} = GlobalComponents
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	const routers=[
   	{path:"/userDomain/:id/dashboard", component: UserDomainDashboard},
+<<<<<<< HEAD
   	{path:"/userDomain/:id/preference", component: UserDomainPreference},
+=======
+  	{path:"/userDomain/:id/profile", component: UserDomainProfile},
+  	{path:"/userDomain/:id/permission", component: UserDomainPermission},
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   	
   	
   	
@@ -314,6 +484,7 @@ class UserDomainBizApp extends React.PureComponent {
    render() {
      // const { collapsed, fetchingNotices,loading } = this.props
      const { collapsed } = this.props
+<<<<<<< HEAD
      const { breadcrumb }  = this.props
 
      //const {UserDomainEditDetail} = GlobalComponents
@@ -365,6 +536,87 @@ class UserDomainBizApp extends React.PureComponent {
 		 
          </Sider>
          <Layout>
+=======
+     
+  
+     const targetApp = sessionObject('targetApp')
+     const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+     const userContext = null
+     const renderBreadcrumbText=(value)=>{
+     	if(value==null){
+     		return "..."
+     	}
+     	if(value.length < 10){
+     		return value
+     	}
+     
+     	return value.substring(0,10)+"..."
+     	
+     	
+     }
+     const menuProps = collapsed ? {} : {
+       openKeys: this.state.openKeys,
+     }
+     const renderBreadcrumbMenuItem=(breadcrumbMenuItem)=>{
+
+      return (
+      <Menu.Item key={breadcrumbMenuItem.link}>
+      <Link key={breadcrumbMenuItem.link} to={`${breadcrumbMenuItem.link}`} className={styles.breadcrumbLink}>
+        <Icon type="heart" style={{marginRight:"10px",color:"red"}} />
+        {renderBreadcrumbText(breadcrumbMenuItem.name)}
+      </Link></Menu.Item>)
+
+     }
+     const breadcrumbMenu=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <Menu mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbMenuItem(item))}
+      </Menu>)
+  
+
+     }
+     const { Search } = Input;
+     const layout = (
+     <Layout>
+ <Header>
+          
+        <Row type="flex" justify="start" align="bottom">
+        
+        <Col {...naviBarResponsiveStyle} >
+            <Dropdown overlay= {this.getNavMenuItems(this.props.userDomain)}>
+              <a  className={styles.menuLink}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
+              </a>
+            </Dropdown>            
+            <Dropdown overlay={breadcrumbMenu()}>
+              <a  className={styles.menuLink}>
+                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
+              </a>
+            </Dropdown>
+        </Col>
+        <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
+          
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+          </Col>
+          <Col  {...userBarResponsiveStyle}  > 
+            <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
+                <a  className={styles.menuLink}>
+                  <Icon type="user" style={{fontSize:"20px",marginRight:"10px"}}/> 账户
+                </a>
+            </Dropdown>
+            
+           </Col>  
+         
+         </Row>
+        </Header>
+       <Layout>
+       
+         
+         <Layout>
+         
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}

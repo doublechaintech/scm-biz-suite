@@ -10,6 +10,10 @@ import FooterToolbar from '../../components/FooterToolbar'
 
 import styles from './ProductSupplyDuration.updateform.less'
 import ProductSupplyDurationBase from './ProductSupplyDuration.base'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -88,6 +92,10 @@ class ProductSupplyDurationUpdateForm extends Component {
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const { convertedImagesValues } = this.state
     const { setFieldsValue } = this.props.form
+<<<<<<< HEAD
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const {fieldLabels} = ProductSupplyDurationBase
     const capFirstChar = (value)=>{
     	//const upper = value.replace(/^\w/, c => c.toUpperCase());
@@ -100,7 +108,11 @@ class ProductSupplyDurationUpdateForm extends Component {
           console.log('code go here', error)
           return
         }
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         const { owner, role } = this.props
         const productSupplyDurationId = values.id
         const imagesValues = mapBackToImageValues(convertedImagesValues)
@@ -184,7 +196,11 @@ class ProductSupplyDurationUpdateForm extends Component {
         payload: {
           id: owner.id,
           type: 'productSupplyDuration',
+<<<<<<< HEAD
           listName:'产品供应时间列表' 
+=======
+          listName:appLocaleName(userContext,"List") 
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         },
       })
     }
@@ -215,7 +231,11 @@ class ProductSupplyDurationUpdateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -229,11 +249,16 @@ class ProductSupplyDurationUpdateForm extends Component {
     }
     
     if (!selectedRows) {
+<<<<<<< HEAD
       return (<div>缺少被更新的对象</div>)
+=======
+      return (<div>{appLocaleName(userContext,"NoTargetItems")}</div>)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     }
 	const selectedRow = this.getSelectedRow()
 
 	const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -249,10 +274,33 @@ class ProductSupplyDurationUpdateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
         <Card title="基础信息" className={styles.card} bordered={false}>
+=======
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}产品供应时间: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"Update")}${(currentUpdateIndex+1)}/${selectedRows.length}`}
+        wrapperClassName={styles.advancedForm}
+      >
+        <Card title={appLocaleName(userContext,"BasicInfo")} className={styles.card} bordered={false}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
             
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.id} {...formItemLayout}>
                   {getFieldDecorator('id', {
@@ -260,11 +308,21 @@ class ProductSupplyDurationUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入序号' }],
                   })(
                     <Input placeholder="请输入序号" disabled/>
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.id} {...formItemLayout}>
+                  {getFieldDecorator('id', {
+                    initialValue: selectedRow.id,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="序号" disabled/>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.quantity} {...formItemLayout}>
                   {getFieldDecorator('quantity', {
@@ -272,11 +330,21 @@ class ProductSupplyDurationUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入数量' }],
                   })(
                     <Input placeholder="请输入数量" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.quantity} {...formItemLayout}>
+                  {getFieldDecorator('quantity', {
+                    initialValue: selectedRow.quantity,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="数量" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.duration} {...formItemLayout}>
                   {getFieldDecorator('duration', {
@@ -284,11 +352,21 @@ class ProductSupplyDurationUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入持续时间' }],
                   })(
                     <Input placeholder="请输入持续时间" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.duration} {...formItemLayout}>
+                  {getFieldDecorator('duration', {
+                    initialValue: selectedRow.duration,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="持续时间" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
               <Col lg={12} md={12} sm={24}>
                 <Form.Item label={fieldLabels.price} {...formItemLayout}>
                   {getFieldDecorator('price', {
@@ -296,20 +374,34 @@ class ProductSupplyDurationUpdateForm extends Component {
                     rules: [{ required: true, message: '请输入价格' }],
                   })(
                     <Input placeholder="请输入价格" />
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.price} {...formItemLayout}>
+                  {getFieldDecorator('price', {
+                    initialValue: selectedRow.price,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
             </Row>
           </Form>  
         </Card>
+=======
+            
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        
         
         
         
 
 
+<<<<<<< HEAD
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
@@ -323,6 +415,31 @@ class ProductSupplyDurationUpdateForm extends Component {
           </Button>
           <Button type="default" onClick={goback} loading={submitting}>
             取消
+=======
+			</Row>
+          </Form>
+        </Card>
+
+
+
+
+
+
+
+        <FooterToolbar>
+          {getErrorInfo()}
+          <Button type="primary" onClick={submitUpdateForm} loading={submitting} htmlType="submit">
+            {appLocaleName(userContext,"Update")}
+          </Button>
+          <Button type="primary" onClick={submitUpdateFormAndContinue} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"UpdateAndContinue")}
+          </Button>
+          <Button type="default" onClick={skipToNext} loading={submitting} disabled={currentUpdateIndex + 1 >= selectedRows.length}>
+            {appLocaleName(userContext,"Skip")}
+          </Button>
+          <Button type="default" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Cancel")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           </Button>
         </FooterToolbar>
       </PageHeaderLayout>

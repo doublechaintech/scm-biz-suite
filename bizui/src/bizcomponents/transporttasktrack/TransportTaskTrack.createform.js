@@ -9,7 +9,12 @@ import styles from './TransportTaskTrack.createform.less'
 import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import TransportTaskTrackBase from './TransportTaskTrack.base'
+<<<<<<< HEAD
 
+=======
+import TransportTaskTrackCreateFormBody from './TransportTaskTrack.createformbody'
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -17,9 +22,15 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   trackTime: '2017-04-27',
   latitude: '30.591725491775502',
   longitude: '103.26651213919125',
+=======
+  trackTime: '2018-06-01',
+  latitude: '31.203110512597224',
+  longitude: '103.44820414191524',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   movementId: 'TT000001',
 }
 */
@@ -69,7 +80,11 @@ class TransportTaskTrackCreateForm extends Component {
   render() {
     const { form, dispatch, submitting, role } = this.props
     const { convertedImagesValues } = this.state
+<<<<<<< HEAD
 
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
     const {fieldLabels} = TransportTaskTrackBase
     const {TransportTaskTrackService} = GlobalComponents
@@ -118,9 +133,16 @@ class TransportTaskTrackCreateForm extends Component {
     
     const goback = () => {
       const { owner } = this.props
+<<<<<<< HEAD
       dispatch({
         type: `${owner.type}/goback`,
         payload: { id: owner.id, type: 'transportTaskTrack',listName:'运输任务跟踪列表' },
+=======
+     
+      dispatch({
+        type: `${owner.type}/goback`,
+        payload: { id: owner.id, type: 'transportTaskTrack',listName:appLocaleName(userContext,"List") },
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       })
     }
     const errors = getFieldsError()
@@ -151,7 +173,11 @@ class TransportTaskTrackCreateForm extends Component {
       return (
         <span className={styles.errorIcon}>
           <Popover
+<<<<<<< HEAD
             title="表单校验信息"
+=======
+            title={appLocaleName(userContext,"FieldValidateInfo")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
             content={errorList}
             overlayClassName={styles.errorPopover}
             trigger="click"
@@ -169,6 +195,12 @@ class TransportTaskTrackCreateForm extends Component {
     
     const tryinit  = (fieldName) => {
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return null
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return null
@@ -178,6 +210,12 @@ class TransportTaskTrackCreateForm extends Component {
     
     const availableForEdit= (fieldName) =>{
       const { owner } = this.props
+<<<<<<< HEAD
+=======
+      if(!owner){
+      	return true
+      }
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       const { referenceName } = owner
       if(referenceName!=fieldName){
         return true
@@ -186,6 +224,7 @@ class TransportTaskTrackCreateForm extends Component {
     
     }
     const formItemLayout = {
+<<<<<<< HEAD
       labelCol: { span: 10 },
       wrapperCol: { span: 14 },
     }
@@ -274,10 +313,35 @@ class TransportTaskTrackCreateForm extends Component {
             </Row>
           </Form>  
         </Card>
+=======
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    const switchFormItemLayout = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 9 },
+    }
+    
+    const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输任务跟踪</div>)
+    }
+
+	return (
+      <PageHeaderLayout
+        title={internalRenderTitle()}
+        content={`${appLocaleName(userContext,"CreateNew")}运输任务跟踪`}
+        wrapperClassName={styles.advancedForm}
+      >
+   			
+   		<TransportTaskTrackCreateFormBody	 {...this.props} />
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
         <FooterToolbar>
           {getErrorInfo()}
           <Button type="primary" onClick={submitCreateForm} loading={submitting} htmlType="submit">
+<<<<<<< HEAD
             提交
           </Button>
           <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
@@ -287,6 +351,18 @@ class TransportTaskTrackCreateForm extends Component {
             放弃
           </Button>
         </FooterToolbar>
+=======
+            {appLocaleName(userContext,"Submit")}
+          </Button>
+          <Button type="primary" onClick={submitCreateFormAndContinue} loading={submitting}>
+            {appLocaleName(userContext,"SubmitAndContinue")}
+          </Button>
+          <Button type="danger" onClick={goback} loading={submitting}>
+            {appLocaleName(userContext,"Discard")}
+          </Button>
+        </FooterToolbar>
+      
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
       </PageHeaderLayout>
     )
   }

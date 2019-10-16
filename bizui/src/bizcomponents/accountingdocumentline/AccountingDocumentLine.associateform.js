@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import AccountingDocumentLineBase from './AccountingDocumentLine.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -21,7 +25,11 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
+<<<<<<< HEAD
   amount: '928809.06',
+=======
+  amount: '805704.62',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -75,6 +83,11 @@ class AccountingDocumentLineAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {AccountingDocumentLineService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -121,26 +134,43 @@ class AccountingDocumentLineAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入名称' }],
                   })(
                     <Input placeholder="请输入名称" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -148,9 +178,15 @@ class AccountingDocumentLineAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.code} {...formItemLayout}>
                   {getFieldDecorator('code', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入代码' }],
                   })(
                     <Input placeholder="请输入代码" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="代码" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -158,9 +194,15 @@ class AccountingDocumentLineAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.direct} {...formItemLayout}>
                   {getFieldDecorator('direct', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入直接' }],
                   })(
                     <Input placeholder="请输入直接" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="直接" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -168,9 +210,15 @@ class AccountingDocumentLineAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.amount} {...formItemLayout}>
                   {getFieldDecorator('amount', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入金额' }],
                   })(
                     <Input placeholder="请输入金额" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -196,7 +244,11 @@ class AccountingDocumentLineAssociateForm extends Component {
                 <Form.Item label={fieldLabels.belongsTo} {...formItemLayout}>
                   {getFieldDecorator('belongsToId', {
                   	initialValue: tryinit('belongsTo'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入属于' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('belongsTo')}
@@ -211,7 +263,11 @@ class AccountingDocumentLineAssociateForm extends Component {
                 <Form.Item label={fieldLabels.accountingSubject} {...formItemLayout}>
                   {getFieldDecorator('accountingSubjectId', {
                   	initialValue: tryinit('accountingSubject'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入会计科目' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('accountingSubject')}

@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import SkuBase from './Sku.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -23,7 +27,11 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
+<<<<<<< HEAD
   price: '1155.08',
+=======
+  price: '1171.97',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   productId: 'P000001',
 }
 */
@@ -77,6 +85,11 @@ class SkuAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {SkuService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  const {GoodsModalTable} = GlobalComponents;
 
 
@@ -124,26 +137,43 @@ class SkuAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入名称' }],
                   })(
                     <Input placeholder="请输入名称" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -151,9 +181,15 @@ class SkuAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.size} {...formItemLayout}>
                   {getFieldDecorator('size', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入大小' }],
                   })(
                     <Input placeholder="请输入大小" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="大小" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -161,9 +197,15 @@ class SkuAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.barcode} {...formItemLayout}>
                   {getFieldDecorator('barcode', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入条码' }],
                   })(
                     <Input placeholder="请输入条码" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="条码" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -171,9 +213,15 @@ class SkuAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.packageType} {...formItemLayout}>
                   {getFieldDecorator('packageType', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入包装类型' }],
                   })(
                     <Input placeholder="请输入包装类型" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="包装类型" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -181,9 +229,15 @@ class SkuAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.netContent} {...formItemLayout}>
                   {getFieldDecorator('netContent', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入净含量' }],
                   })(
                     <Input placeholder="请输入净含量" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="净含量" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -191,9 +245,15 @@ class SkuAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.price} {...formItemLayout}>
                   {getFieldDecorator('price', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入价格' }],
                   })(
                     <Input placeholder="请输入价格" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -234,7 +294,11 @@ class SkuAssociateForm extends Component {
                 <Form.Item label={fieldLabels.product} {...formItemLayout}>
                   {getFieldDecorator('productId', {
                   	initialValue: tryinit('product'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入产品' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('product')}

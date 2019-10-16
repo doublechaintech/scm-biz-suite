@@ -20,6 +20,10 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import PermissionSetting from '../../permission/PermissionSetting'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const { Description } = DescriptionList;
 const { TabPane } = Tabs
 const { RangePicker } = DatePicker
@@ -36,7 +40,11 @@ const topColResponsiveProps = {
 
 
 const internalImageListOf = (goods) =>{
+<<<<<<< HEAD
 
+=======
+  const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   const imageList = [
 	 ]
   const filteredList = imageList.filter((item)=>item.imageLocation!=null)
@@ -44,7 +52,11 @@ const internalImageListOf = (goods) =>{
     return null
   }
 
+<<<<<<< HEAD
   return(<Card title='图片列表' className={styles.card}><Row type="flex" justify="start" align="bottom">
+=======
+  return(<Card title={appLocaleName(userContext,"ImageList")} className={styles.card}><Row type="flex" justify="start" align="bottom">
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   {
       filteredList.map((item,index)=>(<Col span={4} key={index}><ImagePreview imageTitle ={item.title} showTitleUnderImage={true} imageLocation={item.imageLocation} >{item.title}</ImagePreview></Col>))
   }</Row></Card> )
@@ -52,18 +64,30 @@ const internalImageListOf = (goods) =>{
 }
 
 const internalSettingListOf = (goods) =>{
+<<<<<<< HEAD
 
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	const optionList = [ 
 	]
 	
   if(optionList.length===0){
     return null
   }
+<<<<<<< HEAD
   return(<Card title='状态集合' className={styles.card}>
   	
   	{
   	  optionList.map((item)=><Col key={item.parameterName} span={6} style={{"height":"60px"}}>
        <Switch  title={item.title} checked={item.value} type={item.value?"success":"error"} checkedChildren="是" unCheckedChildren="否" />
+=======
+  return(<Card title={appLocaleName(userContext,"Switchers")} className={styles.card}>
+  	
+  	{
+  	  optionList.map((item)=><Col key={item.parameterName} span={6} style={{"height":"60px"}}>
+       <Switch  title={item.title} checked={item.value} type={item.value?"success":"error"} checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
        <span style={{"margin":"10px"}}>{item.title}</span>
        </Col>)
   	}
@@ -113,14 +137,22 @@ const handleTransferSearch =(targetComponent,filterKey,newRequest)=>{
     targetComponent.setState({
      ...parameters,
       candidateReferenceList,
+<<<<<<< HEAD
       transferModalVisiable:true,transferModalTitle:"重新分配<"+targetLocalName+">"
+=======
+      transferModalVisiable:true,transferModalTitle:appLocaleName(userContext,"Reassign")+targetLocalName+">"
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
      
     })
 
   })
 
 }
+<<<<<<< HEAD
 //  onClick={()=>showTransferModel(targetComponent,"城市","city","requestCandidateDistrict","transferToAnotherDistrict")} 
+=======
+//  onClick={()=>showTransferModel(targetComponent,{appLocaleName(userContext,"City")},"city","requestCandidateDistrict","transferToAnotherDistrict")} 
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const showTransferModel = (targetComponent,targetLocalName,
   candidateObjectType,candidateServiceName, transferServiceName, transferTargetParameterName,currentValue) => {
@@ -201,9 +233,15 @@ const buildTransferModal = (goods,targetComponent) => {
             <Row gutter={16}>
 
               <Col lg={24} md={24} sm={24}>
+<<<<<<< HEAD
                 <Form.Item label={`请选择新的${targetLocalName}`} {...formItemLayout}>
                   {getFieldDecorator(transferTargetParameterName, {
                     rules: [{ required: true, message: '请搜索' }],
+=======
+                <Form.Item label={`${appLocaleName(userContext,"PleaseSelectNew")}${targetLocalName}`} {...formItemLayout}>
+                  {getFieldDecorator(transferTargetParameterName, {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseSearch") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                     initialValue: currentValue
                   })(
                     <AutoComplete
@@ -240,13 +278,23 @@ const internalRenderExtraFooter = (goods) =>{
 }
 const internalSubListsOf = (cardsData) =>{
 	const {id} = cardsData.cardsSource;
+<<<<<<< HEAD
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (<Row gutter={24}>
 
            {cardsData.subItems.sort((x,y)=>x.displayName.localeCompare(y.displayName, 'zh-CN')).map((item)=>(<Col {...topColResponsiveProps} key={item.name}>   
             <Card title={`${item.displayName}(${numeral(item.count).format('0,0')})`}  style={{ width: 180 }}>             
+<<<<<<< HEAD
               <p><Link to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}><FontAwesome name="list"  />&nbsp;管理</Link>
               
               {item.addFunction&&(<Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`}><span className={styles.splitLine}></span><FontAwesome name="plus"  />&nbsp;新增</Link>)}   
+=======
+              <p><Link to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}><FontAwesome name="list"  />&nbsp;{appLocaleName(userContext,"Manage")}</Link>
+              
+              {item.addFunction&&(<Link to={`/${cardsData.cardsFor}/${id}/list/${item.role}CreateForm`}><span className={styles.splitLine}></span><FontAwesome name="plus"  />&nbsp;{appLocaleName(userContext,"Add")}</Link>)}   
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               
               </p>         
           </Card> 
@@ -255,7 +303,11 @@ const internalSubListsOf = (cardsData) =>{
 }
 
 const internalSummaryOf = (goods,targetComponent) =>{
+<<<<<<< HEAD
 
+=======
+    const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{goods.id}</Description> 
@@ -264,55 +316,91 @@ const internalSummaryOf = (goods,targetComponent) =>{
 <Description term="计量单位">{goods.uom}</Description> 
 <Description term="最大包装">{goods.maxPackage}</Description> 
 <Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
+<<<<<<< HEAD
 <Description term="SKU">{goods.sku==null?"未分配":goods.sku.displayName}
+=======
+<Description term="SKU">{goods.sku==null?appLocaleName(userContext,"NotAssigned"):goods.sku.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"SKU","sku","requestCandidateSku",
 	      "transferToAnotherSku","anotherSkuId",goods.sku?goods.sku.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="收货区">{goods.receivingSpace==null?"未分配":goods.receivingSpace.displayName}
+=======
+<Description term="收货区">{goods.receivingSpace==null?appLocaleName(userContext,"NotAssigned"):goods.receivingSpace.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"收货区","receivingSpace","requestCandidateReceivingSpace",
 	      "transferToAnotherReceivingSpace","anotherReceivingSpaceId",goods.receivingSpace?goods.receivingSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="货位">{goods.goodsAllocation==null?"未分配":goods.goodsAllocation.displayName}
+=======
+<Description term="货位">{goods.goodsAllocation==null?appLocaleName(userContext,"NotAssigned"):goods.goodsAllocation.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"货位","goodsAllocation","requestCandidateGoodsAllocation",
 	      "transferToAnotherGoodsAllocation","anotherGoodsAllocationId",goods.goodsAllocation?goods.goodsAllocation.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="智能托盘">{goods.smartPallet==null?"未分配":goods.smartPallet.displayName}
+=======
+<Description term="智能托盘">{goods.smartPallet==null?appLocaleName(userContext,"NotAssigned"):goods.smartPallet.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"智能托盘","smartPallet","requestCandidateSmartPallet",
 	      "transferToAnotherSmartPallet","anotherSmartPalletId",goods.smartPallet?goods.smartPallet.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="发货区">{goods.shippingSpace==null?"未分配":goods.shippingSpace.displayName}
+=======
+<Description term="发货区">{goods.shippingSpace==null?appLocaleName(userContext,"NotAssigned"):goods.shippingSpace.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"发货区","shippingSpace","requestCandidateShippingSpace",
 	      "transferToAnotherShippingSpace","anotherShippingSpaceId",goods.shippingSpace?goods.shippingSpace.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="运输任务">{goods.transportTask==null?"未分配":goods.transportTask.displayName}
+=======
+<Description term="运输任务">{goods.transportTask==null?appLocaleName(userContext,"NotAssigned"):goods.transportTask.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"运输任务","transportTask","requestCandidateTransportTask",
 	      "transferToAnotherTransportTask","anotherTransportTaskId",goods.transportTask?goods.transportTask.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="双链小超">{goods.retailStore==null?"未分配":goods.retailStore.displayName}
+=======
+<Description term="双链小超">{goods.retailStore==null?appLocaleName(userContext,"NotAssigned"):goods.retailStore.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"双链小超","retailStore","requestCandidateRetailStore",
 	      "transferToAnotherRetailStore","anotherRetailStoreId",goods.retailStore?goods.retailStore.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="订单">{goods.bizOrder==null?"未分配":goods.bizOrder.displayName}
+=======
+<Description term="订单">{goods.bizOrder==null?appLocaleName(userContext,"NotAssigned"):goods.bizOrder.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","supplyOrder","requestCandidateBizOrder",
 	      "transferToAnotherBizOrder","anotherBizOrderId",goods.bizOrder?goods.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="生超的订单">{goods.retailStoreOrder==null?"未分配":goods.retailStoreOrder.displayName}
+=======
+<Description term="生超的订单">{goods.retailStoreOrder==null?appLocaleName(userContext,"NotAssigned"):goods.retailStoreOrder.displayName}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"生超的订单","retailStoreOrder","requestCandidateRetailStoreOrder",
 	      "transferToAnotherRetailStoreOrder","anotherRetailStoreOrderId",goods.retailStoreOrder?goods.retailStoreOrder.id:"")} 
@@ -341,8 +429,13 @@ class GoodsPreference extends Component {
     transferModalVisiable: false,
     candidateReferenceList: {},
     candidateServiceName:"",
+<<<<<<< HEAD
     candidateObjectType:"city",
     targetLocalName:"城市",
+=======
+    candidateObjectType:"",
+    targetLocalName:"",
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:""
@@ -362,7 +455,11 @@ class GoodsPreference extends Component {
     
       	],
   	};
+<<<<<<< HEAD
     //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
+=======
+    //{appLocaleName(userContext,"EveryPartCanBeCustomed")}_features="custom"{appLocaleName(userContext,"Getacustomsample")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf

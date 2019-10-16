@@ -1,11 +1,18 @@
 
 
 import React, { Component } from 'react'
+<<<<<<< HEAD
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'dva'
 import moment from 'moment'
 import BooleanOption from 'components/BooleanOption';
 import { Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+=======
+import { connect } from 'dva'
+import moment from 'moment'
+import BooleanOption from '../../components/BooleanOption';
+import { Button, Row, Col, Icon, Card, Tabs, Table, Radio, DatePicker, Tooltip, Menu, Dropdown,Badge, Switch,Select,Form,AutoComplete,Modal } from 'antd'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 import { Link, Route, Redirect} from 'dva/router'
 import numeral from 'numeral'
 import {
@@ -20,14 +27,24 @@ import DescriptionList from '../../components/DescriptionList';
 import ImagePreview from '../../components/ImagePreview';
 import GlobalComponents from '../../custcomponents';
 import DashboardTool from '../../common/Dashboard.tool'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const {aggregateDataset,calcKey, defaultHideCloseTrans,
   defaultImageListOf,defaultSettingListOf,defaultBuildTransferModal,
   defaultExecuteTrans,defaultHandleTransferSearch,defaultShowTransferModel,
   defaultRenderExtraHeader,
+<<<<<<< HEAD
   defaultSubListsOf,
   defaultRenderExtraFooter,renderForTimeLine,renderForNumbers
+=======
+  defaultSubListsOf,defaultRenderAnalytics,
+  defaultRenderExtraFooter,renderForTimeLine,renderForNumbers,
+  defaultQuickFunctions, defaultRenderSubjectList,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 }= DashboardTool
 
 
@@ -48,6 +65,10 @@ const optionList =(retailStoreCountryCenter)=>{return [
 
 const buildTransferModal = defaultBuildTransferModal
 const showTransferModel = defaultShowTransferModel
+<<<<<<< HEAD
+=======
+const internalRenderSubjectList = defaultRenderSubjectList
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const internalSettingListOf = (retailStoreCountryCenter) =>defaultSettingListOf(retailStoreCountryCenter, optionList)
 const internalLargeTextOf = (retailStoreCountryCenter) =>{
 
@@ -63,11 +84,55 @@ const internalRenderExtraFooter = defaultRenderExtraFooter
 const internalSubListsOf = defaultSubListsOf
 
 
+<<<<<<< HEAD
 const internalRenderTitle = (cardsData,targetComponent) =>{
   
   
   const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <FontAwesome name="arrow-left"  /> </Link>:null
   return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName}</div>)
+=======
+const renderSettingDropDown = (cardsData,targetComponent)=>{
+
+  return (<div style={{float: 'right'}} >
+        <Dropdown overlay={renderSettingMenu(cardsData,targetComponent)} placement="bottomRight" >
+       
+        <Button>
+        <Icon type="setting" theme="filled" twoToneColor="#00b" style={{color:'#3333b0'}}/> 设置  <Icon type="down"/>
+      </Button>
+      </Dropdown></div>)
+
+}
+
+const renderSettingMenuItem = (item,cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu.Item key={item.name}>
+      <Link to={`/retailStoreCountryCenter/${targetComponent.props.retailStoreCountryCenter.id}/list/${item.name}/${item.displayName}/`}>
+        <span>{item.displayName}</span>
+        </Link>
+        </Menu.Item>
+  )
+
+}
+const renderSettingMenu = (cardsData,targetComponent) =>{
+
+  const userContext = null
+  return (<Menu>
+    	<Menu.Item key="profile">
+  			<Link to={`/retailStoreCountryCenter/${targetComponent.props.retailStoreCountryCenter.id}/permission`}><Icon type="safety-certificate" theme="twoTone" twoToneColor="#52c41a"/><span>{appLocaleName(userContext,"Permission")}</span></Link>
+		</Menu.Item>
+		<Menu.Divider />
+		{cardsData.subSettingItems.map(item=>renderSettingMenuItem(item,cardsData,targetComponent))}
+		</Menu>)
+
+}
+
+const internalRenderTitle = (cardsData,targetComponent) =>{
+  
+  
+  const linkComp=cardsData.returnURL?<Link to={cardsData.returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
+  return (<div>{linkComp}{cardsData.cardsName}: {cardsData.displayName} {renderSettingDropDown(cardsData,targetComponent)}</div>)
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 }
 
@@ -76,7 +141,11 @@ const internalSummaryOf = (retailStoreCountryCenter,targetComponent) =>{
 	
 	
 	const {RetailStoreCountryCenterService} = GlobalComponents
+<<<<<<< HEAD
 	
+=======
+	const userContext = null
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{retailStoreCountryCenter.id}</Description> 
@@ -95,6 +164,10 @@ const internalSummaryOf = (retailStoreCountryCenter,targetComponent) =>{
 
 }
 
+<<<<<<< HEAD
+=======
+const internalQuickFunctions = defaultQuickFunctions
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 class RetailStoreCountryCenterDashboard extends Component {
 
@@ -103,7 +176,11 @@ class RetailStoreCountryCenterDashboard extends Component {
     candidateReferenceList: {},
     candidateServiceName:"",
     candidateObjectType:"city",
+<<<<<<< HEAD
     targetLocalName:"城市",
+=======
+    targetLocalName:"",
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     transferServiceName:"",
     currentValue:"",
     transferTargetParameterName:"",  
@@ -127,6 +204,7 @@ class RetailStoreCountryCenterDashboard extends Component {
     const cardsData = {cardsName:"双链小超全国运营中心",cardsFor: "retailStoreCountryCenter",
     	cardsSource: this.props.retailStoreCountryCenter,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'catalogList', displayName:'目录',type:'catalog',count:catalogCount,addFunction: true, role: 'catalog', metaInfo: catalogListMetaInfo},
 {name: 'retailStoreProvinceCenterList', displayName:'双链小超省中心',type:'retailStoreProvinceCenter',count:retailStoreProvinceCenterCount,addFunction: true, role: 'retailStoreProvinceCenter', metaInfo: retailStoreProvinceCenterListMetaInfo},
 {name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo},
@@ -145,6 +223,39 @@ class RetailStoreCountryCenterDashboard extends Component {
       	],
   	};
     //下面各个渲染方法都可以定制，只要在每个模型的里面的_features="custom"就可以得到定制的例子
+=======
+{name: 'catalogList', displayName:'目录',type:'catalog',count:catalogCount,addFunction: true, role: 'catalog', metaInfo: catalogListMetaInfo, renderItem: GlobalComponents.CatalogBase.renderItemOfList},
+{name: 'retailStoreProvinceCenterList', displayName:'双链小超省中心',type:'retailStoreProvinceCenter',count:retailStoreProvinceCenterCount,addFunction: true, role: 'retailStoreProvinceCenter', metaInfo: retailStoreProvinceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreProvinceCenterBase.renderItemOfList},
+{name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
+{name: 'retailStoreMemberList', displayName:'生超会员',type:'retailStoreMember',count:retailStoreMemberCount,addFunction: true, role: 'retailStoreMember', metaInfo: retailStoreMemberListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberBase.renderItemOfList},
+{name: 'goodsSupplierList', displayName:'产品供应商',type:'goodsSupplier',count:goodsSupplierCount,addFunction: true, role: 'goodsSupplier', metaInfo: goodsSupplierListMetaInfo, renderItem: GlobalComponents.GoodsSupplierBase.renderItemOfList},
+{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+{name: 'warehouseList', displayName:'仓库',type:'warehouse',count:warehouseCount,addFunction: true, role: 'warehouse', metaInfo: warehouseListMetaInfo, renderItem: GlobalComponents.WarehouseBase.renderItemOfList},
+{name: 'transportFleetList', displayName:'运输车队',type:'transportFleet',count:transportFleetCount,addFunction: true, role: 'transportFleet', metaInfo: transportFleetListMetaInfo, renderItem: GlobalComponents.TransportFleetBase.renderItemOfList},
+{name: 'accountSetList', displayName:'账套',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
+{name: 'levelOneDepartmentList', displayName:'一级部门',type:'levelOneDepartment',count:levelOneDepartmentCount,addFunction: true, role: 'levelOneDepartment', metaInfo: levelOneDepartmentListMetaInfo, renderItem: GlobalComponents.LevelOneDepartmentBase.renderItemOfList},
+{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'instructorList', displayName:'讲师',type:'instructor',count:instructorCount,addFunction: true, role: 'instructor', metaInfo: instructorListMetaInfo, renderItem: GlobalComponents.InstructorBase.renderItemOfList},
+{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+    
+      	],
+   		subSettingItems: [
+{name: 'skillTypeList', displayName:'技能类型',type:'skillType',count:skillTypeCount,addFunction: true, role: 'skillType', metaInfo: skillTypeListMetaInfo, renderItem: GlobalComponents.SkillTypeBase.renderItemOfList},
+{name: 'responsibilityTypeList', displayName:'责任类型',type:'responsibilityType',count:responsibilityTypeCount,addFunction: true, role: 'responsibilityType', metaInfo: responsibilityTypeListMetaInfo, renderItem: GlobalComponents.ResponsibilityTypeBase.renderItemOfList},
+{name: 'terminationReasonList', displayName:'雇佣终止的原因',type:'terminationReason',count:terminationReasonCount,addFunction: true, role: 'terminationReason', metaInfo: terminationReasonListMetaInfo, renderItem: GlobalComponents.TerminationReasonBase.renderItemOfList},
+{name: 'terminationTypeList', displayName:'雇佣终止类型',type:'terminationType',count:terminationTypeCount,addFunction: true, role: 'terminationType', metaInfo: terminationTypeListMetaInfo, renderItem: GlobalComponents.TerminationTypeBase.renderItemOfList},
+{name: 'occupationTypeList', displayName:'职位类型',type:'occupationType',count:occupationTypeCount,addFunction: true, role: 'occupationType', metaInfo: occupationTypeListMetaInfo, renderItem: GlobalComponents.OccupationTypeBase.renderItemOfList},
+{name: 'leaveTypeList', displayName:'请假类型',type:'leaveType',count:leaveTypeCount,addFunction: true, role: 'leaveType', metaInfo: leaveTypeListMetaInfo, renderItem: GlobalComponents.LeaveTypeBase.renderItemOfList},
+{name: 'salaryGradeList', displayName:'工资等级',type:'salaryGrade',count:salaryGradeCount,addFunction: true, role: 'salaryGrade', metaInfo: salaryGradeListMetaInfo, renderItem: GlobalComponents.SalaryGradeBase.renderItemOfList},
+{name: 'interviewTypeList', displayName:'面试类型',type:'interviewType',count:interviewTypeCount,addFunction: true, role: 'interviewType', metaInfo: interviewTypeListMetaInfo, renderItem: GlobalComponents.InterviewTypeBase.renderItemOfList},
+{name: 'trainingCourseTypeList', displayName:'培训课程类型',type:'trainingCourseType',count:trainingCourseTypeCount,addFunction: true, role: 'trainingCourseType', metaInfo: trainingCourseTypeListMetaInfo, renderItem: GlobalComponents.TrainingCourseTypeBase.renderItemOfList},
+{name: 'publicHolidayList', displayName:'公共假日',type:'publicHoliday',count:publicHolidayCount,addFunction: true, role: 'publicHoliday', metaInfo: publicHolidayListMetaInfo, renderItem: GlobalComponents.PublicHolidayBase.renderItemOfList},
+    
+      	],     	
+      	
+  	};
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     
     const renderExtraHeader = this.props.renderExtraHeader || internalRenderExtraHeader
     const settingListOf = this.props.settingListOf || internalSettingListOf
@@ -154,6 +265,13 @@ class RetailStoreCountryCenterDashboard extends Component {
     const summaryOf = this.props.summaryOf || internalSummaryOf
     const renderTitle = this.props.renderTitle || internalRenderTitle
     const renderExtraFooter = this.props.renderExtraFooter || internalRenderExtraFooter
+<<<<<<< HEAD
+=======
+    const renderAnalytics = this.props.renderAnalytics || defaultRenderAnalytics
+    const quickFunctions = this.props.quickFunctions || internalQuickFunctions
+    const renderSubjectList = this.props.renderSubjectList || internalRenderSubjectList
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     return (
 
       <PageHeaderLayout
@@ -161,6 +279,7 @@ class RetailStoreCountryCenterDashboard extends Component {
         content={summaryOf(cardsData.cardsSource,this)}
         wrapperClassName={styles.advancedForm}
       >
+<<<<<<< HEAD
       {renderExtraHeader(cardsData.cardsSource)}
         <div>
         {settingListOf(cardsData.cardsSource)}
@@ -170,6 +289,20 @@ class RetailStoreCountryCenterDashboard extends Component {
           
         </div>
       </PageHeaderLayout>
+=======
+       
+        {renderExtraHeader(cardsData.cardsSource)}
+        {imageListOf(cardsData.cardsSource)}  
+        {quickFunctions(cardsData)} 
+        {renderAnalytics(cardsData.cardsSource)}
+        {settingListOf(cardsData.cardsSource)}
+        {renderSubjectList(cardsData)}       
+        {largeTextOf(cardsData.cardsSource)}
+        {renderExtraFooter(cardsData.cardsSource)}
+  		
+      </PageHeaderLayout>
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
     )
   }
 }

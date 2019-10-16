@@ -49,7 +49,15 @@ const hasItemReadPermission=(item)=>{
   if(!item){
     return false
   }
+<<<<<<< HEAD
   
+=======
+  /*
+  if(!item.addFunction){
+    return false
+  }
+  */
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   if(!item.metaInfo){
     return true //for old code
   }

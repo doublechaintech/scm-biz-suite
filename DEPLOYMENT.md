@@ -1,12 +1,60 @@
 # 零售供应链中台基础系统 运行指南
 
+系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS，支持使用resin和SpringBoot来部署，不支持Tomcat服务器的war部署方式。
 
-系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS
+## 复制代码到本地
+
+```
+git clone https://github.com/doublechaintech/retailscm-biz-suite.git
+```
+
 
 ## 前端 
-前端使用yarn编译, 由于项目庞大, 必须设置额外的两个参数nodejs参数
+
+### 安装nodejs
+```
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+## 安装yarn 
+
+```
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+```
+## 编译
+前端使用yarn编译, 由于项目庞大, 编译的计算机至少具有空闲6G~8G内存，而且必须设置额外的两个参数nodejs参数
 * NODE_OPTIONS=--max-old-space-size=10230，增加编译内容， 或者安装并且下载 increase-memory-limit 
-* PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chrome防止下载时间过长
+* PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chromium防止下载时间过长
+
+在 ~/.bash_profile 里面加入
+```
+export NODE_OPTIONS=--max-old-space-size=10230
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+```
+
+不设置环境变量会导致
+
+```
+==== JS stack trace =========================================
+
+    0: ExitFrame [pc: 0x1b1e8aadbe1d]
+    1: StubFrame [pc: 0x1b1e8d56aba2]
+Security context: 0x2be87309e6e9 <JSObject>
+    2: getOptions(aka getOptions) [0x19d718b916d1] [/home/philip/githome/retailscm-biz-suite/bizui/node_modules/acorn/dist/acorn.js:403] [bytecode=0x19e0b9bbeaa9 offset=85](this=0x1a01d14026f1 <undefined>,opts=0x0b7c125f33f9 <Object map = 0x27e6b3c63c59>)
+    3: new constructor(aka Parser) [0x41cc263b091] [/home/philip/g...
+
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+ 1: 0x8fa0c0 node::Abort() [/usr/bin/node]
+
+```
+
+
+新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证, 
+
+
 
 然后执行
 
@@ -15,15 +63,27 @@ cd retailscm-biz-suite/bizui/ && yarn install && yarn build
 
 ```
 
+如何之前使用过旧的版本，可能出现错误，
+```
+bizui/src/index.js: helpers(...).minVersion is not a function
+```
+解决办法，清理掉node_modules
+
+```
+rm -rf node_modules && yarn install && yarn build
+```
+
 下载时间随网络情况而定，编译时间大约从300秒到700秒，此步骤需要一颗强劲的CPU
 
-在bizui目录下面的dist目录就会有需要部署的所有的js文件和其他文件，可以部署到任何地方,使用CDN对响应速度帮助很大
+在bizui目录下面的dist目录就会有需要部署的所有的js文件和其他文件，可以部署到任何地方, 使用CDN对响应速度帮助很大，这个步骤是获得基于前后端分离的，基于Ant Design的前端部署包。
+
+
 
 ## 后端
 
-后端有反向代理服务器ngnix，servlet容器Resin或者Tomcat（后期换成Spring Boot），数据库服务器MySQL，缓存服务器Redis组成，消息服务器kafka，多层次权限管理需要图数据库arrangodb，外部email服务器，阿里云短信服务器，OSS服务器，极光app消息push服务器，区块链超级账本fabric节点。
+后端有反向代理服务器ngnix，servlet容器Resin或者Tomcat（后期换成Spring Boot），最小配置需要数据库服务器MySQL，缓存服务器Redis组成。其他如消息服务器kafka，多层次权限管理需要图数据库arrangodb，外部email服务器，阿里云短信服务器，OSS服务器，极光app消息push服务器，区块链超级账本fabric节点。
 
-### 下载Resin
+### 下载并且解压Resin
 
 https://caucho.com/products/resin/download/3-1/gpl
 
@@ -35,7 +95,7 @@ sudo groupadd docker
 sudo usermod -aG docker $USER 
 ```
 
-### 安装MYSQL和Redis
+### 安装和运行MYSQL和Redis
 
 
 
@@ -46,6 +106,7 @@ docker run -d -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysq
 docker run -d --name  demo_redis -p 6379:6379 redis
  
 ```
+### 修改MYSQL字符集（非生产环境可以忽略此步骤）
 
 请注意，mysql5.7默认的字符集不是utf8mb4, 需求修改相关配置来支持utf8mb4
 
@@ -68,12 +129,10 @@ default-time-zone =+08:00
 
 ```
 
-MySQL的初始化脚本问题文件在 bizcore/retailscm_core_src/META-INF/retailscm_mysql.sql下面
+MySQL的初始化脚本问题文件在 bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql下面
 
-配置文件在bizcore/retailscm_custom_src/META-INF/infra.properties里面
+配置文件在bizcore/WEB-INF/retailscm_custom_src/META-INF/infra.properties里面
 
-
-Redis很简单，运行就是了
 
 
 ### 编译
@@ -83,22 +142,51 @@ java项目使用gradle来编译，为了快速开发， 我们只是把java文�
 使用最新的gradle 5.1， sdk install gradle 5.1
 
 ```
-cd  retailscm-biz-suite/bizcore&& gradle classes
+cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
 ```
 
 这个过程大约在10多秒到20秒这样得到编译后的classes，在WEB-INF/classes
 
-
-
-
-### 配置nginx
-
-这一步非常简单，拷贝这个文件到 /etc/nginx/sites-enabled/demo, 然后 service ngnix start
-
-
+然后把执行 
+```
+ln -s  $PWD/bizcore  ~/resin-3.1.16/webapps/retailscm
+```
+### 启动Resin
 
 ```
+cd  resin-3.1.16/ && bin/httpd.sh
+```
+这样服务器就启动了
+
+### 访问后台
+
+云服务器记得打开端口8080, 此步骤是运行后端，后端除了提供了REST API以外，还提供了基于JSP的操作界面，这个界面主要用于调试的时候显示大量数据用于验证程序逻辑。
+
+```
+http://localhost:8080/retailscm/secUserManager/home/
+```
+
+### 测试前端
+
+```
+mkdir -p ~/resin-3.1.16/webapps/ROOT/admin
+cd  retailscm-biz-suite/bizui && cp -R dist/* ~/resin-3.1.16/webapps/ROOT/admin
+
+```
+访问 http://localhost:8080/admin/index.html
+
+
+
+### 配置nginx（ 非生产环境的话，不是必要步骤）
+
+这一步非常简单，拷贝下面内容文件到 ubuntu上 /etc/nginx/sites-enabled/demo, 然后 service ngnix restart
+请注意替换服务器名字
+server_name demo.doublechaintech.com;
+
+```
+
 server {
+
 	gzip on;
 	gzip_disable "msie6";
 	
@@ -119,29 +207,11 @@ server {
 	    application/rss+xml
 	    image/svg+xml;
 
-	# SSL configuration
-	#
-	# listen 443 ssl default_server;
-	# listen [::]:443 ssl default_server;
-	#
-	# Note: You should disable gzip for SSL traffic.
-	# See: https://bugs.debian.org/773332
-	#
-	# Read up on ssl_ciphers to ensure a secure configuration.
-	# See: https://bugs.debian.org/765782
-	#
-	# Self signed certs generated by the ssl-cert package
-	# Don't use them in a production server!
-	#
-	# include snippets/snakeoil.conf;
-
 	root /var/www/html;
 
-	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;
 
 	server_name demo.doublechaintech.com;
-
 
 	location / {
 
@@ -154,24 +224,45 @@ server {
         	proxy_set_header        X-Forwarded-Port   80;
         	proxy_set_header        X-Forwarded-Proto  http;
        }
+}
+```
 
 
 
+### SpringBoot开发指南
 
+在正式生产环境下，使用SpringBoot部署更容易，源代码的位置在：
 
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/demo.doublechaintech.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/demo.doublechaintech.com/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+com.skynet.bootstrap.AppEntrance
 
+```
+public class AppEntrance {
+    public static void main(String[] args) {
+        SpringApplication.run(AppEntrance.class, args);
+    }
+
+    @Bean
+    public ServletRegistrationBean dispatcherRegistration(DispatcherServlet dispatcherServlet) {
+        ServletRegistrationBean reg = new ServletRegistrationBean(dispatcherServlet);
+        reg.getUrlMappings().clear();
+        reg.addUrlMappings("*.css");
+        reg.addUrlMappings("*.txt");
+        reg.addUrlMappings("*.js");
+        reg.addUrlMappings("*.jpg");
+        return reg;
+    }
 }
 
 ```
+最新的SpringBoot2.1.6配置文件 retailscm_custom_src/application.properties, 确保能够重载已经存在的bean来修改相关行为。
 
-### 使用Tomcat容器）
+```
+server.servlet.context-path=/retailscm
+spring.main.allow-bean-definition-overriding=true
+```
 
-url-pattern 参数无法配置，未成功
+
+
 
 
 

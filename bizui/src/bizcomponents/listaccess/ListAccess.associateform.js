@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import ListAccessBase from './ListAccess.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -72,6 +76,11 @@ class ListAccessAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {ListAccessService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -118,26 +127,43 @@ class ListAccessAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入名称' }],
                   })(
                     <Input placeholder="请输入名称" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -145,9 +171,15 @@ class ListAccessAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.internalName} {...formItemLayout}>
                   {getFieldDecorator('internalName', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入内部名称' }],
                   })(
                     <Input placeholder="请输入内部名称" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="内部名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -164,10 +196,17 @@ class ListAccessAssociateForm extends Component {
                 <Form.Item label={fieldLabels.readPermission}  {...switchFormItemLayout}>
                   {getFieldDecorator('readPermission', {
                     initialValue: false,
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入读权限' }],
                     valuePropName: 'checked'
                   })(
                     <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入读权限bool" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    valuePropName: 'checked'
+                  })(
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -176,10 +215,17 @@ class ListAccessAssociateForm extends Component {
                 <Form.Item label={fieldLabels.createPermission}  {...switchFormItemLayout}>
                   {getFieldDecorator('createPermission', {
                     initialValue: false,
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入创建权限' }],
                     valuePropName: 'checked'
                   })(
                     <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入创建权限bool" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    valuePropName: 'checked'
+                  })(
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -188,10 +234,17 @@ class ListAccessAssociateForm extends Component {
                 <Form.Item label={fieldLabels.deletePermission}  {...switchFormItemLayout}>
                   {getFieldDecorator('deletePermission', {
                     initialValue: false,
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入删除权限' }],
                     valuePropName: 'checked'
                   })(
                     <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入删除权限bool" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    valuePropName: 'checked'
+                  })(
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -200,10 +253,17 @@ class ListAccessAssociateForm extends Component {
                 <Form.Item label={fieldLabels.updatePermission}  {...switchFormItemLayout}>
                   {getFieldDecorator('updatePermission', {
                     initialValue: false,
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入更新许可' }],
                     valuePropName: 'checked'
                   })(
                     <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入更新许可bool" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    valuePropName: 'checked'
+                  })(
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -212,10 +272,17 @@ class ListAccessAssociateForm extends Component {
                 <Form.Item label={fieldLabels.executionPermission}  {...switchFormItemLayout}>
                   {getFieldDecorator('executionPermission', {
                     initialValue: false,
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入执行权限' }],
                     valuePropName: 'checked'
                   })(
                     <Switch checkedChildren="是" unCheckedChildren="否"  placeholder="请输入执行权限bool" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    valuePropName: 'checked'
+                  })(
+                    <Switch checkedChildren={appLocaleName(userContext,"Yes")} unCheckedChildren={appLocaleName(userContext,"No")}  placeholder={appLocaleName(userContext,"PleaseInput")} />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -240,7 +307,11 @@ class ListAccessAssociateForm extends Component {
                 <Form.Item label={fieldLabels.app} {...formItemLayout}>
                   {getFieldDecorator('appId', {
                   	initialValue: tryinit('app'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入应用程序' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('app')}

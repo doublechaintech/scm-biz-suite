@@ -38,6 +38,31 @@ const transferToAnotherSecUser = (id, parameters) => {
 
 
 
+<<<<<<< HEAD
+=======
+const addQuickLink = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userAppManager/addQuickLink/userAppId/name/icon/imagePath/linkTarget/tokensExpr/`
+  const userAppId = targetObjectId
+  const requestParameters = { ...parameters, userAppId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const updateQuickLink = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userAppManager/updateQuickLinkProperties/userAppId/id/name/icon/imagePath/linkTarget/tokensExpr/`
+  const userAppId = targetObjectId
+  const requestParameters = { ...parameters, userAppId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const removeQuickLinkList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}userAppManager/removeQuickLinkList/userAppId/quickLinkIds/tokensExpr/`
+  const requestParameters = { ...parameters, userAppId: targetObjectId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const addListAccess = (targetObjectId, parameters) => {
   const url = `${PREFIX}userAppManager/addListAccess/userAppId/name/internalName/readPermission/createPermission/deletePermission/updatePermission/executionPermission/tokensExpr/`
   const userAppId = targetObjectId
@@ -83,10 +108,20 @@ const removeObjectAccessList = (targetObjectId, parameters) => {
 
 const UserAppService = { view,
   load,
+<<<<<<< HEAD
   addListAccess,
   addObjectAccess,
   updateListAccess,
   updateObjectAccess,
+=======
+  addQuickLink,
+  addListAccess,
+  addObjectAccess,
+  updateQuickLink,
+  updateListAccess,
+  updateObjectAccess,
+  removeQuickLinkList,
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   removeListAccessList,
   removeObjectAccessList,
   requestCandidateSecUser,

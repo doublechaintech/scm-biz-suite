@@ -8,6 +8,13 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './UserDomain.search.less'
 import ListViewTool from '../../common/ListView.tool'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
+<<<<<<< HEAD
+=======
+import appLocaleName from '../../common/Locale.tool'
+
+import { Link, Route, Redirect} from 'dva/router'
+
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
 
 
@@ -16,6 +23,7 @@ const {handleSelectRows,handleStandardTableChange,
   handleElementCreate,toggleAssociateModalVisible,handleCloseAlert}=ListViewTool
 
 
+<<<<<<< HEAD
 const buttonMenuFor =(targetComponent, internalName, localeName)=> (
   <Menu >
     <Menu.Item key="1" onClick={()=>toggleAssociateModalVisible(targetComponent,internalName)}>新建{localeName}</Menu.Item>
@@ -23,6 +31,18 @@ const buttonMenuFor =(targetComponent, internalName, localeName)=> (
    
   </Menu>
 );
+=======
+const buttonMenuFor =(targetComponent, internalName, localeName)=> {
+  const userContext = null
+  return (
+   <Menu >
+     <Menu.Item key="1" onClick={()=>toggleAssociateModalVisible(targetComponent,internalName)}>{appLocaleName(userContext,"New")}{localeName}</Menu.Item>
+     <Menu.Item key="2">{appLocaleName(userContext,"Merge")}{localeName}</Menu.Item>
+    </Menu>
+  )
+
+}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
  
@@ -31,6 +51,7 @@ const showListActionBar = (targetComponent)=>{
   const {selectedRows} = targetComponent.state
   const {metaInfo} = targetComponent.props
   const disable = (selectedRows.length === 0)
+<<<<<<< HEAD
 
   return (<div className={styles.tableListOperator}>
         
@@ -46,6 +67,21 @@ const showListActionBar = (targetComponent)=>{
     
                
 	</div> )
+=======
+  const userContext = null
+  return (<div className={styles.tableListOperator}>
+  
+
+    {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
+
+
+    {hasUpdatePermission(metaInfo)&&<Button onClick={()=>handleUpdate(targetComponent)} icon="edit" disabled={disable}>{appLocaleName(userContext,"BatchUpdate")}</Button>}
+ 
+ 
+    {hasDeletePermission(metaInfo)&&<Button onClick={(event)=>handleDeletionModalVisible(event,targetComponent)} type="danger" icon="delete" disabled={disable}>{appLocaleName(userContext,"BatchDelete")}</Button>}
+
+</div> )
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
 }
@@ -92,10 +128,24 @@ class UserDomainSearch extends PureComponent {
     const {UserDomainSearchForm} = GlobalComponents;
     const {UserDomainModalTable} = GlobalComponents;
     
+<<<<<<< HEAD
     
   
     return (
       <PageHeaderLayout title={`${displayName}:${this.props.name}列表`}>
+=======
+    const userContext = null
+    
+    const renderTitle=()=>{
+      const {returnURL} = this.props
+      
+      const linkComp=returnURL?<Link to={returnURL}> <Icon type="double-left" style={{marginRight:"10px"}} /> </Link>:null
+      return (<div>{linkComp}{`${displayName}:${this.props.name}${appLocaleName(userContext,"List")}`}</div>);
+    }
+  
+    return (
+      <PageHeaderLayout title={renderTitle()}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>
@@ -107,7 +157,11 @@ class UserDomainSearch extends PureComponent {
               {showListActionBar(this)}
               {partialList&&(
               <div className={styles.searchAlert}>
+<<<<<<< HEAD
                 	<Alert message="下面显示最近更新结果，关闭显示全部" type="success" closable  afterClose={()=>handleCloseAlert(displayName, this)}/>
+=======
+                	<Alert message={appLocaleName(userContext,"CloseToShowAll")} type="success" closable  afterClose={()=>handleCloseAlert(displayName, this)}/>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
               </div>  	
               )}
               

@@ -10,7 +10,7 @@
   }
 
   .title {
-    font-size: 14px;
+    font-size: 48px;
     color: @heading-color;
     font-weight: 500;
     margin-bottom: 16px;
@@ -18,15 +18,16 @@
 
   .term {
     // Line-height is 22px IE dom height will calculate error
-    line-height: 20px;
+    line-height: 10px;
     padding-bottom: 16px;
     margin-right: 8px;
     color: @heading-color;
     white-space: nowrap;
     display: table-cell;
-
+    font-size:10px;
+    color: #999;
     &:after {
-      content: ':';
+     
       margin: 0 8px 0 2px;
       position: relative;
       top: -0.5px;
@@ -35,10 +36,15 @@
 
   .detail {
     line-height: 20px;
-    width: 100%;
-    padding-bottom: 16px;
-    color: @text-color;
+    width: 100%;  
+    // color: @text-color;
+    color: #333;
     display: table-cell;
+    font-weight: 400;
+    font-size: 16px;
+    
+   
+    
   }
 
   &.small {
@@ -52,9 +58,15 @@
       margin-bottom: 12px;
       color: @text-color;
     }
-    .term,
+    .term{
+      padding-bottom: 8px;
+      margin-bottom: 0px;
+    }
     .detail {
       padding-bottom: 8px;
+      height: 56px;
+      margin-bottom: 80px;
+      
     }
   }
 

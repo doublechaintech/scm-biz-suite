@@ -9,7 +9,11 @@ import {mapBackToImageValues, mapFromImageValues} from '../../axios/tools'
 import GlobalComponents from '../../custcomponents';
 import RetailStoreOrderLineItemBase from './RetailStoreOrderLineItem.base'
 import SelectObject from '../../components/SelectObject'
+<<<<<<< HEAD
 
+=======
+import appLocaleName from '../../common/Locale.tool'
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -20,8 +24,13 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
+<<<<<<< HEAD
   amount: '3.76',
   quantity: '9282',
+=======
+  amount: '3.85',
+  quantity: '9419',
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
   unitOfMeasurement: '件',
   bizOrderId: 'RSO000001',
 }
@@ -75,6 +84,11 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
 	const { form, dispatch, submitting, role,data,owner,toggleAssociatePaymentVisible,visible,onCancel, onCreate } = this.props
     const { convertedImagesValues } = this.state
     const {RetailStoreOrderLineItemService} = GlobalComponents
+<<<<<<< HEAD
+=======
+    const userContext = null
+    
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -121,26 +135,43 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
       labelCol: { span: 14 },
       wrapperCol: { span: 4 },
     }
+<<<<<<< HEAD
     
     return (
  <Modal
           title="创建新的支付"
+=======
+   
+    return (
+ <Modal
+          title={appLocaleName(userContext,"CreateNew")}
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           visible={visible}
           onOk={onCancel}
           onCancel={onCancel}
           width={920}
           style={{ top: 40}}
         >
+<<<<<<< HEAD
         <Card title="基础信息"  className={styles.card} style={{ backgroundColor:"#eee" }}>
+=======
+        <Card title={appLocaleName(userContext,"BasicInfo")}  className={styles.card} style={{ backgroundColor:"#eee" }}>
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
           <Form >
             <Row gutter={16}>
 
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.skuId} {...formItemLayout}>
                   {getFieldDecorator('skuId', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入产品ID' }],
                   })(
                     <Input placeholder="请输入产品ID" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="产品ID" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -148,9 +179,15 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.skuName} {...formItemLayout}>
                   {getFieldDecorator('skuName', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入产品名称' }],
                   })(
                     <Input placeholder="请输入产品名称" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="产品名称" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -158,9 +195,15 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.amount} {...formItemLayout}>
                   {getFieldDecorator('amount', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入金额' }],
                   })(
                     <Input placeholder="请输入金额" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -168,9 +211,15 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.quantity} {...formItemLayout}>
                   {getFieldDecorator('quantity', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入数量' }],
                   })(
                     <Input placeholder="请输入数量" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="数量" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -178,9 +227,15 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.unitOfMeasurement} {...formItemLayout}>
                   {getFieldDecorator('unitOfMeasurement', {
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入测量单位' }],
                   })(
                     <Input placeholder="请输入测量单位" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" placeholder="测量单位" />
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   )}
                 </Form.Item>
               </Col>
@@ -206,7 +261,11 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
                 <Form.Item label={fieldLabels.bizOrder} {...formItemLayout}>
                   {getFieldDecorator('bizOrderId', {
                   	initialValue: tryinit('bizOrder'),
+<<<<<<< HEAD
                     rules: [{ required: true, message: '请输入订单' }],
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+>>>>>>> 502e8b8dfc403300a992b5083e79c722e85d1854
                   })(
                 <SelectObject 
                     disabled={!availableForEdit('bizOrder')}
