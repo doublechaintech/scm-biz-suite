@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   quantity: '100',
   duration: '现货',
-  price: '8329.83',
+  price: '8635.21',
   productId: 'SP000001',
 }
 */

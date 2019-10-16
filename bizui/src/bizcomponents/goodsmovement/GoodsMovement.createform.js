@@ -18,13 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-10-09 15:44:36',
+  moveTime: '2019-09-30 20:14:15',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '42.69642235753341',
-  longitude: '130.98062064586867',
+  latitude: '40.283122137316255',
+  longitude: '130.3470659917894',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }

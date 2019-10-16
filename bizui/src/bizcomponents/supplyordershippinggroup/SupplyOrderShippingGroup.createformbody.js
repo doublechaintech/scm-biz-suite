@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链成都2号仓',
-  amount: '5.80',
+  amount: '4.26',
   bizOrderId: 'SO000001',
 }
 */

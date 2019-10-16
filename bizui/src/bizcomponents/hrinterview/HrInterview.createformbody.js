@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
-  interviewTime: '2019-01-26',
+  interviewTime: '2019-05-28',
   comments: '软技能，责任感，气质不错啊',
 }
 */

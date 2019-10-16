@@ -21,7 +21,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2018-01-13',
+  founded: '2018-05-04',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }

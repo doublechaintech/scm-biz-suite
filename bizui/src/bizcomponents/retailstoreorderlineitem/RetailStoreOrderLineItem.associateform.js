@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  amount: '3.38',
-  quantity: '7200',
+  amount: '3.51',
+  quantity: '9442',
   unitOfMeasurement: '件',
   bizOrderId: 'RSO000001',
 }

@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  applicationTime: '2017-04-17',
+  applicationTime: '2018-07-22',
   who: '申请者本人',
   comments: '我觉得我符合职位要求，请给我一个机会为公司发展做出贡献，谢谢！',
 }

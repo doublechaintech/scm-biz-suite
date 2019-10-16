@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-  amount: '578.34',
+  amount: '505.06',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
