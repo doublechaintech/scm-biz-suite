@@ -172,7 +172,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
 * 鲲鹏服务器演示地址: http://lab-arm-kunpeng.doublechaintech.com/admin/retailscm/, 密码为: admin123
 
-
+## 讨论和参与本项目
 <img src="/doc/philip-wechat-qr.jpeg" alt="WechatQRCode" title="WechatQRCode" width="150"  />
 
 * 探讨供应链发展趋势
