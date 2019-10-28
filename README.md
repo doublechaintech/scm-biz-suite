@@ -67,7 +67,7 @@
 |零售商店省中心|13900000002|admin123|
 |零售商店城市服务中心|13900000003|admin123|
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 
 ### 业务扩展
@@ -78,7 +78,7 @@
 |潜在客户|13900000005|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ### 落地业务运营
 
@@ -88,7 +88,7 @@
 |零售商店的会员|13900000007|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 
 ### 采购和供应商管理
@@ -100,7 +100,7 @@
 |零售商店的订单|13900000011|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ### 仓配一体化管理
 | 角色        | 用户名           | 密码         |
@@ -112,7 +112,7 @@
 |会计凭证|13900000017|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 
 ### 人力资源管理
@@ -122,7 +122,7 @@
 |员工|13900000020|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ### 用户权限管理
 
@@ -130,7 +130,7 @@
 | ------------- |:-------------:|:-------------------:|
 |用户域|13900000021|admin123|
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ## bizcore: 服务器端核心代码项目， Business Core
 
