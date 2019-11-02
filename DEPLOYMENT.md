@@ -87,12 +87,13 @@ rm -rf node_modules && yarn install && yarn build
 
 https://caucho.com/products/resin/download/3-1/gpl
 
-### 安装docker,并且利用国内镜像加速
+### 安装docker,并且利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker
 ```
 sudo curl -sSL https://get.daocloud.io/docker | sh 
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://84763bc6.m.daocloud.io 
 sudo groupadd docker 
 sudo usermod -aG docker $USER 
+exit
 ```
 
 ### 安装和运行MYSQL和Redis
