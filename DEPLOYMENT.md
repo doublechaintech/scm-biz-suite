@@ -144,7 +144,18 @@ cd retailscm-biz-suite && mysql -uroot -p 0254891276 -h 127.0.0.1 < bizcore/WEB-
 
 java项目使用gradle来编译，为了快速开发， 我们只是把java文件编译成class，其他的目录结构保持不变，建议把输出目录直接设置为 classes并且使用resin的开发模式，这样，当class发生变更的时候，Resin会自动重新装载新的类，无需重新编译和启动，开发体验和写PHP类似。
 
-使用最新的gradle 5.1， sdk install gradle 5.1
+安装sdkman然后安装gradle
+
+```
+curl -s "https://get.sdkman.io" | bash
+```
+使用最新的gradle 5.3， 
+
+```
+sdk install gradle 5.3
+```
+
+编译后台，gradle copyJars将为你准备好工作环境
 
 ```
 cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
