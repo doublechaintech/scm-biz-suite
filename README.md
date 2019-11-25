@@ -5,11 +5,15 @@
 本系统代码是用自研知识图谱和因果网络处理系统自动生成高可维护源代码。
 
 
+传统开发方式无法开发如此大规模的应用系统并且灵活变更，使用云端开发工具DaaS（Development as a Service）开发了这个平台，目前已经开放试用，10个用户模型对象以下无需注册，请参见[DaaS Start Kit](https://github.com/doublechaintech/daas-start-kit)， 这个项目的模型文件 retailscm.xml 也在里面（运行该模型需要注册）。
+
+智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
+
 
 [部署指南 ](/DEPLOYMENT.md)
 
 
-智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
+
 
 ## 核心特性
 * 本系统包括前端、后端、数据大屏，数据结构和基础数据都是通过自研软件开发开发
@@ -67,7 +71,7 @@
 |零售商店省中心|13900000002|admin123|
 |零售商店城市服务中心|13900000003|admin123|
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 
 ### 业务扩展
@@ -78,7 +82,7 @@
 |潜在客户|13900000005|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ### 落地业务运营
 
@@ -88,7 +92,7 @@
 |零售商店的会员|13900000007|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 
 ### 采购和供应商管理
@@ -100,7 +104,7 @@
 |零售商店的订单|13900000011|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ### 仓配一体化管理
 | 角色        | 用户名           | 密码         |
@@ -112,7 +116,7 @@
 |会计凭证|13900000017|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 
 ### 人力资源管理
@@ -122,7 +126,7 @@
 |员工|13900000020|admin123|
 
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ### 用户权限管理
 
@@ -130,7 +134,7 @@
 | ------------- |:-------------:|:-------------------:|
 |用户域|13900000021|admin123|
 
-演示地址：https://demo.doublechaintech.com/admin/retailscm/#/home
+演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
 ## bizcore: 服务器端核心代码项目， Business Core
 

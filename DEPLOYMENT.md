@@ -1,6 +1,6 @@
 # 零售供应链中台基础系统 运行指南
 
-系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS，支持使用resin和SpringBoot来部署，不支持Tomcat服务器的war部署方式。
+系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS和ubuntu linux 18.04LTS，支持使用resin和SpringBoot来部署，不支持Tomcat服务器的war部署方式。
 
 ## 复制代码到本地
 
@@ -87,12 +87,13 @@ rm -rf node_modules && yarn install && yarn build
 
 https://caucho.com/products/resin/download/3-1/gpl
 
-### 安装docker,并且利用国内镜像加速
+### 安装docker,并且利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker
 ```
 sudo curl -sSL https://get.daocloud.io/docker | sh 
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://84763bc6.m.daocloud.io 
 sudo groupadd docker 
 sudo usermod -aG docker $USER 
+exit
 ```
 
 ### 安装和运行MYSQL和Redis
@@ -131,6 +132,10 @@ default-time-zone =+08:00
 
 MySQL的初始化脚本问题文件在 bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql下面
 
+```
+cd retailscm-biz-suite && mysql -uroot -p 0254891276 -h 127.0.0.1 < bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql
+```
+
 配置文件在bizcore/WEB-INF/retailscm_custom_src/META-INF/infra.properties里面
 
 
@@ -139,7 +144,18 @@ MySQL的初始化脚本问题文件在 bizcore/WEB-INF/retailscm_core_src/META-I
 
 java项目使用gradle来编译，为了快速开发， 我们只是把java文件编译成class，其他的目录结构保持不变，建议把输出目录直接设置为 classes并且使用resin的开发模式，这样，当class发生变更的时候，Resin会自动重新装载新的类，无需重新编译和启动，开发体验和写PHP类似。
 
-使用最新的gradle 5.1， sdk install gradle 5.1
+安装sdkman然后安装gradle
+
+```
+curl -s "https://get.sdkman.io" | bash
+```
+使用最新的gradle 5.3， 
+
+```
+sdk install gradle 5.3
+```
+
+编译后台，gradle copyJars将为你准备好工作环境
 
 ```
 cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
