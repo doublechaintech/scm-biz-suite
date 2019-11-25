@@ -153,6 +153,18 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 ![ScreenShot](/doc/home-screen.jpg)
 ![ScreenShot](/doc/root-app.jpg)
 
+
+## 数据中台（独立产品在本项目应用）
+
+* 新一代图计算实时引擎
+* 数据分析结果管理与分享
+* 支持客户端通过API调用数据，实现闭环反馈
+
+![ScreenShot](/doc/dmos000.jpg)
+![ScreenShot](/doc/dmos001.jpg)
+![ScreenShot](/doc/dmos002.jpg)
+![ScreenShot](/doc/dmos003.jpg)
+
 ## 配套的数据大屏
 
 ![ScreenShot](/doc/datascreen.png)
