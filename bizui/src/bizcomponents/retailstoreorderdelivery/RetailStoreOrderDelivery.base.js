@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,29 +28,31 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超订单交付", menuFor: "retailStoreOrderDelivery",
+
+const menuData = {menuName: window.trans('retail_store_order_delivery'), menuFor: "retailStoreOrderDelivery",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName: window.mtrans('retail_store_order','retail_store_order_delivery.retail_store_order_list',false), type:'retailStoreOrder',icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"生超订单交付", menuFor: "retailStoreOrderDelivery",
+const settingMenuData = {menuName: window.trans('retail_store_order_delivery'), menuFor: "retailStoreOrderDelivery",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  deliveryTime: '交货时间',
+  id: window.trans('retail_store_order_delivery.id'),
+  who: window.trans('retail_store_order_delivery.who'),
+  deliveryTime: window.trans('retail_store_order_delivery.delivery_time'),
 
 }
 
@@ -57,17 +62,20 @@ const displayColumns = [
   { title: fieldLabels.deliveryTime, dataIndex: 'deliveryTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(retailStoreOrderDelivery,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={retailStoreOrderDelivery.id}>
 	
-      <DescriptionList  key={retailStoreOrderDelivery.id} size="small" col="4">
-        <Description term="序号">{retailStoreOrderDelivery.id}</Description> 
-        <Description term="谁">{retailStoreOrderDelivery.who}</Description> 
-        <Description term="交货时间"><div>{ moment(retailStoreOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</div></Description> 
+      <DescriptionList  key={retailStoreOrderDelivery.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreOrderDelivery.id}</Description> 
+        <Description term={fieldLabels.who} style={{wordBreak: 'break-all'}}>{retailStoreOrderDelivery.who}</Description> 
+        <Description term={fieldLabels.deliveryTime}><div>{ moment(retailStoreOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
@@ -77,10 +85,29 @@ const renderItemOfList=(retailStoreOrderDelivery,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {who, deliveryTime} = formValuesToPack
 
+	const data = {who, deliveryTime}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {who, deliveryTime} = objectToUnpack
 
-
-const RetailStoreOrderDeliveryBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {who, deliveryTime}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const RetailStoreOrderDeliveryBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreOrderDeliveryBase
 
 

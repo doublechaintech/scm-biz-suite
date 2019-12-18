@@ -8,10 +8,11 @@ import styles from './Product.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+import ProductBase from './Product.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = ProductBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -194,7 +195,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="ID">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -202,7 +203,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="名称">
+         <FormItem label={fieldLabels.name}>
            {getFieldDecorator('name')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -249,7 +250,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="ID">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -257,14 +258,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="名称">
+            <FormItem label={fieldLabels.name}>
               {getFieldDecorator('name')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="父类">
+                    <Form.Item label={fieldLabels.parentCategory}>
                   {getFieldDecorator('parentCategory', {initialValue: tryinit('parentCategory')})(
                   
                   <SelectObject 
@@ -277,7 +278,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="产地">
+            <FormItem label={fieldLabels.origin}>
               {getFieldDecorator('origin')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -285,7 +286,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="备注">
+            <FormItem label={fieldLabels.remark}>
               {getFieldDecorator('remark')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -293,7 +294,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="品牌">
+            <FormItem label={fieldLabels.brand}>
               {getFieldDecorator('brand')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -311,7 +312,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

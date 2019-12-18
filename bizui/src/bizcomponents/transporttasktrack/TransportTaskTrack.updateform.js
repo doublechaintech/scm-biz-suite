@@ -249,7 +249,7 @@ class TransportTaskTrackUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}运输任务跟踪: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.trackTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="跟踪时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.trackTime}/>
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                     
                   )}
                 </Form.Item>
@@ -303,7 +303,7 @@ class TransportTaskTrackUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                     
                   )}
                 </Form.Item>

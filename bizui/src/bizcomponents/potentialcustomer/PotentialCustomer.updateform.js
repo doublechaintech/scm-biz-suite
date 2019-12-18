@@ -249,7 +249,7 @@ class PotentialCustomerUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}潜在的客户: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class PotentialCustomerUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class PotentialCustomerUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class PotentialCustomerUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large"  placeHolder={fieldLabels.mobile} />
                     
                   )}
                 </Form.Item>
@@ -303,7 +303,7 @@ class PotentialCustomerUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                     
                   )}
                 </Form.Item>

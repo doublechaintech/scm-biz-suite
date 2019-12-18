@@ -21,8 +21,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '9',
-  expireTime: '2018-01-07',
+  maxPackage: '10',
+  expireTime: '2017-01-18',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -32,6 +32,7 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
+  packagingId: 'GP000001',
 }
 */
 
@@ -151,7 +152,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +162,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="RFID" />
+                    <Input size="large"  placeHolder={fieldLabels.rfid} />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +172,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('uom', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="计量单位" />
+                    <Input size="large"  placeHolder={fieldLabels.uom} />
                   )}
                 </Form.Item>
               </Col>
@@ -181,7 +182,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('maxPackage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="最大包装" />
+                    <Input size="large"  placeHolder={fieldLabels.maxPackage} />
                   )}
                 </Form.Item>
               </Col>
@@ -191,7 +192,7 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('expireTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="到期时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.expireTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -343,6 +344,21 @@ class GoodsAssociateForm extends Component {
                     disabled={!availableForEdit('retailStoreOrder')}
                     targetType={"retailStoreOrder"} 
                     requestFunction={GoodsService.requestCandidateRetailStoreOrder}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.packaging} {...formItemLayout}>
+                  {getFieldDecorator('packagingId', {
+                  	initialValue: tryinit('packaging'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('packaging')}
+                    targetType={"packaging"} 
+                    requestFunction={GoodsService.requestCandidatePackaging}/>
   
                   )}
                 </Form.Item>

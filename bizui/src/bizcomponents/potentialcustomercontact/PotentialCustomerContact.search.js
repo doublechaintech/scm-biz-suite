@@ -7,9 +7,10 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './PotentialCustomerContact.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import PotentialCustomerContactBase from './PotentialCustomerContact.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-
+const {fieldLabels} = PotentialCustomerContactBase
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到刘强家',
-  amount: '453.34',
+  amount: '574.40',
   bizOrderId: 'CO000001',
 }
 */
@@ -192,9 +192,9 @@ class ConsumerOrderShippingGroupCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class ConsumerOrderShippingGroupCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费订单送货分组</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_shipping_group')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}消费订单送货分组`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order_shipping_group')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

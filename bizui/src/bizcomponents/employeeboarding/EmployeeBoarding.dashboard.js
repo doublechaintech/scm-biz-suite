@@ -116,10 +116,10 @@ const internalSummaryOf = (employeeBoarding,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeBoarding.id}</Description> 
-<Description term="谁">{employeeBoarding.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeBoarding.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{employeeBoarding.who}</Description> 
 <Description term="使用时间">{ moment(employeeBoarding.employTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{employeeBoarding.comments}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{employeeBoarding.comments}</Description> 
 	
         {buildTransferModal(employeeBoarding,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,7 @@ class EmployeeBoardingDashboard extends Component {
     const cardsData = {cardsName:"员工入职",cardsFor: "employeeBoarding",
     	cardsSource: this.props.employeeBoarding,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '批准者',
-  approveTime: '2019-09-02',
+  approveTime: '2019-05-15',
 }
 */
 
@@ -140,7 +140,7 @@ class SupplyOrderApprovalAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class SupplyOrderApprovalAssociateForm extends Component {
                   {getFieldDecorator('approveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="批准时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.approveTime}/>
                   )}
                 </Form.Item>
               </Col>

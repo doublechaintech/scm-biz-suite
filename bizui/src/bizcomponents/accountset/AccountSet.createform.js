@@ -20,12 +20,12 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2018-03-04',
+  effectiveDate: '2019-07-07',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
-  accountNumber: '33265805054885',
+  accountNumber: '25764708299199',
   countryCenterId: 'RSCC000001',
   retailStoreId: 'RS000001',
   goodsSupplierId: 'GS000001',
@@ -200,9 +200,9 @@ class AccountSetCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -211,13 +211,13 @@ class AccountSetCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}账套</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('account_set')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}账套`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('account_set')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -38,7 +38,7 @@ class SupplyOrderModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1770 }}
+          scroll={{ x: 1635 }}
         />
       </div>
     )

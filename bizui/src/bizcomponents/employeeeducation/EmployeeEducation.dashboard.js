@@ -116,7 +116,7 @@ const internalSummaryOf = (employeeEducation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeEducation.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeEducation.id}</Description> 
 <Description term="员工">{employeeEducation.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeEducation.employee.displayName}(${employeeEducation.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeEducationService.requestCandidateEmployee,
@@ -124,8 +124,8 @@ const internalSummaryOf = (employeeEducation,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="完成时间">{ moment(employeeEducation.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeEducation.type}</Description> 
-<Description term="备注">{employeeEducation.remark}</Description> 
+<Description term="类型" style={{wordBreak: 'break-all'}}>{employeeEducation.type}</Description> 
+<Description term="备注" style={{wordBreak: 'break-all'}}>{employeeEducation.remark}</Description> 
 	
         {buildTransferModal(employeeEducation,targetComponent)}
       </DescriptionList>

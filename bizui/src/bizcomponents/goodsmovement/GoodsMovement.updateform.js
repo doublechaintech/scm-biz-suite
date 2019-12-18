@@ -249,7 +249,7 @@ class GoodsMovementUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}货物移动: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.moveTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.moveTime} />
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.facility,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="设施" />
+                    <Input size="large"  placeHolder={fieldLabels.facility} />
                     
                   )}
                 </Form.Item>
@@ -303,7 +303,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.facilityId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="设备ID" />
+                    <Input size="large"  placeHolder={fieldLabels.facilityId} />
                     
                   )}
                 </Form.Item>
@@ -315,7 +315,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.fromIp,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="从IP" />
+                    <Input size="large"  placeHolder={fieldLabels.fromIp} />
                     
                   )}
                 </Form.Item>
@@ -327,7 +327,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.sessionId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会话ID" />
+                    <Input size="large"  placeHolder={fieldLabels.sessionId} />
                     
                   )}
                 </Form.Item>
@@ -339,7 +339,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                     
                   )}
                 </Form.Item>
@@ -351,7 +351,7 @@ class GoodsMovementUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                     
                   )}
                 </Form.Item>
@@ -371,7 +371,7 @@ class GoodsMovementUpdateForm extends Component {
 
 
 
-       <Card title={`用户代理`} className={styles.card} bordered={false}>
+       <Card title={window.trans('goods_movement')} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}> 
               <Col lg={24} md={24} sm={24}>

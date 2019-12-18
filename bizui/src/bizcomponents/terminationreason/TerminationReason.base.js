@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"雇佣终止的原因", menuFor: "terminationReason",
+
+const menuData = {menuName: window.trans('termination_reason'), menuFor: "terminationReason",
   		subItems: [
-  {name: 'terminationList', displayName:'雇佣终止', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'terminationList', displayName: window.mtrans('termination','termination_reason.termination_list',false), type:'termination',icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"雇佣终止的原因", menuFor: "terminationReason",
+const settingMenuData = {menuName: window.trans('termination_reason'), menuFor: "terminationReason",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  description: '描述',
+  id: window.trans('termination_reason.id'),
+  code: window.trans('termination_reason.code'),
+  company: window.trans('termination_reason.company'),
+  description: window.trans('termination_reason.description'),
 
 }
 
@@ -59,17 +64,20 @@ const displayColumns = [
   { title: fieldLabels.description, debugtype: 'string', dataIndex: 'description', width: '13',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(terminationReason,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={terminationReason.id}>
 	
-      <DescriptionList  key={terminationReason.id} size="small" col="4">
-        <Description term="序号">{terminationReason.id}</Description> 
-        <Description term="代码">{terminationReason.code}</Description> 
-        <Description term="描述">{terminationReason.description}</Description> 
+      <DescriptionList  key={terminationReason.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{terminationReason.id}</Description> 
+        <Description term={fieldLabels.code} style={{wordBreak: 'break-all'}}>{terminationReason.code}</Description> 
+        <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{terminationReason.description}</Description> 
 	
         
       </DescriptionList>
@@ -79,10 +87,29 @@ const renderItemOfList=(terminationReason,targetComponent)=>{
 
 }
 	
-
-
-
-const TerminationReasonBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {code, description, companyId} = formValuesToPack
+	const company = {id: companyId, version: 2^31}
+	const data = {code, description, company}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {code, description, company} = objectToUnpack
+	const companyId = company ? company.id : null
+	const data = {code, description, companyId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const TerminationReasonBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default TerminationReasonBase
 
 

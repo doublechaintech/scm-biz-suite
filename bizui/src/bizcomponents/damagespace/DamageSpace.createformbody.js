@@ -13,15 +13,15 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = DamageSpaceBase
 const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库损坏货物堆放区',
-  contactNumber: '02887654321',
+  contactNumber: '842299204',
   totalArea: '1876平方米',
-  latitude: '41.937357951509796',
-  longitude: '129.98592050491834',
+  latitude: '41.47584096002489',
+  longitude: '131.63536006340135',
   warehouseId: 'W000001',
 }
 */
@@ -73,7 +73,7 @@ class DamageSpaceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = DamageSpaceBase
+    
     const {DamageSpaceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -81,12 +81,6 @@ class DamageSpaceCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -118,6 +112,7 @@ class DamageSpaceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -125,7 +120,7 @@ class DamageSpaceCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}残次货物存放区</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('damage_space')}</div>)
     }
 	
 	return (
@@ -140,7 +135,7 @@ class DamageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large"  placeHolder={fieldLabels.location} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +145,7 @@ class DamageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="联系电话" />
+                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +155,7 @@ class DamageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="总面积" />
+                    <Input size="large"  placeHolder={fieldLabels.totalArea} />
                   )}
                 </Form.Item>
               </Col>
@@ -170,7 +165,7 @@ class DamageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -180,7 +175,7 @@ class DamageSpaceCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>

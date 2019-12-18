@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = CandidateElementBase
 const testValues = {};
 /*
 const testValues = {
@@ -71,7 +71,7 @@ class CandidateElementCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = CandidateElementBase
+    
     const {CandidateElementService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class CandidateElementCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class CandidateElementCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class CandidateElementCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}候选人元素</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('candidate_element')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class CandidateElementCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class CandidateElementCreateFormBody extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="类型" />
+                    <Input size="large"  placeHolder={fieldLabels.type} />
                   )}
                 </Form.Item>
               </Col>
@@ -193,7 +188,7 @@ class CandidateElementCreateFormBody extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="图片"
+                  buttonTitle={fieldLabels.image}
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'image')}
                   fileList={convertedImagesValues.image}

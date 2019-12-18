@@ -116,8 +116,8 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{provinceCenterDepartment.id}</Description> 
-<Description term="名称">{provinceCenterDepartment.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.name}</Description> 
 <Description term="成立">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
 <Description term="省中心">{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterDepartment.provinceCenter.displayName}(${provinceCenterDepartment.provinceCenter.id})`}
  <Icon type="swap" onClick={()=>
@@ -125,7 +125,7 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
 	      ProvinceCenterDepartmentService.transferToAnotherProvinceCenter,"anotherProvinceCenterId",provinceCenterDepartment.provinceCenter?provinceCenterDepartment.provinceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="经理">{provinceCenterDepartment.manager}</Description> 
+<Description term="经理的名字" style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.managerName}</Description> 
 	
         {buildTransferModal(provinceCenterDepartment,targetComponent)}
       </DescriptionList>
@@ -166,7 +166,7 @@ class ProvinceCenterDepartmentDashboard extends Component {
     const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",
     	cardsSource: this.props.provinceCenterDepartment,returnURL,displayName,
   		subItems: [
-{name: 'provinceCenterEmployeeList', displayName:'省中心员工',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
+{name: 'provinceCenterEmployeeList', displayName:'省中心员工',viewGroup:'__no_group', type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [

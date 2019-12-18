@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2019-02-24',
+  countTime: '2019-02-28',
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }
@@ -193,9 +193,9 @@ class StockCountIssueTrackCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +204,13 @@ class StockCountIssueTrackCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}库存计数问题跟踪</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('stock_count_issue_track')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}库存计数问题跟踪`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('stock_count_issue_track')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

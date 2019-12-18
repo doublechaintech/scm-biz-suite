@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '确认提交',
-  makeDate: '2018-08-17',
+  makeDate: '2018-10-30',
 }
 */
 
@@ -140,7 +140,7 @@ class AccountingDocumentCreationAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class AccountingDocumentCreationAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class AccountingDocumentCreationAssociateForm extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.makeDate}/>
                   )}
                 </Form.Item>
               </Col>

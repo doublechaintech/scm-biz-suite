@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOwner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}transportFleetManager/transferToAnotherOwner/id/anotherOwnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -103,6 +102,33 @@ const removeTransportTaskList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}transportFleetService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}transportFleetService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}transportFleetService/process/`,
+    data,
+  })
+}
+
 const TransportFleetService = { view,
   load,
   addTransportTruck,
@@ -115,6 +141,6 @@ const TransportFleetService = { view,
   removeTruckDriverList,
   removeTransportTaskList,
   requestCandidateOwner,
-  transferToAnotherOwner }
+  transferToAnotherOwner, listFunctions, saveRequest, processRequest}
 export default TransportFleetService
 

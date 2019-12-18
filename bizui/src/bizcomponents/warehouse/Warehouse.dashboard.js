@@ -116,12 +116,12 @@ const internalSummaryOf = (warehouse,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{warehouse.id}</Description> 
-<Description term="位置">{warehouse.location}</Description> 
-<Description term="联系电话">{warehouse.contactNumber}</Description> 
-<Description term="总面积">{warehouse.totalArea}</Description> 
-<Description term="纬度">{warehouse.latitude}</Description> 
-<Description term="经度">{warehouse.longitude}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{warehouse.id}</Description> 
+<Description term="位置" style={{wordBreak: 'break-all'}}>{warehouse.location}</Description> 
+<Description term="联系电话" style={{wordBreak: 'break-all'}}>{warehouse.contactNumber}</Description> 
+<Description term="总面积" style={{wordBreak: 'break-all'}}>{warehouse.totalArea}</Description> 
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{warehouse.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{warehouse.longitude}</Description> 
 <Description term="最后更新时间">{ moment(warehouse.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(warehouse,targetComponent)}
@@ -163,13 +163,13 @@ class WarehouseDashboard extends Component {
     const cardsData = {cardsName:"仓库",cardsFor: "warehouse",
     	cardsSource: this.props.warehouse,returnURL,displayName,
   		subItems: [
-{name: 'storageSpaceList', displayName:'存货区',type:'storageSpace',count:storageSpaceCount,addFunction: true, role: 'storageSpace', metaInfo: storageSpaceListMetaInfo, renderItem: GlobalComponents.StorageSpaceBase.renderItemOfList},
-{name: 'smartPalletList', displayName:'智能托盘',type:'smartPallet',count:smartPalletCount,addFunction: true, role: 'smartPallet', metaInfo: smartPalletListMetaInfo, renderItem: GlobalComponents.SmartPalletBase.renderItemOfList},
-{name: 'supplierSpaceList', displayName:'供应商的空间',type:'supplierSpace',count:supplierSpaceCount,addFunction: true, role: 'supplierSpace', metaInfo: supplierSpaceListMetaInfo, renderItem: GlobalComponents.SupplierSpaceBase.renderItemOfList},
-{name: 'receivingSpaceList', displayName:'收货区',type:'receivingSpace',count:receivingSpaceCount,addFunction: true, role: 'receivingSpace', metaInfo: receivingSpaceListMetaInfo, renderItem: GlobalComponents.ReceivingSpaceBase.renderItemOfList},
-{name: 'shippingSpaceList', displayName:'发货区',type:'shippingSpace',count:shippingSpaceCount,addFunction: true, role: 'shippingSpace', metaInfo: shippingSpaceListMetaInfo, renderItem: GlobalComponents.ShippingSpaceBase.renderItemOfList},
-{name: 'damageSpaceList', displayName:'残次货物存放区',type:'damageSpace',count:damageSpaceCount,addFunction: true, role: 'damageSpace', metaInfo: damageSpaceListMetaInfo, renderItem: GlobalComponents.DamageSpaceBase.renderItemOfList},
-{name: 'warehouseAssetList', displayName:'仓库资产',type:'warehouseAsset',count:warehouseAssetCount,addFunction: true, role: 'warehouseAsset', metaInfo: warehouseAssetListMetaInfo, renderItem: GlobalComponents.WarehouseAssetBase.renderItemOfList},
+{name: 'storageSpaceList', displayName:'存货区',viewGroup:'__no_group', type:'storageSpace',count:storageSpaceCount,addFunction: true, role: 'storageSpace', metaInfo: storageSpaceListMetaInfo, renderItem: GlobalComponents.StorageSpaceBase.renderItemOfList},
+{name: 'smartPalletList', displayName:'智能托盘',viewGroup:'__no_group', type:'smartPallet',count:smartPalletCount,addFunction: true, role: 'smartPallet', metaInfo: smartPalletListMetaInfo, renderItem: GlobalComponents.SmartPalletBase.renderItemOfList},
+{name: 'supplierSpaceList', displayName:'供应商的空间',viewGroup:'__no_group', type:'supplierSpace',count:supplierSpaceCount,addFunction: true, role: 'supplierSpace', metaInfo: supplierSpaceListMetaInfo, renderItem: GlobalComponents.SupplierSpaceBase.renderItemOfList},
+{name: 'receivingSpaceList', displayName:'收货区',viewGroup:'__no_group', type:'receivingSpace',count:receivingSpaceCount,addFunction: true, role: 'receivingSpace', metaInfo: receivingSpaceListMetaInfo, renderItem: GlobalComponents.ReceivingSpaceBase.renderItemOfList},
+{name: 'shippingSpaceList', displayName:'发货区',viewGroup:'__no_group', type:'shippingSpace',count:shippingSpaceCount,addFunction: true, role: 'shippingSpace', metaInfo: shippingSpaceListMetaInfo, renderItem: GlobalComponents.ShippingSpaceBase.renderItemOfList},
+{name: 'damageSpaceList', displayName:'残次货物存放区',viewGroup:'__no_group', type:'damageSpace',count:damageSpaceCount,addFunction: true, role: 'damageSpace', metaInfo: damageSpaceListMetaInfo, renderItem: GlobalComponents.DamageSpaceBase.renderItemOfList},
+{name: 'warehouseAssetList', displayName:'仓库资产',viewGroup:'__no_group', type:'warehouseAsset',count:warehouseAssetCount,addFunction: true, role: 'warehouseAsset', metaInfo: warehouseAssetListMetaInfo, renderItem: GlobalComponents.WarehouseAssetBase.renderItemOfList},
     
       	],
    		subSettingItems: [

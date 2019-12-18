@@ -116,8 +116,10 @@ const internalSummaryOf = (catalog,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{catalog.id}</Description> 
-<Description term="名称">{catalog.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{catalog.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{catalog.name}</Description> 
+<Description term="子数" style={{wordBreak: 'break-all'}}>{catalog.subCount}</Description> 
+<Description term="金额" style={{wordBreak: 'break-all'}}>{catalog.amount}</Description> 
 	
         {buildTransferModal(catalog,targetComponent)}
       </DescriptionList>
@@ -158,7 +160,7 @@ class CatalogDashboard extends Component {
     const cardsData = {cardsName:"目录",cardsFor: "catalog",
     	cardsSource: this.props.catalog,returnURL,displayName,
   		subItems: [
-{name: 'levelOneCategoryList', displayName:'一级分类',type:'levelOneCategory',count:levelOneCategoryCount,addFunction: true, role: 'levelOneCategory', metaInfo: levelOneCategoryListMetaInfo, renderItem: GlobalComponents.LevelOneCategoryBase.renderItemOfList},
+{name: 'levelOneCategoryList', displayName:'一级分类',viewGroup:'__no_group', type:'levelOneCategory',count:levelOneCategoryCount,addFunction: true, role: 'levelOneCategory', metaInfo: levelOneCategoryListMetaInfo, renderItem: GlobalComponents.LevelOneCategoryBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -249,7 +249,7 @@ class LoginHistoryUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}登录历史: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class LoginHistoryUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="ID" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class LoginHistoryUpdateForm extends Component {
                     initialValue: selectedRow.fromIp,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="来自IP" />
+                    <Input size="large"  placeHolder={fieldLabels.fromIp} />
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class LoginHistoryUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                     
                   )}
                 </Form.Item>

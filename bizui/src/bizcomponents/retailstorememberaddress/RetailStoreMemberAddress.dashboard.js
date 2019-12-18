@@ -116,16 +116,16 @@ const internalSummaryOf = (retailStoreMemberAddress,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberAddress.id}</Description> 
-<Description term="名称">{retailStoreMemberAddress.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreMemberAddress.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{retailStoreMemberAddress.name}</Description> 
 <Description term="业主">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberAddressService.requestCandidateOwner,
 	      RetailStoreMemberAddressService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberAddress.owner?retailStoreMemberAddress.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="移动电话">{retailStoreMemberAddress.mobilePhone}</Description> 
-<Description term="地址">{retailStoreMemberAddress.address}</Description> 
+<Description term="移动电话" style={{wordBreak: 'break-all'}}>{retailStoreMemberAddress.mobilePhone}</Description> 
+<Description term="地址" style={{wordBreak: 'break-all'}}>{retailStoreMemberAddress.address}</Description> 
 	
         {buildTransferModal(retailStoreMemberAddress,targetComponent)}
       </DescriptionList>

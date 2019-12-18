@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = RetailStoreFranchisingBase
 const testValues = {};
 /*
 const testValues = {
@@ -68,7 +68,7 @@ class RetailStoreFranchisingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = RetailStoreFranchisingBase
+    
     const {RetailStoreFranchisingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -76,12 +76,6 @@ class RetailStoreFranchisingCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -113,6 +107,7 @@ class RetailStoreFranchisingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -120,7 +115,7 @@ class RetailStoreFranchisingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超的特许经营</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_franchising')}</div>)
     }
 	
 	return (
@@ -135,7 +130,7 @@ class RetailStoreFranchisingCreateFormBody extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comment} />
                   )}
                 </Form.Item>
               </Col>

@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-  founded: '2019-03-20',
-  manager: '刘强',
+  founded: '2019-10-16',
+  managerName: '刘强',
   provinceCenterId: 'RSPC000001',
 }
 */
@@ -141,7 +141,7 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,17 +151,17 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
-                  {getFieldDecorator('manager', {
+                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
+                  {getFieldDecorator('managerName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经理" />
+                    <Input size="large"  placeHolder={fieldLabels.managerName} />
                   )}
                 </Form.Item>
               </Col>

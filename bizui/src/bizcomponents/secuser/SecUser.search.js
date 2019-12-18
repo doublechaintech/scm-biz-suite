@@ -7,9 +7,10 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './SecUser.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import SecUserBase from './SecUser.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-
+const {fieldLabels} = SecUserBase
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -69,17 +70,17 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <SecUserBlockingAssociateForm 
-	visible={currentAssociateModal==='blocking'} 
-	data={{secUserList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'blocking')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'blocking')}/>
+   
   
     <UserDomainAssociateForm 
 	visible={currentAssociateModal==='domain'} 
 	data={{secUserList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'domain')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'domain')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'domain')}/> <SecUserBlockingAssociateForm 
+	visible={currentAssociateModal==='blocking'} 
+	data={{secUserList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'blocking')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'blocking')}/> 
  
 
 

@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCityServiceCenter = (ownerClass, id, filterKey, pageNo) =>
 }	
 
 const transferToAnotherCityServiceCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}cityEventManager/transferToAnotherCityServiceCenter/id/anotherCityServiceCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeEventAttendanceList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}cityEventService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}cityEventService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}cityEventService/process/`,
+    data,
+  })
+}
+
 const CityEventService = { view,
   load,
   addEventAttendance,
   updateEventAttendance,
   removeEventAttendanceList,
   requestCandidateCityServiceCenter,
-  transferToAnotherCityServiceCenter }
+  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest}
 export default CityEventService
 

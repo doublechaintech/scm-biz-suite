@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateApp = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherApp = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}listAccessManager/transferToAnotherApp/id/anotherAppId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -37,9 +36,36 @@ const transferToAnotherApp = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}listAccessService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}listAccessService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}listAccessService/process/`,
+    data,
+  })
+}
+
 const ListAccessService = { view,
   load,
   requestCandidateApp,
-  transferToAnotherApp }
+  transferToAnotherApp, listFunctions, saveRequest, processRequest}
 export default ListAccessService
 

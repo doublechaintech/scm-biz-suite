@@ -116,10 +116,10 @@ const internalSummaryOf = (trainingCourseType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{trainingCourseType.id}</Description> 
-<Description term="代码">{trainingCourseType.code}</Description> 
-<Description term="名称">{trainingCourseType.name}</Description> 
-<Description term="描述">{trainingCourseType.description}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{trainingCourseType.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{trainingCourseType.code}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{trainingCourseType.name}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{trainingCourseType.description}</Description> 
 	
         {buildTransferModal(trainingCourseType,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,7 @@ class TrainingCourseTypeDashboard extends Component {
     const cardsData = {cardsName:"培训课程类型",cardsFor: "trainingCourseType",
     	cardsSource: this.props.trainingCourseType,returnURL,displayName,
   		subItems: [
-{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'companyTrainingList', displayName:'公司培训',viewGroup:'__no_group', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [

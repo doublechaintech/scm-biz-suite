@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = GoodsShelfBase
 const testValues = {};
 /*
 const testValues = {
@@ -71,7 +71,7 @@ class GoodsShelfCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = GoodsShelfBase
+    
     const {GoodsShelfService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class GoodsShelfCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class GoodsShelfCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class GoodsShelfCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货架</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_shelf')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class GoodsShelfCreateFormBody extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large"  placeHolder={fieldLabels.location} />
                   )}
                 </Form.Item>
               </Col>

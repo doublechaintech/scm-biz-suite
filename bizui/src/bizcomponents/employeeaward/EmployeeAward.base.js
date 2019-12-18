@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"员工嘉奖", menuFor: "employeeAward",
+
+const menuData = {menuName: window.trans('employee_award'), menuFor: "employeeAward",
   		subItems: [
   
   		],
 }
 
 
-const settingMenuData = {menuName:"员工嘉奖", menuFor: "employeeAward",
+const settingMenuData = {menuName: window.trans('employee_award'), menuFor: "employeeAward",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  employee: '员工',
-  completeTime: '完成时间',
-  type: '类型',
-  remark: '备注',
+  id: window.trans('employee_award.id'),
+  employee: window.trans('employee_award.employee'),
+  completeTime: window.trans('employee_award.complete_time'),
+  type: window.trans('employee_award.type'),
+  remark: window.trans('employee_award.remark'),
 
 }
 
@@ -60,20 +65,23 @@ const displayColumns = [
   { title: fieldLabels.remark, debugtype: 'string', dataIndex: 'remark', width: '13',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(employeeAward,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={employeeAward.id}>
 	
-      <DescriptionList  key={employeeAward.id} size="small" col="4">
-        <Description term="序号">{employeeAward.id}</Description> 
-        <Description term="员工"><div>{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
+      <DescriptionList  key={employeeAward.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeAward.id}</Description> 
+        <Description term={fieldLabels.employee}><div>{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
         </div></Description>
-        <Description term="完成时间"><div>{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</div></Description> 
-        <Description term="类型">{employeeAward.type}</Description> 
-        <Description term="备注">{employeeAward.remark}</Description> 
+        <Description term={fieldLabels.completeTime}><div>{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term={fieldLabels.type} style={{wordBreak: 'break-all'}}>{employeeAward.type}</Description> 
+        <Description term={fieldLabels.remark} style={{wordBreak: 'break-all'}}>{employeeAward.remark}</Description> 
 	
         
       </DescriptionList>
@@ -83,10 +91,29 @@ const renderItemOfList=(employeeAward,targetComponent)=>{
 
 }
 	
-
-
-
-const EmployeeAwardBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {completeTime, type, remark, employeeId} = formValuesToPack
+	const employee = {id: employeeId, version: 2^31}
+	const data = {completeTime, type, remark, employee}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {completeTime, type, remark, employee} = objectToUnpack
+	const employeeId = employee ? employee.id : null
+	const data = {completeTime, type, remark, employeeId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const EmployeeAwardBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeAwardBase
 
 

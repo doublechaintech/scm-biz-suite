@@ -21,7 +21,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2016-10-28',
+  founded: '2018-04-01',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -195,9 +195,9 @@ class ProvinceCenterEmployeeCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -206,13 +206,13 @@ class ProvinceCenterEmployeeCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}省中心员工</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('province_center_employee')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}省中心员工`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('province_center_employee')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -1,0 +1,118 @@
+import React from 'react'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
+
+import { Link } from 'dva/router'
+import moment from 'moment'
+import ImagePreview from '../../components/ImagePreview'
+import appLocaleName from '../../common/Locale.tool'
+import BaseTool from '../../common/Base.tool'
+import GlobalComponents from '../../custcomponents'
+import DescriptionList from '../../components/DescriptionList'
+const { Description } = DescriptionList
+
+const {
+	defaultRenderReferenceCell,
+	defaultRenderBooleanCell,
+	defaultRenderMoneyCell,
+	defaultRenderDateTimeCell,
+	defaultRenderImageCell,
+	defaultRenderAvatarCell,
+	defaultRenderDateCell,
+	defaultRenderIdentifier,
+	defaultRenderTextCell,
+	defaultSearchLocalData,
+} = BaseTool
+
+const renderTextCell=defaultRenderTextCell
+const renderIdentifier=defaultRenderIdentifier
+const renderDateCell=defaultRenderDateCell
+const renderDateTimeCell=defaultRenderDateTimeCell
+const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
+const renderMoneyCell=defaultRenderMoneyCell
+const renderBooleanCell=defaultRenderBooleanCell
+const renderReferenceCell=defaultRenderReferenceCell
+
+
+
+const menuData = {menuName: window.trans('form_field_message'), menuFor: "formFieldMessage",
+  		subItems: [
+  
+  		],
+}
+
+
+const settingMenuData = {menuName: window.trans('form_field_message'), menuFor: "formFieldMessage",
+  		subItems: [
+  
+  		],
+}
+
+const fieldLabels = {
+  id: window.trans('form_field_message.id'),
+  title: window.trans('form_field_message.title'),
+  parameterName: window.trans('form_field_message.parameter_name'),
+  form: window.trans('form_field_message.form'),
+  level: window.trans('form_field_message.level'),
+
+}
+
+const displayColumns = [
+  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'formFieldMessage') , sorter: true },
+  { title: fieldLabels.title, debugtype: 'string', dataIndex: 'title', width: '8',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.parameterName, debugtype: 'string', dataIndex: 'parameterName', width: '8',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.form, dataIndex: 'form', render: (text, record) => renderReferenceCell(text, record), sorter:true},
+  { title: fieldLabels.level, debugtype: 'string', dataIndex: 'level', width: '11',render: (text, record)=>renderTextCell(text,record)},
+
+]
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
+const renderItemOfList=(formFieldMessage,targetComponent)=>{
+
+  const userContext = null
+  return (
+    <div key={formFieldMessage.id}>
+	
+      <DescriptionList  key={formFieldMessage.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{formFieldMessage.id}</Description> 
+        <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{formFieldMessage.title}</Description> 
+        <Description term={fieldLabels.parameterName} style={{wordBreak: 'break-all'}}>{formFieldMessage.parameterName}</Description> 
+        <Description term={fieldLabels.level} style={{wordBreak: 'break-all'}}>{formFieldMessage.level}</Description> 
+	
+        
+      </DescriptionList>
+      <Divider style={{ height: '2px' }} />
+    </div>
+	)
+
+}
+	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {title, parameterName, level, formId} = formValuesToPack
+	const form = {id: formId, version: 2^31}
+	const data = {title, parameterName, level, form}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {title, parameterName, level, form} = objectToUnpack
+	const formId = form ? form.id : null
+	const data = {title, parameterName, level, formId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const FormFieldMessageBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+export default FormFieldMessageBase
+
+
+

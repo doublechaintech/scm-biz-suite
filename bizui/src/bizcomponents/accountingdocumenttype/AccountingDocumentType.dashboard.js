@@ -116,9 +116,9 @@ const internalSummaryOf = (accountingDocumentType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentType.id}</Description> 
-<Description term="名称">{accountingDocumentType.name}</Description> 
-<Description term="描述">{accountingDocumentType.description}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingDocumentType.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{accountingDocumentType.name}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{accountingDocumentType.description}</Description> 
 <Description term="会计期间">{accountingDocumentType.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentType.accountingPeriod.displayName}(${accountingDocumentType.accountingPeriod.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"会计期间","accountSet",AccountingDocumentTypeService.requestCandidateAccountingPeriod,
@@ -165,7 +165,7 @@ class AccountingDocumentTypeDashboard extends Component {
     const cardsData = {cardsName:"会计凭证类型",cardsFor: "accountingDocumentType",
     	cardsSource: this.props.accountingDocumentType,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
+{name: 'accountingDocumentList', displayName:'会计凭证',viewGroup:'__no_group', type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
     
       	],
    		subSettingItems: [

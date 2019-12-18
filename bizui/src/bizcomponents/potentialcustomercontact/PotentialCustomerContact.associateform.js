@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2017-09-20',
+  contactDate: '2017-09-30',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -143,7 +143,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +153,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('contactDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="接触日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.contactDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +163,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('contactMethod', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="接触法" />
+                    <Input size="large"  placeHolder={fieldLabels.contactMethod} />
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +173,7 @@ class PotentialCustomerContactAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

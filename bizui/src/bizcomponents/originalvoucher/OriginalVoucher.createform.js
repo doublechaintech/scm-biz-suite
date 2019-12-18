@@ -23,6 +23,9 @@ const testValues = {
   receivedBy: '本公司',
   voucherType: '原始凭证',
   belongsToId: 'AD000001',
+  creationId: 'OVC000001',
+  confirmationId: 'OVC000001',
+  auditingId: 'OVA000001',
 }
 */
 
@@ -195,9 +198,9 @@ class OriginalVoucherCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -206,13 +209,13 @@ class OriginalVoucherCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}原始凭证</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('original_voucher')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}原始凭证`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('original_voucher')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

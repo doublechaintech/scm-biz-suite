@@ -13,13 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = OriginalVoucherConfirmationBase
 const testValues = {};
 /*
 const testValues = {
   who: '财务会计',
   comments: '确认通过',
-  makeDate: '2019-01-04',
+  makeDate: '2019-04-08',
 }
 */
 
@@ -70,7 +70,7 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = OriginalVoucherConfirmationBase
+    
     const {OriginalVoucherConfirmationService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}原始凭证的确认</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('original_voucher_confirmation')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +142,7 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
                   )}
                 </Form.Item>
               </Col>
@@ -157,7 +152,7 @@ class OriginalVoucherConfirmationCreateFormBody extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.makeDate}/>
                   )}
                 </Form.Item>
               </Col>

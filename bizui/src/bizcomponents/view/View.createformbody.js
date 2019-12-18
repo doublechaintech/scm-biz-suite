@@ -13,13 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = ViewBase
 const testValues = {};
 /*
 const testValues = {
   who: '面试官',
   assessment: '小伙子不错，值得培养',
-  interviewTime: '2019-09-04',
+  interviewTime: '2016-12-24',
 }
 */
 
@@ -70,7 +70,7 @@ class ViewCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = ViewBase
+    
     const {ViewService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class ViewCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class ViewCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class ViewCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}观</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('view')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class ViewCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +142,7 @@ class ViewCreateFormBody extends Component {
                   {getFieldDecorator('assessment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评估" />
+                    <Input size="large"  placeHolder={fieldLabels.assessment} />
                   )}
                 </Form.Item>
               </Col>
@@ -157,7 +152,7 @@ class ViewCreateFormBody extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="面试时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.interviewTime}/>
                   )}
                 </Form.Item>
               </Col>

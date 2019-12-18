@@ -13,13 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = AccountingDocumentPostingBase
 const testValues = {};
 /*
 const testValues = {
   who: '财务会计',
   comments: '审核通过，要都审核过了才通过哦',
-  makeDate: '2018-08-30',
+  makeDate: '2018-11-20',
 }
 */
 
@@ -70,7 +70,7 @@ class AccountingDocumentPostingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = AccountingDocumentPostingBase
+    
     const {AccountingDocumentPostingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class AccountingDocumentPostingCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class AccountingDocumentPostingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class AccountingDocumentPostingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计凭证过帐</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_document_posting')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class AccountingDocumentPostingCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +142,7 @@ class AccountingDocumentPostingCreateFormBody extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
                   )}
                 </Form.Item>
               </Col>
@@ -157,7 +152,7 @@ class AccountingDocumentPostingCreateFormBody extends Component {
                   {getFieldDecorator('makeDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.makeDate}/>
                   )}
                 </Form.Item>
               </Col>

@@ -116,15 +116,15 @@ const internalSummaryOf = (supplyOrderShippingGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderShippingGroup.id}</Description> 
-<Description term="名称">{supplyOrderShippingGroup.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplyOrderShippingGroup.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{supplyOrderShippingGroup.name}</Description> 
 <Description term="订单">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","supplyOrder",SupplyOrderShippingGroupService.requestCandidateBizOrder,
 	      SupplyOrderShippingGroupService.transferToAnotherBizOrder,"anotherBizOrderId",supplyOrderShippingGroup.bizOrder?supplyOrderShippingGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="金额">{supplyOrderShippingGroup.amount}</Description> 
+<Description term="金额" style={{wordBreak: 'break-all'}}>{supplyOrderShippingGroup.amount}</Description> 
 	
         {buildTransferModal(supplyOrderShippingGroup,targetComponent)}
       </DescriptionList>

@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateWarehouse = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherWarehouse = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}receivingSpaceManager/transferToAnotherWarehouse/id/anotherWarehouseId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,7 +38,7 @@ const transferToAnotherWarehouse = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}receivingSpaceManager/addGoods/receivingSpaceId/name/rfid/uom/maxPackage/expireTime/skuId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
+  const url = `${PREFIX}receivingSpaceManager/addGoods/receivingSpaceId/name/rfid/uom/maxPackage/expireTime/skuId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
   const receivingSpaceId = targetObjectId
   const requestParameters = { ...parameters, receivingSpaceId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -59,12 +58,39 @@ const removeGoodsList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}receivingSpaceService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}receivingSpaceService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}receivingSpaceService/process/`,
+    data,
+  })
+}
+
 const ReceivingSpaceService = { view,
   load,
   addGoods,
   updateGoods,
   removeGoodsList,
   requestCandidateWarehouse,
-  transferToAnotherWarehouse }
+  transferToAnotherWarehouse, listFunctions, saveRequest, processRequest}
 export default ReceivingSpaceService
 

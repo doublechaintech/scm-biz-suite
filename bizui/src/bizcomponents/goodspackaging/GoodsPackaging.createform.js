@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
-  packageTime: '2016-10-06',
+  packageTime: '2018-09-13',
   description: '打包完成，准备起运',
 }
 */
@@ -193,9 +193,9 @@ class GoodsPackagingCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +204,13 @@ class GoodsPackagingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物包装</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_packaging')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}货物包装`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods_packaging')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

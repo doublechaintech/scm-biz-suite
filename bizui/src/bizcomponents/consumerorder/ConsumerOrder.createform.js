@@ -20,6 +20,11 @@ const testValues = {};
 const testValues = {
   title: '消费订单',
   consumerId: 'RSM000001',
+  confirmationId: 'SOC000001',
+  approvalId: 'SOA000001',
+  processingId: 'SOP000001',
+  shipmentId: 'SOS000001',
+  deliveryId: 'SOD000001',
   storeId: 'RS000001',
 }
 */
@@ -192,9 +197,9 @@ class ConsumerOrderCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +208,13 @@ class ConsumerOrderCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费者订单</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}消费者订单`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

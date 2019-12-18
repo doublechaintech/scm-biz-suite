@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeSkillBase
 const testValues = {};
 /*
 const testValues = {
@@ -70,7 +70,7 @@ class EmployeeSkillCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeSkillBase
+    
     const {EmployeeSkillService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class EmployeeSkillCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class EmployeeSkillCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class EmployeeSkillCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工技能</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_skill')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class EmployeeSkillCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

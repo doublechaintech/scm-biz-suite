@@ -116,8 +116,8 @@ const internalSummaryOf = (retailStoreOrderDelivery,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderDelivery.id}</Description> 
-<Description term="谁">{retailStoreOrderDelivery.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreOrderDelivery.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{retailStoreOrderDelivery.who}</Description> 
 <Description term="交货时间">{ moment(retailStoreOrderDelivery.deliveryTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreOrderDelivery,targetComponent)}
@@ -159,7 +159,7 @@ class RetailStoreOrderDeliveryDashboard extends Component {
     const cardsData = {cardsName:"生超订单交付",cardsFor: "retailStoreOrderDelivery",
     	cardsSource: this.props.retailStoreOrderDelivery,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+{name: 'retailStoreOrderList', displayName:'生超的订单',viewGroup:'__no_group', type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
     
       	],
    		subSettingItems: [

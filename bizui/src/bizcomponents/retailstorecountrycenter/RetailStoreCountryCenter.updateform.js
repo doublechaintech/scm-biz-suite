@@ -249,7 +249,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}双链小超全国运营中心: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.serviceNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="服务号码" />
+                    <Input size="large"  placeHolder={fieldLabels.serviceNumber} />
                     
                   )}
                 </Form.Item>
@@ -303,7 +303,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.founded,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                     
                   )}
                 </Form.Item>
@@ -315,7 +315,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.webSite,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="网站" />
+                    <Input size="large"  placeHolder={fieldLabels.webSite} />
                     
                   )}
                 </Form.Item>
@@ -327,7 +327,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.address,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="地址" />
+                    <Input size="large"  placeHolder={fieldLabels.address} />
                     
                   )}
                 </Form.Item>
@@ -339,7 +339,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.operatedBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由" />
+                    <Input size="large"  placeHolder={fieldLabels.operatedBy} />
                     
                   )}
                 </Form.Item>
@@ -351,7 +351,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.legalRepresentative,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="法定代表人" />
+                    <Input size="large"  placeHolder={fieldLabels.legalRepresentative} />
                     
                   )}
                 </Form.Item>
@@ -363,7 +363,7 @@ class RetailStoreCountryCenterUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                     
                   )}
                 </Form.Item>

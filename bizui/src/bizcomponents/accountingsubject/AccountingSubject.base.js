@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,32 +28,34 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会计科目", menuFor: "accountingSubject",
+
+const menuData = {menuName: window.trans('accounting_subject'), menuFor: "accountingSubject",
   		subItems: [
-  {name: 'accountingDocumentLineList', displayName:'会计凭证行', icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'accountingDocumentLineList', displayName: window.mtrans('accounting_document_line','accounting_subject.accounting_document_line_list',false), type:'accountingDocumentLine',icon:'line',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"会计科目", menuFor: "accountingSubject",
+const settingMenuData = {menuName: window.trans('accounting_subject'), menuFor: "accountingSubject",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  accountingSubjectCode: '会计科目代码',
-  accountingSubjectName: '会计科目名称',
-  accountingSubjectClassCode: '会计科目类别代码',
-  accountingSubjectClassName: '会计科目类别名称',
-  accountSet: '账套',
+  id: window.trans('accounting_subject.id'),
+  accountingSubjectCode: window.trans('accounting_subject.accounting_subject_code'),
+  accountingSubjectName: window.trans('accounting_subject.accounting_subject_name'),
+  accountingSubjectClassCode: window.trans('accounting_subject.accounting_subject_class_code'),
+  accountingSubjectClassName: window.trans('accounting_subject.accounting_subject_class_name'),
+  accountSet: window.trans('accounting_subject.account_set'),
 
 }
 
@@ -63,20 +68,23 @@ const displayColumns = [
   { title: fieldLabels.accountSet, dataIndex: 'accountSet', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(accountingSubject,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={accountingSubject.id}>
 	
-      <DescriptionList  key={accountingSubject.id} size="small" col="4">
-        <Description term="序号">{accountingSubject.id}</Description> 
-        <Description term="会计科目代码">{accountingSubject.accountingSubjectCode}</Description> 
-        <Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
-        <Description term="会计科目类别代码"><div style={{"color":"red"}}>{accountingSubject.accountingSubjectClassCode}</div></Description> 
-        <Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
-        <Description term="账套"><div>{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
+      <DescriptionList  key={accountingSubject.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{accountingSubject.id}</Description> 
+        <Description term={fieldLabels.accountingSubjectCode} style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectCode}</Description> 
+        <Description term={fieldLabels.accountingSubjectName} style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectName}</Description> 
+        <Description term={fieldLabels.accountingSubjectClassCode}><div style={{"color":"red"}}>{accountingSubject.accountingSubjectClassCode}</div></Description> 
+        <Description term={fieldLabels.accountingSubjectClassName} style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectClassName}</Description> 
+        <Description term={fieldLabels.accountSet}><div>{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
         </div></Description>
 	
         
@@ -87,10 +95,29 @@ const renderItemOfList=(accountingSubject,targetComponent)=>{
 
 }
 	
-
-
-
-const AccountingSubjectBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {accountingSubjectCode, accountingSubjectName, accountingSubjectClassCode, accountingSubjectClassName, accountSetId} = formValuesToPack
+	const accountSet = {id: accountSetId, version: 2^31}
+	const data = {accountingSubjectCode, accountingSubjectName, accountingSubjectClassCode, accountingSubjectClassName, accountSet}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {accountingSubjectCode, accountingSubjectName, accountingSubjectClassCode, accountingSubjectClassName, accountSet} = objectToUnpack
+	const accountSetId = accountSet ? accountSet.id : null
+	const data = {accountingSubjectCode, accountingSubjectName, accountingSubjectClassCode, accountingSubjectClassName, accountSetId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const AccountingSubjectBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default AccountingSubjectBase
 
 

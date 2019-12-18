@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeBoardingBase
 const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
-  employTime: '2016-11-28',
+  employTime: '2018-02-19',
   comments: '欢迎加入植物医生大家庭',
 }
 */
@@ -70,7 +70,7 @@ class EmployeeBoardingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeBoardingBase
+    
     const {EmployeeBoardingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class EmployeeBoardingCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class EmployeeBoardingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class EmployeeBoardingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工入职</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_boarding')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class EmployeeBoardingCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +142,7 @@ class EmployeeBoardingCreateFormBody extends Component {
                   {getFieldDecorator('employTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="使用时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.employTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -157,7 +152,7 @@ class EmployeeBoardingCreateFormBody extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
                   )}
                 </Form.Item>
               </Col>

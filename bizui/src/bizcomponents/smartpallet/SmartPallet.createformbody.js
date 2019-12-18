@@ -13,15 +13,15 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SmartPalletBase
 const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
-  contactNumber: '02887654321',
+  contactNumber: '1024934546',
   totalArea: '1876平方米',
-  latitude: '40.94560157380213',
-  longitude: '132.20739970596549',
+  latitude: '40.31022039321664',
+  longitude: '130.0117453065888',
   warehouseId: 'W000001',
 }
 */
@@ -73,7 +73,7 @@ class SmartPalletCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SmartPalletBase
+    
     const {SmartPalletService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -81,12 +81,6 @@ class SmartPalletCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -118,6 +112,7 @@ class SmartPalletCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -125,7 +120,7 @@ class SmartPalletCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}智能托盘</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('smart_pallet')}</div>)
     }
 	
 	return (
@@ -140,7 +135,7 @@ class SmartPalletCreateFormBody extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="位置" />
+                    <Input size="large"  placeHolder={fieldLabels.location} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +145,7 @@ class SmartPalletCreateFormBody extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="联系电话" />
+                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +155,7 @@ class SmartPalletCreateFormBody extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="总面积" />
+                    <Input size="large"  placeHolder={fieldLabels.totalArea} />
                   )}
                 </Form.Item>
               </Col>
@@ -170,7 +165,7 @@ class SmartPalletCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -180,7 +175,7 @@ class SmartPalletCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>

@@ -116,10 +116,10 @@ const internalSummaryOf = (supplierProduct,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplierProduct.id}</Description> 
-<Description term="品名">{supplierProduct.productName}</Description> 
-<Description term="产品描述">{supplierProduct.productDescription}</Description> 
-<Description term="产品单元">{supplierProduct.productUnit}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplierProduct.id}</Description> 
+<Description term="品名" style={{wordBreak: 'break-all'}}>{supplierProduct.productName}</Description> 
+<Description term="产品描述" style={{wordBreak: 'break-all'}}>{supplierProduct.productDescription}</Description> 
+<Description term="产品单元" style={{wordBreak: 'break-all'}}>{supplierProduct.productUnit}</Description> 
 <Description term="供应商">{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${supplierProduct.supplier.displayName}(${supplierProduct.supplier.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"供应商","goodsSupplier",SupplierProductService.requestCandidateSupplier,
@@ -166,7 +166,7 @@ class SupplierProductDashboard extends Component {
     const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",
     	cardsSource: this.props.supplierProduct,returnURL,displayName,
   		subItems: [
-{name: 'productSupplyDurationList', displayName:'产品供应时间',type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo, renderItem: GlobalComponents.ProductSupplyDurationBase.renderItemOfList},
+{name: 'productSupplyDurationList', displayName:'产品供应时间',viewGroup:'__no_group', type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo, renderItem: GlobalComponents.ProductSupplyDurationBase.renderItemOfList},
     
       	],
    		subSettingItems: [

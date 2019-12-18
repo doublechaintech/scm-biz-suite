@@ -116,17 +116,16 @@ const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrder.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreOrder.id}</Description> 
 <Description term="买方">{retailStoreOrder.buyer==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrder.buyer.displayName}(${retailStoreOrder.buyer.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"买方","retailStore",RetailStoreOrderService.requestCandidateBuyer,
 	      RetailStoreOrderService.transferToAnotherBuyer,"anotherBuyerId",retailStoreOrder.buyer?retailStoreOrder.buyer.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="头衔">{retailStoreOrder.title}</Description> 
-<Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{retailStoreOrder.title}</Description> 
+<Description term="总金额" style={{wordBreak: 'break-all'}}>{retailStoreOrder.totalAmount}</Description> 
 <Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
-<Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
 	
         {buildTransferModal(retailStoreOrder,targetComponent)}
       </DescriptionList>
@@ -167,10 +166,10 @@ class RetailStoreOrderDashboard extends Component {
     const cardsData = {cardsName:"生超的订单",cardsFor: "retailStoreOrder",
     	cardsSource: this.props.retailStoreOrder,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreOrderLineItemList', displayName:'双链小超订单行项目',type:'retailStoreOrderLineItem',count:retailStoreOrderLineItemCount,addFunction: true, role: 'retailStoreOrderLineItem', metaInfo: retailStoreOrderLineItemListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderLineItemBase.renderItemOfList},
-{name: 'retailStoreOrderShippingGroupList', displayName:'生超订单送货分组',type:'retailStoreOrderShippingGroup',count:retailStoreOrderShippingGroupCount,addFunction: true, role: 'retailStoreOrderShippingGroup', metaInfo: retailStoreOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderShippingGroupBase.renderItemOfList},
-{name: 'retailStoreOrderPaymentGroupList', displayName:'生超订单付款组',type:'retailStoreOrderPaymentGroup',count:retailStoreOrderPaymentGroupCount,addFunction: true, role: 'retailStoreOrderPaymentGroup', metaInfo: retailStoreOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderPaymentGroupBase.renderItemOfList},
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'retailStoreOrderLineItemList', displayName:'双链小超订单行项目',viewGroup:'__no_group', type:'retailStoreOrderLineItem',count:retailStoreOrderLineItemCount,addFunction: true, role: 'retailStoreOrderLineItem', metaInfo: retailStoreOrderLineItemListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderLineItemBase.renderItemOfList},
+{name: 'retailStoreOrderShippingGroupList', displayName:'生超订单送货分组',viewGroup:'__no_group', type:'retailStoreOrderShippingGroup',count:retailStoreOrderShippingGroupCount,addFunction: true, role: 'retailStoreOrderShippingGroup', metaInfo: retailStoreOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderShippingGroupBase.renderItemOfList},
+{name: 'retailStoreOrderPaymentGroupList', displayName:'生超订单付款组',viewGroup:'__no_group', type:'retailStoreOrderPaymentGroup',count:retailStoreOrderPaymentGroupCount,addFunction: true, role: 'retailStoreOrderPaymentGroup', metaInfo: retailStoreOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderPaymentGroupBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
    		subSettingItems: [

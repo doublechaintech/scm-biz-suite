@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SupplyOrderProcessingBase
 const testValues = {};
 /*
 const testValues = {
   who: '处理者',
-  processTime: '2016-11-29',
+  processTime: '2018-02-05',
 }
 */
 
@@ -69,7 +69,7 @@ class SupplyOrderProcessingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SupplyOrderProcessingBase
+    
     const {SupplyOrderProcessingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -77,12 +77,6 @@ class SupplyOrderProcessingCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -114,6 +108,7 @@ class SupplyOrderProcessingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -121,7 +116,7 @@ class SupplyOrderProcessingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单处理</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_processing')}</div>)
     }
 	
 	return (
@@ -136,7 +131,7 @@ class SupplyOrderProcessingCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -146,7 +141,7 @@ class SupplyOrderProcessingCreateFormBody extends Component {
                   {getFieldDecorator('processTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="过程的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.processTime}/>
                   )}
                 </Form.Item>
               </Col>

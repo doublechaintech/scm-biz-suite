@@ -248,7 +248,7 @@ class ScoringUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}评分: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -266,7 +266,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -278,7 +278,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.scoredBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由谁打分" />
+                    <Input size="large"  placeHolder={fieldLabels.scoredBy} />
                     
                   )}
                 </Form.Item>
@@ -290,7 +290,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.score,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="分数" />
+                    <Input size="large"  placeHolder={fieldLabels.score} />
                     
                   )}
                 </Form.Item>
@@ -302,7 +302,7 @@ class ScoringUpdateForm extends Component {
                     initialValue: selectedRow.comment,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comment} />
                     
                   )}
                 </Form.Item>

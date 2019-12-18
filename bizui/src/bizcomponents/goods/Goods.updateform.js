@@ -249,7 +249,7 @@ class GoodsUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}货物: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class GoodsUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class GoodsUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class GoodsUpdateForm extends Component {
                     initialValue: selectedRow.rfid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="RFID" />
+                    <Input size="large"  placeHolder={fieldLabels.rfid} />
                     
                   )}
                 </Form.Item>
@@ -303,7 +303,7 @@ class GoodsUpdateForm extends Component {
                     initialValue: selectedRow.uom,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="计量单位" />
+                    <Input size="large"  placeHolder={fieldLabels.uom} />
                     
                   )}
                 </Form.Item>
@@ -315,7 +315,7 @@ class GoodsUpdateForm extends Component {
                     initialValue: selectedRow.maxPackage,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="最大包装" />
+                    <Input size="large"  placeHolder={fieldLabels.maxPackage} />
                     
                   )}
                 </Form.Item>
@@ -327,7 +327,7 @@ class GoodsUpdateForm extends Component {
                     initialValue: selectedRow.expireTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="到期时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.expireTime}/>
                     
                   )}
                 </Form.Item>

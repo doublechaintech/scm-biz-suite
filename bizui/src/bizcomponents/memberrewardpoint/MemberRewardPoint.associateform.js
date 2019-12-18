@@ -139,7 +139,7 @@ class MemberRewardPointAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +149,7 @@ class MemberRewardPointAssociateForm extends Component {
                   {getFieldDecorator('point', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="点" />
+                    <Input size="large"  placeHolder={fieldLabels.point} />
                   )}
                 </Form.Item>
               </Col>

@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
-  founded: '2017-06-17',
+  founded: '2017-09-11',
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',
@@ -197,9 +197,9 @@ class RetailStoreCountryCenterCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -208,13 +208,13 @@ class RetailStoreCountryCenterCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超全国运营中心</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_country_center')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}双链小超全国运营中心`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_country_center')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

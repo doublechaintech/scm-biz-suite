@@ -248,7 +248,7 @@ class ProductSupplyDurationUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}产品供应时间: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -266,7 +266,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -278,7 +278,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.quantity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数量" />
+                    <Input size="large"  placeHolder={fieldLabels.quantity} />
                     
                   )}
                 </Form.Item>
@@ -290,7 +290,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.duration,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="持续时间" />
+                    <Input size="large"  placeHolder={fieldLabels.duration} />
                     
                   )}
                 </Form.Item>
@@ -302,7 +302,7 @@ class ProductSupplyDurationUpdateForm extends Component {
                     initialValue: selectedRow.price,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.price} />
                     
                   )}
                 </Form.Item>

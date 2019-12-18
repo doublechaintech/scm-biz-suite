@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -43,10 +43,37 @@ const removeGoodsList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}goodsPackagingService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsPackagingService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsPackagingService/process/`,
+    data,
+  })
+}
+
 const GoodsPackagingService = { view,
   load,
   addGoods,
   updateGoods,
-  removeGoodsList }
+  removeGoodsList, listFunctions, saveRequest, processRequest}
 export default GoodsPackagingService
 

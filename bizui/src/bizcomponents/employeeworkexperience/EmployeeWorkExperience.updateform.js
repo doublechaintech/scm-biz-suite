@@ -250,7 +250,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}员工工作经验: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -268,7 +268,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -280,7 +280,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.start,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.start}/>
                     
                   )}
                 </Form.Item>
@@ -292,7 +292,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.end,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.end}/>
                     
                   )}
                 </Form.Item>
@@ -304,7 +304,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.company,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="公司" />
+                    <Input size="large"  placeHolder={fieldLabels.company} />
                     
                   )}
                 </Form.Item>
@@ -316,7 +316,7 @@ class EmployeeWorkExperienceUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                     
                   )}
                 </Form.Item>

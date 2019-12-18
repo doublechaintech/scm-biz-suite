@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = ScoringBase
 const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
-  score: '74',
+  score: '85',
   comment: '这个题做的真不错啊',
 }
 */
@@ -70,7 +70,7 @@ class ScoringCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = ScoringBase
+    
     const {ScoringService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class ScoringCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class ScoringCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class ScoringCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}评分</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('scoring')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class ScoringCreateFormBody extends Component {
                   {getFieldDecorator('scoredBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由谁打分" />
+                    <Input size="large"  placeHolder={fieldLabels.scoredBy} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +142,7 @@ class ScoringCreateFormBody extends Component {
                   {getFieldDecorator('score', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="分数" />
+                    <Input size="large"  placeHolder={fieldLabels.score} />
                   )}
                 </Form.Item>
               </Col>
@@ -157,7 +152,7 @@ class ScoringCreateFormBody extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comment} />
                   )}
                 </Form.Item>
               </Col>

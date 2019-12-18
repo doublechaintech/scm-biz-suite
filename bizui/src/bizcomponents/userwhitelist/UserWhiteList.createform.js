@@ -192,9 +192,9 @@ class UserWhiteListCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class UserWhiteListCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}用户白名单</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('user_white_list')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}用户白名单`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('user_white_list')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -140,7 +140,7 @@ class TerminationAssociateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comment} />
                   )}
                 </Form.Item>
               </Col>

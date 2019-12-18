@@ -58,7 +58,7 @@ const defaultIsMenuItemForDisplay = (item, targetObject, targetComponent) => {
     const userContext = null
     return (<Menu.Item key={item.name}>
       <Link to={`/${menuData.menuFor}/${objectId}/list/${item.name}/${item.displayName}${appLocaleName(userContext,"List")}`}>
-      <Icon type="bars" /><span>{item.displayName}</span>
+      <Icon type="bars" style={{marginRight:"20px"}} /><span>{item.displayName}</span>
       </Link>
     </Menu.Item>)
   

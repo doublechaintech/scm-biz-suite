@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区',
-  contactNumber: '02887654321',
+  contactNumber: '1201382753',
   totalArea: '1876平方米',
-  latitude: '42.54920494658683',
-  longitude: '129.47300628115988',
+  latitude: '41.584499616672474',
+  longitude: '130.74091769649044',
   warehouseId: 'W000001',
 }
 */
@@ -195,9 +195,9 @@ class StorageSpaceCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -206,13 +206,13 @@ class StorageSpaceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}存货区</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('storage_space')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}存货区`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('storage_space')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

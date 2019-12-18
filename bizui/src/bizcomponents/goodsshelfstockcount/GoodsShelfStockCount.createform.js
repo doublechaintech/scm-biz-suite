@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '每日盘点',
-  countTime: '2017-06-23',
+  countTime: '2019-07-21',
   summary: '使用先进的rfid技术，没有任何错误',
   shelfId: 'GS000001',
 }
@@ -193,9 +193,9 @@ class GoodsShelfStockCountCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +204,13 @@ class GoodsShelfStockCountCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货架库存盘点</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_shelf_stock_count')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}货架库存盘点`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods_shelf_stock_count')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

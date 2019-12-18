@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,28 +28,30 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"会员收藏产品", menuFor: "memberWishlistProduct",
+
+const menuData = {menuName: window.trans('member_wishlist_product'), menuFor: "memberWishlistProduct",
   		subItems: [
   
   		],
 }
 
 
-const settingMenuData = {menuName:"会员收藏产品", menuFor: "memberWishlistProduct",
+const settingMenuData = {menuName: window.trans('member_wishlist_product'), menuFor: "memberWishlistProduct",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  owner: '业主',
+  id: window.trans('member_wishlist_product.id'),
+  name: window.trans('member_wishlist_product.name'),
+  owner: window.trans('member_wishlist_product.owner'),
 
 }
 
@@ -56,17 +61,20 @@ const displayColumns = [
   { title: fieldLabels.owner, dataIndex: 'owner', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(memberWishlistProduct,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={memberWishlistProduct.id}>
 	
-      <DescriptionList  key={memberWishlistProduct.id} size="small" col="4">
-        <Description term="序号">{memberWishlistProduct.id}</Description> 
-        <Description term="名称">{memberWishlistProduct.name}</Description> 
-        <Description term="业主"><div>{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
+      <DescriptionList  key={memberWishlistProduct.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{memberWishlistProduct.id}</Description> 
+        <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{memberWishlistProduct.name}</Description> 
+        <Description term={fieldLabels.owner}><div>{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
         </div></Description>
 	
         
@@ -77,10 +85,29 @@ const renderItemOfList=(memberWishlistProduct,targetComponent)=>{
 
 }
 	
-
-
-
-const MemberWishlistProductBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name, ownerId} = formValuesToPack
+	const owner = {id: ownerId, version: 2^31}
+	const data = {name, owner}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name, owner} = objectToUnpack
+	const ownerId = owner ? owner.id : null
+	const data = {name, ownerId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const MemberWishlistProductBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default MemberWishlistProductBase
 
 

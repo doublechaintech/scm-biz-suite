@@ -116,9 +116,9 @@ const internalSummaryOf = (accountingDocumentConfirmation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentConfirmation.id}</Description> 
-<Description term="谁">{accountingDocumentConfirmation.who}</Description> 
-<Description term="评论">{accountingDocumentConfirmation.comments}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingDocumentConfirmation.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{accountingDocumentConfirmation.who}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{accountingDocumentConfirmation.comments}</Description> 
 <Description term="制造日期">{ moment(accountingDocumentConfirmation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(accountingDocumentConfirmation,targetComponent)}
@@ -160,7 +160,7 @@ class AccountingDocumentConfirmationDashboard extends Component {
     const cardsData = {cardsName:"会计的确认文件",cardsFor: "accountingDocumentConfirmation",
     	cardsSource: this.props.accountingDocumentConfirmation,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
+{name: 'accountingDocumentList', displayName:'会计凭证',viewGroup:'__no_group', type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
     
       	],
    		subSettingItems: [

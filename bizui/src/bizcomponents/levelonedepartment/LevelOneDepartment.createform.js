@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
-  manager: '刘强',
-  founded: '2017-04-25',
+  managerName: '刘强',
+  founded: '2019-10-07',
   belongsToId: 'RSCC000001',
 }
 */
@@ -194,9 +194,9 @@ class LevelOneDepartmentCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -205,13 +205,13 @@ class LevelOneDepartmentCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}一级部门</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('level_one_department')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}一级部门`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('level_one_department')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -117,17 +117,17 @@ const internalSummaryOf = (product,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{product.id}</Description> 
-<Description term="名称">{product.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{product.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{product.name}</Description> 
 <Description term="父类">{product.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${product.parentCategory.displayName}(${product.parentCategory.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"父类","levelThreeCategory",ProductService.requestCandidateParentCategory,
 	      ProductService.transferToAnotherParentCategory,"anotherParentCategoryId",product.parentCategory?product.parentCategory.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="产地">{product.origin}</Description> 
-<Description term="备注">{product.remark}</Description> 
-<Description term="品牌">{product.brand}</Description> 
+<Description term="产地" style={{wordBreak: 'break-all'}}>{product.origin}</Description> 
+<Description term="备注" style={{wordBreak: 'break-all'}}>{product.remark}</Description> 
+<Description term="品牌" style={{wordBreak: 'break-all'}}>{product.brand}</Description> 
 <Description term="最后更新时间">{ moment(product.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(product,targetComponent)}
@@ -169,7 +169,7 @@ class ProductDashboard extends Component {
     const cardsData = {cardsName:"产品",cardsFor: "product",
     	cardsSource: this.props.product,returnURL,displayName,
   		subItems: [
-{name: 'skuList', displayName:'SKU',type:'sku',count:skuCount,addFunction: true, role: 'sku', metaInfo: skuListMetaInfo, renderItem: GlobalComponents.SkuBase.renderItemOfList},
+{name: 'skuList', displayName:'SKU',viewGroup:'__no_group', type:'sku',count:skuCount,addFunction: true, role: 'sku', metaInfo: skuListMetaInfo, renderItem: GlobalComponents.SkuBase.renderItemOfList},
     
       	],
    		subSettingItems: [

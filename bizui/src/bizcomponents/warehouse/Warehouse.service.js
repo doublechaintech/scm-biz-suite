@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOwner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}warehouseManager/transferToAnotherOwner/id/anotherOwnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -191,6 +190,33 @@ const removeWarehouseAssetList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}warehouseService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}warehouseService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}warehouseService/process/`,
+    data,
+  })
+}
+
 const WarehouseService = { view,
   load,
   addStorageSpace,
@@ -215,6 +241,6 @@ const WarehouseService = { view,
   removeDamageSpaceList,
   removeWarehouseAssetList,
   requestCandidateOwner,
-  transferToAnotherOwner }
+  transferToAnotherOwner, listFunctions, saveRequest, processRequest}
 export default WarehouseService
 

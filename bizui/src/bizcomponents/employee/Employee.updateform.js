@@ -249,7 +249,7 @@ class EmployeeUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}员工: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.familyName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="姓" />
+                    <Input size="large"  placeHolder={fieldLabels.familyName} />
                     
                   )}
                 </Form.Item>
@@ -303,7 +303,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.givenName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名" />
+                    <Input size="large"  placeHolder={fieldLabels.givenName} />
                     
                   )}
                 </Form.Item>
@@ -315,7 +315,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large"  placeHolder={fieldLabels.email} />
                     
                   )}
                 </Form.Item>
@@ -327,7 +327,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.city,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="城市" />
+                    <Input size="large"  placeHolder={fieldLabels.city} />
                     
                   )}
                 </Form.Item>
@@ -339,7 +339,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.address,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="地址" />
+                    <Input size="large"  placeHolder={fieldLabels.address} />
                     
                   )}
                 </Form.Item>
@@ -351,7 +351,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.cellPhone,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large"  placeHolder={fieldLabels.cellPhone} />
                     
                   )}
                 </Form.Item>
@@ -363,7 +363,7 @@ class EmployeeUpdateForm extends Component {
                     initialValue: selectedRow.salaryAccount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="工资账户" />
+                    <Input size="large"  placeHolder={fieldLabels.salaryAccount} />
                     
                   )}
                 </Form.Item>

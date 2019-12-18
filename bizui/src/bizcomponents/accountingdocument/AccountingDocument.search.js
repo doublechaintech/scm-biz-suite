@@ -7,9 +7,10 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './AccountingDocument.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import AccountingDocumentBase from './AccountingDocument.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-
+const {fieldLabels} = AccountingDocumentBase
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -73,7 +74,17 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <AccountingDocumentCreationAssociateForm 
+   
+  
+    <AccountingPeriodAssociateForm 
+	visible={currentAssociateModal==='accountingPeriod'} 
+	data={{accountingDocumentList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')}/> <AccountingDocumentTypeAssociateForm 
+	visible={currentAssociateModal==='documentType'} 
+	data={{accountingDocumentList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'documentType')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'documentType')}/> <AccountingDocumentCreationAssociateForm 
 	visible={currentAssociateModal==='creation'} 
 	data={{accountingDocumentList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'creation')} 
@@ -89,17 +100,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='posting'} 
 	data={{accountingDocumentList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'posting')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'posting')}/>
-  
-    <AccountingPeriodAssociateForm 
-	visible={currentAssociateModal==='accountingPeriod'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'accountingPeriod')}/> <AccountingDocumentTypeAssociateForm 
-	visible={currentAssociateModal==='documentType'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'documentType')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'documentType')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'posting')}/> 
  
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,29 +28,31 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超订单批准", menuFor: "retailStoreOrderApproval",
+
+const menuData = {menuName: window.trans('retail_store_order_approval'), menuFor: "retailStoreOrderApproval",
   		subItems: [
-  {name: 'retailStoreOrderList', displayName:'生超的订单', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreOrderList', displayName: window.mtrans('retail_store_order','retail_store_order_approval.retail_store_order_list',false), type:'retailStoreOrder',icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"生超订单批准", menuFor: "retailStoreOrderApproval",
+const settingMenuData = {menuName: window.trans('retail_store_order_approval'), menuFor: "retailStoreOrderApproval",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  approveTime: '批准时间',
+  id: window.trans('retail_store_order_approval.id'),
+  who: window.trans('retail_store_order_approval.who'),
+  approveTime: window.trans('retail_store_order_approval.approve_time'),
 
 }
 
@@ -57,17 +62,20 @@ const displayColumns = [
   { title: fieldLabels.approveTime, dataIndex: 'approveTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(retailStoreOrderApproval,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={retailStoreOrderApproval.id}>
 	
-      <DescriptionList  key={retailStoreOrderApproval.id} size="small" col="4">
-        <Description term="序号">{retailStoreOrderApproval.id}</Description> 
-        <Description term="谁">{retailStoreOrderApproval.who}</Description> 
-        <Description term="批准时间"><div>{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</div></Description> 
+      <DescriptionList  key={retailStoreOrderApproval.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreOrderApproval.id}</Description> 
+        <Description term={fieldLabels.who} style={{wordBreak: 'break-all'}}>{retailStoreOrderApproval.who}</Description> 
+        <Description term={fieldLabels.approveTime}><div>{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
@@ -77,10 +85,29 @@ const renderItemOfList=(retailStoreOrderApproval,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {who, approveTime} = formValuesToPack
 
+	const data = {who, approveTime}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {who, approveTime} = objectToUnpack
 
-
-const RetailStoreOrderApprovalBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {who, approveTime}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const RetailStoreOrderApprovalBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreOrderApprovalBase
 
 

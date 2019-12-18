@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2017-04-06',
+  contactDate: '2019-03-17',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -196,9 +196,9 @@ class PotentialCustomerContactCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -207,13 +207,13 @@ class PotentialCustomerContactCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}潜在客户联系</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('potential_customer_contact')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}潜在客户联系`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('potential_customer_contact')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

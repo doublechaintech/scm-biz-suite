@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = TrainingCourseTypeBase
 const testValues = {};
 /*
 const testValues = {
@@ -71,7 +71,7 @@ class TrainingCourseTypeCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = TrainingCourseTypeBase
+    
     const {TrainingCourseTypeService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class TrainingCourseTypeCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class TrainingCourseTypeCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class TrainingCourseTypeCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}培训课程类型</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('training_course_type')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class TrainingCourseTypeCreateFormBody extends Component {
                   {getFieldDecorator('code', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="代码" />
+                    <Input size="large"  placeHolder={fieldLabels.code} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class TrainingCourseTypeCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class TrainingCourseTypeCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

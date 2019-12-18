@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreOrderConfirmationManager/addRetailStoreOrder/retailStoreOrderConfirmationId/buyerId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreOrderConfirmationManager/addRetailStoreOrder/retailStoreOrderConfirmationId/buyerId/sellerId/title/totalAmount/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
   const retailStoreOrderConfirmationId = targetObjectId
   const requestParameters = { ...parameters, retailStoreOrderConfirmationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -43,10 +43,37 @@ const removeRetailStoreOrderList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreOrderConfirmationService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreOrderConfirmationService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreOrderConfirmationService/process/`,
+    data,
+  })
+}
+
 const RetailStoreOrderConfirmationService = { view,
   load,
   addRetailStoreOrder,
   updateRetailStoreOrder,
-  removeRetailStoreOrderList }
+  removeRetailStoreOrderList, listFunctions, saveRequest, processRequest}
 export default RetailStoreOrderConfirmationService
 

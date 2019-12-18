@@ -13,13 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = TransportTaskTrackBase
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2017-04-02',
-  latitude: '32.164875070153705',
-  longitude: '103.98171540581573',
+  trackTime: '2019-04-15',
+  latitude: '31.47216520020141',
+  longitude: '104.64398522886944',
   movementId: 'TT000001',
 }
 */
@@ -71,7 +71,7 @@ class TransportTaskTrackCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = TransportTaskTrackBase
+    
     const {TransportTaskTrackService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class TransportTaskTrackCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class TransportTaskTrackCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class TransportTaskTrackCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输任务跟踪</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_task_track')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class TransportTaskTrackCreateFormBody extends Component {
                   {getFieldDecorator('trackTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="跟踪时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.trackTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class TransportTaskTrackCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class TransportTaskTrackCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>

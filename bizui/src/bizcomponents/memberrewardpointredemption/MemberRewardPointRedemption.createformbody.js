@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = MemberRewardPointRedemptionBase
 const testValues = {};
 /*
 const testValues = {
   name: '积分换锅',
-  point: '18',
+  point: '15',
   ownerId: 'RSM000001',
 }
 */
@@ -70,7 +70,7 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = MemberRewardPointRedemptionBase
+    
     const {MemberRewardPointRedemptionService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会员奖励点赎回</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('member_reward_point_redemption')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +142,7 @@ class MemberRewardPointRedemptionCreateFormBody extends Component {
                   {getFieldDecorator('point', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="点" />
+                    <Input size="large"  placeHolder={fieldLabels.point} />
                   )}
                 </Form.Item>
               </Col>

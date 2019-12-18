@@ -250,7 +250,7 @@ class AccountSetUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}账套: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -268,7 +268,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -280,7 +280,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                     
                   )}
                 </Form.Item>
@@ -292,7 +292,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.yearSet,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="年组" />
+                    <Input size="large"  placeHolder={fieldLabels.yearSet} />
                     
                   )}
                 </Form.Item>
@@ -304,7 +304,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.effectiveDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="生效日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.effectiveDate}/>
                     
                   )}
                 </Form.Item>
@@ -316,7 +316,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.accountingSystem,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计制度" />
+                    <Input size="large"  placeHolder={fieldLabels.accountingSystem} />
                     
                   )}
                 </Form.Item>
@@ -328,7 +328,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.domesticCurrencyCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="本币代码" />
+                    <Input size="large"  placeHolder={fieldLabels.domesticCurrencyCode} />
                     
                   )}
                 </Form.Item>
@@ -340,7 +340,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.domesticCurrencyName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="本币名称" />
+                    <Input size="large"  placeHolder={fieldLabels.domesticCurrencyName} />
                     
                   )}
                 </Form.Item>
@@ -352,7 +352,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.openingBank,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="开户银行" />
+                    <Input size="large"  placeHolder={fieldLabels.openingBank} />
                     
                   )}
                 </Form.Item>
@@ -364,7 +364,7 @@ class AccountSetUpdateForm extends Component {
                     initialValue: selectedRow.accountNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="帐户号码" />
+                    <Input size="large"  placeHolder={fieldLabels.accountNumber} />
                     
                   )}
                 </Form.Item>

@@ -13,12 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeCompanyTrainingBase
 const testValues = {};
 /*
 const testValues = {
   employeeId: 'E000001',
   trainingId: 'CT000001',
+  scoringId: 'S000001',
 }
 */
 
@@ -69,7 +70,7 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeCompanyTrainingBase
+    
     const {EmployeeCompanyTrainingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -77,12 +78,6 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -114,6 +109,7 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -121,7 +117,7 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工参与的公司培训</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_company_training')}</div>)
     }
 	
 	return (
@@ -164,6 +160,25 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
                     disabled={!availableForEdit('training')}
                     targetType={"training"} 
                     requestFunction={EmployeeCompanyTrainingService.requestCandidateTraining}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.scoring} {...formItemLayout}>
+                  {getFieldDecorator('scoringId', {
+                  	initialValue: tryinit('scoring'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('scoring')}
+                    targetType={"scoring"} 
+                    requestFunction={EmployeeCompanyTrainingService.requestCandidateScoring}/>
                   
                  
                   )}

@@ -31,7 +31,7 @@ const internalSummaryOf = (secUserBlocking,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{secUserBlocking.id}</Description> 
+<Description term="序号">{secUserBlocking.id}</Description> 
 <Description term="谁">{secUserBlocking.who}</Description> 
 <Description term="块时间">{ moment(secUserBlocking.blockTime).format('YYYY-MM-DD')}</Description> 
 <Description term="评论">{secUserBlocking.comments}</Description> 

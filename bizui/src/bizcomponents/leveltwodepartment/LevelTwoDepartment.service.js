@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateBelongsTo = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBelongsTo = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}levelTwoDepartmentManager/transferToAnotherBelongsTo/id/anotherBelongsToId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeLevelThreeDepartmentList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}levelTwoDepartmentService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelTwoDepartmentService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelTwoDepartmentService/process/`,
+    data,
+  })
+}
+
 const LevelTwoDepartmentService = { view,
   load,
   addLevelThreeDepartment,
   updateLevelThreeDepartment,
   removeLevelThreeDepartmentList,
   requestCandidateBelongsTo,
-  transferToAnotherBelongsTo }
+  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest}
 export default LevelTwoDepartmentService
 

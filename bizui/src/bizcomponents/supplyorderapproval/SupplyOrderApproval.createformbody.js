@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SupplyOrderApprovalBase
 const testValues = {};
 /*
 const testValues = {
   who: '批准者',
-  approveTime: '2017-12-06',
+  approveTime: '2017-05-31',
 }
 */
 
@@ -69,7 +69,7 @@ class SupplyOrderApprovalCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SupplyOrderApprovalBase
+    
     const {SupplyOrderApprovalService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -77,12 +77,6 @@ class SupplyOrderApprovalCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -114,6 +108,7 @@ class SupplyOrderApprovalCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -121,7 +116,7 @@ class SupplyOrderApprovalCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单审批</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_approval')}</div>)
     }
 	
 	return (
@@ -136,7 +131,7 @@ class SupplyOrderApprovalCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -146,7 +141,7 @@ class SupplyOrderApprovalCreateFormBody extends Component {
                   {getFieldDecorator('approveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="批准时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.approveTime}/>
                   )}
                 </Form.Item>
               </Col>

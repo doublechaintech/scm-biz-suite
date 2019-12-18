@@ -18,8 +18,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  start: '2017-05-27',
-  end: '2018-05-23',
+  start: '2019-10-13',
+  end: '2018-03-10',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -141,7 +141,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.start}/>
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
                   {getFieldDecorator('end', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.end}/>
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
                   {getFieldDecorator('company', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="公司" />
+                    <Input size="large"  placeHolder={fieldLabels.company} />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class EmployeeWorkExperienceAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

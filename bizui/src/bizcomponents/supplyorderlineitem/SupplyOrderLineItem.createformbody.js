@@ -13,14 +13,14 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SupplyOrderLineItemBase
 const testValues = {};
 /*
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  amount: '4.89',
-  quantity: '8197',
+  amount: '4.24',
+  quantity: '7219',
   unitOfMeasurement: '件',
   bizOrderId: 'SO000001',
 }
@@ -73,7 +73,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SupplyOrderLineItemBase
+    
     const {SupplyOrderLineItemService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -81,12 +81,6 @@ class SupplyOrderLineItemCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -118,6 +112,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -125,7 +120,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单行项目</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_line_item')}</div>)
     }
 	
 	return (
@@ -140,7 +135,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('skuId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品ID" />
+                    <Input size="large"  placeHolder={fieldLabels.skuId} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +145,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('skuName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品名称" />
+                    <Input size="large"  placeHolder={fieldLabels.skuName} />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +155,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
                   )}
                 </Form.Item>
               </Col>
@@ -170,7 +165,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数量" />
+                    <Input size="large"  placeHolder={fieldLabels.quantity} />
                   )}
                 </Form.Item>
               </Col>
@@ -180,7 +175,7 @@ class SupplyOrderLineItemCreateFormBody extends Component {
                   {getFieldDecorator('unitOfMeasurement', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="测量单位" />
+                    <Input size="large"  placeHolder={fieldLabels.unitOfMeasurement} />
                   )}
                 </Form.Item>
               </Col>

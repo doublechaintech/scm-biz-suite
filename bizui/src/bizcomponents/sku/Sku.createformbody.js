@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SkuBase
 const testValues = {};
 /*
 const testValues = {
@@ -22,7 +22,7 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
-  price: '1043.42',
+  price: '1148.51',
   productId: 'P000001',
 }
 */
@@ -75,7 +75,7 @@ class SkuCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SkuBase
+    
     const {SkuService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -83,12 +83,6 @@ class SkuCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -120,6 +114,7 @@ class SkuCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -127,7 +122,7 @@ class SkuCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}SKU</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('sku')}</div>)
     }
 	
 	return (
@@ -142,7 +137,7 @@ class SkuCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +147,7 @@ class SkuCreateFormBody extends Component {
                   {getFieldDecorator('size', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="大小" />
+                    <Input size="large"  placeHolder={fieldLabels.size} />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +157,7 @@ class SkuCreateFormBody extends Component {
                   {getFieldDecorator('barcode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="条码" />
+                    <Input size="large"  placeHolder={fieldLabels.barcode} />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +167,7 @@ class SkuCreateFormBody extends Component {
                   {getFieldDecorator('packageType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="包装类型" />
+                    <Input size="large"  placeHolder={fieldLabels.packageType} />
                   )}
                 </Form.Item>
               </Col>
@@ -182,7 +177,7 @@ class SkuCreateFormBody extends Component {
                   {getFieldDecorator('netContent', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="净含量" />
+                    <Input size="large"  placeHolder={fieldLabels.netContent} />
                   )}
                 </Form.Item>
               </Col>
@@ -192,7 +187,7 @@ class SkuCreateFormBody extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.price} />
                   )}
                 </Form.Item>
               </Col>
@@ -237,7 +232,7 @@ class SkuCreateFormBody extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="图片"
+                  buttonTitle={fieldLabels.picture}
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'picture')}
                   fileList={convertedImagesValues.picture}

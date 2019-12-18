@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = PotentialCustomerBase
 const testValues = {};
 /*
 const testValues = {
@@ -72,7 +72,7 @@ class PotentialCustomerCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = PotentialCustomerBase
+    
     const {PotentialCustomerService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -80,12 +80,6 @@ class PotentialCustomerCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -117,6 +111,7 @@ class PotentialCustomerCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -124,7 +119,7 @@ class PotentialCustomerCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}潜在的客户</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('potential_customer')}</div>)
     }
 	
 	return (
@@ -139,7 +134,7 @@ class PotentialCustomerCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +144,7 @@ class PotentialCustomerCreateFormBody extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large"  placeHolder={fieldLabels.mobile} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +154,7 @@ class PotentialCustomerCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

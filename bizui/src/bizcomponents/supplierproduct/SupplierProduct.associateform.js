@@ -141,7 +141,7 @@ class SupplierProductAssociateForm extends Component {
                   {getFieldDecorator('productName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="品名" />
+                    <Input size="large"  placeHolder={fieldLabels.productName} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class SupplierProductAssociateForm extends Component {
                   {getFieldDecorator('productDescription', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品描述" />
+                    <Input size="large"  placeHolder={fieldLabels.productDescription} />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class SupplierProductAssociateForm extends Component {
                   {getFieldDecorator('productUnit', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品单元" />
+                    <Input size="large"  placeHolder={fieldLabels.productUnit} />
                   )}
                 </Form.Item>
               </Col>

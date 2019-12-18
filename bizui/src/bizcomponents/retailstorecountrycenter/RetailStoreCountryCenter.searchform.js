@@ -8,10 +8,11 @@ import styles from './RetailStoreCountryCenter.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+import RetailStoreCountryCenterBase from './RetailStoreCountryCenter.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = RetailStoreCountryCenterBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -196,7 +197,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -204,7 +205,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="名称">
+         <FormItem label={fieldLabels.name}>
            {getFieldDecorator('name')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -251,7 +252,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -259,7 +260,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="名称">
+            <FormItem label={fieldLabels.name}>
               {getFieldDecorator('name')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -267,7 +268,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="服务号码">
+            <FormItem label={fieldLabels.serviceNumber}>
               {getFieldDecorator('serviceNumber')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -275,7 +276,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="网站">
+            <FormItem label={fieldLabels.webSite}>
               {getFieldDecorator('webSite')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -283,7 +284,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="地址">
+            <FormItem label={fieldLabels.address}>
               {getFieldDecorator('address')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -291,7 +292,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="由">
+            <FormItem label={fieldLabels.operatedBy}>
               {getFieldDecorator('operatedBy')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -299,7 +300,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="法定代表人">
+            <FormItem label={fieldLabels.legalRepresentative}>
               {getFieldDecorator('legalRepresentative')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -307,7 +308,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="描述">
+            <FormItem label={fieldLabels.description}>
               {getFieldDecorator('description')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -325,7 +326,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

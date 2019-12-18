@@ -18,13 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-09-18 20:42:20',
+  moveTime: '2019-11-30 22:00:26',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '40.28242955974914',
-  longitude: '132.23784011280435',
+  latitude: '42.537005838985195',
+  longitude: '130.48673518016815',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -198,9 +198,9 @@ class GoodsMovementCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -209,13 +209,13 @@ class GoodsMovementCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物移动</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_movement')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}货物移动`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods_movement')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

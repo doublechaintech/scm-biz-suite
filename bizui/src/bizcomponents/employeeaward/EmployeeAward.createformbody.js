@@ -13,11 +13,11 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeAwardBase
 const testValues = {};
 /*
 const testValues = {
-  completeTime: '2017-10-25',
+  completeTime: '2017-12-22',
   type: '明星员工',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',
@@ -71,7 +71,7 @@ class EmployeeAwardCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeAwardBase
+    
     const {EmployeeAwardService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class EmployeeAwardCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class EmployeeAwardCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class EmployeeAwardCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工嘉奖</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_award')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class EmployeeAwardCreateFormBody extends Component {
                   {getFieldDecorator('completeTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="完成时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.completeTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class EmployeeAwardCreateFormBody extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="类型" />
+                    <Input size="large"  placeHolder={fieldLabels.type} />
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class EmployeeAwardCreateFormBody extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large"  placeHolder={fieldLabels.remark} />
                   )}
                 </Form.Item>
               </Col>

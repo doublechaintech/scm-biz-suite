@@ -8,10 +8,11 @@ import styles from './Employee.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+import EmployeeBase from './Employee.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = EmployeeBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -144,7 +145,13 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'responsibleFor'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'currentSalaryGrade'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'salaryAccount'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'jobApplication'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'professionInterview'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'hrInterview'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'offerApproval'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'offerAcceptance'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'employeeBoarding'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'termination'))
 
      
       console.log("the final parameter", paramList)
@@ -203,14 +210,14 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
-                 <Form.Item label="公司">
+                 <Form.Item label={fieldLabels.company}>
                {getFieldDecorator('company', {initialValue: tryinit('company')})(
                
                <SelectObject 
@@ -262,14 +269,14 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="公司">
+                    <Form.Item label={fieldLabels.company}>
                   {getFieldDecorator('company', {initialValue: tryinit('company')})(
                   
                   <SelectObject 
@@ -282,14 +289,14 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="头衔">
+            <FormItem label={fieldLabels.title}>
               {getFieldDecorator('title')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="部门">
+                    <Form.Item label={fieldLabels.department}>
                   {getFieldDecorator('department', {initialValue: tryinit('department')})(
                   
                   <SelectObject 
@@ -302,7 +309,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="姓">
+            <FormItem label={fieldLabels.familyName}>
               {getFieldDecorator('familyName')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -310,7 +317,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="名">
+            <FormItem label={fieldLabels.givenName}>
               {getFieldDecorator('givenName')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -318,7 +325,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="电子邮件">
+            <FormItem label={fieldLabels.email}>
               {getFieldDecorator('email')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -326,7 +333,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="城市">
+            <FormItem label={fieldLabels.city}>
               {getFieldDecorator('city')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -334,7 +341,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="地址">
+            <FormItem label={fieldLabels.address}>
               {getFieldDecorator('address')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -342,14 +349,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="手机">
+            <FormItem label={fieldLabels.cellPhone}>
               {getFieldDecorator('cellPhone')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="职业">
+                    <Form.Item label={fieldLabels.occupation}>
                   {getFieldDecorator('occupation', {initialValue: tryinit('occupation')})(
                   
                   <SelectObject 
@@ -361,7 +368,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="负责">
+                    <Form.Item label={fieldLabels.responsibleFor}>
                   {getFieldDecorator('responsibleFor', {initialValue: tryinit('responsibleFor')})(
                   
                   <SelectObject 
@@ -373,7 +380,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="目前工资等级">
+                    <Form.Item label={fieldLabels.currentSalaryGrade}>
                   {getFieldDecorator('currentSalaryGrade', {initialValue: tryinit('currentSalaryGrade')})(
                   
                   <SelectObject 
@@ -386,20 +393,96 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="工资账户">
+            <FormItem label={fieldLabels.salaryAccount}>
               {getFieldDecorator('salaryAccount')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
-
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-              )}
-            </FormItem>
-          </Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.jobApplication}>
+                  {getFieldDecorator('jobApplication', {initialValue: tryinit('jobApplication')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('jobApplication')}
+                    targetType={"jobApplication"} 
+                    requestFunction={EmployeeService.requestCandidateJobApplication} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.professionInterview}>
+                  {getFieldDecorator('professionInterview', {initialValue: tryinit('professionInterview')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('professionInterview')}
+                    targetType={"professionInterview"} 
+                    requestFunction={EmployeeService.requestCandidateProfessionInterview} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.hrInterview}>
+                  {getFieldDecorator('hrInterview', {initialValue: tryinit('hrInterview')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('hrInterview')}
+                    targetType={"hrInterview"} 
+                    requestFunction={EmployeeService.requestCandidateHrInterview} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.offerApproval}>
+                  {getFieldDecorator('offerApproval', {initialValue: tryinit('offerApproval')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('offerApproval')}
+                    targetType={"offerApproval"} 
+                    requestFunction={EmployeeService.requestCandidateOfferApproval} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.offerAcceptance}>
+                  {getFieldDecorator('offerAcceptance', {initialValue: tryinit('offerAcceptance')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('offerAcceptance')}
+                    targetType={"offerAcceptance"} 
+                    requestFunction={EmployeeService.requestCandidateOfferAcceptance} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.employeeBoarding}>
+                  {getFieldDecorator('employeeBoarding', {initialValue: tryinit('employeeBoarding')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('employeeBoarding')}
+                    targetType={"employeeBoarding"} 
+                    requestFunction={EmployeeService.requestCandidateEmployeeBoarding} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.termination}>
+                  {getFieldDecorator('termination', {initialValue: tryinit('termination')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('termination')}
+                    targetType={"termination"} 
+                    requestFunction={EmployeeService.requestCandidateTermination} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
 
         </Row>
         <div style={{ overflow: 'hidden' }}>
@@ -412,7 +495,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

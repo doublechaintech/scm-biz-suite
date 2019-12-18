@@ -116,8 +116,8 @@ const internalSummaryOf = (companyTraining,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{companyTraining.id}</Description> 
-<Description term="头衔">{companyTraining.title}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{companyTraining.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{companyTraining.title}</Description> 
 <Description term="讲师">{companyTraining.instructor==null?appLocaleName(userContext,"NotAssigned"):`${companyTraining.instructor.displayName}(${companyTraining.instructor.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"讲师","instructor",CompanyTrainingService.requestCandidateInstructor,
@@ -131,7 +131,7 @@ const internalSummaryOf = (companyTraining,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="时间开始">{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</Description> 
-<Description term="持续时间">{companyTraining.durationHours}</Description> 
+<Description term="持续时间" style={{wordBreak: 'break-all'}}>{companyTraining.durationHours}</Description> 
 <Description term="最后更新时间">{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(companyTraining,targetComponent)}
@@ -173,7 +173,7 @@ class CompanyTrainingDashboard extends Component {
     const cardsData = {cardsName:"公司培训",cardsFor: "companyTraining",
     	cardsSource: this.props.companyTraining,returnURL,displayName,
   		subItems: [
-{name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
+{name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',viewGroup:'__no_group', type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [

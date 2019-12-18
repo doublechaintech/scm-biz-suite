@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = RetailStoreDecorationBase
 const testValues = {};
 /*
 const testValues = {
@@ -68,7 +68,7 @@ class RetailStoreDecorationCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = RetailStoreDecorationBase
+    
     const {RetailStoreDecorationService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -76,12 +76,6 @@ class RetailStoreDecorationCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -113,6 +107,7 @@ class RetailStoreDecorationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -120,7 +115,7 @@ class RetailStoreDecorationCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超装修</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_decoration')}</div>)
     }
 	
 	return (
@@ -135,7 +130,7 @@ class RetailStoreDecorationCreateFormBody extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="评论" />
+                    <Input size="large"  placeHolder={fieldLabels.comment} />
                   )}
                 </Form.Item>
               </Col>

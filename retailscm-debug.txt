@@ -14,6 +14,8 @@ Catalog|目录
 Id|序号
 Name|名称
 Owner|业主
+Sub Count|子数
+Amount|金额
 Version|版本
 Level One Category|一级分类
 Id|序号
@@ -31,7 +33,7 @@ Parent Category|父类
 Name|名称
 Version|版本
 Product|产品
-Id|ID
+Id|序号
 Name|名称
 Parent Category|父类
 Origin|产地
@@ -63,7 +65,7 @@ Id|序号
 Name|名称
 Founded|成立
 Province Center|省中心
-Manager|经理
+Manager Name|经理的名字
 Version|版本
 Province Center Employee|省中心员工
 Id|序号
@@ -138,24 +140,17 @@ Telephone|电话
 Owner|业主
 Retail Store Country Center|双链小超全国运营中心
 City Service Center|城市服务中心
-Create|创建
-Create|创建
-Invite Investment|招商
-Invite Investment|招商
-Franchise|加盟
-Franchise|加盟
-Decorate|装修
-Decorate|装修
-Open|开业
-Open|开业
-Close|关闭
-Close|关闭
+Creation|创建
+Investment Invitation|招商
+Franchising|加盟
+Decoration|装修
+Opening|开业
+Closing|关闭
 Founded|成立
 Latitude|纬度
 Longitude|经度
 Description|描述
 Last Update Time|最后更新时间
-Current Status|当前状态
 Version|版本
 Retail Store Creation|双链小超的创作
 Id|序号
@@ -177,7 +172,7 @@ Retail Store Opening|生超开业
 Id|序号
 Comment|评论
 Version|版本
-Retail Store Closing|商店关闭
+Retail Store Closing|门店关闭
 Id|序号
 Comment|评论
 Version|版本
@@ -191,19 +186,13 @@ Consumer Order|消费者订单
 Id|序号
 Title|头衔
 Consumer|消费者
-Confirm|确认
-Confirm|确认
-Approve|验收
-Approve|验收
-Process|处理
-Process|处理
-Ship|装运
-Ship|装运
-Deliver|送货
-Deliver|送货
+Confirmation|确认
+Approval|验收
+Processing|处理
+Shipment|装运
+Delivery|送货
 Store|商场
 Last Update Time|最后更新时间
-Current Status|当前状态
 Version|版本
 Consumer Order Confirmation|客户订单确认
 Id|序号
@@ -302,7 +291,7 @@ Owner|业主
 Number|数
 Remain|保持
 Version|版本
-Retail Store Member Gift Card Consume Record|零售商店会员卡消费记录
+Retail Store Member Gift Card Consume Record|零售门店会员卡消费记录
 Id|序号
 Occure Time|发生时间
 Owner|业主
@@ -339,20 +328,13 @@ Buyer|买方
 Seller|卖方
 Title|头衔
 Total Amount|总金额
-Confirm|确认
-Confirm|确认
-Approve|验收
-Approve|验收
-Process|处理
-Process|处理
-Pick|捡货
-Pick|捡货
-Ship|装运
-Ship|装运
-Deliver|送货
-Deliver|送货
+Confirmation|确认
+Approval|验收
+Processing|处理
+Picking|捡货
+Shipment|装运
+Delivery|送货
 Last Update Time|最后更新时间
-Current Status|当前状态
 Version|版本
 Supply Order Confirmation|供应订单确认
 Id|序号
@@ -411,20 +393,13 @@ Buyer|买方
 Seller|卖方
 Title|头衔
 Total Amount|总金额
-Confirm|确认
-Confirm|确认
-Approve|验收
-Approve|验收
-Process|处理
-Process|处理
-Pick|捡货
-Pick|捡货
-Ship|装运
-Ship|装运
-Deliver|送货
-Deliver|送货
+Confirmation|确认
+Approval|验收
+Processing|处理
+Picking|捡货
+Shipment|装运
+Delivery|送货
 Last Update Time|最后更新时间
-Current Status|当前状态
 Version|版本
 Retail Store Order Confirmation|生超订单确认
 Id|序号
@@ -552,9 +527,7 @@ Transport Task|运输任务
 Retail Store|双链小超
 Biz Order|订单
 Retail Store Order|生超的订单
-Pack|包装
-Pack|包装
-Current Status|当前状态
+Packaging|包装
 Version|版本
 Goods Packaging|货物包装
 Id|序号
@@ -711,15 +684,10 @@ Name|名称
 Accounting Document Date|会计凭证日期
 Accounting Period|会计期间
 Document Type|文档类型
-Create|创建
-Create|创建
-Confirm|确认
-Confirm|确认
-Audit|审计
-Audit|审计
-Post|过账
-Post|过账
-Current Status|当前状态
+Creation|创建
+Confirmation|确认
+Auditing|审计
+Posting|过账
 Version|版本
 Accounting Document Creation|会计文件的创建
 Id|序号
@@ -753,13 +721,9 @@ Received By|受
 Voucher Type|凭证类型
 Voucher Image|凭证图像
 Belongs To|属于
-Create|创建
-Create|创建
-Confirm|确认
-Confirm|确认
-Audit|审计
-Audit|审计
-Current Status|当前状态
+Creation|创建
+Confirmation|确认
+Auditing|审计
 Version|版本
 Original Voucher Creation|原始凭证制作
 Id|序号
@@ -793,7 +757,7 @@ Id|序号
 Belongs To|属于
 Name|名称
 Description|描述
-Manager|经理
+Manager Name|经理的名字
 Founded|成立
 Version|版本
 Level Two Department|二级部门
@@ -905,22 +869,14 @@ Occupation|职业
 Responsible For|负责
 Current Salary Grade|目前工资等级
 Salary Account|工资账户
-Apply Job|工作申请
-Apply Job|工作申请
-Interview With Profession|专业面试
-Interview With Profession|专业面试
-Interview By Hr|人力资源部面试
-Interview By Hr|人力资源部面试
-Approve Offer|审批工作要约
-Approve Offer|审批工作要约
-Accept Offer|接受工作要约
-Accept Offer|接受工作要约
-Board Employee|员工入职
-Board Employee|员工入职
-Terminate|雇佣终止
-Terminate|雇佣终止
+Job Application|工作申请
+Profession Interview|专业面试
+Hr Interview|人力资源部面试
+Offer Approval|审批工作要约
+Offer Acceptance|接受工作要约
+Employee Boarding|员工入职
+Termination|雇佣终止
 Last Update Time|最后更新时间
-Current Status|当前状态
 Version|版本
 Job Application|工作申请
 Id|序号
@@ -989,9 +945,7 @@ Employee Company Training|员工参与的公司培训
 Id|序号
 Employee|员工
 Training|训练
-Score|评分
-Score|评分
-Current Status|当前状态
+Scoring|评分
 Version|版本
 Employee Skill|员工技能
 Id|序号
@@ -1066,9 +1020,7 @@ Personal Tax|个人所得税
 Social Security|社会保险
 Housing Found|住房公积金
 Job Insurance|失业保险
-PayOff|工资支付
-PayOff|工资支付
-Current Status|当前状态
+Paying Off|工资支付
 Version|版本
 Paying Off|工资支付
 Id|序号
@@ -1078,21 +1030,21 @@ Paid Time|支付时间
 Amount|金额
 Version|版本
 User Domain|用户域
-Id|ID
+Id|序号
 Name|名称
 Version|版本
 User White List|用户白名单
-Id|ID
+Id|序号
 User Identity|用户身份
 User Special Functions|用户特殊功能
 Domain|域
 Version|版本
-Sec User|安全用户
-Id|ID
+Sec User|SEC的用户
+Id|序号
 Login|登录
-Mobile|手机号码
+Mobile|手机
 Email|电子邮件
-Pwd|密码
+Pwd|PWD
 Weixin Openid|微信openid
 Weixin Appid|微信Appid
 Access Token|访问令牌
@@ -1100,29 +1052,27 @@ Verification Code|验证码
 Verification Code Expire|验证码过期
 Last Login Time|最后登录时间
 Domain|域
-Block|屏蔽
-Block|屏蔽
-Current Status|当前状态
+Blocking|屏蔽
 Version|版本
 Sec User Blocking|用户屏蔽
-Id|ID
+Id|序号
 Who|谁
 Block Time|块时间
 Comments|评论
 Version|版本
 User App|用户应用程序
-Id|ID
-Title|标题
-Sec User|安全用户
+Id|序号
+Title|头衔
+Sec User|SEC的用户
 App Icon|应用程序图标
 Full Access|完全访问
 Permission|许可
-Object Type|访问对象类型
+Object Type|对象类型
 Object Id|对象ID
 Location|位置
 Version|版本
 Quick Link|快速链接
-Id|ID
+Id|序号
 Name|名称
 Icon|图标
 Image Path|图片路径
@@ -1131,7 +1081,7 @@ Create Time|创建时间
 App|应用程序
 Version|版本
 List Access|访问列表
-Id|ID
+Id|序号
 Name|名称
 Internal Name|内部名称
 Read Permission|读权限
@@ -1142,47 +1092,47 @@ Execution Permission|执行权限
 App|应用程序
 Version|版本
 Object Access|对象访问
-Id|ID
+Id|序号
 Name|名称
-Object Type|访问对象类型
-List1|列表1
-List2|列表2
-List3|列表3
-List4|列表4
-List5|列表5
-List6|列表6
-List7|列表7
-List8|列表8
-List9|列表9
+Object Type|对象类型
+List1|表
+List2|清单
+List3|目录3
+List4|清单
+List5|列表6
+List6|list6
+List7|list7
+List8|list8
+List9|list9
 App|应用程序
 Version|版本
 Login History|登录历史
-Id|ID
+Id|序号
 Login Time|登录时间
-From Ip|来自IP
+From Ip|从IP
 Description|描述
-Sec User|安全用户
+Sec User|SEC的用户
 Version|版本
 Generic Form|通用的形式
-Id|ID
-Title|标题
+Id|序号
+Title|头衔
 Description|描述
 Version|版本
 Form Message|表单信息
-Id|ID
-Title|标题
+Id|序号
+Title|头衔
 Form|形式
 Level|水平
 Version|版本
 Form Field Message|表单字段的信息
-Id|ID
-Title|标题
+Id|序号
+Title|头衔
 Parameter Name|参数名称
 Form|形式
 Level|水平
 Version|版本
 Form Field|表单字段
-Id|ID
+Id|序号
 Label|标签
 Locale Key|语言环境的关键
 Parameter Name|参数名称
@@ -1201,7 +1151,7 @@ Candidate Values|候选人的价值观
 Suggest Values|建议值
 Version|版本
 Form Action|表单动作
-Id|ID
+Id|序号
 Label|标签
 Locale Key|语言环境的关键
 Action Key|行动的关键
@@ -1210,11 +1160,11 @@ Url|url
 Form|形式
 Version|版本
 Candidate Container|候选人容器
-Id|ID
+Id|序号
 Name|名称
 Version|版本
 Candidate Element|候选人元素
-Id|ID
+Id|序号
 Name|名称
 Type|类型
 Image|图片
@@ -1237,30 +1187,30 @@ Transfer to Another City Partner|转至城市合作伙伴
 Transfer to Another Potential Customer|转移给潜在客户
 Transfer to Another Potential Customer|转移给潜在客户
 Transfer to Another City Partner|转至城市合作伙伴
-Transfer to Another Contact To|转接到
+Transfer to Another Contact To|转到联系人
 Transfer to Another City Service Center|转到城市服务中心
 Transfer to Another Potential Customer|转移给潜在客户
-Transfer to Another City Event|转至城市活动
+Transfer to Another City Event|转到城市活动
 Transfer to Another Retail Store Country Center|转移到零售商店国家中心
 Transfer to Another City Service Center|转到城市服务中心
-Transfer to Another Create|转移到创造
-Transfer to Another Invite Investment|转至招商
-Transfer to Another Franchise|转移到特许经营
-Transfer to Another Decorate|转移到装饰
-Transfer to Another Open|转移到开放
-Transfer to Another Close|转到关闭
+Transfer to Another Creation|转移到创造
+Transfer to Another Investment Invitation|转至招商
+Transfer to Another Franchising|转移到特许经营
+Transfer to Another Decoration|转移到装饰
+Transfer to Another Opening|转移到开放
+Transfer to Another Closing|转到关闭
 Transfer to Another Owner|转到老板
 Transfer to Another Consumer|转移到消费者
-Transfer to Another Confirm|转移到确认
-Transfer to Another Approve|转移到批准
-Transfer to Another Process|转移到处理
-Transfer to Another Ship|转移到装运
-Transfer to Another Deliver|转移到交付
+Transfer to Another Confirmation|转移到确认
+Transfer to Another Approval|转移到批准
+Transfer to Another Processing|转移到处理
+Transfer to Another Shipment|转移到装运
+Transfer to Another Delivery|转移到交付
 Transfer to Another Store|转移到商店
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Biz Order|转到商业订单
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Biz Order|转入商业订单
 Transfer to Another Owner|转到老板
 Transfer to Another Owner|转到老板
 Transfer to Another Owner|转到老板
@@ -1269,51 +1219,51 @@ Transfer to Another Owner|转到老板
 Transfer to Another Owner|转到老板
 Transfer to Another Owner|转到老板
 Transfer to Another Owner|转到老板
-Transfer to Another Biz Order|转到商业订单
+Transfer to Another Biz Order|转入商业订单
 Transfer to Another Belong To|转让给
 Transfer to Another Supplier|转移到供应商
 Transfer to Another Product|转移到产品
 Transfer to Another Buyer|转移到买方
 Transfer to Another Seller|转移到卖方
-Transfer to Another Confirm|转移到确认
-Transfer to Another Approve|转移到批准
-Transfer to Another Process|转移到处理
-Transfer to Another Pick|转移到挑选
-Transfer to Another Ship|转移到装运
-Transfer to Another Deliver|转移到交付
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Biz Order|转到商业订单
+Transfer to Another Confirmation|转移到确认
+Transfer to Another Approval|转移到批准
+Transfer to Another Processing|转移到处理
+Transfer to Another Picking|转移到挑选
+Transfer to Another Shipment|转移到装运
+Transfer to Another Delivery|转移到交付
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Biz Order|转入商业订单
 Transfer to Another Buyer|转移到买方
 Transfer to Another Seller|转移到卖方
-Transfer to Another Confirm|转移到确认
-Transfer to Another Approve|转移到批准
-Transfer to Another Process|转移到处理
-Transfer to Another Pick|转移到挑选
-Transfer to Another Ship|转移到装运
-Transfer to Another Deliver|转移到交付
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Biz Order|转到商业订单
+Transfer to Another Confirmation|转移到确认
+Transfer to Another Approval|转移到批准
+Transfer to Another Processing|转移到处理
+Transfer to Another Picking|转移到挑选
+Transfer to Another Shipment|转移到装运
+Transfer to Another Delivery|转移到交付
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Biz Order|转入商业订单
 Transfer to Another Owner|转到老板
 Transfer to Another Warehouse|转移到仓库
 Transfer to Another Warehouse|转移到仓库
 Transfer to Another Storage Space|转移到存储空间
 Transfer to Another Supplier Space|转移到供应商空间
-Transfer to Another Damage Space|转移到损坏空间
+Transfer to Another Damage Space|转移到货损区
 Transfer to Another Shelf|转移到架子上
-Transfer to Another Stock Count|转入盘点
-Transfer to Another Goods Shelf|转到货架
+Transfer to Another Stock Count|转库存盘点
+Transfer to Another Goods Shelf|转移到货架
 Transfer to Another Sku|转移到Sku
 Transfer to Another Receiving Space|转移到接收空间
-Transfer to Another Goods Allocation|转到货物分配
+Transfer to Another Goods Allocation|转货分配
 Transfer to Another Smart Pallet|转移到智能托盘
-Transfer to Another Shipping Space|舱位交接
+Transfer to Another Shipping Space|舱位转移
 Transfer to Another Transport Task|转移到运输任务
-Transfer to Another Retail Store|转至零售店
-Transfer to Another Biz Order|转到商业订单
-Transfer to Another Retail Store Order|转移到零售店的订单
-Transfer to Another Pack|转移到包装
+Transfer to Another Retail Store|转移到零售店
+Transfer to Another Biz Order|转入商业订单
+Transfer to Another Retail Store Order|转移到零售商店的订单
+Transfer to Another Packaging|转移到包装
 Transfer to Another Goods|转移到商品
 Transfer to Another Warehouse|转移到仓库
 Transfer to Another Warehouse|转移到仓库
@@ -1329,21 +1279,21 @@ Transfer to Another Truck|转移到卡车
 Transfer to Another Belongs To|转让给
 Transfer to Another Movement|转移到运动
 Transfer to Another Country Center|转到乡村中心
-Transfer to Another Retail Store|转至零售店
-Transfer to Another Goods Supplier|转至货物供应商
-Transfer to Another Account Set|转帐
-Transfer to Another Account Set|转帐
+Transfer to Another Retail Store|转移到零售店
+Transfer to Another Goods Supplier|转至供应商
+Transfer to Another Account Set|转帐至银行户口
+Transfer to Another Account Set|转帐至银行户口
 Transfer to Another Accounting Period|转入会计期间
 Transfer to Another Accounting Period|转入会计期间
 Transfer to Another Document Type|转换为文档类型
-Transfer to Another Create|转移到创造
-Transfer to Another Confirm|转移到确认
-Transfer to Another Audit|转移到审计
-Transfer to Another Post|转移到发布
+Transfer to Another Creation|转移到创造
+Transfer to Another Confirmation|转移到确认
+Transfer to Another Auditing|转移到审计
+Transfer to Another Posting|转移到发布
 Transfer to Another Belongs To|转让给
-Transfer to Another Create|转移到创造
-Transfer to Another Confirm|转移到确认
-Transfer to Another Audit|转移到审计
+Transfer to Another Creation|转移到创造
+Transfer to Another Confirmation|转移到确认
+Transfer to Another Auditing|转移到审计
 Transfer to Another Belongs To|转让给
 Transfer to Another Accounting Subject|转至会计科目
 Transfer to Another Belongs To|转让给
@@ -1364,24 +1314,24 @@ Transfer to Another Type|转移到类型
 Transfer to Another Company|转移到公司
 Transfer to Another Department|转移到部门
 Transfer to Another Occupation|转移到职业
-Transfer to Another Responsible For|转至负责
-Transfer to Another Current Salary Grade|调到目前的工资级别
-Transfer to Another Apply Job|转职申请
-Transfer to Another Interview With Profession|转职面试
-Transfer to Another Interview By Hr|转到Hr面试
-Transfer to Another Approve Offer|转让以提供批准
-Transfer to Another Accept Offer|转让至要约接受
-Transfer to Another Board Employee|转到员工寄宿制
-Transfer to Another Terminate|转移到终止
+Transfer to Another Responsible For|转到负责
+Transfer to Another Current Salary Grade|调到目前的薪金级别
+Transfer to Another Job Application|转职申请
+Transfer to Another Profession Interview|转职面试
+Transfer to Another Hr Interview|转到Hr面试
+Transfer to Another Offer Approval|转出报批
+Transfer to Another Offer Acceptance|转让到要约接受
+Transfer to Another Employee Boarding|转入员工寄宿制
+Transfer to Another Termination|转移到终止
 Transfer to Another Company|转移到公司
 Transfer to Another Company|转移到公司
 Transfer to Another Instructor|转移到老师
 Transfer to Another Training Course Type|转换到培训课程类型
 Transfer to Another Employee|转移到员工
 Transfer to Another Training|转移到训练
-Transfer to Another Score|转移到得分
+Transfer to Another Scoring|转移到得分
 Transfer to Another Employee|转移到员工
-Transfer to Another Skill Type|转换到技能类型
+Transfer to Another Skill Type|技能类型转换
 Transfer to Another Employee|转移到员工
 Transfer to Another Employee|转移到员工
 Transfer to Another Who|转移到他
@@ -1393,17 +1343,17 @@ Transfer to Another Employee|转移到员工
 Transfer to Another Employee|转移到员工
 Transfer to Another Employee|转移到员工
 Transfer to Another Employee|转移到员工
-Transfer to Another Current Salary Grade|调到目前的工资级别
-Transfer to Another PayOff|转移到支付
+Transfer to Another Current Salary Grade|调到目前的薪金级别
+Transfer to Another Paying Off|转移支付
 Transfer to Another Paid For|转入付讫
 Transfer to Another Domain|转移到域
 Transfer to Another Domain|转移到域
-Transfer to Another Block|转移到阻塞
-Transfer to Another Sec User|转移给Sec用户
+Transfer to Another Blocking|转移到阻塞
+Transfer to Another Sec User|传输给Sec用户
 Transfer to Another App|转移到应用程序
 Transfer to Another App|转移到应用程序
 Transfer to Another App|转移到应用程序
-Transfer to Another Sec User|转移给Sec用户
+Transfer to Another Sec User|传输给Sec用户
 Transfer to Another Form|转移到形式
 Transfer to Another Form|转移到形式
 Transfer to Another Form|转移到形式

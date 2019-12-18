@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addRetailStore = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreClosingManager/addRetailStore/retailStoreClosingId/name/telephone/owner/retailStoreCountryCenterId/cityServiceCenterId/founded/latitude/longitude/description/tokensExpr/`
+  const url = `${PREFIX}retailStoreClosingManager/addRetailStore/retailStoreClosingId/name/telephone/owner/retailStoreCountryCenterId/cityServiceCenterId/creationId/investmentInvitationId/franchisingId/decorationId/openingId/founded/latitude/longitude/description/tokensExpr/`
   const retailStoreClosingId = targetObjectId
   const requestParameters = { ...parameters, retailStoreClosingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -43,10 +43,37 @@ const removeRetailStoreList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreClosingService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreClosingService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreClosingService/process/`,
+    data,
+  })
+}
+
 const RetailStoreClosingService = { view,
   load,
   addRetailStore,
   updateRetailStore,
-  removeRetailStoreList }
+  removeRetailStoreList, listFunctions, saveRequest, processRequest}
 export default RetailStoreClosingService
 

@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SupplyOrderShippingGroupBase
 const testValues = {};
 /*
 const testValues = {
   name: '送货到双链成都2号仓',
-  amount: '4.76',
+  amount: '4.30',
   bizOrderId: 'SO000001',
 }
 */
@@ -70,7 +70,7 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SupplyOrderShippingGroupBase
+    
     const {SupplyOrderShippingGroupService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -78,12 +78,6 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -115,6 +109,7 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -122,7 +117,7 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单送货分组</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_shipping_group')}</div>)
     }
 	
 	return (
@@ -137,7 +132,7 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +142,7 @@ class SupplyOrderShippingGroupCreateFormBody extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
                   )}
                 </Form.Item>
               </Col>

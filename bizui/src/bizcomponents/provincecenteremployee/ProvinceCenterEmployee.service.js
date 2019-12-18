@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateDepartment = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherDepartment = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}provinceCenterEmployeeManager/transferToAnotherDepartment/id/anotherDepartmentId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateProvinceCenter = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherProvinceCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}provinceCenterEmployeeManager/transferToAnotherProvinceCenter/id/anotherProvinceCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -53,11 +51,38 @@ const transferToAnotherProvinceCenter = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}provinceCenterEmployeeService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}provinceCenterEmployeeService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}provinceCenterEmployeeService/process/`,
+    data,
+  })
+}
+
 const ProvinceCenterEmployeeService = { view,
   load,
   requestCandidateDepartment,
   requestCandidateProvinceCenter,
   transferToAnotherDepartment,
-  transferToAnotherProvinceCenter }
+  transferToAnotherProvinceCenter, listFunctions, saveRequest, processRequest}
 export default ProvinceCenterEmployeeService
 

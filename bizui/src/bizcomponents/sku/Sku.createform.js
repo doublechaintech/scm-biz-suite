@@ -23,7 +23,7 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
-  price: '976.65',
+  price: '1118.45',
   productId: 'P000001',
 }
 */
@@ -197,9 +197,9 @@ class SkuCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -208,13 +208,13 @@ class SkuCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}SKU</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('sku')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}SKU`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('sku')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

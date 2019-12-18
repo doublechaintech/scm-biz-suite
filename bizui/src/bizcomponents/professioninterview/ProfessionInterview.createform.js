@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '技术部',
-  interviewTime: '2018-05-05',
+  interviewTime: '2018-06-23',
   comments: '能力各方面表现不错，进入下一轮',
 }
 */
@@ -192,9 +192,9 @@ class ProfessionInterviewCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class ProfessionInterviewCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}专业面试</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('profession_interview')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}专业面试`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('profession_interview')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

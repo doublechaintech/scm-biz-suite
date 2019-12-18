@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2016-11-12',
-  endDate: '2016-12-12',
+  startDate: '2019-09-26',
+  endDate: '2017-01-23',
   accountSetId: 'AS000001',
 }
 */
@@ -141,7 +141,7 @@ class AccountingPeriodAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class AccountingPeriodAssociateForm extends Component {
                   {getFieldDecorator('startDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.startDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class AccountingPeriodAssociateForm extends Component {
                   {getFieldDecorator('endDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.endDate}/>
                   )}
                 </Form.Item>
               </Col>

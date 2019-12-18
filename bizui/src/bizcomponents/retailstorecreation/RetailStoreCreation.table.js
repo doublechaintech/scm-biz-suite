@@ -1,7 +1,7 @@
 
 import React, { PureComponent } from 'react'
 import moment from 'moment'
-import { Table, Alert, Badge} from 'antd'
+import { Table, Alert, Badge, } from 'antd'
 import { Link } from 'dva/router'
 import styles from './RetailStoreCreation.table.less'
 import ImagePreview from '../../components/ImagePreview'
@@ -15,15 +15,6 @@ const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpda
 class RetailStoreCreationTable extends PureComponent {
   state = {
     selectedRowKeys: [],
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // clean state
-    if (nextProps.selectedRows.length === 0) {
-      this.setState({
-        selectedRowKeys: [],
-      })
-    }
   }
 
   handleRowSelectChange = (selectedRowKeys, selectedRows) => {

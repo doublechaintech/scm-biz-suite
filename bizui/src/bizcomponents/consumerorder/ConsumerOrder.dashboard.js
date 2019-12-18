@@ -116,8 +116,8 @@ const internalSummaryOf = (consumerOrder,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrder.id}</Description> 
-<Description term="头衔">{consumerOrder.title}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{consumerOrder.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{consumerOrder.title}</Description> 
 <Description term="消费者">{consumerOrder.consumer==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrder.consumer.displayName}(${consumerOrder.consumer.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"消费者","retailStoreMember",ConsumerOrderService.requestCandidateConsumer,
@@ -131,7 +131,6 @@ const internalSummaryOf = (consumerOrder,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="最后更新时间">{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
-<Description term="当前状态">{consumerOrder.currentStatus}</Description> 
 	
         {buildTransferModal(consumerOrder,targetComponent)}
       </DescriptionList>
@@ -172,11 +171,11 @@ class ConsumerOrderDashboard extends Component {
     const cardsData = {cardsName:"消费者订单",cardsFor: "consumerOrder",
     	cardsSource: this.props.consumerOrder,returnURL,displayName,
   		subItems: [
-{name: 'consumerOrderLineItemList', displayName:'消费者订单行项目',type:'consumerOrderLineItem',count:consumerOrderLineItemCount,addFunction: true, role: 'consumerOrderLineItem', metaInfo: consumerOrderLineItemListMetaInfo, renderItem: GlobalComponents.ConsumerOrderLineItemBase.renderItemOfList},
-{name: 'consumerOrderShippingGroupList', displayName:'消费订单送货分组',type:'consumerOrderShippingGroup',count:consumerOrderShippingGroupCount,addFunction: true, role: 'consumerOrderShippingGroup', metaInfo: consumerOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderShippingGroupBase.renderItemOfList},
-{name: 'consumerOrderPaymentGroupList', displayName:'消费者订单付款组',type:'consumerOrderPaymentGroup',count:consumerOrderPaymentGroupCount,addFunction: true, role: 'consumerOrderPaymentGroup', metaInfo: consumerOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPaymentGroupBase.renderItemOfList},
-{name: 'consumerOrderPriceAdjustmentList', displayName:'消费品价格调整',type:'consumerOrderPriceAdjustment',count:consumerOrderPriceAdjustmentCount,addFunction: true, role: 'consumerOrderPriceAdjustment', metaInfo: consumerOrderPriceAdjustmentListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPriceAdjustmentBase.renderItemOfList},
-{name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售商店会员卡消费记录',type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardConsumeRecordBase.renderItemOfList},
+{name: 'consumerOrderLineItemList', displayName:'消费者订单行项目',viewGroup:'__no_group', type:'consumerOrderLineItem',count:consumerOrderLineItemCount,addFunction: true, role: 'consumerOrderLineItem', metaInfo: consumerOrderLineItemListMetaInfo, renderItem: GlobalComponents.ConsumerOrderLineItemBase.renderItemOfList},
+{name: 'consumerOrderShippingGroupList', displayName:'消费订单送货分组',viewGroup:'__no_group', type:'consumerOrderShippingGroup',count:consumerOrderShippingGroupCount,addFunction: true, role: 'consumerOrderShippingGroup', metaInfo: consumerOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderShippingGroupBase.renderItemOfList},
+{name: 'consumerOrderPaymentGroupList', displayName:'消费者订单付款组',viewGroup:'__no_group', type:'consumerOrderPaymentGroup',count:consumerOrderPaymentGroupCount,addFunction: true, role: 'consumerOrderPaymentGroup', metaInfo: consumerOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPaymentGroupBase.renderItemOfList},
+{name: 'consumerOrderPriceAdjustmentList', displayName:'消费品价格调整',viewGroup:'__no_group', type:'consumerOrderPriceAdjustment',count:consumerOrderPriceAdjustmentCount,addFunction: true, role: 'consumerOrderPriceAdjustment', metaInfo: consumerOrderPriceAdjustmentListMetaInfo, renderItem: GlobalComponents.ConsumerOrderPriceAdjustmentBase.renderItemOfList},
+{name: 'retailStoreMemberGiftCardConsumeRecordList', displayName:'零售门店会员卡消费记录',viewGroup:'__no_group', type:'retailStoreMemberGiftCardConsumeRecord',count:retailStoreMemberGiftCardConsumeRecordCount,addFunction: true, role: 'retailStoreMemberGiftCardConsumeRecord', metaInfo: retailStoreMemberGiftCardConsumeRecordListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberGiftCardConsumeRecordBase.renderItemOfList},
     
       	],
    		subSettingItems: [

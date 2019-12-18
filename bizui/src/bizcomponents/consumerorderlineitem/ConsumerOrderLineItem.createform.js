@@ -20,9 +20,9 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  price: '4.20',
-  quantity: '933.77',
-  amount: '9991.24',
+  price: '4.65',
+  quantity: '871.38',
+  amount: '9511.47',
   bizOrderId: 'CO000001',
 }
 */
@@ -195,9 +195,9 @@ class ConsumerOrderLineItemCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -206,13 +206,13 @@ class ConsumerOrderLineItemCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费者订单行项目</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_line_item')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}消费者订单行项目`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order_line_item')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

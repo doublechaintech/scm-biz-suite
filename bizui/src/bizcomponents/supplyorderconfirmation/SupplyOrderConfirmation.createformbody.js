@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SupplyOrderConfirmationBase
 const testValues = {};
 /*
 const testValues = {
   who: '确认者',
-  confirmTime: '2018-10-22',
+  confirmTime: '2017-05-26',
 }
 */
 
@@ -69,7 +69,7 @@ class SupplyOrderConfirmationCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SupplyOrderConfirmationBase
+    
     const {SupplyOrderConfirmationService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -77,12 +77,6 @@ class SupplyOrderConfirmationCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -114,6 +108,7 @@ class SupplyOrderConfirmationCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -121,7 +116,7 @@ class SupplyOrderConfirmationCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单确认</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_confirmation')}</div>)
     }
 	
 	return (
@@ -136,7 +131,7 @@ class SupplyOrderConfirmationCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="谁" />
+                    <Input size="large"  placeHolder={fieldLabels.who} />
                   )}
                 </Form.Item>
               </Col>
@@ -146,7 +141,7 @@ class SupplyOrderConfirmationCreateFormBody extends Component {
                   {getFieldDecorator('confirmTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="确认时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.confirmTime}/>
                   )}
                 </Form.Item>
               </Col>

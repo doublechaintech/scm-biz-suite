@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"人力资源部面试", menuFor: "hrInterview",
+
+const menuData = {menuName: window.trans('hr_interview'), menuFor: "hrInterview",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName: window.mtrans('employee','hr_interview.employee_list',false), type:'employee',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"人力资源部面试", menuFor: "hrInterview",
+const settingMenuData = {menuName: window.trans('hr_interview'), menuFor: "hrInterview",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  interviewTime: '面试时间',
-  comments: '评论',
+  id: window.trans('hr_interview.id'),
+  who: window.trans('hr_interview.who'),
+  interviewTime: window.trans('hr_interview.interview_time'),
+  comments: window.trans('hr_interview.comments'),
 
 }
 
@@ -59,18 +64,21 @@ const displayColumns = [
   { title: fieldLabels.comments, debugtype: 'string', dataIndex: 'comments', width: '17',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(hrInterview,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={hrInterview.id}>
 	
-      <DescriptionList  key={hrInterview.id} size="small" col="4">
-        <Description term="序号">{hrInterview.id}</Description> 
-        <Description term="谁">{hrInterview.who}</Description> 
-        <Description term="面试时间"><div>{ moment(hrInterview.interviewTime).format('YYYY-MM-DD')}</div></Description> 
-        <Description term="评论">{hrInterview.comments}</Description> 
+      <DescriptionList  key={hrInterview.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{hrInterview.id}</Description> 
+        <Description term={fieldLabels.who} style={{wordBreak: 'break-all'}}>{hrInterview.who}</Description> 
+        <Description term={fieldLabels.interviewTime}><div>{ moment(hrInterview.interviewTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term={fieldLabels.comments} style={{wordBreak: 'break-all'}}>{hrInterview.comments}</Description> 
 	
         
       </DescriptionList>
@@ -80,10 +88,29 @@ const renderItemOfList=(hrInterview,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {who, interviewTime, comments} = formValuesToPack
 
+	const data = {who, interviewTime, comments}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {who, interviewTime, comments} = objectToUnpack
 
-
-const HrInterviewBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {who, interviewTime, comments}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const HrInterviewBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default HrInterviewBase
 
 

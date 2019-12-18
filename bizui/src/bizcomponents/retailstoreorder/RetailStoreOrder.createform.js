@@ -19,9 +19,15 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
-  totalAmount: '2266587392.00',
+  totalAmount: '2389997568.00',
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
+  confirmationId: 'RSOC000001',
+  approvalId: 'RSOA000001',
+  processingId: 'RSOP000001',
+  pickingId: 'RSOP000001',
+  shipmentId: 'RSOS000001',
+  deliveryId: 'RSOD000001',
 }
 */
 
@@ -193,9 +199,9 @@ class RetailStoreOrderCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +210,13 @@ class RetailStoreOrderCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超的订单</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}生超的订单`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

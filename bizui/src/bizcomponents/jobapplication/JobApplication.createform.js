@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  applicationTime: '2019-08-02',
+  applicationTime: '2017-03-11',
   who: '申请者本人',
   comments: '我觉得我符合职位要求，请给我一个机会为公司发展做出贡献，谢谢！',
 }
@@ -192,9 +192,9 @@ class JobApplicationCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class JobApplicationCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}工作申请</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('job_application')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}工作申请`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('job_application')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

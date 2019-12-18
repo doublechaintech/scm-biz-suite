@@ -116,8 +116,8 @@ const internalSummaryOf = (memberWishlistProduct,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{memberWishlistProduct.id}</Description> 
-<Description term="名称">{memberWishlistProduct.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{memberWishlistProduct.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{memberWishlistProduct.name}</Description> 
 <Description term="业主">{memberWishlistProduct.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlistProduct.owner.displayName}(${memberWishlistProduct.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","memberWishlist",MemberWishlistProductService.requestCandidateOwner,

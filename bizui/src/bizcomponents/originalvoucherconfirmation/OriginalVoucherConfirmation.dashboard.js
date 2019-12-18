@@ -116,9 +116,9 @@ const internalSummaryOf = (originalVoucherConfirmation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucherConfirmation.id}</Description> 
-<Description term="谁">{originalVoucherConfirmation.who}</Description> 
-<Description term="评论">{originalVoucherConfirmation.comments}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{originalVoucherConfirmation.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{originalVoucherConfirmation.who}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{originalVoucherConfirmation.comments}</Description> 
 <Description term="制造日期">{ moment(originalVoucherConfirmation.makeDate).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(originalVoucherConfirmation,targetComponent)}
@@ -160,7 +160,7 @@ class OriginalVoucherConfirmationDashboard extends Component {
     const cardsData = {cardsName:"原始凭证的确认",cardsFor: "originalVoucherConfirmation",
     	cardsSource: this.props.originalVoucherConfirmation,returnURL,displayName,
   		subItems: [
-{name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
+{name: 'originalVoucherList', displayName:'原始凭证',viewGroup:'__no_group', type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -116,10 +116,10 @@ const internalSummaryOf = (transportTaskTrack,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTaskTrack.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{transportTaskTrack.id}</Description> 
 <Description term="跟踪时间">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
-<Description term="纬度">{transportTaskTrack.latitude}</Description> 
-<Description term="经度">{transportTaskTrack.longitude}</Description> 
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{transportTaskTrack.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{transportTaskTrack.longitude}</Description> 
 <Description term="运动">{transportTaskTrack.movement==null?appLocaleName(userContext,"NotAssigned"):`${transportTaskTrack.movement.displayName}(${transportTaskTrack.movement.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"运动","transportTask",TransportTaskTrackService.requestCandidateMovement,

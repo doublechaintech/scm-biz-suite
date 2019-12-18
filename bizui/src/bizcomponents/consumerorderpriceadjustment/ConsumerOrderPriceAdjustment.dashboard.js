@@ -116,16 +116,16 @@ const internalSummaryOf = (consumerOrderPriceAdjustment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{consumerOrderPriceAdjustment.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{consumerOrderPriceAdjustment.name}</Description> 
 <Description term="订单">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderPriceAdjustmentService.requestCandidateBizOrder,
 	      ConsumerOrderPriceAdjustmentService.transferToAnotherBizOrder,"anotherBizOrderId",consumerOrderPriceAdjustment.bizOrder?consumerOrderPriceAdjustment.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="金额">{consumerOrderPriceAdjustment.amount}</Description> 
-<Description term="供应商">{consumerOrderPriceAdjustment.provider}</Description> 
+<Description term="金额" style={{wordBreak: 'break-all'}}>{consumerOrderPriceAdjustment.amount}</Description> 
+<Description term="供应商" style={{wordBreak: 'break-all'}}>{consumerOrderPriceAdjustment.provider}</Description> 
 	
         {buildTransferModal(consumerOrderPriceAdjustment,targetComponent)}
       </DescriptionList>

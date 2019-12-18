@@ -116,18 +116,18 @@ const internalSummaryOf = (supplierSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplierSpace.id}</Description> 
-<Description term="位置">{supplierSpace.location}</Description> 
-<Description term="联系电话">{supplierSpace.contactNumber}</Description> 
-<Description term="总面积">{supplierSpace.totalArea}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplierSpace.id}</Description> 
+<Description term="位置" style={{wordBreak: 'break-all'}}>{supplierSpace.location}</Description> 
+<Description term="联系电话" style={{wordBreak: 'break-all'}}>{supplierSpace.contactNumber}</Description> 
+<Description term="总面积" style={{wordBreak: 'break-all'}}>{supplierSpace.totalArea}</Description> 
 <Description term="仓库">{supplierSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${supplierSpace.warehouse.displayName}(${supplierSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",SupplierSpaceService.requestCandidateWarehouse,
 	      SupplierSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",supplierSpace.warehouse?supplierSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="纬度">{supplierSpace.latitude}</Description> 
-<Description term="经度">{supplierSpace.longitude}</Description> 
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{supplierSpace.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{supplierSpace.longitude}</Description> 
 <Description term="最后更新时间">{ moment(supplierSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(supplierSpace,targetComponent)}
@@ -169,7 +169,7 @@ class SupplierSpaceDashboard extends Component {
     const cardsData = {cardsName:"供应商的空间",cardsFor: "supplierSpace",
     	cardsSource: this.props.supplierSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName:'货架',viewGroup:'__no_group', type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -20,9 +20,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2017-11-19',
-  latitude: '40.1661013896558',
-  longitude: '132.07777628534055',
+  beginTime: '2018-12-07',
+  latitude: '42.748741570129624',
+  longitude: '130.1060654205572',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -147,7 +147,7 @@ class TransportTaskAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -157,7 +157,7 @@ class TransportTaskAssociateForm extends Component {
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="开始" />
+                    <Input size="large"  placeHolder={fieldLabels.start} />
                   )}
                 </Form.Item>
               </Col>
@@ -167,7 +167,7 @@ class TransportTaskAssociateForm extends Component {
                   {getFieldDecorator('beginTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.beginTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -177,7 +177,7 @@ class TransportTaskAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -187,7 +187,7 @@ class TransportTaskAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>

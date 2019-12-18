@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '处理者',
-  processTime: '2018-09-14',
+  processTime: '2018-09-02',
 }
 */
 
@@ -191,9 +191,9 @@ class RetailStoreOrderPickingCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -202,13 +202,13 @@ class RetailStoreOrderPickingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超订单拣货</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_picking')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}生超订单拣货`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order_picking')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

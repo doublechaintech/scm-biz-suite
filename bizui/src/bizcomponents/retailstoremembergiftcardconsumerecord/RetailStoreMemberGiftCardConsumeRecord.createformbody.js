@@ -13,13 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = RetailStoreMemberGiftCardConsumeRecordBase
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2019-09-26',
+  occureTime: '2017-03-08',
   number: 'GF00001',
-  amount: '16.58',
+  amount: '19.68',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -72,7 +72,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = RetailStoreMemberGiftCardConsumeRecordBase
+    
     const {RetailStoreMemberGiftCardConsumeRecordService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -80,12 +80,6 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -117,6 +111,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -124,7 +119,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_member_gift_card_consume_record')}</div>)
     }
 	
 	return (
@@ -139,7 +134,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
                   {getFieldDecorator('occureTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="发生时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.occureTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +144,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large"  placeHolder={fieldLabels.number} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +154,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
                   )}
                 </Form.Item>
               </Col>

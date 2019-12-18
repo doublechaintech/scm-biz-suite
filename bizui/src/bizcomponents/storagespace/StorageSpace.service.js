@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateWarehouse = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherWarehouse = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}storageSpaceManager/transferToAnotherWarehouse/id/anotherWarehouseId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeGoodsShelfList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}storageSpaceService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}storageSpaceService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}storageSpaceService/process/`,
+    data,
+  })
+}
+
 const StorageSpaceService = { view,
   load,
   addGoodsShelf,
   updateGoodsShelf,
   removeGoodsShelfList,
   requestCandidateWarehouse,
-  transferToAnotherWarehouse }
+  transferToAnotherWarehouse, listFunctions, saveRequest, processRequest}
 export default StorageSpaceService
 

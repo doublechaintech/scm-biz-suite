@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-indent */
 import FontAwesome from 'react-fontawesome';
 import PermissionSettingService from '../permission/PermissionSetting.service';
-import {
+import {List,
   Row,
   Col,
   Icon,
@@ -22,6 +22,7 @@ import { Link, Route, Redirect } from 'dva/router';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
 import appLocaleName from './Locale.tool';
+
 import {
   ChartCard,
   MiniArea,
@@ -54,12 +55,22 @@ const topColResponsiveProps = {
 const wholeLineColProps = {
   xs: 24,
   sm: 24,
-  md: 24,
-  lg: 24,
-  xl: 24,
+  md: 12,
+  lg: 12,
+  xl: 12,
   style: {  marginBottom: 24, marginTop: 24},
 };
 
+
+
+const quckFunctionProps = {
+  xs: 24,
+  sm: 24,
+  md: 12,
+  lg: 6,
+  xl: 6,
+  
+};
 
 const renderForNumbers = aggregatedData => {
   if (!aggregatedData) {
@@ -199,7 +210,7 @@ const renderForTimeLine = aggregatedData => {
   if (!aggregatedData) {
     return null;
   }
-  //scan all property ends with stats info
+  // scan all property ends with stats info
   console.log('aggregatedData', aggregatedData);
 
   const data = aggregatedData;
@@ -561,8 +572,46 @@ const defaultBuildTransferModal = (mainObject, targetComponent) => {
   );
 };
 
+
+const renderFunctions = (mainObject) => {
+  const actionList = mainObject.actionList.filter(item=>item.actionGroup==='changerequesttype')
+  // const actionList = platform.actionList
+
+
+  if(!actionList){
+    return null
+  }
+  if(actionList.length === 0){
+    return null
+  }
+
+  return (
+
+    <List
+    grid={{ gutter: 16, xs: 4, sm: 4, md: 4, lg: 6, xl: 6, xxl: 6 }}
+    dataSource={actionList}
+    renderItem={item => (
+      <List.Item>
+        <Card className={styles.crCard}><Link to={item.actionPath}>
+        
+        <Icon type={item.actionIcon} style={{ fontSize: 50, color: 'orange' }}/>
+        
+       </Link><br/><br/>{item.actionName}</Card>
+      </List.Item>
+    )}
+  />
+
+
+
+   
+  )
+};
+
 const defaultRenderExtraHeader = mainObject => {
   
+  return (<div>{renderFunctions(mainObject)}  <br/>  </div>)
+
+
 };
 
 
@@ -574,10 +623,12 @@ const defaultRenderAnalytics= mainObject => {
   if (data.dataArray.length === 0) {
     return null;
   }
+  // {renderForTimeLine(data)}
   return (
     <div>
+      
       {renderForNumbers(data)}
-      {renderForTimeLine(data)}
+      
     </div>
   );
 };
@@ -629,7 +680,9 @@ const defaultRenderSubjectList2 = cardsData => {
     
   );
 };
-const defaultRenderSubjectList = cardsData => {
+
+
+const defaultRenderSubjectList3 = cardsData => {
   
   // listItem.renderItem(item)
   const targetObject = cardsData.cardsSource
@@ -659,6 +712,50 @@ const defaultRenderSubjectList = cardsData => {
           </TabPane>
         ))}
         </Tabs>
+    </Row>
+    
+  );
+};
+
+
+const defaultRenderSubjectList = cardsData => {
+  
+  // listItem.renderItem(item)
+  const targetObject = cardsData.cardsSource
+  const { TabPane } = Tabs;
+  function callback(key) {
+    console.log(key);
+  }
+  if(!cardsData || !cardsData.subItems){
+    return null
+  }
+  const listWithDataLength = cardsData.subItems.filter(item=>item.count>0).length;
+  if(listWithDataLength>10){
+    return null
+  }
+
+  return (
+    <Row gutter={16}>
+      
+      {cardsData.subItems
+        
+        .filter(listItem=>legalListForDisplay(targetObject,listItem))
+        .map(listItem => (
+          
+          <Col key={listItem.displayName} {...wholeLineColProps}>
+            
+             <Card title={listItem.displayName} style={{ marginBottom: 24 }} >
+
+            {
+             
+              targetObject[listItem.name].map(item=>(listItem.renderItem(item)))
+            }
+           
+             </Card>
+          </Col>
+          
+        ))}
+       
     </Row>
     
   );
@@ -703,18 +800,18 @@ const defaultSubListsOf = cardsData => {
 };
 
 
-const defaultQuickFunctions = cardsData => {
+const defaultQuickFunctions2 = cardsData => {
   
   const { id, actionList } = cardsData.cardsSource;
   return (
     <Row gutter={16}>
       {
-        actionList.filter(item => item.actionGroup==="custom")
+       actionList&&actionList.filter(item => item.actionGroup==="custom")
         .map(item=>(
 
           
-          <Col span={6} key={`${item.actionPath}`}>
-          <Card span={6} style={{fontSize:"20px"}}>
+          <Col {...quckFunctionProps}  key={`${item.actionPath}`}>
+          <Card style={{fontSize:"20px"}}>
           <a href={`${PREFIX}${item.managerBeanName}/${item.actionPath}`} target="_blank">
           <Icon type={item.actionIcon} /> {item.actionName}
           </a>
@@ -724,11 +821,11 @@ const defaultQuickFunctions = cardsData => {
 
 
       }
-      {cardsData.subItems
+      {cardsData&&cardsData.subItems&&cardsData.subItems
         
         .filter(item => hasItemReadPermission(item))
         .map(item => (
-          <Col key={item.displayName} span={6}><Card span={6} style={{fontSize:"20px"}}>
+          <Col key={item.displayName} {...quckFunctionProps} ><Card span={6} style={{fontSize:"20px"}}>
            <Row gutter={16}>
            {hasItemCreatePermission(item) && (
           <Col span={3}>
@@ -759,6 +856,158 @@ const defaultQuickFunctions = cardsData => {
     
   );
 };
+
+const groupMenuOf=(cardsData)=>{
+  const groupedItems = []
+  cardsData.subItems.filter(item => hasItemReadPermission(item)).map(item =>{
+          const {viewGroup} = item
+          let result = groupedItems.find(viewGroupItem=>(viewGroupItem.viewGroup===viewGroup))
+  
+      if(!result){
+        // group not found
+        result = {viewGroup, subItems: []}
+        groupedItems.push(result)
+      }
+      const {subItems} = result
+      subItems.push(item)
+
+    })
+    return groupedItems
+
+}
+
+const keepShort=(value, length)=>{
+
+  if(value.length<=length){
+    return value
+  }
+  return `${value.substring(0,length-1)}..`
+
+}
+const showNumber=(item)=>{
+
+  if(!item.count){
+    return ""
+  }
+  return `(${item.count})`
+
+
+}
+const functionItem=(cardsData,item)=>{
+  const { id } = cardsData.cardsSource;
+
+  
+
+  return (<Col key={item.displayName} span={4} className={styles.functionItem}>
+  
+  
+
+      <Tooltip title={`进入${item.displayName}列表${showNumber(item)}`} placement="bottom">  
+      <Link  to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}>
+      {keepShort(item.displayName,9)} </Link>
+      </Tooltip>
+      
+
+      
+ 
+
+</Col>)
+
+
+}
+
+
+const viewGroupName=(name)=>{
+  if(!name){
+    return <div>
+      常用功能
+    </div>
+  }
+  if(name ==="" || name === "__no_group"){
+    return <div>
+    常用功能
+  </div>
+  }
+  return name;
+
+
+
+}
+
+const CustomFunction=(cardsData)=>{
+
+  const { actionList } = cardsData.cardsSource;
+  if(!actionList || actionList.length ===0 || actionList.filter(item => item.actionGroup==="custom").length === 0){
+    return null
+  }
+  return (<Row gutter={16} className={styles.functionRow} >
+    <Card span={6} style={{fontSize:"14px"}}>
+        <Col span={3} className={styles.functionItem}>
+        
+        特别功能
+       
+       
+        </Col>
+
+        <Col span={21} >
+
+    {
+      actionList.filter(item => item.actionGroup==="custom")
+      .map(item=>(
+
+        
+        <Col span={4} key={`${item.actionPath}`} style={{marginTop:"5px",marginBotton:"5px"}}>
+        
+        <a href={`${PREFIX}${item.managerBeanName}/${item.actionPath}`} target="_blank">
+        {item.actionName}
+        </a>
+       
+        </Col>
+      ))
+
+
+    }</Col>
+     </Card>
+     </Row> )
+
+
+}
+
+const defaultQuickFunctions = cardsData => {
+  
+  
+  return (
+    <div style={{marginBottom:'24px',marginLeft: '8px',marginRight:'8px'}}>
+    {CustomFunction(cardsData)}
+    {
+      groupMenuOf(cardsData).map(groupItem=>(
+
+        <Row gutter={16} className={styles.functionRow} >
+
+          <Card span={6} style={{fontSize:"14px"}}>
+
+           <Col span={3} style={{textColor:"grey",marginTop:"5px",marginBotton:"5px"}}>
+          
+          {viewGroupName(groupItem.viewGroup)}
+         
+         
+          </Col>
+          <Col span={21} >
+            {groupItem.subItems.map(item=>(
+              functionItem(cardsData,item)
+            ))}
+         </Col>
+
+        </Card>
+         </Row>)
+      )
+
+    }
+    </div>
+    
+  );
+};
+
 
 
 const defaultHideCloseTrans = targetComponent => {
@@ -830,5 +1079,7 @@ const DashboardTool = {
 };
 
 export default DashboardTool;
+
+
 
 

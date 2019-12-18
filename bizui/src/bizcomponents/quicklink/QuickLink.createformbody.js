@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = QuickLinkBase
 const testValues = {};
 /*
 const testValues = {
@@ -72,7 +72,7 @@ class QuickLinkCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = QuickLinkBase
+    
     const {QuickLinkService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -80,12 +80,6 @@ class QuickLinkCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -117,6 +111,7 @@ class QuickLinkCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -124,7 +119,7 @@ class QuickLinkCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}快速链接</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('quick_link')}</div>)
     }
 	
 	return (
@@ -139,7 +134,7 @@ class QuickLinkCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +144,7 @@ class QuickLinkCreateFormBody extends Component {
                   {getFieldDecorator('icon', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="图标" />
+                    <Input size="large"  placeHolder={fieldLabels.icon} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +154,7 @@ class QuickLinkCreateFormBody extends Component {
                   {getFieldDecorator('linkTarget', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="链接的目标" />
+                    <Input size="large"  placeHolder={fieldLabels.linkTarget} />
                   )}
                 </Form.Item>
               </Col>
@@ -204,7 +199,7 @@ class QuickLinkCreateFormBody extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="图片路径"
+                  buttonTitle={fieldLabels.imagePath}
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'imagePath')}
                   fileList={convertedImagesValues.imagePath}

@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = GoodsShelfStockCountBase
 const testValues = {};
 /*
 const testValues = {
   title: '每日盘点',
-  countTime: '2018-12-19',
+  countTime: '2019-10-01',
   summary: '使用先进的rfid技术，没有任何错误',
   shelfId: 'GS000001',
 }
@@ -71,7 +71,7 @@ class GoodsShelfStockCountCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = GoodsShelfStockCountBase
+    
     const {GoodsShelfStockCountService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class GoodsShelfStockCountCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class GoodsShelfStockCountCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class GoodsShelfStockCountCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货架库存盘点</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_shelf_stock_count')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class GoodsShelfStockCountCreateFormBody extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class GoodsShelfStockCountCreateFormBody extends Component {
                   {getFieldDecorator('countTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="计数时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.countTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class GoodsShelfStockCountCreateFormBody extends Component {
                   {getFieldDecorator('summary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="概览" />
+                    <Input size="large"  placeHolder={fieldLabels.summary} />
                   )}
                 </Form.Item>
               </Col>

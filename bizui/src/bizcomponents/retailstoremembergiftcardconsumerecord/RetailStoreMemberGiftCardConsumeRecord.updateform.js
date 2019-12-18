@@ -247,9 +247,9 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
 	
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}零售商店会员卡消费记录: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}零售门店会员卡消费记录: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +267,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -279,7 +279,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.occureTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="发生时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.occureTime}/>
                     
                   )}
                 </Form.Item>
@@ -291,7 +291,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.number,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数" />
+                    <Input size="large"  placeHolder={fieldLabels.number} />
                     
                   )}
                 </Form.Item>
@@ -303,7 +303,7 @@ class RetailStoreMemberGiftCardConsumeRecordUpdateForm extends Component {
                     initialValue: selectedRow.amount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
                     
                   )}
                 </Form.Item>

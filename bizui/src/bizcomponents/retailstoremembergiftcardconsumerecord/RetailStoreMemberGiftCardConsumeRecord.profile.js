@@ -55,7 +55,7 @@ class RetailStoreMemberGiftCardConsumeRecordProfile extends Component {
     const  retailStoreMemberGiftCardConsumeRecord = this.props.retailStoreMemberGiftCardConsumeRecord;
     const { id,displayName,  } = retailStoreMemberGiftCardConsumeRecord
     const  returnURL = `/retailStoreMemberGiftCardConsumeRecord/${id}/dashboard`
-    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: retailStoreMemberGiftCardConsumeRecord,displayName,returnURL,
+    const cardsData = {cardsName:"零售门店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",cardsSource: retailStoreMemberGiftCardConsumeRecord,displayName,returnURL,
   		subItems: [
      
       	],

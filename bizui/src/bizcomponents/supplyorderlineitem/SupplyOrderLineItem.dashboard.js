@@ -116,18 +116,18 @@ const internalSummaryOf = (supplyOrderLineItem,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderLineItem.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.id}</Description> 
 <Description term="订单">{supplyOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderLineItem.bizOrder.displayName}(${supplyOrderLineItem.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","supplyOrder",SupplyOrderLineItemService.requestCandidateBizOrder,
 	      SupplyOrderLineItemService.transferToAnotherBizOrder,"anotherBizOrderId",supplyOrderLineItem.bizOrder?supplyOrderLineItem.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="产品ID">{supplyOrderLineItem.skuId}</Description> 
-<Description term="产品名称">{supplyOrderLineItem.skuName}</Description> 
-<Description term="金额">{supplyOrderLineItem.amount}</Description> 
-<Description term="数量">{supplyOrderLineItem.quantity}</Description> 
-<Description term="测量单位">{supplyOrderLineItem.unitOfMeasurement}</Description> 
+<Description term="产品ID" style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.skuId}</Description> 
+<Description term="产品名称" style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.skuName}</Description> 
+<Description term="金额" style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.amount}</Description> 
+<Description term="数量" style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.quantity}</Description> 
+<Description term="测量单位" style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.unitOfMeasurement}</Description> 
 	
         {buildTransferModal(supplyOrderLineItem,targetComponent)}
       </DescriptionList>

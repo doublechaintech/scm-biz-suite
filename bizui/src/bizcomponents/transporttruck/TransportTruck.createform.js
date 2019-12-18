@@ -20,10 +20,10 @@ const testValues = {};
 const testValues = {
   name: '运货卡车',
   plateNumber: '川AK5',
-  contactNumber: '02887654321',
+  contactNumber: '1131937928',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2018-03-03',
+  makeDate: '2017-12-30',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -198,9 +198,9 @@ class TransportTruckCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -209,13 +209,13 @@ class TransportTruckCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输车</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_truck')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}运输车`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('transport_truck')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,28 +28,30 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"消费者的订单审批", menuFor: "consumerOrderApproval",
+
+const menuData = {menuName: window.trans('consumer_order_approval'), menuFor: "consumerOrderApproval",
   		subItems: [
   
   		],
 }
 
 
-const settingMenuData = {menuName:"消费者的订单审批", menuFor: "consumerOrderApproval",
+const settingMenuData = {menuName: window.trans('consumer_order_approval'), menuFor: "consumerOrderApproval",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  approveTime: '批准时间',
+  id: window.trans('consumer_order_approval.id'),
+  who: window.trans('consumer_order_approval.who'),
+  approveTime: window.trans('consumer_order_approval.approve_time'),
 
 }
 
@@ -56,17 +61,20 @@ const displayColumns = [
   { title: fieldLabels.approveTime, dataIndex: 'approveTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(consumerOrderApproval,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={consumerOrderApproval.id}>
 	
-      <DescriptionList  key={consumerOrderApproval.id} size="small" col="4">
-        <Description term="序号">{consumerOrderApproval.id}</Description> 
-        <Description term="谁">{consumerOrderApproval.who}</Description> 
-        <Description term="批准时间"><div>{ moment(consumerOrderApproval.approveTime).format('YYYY-MM-DD')}</div></Description> 
+      <DescriptionList  key={consumerOrderApproval.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{consumerOrderApproval.id}</Description> 
+        <Description term={fieldLabels.who} style={{wordBreak: 'break-all'}}>{consumerOrderApproval.who}</Description> 
+        <Description term={fieldLabels.approveTime}><div>{ moment(consumerOrderApproval.approveTime).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
@@ -76,10 +84,29 @@ const renderItemOfList=(consumerOrderApproval,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {who, approveTime} = formValuesToPack
 
+	const data = {who, approveTime}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {who, approveTime} = objectToUnpack
 
-
-const ConsumerOrderApprovalBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {who, approveTime}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const ConsumerOrderApprovalBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default ConsumerOrderApprovalBase
 
 

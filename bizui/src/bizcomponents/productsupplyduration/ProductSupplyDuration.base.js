@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"产品供应时间", menuFor: "productSupplyDuration",
+
+const menuData = {menuName: window.trans('product_supply_duration'), menuFor: "productSupplyDuration",
   		subItems: [
   
   		],
 }
 
 
-const settingMenuData = {menuName:"产品供应时间", menuFor: "productSupplyDuration",
+const settingMenuData = {menuName: window.trans('product_supply_duration'), menuFor: "productSupplyDuration",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  quantity: '数量',
-  duration: '持续时间',
-  price: '价格',
-  product: '产品',
+  id: window.trans('product_supply_duration.id'),
+  quantity: window.trans('product_supply_duration.quantity'),
+  duration: window.trans('product_supply_duration.duration'),
+  price: window.trans('product_supply_duration.price'),
+  product: window.trans('product_supply_duration.product'),
 
 }
 
@@ -60,19 +65,22 @@ const displayColumns = [
   { title: fieldLabels.product, dataIndex: 'product', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(productSupplyDuration,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={productSupplyDuration.id}>
 	
-      <DescriptionList  key={productSupplyDuration.id} size="small" col="4">
-        <Description term="序号">{productSupplyDuration.id}</Description> 
-        <Description term="数量"><div style={{"color":"red"}}>{productSupplyDuration.quantity}</div></Description> 
-        <Description term="持续时间">{productSupplyDuration.duration}</Description> 
-        <Description term="价格"><div style={{"color":"red"}}>{productSupplyDuration.price}</div></Description> 
-        <Description term="产品"><div>{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
+      <DescriptionList  key={productSupplyDuration.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{productSupplyDuration.id}</Description> 
+        <Description term={fieldLabels.quantity}><div style={{"color":"red"}}>{productSupplyDuration.quantity}</div></Description> 
+        <Description term={fieldLabels.duration} style={{wordBreak: 'break-all'}}>{productSupplyDuration.duration}</Description> 
+        <Description term={fieldLabels.price}><div style={{"color":"red"}}>{productSupplyDuration.price}</div></Description> 
+        <Description term={fieldLabels.product}><div>{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
         </div></Description>
 	
         
@@ -83,10 +91,29 @@ const renderItemOfList=(productSupplyDuration,targetComponent)=>{
 
 }
 	
-
-
-
-const ProductSupplyDurationBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {quantity, duration, price, productId} = formValuesToPack
+	const product = {id: productId, version: 2^31}
+	const data = {quantity, duration, price, product}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {quantity, duration, price, product} = objectToUnpack
+	const productId = product ? product.id : null
+	const data = {quantity, duration, price, productId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const ProductSupplyDurationBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default ProductSupplyDurationBase
 
 

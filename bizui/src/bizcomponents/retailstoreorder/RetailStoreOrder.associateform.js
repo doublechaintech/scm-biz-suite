@@ -19,9 +19,15 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
-  totalAmount: '2207032832.00',
+  totalAmount: '2675323392.00',
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
+  confirmationId: 'RSOC000001',
+  approvalId: 'RSOA000001',
+  processingId: 'RSOP000001',
+  pickingId: 'RSOP000001',
+  shipmentId: 'RSOS000001',
+  deliveryId: 'RSOD000001',
 }
 */
 
@@ -144,7 +150,7 @@ class RetailStoreOrderAssociateForm extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +160,7 @@ class RetailStoreOrderAssociateForm extends Component {
                   {getFieldDecorator('totalAmount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="总金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.totalAmount} />
                   )}
                 </Form.Item>
               </Col>
@@ -201,6 +207,96 @@ class RetailStoreOrderAssociateForm extends Component {
                     disabled={!availableForEdit('seller')}
                     targetType={"seller"} 
                     requestFunction={RetailStoreOrderService.requestCandidateSeller}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
+                  {getFieldDecorator('confirmationId', {
+                  	initialValue: tryinit('confirmation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('confirmation')}
+                    targetType={"confirmation"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateConfirmation}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.approval} {...formItemLayout}>
+                  {getFieldDecorator('approvalId', {
+                  	initialValue: tryinit('approval'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('approval')}
+                    targetType={"approval"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateApproval}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.processing} {...formItemLayout}>
+                  {getFieldDecorator('processingId', {
+                  	initialValue: tryinit('processing'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('processing')}
+                    targetType={"processing"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateProcessing}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.picking} {...formItemLayout}>
+                  {getFieldDecorator('pickingId', {
+                  	initialValue: tryinit('picking'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('picking')}
+                    targetType={"picking"} 
+                    requestFunction={RetailStoreOrderService.requestCandidatePicking}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.shipment} {...formItemLayout}>
+                  {getFieldDecorator('shipmentId', {
+                  	initialValue: tryinit('shipment'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('shipment')}
+                    targetType={"shipment"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateShipment}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.delivery} {...formItemLayout}>
+                  {getFieldDecorator('deliveryId', {
+                  	initialValue: tryinit('delivery'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('delivery')}
+                    targetType={"delivery"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateDelivery}/>
   
                   )}
                 </Form.Item>

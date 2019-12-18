@@ -119,14 +119,14 @@ const internalSummaryOf = (goodsMovement,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsMovement.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{goodsMovement.id}</Description> 
 <Description term="移动时间">{ moment(goodsMovement.moveTime).format('YYYY-MM-DD HH:mm')}</Description> 
-<Description term="设施">{goodsMovement.facility}</Description> 
-<Description term="设备ID">{goodsMovement.facilityId}</Description> 
-<Description term="从IP">{goodsMovement.fromIp}</Description> 
-<Description term="会话ID">{goodsMovement.sessionId}</Description> 
-<Description term="纬度">{goodsMovement.latitude}</Description> 
-<Description term="经度">{goodsMovement.longitude}</Description> 
+<Description term="设施" style={{wordBreak: 'break-all'}}>{goodsMovement.facility}</Description> 
+<Description term="设备ID" style={{wordBreak: 'break-all'}}>{goodsMovement.facilityId}</Description> 
+<Description term="从IP" style={{wordBreak: 'break-all'}}>{goodsMovement.fromIp}</Description> 
+<Description term="会话ID" style={{wordBreak: 'break-all'}}>{goodsMovement.sessionId}</Description> 
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{goodsMovement.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{goodsMovement.longitude}</Description> 
 <Description term="货物">{goodsMovement.goods==null?appLocaleName(userContext,"NotAssigned"):`${goodsMovement.goods.displayName}(${goodsMovement.goods.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"货物","goods",GoodsMovementService.requestCandidateGoods,

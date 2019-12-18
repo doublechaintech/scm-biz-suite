@@ -13,19 +13,25 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = RetailStoreBase
 const testValues = {};
 /*
 const testValues = {
   name: '中和社区小超',
-  telephone: '02887654321',
+  telephone: '1447788306',
   owner: '吕刚',
-  founded: '2018-10-10',
-  latitude: '41.102635566148095',
-  longitude: '131.5332605659328',
+  founded: '2017-07-19',
+  latitude: '41.75368646742169',
+  longitude: '129.94507872795353',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
+  creationId: 'RSC000001',
+  investmentInvitationId: 'RSII000001',
+  franchisingId: 'RSF000001',
+  decorationId: 'RSD000001',
+  openingId: 'RSO000001',
+  closingId: 'RSC000001',
 }
 */
 
@@ -76,7 +82,7 @@ class RetailStoreCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = RetailStoreBase
+    
     const {RetailStoreService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -84,12 +90,6 @@ class RetailStoreCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -121,6 +121,7 @@ class RetailStoreCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -128,7 +129,7 @@ class RetailStoreCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store')}</div>)
     }
 	
 	return (
@@ -143,7 +144,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +154,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('telephone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电话" />
+                    <Input size="large"  placeHolder={fieldLabels.telephone} />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +164,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('owner', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="业主" />
+                    <Input size="large"  placeHolder={fieldLabels.owner} />
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +174,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +184,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -193,7 +194,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -203,7 +204,7 @@ class RetailStoreCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
@@ -241,6 +242,120 @@ class RetailStoreCreateFormBody extends Component {
                     disabled={!availableForEdit('cityServiceCenter')}
                     targetType={"cityServiceCenter"} 
                     requestFunction={RetailStoreService.requestCandidateCityServiceCenter}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.creation} {...formItemLayout}>
+                  {getFieldDecorator('creationId', {
+                  	initialValue: tryinit('creation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('creation')}
+                    targetType={"creation"} 
+                    requestFunction={RetailStoreService.requestCandidateCreation}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.investmentInvitation} {...formItemLayout}>
+                  {getFieldDecorator('investmentInvitationId', {
+                  	initialValue: tryinit('investmentInvitation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('investmentInvitation')}
+                    targetType={"investmentInvitation"} 
+                    requestFunction={RetailStoreService.requestCandidateInvestmentInvitation}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.franchising} {...formItemLayout}>
+                  {getFieldDecorator('franchisingId', {
+                  	initialValue: tryinit('franchising'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('franchising')}
+                    targetType={"franchising"} 
+                    requestFunction={RetailStoreService.requestCandidateFranchising}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.decoration} {...formItemLayout}>
+                  {getFieldDecorator('decorationId', {
+                  	initialValue: tryinit('decoration'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('decoration')}
+                    targetType={"decoration"} 
+                    requestFunction={RetailStoreService.requestCandidateDecoration}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.opening} {...formItemLayout}>
+                  {getFieldDecorator('openingId', {
+                  	initialValue: tryinit('opening'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('opening')}
+                    targetType={"opening"} 
+                    requestFunction={RetailStoreService.requestCandidateOpening}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.closing} {...formItemLayout}>
+                  {getFieldDecorator('closingId', {
+                  	initialValue: tryinit('closing'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('closing')}
+                    targetType={"closing"} 
+                    requestFunction={RetailStoreService.requestCandidateClosing}/>
                   
                  
                   )}

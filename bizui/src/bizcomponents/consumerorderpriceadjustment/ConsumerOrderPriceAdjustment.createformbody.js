@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = ConsumerOrderPriceAdjustmentBase
 const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-  amount: '546.62',
+  amount: '470.77',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -71,7 +71,7 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = ConsumerOrderPriceAdjustmentBase
+    
     const {ConsumerOrderPriceAdjustmentService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费品价格调整</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_price_adjustment')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class ConsumerOrderPriceAdjustmentCreateFormBody extends Component {
                   {getFieldDecorator('provider', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="供应商" />
+                    <Input size="large"  placeHolder={fieldLabels.provider} />
                   )}
                 </Form.Item>
               </Col>

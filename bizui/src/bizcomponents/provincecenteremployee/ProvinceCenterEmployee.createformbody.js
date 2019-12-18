@@ -13,14 +13,14 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = ProvinceCenterEmployeeBase
 const testValues = {};
 /*
 const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2017-08-25',
+  founded: '2017-01-05',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -73,7 +73,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = ProvinceCenterEmployeeBase
+    
     const {ProvinceCenterEmployeeService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -81,12 +81,6 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -118,6 +112,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -125,7 +120,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}省中心员工</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('province_center_employee')}</div>)
     }
 	
 	return (
@@ -140,7 +135,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +145,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large"  placeHolder={fieldLabels.mobile} />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +155,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large"  placeHolder={fieldLabels.email} />
                   )}
                 </Form.Item>
               </Col>
@@ -170,7 +165,7 @@ class ProvinceCenterEmployeeCreateFormBody extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>

@@ -116,10 +116,10 @@ const internalSummaryOf = (scoring,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{scoring.id}</Description> 
-<Description term="由谁打分">{scoring.scoredBy}</Description> 
-<Description term="分数">{scoring.score}</Description> 
-<Description term="评论">{scoring.comment}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{scoring.id}</Description> 
+<Description term="由谁打分" style={{wordBreak: 'break-all'}}>{scoring.scoredBy}</Description> 
+<Description term="分数" style={{wordBreak: 'break-all'}}>{scoring.score}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{scoring.comment}</Description> 
 	
         {buildTransferModal(scoring,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,7 @@ class ScoringDashboard extends Component {
     const cardsData = {cardsName:"评分",cardsFor: "scoring",
     	cardsSource: this.props.scoring,returnURL,displayName,
   		subItems: [
-{name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
+{name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',viewGroup:'__no_group', type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [

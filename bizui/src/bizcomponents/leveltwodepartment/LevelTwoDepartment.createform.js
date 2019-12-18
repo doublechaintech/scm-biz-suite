@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '信息系统部大数据部门',
   description: '主要执行集团信息系统建设，维护，规划',
-  founded: '2017-07-21',
+  founded: '2018-05-20',
   belongsToId: 'LOD000001',
 }
 */
@@ -193,9 +193,9 @@ class LevelTwoDepartmentCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +204,13 @@ class LevelTwoDepartmentCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}二级部门</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('level_two_department')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}二级部门`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('level_two_department')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

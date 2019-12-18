@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超成都办事处',
-  founded: '2017-05-17',
+  founded: '2018-02-21',
   belongsToId: 'RSPC000001',
 }
 */
@@ -192,9 +192,9 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超城市服务中心</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_city_service_center')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}双链小超城市服务中心`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_city_service_center')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = CompanyTrainingBase
 const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2017-04-17',
+  timeStart: '2017-04-02',
   durationHours: '3',
   companyId: 'RSCC000001',
   instructorId: 'I000001',
@@ -73,7 +73,7 @@ class CompanyTrainingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = CompanyTrainingBase
+    
     const {CompanyTrainingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -81,12 +81,6 @@ class CompanyTrainingCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -118,6 +112,7 @@ class CompanyTrainingCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -125,7 +120,7 @@ class CompanyTrainingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}公司培训</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('company_training')}</div>)
     }
 	
 	return (
@@ -140,7 +135,7 @@ class CompanyTrainingCreateFormBody extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +145,7 @@ class CompanyTrainingCreateFormBody extends Component {
                   {getFieldDecorator('timeStart', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="时间开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.timeStart}/>
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +155,7 @@ class CompanyTrainingCreateFormBody extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="持续时间" />
+                    <Input size="large"  placeHolder={fieldLabels.durationHours} />
                   )}
                 </Form.Item>
               </Col>

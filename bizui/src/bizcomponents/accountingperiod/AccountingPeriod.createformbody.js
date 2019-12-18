@@ -13,13 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = AccountingPeriodBase
 const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2018-04-13',
-  endDate: '2017-12-26',
+  startDate: '2019-01-10',
+  endDate: '2018-05-29',
   accountSetId: 'AS000001',
 }
 */
@@ -71,7 +71,7 @@ class AccountingPeriodCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = AccountingPeriodBase
+    
     const {AccountingPeriodService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class AccountingPeriodCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class AccountingPeriodCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class AccountingPeriodCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计期间</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_period')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class AccountingPeriodCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class AccountingPeriodCreateFormBody extends Component {
                   {getFieldDecorator('startDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.startDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class AccountingPeriodCreateFormBody extends Component {
                   {getFieldDecorator('endDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.endDate}/>
                   )}
                 </Form.Item>
               </Col>

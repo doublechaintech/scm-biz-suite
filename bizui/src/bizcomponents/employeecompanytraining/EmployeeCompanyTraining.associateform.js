@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   employeeId: 'E000001',
   trainingId: 'CT000001',
+  scoringId: 'S000001',
 }
 */
 
@@ -175,6 +176,21 @@ class EmployeeCompanyTrainingAssociateForm extends Component {
                     disabled={!availableForEdit('training')}
                     targetType={"training"} 
                     requestFunction={EmployeeCompanyTrainingService.requestCandidateTraining}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.scoring} {...formItemLayout}>
+                  {getFieldDecorator('scoringId', {
+                  	initialValue: tryinit('scoring'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('scoring')}
+                    targetType={"scoring"} 
+                    requestFunction={EmployeeCompanyTrainingService.requestCandidateScoring}/>
   
                   )}
                 </Form.Item>

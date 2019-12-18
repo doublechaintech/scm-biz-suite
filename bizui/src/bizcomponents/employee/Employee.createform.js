@@ -31,6 +31,13 @@ const testValues = {
   occupationId: 'OT000001',
   responsibleForId: 'RT000001',
   currentSalaryGradeId: 'SG000001',
+  jobApplicationId: 'JA000001',
+  professionInterviewId: 'PI000001',
+  hrInterviewId: 'HI000001',
+  offerApprovalId: 'OA000001',
+  offerAcceptanceId: 'OA000001',
+  employeeBoardingId: 'EB000001',
+  terminationId: 'T000001',
 }
 */
 
@@ -202,9 +209,9 @@ class EmployeeCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -213,13 +220,13 @@ class EmployeeCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}员工`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

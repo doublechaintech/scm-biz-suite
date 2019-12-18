@@ -116,8 +116,8 @@ const internalSummaryOf = (retailStoreOrderPicking,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderPicking.id}</Description> 
-<Description term="谁">{retailStoreOrderPicking.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreOrderPicking.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{retailStoreOrderPicking.who}</Description> 
 <Description term="过程的时间">{ moment(retailStoreOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreOrderPicking,targetComponent)}
@@ -159,7 +159,7 @@ class RetailStoreOrderPickingDashboard extends Component {
     const cardsData = {cardsName:"生超订单拣货",cardsFor: "retailStoreOrderPicking",
     	cardsSource: this.props.retailStoreOrderPicking,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+{name: 'retailStoreOrderList', displayName:'生超的订单',viewGroup:'__no_group', type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
     
       	],
    		subSettingItems: [

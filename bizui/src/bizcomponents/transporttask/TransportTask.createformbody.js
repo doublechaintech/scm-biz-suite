@@ -13,15 +13,15 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = TransportTaskBase
 const testValues = {};
 /*
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2018-09-08',
-  latitude: '41.08360863075564',
-  longitude: '131.72785793427335',
+  beginTime: '2018-12-02',
+  latitude: '39.96049190722364',
+  longitude: '129.40141375432412',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -76,7 +76,7 @@ class TransportTaskCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = TransportTaskBase
+    
     const {TransportTaskService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -84,12 +84,6 @@ class TransportTaskCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -121,6 +115,7 @@ class TransportTaskCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -128,7 +123,7 @@ class TransportTaskCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输任务</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_task')}</div>)
     }
 	
 	return (
@@ -143,7 +138,7 @@ class TransportTaskCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +148,7 @@ class TransportTaskCreateFormBody extends Component {
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="开始" />
+                    <Input size="large"  placeHolder={fieldLabels.start} />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +158,7 @@ class TransportTaskCreateFormBody extends Component {
                   {getFieldDecorator('beginTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.beginTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +168,7 @@ class TransportTaskCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +178,7 @@ class TransportTaskCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>

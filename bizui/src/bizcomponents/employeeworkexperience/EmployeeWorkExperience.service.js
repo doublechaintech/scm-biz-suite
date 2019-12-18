@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateEmployee = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherEmployee = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeWorkExperienceManager/transferToAnotherEmployee/id/anotherEmployeeId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -37,9 +36,36 @@ const transferToAnotherEmployee = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}employeeWorkExperienceService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeWorkExperienceService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeWorkExperienceService/process/`,
+    data,
+  })
+}
+
 const EmployeeWorkExperienceService = { view,
   load,
   requestCandidateEmployee,
-  transferToAnotherEmployee }
+  transferToAnotherEmployee, listFunctions, saveRequest, processRequest}
 export default EmployeeWorkExperienceService
 

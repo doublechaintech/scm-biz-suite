@@ -141,7 +141,7 @@ class QuickLinkAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class QuickLinkAssociateForm extends Component {
                   {getFieldDecorator('icon', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="图标" />
+                    <Input size="large"  placeHolder={fieldLabels.icon} />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class QuickLinkAssociateForm extends Component {
                   {getFieldDecorator('linkTarget', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="链接的目标" />
+                    <Input size="large"  placeHolder={fieldLabels.linkTarget} />
                   )}
                 </Form.Item>
               </Col>

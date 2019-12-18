@@ -116,17 +116,16 @@ const internalSummaryOf = (supplyOrder,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrder.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplyOrder.id}</Description> 
 <Description term="卖方">{supplyOrder.seller==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrder.seller.displayName}(${supplyOrder.seller.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"卖方","goodsSupplier",SupplyOrderService.requestCandidateSeller,
 	      SupplyOrderService.transferToAnotherSeller,"anotherSellerId",supplyOrder.seller?supplyOrder.seller.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="头衔">{supplyOrder.title}</Description> 
-<Description term="总金额">{supplyOrder.totalAmount}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{supplyOrder.title}</Description> 
+<Description term="总金额" style={{wordBreak: 'break-all'}}>{supplyOrder.totalAmount}</Description> 
 <Description term="最后更新时间">{ moment(supplyOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
-<Description term="当前状态">{supplyOrder.currentStatus}</Description> 
 	
         {buildTransferModal(supplyOrder,targetComponent)}
       </DescriptionList>
@@ -167,10 +166,10 @@ class SupplyOrderDashboard extends Component {
     const cardsData = {cardsName:"供应订单",cardsFor: "supplyOrder",
     	cardsSource: this.props.supplyOrder,returnURL,displayName,
   		subItems: [
-{name: 'supplyOrderLineItemList', displayName:'供应订单行项目',type:'supplyOrderLineItem',count:supplyOrderLineItemCount,addFunction: true, role: 'supplyOrderLineItem', metaInfo: supplyOrderLineItemListMetaInfo, renderItem: GlobalComponents.SupplyOrderLineItemBase.renderItemOfList},
-{name: 'supplyOrderShippingGroupList', displayName:'供应订单送货分组',type:'supplyOrderShippingGroup',count:supplyOrderShippingGroupCount,addFunction: true, role: 'supplyOrderShippingGroup', metaInfo: supplyOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderShippingGroupBase.renderItemOfList},
-{name: 'supplyOrderPaymentGroupList', displayName:'供应订单付款组',type:'supplyOrderPaymentGroup',count:supplyOrderPaymentGroupCount,addFunction: true, role: 'supplyOrderPaymentGroup', metaInfo: supplyOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderPaymentGroupBase.renderItemOfList},
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'supplyOrderLineItemList', displayName:'供应订单行项目',viewGroup:'__no_group', type:'supplyOrderLineItem',count:supplyOrderLineItemCount,addFunction: true, role: 'supplyOrderLineItem', metaInfo: supplyOrderLineItemListMetaInfo, renderItem: GlobalComponents.SupplyOrderLineItemBase.renderItemOfList},
+{name: 'supplyOrderShippingGroupList', displayName:'供应订单送货分组',viewGroup:'__no_group', type:'supplyOrderShippingGroup',count:supplyOrderShippingGroupCount,addFunction: true, role: 'supplyOrderShippingGroup', metaInfo: supplyOrderShippingGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderShippingGroupBase.renderItemOfList},
+{name: 'supplyOrderPaymentGroupList', displayName:'供应订单付款组',viewGroup:'__no_group', type:'supplyOrderPaymentGroup',count:supplyOrderPaymentGroupCount,addFunction: true, role: 'supplyOrderPaymentGroup', metaInfo: supplyOrderPaymentGroupListMetaInfo, renderItem: GlobalComponents.SupplyOrderPaymentGroupBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
    		subSettingItems: [

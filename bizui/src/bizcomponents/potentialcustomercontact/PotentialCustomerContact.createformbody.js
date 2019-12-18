@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = PotentialCustomerContactBase
 const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2018-12-15',
+  contactDate: '2018-02-04',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -74,7 +74,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = PotentialCustomerContactBase
+    
     const {PotentialCustomerContactService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -82,12 +82,6 @@ class PotentialCustomerContactCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -119,6 +113,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -126,7 +121,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}潜在客户联系</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('potential_customer_contact')}</div>)
     }
 	
 	return (
@@ -141,7 +136,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +146,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
                   {getFieldDecorator('contactDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="接触日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.contactDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +156,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
                   {getFieldDecorator('contactMethod', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="接触法" />
+                    <Input size="large"  placeHolder={fieldLabels.contactMethod} />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +166,7 @@ class PotentialCustomerContactCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

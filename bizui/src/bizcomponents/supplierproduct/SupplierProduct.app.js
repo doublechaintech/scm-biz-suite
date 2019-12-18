@@ -106,10 +106,12 @@ const query = {
 
 
 class SupplierProductBizApp extends React.PureComponent {
-  constructor(props) {
+constructor(props) {
     super(props)
      this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
+      showSearch: false,
+      searchKeyword:''
     }
   }
 
@@ -155,7 +157,7 @@ class SupplierProductBizApp extends React.PureComponent {
         
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        style={{ width: '256px' }}
+        style={{ width: '456px' }}
        >
            
 
@@ -235,6 +237,16 @@ class SupplierProductBizApp extends React.PureComponent {
 
 
   
+
+ 
+
+  getPageTitle = () => {
+    // const { location } = this.props
+    // const { pathname } = location
+    const title = '双链小超全流程供应链系统'
+    return title
+  }
+ 
   buildRouters = () =>{
   	const {SupplierProductDashboard} = GlobalComponents
   	const {SupplierProductPermission} = GlobalComponents
@@ -252,12 +264,12 @@ class SupplierProductBizApp extends React.PureComponent {
   	{path:"/supplierProduct/:id/list/productSupplyDurationCreateForm", component: this.getProductSupplyDurationCreateForm()},
   	{path:"/supplierProduct/:id/list/productSupplyDurationUpdateForm", component: this.getProductSupplyDurationUpdateForm()},
      	
-  	
+ 	 
   	]
   	
   	const {extraRoutesFunc} = this.props;
-	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
-    const finalRoutes = routers.concat(extraRoutes)
+  	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
+  	const finalRoutes = routers.concat(extraRoutes)
     
   	return (<Switch>
              {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
@@ -266,13 +278,6 @@ class SupplierProductBizApp extends React.PureComponent {
   
   }
  
-
-  getPageTitle = () => {
-    // const { location } = this.props
-    // const { pathname } = location
-    const title = '双链小超全流程供应链系统'
-    return title
-  }
  
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
@@ -333,10 +338,32 @@ class SupplierProductBizApp extends React.PureComponent {
   
 
      }
+     
      const { Search } = Input;
+     const showSearchResult=()=>{
+
+        this.setState({showSearch:true})
+
+     }
+     const searchChange=(evt)=>{
+
+      this.setState({searchKeyword :evt.target.value})
+
+    }
+    const hideSearchResult=()=>{
+
+      this.setState({showSearch:false})
+
+    }
+
+    const {searchLocalData}=GlobalComponents.SupplierProductBase
+	
+    
+     
+     
      const layout = (
      <Layout>
- <Header>
+ <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           
         <Row type="flex" justify="start" align="bottom">
         
@@ -354,8 +381,12 @@ class SupplierProductBizApp extends React.PureComponent {
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
-          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+            enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
+           	
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            
+            
           </Col>
           <Col  {...userBarResponsiveStyle}  > 
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
@@ -368,8 +399,15 @@ class SupplierProductBizApp extends React.PureComponent {
          
          </Row>
         </Header>
-       <Layout>
+       <Layout style={{  marginTop: 44 }}>
        
+      {this.state.showSearch&&(
+
+        <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.supplierProduct,this.state.searchKeyword)}</div>
+
+      )}
+       
+        
          
          <Layout>
          

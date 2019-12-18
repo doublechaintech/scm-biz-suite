@@ -117,18 +117,17 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucher.id}</Description> 
-<Description term="头衔">{originalVoucher.title}</Description> 
-<Description term="由">{originalVoucher.madeBy}</Description> 
-<Description term="受">{originalVoucher.receivedBy}</Description> 
-<Description term="凭证类型">{originalVoucher.voucherType}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{originalVoucher.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{originalVoucher.title}</Description> 
+<Description term="由" style={{wordBreak: 'break-all'}}>{originalVoucher.madeBy}</Description> 
+<Description term="受" style={{wordBreak: 'break-all'}}>{originalVoucher.receivedBy}</Description> 
+<Description term="凭证类型" style={{wordBreak: 'break-all'}}>{originalVoucher.voucherType}</Description> 
 <Description term="属于">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,
 	      OriginalVoucherService.transferToAnotherBelongsTo,"anotherBelongsToId",originalVoucher.belongsTo?originalVoucher.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{originalVoucher.currentStatus}</Description> 
 	
         {buildTransferModal(originalVoucher,targetComponent)}
       </DescriptionList>

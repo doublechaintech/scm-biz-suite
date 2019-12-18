@@ -116,7 +116,7 @@ const internalSummaryOf = (employeeWorkExperience,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeWorkExperience.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeWorkExperience.id}</Description> 
 <Description term="员工">{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeWorkExperienceService.requestCandidateEmployee,
@@ -125,8 +125,8 @@ const internalSummaryOf = (employeeWorkExperience,targetComponent) =>{
 </Description>
 <Description term="开始">{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</Description> 
 <Description term="结束">{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</Description> 
-<Description term="公司">{employeeWorkExperience.company}</Description> 
-<Description term="描述">{employeeWorkExperience.description}</Description> 
+<Description term="公司" style={{wordBreak: 'break-all'}}>{employeeWorkExperience.company}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{employeeWorkExperience.description}</Description> 
 	
         {buildTransferModal(employeeWorkExperience,targetComponent)}
       </DescriptionList>

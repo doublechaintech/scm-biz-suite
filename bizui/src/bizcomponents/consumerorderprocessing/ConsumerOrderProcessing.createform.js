@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '处理者',
-  processTime: '2019-08-24',
+  processTime: '2018-01-31',
 }
 */
 
@@ -191,9 +191,9 @@ class ConsumerOrderProcessingCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -202,13 +202,13 @@ class ConsumerOrderProcessingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费者的订单处理</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_processing')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}消费者的订单处理`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order_processing')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

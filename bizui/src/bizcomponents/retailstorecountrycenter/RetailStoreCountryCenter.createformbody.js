@@ -13,13 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = RetailStoreCountryCenterBase
 const testValues = {};
 /*
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
-  founded: '2017-08-28',
+  founded: '2019-08-31',
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',
@@ -75,7 +75,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = RetailStoreCountryCenterBase
+    
     const {RetailStoreCountryCenterService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -83,12 +83,6 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -120,6 +114,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -127,7 +122,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超全国运营中心</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_country_center')}</div>)
     }
 	
 	return (
@@ -142,7 +137,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +147,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('serviceNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="服务号码" />
+                    <Input size="large"  placeHolder={fieldLabels.serviceNumber} />
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +157,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +167,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('webSite', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="网站" />
+                    <Input size="large"  placeHolder={fieldLabels.webSite} />
                   )}
                 </Form.Item>
               </Col>
@@ -182,7 +177,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="地址" />
+                    <Input size="large"  placeHolder={fieldLabels.address} />
                   )}
                 </Form.Item>
               </Col>
@@ -192,7 +187,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('operatedBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="由" />
+                    <Input size="large"  placeHolder={fieldLabels.operatedBy} />
                   )}
                 </Form.Item>
               </Col>
@@ -202,7 +197,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('legalRepresentative', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="法定代表人" />
+                    <Input size="large"  placeHolder={fieldLabels.legalRepresentative} />
                   )}
                 </Form.Item>
               </Col>
@@ -212,7 +207,7 @@ class RetailStoreCountryCenterCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

@@ -55,7 +55,7 @@ class RetailStoreClosingProfile extends Component {
     const  retailStoreClosing = this.props.retailStoreClosing;
     const { id,displayName, retailStoreCount } = retailStoreClosing
     const  returnURL = `/retailStoreClosing/${id}/dashboard`
-    const cardsData = {cardsName:"商店关闭",cardsFor: "retailStoreClosing",cardsSource: retailStoreClosing,displayName,returnURL,
+    const cardsData = {cardsName:"门店关闭",cardsFor: "retailStoreClosing",cardsSource: retailStoreClosing,displayName,returnURL,
   		subItems: [
      
       	],

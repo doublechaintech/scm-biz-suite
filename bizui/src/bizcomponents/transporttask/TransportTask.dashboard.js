@@ -116,9 +116,9 @@ const internalSummaryOf = (transportTask,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTask.id}</Description> 
-<Description term="名称">{transportTask.name}</Description> 
-<Description term="开始">{transportTask.start}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{transportTask.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{transportTask.name}</Description> 
+<Description term="开始" style={{wordBreak: 'break-all'}}>{transportTask.start}</Description> 
 <Description term="开始时间">{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</Description> 
 <Description term="结束">{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.end.displayName}(${transportTask.end.id})`}
  <Icon type="swap" onClick={()=>
@@ -144,8 +144,8 @@ const internalSummaryOf = (transportTask,targetComponent) =>{
 	      TransportTaskService.transferToAnotherBelongsTo,"anotherBelongsToId",transportTask.belongsTo?transportTask.belongsTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="纬度">{transportTask.latitude}</Description> 
-<Description term="经度">{transportTask.longitude}</Description> 
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{transportTask.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{transportTask.longitude}</Description> 
 	
         {buildTransferModal(transportTask,targetComponent)}
       </DescriptionList>
@@ -186,8 +186,8 @@ class TransportTaskDashboard extends Component {
     const cardsData = {cardsName:"运输任务",cardsFor: "transportTask",
     	cardsSource: this.props.transportTask,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
-{name: 'transportTaskTrackList', displayName:'运输任务跟踪',type:'transportTaskTrack',count:transportTaskTrackCount,addFunction: true, role: 'transportTaskTrack', metaInfo: transportTaskTrackListMetaInfo, renderItem: GlobalComponents.TransportTaskTrackBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'transportTaskTrackList', displayName:'运输任务跟踪',viewGroup:'__no_group', type:'transportTaskTrack',count:transportTaskTrackCount,addFunction: true, role: 'transportTaskTrack', metaInfo: transportTaskTrackListMetaInfo, renderItem: GlobalComponents.TransportTaskTrackBase.renderItemOfList},
     
       	],
    		subSettingItems: [

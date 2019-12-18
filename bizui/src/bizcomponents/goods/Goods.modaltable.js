@@ -38,7 +38,7 @@ class GoodsModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1890 }}
+          scroll={{ x: 1800 }}
         />
       </div>
     )

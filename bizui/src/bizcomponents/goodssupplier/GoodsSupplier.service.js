@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateBelongTo = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBelongTo = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsSupplierManager/transferToAnotherBelongTo/id/anotherBelongToId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -61,7 +60,7 @@ const removeSupplierProductList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}goodsSupplierManager/addSupplyOrder/goodsSupplierId/buyerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}goodsSupplierManager/addSupplyOrder/goodsSupplierId/buyerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
   const goodsSupplierId = targetObjectId
   const requestParameters = { ...parameters, goodsSupplierId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -103,6 +102,33 @@ const removeAccountSetList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}goodsSupplierService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsSupplierService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsSupplierService/process/`,
+    data,
+  })
+}
+
 const GoodsSupplierService = { view,
   load,
   addSupplierProduct,
@@ -115,6 +141,6 @@ const GoodsSupplierService = { view,
   removeSupplyOrderList,
   removeAccountSetList,
   requestCandidateBelongTo,
-  transferToAnotherBelongTo }
+  transferToAnotherBelongTo, listFunctions, saveRequest, processRequest}
 export default GoodsSupplierService
 

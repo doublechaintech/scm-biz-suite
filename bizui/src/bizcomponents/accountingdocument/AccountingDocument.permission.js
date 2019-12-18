@@ -34,7 +34,6 @@ const internalSummaryOf = (accountingDocument,targetComponent) =>{
 <Description term="序号">{accountingDocument.id}</Description> 
 <Description term="名称">{accountingDocument.name}</Description> 
 <Description term="会计凭证日期">{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{accountingDocument.currentStatus}</Description> 
 	
       </DescriptionList>
 	)

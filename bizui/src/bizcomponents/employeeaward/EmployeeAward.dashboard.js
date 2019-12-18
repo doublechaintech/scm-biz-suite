@@ -116,7 +116,7 @@ const internalSummaryOf = (employeeAward,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeAward.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeAward.id}</Description> 
 <Description term="员工">{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeAwardService.requestCandidateEmployee,
@@ -124,8 +124,8 @@ const internalSummaryOf = (employeeAward,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="完成时间">{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeAward.type}</Description> 
-<Description term="备注">{employeeAward.remark}</Description> 
+<Description term="类型" style={{wordBreak: 'break-all'}}>{employeeAward.type}</Description> 
+<Description term="备注" style={{wordBreak: 'break-all'}}>{employeeAward.remark}</Description> 
 	
         {buildTransferModal(employeeAward,targetComponent)}
       </DescriptionList>

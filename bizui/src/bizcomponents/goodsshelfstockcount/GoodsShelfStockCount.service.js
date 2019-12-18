@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateShelf = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherShelf = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsShelfStockCountManager/transferToAnotherShelf/id/anotherShelfId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeStockCountIssueTrackList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}goodsShelfStockCountService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsShelfStockCountService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsShelfStockCountService/process/`,
+    data,
+  })
+}
+
 const GoodsShelfStockCountService = { view,
   load,
   addStockCountIssueTrack,
   updateStockCountIssueTrack,
   removeStockCountIssueTrackList,
   requestCandidateShelf,
-  transferToAnotherShelf }
+  transferToAnotherShelf, listFunctions, saveRequest, processRequest}
 export default GoodsShelfStockCountService
 

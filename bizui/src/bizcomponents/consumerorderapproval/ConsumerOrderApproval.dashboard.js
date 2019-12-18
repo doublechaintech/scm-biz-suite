@@ -116,8 +116,8 @@ const internalSummaryOf = (consumerOrderApproval,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{consumerOrderApproval.id}</Description> 
-<Description term="谁">{consumerOrderApproval.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{consumerOrderApproval.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{consumerOrderApproval.who}</Description> 
 <Description term="批准时间">{ moment(consumerOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(consumerOrderApproval,targetComponent)}

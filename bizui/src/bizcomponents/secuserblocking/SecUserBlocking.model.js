@@ -137,7 +137,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/secUserBlocking/${id}/list/SecUserList/安全用户+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/secUserBlocking/${id}/list/SecUserList/SEC的用户+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateSecUser({ payload }, { call, put }) {
@@ -159,7 +159,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/secUserBlocking/${id}/list/SecUserList/安全用户列表`, state: newPlayload }
+      const location = { pathname: `/secUserBlocking/${id}/list/SecUserList/SEC的用户列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextSecUserUpdateRow({ payload }, { call, put }) {

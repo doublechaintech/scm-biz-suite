@@ -146,7 +146,7 @@ class RetailStoreMemberAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -156,7 +156,7 @@ class RetailStoreMemberAssociateForm extends Component {
                   {getFieldDecorator('mobilePhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="移动电话" />
+                    <Input size="large"  placeHolder={fieldLabels.mobilePhone} />
                   )}
                 </Form.Item>
               </Col>

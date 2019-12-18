@@ -250,7 +250,7 @@ class QuickLinkUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}快速链接: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -268,7 +268,7 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="ID" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -280,7 +280,7 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                     
                   )}
                 </Form.Item>
@@ -292,7 +292,7 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.icon,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="图标" />
+                    <Input size="large"  placeHolder={fieldLabels.icon} />
                     
                   )}
                 </Form.Item>
@@ -304,7 +304,7 @@ class QuickLinkUpdateForm extends Component {
                     initialValue: selectedRow.linkTarget,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="链接的目标" />
+                    <Input size="large"  placeHolder={fieldLabels.linkTarget} />
                     
                   )}
                 </Form.Item>
@@ -333,7 +333,7 @@ class QuickLinkUpdateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="图片路径"
+                  buttonTitle={window.trans('quick_link')}
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'imagePath')}
                   fileList={convertedImagesValues.imagePath}

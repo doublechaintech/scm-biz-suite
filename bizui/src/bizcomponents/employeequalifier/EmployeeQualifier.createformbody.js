@@ -13,11 +13,11 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeQualifierBase
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2018-06-23',
+  qualifiedTime: '2017-01-24',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -72,7 +72,7 @@ class EmployeeQualifierCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeQualifierBase
+    
     const {EmployeeQualifierService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -80,12 +80,6 @@ class EmployeeQualifierCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -117,6 +111,7 @@ class EmployeeQualifierCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -124,7 +119,7 @@ class EmployeeQualifierCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工资质</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_qualifier')}</div>)
     }
 	
 	return (
@@ -139,7 +134,7 @@ class EmployeeQualifierCreateFormBody extends Component {
                   {getFieldDecorator('qualifiedTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="合格的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.qualifiedTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +144,7 @@ class EmployeeQualifierCreateFormBody extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="类型" />
+                    <Input size="large"  placeHolder={fieldLabels.type} />
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +154,7 @@ class EmployeeQualifierCreateFormBody extends Component {
                   {getFieldDecorator('level', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="水平" />
+                    <Input size="large"  placeHolder={fieldLabels.level} />
                   )}
                 </Form.Item>
               </Col>
@@ -169,7 +164,7 @@ class EmployeeQualifierCreateFormBody extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large"  placeHolder={fieldLabels.remark} />
                   )}
                 </Form.Item>
               </Col>

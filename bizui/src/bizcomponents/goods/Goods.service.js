@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateSku = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherSku = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherSku/id/anotherSkuId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateReceivingSpace = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherReceivingSpace = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherReceivingSpace/id/anotherReceivingSpaceId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateGoodsAllocation = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherGoodsAllocation = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherGoodsAllocation/id/anotherGoodsAllocationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -74,7 +71,6 @@ const requestCandidateSmartPallet = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherSmartPallet = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherSmartPallet/id/anotherSmartPalletId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -90,7 +86,6 @@ const requestCandidateShippingSpace = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherShippingSpace = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherShippingSpace/id/anotherShippingSpaceId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -106,7 +101,6 @@ const requestCandidateTransportTask = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherTransportTask = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherTransportTask/id/anotherTransportTaskId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -122,7 +116,6 @@ const requestCandidateRetailStore = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherRetailStore = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherRetailStore/id/anotherRetailStoreId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -138,7 +131,6 @@ const requestCandidateBizOrder = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBizOrder = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherBizOrder/id/anotherBizOrderId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -154,7 +146,6 @@ const requestCandidateRetailStoreOrder = (ownerClass, id, filterKey, pageNo) => 
 }	
 
 const transferToAnotherRetailStoreOrder = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherRetailStoreOrder/id/anotherRetailStoreOrderId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -170,7 +161,6 @@ const requestCandidatePackaging = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherPackaging = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsManager/transferToAnotherPackaging/id/anotherPackagingId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -203,6 +193,33 @@ const removeGoodsMovementList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}goodsService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsService/process/`,
+    data,
+  })
+}
+
 const GoodsService = { view,
   load,
   addGoodsMovement,
@@ -227,6 +244,6 @@ const GoodsService = { view,
   transferToAnotherRetailStore,
   transferToAnotherBizOrder,
   transferToAnotherRetailStoreOrder,
-  transferToAnotherPackaging }
+  transferToAnotherPackaging, listFunctions, saveRequest, processRequest}
 export default GoodsService
 

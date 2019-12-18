@@ -159,6 +159,11 @@ function RouterConfig({ history }) {
 	const {ListAccessBizApp} = GlobalComponents
 	const {ObjectAccessBizApp} = GlobalComponents
 	const {LoginHistoryBizApp} = GlobalComponents
+	const {GenericFormBizApp} = GlobalComponents
+	const {FormMessageBizApp} = GlobalComponents
+	const {FormFieldMessageBizApp} = GlobalComponents
+	const {FormFieldBizApp} = GlobalComponents
+	const {FormActionBizApp} = GlobalComponents
 	const {CandidateContainerBizApp} = GlobalComponents
 	const {CandidateElementBizApp} = GlobalComponents
 
@@ -316,6 +321,11 @@ function RouterConfig({ history }) {
           <Route path="/listAccess/" component={ListAccessBizApp} />
           <Route path="/objectAccess/" component={ObjectAccessBizApp} />
           <Route path="/loginHistory/" component={LoginHistoryBizApp} />
+          <Route path="/genericForm/" component={GenericFormBizApp} />
+          <Route path="/formMessage/" component={FormMessageBizApp} />
+          <Route path="/formFieldMessage/" component={FormFieldMessageBizApp} />
+          <Route path="/formField/" component={FormFieldBizApp} />
+          <Route path="/formAction/" component={FormActionBizApp} />
           <Route path="/candidateContainer/" component={CandidateContainerBizApp} />
           <Route path="/candidateElement/" component={CandidateElementBizApp} />
           <Route path="/" component={Launcher} />

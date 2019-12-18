@@ -116,10 +116,10 @@ const internalSummaryOf = (levelOneDepartment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{levelOneDepartment.id}</Description> 
-<Description term="名称">{levelOneDepartment.name}</Description> 
-<Description term="描述">{levelOneDepartment.description}</Description> 
-<Description term="经理">{levelOneDepartment.manager}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{levelOneDepartment.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{levelOneDepartment.name}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{levelOneDepartment.description}</Description> 
+<Description term="经理的名字" style={{wordBreak: 'break-all'}}>{levelOneDepartment.managerName}</Description> 
 <Description term="成立">{ moment(levelOneDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(levelOneDepartment,targetComponent)}
@@ -161,7 +161,7 @@ class LevelOneDepartmentDashboard extends Component {
     const cardsData = {cardsName:"一级部门",cardsFor: "levelOneDepartment",
     	cardsSource: this.props.levelOneDepartment,returnURL,displayName,
   		subItems: [
-{name: 'levelTwoDepartmentList', displayName:'二级部门',type:'levelTwoDepartment',count:levelTwoDepartmentCount,addFunction: true, role: 'levelTwoDepartment', metaInfo: levelTwoDepartmentListMetaInfo, renderItem: GlobalComponents.LevelTwoDepartmentBase.renderItemOfList},
+{name: 'levelTwoDepartmentList', displayName:'二级部门',viewGroup:'__no_group', type:'levelTwoDepartment',count:levelTwoDepartmentCount,addFunction: true, role: 'levelTwoDepartment', metaInfo: levelTwoDepartmentListMetaInfo, renderItem: GlobalComponents.LevelTwoDepartmentBase.renderItemOfList},
     
       	],
    		subSettingItems: [

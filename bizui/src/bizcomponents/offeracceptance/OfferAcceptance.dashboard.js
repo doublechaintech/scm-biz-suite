@@ -116,10 +116,10 @@ const internalSummaryOf = (offerAcceptance,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{offerAcceptance.id}</Description> 
-<Description term="谁">{offerAcceptance.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{offerAcceptance.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{offerAcceptance.who}</Description> 
 <Description term="接受时间">{ moment(offerAcceptance.acceptTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{offerAcceptance.comments}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{offerAcceptance.comments}</Description> 
 	
         {buildTransferModal(offerAcceptance,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,7 @@ class OfferAcceptanceDashboard extends Component {
     const cardsData = {cardsName:"接受工作要约",cardsFor: "offerAcceptance",
     	cardsSource: this.props.offerAcceptance,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [

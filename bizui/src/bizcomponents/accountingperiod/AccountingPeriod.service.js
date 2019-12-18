@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateAccountSet = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherAccountSet = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}accountingPeriodManager/transferToAnotherAccountSet/id/anotherAccountSetId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,7 +38,7 @@ const transferToAnotherAccountSet = (id, parameters) => {
 
 
 const addAccountingDocument = (targetObjectId, parameters) => {
-  const url = `${PREFIX}accountingPeriodManager/addAccountingDocument/accountingPeriodId/name/accountingDocumentDate/documentTypeId/tokensExpr/`
+  const url = `${PREFIX}accountingPeriodManager/addAccountingDocument/accountingPeriodId/name/accountingDocumentDate/documentTypeId/creationId/confirmationId/auditingId/postingId/tokensExpr/`
   const accountingPeriodId = targetObjectId
   const requestParameters = { ...parameters, accountingPeriodId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -59,12 +58,39 @@ const removeAccountingDocumentList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}accountingPeriodService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingPeriodService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingPeriodService/process/`,
+    data,
+  })
+}
+
 const AccountingPeriodService = { view,
   load,
   addAccountingDocument,
   updateAccountingDocument,
   removeAccountingDocumentList,
   requestCandidateAccountSet,
-  transferToAnotherAccountSet }
+  transferToAnotherAccountSet, listFunctions, saveRequest, processRequest}
 export default AccountingPeriodService
 

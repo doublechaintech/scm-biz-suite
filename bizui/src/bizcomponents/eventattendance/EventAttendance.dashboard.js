@@ -116,8 +116,8 @@ const internalSummaryOf = (eventAttendance,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{eventAttendance.id}</Description> 
-<Description term="名称">{eventAttendance.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{eventAttendance.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{eventAttendance.name}</Description> 
 <Description term="潜在的客户">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"潜在的客户","potentialCustomer",EventAttendanceService.requestCandidatePotentialCustomer,
@@ -130,7 +130,7 @@ const internalSummaryOf = (eventAttendance,targetComponent) =>{
 	      EventAttendanceService.transferToAnotherCityEvent,"anotherCityEventId",eventAttendance.cityEvent?eventAttendance.cityEvent.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="描述">{eventAttendance.description}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{eventAttendance.description}</Description> 
 	
         {buildTransferModal(eventAttendance,targetComponent)}
       </DescriptionList>

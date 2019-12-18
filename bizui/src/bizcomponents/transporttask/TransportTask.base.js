@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,37 +28,39 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"运输任务", menuFor: "transportTask",
+
+const menuData = {menuName: window.trans('transport_task'), menuFor: "transportTask",
   		subItems: [
-  {name: 'goodsList', displayName:'货物', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-  {name: 'transportTaskTrackList', displayName:'运输任务跟踪', icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'goodsList', displayName: window.mtrans('goods','transport_task.goods_list',false), type:'goods',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'transportTaskTrackList', displayName: window.mtrans('transport_task_track','transport_task.transport_task_track_list',false), type:'transportTaskTrack',icon:'tasks',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"运输任务", menuFor: "transportTask",
+const settingMenuData = {menuName: window.trans('transport_task'), menuFor: "transportTask",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  start: '开始',
-  beginTime: '开始时间',
-  end: '结束',
-  driver: '司机',
-  truck: '卡车',
-  belongsTo: '属于',
-  latitude: '纬度',
-  longitude: '经度',
+  id: window.trans('transport_task.id'),
+  name: window.trans('transport_task.name'),
+  start: window.trans('transport_task.start'),
+  beginTime: window.trans('transport_task.begin_time'),
+  end: window.trans('transport_task.end'),
+  driver: window.trans('transport_task.driver'),
+  truck: window.trans('transport_task.truck'),
+  belongsTo: window.trans('transport_task.belongs_to'),
+  latitude: window.trans('transport_task.latitude'),
+  longitude: window.trans('transport_task.longitude'),
 
 }
 
@@ -72,28 +77,31 @@ const displayColumns = [
   { title: fieldLabels.longitude, debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(transportTask,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={transportTask.id}>
 	
-      <DescriptionList  key={transportTask.id} size="small" col="4">
-        <Description term="序号">{transportTask.id}</Description> 
-        <Description term="名称">{transportTask.name}</Description> 
-        <Description term="开始">{transportTask.start}</Description> 
-        <Description term="开始时间"><div>{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</div></Description> 
-        <Description term="结束"><div>{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.end.displayName}(${transportTask.end.id})`}
+      <DescriptionList  key={transportTask.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{transportTask.id}</Description> 
+        <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{transportTask.name}</Description> 
+        <Description term={fieldLabels.start} style={{wordBreak: 'break-all'}}>{transportTask.start}</Description> 
+        <Description term={fieldLabels.beginTime}><div>{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term={fieldLabels.end}><div>{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.end.displayName}(${transportTask.end.id})`}
         </div></Description>
-        <Description term="司机"><div>{transportTask.driver==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.driver.displayName}(${transportTask.driver.id})`}
+        <Description term={fieldLabels.driver}><div>{transportTask.driver==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.driver.displayName}(${transportTask.driver.id})`}
         </div></Description>
-        <Description term="卡车"><div>{transportTask.truck==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.truck.displayName}(${transportTask.truck.id})`}
+        <Description term={fieldLabels.truck}><div>{transportTask.truck==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.truck.displayName}(${transportTask.truck.id})`}
         </div></Description>
-        <Description term="属于"><div>{transportTask.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.belongsTo.displayName}(${transportTask.belongsTo.id})`}
+        <Description term={fieldLabels.belongsTo}><div>{transportTask.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.belongsTo.displayName}(${transportTask.belongsTo.id})`}
         </div></Description>
-        <Description term="纬度"><div style={{"color":"red"}}>{transportTask.latitude}</div></Description> 
-        <Description term="经度"><div style={{"color":"red"}}>{transportTask.longitude}</div></Description> 
+        <Description term={fieldLabels.latitude}><div style={{"color":"red"}}>{transportTask.latitude}</div></Description> 
+        <Description term={fieldLabels.longitude}><div style={{"color":"red"}}>{transportTask.longitude}</div></Description> 
 	
         
       </DescriptionList>
@@ -103,10 +111,35 @@ const renderItemOfList=(transportTask,targetComponent)=>{
 
 }
 	
-
-
-
-const TransportTaskBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {name, start, beginTime, latitude, longitude, endId, driverId, truckId, belongsToId} = formValuesToPack
+	const end = {id: endId, version: 2^31}
+	const driver = {id: driverId, version: 2^31}
+	const truck = {id: truckId, version: 2^31}
+	const belongsTo = {id: belongsToId, version: 2^31}
+	const data = {name, start, beginTime, latitude, longitude, end, driver, truck, belongsTo}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {name, start, beginTime, latitude, longitude, end, driver, truck, belongsTo} = objectToUnpack
+	const endId = end ? end.id : null
+	const driverId = driver ? driver.id : null
+	const truckId = truck ? truck.id : null
+	const belongsToId = belongsTo ? belongsTo.id : null
+	const data = {name, start, beginTime, latitude, longitude, endId, driverId, truckId, belongsToId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const TransportTaskBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default TransportTaskBase
 
 

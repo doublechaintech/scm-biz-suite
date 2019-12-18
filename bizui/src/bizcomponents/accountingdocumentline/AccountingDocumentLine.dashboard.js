@@ -116,11 +116,11 @@ const internalSummaryOf = (accountingDocumentLine,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentLine.id}</Description> 
-<Description term="名称">{accountingDocumentLine.name}</Description> 
-<Description term="代码">{accountingDocumentLine.code}</Description> 
-<Description term="直接">{accountingDocumentLine.direct}</Description> 
-<Description term="金额">{accountingDocumentLine.amount}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingDocumentLine.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{accountingDocumentLine.name}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{accountingDocumentLine.code}</Description> 
+<Description term="直接" style={{wordBreak: 'break-all'}}>{accountingDocumentLine.direct}</Description> 
+<Description term="金额" style={{wordBreak: 'break-all'}}>{accountingDocumentLine.amount}</Description> 
 <Description term="属于">{accountingDocumentLine.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocumentLine.belongsTo.displayName}(${accountingDocumentLine.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","accountingDocument",AccountingDocumentLineService.requestCandidateBelongsTo,

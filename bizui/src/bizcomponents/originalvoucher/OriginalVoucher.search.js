@@ -7,9 +7,10 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './OriginalVoucher.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import OriginalVoucherBase from './OriginalVoucher.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-
+const {fieldLabels} = OriginalVoucherBase
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -71,7 +72,13 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <OriginalVoucherCreationAssociateForm 
+   
+  
+    <AccountingDocumentAssociateForm 
+	visible={currentAssociateModal==='belongsTo'} 
+	data={{originalVoucherList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> <OriginalVoucherCreationAssociateForm 
 	visible={currentAssociateModal==='creation'} 
 	data={{originalVoucherList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'creation')} 
@@ -83,13 +90,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='auditing'} 
 	data={{originalVoucherList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'auditing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'auditing')}/>
-  
-    <AccountingDocumentAssociateForm 
-	visible={currentAssociateModal==='belongsTo'} 
-	data={{originalVoucherList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'auditing')}/> 
  
 
 

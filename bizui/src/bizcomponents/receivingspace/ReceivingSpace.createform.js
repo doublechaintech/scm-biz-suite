@@ -19,11 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库卸货区',
-  contactNumber: '02887654321',
+  contactNumber: '311367968',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-  latitude: '42.090572821153515',
-  longitude: '131.95983833195433',
+  latitude: '41.720249931174976',
+  longitude: '129.32733596894357',
   warehouseId: 'W000001',
 }
 */
@@ -196,9 +196,9 @@ class ReceivingSpaceCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -207,13 +207,13 @@ class ReceivingSpaceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}收货区</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('receiving_space')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}收货区`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('receiving_space')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCountry = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCountry = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreProvinceCenterManager/transferToAnotherCountry/id/anotherCountryId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,14 +38,14 @@ const transferToAnotherCountry = (id, parameters) => {
 
 
 const addProvinceCenterDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreProvinceCenterManager/addProvinceCenterDepartment/retailStoreProvinceCenterId/name/founded/manager/tokensExpr/`
+  const url = `${PREFIX}retailStoreProvinceCenterManager/addProvinceCenterDepartment/retailStoreProvinceCenterId/name/founded/managerName/tokensExpr/`
   const retailStoreProvinceCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreProvinceCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateProvinceCenterDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreProvinceCenterManager/updateProvinceCenterDepartmentProperties/retailStoreProvinceCenterId/id/name/founded/manager/tokensExpr/`
+  const url = `${PREFIX}retailStoreProvinceCenterManager/updateProvinceCenterDepartmentProperties/retailStoreProvinceCenterId/id/name/founded/managerName/tokensExpr/`
   const retailStoreProvinceCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreProvinceCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -103,6 +102,33 @@ const removeRetailStoreCityServiceCenterList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreProvinceCenterService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreProvinceCenterService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreProvinceCenterService/process/`,
+    data,
+  })
+}
+
 const RetailStoreProvinceCenterService = { view,
   load,
   addProvinceCenterDepartment,
@@ -115,6 +141,6 @@ const RetailStoreProvinceCenterService = { view,
   removeProvinceCenterEmployeeList,
   removeRetailStoreCityServiceCenterList,
   requestCandidateCountry,
-  transferToAnotherCountry }
+  transferToAnotherCountry, listFunctions, saveRequest, processRequest}
 export default RetailStoreProvinceCenterService
 

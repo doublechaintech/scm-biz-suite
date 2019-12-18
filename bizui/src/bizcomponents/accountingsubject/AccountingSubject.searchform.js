@@ -8,10 +8,11 @@ import styles from './AccountingSubject.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+import AccountingSubjectBase from './AccountingSubject.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = AccountingSubjectBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -193,7 +194,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -201,7 +202,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="会计科目代码">
+         <FormItem label={fieldLabels.accountingSubjectCode}>
            {getFieldDecorator('accountingSubjectCode')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -248,7 +249,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -256,7 +257,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="会计科目代码">
+            <FormItem label={fieldLabels.accountingSubjectCode}>
               {getFieldDecorator('accountingSubjectCode')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -264,7 +265,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="会计科目名称">
+            <FormItem label={fieldLabels.accountingSubjectName}>
               {getFieldDecorator('accountingSubjectName')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -272,14 +273,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="会计科目类别名称">
+            <FormItem label={fieldLabels.accountingSubjectClassName}>
               {getFieldDecorator('accountingSubjectClassName')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="账套">
+                    <Form.Item label={fieldLabels.accountSet}>
                   {getFieldDecorator('accountSet', {initialValue: tryinit('accountSet')})(
                   
                   <SelectObject 
@@ -302,7 +303,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

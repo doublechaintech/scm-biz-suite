@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2018-06-01',
-  latitude: '31.203110512597224',
-  longitude: '103.44820414191524',
+  trackTime: '2019-10-10',
+  latitude: '30.30849900792298',
+  longitude: '104.58163431179867',
   movementId: 'TT000001',
 }
 */
@@ -193,9 +193,9 @@ class TransportTaskTrackCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +204,13 @@ class TransportTaskTrackCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输任务跟踪</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_task_track')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}运输任务跟踪`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('transport_task_track')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

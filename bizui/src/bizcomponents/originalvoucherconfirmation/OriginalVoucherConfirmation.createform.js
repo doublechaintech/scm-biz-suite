@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '确认通过',
-  makeDate: '2017-05-12',
+  makeDate: '2016-12-11',
 }
 */
 
@@ -192,9 +192,9 @@ class OriginalVoucherConfirmationCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class OriginalVoucherConfirmationCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}原始凭证的确认</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('original_voucher_confirmation')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}原始凭证的确认`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('original_voucher_confirmation')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

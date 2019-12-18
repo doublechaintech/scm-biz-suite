@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCityServiceCenter = (ownerClass, id, filterKey, pageNo) =>
 }	
 
 const transferToAnotherCityServiceCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}potentialCustomerManager/transferToAnotherCityServiceCenter/id/anotherCityServiceCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateCityPartner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCityPartner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}potentialCustomerManager/transferToAnotherCityPartner/id/anotherCityPartnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -119,6 +117,33 @@ const removeEventAttendanceList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}potentialCustomerService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}potentialCustomerService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}potentialCustomerService/process/`,
+    data,
+  })
+}
+
 const PotentialCustomerService = { view,
   load,
   addPotentialCustomerContactPerson,
@@ -133,6 +158,6 @@ const PotentialCustomerService = { view,
   requestCandidateCityServiceCenter,
   requestCandidateCityPartner,
   transferToAnotherCityServiceCenter,
-  transferToAnotherCityPartner }
+  transferToAnotherCityPartner, listFunctions, saveRequest, processRequest}
 export default PotentialCustomerService
 

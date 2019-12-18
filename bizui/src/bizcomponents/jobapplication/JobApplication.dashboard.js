@@ -116,10 +116,10 @@ const internalSummaryOf = (jobApplication,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{jobApplication.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{jobApplication.id}</Description> 
 <Description term="申请时间">{ moment(jobApplication.applicationTime).format('YYYY-MM-DD')}</Description> 
-<Description term="谁">{jobApplication.who}</Description> 
-<Description term="评论">{jobApplication.comments}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{jobApplication.who}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{jobApplication.comments}</Description> 
 	
         {buildTransferModal(jobApplication,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,7 @@ class JobApplicationDashboard extends Component {
     const cardsData = {cardsName:"工作申请",cardsFor: "jobApplication",
     	cardsSource: this.props.jobApplication,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [

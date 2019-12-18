@@ -116,11 +116,11 @@ const internalSummaryOf = (goods,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goods.id}</Description> 
-<Description term="名称">{goods.name}</Description> 
-<Description term="RFID">{goods.rfid}</Description> 
-<Description term="计量单位">{goods.uom}</Description> 
-<Description term="最大包装">{goods.maxPackage}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{goods.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{goods.name}</Description> 
+<Description term="RFID" style={{wordBreak: 'break-all'}}>{goods.rfid}</Description> 
+<Description term="计量单位" style={{wordBreak: 'break-all'}}>{goods.uom}</Description> 
+<Description term="最大包装" style={{wordBreak: 'break-all'}}>{goods.maxPackage}</Description> 
 <Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
 <Description term="SKU">{goods.sku==null?appLocaleName(userContext,"NotAssigned"):`${goods.sku.displayName}(${goods.sku.id})`}
  <Icon type="swap" onClick={()=>
@@ -176,7 +176,6 @@ const internalSummaryOf = (goods,targetComponent) =>{
 	      GoodsService.transferToAnotherRetailStoreOrder,"anotherRetailStoreOrderId",goods.retailStoreOrder?goods.retailStoreOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{goods.currentStatus}</Description> 
 	
         {buildTransferModal(goods,targetComponent)}
       </DescriptionList>
@@ -217,7 +216,7 @@ class GoodsDashboard extends Component {
     const cardsData = {cardsName:"货物",cardsFor: "goods",
     	cardsSource: this.props.goods,returnURL,displayName,
   		subItems: [
-{name: 'goodsMovementList', displayName:'货物移动',type:'goodsMovement',count:goodsMovementCount,addFunction: true, role: 'goodsMovement', metaInfo: goodsMovementListMetaInfo, renderItem: GlobalComponents.GoodsMovementBase.renderItemOfList},
+{name: 'goodsMovementList', displayName:'货物移动',viewGroup:'__no_group', type:'goodsMovement',count:goodsMovementCount,addFunction: true, role: 'goodsMovement', metaInfo: goodsMovementListMetaInfo, renderItem: GlobalComponents.GoodsMovementBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addConsumerOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderShipmentManager/addConsumerOrder/supplyOrderShipmentId/title/consumerId/storeId/tokensExpr/`
+  const url = `${PREFIX}supplyOrderShipmentManager/addConsumerOrder/supplyOrderShipmentId/title/consumerId/confirmationId/approvalId/processingId/deliveryId/storeId/tokensExpr/`
   const supplyOrderShipmentId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderShipmentId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -45,7 +45,7 @@ const removeConsumerOrderList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderShipmentManager/addSupplyOrder/supplyOrderShipmentId/buyerId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}supplyOrderShipmentManager/addSupplyOrder/supplyOrderShipmentId/buyerId/sellerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/deliveryId/tokensExpr/`
   const supplyOrderShipmentId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderShipmentId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -65,6 +65,33 @@ const removeSupplyOrderList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}supplyOrderShipmentService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderShipmentService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderShipmentService/process/`,
+    data,
+  })
+}
+
 const SupplyOrderShipmentService = { view,
   load,
   addConsumerOrder,
@@ -72,6 +99,6 @@ const SupplyOrderShipmentService = { view,
   updateConsumerOrder,
   updateSupplyOrder,
   removeConsumerOrderList,
-  removeSupplyOrderList }
+  removeSupplyOrderList, listFunctions, saveRequest, processRequest}
 export default SupplyOrderShipmentService
 

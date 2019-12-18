@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeWorkExperienceBase
 const testValues = {};
 /*
 const testValues = {
-  start: '2016-11-26',
-  end: '2019-03-19',
+  start: '2017-09-18',
+  end: '2019-03-22',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -72,7 +72,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeWorkExperienceBase
+    
     const {EmployeeWorkExperienceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -80,12 +80,6 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -117,6 +111,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -124,7 +119,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工工作经验</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_work_experience')}</div>)
     }
 	
 	return (
@@ -139,7 +134,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
                   {getFieldDecorator('start', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.start}/>
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +144,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
                   {getFieldDecorator('end', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.end}/>
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +154,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
                   {getFieldDecorator('company', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="公司" />
+                    <Input size="large"  placeHolder={fieldLabels.company} />
                   )}
                 </Form.Item>
               </Col>
@@ -169,7 +164,7 @@ class EmployeeWorkExperienceCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

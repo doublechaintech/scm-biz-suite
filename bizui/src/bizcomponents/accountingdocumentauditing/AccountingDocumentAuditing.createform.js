@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '审核通过，要都审核过了才通过哦',
-  makeDate: '2019-01-17',
+  makeDate: '2017-06-05',
 }
 */
 
@@ -192,9 +192,9 @@ class AccountingDocumentAuditingCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class AccountingDocumentAuditingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计凭证的审核</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_document_auditing')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}会计凭证的审核`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('accounting_document_auditing')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2017-08-16',
-  endDate: '2017-02-16',
+  startDate: '2017-02-23',
+  endDate: '2018-10-19',
   accountSetId: 'AS000001',
 }
 */
@@ -193,9 +193,9 @@ class AccountingPeriodCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +204,13 @@ class AccountingPeriodCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计期间</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_period')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}会计期间`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('accounting_period')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

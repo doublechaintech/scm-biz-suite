@@ -13,17 +13,17 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = GoodsMovementBase
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-09-23 22:33:45',
+  moveTime: '2019-11-18 22:34:59',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '41.38000761034003',
-  longitude: '131.48294113774048',
+  latitude: '42.43163364629545',
+  longitude: '130.77098998860734',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -76,7 +76,7 @@ class GoodsMovementCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = GoodsMovementBase
+    
     const {GoodsMovementService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -84,12 +84,6 @@ class GoodsMovementCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -121,6 +115,7 @@ class GoodsMovementCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -128,7 +123,7 @@ class GoodsMovementCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物移动</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_movement')}</div>)
     }
 	
 	return (
@@ -143,7 +138,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('moveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.moveTime} />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +148,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('facility', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="设施" />
+                    <Input size="large"  placeHolder={fieldLabels.facility} />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +158,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('facilityId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="设备ID" />
+                    <Input size="large"  placeHolder={fieldLabels.facilityId} />
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +168,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="从IP" />
+                    <Input size="large"  placeHolder={fieldLabels.fromIp} />
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +178,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('sessionId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会话ID" />
+                    <Input size="large"  placeHolder={fieldLabels.sessionId} />
                   )}
                 </Form.Item>
               </Col>
@@ -193,7 +188,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -203,7 +198,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -238,7 +233,7 @@ class GoodsMovementCreateFormBody extends Component {
 
 
 
-        <Card title={`用户代理`} className={styles.card} bordered={false}>
+        <Card title={fieldLabels.userAgent} className={styles.card} bordered={false}>
           <Form >
           	<Row gutter={16}>
               <Col lg={24} md={24} sm={24}>

@@ -13,12 +13,12 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = StockCountIssueTrackBase
 const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2019-10-01',
+  countTime: '2017-06-24',
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }
@@ -71,7 +71,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = StockCountIssueTrackBase
+    
     const {StockCountIssueTrackService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +79,6 @@ class StockCountIssueTrackCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +110,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +118,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}库存计数问题跟踪</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('stock_count_issue_track')}</div>)
     }
 	
 	return (
@@ -138,7 +133,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +143,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
                   {getFieldDecorator('countTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="计数时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.countTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +153,7 @@ class StockCountIssueTrackCreateFormBody extends Component {
                   {getFieldDecorator('summary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="概览" />
+                    <Input size="large"  placeHolder={fieldLabels.summary} />
                   )}
                 </Form.Item>
               </Col>

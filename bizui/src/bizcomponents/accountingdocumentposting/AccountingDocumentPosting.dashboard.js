@@ -116,9 +116,9 @@ const internalSummaryOf = (accountingDocumentPosting,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocumentPosting.id}</Description> 
-<Description term="谁">{accountingDocumentPosting.who}</Description> 
-<Description term="评论">{accountingDocumentPosting.comments}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingDocumentPosting.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{accountingDocumentPosting.who}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{accountingDocumentPosting.comments}</Description> 
 <Description term="制造日期">{ moment(accountingDocumentPosting.makeDate).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(accountingDocumentPosting,targetComponent)}
@@ -160,7 +160,7 @@ class AccountingDocumentPostingDashboard extends Component {
     const cardsData = {cardsName:"会计凭证过帐",cardsFor: "accountingDocumentPosting",
     	cardsSource: this.props.accountingDocumentPosting,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
+{name: 'accountingDocumentList', displayName:'会计凭证',viewGroup:'__no_group', type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
     
       	],
    		subSettingItems: [

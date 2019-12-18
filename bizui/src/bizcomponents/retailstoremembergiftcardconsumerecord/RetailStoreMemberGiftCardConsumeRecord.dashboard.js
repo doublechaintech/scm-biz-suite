@@ -116,7 +116,7 @@ const internalSummaryOf = (retailStoreMemberGiftCardConsumeRecord,targetComponen
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
 <Description term="发生时间">{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</Description> 
 <Description term="业主">{retailStoreMemberGiftCardConsumeRecord.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.owner.displayName}(${retailStoreMemberGiftCardConsumeRecord.owner.id})`}
  <Icon type="swap" onClick={()=>
@@ -130,8 +130,8 @@ const internalSummaryOf = (retailStoreMemberGiftCardConsumeRecord,targetComponen
 	      RetailStoreMemberGiftCardConsumeRecordService.transferToAnotherBizOrder,"anotherBizOrderId",retailStoreMemberGiftCardConsumeRecord.bizOrder?retailStoreMemberGiftCardConsumeRecord.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="数">{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
-<Description term="金额">{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
+<Description term="数" style={{wordBreak: 'break-all'}}>{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
+<Description term="金额" style={{wordBreak: 'break-all'}}>{retailStoreMemberGiftCardConsumeRecord.amount}</Description> 
 	
         {buildTransferModal(retailStoreMemberGiftCardConsumeRecord,targetComponent)}
       </DescriptionList>
@@ -169,7 +169,7 @@ class RetailStoreMemberGiftCardConsumeRecordDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",
+    const cardsData = {cardsName:"零售门店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",
     	cardsSource: this.props.retailStoreMemberGiftCardConsumeRecord,returnURL,displayName,
   		subItems: [
     

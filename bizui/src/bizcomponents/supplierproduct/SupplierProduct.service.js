@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateSupplier = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherSupplier = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}supplierProductManager/transferToAnotherSupplier/id/anotherSupplierId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeProductSupplyDurationList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}supplierProductService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplierProductService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplierProductService/process/`,
+    data,
+  })
+}
+
 const SupplierProductService = { view,
   load,
   addProductSupplyDuration,
   updateProductSupplyDuration,
   removeProductSupplyDurationList,
   requestCandidateSupplier,
-  transferToAnotherSupplier }
+  transferToAnotherSupplier, listFunctions, saveRequest, processRequest}
 export default SupplierProductService
 

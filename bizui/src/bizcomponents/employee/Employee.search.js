@@ -7,9 +7,10 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './Employee.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import EmployeeBase from './Employee.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-
+const {fieldLabels} = EmployeeBase
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -79,7 +80,29 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <JobApplicationAssociateForm 
+   
+  
+    <RetailStoreCountryCenterAssociateForm 
+	visible={currentAssociateModal==='company'} 
+	data={{employeeList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'company')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'company')}/> <LevelThreeDepartmentAssociateForm 
+	visible={currentAssociateModal==='department'} 
+	data={{employeeList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'department')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'department')}/> <OccupationTypeAssociateForm 
+	visible={currentAssociateModal==='occupation'} 
+	data={{employeeList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'occupation')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'occupation')}/> <ResponsibilityTypeAssociateForm 
+	visible={currentAssociateModal==='responsibleFor'} 
+	data={{employeeList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'responsibleFor')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'responsibleFor')}/> <SalaryGradeAssociateForm 
+	visible={currentAssociateModal==='currentSalaryGrade'} 
+	data={{employeeList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> <JobApplicationAssociateForm 
 	visible={currentAssociateModal==='jobApplication'} 
 	data={{employeeList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'jobApplication')} 
@@ -107,29 +130,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='termination'} 
 	data={{employeeList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'termination')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'termination')}/>
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='company'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'company')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'company')}/> <LevelThreeDepartmentAssociateForm 
-	visible={currentAssociateModal==='department'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'department')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'department')}/> <OccupationTypeAssociateForm 
-	visible={currentAssociateModal==='occupation'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'occupation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'occupation')}/> <ResponsibilityTypeAssociateForm 
-	visible={currentAssociateModal==='responsibleFor'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'responsibleFor')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'responsibleFor')}/> <SalaryGradeAssociateForm 
-	visible={currentAssociateModal==='currentSalaryGrade'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'termination')}/> 
  
 
 

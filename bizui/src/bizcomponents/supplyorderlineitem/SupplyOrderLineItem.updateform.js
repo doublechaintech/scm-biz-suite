@@ -248,7 +248,7 @@ class SupplyOrderLineItemUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}供应订单行项目: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -266,7 +266,7 @@ class SupplyOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="序号" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -278,7 +278,7 @@ class SupplyOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.skuId,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品ID" />
+                    <Input size="large"  placeHolder={fieldLabels.skuId} />
                     
                   )}
                 </Form.Item>
@@ -290,7 +290,7 @@ class SupplyOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.skuName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="产品名称" />
+                    <Input size="large"  placeHolder={fieldLabels.skuName} />
                     
                   )}
                 </Form.Item>
@@ -302,7 +302,7 @@ class SupplyOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.amount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
                     
                   )}
                 </Form.Item>
@@ -314,7 +314,7 @@ class SupplyOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.quantity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="数量" />
+                    <Input size="large"  placeHolder={fieldLabels.quantity} />
                     
                   )}
                 </Form.Item>
@@ -326,7 +326,7 @@ class SupplyOrderLineItemUpdateForm extends Component {
                     initialValue: selectedRow.unitOfMeasurement,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="测量单位" />
+                    <Input size="large"  placeHolder={fieldLabels.unitOfMeasurement} />
                     
                   )}
                 </Form.Item>

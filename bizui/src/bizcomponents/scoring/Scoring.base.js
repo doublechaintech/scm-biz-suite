@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"评分", menuFor: "scoring",
+
+const menuData = {menuName: window.trans('scoring'), menuFor: "scoring",
   		subItems: [
-  {name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeCompanyTrainingList', displayName: window.mtrans('employee_company_training','scoring.employee_company_training_list',false), type:'employeeCompanyTraining',icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"评分", menuFor: "scoring",
+const settingMenuData = {menuName: window.trans('scoring'), menuFor: "scoring",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  scoredBy: '由谁打分',
-  score: '分数',
-  comment: '评论',
+  id: window.trans('scoring.id'),
+  scoredBy: window.trans('scoring.scored_by'),
+  score: window.trans('scoring.score'),
+  comment: window.trans('scoring.comment'),
 
 }
 
@@ -59,18 +64,21 @@ const displayColumns = [
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '13',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(scoring,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={scoring.id}>
 	
-      <DescriptionList  key={scoring.id} size="small" col="4">
-        <Description term="序号">{scoring.id}</Description> 
-        <Description term="由谁打分">{scoring.scoredBy}</Description> 
-        <Description term="分数"><div style={{"color":"red"}}>{scoring.score}</div></Description> 
-        <Description term="评论">{scoring.comment}</Description> 
+      <DescriptionList  key={scoring.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{scoring.id}</Description> 
+        <Description term={fieldLabels.scoredBy} style={{wordBreak: 'break-all'}}>{scoring.scoredBy}</Description> 
+        <Description term={fieldLabels.score}><div style={{"color":"red"}}>{scoring.score}</div></Description> 
+        <Description term={fieldLabels.comment} style={{wordBreak: 'break-all'}}>{scoring.comment}</Description> 
 	
         
       </DescriptionList>
@@ -80,10 +88,29 @@ const renderItemOfList=(scoring,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {scoredBy, score, comment} = formValuesToPack
 
+	const data = {scoredBy, score, comment}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {scoredBy, score, comment} = objectToUnpack
 
-
-const ScoringBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {scoredBy, score, comment}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const ScoringBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default ScoringBase
 
 

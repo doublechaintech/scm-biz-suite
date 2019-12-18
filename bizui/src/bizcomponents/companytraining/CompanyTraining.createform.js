@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2016-10-21',
+  timeStart: '2019-08-30',
   durationHours: '3',
   companyId: 'RSCC000001',
   instructorId: 'I000001',
@@ -195,9 +195,9 @@ class CompanyTrainingCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -206,13 +206,13 @@ class CompanyTrainingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}公司培训</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('company_training')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}公司培训`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('company_training')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

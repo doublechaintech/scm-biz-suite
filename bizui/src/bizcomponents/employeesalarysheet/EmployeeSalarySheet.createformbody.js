@@ -13,19 +13,20 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeSalarySheetBase
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2962.85',
-  bonus: '915.50',
-  reward: '704.10',
-  personalTax: '626.00',
-  socialSecurity: '939.98',
-  housingFound: '1202.50',
-  jobInsurance: '6.23',
+  baseSalary: '2987.06',
+  bonus: '953.36',
+  reward: '962.73',
+  personalTax: '712.43',
+  socialSecurity: '996.49',
+  housingFound: '1186.07',
+  jobInsurance: '6.86',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
+  payingOffId: 'PO000001',
 }
 */
 
@@ -76,7 +77,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeSalarySheetBase
+    
     const {EmployeeSalarySheetService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -84,12 +85,6 @@ class EmployeeSalarySheetCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -121,6 +116,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -128,7 +124,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}工资单</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_salary_sheet')}</div>)
     }
 	
 	return (
@@ -143,7 +139,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('baseSalary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="基本工资" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.baseSalary} />
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +149,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('bonus', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖金" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.bonus} />
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +159,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('reward', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖励" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.reward} />
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +169,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('personalTax', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="个人所得税" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.personalTax} />
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +179,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('socialSecurity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="社会保险" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.socialSecurity} />
                   )}
                 </Form.Item>
               </Col>
@@ -193,7 +189,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('housingFound', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="住房公积金" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.housingFound} />
                   )}
                 </Form.Item>
               </Col>
@@ -203,7 +199,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('jobInsurance', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="失业保险" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.jobInsurance} />
                   )}
                 </Form.Item>
               </Col>
@@ -241,6 +237,25 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                     disabled={!availableForEdit('currentSalaryGrade')}
                     targetType={"currentSalaryGrade"} 
                     requestFunction={EmployeeSalarySheetService.requestCandidateCurrentSalaryGrade}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.payingOff} {...formItemLayout}>
+                  {getFieldDecorator('payingOffId', {
+                  	initialValue: tryinit('payingOff'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('payingOff')}
+                    targetType={"payingOff"} 
+                    requestFunction={EmployeeSalarySheetService.requestCandidatePayingOff}/>
                   
                  
                   )}

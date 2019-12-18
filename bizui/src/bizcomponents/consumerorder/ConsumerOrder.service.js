@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateConsumer = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherConsumer = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}consumerOrderManager/transferToAnotherConsumer/id/anotherConsumerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateConfirmation = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherConfirmation = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}consumerOrderManager/transferToAnotherConfirmation/id/anotherConfirmationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateApproval = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherApproval = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}consumerOrderManager/transferToAnotherApproval/id/anotherApprovalId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -74,7 +71,6 @@ const requestCandidateProcessing = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherProcessing = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}consumerOrderManager/transferToAnotherProcessing/id/anotherProcessingId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -90,7 +86,6 @@ const requestCandidateShipment = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherShipment = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}consumerOrderManager/transferToAnotherShipment/id/anotherShipmentId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -106,7 +101,6 @@ const requestCandidateDelivery = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherDelivery = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}consumerOrderManager/transferToAnotherDelivery/id/anotherDeliveryId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -122,7 +116,6 @@ const requestCandidateStore = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherStore = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}consumerOrderManager/transferToAnotherStore/id/anotherStoreId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -243,6 +236,33 @@ const removeRetailStoreMemberGiftCardConsumeRecordList = (targetObjectId, parame
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}consumerOrderService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}consumerOrderService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}consumerOrderService/process/`,
+    data,
+  })
+}
+
 const ConsumerOrderService = { view,
   load,
   addConsumerOrderLineItem,
@@ -273,6 +293,6 @@ const ConsumerOrderService = { view,
   transferToAnotherProcessing,
   transferToAnotherShipment,
   transferToAnotherDelivery,
-  transferToAnotherStore }
+  transferToAnotherStore, listFunctions, saveRequest, processRequest}
 export default ConsumerOrderService
 

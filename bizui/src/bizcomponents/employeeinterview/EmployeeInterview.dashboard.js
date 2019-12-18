@@ -116,7 +116,7 @@ const internalSummaryOf = (employeeInterview,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeInterview.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeInterview.id}</Description> 
 <Description term="员工">{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeInterview.employee.displayName}(${employeeInterview.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeInterviewService.requestCandidateEmployee,
@@ -129,7 +129,7 @@ const internalSummaryOf = (employeeInterview,targetComponent) =>{
 	      EmployeeInterviewService.transferToAnotherInterviewType,"anotherInterviewTypeId",employeeInterview.interviewType?employeeInterview.interviewType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="备注">{employeeInterview.remark}</Description> 
+<Description term="备注" style={{wordBreak: 'break-all'}}>{employeeInterview.remark}</Description> 
 	
         {buildTransferModal(employeeInterview,targetComponent)}
       </DescriptionList>

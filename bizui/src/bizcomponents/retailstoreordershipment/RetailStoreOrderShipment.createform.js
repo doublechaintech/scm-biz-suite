@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '运货者',
-  shipTime: '2018-08-14',
+  shipTime: '2016-12-24',
 }
 */
 
@@ -191,9 +191,9 @@ class RetailStoreOrderShipmentCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -202,13 +202,13 @@ class RetailStoreOrderShipmentCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超订单出货</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_shipment')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}生超订单出货`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order_shipment')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

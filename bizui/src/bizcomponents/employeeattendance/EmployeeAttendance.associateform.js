@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2018-01-22',
-  leaveTime: '2017-07-20',
-  durationHours: '7',
+  enterTime: '2019-08-22',
+  leaveTime: '2016-12-14',
+  durationHours: '8',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -141,7 +141,7 @@ class EmployeeAttendanceAssociateForm extends Component {
                   {getFieldDecorator('enterTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="进入时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.enterTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class EmployeeAttendanceAssociateForm extends Component {
                   {getFieldDecorator('leaveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="离开的时候" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.leaveTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class EmployeeAttendanceAssociateForm extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="持续时间" />
+                    <Input size="large"  placeHolder={fieldLabels.durationHours} />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class EmployeeAttendanceAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large"  placeHolder={fieldLabels.remark} />
                   )}
                 </Form.Item>
               </Col>

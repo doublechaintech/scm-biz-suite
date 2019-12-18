@@ -116,7 +116,7 @@ const internalSummaryOf = (employeeAttendance,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{employeeAttendance.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeAttendance.id}</Description> 
 <Description term="员工">{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeAttendanceService.requestCandidateEmployee,
@@ -125,8 +125,8 @@ const internalSummaryOf = (employeeAttendance,targetComponent) =>{
 </Description>
 <Description term="进入时间">{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</Description> 
 <Description term="离开的时候">{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</Description> 
-<Description term="持续时间">{employeeAttendance.durationHours}</Description> 
-<Description term="备注">{employeeAttendance.remark}</Description> 
+<Description term="持续时间" style={{wordBreak: 'break-all'}}>{employeeAttendance.durationHours}</Description> 
+<Description term="备注" style={{wordBreak: 'break-all'}}>{employeeAttendance.remark}</Description> 
 	
         {buildTransferModal(employeeAttendance,targetComponent)}
       </DescriptionList>

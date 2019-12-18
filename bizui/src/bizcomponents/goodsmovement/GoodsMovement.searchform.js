@@ -8,10 +8,11 @@ import styles from './GoodsMovement.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+import GoodsMovementBase from './GoodsMovement.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = GoodsMovementBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -195,7 +196,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -203,7 +204,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="设施">
+         <FormItem label={fieldLabels.facility}>
            {getFieldDecorator('facility')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -250,7 +251,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -258,7 +259,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="设施">
+            <FormItem label={fieldLabels.facility}>
               {getFieldDecorator('facility')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -266,7 +267,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="设备ID">
+            <FormItem label={fieldLabels.facilityId}>
               {getFieldDecorator('facilityId')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -274,7 +275,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="从IP">
+            <FormItem label={fieldLabels.fromIp}>
               {getFieldDecorator('fromIp')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -282,7 +283,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="用户代理">
+            <FormItem label={fieldLabels.userAgent}>
               {getFieldDecorator('userAgent')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -290,14 +291,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="会话ID">
+            <FormItem label={fieldLabels.sessionId}>
               {getFieldDecorator('sessionId')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="货物">
+                    <Form.Item label={fieldLabels.goods}>
                   {getFieldDecorator('goods', {initialValue: tryinit('goods')})(
                   
                   <SelectObject 
@@ -320,7 +321,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
-  score: '76',
+  score: '95',
   comment: '这个题做的真不错啊',
 }
 */
@@ -192,9 +192,9 @@ class ScoringCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class ScoringCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}评分</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('scoring')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}评分`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('scoring')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

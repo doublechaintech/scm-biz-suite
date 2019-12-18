@@ -13,14 +13,20 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = SupplyOrderBase
 const testValues = {};
 /*
 const testValues = {
   title: '双链给供货商下的订单',
-  totalAmount: '2349344768.00',
+  totalAmount: '2792529920.00',
   buyerId: 'RSCC000001',
   sellerId: 'GS000001',
+  confirmationId: 'SOC000001',
+  approvalId: 'SOA000001',
+  processingId: 'SOP000001',
+  pickingId: 'SOP000001',
+  shipmentId: 'SOS000001',
+  deliveryId: 'SOD000001',
 }
 */
 
@@ -71,7 +77,7 @@ class SupplyOrderCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = SupplyOrderBase
+    
     const {SupplyOrderService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -79,12 +85,6 @@ class SupplyOrderCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -116,6 +116,7 @@ class SupplyOrderCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -123,7 +124,7 @@ class SupplyOrderCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order')}</div>)
     }
 	
 	return (
@@ -138,7 +139,7 @@ class SupplyOrderCreateFormBody extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +149,7 @@ class SupplyOrderCreateFormBody extends Component {
                   {getFieldDecorator('totalAmount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="总金额" />
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.totalAmount} />
                   )}
                 </Form.Item>
               </Col>
@@ -186,6 +187,120 @@ class SupplyOrderCreateFormBody extends Component {
                     disabled={!availableForEdit('seller')}
                     targetType={"seller"} 
                     requestFunction={SupplyOrderService.requestCandidateSeller}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
+                  {getFieldDecorator('confirmationId', {
+                  	initialValue: tryinit('confirmation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('confirmation')}
+                    targetType={"confirmation"} 
+                    requestFunction={SupplyOrderService.requestCandidateConfirmation}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.approval} {...formItemLayout}>
+                  {getFieldDecorator('approvalId', {
+                  	initialValue: tryinit('approval'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('approval')}
+                    targetType={"approval"} 
+                    requestFunction={SupplyOrderService.requestCandidateApproval}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.processing} {...formItemLayout}>
+                  {getFieldDecorator('processingId', {
+                  	initialValue: tryinit('processing'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('processing')}
+                    targetType={"processing"} 
+                    requestFunction={SupplyOrderService.requestCandidateProcessing}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.picking} {...formItemLayout}>
+                  {getFieldDecorator('pickingId', {
+                  	initialValue: tryinit('picking'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('picking')}
+                    targetType={"picking"} 
+                    requestFunction={SupplyOrderService.requestCandidatePicking}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.shipment} {...formItemLayout}>
+                  {getFieldDecorator('shipmentId', {
+                  	initialValue: tryinit('shipment'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('shipment')}
+                    targetType={"shipment"} 
+                    requestFunction={SupplyOrderService.requestCandidateShipment}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.delivery} {...formItemLayout}>
+                  {getFieldDecorator('deliveryId', {
+                  	initialValue: tryinit('delivery'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('delivery')}
+                    targetType={"delivery"} 
+                    requestFunction={SupplyOrderService.requestCandidateDelivery}/>
                   
                  
                   )}

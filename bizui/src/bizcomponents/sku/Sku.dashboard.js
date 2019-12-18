@@ -117,19 +117,19 @@ const internalSummaryOf = (sku,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{sku.id}</Description> 
-<Description term="名称">{sku.name}</Description> 
-<Description term="大小">{sku.size}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{sku.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{sku.name}</Description> 
+<Description term="大小" style={{wordBreak: 'break-all'}}>{sku.size}</Description> 
 <Description term="产品">{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"产品","product",SkuService.requestCandidateProduct,
 	      SkuService.transferToAnotherProduct,"anotherProductId",sku.product?sku.product.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="条码">{sku.barcode}</Description> 
-<Description term="包装类型">{sku.packageType}</Description> 
-<Description term="净含量">{sku.netContent}</Description> 
-<Description term="价格">{sku.price}</Description> 
+<Description term="条码" style={{wordBreak: 'break-all'}}>{sku.barcode}</Description> 
+<Description term="包装类型" style={{wordBreak: 'break-all'}}>{sku.packageType}</Description> 
+<Description term="净含量" style={{wordBreak: 'break-all'}}>{sku.netContent}</Description> 
+<Description term="价格" style={{wordBreak: 'break-all'}}>{sku.price}</Description> 
 	
         {buildTransferModal(sku,targetComponent)}
       </DescriptionList>
@@ -170,7 +170,7 @@ class SkuDashboard extends Component {
     const cardsData = {cardsName:"SKU",cardsFor: "sku",
     	cardsSource: this.props.sku,returnURL,displayName,
   		subItems: [
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+{name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -248,9 +248,9 @@ class SecUserUpdateForm extends Component {
 	
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}安全用户: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}SEC的用户: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-
+	
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -268,7 +268,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="ID" disabled/>
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
                     
                   )}
                 </Form.Item>
@@ -280,7 +280,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.login,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="登录" />
+                    <Input size="large"  placeHolder={fieldLabels.login} />
                     
                   )}
                 </Form.Item>
@@ -292,7 +292,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机号码" />
+                    <Input size="large"  placeHolder={fieldLabels.mobile} />
                     
                   )}
                 </Form.Item>
@@ -302,9 +302,9 @@ class SecUserUpdateForm extends Component {
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
                     initialValue: selectedRow.email,
-                    rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large"  placeHolder={fieldLabels.email} />
                     
                   )}
                 </Form.Item>
@@ -316,7 +316,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.pwd,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="密码" />
+                    <Input size="large"  placeHolder={fieldLabels.pwd} />
                     
                   )}
                 </Form.Item>
@@ -328,7 +328,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.weixinOpenid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="微信openid" />
+                    <Input size="large"  placeHolder={fieldLabels.weixinOpenid} />
                     
                   )}
                 </Form.Item>
@@ -340,7 +340,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.weixinAppid,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="微信Appid" />
+                    <Input size="large"  placeHolder={fieldLabels.weixinAppid} />
                     
                   )}
                 </Form.Item>
@@ -352,7 +352,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.accessToken,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="访问令牌" />
+                    <Input size="large"  placeHolder={fieldLabels.accessToken} />
                     
                   )}
                 </Form.Item>
@@ -364,7 +364,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="验证码" />
+                    <Input size="large"  placeHolder={fieldLabels.verificationCode} />
                     
                   )}
                 </Form.Item>
@@ -376,7 +376,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.verificationCodeExpire,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="验证码过期" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.verificationCodeExpire} />
                     
                   )}
                 </Form.Item>
@@ -388,7 +388,7 @@ class SecUserUpdateForm extends Component {
                     initialValue: selectedRow.lastLoginTime,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="最后登录时间" />
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.lastLoginTime} />
                     
                   )}
                 </Form.Item>

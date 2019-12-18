@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"登录历史", menuFor: "loginHistory",
+
+const menuData = {menuName: window.trans('login_history'), menuFor: "loginHistory",
   		subItems: [
   
   		],
 }
 
 
-const settingMenuData = {menuName:"登录历史", menuFor: "loginHistory",
+const settingMenuData = {menuName: window.trans('login_history'), menuFor: "loginHistory",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: 'ID',
-  loginTime: '登录时间',
-  fromIp: '来自IP',
-  description: '描述',
-  secUser: '安全用户',
+  id: window.trans('login_history.id'),
+  loginTime: window.trans('login_history.login_time'),
+  fromIp: window.trans('login_history.from_ip'),
+  description: window.trans('login_history.description'),
+  secUser: window.trans('login_history.sec_user'),
 
 }
 
@@ -60,19 +65,22 @@ const displayColumns = [
   { title: fieldLabels.secUser, dataIndex: 'secUser', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(loginHistory,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={loginHistory.id}>
 	
-      <DescriptionList  key={loginHistory.id} size="small" col="4">
-        <Description term="ID">{loginHistory.id}</Description> 
-        <Description term="登录时间"><div>{ moment(loginHistory.loginTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
-        <Description term="来自IP">{loginHistory.fromIp}</Description> 
-        <Description term="描述">{loginHistory.description}</Description> 
-        <Description term="安全用户"><div>{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
+      <DescriptionList  key={loginHistory.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{loginHistory.id}</Description> 
+        <Description term={fieldLabels.loginTime}><div>{ moment(loginHistory.loginTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
+        <Description term={fieldLabels.fromIp} style={{wordBreak: 'break-all'}}>{loginHistory.fromIp}</Description> 
+        <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{loginHistory.description}</Description> 
+        <Description term={fieldLabels.secUser}><div>{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
         </div></Description>
 	
         
@@ -83,10 +91,29 @@ const renderItemOfList=(loginHistory,targetComponent)=>{
 
 }
 	
-
-
-
-const LoginHistoryBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {fromIp, description, secUserId} = formValuesToPack
+	const secUser = {id: secUserId, version: 2^31}
+	const data = {fromIp, description, secUser}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {fromIp, description, secUser} = objectToUnpack
+	const secUserId = secUser ? secUser.id : null
+	const data = {fromIp, description, secUserId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const LoginHistoryBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default LoginHistoryBase
 
 

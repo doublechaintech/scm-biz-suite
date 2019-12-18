@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号装货区',
-  contactNumber: '02887654321',
+  contactNumber: '1310024880',
   totalArea: '1876平方米',
-  latitude: '41.24248078483045',
-  longitude: '129.54042531252043',
+  latitude: '42.54956805011078',
+  longitude: '129.55452159288296',
   description: '每个收货区可以供一辆车装货',
   warehouseId: 'W000001',
 }
@@ -196,9 +196,9 @@ class ShippingSpaceCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -207,13 +207,13 @@ class ShippingSpaceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}发货区</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('shipping_space')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}发货区`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('shipping_space')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

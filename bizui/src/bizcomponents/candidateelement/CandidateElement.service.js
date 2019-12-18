@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateContainer = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherContainer = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}candidateElementManager/transferToAnotherContainer/id/anotherContainerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -37,10 +36,37 @@ const transferToAnotherContainer = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}candidateElementService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}candidateElementService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}candidateElementService/process/`,
+    data,
+  })
+}
+
 const CandidateElementService = { view,
   load,
   requestCandidateContainer,
-  transferToAnotherContainer }
+  transferToAnotherContainer, listFunctions, saveRequest, processRequest}
 export default CandidateElementService
 
 

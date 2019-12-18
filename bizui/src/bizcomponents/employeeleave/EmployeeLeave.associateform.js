@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  leaveDurationHour: '8',
+  leaveDurationHour: '7',
   remark: '请年假，出去耍！！！！',
   whoId: 'E000001',
   typeId: 'LT000001',
@@ -140,7 +140,7 @@ class EmployeeLeaveAssociateForm extends Component {
                   {getFieldDecorator('leaveDurationHour', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="请假时长" />
+                    <Input size="large"  placeHolder={fieldLabels.leaveDurationHour} />
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class EmployeeLeaveAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large"  placeHolder={fieldLabels.remark} />
                   )}
                 </Form.Item>
               </Col>

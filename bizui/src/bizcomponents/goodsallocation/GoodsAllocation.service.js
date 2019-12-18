@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateGoodsShelf = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherGoodsShelf = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsAllocationManager/transferToAnotherGoodsShelf/id/anotherGoodsShelfId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,7 +38,7 @@ const transferToAnotherGoodsShelf = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}goodsAllocationManager/addGoods/goodsAllocationId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
+  const url = `${PREFIX}goodsAllocationManager/addGoods/goodsAllocationId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
   const goodsAllocationId = targetObjectId
   const requestParameters = { ...parameters, goodsAllocationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -59,12 +58,39 @@ const removeGoodsList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}goodsAllocationService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsAllocationService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsAllocationService/process/`,
+    data,
+  })
+}
+
 const GoodsAllocationService = { view,
   load,
   addGoods,
   updateGoods,
   removeGoodsList,
   requestCandidateGoodsShelf,
-  transferToAnotherGoodsShelf }
+  transferToAnotherGoodsShelf, listFunctions, saveRequest, processRequest}
 export default GoodsAllocationService
 

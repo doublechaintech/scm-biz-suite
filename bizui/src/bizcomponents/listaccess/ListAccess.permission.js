@@ -31,7 +31,7 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{listAccess.id}</Description> 
+<Description term="序号">{listAccess.id}</Description> 
 <Description term="名称">{listAccess.name}</Description> 
 <Description term="内部名称">{listAccess.internalName}</Description> 
 	

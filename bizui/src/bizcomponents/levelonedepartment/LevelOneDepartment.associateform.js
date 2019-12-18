@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
-  manager: '刘强',
-  founded: '2018-04-25',
+  managerName: '刘强',
+  founded: '2017-02-19',
   belongsToId: 'RSCC000001',
 }
 */
@@ -142,7 +142,7 @@ class LevelOneDepartmentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -152,17 +152,17 @@ class LevelOneDepartmentAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
-                  {getFieldDecorator('manager', {
+                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
+                  {getFieldDecorator('managerName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经理" />
+                    <Input size="large"  placeHolder={fieldLabels.managerName} />
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +172,7 @@ class LevelOneDepartmentAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>

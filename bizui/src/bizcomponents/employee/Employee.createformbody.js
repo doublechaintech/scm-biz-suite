@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = EmployeeBase
 const testValues = {};
 /*
 const testValues = {
@@ -30,6 +30,13 @@ const testValues = {
   occupationId: 'OT000001',
   responsibleForId: 'RT000001',
   currentSalaryGradeId: 'SG000001',
+  jobApplicationId: 'JA000001',
+  professionInterviewId: 'PI000001',
+  hrInterviewId: 'HI000001',
+  offerApprovalId: 'OA000001',
+  offerAcceptanceId: 'OA000001',
+  employeeBoardingId: 'EB000001',
+  terminationId: 'T000001',
 }
 */
 
@@ -80,7 +87,7 @@ class EmployeeCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = EmployeeBase
+    
     const {EmployeeService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -88,12 +95,6 @@ class EmployeeCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -125,6 +126,7 @@ class EmployeeCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -132,7 +134,7 @@ class EmployeeCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee')}</div>)
     }
 	
 	return (
@@ -147,7 +149,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -157,7 +159,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('familyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="姓" />
+                    <Input size="large"  placeHolder={fieldLabels.familyName} />
                   )}
                 </Form.Item>
               </Col>
@@ -167,7 +169,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('givenName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名" />
+                    <Input size="large"  placeHolder={fieldLabels.givenName} />
                   )}
                 </Form.Item>
               </Col>
@@ -177,7 +179,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large"  placeHolder={fieldLabels.email} />
                   )}
                 </Form.Item>
               </Col>
@@ -187,7 +189,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('city', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="城市" />
+                    <Input size="large"  placeHolder={fieldLabels.city} />
                   )}
                 </Form.Item>
               </Col>
@@ -197,7 +199,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('address', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="地址" />
+                    <Input size="large"  placeHolder={fieldLabels.address} />
                   )}
                 </Form.Item>
               </Col>
@@ -207,7 +209,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('cellPhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large"  placeHolder={fieldLabels.cellPhone} />
                   )}
                 </Form.Item>
               </Col>
@@ -217,7 +219,7 @@ class EmployeeCreateFormBody extends Component {
                   {getFieldDecorator('salaryAccount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="工资账户" />
+                    <Input size="large"  placeHolder={fieldLabels.salaryAccount} />
                   )}
                 </Form.Item>
               </Col>
@@ -312,6 +314,139 @@ class EmployeeCreateFormBody extends Component {
                     disabled={!availableForEdit('currentSalaryGrade')}
                     targetType={"currentSalaryGrade"} 
                     requestFunction={EmployeeService.requestCandidateCurrentSalaryGrade}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.jobApplication} {...formItemLayout}>
+                  {getFieldDecorator('jobApplicationId', {
+                  	initialValue: tryinit('jobApplication'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('jobApplication')}
+                    targetType={"jobApplication"} 
+                    requestFunction={EmployeeService.requestCandidateJobApplication}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.professionInterview} {...formItemLayout}>
+                  {getFieldDecorator('professionInterviewId', {
+                  	initialValue: tryinit('professionInterview'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('professionInterview')}
+                    targetType={"professionInterview"} 
+                    requestFunction={EmployeeService.requestCandidateProfessionInterview}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.hrInterview} {...formItemLayout}>
+                  {getFieldDecorator('hrInterviewId', {
+                  	initialValue: tryinit('hrInterview'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('hrInterview')}
+                    targetType={"hrInterview"} 
+                    requestFunction={EmployeeService.requestCandidateHrInterview}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.offerApproval} {...formItemLayout}>
+                  {getFieldDecorator('offerApprovalId', {
+                  	initialValue: tryinit('offerApproval'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('offerApproval')}
+                    targetType={"offerApproval"} 
+                    requestFunction={EmployeeService.requestCandidateOfferApproval}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.offerAcceptance} {...formItemLayout}>
+                  {getFieldDecorator('offerAcceptanceId', {
+                  	initialValue: tryinit('offerAcceptance'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('offerAcceptance')}
+                    targetType={"offerAcceptance"} 
+                    requestFunction={EmployeeService.requestCandidateOfferAcceptance}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.employeeBoarding} {...formItemLayout}>
+                  {getFieldDecorator('employeeBoardingId', {
+                  	initialValue: tryinit('employeeBoarding'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('employeeBoarding')}
+                    targetType={"employeeBoarding"} 
+                    requestFunction={EmployeeService.requestCandidateEmployeeBoarding}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.termination} {...formItemLayout}>
+                  {getFieldDecorator('terminationId', {
+                  	initialValue: tryinit('termination'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('termination')}
+                    targetType={"termination"} 
+                    requestFunction={EmployeeService.requestCandidateTermination}/>
                   
                  
                   )}

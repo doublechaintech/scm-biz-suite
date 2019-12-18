@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号供货商独立管理区',
-  contactNumber: '02887654321',
+  contactNumber: '21613682',
   totalArea: '1876平方米',
-  latitude: '40.631504079492636',
-  longitude: '129.72479007985373',
+  latitude: '41.08061533758971',
+  longitude: '131.603528331129',
   warehouseId: 'W000001',
 }
 */
@@ -195,9 +195,9 @@ class SupplierSpaceCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -206,13 +206,13 @@ class SupplierSpaceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应商的空间</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supplier_space')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}供应商的空间`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('supplier_space')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

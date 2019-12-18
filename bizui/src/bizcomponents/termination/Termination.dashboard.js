@@ -116,7 +116,7 @@ const internalSummaryOf = (termination,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{termination.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{termination.id}</Description> 
 <Description term="原因">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"原因","terminationReason",TerminationService.requestCandidateReason,
@@ -129,7 +129,7 @@ const internalSummaryOf = (termination,targetComponent) =>{
 	      TerminationService.transferToAnotherType,"anotherTypeId",termination.type?termination.type.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="评论">{termination.comment}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{termination.comment}</Description> 
 	
         {buildTransferModal(termination,targetComponent)}
       </DescriptionList>
@@ -170,7 +170,7 @@ class TerminationDashboard extends Component {
     const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",
     	cardsSource: this.props.termination,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [

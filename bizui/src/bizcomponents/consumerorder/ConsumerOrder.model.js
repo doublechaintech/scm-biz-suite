@@ -413,7 +413,7 @@ export default {
       }
       const partialList = true
       const newState = {...data, partialList}
-      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/零售商店会员卡消费记录+${appLocaleName(userContext,'List')}`, state: newState }
+      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/零售门店会员卡消费记录+${appLocaleName(userContext,'List')}`, state: newState }
       yield put(routerRedux.push(location))
     },
     *updateRetailStoreMemberGiftCardConsumeRecord({ payload }, { call, put }) {
@@ -435,7 +435,7 @@ export default {
       if (continueNext) {
         return
       }
-      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/零售商店会员卡消费记录列表`, state: newPlayload }
+      const location = { pathname: `/consumerOrder/${id}/list/RetailStoreMemberGiftCardConsumeRecordList/零售门店会员卡消费记录列表`, state: newPlayload }
       yield put(routerRedux.push(location))
     },
     *gotoNextRetailStoreMemberGiftCardConsumeRecordUpdateRow({ payload }, { call, put }) {

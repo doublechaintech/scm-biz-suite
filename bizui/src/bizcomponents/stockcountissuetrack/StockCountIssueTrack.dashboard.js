@@ -116,10 +116,10 @@ const internalSummaryOf = (stockCountIssueTrack,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{stockCountIssueTrack.id}</Description> 
-<Description term="头衔">{stockCountIssueTrack.title}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.title}</Description> 
 <Description term="计数时间">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
-<Description term="概览">{stockCountIssueTrack.summary}</Description> 
+<Description term="概览" style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.summary}</Description> 
 <Description term="盘点">{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"盘点","goodsShelfStockCount",StockCountIssueTrackService.requestCandidateStockCount,

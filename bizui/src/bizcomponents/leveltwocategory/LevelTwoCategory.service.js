@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateParentCategory = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherParentCategory = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}levelTwoCategoryManager/transferToAnotherParentCategory/id/anotherParentCategoryId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeLevelThreeCategoryList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}levelTwoCategoryService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelTwoCategoryService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelTwoCategoryService/process/`,
+    data,
+  })
+}
+
 const LevelTwoCategoryService = { view,
   load,
   addLevelThreeCategory,
   updateLevelThreeCategory,
   removeLevelThreeCategoryList,
   requestCandidateParentCategory,
-  transferToAnotherParentCategory }
+  transferToAnotherParentCategory, listFunctions, saveRequest, processRequest}
 export default LevelTwoCategoryService
 

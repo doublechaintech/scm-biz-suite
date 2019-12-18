@@ -20,9 +20,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2018-10-22',
-  latitude: '42.66654870899781',
-  longitude: '131.61584547756922',
+  beginTime: '2017-06-09',
+  latitude: '41.15519553936389',
+  longitude: '131.49059213508414',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -198,9 +198,9 @@ class TransportTaskCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -209,13 +209,13 @@ class TransportTaskCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输任务</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_task')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}运输任务`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('transport_task')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

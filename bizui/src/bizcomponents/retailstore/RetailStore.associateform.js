@@ -19,14 +19,20 @@ const testValues = {};
 /*
 const testValues = {
   name: '中和社区小超',
-  telephone: '02887654321',
+  telephone: '2114888874',
   owner: '吕刚',
-  founded: '2018-02-10',
-  latitude: '40.52906442918287',
-  longitude: '131.65738773362682',
+  founded: '2019-05-09',
+  latitude: '39.88523434760402',
+  longitude: '129.36834730618446',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
+  creationId: 'RSC000001',
+  investmentInvitationId: 'RSII000001',
+  franchisingId: 'RSF000001',
+  decorationId: 'RSD000001',
+  openingId: 'RSO000001',
+  closingId: 'RSC000001',
 }
 */
 
@@ -150,7 +156,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +166,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('telephone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电话" />
+                    <Input size="large"  placeHolder={fieldLabels.telephone} />
                   )}
                 </Form.Item>
               </Col>
@@ -170,7 +176,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('owner', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="业主" />
+                    <Input size="large"  placeHolder={fieldLabels.owner} />
                   )}
                 </Form.Item>
               </Col>
@@ -180,7 +186,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>
@@ -190,7 +196,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="纬度" />
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -200,7 +206,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经度" />
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
                   )}
                 </Form.Item>
               </Col>
@@ -210,7 +216,7 @@ class RetailStoreAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
@@ -257,6 +263,96 @@ class RetailStoreAssociateForm extends Component {
                     disabled={!availableForEdit('cityServiceCenter')}
                     targetType={"cityServiceCenter"} 
                     requestFunction={RetailStoreService.requestCandidateCityServiceCenter}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.creation} {...formItemLayout}>
+                  {getFieldDecorator('creationId', {
+                  	initialValue: tryinit('creation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('creation')}
+                    targetType={"creation"} 
+                    requestFunction={RetailStoreService.requestCandidateCreation}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.investmentInvitation} {...formItemLayout}>
+                  {getFieldDecorator('investmentInvitationId', {
+                  	initialValue: tryinit('investmentInvitation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('investmentInvitation')}
+                    targetType={"investmentInvitation"} 
+                    requestFunction={RetailStoreService.requestCandidateInvestmentInvitation}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.franchising} {...formItemLayout}>
+                  {getFieldDecorator('franchisingId', {
+                  	initialValue: tryinit('franchising'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('franchising')}
+                    targetType={"franchising"} 
+                    requestFunction={RetailStoreService.requestCandidateFranchising}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.decoration} {...formItemLayout}>
+                  {getFieldDecorator('decorationId', {
+                  	initialValue: tryinit('decoration'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('decoration')}
+                    targetType={"decoration"} 
+                    requestFunction={RetailStoreService.requestCandidateDecoration}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.opening} {...formItemLayout}>
+                  {getFieldDecorator('openingId', {
+                  	initialValue: tryinit('opening'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('opening')}
+                    targetType={"opening"} 
+                    requestFunction={RetailStoreService.requestCandidateOpening}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.closing} {...formItemLayout}>
+                  {getFieldDecorator('closingId', {
+                  	initialValue: tryinit('closing'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('closing')}
+                    targetType={"closing"} 
+                    requestFunction={RetailStoreService.requestCandidateClosing}/>
   
                   )}
                 </Form.Item>

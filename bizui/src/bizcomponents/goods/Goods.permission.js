@@ -37,7 +37,6 @@ const internalSummaryOf = (goods,targetComponent) =>{
 <Description term="计量单位">{goods.uom}</Description> 
 <Description term="最大包装">{goods.maxPackage}</Description> 
 <Description term="到期时间">{ moment(goods.expireTime).format('YYYY-MM-DD')}</Description> 
-<Description term="当前状态">{goods.currentStatus}</Description> 
 	
       </DescriptionList>
 	)

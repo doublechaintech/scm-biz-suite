@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCountryCenter = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCountryCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}accountSetManager/transferToAnotherCountryCenter/id/anotherCountryCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateRetailStore = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherRetailStore = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}accountSetManager/transferToAnotherRetailStore/id/anotherRetailStoreId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateGoodsSupplier = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherGoodsSupplier = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}accountSetManager/transferToAnotherGoodsSupplier/id/anotherGoodsSupplierId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -135,6 +132,33 @@ const removeAccountingDocumentTypeList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}accountSetService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountSetService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountSetService/process/`,
+    data,
+  })
+}
+
 const AccountSetService = { view,
   load,
   addAccountingSubject,
@@ -151,6 +175,6 @@ const AccountSetService = { view,
   requestCandidateGoodsSupplier,
   transferToAnotherCountryCenter,
   transferToAnotherRetailStore,
-  transferToAnotherGoodsSupplier }
+  transferToAnotherGoodsSupplier, listFunctions, saveRequest, processRequest}
 export default AccountSetService
 

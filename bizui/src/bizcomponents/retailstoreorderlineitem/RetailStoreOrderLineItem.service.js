@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateBizOrder = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBizOrder = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreOrderLineItemManager/transferToAnotherBizOrder/id/anotherBizOrderId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -37,9 +36,36 @@ const transferToAnotherBizOrder = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreOrderLineItemService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreOrderLineItemService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreOrderLineItemService/process/`,
+    data,
+  })
+}
+
 const RetailStoreOrderLineItemService = { view,
   load,
   requestCandidateBizOrder,
-  transferToAnotherBizOrder }
+  transferToAnotherBizOrder, listFunctions, saveRequest, processRequest}
 export default RetailStoreOrderLineItemService
 

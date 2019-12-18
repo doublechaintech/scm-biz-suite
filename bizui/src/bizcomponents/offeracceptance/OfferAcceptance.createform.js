@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '申请者',
-  acceptTime: '2018-12-23',
+  acceptTime: '2019-11-01',
   comments: '谢谢，我一个月内上班',
 }
 */
@@ -192,9 +192,9 @@ class OfferAcceptanceCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class OfferAcceptanceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}接受工作要约</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('offer_acceptance')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}接受工作要约`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('offer_acceptance')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -116,13 +116,13 @@ const internalSummaryOf = (instructor,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{instructor.id}</Description> 
-<Description term="头衔">{instructor.title}</Description> 
-<Description term="姓">{instructor.familyName}</Description> 
-<Description term="名">{instructor.givenName}</Description> 
-<Description term="手机">{instructor.cellPhone}</Description> 
-<Description term="电子邮件">{instructor.email}</Description> 
-<Description term="介绍">{instructor.introduction}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{instructor.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{instructor.title}</Description> 
+<Description term="姓" style={{wordBreak: 'break-all'}}>{instructor.familyName}</Description> 
+<Description term="名" style={{wordBreak: 'break-all'}}>{instructor.givenName}</Description> 
+<Description term="手机" style={{wordBreak: 'break-all'}}>{instructor.cellPhone}</Description> 
+<Description term="电子邮件" style={{wordBreak: 'break-all'}}>{instructor.email}</Description> 
+<Description term="介绍" style={{wordBreak: 'break-all'}}>{instructor.introduction}</Description> 
 <Description term="最后更新时间">{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(instructor,targetComponent)}
@@ -164,7 +164,7 @@ class InstructorDashboard extends Component {
     const cardsData = {cardsName:"讲师",cardsFor: "instructor",
     	cardsSource: this.props.instructor,returnURL,displayName,
   		subItems: [
-{name: 'companyTrainingList', displayName:'公司培训',type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'companyTrainingList', displayName:'公司培训',viewGroup:'__no_group', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链先锋号车队',
-  contactNumber: '02887654321',
+  contactNumber: '740253750',
   ownerId: 'RSCC000001',
 }
 */
@@ -142,7 +142,7 @@ class TransportFleetAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +152,7 @@ class TransportFleetAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="联系电话" />
+                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
                   )}
                 </Form.Item>
               </Col>

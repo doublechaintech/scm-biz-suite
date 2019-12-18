@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,31 +28,33 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"请假类型", menuFor: "leaveType",
+
+const menuData = {menuName: window.trans('leave_type'), menuFor: "leaveType",
   		subItems: [
-  {name: 'employeeLeaveList', displayName:'请假记录', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeLeaveList', displayName: window.mtrans('employee_leave','leave_type.employee_leave_list',false), type:'employeeLeave',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"请假类型", menuFor: "leaveType",
+const settingMenuData = {menuName: window.trans('leave_type'), menuFor: "leaveType",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  description: '描述',
-  detailDescription: '详细描述',
+  id: window.trans('leave_type.id'),
+  code: window.trans('leave_type.code'),
+  company: window.trans('leave_type.company'),
+  description: window.trans('leave_type.description'),
+  detailDescription: window.trans('leave_type.detail_description'),
 
 }
 
@@ -61,18 +66,21 @@ const displayColumns = [
   { title: fieldLabels.detailDescription, debugtype: 'string', dataIndex: 'detailDescription', width: '65',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(leaveType,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={leaveType.id}>
 	
-      <DescriptionList  key={leaveType.id} size="small" col="4">
-        <Description term="序号">{leaveType.id}</Description> 
-        <Description term="代码">{leaveType.code}</Description> 
-        <Description term="描述">{leaveType.description}</Description> 
-        <Description term="详细描述">{leaveType.detailDescription}</Description> 
+      <DescriptionList  key={leaveType.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{leaveType.id}</Description> 
+        <Description term={fieldLabels.code} style={{wordBreak: 'break-all'}}>{leaveType.code}</Description> 
+        <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{leaveType.description}</Description> 
+        <Description term={fieldLabels.detailDescription} style={{wordBreak: 'break-all'}}>{leaveType.detailDescription}</Description> 
 	
         
       </DescriptionList>
@@ -82,10 +90,29 @@ const renderItemOfList=(leaveType,targetComponent)=>{
 
 }
 	
-
-
-
-const LeaveTypeBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {code, description, detailDescription, companyId} = formValuesToPack
+	const company = {id: companyId, version: 2^31}
+	const data = {code, description, detailDescription, company}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {code, description, detailDescription, company} = objectToUnpack
+	const companyId = company ? company.id : null
+	const data = {code, description, detailDescription, companyId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const LeaveTypeBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default LeaveTypeBase
 
 

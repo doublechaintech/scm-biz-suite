@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOwner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreMemberAddressManager/transferToAnotherOwner/id/anotherOwnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -37,9 +36,36 @@ const transferToAnotherOwner = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreMemberAddressService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberAddressService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberAddressService/process/`,
+    data,
+  })
+}
+
 const RetailStoreMemberAddressService = { view,
   load,
   requestCandidateOwner,
-  transferToAnotherOwner }
+  transferToAnotherOwner, listFunctions, saveRequest, processRequest}
 export default RetailStoreMemberAddressService
 

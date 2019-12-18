@@ -116,10 +116,10 @@ const internalSummaryOf = (publicHoliday,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{publicHoliday.id}</Description> 
-<Description term="代码">{publicHoliday.code}</Description> 
-<Description term="名称">{publicHoliday.name}</Description> 
-<Description term="描述">{publicHoliday.description}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{publicHoliday.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{publicHoliday.code}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{publicHoliday.name}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{publicHoliday.description}</Description> 
 	
         {buildTransferModal(publicHoliday,targetComponent)}
       </DescriptionList>

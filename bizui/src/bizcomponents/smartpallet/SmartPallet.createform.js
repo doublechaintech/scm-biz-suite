@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
-  contactNumber: '02887654321',
+  contactNumber: '251173109',
   totalArea: '1876平方米',
-  latitude: '40.6133997276123',
-  longitude: '131.64800028304728',
+  latitude: '42.54311514096193',
+  longitude: '130.3583585770129',
   warehouseId: 'W000001',
 }
 */
@@ -195,9 +195,9 @@ class SmartPalletCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -206,13 +206,13 @@ class SmartPalletCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}智能托盘</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('smart_pallet')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}智能托盘`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('smart_pallet')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

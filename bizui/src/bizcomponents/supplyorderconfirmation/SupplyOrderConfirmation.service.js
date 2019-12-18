@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addConsumerOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderConfirmationManager/addConsumerOrder/supplyOrderConfirmationId/title/consumerId/storeId/tokensExpr/`
+  const url = `${PREFIX}supplyOrderConfirmationManager/addConsumerOrder/supplyOrderConfirmationId/title/consumerId/approvalId/processingId/shipmentId/deliveryId/storeId/tokensExpr/`
   const supplyOrderConfirmationId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderConfirmationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -45,7 +45,7 @@ const removeConsumerOrderList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderConfirmationManager/addSupplyOrder/supplyOrderConfirmationId/buyerId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}supplyOrderConfirmationManager/addSupplyOrder/supplyOrderConfirmationId/buyerId/sellerId/title/totalAmount/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
   const supplyOrderConfirmationId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderConfirmationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -65,6 +65,33 @@ const removeSupplyOrderList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}supplyOrderConfirmationService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderConfirmationService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderConfirmationService/process/`,
+    data,
+  })
+}
+
 const SupplyOrderConfirmationService = { view,
   load,
   addConsumerOrder,
@@ -72,6 +99,6 @@ const SupplyOrderConfirmationService = { view,
   updateConsumerOrder,
   updateSupplyOrder,
   removeConsumerOrderList,
-  removeSupplyOrderList }
+  removeSupplyOrderList, listFunctions, saveRequest, processRequest}
 export default SupplyOrderConfirmationService
 

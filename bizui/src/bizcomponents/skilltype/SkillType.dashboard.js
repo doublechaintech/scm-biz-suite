@@ -116,9 +116,9 @@ const internalSummaryOf = (skillType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{skillType.id}</Description> 
-<Description term="代码">{skillType.code}</Description> 
-<Description term="描述">{skillType.description}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{skillType.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{skillType.code}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{skillType.description}</Description> 
 	
         {buildTransferModal(skillType,targetComponent)}
       </DescriptionList>
@@ -159,7 +159,7 @@ class SkillTypeDashboard extends Component {
     const cardsData = {cardsName:"技能类型",cardsFor: "skillType",
     	cardsSource: this.props.skillType,returnURL,displayName,
   		subItems: [
-{name: 'employeeSkillList', displayName:'员工技能',type:'employeeSkill',count:employeeSkillCount,addFunction: true, role: 'employeeSkill', metaInfo: employeeSkillListMetaInfo, renderItem: GlobalComponents.EmployeeSkillBase.renderItemOfList},
+{name: 'employeeSkillList', displayName:'员工技能',viewGroup:'__no_group', type:'employeeSkill',count:employeeSkillCount,addFunction: true, role: 'employeeSkill', metaInfo: employeeSkillListMetaInfo, renderItem: GlobalComponents.EmployeeSkillBase.renderItemOfList},
     
       	],
    		subSettingItems: [

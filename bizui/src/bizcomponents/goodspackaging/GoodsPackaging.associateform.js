@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
-  packageTime: '2019-09-27',
+  packageTime: '2019-09-24',
   description: '打包完成，准备起运',
 }
 */
@@ -141,7 +141,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('packageName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="包的名字" />
+                    <Input size="large"  placeHolder={fieldLabels.packageName} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +151,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="RFID" />
+                    <Input size="large"  placeHolder={fieldLabels.rfid} />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +161,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('packageTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="包的时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.packageTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +171,7 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"技能类型", menuFor: "skillType",
+
+const menuData = {menuName: window.trans('skill_type'), menuFor: "skillType",
   		subItems: [
-  {name: 'employeeSkillList', displayName:'员工技能', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeSkillList', displayName: window.mtrans('employee_skill','skill_type.employee_skill_list',false), type:'employeeSkill',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"技能类型", menuFor: "skillType",
+const settingMenuData = {menuName: window.trans('skill_type'), menuFor: "skillType",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  description: '描述',
+  id: window.trans('skill_type.id'),
+  code: window.trans('skill_type.code'),
+  company: window.trans('skill_type.company'),
+  description: window.trans('skill_type.description'),
 
 }
 
@@ -59,17 +64,20 @@ const displayColumns = [
   { title: fieldLabels.description, debugtype: 'string', dataIndex: 'description', width: '10',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(skillType,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={skillType.id}>
 	
-      <DescriptionList  key={skillType.id} size="small" col="4">
-        <Description term="序号">{skillType.id}</Description> 
-        <Description term="代码">{skillType.code}</Description> 
-        <Description term="描述">{skillType.description}</Description> 
+      <DescriptionList  key={skillType.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{skillType.id}</Description> 
+        <Description term={fieldLabels.code} style={{wordBreak: 'break-all'}}>{skillType.code}</Description> 
+        <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{skillType.description}</Description> 
 	
         
       </DescriptionList>
@@ -79,10 +87,29 @@ const renderItemOfList=(skillType,targetComponent)=>{
 
 }
 	
-
-
-
-const SkillTypeBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {code, description, companyId} = formValuesToPack
+	const company = {id: companyId, version: 2^31}
+	const data = {code, description, company}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {code, description, company} = objectToUnpack
+	const companyId = company ? company.id : null
+	const data = {code, description, companyId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const SkillTypeBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default SkillTypeBase
 
 

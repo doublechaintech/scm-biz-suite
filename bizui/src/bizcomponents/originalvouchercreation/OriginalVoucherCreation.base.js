@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"原始凭证制作", menuFor: "originalVoucherCreation",
+
+const menuData = {menuName: window.trans('original_voucher_creation'), menuFor: "originalVoucherCreation",
   		subItems: [
-  {name: 'originalVoucherList', displayName:'原始凭证', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'originalVoucherList', displayName: window.mtrans('original_voucher','original_voucher_creation.original_voucher_list',false), type:'originalVoucher',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"原始凭证制作", menuFor: "originalVoucherCreation",
+const settingMenuData = {menuName: window.trans('original_voucher_creation'), menuFor: "originalVoucherCreation",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  comments: '评论',
-  makeDate: '制造日期',
+  id: window.trans('original_voucher_creation.id'),
+  who: window.trans('original_voucher_creation.who'),
+  comments: window.trans('original_voucher_creation.comments'),
+  makeDate: window.trans('original_voucher_creation.make_date'),
 
 }
 
@@ -59,18 +64,21 @@ const displayColumns = [
   { title: fieldLabels.makeDate, dataIndex: 'makeDate', render: (text, record) =>renderDateCell(text,record), sorter: true },
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(originalVoucherCreation,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={originalVoucherCreation.id}>
 	
-      <DescriptionList  key={originalVoucherCreation.id} size="small" col="4">
-        <Description term="序号">{originalVoucherCreation.id}</Description> 
-        <Description term="谁">{originalVoucherCreation.who}</Description> 
-        <Description term="评论">{originalVoucherCreation.comments}</Description> 
-        <Description term="制造日期"><div>{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</div></Description> 
+      <DescriptionList  key={originalVoucherCreation.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{originalVoucherCreation.id}</Description> 
+        <Description term={fieldLabels.who} style={{wordBreak: 'break-all'}}>{originalVoucherCreation.who}</Description> 
+        <Description term={fieldLabels.comments} style={{wordBreak: 'break-all'}}>{originalVoucherCreation.comments}</Description> 
+        <Description term={fieldLabels.makeDate}><div>{ moment(originalVoucherCreation.makeDate).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
@@ -80,10 +88,29 @@ const renderItemOfList=(originalVoucherCreation,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {who, comments, makeDate} = formValuesToPack
 
+	const data = {who, comments, makeDate}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {who, comments, makeDate} = objectToUnpack
 
-
-const OriginalVoucherCreationBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {who, comments, makeDate}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const OriginalVoucherCreationBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default OriginalVoucherCreationBase
 
 

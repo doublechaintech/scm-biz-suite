@@ -116,9 +116,9 @@ const internalSummaryOf = (userWhiteList,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{userWhiteList.id}</Description> 
-<Description term="用户身份">{userWhiteList.userIdentity}</Description> 
-<Description term="用户特殊功能">{userWhiteList.userSpecialFunctions}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{userWhiteList.id}</Description> 
+<Description term="用户身份" style={{wordBreak: 'break-all'}}>{userWhiteList.userIdentity}</Description> 
+<Description term="用户特殊功能" style={{wordBreak: 'break-all'}}>{userWhiteList.userSpecialFunctions}</Description> 
 	
         {buildTransferModal(userWhiteList,targetComponent)}
       </DescriptionList>

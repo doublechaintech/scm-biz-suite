@@ -22,7 +22,7 @@ const testValues = {
   rfid: 'RF99192',
   uom: '件',
   maxPackage: '9',
-  expireTime: '2019-03-08',
+  expireTime: '2017-10-09',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -32,6 +32,7 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
+  packagingId: 'GP000001',
 }
 */
 
@@ -203,9 +204,9 @@ class GoodsCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -214,13 +215,13 @@ class GoodsCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}货物`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

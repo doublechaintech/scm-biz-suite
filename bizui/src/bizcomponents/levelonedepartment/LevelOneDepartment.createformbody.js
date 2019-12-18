@@ -13,14 +13,14 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = LevelOneDepartmentBase
 const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
-  manager: '刘强',
-  founded: '2017-07-11',
+  managerName: '刘强',
+  founded: '2018-11-12',
   belongsToId: 'RSCC000001',
 }
 */
@@ -72,7 +72,7 @@ class LevelOneDepartmentCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = LevelOneDepartmentBase
+    
     const {LevelOneDepartmentService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -80,12 +80,6 @@ class LevelOneDepartmentCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -117,6 +111,7 @@ class LevelOneDepartmentCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -124,7 +119,7 @@ class LevelOneDepartmentCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}一级部门</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('level_one_department')}</div>)
     }
 	
 	return (
@@ -139,7 +134,7 @@ class LevelOneDepartmentCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -149,17 +144,17 @@ class LevelOneDepartmentCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="描述" />
+                    <Input size="large"  placeHolder={fieldLabels.description} />
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
-                  {getFieldDecorator('manager', {
+                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
+                  {getFieldDecorator('managerName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="经理" />
+                    <Input size="large"  placeHolder={fieldLabels.managerName} />
                   )}
                 </Form.Item>
               </Col>
@@ -169,7 +164,7 @@ class LevelOneDepartmentCreateFormBody extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
                   )}
                 </Form.Item>
               </Col>

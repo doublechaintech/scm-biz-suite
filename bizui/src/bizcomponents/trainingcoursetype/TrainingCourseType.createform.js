@@ -193,9 +193,9 @@ class TrainingCourseTypeCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +204,13 @@ class TrainingCourseTypeCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}培训课程类型</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('training_course_type')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}培训课程类型`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('training_course_type')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

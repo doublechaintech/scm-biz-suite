@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,35 +28,37 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"讲师", menuFor: "instructor",
+
+const menuData = {menuName: window.trans('instructor'), menuFor: "instructor",
   		subItems: [
-  {name: 'companyTrainingList', displayName:'公司培训', icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'companyTrainingList', displayName: window.mtrans('company_training','instructor.company_training_list',false), type:'companyTraining',icon:'om',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"讲师", menuFor: "instructor",
+const settingMenuData = {menuName: window.trans('instructor'), menuFor: "instructor",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  title: '头衔',
-  familyName: '姓',
-  givenName: '名',
-  cellPhone: '手机',
-  email: '电子邮件',
-  company: '公司',
-  introduction: '介绍',
-  lastUpdateTime: '最后更新时间',
+  id: window.trans('instructor.id'),
+  title: window.trans('instructor.title'),
+  familyName: window.trans('instructor.family_name'),
+  givenName: window.trans('instructor.given_name'),
+  cellPhone: window.trans('instructor.cell_phone'),
+  email: window.trans('instructor.email'),
+  company: window.trans('instructor.company'),
+  introduction: window.trans('instructor.introduction'),
+  lastUpdateTime: window.trans('instructor.last_update_time'),
 
 }
 
@@ -69,22 +74,25 @@ const displayColumns = [
   { title: fieldLabels.lastUpdateTime, dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(instructor,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={instructor.id}>
 	
-      <DescriptionList  key={instructor.id} size="small" col="4">
-        <Description term="序号">{instructor.id}</Description> 
-        <Description term="头衔">{instructor.title}</Description> 
-        <Description term="姓">{instructor.familyName}</Description> 
-        <Description term="名">{instructor.givenName}</Description> 
-        <Description term="手机">{instructor.cellPhone}</Description> 
-        <Description term="电子邮件">{instructor.email}</Description> 
-        <Description term="介绍">{instructor.introduction}</Description> 
-        <Description term="最后更新时间"><div>{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
+      <DescriptionList  key={instructor.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{instructor.id}</Description> 
+        <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{instructor.title}</Description> 
+        <Description term={fieldLabels.familyName} style={{wordBreak: 'break-all'}}>{instructor.familyName}</Description> 
+        <Description term={fieldLabels.givenName} style={{wordBreak: 'break-all'}}>{instructor.givenName}</Description> 
+        <Description term={fieldLabels.cellPhone} style={{wordBreak: 'break-all'}}>{instructor.cellPhone}</Description> 
+        <Description term={fieldLabels.email} style={{wordBreak: 'break-all'}}>{instructor.email}</Description> 
+        <Description term={fieldLabels.introduction} style={{wordBreak: 'break-all'}}>{instructor.introduction}</Description> 
+        <Description term={fieldLabels.lastUpdateTime}><div>{ moment(instructor.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
@@ -94,10 +102,29 @@ const renderItemOfList=(instructor,targetComponent)=>{
 
 }
 	
-
-
-
-const InstructorBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {title, familyName, givenName, cellPhone, email, introduction, companyId} = formValuesToPack
+	const company = {id: companyId, version: 2^31}
+	const data = {title, familyName, givenName, cellPhone, email, introduction, company}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {title, familyName, givenName, cellPhone, email, introduction, company} = objectToUnpack
+	const companyId = company ? company.id : null
+	const data = {title, familyName, givenName, cellPhone, email, introduction, companyId}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const InstructorBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default InstructorBase
 
 

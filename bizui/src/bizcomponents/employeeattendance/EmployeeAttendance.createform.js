@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2017-04-14',
-  leaveTime: '2017-10-10',
-  durationHours: '8',
+  enterTime: '2018-02-22',
+  leaveTime: '2019-10-07',
+  durationHours: '7',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -194,9 +194,9 @@ class EmployeeAttendanceCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -205,13 +205,13 @@ class EmployeeAttendanceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工考勤</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_attendance')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}员工考勤`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_attendance')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,30 +28,32 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"审批工作要约", menuFor: "offerApproval",
+
+const menuData = {menuName: window.trans('offer_approval'), menuFor: "offerApproval",
   		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'employeeList', displayName: window.mtrans('employee','offer_approval.employee_list',false), type:'employee',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"审批工作要约", menuFor: "offerApproval",
+const settingMenuData = {menuName: window.trans('offer_approval'), menuFor: "offerApproval",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  who: '谁',
-  approveTime: '批准时间',
-  comments: '评论',
+  id: window.trans('offer_approval.id'),
+  who: window.trans('offer_approval.who'),
+  approveTime: window.trans('offer_approval.approve_time'),
+  comments: window.trans('offer_approval.comments'),
 
 }
 
@@ -59,18 +64,21 @@ const displayColumns = [
   { title: fieldLabels.comments, debugtype: 'string', dataIndex: 'comments', width: '14',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(offerApproval,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={offerApproval.id}>
 	
-      <DescriptionList  key={offerApproval.id} size="small" col="4">
-        <Description term="序号">{offerApproval.id}</Description> 
-        <Description term="谁">{offerApproval.who}</Description> 
-        <Description term="批准时间"><div>{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</div></Description> 
-        <Description term="评论">{offerApproval.comments}</Description> 
+      <DescriptionList  key={offerApproval.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{offerApproval.id}</Description> 
+        <Description term={fieldLabels.who} style={{wordBreak: 'break-all'}}>{offerApproval.who}</Description> 
+        <Description term={fieldLabels.approveTime}><div>{ moment(offerApproval.approveTime).format('YYYY-MM-DD')}</div></Description> 
+        <Description term={fieldLabels.comments} style={{wordBreak: 'break-all'}}>{offerApproval.comments}</Description> 
 	
         
       </DescriptionList>
@@ -80,10 +88,29 @@ const renderItemOfList=(offerApproval,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {who, approveTime, comments} = formValuesToPack
 
+	const data = {who, approveTime, comments}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {who, approveTime, comments} = objectToUnpack
 
-
-const OfferApprovalBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {who, approveTime, comments}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const OfferApprovalBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default OfferApprovalBase
 
 

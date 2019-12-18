@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCompany = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}companyTrainingManager/transferToAnotherCompany/id/anotherCompanyId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateInstructor = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherInstructor = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}companyTrainingManager/transferToAnotherInstructor/id/anotherInstructorId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateTrainingCourseType = (ownerClass, id, filterKey, pageNo) =
 }	
 
 const transferToAnotherTrainingCourseType = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}companyTrainingManager/transferToAnotherTrainingCourseType/id/anotherTrainingCourseTypeId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -71,7 +68,7 @@ const transferToAnotherTrainingCourseType = (id, parameters) => {
 
 
 const addEmployeeCompanyTraining = (targetObjectId, parameters) => {
-  const url = `${PREFIX}companyTrainingManager/addEmployeeCompanyTraining/companyTrainingId/employeeId/tokensExpr/`
+  const url = `${PREFIX}companyTrainingManager/addEmployeeCompanyTraining/companyTrainingId/employeeId/scoringId/tokensExpr/`
   const companyTrainingId = targetObjectId
   const requestParameters = { ...parameters, companyTrainingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -91,6 +88,33 @@ const removeEmployeeCompanyTrainingList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}companyTrainingService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}companyTrainingService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}companyTrainingService/process/`,
+    data,
+  })
+}
+
 const CompanyTrainingService = { view,
   load,
   addEmployeeCompanyTraining,
@@ -101,6 +125,6 @@ const CompanyTrainingService = { view,
   requestCandidateTrainingCourseType,
   transferToAnotherCompany,
   transferToAnotherInstructor,
-  transferToAnotherTrainingCourseType }
+  transferToAnotherTrainingCourseType, listFunctions, saveRequest, processRequest}
 export default CompanyTrainingService
 

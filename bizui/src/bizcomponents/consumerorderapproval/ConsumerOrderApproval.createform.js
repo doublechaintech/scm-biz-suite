@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '批准者',
-  approveTime: '2017-04-29',
+  approveTime: '2016-12-27',
 }
 */
 
@@ -191,9 +191,9 @@ class ConsumerOrderApprovalCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -202,13 +202,13 @@ class ConsumerOrderApprovalCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费者的订单审批</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_approval')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}消费者的订单审批`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order_approval')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

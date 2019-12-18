@@ -19,9 +19,13 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2019-01-09',
+  accountingDocumentDate: '2018-11-25',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
+  creationId: 'ADC000001',
+  confirmationId: 'ADC000001',
+  auditingId: 'ADA000001',
+  postingId: 'ADP000001',
 }
 */
 
@@ -193,9 +197,9 @@ class AccountingDocumentCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -204,13 +208,13 @@ class AccountingDocumentCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计凭证</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_document')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}会计凭证`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('accounting_document')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

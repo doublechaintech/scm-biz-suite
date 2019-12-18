@@ -7,9 +7,10 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './SupplyOrder.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import SupplyOrderBase from './SupplyOrder.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-
+const {fieldLabels} = SupplyOrderBase
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -75,7 +76,17 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <SupplyOrderConfirmationAssociateForm 
+   
+  
+    <RetailStoreCountryCenterAssociateForm 
+	visible={currentAssociateModal==='buyer'} 
+	data={{supplyOrderList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'buyer')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'buyer')}/> <GoodsSupplierAssociateForm 
+	visible={currentAssociateModal==='seller'} 
+	data={{supplyOrderList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'seller')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> <SupplyOrderConfirmationAssociateForm 
 	visible={currentAssociateModal==='confirmation'} 
 	data={{supplyOrderList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
@@ -99,17 +110,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='delivery'} 
 	data={{supplyOrderList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'delivery')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'delivery')}/>
-  
-    <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='buyer'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'buyer')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'buyer')}/> <GoodsSupplierAssociateForm 
-	visible={currentAssociateModal==='seller'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'seller')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'delivery')}/> 
  
 
 

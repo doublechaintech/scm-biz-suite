@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
-  interviewTime: '2019-02-13',
+  interviewTime: '2019-11-23',
   comments: '软技能，责任感，气质不错啊',
 }
 */
@@ -192,9 +192,9 @@ class HrInterviewCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -203,13 +203,13 @@ class HrInterviewCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}人力资源部面试</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('hr_interview')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}人力资源部面试`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('hr_interview')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

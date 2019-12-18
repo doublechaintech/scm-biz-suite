@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider } from 'antd'
+import { Icon,Divider, Avata, Card, Col} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,15 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
+
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
+	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
+	defaultSearchLocalData,
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -25,28 +28,30 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
+const renderAvatarCell=defaultRenderAvatarCell
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-const menuData = {menuName:"生超招商", menuFor: "retailStoreInvestmentInvitation",
+
+const menuData = {menuName: window.trans('retail_store_investment_invitation'), menuFor: "retailStoreInvestmentInvitation",
   		subItems: [
-  {name: 'retailStoreList', displayName:'双链小超', icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'retailStoreList', displayName: window.mtrans('retail_store','retail_store_investment_invitation.retail_store_list',false), type:'retailStore',icon:'store',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
 
 
-const settingMenuData = {menuName:"生超招商", menuFor: "retailStoreInvestmentInvitation",
+const settingMenuData = {menuName: window.trans('retail_store_investment_invitation'), menuFor: "retailStoreInvestmentInvitation",
   		subItems: [
   
   		],
 }
 
 const fieldLabels = {
-  id: '序号',
-  comment: '评论',
+  id: window.trans('retail_store_investment_invitation.id'),
+  comment: window.trans('retail_store_investment_invitation.comment'),
 
 }
 
@@ -55,16 +60,19 @@ const displayColumns = [
   { title: fieldLabels.comment, debugtype: 'string', dataIndex: 'comment', width: '10',render: (text, record)=>renderTextCell(text,record)},
 
 ]
-// refernce to https://ant.design/components/list-cn/
+
+
+const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+
 const renderItemOfList=(retailStoreInvestmentInvitation,targetComponent)=>{
 
   const userContext = null
   return (
     <div key={retailStoreInvestmentInvitation.id}>
 	
-      <DescriptionList  key={retailStoreInvestmentInvitation.id} size="small" col="4">
-        <Description term="序号">{retailStoreInvestmentInvitation.id}</Description> 
-        <Description term="评论">{retailStoreInvestmentInvitation.comment}</Description> 
+      <DescriptionList  key={retailStoreInvestmentInvitation.id} size="small" col="2" >
+        <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreInvestmentInvitation.id}</Description> 
+        <Description term={fieldLabels.comment} style={{wordBreak: 'break-all'}}>{retailStoreInvestmentInvitation.comment}</Description> 
 	
         
       </DescriptionList>
@@ -74,10 +82,29 @@ const renderItemOfList=(retailStoreInvestmentInvitation,targetComponent)=>{
 
 }
 	
+const packFormValuesToObject = ( formValuesToPack )=>{
+	const {comment} = formValuesToPack
 
+	const data = {comment}
+	return data
+}
+const unpackObjectToFormValues = ( objectToUnpack )=>{
+	const {comment} = objectToUnpack
 
-
-const RetailStoreInvestmentInvitationBase={menuData,displayColumns,fieldLabels,renderItemOfList}
+	const data = {comment}
+	return data
+}
+const stepOf=(targetComponent, title, content, position, index)=>{
+	return {
+		title,
+		content,
+		position,
+		packFunction: packFormValuesToObject,
+		unpackFunction: unpackObjectToFormValues,
+		index,
+      }
+}
+const RetailStoreInvestmentInvitationBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreInvestmentInvitationBase
 
 

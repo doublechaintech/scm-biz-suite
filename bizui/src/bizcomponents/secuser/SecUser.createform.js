@@ -20,15 +20,16 @@ const testValues = {};
 const testValues = {
   login: 'login',
   mobile: '13900000001',
-  email: '',
+  email: 'suddy_chang@163.com',
   pwd: 'C183EC89F92A462CF45B95504792EC4625E847C90536EEFE512D1C9DB8602E95',
   weixinOpenid: 'wx123456789abcdefghijklmn',
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-09-30 17:12:36',
-  lastLoginTime: '2019-09-21 23:19:29',
+  verificationCodeExpire: '2019-11-21 04:58:32',
+  lastLoginTime: '2019-12-05 20:09:18',
   domainId: 'UD000001',
+  blockingId: 'SUB000001',
 }
 */
 
@@ -200,9 +201,9 @@ class SecUserCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -211,13 +212,13 @@ class SecUserCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}安全用户</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('sec_user')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}安全用户`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('sec_user')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

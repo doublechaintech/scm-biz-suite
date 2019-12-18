@@ -34,7 +34,7 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
 <Description term="序号">{provinceCenterDepartment.id}</Description> 
 <Description term="名称">{provinceCenterDepartment.name}</Description> 
 <Description term="成立">{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</Description> 
-<Description term="经理">{provinceCenterDepartment.manager}</Description> 
+<Description term="经理的名字">{provinceCenterDepartment.managerName}</Description> 
 	
       </DescriptionList>
 	)

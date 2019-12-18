@@ -116,10 +116,10 @@ const internalSummaryOf = (leaveType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{leaveType.id}</Description> 
-<Description term="代码">{leaveType.code}</Description> 
-<Description term="描述">{leaveType.description}</Description> 
-<Description term="详细描述">{leaveType.detailDescription}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{leaveType.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{leaveType.code}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{leaveType.description}</Description> 
+<Description term="详细描述" style={{wordBreak: 'break-all'}}>{leaveType.detailDescription}</Description> 
 	
         {buildTransferModal(leaveType,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,7 @@ class LeaveTypeDashboard extends Component {
     const cardsData = {cardsName:"请假类型",cardsFor: "leaveType",
     	cardsSource: this.props.leaveType,returnURL,displayName,
   		subItems: [
-{name: 'employeeLeaveList', displayName:'请假记录',type:'employeeLeave',count:employeeLeaveCount,addFunction: true, role: 'employeeLeave', metaInfo: employeeLeaveListMetaInfo, renderItem: GlobalComponents.EmployeeLeaveBase.renderItemOfList},
+{name: 'employeeLeaveList', displayName:'请假记录',viewGroup:'__no_group', type:'employeeLeave',count:employeeLeaveCount,addFunction: true, role: 'employeeLeave', metaInfo: employeeLeaveListMetaInfo, renderItem: GlobalComponents.EmployeeLeaveBase.renderItemOfList},
     
       	],
    		subSettingItems: [

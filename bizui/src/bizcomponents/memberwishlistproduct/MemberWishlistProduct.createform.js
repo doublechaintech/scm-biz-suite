@@ -191,9 +191,9 @@ class MemberWishlistProductCreateForm extends Component {
       return false
     
     }
-    const formItemLayout = {
-      labelCol: { span: 3 },
-      wrapperCol: { span: 9 },
+	const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
       labelCol: { span: 3 },
@@ -202,13 +202,13 @@ class MemberWishlistProductCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会员收藏产品</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('member_wishlist_product')}</div>)
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-        content={`${appLocaleName(userContext,"CreateNew")}会员收藏产品`}
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('member_wishlist_product')}`}
         wrapperClassName={styles.advancedForm}
       >
    			

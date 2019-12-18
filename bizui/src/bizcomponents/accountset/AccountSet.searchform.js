@@ -8,10 +8,11 @@ import styles from './AccountSet.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+import AccountSetBase from './AccountSet.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = AccountSetBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -137,7 +138,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'domesticCurrencyCode'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'domesticCurrencyName'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'openingBank'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'accountNumber'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'countryCenter'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'retailStore'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'goodsSupplier'))
@@ -199,7 +199,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -207,7 +207,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="名称">
+         <FormItem label={fieldLabels.name}>
            {getFieldDecorator('name')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -254,7 +254,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -262,7 +262,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="名称">
+            <FormItem label={fieldLabels.name}>
               {getFieldDecorator('name')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -270,7 +270,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="年组">
+            <FormItem label={fieldLabels.yearSet}>
               {getFieldDecorator('yearSet')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -278,7 +278,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="会计制度">
+            <FormItem label={fieldLabels.accountingSystem}>
               {getFieldDecorator('accountingSystem')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -286,7 +286,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="本币代码">
+            <FormItem label={fieldLabels.domesticCurrencyCode}>
               {getFieldDecorator('domesticCurrencyCode')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -294,7 +294,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="本币名称">
+            <FormItem label={fieldLabels.domesticCurrencyName}>
               {getFieldDecorator('domesticCurrencyName')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -302,22 +302,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="开户银行">
+            <FormItem label={fieldLabels.openingBank}>
               {getFieldDecorator('openingBank')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
-
-          <Col md={8} sm={24}>
-            <FormItem label="帐户号码">
-              {getFieldDecorator('accountNumber')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-              )}
-            </FormItem>
-          </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="全国运营中心">
+                    <Form.Item label={fieldLabels.countryCenter}>
                   {getFieldDecorator('countryCenter', {initialValue: tryinit('countryCenter')})(
                   
                   <SelectObject 
@@ -329,7 +321,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="双链小超">
+                    <Form.Item label={fieldLabels.retailStore}>
                   {getFieldDecorator('retailStore', {initialValue: tryinit('retailStore')})(
                   
                   <SelectObject 
@@ -341,7 +333,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="产品供应商">
+                    <Form.Item label={fieldLabels.goodsSupplier}>
                   {getFieldDecorator('goodsSupplier', {initialValue: tryinit('goodsSupplier')})(
                   
                   <SelectObject 
@@ -364,7 +356,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

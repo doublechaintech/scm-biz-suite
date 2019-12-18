@@ -13,7 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = InstructorBase
 const testValues = {};
 /*
 const testValues = {
@@ -74,7 +74,7 @@ class InstructorCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = InstructorBase
+    
     const {InstructorService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -82,12 +82,6 @@ class InstructorCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -119,6 +113,7 @@ class InstructorCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -126,7 +121,7 @@ class InstructorCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}讲师</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('instructor')}</div>)
     }
 	
 	return (
@@ -141,7 +136,7 @@ class InstructorCreateFormBody extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="头衔" />
+                    <Input size="large"  placeHolder={fieldLabels.title} />
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +146,7 @@ class InstructorCreateFormBody extends Component {
                   {getFieldDecorator('familyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="姓" />
+                    <Input size="large"  placeHolder={fieldLabels.familyName} />
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +156,7 @@ class InstructorCreateFormBody extends Component {
                   {getFieldDecorator('givenName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名" />
+                    <Input size="large"  placeHolder={fieldLabels.givenName} />
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +166,7 @@ class InstructorCreateFormBody extends Component {
                   {getFieldDecorator('cellPhone', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="手机" />
+                    <Input size="large"  placeHolder={fieldLabels.cellPhone} />
                   )}
                 </Form.Item>
               </Col>
@@ -181,7 +176,7 @@ class InstructorCreateFormBody extends Component {
                   {getFieldDecorator('email', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="电子邮件" />
+                    <Input size="large"  placeHolder={fieldLabels.email} />
                   )}
                 </Form.Item>
               </Col>
@@ -191,7 +186,7 @@ class InstructorCreateFormBody extends Component {
                   {getFieldDecorator('introduction', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="介绍" />
+                    <Input size="large"  placeHolder={fieldLabels.introduction} />
                   )}
                 </Form.Item>
               </Col>

@@ -8,10 +8,11 @@ import styles from './EmployeeSalarySheet.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+import EmployeeSalarySheetBase from './EmployeeSalarySheet.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = EmployeeSalarySheetBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -133,7 +134,7 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'employee'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'currentSalaryGrade'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'payingOff'))
 
      
       console.log("the final parameter", paramList)
@@ -192,14 +193,14 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
-                 <Form.Item label="员工">
+                 <Form.Item label={fieldLabels.employee}>
                {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                
                <SelectObject 
@@ -251,14 +252,14 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="员工">
+                    <Form.Item label={fieldLabels.employee}>
                   {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                   
                   <SelectObject 
@@ -270,7 +271,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-                    <Form.Item label="目前工资等级">
+                    <Form.Item label={fieldLabels.currentSalaryGrade}>
                   {getFieldDecorator('currentSalaryGrade', {initialValue: tryinit('currentSalaryGrade')})(
                   
                   <SelectObject 
@@ -281,14 +282,18 @@ componentDidMount() {
                  
                   )}
                 </Form.Item></Col>
-
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-              )}
-            </FormItem>
-          </Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.payingOff}>
+                  {getFieldDecorator('payingOff', {initialValue: tryinit('payingOff')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('payingOff')}
+                    targetType={"payingOff"} 
+                    requestFunction={EmployeeSalarySheetService.requestCandidatePayingOff} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
 
         </Row>
         <div style={{ overflow: 'hidden' }}>
@@ -301,7 +306,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

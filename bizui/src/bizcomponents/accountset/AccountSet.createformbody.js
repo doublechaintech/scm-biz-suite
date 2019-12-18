@@ -13,18 +13,18 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-
+const {fieldLabels} = AccountSetBase
 const testValues = {};
 /*
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2018-01-12',
+  effectiveDate: '2019-04-29',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
-  accountNumber: '33265805054885',
+  accountNumber: '21849905661885',
   countryCenterId: 'RSCC000001',
   retailStoreId: 'RS000001',
   goodsSupplierId: 'GS000001',
@@ -78,7 +78,7 @@ class AccountSetCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-    const {fieldLabels} = AccountSetBase
+    
     const {AccountSetService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -86,12 +86,6 @@ class AccountSetCreateFormBody extends Component {
   		const upper = value.charAt(0).toUpperCase() + value.substr(1);
   		return upper
   	}
-    
-    
-    
-    
-    
-
     
     
     const tryinit  = (fieldName) => {
@@ -123,6 +117,7 @@ class AccountSetCreateFormBody extends Component {
       wrapperCol: { span: 12 },
     }
     const switchFormItemLayout = {
+
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
 
@@ -130,7 +125,7 @@ class AccountSetCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}账套</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('account_set')}</div>)
     }
 	
 	return (
@@ -145,7 +140,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="名称" />
+                    <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
                 </Form.Item>
               </Col>
@@ -155,7 +150,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('yearSet', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="年组" />
+                    <Input size="large"  placeHolder={fieldLabels.yearSet} />
                   )}
                 </Form.Item>
               </Col>
@@ -165,7 +160,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('effectiveDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="生效日期" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.effectiveDate}/>
                   )}
                 </Form.Item>
               </Col>
@@ -175,7 +170,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('accountingSystem', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="会计制度" />
+                    <Input size="large"  placeHolder={fieldLabels.accountingSystem} />
                   )}
                 </Form.Item>
               </Col>
@@ -185,7 +180,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('domesticCurrencyCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="本币代码" />
+                    <Input size="large"  placeHolder={fieldLabels.domesticCurrencyCode} />
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +190,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('domesticCurrencyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="本币名称" />
+                    <Input size="large"  placeHolder={fieldLabels.domesticCurrencyName} />
                   )}
                 </Form.Item>
               </Col>
@@ -205,7 +200,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('openingBank', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="开户银行" />
+                    <Input size="large"  placeHolder={fieldLabels.openingBank} />
                   )}
                 </Form.Item>
               </Col>
@@ -215,7 +210,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('accountNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="帐户号码" />
+                    <Input size="large"  placeHolder={fieldLabels.accountNumber} />
                   )}
                 </Form.Item>
               </Col>

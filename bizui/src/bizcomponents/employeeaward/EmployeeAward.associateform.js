@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  completeTime: '2016-11-06',
+  completeTime: '2018-06-08',
   type: '明星员工',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',
@@ -140,7 +140,7 @@ class EmployeeAwardAssociateForm extends Component {
                   {getFieldDecorator('completeTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="完成时间" />
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.completeTime}/>
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +150,7 @@ class EmployeeAwardAssociateForm extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="类型" />
+                    <Input size="large"  placeHolder={fieldLabels.type} />
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +160,7 @@ class EmployeeAwardAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large" placeholder="备注" />
+                    <Input size="large"  placeHolder={fieldLabels.remark} />
                   )}
                 </Form.Item>
               </Col>

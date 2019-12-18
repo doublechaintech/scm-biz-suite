@@ -116,8 +116,8 @@ const internalSummaryOf = (accountingPeriod,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingPeriod.id}</Description> 
-<Description term="名称">{accountingPeriod.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingPeriod.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{accountingPeriod.name}</Description> 
 <Description term="开始日期">{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</Description> 
 <Description term="结束日期">{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</Description> 
 <Description term="账套">{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
@@ -166,7 +166,7 @@ class AccountingPeriodDashboard extends Component {
     const cardsData = {cardsName:"会计期间",cardsFor: "accountingPeriod",
     	cardsSource: this.props.accountingPeriod,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentList', displayName:'会计凭证',type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
+{name: 'accountingDocumentList', displayName:'会计凭证',viewGroup:'__no_group', type:'accountingDocument',count:accountingDocumentCount,addFunction: true, role: 'accountingDocument', metaInfo: accountingDocumentListMetaInfo, renderItem: GlobalComponents.AccountingDocumentBase.renderItemOfList},
     
       	],
    		subSettingItems: [
