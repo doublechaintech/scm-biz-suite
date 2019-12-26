@@ -244,6 +244,7 @@ class CompanyTrainingUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
+<<<<<<< HEAD
     }
 	
 	const internalRenderTitle = () =>{
@@ -251,6 +252,15 @@ class CompanyTrainingUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}公司培训: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 
+=======
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}公司培训: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -268,7 +278,11 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="序号" disabled/>
+=======
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -280,7 +294,11 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="头衔" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.title} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -292,7 +310,11 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.timeStart,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="时间开始" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.timeStart}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -304,7 +326,11 @@ class CompanyTrainingUpdateForm extends Component {
                     initialValue: selectedRow.durationHours,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="持续时间" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.durationHours} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

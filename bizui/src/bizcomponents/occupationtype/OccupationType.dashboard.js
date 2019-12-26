@@ -116,10 +116,10 @@ const internalSummaryOf = (occupationType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{occupationType.id}</Description> 
-<Description term="代码">{occupationType.code}</Description> 
-<Description term="描述">{occupationType.description}</Description> 
-<Description term="详细描述">{occupationType.detailDescription}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{occupationType.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{occupationType.code}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{occupationType.description}</Description> 
+<Description term="详细描述" style={{wordBreak: 'break-all'}}>{occupationType.detailDescription}</Description> 
 	
         {buildTransferModal(occupationType,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,11 @@ class OccupationTypeDashboard extends Component {
     const cardsData = {cardsName:"职位类型",cardsFor: "occupationType",
     	cardsSource: this.props.occupationType,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+=======
+{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

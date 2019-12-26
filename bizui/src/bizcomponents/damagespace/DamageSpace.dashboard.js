@@ -116,12 +116,21 @@ const internalSummaryOf = (damageSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{damageSpace.id}</Description> 
 <Description term="位置">{damageSpace.location}</Description> 
 <Description term="联系电话">{damageSpace.contactNumber}</Description> 
 <Description term="总面积">{damageSpace.totalArea}</Description> 
 <Description term="纬度">{damageSpace.latitude}</Description> 
 <Description term="经度">{damageSpace.longitude}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{damageSpace.id}</Description> 
+<Description term="位置" style={{wordBreak: 'break-all'}}>{damageSpace.location}</Description> 
+<Description term="联系电话" style={{wordBreak: 'break-all'}}>{damageSpace.contactNumber}</Description> 
+<Description term="总面积" style={{wordBreak: 'break-all'}}>{damageSpace.totalArea}</Description> 
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{damageSpace.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{damageSpace.longitude}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="仓库">{damageSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${damageSpace.warehouse.displayName}(${damageSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",DamageSpaceService.requestCandidateWarehouse,
@@ -169,7 +178,11 @@ class DamageSpaceDashboard extends Component {
     const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",
     	cardsSource: this.props.damageSpace,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'goodsShelfList', displayName:'货架',type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+=======
+{name: 'goodsShelfList', displayName:'货架',viewGroup:'__no_group', type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

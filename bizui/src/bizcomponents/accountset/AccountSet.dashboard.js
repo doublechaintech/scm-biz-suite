@@ -116,15 +116,23 @@ const internalSummaryOf = (accountSet,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountSet.id}</Description> 
-<Description term="名称">{accountSet.name}</Description> 
-<Description term="年组">{accountSet.yearSet}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountSet.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{accountSet.name}</Description> 
+<Description term="年组" style={{wordBreak: 'break-all'}}>{accountSet.yearSet}</Description> 
 <Description term="生效日期">{ moment(accountSet.effectiveDate).format('YYYY-MM-DD')}</Description> 
+<<<<<<< HEAD
 <Description term="会计制度">{accountSet.accountingSystem}</Description> 
 <Description term="本币代码">{accountSet.domesticCurrencyCode}</Description> 
 <Description term="本币名称">{accountSet.domesticCurrencyName}</Description> 
 <Description term="开户银行">{accountSet.openingBank}</Description> 
 <Description term="帐户号码">{accountSet.accountNumber}</Description> 
+=======
+<Description term="会计制度" style={{wordBreak: 'break-all'}}>{accountSet.accountingSystem}</Description> 
+<Description term="本币代码" style={{wordBreak: 'break-all'}}>{accountSet.domesticCurrencyCode}</Description> 
+<Description term="本币名称" style={{wordBreak: 'break-all'}}>{accountSet.domesticCurrencyName}</Description> 
+<Description term="开户银行" style={{wordBreak: 'break-all'}}>{accountSet.openingBank}</Description> 
+<Description term="帐户号码" style={{wordBreak: 'break-all'}}>{accountSet.accountNumber}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="双链小超">{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.retailStore.displayName}(${accountSet.retailStore.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"双链小超","retailStore",AccountSetService.requestCandidateRetailStore,
@@ -178,9 +186,15 @@ class AccountSetDashboard extends Component {
     const cardsData = {cardsName:"账套",cardsFor: "accountSet",
     	cardsSource: this.props.accountSet,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'accountingSubjectList', displayName:'会计科目',type:'accountingSubject',count:accountingSubjectCount,addFunction: true, role: 'accountingSubject', metaInfo: accountingSubjectListMetaInfo, renderItem: GlobalComponents.AccountingSubjectBase.renderItemOfList},
 {name: 'accountingPeriodList', displayName:'会计期间',type:'accountingPeriod',count:accountingPeriodCount,addFunction: true, role: 'accountingPeriod', metaInfo: accountingPeriodListMetaInfo, renderItem: GlobalComponents.AccountingPeriodBase.renderItemOfList},
 {name: 'accountingDocumentTypeList', displayName:'会计凭证类型',type:'accountingDocumentType',count:accountingDocumentTypeCount,addFunction: true, role: 'accountingDocumentType', metaInfo: accountingDocumentTypeListMetaInfo, renderItem: GlobalComponents.AccountingDocumentTypeBase.renderItemOfList},
+=======
+{name: 'accountingSubjectList', displayName:'会计科目',viewGroup:'__no_group', type:'accountingSubject',count:accountingSubjectCount,addFunction: true, role: 'accountingSubject', metaInfo: accountingSubjectListMetaInfo, renderItem: GlobalComponents.AccountingSubjectBase.renderItemOfList},
+{name: 'accountingPeriodList', displayName:'会计期间',viewGroup:'__no_group', type:'accountingPeriod',count:accountingPeriodCount,addFunction: true, role: 'accountingPeriod', metaInfo: accountingPeriodListMetaInfo, renderItem: GlobalComponents.AccountingPeriodBase.renderItemOfList},
+{name: 'accountingDocumentTypeList', displayName:'会计凭证类型',viewGroup:'__no_group', type:'accountingDocumentType',count:accountingDocumentTypeCount,addFunction: true, role: 'accountingDocumentType', metaInfo: accountingDocumentTypeListMetaInfo, renderItem: GlobalComponents.AccountingDocumentTypeBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

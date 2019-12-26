@@ -13,16 +13,28 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = ReceivingSpaceBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库卸货区',
+<<<<<<< HEAD
   contactNumber: '02887654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
   latitude: '41.05750846213197',
   longitude: '131.65885446693545',
+=======
+  contactNumber: '1838172651',
+  description: '每个收货区可以供一辆车卸货',
+  totalArea: '1876平方米',
+  latitude: '42.57386750127974',
+  longitude: '131.29078831556615',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   warehouseId: 'W000001',
 }
 */
@@ -74,7 +86,11 @@ class ReceivingSpaceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = ReceivingSpaceBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {ReceivingSpaceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -121,7 +137,11 @@ class ReceivingSpaceCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}收货区</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('receiving_space')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -136,7 +156,11 @@ class ReceivingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="位置" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.location} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -146,7 +170,11 @@ class ReceivingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="联系电话" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -156,7 +184,11 @@ class ReceivingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="描述" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.description} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -166,7 +198,11 @@ class ReceivingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="总面积" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.totalArea} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -176,7 +212,11 @@ class ReceivingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="纬度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -186,7 +226,11 @@ class ReceivingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="经度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

@@ -23,7 +23,11 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
+<<<<<<< HEAD
   price: '1286.61',
+=======
+  price: '1164.13',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   productId: 'P000001',
 }
 */
@@ -145,7 +149,11 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -155,7 +163,11 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('size', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="大小" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.size} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -165,7 +177,11 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('barcode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="条码" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.barcode} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -175,7 +191,11 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('packageType', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="包装类型" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.packageType} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -185,7 +205,11 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('netContent', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="净含量" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.netContent} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +219,11 @@ class SkuAssociateForm extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.price} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

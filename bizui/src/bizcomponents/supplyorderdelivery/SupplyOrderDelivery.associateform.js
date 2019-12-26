@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '送货者',
+<<<<<<< HEAD
   deliveryTime: '2019-05-18',
+=======
+  deliveryTime: '2019-10-26',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -140,7 +144,11 @@ class SupplyOrderDeliveryAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="谁" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.who} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +158,11 @@ class SupplyOrderDeliveryAssociateForm extends Component {
                   {getFieldDecorator('deliveryTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="交货时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.deliveryTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

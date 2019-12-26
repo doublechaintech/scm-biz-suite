@@ -116,10 +116,17 @@ const internalSummaryOf = (goodsAllocation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{goodsAllocation.id}</Description> 
 <Description term="位置">{goodsAllocation.location}</Description> 
 <Description term="纬度">{goodsAllocation.latitude}</Description> 
 <Description term="经度">{goodsAllocation.longitude}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{goodsAllocation.id}</Description> 
+<Description term="位置" style={{wordBreak: 'break-all'}}>{goodsAllocation.location}</Description> 
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{goodsAllocation.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{goodsAllocation.longitude}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="货架">{goodsAllocation.goodsShelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsAllocation.goodsShelf.displayName}(${goodsAllocation.goodsShelf.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"货架","goodsShelf",GoodsAllocationService.requestCandidateGoodsShelf,
@@ -166,7 +173,11 @@ class GoodsAllocationDashboard extends Component {
     const cardsData = {cardsName:"货位",cardsFor: "goodsAllocation",
     	cardsSource: this.props.goodsAllocation,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+=======
+{name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

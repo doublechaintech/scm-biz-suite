@@ -244,6 +244,7 @@ class RetailStoreUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
+<<<<<<< HEAD
     }
 	
 	const internalRenderTitle = () =>{
@@ -251,6 +252,15 @@ class RetailStoreUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}双链小超: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 
+=======
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}双链小超: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -268,7 +278,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="序号" disabled/>
+=======
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -280,7 +294,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -292,7 +310,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.telephone,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="电话" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.telephone} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -304,7 +326,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.owner,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="业主" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.owner} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -316,7 +342,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.founded,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -328,7 +358,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.latitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="纬度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -340,7 +374,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.longitude,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="经度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -352,7 +390,11 @@ class RetailStoreUpdateForm extends Component {
                     initialValue: selectedRow.description,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="描述" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.description} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

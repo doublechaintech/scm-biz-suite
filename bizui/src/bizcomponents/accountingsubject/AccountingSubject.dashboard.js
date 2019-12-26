@@ -116,11 +116,19 @@ const internalSummaryOf = (accountingSubject,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{accountingSubject.id}</Description> 
 <Description term="会计科目代码">{accountingSubject.accountingSubjectCode}</Description> 
 <Description term="会计科目名称">{accountingSubject.accountingSubjectName}</Description> 
 <Description term="会计科目类别代码">{accountingSubject.accountingSubjectClassCode}</Description> 
 <Description term="会计科目类别名称">{accountingSubject.accountingSubjectClassName}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingSubject.id}</Description> 
+<Description term="会计科目代码" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectCode}</Description> 
+<Description term="会计科目名称" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectName}</Description> 
+<Description term="会计科目类别代码" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectClassCode}</Description> 
+<Description term="会计科目类别名称" style={{wordBreak: 'break-all'}}>{accountingSubject.accountingSubjectClassName}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="账套">{accountingSubject.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingSubject.accountSet.displayName}(${accountingSubject.accountSet.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"账套","accountSet",AccountingSubjectService.requestCandidateAccountSet,
@@ -167,7 +175,11 @@ class AccountingSubjectDashboard extends Component {
     const cardsData = {cardsName:"会计科目",cardsFor: "accountingSubject",
     	cardsSource: this.props.accountingSubject,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'accountingDocumentLineList', displayName:'会计凭证行',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
+=======
+{name: 'accountingDocumentLineList', displayName:'会计凭证行',viewGroup:'__no_group', type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

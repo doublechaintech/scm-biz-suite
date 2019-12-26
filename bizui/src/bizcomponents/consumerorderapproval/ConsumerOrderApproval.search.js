@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './ConsumerOrderApproval.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import ConsumerOrderApprovalBase from './ConsumerOrderApproval.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = ConsumerOrderApprovalBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService

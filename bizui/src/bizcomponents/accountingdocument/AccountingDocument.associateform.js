@@ -19,9 +19,17 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
+<<<<<<< HEAD
   accountingDocumentDate: '2018-07-30',
+=======
+  accountingDocumentDate: '2018-11-02',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
+  creationId: 'ADC000001',
+  confirmationId: 'ADC000001',
+  auditingId: 'ADA000001',
+  postingId: 'ADP000001',
 }
 */
 
@@ -142,7 +150,11 @@ class AccountingDocumentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +164,11 @@ class AccountingDocumentAssociateForm extends Component {
                   {getFieldDecorator('accountingDocumentDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="会计凭证日期" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.accountingDocumentDate}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -199,6 +215,66 @@ class AccountingDocumentAssociateForm extends Component {
                     disabled={!availableForEdit('documentType')}
                     targetType={"documentType"} 
                     requestFunction={AccountingDocumentService.requestCandidateDocumentType}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.creation} {...formItemLayout}>
+                  {getFieldDecorator('creationId', {
+                  	initialValue: tryinit('creation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('creation')}
+                    targetType={"creation"} 
+                    requestFunction={AccountingDocumentService.requestCandidateCreation}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
+                  {getFieldDecorator('confirmationId', {
+                  	initialValue: tryinit('confirmation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('confirmation')}
+                    targetType={"confirmation"} 
+                    requestFunction={AccountingDocumentService.requestCandidateConfirmation}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.auditing} {...formItemLayout}>
+                  {getFieldDecorator('auditingId', {
+                  	initialValue: tryinit('auditing'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('auditing')}
+                    targetType={"auditing"} 
+                    requestFunction={AccountingDocumentService.requestCandidateAuditing}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.posting} {...formItemLayout}>
+                  {getFieldDecorator('postingId', {
+                  	initialValue: tryinit('posting'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('posting')}
+                    targetType={"posting"} 
+                    requestFunction={AccountingDocumentService.requestCandidatePosting}/>
   
                   )}
                 </Form.Item>

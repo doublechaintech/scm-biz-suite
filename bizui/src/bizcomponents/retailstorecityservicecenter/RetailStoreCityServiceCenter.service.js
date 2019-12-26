@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateBelongsTo = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBelongsTo = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreCityServiceCenterManager/transferToAnotherBelongsTo/id/anotherBelongsToId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -105,7 +104,7 @@ const removeCityEventList = (targetObjectId, parameters) => {
 
 
 const addRetailStore = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCityServiceCenterManager/addRetailStore/retailStoreCityServiceCenterId/name/telephone/owner/retailStoreCountryCenterId/founded/latitude/longitude/description/tokensExpr/`
+  const url = `${PREFIX}retailStoreCityServiceCenterManager/addRetailStore/retailStoreCityServiceCenterId/name/telephone/owner/retailStoreCountryCenterId/creationId/investmentInvitationId/franchisingId/decorationId/openingId/closingId/founded/latitude/longitude/description/tokensExpr/`
   const retailStoreCityServiceCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCityServiceCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -125,6 +124,33 @@ const removeRetailStoreList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreCityServiceCenterService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreCityServiceCenterService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreCityServiceCenterService/process/`,
+    data,
+  })
+}
+
 const RetailStoreCityServiceCenterService = { view,
   load,
   addCityPartner,
@@ -140,6 +166,6 @@ const RetailStoreCityServiceCenterService = { view,
   removeCityEventList,
   removeRetailStoreList,
   requestCandidateBelongsTo,
-  transferToAnotherBelongsTo }
+  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest}
 export default RetailStoreCityServiceCenterService
 

@@ -201,13 +201,21 @@ class RetailStoreFranchisingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超的特许经营</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_franchising')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}生超的特许经营`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_franchising')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

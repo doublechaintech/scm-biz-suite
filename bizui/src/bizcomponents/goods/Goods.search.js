@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './Goods.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import GoodsBase from './Goods.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = GoodsBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -77,11 +82,7 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <GoodsPackagingAssociateForm 
-	visible={currentAssociateModal==='packaging'} 
-	data={{goodsList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'packaging')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'packaging')}/>
+   
   
     <SkuAssociateForm 
 	visible={currentAssociateModal==='sku'} 
@@ -119,7 +120,11 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='retailStoreOrder'} 
 	data={{goodsList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'retailStoreOrder')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'retailStoreOrder')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'retailStoreOrder')}/> <GoodsPackagingAssociateForm 
+	visible={currentAssociateModal==='packaging'} 
+	data={{goodsList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'packaging')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'packaging')}/> 
  
 
 

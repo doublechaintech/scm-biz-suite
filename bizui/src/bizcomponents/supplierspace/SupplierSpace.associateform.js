@@ -19,10 +19,15 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号供货商独立管理区',
-  contactNumber: '02887654321',
+  contactNumber: '1283750706',
   totalArea: '1876平方米',
+<<<<<<< HEAD
   latitude: '42.4599144956979',
   longitude: '129.75472178404758',
+=======
+  latitude: '39.799358601887775',
+  longitude: '130.2503725048913',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   warehouseId: 'W000001',
 }
 */
@@ -143,7 +148,11 @@ class SupplierSpaceAssociateForm extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="位置" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.location} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +162,11 @@ class SupplierSpaceAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="联系电话" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +176,11 @@ class SupplierSpaceAssociateForm extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="总面积" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.totalArea} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +190,11 @@ class SupplierSpaceAssociateForm extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="纬度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +204,11 @@ class SupplierSpaceAssociateForm extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="经度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCompany = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}instructorManager/transferToAnotherCompany/id/anotherCompanyId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeCompanyTrainingList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}instructorService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}instructorService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}instructorService/process/`,
+    data,
+  })
+}
+
 const InstructorService = { view,
   load,
   addCompanyTraining,
   updateCompanyTraining,
   removeCompanyTrainingList,
   requestCandidateCompany,
-  transferToAnotherCompany }
+  transferToAnotherCompany, listFunctions, saveRequest, processRequest}
 export default InstructorService
 

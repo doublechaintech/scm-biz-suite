@@ -116,8 +116,8 @@ const internalSummaryOf = (retailStoreProvinceCenter,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreProvinceCenter.id}</Description> 
-<Description term="名称">{retailStoreProvinceCenter.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreProvinceCenter.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{retailStoreProvinceCenter.name}</Description> 
 <Description term="成立">{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</Description> 
 <Description term="最后更新时间">{ moment(retailStoreProvinceCenter.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
@@ -160,8 +160,13 @@ class RetailStoreProvinceCenterDashboard extends Component {
     const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",
     	cardsSource: this.props.retailStoreProvinceCenter,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'provinceCenterEmployeeList', displayName:'省中心员工',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
 {name: 'retailStoreCityServiceCenterList', displayName:'双链小超城市服务中心',type:'retailStoreCityServiceCenter',count:retailStoreCityServiceCenterCount,addFunction: true, role: 'retailStoreCityServiceCenter', metaInfo: retailStoreCityServiceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreCityServiceCenterBase.renderItemOfList},
+=======
+{name: 'provinceCenterEmployeeList', displayName:'省中心员工',viewGroup:'__no_group', type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
+{name: 'retailStoreCityServiceCenterList', displayName:'双链小超城市服务中心',viewGroup:'__no_group', type:'retailStoreCityServiceCenter',count:retailStoreCityServiceCenterCount,addFunction: true, role: 'retailStoreCityServiceCenter', metaInfo: retailStoreCityServiceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreCityServiceCenterBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

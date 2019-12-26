@@ -18,7 +18,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   leaveDurationHour: '6',
+=======
+  leaveDurationHour: '8',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   remark: '请年假，出去耍！！！！',
   whoId: 'E000001',
   typeId: 'LT000001',
@@ -204,13 +208,21 @@ class EmployeeLeaveCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}请假记录</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_leave')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}请假记录`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_leave')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

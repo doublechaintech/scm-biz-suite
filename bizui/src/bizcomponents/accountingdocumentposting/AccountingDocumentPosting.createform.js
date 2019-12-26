@@ -20,7 +20,11 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '审核通过，要都审核过了才通过哦',
+<<<<<<< HEAD
   makeDate: '2019-06-06',
+=======
+  makeDate: '2018-01-21',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -203,13 +207,21 @@ class AccountingDocumentPostingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计凭证过帐</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_document_posting')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}会计凭证过帐`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('accounting_document_posting')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

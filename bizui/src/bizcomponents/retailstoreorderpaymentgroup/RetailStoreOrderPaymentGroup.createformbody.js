@@ -13,7 +13,11 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = RetailStoreOrderPaymentGroupBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
@@ -70,7 +74,11 @@ class RetailStoreOrderPaymentGroupCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = RetailStoreOrderPaymentGroupBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {RetailStoreOrderPaymentGroupService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -117,7 +125,11 @@ class RetailStoreOrderPaymentGroupCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超订单付款组</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_payment_group')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -132,7 +144,11 @@ class RetailStoreOrderPaymentGroupCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -142,7 +158,11 @@ class RetailStoreOrderPaymentGroupCreateFormBody extends Component {
                   {getFieldDecorator('cardNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="卡号码" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.cardNumber} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

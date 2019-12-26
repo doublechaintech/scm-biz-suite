@@ -116,15 +116,20 @@ const internalSummaryOf = (supplyOrderPaymentGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{supplyOrderPaymentGroup.id}</Description> 
 <Description term="名称">{supplyOrderPaymentGroup.name}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplyOrderPaymentGroup.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{supplyOrderPaymentGroup.name}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="订单">{supplyOrderPaymentGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderPaymentGroup.bizOrder.displayName}(${supplyOrderPaymentGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","supplyOrder",SupplyOrderPaymentGroupService.requestCandidateBizOrder,
 	      SupplyOrderPaymentGroupService.transferToAnotherBizOrder,"anotherBizOrderId",supplyOrderPaymentGroup.bizOrder?supplyOrderPaymentGroup.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="卡号码">{supplyOrderPaymentGroup.cardNumber}</Description> 
+<Description term="卡号码" style={{wordBreak: 'break-all'}}>{supplyOrderPaymentGroup.cardNumber}</Description> 
 	
         {buildTransferModal(supplyOrderPaymentGroup,targetComponent)}
       </DescriptionList>

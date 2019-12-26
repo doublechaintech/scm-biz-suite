@@ -116,10 +116,14 @@ const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{potentialCustomerContact.id}</Description> 
-<Description term="名称">{potentialCustomerContact.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{potentialCustomerContact.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{potentialCustomerContact.name}</Description> 
 <Description term="接触日期">{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</Description> 
+<<<<<<< HEAD
 <Description term="接触法">{potentialCustomerContact.contactMethod}</Description> 
+=======
+<Description term="接触法" style={{wordBreak: 'break-all'}}>{potentialCustomerContact.contactMethod}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="潜在的客户">{potentialCustomerContact.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContact.potentialCustomer.displayName}(${potentialCustomerContact.potentialCustomer.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"潜在的客户","potentialCustomer",PotentialCustomerContactService.requestCandidatePotentialCustomer,
@@ -138,7 +142,11 @@ const internalSummaryOf = (potentialCustomerContact,targetComponent) =>{
 	      PotentialCustomerContactService.transferToAnotherContactTo,"anotherContactToId",potentialCustomerContact.contactTo?potentialCustomerContact.contactTo.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="描述">{potentialCustomerContact.description}</Description> 
+=======
+<Description term="描述" style={{wordBreak: 'break-all'}}>{potentialCustomerContact.description}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(potentialCustomerContact,targetComponent)}

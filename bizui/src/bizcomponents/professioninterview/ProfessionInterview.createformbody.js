@@ -13,12 +13,20 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = ProfessionInterviewBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   who: '技术部',
+<<<<<<< HEAD
   interviewTime: '2017-05-13',
+=======
+  interviewTime: '2019-08-26',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comments: '能力各方面表现不错，进入下一轮',
 }
 */
@@ -70,7 +78,11 @@ class ProfessionInterviewCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = ProfessionInterviewBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {ProfessionInterviewService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -117,7 +129,11 @@ class ProfessionInterviewCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}专业面试</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('profession_interview')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -132,7 +148,11 @@ class ProfessionInterviewCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="谁" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.who} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -142,7 +162,11 @@ class ProfessionInterviewCreateFormBody extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="面试时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.interviewTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +176,11 @@ class ProfessionInterviewCreateFormBody extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="评论" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

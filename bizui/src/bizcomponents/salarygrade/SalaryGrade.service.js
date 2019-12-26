@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCompany = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}salaryGradeManager/transferToAnotherCompany/id/anotherCompanyId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,7 +38,7 @@ const transferToAnotherCompany = (id, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}salaryGradeManager/addEmployee/salaryGradeId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/salaryAccount/tokensExpr/`
+  const url = `${PREFIX}salaryGradeManager/addEmployee/salaryGradeId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/terminationId/tokensExpr/`
   const salaryGradeId = targetObjectId
   const requestParameters = { ...parameters, salaryGradeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -61,7 +60,7 @@ const removeEmployeeList = (targetObjectId, parameters) => {
 
 
 const addEmployeeSalarySheet = (targetObjectId, parameters) => {
-  const url = `${PREFIX}salaryGradeManager/addEmployeeSalarySheet/salaryGradeId/employeeId/baseSalary/bonus/reward/personalTax/socialSecurity/housingFound/jobInsurance/tokensExpr/`
+  const url = `${PREFIX}salaryGradeManager/addEmployeeSalarySheet/salaryGradeId/employeeId/baseSalary/bonus/reward/personalTax/socialSecurity/housingFound/jobInsurance/payingOffId/tokensExpr/`
   const salaryGradeId = targetObjectId
   const requestParameters = { ...parameters, salaryGradeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -81,6 +80,33 @@ const removeEmployeeSalarySheetList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}salaryGradeService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}salaryGradeService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}salaryGradeService/process/`,
+    data,
+  })
+}
+
 const SalaryGradeService = { view,
   load,
   addEmployee,
@@ -90,6 +116,6 @@ const SalaryGradeService = { view,
   removeEmployeeList,
   removeEmployeeSalarySheetList,
   requestCandidateCompany,
-  transferToAnotherCompany }
+  transferToAnotherCompany, listFunctions, saveRequest, processRequest}
 export default SalaryGradeService
 

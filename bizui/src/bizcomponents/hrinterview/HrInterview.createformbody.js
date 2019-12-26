@@ -13,12 +13,20 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = HrInterviewBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
+<<<<<<< HEAD
   interviewTime: '2019-05-28',
+=======
+  interviewTime: '2018-09-16',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comments: '软技能，责任感，气质不错啊',
 }
 */
@@ -70,7 +78,11 @@ class HrInterviewCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = HrInterviewBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {HrInterviewService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -117,7 +129,11 @@ class HrInterviewCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}人力资源部面试</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('hr_interview')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -132,7 +148,11 @@ class HrInterviewCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="谁" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.who} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -142,7 +162,11 @@ class HrInterviewCreateFormBody extends Component {
                   {getFieldDecorator('interviewTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="面试时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.interviewTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +176,11 @@ class HrInterviewCreateFormBody extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="评论" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

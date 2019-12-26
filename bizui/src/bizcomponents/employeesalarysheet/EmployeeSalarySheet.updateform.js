@@ -242,6 +242,7 @@ class EmployeeSalarySheetUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
+<<<<<<< HEAD
     }
 	
 	const internalRenderTitle = () =>{
@@ -249,6 +250,15 @@ class EmployeeSalarySheetUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}工资单: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 
+=======
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}工资单: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -266,7 +276,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="序号" disabled/>
+=======
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -278,7 +292,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.baseSalary,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="基本工资" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.baseSalary} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -290,7 +308,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.bonus,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖金" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.bonus} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -302,7 +324,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.reward,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖励" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.reward} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -314,7 +340,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.personalTax,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="个人所得税" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.personalTax} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -326,7 +356,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.socialSecurity,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="社会保险" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.socialSecurity} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -338,7 +372,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.housingFound,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="住房公积金" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.housingFound} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -350,7 +388,11 @@ class EmployeeSalarySheetUpdateForm extends Component {
                     initialValue: selectedRow.jobInsurance,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="失业保险" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.jobInsurance} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

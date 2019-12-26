@@ -31,11 +31,19 @@ const internalSummaryOf = (userApp,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="ID">{userApp.id}</Description> 
 <Description term="标题">{userApp.title}</Description> 
 <Description term="应用程序图标">{userApp.appIcon}</Description> 
 <Description term="许可">{userApp.permission}</Description> 
 <Description term="访问对象类型">{userApp.objectType}</Description> 
+=======
+<Description term="序号">{userApp.id}</Description> 
+<Description term="头衔">{userApp.title}</Description> 
+<Description term="应用程序图标">{userApp.appIcon}</Description> 
+<Description term="许可">{userApp.permission}</Description> 
+<Description term="对象类型">{userApp.objectType}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="对象ID">{userApp.objectId}</Description> 
 <Description term="位置">{userApp.location}</Description> 
 	

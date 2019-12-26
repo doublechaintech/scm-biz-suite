@@ -13,7 +13,11 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = SecUserBlockingBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
@@ -69,7 +73,11 @@ class SecUserBlockingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = SecUserBlockingBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {SecUserBlockingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -116,7 +124,11 @@ class SecUserBlockingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}用户屏蔽</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('sec_user_blocking')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -131,7 +143,11 @@ class SecUserBlockingCreateFormBody extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="谁" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.who} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -141,7 +157,11 @@ class SecUserBlockingCreateFormBody extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="评论" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

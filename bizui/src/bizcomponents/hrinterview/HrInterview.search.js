@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './HrInterview.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import HrInterviewBase from './HrInterview.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = HrInterviewBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '运货卡车司机',
-  driverLicenseNumber: '51099887733',
+  driverLicenseNumber: '36744118290',
   contactNumber: '18777778888',
   belongsToId: 'TF000001',
 }
@@ -141,7 +141,11 @@ class TruckDriverAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +155,11 @@ class TruckDriverAssociateForm extends Component {
                   {getFieldDecorator('driverLicenseNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="驾驶执照号码" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.driverLicenseNumber} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +169,11 @@ class TruckDriverAssociateForm extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="联系电话" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.contactNumber} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

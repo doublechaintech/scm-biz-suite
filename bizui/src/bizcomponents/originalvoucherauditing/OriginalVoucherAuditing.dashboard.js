@@ -116,9 +116,9 @@ const internalSummaryOf = (originalVoucherAuditing,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{originalVoucherAuditing.id}</Description> 
-<Description term="谁">{originalVoucherAuditing.who}</Description> 
-<Description term="评论">{originalVoucherAuditing.comments}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{originalVoucherAuditing.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{originalVoucherAuditing.who}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{originalVoucherAuditing.comments}</Description> 
 <Description term="制造日期">{ moment(originalVoucherAuditing.makeDate).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(originalVoucherAuditing,targetComponent)}
@@ -160,7 +160,11 @@ class OriginalVoucherAuditingDashboard extends Component {
     const cardsData = {cardsName:"原始凭证的审核",cardsFor: "originalVoucherAuditing",
     	cardsSource: this.props.originalVoucherAuditing,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
+=======
+{name: 'originalVoucherList', displayName:'原始凭证',viewGroup:'__no_group', type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

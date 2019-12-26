@@ -13,6 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
 const testValues = {};
 /*
@@ -20,6 +21,15 @@ const testValues = {
   enterTime: '2017-02-01',
   leaveTime: '2019-08-17',
   durationHours: '8',
+=======
+const {fieldLabels} = EmployeeAttendanceBase
+const testValues = {};
+/*
+const testValues = {
+  enterTime: '2017-07-08',
+  leaveTime: '2019-08-29',
+  durationHours: '7',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -72,7 +82,11 @@ class EmployeeAttendanceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = EmployeeAttendanceBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {EmployeeAttendanceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -119,7 +133,11 @@ class EmployeeAttendanceCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工考勤</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_attendance')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -134,7 +152,11 @@ class EmployeeAttendanceCreateFormBody extends Component {
                   {getFieldDecorator('enterTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="进入时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.enterTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -144,7 +166,11 @@ class EmployeeAttendanceCreateFormBody extends Component {
                   {getFieldDecorator('leaveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="离开的时候" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.leaveTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -154,7 +180,11 @@ class EmployeeAttendanceCreateFormBody extends Component {
                   {getFieldDecorator('durationHours', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="持续时间" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.durationHours} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -164,7 +194,11 @@ class EmployeeAttendanceCreateFormBody extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="备注" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.remark} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCatalog = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCatalog = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}levelOneCategoryManager/transferToAnotherCatalog/id/anotherCatalogId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeLevelTwoCategoryList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}levelOneCategoryService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelOneCategoryService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}levelOneCategoryService/process/`,
+    data,
+  })
+}
+
 const LevelOneCategoryService = { view,
   load,
   addLevelTwoCategory,
   updateLevelTwoCategory,
   removeLevelTwoCategoryList,
   requestCandidateCatalog,
-  transferToAnotherCatalog }
+  transferToAnotherCatalog, listFunctions, saveRequest, processRequest}
 export default LevelOneCategoryService
 

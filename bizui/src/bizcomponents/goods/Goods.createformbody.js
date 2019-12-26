@@ -13,15 +13,24 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = GoodsBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
+<<<<<<< HEAD
   maxPackage: '8',
   expireTime: '2017-03-17',
+=======
+  maxPackage: '9',
+  expireTime: '2018-08-29',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -31,6 +40,10 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
+<<<<<<< HEAD
+=======
+  packagingId: 'GP000001',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -81,7 +94,11 @@ class GoodsCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = GoodsBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {GoodsService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -128,7 +145,11 @@ class GoodsCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -143,7 +164,11 @@ class GoodsCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +178,11 @@ class GoodsCreateFormBody extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="RFID" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.rfid} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -163,7 +192,11 @@ class GoodsCreateFormBody extends Component {
                   {getFieldDecorator('uom', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="计量单位" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.uom} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -173,7 +206,11 @@ class GoodsCreateFormBody extends Component {
                   {getFieldDecorator('maxPackage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="最大包装" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.maxPackage} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -183,7 +220,11 @@ class GoodsCreateFormBody extends Component {
                   {getFieldDecorator('expireTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="到期时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.expireTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -362,6 +403,28 @@ class GoodsCreateFormBody extends Component {
 
            
 
+<<<<<<< HEAD
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.packaging} {...formItemLayout}>
+                  {getFieldDecorator('packagingId', {
+                  	initialValue: tryinit('packaging'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('packaging')}
+                    targetType={"packaging"} 
+                    requestFunction={GoodsService.requestCandidatePackaging}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 
 			 </Row>

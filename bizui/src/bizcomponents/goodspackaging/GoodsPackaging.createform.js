@@ -20,7 +20,11 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
+<<<<<<< HEAD
   packageTime: '2019-04-10',
+=======
+  packageTime: '2018-09-13',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   description: '打包完成，准备起运',
 }
 */
@@ -204,13 +208,21 @@ class GoodsPackagingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物包装</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_packaging')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}货物包装`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods_packaging')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

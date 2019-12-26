@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
+<<<<<<< HEAD
   employTime: '2017-10-12',
+=======
+  employTime: '2019-03-07',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comments: '欢迎加入植物医生大家庭',
 }
 */
@@ -140,7 +144,11 @@ class EmployeeBoardingAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="谁" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.who} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +158,11 @@ class EmployeeBoardingAssociateForm extends Component {
                   {getFieldDecorator('employTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="使用时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.employTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +172,11 @@ class EmployeeBoardingAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="评论" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

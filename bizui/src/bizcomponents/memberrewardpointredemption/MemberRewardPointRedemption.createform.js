@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '积分换锅',
+<<<<<<< HEAD
   point: '16',
+=======
+  point: '15',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   ownerId: 'RSM000001',
 }
 */
@@ -203,13 +207,21 @@ class MemberRewardPointRedemptionCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会员奖励点赎回</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('member_reward_point_redemption')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}会员奖励点赎回`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('member_reward_point_redemption')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

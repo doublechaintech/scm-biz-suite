@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCompany = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}terminationReasonManager/transferToAnotherCompany/id/anotherCompanyId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeTerminationList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}terminationReasonService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}terminationReasonService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}terminationReasonService/process/`,
+    data,
+  })
+}
+
 const TerminationReasonService = { view,
   load,
   addTermination,
   updateTermination,
   removeTerminationList,
   requestCandidateCompany,
-  transferToAnotherCompany }
+  transferToAnotherCompany, listFunctions, saveRequest, processRequest}
 export default TerminationReasonService
 

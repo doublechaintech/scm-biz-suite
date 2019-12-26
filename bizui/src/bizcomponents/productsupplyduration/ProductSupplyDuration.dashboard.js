@@ -116,10 +116,17 @@ const internalSummaryOf = (productSupplyDuration,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{productSupplyDuration.id}</Description> 
 <Description term="数量">{productSupplyDuration.quantity}</Description> 
 <Description term="持续时间">{productSupplyDuration.duration}</Description> 
 <Description term="价格">{productSupplyDuration.price}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{productSupplyDuration.id}</Description> 
+<Description term="数量" style={{wordBreak: 'break-all'}}>{productSupplyDuration.quantity}</Description> 
+<Description term="持续时间" style={{wordBreak: 'break-all'}}>{productSupplyDuration.duration}</Description> 
+<Description term="价格" style={{wordBreak: 'break-all'}}>{productSupplyDuration.price}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="产品">{productSupplyDuration.product==null?appLocaleName(userContext,"NotAssigned"):`${productSupplyDuration.product.displayName}(${productSupplyDuration.product.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"产品","supplierProduct",ProductSupplyDurationService.requestCandidateProduct,

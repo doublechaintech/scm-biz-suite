@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateReason = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherReason = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}terminationManager/transferToAnotherReason/id/anotherReasonId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateType = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherType = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}terminationManager/transferToAnotherType/id/anotherTypeId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -55,7 +53,7 @@ const transferToAnotherType = (id, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}terminationManager/addEmployee/terminationId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/tokensExpr/`
+  const url = `${PREFIX}terminationManager/addEmployee/terminationId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/tokensExpr/`
   const terminationId = targetObjectId
   const requestParameters = { ...parameters, terminationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -75,6 +73,33 @@ const removeEmployeeList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}terminationService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}terminationService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}terminationService/process/`,
+    data,
+  })
+}
+
 const TerminationService = { view,
   load,
   addEmployee,
@@ -83,6 +108,6 @@ const TerminationService = { view,
   requestCandidateReason,
   requestCandidateType,
   transferToAnotherReason,
-  transferToAnotherType }
+  transferToAnotherType, listFunctions, saveRequest, processRequest}
 export default TerminationService
 

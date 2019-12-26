@@ -13,12 +13,20 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = EmployeeCompanyTrainingBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   employeeId: 'E000001',
   trainingId: 'CT000001',
+<<<<<<< HEAD
+=======
+  scoringId: 'S000001',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -69,7 +77,11 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = EmployeeCompanyTrainingBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {EmployeeCompanyTrainingService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -116,7 +128,11 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工参与的公司培训</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_company_training')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -167,6 +183,28 @@ class EmployeeCompanyTrainingCreateFormBody extends Component {
 
            
 
+<<<<<<< HEAD
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.scoring} {...formItemLayout}>
+                  {getFieldDecorator('scoringId', {
+                  	initialValue: tryinit('scoring'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('scoring')}
+                    targetType={"scoring"} 
+                    requestFunction={EmployeeCompanyTrainingService.requestCandidateScoring}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 
 			 </Row>

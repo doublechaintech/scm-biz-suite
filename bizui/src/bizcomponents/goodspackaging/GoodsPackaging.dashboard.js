@@ -116,11 +116,11 @@ const internalSummaryOf = (goodsPackaging,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsPackaging.id}</Description> 
-<Description term="包的名字">{goodsPackaging.packageName}</Description> 
-<Description term="RFID">{goodsPackaging.rfid}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{goodsPackaging.id}</Description> 
+<Description term="包的名字" style={{wordBreak: 'break-all'}}>{goodsPackaging.packageName}</Description> 
+<Description term="RFID" style={{wordBreak: 'break-all'}}>{goodsPackaging.rfid}</Description> 
 <Description term="包的时间">{ moment(goodsPackaging.packageTime).format('YYYY-MM-DD')}</Description> 
-<Description term="描述">{goodsPackaging.description}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{goodsPackaging.description}</Description> 
 	
         {buildTransferModal(goodsPackaging,targetComponent)}
       </DescriptionList>
@@ -161,7 +161,11 @@ class GoodsPackagingDashboard extends Component {
     const cardsData = {cardsName:"货物包装",cardsFor: "goodsPackaging",
     	cardsSource: this.props.goodsPackaging,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+=======
+{name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

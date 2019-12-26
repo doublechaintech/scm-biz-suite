@@ -116,7 +116,11 @@ const internalSummaryOf = (employeeSkill,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{employeeSkill.id}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeSkill.id}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="员工">{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeSkillService.requestCandidateEmployee,
@@ -129,7 +133,7 @@ const internalSummaryOf = (employeeSkill,targetComponent) =>{
 	      EmployeeSkillService.transferToAnotherSkillType,"anotherSkillTypeId",employeeSkill.skillType?employeeSkill.skillType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="描述">{employeeSkill.description}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{employeeSkill.description}</Description> 
 	
         {buildTransferModal(employeeSkill,targetComponent)}
       </DescriptionList>

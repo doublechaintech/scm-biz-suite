@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+=======
+
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 const view = (targetObjectId) => {
   return get({
@@ -43,10 +48,44 @@ const removeCandidateElementList = (targetObjectId, parameters) => {
 }
 
 
+<<<<<<< HEAD
+=======
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}candidateContainerService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}candidateContainerService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}candidateContainerService/process/`,
+    data,
+  })
+}
+
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const CandidateContainerService = { view,
   load,
   addCandidateElement,
   updateCandidateElement,
+<<<<<<< HEAD
   removeCandidateElementList }
+=======
+  removeCandidateElementList, listFunctions, saveRequest, processRequest}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 export default CandidateContainerService
 

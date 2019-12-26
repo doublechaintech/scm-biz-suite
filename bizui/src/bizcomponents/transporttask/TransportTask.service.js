@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateEnd = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherEnd = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}transportTaskManager/transferToAnotherEnd/id/anotherEndId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateDriver = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherDriver = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}transportTaskManager/transferToAnotherDriver/id/anotherDriverId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateTruck = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherTruck = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}transportTaskManager/transferToAnotherTruck/id/anotherTruckId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -74,7 +71,6 @@ const requestCandidateBelongsTo = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBelongsTo = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}transportTaskManager/transferToAnotherBelongsTo/id/anotherBelongsToId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -87,7 +83,7 @@ const transferToAnotherBelongsTo = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}transportTaskManager/addGoods/transportTaskId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
+  const url = `${PREFIX}transportTaskManager/addGoods/transportTaskId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
   const transportTaskId = targetObjectId
   const requestParameters = { ...parameters, transportTaskId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -129,6 +125,33 @@ const removeTransportTaskTrackList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}transportTaskService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}transportTaskService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}transportTaskService/process/`,
+    data,
+  })
+}
+
 const TransportTaskService = { view,
   load,
   addGoods,
@@ -144,6 +167,6 @@ const TransportTaskService = { view,
   transferToAnotherEnd,
   transferToAnotherDriver,
   transferToAnotherTruck,
-  transferToAnotherBelongsTo }
+  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest}
 export default TransportTaskService
 

@@ -13,13 +13,21 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = ProductSupplyDurationBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   quantity: '100',
   duration: '现货',
+<<<<<<< HEAD
   price: '8635.21',
+=======
+  price: '7008.87',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   productId: 'SP000001',
 }
 */
@@ -71,7 +79,11 @@ class ProductSupplyDurationCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = ProductSupplyDurationBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {ProductSupplyDurationService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -118,7 +130,11 @@ class ProductSupplyDurationCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}产品供应时间</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('product_supply_duration')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -133,7 +149,11 @@ class ProductSupplyDurationCreateFormBody extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="数量" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.quantity} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -143,7 +163,11 @@ class ProductSupplyDurationCreateFormBody extends Component {
                   {getFieldDecorator('duration', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="持续时间" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.duration} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +177,11 @@ class ProductSupplyDurationCreateFormBody extends Component {
                   {getFieldDecorator('price', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.price} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

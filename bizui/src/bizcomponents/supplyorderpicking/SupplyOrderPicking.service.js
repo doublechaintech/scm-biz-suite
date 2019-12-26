@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderPickingManager/addSupplyOrder/supplyOrderPickingId/buyerId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}supplyOrderPickingManager/addSupplyOrder/supplyOrderPickingId/buyerId/sellerId/title/totalAmount/confirmationId/approvalId/processingId/shipmentId/deliveryId/tokensExpr/`
   const supplyOrderPickingId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderPickingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -43,10 +43,37 @@ const removeSupplyOrderList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}supplyOrderPickingService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderPickingService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderPickingService/process/`,
+    data,
+  })
+}
+
 const SupplyOrderPickingService = { view,
   load,
   addSupplyOrder,
   updateSupplyOrder,
-  removeSupplyOrderList }
+  removeSupplyOrderList, listFunctions, saveRequest, processRequest}
 export default SupplyOrderPickingService
 

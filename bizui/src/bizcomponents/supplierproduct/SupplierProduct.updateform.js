@@ -242,6 +242,7 @@ class SupplierProductUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
+<<<<<<< HEAD
     }
 	
 	const internalRenderTitle = () =>{
@@ -249,6 +250,15 @@ class SupplierProductUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}供应商的产品: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 
+=======
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}供应商的产品: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -266,7 +276,11 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="序号" disabled/>
+=======
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -278,7 +292,11 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.productName,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="品名" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.productName} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -290,7 +308,11 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.productDescription,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="产品描述" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.productDescription} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -302,7 +324,11 @@ class SupplierProductUpdateForm extends Component {
                     initialValue: selectedRow.productUnit,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="产品单元" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.productUnit} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

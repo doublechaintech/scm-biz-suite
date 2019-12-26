@@ -13,21 +13,36 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = SecUserBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   login: 'login',
   mobile: '13900000001',
+<<<<<<< HEAD
   email: '',
+=======
+  email: 'suddy_chang@163.com',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   pwd: 'C183EC89F92A462CF45B95504792EC4625E847C90536EEFE512D1C9DB8602E95',
   weixinOpenid: 'wx123456789abcdefghijklmn',
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
+<<<<<<< HEAD
   verificationCodeExpire: '2019-10-10 09:59:17',
   lastLoginTime: '2019-10-11 15:01:43',
   domainId: 'UD000001',
+=======
+  verificationCodeExpire: '2019-12-03 19:12:47',
+  lastLoginTime: '2019-12-02 12:51:27',
+  domainId: 'UD000001',
+  blockingId: 'SUB000001',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -78,7 +93,11 @@ class SecUserCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = SecUserBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {SecUserService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -125,7 +144,11 @@ class SecUserCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}安全用户</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('sec_user')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -140,7 +163,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('login', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="登录" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.login} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +177,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('mobile', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="手机号码" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.mobile} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -158,9 +189,15 @@ class SecUserCreateFormBody extends Component {
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.email} {...formItemLayout}>
                   {getFieldDecorator('email', {
+<<<<<<< HEAD
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="电子邮件" />
+=======
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.email} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -170,7 +207,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('pwd', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="密码" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.pwd} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -180,7 +221,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('weixinOpenid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="微信openid" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.weixinOpenid} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -190,7 +235,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('weixinAppid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="微信Appid" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.weixinAppid} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -200,7 +249,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('accessToken', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="访问令牌" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.accessToken} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -210,7 +263,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('verificationCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="验证码" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.verificationCode} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -220,7 +277,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('verificationCodeExpire', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="验证码过期" />
+=======
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.verificationCodeExpire} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -230,7 +291,11 @@ class SecUserCreateFormBody extends Component {
                   {getFieldDecorator('lastLoginTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="最后登录时间" />
+=======
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.lastLoginTime} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -257,6 +322,28 @@ class SecUserCreateFormBody extends Component {
 
            
 
+<<<<<<< HEAD
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.blocking} {...formItemLayout}>
+                  {getFieldDecorator('blockingId', {
+                  	initialValue: tryinit('blocking'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('blocking')}
+                    targetType={"blocking"} 
+                    requestFunction={SecUserService.requestCandidateBlocking}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 
 			 </Row>

@@ -116,8 +116,8 @@ const internalSummaryOf = (supplyOrderConfirmation,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderConfirmation.id}</Description> 
-<Description term="谁">{supplyOrderConfirmation.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplyOrderConfirmation.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{supplyOrderConfirmation.who}</Description> 
 <Description term="确认时间">{ moment(supplyOrderConfirmation.confirmTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(supplyOrderConfirmation,targetComponent)}
@@ -159,8 +159,13 @@ class SupplyOrderConfirmationDashboard extends Component {
     const cardsData = {cardsName:"供应订单确认",cardsFor: "supplyOrderConfirmation",
     	cardsSource: this.props.supplyOrderConfirmation,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'consumerOrderList', displayName:'消费者订单',type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
 {name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+=======
+{name: 'consumerOrderList', displayName:'消费者订单',viewGroup:'__no_group', type:'consumerOrder',count:consumerOrderCount,addFunction: true, role: 'consumerOrder', metaInfo: consumerOrderListMetaInfo, renderItem: GlobalComponents.ConsumerOrderBase.renderItemOfList},
+{name: 'supplyOrderList', displayName:'供应订单',viewGroup:'__no_group', type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

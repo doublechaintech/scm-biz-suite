@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCityServiceCenter = (ownerClass, id, filterKey, pageNo) =>
 }	
 
 const transferToAnotherCityServiceCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}cityPartnerManager/transferToAnotherCityServiceCenter/id/anotherCityServiceCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -81,6 +80,33 @@ const removePotentialCustomerContactList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}cityPartnerService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}cityPartnerService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}cityPartnerService/process/`,
+    data,
+  })
+}
+
 const CityPartnerService = { view,
   load,
   addPotentialCustomer,
@@ -90,6 +116,6 @@ const CityPartnerService = { view,
   removePotentialCustomerList,
   removePotentialCustomerContactList,
   requestCandidateCityServiceCenter,
-  transferToAnotherCityServiceCenter }
+  transferToAnotherCityServiceCenter, listFunctions, saveRequest, processRequest}
 export default CityPartnerService
 

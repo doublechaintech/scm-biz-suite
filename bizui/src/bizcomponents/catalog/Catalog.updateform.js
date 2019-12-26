@@ -242,6 +242,7 @@ class CatalogUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
+<<<<<<< HEAD
     }
 	
 	const internalRenderTitle = () =>{
@@ -249,6 +250,15 @@ class CatalogUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}目录: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 
+=======
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}目录: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -266,7 +276,11 @@ class CatalogUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="序号" disabled/>
+=======
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -278,12 +292,43 @@ class CatalogUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
               </Col>
 
+<<<<<<< HEAD
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.subCount} {...formItemLayout}>
+                  {getFieldDecorator('subCount', {
+                    initialValue: selectedRow.subCount,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.subCount} />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.amount} {...formItemLayout}>
+                  {getFieldDecorator('amount', {
+                    initialValue: selectedRow.amount,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
             
        
         

@@ -106,10 +106,19 @@ const query = {
 
 
 class FormMessageBizApp extends React.PureComponent {
+<<<<<<< HEAD
   constructor(props) {
     super(props)
      this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
+=======
+constructor(props) {
+    super(props)
+     this.state = {
+      openKeys: this.getDefaultCollapsedSubMenus(props),
+      showSearch: false,
+      searchKeyword:''
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
   }
 
@@ -155,7 +164,11 @@ class FormMessageBizApp extends React.PureComponent {
         
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
+<<<<<<< HEAD
         style={{ width: '256px' }}
+=======
+        style={{ width: '456px' }}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
        >
            
 
@@ -184,6 +197,19 @@ class FormMessageBizApp extends React.PureComponent {
 
 
   
+<<<<<<< HEAD
+=======
+
+ 
+
+  getPageTitle = () => {
+    // const { location } = this.props
+    // const { pathname } = location
+    const title = '双链小超全流程供应链系统'
+    return title
+  }
+ 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   buildRouters = () =>{
   	const {FormMessageDashboard} = GlobalComponents
   	const {FormMessagePermission} = GlobalComponents
@@ -197,12 +223,21 @@ class FormMessageBizApp extends React.PureComponent {
   	
   	
     	
+<<<<<<< HEAD
   	
   	]
   	
   	const {extraRoutesFunc} = this.props;
 	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
     const finalRoutes = routers.concat(extraRoutes)
+=======
+ 	 
+  	]
+  	
+  	const {extraRoutesFunc} = this.props;
+  	const extraRoutes = extraRoutesFunc?extraRoutesFunc():[]
+  	const finalRoutes = routers.concat(extraRoutes)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
   	return (<Switch>
              {finalRoutes.map((item)=>(<Route key={item.path} path={item.path} component={item.component} />))}    
@@ -211,6 +246,7 @@ class FormMessageBizApp extends React.PureComponent {
   
   }
  
+<<<<<<< HEAD
 
   getPageTitle = () => {
     // const { location } = this.props
@@ -218,6 +254,8 @@ class FormMessageBizApp extends React.PureComponent {
     const title = '双链小超全流程供应链系统'
     return title
   }
+=======
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
  
   handleOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
@@ -278,7 +316,33 @@ class FormMessageBizApp extends React.PureComponent {
   
 
      }
+<<<<<<< HEAD
      const { Search } = Input;
+=======
+     
+     const { Search } = Input;
+     const showSearchResult=()=>{
+
+        this.setState({showSearch:true})
+
+     }
+     const searchChange=(evt)=>{
+
+      this.setState({searchKeyword :evt.target.value})
+
+    }
+    const hideSearchResult=()=>{
+
+      this.setState({showSearch:false})
+
+    }
+
+    const {searchLocalData}=GlobalComponents.FormMessageBase
+	
+    
+     
+     
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
      const layout = (
      <Layout>
  <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -299,8 +363,17 @@ class FormMessageBizApp extends React.PureComponent {
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
+<<<<<<< HEAD
           <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
             style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
+=======
+          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
+            enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
+           	
+            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
+            
+            
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
           </Col>
           <Col  {...userBarResponsiveStyle}  > 
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
@@ -315,6 +388,16 @@ class FormMessageBizApp extends React.PureComponent {
         </Header>
        <Layout style={{  marginTop: 44 }}>
        
+<<<<<<< HEAD
+=======
+      {this.state.showSearch&&(
+
+        <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.formMessage,this.state.searchKeyword)}</div>
+
+      )}
+       
+        
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
          
          <Layout>
          

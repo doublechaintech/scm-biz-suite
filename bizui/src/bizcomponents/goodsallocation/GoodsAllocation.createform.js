@@ -19,8 +19,13 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
+<<<<<<< HEAD
   latitude: '42.670530984237935',
   longitude: '130.74545819053748',
+=======
+  latitude: '40.72944462736691',
+  longitude: '130.44502295240943',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   goodsShelfId: 'GS000001',
 }
 */
@@ -204,13 +209,21 @@ class GoodsAllocationCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货位</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_allocation')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}货位`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods_allocation')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

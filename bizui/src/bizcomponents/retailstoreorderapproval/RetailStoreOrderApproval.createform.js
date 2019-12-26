@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '批准者',
+<<<<<<< HEAD
   approveTime: '2017-09-04',
+=======
+  approveTime: '2018-01-25',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -202,13 +206,21 @@ class RetailStoreOrderApprovalCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超订单批准</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_approval')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}生超订单批准`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order_approval')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -40,7 +40,10 @@ const internalSummaryOf = (retailStore,targetComponent) =>{
 <Description term="经度">{retailStore.longitude}</Description> 
 <Description term="描述">{retailStore.description}</Description> 
 <Description term="最后更新时间">{ moment(retailStore.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
+<<<<<<< HEAD
 <Description term="当前状态">{retailStore.currentStatus}</Description> 
+=======
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
       </DescriptionList>
 	)

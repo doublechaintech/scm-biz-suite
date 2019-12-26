@@ -116,10 +116,14 @@ const internalSummaryOf = (goodsShelfStockCount,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{goodsShelfStockCount.id}</Description> 
-<Description term="头衔">{goodsShelfStockCount.title}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{goodsShelfStockCount.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{goodsShelfStockCount.title}</Description> 
 <Description term="计数时间">{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</Description> 
+<<<<<<< HEAD
 <Description term="概览">{goodsShelfStockCount.summary}</Description> 
+=======
+<Description term="概览" style={{wordBreak: 'break-all'}}>{goodsShelfStockCount.summary}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="架">{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"架","goodsShelf",GoodsShelfStockCountService.requestCandidateShelf,
@@ -166,7 +170,11 @@ class GoodsShelfStockCountDashboard extends Component {
     const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",
     	cardsSource: this.props.goodsShelfStockCount,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
+=======
+{name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',viewGroup:'__no_group', type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

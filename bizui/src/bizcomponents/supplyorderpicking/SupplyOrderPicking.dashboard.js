@@ -116,8 +116,8 @@ const internalSummaryOf = (supplyOrderPicking,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{supplyOrderPicking.id}</Description> 
-<Description term="谁">{supplyOrderPicking.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{supplyOrderPicking.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{supplyOrderPicking.who}</Description> 
 <Description term="过程的时间">{ moment(supplyOrderPicking.processTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(supplyOrderPicking,targetComponent)}
@@ -159,7 +159,11 @@ class SupplyOrderPickingDashboard extends Component {
     const cardsData = {cardsName:"供应订单拣货",cardsFor: "supplyOrderPicking",
     	cardsSource: this.props.supplyOrderPicking,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+=======
+{name: 'supplyOrderList', displayName:'供应订单',viewGroup:'__no_group', type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

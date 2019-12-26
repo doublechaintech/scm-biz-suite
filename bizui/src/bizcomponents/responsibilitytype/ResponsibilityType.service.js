@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCompany = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}responsibilityTypeManager/transferToAnotherCompany/id/anotherCompanyId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,7 +38,7 @@ const transferToAnotherCompany = (id, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}responsibilityTypeManager/addEmployee/responsibilityTypeId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/currentSalaryGradeId/salaryAccount/tokensExpr/`
+  const url = `${PREFIX}responsibilityTypeManager/addEmployee/responsibilityTypeId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/terminationId/tokensExpr/`
   const responsibilityTypeId = targetObjectId
   const requestParameters = { ...parameters, responsibilityTypeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -59,12 +58,39 @@ const removeEmployeeList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}responsibilityTypeService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}responsibilityTypeService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}responsibilityTypeService/process/`,
+    data,
+  })
+}
+
 const ResponsibilityTypeService = { view,
   load,
   addEmployee,
   updateEmployee,
   removeEmployeeList,
   requestCandidateCompany,
-  transferToAnotherCompany }
+  transferToAnotherCompany, listFunctions, saveRequest, processRequest}
 export default ResponsibilityTypeService
 

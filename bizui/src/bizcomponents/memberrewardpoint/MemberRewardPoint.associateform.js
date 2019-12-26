@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '购买积分',
+<<<<<<< HEAD
   point: '15',
+=======
+  point: '17',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   ownerId: 'RSM000001',
 }
 */
@@ -139,7 +143,11 @@ class MemberRewardPointAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +157,11 @@ class MemberRewardPointAssociateForm extends Component {
                   {getFieldDecorator('point', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="点" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.point} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

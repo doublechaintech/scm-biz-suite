@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateDomain = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherDomain = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}secUserManager/transferToAnotherDomain/id/anotherDomainId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateBlocking = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBlocking = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}secUserManager/transferToAnotherBlocking/id/anotherBlockingId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -97,6 +95,33 @@ const removeLoginHistoryList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}secUserService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}secUserService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}secUserService/process/`,
+    data,
+  })
+}
+
 const SecUserService = { view,
   load,
   addUserApp,
@@ -108,6 +133,6 @@ const SecUserService = { view,
   requestCandidateDomain,
   requestCandidateBlocking,
   transferToAnotherDomain,
-  transferToAnotherBlocking }
+  transferToAnotherBlocking, listFunctions, saveRequest, processRequest}
 export default SecUserService
 

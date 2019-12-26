@@ -31,9 +31,15 @@ const internalSummaryOf = (loginHistory,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="ID">{loginHistory.id}</Description> 
 <Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
 <Description term="来自IP">{loginHistory.fromIp}</Description> 
+=======
+<Description term="序号">{loginHistory.id}</Description> 
+<Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
+<Description term="从IP">{loginHistory.fromIp}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="描述">{loginHistory.description}</Description> 
 	
       </DescriptionList>

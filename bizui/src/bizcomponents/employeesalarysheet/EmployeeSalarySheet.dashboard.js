@@ -116,7 +116,11 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{employeeSalarySheet.id}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.id}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="员工">{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeSalarySheetService.requestCandidateEmployee,
@@ -129,6 +133,7 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 	      EmployeeSalarySheetService.transferToAnotherCurrentSalaryGrade,"anotherCurrentSalaryGradeId",employeeSalarySheet.currentSalaryGrade?employeeSalarySheet.currentSalaryGrade.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="基本工资">{employeeSalarySheet.baseSalary}</Description> 
 <Description term="奖金">{employeeSalarySheet.bonus}</Description> 
 <Description term="奖励">{employeeSalarySheet.reward}</Description> 
@@ -136,13 +141,21 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 <Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
 <Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
 <Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
+=======
+<Description term="基本工资" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.baseSalary}</Description> 
+<Description term="奖金" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.bonus}</Description> 
+<Description term="奖励" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.reward}</Description> 
+<Description term="个人所得税" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.personalTax}</Description> 
+<Description term="社会保险" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.socialSecurity}</Description> 
+<Description term="住房公积金" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.housingFound}</Description> 
+<Description term="失业保险" style={{wordBreak: 'break-all'}}>{employeeSalarySheet.jobInsurance}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="工资支付">{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"工资支付","payingOff",EmployeeSalarySheetService.requestCandidatePayingOff,
 	      EmployeeSalarySheetService.transferToAnotherPayingOff,"anotherPayingOffId",employeeSalarySheet.payingOff?employeeSalarySheet.payingOff.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
 	
         {buildTransferModal(employeeSalarySheet,targetComponent)}
       </DescriptionList>

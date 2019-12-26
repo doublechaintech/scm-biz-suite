@@ -31,7 +31,11 @@ const internalSummaryOf = (candidateElement,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="ID">{candidateElement.id}</Description> 
+=======
+<Description term="序号">{candidateElement.id}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="名称">{candidateElement.name}</Description> 
 <Description term="类型">{candidateElement.type}</Description> 
 	

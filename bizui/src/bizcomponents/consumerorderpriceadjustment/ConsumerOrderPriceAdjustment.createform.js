@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
+<<<<<<< HEAD
   amount: '505.06',
+=======
+  amount: '536.73',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -204,13 +208,21 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费品价格调整</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_price_adjustment')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}消费品价格调整`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order_price_adjustment')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

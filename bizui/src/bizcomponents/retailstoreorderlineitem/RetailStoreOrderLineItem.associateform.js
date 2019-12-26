@@ -20,8 +20,13 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
+<<<<<<< HEAD
   amount: '3.51',
   quantity: '9442',
+=======
+  amount: '3.26',
+  quantity: '8188',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   unitOfMeasurement: '件',
   bizOrderId: 'RSO000001',
 }
@@ -142,7 +147,11 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('skuId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="产品ID" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.skuId} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -152,7 +161,11 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('skuName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="产品名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.skuName} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -162,7 +175,11 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -172,7 +189,11 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('quantity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="数量" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.quantity} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -182,7 +203,11 @@ class RetailStoreOrderLineItemAssociateForm extends Component {
                   {getFieldDecorator('unitOfMeasurement', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="测量单位" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.unitOfMeasurement} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

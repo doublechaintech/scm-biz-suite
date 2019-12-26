@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '送货者',
+<<<<<<< HEAD
   deliveryTime: '2017-06-15',
+=======
+  deliveryTime: '2019-11-24',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -202,13 +206,21 @@ class SupplyOrderDeliveryCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单交货</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_delivery')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}供应订单交货`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('supply_order_delivery')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

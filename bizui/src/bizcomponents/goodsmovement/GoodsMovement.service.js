@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateGoods = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherGoods = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsMovementManager/transferToAnotherGoods/id/anotherGoodsId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -37,9 +36,36 @@ const transferToAnotherGoods = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}goodsMovementService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsMovementService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsMovementService/process/`,
+    data,
+  })
+}
+
 const GoodsMovementService = { view,
   load,
   requestCandidateGoods,
-  transferToAnotherGoods }
+  transferToAnotherGoods, listFunctions, saveRequest, processRequest}
 export default GoodsMovementService
 

@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './RetailStoreOpening.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import RetailStoreOpeningBase from './RetailStoreOpening.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = RetailStoreOpeningBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService

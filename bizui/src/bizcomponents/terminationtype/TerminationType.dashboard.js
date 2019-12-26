@@ -116,10 +116,10 @@ const internalSummaryOf = (terminationType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{terminationType.id}</Description> 
-<Description term="代码">{terminationType.code}</Description> 
-<Description term="基本描述">{terminationType.baseDescription}</Description> 
-<Description term="详细描述">{terminationType.detailDescription}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{terminationType.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{terminationType.code}</Description> 
+<Description term="基本描述" style={{wordBreak: 'break-all'}}>{terminationType.baseDescription}</Description> 
+<Description term="详细描述" style={{wordBreak: 'break-all'}}>{terminationType.detailDescription}</Description> 
 	
         {buildTransferModal(terminationType,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,11 @@ class TerminationTypeDashboard extends Component {
     const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",
     	cardsSource: this.props.terminationType,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'terminationList', displayName:'雇佣终止',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
+=======
+{name: 'terminationList', displayName:'雇佣终止',viewGroup:'__no_group', type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

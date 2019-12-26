@@ -13,11 +13,19 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
 const testValues = {};
 /*
 const testValues = {
   completeTime: '2017-04-06',
+=======
+const {fieldLabels} = EmployeeEducationBase
+const testValues = {};
+/*
+const testValues = {
+  completeTime: '2018-06-17',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   type: '小学',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',
@@ -71,7 +79,11 @@ class EmployeeEducationCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = EmployeeEducationBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {EmployeeEducationService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -118,7 +130,11 @@ class EmployeeEducationCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工教育</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_education')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -133,7 +149,11 @@ class EmployeeEducationCreateFormBody extends Component {
                   {getFieldDecorator('completeTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="完成时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.completeTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -143,7 +163,11 @@ class EmployeeEducationCreateFormBody extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="类型" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.type} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +177,11 @@ class EmployeeEducationCreateFormBody extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="备注" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.remark} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

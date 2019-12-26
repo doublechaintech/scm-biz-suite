@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addOriginalVoucher = (targetObjectId, parameters) => {
-  const url = `${PREFIX}originalVoucherConfirmationManager/addOriginalVoucher/originalVoucherConfirmationId/title/madeBy/receivedBy/voucherType/voucherImage/belongsToId/tokensExpr/`
+  const url = `${PREFIX}originalVoucherConfirmationManager/addOriginalVoucher/originalVoucherConfirmationId/title/madeBy/receivedBy/voucherType/voucherImage/belongsToId/creationId/auditingId/tokensExpr/`
   const originalVoucherConfirmationId = targetObjectId
   const requestParameters = { ...parameters, originalVoucherConfirmationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -43,10 +43,37 @@ const removeOriginalVoucherList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}originalVoucherConfirmationService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}originalVoucherConfirmationService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}originalVoucherConfirmationService/process/`,
+    data,
+  })
+}
+
 const OriginalVoucherConfirmationService = { view,
   load,
   addOriginalVoucher,
   updateOriginalVoucher,
-  removeOriginalVoucherList }
+  removeOriginalVoucherList, listFunctions, saveRequest, processRequest}
 export default OriginalVoucherConfirmationService
 

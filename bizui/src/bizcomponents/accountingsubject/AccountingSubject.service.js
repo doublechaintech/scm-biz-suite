@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateAccountSet = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherAccountSet = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}accountingSubjectManager/transferToAnotherAccountSet/id/anotherAccountSetId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeAccountingDocumentLineList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}accountingSubjectService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingSubjectService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingSubjectService/process/`,
+    data,
+  })
+}
+
 const AccountingSubjectService = { view,
   load,
   addAccountingDocumentLine,
   updateAccountingDocumentLine,
   removeAccountingDocumentLineList,
   requestCandidateAccountSet,
-  transferToAnotherAccountSet }
+  transferToAnotherAccountSet, listFunctions, saveRequest, processRequest}
 export default AccountingSubjectService
 

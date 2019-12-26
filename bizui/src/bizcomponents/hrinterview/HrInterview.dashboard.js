@@ -116,10 +116,10 @@ const internalSummaryOf = (hrInterview,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{hrInterview.id}</Description> 
-<Description term="谁">{hrInterview.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{hrInterview.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{hrInterview.who}</Description> 
 <Description term="面试时间">{ moment(hrInterview.interviewTime).format('YYYY-MM-DD')}</Description> 
-<Description term="评论">{hrInterview.comments}</Description> 
+<Description term="评论" style={{wordBreak: 'break-all'}}>{hrInterview.comments}</Description> 
 	
         {buildTransferModal(hrInterview,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,11 @@ class HrInterviewDashboard extends Component {
     const cardsData = {cardsName:"人力资源部面试",cardsFor: "hrInterview",
     	cardsSource: this.props.hrInterview,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+=======
+{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

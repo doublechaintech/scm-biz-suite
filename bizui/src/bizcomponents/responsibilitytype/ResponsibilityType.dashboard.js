@@ -116,10 +116,10 @@ const internalSummaryOf = (responsibilityType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{responsibilityType.id}</Description> 
-<Description term="代码">{responsibilityType.code}</Description> 
-<Description term="基本描述">{responsibilityType.baseDescription}</Description> 
-<Description term="详细描述">{responsibilityType.detailDescription}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{responsibilityType.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{responsibilityType.code}</Description> 
+<Description term="基本描述" style={{wordBreak: 'break-all'}}>{responsibilityType.baseDescription}</Description> 
+<Description term="详细描述" style={{wordBreak: 'break-all'}}>{responsibilityType.detailDescription}</Description> 
 	
         {buildTransferModal(responsibilityType,targetComponent)}
       </DescriptionList>
@@ -160,7 +160,11 @@ class ResponsibilityTypeDashboard extends Component {
     const cardsData = {cardsName:"责任类型",cardsFor: "responsibilityType",
     	cardsSource: this.props.responsibilityType,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+=======
+{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

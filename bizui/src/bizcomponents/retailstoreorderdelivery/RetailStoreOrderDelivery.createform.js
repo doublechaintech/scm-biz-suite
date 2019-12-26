@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '送货者',
+<<<<<<< HEAD
   deliveryTime: '2018-11-14',
+=======
+  deliveryTime: '2018-08-19',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -202,13 +206,21 @@ class RetailStoreOrderDeliveryCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超订单交付</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_delivery')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}生超订单交付`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order_delivery')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

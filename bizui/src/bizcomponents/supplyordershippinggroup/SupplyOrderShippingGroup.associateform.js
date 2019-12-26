@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链成都2号仓',
+<<<<<<< HEAD
   amount: '5.26',
+=======
+  amount: '4.88',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   bizOrderId: 'SO000001',
 }
 */
@@ -139,7 +143,11 @@ class SupplyOrderShippingGroupAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -149,7 +157,11 @@ class SupplyOrderShippingGroupAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到刘强家',
+<<<<<<< HEAD
   amount: '578.32',
+=======
+  amount: '574.40',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   bizOrderId: 'CO000001',
 }
 */
@@ -203,13 +207,21 @@ class ConsumerOrderShippingGroupCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费订单送货分组</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_shipping_group')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}消费订单送货分组`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order_shipping_group')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

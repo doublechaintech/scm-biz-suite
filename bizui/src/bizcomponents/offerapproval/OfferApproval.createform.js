@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '总经理',
+<<<<<<< HEAD
   approveTime: '2018-08-18',
+=======
+  approveTime: '2017-12-20',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comments: '该员工发展潜力不错，',
 }
 */
@@ -203,13 +207,21 @@ class OfferApprovalCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}审批工作要约</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('offer_approval')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}审批工作要约`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('offer_approval')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

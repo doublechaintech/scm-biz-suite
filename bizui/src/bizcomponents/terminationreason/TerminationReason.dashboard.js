@@ -116,9 +116,9 @@ const internalSummaryOf = (terminationReason,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{terminationReason.id}</Description> 
-<Description term="代码">{terminationReason.code}</Description> 
-<Description term="描述">{terminationReason.description}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{terminationReason.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{terminationReason.code}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{terminationReason.description}</Description> 
 	
         {buildTransferModal(terminationReason,targetComponent)}
       </DescriptionList>
@@ -159,7 +159,11 @@ class TerminationReasonDashboard extends Component {
     const cardsData = {cardsName:"雇佣终止的原因",cardsFor: "terminationReason",
     	cardsSource: this.props.terminationReason,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'terminationList', displayName:'雇佣终止',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
+=======
+{name: 'terminationList', displayName:'雇佣终止',viewGroup:'__no_group', type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

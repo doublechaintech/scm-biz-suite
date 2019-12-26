@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateSecUser = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherSecUser = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}userAppManager/transferToAnotherSecUser/id/anotherSecUserId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -103,6 +102,33 @@ const removeObjectAccessList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}userAppService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}userAppService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}userAppService/process/`,
+    data,
+  })
+}
+
 const UserAppService = { view,
   load,
   addQuickLink,
@@ -115,6 +141,6 @@ const UserAppService = { view,
   removeListAccessList,
   removeObjectAccessList,
   requestCandidateSecUser,
-  transferToAnotherSecUser }
+  transferToAnotherSecUser, listFunctions, saveRequest, processRequest}
 export default UserAppService
 

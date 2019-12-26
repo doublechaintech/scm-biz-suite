@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateStorageSpace = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherStorageSpace = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsShelfManager/transferToAnotherStorageSpace/id/anotherStorageSpaceId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateSupplierSpace = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherSupplierSpace = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsShelfManager/transferToAnotherSupplierSpace/id/anotherSupplierSpaceId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateDamageSpace = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherDamageSpace = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}goodsShelfManager/transferToAnotherDamageSpace/id/anotherDamageSpaceId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -113,6 +110,33 @@ const removeGoodsAllocationList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}goodsShelfService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsShelfService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}goodsShelfService/process/`,
+    data,
+  })
+}
+
 const GoodsShelfService = { view,
   load,
   addGoodsShelfStockCount,
@@ -126,6 +150,6 @@ const GoodsShelfService = { view,
   requestCandidateDamageSpace,
   transferToAnotherStorageSpace,
   transferToAnotherSupplierSpace,
-  transferToAnotherDamageSpace }
+  transferToAnotherDamageSpace, listFunctions, saveRequest, processRequest}
 export default GoodsShelfService
 

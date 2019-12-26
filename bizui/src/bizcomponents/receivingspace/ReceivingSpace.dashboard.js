@@ -116,19 +116,32 @@ const internalSummaryOf = (receivingSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{receivingSpace.id}</Description> 
 <Description term="位置">{receivingSpace.location}</Description> 
 <Description term="联系电话">{receivingSpace.contactNumber}</Description> 
 <Description term="描述">{receivingSpace.description}</Description> 
 <Description term="总面积">{receivingSpace.totalArea}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{receivingSpace.id}</Description> 
+<Description term="位置" style={{wordBreak: 'break-all'}}>{receivingSpace.location}</Description> 
+<Description term="联系电话" style={{wordBreak: 'break-all'}}>{receivingSpace.contactNumber}</Description> 
+<Description term="描述" style={{wordBreak: 'break-all'}}>{receivingSpace.description}</Description> 
+<Description term="总面积" style={{wordBreak: 'break-all'}}>{receivingSpace.totalArea}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="仓库">{receivingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${receivingSpace.warehouse.displayName}(${receivingSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",ReceivingSpaceService.requestCandidateWarehouse,
 	      ReceivingSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",receivingSpace.warehouse?receivingSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="纬度">{receivingSpace.latitude}</Description> 
 <Description term="经度">{receivingSpace.longitude}</Description> 
+=======
+<Description term="纬度" style={{wordBreak: 'break-all'}}>{receivingSpace.latitude}</Description> 
+<Description term="经度" style={{wordBreak: 'break-all'}}>{receivingSpace.longitude}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(receivingSpace,targetComponent)}
@@ -170,7 +183,11 @@ class ReceivingSpaceDashboard extends Component {
     const cardsData = {cardsName:"收货区",cardsFor: "receivingSpace",
     	cardsSource: this.props.receivingSpace,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+=======
+{name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

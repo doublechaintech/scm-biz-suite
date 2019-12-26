@@ -19,14 +19,26 @@ const testValues = {};
 /*
 const testValues = {
   name: '中和社区小超',
-  telephone: '02887654321',
+  telephone: '1232626516',
   owner: '吕刚',
+<<<<<<< HEAD
   founded: '2018-08-29',
   latitude: '42.717962660305346',
   longitude: '131.25066983488324',
+=======
+  founded: '2017-09-01',
+  latitude: '42.40994728923161',
+  longitude: '131.2421787258618',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
+  creationId: 'RSC000001',
+  investmentInvitationId: 'RSII000001',
+  franchisingId: 'RSF000001',
+  decorationId: 'RSD000001',
+  openingId: 'RSO000001',
+  closingId: 'RSC000001',
 }
 */
 
@@ -209,13 +221,21 @@ class RetailStoreCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}双链小超`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

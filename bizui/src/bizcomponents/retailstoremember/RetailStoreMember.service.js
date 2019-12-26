@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOwner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreMemberManager/transferToAnotherOwner/id/anotherOwnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,7 +38,7 @@ const transferToAnotherOwner = (id, parameters) => {
 
 
 const addConsumerOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreMemberManager/addConsumerOrder/retailStoreMemberId/title/storeId/tokensExpr/`
+  const url = `${PREFIX}retailStoreMemberManager/addConsumerOrder/retailStoreMemberId/title/confirmationId/approvalId/processingId/shipmentId/deliveryId/storeId/tokensExpr/`
   const retailStoreMemberId = targetObjectId
   const requestParameters = { ...parameters, retailStoreMemberId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -191,6 +190,33 @@ const removeRetailStoreMemberGiftCardList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreMemberService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberService/process/`,
+    data,
+  })
+}
+
 const RetailStoreMemberService = { view,
   load,
   addConsumerOrder,
@@ -215,6 +241,6 @@ const RetailStoreMemberService = { view,
   removeRetailStoreMemberAddressList,
   removeRetailStoreMemberGiftCardList,
   requestCandidateOwner,
-  transferToAnotherOwner }
+  transferToAnotherOwner, listFunctions, saveRequest, processRequest}
 export default RetailStoreMemberService
 

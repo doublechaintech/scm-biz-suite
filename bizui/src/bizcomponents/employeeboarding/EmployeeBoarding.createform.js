@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
+<<<<<<< HEAD
   employTime: '2018-08-25',
+=======
+  employTime: '2017-11-28',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comments: '欢迎加入植物医生大家庭',
 }
 */
@@ -203,13 +207,21 @@ class EmployeeBoardingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工入职</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_boarding')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}员工入职`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_boarding')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

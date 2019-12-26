@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '申请者',
+<<<<<<< HEAD
   acceptTime: '2019-09-22',
+=======
+  acceptTime: '2019-10-02',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comments: '谢谢，我一个月内上班',
 }
 */
@@ -140,7 +144,11 @@ class OfferAcceptanceAssociateForm extends Component {
                   {getFieldDecorator('who', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="谁" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.who} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +158,11 @@ class OfferAcceptanceAssociateForm extends Component {
                   {getFieldDecorator('acceptTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="接受时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.acceptTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +172,11 @@ class OfferAcceptanceAssociateForm extends Component {
                   {getFieldDecorator('comments', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="评论" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.comments} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

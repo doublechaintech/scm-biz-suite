@@ -243,6 +243,7 @@ class OriginalVoucherUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
+<<<<<<< HEAD
     }
 	
 	const internalRenderTitle = () =>{
@@ -250,6 +251,15 @@ class OriginalVoucherUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}原始凭证: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 
+=======
+    }
+	
+	const internalRenderTitle = () =>{
+      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}原始凭证: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+    }
+	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -267,7 +277,11 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="序号" disabled/>
+=======
+                    <Input size="large"  placeHolder={fieldLabels.id} disabled/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -279,7 +293,11 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="头衔" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.title} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -291,7 +309,11 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.madeBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="由" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.madeBy} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -303,7 +325,11 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.receivedBy,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="受" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.receivedBy} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -315,7 +341,11 @@ class OriginalVoucherUpdateForm extends Component {
                     initialValue: selectedRow.voucherType,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="凭证类型" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.voucherType} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -344,7 +374,7 @@ class OriginalVoucherUpdateForm extends Component {
 
               <Col lg={6} md={12} sm={24}>
                 <ImageComponent
-                  buttonTitle="凭证图像"
+                  buttonTitle={window.trans('original_voucher')}
                   handlePreview={this.handlePreview}
                   handleChange={event => this.handleChange(event, 'voucherImage')}
                   fileList={convertedImagesValues.voucherImage}

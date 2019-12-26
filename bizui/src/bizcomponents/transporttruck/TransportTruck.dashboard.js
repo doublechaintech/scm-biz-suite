@@ -116,15 +116,20 @@ const internalSummaryOf = (transportTruck,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{transportTruck.id}</Description> 
-<Description term="名称">{transportTruck.name}</Description> 
-<Description term="车牌号码">{transportTruck.plateNumber}</Description> 
-<Description term="联系电话">{transportTruck.contactNumber}</Description> 
-<Description term="汽车牌照号码">{transportTruck.vehicleLicenseNumber}</Description> 
-<Description term="发动机号">{transportTruck.engineNumber}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{transportTruck.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{transportTruck.name}</Description> 
+<Description term="车牌号码" style={{wordBreak: 'break-all'}}>{transportTruck.plateNumber}</Description> 
+<Description term="联系电话" style={{wordBreak: 'break-all'}}>{transportTruck.contactNumber}</Description> 
+<Description term="汽车牌照号码" style={{wordBreak: 'break-all'}}>{transportTruck.vehicleLicenseNumber}</Description> 
+<Description term="发动机号" style={{wordBreak: 'break-all'}}>{transportTruck.engineNumber}</Description> 
 <Description term="制造日期">{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</Description> 
+<<<<<<< HEAD
 <Description term="里程">{transportTruck.mileage}</Description> 
 <Description term="车身颜色">{transportTruck.bodyColor}</Description> 
+=======
+<Description term="里程" style={{wordBreak: 'break-all'}}>{transportTruck.mileage}</Description> 
+<Description term="车身颜色" style={{wordBreak: 'break-all'}}>{transportTruck.bodyColor}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="业主">{transportTruck.owner==null?appLocaleName(userContext,"NotAssigned"):`${transportTruck.owner.displayName}(${transportTruck.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","transportFleet",TransportTruckService.requestCandidateOwner,
@@ -171,7 +176,11 @@ class TransportTruckDashboard extends Component {
     const cardsData = {cardsName:"运输车",cardsFor: "transportTruck",
     	cardsSource: this.props.transportTruck,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+=======
+{name: 'transportTaskList', displayName:'运输任务',viewGroup:'__no_group', type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

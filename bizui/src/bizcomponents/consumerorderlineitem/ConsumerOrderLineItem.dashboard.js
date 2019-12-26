@@ -116,18 +116,30 @@ const internalSummaryOf = (consumerOrderLineItem,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{consumerOrderLineItem.id}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.id}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="订单">{consumerOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderLineItem.bizOrder.displayName}(${consumerOrderLineItem.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderLineItemService.requestCandidateBizOrder,
 	      ConsumerOrderLineItemService.transferToAnotherBizOrder,"anotherBizOrderId",consumerOrderLineItem.bizOrder?consumerOrderLineItem.bizOrder.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="产品ID">{consumerOrderLineItem.skuId}</Description> 
 <Description term="产品名称">{consumerOrderLineItem.skuName}</Description> 
 <Description term="价格">{consumerOrderLineItem.price}</Description> 
 <Description term="数量">{consumerOrderLineItem.quantity}</Description> 
 <Description term="金额">{consumerOrderLineItem.amount}</Description> 
+=======
+<Description term="产品ID" style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.skuId}</Description> 
+<Description term="产品名称" style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.skuName}</Description> 
+<Description term="价格" style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.price}</Description> 
+<Description term="数量" style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.quantity}</Description> 
+<Description term="金额" style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.amount}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(consumerOrderLineItem.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(consumerOrderLineItem,targetComponent)}

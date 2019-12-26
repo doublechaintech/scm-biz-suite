@@ -8,10 +8,14 @@ import styles from './TransportTaskTrack.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
+=======
+import TransportTaskTrackBase from './TransportTaskTrack.base'
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = TransportTaskTrackBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -190,14 +194,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                  <Form.Item label="运动">
+=======
+                 <Form.Item label={fieldLabels.movement}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('movement', {initialValue: tryinit('movement')})(
                
                <SelectObject 
@@ -249,14 +257,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="运动">
+=======
+                    <Form.Item label={fieldLabels.movement}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('movement', {initialValue: tryinit('movement')})(
                   
                   <SelectObject 
@@ -279,7 +291,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

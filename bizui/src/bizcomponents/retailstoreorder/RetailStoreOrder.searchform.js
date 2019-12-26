@@ -8,10 +8,14 @@ import styles from './RetailStoreOrder.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
+=======
+import RetailStoreOrderBase from './RetailStoreOrder.base'
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = RetailStoreOrderBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -134,7 +138,16 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'buyer'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'seller'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'title'))
+<<<<<<< HEAD
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
+=======
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'approval'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'processing'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'picking'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'shipment'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'delivery'))
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -193,14 +206,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                  <Form.Item label="买方">
+=======
+                 <Form.Item label={fieldLabels.buyer}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                
                <SelectObject 
@@ -252,14 +269,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="买方">
+=======
+                    <Form.Item label={fieldLabels.buyer}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                   
                   <SelectObject 
@@ -271,7 +292,11 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="卖方">
+=======
+                    <Form.Item label={fieldLabels.seller}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('seller', {initialValue: tryinit('seller')})(
                   
                   <SelectObject 
@@ -284,9 +309,10 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="头衔">
+            <FormItem label={fieldLabels.title}>
               {getFieldDecorator('title')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+<<<<<<< HEAD
               )}
             </FormItem>
           </Col>
@@ -295,9 +321,83 @@ componentDidMount() {
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
+=======
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               )}
             </FormItem>
           </Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.confirmation}>
+                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('confirmation')}
+                    targetType={"confirmation"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateConfirmation} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.approval}>
+                  {getFieldDecorator('approval', {initialValue: tryinit('approval')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('approval')}
+                    targetType={"approval"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateApproval} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.processing}>
+                  {getFieldDecorator('processing', {initialValue: tryinit('processing')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('processing')}
+                    targetType={"processing"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateProcessing} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.picking}>
+                  {getFieldDecorator('picking', {initialValue: tryinit('picking')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('picking')}
+                    targetType={"picking"} 
+                    requestFunction={RetailStoreOrderService.requestCandidatePicking} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.shipment}>
+                  {getFieldDecorator('shipment', {initialValue: tryinit('shipment')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('shipment')}
+                    targetType={"shipment"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateShipment} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.delivery}>
+                  {getFieldDecorator('delivery', {initialValue: tryinit('delivery')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('delivery')}
+                    targetType={"delivery"} 
+                    requestFunction={RetailStoreOrderService.requestCandidateDelivery} useForSearch />
+                  	
+                 
+                  )}
+                </Form.Item></Col>
 
         </Row>
         <div style={{ overflow: 'hidden' }}>
@@ -310,7 +410,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

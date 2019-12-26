@@ -8,10 +8,14 @@ import styles from './EmployeeSalarySheet.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
+=======
+import EmployeeSalarySheetBase from './EmployeeSalarySheet.base'
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = EmployeeSalarySheetBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -133,7 +137,11 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'employee'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'currentSalaryGrade'))
+<<<<<<< HEAD
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
+=======
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'payingOff'))
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -192,14 +200,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                  <Form.Item label="员工">
+=======
+                 <Form.Item label={fieldLabels.employee}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                
                <SelectObject 
@@ -251,14 +263,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="员工">
+=======
+                    <Form.Item label={fieldLabels.employee}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                   
                   <SelectObject 
@@ -270,7 +286,11 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="目前工资等级">
+=======
+                    <Form.Item label={fieldLabels.currentSalaryGrade}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('currentSalaryGrade', {initialValue: tryinit('currentSalaryGrade')})(
                   
                   <SelectObject 
@@ -278,10 +298,26 @@ componentDidMount() {
                     targetType={"currentSalaryGrade"} 
                     requestFunction={EmployeeSalarySheetService.requestCandidateCurrentSalaryGrade} useForSearch />
                   	
+<<<<<<< HEAD
+=======
+                 
+                  )}
+                </Form.Item></Col>
+ <Col md={8} sm={24}>
+                    <Form.Item label={fieldLabels.payingOff}>
+                  {getFieldDecorator('payingOff', {initialValue: tryinit('payingOff')})(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('payingOff')}
+                    targetType={"payingOff"} 
+                    requestFunction={EmployeeSalarySheetService.requestCandidatePayingOff} useForSearch />
+                  	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                  
                   )}
                 </Form.Item></Col>
 
+<<<<<<< HEAD
           <Col md={8} sm={24}>
             <FormItem label="当前状态">
               {getFieldDecorator('currentStatus')(
@@ -290,6 +326,8 @@ componentDidMount() {
             </FormItem>
           </Col>
 
+=======
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
@@ -301,7 +339,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

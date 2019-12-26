@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '运货者',
+<<<<<<< HEAD
   shipTime: '2019-05-29',
+=======
+  shipTime: '2019-11-23',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -202,13 +206,21 @@ class ConsumerOrderShipmentCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}消费者的订单发货</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('consumer_order_shipment')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}消费者的订单发货`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('consumer_order_shipment')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

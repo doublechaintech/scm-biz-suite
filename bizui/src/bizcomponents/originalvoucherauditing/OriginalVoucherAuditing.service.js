@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addOriginalVoucher = (targetObjectId, parameters) => {
-  const url = `${PREFIX}originalVoucherAuditingManager/addOriginalVoucher/originalVoucherAuditingId/title/madeBy/receivedBy/voucherType/voucherImage/belongsToId/tokensExpr/`
+  const url = `${PREFIX}originalVoucherAuditingManager/addOriginalVoucher/originalVoucherAuditingId/title/madeBy/receivedBy/voucherType/voucherImage/belongsToId/creationId/confirmationId/tokensExpr/`
   const originalVoucherAuditingId = targetObjectId
   const requestParameters = { ...parameters, originalVoucherAuditingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -43,10 +43,37 @@ const removeOriginalVoucherList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}originalVoucherAuditingService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}originalVoucherAuditingService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}originalVoucherAuditingService/process/`,
+    data,
+  })
+}
+
 const OriginalVoucherAuditingService = { view,
   load,
   addOriginalVoucher,
   updateOriginalVoucher,
-  removeOriginalVoucherList }
+  removeOriginalVoucherList, listFunctions, saveRequest, processRequest}
 export default OriginalVoucherAuditingService
 

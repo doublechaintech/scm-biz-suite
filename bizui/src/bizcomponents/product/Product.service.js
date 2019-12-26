@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateParentCategory = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherParentCategory = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}productManager/transferToAnotherParentCategory/id/anotherParentCategoryId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeSkuList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}productService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}productService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}productService/process/`,
+    data,
+  })
+}
+
 const ProductService = { view,
   load,
   addSku,
   updateSku,
   removeSkuList,
   requestCandidateParentCategory,
-  transferToAnotherParentCategory }
+  transferToAnotherParentCategory, listFunctions, saveRequest, processRequest}
 export default ProductService
 

@@ -13,14 +13,28 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = AccountingDocumentBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
+<<<<<<< HEAD
   accountingDocumentDate: '2018-12-28',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
+=======
+  accountingDocumentDate: '2019-11-11',
+  accountingPeriodId: 'AP000001',
+  documentTypeId: 'ADT000001',
+  creationId: 'ADC000001',
+  confirmationId: 'ADC000001',
+  auditingId: 'ADA000001',
+  postingId: 'ADP000001',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -71,7 +85,11 @@ class AccountingDocumentCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = AccountingDocumentBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {AccountingDocumentService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -118,7 +136,11 @@ class AccountingDocumentCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计凭证</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_document')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -133,7 +155,11 @@ class AccountingDocumentCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -143,7 +169,11 @@ class AccountingDocumentCreateFormBody extends Component {
                   {getFieldDecorator('accountingDocumentDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="会计凭证日期" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.accountingDocumentDate}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -189,6 +219,85 @@ class AccountingDocumentCreateFormBody extends Component {
 
            
 
+<<<<<<< HEAD
+=======
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.creation} {...formItemLayout}>
+                  {getFieldDecorator('creationId', {
+                  	initialValue: tryinit('creation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('creation')}
+                    targetType={"creation"} 
+                    requestFunction={AccountingDocumentService.requestCandidateCreation}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
+                  {getFieldDecorator('confirmationId', {
+                  	initialValue: tryinit('confirmation'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('confirmation')}
+                    targetType={"confirmation"} 
+                    requestFunction={AccountingDocumentService.requestCandidateConfirmation}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.auditing} {...formItemLayout}>
+                  {getFieldDecorator('auditingId', {
+                  	initialValue: tryinit('auditing'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('auditing')}
+                    targetType={"auditing"} 
+                    requestFunction={AccountingDocumentService.requestCandidateAuditing}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.posting} {...formItemLayout}>
+                  {getFieldDecorator('postingId', {
+                  	initialValue: tryinit('posting'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                  
+                  <SelectObject 
+                    disabled={!availableForEdit('posting')}
+                    targetType={"posting"} 
+                    requestFunction={AccountingDocumentService.requestCandidatePosting}/>
+                  
+                 
+                  )}
+                </Form.Item>
+              </Col>
+
+           
+
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 
 			 </Row>

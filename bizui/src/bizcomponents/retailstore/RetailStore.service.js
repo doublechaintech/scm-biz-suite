@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateRetailStoreCountryCenter = (ownerClass, id, filterKey, pag
 }	
 
 const transferToAnotherRetailStoreCountryCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherRetailStoreCountryCenter/id/anotherRetailStoreCountryCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateCityServiceCenter = (ownerClass, id, filterKey, pageNo) =>
 }	
 
 const transferToAnotherCityServiceCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherCityServiceCenter/id/anotherCityServiceCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateCreation = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCreation = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherCreation/id/anotherCreationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -74,7 +71,6 @@ const requestCandidateInvestmentInvitation = (ownerClass, id, filterKey, pageNo)
 }	
 
 const transferToAnotherInvestmentInvitation = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherInvestmentInvitation/id/anotherInvestmentInvitationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -90,7 +86,6 @@ const requestCandidateFranchising = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherFranchising = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherFranchising/id/anotherFranchisingId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -106,7 +101,6 @@ const requestCandidateDecoration = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherDecoration = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherDecoration/id/anotherDecorationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -122,7 +116,6 @@ const requestCandidateOpening = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOpening = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherOpening/id/anotherOpeningId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -138,7 +131,6 @@ const requestCandidateClosing = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherClosing = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreManager/transferToAnotherClosing/id/anotherClosingId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -151,7 +143,7 @@ const transferToAnotherClosing = (id, parameters) => {
 
 
 const addConsumerOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/addConsumerOrder/retailStoreId/title/consumerId/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/addConsumerOrder/retailStoreId/title/consumerId/confirmationId/approvalId/processingId/shipmentId/deliveryId/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -173,7 +165,7 @@ const removeConsumerOrderList = (targetObjectId, parameters) => {
 
 
 const addRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/addRetailStoreOrder/retailStoreId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/addRetailStoreOrder/retailStoreId/sellerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -195,7 +187,7 @@ const removeRetailStoreOrderList = (targetObjectId, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/addGoods/retailStoreId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/bizOrderId/retailStoreOrderId/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/addGoods/retailStoreId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -259,6 +251,33 @@ const removeAccountSetList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreService/process/`,
+    data,
+  })
+}
+
 const RetailStoreService = { view,
   load,
   addConsumerOrder,
@@ -291,6 +310,6 @@ const RetailStoreService = { view,
   transferToAnotherFranchising,
   transferToAnotherDecoration,
   transferToAnotherOpening,
-  transferToAnotherClosing }
+  transferToAnotherClosing, listFunctions, saveRequest, processRequest}
 export default RetailStoreService
 

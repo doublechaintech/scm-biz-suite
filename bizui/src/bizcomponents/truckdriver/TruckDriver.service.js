@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateBelongsTo = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBelongsTo = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}truckDriverManager/transferToAnotherBelongsTo/id/anotherBelongsToId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeTransportTaskList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}truckDriverService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}truckDriverService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}truckDriverService/process/`,
+    data,
+  })
+}
+
 const TruckDriverService = { view,
   load,
   addTransportTask,
   updateTransportTask,
   removeTransportTaskList,
   requestCandidateBelongsTo,
-  transferToAnotherBelongsTo }
+  transferToAnotherBelongsTo, listFunctions, saveRequest, processRequest}
 export default TruckDriverService
 

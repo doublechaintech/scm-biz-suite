@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './ConsumerOrderShippingGroup.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import ConsumerOrderShippingGroupBase from './ConsumerOrderShippingGroup.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = ConsumerOrderShippingGroupBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService

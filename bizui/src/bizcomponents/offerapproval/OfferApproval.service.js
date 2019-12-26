@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}offerApprovalManager/addEmployee/offerApprovalId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/tokensExpr/`
+  const url = `${PREFIX}offerApprovalManager/addEmployee/offerApprovalId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerAcceptanceId/employeeBoardingId/terminationId/tokensExpr/`
   const offerApprovalId = targetObjectId
   const requestParameters = { ...parameters, offerApprovalId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -43,10 +43,37 @@ const removeEmployeeList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}offerApprovalService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}offerApprovalService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}offerApprovalService/process/`,
+    data,
+  })
+}
+
 const OfferApprovalService = { view,
   load,
   addEmployee,
   updateEmployee,
-  removeEmployeeList }
+  removeEmployeeList, listFunctions, saveRequest, processRequest}
 export default OfferApprovalService
 

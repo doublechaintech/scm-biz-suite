@@ -116,9 +116,15 @@ const internalSummaryOf = (formMessage,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="ID">{formMessage.id}</Description> 
 <Description term="标题">{formMessage.title}</Description> 
 <Description term="水平">{formMessage.level}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{formMessage.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{formMessage.title}</Description> 
+<Description term="水平" style={{wordBreak: 'break-all'}}>{formMessage.level}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
         {buildTransferModal(formMessage,targetComponent)}
       </DescriptionList>

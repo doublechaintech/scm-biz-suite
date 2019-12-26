@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './EmployeeSalarySheet.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import EmployeeSalarySheetBase from './EmployeeSalarySheet.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = EmployeeSalarySheetBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -70,11 +75,7 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <PayingOffAssociateForm 
-	visible={currentAssociateModal==='payingOff'} 
-	data={{employeeSalarySheetList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'payingOff')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'payingOff')}/>
+   
   
     <EmployeeAssociateForm 
 	visible={currentAssociateModal==='employee'} 
@@ -84,7 +85,11 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='currentSalaryGrade'} 
 	data={{employeeSalarySheetList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> <PayingOffAssociateForm 
+	visible={currentAssociateModal==='payingOff'} 
+	data={{employeeSalarySheetList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'payingOff')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'payingOff')}/> 
  
 
 

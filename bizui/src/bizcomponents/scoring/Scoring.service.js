@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -43,10 +43,37 @@ const removeEmployeeCompanyTrainingList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}scoringService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}scoringService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}scoringService/process/`,
+    data,
+  })
+}
+
 const ScoringService = { view,
   load,
   addEmployeeCompanyTraining,
   updateEmployeeCompanyTraining,
-  removeEmployeeCompanyTrainingList }
+  removeEmployeeCompanyTrainingList, listFunctions, saveRequest, processRequest}
 export default ScoringService
 

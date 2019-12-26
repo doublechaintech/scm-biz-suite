@@ -20,6 +20,7 @@ const testValues = {};
 const testValues = {
   employeeId: 'E000001',
   trainingId: 'CT000001',
+  scoringId: 'S000001',
 }
 */
 
@@ -202,13 +203,21 @@ class EmployeeCompanyTrainingCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工参与的公司培训</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_company_training')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}员工参与的公司培训`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_company_training')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

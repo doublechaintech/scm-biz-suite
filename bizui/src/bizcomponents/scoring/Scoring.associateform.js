@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
+<<<<<<< HEAD
   score: '94',
+=======
+  score: '99',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comment: '这个题做的真不错啊',
 }
 */
@@ -140,7 +144,11 @@ class ScoringAssociateForm extends Component {
                   {getFieldDecorator('scoredBy', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="由谁打分" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.scoredBy} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -150,7 +158,11 @@ class ScoringAssociateForm extends Component {
                   {getFieldDecorator('score', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="分数" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.score} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -160,7 +172,11 @@ class ScoringAssociateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="评论" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.comment} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

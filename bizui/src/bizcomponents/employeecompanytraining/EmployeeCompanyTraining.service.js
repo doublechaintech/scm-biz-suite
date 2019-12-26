@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateEmployee = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherEmployee = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeCompanyTrainingManager/transferToAnotherEmployee/id/anotherEmployeeId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateTraining = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherTraining = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeCompanyTrainingManager/transferToAnotherTraining/id/anotherTrainingId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateScoring = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherScoring = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeCompanyTrainingManager/transferToAnotherScoring/id/anotherScoringId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -69,6 +66,33 @@ const transferToAnotherScoring = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}employeeCompanyTrainingService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeCompanyTrainingService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeCompanyTrainingService/process/`,
+    data,
+  })
+}
+
 const EmployeeCompanyTrainingService = { view,
   load,
   requestCandidateEmployee,
@@ -76,6 +100,6 @@ const EmployeeCompanyTrainingService = { view,
   requestCandidateScoring,
   transferToAnotherEmployee,
   transferToAnotherTraining,
-  transferToAnotherScoring }
+  transferToAnotherScoring, listFunctions, saveRequest, processRequest}
 export default EmployeeCompanyTrainingService
 

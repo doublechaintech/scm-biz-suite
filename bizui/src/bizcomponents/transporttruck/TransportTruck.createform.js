@@ -20,10 +20,14 @@ const testValues = {};
 const testValues = {
   name: '运货卡车',
   plateNumber: '川AK5',
-  contactNumber: '02887654321',
+  contactNumber: '1131937928',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
+<<<<<<< HEAD
   makeDate: '2019-09-06',
+=======
+  makeDate: '2017-12-30',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -209,13 +213,21 @@ class TransportTruckCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输车</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_truck')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}运输车`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('transport_truck')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

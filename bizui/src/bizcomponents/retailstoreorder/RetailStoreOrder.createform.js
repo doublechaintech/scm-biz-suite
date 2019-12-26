@@ -19,9 +19,19 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
+<<<<<<< HEAD
   totalAmount: '2683306752.00',
+=======
+  totalAmount: '2389997568.00',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
+  confirmationId: 'RSOC000001',
+  approvalId: 'RSOA000001',
+  processingId: 'RSOP000001',
+  pickingId: 'RSOP000001',
+  shipmentId: 'RSOS000001',
+  deliveryId: 'RSOD000001',
 }
 */
 
@@ -204,13 +214,21 @@ class RetailStoreOrderCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超的订单</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}生超的订单`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

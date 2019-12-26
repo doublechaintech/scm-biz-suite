@@ -116,8 +116,8 @@ const internalSummaryOf = (retailStoreOrderApproval,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{retailStoreOrderApproval.id}</Description> 
-<Description term="谁">{retailStoreOrderApproval.who}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreOrderApproval.id}</Description> 
+<Description term="谁" style={{wordBreak: 'break-all'}}>{retailStoreOrderApproval.who}</Description> 
 <Description term="批准时间">{ moment(retailStoreOrderApproval.approveTime).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(retailStoreOrderApproval,targetComponent)}
@@ -159,7 +159,11 @@ class RetailStoreOrderApprovalDashboard extends Component {
     const cardsData = {cardsName:"生超订单批准",cardsFor: "retailStoreOrderApproval",
     	cardsSource: this.props.retailStoreOrderApproval,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'retailStoreOrderList', displayName:'生超的订单',type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+=======
+{name: 'retailStoreOrderList', displayName:'生超的订单',viewGroup:'__no_group', type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

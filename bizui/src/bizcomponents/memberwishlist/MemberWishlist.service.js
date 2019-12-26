@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOwner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}memberWishlistManager/transferToAnotherOwner/id/anotherOwnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeMemberWishlistProductList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}memberWishlistService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}memberWishlistService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}memberWishlistService/process/`,
+    data,
+  })
+}
+
 const MemberWishlistService = { view,
   load,
   addMemberWishlistProduct,
   updateMemberWishlistProduct,
   removeMemberWishlistProductList,
   requestCandidateOwner,
-  transferToAnotherOwner }
+  transferToAnotherOwner, listFunctions, saveRequest, processRequest}
 export default MemberWishlistService
 

@@ -8,10 +8,14 @@ import styles from './SupplierProduct.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
+=======
+import SupplierProductBase from './SupplierProduct.base'
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = SupplierProductBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -193,7 +197,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -201,7 +205,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-         <FormItem label="品名">
+         <FormItem label={fieldLabels.productName}>
            {getFieldDecorator('productName')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -248,7 +252,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -256,7 +260,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="品名">
+            <FormItem label={fieldLabels.productName}>
               {getFieldDecorator('productName')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -264,7 +268,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="产品描述">
+            <FormItem label={fieldLabels.productDescription}>
               {getFieldDecorator('productDescription')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -272,14 +276,18 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="产品单元">
+            <FormItem label={fieldLabels.productUnit}>
               {getFieldDecorator('productUnit')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="供应商">
+=======
+                    <Form.Item label={fieldLabels.supplier}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('supplier', {initialValue: tryinit('supplier')})(
                   
                   <SelectObject 
@@ -302,7 +310,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

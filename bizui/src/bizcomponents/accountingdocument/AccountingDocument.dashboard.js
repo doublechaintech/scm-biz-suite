@@ -116,8 +116,8 @@ const internalSummaryOf = (accountingDocument,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{accountingDocument.id}</Description> 
-<Description term="名称">{accountingDocument.name}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{accountingDocument.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{accountingDocument.name}</Description> 
 <Description term="会计凭证日期">{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</Description> 
 <Description term="会计期间">{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.accountingPeriod.displayName}(${accountingDocument.accountingPeriod.id})`}
  <Icon type="swap" onClick={()=>
@@ -131,7 +131,6 @@ const internalSummaryOf = (accountingDocument,targetComponent) =>{
 	      AccountingDocumentService.transferToAnotherDocumentType,"anotherDocumentTypeId",accountingDocument.documentType?accountingDocument.documentType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="当前状态">{accountingDocument.currentStatus}</Description> 
 	
         {buildTransferModal(accountingDocument,targetComponent)}
       </DescriptionList>
@@ -172,8 +171,13 @@ class AccountingDocumentDashboard extends Component {
     const cardsData = {cardsName:"会计凭证",cardsFor: "accountingDocument",
     	cardsSource: this.props.accountingDocument,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'originalVoucherList', displayName:'原始凭证',type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
 {name: 'accountingDocumentLineList', displayName:'会计凭证行',type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
+=======
+{name: 'originalVoucherList', displayName:'原始凭证',viewGroup:'__no_group', type:'originalVoucher',count:originalVoucherCount,addFunction: true, role: 'originalVoucher', metaInfo: originalVoucherListMetaInfo, renderItem: GlobalComponents.OriginalVoucherBase.renderItemOfList},
+{name: 'accountingDocumentLineList', displayName:'会计凭证行',viewGroup:'__no_group', type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

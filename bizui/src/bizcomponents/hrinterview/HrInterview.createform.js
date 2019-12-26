@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   who: '人力资源部',
+<<<<<<< HEAD
   interviewTime: '2017-02-04',
+=======
+  interviewTime: '2019-11-23',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   comments: '软技能，责任感，气质不错啊',
 }
 */
@@ -203,13 +207,21 @@ class HrInterviewCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}人力资源部面试</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('hr_interview')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}人力资源部面试`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('hr_interview')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

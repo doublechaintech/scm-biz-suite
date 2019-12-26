@@ -116,14 +116,18 @@ const internalSummaryOf = (levelThreeCategory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{levelThreeCategory.id}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{levelThreeCategory.id}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="父类">{levelThreeCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeCategory.parentCategory.displayName}(${levelThreeCategory.parentCategory.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"父类","levelTwoCategory",LevelThreeCategoryService.requestCandidateParentCategory,
 	      LevelThreeCategoryService.transferToAnotherParentCategory,"anotherParentCategoryId",levelThreeCategory.parentCategory?levelThreeCategory.parentCategory.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="名称">{levelThreeCategory.name}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{levelThreeCategory.name}</Description> 
 	
         {buildTransferModal(levelThreeCategory,targetComponent)}
       </DescriptionList>
@@ -164,7 +168,11 @@ class LevelThreeCategoryDashboard extends Component {
     const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",
     	cardsSource: this.props.levelThreeCategory,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'productList', displayName:'产品',type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
+=======
+{name: 'productList', displayName:'产品',viewGroup:'__no_group', type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

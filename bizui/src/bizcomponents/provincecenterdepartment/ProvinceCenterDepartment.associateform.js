@@ -19,8 +19,13 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
+<<<<<<< HEAD
   founded: '2018-07-06',
   manager: '刘强',
+=======
+  founded: '2019-10-16',
+  managerName: '刘强',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   provinceCenterId: 'RSPC000001',
 }
 */
@@ -141,7 +146,11 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -151,17 +160,29 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
 
               <Col lg={12} md={12} sm={12}>
+<<<<<<< HEAD
                 <Form.Item label={fieldLabels.manager} {...formItemLayout}>
                   {getFieldDecorator('manager', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" placeholder="经理" />
+=======
+                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
+                  {getFieldDecorator('managerName', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.managerName} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

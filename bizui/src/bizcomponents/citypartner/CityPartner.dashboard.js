@@ -116,16 +116,26 @@ const internalSummaryOf = (cityPartner,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{cityPartner.id}</Description> 
 <Description term="名称">{cityPartner.name}</Description> 
 <Description term="手机">{cityPartner.mobile}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{cityPartner.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{cityPartner.name}</Description> 
+<Description term="手机" style={{wordBreak: 'break-all'}}>{cityPartner.mobile}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="城市服务中心">{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",CityPartnerService.requestCandidateCityServiceCenter,
 	      CityPartnerService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",cityPartner.cityServiceCenter?cityPartner.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="描述">{cityPartner.description}</Description> 
+=======
+<Description term="描述" style={{wordBreak: 'break-all'}}>{cityPartner.description}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(cityPartner,targetComponent)}
@@ -167,8 +177,13 @@ class CityPartnerDashboard extends Component {
     const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",
     	cardsSource: this.props.cityPartner,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'potentialCustomerList', displayName:'潜在的客户',type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
 {name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+=======
+{name: 'potentialCustomerList', displayName:'潜在的客户',viewGroup:'__no_group', type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
+{name: 'potentialCustomerContactList', displayName:'潜在客户联系',viewGroup:'__no_group', type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

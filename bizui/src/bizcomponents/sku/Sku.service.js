@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateProduct = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherProduct = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}skuManager/transferToAnotherProduct/id/anotherProductId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -39,7 +38,7 @@ const transferToAnotherProduct = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}skuManager/addGoods/skuId/name/rfid/uom/maxPackage/expireTime/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
+  const url = `${PREFIX}skuManager/addGoods/skuId/name/rfid/uom/maxPackage/expireTime/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
   const skuId = targetObjectId
   const requestParameters = { ...parameters, skuId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -59,12 +58,39 @@ const removeGoodsList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}skuService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}skuService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}skuService/process/`,
+    data,
+  })
+}
+
 const SkuService = { view,
   load,
   addGoods,
   updateGoods,
   removeGoodsList,
   requestCandidateProduct,
-  transferToAnotherProduct }
+  transferToAnotherProduct, listFunctions, saveRequest, processRequest}
 export default SkuService
 

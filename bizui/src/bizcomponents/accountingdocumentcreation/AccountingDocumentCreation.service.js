@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addAccountingDocument = (targetObjectId, parameters) => {
-  const url = `${PREFIX}accountingDocumentCreationManager/addAccountingDocument/accountingDocumentCreationId/name/accountingDocumentDate/accountingPeriodId/documentTypeId/tokensExpr/`
+  const url = `${PREFIX}accountingDocumentCreationManager/addAccountingDocument/accountingDocumentCreationId/name/accountingDocumentDate/accountingPeriodId/documentTypeId/confirmationId/auditingId/postingId/tokensExpr/`
   const accountingDocumentCreationId = targetObjectId
   const requestParameters = { ...parameters, accountingDocumentCreationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -43,10 +43,37 @@ const removeAccountingDocumentList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}accountingDocumentCreationService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingDocumentCreationService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}accountingDocumentCreationService/process/`,
+    data,
+  })
+}
+
 const AccountingDocumentCreationService = { view,
   load,
   addAccountingDocument,
   updateAccountingDocument,
-  removeAccountingDocumentList }
+  removeAccountingDocumentList, listFunctions, saveRequest, processRequest}
 export default AccountingDocumentCreationService
 

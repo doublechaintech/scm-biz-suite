@@ -21,8 +21,13 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
+<<<<<<< HEAD
   maxPackage: '8',
   expireTime: '2018-08-29',
+=======
+  maxPackage: '9',
+  expireTime: '2017-10-09',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -32,6 +37,7 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
+  packagingId: 'GP000001',
 }
 */
 
@@ -214,13 +220,21 @@ class GoodsCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}货物`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('goods')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

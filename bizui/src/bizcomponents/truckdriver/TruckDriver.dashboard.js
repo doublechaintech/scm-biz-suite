@@ -116,10 +116,17 @@ const internalSummaryOf = (truckDriver,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{truckDriver.id}</Description> 
 <Description term="名称">{truckDriver.name}</Description> 
 <Description term="驾驶执照号码">{truckDriver.driverLicenseNumber}</Description> 
 <Description term="联系电话">{truckDriver.contactNumber}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{truckDriver.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{truckDriver.name}</Description> 
+<Description term="驾驶执照号码" style={{wordBreak: 'break-all'}}>{truckDriver.driverLicenseNumber}</Description> 
+<Description term="联系电话" style={{wordBreak: 'break-all'}}>{truckDriver.contactNumber}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="属于">{truckDriver.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${truckDriver.belongsTo.displayName}(${truckDriver.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","transportFleet",TruckDriverService.requestCandidateBelongsTo,
@@ -166,7 +173,11 @@ class TruckDriverDashboard extends Component {
     const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",
     	cardsSource: this.props.truckDriver,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+=======
+{name: 'transportTaskList', displayName:'运输任务',viewGroup:'__no_group', type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

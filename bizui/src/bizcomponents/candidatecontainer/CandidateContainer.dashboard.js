@@ -116,8 +116,13 @@ const internalSummaryOf = (candidateContainer,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="ID">{candidateContainer.id}</Description> 
 <Description term="名称">{candidateContainer.name}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{candidateContainer.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{candidateContainer.name}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
         {buildTransferModal(candidateContainer,targetComponent)}
       </DescriptionList>
@@ -158,7 +163,11 @@ class CandidateContainerDashboard extends Component {
     const cardsData = {cardsName:"候选人容器",cardsFor: "candidateContainer",
     	cardsSource: this.props.candidateContainer,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'candidateElementList', displayName:'候选人元素',type:'candidateElement',count:candidateElementCount,addFunction: true, role: 'candidateElement', metaInfo: candidateElementListMetaInfo, renderItem: GlobalComponents.CandidateElementBase.renderItemOfList},
+=======
+{name: 'candidateElementList', displayName:'候选人元素',viewGroup:'__no_group', type:'candidateElement',count:candidateElementCount,addFunction: true, role: 'candidateElement', metaInfo: candidateElementListMetaInfo, renderItem: GlobalComponents.CandidateElementBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

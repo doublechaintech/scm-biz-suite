@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateProvinceCenter = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherProvinceCenter = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}provinceCenterDepartmentManager/transferToAnotherProvinceCenter/id/anotherProvinceCenterId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -59,12 +58,39 @@ const removeProvinceCenterEmployeeList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}provinceCenterDepartmentService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}provinceCenterDepartmentService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}provinceCenterDepartmentService/process/`,
+    data,
+  })
+}
+
 const ProvinceCenterDepartmentService = { view,
   load,
   addProvinceCenterEmployee,
   updateProvinceCenterEmployee,
   removeProvinceCenterEmployeeList,
   requestCandidateProvinceCenter,
-  transferToAnotherProvinceCenter }
+  transferToAnotherProvinceCenter, listFunctions, saveRequest, processRequest}
 export default ProvinceCenterDepartmentService
 

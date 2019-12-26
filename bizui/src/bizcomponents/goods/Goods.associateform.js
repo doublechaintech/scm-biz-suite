@@ -21,8 +21,13 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
+<<<<<<< HEAD
   maxPackage: '9',
   expireTime: '2019-04-23',
+=======
+  maxPackage: '10',
+  expireTime: '2017-01-18',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -32,6 +37,7 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
+  packagingId: 'GP000001',
 }
 */
 
@@ -151,7 +157,11 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +171,11 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="RFID" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.rfid} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +185,11 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('uom', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="计量单位" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.uom} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -181,7 +199,11 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('maxPackage', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="最大包装" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.maxPackage} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -191,7 +213,11 @@ class GoodsAssociateForm extends Component {
                   {getFieldDecorator('expireTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="到期时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.expireTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -343,6 +369,21 @@ class GoodsAssociateForm extends Component {
                     disabled={!availableForEdit('retailStoreOrder')}
                     targetType={"retailStoreOrder"} 
                     requestFunction={GoodsService.requestCandidateRetailStoreOrder}/>
+  
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={24}>
+                <Form.Item label={fieldLabels.packaging} {...formItemLayout}>
+                  {getFieldDecorator('packagingId', {
+                  	initialValue: tryinit('packaging'),
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                <SelectObject 
+                    disabled={!availableForEdit('packaging')}
+                    targetType={"packaging"} 
+                    requestFunction={GoodsService.requestCandidatePackaging}/>
   
                   )}
                 </Form.Item>

@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,7 +23,7 @@ const load = (targetObjectId, parameters) => {
 
 
 const addConsumerOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderProcessingManager/addConsumerOrder/supplyOrderProcessingId/title/consumerId/storeId/tokensExpr/`
+  const url = `${PREFIX}supplyOrderProcessingManager/addConsumerOrder/supplyOrderProcessingId/title/consumerId/confirmationId/approvalId/shipmentId/deliveryId/storeId/tokensExpr/`
   const supplyOrderProcessingId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderProcessingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -45,7 +45,7 @@ const removeConsumerOrderList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderProcessingManager/addSupplyOrder/supplyOrderProcessingId/buyerId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}supplyOrderProcessingManager/addSupplyOrder/supplyOrderProcessingId/buyerId/sellerId/title/totalAmount/confirmationId/approvalId/pickingId/shipmentId/deliveryId/tokensExpr/`
   const supplyOrderProcessingId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderProcessingId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -65,6 +65,33 @@ const removeSupplyOrderList = (targetObjectId, parameters) => {
 }
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}supplyOrderProcessingService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderProcessingService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}supplyOrderProcessingService/process/`,
+    data,
+  })
+}
+
 const SupplyOrderProcessingService = { view,
   load,
   addConsumerOrder,
@@ -72,6 +99,6 @@ const SupplyOrderProcessingService = { view,
   updateConsumerOrder,
   updateSupplyOrder,
   removeConsumerOrderList,
-  removeSupplyOrderList }
+  removeSupplyOrderList, listFunctions, saveRequest, processRequest}
 export default SupplyOrderProcessingService
 

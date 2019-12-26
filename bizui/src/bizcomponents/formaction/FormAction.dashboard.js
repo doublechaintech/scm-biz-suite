@@ -116,12 +116,21 @@ const internalSummaryOf = (formAction,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="ID">{formAction.id}</Description> 
 <Description term="标签">{formAction.label}</Description> 
 <Description term="语言环境的关键">{formAction.localeKey}</Description> 
 <Description term="操作">{formAction.actionKey}</Description> 
 <Description term="水平">{formAction.level}</Description> 
 <Description term="url">{formAction.url}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{formAction.id}</Description> 
+<Description term="标签" style={{wordBreak: 'break-all'}}>{formAction.label}</Description> 
+<Description term="语言环境的关键" style={{wordBreak: 'break-all'}}>{formAction.localeKey}</Description> 
+<Description term="行动的关键" style={{wordBreak: 'break-all'}}>{formAction.actionKey}</Description> 
+<Description term="水平" style={{wordBreak: 'break-all'}}>{formAction.level}</Description> 
+<Description term="url" style={{wordBreak: 'break-all'}}>{formAction.url}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
         {buildTransferModal(formAction,targetComponent)}
       </DescriptionList>

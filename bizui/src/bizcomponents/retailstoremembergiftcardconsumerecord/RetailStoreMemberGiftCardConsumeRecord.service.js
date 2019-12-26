@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateOwner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOwner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreMemberGiftCardConsumeRecordManager/transferToAnotherOwner/id/anotherOwnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateBizOrder = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherBizOrder = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}retailStoreMemberGiftCardConsumeRecordManager/transferToAnotherBizOrder/id/anotherBizOrderId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -53,11 +51,38 @@ const transferToAnotherBizOrder = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreMemberGiftCardConsumeRecordService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberGiftCardConsumeRecordService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreMemberGiftCardConsumeRecordService/process/`,
+    data,
+  })
+}
+
 const RetailStoreMemberGiftCardConsumeRecordService = { view,
   load,
   requestCandidateOwner,
   requestCandidateBizOrder,
   transferToAnotherOwner,
-  transferToAnotherBizOrder }
+  transferToAnotherBizOrder, listFunctions, saveRequest, processRequest}
 export default RetailStoreMemberGiftCardConsumeRecordService
 

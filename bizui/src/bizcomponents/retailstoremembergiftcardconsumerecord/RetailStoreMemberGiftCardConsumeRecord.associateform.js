@@ -18,9 +18,15 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   occureTime: '2017-08-16',
   number: 'GF00001',
   amount: '18.91',
+=======
+  occureTime: '2017-01-09',
+  number: 'GF00001',
+  amount: '17.11',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -141,7 +147,11 @@ class RetailStoreMemberGiftCardConsumeRecordAssociateForm extends Component {
                   {getFieldDecorator('occureTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="发生时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.occureTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +161,11 @@ class RetailStoreMemberGiftCardConsumeRecordAssociateForm extends Component {
                   {getFieldDecorator('number', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="数" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.number} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +175,11 @@ class RetailStoreMemberGiftCardConsumeRecordAssociateForm extends Component {
                   {getFieldDecorator('amount', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="金额" />
+=======
+                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

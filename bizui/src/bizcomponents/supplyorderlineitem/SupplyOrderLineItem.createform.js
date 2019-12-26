@@ -20,8 +20,13 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
+<<<<<<< HEAD
   amount: '5.53',
   quantity: '9484',
+=======
+  amount: '5.21',
+  quantity: '8946',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   unitOfMeasurement: '件',
   bizOrderId: 'SO000001',
 }
@@ -206,13 +211,21 @@ class SupplyOrderLineItemCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单行项目</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_line_item')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}供应订单行项目`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('supply_order_line_item')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

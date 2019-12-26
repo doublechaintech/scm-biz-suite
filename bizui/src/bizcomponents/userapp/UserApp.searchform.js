@@ -8,10 +8,14 @@ import styles from './UserApp.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
+=======
+import UserAppBase from './UserApp.base'
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = UserAppBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -196,7 +200,11 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
+<<<<<<< HEAD
          <FormItem label="ID">
+=======
+         <FormItem label={fieldLabels.id}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -204,7 +212,11 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
+<<<<<<< HEAD
          <FormItem label="标题">
+=======
+         <FormItem label={fieldLabels.title}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
            {getFieldDecorator('title')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -251,7 +263,11 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
+<<<<<<< HEAD
             <FormItem label="ID">
+=======
+            <FormItem label={fieldLabels.id}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -259,14 +275,22 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
+<<<<<<< HEAD
             <FormItem label="标题">
+=======
+            <FormItem label={fieldLabels.title}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('title')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="安全用户">
+=======
+                    <Form.Item label={fieldLabels.secUser}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('secUser', {initialValue: tryinit('secUser')})(
                   
                   <SelectObject 
@@ -279,7 +303,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="应用程序图标">
+            <FormItem label={fieldLabels.appIcon}>
               {getFieldDecorator('appIcon')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -287,7 +311,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="许可">
+            <FormItem label={fieldLabels.permission}>
               {getFieldDecorator('permission')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -295,7 +319,11 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
+<<<<<<< HEAD
             <FormItem label="访问对象类型">
+=======
+            <FormItem label={fieldLabels.objectType}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('objectType')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -303,7 +331,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="对象ID">
+            <FormItem label={fieldLabels.objectId}>
               {getFieldDecorator('objectId')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -311,7 +339,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="位置">
+            <FormItem label={fieldLabels.location}>
               {getFieldDecorator('location')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -329,7 +357,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

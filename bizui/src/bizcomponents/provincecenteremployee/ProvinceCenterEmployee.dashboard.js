@@ -116,10 +116,10 @@ const internalSummaryOf = (provinceCenterEmployee,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="序号">{provinceCenterEmployee.id}</Description> 
-<Description term="名称">{provinceCenterEmployee.name}</Description> 
-<Description term="手机">{provinceCenterEmployee.mobile}</Description> 
-<Description term="电子邮件">{provinceCenterEmployee.email}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{provinceCenterEmployee.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{provinceCenterEmployee.name}</Description> 
+<Description term="手机" style={{wordBreak: 'break-all'}}>{provinceCenterEmployee.mobile}</Description> 
+<Description term="电子邮件" style={{wordBreak: 'break-all'}}>{provinceCenterEmployee.email}</Description> 
 <Description term="成立">{ moment(provinceCenterEmployee.founded).format('YYYY-MM-DD')}</Description> 
 <Description term="部门">{provinceCenterEmployee.department==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterEmployee.department.displayName}(${provinceCenterEmployee.department.id})`}
  <Icon type="swap" onClick={()=>

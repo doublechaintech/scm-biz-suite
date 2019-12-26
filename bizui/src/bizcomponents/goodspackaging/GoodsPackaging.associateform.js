@@ -20,7 +20,11 @@ const testValues = {};
 const testValues = {
   packageName: '王煜东',
   rfid: 'RF99192',
+<<<<<<< HEAD
   packageTime: '2017-02-04',
+=======
+  packageTime: '2019-09-24',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   description: '打包完成，准备起运',
 }
 */
@@ -141,7 +145,11 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('packageName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="包的名字" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.packageName} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -151,7 +159,11 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('rfid', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="RFID" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.rfid} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -161,7 +173,11 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('packageTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="包的时间" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.packageTime}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -171,7 +187,11 @@ class GoodsPackagingAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="描述" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.description} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

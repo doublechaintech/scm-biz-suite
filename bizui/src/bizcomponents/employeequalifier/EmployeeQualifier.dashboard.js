@@ -116,7 +116,11 @@ const internalSummaryOf = (employeeQualifier,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{employeeQualifier.id}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{employeeQualifier.id}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="员工">{employeeQualifier.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeQualifier.employee.displayName}(${employeeQualifier.employee.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"员工","employee",EmployeeQualifierService.requestCandidateEmployee,
@@ -124,9 +128,9 @@ const internalSummaryOf = (employeeQualifier,targetComponent) =>{
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="合格的时间">{ moment(employeeQualifier.qualifiedTime).format('YYYY-MM-DD')}</Description> 
-<Description term="类型">{employeeQualifier.type}</Description> 
-<Description term="水平">{employeeQualifier.level}</Description> 
-<Description term="备注">{employeeQualifier.remark}</Description> 
+<Description term="类型" style={{wordBreak: 'break-all'}}>{employeeQualifier.type}</Description> 
+<Description term="水平" style={{wordBreak: 'break-all'}}>{employeeQualifier.level}</Description> 
+<Description term="备注" style={{wordBreak: 'break-all'}}>{employeeQualifier.remark}</Description> 
 	
         {buildTransferModal(employeeQualifier,targetComponent)}
       </DescriptionList>

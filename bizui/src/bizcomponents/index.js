@@ -2468,6 +2468,7 @@ const unbindBizModels = (app) =>{
 
 const menuLibrary = []
 
+<<<<<<< HEAD
 menuLibrary['retailStoreCountryCenter'] = RetailStoreCountryCenterBase.menuData
 menuLibrary['catalog'] = CatalogBase.menuData
 menuLibrary['levelOneCategory'] = LevelOneCategoryBase.menuData
@@ -2621,6 +2622,161 @@ menuLibrary['formField'] = FormFieldBase.menuData
 menuLibrary['formAction'] = FormActionBase.menuData
 menuLibrary['candidateContainer'] = CandidateContainerBase.menuData
 menuLibrary['candidateElement'] = CandidateElementBase.menuData
+=======
+menuLibrary.retailStoreCountryCenter = RetailStoreCountryCenterBase.menuData
+menuLibrary.catalog = CatalogBase.menuData
+menuLibrary.levelOneCategory = LevelOneCategoryBase.menuData
+menuLibrary.levelTwoCategory = LevelTwoCategoryBase.menuData
+menuLibrary.levelThreeCategory = LevelThreeCategoryBase.menuData
+menuLibrary.product = ProductBase.menuData
+menuLibrary.sku = SkuBase.menuData
+menuLibrary.retailStoreProvinceCenter = RetailStoreProvinceCenterBase.menuData
+menuLibrary.provinceCenterDepartment = ProvinceCenterDepartmentBase.menuData
+menuLibrary.provinceCenterEmployee = ProvinceCenterEmployeeBase.menuData
+menuLibrary.retailStoreCityServiceCenter = RetailStoreCityServiceCenterBase.menuData
+menuLibrary.cityPartner = CityPartnerBase.menuData
+menuLibrary.potentialCustomer = PotentialCustomerBase.menuData
+menuLibrary.potentialCustomerContactPerson = PotentialCustomerContactPersonBase.menuData
+menuLibrary.potentialCustomerContact = PotentialCustomerContactBase.menuData
+menuLibrary.cityEvent = CityEventBase.menuData
+menuLibrary.eventAttendance = EventAttendanceBase.menuData
+menuLibrary.retailStore = RetailStoreBase.menuData
+menuLibrary.retailStoreCreation = RetailStoreCreationBase.menuData
+menuLibrary.retailStoreInvestmentInvitation = RetailStoreInvestmentInvitationBase.menuData
+menuLibrary.retailStoreFranchising = RetailStoreFranchisingBase.menuData
+menuLibrary.retailStoreDecoration = RetailStoreDecorationBase.menuData
+menuLibrary.retailStoreOpening = RetailStoreOpeningBase.menuData
+menuLibrary.retailStoreClosing = RetailStoreClosingBase.menuData
+menuLibrary.retailStoreMember = RetailStoreMemberBase.menuData
+menuLibrary.consumerOrder = ConsumerOrderBase.menuData
+menuLibrary.consumerOrderConfirmation = ConsumerOrderConfirmationBase.menuData
+menuLibrary.consumerOrderApproval = ConsumerOrderApprovalBase.menuData
+menuLibrary.consumerOrderProcessing = ConsumerOrderProcessingBase.menuData
+menuLibrary.consumerOrderShipment = ConsumerOrderShipmentBase.menuData
+menuLibrary.consumerOrderDelivery = ConsumerOrderDeliveryBase.menuData
+menuLibrary.consumerOrderLineItem = ConsumerOrderLineItemBase.menuData
+menuLibrary.consumerOrderShippingGroup = ConsumerOrderShippingGroupBase.menuData
+menuLibrary.consumerOrderPaymentGroup = ConsumerOrderPaymentGroupBase.menuData
+menuLibrary.consumerOrderPriceAdjustment = ConsumerOrderPriceAdjustmentBase.menuData
+menuLibrary.retailStoreMemberCoupon = RetailStoreMemberCouponBase.menuData
+menuLibrary.memberWishlist = MemberWishlistBase.menuData
+menuLibrary.memberRewardPoint = MemberRewardPointBase.menuData
+menuLibrary.memberRewardPointRedemption = MemberRewardPointRedemptionBase.menuData
+menuLibrary.memberWishlistProduct = MemberWishlistProductBase.menuData
+menuLibrary.retailStoreMemberAddress = RetailStoreMemberAddressBase.menuData
+menuLibrary.retailStoreMemberGiftCard = RetailStoreMemberGiftCardBase.menuData
+menuLibrary.retailStoreMemberGiftCardConsumeRecord = RetailStoreMemberGiftCardConsumeRecordBase.menuData
+menuLibrary.goodsSupplier = GoodsSupplierBase.menuData
+menuLibrary.supplierProduct = SupplierProductBase.menuData
+menuLibrary.productSupplyDuration = ProductSupplyDurationBase.menuData
+menuLibrary.supplyOrder = SupplyOrderBase.menuData
+menuLibrary.supplyOrderConfirmation = SupplyOrderConfirmationBase.menuData
+menuLibrary.supplyOrderApproval = SupplyOrderApprovalBase.menuData
+menuLibrary.supplyOrderProcessing = SupplyOrderProcessingBase.menuData
+menuLibrary.supplyOrderPicking = SupplyOrderPickingBase.menuData
+menuLibrary.supplyOrderShipment = SupplyOrderShipmentBase.menuData
+menuLibrary.supplyOrderDelivery = SupplyOrderDeliveryBase.menuData
+menuLibrary.supplyOrderLineItem = SupplyOrderLineItemBase.menuData
+menuLibrary.supplyOrderShippingGroup = SupplyOrderShippingGroupBase.menuData
+menuLibrary.supplyOrderPaymentGroup = SupplyOrderPaymentGroupBase.menuData
+menuLibrary.retailStoreOrder = RetailStoreOrderBase.menuData
+menuLibrary.retailStoreOrderConfirmation = RetailStoreOrderConfirmationBase.menuData
+menuLibrary.retailStoreOrderApproval = RetailStoreOrderApprovalBase.menuData
+menuLibrary.retailStoreOrderProcessing = RetailStoreOrderProcessingBase.menuData
+menuLibrary.retailStoreOrderPicking = RetailStoreOrderPickingBase.menuData
+menuLibrary.retailStoreOrderShipment = RetailStoreOrderShipmentBase.menuData
+menuLibrary.retailStoreOrderDelivery = RetailStoreOrderDeliveryBase.menuData
+menuLibrary.retailStoreOrderLineItem = RetailStoreOrderLineItemBase.menuData
+menuLibrary.retailStoreOrderShippingGroup = RetailStoreOrderShippingGroupBase.menuData
+menuLibrary.retailStoreOrderPaymentGroup = RetailStoreOrderPaymentGroupBase.menuData
+menuLibrary.warehouse = WarehouseBase.menuData
+menuLibrary.storageSpace = StorageSpaceBase.menuData
+menuLibrary.smartPallet = SmartPalletBase.menuData
+menuLibrary.goodsShelf = GoodsShelfBase.menuData
+menuLibrary.goodsShelfStockCount = GoodsShelfStockCountBase.menuData
+menuLibrary.stockCountIssueTrack = StockCountIssueTrackBase.menuData
+menuLibrary.goodsAllocation = GoodsAllocationBase.menuData
+menuLibrary.goods = GoodsBase.menuData
+menuLibrary.goodsPackaging = GoodsPackagingBase.menuData
+menuLibrary.goodsMovement = GoodsMovementBase.menuData
+menuLibrary.supplierSpace = SupplierSpaceBase.menuData
+menuLibrary.receivingSpace = ReceivingSpaceBase.menuData
+menuLibrary.shippingSpace = ShippingSpaceBase.menuData
+menuLibrary.damageSpace = DamageSpaceBase.menuData
+menuLibrary.warehouseAsset = WarehouseAssetBase.menuData
+menuLibrary.transportFleet = TransportFleetBase.menuData
+menuLibrary.transportTruck = TransportTruckBase.menuData
+menuLibrary.truckDriver = TruckDriverBase.menuData
+menuLibrary.transportTask = TransportTaskBase.menuData
+menuLibrary.transportTaskTrack = TransportTaskTrackBase.menuData
+menuLibrary.accountSet = AccountSetBase.menuData
+menuLibrary.accountingSubject = AccountingSubjectBase.menuData
+menuLibrary.accountingPeriod = AccountingPeriodBase.menuData
+menuLibrary.accountingDocumentType = AccountingDocumentTypeBase.menuData
+menuLibrary.accountingDocument = AccountingDocumentBase.menuData
+menuLibrary.accountingDocumentCreation = AccountingDocumentCreationBase.menuData
+menuLibrary.accountingDocumentConfirmation = AccountingDocumentConfirmationBase.menuData
+menuLibrary.accountingDocumentAuditing = AccountingDocumentAuditingBase.menuData
+menuLibrary.accountingDocumentPosting = AccountingDocumentPostingBase.menuData
+menuLibrary.originalVoucher = OriginalVoucherBase.menuData
+menuLibrary.originalVoucherCreation = OriginalVoucherCreationBase.menuData
+menuLibrary.originalVoucherConfirmation = OriginalVoucherConfirmationBase.menuData
+menuLibrary.originalVoucherAuditing = OriginalVoucherAuditingBase.menuData
+menuLibrary.accountingDocumentLine = AccountingDocumentLineBase.menuData
+menuLibrary.levelOneDepartment = LevelOneDepartmentBase.menuData
+menuLibrary.levelTwoDepartment = LevelTwoDepartmentBase.menuData
+menuLibrary.levelThreeDepartment = LevelThreeDepartmentBase.menuData
+menuLibrary.skillType = SkillTypeBase.menuData
+menuLibrary.responsibilityType = ResponsibilityTypeBase.menuData
+menuLibrary.terminationReason = TerminationReasonBase.menuData
+menuLibrary.terminationType = TerminationTypeBase.menuData
+menuLibrary.occupationType = OccupationTypeBase.menuData
+menuLibrary.leaveType = LeaveTypeBase.menuData
+menuLibrary.salaryGrade = SalaryGradeBase.menuData
+menuLibrary.interviewType = InterviewTypeBase.menuData
+menuLibrary.trainingCourseType = TrainingCourseTypeBase.menuData
+menuLibrary.publicHoliday = PublicHolidayBase.menuData
+menuLibrary.termination = TerminationBase.menuData
+menuLibrary.view = ViewBase.menuData
+menuLibrary.employee = EmployeeBase.menuData
+menuLibrary.jobApplication = JobApplicationBase.menuData
+menuLibrary.professionInterview = ProfessionInterviewBase.menuData
+menuLibrary.hrInterview = HrInterviewBase.menuData
+menuLibrary.offerApproval = OfferApprovalBase.menuData
+menuLibrary.offerAcceptance = OfferAcceptanceBase.menuData
+menuLibrary.employeeBoarding = EmployeeBoardingBase.menuData
+menuLibrary.instructor = InstructorBase.menuData
+menuLibrary.companyTraining = CompanyTrainingBase.menuData
+menuLibrary.scoring = ScoringBase.menuData
+menuLibrary.employeeCompanyTraining = EmployeeCompanyTrainingBase.menuData
+menuLibrary.employeeSkill = EmployeeSkillBase.menuData
+menuLibrary.employeePerformance = EmployeePerformanceBase.menuData
+menuLibrary.employeeWorkExperience = EmployeeWorkExperienceBase.menuData
+menuLibrary.employeeLeave = EmployeeLeaveBase.menuData
+menuLibrary.employeeInterview = EmployeeInterviewBase.menuData
+menuLibrary.employeeAttendance = EmployeeAttendanceBase.menuData
+menuLibrary.employeeQualifier = EmployeeQualifierBase.menuData
+menuLibrary.employeeEducation = EmployeeEducationBase.menuData
+menuLibrary.employeeAward = EmployeeAwardBase.menuData
+menuLibrary.employeeSalarySheet = EmployeeSalarySheetBase.menuData
+menuLibrary.payingOff = PayingOffBase.menuData
+menuLibrary.userDomain = UserDomainBase.menuData
+menuLibrary.userWhiteList = UserWhiteListBase.menuData
+menuLibrary.secUser = SecUserBase.menuData
+menuLibrary.secUserBlocking = SecUserBlockingBase.menuData
+menuLibrary.userApp = UserAppBase.menuData
+menuLibrary.quickLink = QuickLinkBase.menuData
+menuLibrary.listAccess = ListAccessBase.menuData
+menuLibrary.objectAccess = ObjectAccessBase.menuData
+menuLibrary.loginHistory = LoginHistoryBase.menuData
+menuLibrary.genericForm = GenericFormBase.menuData
+menuLibrary.formMessage = FormMessageBase.menuData
+menuLibrary.formFieldMessage = FormFieldMessageBase.menuData
+menuLibrary.formField = FormFieldBase.menuData
+menuLibrary.formAction = FormActionBase.menuData
+menuLibrary.candidateContainer = CandidateContainerBase.menuData
+menuLibrary.candidateElement = CandidateElementBase.menuData
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 
 const menuDataOf=(type)=>{
@@ -5134,7 +5290,14 @@ const OOTBComponents={
     CandidateElementCreateFormBody,
     CandidateElementService,
     CandidateElementUpdateForm,
+<<<<<<< HEAD
     menuDataOf,bindBizModels,unbindBizModels,calcLocationPath,calcMenuData
+=======
+
+
+    menuDataOf,bindBizModels,unbindBizModels,calcLocationPath,calcMenuData,
+	
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 };
        
 

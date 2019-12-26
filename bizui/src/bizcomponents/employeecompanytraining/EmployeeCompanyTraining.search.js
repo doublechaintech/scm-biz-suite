@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './EmployeeCompanyTraining.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import EmployeeCompanyTrainingBase from './EmployeeCompanyTraining.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = EmployeeCompanyTrainingBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -70,11 +75,7 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <ScoringAssociateForm 
-	visible={currentAssociateModal==='scoring'} 
-	data={{employeeCompanyTrainingList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'scoring')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'scoring')}/>
+   
   
     <EmployeeAssociateForm 
 	visible={currentAssociateModal==='employee'} 
@@ -84,7 +85,11 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='training'} 
 	data={{employeeCompanyTrainingList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'training')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'training')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'training')}/> <ScoringAssociateForm 
+	visible={currentAssociateModal==='scoring'} 
+	data={{employeeCompanyTrainingList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'scoring')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'scoring')}/> 
  
 
 

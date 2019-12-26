@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -23,14 +23,14 @@ const load = (targetObjectId, parameters) => {
 
 
 const addCatalog = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addCatalog/retailStoreCountryCenterId/name/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addCatalog/retailStoreCountryCenterId/name/subCount/amount/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateCatalog = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateCatalogProperties/retailStoreCountryCenterId/id/name/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/updateCatalogProperties/retailStoreCountryCenterId/id/name/subCount/amount/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -67,7 +67,7 @@ const removeRetailStoreProvinceCenterList = (targetObjectId, parameters) => {
 
 
 const addRetailStore = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStore/retailStoreCountryCenterId/name/telephone/owner/cityServiceCenterId/founded/latitude/longitude/description/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStore/retailStoreCountryCenterId/name/telephone/owner/cityServiceCenterId/creationId/investmentInvitationId/franchisingId/decorationId/openingId/closingId/founded/latitude/longitude/description/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -133,7 +133,7 @@ const removeGoodsSupplierList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addSupplyOrder/retailStoreCountryCenterId/sellerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addSupplyOrder/retailStoreCountryCenterId/sellerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -155,7 +155,7 @@ const removeSupplyOrderList = (targetObjectId, parameters) => {
 
 
 const addRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStoreOrder/retailStoreCountryCenterId/buyerId/title/totalAmount/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStoreOrder/retailStoreCountryCenterId/buyerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -243,14 +243,14 @@ const removeAccountSetList = (targetObjectId, parameters) => {
 
 
 const addLevelOneDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addLevelOneDepartment/retailStoreCountryCenterId/name/description/manager/founded/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addLevelOneDepartment/retailStoreCountryCenterId/name/description/managerName/founded/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateLevelOneDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateLevelOneDepartmentProperties/retailStoreCountryCenterId/id/name/description/manager/founded/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/updateLevelOneDepartmentProperties/retailStoreCountryCenterId/id/name/description/managerName/founded/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -485,7 +485,7 @@ const removePublicHolidayList = (targetObjectId, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addEmployee/retailStoreCountryCenterId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addEmployee/retailStoreCountryCenterId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/terminationId/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -548,6 +548,33 @@ const removeCompanyTrainingList = (targetObjectId, parameters) => {
   return postForm({ url,requestParameters})
 }
 
+
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}retailStoreCountryCenterService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreCountryCenterService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}retailStoreCountryCenterService/process/`,
+    data,
+  })
+}
 
 const RetailStoreCountryCenterService = { view,
   load,
@@ -622,6 +649,6 @@ const RetailStoreCountryCenterService = { view,
   removePublicHolidayList,
   removeEmployeeList,
   removeInstructorList,
-  removeCompanyTrainingList }
+  removeCompanyTrainingList, listFunctions, saveRequest, processRequest}
 export default RetailStoreCountryCenterService
 

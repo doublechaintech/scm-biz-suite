@@ -116,9 +116,15 @@ const internalSummaryOf = (potentialCustomer,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="序号">{potentialCustomer.id}</Description> 
 <Description term="名称">{potentialCustomer.name}</Description> 
 <Description term="手机">{potentialCustomer.mobile}</Description> 
+=======
+<Description term="序号" style={{wordBreak: 'break-all'}}>{potentialCustomer.id}</Description> 
+<Description term="名称" style={{wordBreak: 'break-all'}}>{potentialCustomer.name}</Description> 
+<Description term="手机" style={{wordBreak: 'break-all'}}>{potentialCustomer.mobile}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="城市服务中心">{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityServiceCenter.displayName}(${potentialCustomer.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",PotentialCustomerService.requestCandidateCityServiceCenter,
@@ -131,7 +137,11 @@ const internalSummaryOf = (potentialCustomer,targetComponent) =>{
 	      PotentialCustomerService.transferToAnotherCityPartner,"anotherCityPartnerId",potentialCustomer.cityPartner?potentialCustomer.cityPartner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
+<<<<<<< HEAD
 <Description term="描述">{potentialCustomer.description}</Description> 
+=======
+<Description term="描述" style={{wordBreak: 'break-all'}}>{potentialCustomer.description}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(potentialCustomer,targetComponent)}
@@ -173,9 +183,15 @@ class PotentialCustomerDashboard extends Component {
     const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",
     	cardsSource: this.props.potentialCustomer,returnURL,displayName,
   		subItems: [
+<<<<<<< HEAD
 {name: 'potentialCustomerContactPersonList', displayName:'潜在客户联络人',type:'potentialCustomerContactPerson',count:potentialCustomerContactPersonCount,addFunction: true, role: 'potentialCustomerContactPerson', metaInfo: potentialCustomerContactPersonListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactPersonBase.renderItemOfList},
 {name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
 {name: 'eventAttendanceList', displayName:'活动的参与情况',type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
+=======
+{name: 'potentialCustomerContactPersonList', displayName:'潜在客户联络人',viewGroup:'__no_group', type:'potentialCustomerContactPerson',count:potentialCustomerContactPersonCount,addFunction: true, role: 'potentialCustomerContactPerson', metaInfo: potentialCustomerContactPersonListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactPersonBase.renderItemOfList},
+{name: 'potentialCustomerContactList', displayName:'潜在客户联系',viewGroup:'__no_group', type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+{name: 'eventAttendanceList', displayName:'活动的参与情况',viewGroup:'__no_group', type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [

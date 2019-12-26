@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidateCompany = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCompany = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherCompany/id/anotherCompanyId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateDepartment = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherDepartment = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherDepartment/id/anotherDepartmentId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateOccupation = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOccupation = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherOccupation/id/anotherOccupationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -74,7 +71,6 @@ const requestCandidateResponsibleFor = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherResponsibleFor = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherResponsibleFor/id/anotherResponsibleForId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -90,7 +86,6 @@ const requestCandidateCurrentSalaryGrade = (ownerClass, id, filterKey, pageNo) =
 }	
 
 const transferToAnotherCurrentSalaryGrade = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherCurrentSalaryGrade/id/anotherCurrentSalaryGradeId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -106,7 +101,6 @@ const requestCandidateJobApplication = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherJobApplication = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherJobApplication/id/anotherJobApplicationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -122,7 +116,6 @@ const requestCandidateProfessionInterview = (ownerClass, id, filterKey, pageNo) 
 }	
 
 const transferToAnotherProfessionInterview = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherProfessionInterview/id/anotherProfessionInterviewId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -138,7 +131,6 @@ const requestCandidateHrInterview = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherHrInterview = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherHrInterview/id/anotherHrInterviewId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -154,7 +146,6 @@ const requestCandidateOfferApproval = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOfferApproval = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherOfferApproval/id/anotherOfferApprovalId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -170,7 +161,6 @@ const requestCandidateOfferAcceptance = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherOfferAcceptance = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherOfferAcceptance/id/anotherOfferAcceptanceId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -186,7 +176,6 @@ const requestCandidateEmployeeBoarding = (ownerClass, id, filterKey, pageNo) => 
 }	
 
 const transferToAnotherEmployeeBoarding = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherEmployeeBoarding/id/anotherEmployeeBoardingId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -202,7 +191,6 @@ const requestCandidateTermination = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherTermination = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}employeeManager/transferToAnotherTermination/id/anotherTerminationId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -215,7 +203,7 @@ const transferToAnotherTermination = (id, parameters) => {
 
 
 const addEmployeeCompanyTraining = (targetObjectId, parameters) => {
-  const url = `${PREFIX}employeeManager/addEmployeeCompanyTraining/employeeId/trainingId/tokensExpr/`
+  const url = `${PREFIX}employeeManager/addEmployeeCompanyTraining/employeeId/trainingId/scoringId/tokensExpr/`
   const employeeId = targetObjectId
   const requestParameters = { ...parameters, employeeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -435,7 +423,7 @@ const removeEmployeeAwardList = (targetObjectId, parameters) => {
 
 
 const addEmployeeSalarySheet = (targetObjectId, parameters) => {
-  const url = `${PREFIX}employeeManager/addEmployeeSalarySheet/employeeId/currentSalaryGradeId/baseSalary/bonus/reward/personalTax/socialSecurity/housingFound/jobInsurance/tokensExpr/`
+  const url = `${PREFIX}employeeManager/addEmployeeSalarySheet/employeeId/currentSalaryGradeId/baseSalary/bonus/reward/personalTax/socialSecurity/housingFound/jobInsurance/payingOffId/tokensExpr/`
   const employeeId = targetObjectId
   const requestParameters = { ...parameters, employeeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -476,6 +464,33 @@ const removePayingOffList = (targetObjectId, parameters) => {
   return postForm({ url,requestParameters})
 }
 
+
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}employeeService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}employeeService/process/`,
+    data,
+  })
+}
 
 const EmployeeService = { view,
   load,
@@ -538,6 +553,6 @@ const EmployeeService = { view,
   transferToAnotherOfferApproval,
   transferToAnotherOfferAcceptance,
   transferToAnotherEmployeeBoarding,
-  transferToAnotherTermination }
+  transferToAnotherTermination, listFunctions, saveRequest, processRequest}
 export default EmployeeService
 

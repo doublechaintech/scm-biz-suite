@@ -20,7 +20,11 @@ const testValues = {};
 const testValues = {
   who: '财务会计',
   comments: '确认提交',
+<<<<<<< HEAD
   makeDate: '2017-01-29',
+=======
+  makeDate: '2019-02-07',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -203,13 +207,21 @@ class OriginalVoucherCreationCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}原始凭证制作</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('original_voucher_creation')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
+<<<<<<< HEAD
         content={`${appLocaleName(userContext,"CreateNew")}原始凭证制作`}
+=======
+        content={`${appLocaleName(userContext,"CreateNew")}${window.trans('original_voucher_creation')}`}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

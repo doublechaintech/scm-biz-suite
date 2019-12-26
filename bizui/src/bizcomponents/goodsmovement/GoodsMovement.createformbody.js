@@ -13,17 +13,30 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
+<<<<<<< HEAD
 
 const testValues = {};
 /*
 const testValues = {
   moveTime: '2019-09-30 18:02:20',
+=======
+const {fieldLabels} = GoodsMovementBase
+const testValues = {};
+/*
+const testValues = {
+  moveTime: '2019-11-18 22:34:59',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
+<<<<<<< HEAD
   latitude: '42.184157092727695',
   longitude: '129.9305460714895',
+=======
+  latitude: '42.43163364629545',
+  longitude: '130.77098998860734',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -76,7 +89,11 @@ class GoodsMovementCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
+<<<<<<< HEAD
     const {fieldLabels} = GoodsMovementBase
+=======
+    
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {GoodsMovementService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -123,7 +140,11 @@ class GoodsMovementCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
+<<<<<<< HEAD
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货物移动</div>)
+=======
+      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_movement')}</div>)
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -138,7 +159,11 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('moveTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5} placeholder="移动时间" />
+=======
+                    <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.moveTime} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -148,7 +173,11 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('facility', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="设施" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.facility} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -158,7 +187,11 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('facilityId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="设备ID" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.facilityId} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -168,7 +201,11 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('fromIp', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="从IP" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.fromIp} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -178,7 +215,11 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('sessionId', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="会话ID" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.sessionId} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -188,7 +229,11 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="纬度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.latitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -198,7 +243,11 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="经度" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.longitude} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -233,7 +282,11 @@ class GoodsMovementCreateFormBody extends Component {
 
 
 
+<<<<<<< HEAD
         <Card title={`用户代理`} className={styles.card} bordered={false}>
+=======
+        <Card title={fieldLabels.userAgent} className={styles.card} bordered={false}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
           <Form >
           	<Row gutter={16}>
               <Col lg={24} md={24} sm={24}>

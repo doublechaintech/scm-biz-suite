@@ -38,7 +38,11 @@ class ConsumerOrderModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
+<<<<<<< HEAD
           scroll={{ x: 1410 }}
+=======
+          scroll={{ x: 1275 }}
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         />
       </div>
     )

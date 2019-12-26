@@ -8,10 +8,14 @@ import styles from './EmployeeQualifier.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
+=======
+import EmployeeQualifierBase from './EmployeeQualifier.base'
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
+const {fieldLabels} = EmployeeQualifierBase
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -193,14 +197,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-         <FormItem label="序号">
+         <FormItem label={fieldLabels.id}>
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                  <Form.Item label="员工">
+=======
+                 <Form.Item label={fieldLabels.employee}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                
                <SelectObject 
@@ -252,14 +260,18 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-            <FormItem label="序号">
+            <FormItem label={fieldLabels.id}>
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
+<<<<<<< HEAD
                     <Form.Item label="员工">
+=======
+                    <Form.Item label={fieldLabels.employee}>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                   
                   <SelectObject 
@@ -272,7 +284,7 @@ componentDidMount() {
                 </Form.Item></Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="类型">
+            <FormItem label={fieldLabels.type}>
               {getFieldDecorator('type')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -280,7 +292,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="水平">
+            <FormItem label={fieldLabels.level}>
               {getFieldDecorator('level')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -288,7 +300,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="备注">
+            <FormItem label={fieldLabels.remark}>
               {getFieldDecorator('remark')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -306,7 +318,7 @@ componentDidMount() {
       </Form>
     )
   }
-
+	
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

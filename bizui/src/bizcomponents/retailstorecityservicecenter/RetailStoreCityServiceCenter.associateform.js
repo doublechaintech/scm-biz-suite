@@ -19,7 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超成都办事处',
+<<<<<<< HEAD
   founded: '2019-09-04',
+=======
+  founded: '2019-03-13',
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   belongsToId: 'RSPC000001',
 }
 */
@@ -143,7 +147,11 @@ class RetailStoreCityServiceCenterAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <Input size="large" placeholder="名称" />
+=======
+                    <Input size="large"  placeHolder={fieldLabels.name} />
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -153,7 +161,11 @@ class RetailStoreCityServiceCenterAssociateForm extends Component {
                   {getFieldDecorator('founded', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
+<<<<<<< HEAD
                     <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
+=======
+                    <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

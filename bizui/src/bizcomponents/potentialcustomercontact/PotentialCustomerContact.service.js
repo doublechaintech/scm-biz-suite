@@ -1,5 +1,5 @@
-import { get,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
+import { get,put,postForm,PREFIX,joinParameters,joinPostParameters } from '../../axios/tools'
 
 const view = (targetObjectId) => {
   return get({
@@ -26,7 +26,6 @@ const requestCandidatePotentialCustomer = (ownerClass, id, filterKey, pageNo) =>
 }	
 
 const transferToAnotherPotentialCustomer = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}potentialCustomerContactManager/transferToAnotherPotentialCustomer/id/anotherPotentialCustomerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -42,7 +41,6 @@ const requestCandidateCityPartner = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherCityPartner = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}potentialCustomerContactManager/transferToAnotherCityPartner/id/anotherCityPartnerId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -58,7 +56,6 @@ const requestCandidateContactTo = (ownerClass, id, filterKey, pageNo) => {
 }	
 
 const transferToAnotherContactTo = (id, parameters) => {
-  //const parametersExpr = joinParameters(parameters)
   const url = `${PREFIX}potentialCustomerContactManager/transferToAnotherContactTo/id/anotherContactToId/`
   const requestParameters = {id, ...parameters}
   return postForm({url,requestParameters})
@@ -69,6 +66,33 @@ const transferToAnotherContactTo = (id, parameters) => {
 
 
 
+
+// Filter this out when no functions
+
+const  listFunctions = () => {
+  return get({
+    url: `${PREFIX}potentialCustomerContactService/listFunctions/`,
+  })
+}
+
+
+const  saveRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}potentialCustomerContactService/save/`,
+    data,
+  })
+}
+
+
+const  processRequest = (data) => {
+
+  return put({
+    url: `${PREFIX}potentialCustomerContactService/process/`,
+    data,
+  })
+}
+
 const PotentialCustomerContactService = { view,
   load,
   requestCandidatePotentialCustomer,
@@ -76,6 +100,6 @@ const PotentialCustomerContactService = { view,
   requestCandidateContactTo,
   transferToAnotherPotentialCustomer,
   transferToAnotherCityPartner,
-  transferToAnotherContactTo }
+  transferToAnotherContactTo, listFunctions, saveRequest, processRequest}
 export default PotentialCustomerContactService
 

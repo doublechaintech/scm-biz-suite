@@ -7,9 +7,14 @@ import GlobalComponents from '../../custcomponents'
 import PageHeaderLayout from '../../layouts/PageHeaderLayout'
 import styles from './RetailStoreOrder.search.less'
 import ListViewTool from '../../common/ListView.tool'
+import RetailStoreOrderBase from './RetailStoreOrder.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
+<<<<<<< HEAD
 
+=======
+const {fieldLabels} = RetailStoreOrderBase
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -41,10 +46,17 @@ const showListActionBar = (targetComponent)=>{
   const userContext = null
   return (<div className={styles.tableListOperator}>
   
+<<<<<<< HEAD
 
     {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
 
 
+=======
+
+    {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
+
+
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     {hasUpdatePermission(metaInfo)&&<Button onClick={()=>handleUpdate(targetComponent)} icon="edit" disabled={disable}>{appLocaleName(userContext,"BatchUpdate")}</Button>}
  
  
@@ -75,7 +87,17 @@ const showAssociateDialog = (targetComponent) => {
   return (
   <div>
   
-    <RetailStoreOrderConfirmationAssociateForm 
+   
+  
+    <RetailStoreAssociateForm 
+	visible={currentAssociateModal==='buyer'} 
+	data={{retailStoreOrderList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'buyer')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'buyer')}/> <RetailStoreCountryCenterAssociateForm 
+	visible={currentAssociateModal==='seller'} 
+	data={{retailStoreOrderList:selectedRows}} owner={owner}  
+	onCancel={()=>toggleAssociateModalVisible(targetComponent,'seller')} 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> <RetailStoreOrderConfirmationAssociateForm 
 	visible={currentAssociateModal==='confirmation'} 
 	data={{retailStoreOrderList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
@@ -99,17 +121,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='delivery'} 
 	data={{retailStoreOrderList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'delivery')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'delivery')}/>
-  
-    <RetailStoreAssociateForm 
-	visible={currentAssociateModal==='buyer'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'buyer')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'buyer')}/> <RetailStoreCountryCenterAssociateForm 
-	visible={currentAssociateModal==='seller'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'seller')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'delivery')}/> 
  
 
 

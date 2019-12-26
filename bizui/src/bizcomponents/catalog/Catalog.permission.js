@@ -33,6 +33,11 @@ const internalSummaryOf = (catalog,targetComponent) =>{
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{catalog.id}</Description> 
 <Description term="名称">{catalog.name}</Description> 
+<<<<<<< HEAD
+=======
+<Description term="子数">{catalog.subCount}</Description> 
+<Description term="金额">{catalog.amount}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
       </DescriptionList>
 	)

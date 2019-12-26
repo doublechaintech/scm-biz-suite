@@ -31,7 +31,11 @@ const internalSummaryOf = (userDomain,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
+<<<<<<< HEAD
 <Description term="ID">{userDomain.id}</Description> 
+=======
+<Description term="序号">{userDomain.id}</Description> 
+>>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="名称">{userDomain.name}</Description> 
 	
       </DescriptionList>
