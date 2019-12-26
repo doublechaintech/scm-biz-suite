@@ -19,15 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
-  contactNumber: '251173109',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-<<<<<<< HEAD
-  latitude: '41.32816060028556',
-  longitude: '131.3090096943884',
-=======
-  latitude: '42.54311514096193',
-  longitude: '130.3583585770129',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  latitude: '42.65635699421144',
+  longitude: '129.62918963422803',
   warehouseId: 'W000001',
 }
 */
@@ -211,21 +206,13 @@ class SmartPalletCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}智能托盘</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('smart_pallet')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}智能托盘`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('smart_pallet')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

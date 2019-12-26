@@ -206,21 +206,13 @@ class FormActionCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}表单动作</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('form_action')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}表单动作`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('form_action')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

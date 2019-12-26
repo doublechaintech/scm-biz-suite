@@ -35,10 +35,6 @@ const internalSummaryOf = (retailStoreOrder,targetComponent) =>{
 <Description term="头衔">{retailStoreOrder.title}</Description> 
 <Description term="总金额">{retailStoreOrder.totalAmount}</Description> 
 <Description term="最后更新时间">{ moment(retailStoreOrder.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<<<<<<< HEAD
-<Description term="当前状态">{retailStoreOrder.currentStatus}</Description> 
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
       </DescriptionList>
 	)

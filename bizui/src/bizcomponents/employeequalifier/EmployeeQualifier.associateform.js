@@ -18,11 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  qualifiedTime: '2019-08-12',
-=======
-  qualifiedTime: '2017-12-25',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  qualifiedTime: '2019-04-29',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -145,11 +141,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('qualifiedTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="合格的时间" />
-=======
                     <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.qualifiedTime}/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -159,11 +151,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="类型" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.type} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -173,11 +161,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('level', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="水平" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.level} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -187,11 +171,7 @@ class EmployeeQualifierAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="备注" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.remark} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

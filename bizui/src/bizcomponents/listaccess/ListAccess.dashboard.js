@@ -121,15 +121,9 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="ID">{listAccess.id}</Description> 
-<Description term="名称">{listAccess.name}</Description> 
-<Description term="内部名称">{listAccess.internalName}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{listAccess.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{listAccess.name}</Description> 
 <Description term="内部名称" style={{wordBreak: 'break-all'}}>{listAccess.internalName}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="应用程序">{listAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${listAccess.app.displayName}(${listAccess.app.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"应用程序","userApp",ListAccessService.requestCandidateApp,
@@ -205,8 +199,9 @@ class ListAccessDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

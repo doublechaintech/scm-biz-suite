@@ -116,32 +116,19 @@ const internalSummaryOf = (shippingSpace,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{shippingSpace.id}</Description> 
-<Description term="位置">{shippingSpace.location}</Description> 
-<Description term="联系电话">{shippingSpace.contactNumber}</Description> 
-<Description term="总面积">{shippingSpace.totalArea}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{shippingSpace.id}</Description> 
 <Description term="位置" style={{wordBreak: 'break-all'}}>{shippingSpace.location}</Description> 
 <Description term="联系电话" style={{wordBreak: 'break-all'}}>{shippingSpace.contactNumber}</Description> 
 <Description term="总面积" style={{wordBreak: 'break-all'}}>{shippingSpace.totalArea}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="仓库">{shippingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${shippingSpace.warehouse.displayName}(${shippingSpace.warehouse.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",ShippingSpaceService.requestCandidateWarehouse,
 	      ShippingSpaceService.transferToAnotherWarehouse,"anotherWarehouseId",shippingSpace.warehouse?shippingSpace.warehouse.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<<<<<<< HEAD
-<Description term="纬度">{shippingSpace.latitude}</Description> 
-<Description term="经度">{shippingSpace.longitude}</Description> 
-<Description term="描述">{shippingSpace.description}</Description> 
-=======
 <Description term="纬度" style={{wordBreak: 'break-all'}}>{shippingSpace.latitude}</Description> 
 <Description term="经度" style={{wordBreak: 'break-all'}}>{shippingSpace.longitude}</Description> 
 <Description term="描述" style={{wordBreak: 'break-all'}}>{shippingSpace.description}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(shippingSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(shippingSpace,targetComponent)}
@@ -183,11 +170,7 @@ class ShippingSpaceDashboard extends Component {
     const cardsData = {cardsName:"发货区",cardsFor: "shippingSpace",
     	cardsSource: this.props.shippingSpace,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
-=======
 {name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -217,8 +200,9 @@ class ShippingSpaceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

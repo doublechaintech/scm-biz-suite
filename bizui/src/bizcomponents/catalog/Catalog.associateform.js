@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '水果蔬菜',
   subCount: '8',
-  amount: '7.19',
+  amount: '8.06',
   ownerId: 'RSCC000001',
 }
 */
@@ -140,10 +140,6 @@ class CatalogAssociateForm extends Component {
                 <Form.Item label={fieldLabels.name} {...formItemLayout}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-<<<<<<< HEAD
-                  })(
-                    <Input size="large" placeholder="名称" />
-=======
                   })(
                     <Input size="large"  placeHolder={fieldLabels.name} />
                   )}
@@ -166,7 +162,6 @@ class CatalogAssociateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.amount} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

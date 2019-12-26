@@ -19,16 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库卸货区',
-  contactNumber: '311367968',
+  contactNumber: '028 87654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-<<<<<<< HEAD
-  latitude: '40.73132265720977',
-  longitude: '130.51821566124372',
-=======
-  latitude: '41.720249931174976',
-  longitude: '129.32733596894357',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  latitude: '39.89202715366655',
+  longitude: '129.45676076567932',
   warehouseId: 'W000001',
 }
 */
@@ -212,21 +207,13 @@ class ReceivingSpaceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}收货区</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('receiving_space')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}收货区`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('receiving_space')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

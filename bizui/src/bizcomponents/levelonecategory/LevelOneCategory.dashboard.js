@@ -116,11 +116,7 @@ const internalSummaryOf = (levelOneCategory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{levelOneCategory.id}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{levelOneCategory.id}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="目录">{levelOneCategory.catalog==null?appLocaleName(userContext,"NotAssigned"):`${levelOneCategory.catalog.displayName}(${levelOneCategory.catalog.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"目录","catalog",LevelOneCategoryService.requestCandidateCatalog,
@@ -168,11 +164,7 @@ class LevelOneCategoryDashboard extends Component {
     const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",
     	cardsSource: this.props.levelOneCategory,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'levelTwoCategoryList', displayName:'二级分类',type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
-=======
 {name: 'levelTwoCategoryList', displayName:'二级分类',viewGroup:'__no_group', type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -202,8 +194,9 @@ class LevelOneCategoryDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

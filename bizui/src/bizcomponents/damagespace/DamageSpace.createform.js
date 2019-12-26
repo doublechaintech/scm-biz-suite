@@ -19,15 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库损坏货物堆放区',
-  contactNumber: '483416811',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-<<<<<<< HEAD
-  latitude: '42.44329396970562',
-  longitude: '129.42562481970714',
-=======
-  latitude: '40.99286706174704',
-  longitude: '130.27899192390228',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  latitude: '40.63788901484497',
+  longitude: '129.73393477115715',
   warehouseId: 'W000001',
 }
 */
@@ -211,21 +206,13 @@ class DamageSpaceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}残次货物存放区</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('damage_space')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}残次货物存放区`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('damage_space')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

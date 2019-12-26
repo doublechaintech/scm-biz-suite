@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链先锋号车队',
-  contactNumber: '2237082598',
+  contactNumber: '028 87654321',
   ownerId: 'RSCC000001',
 }
 */
@@ -203,21 +203,13 @@ class TransportFleetCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}运输车队</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('transport_fleet')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}运输车队`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('transport_fleet')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

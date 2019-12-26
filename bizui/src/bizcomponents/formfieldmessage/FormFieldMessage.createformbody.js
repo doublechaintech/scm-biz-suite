@@ -13,11 +13,7 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = FormFieldMessageBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
@@ -75,11 +71,7 @@ class FormFieldMessageCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-<<<<<<< HEAD
-    const {fieldLabels} = FormFieldMessageBase
-=======
     
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {FormFieldMessageService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -126,11 +118,7 @@ class FormFieldMessageCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}表单字段的信息</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('form_field_message')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -145,11 +133,7 @@ class FormFieldMessageCreateFormBody extends Component {
                   {getFieldDecorator('title', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="标题" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.title} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -159,11 +143,7 @@ class FormFieldMessageCreateFormBody extends Component {
                   {getFieldDecorator('parameterName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="参数名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.parameterName} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -173,11 +153,7 @@ class FormFieldMessageCreateFormBody extends Component {
                   {getFieldDecorator('level', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="水平" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.level} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

@@ -116,13 +116,8 @@ const internalSummaryOf = (goodsShelf,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{goodsShelf.id}</Description> 
-<Description term="位置">{goodsShelf.location}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{goodsShelf.id}</Description> 
 <Description term="位置" style={{wordBreak: 'break-all'}}>{goodsShelf.location}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="存货区">{goodsShelf.storageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.storageSpace.displayName}(${goodsShelf.storageSpace.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"存货区","storageSpace",GoodsShelfService.requestCandidateStorageSpace,
@@ -182,13 +177,8 @@ class GoodsShelfDashboard extends Component {
     const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",
     	cardsSource: this.props.goodsShelf,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'goodsShelfStockCountList', displayName:'货架库存盘点',type:'goodsShelfStockCount',count:goodsShelfStockCountCount,addFunction: true, role: 'goodsShelfStockCount', metaInfo: goodsShelfStockCountListMetaInfo, renderItem: GlobalComponents.GoodsShelfStockCountBase.renderItemOfList},
-{name: 'goodsAllocationList', displayName:'货位',type:'goodsAllocation',count:goodsAllocationCount,addFunction: true, role: 'goodsAllocation', metaInfo: goodsAllocationListMetaInfo, renderItem: GlobalComponents.GoodsAllocationBase.renderItemOfList},
-=======
 {name: 'goodsShelfStockCountList', displayName:'货架库存盘点',viewGroup:'__no_group', type:'goodsShelfStockCount',count:goodsShelfStockCountCount,addFunction: true, role: 'goodsShelfStockCount', metaInfo: goodsShelfStockCountListMetaInfo, renderItem: GlobalComponents.GoodsShelfStockCountBase.renderItemOfList},
 {name: 'goodsAllocationList', displayName:'货位',viewGroup:'__no_group', type:'goodsAllocation',count:goodsAllocationCount,addFunction: true, role: 'goodsAllocation', metaInfo: goodsAllocationListMetaInfo, renderItem: GlobalComponents.GoodsAllocationBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -218,8 +208,9 @@ class GoodsShelfDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

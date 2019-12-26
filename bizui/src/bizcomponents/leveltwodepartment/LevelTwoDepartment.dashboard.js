@@ -116,11 +116,7 @@ const internalSummaryOf = (levelTwoDepartment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{levelTwoDepartment.id}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{levelTwoDepartment.id}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="属于">{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","levelOneDepartment",LevelTwoDepartmentService.requestCandidateBelongsTo,
@@ -170,11 +166,7 @@ class LevelTwoDepartmentDashboard extends Component {
     const cardsData = {cardsName:"二级部门",cardsFor: "levelTwoDepartment",
     	cardsSource: this.props.levelTwoDepartment,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'levelThreeDepartmentList', displayName:'三级部门',type:'levelThreeDepartment',count:levelThreeDepartmentCount,addFunction: true, role: 'levelThreeDepartment', metaInfo: levelThreeDepartmentListMetaInfo, renderItem: GlobalComponents.LevelThreeDepartmentBase.renderItemOfList},
-=======
 {name: 'levelThreeDepartmentList', displayName:'三级部门',viewGroup:'__no_group', type:'levelThreeDepartment',count:levelThreeDepartmentCount,addFunction: true, role: 'levelThreeDepartment', metaInfo: levelThreeDepartmentListMetaInfo, renderItem: GlobalComponents.LevelThreeDepartmentBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -204,8 +196,9 @@ class LevelTwoDepartmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

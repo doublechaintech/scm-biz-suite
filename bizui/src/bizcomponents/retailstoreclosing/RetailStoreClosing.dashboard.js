@@ -155,17 +155,10 @@ class RetailStoreClosingDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-<<<<<<< HEAD
-    const cardsData = {cardsName:"商店关闭",cardsFor: "retailStoreClosing",
-    	cardsSource: this.props.retailStoreClosing,returnURL,displayName,
-  		subItems: [
-{name: 'retailStoreList', displayName:'双链小超',type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
-=======
     const cardsData = {cardsName:"门店关闭",cardsFor: "retailStoreClosing",
     	cardsSource: this.props.retailStoreClosing,returnURL,displayName,
   		subItems: [
 {name: 'retailStoreList', displayName:'双链小超',viewGroup:'__no_group', type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -195,8 +188,9 @@ class RetailStoreClosingDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

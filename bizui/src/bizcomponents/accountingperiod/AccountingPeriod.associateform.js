@@ -19,13 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-<<<<<<< HEAD
-  startDate: '2018-06-05',
-  endDate: '2019-01-04',
-=======
-  startDate: '2019-09-26',
-  endDate: '2017-01-23',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  startDate: '2017-06-24',
+  endDate: '2019-08-02',
   accountSetId: 'AS000001',
 }
 */
@@ -146,11 +141,7 @@ class AccountingPeriodAssociateForm extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.name} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -160,11 +151,7 @@ class AccountingPeriodAssociateForm extends Component {
                   {getFieldDecorator('startDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="开始日期" />
-=======
                     <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.startDate}/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -174,11 +161,7 @@ class AccountingPeriodAssociateForm extends Component {
                   {getFieldDecorator('endDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="结束日期" />
-=======
                     <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.endDate}/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

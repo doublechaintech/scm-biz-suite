@@ -45,11 +45,7 @@ const removeUserWhiteListList = (targetObjectId, parameters) => {
 
 
 const addSecUser = (targetObjectId, parameters) => {
-<<<<<<< HEAD
   const url = `${PREFIX}userDomainManager/addSecUser/userDomainId/login/mobile/email/pwd/weixinOpenid/weixinAppid/accessToken/verificationCode/verificationCodeExpire/lastLoginTime/tokensExpr/`
-=======
-  const url = `${PREFIX}userDomainManager/addSecUser/userDomainId/login/mobile/email/pwd/weixinOpenid/weixinAppid/accessToken/verificationCode/verificationCodeExpire/lastLoginTime/blockingId/tokensExpr/`
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   const userDomainId = targetObjectId
   const requestParameters = { ...parameters, userDomainId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

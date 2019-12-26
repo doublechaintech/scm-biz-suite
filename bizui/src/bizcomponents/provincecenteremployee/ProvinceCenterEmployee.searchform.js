@@ -8,10 +8,7 @@ import styles from './ProvinceCenterEmployee.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import ProvinceCenterEmployeeBase from './ProvinceCenterEmployee.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -284,11 +281,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="部门">
-=======
                     <Form.Item label={fieldLabels.department}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('department', {initialValue: tryinit('department')})(
                   
                   <SelectObject 
@@ -300,11 +293,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="省中心">
-=======
                     <Form.Item label={fieldLabels.provinceCenter}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('provinceCenter', {initialValue: tryinit('provinceCenter')})(
                   
                   <SelectObject 

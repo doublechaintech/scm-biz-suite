@@ -117,19 +117,11 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{originalVoucher.id}</Description> 
-<Description term="头衔">{originalVoucher.title}</Description> 
-<Description term="由">{originalVoucher.madeBy}</Description> 
-<Description term="受">{originalVoucher.receivedBy}</Description> 
-<Description term="凭证类型">{originalVoucher.voucherType}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{originalVoucher.id}</Description> 
 <Description term="头衔" style={{wordBreak: 'break-all'}}>{originalVoucher.title}</Description> 
 <Description term="由" style={{wordBreak: 'break-all'}}>{originalVoucher.madeBy}</Description> 
 <Description term="受" style={{wordBreak: 'break-all'}}>{originalVoucher.receivedBy}</Description> 
 <Description term="凭证类型" style={{wordBreak: 'break-all'}}>{originalVoucher.voucherType}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="属于">{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${originalVoucher.belongsTo.displayName}(${originalVoucher.belongsTo.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"属于","accountingDocument",OriginalVoucherService.requestCandidateBelongsTo,
@@ -205,8 +197,9 @@ class OriginalVoucherDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

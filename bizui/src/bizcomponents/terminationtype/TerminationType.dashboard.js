@@ -160,11 +160,7 @@ class TerminationTypeDashboard extends Component {
     const cardsData = {cardsName:"雇佣终止类型",cardsFor: "terminationType",
     	cardsSource: this.props.terminationType,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'terminationList', displayName:'雇佣终止',type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
-=======
 {name: 'terminationList', displayName:'雇佣终止',viewGroup:'__no_group', type:'termination',count:terminationCount,addFunction: true, role: 'termination', metaInfo: terminationListMetaInfo, renderItem: GlobalComponents.TerminationBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -194,8 +190,9 @@ class TerminationTypeDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

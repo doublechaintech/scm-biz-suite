@@ -13,36 +13,20 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-<<<<<<< HEAD
-
-const testValues = {};
-/*
-const testValues = {
-  baseSalary: '2813.69',
-  bonus: '833.54',
-  reward: '904.12',
-  personalTax: '659.51',
-  socialSecurity: '771.49',
-  housingFound: '1093.03',
-  jobInsurance: '8.44',
-  employeeId: 'E000001',
-  currentSalaryGradeId: 'SG000001',
-=======
 const {fieldLabels} = EmployeeSalarySheetBase
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2987.06',
-  bonus: '953.36',
-  reward: '962.73',
-  personalTax: '712.43',
-  socialSecurity: '996.49',
-  housingFound: '1186.07',
-  jobInsurance: '6.86',
+  baseSalary: '2797.57',
+  bonus: '977.87',
+  reward: '848.99',
+  personalTax: '754.64',
+  socialSecurity: '1044.33',
+  housingFound: '1102.38',
+  jobInsurance: '7.82',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
   payingOffId: 'PO000001',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 }
 */
 
@@ -93,11 +77,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-<<<<<<< HEAD
-    const {fieldLabels} = EmployeeSalarySheetBase
-=======
     
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {EmployeeSalarySheetService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -144,11 +124,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}工资单</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_salary_sheet')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -163,11 +139,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('baseSalary', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="基本工资" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.baseSalary} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -177,11 +149,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('bonus', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖金" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.bonus} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -191,11 +159,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('reward', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="奖励" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.reward} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -205,11 +169,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('personalTax', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="个人所得税" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.personalTax} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -219,11 +179,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('socialSecurity', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="社会保险" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.socialSecurity} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -233,11 +189,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('housingFound', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="住房公积金" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.housingFound} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -247,11 +199,7 @@ class EmployeeSalarySheetCreateFormBody extends Component {
                   {getFieldDecorator('jobInsurance', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="失业保险" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.jobInsurance} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -297,8 +245,6 @@ class EmployeeSalarySheetCreateFormBody extends Component {
 
            
 
-<<<<<<< HEAD
-=======
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.payingOff} {...formItemLayout}>
                   {getFieldDecorator('payingOffId', {
@@ -318,7 +264,6 @@ class EmployeeSalarySheetCreateFormBody extends Component {
 
            
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 
 			 </Row>

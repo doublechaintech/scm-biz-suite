@@ -116,11 +116,7 @@ const internalSummaryOf = (employeeLeave,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{employeeLeave.id}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{employeeLeave.id}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="谁">{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"谁","employee",EmployeeLeaveService.requestCandidateWho,
@@ -204,8 +200,9 @@ class EmployeeLeaveDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

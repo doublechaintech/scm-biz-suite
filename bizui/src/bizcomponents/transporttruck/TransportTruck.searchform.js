@@ -8,10 +8,7 @@ import styles from './TransportTruck.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import TransportTruckBase from './TransportTruck.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -137,10 +134,7 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'name'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'plateNumber'))
-<<<<<<< HEAD
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'contactNumber'))
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'vehicleLicenseNumber'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'engineNumber'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'mileage'))
@@ -283,8 +277,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="联系电话">
+            <FormItem label={fieldLabels.contactNumber}>
               {getFieldDecorator('contactNumber')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -292,10 +285,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="汽车牌照号码">
-=======
             <FormItem label={fieldLabels.vehicleLicenseNumber}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('vehicleLicenseNumber')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -326,11 +316,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="业主">
-=======
                     <Form.Item label={fieldLabels.owner}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('owner', {initialValue: tryinit('owner')})(
                   
                   <SelectObject 

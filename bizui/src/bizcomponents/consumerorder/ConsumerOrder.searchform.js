@@ -8,10 +8,7 @@ import styles from './ConsumerOrder.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import ConsumerOrderBase from './ConsumerOrder.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -137,17 +134,7 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'title'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'consumer'))
-<<<<<<< HEAD
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'store'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
-=======
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'approval'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'processing'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'shipment'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'delivery'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'store'))
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -276,11 +263,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="消费者">
-=======
                     <Form.Item label={fieldLabels.consumer}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('consumer', {initialValue: tryinit('consumer')})(
                   
                   <SelectObject 
@@ -288,78 +271,11 @@ componentDidMount() {
                     targetType={"consumer"} 
                     requestFunction={ConsumerOrderService.requestCandidateConsumer} useForSearch />
                   	
-<<<<<<< HEAD
-=======
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.confirmation}>
-                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={ConsumerOrderService.requestCandidateConfirmation} useForSearch />
-                  	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="商场">
-=======
-                    <Form.Item label={fieldLabels.approval}>
-                  {getFieldDecorator('approval', {initialValue: tryinit('approval')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('approval')}
-                    targetType={"approval"} 
-                    requestFunction={ConsumerOrderService.requestCandidateApproval} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.processing}>
-                  {getFieldDecorator('processing', {initialValue: tryinit('processing')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('processing')}
-                    targetType={"processing"} 
-                    requestFunction={ConsumerOrderService.requestCandidateProcessing} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.shipment}>
-                  {getFieldDecorator('shipment', {initialValue: tryinit('shipment')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('shipment')}
-                    targetType={"shipment"} 
-                    requestFunction={ConsumerOrderService.requestCandidateShipment} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.delivery}>
-                  {getFieldDecorator('delivery', {initialValue: tryinit('delivery')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('delivery')}
-                    targetType={"delivery"} 
-                    requestFunction={ConsumerOrderService.requestCandidateDelivery} useForSearch />
-                  	
                  
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
                     <Form.Item label={fieldLabels.store}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('store', {initialValue: tryinit('store')})(
                   
                   <SelectObject 
@@ -371,17 +287,6 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
 
-<<<<<<< HEAD
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-              )}
-            </FormItem>
-          </Col>
-
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>

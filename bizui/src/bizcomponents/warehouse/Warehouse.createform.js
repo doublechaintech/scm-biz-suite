@@ -19,15 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号',
-  contactNumber: '911768046',
+  contactNumber: '028 87654321',
   totalArea: '187672平方米',
-<<<<<<< HEAD
-  latitude: '42.380339858758916',
-  longitude: '131.1427320015586',
-=======
-  latitude: '41.64206750297946',
-  longitude: '131.10678438405847',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  latitude: '39.92429757250492',
+  longitude: '131.6903259867903',
   ownerId: 'RSCC000001',
 }
 */
@@ -211,21 +206,13 @@ class WarehouseCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}仓库</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('warehouse')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}仓库`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('warehouse')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -117,17 +117,10 @@ const internalSummaryOf = (quickLink,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="ID">{quickLink.id}</Description> 
-<Description term="名称">{quickLink.name}</Description> 
-<Description term="图标">{quickLink.icon}</Description> 
-<Description term="链接的目标">{quickLink.linkTarget}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{quickLink.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{quickLink.name}</Description> 
 <Description term="图标" style={{wordBreak: 'break-all'}}>{quickLink.icon}</Description> 
 <Description term="链接的目标" style={{wordBreak: 'break-all'}}>{quickLink.linkTarget}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="创建时间">{ moment(quickLink.createTime).format('YYYY-MM-DD HH:mm')}</Description> 
 <Description term="应用程序">{quickLink.app==null?appLocaleName(userContext,"NotAssigned"):`${quickLink.app.displayName}(${quickLink.app.id})`}
  <Icon type="swap" onClick={()=>
@@ -204,8 +197,9 @@ class QuickLinkDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

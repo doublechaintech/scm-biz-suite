@@ -243,15 +243,6 @@ class SupplyOrderUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
-<<<<<<< HEAD
-    }
-	
-	const internalRenderTitle = () =>{
-      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}供应订单: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
-    }
-
-=======
     }
 	
 	const internalRenderTitle = () =>{
@@ -259,7 +250,6 @@ class SupplyOrderUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}供应订单: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -277,11 +267,7 @@ class SupplyOrderUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="序号" disabled/>
-=======
                     <Input size="large"  placeHolder={fieldLabels.id} disabled/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -293,11 +279,7 @@ class SupplyOrderUpdateForm extends Component {
                     initialValue: selectedRow.title,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="头衔" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.title} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -309,11 +291,7 @@ class SupplyOrderUpdateForm extends Component {
                     initialValue: selectedRow.totalAmount,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="总金额" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.totalAmount} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

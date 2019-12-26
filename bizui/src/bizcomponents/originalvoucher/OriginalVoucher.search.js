@@ -10,11 +10,7 @@ import ListViewTool from '../../common/ListView.tool'
 import OriginalVoucherBase from './OriginalVoucher.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = OriginalVoucherBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -48,13 +44,8 @@ const showListActionBar = (targetComponent)=>{
   
 
     {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     {hasUpdatePermission(metaInfo)&&<Button onClick={()=>handleUpdate(targetComponent)} icon="edit" disabled={disable}>{appLocaleName(userContext,"BatchUpdate")}</Button>}
  
  
@@ -73,9 +64,6 @@ const showAssociateDialog = (targetComponent) => {
   const {selectedRows} = targetComponent.state
   
   const { AccountingDocumentAssociateForm } = GlobalComponents
-  const { OriginalVoucherCreationAssociateForm } = GlobalComponents
-  const { OriginalVoucherConfirmationAssociateForm } = GlobalComponents
-  const { OriginalVoucherAuditingAssociateForm } = GlobalComponents
 
 
   return (
@@ -87,19 +75,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='belongsTo'} 
 	data={{originalVoucherList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> <OriginalVoucherCreationAssociateForm 
-	visible={currentAssociateModal==='creation'} 
-	data={{originalVoucherList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'creation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'creation')}/> <OriginalVoucherConfirmationAssociateForm 
-	visible={currentAssociateModal==='confirmation'} 
-	data={{originalVoucherList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'confirmation')}/> <OriginalVoucherAuditingAssociateForm 
-	visible={currentAssociateModal==='auditing'} 
-	data={{originalVoucherList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'auditing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'auditing')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> 
  
 
 

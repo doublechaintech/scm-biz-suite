@@ -116,19 +116,11 @@ const internalSummaryOf = (goodsSupplier,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{goodsSupplier.id}</Description> 
-<Description term="名称">{goodsSupplier.name}</Description> 
-<Description term="供应产品">{goodsSupplier.supplyProduct}</Description> 
-<Description term="联系电话">{goodsSupplier.contactNumber}</Description> 
-<Description term="描述">{goodsSupplier.description}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{goodsSupplier.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{goodsSupplier.name}</Description> 
 <Description term="供应产品" style={{wordBreak: 'break-all'}}>{goodsSupplier.supplyProduct}</Description> 
 <Description term="联系电话" style={{wordBreak: 'break-all'}}>{goodsSupplier.contactNumber}</Description> 
 <Description term="描述" style={{wordBreak: 'break-all'}}>{goodsSupplier.description}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(goodsSupplier.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(goodsSupplier,targetComponent)}
@@ -170,15 +162,9 @@ class GoodsSupplierDashboard extends Component {
     const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",
     	cardsSource: this.props.goodsSupplier,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'supplierProductList', displayName:'供应商的产品',type:'supplierProduct',count:supplierProductCount,addFunction: true, role: 'supplierProduct', metaInfo: supplierProductListMetaInfo, renderItem: GlobalComponents.SupplierProductBase.renderItemOfList},
-{name: 'supplyOrderList', displayName:'供应订单',type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
-{name: 'accountSetList', displayName:'账套',type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
-=======
 {name: 'supplierProductList', displayName:'供应商的产品',viewGroup:'__no_group', type:'supplierProduct',count:supplierProductCount,addFunction: true, role: 'supplierProduct', metaInfo: supplierProductListMetaInfo, renderItem: GlobalComponents.SupplierProductBase.renderItemOfList},
 {name: 'supplyOrderList', displayName:'供应订单',viewGroup:'__no_group', type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
 {name: 'accountSetList', displayName:'账套',viewGroup:'__no_group', type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -208,8 +194,9 @@ class GoodsSupplierDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

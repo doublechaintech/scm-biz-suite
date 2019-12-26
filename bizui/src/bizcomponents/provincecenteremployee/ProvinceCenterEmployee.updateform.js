@@ -243,15 +243,6 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
-<<<<<<< HEAD
-    }
-	
-	const internalRenderTitle = () =>{
-      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}省中心员工: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
-    }
-
-=======
     }
 	
 	const internalRenderTitle = () =>{
@@ -259,7 +250,6 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}省中心员工: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -277,11 +267,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="序号" disabled/>
-=======
                     <Input size="large"  placeHolder={fieldLabels.id} disabled/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -293,11 +279,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.name} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -309,11 +291,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.mobile,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="手机" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.mobile} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -325,11 +303,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.email,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="电子邮件" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.email} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -341,11 +315,7 @@ class ProvinceCenterEmployeeUpdateForm extends Component {
                     initialValue: selectedRow.founded,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="成立" />
-=======
                     <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.founded}/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

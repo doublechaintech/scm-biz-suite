@@ -38,7 +38,7 @@ const transferToAnotherBelongsTo = (id, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}levelThreeDepartmentManager/addEmployee/levelThreeDepartmentId/companyId/title/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/terminationId/tokensExpr/`
+  const url = `${PREFIX}levelThreeDepartmentManager/addEmployee/levelThreeDepartmentId/companyId/title/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/tokensExpr/`
   const levelThreeDepartmentId = targetObjectId
   const requestParameters = { ...parameters, levelThreeDepartmentId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

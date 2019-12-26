@@ -149,11 +149,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('label', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="标签" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.label} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -163,11 +159,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('localeKey', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="语言环境的关键" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.localeKey} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -177,11 +169,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('parameterName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="参数名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.parameterName} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -191,11 +179,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="类型" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.type} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -205,11 +189,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('placeholder', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="占位符" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.placeholder} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -219,11 +199,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('defaultValue', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="默认值" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.defaultValue} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -233,11 +209,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="描述" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.description} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -247,11 +219,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('fieldGroup', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="字段组" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.fieldGroup} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -261,11 +229,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('minimumValue', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="最小值" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.minimumValue} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -275,11 +239,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('maximumValue', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="最大值" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.maximumValue} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -289,11 +249,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('candidateValues', {
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="候选人的价值观" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.candidateValues} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -303,11 +259,7 @@ class FormFieldAssociateForm extends Component {
                   {getFieldDecorator('suggestValues', {
                     rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="建议值" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.suggestValues} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

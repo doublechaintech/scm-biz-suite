@@ -142,11 +142,7 @@ class FormActionAssociateForm extends Component {
                   {getFieldDecorator('label', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="标签" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.label} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -156,11 +152,7 @@ class FormActionAssociateForm extends Component {
                   {getFieldDecorator('localeKey', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="语言环境的关键" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.localeKey} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -170,11 +162,7 @@ class FormActionAssociateForm extends Component {
                   {getFieldDecorator('actionKey', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="操作" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.actionKey} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -184,11 +172,7 @@ class FormActionAssociateForm extends Component {
                   {getFieldDecorator('level', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="水平" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.level} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -198,11 +182,7 @@ class FormActionAssociateForm extends Component {
                   {getFieldDecorator('url', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="url" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.url} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

@@ -13,30 +13,18 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = AccountSetBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-<<<<<<< HEAD
-  effectiveDate: '2018-05-08',
-=======
-  effectiveDate: '2019-04-29',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  effectiveDate: '2019-08-04',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
-<<<<<<< HEAD
-  accountNumber: '33265805054885',
-=======
-  accountNumber: '21849905661885',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  accountNumber: '3326 5805 0548 85',
   countryCenterId: 'RSCC000001',
   retailStoreId: 'RS000001',
   goodsSupplierId: 'GS000001',
@@ -90,11 +78,7 @@ class AccountSetCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-<<<<<<< HEAD
-    const {fieldLabels} = AccountSetBase
-=======
     
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {AccountSetService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -141,11 +125,7 @@ class AccountSetCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}账套</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('account_set')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -160,11 +140,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.name} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -174,11 +150,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('yearSet', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="年组" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.yearSet} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -188,11 +160,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('effectiveDate', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="生效日期" />
-=======
                     <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.effectiveDate}/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -202,11 +170,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('accountingSystem', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="会计制度" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.accountingSystem} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -216,11 +180,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('domesticCurrencyCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="本币代码" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.domesticCurrencyCode} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -230,11 +190,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('domesticCurrencyName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="本币名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.domesticCurrencyName} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -244,11 +200,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('openingBank', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="开户银行" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.openingBank} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -258,11 +210,7 @@ class AccountSetCreateFormBody extends Component {
                   {getFieldDecorator('accountNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="帐户号码" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.accountNumber} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

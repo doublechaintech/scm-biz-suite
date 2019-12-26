@@ -243,15 +243,6 @@ class SkuUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
-<<<<<<< HEAD
-    }
-	
-	const internalRenderTitle = () =>{
-      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}SKU: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
-    }
-
-=======
     }
 	
 	const internalRenderTitle = () =>{
@@ -259,7 +250,6 @@ class SkuUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}SKU: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -277,11 +267,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="序号" disabled/>
-=======
                     <Input size="large"  placeHolder={fieldLabels.id} disabled/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -293,11 +279,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.name} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -309,11 +291,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.size,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="大小" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.size} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -325,11 +303,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.barcode,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="条码" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.barcode} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -341,11 +315,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.packageType,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="包装类型" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.packageType} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -357,11 +327,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.netContent,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="净含量" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.netContent} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -373,11 +339,7 @@ class SkuUpdateForm extends Component {
                     initialValue: selectedRow.price,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeholder="价格" />
-=======
                     <Input size="large" prefix={`${appLocaleName(userContext,"Currency")}`} placeHolder={fieldLabels.price} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

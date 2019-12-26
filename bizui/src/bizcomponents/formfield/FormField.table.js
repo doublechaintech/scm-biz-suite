@@ -1,11 +1,7 @@
 
 import React, { PureComponent } from 'react'
 import moment from 'moment'
-<<<<<<< HEAD
-import { Table, Alert, Badge} from 'antd'
-=======
 import { Table, Alert, Badge, } from 'antd'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link } from 'dva/router'
 import styles from './FormField.table.less'
 import ImagePreview from '../../components/ImagePreview'

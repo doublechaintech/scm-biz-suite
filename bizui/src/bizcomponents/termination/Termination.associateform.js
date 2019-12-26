@@ -74,7 +74,6 @@ class TerminationAssociateForm extends Component {
     const {TerminationService} = GlobalComponents
     const userContext = null
     
- const {EmployeeModalTable} = GlobalComponents;
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -140,11 +139,7 @@ class TerminationAssociateForm extends Component {
                   {getFieldDecorator('comment', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="评论" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.comment} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -207,7 +202,6 @@ class TerminationAssociateForm extends Component {
 			
         </Card>
         
-	<EmployeeModalTable data={data.employeeList} owner={owner} />
         
         
         

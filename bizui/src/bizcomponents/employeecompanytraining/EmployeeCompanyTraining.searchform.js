@@ -8,10 +8,7 @@ import styles from './EmployeeCompanyTraining.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import EmployeeCompanyTrainingBase from './EmployeeCompanyTraining.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -137,11 +134,7 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'employee'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'training'))
-<<<<<<< HEAD
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
-=======
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'scoring'))
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -207,11 +200,7 @@ componentDidMount() {
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                 <Form.Item label="员工">
-=======
                  <Form.Item label={fieldLabels.employee}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                
                <SelectObject 
@@ -270,11 +259,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="员工">
-=======
                     <Form.Item label={fieldLabels.employee}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('employee', {initialValue: tryinit('employee')})(
                   
                   <SelectObject 
@@ -286,11 +271,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="训练">
-=======
                     <Form.Item label={fieldLabels.training}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('training', {initialValue: tryinit('training')})(
                   
                   <SelectObject 
@@ -298,8 +279,6 @@ componentDidMount() {
                     targetType={"training"} 
                     requestFunction={EmployeeCompanyTrainingService.requestCandidateTraining} useForSearch />
                   	
-<<<<<<< HEAD
-=======
                  
                   )}
                 </Form.Item></Col>
@@ -312,22 +291,10 @@ componentDidMount() {
                     targetType={"scoring"} 
                     requestFunction={EmployeeCompanyTrainingService.requestCandidateScoring} useForSearch />
                   	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                  
                   )}
                 </Form.Item></Col>
 
-<<<<<<< HEAD
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-              )}
-            </FormItem>
-          </Col>
-
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>

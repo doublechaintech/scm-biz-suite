@@ -243,15 +243,6 @@ class TransportTruckUpdateForm extends Component {
     const switchFormItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 12 },
-<<<<<<< HEAD
-    }
-	
-	const internalRenderTitle = () =>{
-      const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}运输车: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
-    }
-
-=======
     }
 	
 	const internalRenderTitle = () =>{
@@ -259,7 +250,6 @@ class TransportTruckUpdateForm extends Component {
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}运输车: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -277,11 +267,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="序号" disabled/>
-=======
                     <Input size="large"  placeHolder={fieldLabels.id} disabled/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -293,11 +279,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.name,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.name} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -309,11 +291,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.plateNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="车牌号码" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.plateNumber} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -325,11 +303,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.contactNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="联系电话" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.contactNumber} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -341,11 +315,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.vehicleLicenseNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="汽车牌照号码" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.vehicleLicenseNumber} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -357,11 +327,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.engineNumber,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="发动机号" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.engineNumber} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -373,11 +339,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.makeDate,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="制造日期" />
-=======
                     <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.makeDate}/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -389,11 +351,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.mileage,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="里程" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.mileage} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -405,11 +363,7 @@ class TransportTruckUpdateForm extends Component {
                     initialValue: selectedRow.bodyColor,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="车身颜色" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.bodyColor} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

@@ -8,10 +8,7 @@ import styles from './RetailStoreFranchising.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import RetailStoreFranchisingBase from './RetailStoreFranchising.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')

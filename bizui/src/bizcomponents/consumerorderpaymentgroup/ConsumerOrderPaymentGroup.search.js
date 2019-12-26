@@ -10,11 +10,7 @@ import ListViewTool from '../../common/ListView.tool'
 import ConsumerOrderPaymentGroupBase from './ConsumerOrderPaymentGroup.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = ConsumerOrderPaymentGroupBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService

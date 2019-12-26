@@ -116,13 +116,8 @@ const internalSummaryOf = (eventAttendance,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{eventAttendance.id}</Description> 
-<Description term="名称">{eventAttendance.name}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{eventAttendance.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{eventAttendance.name}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="潜在的客户">{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"潜在的客户","potentialCustomer",EventAttendanceService.requestCandidatePotentialCustomer,
@@ -205,8 +200,9 @@ class EventAttendanceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

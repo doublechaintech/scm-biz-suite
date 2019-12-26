@@ -13,22 +13,13 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = GoodsAllocationBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
-<<<<<<< HEAD
-  latitude: '42.465295294447884',
-  longitude: '129.43778528408367',
-=======
-  latitude: '40.593891363557454',
-  longitude: '131.92845383889983',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  latitude: '41.19896116530983',
+  longitude: '131.00283893782424',
   goodsShelfId: 'GS000001',
 }
 */
@@ -80,11 +71,7 @@ class GoodsAllocationCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-<<<<<<< HEAD
-    const {fieldLabels} = GoodsAllocationBase
-=======
     
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {GoodsAllocationService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -131,11 +118,7 @@ class GoodsAllocationCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}货位</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('goods_allocation')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -150,11 +133,7 @@ class GoodsAllocationCreateFormBody extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="位置" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.location} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -164,11 +143,7 @@ class GoodsAllocationCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="纬度" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.latitude} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -178,11 +153,7 @@ class GoodsAllocationCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="经度" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.longitude} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

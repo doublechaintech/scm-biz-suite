@@ -18,15 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  occureTime: '2016-11-15',
+  occureTime: '2017-12-11',
   number: 'GF00001',
-  amount: '15.04',
-=======
-  occureTime: '2017-04-25',
-  number: 'GF00001',
-  amount: '18.00',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  amount: '17.98',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -211,21 +205,13 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_member_gift_card_consume_record')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}零售商店会员卡消费记录`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_member_gift_card_consume_record')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

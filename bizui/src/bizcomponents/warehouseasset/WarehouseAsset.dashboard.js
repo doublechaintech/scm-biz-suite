@@ -116,15 +116,9 @@ const internalSummaryOf = (warehouseAsset,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{warehouseAsset.id}</Description> 
-<Description term="名称">{warehouseAsset.name}</Description> 
-<Description term="位置">{warehouseAsset.position}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{warehouseAsset.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{warehouseAsset.name}</Description> 
 <Description term="位置" style={{wordBreak: 'break-all'}}>{warehouseAsset.position}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="业主">{warehouseAsset.owner==null?appLocaleName(userContext,"NotAssigned"):`${warehouseAsset.owner.displayName}(${warehouseAsset.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","warehouse",WarehouseAssetService.requestCandidateOwner,
@@ -201,8 +195,9 @@ class WarehouseAssetDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

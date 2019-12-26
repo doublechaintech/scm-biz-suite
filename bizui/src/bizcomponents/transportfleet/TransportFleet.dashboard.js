@@ -116,15 +116,9 @@ const internalSummaryOf = (transportFleet,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{transportFleet.id}</Description> 
-<Description term="名称">{transportFleet.name}</Description> 
-<Description term="联系电话">{transportFleet.contactNumber}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{transportFleet.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{transportFleet.name}</Description> 
 <Description term="联系电话" style={{wordBreak: 'break-all'}}>{transportFleet.contactNumber}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(transportFleet.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(transportFleet,targetComponent)}
@@ -166,15 +160,9 @@ class TransportFleetDashboard extends Component {
     const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",
     	cardsSource: this.props.transportFleet,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'transportTruckList', displayName:'运输车',type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo, renderItem: GlobalComponents.TransportTruckBase.renderItemOfList},
-{name: 'truckDriverList', displayName:'卡车司机',type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo, renderItem: GlobalComponents.TruckDriverBase.renderItemOfList},
-{name: 'transportTaskList', displayName:'运输任务',type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
-=======
 {name: 'transportTruckList', displayName:'运输车',viewGroup:'__no_group', type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo, renderItem: GlobalComponents.TransportTruckBase.renderItemOfList},
 {name: 'truckDriverList', displayName:'卡车司机',viewGroup:'__no_group', type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo, renderItem: GlobalComponents.TruckDriverBase.renderItemOfList},
 {name: 'transportTaskList', displayName:'运输任务',viewGroup:'__no_group', type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -204,8 +192,9 @@ class TransportFleetDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

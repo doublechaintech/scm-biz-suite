@@ -10,11 +10,7 @@ import ListViewTool from '../../common/ListView.tool'
 import ConsumerOrderPriceAdjustmentBase from './ConsumerOrderPriceAdjustment.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = ConsumerOrderPriceAdjustmentBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService

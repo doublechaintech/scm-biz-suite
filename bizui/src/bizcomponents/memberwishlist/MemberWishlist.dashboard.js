@@ -116,13 +116,8 @@ const internalSummaryOf = (memberWishlist,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{memberWishlist.id}</Description> 
-<Description term="名称">{memberWishlist.name}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{memberWishlist.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{memberWishlist.name}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="业主">{memberWishlist.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberWishlist.owner.displayName}(${memberWishlist.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","retailStoreMember",MemberWishlistService.requestCandidateOwner,
@@ -169,11 +164,7 @@ class MemberWishlistDashboard extends Component {
     const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",
     	cardsSource: this.props.memberWishlist,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'memberWishlistProductList', displayName:'会员收藏产品',type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
-=======
 {name: 'memberWishlistProductList', displayName:'会员收藏产品',viewGroup:'__no_group', type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -203,8 +194,9 @@ class MemberWishlistDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

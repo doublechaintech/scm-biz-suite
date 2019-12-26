@@ -13,26 +13,15 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = ShippingSpaceBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号装货区',
-<<<<<<< HEAD
-  contactNumber: '02887654321',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-  latitude: '41.585307345382304',
-  longitude: '130.15458732753802',
-=======
-  contactNumber: '346325732',
-  totalArea: '1876平方米',
-  latitude: '41.00396608935503',
-  longitude: '129.86168267728587',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  latitude: '39.92533419305067',
+  longitude: '129.82119660816733',
   description: '每个收货区可以供一辆车装货',
   warehouseId: 'W000001',
 }
@@ -85,11 +74,7 @@ class ShippingSpaceCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-<<<<<<< HEAD
-    const {fieldLabels} = ShippingSpaceBase
-=======
     
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {ShippingSpaceService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -136,11 +121,7 @@ class ShippingSpaceCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}发货区</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('shipping_space')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -155,11 +136,7 @@ class ShippingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('location', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="位置" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.location} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -169,11 +146,7 @@ class ShippingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('contactNumber', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="联系电话" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.contactNumber} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -183,11 +156,7 @@ class ShippingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('totalArea', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="总面积" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.totalArea} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -197,11 +166,7 @@ class ShippingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('latitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="纬度" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.latitude} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -211,11 +176,7 @@ class ShippingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('longitude', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="经度" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.longitude} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -225,11 +186,7 @@ class ShippingSpaceCreateFormBody extends Component {
                   {getFieldDecorator('description', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="描述" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.description} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

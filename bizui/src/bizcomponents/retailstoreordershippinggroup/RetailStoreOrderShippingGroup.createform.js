@@ -19,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链中和社区店',
-<<<<<<< HEAD
-  amount: '4.42',
-=======
-  amount: '5.56',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  amount: '4.54',
   bizOrderId: 'RSO000001',
 }
 */
@@ -207,21 +203,13 @@ class RetailStoreOrderShippingGroupCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}生超订单送货分组</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_shipping_group')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}生超订单送货分组`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order_shipping_group')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

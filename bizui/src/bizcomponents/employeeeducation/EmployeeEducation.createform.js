@@ -18,11 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  completeTime: '2017-12-25',
-=======
-  completeTime: '2018-04-22',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  completeTime: '2017-02-12',
   type: '小学',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',
@@ -208,21 +204,13 @@ class EmployeeEducationCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工教育</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_education')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}员工教育`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_education')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -48,96 +48,6 @@ const transferToAnotherSeller = (id, parameters) => {
 
 
 
-const requestCandidateConfirmation = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}retailStoreOrderManager/requestCandidateConfirmation/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherConfirmation = (id, parameters) => {
-  const url = `${PREFIX}retailStoreOrderManager/transferToAnotherConfirmation/id/anotherConfirmationId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateApproval = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}retailStoreOrderManager/requestCandidateApproval/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherApproval = (id, parameters) => {
-  const url = `${PREFIX}retailStoreOrderManager/transferToAnotherApproval/id/anotherApprovalId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateProcessing = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}retailStoreOrderManager/requestCandidateProcessing/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherProcessing = (id, parameters) => {
-  const url = `${PREFIX}retailStoreOrderManager/transferToAnotherProcessing/id/anotherProcessingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidatePicking = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}retailStoreOrderManager/requestCandidatePicking/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherPicking = (id, parameters) => {
-  const url = `${PREFIX}retailStoreOrderManager/transferToAnotherPicking/id/anotherPickingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateShipment = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}retailStoreOrderManager/requestCandidateShipment/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherShipment = (id, parameters) => {
-  const url = `${PREFIX}retailStoreOrderManager/transferToAnotherShipment/id/anotherShipmentId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateDelivery = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}retailStoreOrderManager/requestCandidateDelivery/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherDelivery = (id, parameters) => {
-  const url = `${PREFIX}retailStoreOrderManager/transferToAnotherDelivery/id/anotherDeliveryId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 
 
 
@@ -209,7 +119,7 @@ const removeRetailStoreOrderPaymentGroupList = (targetObjectId, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreOrderManager/addGoods/retailStoreOrderId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/packagingId/tokensExpr/`
+  const url = `${PREFIX}retailStoreOrderManager/addGoods/retailStoreOrderId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/tokensExpr/`
   const retailStoreOrderId = targetObjectId
   const requestParameters = { ...parameters, retailStoreOrderId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -272,19 +182,7 @@ const RetailStoreOrderService = { view,
   removeGoodsList,
   requestCandidateBuyer,
   requestCandidateSeller,
-  requestCandidateConfirmation,
-  requestCandidateApproval,
-  requestCandidateProcessing,
-  requestCandidatePicking,
-  requestCandidateShipment,
-  requestCandidateDelivery,
   transferToAnotherBuyer,
-  transferToAnotherSeller,
-  transferToAnotherConfirmation,
-  transferToAnotherApproval,
-  transferToAnotherProcessing,
-  transferToAnotherPicking,
-  transferToAnotherShipment,
-  transferToAnotherDelivery, listFunctions, saveRequest, processRequest}
+  transferToAnotherSeller, listFunctions, saveRequest, processRequest}
 export default RetailStoreOrderService
 

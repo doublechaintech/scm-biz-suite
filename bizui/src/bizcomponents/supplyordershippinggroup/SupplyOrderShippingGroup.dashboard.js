@@ -116,13 +116,8 @@ const internalSummaryOf = (supplyOrderShippingGroup,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{supplyOrderShippingGroup.id}</Description> 
-<Description term="名称">{supplyOrderShippingGroup.name}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{supplyOrderShippingGroup.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{supplyOrderShippingGroup.name}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="订单">{supplyOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderShippingGroup.bizOrder.displayName}(${supplyOrderShippingGroup.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","supplyOrder",SupplyOrderShippingGroupService.requestCandidateBizOrder,
@@ -199,8 +194,9 @@ class SupplyOrderShippingGroupDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

@@ -36,10 +36,6 @@ const internalSummaryOf = (originalVoucher,targetComponent) =>{
 <Description term="由">{originalVoucher.madeBy}</Description> 
 <Description term="受">{originalVoucher.receivedBy}</Description> 
 <Description term="凭证类型">{originalVoucher.voucherType}</Description> 
-<<<<<<< HEAD
-<Description term="当前状态">{originalVoucher.currentStatus}</Description> 
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
       </DescriptionList>
 	)

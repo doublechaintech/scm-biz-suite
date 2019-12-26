@@ -116,11 +116,7 @@ const internalSummaryOf = (levelTwoCategory,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{levelTwoCategory.id}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{levelTwoCategory.id}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="父类">{levelTwoCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoCategory.parentCategory.displayName}(${levelTwoCategory.parentCategory.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"父类","levelOneCategory",LevelTwoCategoryService.requestCandidateParentCategory,
@@ -168,11 +164,7 @@ class LevelTwoCategoryDashboard extends Component {
     const cardsData = {cardsName:"二级分类",cardsFor: "levelTwoCategory",
     	cardsSource: this.props.levelTwoCategory,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'levelThreeCategoryList', displayName:'三级分类',type:'levelThreeCategory',count:levelThreeCategoryCount,addFunction: true, role: 'levelThreeCategory', metaInfo: levelThreeCategoryListMetaInfo, renderItem: GlobalComponents.LevelThreeCategoryBase.renderItemOfList},
-=======
 {name: 'levelThreeCategoryList', displayName:'三级分类',viewGroup:'__no_group', type:'levelThreeCategory',count:levelThreeCategoryCount,addFunction: true, role: 'levelThreeCategory', metaInfo: levelThreeCategoryListMetaInfo, renderItem: GlobalComponents.LevelThreeCategoryBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -202,8 +194,9 @@ class LevelTwoCategoryDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

@@ -18,11 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  completeTime: '2019-04-18',
-=======
-  completeTime: '2017-03-08',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  completeTime: '2017-06-21',
   type: '小学',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',
@@ -144,11 +140,7 @@ class EmployeeEducationAssociateForm extends Component {
                   {getFieldDecorator('completeTime', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <DatePicker size="large" format="YYYY-MM-DD" placeholder="完成时间" />
-=======
                     <DatePicker size="large" format="YYYY-MM-DD"  placeHolder={fieldLabels.completeTime}/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -158,11 +150,7 @@ class EmployeeEducationAssociateForm extends Component {
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="类型" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.type} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -172,11 +160,7 @@ class EmployeeEducationAssociateForm extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="备注" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.remark} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

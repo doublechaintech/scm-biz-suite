@@ -41,10 +41,6 @@ const internalSummaryOf = (employee,targetComponent) =>{
 <Description term="手机">{employee.cellPhone}</Description> 
 <Description term="工资账户">{employee.salaryAccount}</Description> 
 <Description term="最后更新时间">{ moment(employee.lastUpdateTime).format('YYYY-MM-DD')}</Description> 
-<<<<<<< HEAD
-<Description term="当前状态">{employee.currentStatus}</Description> 
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
       </DescriptionList>
 	)

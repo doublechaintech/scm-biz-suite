@@ -19,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超成都办事处',
-<<<<<<< HEAD
-  founded: '2018-11-02',
-=======
-  founded: '2018-02-21',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  founded: '2018-12-28',
   belongsToId: 'RSPC000001',
 }
 */
@@ -207,21 +203,13 @@ class RetailStoreCityServiceCenterCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超城市服务中心</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_city_service_center')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}双链小超城市服务中心`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_city_service_center')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

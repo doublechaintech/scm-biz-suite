@@ -38,14 +38,14 @@ const transferToAnotherCountry = (id, parameters) => {
 
 
 const addProvinceCenterDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreProvinceCenterManager/addProvinceCenterDepartment/retailStoreProvinceCenterId/name/founded/managerName/tokensExpr/`
+  const url = `${PREFIX}retailStoreProvinceCenterManager/addProvinceCenterDepartment/retailStoreProvinceCenterId/name/founded/manager/tokensExpr/`
   const retailStoreProvinceCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreProvinceCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateProvinceCenterDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreProvinceCenterManager/updateProvinceCenterDepartmentProperties/retailStoreProvinceCenterId/id/name/founded/managerName/tokensExpr/`
+  const url = `${PREFIX}retailStoreProvinceCenterManager/updateProvinceCenterDepartmentProperties/retailStoreProvinceCenterId/id/name/founded/manager/tokensExpr/`
   const retailStoreProvinceCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreProvinceCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

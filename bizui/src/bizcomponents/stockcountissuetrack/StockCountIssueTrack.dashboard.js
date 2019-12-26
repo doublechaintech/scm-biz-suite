@@ -119,11 +119,7 @@ const internalSummaryOf = (stockCountIssueTrack,targetComponent) =>{
 <Description term="序号" style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.id}</Description> 
 <Description term="头衔" style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.title}</Description> 
 <Description term="计数时间">{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</Description> 
-<<<<<<< HEAD
-<Description term="概览">{stockCountIssueTrack.summary}</Description> 
-=======
 <Description term="概览" style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.summary}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="盘点">{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"盘点","goodsShelfStockCount",StockCountIssueTrackService.requestCandidateStockCount,
@@ -199,8 +195,9 @@ class StockCountIssueTrackDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

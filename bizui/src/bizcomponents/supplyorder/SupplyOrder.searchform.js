@@ -8,10 +8,7 @@ import styles from './SupplyOrder.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import SupplyOrderBase from './SupplyOrder.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -138,16 +135,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'buyer'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'seller'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'title'))
-<<<<<<< HEAD
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
-=======
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'approval'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'processing'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'picking'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'shipment'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'delivery'))
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -213,11 +200,7 @@ componentDidMount() {
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                 <Form.Item label="买方">
-=======
                  <Form.Item label={fieldLabels.buyer}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                
                <SelectObject 
@@ -276,11 +259,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="买方">
-=======
                     <Form.Item label={fieldLabels.buyer}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('buyer', {initialValue: tryinit('buyer')})(
                   
                   <SelectObject 
@@ -292,11 +271,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="卖方">
-=======
                     <Form.Item label={fieldLabels.seller}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('seller', {initialValue: tryinit('seller')})(
                   
                   <SelectObject 
@@ -312,92 +287,9 @@ componentDidMount() {
             <FormItem label={fieldLabels.title}>
               {getFieldDecorator('title')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-<<<<<<< HEAD
               )}
             </FormItem>
           </Col>
-
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
-              )}
-            </FormItem>
-          </Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.confirmation}>
-                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={SupplyOrderService.requestCandidateConfirmation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.approval}>
-                  {getFieldDecorator('approval', {initialValue: tryinit('approval')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('approval')}
-                    targetType={"approval"} 
-                    requestFunction={SupplyOrderService.requestCandidateApproval} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.processing}>
-                  {getFieldDecorator('processing', {initialValue: tryinit('processing')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('processing')}
-                    targetType={"processing"} 
-                    requestFunction={SupplyOrderService.requestCandidateProcessing} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.picking}>
-                  {getFieldDecorator('picking', {initialValue: tryinit('picking')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('picking')}
-                    targetType={"picking"} 
-                    requestFunction={SupplyOrderService.requestCandidatePicking} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.shipment}>
-                  {getFieldDecorator('shipment', {initialValue: tryinit('shipment')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('shipment')}
-                    targetType={"shipment"} 
-                    requestFunction={SupplyOrderService.requestCandidateShipment} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.delivery}>
-                  {getFieldDecorator('delivery', {initialValue: tryinit('delivery')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('delivery')}
-                    targetType={"delivery"} 
-                    requestFunction={SupplyOrderService.requestCandidateDelivery} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
 
         </Row>
         <div style={{ overflow: 'hidden' }}>

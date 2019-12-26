@@ -39,10 +39,6 @@ const internalSummaryOf = (employeeSalarySheet,targetComponent) =>{
 <Description term="社会保险">{employeeSalarySheet.socialSecurity}</Description> 
 <Description term="住房公积金">{employeeSalarySheet.housingFound}</Description> 
 <Description term="失业保险">{employeeSalarySheet.jobInsurance}</Description> 
-<<<<<<< HEAD
-<Description term="当前状态">{employeeSalarySheet.currentStatus}</Description> 
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
       </DescriptionList>
 	)

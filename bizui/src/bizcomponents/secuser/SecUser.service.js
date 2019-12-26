@@ -33,21 +33,6 @@ const transferToAnotherDomain = (id, parameters) => {
 
 
 
-const requestCandidateBlocking = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}secUserManager/requestCandidateBlocking/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherBlocking = (id, parameters) => {
-  const url = `${PREFIX}secUserManager/transferToAnotherBlocking/id/anotherBlockingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 
 
 
@@ -131,8 +116,6 @@ const SecUserService = { view,
   removeUserAppList,
   removeLoginHistoryList,
   requestCandidateDomain,
-  requestCandidateBlocking,
-  transferToAnotherDomain,
-  transferToAnotherBlocking, listFunctions, saveRequest, processRequest}
+  transferToAnotherDomain, listFunctions, saveRequest, processRequest}
 export default SecUserService
 

@@ -116,11 +116,7 @@ const internalSummaryOf = (termination,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{termination.id}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{termination.id}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="原因">{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"原因","terminationReason",TerminationService.requestCandidateReason,
@@ -165,7 +161,7 @@ class TerminationDashboard extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeListMetaInfo, employeeCount } = this.props.termination
+    const { id,displayName,  } = this.props.termination
     if(!this.props.termination.class){
       return null
     }
@@ -174,11 +170,6 @@ class TerminationDashboard extends Component {
     const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",
     	cardsSource: this.props.termination,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'employeeList', displayName:'员工',type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
-=======
-{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -208,8 +199,9 @@ class TerminationDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

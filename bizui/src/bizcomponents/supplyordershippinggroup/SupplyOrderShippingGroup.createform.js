@@ -19,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链成都2号仓',
-<<<<<<< HEAD
-  amount: '5.73',
-=======
-  amount: '4.73',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  amount: '5.26',
   bizOrderId: 'SO000001',
 }
 */
@@ -207,21 +203,13 @@ class SupplyOrderShippingGroupCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单送货分组</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order_shipping_group')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}供应订单送货分组`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('supply_order_shipping_group')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -116,15 +116,9 @@ const internalSummaryOf = (genericForm,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="ID">{genericForm.id}</Description> 
-<Description term="标题">{genericForm.title}</Description> 
-<Description term="描述">{genericForm.description}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{genericForm.id}</Description> 
 <Description term="头衔" style={{wordBreak: 'break-all'}}>{genericForm.title}</Description> 
 <Description term="描述" style={{wordBreak: 'break-all'}}>{genericForm.description}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
         {buildTransferModal(genericForm,targetComponent)}
       </DescriptionList>
@@ -165,17 +159,10 @@ class GenericFormDashboard extends Component {
     const cardsData = {cardsName:"通用的形式",cardsFor: "genericForm",
     	cardsSource: this.props.genericForm,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'formMessageList', displayName:'表单信息',type:'formMessage',count:formMessageCount,addFunction: true, role: 'formMessage', metaInfo: formMessageListMetaInfo, renderItem: GlobalComponents.FormMessageBase.renderItemOfList},
-{name: 'formFieldMessageList', displayName:'表单字段的信息',type:'formFieldMessage',count:formFieldMessageCount,addFunction: true, role: 'formFieldMessage', metaInfo: formFieldMessageListMetaInfo, renderItem: GlobalComponents.FormFieldMessageBase.renderItemOfList},
-{name: 'formFieldList', displayName:'表单字段',type:'formField',count:formFieldCount,addFunction: true, role: 'formField', metaInfo: formFieldListMetaInfo, renderItem: GlobalComponents.FormFieldBase.renderItemOfList},
-{name: 'formActionList', displayName:'表单动作',type:'formAction',count:formActionCount,addFunction: true, role: 'formAction', metaInfo: formActionListMetaInfo, renderItem: GlobalComponents.FormActionBase.renderItemOfList},
-=======
 {name: 'formMessageList', displayName:'表单信息',viewGroup:'__no_group', type:'formMessage',count:formMessageCount,addFunction: true, role: 'formMessage', metaInfo: formMessageListMetaInfo, renderItem: GlobalComponents.FormMessageBase.renderItemOfList},
 {name: 'formFieldMessageList', displayName:'表单字段的信息',viewGroup:'__no_group', type:'formFieldMessage',count:formFieldMessageCount,addFunction: true, role: 'formFieldMessage', metaInfo: formFieldMessageListMetaInfo, renderItem: GlobalComponents.FormFieldMessageBase.renderItemOfList},
 {name: 'formFieldList', displayName:'表单字段',viewGroup:'__no_group', type:'formField',count:formFieldCount,addFunction: true, role: 'formField', metaInfo: formFieldListMetaInfo, renderItem: GlobalComponents.FormFieldBase.renderItemOfList},
 {name: 'formActionList', displayName:'表单动作',viewGroup:'__no_group', type:'formAction',count:formActionCount,addFunction: true, role: 'formAction', metaInfo: formActionListMetaInfo, renderItem: GlobalComponents.FormActionBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -205,8 +192,9 @@ class GenericFormDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

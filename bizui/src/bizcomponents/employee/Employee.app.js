@@ -157,11 +157,7 @@ constructor(props) {
         
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-<<<<<<< HEAD
-        style={{ width: '256px' }}
-=======
         style={{ width: '456px' }}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
        >
            
 
@@ -947,9 +943,6 @@ constructor(props) {
   
 
      }
-<<<<<<< HEAD
-     const { Search } = Input;
-=======
      
      const { Search } = Input;
      const showSearchResult=()=>{
@@ -973,7 +966,6 @@ constructor(props) {
     
      
      
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
      const layout = (
      <Layout>
  <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -994,17 +986,12 @@ constructor(props) {
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
-<<<<<<< HEAD
-          <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释,暂未实现" enterButton 
-            style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />
-=======
           <Search size="default" placeholder="请输入搜索条件, 查找功能，数据和词汇解释，关闭请点击搜索结果空白处" 
             enterButton onFocus={()=>showSearchResult()} onChange={(evt)=>searchChange(evt)}
            	
             style={{ marginLeft:"10px",marginTop:"7px",width:"100%"}} />  
             
             
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
           </Col>
           <Col  {...userBarResponsiveStyle}  > 
             <Dropdown overlay= { <TopMenu {...this.props} />} className={styles.right}>
@@ -1019,8 +1006,6 @@ constructor(props) {
         </Header>
        <Layout style={{  marginTop: 44 }}>
        
-<<<<<<< HEAD
-=======
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.employee,this.state.searchKeyword)}</div>
@@ -1028,7 +1013,6 @@ constructor(props) {
       )}
        
         
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
          
          <Layout>
          

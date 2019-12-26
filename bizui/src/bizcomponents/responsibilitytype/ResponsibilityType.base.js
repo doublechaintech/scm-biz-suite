@@ -1,9 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
-import { Icon,Divider } from 'antd'
-=======
 import { Icon,Divider, Avata, Card, Col} from 'antd'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -13,27 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-<<<<<<< HEAD
-=======
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
-<<<<<<< HEAD
-	defaultRenderDateCell,
-	defaultRenderIdentifier,
-	defaultRenderTextCell,
-=======
 	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -41,31 +28,20 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
-<<<<<<< HEAD
-=======
 const renderAvatarCell=defaultRenderAvatarCell
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-<<<<<<< HEAD
-const menuData = {menuName:"责任类型", menuFor: "responsibilityType",
-  		subItems: [
-  {name: 'employeeList', displayName:'员工', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-=======
 
 const menuData = {menuName: window.trans('responsibility_type'), menuFor: "responsibilityType",
   		subItems: [
   {name: 'employeeList', displayName: window.mtrans('employee','responsibility_type.employee_list',false), type:'employee',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   
   		],
 }
 
-<<<<<<< HEAD
-=======
 
 const settingMenuData = {menuName: window.trans('responsibility_type'), menuFor: "responsibilityType",
   		subItems: [
@@ -94,8 +70,8 @@ const displayColumns = [
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
 
-const renderItemOfList=(responsibilityType,targetComponent)=>{
-
+const renderItemOfList=(responsibilityType, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
   const userContext = null
   return (
     <div key={responsibilityType.id}>
@@ -111,50 +87,6 @@ const renderItemOfList=(responsibilityType,targetComponent)=>{
       <Divider style={{ height: '2px' }} />
     </div>
 	)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
-
-const settingMenuData = {menuName:"责任类型", menuFor: "responsibilityType",
-  		subItems: [
-  
-  		],
-}
-<<<<<<< HEAD
-
-const fieldLabels = {
-  id: '序号',
-  code: '代码',
-  company: '公司',
-  baseDescription: '基本描述',
-  detailDescription: '详细描述',
-
-}
-
-const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'responsibilityType') , sorter: true },
-  { title: fieldLabels.code, debugtype: 'string', dataIndex: 'code', width: '9',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.company, dataIndex: 'company', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.baseDescription, debugtype: 'string', dataIndex: 'baseDescription', width: '8',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.detailDescription, debugtype: 'string', dataIndex: 'detailDescription', width: '33',render: (text, record)=>renderTextCell(text,record)},
-
-]
-// refernce to https://ant.design/components/list-cn/
-const renderItemOfList=(responsibilityType,targetComponent)=>{
-
-  const userContext = null
-  return (
-    <div key={responsibilityType.id}>
-	
-      <DescriptionList  key={responsibilityType.id} size="small" col="4">
-        <Description term="序号">{responsibilityType.id}</Description> 
-        <Description term="代码">{responsibilityType.code}</Description> 
-        <Description term="基本描述">{responsibilityType.baseDescription}</Description> 
-        <Description term="详细描述">{responsibilityType.detailDescription}</Description> 
-	
-        
-      </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
-	)
 
 }
 	
@@ -164,25 +96,12 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const data = {code, baseDescription, detailDescription, company}
 	return data
 }
-=======
-	
-const packFormValuesToObject = ( formValuesToPack )=>{
-	const {code, baseDescription, detailDescription, companyId} = formValuesToPack
-	const company = {id: companyId, version: 2^31}
-	const data = {code, baseDescription, detailDescription, company}
-	return data
-}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {code, baseDescription, detailDescription, company} = objectToUnpack
 	const companyId = company ? company.id : null
 	const data = {code, baseDescription, detailDescription, companyId}
 	return data
 }
-<<<<<<< HEAD
-
-const ResponsibilityTypeBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
-=======
 const stepOf=(targetComponent, title, content, position, index)=>{
 	return {
 		title,
@@ -194,7 +113,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
       }
 }
 const ResponsibilityTypeBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 export default ResponsibilityTypeBase
 
 

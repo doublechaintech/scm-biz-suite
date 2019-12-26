@@ -116,13 +116,8 @@ const internalSummaryOf = (payingOff,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{payingOff.id}</Description> 
-<Description term="谁">{payingOff.who}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{payingOff.id}</Description> 
 <Description term="谁" style={{wordBreak: 'break-all'}}>{payingOff.who}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="支付">{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"支付","employee",PayingOffService.requestCandidatePaidFor,
@@ -171,11 +166,7 @@ class PayingOffDashboard extends Component {
     const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",
     	cardsSource: this.props.payingOff,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'employeeSalarySheetList', displayName:'工资单',type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
-=======
 {name: 'employeeSalarySheetList', displayName:'工资单',viewGroup:'__no_group', type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -205,8 +196,9 @@ class PayingOffDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

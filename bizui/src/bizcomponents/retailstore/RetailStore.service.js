@@ -143,7 +143,7 @@ const transferToAnotherClosing = (id, parameters) => {
 
 
 const addConsumerOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/addConsumerOrder/retailStoreId/title/consumerId/confirmationId/approvalId/processingId/shipmentId/deliveryId/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/addConsumerOrder/retailStoreId/title/consumerId/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -165,7 +165,7 @@ const removeConsumerOrderList = (targetObjectId, parameters) => {
 
 
 const addRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/addRetailStoreOrder/retailStoreId/sellerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/addRetailStoreOrder/retailStoreId/sellerId/title/totalAmount/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -187,7 +187,7 @@ const removeRetailStoreOrderList = (targetObjectId, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreManager/addGoods/retailStoreId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
+  const url = `${PREFIX}retailStoreManager/addGoods/retailStoreId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/bizOrderId/retailStoreOrderId/tokensExpr/`
   const retailStoreId = targetObjectId
   const requestParameters = { ...parameters, retailStoreId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

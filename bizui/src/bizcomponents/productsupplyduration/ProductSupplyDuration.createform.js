@@ -20,11 +20,7 @@ const testValues = {};
 const testValues = {
   quantity: '100',
   duration: '现货',
-<<<<<<< HEAD
-  price: '7921.50',
-=======
-  price: '7291.70',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  price: '7722.25',
   productId: 'SP000001',
 }
 */
@@ -208,21 +204,13 @@ class ProductSupplyDurationCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}产品供应时间</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('product_supply_duration')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}产品供应时间`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('product_supply_duration')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

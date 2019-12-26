@@ -18,15 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  enterTime: '2019-08-27',
-  leaveTime: '2017-11-18',
-  durationHours: '8',
-=======
-  enterTime: '2018-02-22',
-  leaveTime: '2019-10-07',
+  enterTime: '2018-11-12',
+  leaveTime: '2018-11-05',
   durationHours: '7',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -211,21 +205,13 @@ class EmployeeAttendanceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工考勤</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_attendance')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}员工考勤`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_attendance')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

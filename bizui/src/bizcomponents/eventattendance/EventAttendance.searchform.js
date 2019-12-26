@@ -8,10 +8,7 @@ import styles from './EventAttendance.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import EventAttendanceBase from './EventAttendance.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -267,11 +264,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="潜在的客户">
-=======
                     <Form.Item label={fieldLabels.potentialCustomer}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('potentialCustomer', {initialValue: tryinit('potentialCustomer')})(
                   
                   <SelectObject 
@@ -283,11 +276,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="城市活动">
-=======
                     <Form.Item label={fieldLabels.cityEvent}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('cityEvent', {initialValue: tryinit('cityEvent')})(
                   
                   <SelectObject 

@@ -38,7 +38,7 @@ class AccountSetModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1425 }}
+          scroll={{ x: 1470 }}
         />
       </div>
     )

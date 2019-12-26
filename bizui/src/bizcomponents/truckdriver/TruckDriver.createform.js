@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '运货卡车司机',
-  driverLicenseNumber: '32929803179',
+  driverLicenseNumber: '5109 9887 733',
   contactNumber: '18777778888',
   belongsToId: 'TF000001',
 }
@@ -204,21 +204,13 @@ class TruckDriverCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}卡车司机</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('truck_driver')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}卡车司机`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('truck_driver')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

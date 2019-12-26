@@ -10,11 +10,7 @@ import ListViewTool from '../../common/ListView.tool'
 import AccountingDocumentBase from './AccountingDocument.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = AccountingDocumentBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -46,17 +42,10 @@ const showListActionBar = (targetComponent)=>{
   const userContext = null
   return (<div className={styles.tableListOperator}>
   
-<<<<<<< HEAD
 
     {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
 
 
-=======
-
-    {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
-
-
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     {hasUpdatePermission(metaInfo)&&<Button onClick={()=>handleUpdate(targetComponent)} icon="edit" disabled={disable}>{appLocaleName(userContext,"BatchUpdate")}</Button>}
  
  
@@ -76,10 +65,6 @@ const showAssociateDialog = (targetComponent) => {
   
   const { AccountingPeriodAssociateForm } = GlobalComponents
   const { AccountingDocumentTypeAssociateForm } = GlobalComponents
-  const { AccountingDocumentCreationAssociateForm } = GlobalComponents
-  const { AccountingDocumentConfirmationAssociateForm } = GlobalComponents
-  const { AccountingDocumentAuditingAssociateForm } = GlobalComponents
-  const { AccountingDocumentPostingAssociateForm } = GlobalComponents
 
 
   return (
@@ -95,23 +80,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='documentType'} 
 	data={{accountingDocumentList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'documentType')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'documentType')}/> <AccountingDocumentCreationAssociateForm 
-	visible={currentAssociateModal==='creation'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'creation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'creation')}/> <AccountingDocumentConfirmationAssociateForm 
-	visible={currentAssociateModal==='confirmation'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'confirmation')}/> <AccountingDocumentAuditingAssociateForm 
-	visible={currentAssociateModal==='auditing'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'auditing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'auditing')}/> <AccountingDocumentPostingAssociateForm 
-	visible={currentAssociateModal==='posting'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'posting')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'posting')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'documentType')}/> 
  
 
 

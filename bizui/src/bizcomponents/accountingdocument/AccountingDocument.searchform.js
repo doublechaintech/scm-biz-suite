@@ -8,10 +8,7 @@ import styles from './AccountingDocument.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import AccountingDocumentBase from './AccountingDocument.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -138,14 +135,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'name'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'accountingPeriod'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'documentType'))
-<<<<<<< HEAD
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
-=======
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'creation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'auditing'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'posting'))
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -274,11 +263,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="会计期间">
-=======
                     <Form.Item label={fieldLabels.accountingPeriod}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('accountingPeriod', {initialValue: tryinit('accountingPeriod')})(
                   
                   <SelectObject 
@@ -290,11 +275,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="文档类型">
-=======
                     <Form.Item label={fieldLabels.documentType}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('documentType', {initialValue: tryinit('documentType')})(
                   
                   <SelectObject 
@@ -302,71 +283,9 @@ componentDidMount() {
                     targetType={"documentType"} 
                     requestFunction={AccountingDocumentService.requestCandidateDocumentType} useForSearch />
                   	
-<<<<<<< HEAD
                  
                   )}
                 </Form.Item></Col>
-
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-              )}
-            </FormItem>
-          </Col>
-=======
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.creation}>
-                  {getFieldDecorator('creation', {initialValue: tryinit('creation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={AccountingDocumentService.requestCandidateCreation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.confirmation}>
-                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={AccountingDocumentService.requestCandidateConfirmation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.auditing}>
-                  {getFieldDecorator('auditing', {initialValue: tryinit('auditing')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('auditing')}
-                    targetType={"auditing"} 
-                    requestFunction={AccountingDocumentService.requestCandidateAuditing} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.posting}>
-                  {getFieldDecorator('posting', {initialValue: tryinit('posting')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('posting')}
-                    targetType={"posting"} 
-                    requestFunction={AccountingDocumentService.requestCandidatePosting} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
         </Row>
         <div style={{ overflow: 'hidden' }}>

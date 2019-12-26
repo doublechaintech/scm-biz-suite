@@ -18,23 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  baseSalary: '2864.08',
-  bonus: '930.27',
-  reward: '805.12',
-  personalTax: '634.67',
-  socialSecurity: '1015.43',
-  housingFound: '1061.12',
-  jobInsurance: '8.68',
-=======
-  baseSalary: '2400.16',
-  bonus: '729.90',
-  reward: '713.91',
-  personalTax: '742.85',
-  socialSecurity: '830.35',
-  housingFound: '980.60',
-  jobInsurance: '8.67',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  baseSalary: '2162.10',
+  bonus: '850.39',
+  reward: '728.35',
+  personalTax: '707.63',
+  socialSecurity: '877.92',
+  housingFound: '1184.55',
+  jobInsurance: '6.99',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
   payingOffId: 'PO000001',
@@ -220,21 +210,13 @@ class EmployeeSalarySheetCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}工资单</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_salary_sheet')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}工资单`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_salary_sheet')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

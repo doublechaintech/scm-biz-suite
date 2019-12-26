@@ -116,26 +116,16 @@ const internalSummaryOf = (cityEvent,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{cityEvent.id}</Description> 
-<Description term="名称">{cityEvent.name}</Description> 
-<Description term="手机">{cityEvent.mobile}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{cityEvent.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{cityEvent.name}</Description> 
 <Description term="手机" style={{wordBreak: 'break-all'}}>{cityEvent.mobile}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="城市服务中心">{cityEvent.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityEvent.cityServiceCenter.displayName}(${cityEvent.cityServiceCenter.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"城市服务中心","retailStoreCityServiceCenter",CityEventService.requestCandidateCityServiceCenter,
 	      CityEventService.transferToAnotherCityServiceCenter,"anotherCityServiceCenterId",cityEvent.cityServiceCenter?cityEvent.cityServiceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<<<<<<< HEAD
-<Description term="描述">{cityEvent.description}</Description> 
-=======
 <Description term="描述" style={{wordBreak: 'break-all'}}>{cityEvent.description}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(cityEvent,targetComponent)}
@@ -177,11 +167,7 @@ class CityEventDashboard extends Component {
     const cardsData = {cardsName:"城市活动",cardsFor: "cityEvent",
     	cardsSource: this.props.cityEvent,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'eventAttendanceList', displayName:'活动的参与情况',type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
-=======
 {name: 'eventAttendanceList', displayName:'活动的参与情况',viewGroup:'__no_group', type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -211,8 +197,9 @@ class CityEventDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

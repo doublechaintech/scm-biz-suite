@@ -8,10 +8,7 @@ import styles from './LoginHistory.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import LoginHistoryBase from './LoginHistory.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -196,11 +193,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-<<<<<<< HEAD
-         <FormItem label="ID">
-=======
          <FormItem label={fieldLabels.id}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -208,11 +201,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-<<<<<<< HEAD
-         <FormItem label="来自IP">
-=======
          <FormItem label={fieldLabels.fromIp}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
            {getFieldDecorator('fromIp')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -259,11 +248,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="ID">
-=======
             <FormItem label={fieldLabels.id}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -271,11 +256,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="来自IP">
-=======
             <FormItem label={fieldLabels.fromIp}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('fromIp')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -290,11 +271,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="安全用户">
-=======
                     <Form.Item label={fieldLabels.secUser}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('secUser', {initialValue: tryinit('secUser')})(
                   
                   <SelectObject 

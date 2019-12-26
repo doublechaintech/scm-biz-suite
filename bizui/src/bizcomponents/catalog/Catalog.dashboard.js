@@ -160,11 +160,7 @@ class CatalogDashboard extends Component {
     const cardsData = {cardsName:"目录",cardsFor: "catalog",
     	cardsSource: this.props.catalog,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'levelOneCategoryList', displayName:'一级分类',type:'levelOneCategory',count:levelOneCategoryCount,addFunction: true, role: 'levelOneCategory', metaInfo: levelOneCategoryListMetaInfo, renderItem: GlobalComponents.LevelOneCategoryBase.renderItemOfList},
-=======
 {name: 'levelOneCategoryList', displayName:'一级分类',viewGroup:'__no_group', type:'levelOneCategory',count:levelOneCategoryCount,addFunction: true, role: 'levelOneCategory', metaInfo: levelOneCategoryListMetaInfo, renderItem: GlobalComponents.LevelOneCategoryBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -194,8 +190,9 @@ class CatalogDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

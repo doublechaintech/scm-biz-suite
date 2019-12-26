@@ -18,11 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  qualifiedTime: '2018-01-19',
-=======
-  qualifiedTime: '2019-09-03',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  qualifiedTime: '2019-04-26',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -209,21 +205,13 @@ class EmployeeQualifierCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}员工资质</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_qualifier')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}员工资质`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('employee_qualifier')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

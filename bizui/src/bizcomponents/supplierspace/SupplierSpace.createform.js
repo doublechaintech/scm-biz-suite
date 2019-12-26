@@ -19,15 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号供货商独立管理区',
-  contactNumber: '21613682',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-<<<<<<< HEAD
-  latitude: '41.44096880956794',
-  longitude: '130.10643813090923',
-=======
-  latitude: '41.08061533758971',
-  longitude: '131.603528331129',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  latitude: '41.101867833378435',
+  longitude: '129.9405341923827',
   warehouseId: 'W000001',
 }
 */
@@ -211,21 +206,13 @@ class SupplierSpaceCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应商的空间</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supplier_space')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}供应商的空间`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('supplier_space')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

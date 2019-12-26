@@ -118,13 +118,8 @@ const internalSummaryOf = (transportTaskTrack,targetComponent) =>{
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号" style={{wordBreak: 'break-all'}}>{transportTaskTrack.id}</Description> 
 <Description term="跟踪时间">{ moment(transportTaskTrack.trackTime).format('YYYY-MM-DD')}</Description> 
-<<<<<<< HEAD
-<Description term="纬度">{transportTaskTrack.latitude}</Description> 
-<Description term="经度">{transportTaskTrack.longitude}</Description> 
-=======
 <Description term="纬度" style={{wordBreak: 'break-all'}}>{transportTaskTrack.latitude}</Description> 
 <Description term="经度" style={{wordBreak: 'break-all'}}>{transportTaskTrack.longitude}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="运动">{transportTaskTrack.movement==null?appLocaleName(userContext,"NotAssigned"):`${transportTaskTrack.movement.displayName}(${transportTaskTrack.movement.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"运动","transportTask",TransportTaskTrackService.requestCandidateMovement,
@@ -200,8 +195,9 @@ class TransportTaskTrackDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

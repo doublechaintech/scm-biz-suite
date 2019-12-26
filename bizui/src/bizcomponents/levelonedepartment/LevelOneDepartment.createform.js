@@ -20,13 +20,8 @@ const testValues = {};
 const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
-<<<<<<< HEAD
   manager: '刘强',
-  founded: '2017-12-07',
-=======
-  managerName: '刘强',
-  founded: '2019-10-07',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  founded: '2019-01-26',
   belongsToId: 'RSCC000001',
 }
 */
@@ -210,21 +205,13 @@ class LevelOneDepartmentCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}一级部门</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('level_one_department')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}一级部门`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('level_one_department')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

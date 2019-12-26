@@ -116,24 +116,15 @@ const internalSummaryOf = (retailStoreMemberCoupon,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{retailStoreMemberCoupon.id}</Description> 
-<Description term="名称">{retailStoreMemberCoupon.name}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreMemberCoupon.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{retailStoreMemberCoupon.name}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="业主">{retailStoreMemberCoupon.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberCoupon.owner.displayName}(${retailStoreMemberCoupon.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberCouponService.requestCandidateOwner,
 	      RetailStoreMemberCouponService.transferToAnotherOwner,"anotherOwnerId",retailStoreMemberCoupon.owner?retailStoreMemberCoupon.owner.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<<<<<<< HEAD
-<Description term="数">{retailStoreMemberCoupon.number}</Description> 
-=======
 <Description term="数" style={{wordBreak: 'break-all'}}>{retailStoreMemberCoupon.number}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="最后更新时间">{ moment(retailStoreMemberCoupon.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</Description> 
 	
         {buildTransferModal(retailStoreMemberCoupon,targetComponent)}
@@ -204,8 +195,9 @@ class RetailStoreMemberCouponDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

@@ -13,19 +13,11 @@ import appLocaleName from '../../common/Locale.tool'
 const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
-<<<<<<< HEAD
-
-const testValues = {};
-/*
-const testValues = {
-  leaveDurationHour: '8',
-=======
 const {fieldLabels} = EmployeeLeaveBase
 const testValues = {};
 /*
 const testValues = {
   leaveDurationHour: '6',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   remark: '请年假，出去耍！！！！',
   whoId: 'E000001',
   typeId: 'LT000001',
@@ -79,11 +71,7 @@ class EmployeeLeaveCreateFormBody extends Component {
     const { convertedImagesValues } = this.state
 	const userContext = null
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
-<<<<<<< HEAD
-    const {fieldLabels} = EmployeeLeaveBase
-=======
     
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     const {EmployeeLeaveService} = GlobalComponents
     
     const capFirstChar = (value)=>{
@@ -130,11 +118,7 @@ class EmployeeLeaveCreateFormBody extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}请假记录</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('employee_leave')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 	
 	return (
@@ -149,11 +133,7 @@ class EmployeeLeaveCreateFormBody extends Component {
                   {getFieldDecorator('leaveDurationHour', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="请假时长" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.leaveDurationHour} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -163,11 +143,7 @@ class EmployeeLeaveCreateFormBody extends Component {
                   {getFieldDecorator('remark', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="备注" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.remark} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

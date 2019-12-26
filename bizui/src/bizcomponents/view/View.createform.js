@@ -20,11 +20,7 @@ const testValues = {};
 const testValues = {
   who: '面试官',
   assessment: '小伙子不错，值得培养',
-<<<<<<< HEAD
-  interviewTime: '2017-09-02',
-=======
-  interviewTime: '2017-10-28',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  interviewTime: '2017-09-14',
 }
 */
 
@@ -207,21 +203,13 @@ class ViewCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}观</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('view')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}观`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('view')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -116,15 +116,9 @@ const internalSummaryOf = (memberRewardPointRedemption,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{memberRewardPointRedemption.id}</Description> 
-<Description term="名称">{memberRewardPointRedemption.name}</Description> 
-<Description term="点">{memberRewardPointRedemption.point}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{memberRewardPointRedemption.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{memberRewardPointRedemption.name}</Description> 
 <Description term="点" style={{wordBreak: 'break-all'}}>{memberRewardPointRedemption.point}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="业主">{memberRewardPointRedemption.owner==null?appLocaleName(userContext,"NotAssigned"):`${memberRewardPointRedemption.owner.displayName}(${memberRewardPointRedemption.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","retailStoreMember",MemberRewardPointRedemptionService.requestCandidateOwner,
@@ -200,8 +194,9 @@ class MemberRewardPointRedemptionDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

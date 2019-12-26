@@ -116,21 +116,12 @@ const internalSummaryOf = (smartPallet,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{smartPallet.id}</Description> 
-<Description term="位置">{smartPallet.location}</Description> 
-<Description term="联系电话">{smartPallet.contactNumber}</Description> 
-<Description term="总面积">{smartPallet.totalArea}</Description> 
-<Description term="纬度">{smartPallet.latitude}</Description> 
-<Description term="经度">{smartPallet.longitude}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{smartPallet.id}</Description> 
 <Description term="位置" style={{wordBreak: 'break-all'}}>{smartPallet.location}</Description> 
 <Description term="联系电话" style={{wordBreak: 'break-all'}}>{smartPallet.contactNumber}</Description> 
 <Description term="总面积" style={{wordBreak: 'break-all'}}>{smartPallet.totalArea}</Description> 
 <Description term="纬度" style={{wordBreak: 'break-all'}}>{smartPallet.latitude}</Description> 
 <Description term="经度" style={{wordBreak: 'break-all'}}>{smartPallet.longitude}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="仓库">{smartPallet.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${smartPallet.warehouse.displayName}(${smartPallet.warehouse.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"仓库","warehouse",SmartPalletService.requestCandidateWarehouse,
@@ -178,11 +169,7 @@ class SmartPalletDashboard extends Component {
     const cardsData = {cardsName:"智能托盘",cardsFor: "smartPallet",
     	cardsSource: this.props.smartPallet,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'goodsList', displayName:'货物',type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
-=======
 {name: 'goodsList', displayName:'货物',viewGroup:'__no_group', type:'goods',count:goodsCount,addFunction: true, role: 'goods', metaInfo: goodsListMetaInfo, renderItem: GlobalComponents.GoodsBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -212,8 +199,9 @@ class SmartPalletDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

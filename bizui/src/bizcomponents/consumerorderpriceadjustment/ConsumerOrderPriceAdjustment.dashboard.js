@@ -116,13 +116,8 @@ const internalSummaryOf = (consumerOrderPriceAdjustment,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{consumerOrderPriceAdjustment.id}</Description> 
-<Description term="名称">{consumerOrderPriceAdjustment.name}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{consumerOrderPriceAdjustment.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{consumerOrderPriceAdjustment.name}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="订单">{consumerOrderPriceAdjustment.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderPriceAdjustment.bizOrder.displayName}(${consumerOrderPriceAdjustment.bizOrder.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"订单","consumerOrder",ConsumerOrderPriceAdjustmentService.requestCandidateBizOrder,
@@ -200,8 +195,9 @@ class ConsumerOrderPriceAdjustmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

@@ -10,11 +10,7 @@ import ListViewTool from '../../common/ListView.tool'
 import RetailStoreOrderBase from './RetailStoreOrder.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = RetailStoreOrderBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -46,17 +42,10 @@ const showListActionBar = (targetComponent)=>{
   const userContext = null
   return (<div className={styles.tableListOperator}>
   
-<<<<<<< HEAD
 
     {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
 
 
-=======
-
-    {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
-
-
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     {hasUpdatePermission(metaInfo)&&<Button onClick={()=>handleUpdate(targetComponent)} icon="edit" disabled={disable}>{appLocaleName(userContext,"BatchUpdate")}</Button>}
  
  
@@ -76,12 +65,6 @@ const showAssociateDialog = (targetComponent) => {
   
   const { RetailStoreAssociateForm } = GlobalComponents
   const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
-  const { RetailStoreOrderConfirmationAssociateForm } = GlobalComponents
-  const { RetailStoreOrderApprovalAssociateForm } = GlobalComponents
-  const { RetailStoreOrderProcessingAssociateForm } = GlobalComponents
-  const { RetailStoreOrderPickingAssociateForm } = GlobalComponents
-  const { RetailStoreOrderShipmentAssociateForm } = GlobalComponents
-  const { RetailStoreOrderDeliveryAssociateForm } = GlobalComponents
 
 
   return (
@@ -97,31 +80,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='seller'} 
 	data={{retailStoreOrderList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'seller')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> <RetailStoreOrderConfirmationAssociateForm 
-	visible={currentAssociateModal==='confirmation'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'confirmation')}/> <RetailStoreOrderApprovalAssociateForm 
-	visible={currentAssociateModal==='approval'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'approval')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'approval')}/> <RetailStoreOrderProcessingAssociateForm 
-	visible={currentAssociateModal==='processing'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'processing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'processing')}/> <RetailStoreOrderPickingAssociateForm 
-	visible={currentAssociateModal==='picking'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'picking')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'picking')}/> <RetailStoreOrderShipmentAssociateForm 
-	visible={currentAssociateModal==='shipment'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'shipment')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'shipment')}/> <RetailStoreOrderDeliveryAssociateForm 
-	visible={currentAssociateModal==='delivery'} 
-	data={{retailStoreOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'delivery')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'delivery')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> 
  
 
 

@@ -38,7 +38,7 @@ class DamageSpaceModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 800 }}
+          scroll={{ x: 1035 }}
         />
       </div>
     )

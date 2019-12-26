@@ -20,11 +20,7 @@ const testValues = {};
 const testValues = {
   name: '礼品卡',
   number: 'CP00001',
-<<<<<<< HEAD
-  remain: '158.03',
-=======
-  remain: '193.28',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  remain: '169.34',
   ownerId: 'RSM000001',
 }
 */
@@ -208,21 +204,13 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}零售店会员礼品卡</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_member_gift_card')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}零售店会员礼品卡`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_member_gift_card')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

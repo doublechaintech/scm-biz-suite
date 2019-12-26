@@ -142,11 +142,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="会计科目代码" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.accountingSubjectCode} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -156,11 +152,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="会计科目名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.accountingSubjectName} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -170,11 +162,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassCode', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="会计科目类别代码" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.accountingSubjectClassCode} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>
@@ -184,11 +172,7 @@ class AccountingSubjectAssociateForm extends Component {
                   {getFieldDecorator('accountingSubjectClassName', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="会计科目类别名称" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.accountingSubjectClassName} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   )}
                 </Form.Item>
               </Col>

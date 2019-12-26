@@ -8,10 +8,7 @@ import styles from './AccountSet.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import AccountSetBase from './AccountSet.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -141,10 +138,7 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'domesticCurrencyCode'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'domesticCurrencyName'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'openingBank'))
-<<<<<<< HEAD
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'accountNumber'))
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'countryCenter'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'retailStore'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'goodsSupplier'))
@@ -312,26 +306,19 @@ componentDidMount() {
             <FormItem label={fieldLabels.openingBank}>
               {getFieldDecorator('openingBank')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-<<<<<<< HEAD
               )}
             </FormItem>
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="帐户号码">
+            <FormItem label={fieldLabels.accountNumber}>
               {getFieldDecorator('accountNumber')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="全国运营中心">
-=======
                     <Form.Item label={fieldLabels.countryCenter}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('countryCenter', {initialValue: tryinit('countryCenter')})(
                   
                   <SelectObject 
@@ -343,11 +330,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="双链小超">
-=======
                     <Form.Item label={fieldLabels.retailStore}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('retailStore', {initialValue: tryinit('retailStore')})(
                   
                   <SelectObject 
@@ -359,11 +342,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="产品供应商">
-=======
                     <Form.Item label={fieldLabels.goodsSupplier}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('goodsSupplier', {initialValue: tryinit('goodsSupplier')})(
                   
                   <SelectObject 

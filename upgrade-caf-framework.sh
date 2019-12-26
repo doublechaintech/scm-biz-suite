@@ -17,8 +17,5 @@ cd ~/githome/${MODELNAME}-biz-suite && cp -Ra ~/githome/skynet-common-app-framew
 
 
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe

@@ -31,13 +31,8 @@ const internalSummaryOf = (userWhiteList,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="ID">{userWhiteList.id}</Description> 
-<Description term="用户标识">{userWhiteList.userIdentity}</Description> 
-=======
 <Description term="序号">{userWhiteList.id}</Description> 
 <Description term="用户身份">{userWhiteList.userIdentity}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="用户特殊功能">{userWhiteList.userSpecialFunctions}</Description> 
 	
       </DescriptionList>

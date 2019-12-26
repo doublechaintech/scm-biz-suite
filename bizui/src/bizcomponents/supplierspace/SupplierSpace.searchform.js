@@ -8,10 +8,7 @@ import styles from './SupplierSpace.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import SupplierSpaceBase from './SupplierSpace.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -136,10 +133,7 @@ componentDidMount() {
      
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'location'))
-<<<<<<< HEAD
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'contactNumber'))
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'totalArea'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'warehouse'))
 
@@ -271,8 +265,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="联系电话">
+            <FormItem label={fieldLabels.contactNumber}>
               {getFieldDecorator('contactNumber')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -280,21 +273,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="总面积">
-=======
             <FormItem label={fieldLabels.totalArea}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('totalArea')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="仓库">
-=======
                     <Form.Item label={fieldLabels.warehouse}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('warehouse', {initialValue: tryinit('warehouse')})(
                   
                   <SelectObject 

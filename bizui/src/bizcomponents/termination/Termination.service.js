@@ -52,28 +52,6 @@ const transferToAnotherType = (id, parameters) => {
 
 
 
-const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}terminationManager/addEmployee/terminationId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/tokensExpr/`
-  const terminationId = targetObjectId
-  const requestParameters = { ...parameters, terminationId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const updateEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}terminationManager/updateEmployeeProperties/terminationId/id/title/familyName/givenName/email/city/address/cellPhone/salaryAccount/tokensExpr/`
-  const terminationId = targetObjectId
-  const requestParameters = { ...parameters, terminationId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-const removeEmployeeList = (targetObjectId, parameters) => {
-  const url = `${PREFIX}terminationManager/removeEmployeeList/terminationId/employeeIds/tokensExpr/`
-  const requestParameters = { ...parameters, terminationId: targetObjectId, tokensExpr: 'none' }
-  return postForm({ url,requestParameters})
-}
-
-
-
 // Filter this out when no functions
 
 const  listFunctions = () => {
@@ -102,9 +80,6 @@ const  processRequest = (data) => {
 
 const TerminationService = { view,
   load,
-  addEmployee,
-  updateEmployee,
-  removeEmployeeList,
   requestCandidateReason,
   requestCandidateType,
   transferToAnotherReason,

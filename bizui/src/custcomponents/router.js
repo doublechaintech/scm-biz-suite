@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
-import { LocaleProvider } from 'antd'
+import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale-provider/zh_CN'
 // import enUS from 'antd/lib/locale-provider/en_US'
 import Launcher from '../launcher/Launcher'
@@ -39,11 +39,6 @@ function RouterConfig({ history }) {
 	const {RetailStoreClosingBizApp} = GlobalComponents
 	const {RetailStoreMemberBizApp} = GlobalComponents
 	const {ConsumerOrderBizApp} = GlobalComponents
-	const {ConsumerOrderConfirmationBizApp} = GlobalComponents
-	const {ConsumerOrderApprovalBizApp} = GlobalComponents
-	const {ConsumerOrderProcessingBizApp} = GlobalComponents
-	const {ConsumerOrderShipmentBizApp} = GlobalComponents
-	const {ConsumerOrderDeliveryBizApp} = GlobalComponents
 	const {ConsumerOrderLineItemBizApp} = GlobalComponents
 	const {ConsumerOrderShippingGroupBizApp} = GlobalComponents
 	const {ConsumerOrderPaymentGroupBizApp} = GlobalComponents
@@ -60,22 +55,10 @@ function RouterConfig({ history }) {
 	const {SupplierProductBizApp} = GlobalComponents
 	const {ProductSupplyDurationBizApp} = GlobalComponents
 	const {SupplyOrderBizApp} = GlobalComponents
-	const {SupplyOrderConfirmationBizApp} = GlobalComponents
-	const {SupplyOrderApprovalBizApp} = GlobalComponents
-	const {SupplyOrderProcessingBizApp} = GlobalComponents
-	const {SupplyOrderPickingBizApp} = GlobalComponents
-	const {SupplyOrderShipmentBizApp} = GlobalComponents
-	const {SupplyOrderDeliveryBizApp} = GlobalComponents
 	const {SupplyOrderLineItemBizApp} = GlobalComponents
 	const {SupplyOrderShippingGroupBizApp} = GlobalComponents
 	const {SupplyOrderPaymentGroupBizApp} = GlobalComponents
 	const {RetailStoreOrderBizApp} = GlobalComponents
-	const {RetailStoreOrderConfirmationBizApp} = GlobalComponents
-	const {RetailStoreOrderApprovalBizApp} = GlobalComponents
-	const {RetailStoreOrderProcessingBizApp} = GlobalComponents
-	const {RetailStoreOrderPickingBizApp} = GlobalComponents
-	const {RetailStoreOrderShipmentBizApp} = GlobalComponents
-	const {RetailStoreOrderDeliveryBizApp} = GlobalComponents
 	const {RetailStoreOrderLineItemBizApp} = GlobalComponents
 	const {RetailStoreOrderShippingGroupBizApp} = GlobalComponents
 	const {RetailStoreOrderPaymentGroupBizApp} = GlobalComponents
@@ -87,7 +70,6 @@ function RouterConfig({ history }) {
 	const {StockCountIssueTrackBizApp} = GlobalComponents
 	const {GoodsAllocationBizApp} = GlobalComponents
 	const {GoodsBizApp} = GlobalComponents
-	const {GoodsPackagingBizApp} = GlobalComponents
 	const {GoodsMovementBizApp} = GlobalComponents
 	const {SupplierSpaceBizApp} = GlobalComponents
 	const {ReceivingSpaceBizApp} = GlobalComponents
@@ -104,14 +86,7 @@ function RouterConfig({ history }) {
 	const {AccountingPeriodBizApp} = GlobalComponents
 	const {AccountingDocumentTypeBizApp} = GlobalComponents
 	const {AccountingDocumentBizApp} = GlobalComponents
-	const {AccountingDocumentCreationBizApp} = GlobalComponents
-	const {AccountingDocumentConfirmationBizApp} = GlobalComponents
-	const {AccountingDocumentAuditingBizApp} = GlobalComponents
-	const {AccountingDocumentPostingBizApp} = GlobalComponents
 	const {OriginalVoucherBizApp} = GlobalComponents
-	const {OriginalVoucherCreationBizApp} = GlobalComponents
-	const {OriginalVoucherConfirmationBizApp} = GlobalComponents
-	const {OriginalVoucherAuditingBizApp} = GlobalComponents
 	const {AccountingDocumentLineBizApp} = GlobalComponents
 	const {LevelOneDepartmentBizApp} = GlobalComponents
 	const {LevelTwoDepartmentBizApp} = GlobalComponents
@@ -129,12 +104,6 @@ function RouterConfig({ history }) {
 	const {TerminationBizApp} = GlobalComponents
 	const {ViewBizApp} = GlobalComponents
 	const {EmployeeBizApp} = GlobalComponents
-	const {JobApplicationBizApp} = GlobalComponents
-	const {ProfessionInterviewBizApp} = GlobalComponents
-	const {HrInterviewBizApp} = GlobalComponents
-	const {OfferApprovalBizApp} = GlobalComponents
-	const {OfferAcceptanceBizApp} = GlobalComponents
-	const {EmployeeBoardingBizApp} = GlobalComponents
 	const {InstructorBizApp} = GlobalComponents
 	const {CompanyTrainingBizApp} = GlobalComponents
 	const {ScoringBizApp} = GlobalComponents
@@ -153,7 +122,6 @@ function RouterConfig({ history }) {
 	const {UserDomainBizApp} = GlobalComponents
 	const {UserWhiteListBizApp} = GlobalComponents
 	const {SecUserBizApp} = GlobalComponents
-	const {SecUserBlockingBizApp} = GlobalComponents
 	const {UserAppBizApp} = GlobalComponents
 	const {QuickLinkBizApp} = GlobalComponents
 	const {ListAccessBizApp} = GlobalComponents
@@ -170,7 +138,7 @@ function RouterConfig({ history }) {
 
 
   return (
-    <LocaleProvider locale={zhCN}>
+    <ConfigProvider locale={zhCN}>
       <Router history={history}>
         <Switch>
           <Route path="/home" component={Launcher} />
@@ -201,11 +169,6 @@ function RouterConfig({ history }) {
           <Route path="/retailStoreClosing/" component={RetailStoreClosingBizApp} />
           <Route path="/retailStoreMember/" component={RetailStoreMemberBizApp} />
           <Route path="/consumerOrder/" component={ConsumerOrderBizApp} />
-          <Route path="/consumerOrderConfirmation/" component={ConsumerOrderConfirmationBizApp} />
-          <Route path="/consumerOrderApproval/" component={ConsumerOrderApprovalBizApp} />
-          <Route path="/consumerOrderProcessing/" component={ConsumerOrderProcessingBizApp} />
-          <Route path="/consumerOrderShipment/" component={ConsumerOrderShipmentBizApp} />
-          <Route path="/consumerOrderDelivery/" component={ConsumerOrderDeliveryBizApp} />
           <Route path="/consumerOrderLineItem/" component={ConsumerOrderLineItemBizApp} />
           <Route path="/consumerOrderShippingGroup/" component={ConsumerOrderShippingGroupBizApp} />
           <Route path="/consumerOrderPaymentGroup/" component={ConsumerOrderPaymentGroupBizApp} />
@@ -222,22 +185,10 @@ function RouterConfig({ history }) {
           <Route path="/supplierProduct/" component={SupplierProductBizApp} />
           <Route path="/productSupplyDuration/" component={ProductSupplyDurationBizApp} />
           <Route path="/supplyOrder/" component={SupplyOrderBizApp} />
-          <Route path="/supplyOrderConfirmation/" component={SupplyOrderConfirmationBizApp} />
-          <Route path="/supplyOrderApproval/" component={SupplyOrderApprovalBizApp} />
-          <Route path="/supplyOrderProcessing/" component={SupplyOrderProcessingBizApp} />
-          <Route path="/supplyOrderPicking/" component={SupplyOrderPickingBizApp} />
-          <Route path="/supplyOrderShipment/" component={SupplyOrderShipmentBizApp} />
-          <Route path="/supplyOrderDelivery/" component={SupplyOrderDeliveryBizApp} />
           <Route path="/supplyOrderLineItem/" component={SupplyOrderLineItemBizApp} />
           <Route path="/supplyOrderShippingGroup/" component={SupplyOrderShippingGroupBizApp} />
           <Route path="/supplyOrderPaymentGroup/" component={SupplyOrderPaymentGroupBizApp} />
           <Route path="/retailStoreOrder/" component={RetailStoreOrderBizApp} />
-          <Route path="/retailStoreOrderConfirmation/" component={RetailStoreOrderConfirmationBizApp} />
-          <Route path="/retailStoreOrderApproval/" component={RetailStoreOrderApprovalBizApp} />
-          <Route path="/retailStoreOrderProcessing/" component={RetailStoreOrderProcessingBizApp} />
-          <Route path="/retailStoreOrderPicking/" component={RetailStoreOrderPickingBizApp} />
-          <Route path="/retailStoreOrderShipment/" component={RetailStoreOrderShipmentBizApp} />
-          <Route path="/retailStoreOrderDelivery/" component={RetailStoreOrderDeliveryBizApp} />
           <Route path="/retailStoreOrderLineItem/" component={RetailStoreOrderLineItemBizApp} />
           <Route path="/retailStoreOrderShippingGroup/" component={RetailStoreOrderShippingGroupBizApp} />
           <Route path="/retailStoreOrderPaymentGroup/" component={RetailStoreOrderPaymentGroupBizApp} />
@@ -249,7 +200,6 @@ function RouterConfig({ history }) {
           <Route path="/stockCountIssueTrack/" component={StockCountIssueTrackBizApp} />
           <Route path="/goodsAllocation/" component={GoodsAllocationBizApp} />
           <Route path="/goods/" component={GoodsBizApp} />
-          <Route path="/goodsPackaging/" component={GoodsPackagingBizApp} />
           <Route path="/goodsMovement/" component={GoodsMovementBizApp} />
           <Route path="/supplierSpace/" component={SupplierSpaceBizApp} />
           <Route path="/receivingSpace/" component={ReceivingSpaceBizApp} />
@@ -266,14 +216,7 @@ function RouterConfig({ history }) {
           <Route path="/accountingPeriod/" component={AccountingPeriodBizApp} />
           <Route path="/accountingDocumentType/" component={AccountingDocumentTypeBizApp} />
           <Route path="/accountingDocument/" component={AccountingDocumentBizApp} />
-          <Route path="/accountingDocumentCreation/" component={AccountingDocumentCreationBizApp} />
-          <Route path="/accountingDocumentConfirmation/" component={AccountingDocumentConfirmationBizApp} />
-          <Route path="/accountingDocumentAuditing/" component={AccountingDocumentAuditingBizApp} />
-          <Route path="/accountingDocumentPosting/" component={AccountingDocumentPostingBizApp} />
           <Route path="/originalVoucher/" component={OriginalVoucherBizApp} />
-          <Route path="/originalVoucherCreation/" component={OriginalVoucherCreationBizApp} />
-          <Route path="/originalVoucherConfirmation/" component={OriginalVoucherConfirmationBizApp} />
-          <Route path="/originalVoucherAuditing/" component={OriginalVoucherAuditingBizApp} />
           <Route path="/accountingDocumentLine/" component={AccountingDocumentLineBizApp} />
           <Route path="/levelOneDepartment/" component={LevelOneDepartmentBizApp} />
           <Route path="/levelTwoDepartment/" component={LevelTwoDepartmentBizApp} />
@@ -291,12 +234,6 @@ function RouterConfig({ history }) {
           <Route path="/termination/" component={TerminationBizApp} />
           <Route path="/view/" component={ViewBizApp} />
           <Route path="/employee/" component={EmployeeBizApp} />
-          <Route path="/jobApplication/" component={JobApplicationBizApp} />
-          <Route path="/professionInterview/" component={ProfessionInterviewBizApp} />
-          <Route path="/hrInterview/" component={HrInterviewBizApp} />
-          <Route path="/offerApproval/" component={OfferApprovalBizApp} />
-          <Route path="/offerAcceptance/" component={OfferAcceptanceBizApp} />
-          <Route path="/employeeBoarding/" component={EmployeeBoardingBizApp} />
           <Route path="/instructor/" component={InstructorBizApp} />
           <Route path="/companyTraining/" component={CompanyTrainingBizApp} />
           <Route path="/scoring/" component={ScoringBizApp} />
@@ -315,7 +252,6 @@ function RouterConfig({ history }) {
           <Route path="/userDomain/" component={UserDomainBizApp} />
           <Route path="/userWhiteList/" component={UserWhiteListBizApp} />
           <Route path="/secUser/" component={SecUserBizApp} />
-          <Route path="/secUserBlocking/" component={SecUserBlockingBizApp} />
           <Route path="/userApp/" component={UserAppBizApp} />
           <Route path="/quickLink/" component={QuickLinkBizApp} />
           <Route path="/listAccess/" component={ListAccessBizApp} />
@@ -331,7 +267,7 @@ function RouterConfig({ history }) {
           <Route path="/" component={Launcher} />
         </Switch>
       </Router>
-    </LocaleProvider>
+    </ConfigProvider>
   )
 }
 

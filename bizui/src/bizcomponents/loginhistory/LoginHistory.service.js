@@ -37,8 +37,6 @@ const transferToAnotherSecUser = (id, parameters) => {
 
 
 
-<<<<<<< HEAD
-=======
 // Filter this out when no functions
 
 const  listFunctions = () => {
@@ -71,4 +69,3 @@ const LoginHistoryService = { view,
   transferToAnotherSecUser, listFunctions, saveRequest, processRequest}
 export default LoginHistoryService
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe

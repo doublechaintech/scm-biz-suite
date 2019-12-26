@@ -8,10 +8,7 @@ import styles from './RetailStoreMemberGiftCardConsumeRecord.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import RetailStoreMemberGiftCardConsumeRecordBase from './RetailStoreMemberGiftCardConsumeRecord.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -203,11 +200,7 @@ componentDidMount() {
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                 <Form.Item label="业主">
-=======
                  <Form.Item label={fieldLabels.owner}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('owner', {initialValue: tryinit('owner')})(
                
                <SelectObject 
@@ -266,11 +259,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="业主">
-=======
                     <Form.Item label={fieldLabels.owner}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('owner', {initialValue: tryinit('owner')})(
                   
                   <SelectObject 
@@ -282,11 +271,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="订单">
-=======
                     <Form.Item label={fieldLabels.bizOrder}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('bizOrder', {initialValue: tryinit('bizOrder')})(
                   
                   <SelectObject 

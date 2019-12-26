@@ -169,11 +169,7 @@ class RetailStoreMemberGiftCardConsumeRecordDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-<<<<<<< HEAD
-    const cardsData = {cardsName:"零售商店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",
-=======
     const cardsData = {cardsName:"零售门店会员卡消费记录",cardsFor: "retailStoreMemberGiftCardConsumeRecord",
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     	cardsSource: this.props.retailStoreMemberGiftCardConsumeRecord,returnURL,displayName,
   		subItems: [
     
@@ -205,8 +201,9 @@ class RetailStoreMemberGiftCardConsumeRecordDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

@@ -10,11 +10,7 @@ import ListViewTool from '../../common/ListView.tool'
 import EmployeeBase from './Employee.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = EmployeeBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -48,13 +44,8 @@ const showListActionBar = (targetComponent)=>{
   
 
     {hasCreatePermission(metaInfo)&&<Button icon="plus" type="primary" onClick={() => handleElementCreate(targetComponent)}>{appLocaleName(userContext,"New")}</Button>}
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     {hasUpdatePermission(metaInfo)&&<Button onClick={()=>handleUpdate(targetComponent)} icon="edit" disabled={disable}>{appLocaleName(userContext,"BatchUpdate")}</Button>}
  
  
@@ -77,13 +68,6 @@ const showAssociateDialog = (targetComponent) => {
   const { OccupationTypeAssociateForm } = GlobalComponents
   const { ResponsibilityTypeAssociateForm } = GlobalComponents
   const { SalaryGradeAssociateForm } = GlobalComponents
-  const { JobApplicationAssociateForm } = GlobalComponents
-  const { ProfessionInterviewAssociateForm } = GlobalComponents
-  const { HrInterviewAssociateForm } = GlobalComponents
-  const { OfferApprovalAssociateForm } = GlobalComponents
-  const { OfferAcceptanceAssociateForm } = GlobalComponents
-  const { EmployeeBoardingAssociateForm } = GlobalComponents
-  const { TerminationAssociateForm } = GlobalComponents
 
 
   return (
@@ -111,35 +95,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='currentSalaryGrade'} 
 	data={{employeeList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> <JobApplicationAssociateForm 
-	visible={currentAssociateModal==='jobApplication'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'jobApplication')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'jobApplication')}/> <ProfessionInterviewAssociateForm 
-	visible={currentAssociateModal==='professionInterview'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'professionInterview')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'professionInterview')}/> <HrInterviewAssociateForm 
-	visible={currentAssociateModal==='hrInterview'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'hrInterview')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'hrInterview')}/> <OfferApprovalAssociateForm 
-	visible={currentAssociateModal==='offerApproval'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'offerApproval')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'offerApproval')}/> <OfferAcceptanceAssociateForm 
-	visible={currentAssociateModal==='offerAcceptance'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'offerAcceptance')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'offerAcceptance')}/> <EmployeeBoardingAssociateForm 
-	visible={currentAssociateModal==='employeeBoarding'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'employeeBoarding')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'employeeBoarding')}/> <TerminationAssociateForm 
-	visible={currentAssociateModal==='termination'} 
-	data={{employeeList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'termination')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'termination')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'currentSalaryGrade')}/> 
  
 
 

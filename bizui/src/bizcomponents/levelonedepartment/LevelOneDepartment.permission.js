@@ -34,11 +34,7 @@ const internalSummaryOf = (levelOneDepartment,targetComponent) =>{
 <Description term="序号">{levelOneDepartment.id}</Description> 
 <Description term="名称">{levelOneDepartment.name}</Description> 
 <Description term="描述">{levelOneDepartment.description}</Description> 
-<<<<<<< HEAD
 <Description term="经理">{levelOneDepartment.manager}</Description> 
-=======
-<Description term="经理的名字">{levelOneDepartment.managerName}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="成立">{ moment(levelOneDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>

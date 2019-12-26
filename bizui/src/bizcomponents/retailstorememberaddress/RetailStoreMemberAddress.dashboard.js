@@ -116,13 +116,8 @@ const internalSummaryOf = (retailStoreMemberAddress,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{retailStoreMemberAddress.id}</Description> 
-<Description term="名称">{retailStoreMemberAddress.name}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{retailStoreMemberAddress.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{retailStoreMemberAddress.name}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="业主">{retailStoreMemberAddress.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberAddress.owner.displayName}(${retailStoreMemberAddress.owner.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"业主","retailStoreMember",RetailStoreMemberAddressService.requestCandidateOwner,
@@ -200,8 +195,9 @@ class RetailStoreMemberAddressDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

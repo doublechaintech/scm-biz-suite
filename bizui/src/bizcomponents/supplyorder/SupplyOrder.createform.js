@@ -19,19 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链给供货商下的订单',
-<<<<<<< HEAD
-  totalAmount: '2934144256.00',
-=======
-  totalAmount: '2412417024.00',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  totalAmount: '2442485504.00',
   buyerId: 'RSCC000001',
   sellerId: 'GS000001',
-  confirmationId: 'SOC000001',
-  approvalId: 'SOA000001',
-  processingId: 'SOP000001',
-  pickingId: 'SOP000001',
-  shipmentId: 'SOS000001',
-  deliveryId: 'SOD000001',
 }
 */
 
@@ -214,21 +204,13 @@ class SupplyOrderCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}供应订单</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('supply_order')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}供应订单`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('supply_order')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

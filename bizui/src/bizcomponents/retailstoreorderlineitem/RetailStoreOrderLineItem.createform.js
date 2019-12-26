@@ -20,13 +20,8 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-<<<<<<< HEAD
-  amount: '3.02',
-  quantity: '8038',
-=======
-  amount: '3.09',
-  quantity: '8969',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  amount: '3.41',
+  quantity: '9488',
   unitOfMeasurement: '件',
   bizOrderId: 'RSO000001',
 }
@@ -211,21 +206,13 @@ class RetailStoreOrderLineItemCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}双链小超订单行项目</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('retail_store_order_line_item')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}双链小超订单行项目`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('retail_store_order_line_item')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

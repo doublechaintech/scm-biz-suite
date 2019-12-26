@@ -248,11 +248,7 @@ class FormActionUpdateForm extends Component {
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
       return (<div>{linkComp}{appLocaleName(userContext,"Update")}表单动作: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
-<<<<<<< HEAD
-
-=======
 	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
@@ -270,11 +266,7 @@ class FormActionUpdateForm extends Component {
                     initialValue: selectedRow.id,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="ID" disabled/>
-=======
                     <Input size="large"  placeHolder={fieldLabels.id} disabled/>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -286,11 +278,7 @@ class FormActionUpdateForm extends Component {
                     initialValue: selectedRow.label,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="标签" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.label} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -302,11 +290,7 @@ class FormActionUpdateForm extends Component {
                     initialValue: selectedRow.localeKey,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="语言环境的关键" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.localeKey} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -318,11 +302,7 @@ class FormActionUpdateForm extends Component {
                     initialValue: selectedRow.actionKey,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="操作" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.actionKey} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -334,11 +314,7 @@ class FormActionUpdateForm extends Component {
                     initialValue: selectedRow.level,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="水平" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.level} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>
@@ -350,11 +326,7 @@ class FormActionUpdateForm extends Component {
                     initialValue: selectedRow.url,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-<<<<<<< HEAD
-                    <Input size="large" placeholder="url" />
-=======
                     <Input size="large"  placeHolder={fieldLabels.url} />
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                     
                   )}
                 </Form.Item>

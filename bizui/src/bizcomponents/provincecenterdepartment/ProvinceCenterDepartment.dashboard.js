@@ -125,7 +125,7 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
 	      ProvinceCenterDepartmentService.transferToAnotherProvinceCenter,"anotherProvinceCenterId",provinceCenterDepartment.provinceCenter?provinceCenterDepartment.provinceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="经理的名字" style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.managerName}</Description> 
+<Description term="经理" style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.manager}</Description> 
 	
         {buildTransferModal(provinceCenterDepartment,targetComponent)}
       </DescriptionList>
@@ -166,11 +166,7 @@ class ProvinceCenterDepartmentDashboard extends Component {
     const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",
     	cardsSource: this.props.provinceCenterDepartment,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'provinceCenterEmployeeList', displayName:'省中心员工',type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
-=======
 {name: 'provinceCenterEmployeeList', displayName:'省中心员工',viewGroup:'__no_group', type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -200,8 +196,9 @@ class ProvinceCenterDepartmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

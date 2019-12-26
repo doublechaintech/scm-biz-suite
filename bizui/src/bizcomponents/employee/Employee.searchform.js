@@ -8,10 +8,7 @@ import styles from './Employee.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import EmployeeBase from './Employee.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -148,17 +145,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'responsibleFor'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'currentSalaryGrade'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'salaryAccount'))
-<<<<<<< HEAD
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
-=======
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'jobApplication'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'professionInterview'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'hrInterview'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'offerApproval'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'offerAcceptance'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'employeeBoarding'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'termination'))
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -224,11 +210,7 @@ componentDidMount() {
          </FormItem>
        </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                 <Form.Item label="公司">
-=======
                  <Form.Item label={fieldLabels.company}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                {getFieldDecorator('company', {initialValue: tryinit('company')})(
                
                <SelectObject 
@@ -287,11 +269,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="公司">
-=======
                     <Form.Item label={fieldLabels.company}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('company', {initialValue: tryinit('company')})(
                   
                   <SelectObject 
@@ -311,11 +289,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="部门">
-=======
                     <Form.Item label={fieldLabels.department}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('department', {initialValue: tryinit('department')})(
                   
                   <SelectObject 
@@ -375,11 +349,7 @@ componentDidMount() {
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="职业">
-=======
                     <Form.Item label={fieldLabels.occupation}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('occupation', {initialValue: tryinit('occupation')})(
                   
                   <SelectObject 
@@ -391,11 +361,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="负责">
-=======
                     <Form.Item label={fieldLabels.responsibleFor}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('responsibleFor', {initialValue: tryinit('responsibleFor')})(
                   
                   <SelectObject 
@@ -407,11 +373,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="目前工资等级">
-=======
                     <Form.Item label={fieldLabels.currentSalaryGrade}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('currentSalaryGrade', {initialValue: tryinit('currentSalaryGrade')})(
                   
                   <SelectObject 
@@ -427,104 +389,9 @@ componentDidMount() {
             <FormItem label={fieldLabels.salaryAccount}>
               {getFieldDecorator('salaryAccount')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-<<<<<<< HEAD
               )}
             </FormItem>
           </Col>
-
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
-              )}
-            </FormItem>
-          </Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.jobApplication}>
-                  {getFieldDecorator('jobApplication', {initialValue: tryinit('jobApplication')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('jobApplication')}
-                    targetType={"jobApplication"} 
-                    requestFunction={EmployeeService.requestCandidateJobApplication} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.professionInterview}>
-                  {getFieldDecorator('professionInterview', {initialValue: tryinit('professionInterview')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('professionInterview')}
-                    targetType={"professionInterview"} 
-                    requestFunction={EmployeeService.requestCandidateProfessionInterview} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.hrInterview}>
-                  {getFieldDecorator('hrInterview', {initialValue: tryinit('hrInterview')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('hrInterview')}
-                    targetType={"hrInterview"} 
-                    requestFunction={EmployeeService.requestCandidateHrInterview} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.offerApproval}>
-                  {getFieldDecorator('offerApproval', {initialValue: tryinit('offerApproval')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('offerApproval')}
-                    targetType={"offerApproval"} 
-                    requestFunction={EmployeeService.requestCandidateOfferApproval} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.offerAcceptance}>
-                  {getFieldDecorator('offerAcceptance', {initialValue: tryinit('offerAcceptance')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('offerAcceptance')}
-                    targetType={"offerAcceptance"} 
-                    requestFunction={EmployeeService.requestCandidateOfferAcceptance} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.employeeBoarding}>
-                  {getFieldDecorator('employeeBoarding', {initialValue: tryinit('employeeBoarding')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('employeeBoarding')}
-                    targetType={"employeeBoarding"} 
-                    requestFunction={EmployeeService.requestCandidateEmployeeBoarding} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.termination}>
-                  {getFieldDecorator('termination', {initialValue: tryinit('termination')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('termination')}
-                    targetType={"termination"} 
-                    requestFunction={EmployeeService.requestCandidateTermination} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
 
         </Row>
         <div style={{ overflow: 'hidden' }}>

@@ -32,10 +32,6 @@ const internalSummaryOf = (employeeCompanyTraining,targetComponent) =>{
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{employeeCompanyTraining.id}</Description> 
-<<<<<<< HEAD
-<Description term="当前状态">{employeeCompanyTraining.currentStatus}</Description> 
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
       </DescriptionList>
 	)

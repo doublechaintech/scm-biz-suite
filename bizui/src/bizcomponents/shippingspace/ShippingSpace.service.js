@@ -38,7 +38,7 @@ const transferToAnotherWarehouse = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}shippingSpaceManager/addGoods/shippingSpaceId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
+  const url = `${PREFIX}shippingSpaceManager/addGoods/shippingSpaceId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
   const shippingSpaceId = targetObjectId
   const requestParameters = { ...parameters, shippingSpaceId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

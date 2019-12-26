@@ -117,15 +117,9 @@ const internalSummaryOf = (candidateElement,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="ID">{candidateElement.id}</Description> 
-<Description term="名称">{candidateElement.name}</Description> 
-<Description term="类型">{candidateElement.type}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{candidateElement.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{candidateElement.name}</Description> 
 <Description term="类型" style={{wordBreak: 'break-all'}}>{candidateElement.type}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
         {buildTransferModal(candidateElement,targetComponent)}
       </DescriptionList>
@@ -195,8 +189,9 @@ class CandidateElementDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

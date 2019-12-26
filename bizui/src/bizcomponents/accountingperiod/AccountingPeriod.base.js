@@ -1,9 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
-import { Icon,Divider } from 'antd'
-=======
 import { Icon,Divider, Avata, Card, Col} from 'antd'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -13,27 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-<<<<<<< HEAD
-=======
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
-<<<<<<< HEAD
-	defaultRenderDateCell,
-	defaultRenderIdentifier,
-	defaultRenderTextCell,
-=======
 	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -41,31 +28,20 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
-<<<<<<< HEAD
-=======
 const renderAvatarCell=defaultRenderAvatarCell
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-<<<<<<< HEAD
-const menuData = {menuName:"会计期间", menuFor: "accountingPeriod",
-  		subItems: [
-  {name: 'accountingDocumentList', displayName:'会计凭证', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
-=======
 
 const menuData = {menuName: window.trans('accounting_period'), menuFor: "accountingPeriod",
   		subItems: [
   {name: 'accountingDocumentList', displayName: window.mtrans('accounting_document','accounting_period.accounting_document_list',false), type:'accountingDocument',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   
   		],
 }
 
-<<<<<<< HEAD
-=======
 
 const settingMenuData = {menuName: window.trans('accounting_period'), menuFor: "accountingPeriod",
   		subItems: [
@@ -94,8 +70,8 @@ const displayColumns = [
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
 
-const renderItemOfList=(accountingPeriod,targetComponent)=>{
-
+const renderItemOfList=(accountingPeriod, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
   const userContext = null
   return (
     <div key={accountingPeriod.id}>
@@ -113,52 +89,6 @@ const renderItemOfList=(accountingPeriod,targetComponent)=>{
       <Divider style={{ height: '2px' }} />
     </div>
 	)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
-
-const settingMenuData = {menuName:"会计期间", menuFor: "accountingPeriod",
-  		subItems: [
-  
-  		],
-}
-<<<<<<< HEAD
-
-const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  startDate: '开始日期',
-  endDate: '结束日期',
-  accountSet: '账套',
-
-}
-
-const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'accountingPeriod') , sorter: true },
-  { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '12',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.startDate, dataIndex: 'startDate', render: (text, record) =>renderDateCell(text,record), sorter: true },
-  { title: fieldLabels.endDate, dataIndex: 'endDate', render: (text, record) =>renderDateCell(text,record), sorter: true },
-  { title: fieldLabels.accountSet, dataIndex: 'accountSet', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-
-]
-// refernce to https://ant.design/components/list-cn/
-const renderItemOfList=(accountingPeriod,targetComponent)=>{
-
-  const userContext = null
-  return (
-    <div key={accountingPeriod.id}>
-	
-      <DescriptionList  key={accountingPeriod.id} size="small" col="4">
-        <Description term="序号">{accountingPeriod.id}</Description> 
-        <Description term="名称">{accountingPeriod.name}</Description> 
-        <Description term="开始日期"><div>{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</div></Description> 
-        <Description term="结束日期"><div>{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</div></Description> 
-        <Description term="账套"><div>{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
-        </div></Description>
-	
-        
-      </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
-	)
 
 }
 	
@@ -168,25 +98,12 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const data = {name, startDate, endDate, accountSet}
 	return data
 }
-=======
-	
-const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, startDate, endDate, accountSetId} = formValuesToPack
-	const accountSet = {id: accountSetId, version: 2^31}
-	const data = {name, startDate, endDate, accountSet}
-	return data
-}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, startDate, endDate, accountSet} = objectToUnpack
 	const accountSetId = accountSet ? accountSet.id : null
 	const data = {name, startDate, endDate, accountSetId}
 	return data
 }
-<<<<<<< HEAD
-
-const AccountingPeriodBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
-=======
 const stepOf=(targetComponent, title, content, position, index)=>{
 	return {
 		title,
@@ -198,7 +115,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
       }
 }
 const AccountingPeriodBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 export default AccountingPeriodBase
 
 

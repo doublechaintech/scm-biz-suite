@@ -8,10 +8,7 @@ import styles from './RetailStore.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import RetailStoreBase from './RetailStore.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -136,14 +133,7 @@ componentDidMount() {
      
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'name'))
-<<<<<<< HEAD
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'telephone'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'owner'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'retailStoreCountryCenter'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'cityServiceCenter'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'description'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
-=======
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'owner'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'retailStoreCountryCenter'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'cityServiceCenter'))
@@ -154,7 +144,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'opening'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'closing'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'description'))
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -284,8 +273,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="电话">
+            <FormItem label={fieldLabels.telephone}>
               {getFieldDecorator('telephone')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -293,21 +281,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label="业主">
-=======
             <FormItem label={fieldLabels.owner}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('owner')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="双链小超全国运营中心">
-=======
                     <Form.Item label={fieldLabels.retailStoreCountryCenter}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('retailStoreCountryCenter', {initialValue: tryinit('retailStoreCountryCenter')})(
                   
                   <SelectObject 
@@ -319,11 +300,7 @@ componentDidMount() {
                   )}
                 </Form.Item></Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="城市服务中心">
-=======
                     <Form.Item label={fieldLabels.cityServiceCenter}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('cityServiceCenter', {initialValue: tryinit('cityServiceCenter')})(
                   
                   <SelectObject 
@@ -331,8 +308,6 @@ componentDidMount() {
                     targetType={"cityServiceCenter"} 
                     requestFunction={RetailStoreService.requestCandidateCityServiceCenter} useForSearch />
                   	
-<<<<<<< HEAD
-=======
                  
                   )}
                 </Form.Item></Col>
@@ -405,7 +380,6 @@ componentDidMount() {
                     targetType={"closing"} 
                     requestFunction={RetailStoreService.requestCandidateClosing} useForSearch />
                   	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                  
                   )}
                 </Form.Item></Col>
@@ -414,17 +388,6 @@ componentDidMount() {
             <FormItem label={fieldLabels.description}>
               {getFieldDecorator('description')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-<<<<<<< HEAD
-              )}
-            </FormItem>
-          </Col>
-
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               )}
             </FormItem>
           </Col>

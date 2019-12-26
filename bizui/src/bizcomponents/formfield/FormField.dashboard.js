@@ -119,21 +119,6 @@ const internalSummaryOf = (formField,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="ID">{formField.id}</Description> 
-<Description term="标签">{formField.label}</Description> 
-<Description term="语言环境的关键">{formField.localeKey}</Description> 
-<Description term="参数名称">{formField.parameterName}</Description> 
-<Description term="类型">{formField.type}</Description> 
-<Description term="占位符">{formField.placeholder}</Description> 
-<Description term="默认值">{formField.defaultValue}</Description> 
-<Description term="描述">{formField.description}</Description> 
-<Description term="字段组">{formField.fieldGroup}</Description> 
-<Description term="最小值">{formField.minimumValue}</Description> 
-<Description term="最大值">{formField.maximumValue}</Description> 
-<Description term="候选人的价值观">{formField.candidateValues}</Description> 
-<Description term="建议值">{formField.suggestValues}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{formField.id}</Description> 
 <Description term="标签" style={{wordBreak: 'break-all'}}>{formField.label}</Description> 
 <Description term="语言环境的关键" style={{wordBreak: 'break-all'}}>{formField.localeKey}</Description> 
@@ -147,7 +132,6 @@ const internalSummaryOf = (formField,targetComponent) =>{
 <Description term="最大值" style={{wordBreak: 'break-all'}}>{formField.maximumValue}</Description> 
 <Description term="候选人的价值观" style={{wordBreak: 'break-all'}}>{formField.candidateValues}</Description> 
 <Description term="建议值" style={{wordBreak: 'break-all'}}>{formField.suggestValues}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 	
         {buildTransferModal(formField,targetComponent)}
       </DescriptionList>
@@ -217,8 +201,9 @@ class FormFieldDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

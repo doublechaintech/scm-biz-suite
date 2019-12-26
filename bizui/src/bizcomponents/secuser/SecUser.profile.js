@@ -55,11 +55,7 @@ class SecUserProfile extends Component {
     const  secUser = this.props.secUser;
     const { id,displayName, userAppCount, loginHistoryCount } = secUser
     const  returnURL = `/secUser/${id}/dashboard`
-<<<<<<< HEAD
-    const cardsData = {cardsName:"安全用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
-=======
     const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   		subItems: [
      
       	],

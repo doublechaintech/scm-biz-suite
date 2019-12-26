@@ -116,15 +116,9 @@ const internalSummaryOf = (potentialCustomerContactPerson,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<<<<<<< HEAD
-<Description term="序号">{potentialCustomerContactPerson.id}</Description> 
-<Description term="名称">{potentialCustomerContactPerson.name}</Description> 
-<Description term="手机">{potentialCustomerContactPerson.mobile}</Description> 
-=======
 <Description term="序号" style={{wordBreak: 'break-all'}}>{potentialCustomerContactPerson.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{potentialCustomerContactPerson.name}</Description> 
 <Description term="手机" style={{wordBreak: 'break-all'}}>{potentialCustomerContactPerson.mobile}</Description> 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 <Description term="潜在的客户">{potentialCustomerContactPerson.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomerContactPerson.potentialCustomer.displayName}(${potentialCustomerContactPerson.potentialCustomer.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"潜在的客户","potentialCustomer",PotentialCustomerContactPersonService.requestCandidatePotentialCustomer,
@@ -172,11 +166,7 @@ class PotentialCustomerContactPersonDashboard extends Component {
     const cardsData = {cardsName:"潜在客户联络人",cardsFor: "potentialCustomerContactPerson",
     	cardsSource: this.props.potentialCustomerContactPerson,returnURL,displayName,
   		subItems: [
-<<<<<<< HEAD
-{name: 'potentialCustomerContactList', displayName:'潜在客户联系',type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
-=======
 {name: 'potentialCustomerContactList', displayName:'潜在客户联系',viewGroup:'__no_group', type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     
       	],
    		subSettingItems: [
@@ -206,8 +196,9 @@ class PotentialCustomerContactPersonDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

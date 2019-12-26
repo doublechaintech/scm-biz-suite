@@ -20,16 +20,12 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-<<<<<<< HEAD
-  effectiveDate: '2017-09-23',
-=======
-  effectiveDate: '2019-07-07',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  effectiveDate: '2018-08-05',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
-  accountNumber: '25764708299199',
+  accountNumber: '3326 5805 0548 85',
   countryCenterId: 'RSCC000001',
   retailStoreId: 'RS000001',
   goodsSupplierId: 'GS000001',
@@ -215,21 +211,13 @@ class AccountSetCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}账套</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('account_set')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}账套`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('account_set')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

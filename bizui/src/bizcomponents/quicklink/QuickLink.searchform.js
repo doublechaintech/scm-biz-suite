@@ -8,18 +8,11 @@ import styles from './QuickLink.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-const FormItem = Form.Item
-const { Option } = Select
-const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
-
-=======
 import QuickLinkBase from './QuickLink.base'
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
 const {fieldLabels} = QuickLinkBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const pushIfNotNull=(holder,value)=>{
   if(value==null){
     return
@@ -201,11 +194,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-<<<<<<< HEAD
-         <FormItem label="ID">
-=======
          <FormItem label={fieldLabels.id}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -213,11 +202,7 @@ componentDidMount() {
        </Col>
 
        <Col md={8} sm={24}>
-<<<<<<< HEAD
-         <FormItem label="名称">
-=======
          <FormItem label={fieldLabels.name}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
            {getFieldDecorator('name')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -264,11 +249,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="ID">
-=======
             <FormItem label={fieldLabels.id}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -276,11 +257,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="名称">
-=======
             <FormItem label={fieldLabels.name}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('name')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -288,11 +265,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="图标">
-=======
             <FormItem label={fieldLabels.icon}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('icon')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -300,22 +273,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="链接的目标">
-=======
             <FormItem label={fieldLabels.linkTarget}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('linkTarget')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="应用程序">
-=======
                     <Form.Item label={fieldLabels.app}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('app', {initialValue: tryinit('app')})(
                   
                   <SelectObject 
@@ -338,11 +303,7 @@ componentDidMount() {
       </Form>
     )
   }
-<<<<<<< HEAD
-
-=======
 	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   render() {
   	const expandForm = overrideValue([this.state.expandForm],false)
     return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm()

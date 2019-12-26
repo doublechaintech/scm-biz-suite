@@ -19,13 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-<<<<<<< HEAD
-  paidTime: '2016-11-09',
-  amount: '4260.75',
-=======
-  paidTime: '2017-02-16',
-  amount: '4005.85',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  paidTime: '2019-07-03',
+  amount: '4527.41',
   paidForId: 'E000001',
 }
 */
@@ -209,21 +204,13 @@ class PayingOffCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}工资支付</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('paying_off')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}工资支付`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('paying_off')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

@@ -10,11 +10,7 @@ import ListViewTool from '../../common/ListView.tool'
 import SecUserBase from './SecUser.base'
 import PermissionSettingService from '../../permission/PermissionSetting.service'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-
-=======
 const {fieldLabels} = SecUserBase
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import { Link, Route, Redirect} from 'dva/router'
 
 const  {  hasCreatePermission,hasExecutionPermission,hasDeletePermission,hasUpdatePermission,hasReadPermission } = PermissionSettingService
@@ -68,7 +64,6 @@ const showAssociateDialog = (targetComponent) => {
   const {selectedRows} = targetComponent.state
   
   const { UserDomainAssociateForm } = GlobalComponents
-  const { SecUserBlockingAssociateForm } = GlobalComponents
 
 
   return (
@@ -80,11 +75,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='domain'} 
 	data={{secUserList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'domain')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'domain')}/> <SecUserBlockingAssociateForm 
-	visible={currentAssociateModal==='blocking'} 
-	data={{secUserList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'blocking')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'blocking')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'domain')}/> 
  
 
 

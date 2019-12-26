@@ -8,10 +8,7 @@ import styles from './SecUser.search.less'
 import GlobalComponents from '../../custcomponents'
 import SelectObject from '../../components/SelectObject'
 import appLocaleName from '../../common/Locale.tool'
-<<<<<<< HEAD
-=======
 import SecUserBase from './SecUser.base'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const FormItem = Form.Item
 const { Option } = Select
 const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',')
@@ -143,11 +140,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'weixinAppid'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'accessToken'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'domain'))
-<<<<<<< HEAD
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'currentStatus'))
-=======
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'blocking'))
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
      
       console.log("the final parameter", paramList)
@@ -206,11 +198,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
        <Col md={8} sm={24}>
-<<<<<<< HEAD
-         <FormItem label="ID">
-=======
          <FormItem label={fieldLabels.id}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
            {getFieldDecorator('id')(
              <Input size="default" placeholder={appLocaleName(userContext,"PleaseInput")} />
            )}
@@ -265,11 +253,7 @@ componentDidMount() {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="ID">
-=======
             <FormItem label={fieldLabels.id}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('id')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -285,11 +269,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="手机号码">
-=======
             <FormItem label={fieldLabels.mobile}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('mobile')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -305,11 +285,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="密码">
-=======
             <FormItem label={fieldLabels.pwd}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('pwd')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -317,11 +293,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="微信openid">
-=======
             <FormItem label={fieldLabels.weixinOpenid}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('weixinOpenid')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -329,11 +301,7 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="微信Appid">
-=======
             <FormItem label={fieldLabels.weixinAppid}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('weixinAppid')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
@@ -341,22 +309,14 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-<<<<<<< HEAD
-            <FormItem label="访问令牌">
-=======
             <FormItem label={fieldLabels.accessToken}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
               {getFieldDecorator('accessToken')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>
           </Col>
  <Col md={8} sm={24}>
-<<<<<<< HEAD
-                    <Form.Item label="域">
-=======
                     <Form.Item label={fieldLabels.domain}>
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                   {getFieldDecorator('domain', {initialValue: tryinit('domain')})(
                   
                   <SelectObject 
@@ -364,36 +324,10 @@ componentDidMount() {
                     targetType={"domain"} 
                     requestFunction={SecUserService.requestCandidateDomain} useForSearch />
                   	
-<<<<<<< HEAD
-=======
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.blocking}>
-                  {getFieldDecorator('blocking', {initialValue: tryinit('blocking')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('blocking')}
-                    targetType={"blocking"} 
-                    requestFunction={SecUserService.requestCandidateBlocking} useForSearch />
-                  	
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
                  
                   )}
                 </Form.Item></Col>
 
-<<<<<<< HEAD
-          <Col md={8} sm={24}>
-            <FormItem label="当前状态">
-              {getFieldDecorator('currentStatus')(
-                <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
-              )}
-            </FormItem>
-          </Col>
-
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>

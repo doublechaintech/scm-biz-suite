@@ -21,11 +21,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-<<<<<<< HEAD
-  amount: '864650.38',
-=======
-  amount: '930418.25',
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
+  amount: '803910.94',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -210,21 +206,13 @@ class AccountingDocumentLineCreateForm extends Component {
     
     const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-<<<<<<< HEAD
-      return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}会计凭证行</div>)
-=======
       return (<div>{linkComp}{appLocaleName(userContext,"CreateNew")}{window.trans('accounting_document_line')}</div>)
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
     }
 
 	return (
       <PageHeaderLayout
         title={internalRenderTitle()}
-<<<<<<< HEAD
-        content={`${appLocaleName(userContext,"CreateNew")}会计凭证行`}
-=======
         content={`${appLocaleName(userContext,"CreateNew")}${window.trans('accounting_document_line')}`}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
         wrapperClassName={styles.advancedForm}
       >
    			

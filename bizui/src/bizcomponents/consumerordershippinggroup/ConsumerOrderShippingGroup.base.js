@@ -1,9 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
-import { Icon,Divider } from 'antd'
-=======
 import { Icon,Divider, Avata, Card, Col} from 'antd'
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -13,27 +9,18 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-<<<<<<< HEAD
-=======
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
 	defaultRenderMoneyCell,
 	defaultRenderDateTimeCell,
 	defaultRenderImageCell,
-<<<<<<< HEAD
-	defaultRenderDateCell,
-	defaultRenderIdentifier,
-	defaultRenderTextCell,
-=======
 	defaultRenderAvatarCell,
 	defaultRenderDateCell,
 	defaultRenderIdentifier,
 	defaultRenderTextCell,
 	defaultSearchLocalData,
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 } = BaseTool
 
 const renderTextCell=defaultRenderTextCell
@@ -41,78 +28,19 @@ const renderIdentifier=defaultRenderIdentifier
 const renderDateCell=defaultRenderDateCell
 const renderDateTimeCell=defaultRenderDateTimeCell
 const renderImageCell=defaultRenderImageCell
-<<<<<<< HEAD
-=======
 const renderAvatarCell=defaultRenderAvatarCell
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const renderMoneyCell=defaultRenderMoneyCell
 const renderBooleanCell=defaultRenderBooleanCell
 const renderReferenceCell=defaultRenderReferenceCell
 
 
-<<<<<<< HEAD
-const menuData = {menuName:"消费订单送货分组", menuFor: "consumerOrderShippingGroup",
-=======
 
 const menuData = {menuName: window.trans('consumer_order_shipping_group'), menuFor: "consumerOrderShippingGroup",
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
   		subItems: [
   
   		],
 }
 
-<<<<<<< HEAD
-
-const settingMenuData = {menuName:"消费订单送货分组", menuFor: "consumerOrderShippingGroup",
-  		subItems: [
-  
-  		],
-}
-
-const fieldLabels = {
-  id: '序号',
-  name: '名称',
-  bizOrder: '订单',
-  amount: '金额',
-
-}
-
-const displayColumns = [
-  { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'consumerOrderShippingGroup') , sorter: true },
-  { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '10',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.bizOrder, dataIndex: 'bizOrder', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.amount, dataIndex: 'amount', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
-
-]
-// refernce to https://ant.design/components/list-cn/
-const renderItemOfList=(consumerOrderShippingGroup,targetComponent)=>{
-
-  const userContext = null
-  return (
-    <div key={consumerOrderShippingGroup.id}>
-	
-      <DescriptionList  key={consumerOrderShippingGroup.id} size="small" col="4">
-        <Description term="序号">{consumerOrderShippingGroup.id}</Description> 
-        <Description term="名称">{consumerOrderShippingGroup.name}</Description> 
-        <Description term="订单"><div>{consumerOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${consumerOrderShippingGroup.bizOrder.displayName}(${consumerOrderShippingGroup.bizOrder.id})`}
-        </div></Description>
-        <Description term="金额"><div style={{"color":"red"}}>{consumerOrderShippingGroup.amount}</div></Description> 
-	
-        
-      </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
-	)
-
-}
-	
-const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, amount, bizOrderId} = formValuesToPack
-	const bizOrder = {id: bizOrderId, version: 2^31}
-	const data = {name, amount, bizOrder}
-	return data
-}
-=======
 
 const settingMenuData = {menuName: window.trans('consumer_order_shipping_group'), menuFor: "consumerOrderShippingGroup",
   		subItems: [
@@ -139,8 +67,8 @@ const displayColumns = [
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
 
-const renderItemOfList=(consumerOrderShippingGroup,targetComponent)=>{
-
+const renderItemOfList=(consumerOrderShippingGroup, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
   const userContext = null
   return (
     <div key={consumerOrderShippingGroup.id}>
@@ -166,17 +94,12 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const data = {name, amount, bizOrder}
 	return data
 }
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, amount, bizOrder} = objectToUnpack
 	const bizOrderId = bizOrder ? bizOrder.id : null
 	const data = {name, amount, bizOrderId}
 	return data
 }
-<<<<<<< HEAD
-
-const ConsumerOrderShippingGroupBase={menuData,displayColumns,fieldLabels,renderItemOfList,packFormValuesToObject,unpackObjectToFormValues}
-=======
 const stepOf=(targetComponent, title, content, position, index)=>{
 	return {
 		title,
@@ -188,7 +111,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
       }
 }
 const ConsumerOrderShippingGroupBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 export default ConsumerOrderShippingGroupBase
 
 
