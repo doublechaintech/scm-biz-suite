@@ -170,16 +170,6 @@ const handleDeletionModalVisible = (event,targetComponent) => {
     const {listName} = owner;
     const listParameters = {};
     listParameters[listName]=1;
-<<<<<<< HEAD
-    listParameters[`${listName}CurrentPage`]=pagination.current;
-    listParameters[`${listName}RowsPerPage`]=pagination.pageSize;
-    
-    const sortProperties = convertToBackendSorter({listName,sorter})
-
-    if(!sorter.field){
-      listParameters[`${listName}.orderBy.0`]="id";
-      listParameters[`${listName}.descOrAsc.0`]="asc";
-=======
     listParameters[`${listName}CurrentPage`]=pagination.current?pagination.current:pagination;
     listParameters[`${listName}RowsPerPage`]=pagination.pageSize?pagination.pageSize:10;
     console.log("pagination", pagination)
@@ -189,7 +179,6 @@ const handleDeletionModalVisible = (event,targetComponent) => {
       
       listParameters[`${listName}.orderBy.0`]="id";
       listParameters[`${listName}.descOrAsc.0`]="desc";
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
      
     }
     const newSearchParameters = {...searchParameters,...listParameters,...sortProperties}

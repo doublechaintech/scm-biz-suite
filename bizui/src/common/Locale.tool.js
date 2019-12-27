@@ -69,11 +69,7 @@ bizAppZhCN.Clear = '清空';
 bizAppEnUS.Clear = 'Clear';
 bizAppZhCN.PleaseInput = '请输入';
 bizAppEnUS.PleaseInput = 'Please Input ';
-<<<<<<< HEAD
-bizAppZhCN.PleaseInput = '请输入请输入';
-=======
 bizAppZhCN.PleaseInput = '请输入';
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 bizAppEnUS.PleaseInput = 'Please Input ';
 bizAppZhCN.PleaseSearch = '请搜索';
 bizAppEnUS.PleaseSearch = 'Please Search ';
