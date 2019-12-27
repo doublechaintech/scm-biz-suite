@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2018-03-12',
-  leaveTime: '2017-07-27',
-  durationHours: '7',
+  enterTime: '2017-05-15',
+  leaveTime: '2019-01-25',
+  durationHours: '8',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }

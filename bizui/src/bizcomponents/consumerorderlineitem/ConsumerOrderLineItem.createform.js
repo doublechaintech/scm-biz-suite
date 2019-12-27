@@ -20,9 +20,9 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  price: '4.49',
-  quantity: '875.37',
-  amount: '8875.52',
+  price: '5.53',
+  quantity: '846.35',
+  amount: '8165.40',
   bizOrderId: 'CO000001',
 }
 */

@@ -19,7 +19,7 @@ const testValues = {};
 const testValues = {
   name: '礼品卡',
   number: 'CP00001',
-  remain: '174.03',
+  remain: '160.41',
   ownerId: 'RSM000001',
 }
 */
