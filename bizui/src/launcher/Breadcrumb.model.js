@@ -56,13 +56,8 @@ export default {
         return { ...state, returnURL };
       }
 
-<<<<<<< HEAD
-      const newBreadcrumb = currentBreadcrumb.slice(0, index + 1);
-      sessionObject(targetApp.id, newBreadcrumb);
-=======
       // const newBreadcrumb = currentBreadcrumb.slice(0, index + 1);
       // sessionObject(targetApp.id, newBreadcrumb);
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
       return { ...state, returnURL };
     },
     selectApp(state, action) {
