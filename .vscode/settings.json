@@ -1,12 +1,3 @@
 {
-<<<<<<< HEAD
-    "files.exclude": {
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
-    }
-=======
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 
 }
