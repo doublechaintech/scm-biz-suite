@@ -17,13 +17,13 @@ const {fieldLabels} = GoodsMovementBase
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-12-15 00:48:22',
+  moveTime: '2019-12-09 10:49:59',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '42.45571497958858',
-  longitude: '129.7644297697858',
+  latitude: '41.545417128251195',
+  longitude: '131.94472140068208',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }

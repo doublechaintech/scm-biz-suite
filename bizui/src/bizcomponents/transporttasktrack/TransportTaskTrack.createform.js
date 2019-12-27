@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2018-02-05',
-  latitude: '30.96615505507563',
-  longitude: '103.84202794802485',
+  trackTime: '2017-07-23',
+  latitude: '31.467446729801743',
+  longitude: '105.53979029233376',
   movementId: 'TT000001',
 }
 */

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2017-07-13',
+  countTime: '2018-04-15',
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }

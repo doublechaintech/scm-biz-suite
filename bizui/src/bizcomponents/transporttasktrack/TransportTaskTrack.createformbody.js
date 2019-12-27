@@ -17,9 +17,9 @@ const {fieldLabels} = TransportTaskTrackBase
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2017-04-13',
-  latitude: '31.764469091501248',
-  longitude: '103.78253311272482',
+  trackTime: '2019-06-24',
+  latitude: '30.257995264385336',
+  longitude: '103.78976168067182',
   movementId: 'TT000001',
 }
 */

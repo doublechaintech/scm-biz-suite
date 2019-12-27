@@ -22,7 +22,7 @@ const testValues = {
   barcode: 'TM00000000001',
   packageType: '包装类型',
   netContent: '包装数量等信息,包装数量等信息,包装数量等信息',
-  price: '982.38',
+  price: '1035.51',
   productId: 'P000001',
 }
 */

@@ -1,20 +1,10 @@
 
 import React from 'react'
 import { Link } from 'dva/router'
-<<<<<<< HEAD
-=======
-import { Icon, Divider, Avatar, Card, Col} from 'antd'
-
-
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 import moment from 'moment'
 import ImagePreview from '../components/ImagePreview'
 import appLocaleName from './Locale.tool'
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const defaultRenderTextCell=(value, record)=>{
 	const userContext = null
 	if(!value){
@@ -31,11 +21,7 @@ const defaultRenderTextCell=(value, record)=>{
 	return value
 	
 }
-<<<<<<< HEAD
-
-=======
 // import { Avatar, Icon } from 'antd';
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const defaultRenderIdentifier=(value, record, targtObjectType)=>{
 
 	return (<Link to={`/${targtObjectType}/${value}/dashboard`}>{value}</Link>)
@@ -49,13 +35,10 @@ const defaultRenderDateTimeCell=(value, record)=>{
 	return moment(value).format('YYYY-MM-DD HH:mm');	
 }
 
-<<<<<<< HEAD
-=======
 const defaultRenderAvatarCell=(value, record, title)=>{
 	return (<Avatar src={value} />)	
 }
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const defaultRenderImageCell=(value, record, title)=>{
 	return (<ImagePreview imageTitle={title} imageLocation={value} />)	
 }
@@ -93,8 +76,6 @@ const defaultRenderReferenceCell=(value, record)=>{
 }
 
 
-<<<<<<< HEAD
-=======
 
 
 const buildFunctionTitle=(menuData,searchTerm)=>{
@@ -223,7 +204,6 @@ const defaultSearchLocalData=(menuData, targetObject, searchName)=>{
 
 
 
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
 const BaseTool = {
     defaultRenderReferenceCell,
     defaultRenderBooleanCell,
@@ -233,13 +213,9 @@ const BaseTool = {
     defaultRenderImageCell,
     defaultRenderDateCell,
     defaultRenderIdentifier,
-<<<<<<< HEAD
-    defaultRenderTextCell,
-=======
 	defaultRenderTextCell,
 	defaultRenderAvatarCell,
 	defaultSearchLocalData,
->>>>>>> ea67698ef1c4e94c89147baaf9f93aa768973fbe
    
   };
   
