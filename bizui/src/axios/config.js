@@ -1,7 +1,7 @@
 
 export const SYSTEM_SHORT_NAME = "retailscm" //Use for requssting different apps
 export const SYSTEM_LOCAL_NAME = "双链小超全流程供应链系统" 
-export const BUILD_TIIME="Fri Dec 27 20:13:24 CST 2019"
+export const BUILD_TIIME="Fri Dec 27 22:28:55 CST 2019"
 export const MEDIA_UPLOAD_URL="https://www.doublechaintech.com/mss/upload.html"
 export const MEDIA_PREFIX="https://www.doublechaintech.com/mss/"
 

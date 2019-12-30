@@ -17,9 +17,9 @@ const {fieldLabels} = RetailStoreMemberGiftCardConsumeRecordBase
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2018-11-04',
+  occureTime: '2017-09-30',
   number: 'GF00001',
-  amount: '14.98',
+  amount: '17.14',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }

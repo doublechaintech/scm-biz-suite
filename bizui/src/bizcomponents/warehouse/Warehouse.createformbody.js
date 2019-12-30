@@ -20,8 +20,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号',
   contactNumber: '028 87654321',
   totalArea: '187672平方米',
-  latitude: '40.38017787892081',
-  longitude: '131.2036543911922',
+  latitude: '40.17965117807951',
+  longitude: '130.06483615651115',
   ownerId: 'RSCC000001',
 }
 */

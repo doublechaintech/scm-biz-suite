@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2019-07-05',
+  accountingDocumentDate: '2018-12-14',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
 }

@@ -26,8 +26,8 @@ const testValues = {
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-12-16 12:19:18',
-  lastLoginTime: '2019-12-08 23:06:03',
+  verificationCodeExpire: '2019-12-07 09:18:22',
+  lastLoginTime: '2019-12-21 22:44:51',
   domainId: 'UD000001',
 }
 */
