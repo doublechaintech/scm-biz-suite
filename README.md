@@ -13,8 +13,6 @@
 [部署指南 ](/DEPLOYMENT.md)
 
 
-
-
 ## 核心特性
 * 本系统包括前端、后端、数据大屏，数据结构和基础数据都是通过自研软件开发开发
 * 高度可定制，增加、修改、屏蔽界面和后台功能不必更改生成代码，只是需要在custom层加入代码即可，看后文解释
@@ -29,10 +27,6 @@
 * 建立数据中台，这样源代码几乎不需要改动，本系统提供了大量的接口，可以让业务系统通过API插入数据，可以视作一个独立的微服务
 * 用于教学和练习
 
-## 如何使用
-* 在此基础上定制业务系统，可以在这个系统基础上通过前后台增加代码来定制业务系统
-* 建立数据中台，这样源代码几乎不需要改动，本系统提供了大量的接口，可以让业务系统通过API插入数据，可以视作一个独立的微服务
-* 用于教学和练习
 
 ## 许可
 
@@ -41,6 +35,7 @@
 ## 技术支持
 
 本系统提供商业化系统支持和基于Issue的免费的技术支持
+
 ## 兼容性，以下环境测试通过
 
 * 硬件环境：Amd64/ARM64/华为鲲鹏服务器
@@ -188,7 +183,6 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 
 * PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html, 密码为: admin123
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
-* 鲲鹏服务器演示地址: http://lab-arm-kunpeng.doublechaintech.com/admin/retailscm/, 密码为: admin123
 
 ## 讨论和参与本项目
 <img src="/doc/philip-wechat-qr.jpeg" alt="WechatQRCode" title="WechatQRCode" width="150"  />
