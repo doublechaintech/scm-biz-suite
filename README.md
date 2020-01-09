@@ -10,7 +10,7 @@
 智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
 
-[部署指南 ](/DEPLOYMENT.md)
+[部署指南](/DEPLOYMENT.md)
 
 
 ## 核心特性
@@ -18,7 +18,7 @@
 * 高度可定制，增加、修改、屏蔽界面和后台功能不必更改生成代码，只是需要在custom层加入代码即可，看后文解释
 * 以零售平台为核心开发，集成信息流，商流，物流，资金流，人才流。
 
-### 项目概念 来自于 [数据库设计 ](/doc/retailscm-database-design.pdf)
+### 项目概念 来自于 [数据库设计](/doc/retailscm-database-design.pdf)
 
 ![ScreenShot](/doc/word-cloud.png)
 
@@ -46,11 +46,11 @@
 
 ## 二次开发
 
-数据库设计文档已经开放 [数据库设计 ](/doc/retailscm-database-design.pdf)
+数据库设计文档已经开放 [数据库设计](/doc/retailscm-database-design.pdf)
 
 ## 部署
 
-如果要自行部署，请参照 [部署指南 ](/DEPLOYMENT.md)
+如果要自行部署，请参照 [部署指南](/DEPLOYMENT.md)
 
 ## 在线演示系统(不支持IE，最好使用Chrome）
 
