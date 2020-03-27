@@ -45,8 +45,8 @@
 * 事件流系统: Kafka
 
 ## 二次开发
-
-数据库设计文档已经开放 [数据库设计](/doc/retailscm-database-design.pdf)
+* Java开发手册请参见：https://kdocs.cn/l/sUdwkkyZD?f=130
+* 数据库设计文档已经开放 [数据库设计](/doc/retailscm-database-design.pdf)
 
 ## 部署
 
