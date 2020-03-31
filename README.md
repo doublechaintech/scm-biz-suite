@@ -160,6 +160,9 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 * 数据分析结果管理与分享
 * 支持客户端通过API调用数据，实现闭环反馈
 * 实时推送和订阅
+演示地址：https://demo.doublechaintech.com/admin/dmos/ 
+* 用户名/密码: 13900000006/admin123
+* 浏览任何数据集即可
 
 ![ScreenShot](/doc/dmos000.jpg)
 ![ScreenShot](/doc/dmos001.jpg)
