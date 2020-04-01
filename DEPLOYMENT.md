@@ -81,7 +81,62 @@ rm -rf node_modules && yarn install && yarn build
 
 ## 后端
 
-后端有反向代理服务器ngnix，servlet容器Resin或者Tomcat（后期换成Spring Boot），最小配置需要数据库服务器MySQL，缓存服务器Redis组成。其他如消息服务器kafka，多层次权限管理需要图数据库arrangodb，外部email服务器，阿里云短信服务器，OSS服务器，极光app消息push服务器，区块链超级账本fabric节点。
+必须的部分
+* servlet容器Resin（Spring Boot），
+* 数据库服务器MySQL（必须）
+* 缓存服务器Redis（必须）
+
+可选下面组件构成
+* ngnix（可选），用于配置HTTPS, 反向代理，压缩，生产环境部署必须
+* 消息服务器kafka，用户实时数据流分析
+* 多层次权限管理需要图数据库arrangodb，用户实时数据流关联分析和实时大屏，运算
+* 外部email服务器，SMTP
+* 云服务根据应用阿里云短信服务器，OSS服务器，极光app消息push服务器，区块链超级账本fabric节点
+
+
+### 安装基础环境
+
+
+安装sdkman然后安装gradle
+
+```
+curl -s "https://get.sdkman.io" | bash
+```
+使用 Gradle 5.3，可以使用最新版 
+
+```
+sdk install gradle 5.3
+```
+
+
+
+安装Java 8， 一定得Java 8， 我们这里选择Amazon的JDK8其他版本未经测试
+```
+sdk install java 8.0.242-amzn 
+```
+
+提示，可以通过 sdk list java 来查询可以安装的版本, 查询结果如下
+```
+================================================================================
+Available Java Versions
+================================================================================
+ Vendor        | Use | Version      | Dist    | Status     | Identifier
+--------------------------------------------------------------------------------
+ AdoptOpenJDK  |     | 14.0.0.j9    | adpt    |            | 14.0.0.j9-adpt      
+               |     | 14.0.0.hs    | adpt    |            | 14.0.0.hs-adpt      
+               |     | 13.0.2.j9    | adpt    |            | 13.0.2.j9-adpt      
+               |     | 13.0.2.hs    | adpt    |            | 13.0.2.hs-adpt      
+               |     | 12.0.2.j9    | adpt    |            | 12.0.2.j9-adpt      
+               |     | 12.0.2.hs    | adpt    |            | 12.0.2.hs-adpt      
+               |     | 11.0.6.j9    | adpt    |            | 11.0.6.j9-adpt      
+               |     | 11.0.6.hs    | adpt    |            | 11.0.6.hs-adpt      
+               |     | 8.0.242.j9   | adpt    |            | 8.0.242.j9-adpt     
+               |     | 8.0.242.hs   | adpt    |            | 8.0.242.hs-adpt     
+ Amazon        |     | 11.0.6       | amzn    |            | 11.0.6-amzn         
+               |     | 8.0.242      | amzn    |            | 8.0.242-amzn  
+	       ...
+```
+
 
 ### 下载并且解压Resin
 
@@ -97,6 +152,7 @@ exit
 ```
 
 ### 安装和运行MYSQL和Redis
+
 
 
 
@@ -144,16 +200,7 @@ cd retailscm-biz-suite && mysql -uroot -p 0254891276 -h 127.0.0.1 < bizcore/WEB-
 
 java项目使用gradle来编译，为了快速开发， 我们只是把java文件编译成class，其他的目录结构保持不变，建议把输出目录直接设置为 classes并且使用resin的开发模式，这样，当class发生变更的时候，Resin会自动重新装载新的类，无需重新编译和启动，开发体验和写PHP类似。
 
-安装sdkman然后安装gradle
 
-```
-curl -s "https://get.sdkman.io" | bash
-```
-使用最新的gradle 5.3， 
-
-```
-sdk install gradle 5.3
-```
 
 编译后台，gradle copyJars将为你准备好工作环境
 
