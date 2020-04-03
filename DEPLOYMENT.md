@@ -11,17 +11,18 @@
 * [编译部署前端](#编译部署前端 )
 * [安装nodejs](#安装nodejs)
 * [安装yarn](#安装yarn)
-* [编译](#编译)
+* [编译前端](#编译前端)
 * [编译和部署后端](#编译和部署后端)
 * [安装基础环境](#安装基础环境)
 * [下载并且解压Resin](#下载并且解压Resin)
-* [安装docker](#安装docker,并且利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker)
+* [安装docker](#安装docker)
 * [安装和运行MYSQL和Redis](#安装和运行MYSQL和Redis)
-* [编译](#编译)
+* [编译后端](#编译后端)
 * [启动Resin](#启动Resin)
 * [访问后台](#访问后台)
 * [测试前端](#测试前端)
 * [配置nginx](#配置nginx（ 非生产环境的话，不是必要步骤）)
+* [配置nginx](#SpringBoot开发指南)
 
 
 
@@ -170,7 +171,10 @@ Available Java Versions
 
 https://caucho.com/products/resin/download/3-1/gpl
 
-### 安装docker,并且利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker
+### 安装docker
+
+利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker
+
 ```
 sudo curl -sSL https://get.daocloud.io/docker | sh 
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://84763bc6.m.daocloud.io 
@@ -233,7 +237,7 @@ cd retailscm-biz-suite && mysql -uroot -p0254891276 -h 127.0.0.1 < bizcore/WEB-I
 
 
 
-### 编译
+### 编译后端
 
 java项目使用gradle来编译，为了快速开发， 我们只是把java文件编译成class，其他的目录结构保持不变，建议把输出目录直接设置为 classes并且使用resin的开发模式，这样，当class发生变更的时候，Resin会自动重新装载新的类，无需重新编译和启动，开发体验和写PHP类似。
 
