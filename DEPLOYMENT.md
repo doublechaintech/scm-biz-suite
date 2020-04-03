@@ -1,6 +1,18 @@
+
+
+
 # 零售供应链中台基础系统 运行指南
 
 系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS和ubuntu linux 18.04LTS，支持使用resin和SpringBoot来部署，不支持Tomcat服务器的war部署方式。
+
+## 目录
+
+[复制代码到本地](#复制代码到本地)
+[编译部署前端](#编译部署前端 )
+[安装nodejs](#安装nodejs)
+[安装yarn](#安装yarn)
+
+
 
 ## 复制代码到本地
 
@@ -9,7 +21,7 @@ git clone https://github.com/doublechaintech/retailscm-biz-suite.git
 ```
 
 
-## 前端 
+## 编译部署前端 
 
 
 
@@ -19,7 +31,7 @@ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-## 安装yarn 
+### 安装yarn 
 
 注意：前端编译涉及到没有移植版本的x64/x86代码无法在在鲲鹏服务器上完成
 
