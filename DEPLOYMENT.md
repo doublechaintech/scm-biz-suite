@@ -1,6 +1,6 @@
 # 零售供应链中台基础系统 运行指南
 
-系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS，不支持Tomcat服务器的war部署方式。
+系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS和ubuntu linux 18.04LTS，支持使用resin和SpringBoot来部署，不支持Tomcat服务器的war部署方式。
 
 ## 复制代码到本地
 
@@ -25,15 +25,34 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update && sudo apt-get install yarn
 ```
 ## 编译
-前端使用yarn编译, 由于项目庞大, 必须设置额外的两个参数nodejs参数
+前端使用yarn编译, 由于项目庞大, 编译的计算机至少具有空闲6G~8G内存，而且必须设置额外的两个参数nodejs参数
 * NODE_OPTIONS=--max-old-space-size=10230，增加编译内容， 或者安装并且下载 increase-memory-limit 
 * PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chromium防止下载时间过长
 
 在 ~/.bash_profile 里面加入
+```
 export NODE_OPTIONS=--max-old-space-size=10230
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+```
 
-新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证
+不设置环境变量会导致
+
+```
+==== JS stack trace =========================================
+
+    0: ExitFrame [pc: 0x1b1e8aadbe1d]
+    1: StubFrame [pc: 0x1b1e8d56aba2]
+Security context: 0x2be87309e6e9 <JSObject>
+    2: getOptions(aka getOptions) [0x19d718b916d1] [/home/philip/githome/retailscm-biz-suite/bizui/node_modules/acorn/dist/acorn.js:403] [bytecode=0x19e0b9bbeaa9 offset=85](this=0x1a01d14026f1 <undefined>,opts=0x0b7c125f33f9 <Object map = 0x27e6b3c63c59>)
+    3: new constructor(aka Parser) [0x41cc263b091] [/home/philip/g...
+
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+ 1: 0x8fa0c0 node::Abort() [/usr/bin/node]
+
+```
+
+
+新开窗口或者执行 . ~/.bash_profile 生效, 使用 env命令可以验证, 
 
 
 
@@ -44,6 +63,16 @@ cd retailscm-biz-suite/bizui/ && yarn install && yarn build
 
 ```
 
+如何之前使用过旧的版本，可能出现错误，
+```
+bizui/src/index.js: helpers(...).minVersion is not a function
+```
+解决办法，清理掉node_modules
+
+```
+rm -rf node_modules && yarn install && yarn build
+```
+
 下载时间随网络情况而定，编译时间大约从300秒到700秒，此步骤需要一颗强劲的CPU
 
 在bizui目录下面的dist目录就会有需要部署的所有的js文件和其他文件，可以部署到任何地方, 使用CDN对响应速度帮助很大，这个步骤是获得基于前后端分离的，基于Ant Design的前端部署包。
@@ -52,21 +81,78 @@ cd retailscm-biz-suite/bizui/ && yarn install && yarn build
 
 ## 后端
 
-后端有反向代理服务器ngnix，servlet容器Resin或者Tomcat（后期换成Spring Boot），最小配置需要数据库服务器MySQL，缓存服务器Redis组成。其他如消息服务器kafka，多层次权限管理需要图数据库arrangodb，外部email服务器，阿里云短信服务器，OSS服务器，极光app消息push服务器，区块链超级账本fabric节点。
+必须的部分
+* servlet容器Resin（Spring Boot），
+* 数据库服务器MySQL（必须）
+* 缓存服务器Redis（必须）
+
+可选下面组件构成
+* ngnix（可选），用于配置HTTPS, 反向代理，压缩，生产环境部署必须
+* 消息服务器kafka，用户实时数据流分析
+* 多层次权限管理需要图数据库arrangodb，用户实时数据流关联分析和实时大屏，运算
+* 外部email服务器，SMTP
+* 云服务根据应用阿里云短信服务器，OSS服务器，极光app消息push服务器，区块链超级账本fabric节点
+
+
+### 安装基础环境
+
+
+安装sdkman然后安装gradle
+
+```
+curl -s "https://get.sdkman.io" | bash
+```
+使用 Gradle 5.3，可以使用最新版 
+
+```
+sdk install gradle 5.3
+```
+
+
+
+安装Java 8， 一定得Java 8， 我们这里选择Amazon的JDK8其他版本未经测试
+```
+sdk install java 8.0.242-amzn 
+```
+
+提示，可以通过 sdk list java 来查询可以安装的版本, 查询结果如下
+```
+================================================================================
+Available Java Versions
+================================================================================
+ Vendor        | Use | Version      | Dist    | Status     | Identifier
+--------------------------------------------------------------------------------
+ AdoptOpenJDK  |     | 14.0.0.j9    | adpt    |            | 14.0.0.j9-adpt      
+               |     | 14.0.0.hs    | adpt    |            | 14.0.0.hs-adpt      
+               |     | 13.0.2.j9    | adpt    |            | 13.0.2.j9-adpt      
+               |     | 13.0.2.hs    | adpt    |            | 13.0.2.hs-adpt      
+               |     | 12.0.2.j9    | adpt    |            | 12.0.2.j9-adpt      
+               |     | 12.0.2.hs    | adpt    |            | 12.0.2.hs-adpt      
+               |     | 11.0.6.j9    | adpt    |            | 11.0.6.j9-adpt      
+               |     | 11.0.6.hs    | adpt    |            | 11.0.6.hs-adpt      
+               |     | 8.0.242.j9   | adpt    |            | 8.0.242.j9-adpt     
+               |     | 8.0.242.hs   | adpt    |            | 8.0.242.hs-adpt     
+ Amazon        |     | 11.0.6       | amzn    |            | 11.0.6-amzn         
+               |     | 8.0.242      | amzn    |            | 8.0.242-amzn  
+	       ...
+```
+
 
 ### 下载并且解压Resin
 
 https://caucho.com/products/resin/download/3-1/gpl
 
-### 安装docker,并且利用国内镜像加速
+### 安装docker,并且利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker
 ```
 sudo curl -sSL https://get.daocloud.io/docker | sh 
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://84763bc6.m.daocloud.io 
 sudo groupadd docker 
 sudo usermod -aG docker $USER 
+exit
 ```
 
 ### 安装和运行MYSQL和Redis
+
 
 
 
@@ -102,6 +188,10 @@ default-time-zone =+08:00
 
 MySQL的初始化脚本问题文件在 bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql下面
 
+```
+cd retailscm-biz-suite && mysql -uroot -p0254891276 -h 127.0.0.1 < bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql
+```
+
 配置文件在bizcore/WEB-INF/retailscm_custom_src/META-INF/infra.properties里面
 
 
@@ -110,20 +200,22 @@ MySQL的初始化脚本问题文件在 bizcore/WEB-INF/retailscm_core_src/META-I
 
 java项目使用gradle来编译，为了快速开发， 我们只是把java文件编译成class，其他的目录结构保持不变，建议把输出目录直接设置为 classes并且使用resin的开发模式，这样，当class发生变更的时候，Resin会自动重新装载新的类，无需重新编译和启动，开发体验和写PHP类似。
 
-使用最新的gradle 5.1， sdk install gradle 5.1
+
+
+编译后台，gradle copyJars将为你准备好工作环境
 
 ```
 cd  retailscm-biz-suite/bizcore && gradle copyJars && gradle classes
 ```
 
-这个过程大约在10多秒到20秒这样得到编译后的classes，在WEB-INF/classes
+gradle编译过程大约持续10秒到20秒这样得到编译后的classes，生成的位置在WEB-INF/classes目录下
 
-然后把执行 
+通过执行如下命令，把项目工程连接到Resin下，这样就可以以retailscm名字来启动webapp
 ```
-ln -s  $PWD/bizcore  ~/resin-3.1.16/webapps/retailscm
+ln -s  ~/retailscm-biz-suite/bizcore  ~/resin-3.1.16/webapps/retailscm
 ```
 ### 启动Resin
-
+准备后了就可以启动后端
 ```
 cd  resin-3.1.16/ && bin/httpd.sh
 ```
@@ -131,11 +223,22 @@ cd  resin-3.1.16/ && bin/httpd.sh
 
 ### 访问后台
 
-云服务器记得打开端口8080, 此步骤是运行后端，后端除了提供了REST API以外，还提供了基于JSP的操作界面，这个界面主要用于调试的时候显示大量数据用于验证程序逻辑。
+此步骤是运行后端，后端除了提供了REST API以外，还提供了基于JSP的操作界面，这个界面主要用于调试的时候显示大量相互关联的数据用于验证程序逻辑。
 
 ```
 http://localhost:8080/retailscm/secUserManager/home/
 ```
+输入用户名密码：13900000001/admin123登录
+
+云服务器记得打开端口8080, 此时没有文件启用压缩，使用1M的带宽装载速度会比较慢。
+
+### 测试前端
+
+```
+mkdir -p ~/resin-3.1.16/webapps/ROOT/admin
+cd  retailscm-biz-suite/bizui && cp -R dist/* ~/resin-3.1.16/webapps/ROOT/admin
+```
+访问 http://localhost:8080/admin/index.html
 
 
 

@@ -19,7 +19,11 @@ const testValues = {};
 const testValues = {
   name: '双链小超中国国运营中心',
   serviceNumber: '4000-800-',
+<<<<<<< HEAD
   founded: '2018-10-21',
+=======
+  founded: '2019-03-16',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   webSite: 'https://www.doublechaintech.com/',
   address: '四川省成都市天府新区双链大厦',
   operatedBy: '双链集团',

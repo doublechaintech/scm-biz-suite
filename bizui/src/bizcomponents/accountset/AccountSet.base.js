@@ -87,6 +87,7 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -106,6 +107,11 @@ const leftChars=(value, left)=>{
 }
 const renderItemOfList=(accountSet, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
+=======
+
+const renderItemOfList=(accountSet, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   const userContext = null
   return (
     <Card key={accountSet.id} style={{marginTop:"10px"}}>
@@ -130,10 +136,17 @@ const renderItemOfList=(accountSet, targetComponent, columCount)=>{
         <Description term={fieldLabels.domesticCurrencyName} style={{wordBreak: 'break-all'}}>{accountSet.domesticCurrencyName}</Description> 
         <Description term={fieldLabels.openingBank} style={{wordBreak: 'break-all'}}>{accountSet.openingBank}</Description> 
         <Description term={fieldLabels.accountNumber} style={{wordBreak: 'break-all'}}>{accountSet.accountNumber}</Description> 
+<<<<<<< HEAD
         <Description term={fieldLabels.retailStore}><Tag color='blue' title={`${accountSet.retailStore.id}-${accountSet.retailStore.displayName}`}>{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountSet.retailStore.displayName,15)}`}
         </Tag></Description>
         <Description term={fieldLabels.goodsSupplier}><Tag color='blue' title={`${accountSet.goodsSupplier.id}-${accountSet.goodsSupplier.displayName}`}>{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountSet.goodsSupplier.displayName,15)}`}
         </Tag></Description>
+=======
+        <Description term={fieldLabels.retailStore}><div>{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.retailStore.displayName}(${accountSet.retailStore.id})`}
+        </div></Description>
+        <Description term={fieldLabels.goodsSupplier}><div>{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.goodsSupplier.displayName}(${accountSet.goodsSupplier.id})`}
+        </div></Description>
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         

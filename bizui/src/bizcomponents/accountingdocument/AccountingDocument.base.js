@@ -70,6 +70,7 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -89,6 +90,11 @@ const leftChars=(value, left)=>{
 }
 const renderItemOfList=(accountingDocument, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
+=======
+
+const renderItemOfList=(accountingDocument, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   const userContext = null
   return (
     <Card key={accountingDocument.id} style={{marginTop:"10px"}}>
@@ -124,14 +130,22 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, accountingDocumentDate, accountingPeriodId, documentTypeId} = formValuesToPack
 	const accountingPeriod = {id: accountingPeriodId, version: 2^31}
 	const documentType = {id: documentTypeId, version: 2^31}
+<<<<<<< HEAD
 	const data = {name, accountingDocumentDate:moment(accountingDocumentDate).valueOf(), accountingPeriod, documentType}
+=======
+	const data = {name, accountingDocumentDate, accountingPeriod, documentType}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, accountingDocumentDate, accountingPeriod, documentType} = objectToUnpack
 	const accountingPeriodId = accountingPeriod ? accountingPeriod.id : null
 	const documentTypeId = documentType ? documentType.id : null
+<<<<<<< HEAD
 	const data = {name, accountingDocumentDate:moment(accountingDocumentDate), accountingPeriodId, documentTypeId}
+=======
+	const data = {name, accountingDocumentDate, accountingPeriodId, documentTypeId}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

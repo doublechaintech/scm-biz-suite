@@ -81,6 +81,7 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -100,6 +101,11 @@ const leftChars=(value, left)=>{
 }
 const renderItemOfList=(warehouse, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
+=======
+
+const renderItemOfList=(warehouse, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   const userContext = null
   return (
     <Card key={warehouse.id} style={{marginTop:"10px"}}>

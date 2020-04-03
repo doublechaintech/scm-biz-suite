@@ -22,7 +22,6 @@ import { Link, Route, Redirect } from 'dva/router';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
 import appLocaleName from './Locale.tool';
-
 import {
   ChartCard,
   MiniArea,
@@ -991,6 +990,8 @@ const CustomFunction=(cardsData)=>{
 
 const defaultQuickFunctions = cardsData => {
   
+  // listItem.renderItem(item)
+  const targetObject = cardsData.cardsSource
   
   return (
     <div style={{marginBottom:'24px',marginLeft: '8px',marginRight:'8px'}}>

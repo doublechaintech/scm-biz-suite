@@ -71,6 +71,7 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -90,6 +91,11 @@ const leftChars=(value, left)=>{
 }
 const renderItemOfList=(levelOneDepartment, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
+=======
+
+const renderItemOfList=(levelOneDepartment, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   const userContext = null
   return (
     <Card key={levelOneDepartment.id} style={{marginTop:"10px"}}>
@@ -122,13 +128,21 @@ const renderItemOfList=(levelOneDepartment, targetComponent, columCount)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, description, manager, founded, belongsToId} = formValuesToPack
 	const belongsTo = {id: belongsToId, version: 2^31}
+<<<<<<< HEAD
 	const data = {name, description, manager, founded:moment(founded).valueOf(), belongsTo}
+=======
+	const data = {name, description, manager, founded, belongsTo}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, description, manager, founded, belongsTo} = objectToUnpack
 	const belongsToId = belongsTo ? belongsTo.id : null
+<<<<<<< HEAD
 	const data = {name, description, manager, founded:moment(founded), belongsToId}
+=======
+	const data = {name, description, manager, founded, belongsToId}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

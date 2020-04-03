@@ -69,6 +69,7 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -88,6 +89,11 @@ const leftChars=(value, left)=>{
 }
 const renderItemOfList=(provinceCenterDepartment, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
+=======
+
+const renderItemOfList=(provinceCenterDepartment, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   const userContext = null
   return (
     <Card key={provinceCenterDepartment.id} style={{marginTop:"10px"}}>
@@ -106,8 +112,13 @@ const renderItemOfList=(provinceCenterDepartment, targetComponent, columCount)=>
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.name}</Description> 
         <Description term={fieldLabels.founded}><div>{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</div></Description> 
+<<<<<<< HEAD
         <Description term={fieldLabels.provinceCenter}><Tag color='blue' title={`${provinceCenterDepartment.provinceCenter.id}-${provinceCenterDepartment.provinceCenter.displayName}`}>{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(provinceCenterDepartment.provinceCenter.displayName,15)}`}
         </Tag></Description>
+=======
+        <Description term={fieldLabels.provinceCenter}><div>{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterDepartment.provinceCenter.displayName}(${provinceCenterDepartment.provinceCenter.id})`}
+        </div></Description>
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
         <Description term={fieldLabels.manager} style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.manager}</Description> 
 	
         
@@ -121,13 +132,21 @@ const renderItemOfList=(provinceCenterDepartment, targetComponent, columCount)=>
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, founded, manager, provinceCenterId} = formValuesToPack
 	const provinceCenter = {id: provinceCenterId, version: 2^31}
+<<<<<<< HEAD
 	const data = {name, founded:moment(founded).valueOf(), manager, provinceCenter}
+=======
+	const data = {name, founded, manager, provinceCenter}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, founded, manager, provinceCenter} = objectToUnpack
 	const provinceCenterId = provinceCenter ? provinceCenter.id : null
+<<<<<<< HEAD
 	const data = {name, founded:moment(founded), manager, provinceCenterId}
+=======
+	const data = {name, founded, manager, provinceCenterId}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

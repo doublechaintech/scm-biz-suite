@@ -19,7 +19,11 @@ const testValues = {};
 const testValues = {
   who: '面试官',
   assessment: '小伙子不错，值得培养',
+<<<<<<< HEAD
   interviewTime: '2017-11-08',
+=======
+  interviewTime: '2019-08-03',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 }
 */
 

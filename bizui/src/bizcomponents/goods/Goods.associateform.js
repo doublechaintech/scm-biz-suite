@@ -21,8 +21,13 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
+<<<<<<< HEAD
   maxPackage: '9',
   expireTime: '2017-04-02',
+=======
+  maxPackage: '8',
+  expireTime: '2017-05-25',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',

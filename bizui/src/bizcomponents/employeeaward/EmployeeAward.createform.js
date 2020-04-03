@@ -18,7 +18,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   completeTime: '2018-07-27',
+=======
+  completeTime: '2019-10-09',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   type: '明星员工',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',

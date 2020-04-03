@@ -65,7 +65,7 @@ Id|序号
 Name|名称
 Founded|成立
 Province Center|省中心
-Manager Name|经理的名字
+Manager|经理
 Version|版本
 Province Center Employee|省中心员工
 Id|序号
@@ -186,38 +186,8 @@ Consumer Order|消费者订单
 Id|序号
 Title|头衔
 Consumer|消费者
-Confirmation|确认
-Approval|验收
-Processing|处理
-Shipment|装运
-Delivery|送货
 Store|商场
 Last Update Time|最后更新时间
-Version|版本
-Consumer Order Confirmation|客户订单确认
-Id|序号
-Who|谁
-Confirm Time|确认时间
-Version|版本
-Consumer Order Approval|消费者的订单审批
-Id|序号
-Who|谁
-Approve Time|批准时间
-Version|版本
-Consumer Order Processing|消费者的订单处理
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Consumer Order Shipment|消费者的订单发货
-Id|序号
-Who|谁
-Ship Time|船的时间
-Version|版本
-Consumer Order Delivery|消费者订单交货
-Id|序号
-Who|谁
-Delivery Time|交货时间
 Version|版本
 Consumer Order Line Item|消费者订单行项目
 Id|序号
@@ -328,43 +298,7 @@ Buyer|买方
 Seller|卖方
 Title|头衔
 Total Amount|总金额
-Confirmation|确认
-Approval|验收
-Processing|处理
-Picking|捡货
-Shipment|装运
-Delivery|送货
 Last Update Time|最后更新时间
-Version|版本
-Supply Order Confirmation|供应订单确认
-Id|序号
-Who|谁
-Confirm Time|确认时间
-Version|版本
-Supply Order Approval|供应订单审批
-Id|序号
-Who|谁
-Approve Time|批准时间
-Version|版本
-Supply Order Processing|供应订单处理
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Supply Order Picking|供应订单拣货
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Supply Order Shipment|供应货
-Id|序号
-Who|谁
-Ship Time|船的时间
-Version|版本
-Supply Order Delivery|供应订单交货
-Id|序号
-Who|谁
-Delivery Time|交货时间
 Version|版本
 Supply Order Line Item|供应订单行项目
 Id|序号
@@ -393,43 +327,7 @@ Buyer|买方
 Seller|卖方
 Title|头衔
 Total Amount|总金额
-Confirmation|确认
-Approval|验收
-Processing|处理
-Picking|捡货
-Shipment|装运
-Delivery|送货
 Last Update Time|最后更新时间
-Version|版本
-Retail Store Order Confirmation|生超订单确认
-Id|序号
-Who|谁
-Confirm Time|确认时间
-Version|版本
-Retail Store Order Approval|生超订单批准
-Id|序号
-Who|谁
-Approve Time|批准时间
-Version|版本
-Retail Store Order Processing|生超订单处理
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Retail Store Order Picking|生超订单拣货
-Id|序号
-Who|谁
-Process Time|过程的时间
-Version|版本
-Retail Store Order Shipment|生超订单出货
-Id|序号
-Who|谁
-Ship Time|船的时间
-Version|版本
-Retail Store Order Delivery|生超订单交付
-Id|序号
-Who|谁
-Delivery Time|交货时间
 Version|版本
 Retail Store Order Line Item|双链小超订单行项目
 Id|序号
@@ -527,14 +425,6 @@ Transport Task|运输任务
 Retail Store|双链小超
 Biz Order|订单
 Retail Store Order|生超的订单
-Packaging|包装
-Version|版本
-Goods Packaging|货物包装
-Id|序号
-Package Name|包的名字
-Rfid|RFID
-Package Time|包的时间
-Description|描述
 Version|版本
 Goods Movement|货物移动
 Id|序号
@@ -684,34 +574,6 @@ Name|名称
 Accounting Document Date|会计凭证日期
 Accounting Period|会计期间
 Document Type|文档类型
-Creation|创建
-Confirmation|确认
-Auditing|审计
-Posting|过账
-Version|版本
-Accounting Document Creation|会计文件的创建
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Accounting Document Confirmation|会计的确认文件
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Accounting Document Auditing|会计凭证的审核
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Accounting Document Posting|会计凭证过帐
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
 Version|版本
 Original Voucher|原始凭证
 Id|序号
@@ -721,27 +583,6 @@ Received By|受
 Voucher Type|凭证类型
 Voucher Image|凭证图像
 Belongs To|属于
-Creation|创建
-Confirmation|确认
-Auditing|审计
-Version|版本
-Original Voucher Creation|原始凭证制作
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Original Voucher Confirmation|原始凭证的确认
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
-Version|版本
-Original Voucher Auditing|原始凭证的审核
-Id|序号
-Who|谁
-Comments|评论
-Make Date|制造日期
 Version|版本
 Accounting Document Line|会计凭证行
 Id|序号
@@ -757,7 +598,7 @@ Id|序号
 Belongs To|属于
 Name|名称
 Description|描述
-Manager Name|经理的名字
+Manager|经理
 Founded|成立
 Version|版本
 Level Two Department|二级部门
@@ -869,50 +710,7 @@ Occupation|职业
 Responsible For|负责
 Current Salary Grade|目前工资等级
 Salary Account|工资账户
-Job Application|工作申请
-Profession Interview|专业面试
-Hr Interview|人力资源部面试
-Offer Approval|审批工作要约
-Offer Acceptance|接受工作要约
-Employee Boarding|员工入职
-Termination|雇佣终止
 Last Update Time|最后更新时间
-Version|版本
-Job Application|工作申请
-Id|序号
-Application Time|申请时间
-Who|谁
-Comments|评论
-Version|版本
-Profession Interview|专业面试
-Id|序号
-Who|谁
-Interview Time|面试时间
-Comments|评论
-Version|版本
-Hr Interview|人力资源部面试
-Id|序号
-Who|谁
-Interview Time|面试时间
-Comments|评论
-Version|版本
-Offer Approval|审批工作要约
-Id|序号
-Who|谁
-Approve Time|批准时间
-Comments|评论
-Version|版本
-Offer Acceptance|接受工作要约
-Id|序号
-Who|谁
-Accept Time|接受时间
-Comments|评论
-Version|版本
-Employee Boarding|员工入职
-Id|序号
-Who|谁
-Employ Time|使用时间
-Comments|评论
 Version|版本
 Instructor|讲师
 Id|序号
@@ -1052,13 +850,6 @@ Verification Code|验证码
 Verification Code Expire|验证码过期
 Last Login Time|最后登录时间
 Domain|域
-Blocking|屏蔽
-Version|版本
-Sec User Blocking|用户屏蔽
-Id|序号
-Who|谁
-Block Time|块时间
-Comments|评论
 Version|版本
 User App|用户应用程序
 Id|序号
@@ -1201,11 +992,6 @@ Transfer to Another Opening|转移到开放
 Transfer to Another Closing|转到关闭
 Transfer to Another Owner|转到老板
 Transfer to Another Consumer|转移到消费者
-Transfer to Another Confirmation|转移到确认
-Transfer to Another Approval|转移到批准
-Transfer to Another Processing|转移到处理
-Transfer to Another Shipment|转移到装运
-Transfer to Another Delivery|转移到交付
 Transfer to Another Store|转移到商店
 Transfer to Another Biz Order|转入商业订单
 Transfer to Another Biz Order|转入商业订单
@@ -1225,23 +1011,11 @@ Transfer to Another Supplier|转移到供应商
 Transfer to Another Product|转移到产品
 Transfer to Another Buyer|转移到买方
 Transfer to Another Seller|转移到卖方
-Transfer to Another Confirmation|转移到确认
-Transfer to Another Approval|转移到批准
-Transfer to Another Processing|转移到处理
-Transfer to Another Picking|转移到挑选
-Transfer to Another Shipment|转移到装运
-Transfer to Another Delivery|转移到交付
 Transfer to Another Biz Order|转入商业订单
 Transfer to Another Biz Order|转入商业订单
 Transfer to Another Biz Order|转入商业订单
 Transfer to Another Buyer|转移到买方
 Transfer to Another Seller|转移到卖方
-Transfer to Another Confirmation|转移到确认
-Transfer to Another Approval|转移到批准
-Transfer to Another Processing|转移到处理
-Transfer to Another Picking|转移到挑选
-Transfer to Another Shipment|转移到装运
-Transfer to Another Delivery|转移到交付
 Transfer to Another Biz Order|转入商业订单
 Transfer to Another Biz Order|转入商业订单
 Transfer to Another Biz Order|转入商业订单
@@ -1263,7 +1037,6 @@ Transfer to Another Transport Task|转移到运输任务
 Transfer to Another Retail Store|转移到零售店
 Transfer to Another Biz Order|转入商业订单
 Transfer to Another Retail Store Order|转移到零售商店的订单
-Transfer to Another Packaging|转移到包装
 Transfer to Another Goods|转移到商品
 Transfer to Another Warehouse|转移到仓库
 Transfer to Another Warehouse|转移到仓库
@@ -1286,14 +1059,7 @@ Transfer to Another Account Set|转帐至银行户口
 Transfer to Another Accounting Period|转入会计期间
 Transfer to Another Accounting Period|转入会计期间
 Transfer to Another Document Type|转换为文档类型
-Transfer to Another Creation|转移到创造
-Transfer to Another Confirmation|转移到确认
-Transfer to Another Auditing|转移到审计
-Transfer to Another Posting|转移到发布
 Transfer to Another Belongs To|转让给
-Transfer to Another Creation|转移到创造
-Transfer to Another Confirmation|转移到确认
-Transfer to Another Auditing|转移到审计
 Transfer to Another Belongs To|转让给
 Transfer to Another Accounting Subject|转至会计科目
 Transfer to Another Belongs To|转让给
@@ -1316,13 +1082,6 @@ Transfer to Another Department|转移到部门
 Transfer to Another Occupation|转移到职业
 Transfer to Another Responsible For|转到负责
 Transfer to Another Current Salary Grade|调到目前的薪金级别
-Transfer to Another Job Application|转职申请
-Transfer to Another Profession Interview|转职面试
-Transfer to Another Hr Interview|转到Hr面试
-Transfer to Another Offer Approval|转出报批
-Transfer to Another Offer Acceptance|转让到要约接受
-Transfer to Another Employee Boarding|转入员工寄宿制
-Transfer to Another Termination|转移到终止
 Transfer to Another Company|转移到公司
 Transfer to Another Company|转移到公司
 Transfer to Another Instructor|转移到老师
@@ -1348,7 +1107,6 @@ Transfer to Another Paying Off|转移支付
 Transfer to Another Paid For|转入付讫
 Transfer to Another Domain|转移到域
 Transfer to Another Domain|转移到域
-Transfer to Another Blocking|转移到阻塞
 Transfer to Another Sec User|传输给Sec用户
 Transfer to Another App|转移到应用程序
 Transfer to Another App|转移到应用程序

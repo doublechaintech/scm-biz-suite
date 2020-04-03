@@ -18,7 +18,11 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   qualifiedTime: '2018-08-01',
+=======
+  qualifiedTime: '2018-07-05',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',

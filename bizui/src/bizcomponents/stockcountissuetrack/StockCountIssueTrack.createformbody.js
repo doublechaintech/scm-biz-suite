@@ -18,7 +18,11 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
+<<<<<<< HEAD
   countTime: '2018-11-22',
+=======
+  countTime: '2017-03-07',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }

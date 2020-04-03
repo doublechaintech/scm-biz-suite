@@ -1,13 +1,15 @@
 
 import React from 'react'
 import { Link } from 'dva/router'
+<<<<<<< HEAD
 import { Icon, Divider, Avatar, Card, Col,Tag} from 'antd'
 
 
+=======
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 import moment from 'moment'
 import ImagePreview from '../components/ImagePreview'
 import appLocaleName from './Locale.tool'
-
 
 const defaultRenderTextCell=(value, record)=>{
 	const userContext = null

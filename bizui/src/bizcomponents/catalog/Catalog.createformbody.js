@@ -18,8 +18,13 @@ const testValues = {};
 /*
 const testValues = {
   name: '水果蔬菜',
+<<<<<<< HEAD
   subCount: '10',
   amount: '9.59',
+=======
+  subCount: '9',
+  amount: '7.85',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   ownerId: 'RSCC000001',
 }
 */

@@ -89,6 +89,7 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -108,6 +109,11 @@ const leftChars=(value, left)=>{
 }
 const renderItemOfList=(goods, targetComponent, columCount)=>{
   const displayColumnsCount = columCount || 4
+=======
+
+const renderItemOfList=(goods, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 2
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   const userContext = null
   return (
     <Card key={goods.id} style={{marginTop:"10px"}}>
@@ -167,7 +173,11 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const retailStore = {id: retailStoreId, version: 2^31}
 	const bizOrder = {id: bizOrderId, version: 2^31}
 	const retailStoreOrder = {id: retailStoreOrderId, version: 2^31}
+<<<<<<< HEAD
 	const data = {name, rfid, uom, maxPackage, expireTime:moment(expireTime).valueOf(), sku, receivingSpace, goodsAllocation, smartPallet, shippingSpace, transportTask, retailStore, bizOrder, retailStoreOrder}
+=======
+	const data = {name, rfid, uom, maxPackage, expireTime, sku, receivingSpace, goodsAllocation, smartPallet, shippingSpace, transportTask, retailStore, bizOrder, retailStoreOrder}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
@@ -181,7 +191,11 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const retailStoreId = retailStore ? retailStore.id : null
 	const bizOrderId = bizOrder ? bizOrder.id : null
 	const retailStoreOrderId = retailStoreOrder ? retailStoreOrder.id : null
+<<<<<<< HEAD
 	const data = {name, rfid, uom, maxPackage, expireTime:moment(expireTime), skuId, receivingSpaceId, goodsAllocationId, smartPalletId, shippingSpaceId, transportTaskId, retailStoreId, bizOrderId, retailStoreOrderId}
+=======
+	const data = {name, rfid, uom, maxPackage, expireTime, skuId, receivingSpaceId, goodsAllocationId, smartPalletId, shippingSpaceId, transportTaskId, retailStoreId, bizOrderId, retailStoreOrderId}
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

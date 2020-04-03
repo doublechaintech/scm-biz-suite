@@ -1,0 +1,31 @@
+retailscm-biz-suite
+
+
+
+
+cat stat.sql | sed 's/__end__/'"$(selectedDate)"'/g'  > today.sql
+mysql -uroot -p0254891276 -h 127.0.0.1 moyi  < today.sql > today.log
+
+
+cat stat7.sql | sed 's/__end__/'"$(selectedDate)"'/g'  > today.sql
+echo "last 7 daysi -------------------------------------------------"  >> today.log
+mysql -uroot -p0254891276 -h 127.0.0.1 moyi  < today.sql >> today.log
+
+cat stat28.sql | sed 's/__end__/'"$(selectedDate)"'/g'  > today.sql
+echo "last 28 days -------------------------------------------------"  >> today.log
+mysql -uroot -p0254891276 -h 127.0.0.1 moyi  < today.sql >> today.log
+
+cat stat30.sql | sed 's/__end__/'"$(selectedDate)"'/g'  > today.sql
+echo "last 30 days ------------------------------------------------"  >> today.log
+mysql -uroot -p0254891276 -h 127.0.0.1 moyi  < today.sql >> today.log
+
+cat stat31.sql | sed 's/__end__/'"$(selectedDate)"'/g'  > today.sql
+echo "last 31 days -----------------------------------------------"  >> today.log
+mysql -uroot -p0254891276 -h 127.0.0.1 moyi  < today.sql >> today.log
+
+./mails philip_chang@163.com "DAILY REPORT OF $(selectedDate)" @today.log
+./mails 110014047@qq.com "DAILY REPORT OF $(selectedDate)" @today.log
+./mails 112486947@qq.com "DAILY REPORT OF $(selectedDate)" @today.log
+./mails 121573137@qq.com "DAILY REPORT OF $(selectedDate)" @today.log
+./mails 1944932531@qq.com "DAILY REPORT OF $(selectedDate)" @today.log
+./mails kalaliu@aliyun.com "DAILY REPORT OF $(selectedDate)" @today.log

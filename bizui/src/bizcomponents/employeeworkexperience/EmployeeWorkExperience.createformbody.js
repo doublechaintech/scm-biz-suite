@@ -17,8 +17,13 @@ const {fieldLabels} = EmployeeWorkExperienceBase
 const testValues = {};
 /*
 const testValues = {
+<<<<<<< HEAD
   start: '2019-02-27',
   end: '2017-11-19',
+=======
+  start: '2018-06-01',
+  end: '2017-01-21',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',

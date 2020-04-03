@@ -18,7 +18,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超成都办事处',
+<<<<<<< HEAD
   founded: '2020-01-02',
+=======
+  founded: '2018-10-09',
+>>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   belongsToId: 'RSPC000001',
 }
 */
