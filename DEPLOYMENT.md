@@ -7,10 +7,22 @@
 
 ## 目录
 
-[复制代码到本地](#复制代码到本地)
-[编译部署前端](#编译部署前端 )
-[安装nodejs](#安装nodejs)
-[安装yarn](#安装yarn)
+* [复制代码到本地](#复制代码到本地)
+* [编译部署前端](#编译部署前端 )
+* [安装nodejs](#安装nodejs)
+* [安装yarn](#安装yarn)
+* [编译](#编译)
+* [编译和部署后端](#编译和部署后端)
+* [安装基础环境](#安装基础环境)
+* [下载并且解压Resin](#下载并且解压Resin)
+* [安装docker](#安装docker,并且利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker)
+* [安装和运行MYSQL和Redis](#安装和运行MYSQL和Redis)
+* [编译](#编译)
+* [启动Resin](#启动Resin)
+* [访问后台](#访问后台)
+* [测试前端](#测试前端)
+* [配置nginx](#配置nginx（ 非生产环境的话，不是必要步骤）)
+
 
 
 
@@ -40,7 +52,7 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install yarn
 ```
-## 编译
+### 编译
 前端使用yarn编译, 由于项目庞大, 编译的计算机至少具有空闲6G~8G内存，而且必须设置额外的两个参数nodejs参数
 * NODE_OPTIONS=--max-old-space-size=10230，增加编译内容， 或者安装并且下载 increase-memory-limit 
 * PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chromium防止下载时间过长
@@ -95,7 +107,7 @@ rm -rf node_modules && yarn install && yarn build
 
 
 
-## 后端
+## 编译和部署后端
 
 必须的部分
 * servlet容器Resin（Spring Boot），
