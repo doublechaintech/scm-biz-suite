@@ -1,6 +1,30 @@
+
+
+
 # 零售供应链中台基础系统 运行指南
 
 系统分为前端架构和后台两个部分, 以下指令都是基于ubuntu linux 16.04LTS和ubuntu linux 18.04LTS，支持使用resin和SpringBoot来部署，不支持Tomcat服务器的war部署方式。
+
+## 目录
+
+* [复制代码到本地](#复制代码到本地)
+	* [编译部署前端](#编译部署前端 )
+	* [安装nodejs](#安装nodejs)
+	* [安装yarn](#安装yarn)
+	* [编译前端](#编译前端)
+* [编译和部署后端](#编译和部署后端)
+	* [安装基础环境](#安装基础环境)
+	* [下载并且解压Resin](#下载并且解压Resin)
+	* [安装docker](#安装docker)
+	* [安装和运行MYSQL和Redis](#安装和运行MYSQL和Redis)
+	* [编译后端](#编译后端)
+	* [启动Resin](#启动Resin)
+	* [访问后台](#访问后台)
+* [体验和优化](#体验和优化)
+	* [测试前端](#测试前端)
+	* [配置nginx](#配置nginx)
+	* [SpringBoot开发指南](#SpringBoot开发指南)
+
 
 ## 复制代码到本地
 
@@ -9,7 +33,9 @@ git clone https://github.com/doublechaintech/retailscm-biz-suite.git
 ```
 
 
-## 前端 
+## 编译部署前端 
+
+
 
 ### 安装nodejs
 ```
@@ -17,14 +43,16 @@ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-## 安装yarn 
+### 安装yarn 
+
+注意：前端编译涉及到没有移植版本的x64/x86代码无法在在鲲鹏服务器上完成
 
 ```
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install yarn
 ```
-## 编译
+### 编译前端
 前端使用yarn编译, 由于项目庞大, 编译的计算机至少具有空闲6G~8G内存，而且必须设置额外的两个参数nodejs参数
 * NODE_OPTIONS=--max-old-space-size=10230，增加编译内容， 或者安装并且下载 increase-memory-limit 
 * PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1，不下载chromium防止下载时间过长
@@ -79,7 +107,7 @@ rm -rf node_modules && yarn install && yarn build
 
 
 
-## 后端
+## 编译和部署后端
 
 必须的部分
 * servlet容器Resin（Spring Boot），
@@ -142,7 +170,10 @@ Available Java Versions
 
 https://caucho.com/products/resin/download/3-1/gpl
 
-### 安装docker,并且利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker
+### 安装docker
+
+利用国内镜像加速, 登出之后组权限才生效，此后就有以普通用户运行docker
+
 ```
 sudo curl -sSL https://get.daocloud.io/docker | sh 
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://84763bc6.m.daocloud.io 
@@ -161,8 +192,17 @@ exit
 ```
 docker run -d -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
 docker run -d --name  demo_redis -p 6379:6379 redis
- 
 ```
+
+另外，如果需要在鲲鹏服务器上，docker命令有所不同，跟我们常用服务器不同，鲲鹏服务器是ARM64架构
+
+```
+docker run --name demo-redis -d arm64v8/redis
+docker run --name demo-mariadb -e MYSQL_ROOT_PASSWORD=0254891276 -d arm64v8/mariadb
+```
+
+
+
 ### 修改MYSQL字符集（非生产环境可以忽略此步骤）
 
 请注意，mysql5.7默认的字符集不是utf8mb4, 需求修改相关配置来支持utf8mb4
@@ -196,7 +236,7 @@ cd retailscm-biz-suite && mysql -uroot -p0254891276 -h 127.0.0.1 < bizcore/WEB-I
 
 
 
-### 编译
+### 编译后端
 
 java项目使用gradle来编译，为了快速开发， 我们只是把java文件编译成class，其他的目录结构保持不变，建议把输出目录直接设置为 classes并且使用resin的开发模式，这样，当class发生变更的时候，Resin会自动重新装载新的类，无需重新编译和启动，开发体验和写PHP类似。
 
@@ -232,6 +272,9 @@ http://localhost:8080/retailscm/secUserManager/home/
 
 云服务器记得打开端口8080, 此时没有文件启用压缩，使用1M的带宽装载速度会比较慢。
 
+
+## 体验和优化
+
 ### 测试前端
 
 ```
@@ -242,7 +285,9 @@ cd  retailscm-biz-suite/bizui && cp -R dist/* ~/resin-3.1.16/webapps/ROOT/admin
 
 
 
-### 配置nginx（ 非生产环境的话，不是必要步骤）
+### 配置nginx
+
+非生产环境的话，不是必要步骤
 
 这一步非常简单，拷贝下面内容文件到 ubuntu上 /etc/nginx/sites-enabled/demo, 然后 service ngnix restart
 请注意替换服务器名字

@@ -9,8 +9,33 @@
 
 智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
+## 目录
 
-[部署指南文档](/DEPLOYMENT.md)
+* [核心特性](#核心特性)
+  * [项目概念](#项目概念 )
+* [如何使用](#核心特性)
+* [许可](#许可)
+* [技术支持](#技术支持)
+* [兼容性](#兼容性)
+* [二次开发](#核心特性)
+* [部署](#核心特性)
+* [在线演示系统](#核心特性)
+  * [总部及分支机构运营](#总部及分支机构运营)
+  * [业务扩展](#业务扩展)
+  * [落地业务运营](#落地业务运营)
+  * [采购和供应商管理](#采购和供应商管理)
+  * [仓配一体化管理](#仓配一体化管理)
+  * [人力资源管理](#人力资源管理)
+  * [用户权限管理](#用户权限管理)
+* [组成部分](#组成部分)
+  * [bizcore后端](#bizcore后端) 
+  * [bizui中台界面](#bizui中台界面)
+  * [数据中台](#数据中台)
+  * [配套的数据大屏](#配套的数据大屏)
+* [参与本项目](#参与本项目)
+ 
+
+
 
 
 ## 核心特性
@@ -132,7 +157,8 @@
 
 演示地址：https://demo.doublechaintech.com/admin/retailscm/index.html
 
-## bizcore: 服务器端核心代码项目， Business Core
+## 组成部分
+### bizcore: 服务器端核心代码项目， Business Core
 
 后端 Java/Spring/Redis/MySQL/ArrangoDB/Kafka
 Java 源代码在bizcore/WEB-INF/ 下
@@ -146,7 +172,7 @@ retailscm_core_src: 零售业务核心代码
 retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增加类，继承retail_core_src的相应类，可以调用或者重写父类，core里面的类提供大量可以重用的方法。
 ````
 
-## bizui：中台集成界面项目， Business UI，不是闭嘴！
+### bizui：中台集成界面项目， Business UI，不是闭嘴！
 前端 React/dvajs/antd/echarts/Redux
 
 
@@ -154,7 +180,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 ![ScreenShot](/doc/root-app.jpg)
 
 
-## 数据中台（独立产品在本项目应用）
+### 数据中台（独立产品在本项目应用）
 
 * 新一代图计算实时引擎
 * 数据分析结果管理与分享
@@ -169,25 +195,25 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 ![ScreenShot](/doc/dmos002.jpg)
 ![ScreenShot](/doc/dmos003.jpg)
 
-## 配套的数据大屏
+### 配套的数据大屏
 
 ![ScreenShot](/doc/datascreen.png)
 
 
-## 核心功能
+### 核心功能
 * 平台管理，平台鸟瞰视图
 * 业务开拓管理（CRM），管理联系，销售进度，完成合伙人转化
 * 小超会员管理，会员管理订单，支付，邮寄地址等
 * 人力资源管理（HRM），可以管理入职，绩效考核，工资发放，经验，教育经历，培训考试记录
 
-## 额外数据库支持
+### 额外数据库支持
 
 目前已经支持PGSQL9.5+和GBASE 8S
 
 * PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html, 密码为: admin123
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
 
-## 讨论和参与本项目
+## 参与本项目
 <img src="/doc/philip-wechat-qr.jpeg" alt="WechatQRCode" title="WechatQRCode" width="150"  />
 
 * 探讨供应链发展趋势
