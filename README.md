@@ -9,7 +9,7 @@
 
 智能化开发的简单例子，请参见[医生排班系统](https://github.com/doublechaintech/his-biz-suite)
 
-##目录
+## 目录
 
 * [核心特性](#核心特性)
   * [项目概念](#项目概念 )
