@@ -161,8 +161,18 @@ exit
 ```
 docker run -d -e MYSQL_ROOT_PASSWORD=0254891276 -p 3306:3306 --name demo_db mysql:5.7
 docker run -d --name  demo_redis -p 6379:6379 redis
- 
 ```
+
+另外，在鲲鹏服务器上，部署Redis和Mysql的命令如下
+
+```
+docker run --name demo-redis -d arm64v8/redis
+docker run --name demo-mariadb -e MYSQL_ROOT_PASSWORD=0254891276 -d arm64v8/mariadb
+
+```
+
+
+
 ### 修改MYSQL字符集（非生产环境可以忽略此步骤）
 
 请注意，mysql5.7默认的字符集不是utf8mb4, 需求修改相关配置来支持utf8mb4
