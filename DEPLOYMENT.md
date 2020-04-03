@@ -189,7 +189,7 @@ default-time-zone =+08:00
 MySQL的初始化脚本问题文件在 bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql下面
 
 ```
-cd retailscm-biz-suite && mysql -uroot -p 0254891276 -h 127.0.0.1 < bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql
+cd retailscm-biz-suite && mysql -uroot -p0254891276 -h 127.0.0.1 < bizcore/WEB-INF/retailscm_core_src/META-INF/retailscm_mysql.sql
 ```
 
 配置文件在bizcore/WEB-INF/retailscm_custom_src/META-INF/infra.properties里面
