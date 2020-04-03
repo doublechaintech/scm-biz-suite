@@ -32,7 +32,7 @@
   * [bizui中台界面](#bizui中台界面)
   * [数据中台](#数据中台)
   * [配套的数据大屏](#配套的数据大屏)
-*[参与本项目]
+*[参与本项目](#参与本项目)
  
 
 
@@ -213,7 +213,7 @@ retailscm_custom_src: 零售业务定制代码，如果要定制，在此处增�
 * PGSQL版本 https://demo.doublechaintech.com/admin/retailscmpgsql/index.html, 密码为: admin123
 * GBASE版本 https://demo.doublechaintech.com/admin/retailscmgbase/index.html, 密码为: DoubleChain!y1
 
-## 讨论和参与本项目
+## 参与本项目
 <img src="/doc/philip-wechat-qr.jpeg" alt="WechatQRCode" title="WechatQRCode" width="150"  />
 
 * 探讨供应链发展趋势
