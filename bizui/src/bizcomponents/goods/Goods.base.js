@@ -89,7 +89,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -107,16 +106,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(goods, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(goods, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!goods){
+  	return null
+  }
+  if(!goods.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={goods.id} style={{marginTop:"10px"}}>
+    <Card key={`goods-${goods.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -135,24 +157,24 @@ const renderItemOfList=(goods, targetComponent, columCount)=>{
         <Description term={fieldLabels.uom} style={{wordBreak: 'break-all'}}>{goods.uom}</Description> 
         <Description term={fieldLabels.maxPackage}><div style={{"color":"red"}}>{goods.maxPackage}</div></Description> 
         <Description term={fieldLabels.expireTime}><div>{ moment(goods.expireTime).format('YYYY-MM-DD')}</div></Description> 
-        <Description term={fieldLabels.sku}><Tag color='blue' title={`${goods.sku.id}-${goods.sku.displayName}`}>{goods.sku==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.sku.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.receivingSpace}><Tag color='blue' title={`${goods.receivingSpace.id}-${goods.receivingSpace.displayName}`}>{goods.receivingSpace==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.receivingSpace.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.goodsAllocation}><Tag color='blue' title={`${goods.goodsAllocation.id}-${goods.goodsAllocation.displayName}`}>{goods.goodsAllocation==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.goodsAllocation.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.smartPallet}><Tag color='blue' title={`${goods.smartPallet.id}-${goods.smartPallet.displayName}`}>{goods.smartPallet==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.smartPallet.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.shippingSpace}><Tag color='blue' title={`${goods.shippingSpace.id}-${goods.shippingSpace.displayName}`}>{goods.shippingSpace==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.shippingSpace.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.transportTask}><Tag color='blue' title={`${goods.transportTask.id}-${goods.transportTask.displayName}`}>{goods.transportTask==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.transportTask.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.retailStore}><Tag color='blue' title={`${goods.retailStore.id}-${goods.retailStore.displayName}`}>{goods.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.retailStore.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.bizOrder}><Tag color='blue' title={`${goods.bizOrder.id}-${goods.bizOrder.displayName}`}>{goods.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.bizOrder.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.retailStoreOrder}><Tag color='blue' title={`${goods.retailStoreOrder.id}-${goods.retailStoreOrder.displayName}`}>{goods.retailStoreOrder==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goods.retailStoreOrder.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.sku}>{renderReferenceItem(goods.sku)}</Description>
+
+        <Description term={fieldLabels.receivingSpace}>{renderReferenceItem(goods.receivingSpace)}</Description>
+
+        <Description term={fieldLabels.goodsAllocation}>{renderReferenceItem(goods.goodsAllocation)}</Description>
+
+        <Description term={fieldLabels.smartPallet}>{renderReferenceItem(goods.smartPallet)}</Description>
+
+        <Description term={fieldLabels.shippingSpace}>{renderReferenceItem(goods.shippingSpace)}</Description>
+
+        <Description term={fieldLabels.transportTask}>{renderReferenceItem(goods.transportTask)}</Description>
+
+        <Description term={fieldLabels.retailStore}>{renderReferenceItem(goods.retailStore)}</Description>
+
+        <Description term={fieldLabels.bizOrder}>{renderReferenceItem(goods.bizOrder)}</Description>
+
+        <Description term={fieldLabels.retailStoreOrder}>{renderReferenceItem(goods.retailStoreOrder)}</Description>
+
 	
         
       </DescriptionList>
@@ -173,11 +195,7 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const retailStore = {id: retailStoreId, version: 2^31}
 	const bizOrder = {id: bizOrderId, version: 2^31}
 	const retailStoreOrder = {id: retailStoreOrderId, version: 2^31}
-<<<<<<< HEAD
 	const data = {name, rfid, uom, maxPackage, expireTime:moment(expireTime).valueOf(), sku, receivingSpace, goodsAllocation, smartPallet, shippingSpace, transportTask, retailStore, bizOrder, retailStoreOrder}
-=======
-	const data = {name, rfid, uom, maxPackage, expireTime, sku, receivingSpace, goodsAllocation, smartPallet, shippingSpace, transportTask, retailStore, bizOrder, retailStoreOrder}
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
@@ -191,11 +209,7 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const retailStoreId = retailStore ? retailStore.id : null
 	const bizOrderId = bizOrder ? bizOrder.id : null
 	const retailStoreOrderId = retailStoreOrder ? retailStoreOrder.id : null
-<<<<<<< HEAD
 	const data = {name, rfid, uom, maxPackage, expireTime:moment(expireTime), skuId, receivingSpaceId, goodsAllocationId, smartPalletId, shippingSpaceId, transportTaskId, retailStoreId, bizOrderId, retailStoreOrderId}
-=======
-	const data = {name, rfid, uom, maxPackage, expireTime, skuId, receivingSpaceId, goodsAllocationId, smartPalletId, shippingSpaceId, transportTaskId, retailStoreId, bizOrderId, retailStoreOrderId}
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

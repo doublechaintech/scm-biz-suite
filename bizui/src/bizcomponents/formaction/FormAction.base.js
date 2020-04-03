@@ -72,7 +72,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -90,16 +89,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(formAction, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(formAction, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!formAction){
+  	return null
+  }
+  if(!formAction.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={formAction.id} style={{marginTop:"10px"}}>
+    <Card key={`formAction-${formAction.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>

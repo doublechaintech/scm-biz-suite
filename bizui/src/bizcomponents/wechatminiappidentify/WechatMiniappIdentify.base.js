@@ -87,11 +87,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
+
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(wechatMiniappIdentify, targetComponent, columCount)=>{
+  
+  if(!wechatMiniappIdentify){
+  	return null
+  }
+  if(!wechatMiniappIdentify.id){
+  	return null
+  }
+  
+  
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={wechatMiniappIdentify.id} style={{marginTop:"10px"}}>
+    <Card key={`wechatMiniappIdentify-${wechatMiniappIdentify.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -107,8 +135,8 @@ const renderItemOfList=(wechatMiniappIdentify, targetComponent, columCount)=>{
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{wechatMiniappIdentify.id}</Description> 
         <Description term={fieldLabels.openId} style={{wordBreak: 'break-all'}}>{wechatMiniappIdentify.openId}</Description> 
         <Description term={fieldLabels.appId} style={{wordBreak: 'break-all'}}>{wechatMiniappIdentify.appId}</Description> 
-        <Description term={fieldLabels.secUser}><Tag color='blue' title={`${wechatMiniappIdentify.secUser.id}-${wechatMiniappIdentify.secUser.displayName}`}>{wechatMiniappIdentify.secUser==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(wechatMiniappIdentify.secUser.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.secUser}>{renderReferenceItem(wechatMiniappIdentify.secUser)}</Description>
+
         <Description term={fieldLabels.createTime}><div>{ moment(wechatMiniappIdentify.createTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
         <Description term={fieldLabels.lastLoginTime}><div>{ moment(wechatMiniappIdentify.lastLoginTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	

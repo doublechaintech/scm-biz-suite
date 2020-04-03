@@ -19,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '购买积分',
-<<<<<<< HEAD
-  point: '18',
-=======
-  point: '19',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  point: '20',
   ownerId: 'RSM000001',
 }
 */

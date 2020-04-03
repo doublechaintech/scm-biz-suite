@@ -76,7 +76,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -94,16 +93,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(potentialCustomerContact, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(potentialCustomerContact, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!potentialCustomerContact){
+  	return null
+  }
+  if(!potentialCustomerContact.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={potentialCustomerContact.id} style={{marginTop:"10px"}}>
+    <Card key={`potentialCustomerContact-${potentialCustomerContact.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -120,12 +142,12 @@ const renderItemOfList=(potentialCustomerContact, targetComponent, columCount)=>
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{potentialCustomerContact.name}</Description> 
         <Description term={fieldLabels.contactDate}><div>{ moment(potentialCustomerContact.contactDate).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.contactMethod} style={{wordBreak: 'break-all'}}>{potentialCustomerContact.contactMethod}</Description> 
-        <Description term={fieldLabels.potentialCustomer}><Tag color='blue' title={`${potentialCustomerContact.potentialCustomer.id}-${potentialCustomerContact.potentialCustomer.displayName}`}>{potentialCustomerContact.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(potentialCustomerContact.potentialCustomer.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.cityPartner}><Tag color='blue' title={`${potentialCustomerContact.cityPartner.id}-${potentialCustomerContact.cityPartner.displayName}`}>{potentialCustomerContact.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(potentialCustomerContact.cityPartner.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.contactTo}><Tag color='blue' title={`${potentialCustomerContact.contactTo.id}-${potentialCustomerContact.contactTo.displayName}`}>{potentialCustomerContact.contactTo==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(potentialCustomerContact.contactTo.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.potentialCustomer}>{renderReferenceItem(potentialCustomerContact.potentialCustomer)}</Description>
+
+        <Description term={fieldLabels.cityPartner}>{renderReferenceItem(potentialCustomerContact.cityPartner)}</Description>
+
+        <Description term={fieldLabels.contactTo}>{renderReferenceItem(potentialCustomerContact.contactTo)}</Description>
+
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{potentialCustomerContact.description}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(potentialCustomerContact.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	

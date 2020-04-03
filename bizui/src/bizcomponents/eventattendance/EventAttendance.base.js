@@ -68,7 +68,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -86,16 +85,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(eventAttendance, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(eventAttendance, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!eventAttendance){
+  	return null
+  }
+  if(!eventAttendance.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={eventAttendance.id} style={{marginTop:"10px"}}>
+    <Card key={`eventAttendance-${eventAttendance.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -110,10 +132,10 @@ const renderItemOfList=(eventAttendance, targetComponent, columCount)=>{
       <DescriptionList  key={eventAttendance.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{eventAttendance.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{eventAttendance.name}</Description> 
-        <Description term={fieldLabels.potentialCustomer}><Tag color='blue' title={`${eventAttendance.potentialCustomer.id}-${eventAttendance.potentialCustomer.displayName}`}>{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(eventAttendance.potentialCustomer.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.cityEvent}><Tag color='blue' title={`${eventAttendance.cityEvent.id}-${eventAttendance.cityEvent.displayName}`}>{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(eventAttendance.cityEvent.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.potentialCustomer}>{renderReferenceItem(eventAttendance.potentialCustomer)}</Description>
+
+        <Description term={fieldLabels.cityEvent}>{renderReferenceItem(eventAttendance.cityEvent)}</Description>
+
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{eventAttendance.description}</Description> 
 	
         

@@ -356,7 +356,7 @@ class UiActionUpdateForm extends Component {
                   	initialValue: selectedRow.extraData,
                     rules: [{  required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <TextArea rows={4} placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <TextArea rows={16} placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>

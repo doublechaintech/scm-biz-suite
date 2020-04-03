@@ -85,11 +85,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
+
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(treeNode, targetComponent, columCount)=>{
+  
+  if(!treeNode){
+  	return null
+  }
+  if(!treeNode.id){
+  	return null
+  }
+  
+  
   const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={treeNode.id} style={{marginTop:"10px"}}>
+    <Card key={`treeNode-${treeNode.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>

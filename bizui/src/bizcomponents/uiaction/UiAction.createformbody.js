@@ -56,18 +56,22 @@ class UiActionCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -220,7 +224,7 @@ class UiActionCreateFormBody extends Component {
                   {getFieldDecorator('extraData', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <TextArea rows={4} placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <TextArea rows={16} placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>
@@ -241,7 +245,7 @@ class UiActionCreateFormBody extends Component {
                 <ImageComponent
                   buttonTitle={fieldLabels.imageUrl}
                   handlePreview={this.handlePreview}
-                  handleChange={event => this.handleChange(event, 'imageUrl')}
+                  handleChange={event => this.handleImageChange(event, 'imageUrl')}
                   fileList={convertedImagesValues.imageUrl}
                 />
               </Col>

@@ -19,6 +19,8 @@ const testValues = {};
 const testValues = {
   title: '文章',
   brief: 'Article',
+  icon: 'icon_edit',
+  viewGroup: 'icon_edit',
   linkToUrl: '/section/article/',
   page: '${page}',
 }
@@ -52,18 +54,22 @@ class SectionCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -144,6 +150,26 @@ class SectionCreateFormBody extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large"  placeHolder={fieldLabels.brief} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.icon} {...formItemLayout}>
+                  {getFieldDecorator('icon', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.icon} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.viewGroup} {...formItemLayout}>
+                  {getFieldDecorator('viewGroup', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.viewGroup} />
                   )}
                 </Form.Item>
               </Col>

@@ -827,6 +827,53 @@ Paid For|支付
 Paid Time|支付时间
 Amount|金额
 Version|版本
+Mobile App|手机应用程序
+Id|序号
+Name|名称
+Version|版本
+Page|页面
+Id|序号
+Page Title|页面标题
+Link To Url|链接网址
+Page Type|页面类型
+Mobile App|手机应用程序
+Version|版本
+Page Type|页面类型
+Id|序号
+Name|名称
+Code|代码
+Mobile App|手机应用程序
+Footer Tab|页脚选项卡
+Version|版本
+Slide|轮播内容
+Id|序号
+Display Order|顺序
+Name|名称
+Image Url|图片链接
+Video Url|视频网址
+Link To Url|链接网址
+Page|页面
+Version|版本
+Ui Action|用户界面操作
+Id|序号
+Code|代码
+Icon|图标
+Title|头衔
+Brief|短暂的
+Image Url|图片链接
+Link To Url|链接网址
+Extra Data|额外的数据
+Page|页面
+Version|版本
+Section|板块
+Id|序号
+Title|头衔
+Brief|短暂的
+Icon|图标
+View Group|视图组
+Link To Url|链接网址
+Page|页面
+Version|版本
 User Domain|用户域
 Id|序号
 Name|名称
@@ -960,6 +1007,29 @@ Name|名称
 Type|类型
 Image|图片
 Container|容器
+Version|版本
+Wechat Workapp Identify|微信Workapp识别
+Id|序号
+Corp Id|公司标识
+User Id|用户Id
+Sec User|SEC的用户
+Create Time|创建时间
+Last Login Time|最后登录时间
+Version|版本
+Wechat Miniapp Identify|微信Miniapp识别
+Id|序号
+Open Id|开放Id
+App Id|应用程序Id
+Sec User|SEC的用户
+Create Time|创建时间
+Last Login Time|最后登录时间
+Version|版本
+Tree Node|树节点
+Id|序号
+Node Id|节点Id
+Node Type|节点类型
+Left Value|左值
+Right Value|正确的价值
 Version|版本
 Transfer to Another Owner|转到老板
 Transfer to Another Catalog|转到目录
@@ -1105,6 +1175,11 @@ Transfer to Another Employee|转移到员工
 Transfer to Another Current Salary Grade|调到目前的薪金级别
 Transfer to Another Paying Off|转移支付
 Transfer to Another Paid For|转入付讫
+Transfer to Another Page Type|转换为页面类型
+Transfer to Another Mobile App|转移到移动App
+Transfer to Another Mobile App|转移到移动App
+Transfer to Another Page|转到页
+Transfer to Another Page|转到页
 Transfer to Another Domain|转移到域
 Transfer to Another Domain|转移到域
 Transfer to Another Sec User|传输给Sec用户
@@ -1117,4 +1192,6 @@ Transfer to Another Form|转移到形式
 Transfer to Another Form|转移到形式
 Transfer to Another Form|转移到形式
 Transfer to Another Container|转移到容器
+Transfer to Another Sec User|传输给Sec用户
+Transfer to Another Sec User|传输给Sec用户
 

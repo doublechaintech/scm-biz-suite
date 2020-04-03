@@ -66,7 +66,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -84,16 +83,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(termination, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(termination, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!termination){
+  	return null
+  }
+  if(!termination.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={termination.id} style={{marginTop:"10px"}}>
+    <Card key={`termination-${termination.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -107,10 +129,10 @@ const renderItemOfList=(termination, targetComponent, columCount)=>{
 	
       <DescriptionList  key={termination.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{termination.id}</Description> 
-        <Description term={fieldLabels.reason}><Tag color='blue' title={`${termination.reason.id}-${termination.reason.displayName}`}>{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(termination.reason.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.type}><Tag color='blue' title={`${termination.type.id}-${termination.type.displayName}`}>{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(termination.type.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.reason}>{renderReferenceItem(termination.reason)}</Description>
+
+        <Description term={fieldLabels.type}>{renderReferenceItem(termination.type)}</Description>
+
         <Description term={fieldLabels.comment} style={{wordBreak: 'break-all'}}>{termination.comment}</Description> 
 	
         

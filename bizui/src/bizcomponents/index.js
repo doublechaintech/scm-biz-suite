@@ -1590,6 +1590,96 @@ import PayingOffProfile from './payingoff/PayingOff.profile';
 import PayingOffCreateFormBody from './payingoff/PayingOff.createformbody';
 import PayingOffService from './payingoff/PayingOff.service';
 import PayingOffUpdateForm from './payingoff/PayingOff.updateform';
+import MobileAppBase from './mobileapp/MobileApp.base';
+import MobileAppBizApp from './mobileapp/MobileApp.app';
+import MobileAppModel from './mobileapp/MobileApp.model';
+import MobileAppDashboard from './mobileapp/MobileApp.dashboard';
+import MobileAppModalTable from './mobileapp/MobileApp.modaltable';
+import MobileAppSearch from './mobileapp/MobileApp.search';
+import MobileAppSearchForm from './mobileapp/MobileApp.searchform';
+import MobileAppCreateForm from './mobileapp/MobileApp.createform';
+import MobileAppAssociateForm from './mobileapp/MobileApp.associateform';
+import MobileAppTable from './mobileapp/MobileApp.table';
+import MobileAppPermission from './mobileapp/MobileApp.permission';
+import MobileAppProfile from './mobileapp/MobileApp.profile';
+import MobileAppCreateFormBody from './mobileapp/MobileApp.createformbody';
+import MobileAppService from './mobileapp/MobileApp.service';
+import MobileAppUpdateForm from './mobileapp/MobileApp.updateform';
+import PageBase from './page/Page.base';
+import PageBizApp from './page/Page.app';
+import PageModel from './page/Page.model';
+import PageDashboard from './page/Page.dashboard';
+import PageModalTable from './page/Page.modaltable';
+import PageSearch from './page/Page.search';
+import PageSearchForm from './page/Page.searchform';
+import PageCreateForm from './page/Page.createform';
+import PageAssociateForm from './page/Page.associateform';
+import PageTable from './page/Page.table';
+import PagePermission from './page/Page.permission';
+import PageProfile from './page/Page.profile';
+import PageCreateFormBody from './page/Page.createformbody';
+import PageService from './page/Page.service';
+import PageUpdateForm from './page/Page.updateform';
+import PageTypeBase from './pagetype/PageType.base';
+import PageTypeBizApp from './pagetype/PageType.app';
+import PageTypeModel from './pagetype/PageType.model';
+import PageTypeDashboard from './pagetype/PageType.dashboard';
+import PageTypeModalTable from './pagetype/PageType.modaltable';
+import PageTypeSearch from './pagetype/PageType.search';
+import PageTypeSearchForm from './pagetype/PageType.searchform';
+import PageTypeCreateForm from './pagetype/PageType.createform';
+import PageTypeAssociateForm from './pagetype/PageType.associateform';
+import PageTypeTable from './pagetype/PageType.table';
+import PageTypePermission from './pagetype/PageType.permission';
+import PageTypeProfile from './pagetype/PageType.profile';
+import PageTypeCreateFormBody from './pagetype/PageType.createformbody';
+import PageTypeService from './pagetype/PageType.service';
+import PageTypeUpdateForm from './pagetype/PageType.updateform';
+import SlideBase from './slide/Slide.base';
+import SlideBizApp from './slide/Slide.app';
+import SlideModel from './slide/Slide.model';
+import SlideDashboard from './slide/Slide.dashboard';
+import SlideModalTable from './slide/Slide.modaltable';
+import SlideSearch from './slide/Slide.search';
+import SlideSearchForm from './slide/Slide.searchform';
+import SlideCreateForm from './slide/Slide.createform';
+import SlideAssociateForm from './slide/Slide.associateform';
+import SlideTable from './slide/Slide.table';
+import SlidePermission from './slide/Slide.permission';
+import SlideProfile from './slide/Slide.profile';
+import SlideCreateFormBody from './slide/Slide.createformbody';
+import SlideService from './slide/Slide.service';
+import SlideUpdateForm from './slide/Slide.updateform';
+import UiActionBase from './uiaction/UiAction.base';
+import UiActionBizApp from './uiaction/UiAction.app';
+import UiActionModel from './uiaction/UiAction.model';
+import UiActionDashboard from './uiaction/UiAction.dashboard';
+import UiActionModalTable from './uiaction/UiAction.modaltable';
+import UiActionSearch from './uiaction/UiAction.search';
+import UiActionSearchForm from './uiaction/UiAction.searchform';
+import UiActionCreateForm from './uiaction/UiAction.createform';
+import UiActionAssociateForm from './uiaction/UiAction.associateform';
+import UiActionTable from './uiaction/UiAction.table';
+import UiActionPermission from './uiaction/UiAction.permission';
+import UiActionProfile from './uiaction/UiAction.profile';
+import UiActionCreateFormBody from './uiaction/UiAction.createformbody';
+import UiActionService from './uiaction/UiAction.service';
+import UiActionUpdateForm from './uiaction/UiAction.updateform';
+import SectionBase from './section/Section.base';
+import SectionBizApp from './section/Section.app';
+import SectionModel from './section/Section.model';
+import SectionDashboard from './section/Section.dashboard';
+import SectionModalTable from './section/Section.modaltable';
+import SectionSearch from './section/Section.search';
+import SectionSearchForm from './section/Section.searchform';
+import SectionCreateForm from './section/Section.createform';
+import SectionAssociateForm from './section/Section.associateform';
+import SectionTable from './section/Section.table';
+import SectionPermission from './section/Section.permission';
+import SectionProfile from './section/Section.profile';
+import SectionCreateFormBody from './section/Section.createformbody';
+import SectionService from './section/Section.service';
+import SectionUpdateForm from './section/Section.updateform';
 import UserDomainBase from './userdomain/UserDomain.base';
 import UserDomainBizApp from './userdomain/UserDomain.app';
 import UserDomainModel from './userdomain/UserDomain.model';
@@ -1969,6 +2059,12 @@ const BizModels = [
 	EmployeeAwardModel,
 	EmployeeSalarySheetModel,
 	PayingOffModel,
+	MobileAppModel,
+	PageModel,
+	PageTypeModel,
+	SlideModel,
+	UiActionModel,
+	SectionModel,
 	UserDomainModel,
 	UserWhiteListModel,
 	SecUserModel,
@@ -2110,6 +2206,12 @@ menuLibrary.employeeEducation = EmployeeEducationBase.menuData
 menuLibrary.employeeAward = EmployeeAwardBase.menuData
 menuLibrary.employeeSalarySheet = EmployeeSalarySheetBase.menuData
 menuLibrary.payingOff = PayingOffBase.menuData
+menuLibrary.mobileApp = MobileAppBase.menuData
+menuLibrary.page = PageBase.menuData
+menuLibrary.pageType = PageTypeBase.menuData
+menuLibrary.slide = SlideBase.menuData
+menuLibrary.uiAction = UiActionBase.menuData
+menuLibrary.section = SectionBase.menuData
 menuLibrary.userDomain = UserDomainBase.menuData
 menuLibrary.userWhiteList = UserWhiteListBase.menuData
 menuLibrary.secUser = SecUserBase.menuData
@@ -2254,6 +2356,12 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.employeeaward.EmployeeAward': {name:'employeeAward'},
   'com.doublechaintech.retailscm.employeesalarysheet.EmployeeSalarySheet': {name:'employeeSalarySheet'},
   'com.doublechaintech.retailscm.payingoff.PayingOff': {name:'payingOff'},
+  'com.doublechaintech.retailscm.mobileapp.MobileApp': {name:'mobileApp'},
+  'com.doublechaintech.retailscm.page.Page': {name:'page'},
+  'com.doublechaintech.retailscm.pagetype.PageType': {name:'pageType'},
+  'com.doublechaintech.retailscm.slide.Slide': {name:'slide'},
+  'com.doublechaintech.retailscm.uiaction.UiAction': {name:'uiAction'},
+  'com.doublechaintech.retailscm.section.Section': {name:'section'},
   'com.doublechaintech.retailscm.userdomain.UserDomain': {name:'userDomain'},
   'com.doublechaintech.retailscm.userwhitelist.UserWhiteList': {name:'userWhiteList'},
   'com.doublechaintech.retailscm.secuser.SecUser': {name:'secUser'},
@@ -3907,6 +4015,96 @@ const OOTBComponents={
     PayingOffCreateFormBody,
     PayingOffService,
     PayingOffUpdateForm,
+    MobileAppBase,
+    MobileAppBizApp,
+    MobileAppModel,
+    MobileAppDashboard,
+    MobileAppModalTable,
+    MobileAppSearch,
+    MobileAppSearchForm,
+    MobileAppCreateForm,
+    MobileAppAssociateForm,
+    MobileAppTable,
+    MobileAppPermission,
+    MobileAppProfile,
+    MobileAppCreateFormBody,
+    MobileAppService,
+    MobileAppUpdateForm,
+    PageBase,
+    PageBizApp,
+    PageModel,
+    PageDashboard,
+    PageModalTable,
+    PageSearch,
+    PageSearchForm,
+    PageCreateForm,
+    PageAssociateForm,
+    PageTable,
+    PagePermission,
+    PageProfile,
+    PageCreateFormBody,
+    PageService,
+    PageUpdateForm,
+    PageTypeBase,
+    PageTypeBizApp,
+    PageTypeModel,
+    PageTypeDashboard,
+    PageTypeModalTable,
+    PageTypeSearch,
+    PageTypeSearchForm,
+    PageTypeCreateForm,
+    PageTypeAssociateForm,
+    PageTypeTable,
+    PageTypePermission,
+    PageTypeProfile,
+    PageTypeCreateFormBody,
+    PageTypeService,
+    PageTypeUpdateForm,
+    SlideBase,
+    SlideBizApp,
+    SlideModel,
+    SlideDashboard,
+    SlideModalTable,
+    SlideSearch,
+    SlideSearchForm,
+    SlideCreateForm,
+    SlideAssociateForm,
+    SlideTable,
+    SlidePermission,
+    SlideProfile,
+    SlideCreateFormBody,
+    SlideService,
+    SlideUpdateForm,
+    UiActionBase,
+    UiActionBizApp,
+    UiActionModel,
+    UiActionDashboard,
+    UiActionModalTable,
+    UiActionSearch,
+    UiActionSearchForm,
+    UiActionCreateForm,
+    UiActionAssociateForm,
+    UiActionTable,
+    UiActionPermission,
+    UiActionProfile,
+    UiActionCreateFormBody,
+    UiActionService,
+    UiActionUpdateForm,
+    SectionBase,
+    SectionBizApp,
+    SectionModel,
+    SectionDashboard,
+    SectionModalTable,
+    SectionSearch,
+    SectionSearchForm,
+    SectionCreateForm,
+    SectionAssociateForm,
+    SectionTable,
+    SectionPermission,
+    SectionProfile,
+    SectionCreateFormBody,
+    SectionService,
+    SectionUpdateForm,
     UserDomainBase,
     UserDomainBizApp,
     UserDomainModel,

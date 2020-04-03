@@ -72,7 +72,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -90,16 +89,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(cityPartner, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(cityPartner, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!cityPartner){
+  	return null
+  }
+  if(!cityPartner.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={cityPartner.id} style={{marginTop:"10px"}}>
+    <Card key={`cityPartner-${cityPartner.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -115,8 +137,8 @@ const renderItemOfList=(cityPartner, targetComponent, columCount)=>{
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{cityPartner.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{cityPartner.name}</Description> 
         <Description term={fieldLabels.mobile} style={{wordBreak: 'break-all'}}>{cityPartner.mobile}</Description> 
-        <Description term={fieldLabels.cityServiceCenter}><Tag color='blue' title={`${cityPartner.cityServiceCenter.id}-${cityPartner.cityServiceCenter.displayName}`}>{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(cityPartner.cityServiceCenter.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.cityServiceCenter}>{renderReferenceItem(cityPartner.cityServiceCenter)}</Description>
+
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{cityPartner.description}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	

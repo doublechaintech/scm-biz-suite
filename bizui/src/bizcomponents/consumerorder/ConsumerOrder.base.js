@@ -73,7 +73,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -91,16 +90,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(consumerOrder, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(consumerOrder, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!consumerOrder){
+  	return null
+  }
+  if(!consumerOrder.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={consumerOrder.id} style={{marginTop:"10px"}}>
+    <Card key={`consumerOrder-${consumerOrder.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -115,10 +137,10 @@ const renderItemOfList=(consumerOrder, targetComponent, columCount)=>{
       <DescriptionList  key={consumerOrder.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{consumerOrder.id}</Description> 
         <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{consumerOrder.title}</Description> 
-        <Description term={fieldLabels.consumer}><Tag color='blue' title={`${consumerOrder.consumer.id}-${consumerOrder.consumer.displayName}`}>{consumerOrder.consumer==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(consumerOrder.consumer.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.store}><Tag color='blue' title={`${consumerOrder.store.id}-${consumerOrder.store.displayName}`}>{consumerOrder.store==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(consumerOrder.store.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.consumer}>{renderReferenceItem(consumerOrder.consumer)}</Description>
+
+        <Description term={fieldLabels.store}>{renderReferenceItem(consumerOrder.store)}</Description>
+
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(consumerOrder.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         

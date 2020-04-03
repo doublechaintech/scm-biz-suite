@@ -66,7 +66,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -84,16 +83,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(employeeInterview, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(employeeInterview, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!employeeInterview){
+  	return null
+  }
+  if(!employeeInterview.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={employeeInterview.id} style={{marginTop:"10px"}}>
+    <Card key={`employeeInterview-${employeeInterview.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -107,10 +129,10 @@ const renderItemOfList=(employeeInterview, targetComponent, columCount)=>{
 	
       <DescriptionList  key={employeeInterview.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeInterview.id}</Description> 
-        <Description term={fieldLabels.employee}><Tag color='blue' title={`${employeeInterview.employee.id}-${employeeInterview.employee.displayName}`}>{employeeInterview.employee==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeInterview.employee.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.interviewType}><Tag color='blue' title={`${employeeInterview.interviewType.id}-${employeeInterview.interviewType.displayName}`}>{employeeInterview.interviewType==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeInterview.interviewType.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.employee}>{renderReferenceItem(employeeInterview.employee)}</Description>
+
+        <Description term={fieldLabels.interviewType}>{renderReferenceItem(employeeInterview.interviewType)}</Description>
+
         <Description term={fieldLabels.remark} style={{wordBreak: 'break-all'}}>{employeeInterview.remark}</Description> 
 	
         

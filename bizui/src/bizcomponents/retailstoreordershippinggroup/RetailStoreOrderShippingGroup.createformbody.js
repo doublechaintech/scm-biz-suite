@@ -18,11 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链中和社区店',
-<<<<<<< HEAD
-  amount: '4.98',
-=======
-  amount: '5.60',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  amount: '4.73',
   bizOrderId: 'RSO000001',
 }
 */

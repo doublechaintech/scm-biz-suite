@@ -72,7 +72,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -90,16 +89,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(originalVoucher, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(originalVoucher, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!originalVoucher){
+  	return null
+  }
+  if(!originalVoucher.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={originalVoucher.id} style={{marginTop:"10px"}}>
+    <Card key={`originalVoucher-${originalVoucher.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -117,8 +139,8 @@ const renderItemOfList=(originalVoucher, targetComponent, columCount)=>{
         <Description term={fieldLabels.madeBy} style={{wordBreak: 'break-all'}}>{originalVoucher.madeBy}</Description> 
         <Description term={fieldLabels.receivedBy} style={{wordBreak: 'break-all'}}>{originalVoucher.receivedBy}</Description> 
         <Description term={fieldLabels.voucherType} style={{wordBreak: 'break-all'}}>{originalVoucher.voucherType}</Description> 
-        <Description term={fieldLabels.belongsTo}><Tag color='blue' title={`${originalVoucher.belongsTo.id}-${originalVoucher.belongsTo.displayName}`}>{originalVoucher.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(originalVoucher.belongsTo.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.belongsTo}>{renderReferenceItem(originalVoucher.belongsTo)}</Description>
+
 	
         
       </DescriptionList>

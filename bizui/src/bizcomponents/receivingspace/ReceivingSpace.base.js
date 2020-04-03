@@ -77,7 +77,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -95,16 +94,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(receivingSpace, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(receivingSpace, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!receivingSpace){
+  	return null
+  }
+  if(!receivingSpace.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={receivingSpace.id} style={{marginTop:"10px"}}>
+    <Card key={`receivingSpace-${receivingSpace.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -122,8 +144,8 @@ const renderItemOfList=(receivingSpace, targetComponent, columCount)=>{
         <Description term={fieldLabels.contactNumber} style={{wordBreak: 'break-all'}}>{receivingSpace.contactNumber}</Description> 
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{receivingSpace.description}</Description> 
         <Description term={fieldLabels.totalArea} style={{wordBreak: 'break-all'}}>{receivingSpace.totalArea}</Description> 
-        <Description term={fieldLabels.warehouse}><Tag color='blue' title={`${receivingSpace.warehouse.id}-${receivingSpace.warehouse.displayName}`}>{receivingSpace.warehouse==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(receivingSpace.warehouse.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.warehouse}>{renderReferenceItem(receivingSpace.warehouse)}</Description>
+
         <Description term={fieldLabels.latitude}><div style={{"color":"red"}}>{receivingSpace.latitude}</div></Description> 
         <Description term={fieldLabels.longitude}><div style={{"color":"red"}}>{receivingSpace.longitude}</div></Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(receivingSpace.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 

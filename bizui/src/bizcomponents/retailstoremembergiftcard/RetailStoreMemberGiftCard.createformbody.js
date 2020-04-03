@@ -19,11 +19,7 @@ const testValues = {};
 const testValues = {
   name: '礼品卡',
   number: 'CP00001',
-<<<<<<< HEAD
-  remain: '173.24',
-=======
-  remain: '185.68',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  remain: '160.18',
   ownerId: 'RSM000001',
 }
 */

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './Page.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -70,24 +70,80 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(page, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
+  
+  if(!page){
+  	return null
+  }
+  if(!page.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={page.id}>
+    <Card key={`page-${page.id}`} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(page.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+		<span className={styles.stamp} style={{color:followColor(),borderColor:followColor()}} >{page.pageType.displayName}</span>	  
+	  
+	  
+	 
 	
-      <DescriptionList  key={page.id} size="small" col="2" >
+      <DescriptionList  key={page.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{page.id}</Description> 
         <Description term={fieldLabels.pageTitle} style={{wordBreak: 'break-all'}}>{page.pageTitle}</Description> 
         <Description term={fieldLabels.linkToUrl} style={{wordBreak: 'break-all'}}>{page.linkToUrl}</Description> 
-        <Description term={fieldLabels.pageType}><div>{page.pageType==null?appLocaleName(userContext,"NotAssigned"):`${page.pageType.displayName}(${page.pageType.id})`}
-        </div></Description>
+        <Description term={fieldLabels.pageType}>{renderReferenceItem(page.pageType)}</Description>
+
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -116,8 +172,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const PageBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const PageBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default PageBase
-
-
 

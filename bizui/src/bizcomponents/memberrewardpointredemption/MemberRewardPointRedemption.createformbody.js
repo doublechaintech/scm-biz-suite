@@ -18,11 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '积分换锅',
-<<<<<<< HEAD
-  point: '18',
-=======
-  point: '17',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  point: '19',
   ownerId: 'RSM000001',
 }
 */

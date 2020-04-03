@@ -75,7 +75,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -93,16 +92,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(companyTraining, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(companyTraining, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!companyTraining){
+  	return null
+  }
+  if(!companyTraining.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={companyTraining.id} style={{marginTop:"10px"}}>
+    <Card key={`companyTraining-${companyTraining.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -117,10 +139,10 @@ const renderItemOfList=(companyTraining, targetComponent, columCount)=>{
       <DescriptionList  key={companyTraining.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{companyTraining.id}</Description> 
         <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{companyTraining.title}</Description> 
-        <Description term={fieldLabels.instructor}><Tag color='blue' title={`${companyTraining.instructor.id}-${companyTraining.instructor.displayName}`}>{companyTraining.instructor==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(companyTraining.instructor.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.trainingCourseType}><Tag color='blue' title={`${companyTraining.trainingCourseType.id}-${companyTraining.trainingCourseType.displayName}`}>{companyTraining.trainingCourseType==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(companyTraining.trainingCourseType.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.instructor}>{renderReferenceItem(companyTraining.instructor)}</Description>
+
+        <Description term={fieldLabels.trainingCourseType}>{renderReferenceItem(companyTraining.trainingCourseType)}</Description>
+
         <Description term={fieldLabels.timeStart}><div>{ moment(companyTraining.timeStart).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.durationHours}><div style={{"color":"red"}}>{companyTraining.durationHours}</div></Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(companyTraining.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 

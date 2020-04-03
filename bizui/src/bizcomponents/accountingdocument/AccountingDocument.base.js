@@ -70,7 +70,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -88,16 +87,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(accountingDocument, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(accountingDocument, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!accountingDocument){
+  	return null
+  }
+  if(!accountingDocument.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={accountingDocument.id} style={{marginTop:"10px"}}>
+    <Card key={`accountingDocument-${accountingDocument.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -113,10 +135,10 @@ const renderItemOfList=(accountingDocument, targetComponent, columCount)=>{
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{accountingDocument.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{accountingDocument.name}</Description> 
         <Description term={fieldLabels.accountingDocumentDate}><div>{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</div></Description> 
-        <Description term={fieldLabels.accountingPeriod}><Tag color='blue' title={`${accountingDocument.accountingPeriod.id}-${accountingDocument.accountingPeriod.displayName}`}>{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountingDocument.accountingPeriod.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.documentType}><Tag color='blue' title={`${accountingDocument.documentType.id}-${accountingDocument.documentType.displayName}`}>{accountingDocument.documentType==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountingDocument.documentType.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.accountingPeriod}>{renderReferenceItem(accountingDocument.accountingPeriod)}</Description>
+
+        <Description term={fieldLabels.documentType}>{renderReferenceItem(accountingDocument.documentType)}</Description>
+
 	
         
       </DescriptionList>
@@ -130,22 +152,14 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, accountingDocumentDate, accountingPeriodId, documentTypeId} = formValuesToPack
 	const accountingPeriod = {id: accountingPeriodId, version: 2^31}
 	const documentType = {id: documentTypeId, version: 2^31}
-<<<<<<< HEAD
 	const data = {name, accountingDocumentDate:moment(accountingDocumentDate).valueOf(), accountingPeriod, documentType}
-=======
-	const data = {name, accountingDocumentDate, accountingPeriod, documentType}
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, accountingDocumentDate, accountingPeriod, documentType} = objectToUnpack
 	const accountingPeriodId = accountingPeriod ? accountingPeriod.id : null
 	const documentTypeId = documentType ? documentType.id : null
-<<<<<<< HEAD
 	const data = {name, accountingDocumentDate:moment(accountingDocumentDate), accountingPeriodId, documentTypeId}
-=======
-	const data = {name, accountingDocumentDate, accountingPeriodId, documentTypeId}
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{

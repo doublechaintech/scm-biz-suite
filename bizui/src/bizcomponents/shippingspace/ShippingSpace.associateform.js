@@ -21,13 +21,8 @@ const testValues = {
   location: '成都龙泉驿飞鹤路20号装货区',
   contactNumber: '028 87654321',
   totalArea: '1876平方米',
-<<<<<<< HEAD
-  latitude: '40.646843502887606',
-  longitude: '131.5491277169638',
-=======
-  latitude: '42.000219788838585',
-  longitude: '130.16925205044228',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  latitude: '40.28774919080728',
+  longitude: '131.95258938149843',
   description: '每个收货区可以供一辆车装货',
   warehouseId: 'W000001',
 }

@@ -74,7 +74,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -92,16 +91,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(consumerOrderLineItem, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(consumerOrderLineItem, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!consumerOrderLineItem){
+  	return null
+  }
+  if(!consumerOrderLineItem.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={consumerOrderLineItem.id} style={{marginTop:"10px"}}>
+    <Card key={`consumerOrderLineItem-${consumerOrderLineItem.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -115,8 +137,8 @@ const renderItemOfList=(consumerOrderLineItem, targetComponent, columCount)=>{
 	
       <DescriptionList  key={consumerOrderLineItem.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.id}</Description> 
-        <Description term={fieldLabels.bizOrder}><Tag color='blue' title={`${consumerOrderLineItem.bizOrder.id}-${consumerOrderLineItem.bizOrder.displayName}`}>{consumerOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(consumerOrderLineItem.bizOrder.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.bizOrder}>{renderReferenceItem(consumerOrderLineItem.bizOrder)}</Description>
+
         <Description term={fieldLabels.skuId} style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.skuId}</Description> 
         <Description term={fieldLabels.skuName} style={{wordBreak: 'break-all'}}>{consumerOrderLineItem.skuName}</Description> 
         <Description term={fieldLabels.price}><div style={{"color":"red"}}>{consumerOrderLineItem.price}</div></Description> 

@@ -19,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链小超给双链供应链下的订单',
-<<<<<<< HEAD
-  totalAmount: '2636725248.00',
-=======
-  totalAmount: '2265896192.00',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  totalAmount: '2449327360.00',
   buyerId: 'RS000001',
   sellerId: 'RSCC000001',
 }

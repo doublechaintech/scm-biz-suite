@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './UiAction.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -76,27 +76,81 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(uiAction, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
+  
+  if(!uiAction){
+  	return null
+  }
+  if(!uiAction.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={uiAction.id}>
+    <Card key={`uiAction-${uiAction.id}`} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(uiAction.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={uiAction.id} size="small" col="2" >
+      <DescriptionList  key={uiAction.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{uiAction.id}</Description> 
         <Description term={fieldLabels.code} style={{wordBreak: 'break-all'}}>{uiAction.code}</Description> 
         <Description term={fieldLabels.icon} style={{wordBreak: 'break-all'}}>{uiAction.icon}</Description> 
         <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{uiAction.title}</Description> 
         <Description term={fieldLabels.brief} style={{wordBreak: 'break-all'}}>{uiAction.brief}</Description> 
         <Description term={fieldLabels.linkToUrl} style={{wordBreak: 'break-all'}}>{uiAction.linkToUrl}</Description> 
-        <Description term={fieldLabels.page}><div>{uiAction.page==null?appLocaleName(userContext,"NotAssigned"):`${uiAction.page.displayName}(${uiAction.page.id})`}
-        </div></Description>
+        <Description term={fieldLabels.page}>{renderReferenceItem(uiAction.page)}</Description>
+
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -123,8 +177,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const UiActionBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const UiActionBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default UiActionBase
-
-
 

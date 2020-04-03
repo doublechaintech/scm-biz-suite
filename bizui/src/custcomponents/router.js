@@ -119,6 +119,12 @@ function RouterConfig({ history }) {
 	const {EmployeeAwardBizApp} = GlobalComponents
 	const {EmployeeSalarySheetBizApp} = GlobalComponents
 	const {PayingOffBizApp} = GlobalComponents
+	const {MobileAppBizApp} = GlobalComponents
+	const {PageBizApp} = GlobalComponents
+	const {PageTypeBizApp} = GlobalComponents
+	const {SlideBizApp} = GlobalComponents
+	const {UiActionBizApp} = GlobalComponents
+	const {SectionBizApp} = GlobalComponents
 	const {UserDomainBizApp} = GlobalComponents
 	const {UserWhiteListBizApp} = GlobalComponents
 	const {SecUserBizApp} = GlobalComponents
@@ -252,6 +258,12 @@ function RouterConfig({ history }) {
           <Route path="/employeeAward/" component={EmployeeAwardBizApp} />
           <Route path="/employeeSalarySheet/" component={EmployeeSalarySheetBizApp} />
           <Route path="/payingOff/" component={PayingOffBizApp} />
+          <Route path="/mobileApp/" component={MobileAppBizApp} />
+          <Route path="/page/" component={PageBizApp} />
+          <Route path="/pageType/" component={PageTypeBizApp} />
+          <Route path="/slide/" component={SlideBizApp} />
+          <Route path="/uiAction/" component={UiActionBizApp} />
+          <Route path="/section/" component={SectionBizApp} />
           <Route path="/userDomain/" component={UserDomainBizApp} />
           <Route path="/userWhiteList/" component={UserWhiteListBizApp} />
           <Route path="/secUser/" component={SecUserBizApp} />

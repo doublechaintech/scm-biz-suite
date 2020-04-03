@@ -68,7 +68,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -86,16 +85,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(loginHistory, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(loginHistory, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!loginHistory){
+  	return null
+  }
+  if(!loginHistory.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={loginHistory.id} style={{marginTop:"10px"}}>
+    <Card key={`loginHistory-${loginHistory.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -112,8 +134,8 @@ const renderItemOfList=(loginHistory, targetComponent, columCount)=>{
         <Description term={fieldLabels.loginTime}><div>{ moment(loginHistory.loginTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
         <Description term={fieldLabels.fromIp} style={{wordBreak: 'break-all'}}>{loginHistory.fromIp}</Description> 
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{loginHistory.description}</Description> 
-        <Description term={fieldLabels.secUser}><Tag color='blue' title={`${loginHistory.secUser.id}-${loginHistory.secUser.displayName}`}>{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(loginHistory.secUser.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.secUser}>{renderReferenceItem(loginHistory.secUser)}</Description>
+
 	
         
       </DescriptionList>

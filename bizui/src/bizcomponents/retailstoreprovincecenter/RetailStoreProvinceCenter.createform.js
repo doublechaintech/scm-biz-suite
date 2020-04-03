@@ -19,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超四川省运营中心',
-<<<<<<< HEAD
-  founded: '2017-05-04',
-=======
-  founded: '2018-05-15',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  founded: '2017-05-10',
   countryId: 'RSCC000001',
 }
 */

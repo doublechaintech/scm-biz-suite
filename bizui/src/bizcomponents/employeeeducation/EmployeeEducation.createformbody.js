@@ -17,11 +17,7 @@ const {fieldLabels} = EmployeeEducationBase
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  completeTime: '2019-10-10',
-=======
-  completeTime: '2018-03-27',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  completeTime: '2018-08-26',
   type: '小学',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',

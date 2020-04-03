@@ -20,6 +20,8 @@ const testValues = {};
 const testValues = {
   title: '文章',
   brief: 'Article',
+  icon: 'icon_edit',
+  viewGroup: 'icon_edit',
   linkToUrl: '/section/article/',
   page: '${page}',
 }
@@ -151,6 +153,26 @@ class SectionAssociateForm extends Component {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <Input size="large"  placeHolder={fieldLabels.brief} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.icon} {...formItemLayout}>
+                  {getFieldDecorator('icon', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.icon} />
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={12} md={12} sm={12}>
+                <Form.Item label={fieldLabels.viewGroup} {...formItemLayout}>
+                  {getFieldDecorator('viewGroup', {
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.viewGroup} />
                   )}
                 </Form.Item>
               </Col>

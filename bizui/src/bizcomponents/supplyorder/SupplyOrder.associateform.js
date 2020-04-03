@@ -19,11 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链给供货商下的订单',
-<<<<<<< HEAD
-  totalAmount: '2902250752.00',
-=======
-  totalAmount: '2640175872.00',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  totalAmount: '2911972608.00',
   buyerId: 'RSCC000001',
   sellerId: 'GS000001',
 }

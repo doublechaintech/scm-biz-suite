@@ -141,11 +141,13 @@ constructor(props) {
     return keys
   }
   
-  getNavMenuItems = (targetObject) => {
+ getNavMenuItems = (targetObject, style, customTheme) => {
   
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
+    const mode =style || "inline"
+    const theme = customTheme || "light" 
 	const {objectId}=targetApp;
   	const userContext = null
     return (
@@ -155,7 +157,7 @@ constructor(props) {
         
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        style={{ width: '456px' }}
+        
        >
            
 
@@ -347,6 +349,16 @@ constructor(props) {
        payload: !collapsed,
      })
    }
+   
+   toggleSwitchText=()=>{
+    const { collapsed } = this.props
+    if(collapsed){
+      return "打开菜单"
+    }
+    return "关闭菜单"
+
+   }
+   
     logout = () => {
    
     console.log("log out called")
@@ -402,6 +414,14 @@ constructor(props) {
 
      }
 
+
+	const jumpToBreadcrumbLink=(breadcrumbMenuItem)=>{
+      const { dispatch} = this.props
+      const {name,link} = breadcrumbMenuItem
+      dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
+	
+     }  
+
 	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
       const { dispatch} = this.props
       const {link} = breadcrumbMenuItem
@@ -412,11 +432,13 @@ constructor(props) {
      const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
 
       return (
-     <Tag color="#108ee9" style={{marginRight:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
-      <Link key={breadcrumbMenuItem.link} to={`${breadcrumbMenuItem.link}`} className={styles.breadcrumbLink}>
-        
-        {renderBreadcrumbText(breadcrumbMenuItem.name)}
-      </Link></Tag>)
+     <Tag 
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+      	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
+        <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
+        	{renderBreadcrumbText(breadcrumbMenuItem.name)}
+        </span>
+      </Tag>)
 
      }
      
@@ -451,11 +473,10 @@ constructor(props) {
         <Row type="flex" justify="start" align="bottom">
         
         <Col {...naviBarResponsiveStyle} >
-            <Dropdown overlay= {this.getNavMenuItems(this.props.mobileApp)}>
-              <a  className={styles.menuLink}>
-                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
-              </a>
-            </Dropdown>            
+             <a  className={styles.menuLink} onClick={()=>this.toggle()}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 
+                {this.toggleSwitchText()}
+              </a>          
             
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
@@ -479,25 +500,41 @@ constructor(props) {
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
-       {breadcrumbBar()}
+        
+       
+       <Layout>
+      
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.mobileApp,this.state.searchKeyword)}</div>
 
       )}
-       
+       </Layout>
         
          
          <Layout>
+       <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="md"
+          onCollapse={() => this.onCollapse(collapsed)}
+          collapsedWidth={40}
+          className={styles.sider}
+        >
          
-            
+         {this.getNavMenuItems(this.props.mobileApp,"inline","dark")}
+       
+        </Sider>
+        
+         <Layout>
+         <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
+        
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}
- 
-             
-             
            </Content>
+          </Layout>
           </Layout>
         </Layout>
       </Layout>

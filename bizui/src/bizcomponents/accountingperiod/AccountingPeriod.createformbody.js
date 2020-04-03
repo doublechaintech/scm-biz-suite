@@ -18,13 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-<<<<<<< HEAD
-  startDate: '2018-12-12',
-  endDate: '2019-04-03',
-=======
-  startDate: '2018-11-29',
-  endDate: '2017-05-17',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  startDate: '2019-11-30',
+  endDate: '2017-08-05',
   accountSetId: 'AS000001',
 }
 */

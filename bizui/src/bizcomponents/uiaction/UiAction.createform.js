@@ -58,7 +58,7 @@ class UiActionCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -66,9 +66,9 @@ class UiActionCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -218,7 +218,7 @@ class UiActionCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<UiActionCreateFormBody	 {...this.props} />
+   		<UiActionCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

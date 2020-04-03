@@ -88,8 +88,7 @@ class PageTypeTable extends PureComponent {
       title: appLocaleName(userContext,"Operate"),
       render: (text, record) => (
         <span>
-          
-          { hasReadPermission(metaInfo)&&<Link to={`/pageType/${record.id}/dashboard`}>{appLocaleName(userContext,"View")}</Link>}
+
 
           {
             record.actionList&&record.actionList.map((item)=>(<a key={item.actionId} onClick={()=>this.executeAction(item,text, record)}><span className={styles.splitLine} />{item.actionName}</a>))
@@ -98,10 +97,7 @@ class PageTypeTable extends PureComponent {
         </span>
       ),
     }
-   
-    enhancedColumns.push(
-      operationColumn
-    )
+
     
     return enhancedColumns
 

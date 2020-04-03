@@ -17,11 +17,7 @@ const {fieldLabels} = EmployeeLeaveBase
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
   leaveDurationHour: '7',
-=======
-  leaveDurationHour: '8',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
   remark: '请年假，出去耍！！！！',
   whoId: 'E000001',
   typeId: 'LT000001',

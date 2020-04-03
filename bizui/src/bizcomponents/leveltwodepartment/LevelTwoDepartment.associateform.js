@@ -20,11 +20,7 @@ const testValues = {};
 const testValues = {
   name: '信息系统部大数据部门',
   description: '主要执行集团信息系统建设，维护，规划',
-<<<<<<< HEAD
-  founded: '2019-07-06',
-=======
-  founded: '2019-06-15',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  founded: '2017-11-27',
   belongsToId: 'LOD000001',
 }
 */

@@ -297,6 +297,30 @@ class SectionUpdateForm extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.icon} {...formItemLayout}>
+                  {getFieldDecorator('icon', {
+                    initialValue: selectedRow.icon,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.icon} />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
+                <Form.Item label={fieldLabels.viewGroup} {...formItemLayout}>
+                  {getFieldDecorator('viewGroup', {
+                    initialValue: selectedRow.viewGroup,
+                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                  })(
+                    <Input size="large"  placeHolder={fieldLabels.viewGroup} />
+                    
+                  )}
+                </Form.Item>
+              </Col>
+
+              <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.linkToUrl} {...formItemLayout}>
                   {getFieldDecorator('linkToUrl', {
                     initialValue: selectedRow.linkToUrl,

@@ -119,6 +119,8 @@ const internalSummaryOf = (section,targetComponent) =>{
 <Description term="序号" style={{wordBreak: 'break-all'}}>{section.id}</Description> 
 <Description term="头衔" style={{wordBreak: 'break-all'}}>{section.title}</Description> 
 <Description term="短暂的" style={{wordBreak: 'break-all'}}>{section.brief}</Description> 
+<Description term="图标" style={{wordBreak: 'break-all'}}>{section.icon}</Description> 
+<Description term="视图组" style={{wordBreak: 'break-all'}}>{section.viewGroup}</Description> 
 <Description term="链接网址" style={{wordBreak: 'break-all'}}>{section.linkToUrl}</Description> 
 <Description term="页面" style={{wordBreak: 'break-all'}}>{section.page}</Description> 
 	

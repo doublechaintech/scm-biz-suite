@@ -65,7 +65,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -83,16 +82,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(levelTwoCategory, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(levelTwoCategory, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!levelTwoCategory){
+  	return null
+  }
+  if(!levelTwoCategory.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={levelTwoCategory.id} style={{marginTop:"10px"}}>
+    <Card key={`levelTwoCategory-${levelTwoCategory.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -106,8 +128,8 @@ const renderItemOfList=(levelTwoCategory, targetComponent, columCount)=>{
 	
       <DescriptionList  key={levelTwoCategory.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{levelTwoCategory.id}</Description> 
-        <Description term={fieldLabels.parentCategory}><Tag color='blue' title={`${levelTwoCategory.parentCategory.id}-${levelTwoCategory.parentCategory.displayName}`}>{levelTwoCategory.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(levelTwoCategory.parentCategory.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.parentCategory}>{renderReferenceItem(levelTwoCategory.parentCategory)}</Description>
+
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{levelTwoCategory.name}</Description> 
 	
         

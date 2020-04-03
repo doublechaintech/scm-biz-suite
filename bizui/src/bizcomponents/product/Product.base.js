@@ -75,7 +75,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -93,16 +92,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(product, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(product, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!product){
+  	return null
+  }
+  if(!product.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={product.id} style={{marginTop:"10px"}}>
+    <Card key={`product-${product.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -117,8 +139,8 @@ const renderItemOfList=(product, targetComponent, columCount)=>{
       <DescriptionList  key={product.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{product.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{product.name}</Description> 
-        <Description term={fieldLabels.parentCategory}><Tag color='blue' title={`${product.parentCategory.id}-${product.parentCategory.displayName}`}>{product.parentCategory==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(product.parentCategory.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.parentCategory}>{renderReferenceItem(product.parentCategory)}</Description>
+
         <Description term={fieldLabels.origin} style={{wordBreak: 'break-all'}}>{product.origin}</Description> 
         <Description term={fieldLabels.remark} style={{wordBreak: 'break-all'}}>{product.remark}</Description> 
         <Description term={fieldLabels.brand} style={{wordBreak: 'break-all'}}>{product.brand}</Description> 

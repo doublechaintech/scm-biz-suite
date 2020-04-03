@@ -18,11 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-<<<<<<< HEAD
-  contactDate: '2017-09-11',
-=======
-  contactDate: '2018-07-18',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  contactDate: '2018-02-10',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',

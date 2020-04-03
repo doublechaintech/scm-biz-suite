@@ -54,7 +54,7 @@ class PageCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class PageCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class PageCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<PageCreateFormBody	 {...this.props} />
+   		<PageCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

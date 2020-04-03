@@ -18,11 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
-<<<<<<< HEAD
-  score: '77',
-=======
-  score: '84',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  score: '80',
   comment: '这个题做的真不错啊',
 }
 */

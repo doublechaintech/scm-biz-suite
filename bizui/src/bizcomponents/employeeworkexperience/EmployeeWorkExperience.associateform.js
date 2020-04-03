@@ -18,13 +18,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  start: '2018-09-09',
-  end: '2018-03-15',
-=======
-  start: '2017-01-28',
-  end: '2017-11-15',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  start: '2019-01-06',
+  end: '2019-05-11',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',

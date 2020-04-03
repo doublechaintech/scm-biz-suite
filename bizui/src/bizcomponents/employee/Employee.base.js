@@ -100,7 +100,6 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-<<<<<<< HEAD
 const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
 let counter = 0;
 const genColor=()=>{
@@ -118,16 +117,39 @@ const leftChars=(value, left)=>{
 	}
 	return value.substring(0,chars);
 }
-const renderItemOfList=(employee, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 4
-=======
 
+const renderReferenceItem=(value, targetComponent)=>{
+	const userContext = null
+	if(!value){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.id){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	if(!value.displayName){
+		return <Tag color='red'>{appLocaleName(userContext,"NotAssigned")}</Tag>
+	}
+	
+	return <Tag color='blue' title={`${value.displayName}()`}>{leftChars(value.displayName)}</Tag>
+	
+	
+	
+	
+}
 const renderItemOfList=(employee, targetComponent, columCount)=>{
-  const displayColumnsCount = columCount || 2
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  
+  if(!employee){
+  	return null
+  }
+  if(!employee.id){
+  	return null
+  }
+  
+  
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <Card key={employee.id} style={{marginTop:"10px"}}>
+    <Card key={`employee-${employee.id}`} style={{marginTop:"10px"}}>
 		
 	<Col span={4}>
 		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
@@ -142,20 +164,20 @@ const renderItemOfList=(employee, targetComponent, columCount)=>{
       <DescriptionList  key={employee.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employee.id}</Description> 
         <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{employee.title}</Description> 
-        <Description term={fieldLabels.department}><Tag color='blue' title={`${employee.department.id}-${employee.department.displayName}`}>{employee.department==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employee.department.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.department}>{renderReferenceItem(employee.department)}</Description>
+
         <Description term={fieldLabels.familyName} style={{wordBreak: 'break-all'}}>{employee.familyName}</Description> 
         <Description term={fieldLabels.givenName} style={{wordBreak: 'break-all'}}>{employee.givenName}</Description> 
         <Description term={fieldLabels.email} style={{wordBreak: 'break-all'}}>{employee.email}</Description> 
         <Description term={fieldLabels.city} style={{wordBreak: 'break-all'}}>{employee.city}</Description> 
         <Description term={fieldLabels.address} style={{wordBreak: 'break-all'}}>{employee.address}</Description> 
         <Description term={fieldLabels.cellPhone} style={{wordBreak: 'break-all'}}>{employee.cellPhone}</Description> 
-        <Description term={fieldLabels.occupation}><Tag color='blue' title={`${employee.occupation.id}-${employee.occupation.displayName}`}>{employee.occupation==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employee.occupation.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.responsibleFor}><Tag color='blue' title={`${employee.responsibleFor.id}-${employee.responsibleFor.displayName}`}>{employee.responsibleFor==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employee.responsibleFor.displayName,15)}`}
-        </Tag></Description>
-        <Description term={fieldLabels.currentSalaryGrade}><Tag color='blue' title={`${employee.currentSalaryGrade.id}-${employee.currentSalaryGrade.displayName}`}>{employee.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employee.currentSalaryGrade.displayName,15)}`}
-        </Tag></Description>
+        <Description term={fieldLabels.occupation}>{renderReferenceItem(employee.occupation)}</Description>
+
+        <Description term={fieldLabels.responsibleFor}>{renderReferenceItem(employee.responsibleFor)}</Description>
+
+        <Description term={fieldLabels.currentSalaryGrade}>{renderReferenceItem(employee.currentSalaryGrade)}</Description>
+
         <Description term={fieldLabels.salaryAccount} style={{wordBreak: 'break-all'}}>{employee.salaryAccount}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(employee.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	

@@ -18,11 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-<<<<<<< HEAD
-  timeStart: '2019-12-15',
-=======
-  timeStart: '2019-04-10',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  timeStart: '2018-11-06',
   durationHours: '3',
   companyId: 'RSCC000001',
   instructorId: 'I000001',

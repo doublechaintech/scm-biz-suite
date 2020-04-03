@@ -18,11 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-<<<<<<< HEAD
-  leaveDurationHour: '7',
-=======
-  leaveDurationHour: '6',
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
+  leaveDurationHour: '8',
   remark: '请年假，出去耍！！！！',
   whoId: 'E000001',
   typeId: 'LT000001',
