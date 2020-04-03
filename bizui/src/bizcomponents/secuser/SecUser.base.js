@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './SecUser.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -39,6 +39,8 @@ const menuData = {menuName: window.trans('sec_user'), menuFor: "secUser",
   		subItems: [
   {name: 'userAppList', displayName: window.mtrans('user_app','sec_user.user_app_list',false), type:'userApp',icon:'user',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   {name: 'loginHistoryList', displayName: window.mtrans('login_history','sec_user.login_history_list',false), type:'loginHistory',icon:'history',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'wechatWorkappIdentifyList', displayName: window.mtrans('wechat_workapp_identify','sec_user.wechat_workapp_identify_list',false), type:'wechatWorkappIdentify',icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'wechatMiniappIdentifyList', displayName: window.mtrans('wechat_miniapp_identify','sec_user.wechat_miniapp_identify_list',false), type:'wechatMiniappIdentify',icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
@@ -63,7 +65,6 @@ const fieldLabels = {
   verificationCodeExpire: window.trans('sec_user.verification_code_expire'),
   lastLoginTime: window.trans('sec_user.last_login_time'),
   domain: window.trans('sec_user.domain'),
-  blocking: window.trans('sec_user.blocking'),
 
 }
 
@@ -76,24 +77,49 @@ const displayColumns = [
   { title: fieldLabels.weixinOpenid, debugtype: 'string', dataIndex: 'weixinOpenid', width: '29',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.weixinAppid, debugtype: 'string', dataIndex: 'weixinAppid', width: '23',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.accessToken, debugtype: 'string', dataIndex: 'accessToken', width: '22',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.verificationCode, debugtype: 'int', dataIndex: 'verificationCode', width: '11',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.verificationCode, dataIndex: 'verificationCode', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
   { title: fieldLabels.verificationCodeExpire, dataIndex: 'verificationCodeExpire', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
   { title: fieldLabels.lastLoginTime, dataIndex: 'lastLoginTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
   { title: fieldLabels.domain, dataIndex: 'domain', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.blocking, dataIndex: 'blocking', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(secUser,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(secUser, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={secUser.id}>
+    <Card key={secUser.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(secUser.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={secUser.id} size="small" col="2" >
+      <DescriptionList  key={secUser.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{secUser.id}</Description> 
         <Description term={fieldLabels.login} style={{wordBreak: 'break-all'}}>{secUser.login}</Description> 
         <Description term={fieldLabels.mobile} style={{wordBreak: 'break-all'}}>{secUser.mobile}</Description> 
@@ -108,24 +134,22 @@ const renderItemOfList=(secUser,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
 	
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime, domainId, blockingId} = formValuesToPack
+	const {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime, domainId} = formValuesToPack
 	const domain = {id: domainId, version: 2^31}
-	const blocking = {id: blockingId, version: 2^31}
-	const data = {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime, domain, blocking}
+	const data = {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire:moment(verificationCodeExpire).valueOf(), lastLoginTime:moment(lastLoginTime).valueOf(), domain}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime, domain, blocking} = objectToUnpack
+	const {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime, domain} = objectToUnpack
 	const domainId = domain ? domain.id : null
-	const blockingId = blocking ? blocking.id : null
-	const data = {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire, lastLoginTime, domainId, blockingId}
+	const data = {login, mobile, email, pwd, weixinOpenid, weixinAppid, accessToken, verificationCode, verificationCodeExpire:moment(verificationCodeExpire), lastLoginTime:moment(lastLoginTime), domainId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -138,8 +162,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const SecUserBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const SecUserBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default SecUserBase
-
-
 

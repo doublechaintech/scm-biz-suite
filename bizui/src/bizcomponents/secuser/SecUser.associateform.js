@@ -26,10 +26,9 @@ const testValues = {
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-11-21 16:46:37',
-  lastLoginTime: '2019-11-15 06:27:17',
+  verificationCodeExpire: '2020-03-15 10:59:52',
+  lastLoginTime: '2020-03-19 04:05:01',
   domainId: 'UD000001',
-  blockingId: 'SUB000001',
 }
 */
 
@@ -85,6 +84,8 @@ class SecUserAssociateForm extends Component {
     
  const {UserAppModalTable} = GlobalComponents;
  const {LoginHistoryModalTable} = GlobalComponents;
+ const {WechatWorkappIdentifyModalTable} = GlobalComponents;
+ const {WechatMiniappIdentifyModalTable} = GlobalComponents;
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -238,7 +239,7 @@ class SecUserAssociateForm extends Component {
               <Col lg={12} md={12} sm={12}>
                 <Form.Item label={fieldLabels.lastLoginTime} {...formItemLayout}>
                   {getFieldDecorator('lastLoginTime', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.lastLoginTime} />
                   )}
@@ -277,21 +278,6 @@ class SecUserAssociateForm extends Component {
                 </Form.Item>
               </Col>
 
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.blocking} {...formItemLayout}>
-                  {getFieldDecorator('blockingId', {
-                  	initialValue: tryinit('blocking'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('blocking')}
-                    targetType={"blocking"} 
-                    requestFunction={SecUserService.requestCandidateBlocking}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
             </Row>
          
        
@@ -305,6 +291,8 @@ class SecUserAssociateForm extends Component {
         
 	<UserAppModalTable data={data.userAppList} owner={owner} />
 	<LoginHistoryModalTable data={data.loginHistoryList} owner={owner} />
+	<WechatWorkappIdentifyModalTable data={data.wechatWorkappIdentifyList} owner={owner} />
+	<WechatMiniappIdentifyModalTable data={data.wechatMiniappIdentifyList} owner={owner} />
         
         
         

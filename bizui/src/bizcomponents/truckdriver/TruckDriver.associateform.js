@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '运货卡车司机',
-  driverLicenseNumber: '36744118290',
+  driverLicenseNumber: '5109 9887 733',
   contactNumber: '18777778888',
   belongsToId: 'TF000001',
 }

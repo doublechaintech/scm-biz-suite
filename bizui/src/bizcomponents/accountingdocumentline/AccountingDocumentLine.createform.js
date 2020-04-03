@@ -21,7 +21,7 @@ const testValues = {
   name: '收到存款',
   code: 'AS9999',
   direct: '借',
-  amount: '930418.25',
+  amount: '702247.25',
   belongsToId: 'AD000001',
   accountingSubjectId: 'AS000001',
 }
@@ -56,7 +56,7 @@ class AccountingDocumentLineCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class AccountingDocumentLineCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class AccountingDocumentLineCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<AccountingDocumentLineCreateFormBody	 {...this.props} />
+   		<AccountingDocumentLineCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

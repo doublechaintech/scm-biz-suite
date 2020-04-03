@@ -19,12 +19,12 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2019-04-29',
+  effectiveDate: '2018-03-27',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
-  accountNumber: '21849905661885',
+  accountNumber: '3326 5805 0548 85',
   countryCenterId: 'RSCC000001',
   retailStoreId: 'RS000001',
   goodsSupplierId: 'GS000001',
@@ -59,18 +59,22 @@ class AccountSetCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

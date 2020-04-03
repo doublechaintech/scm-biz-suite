@@ -21,8 +21,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '10',
-  expireTime: '2017-01-18',
+  maxPackage: '9',
+  expireTime: '2017-04-02',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -32,7 +32,6 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
-  packagingId: 'GP000001',
 }
 */
 
@@ -344,21 +343,6 @@ class GoodsAssociateForm extends Component {
                     disabled={!availableForEdit('retailStoreOrder')}
                     targetType={"retailStoreOrder"} 
                     requestFunction={GoodsService.requestCandidateRetailStoreOrder}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.packaging} {...formItemLayout}>
-                  {getFieldDecorator('packagingId', {
-                  	initialValue: tryinit('packaging'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('packaging')}
-                    targetType={"packaging"} 
-                    requestFunction={GoodsService.requestCandidatePackaging}/>
   
                   )}
                 </Form.Item>

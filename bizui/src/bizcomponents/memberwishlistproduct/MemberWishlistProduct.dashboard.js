@@ -161,7 +161,7 @@ class MemberWishlistProductDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员收藏产品",cardsFor: "memberWishlistProduct",
+    const cardsData = {cardsName:window.trans('member_wishlist_product'),cardsFor: "memberWishlistProduct",
     	cardsSource: this.props.memberWishlistProduct,returnURL,displayName,
   		subItems: [
     
@@ -193,8 +193,9 @@ class MemberWishlistProductDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

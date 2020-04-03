@@ -31,13 +31,6 @@ const testValues = {
   occupationId: 'OT000001',
   responsibleForId: 'RT000001',
   currentSalaryGradeId: 'SG000001',
-  jobApplicationId: 'JA000001',
-  professionInterviewId: 'PI000001',
-  hrInterviewId: 'HI000001',
-  offerApprovalId: 'OA000001',
-  offerAcceptanceId: 'OA000001',
-  employeeBoardingId: 'EB000001',
-  terminationId: 'T000001',
 }
 */
 
@@ -70,7 +63,7 @@ class EmployeeCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -78,9 +71,9 @@ class EmployeeCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -230,7 +223,7 @@ class EmployeeCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<EmployeeCreateFormBody	 {...this.props} />
+   		<EmployeeCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

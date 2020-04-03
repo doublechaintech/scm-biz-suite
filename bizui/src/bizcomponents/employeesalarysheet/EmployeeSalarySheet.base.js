@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EmployeeSalarySheet.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -80,19 +80,45 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(employeeSalarySheet,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(employeeSalarySheet, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={employeeSalarySheet.id}>
+    <Card key={employeeSalarySheet.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(employeeSalarySheet.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={employeeSalarySheet.id} size="small" col="2" >
+      <DescriptionList  key={employeeSalarySheet.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeSalarySheet.id}</Description> 
-        <Description term={fieldLabels.employee}><div>{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.employee.displayName}(${employeeSalarySheet.employee.id})`}
-        </div></Description>
-        <Description term={fieldLabels.currentSalaryGrade}><div>{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.currentSalaryGrade.displayName}(${employeeSalarySheet.currentSalaryGrade.id})`}
-        </div></Description>
+        <Description term={fieldLabels.employee}><Tag color='blue' title={`${employeeSalarySheet.employee.id}-${employeeSalarySheet.employee.displayName}`}>{employeeSalarySheet.employee==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeSalarySheet.employee.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.currentSalaryGrade}><Tag color='blue' title={`${employeeSalarySheet.currentSalaryGrade.id}-${employeeSalarySheet.currentSalaryGrade.displayName}`}>{employeeSalarySheet.currentSalaryGrade==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeSalarySheet.currentSalaryGrade.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.baseSalary}><div style={{"color":"red"}}>{employeeSalarySheet.baseSalary}</div></Description> 
         <Description term={fieldLabels.bonus}><div style={{"color":"red"}}>{employeeSalarySheet.bonus}</div></Description> 
         <Description term={fieldLabels.reward}><div style={{"color":"red"}}>{employeeSalarySheet.reward}</div></Description> 
@@ -100,13 +126,13 @@ const renderItemOfList=(employeeSalarySheet,targetComponent)=>{
         <Description term={fieldLabels.socialSecurity}><div style={{"color":"red"}}>{employeeSalarySheet.socialSecurity}</div></Description> 
         <Description term={fieldLabels.housingFound}><div style={{"color":"red"}}>{employeeSalarySheet.housingFound}</div></Description> 
         <Description term={fieldLabels.jobInsurance}><div style={{"color":"red"}}>{employeeSalarySheet.jobInsurance}</div></Description> 
-        <Description term={fieldLabels.payingOff}><div>{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${employeeSalarySheet.payingOff.displayName}(${employeeSalarySheet.payingOff.id})`}
-        </div></Description>
+        <Description term={fieldLabels.payingOff}><Tag color='blue' title={`${employeeSalarySheet.payingOff.id}-${employeeSalarySheet.payingOff.displayName}`}>{employeeSalarySheet.payingOff==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeSalarySheet.payingOff.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -137,8 +163,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EmployeeSalarySheetBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EmployeeSalarySheetBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeSalarySheetBase
-
-
 

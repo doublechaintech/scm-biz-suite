@@ -19,11 +19,6 @@ const testValues = {};
 const testValues = {
   title: '消费订单',
   consumerId: 'RSM000001',
-  confirmationId: 'SOC000001',
-  approvalId: 'SOA000001',
-  processingId: 'SOP000001',
-  shipmentId: 'SOS000001',
-  deliveryId: 'SOD000001',
   storeId: 'RS000001',
 }
 */
@@ -56,18 +51,22 @@ class ConsumerOrderCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -156,101 +155,6 @@ class ConsumerOrderCreateFormBody extends Component {
                     disabled={!availableForEdit('consumer')}
                     targetType={"consumer"} 
                     requestFunction={ConsumerOrderService.requestCandidateConsumer}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
-                  {getFieldDecorator('confirmationId', {
-                  	initialValue: tryinit('confirmation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={ConsumerOrderService.requestCandidateConfirmation}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.approval} {...formItemLayout}>
-                  {getFieldDecorator('approvalId', {
-                  	initialValue: tryinit('approval'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('approval')}
-                    targetType={"approval"} 
-                    requestFunction={ConsumerOrderService.requestCandidateApproval}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.processing} {...formItemLayout}>
-                  {getFieldDecorator('processingId', {
-                  	initialValue: tryinit('processing'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('processing')}
-                    targetType={"processing"} 
-                    requestFunction={ConsumerOrderService.requestCandidateProcessing}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.shipment} {...formItemLayout}>
-                  {getFieldDecorator('shipmentId', {
-                  	initialValue: tryinit('shipment'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('shipment')}
-                    targetType={"shipment"} 
-                    requestFunction={ConsumerOrderService.requestCandidateShipment}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.delivery} {...formItemLayout}>
-                  {getFieldDecorator('deliveryId', {
-                  	initialValue: tryinit('delivery'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('delivery')}
-                    targetType={"delivery"} 
-                    requestFunction={ConsumerOrderService.requestCandidateDelivery}/>
                   
                  
                   )}

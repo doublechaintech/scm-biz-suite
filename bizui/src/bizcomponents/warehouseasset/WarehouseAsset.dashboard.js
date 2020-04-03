@@ -163,7 +163,7 @@ class WarehouseAssetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"仓库资产",cardsFor: "warehouseAsset",
+    const cardsData = {cardsName:window.trans('warehouse_asset'),cardsFor: "warehouseAsset",
     	cardsSource: this.props.warehouseAsset,returnURL,displayName,
   		subItems: [
     
@@ -195,8 +195,9 @@ class WarehouseAssetDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

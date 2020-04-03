@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './PayingOff.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -69,25 +69,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(payingOff,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(payingOff, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={payingOff.id}>
+    <Card key={payingOff.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(payingOff.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={payingOff.id} size="small" col="2" >
+      <DescriptionList  key={payingOff.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{payingOff.id}</Description> 
         <Description term={fieldLabels.who} style={{wordBreak: 'break-all'}}>{payingOff.who}</Description> 
-        <Description term={fieldLabels.paidFor}><div>{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${payingOff.paidFor.displayName}(${payingOff.paidFor.id})`}
-        </div></Description>
+        <Description term={fieldLabels.paidFor}><Tag color='blue' title={`${payingOff.paidFor.id}-${payingOff.paidFor.displayName}`}>{payingOff.paidFor==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(payingOff.paidFor.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.paidTime}><div>{ moment(payingOff.paidTime).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.amount}><div style={{"color":"red"}}>{payingOff.amount}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -95,13 +121,13 @@ const renderItemOfList=(payingOff,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {who, paidTime, amount, paidForId} = formValuesToPack
 	const paidFor = {id: paidForId, version: 2^31}
-	const data = {who, paidTime, amount, paidFor}
+	const data = {who, paidTime:moment(paidTime).valueOf(), amount, paidFor}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {who, paidTime, amount, paidFor} = objectToUnpack
 	const paidForId = paidFor ? paidFor.id : null
-	const data = {who, paidTime, amount, paidForId}
+	const data = {who, paidTime:moment(paidTime), amount, paidForId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const PayingOffBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const PayingOffBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default PayingOffBase
-
-
 

@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
-  managerName: '刘强',
-  founded: '2017-02-19',
+  manager: '刘强',
+  founded: '2019-05-02',
   belongsToId: 'RSCC000001',
 }
 */
@@ -158,11 +158,11 @@ class LevelOneDepartmentAssociateForm extends Component {
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
-                  {getFieldDecorator('managerName', {
+                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
+                  {getFieldDecorator('manager', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.managerName} />
+                    <Input size="large"  placeHolder={fieldLabels.manager} />
                   )}
                 </Form.Item>
               </Col>

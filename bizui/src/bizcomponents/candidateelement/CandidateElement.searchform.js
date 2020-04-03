@@ -304,11 +304,3 @@ componentDidMount() {
 export default Form.create()(CandidateElementSearchForm)
 
 
-
-
-
-
-
-
-
-

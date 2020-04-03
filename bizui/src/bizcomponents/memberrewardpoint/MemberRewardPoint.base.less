@@ -1,0 +1,53 @@
+
+@import "~antd/lib/style/themes/default.less";
+
+.card {
+  margin-bottom: 24px;
+}
+
+.stamp {
+  	  color: #D23;
+	border: 0.3rem double #D23;
+ 	letter-spacing: 10px;
+	-webkit-mask-position: 2rem 3rem;
+  font-size: 1.2rem;  
+	position: absolute;
+	left: 110px;
+	top: 40px;
+	padding-left: 30px;
+	padding-right: 30px;
+	
+  	mix-blend-mode: multiply;
+  	// -webkit-mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+	// -webkit-mask-size: 300px 200px;
+	border-radius: 0;
+}
+
+.is-nope {
+  color: #D23;
+  border: 0.5rem double #D23;
+  transform: rotate(3deg);
+	-webkit-mask-position: 2rem 3rem;
+  font-size: 2rem;  
+}
+
+.is-approved {
+	color: #0A9928;
+	border: 0.5rem solid #0A9928;
+	-webkit-mask-position: 13rem 6rem;
+	transform: rotate(-14deg);
+  border-radius: 0;
+} 
+
+.is-draft {
+	color: #C4C4C4;
+	border: 1rem double #C4C4C4;
+	transform: rotate(-5deg);
+  font-size: 6rem;
+  font-family: "Open sans", Helvetica, Arial, sans-serif;
+  border-radius: 0;
+  padding: 0.5rem;
+} 
+
+
+

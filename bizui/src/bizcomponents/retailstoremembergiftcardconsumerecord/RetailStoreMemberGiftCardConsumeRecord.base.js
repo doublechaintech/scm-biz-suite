@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './RetailStoreMemberGiftCardConsumeRecord.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -70,27 +70,53 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(retailStoreMemberGiftCardConsumeRecord,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(retailStoreMemberGiftCardConsumeRecord, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={retailStoreMemberGiftCardConsumeRecord.id}>
+    <Card key={retailStoreMemberGiftCardConsumeRecord.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(retailStoreMemberGiftCardConsumeRecord.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={retailStoreMemberGiftCardConsumeRecord.id} size="small" col="2" >
+      <DescriptionList  key={retailStoreMemberGiftCardConsumeRecord.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreMemberGiftCardConsumeRecord.id}</Description> 
         <Description term={fieldLabels.occureTime}><div>{ moment(retailStoreMemberGiftCardConsumeRecord.occureTime).format('YYYY-MM-DD')}</div></Description> 
-        <Description term={fieldLabels.owner}><div>{retailStoreMemberGiftCardConsumeRecord.owner==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.owner.displayName}(${retailStoreMemberGiftCardConsumeRecord.owner.id})`}
-        </div></Description>
-        <Description term={fieldLabels.bizOrder}><div>{retailStoreMemberGiftCardConsumeRecord.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreMemberGiftCardConsumeRecord.bizOrder.displayName}(${retailStoreMemberGiftCardConsumeRecord.bizOrder.id})`}
-        </div></Description>
+        <Description term={fieldLabels.owner}><Tag color='blue' title={`${retailStoreMemberGiftCardConsumeRecord.owner.id}-${retailStoreMemberGiftCardConsumeRecord.owner.displayName}`}>{retailStoreMemberGiftCardConsumeRecord.owner==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(retailStoreMemberGiftCardConsumeRecord.owner.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.bizOrder}><Tag color='blue' title={`${retailStoreMemberGiftCardConsumeRecord.bizOrder.id}-${retailStoreMemberGiftCardConsumeRecord.bizOrder.displayName}`}>{retailStoreMemberGiftCardConsumeRecord.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(retailStoreMemberGiftCardConsumeRecord.bizOrder.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.number} style={{wordBreak: 'break-all'}}>{retailStoreMemberGiftCardConsumeRecord.number}</Description> 
         <Description term={fieldLabels.amount}><div style={{"color":"red"}}>{retailStoreMemberGiftCardConsumeRecord.amount}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -99,14 +125,14 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const {occureTime, number, amount, ownerId, bizOrderId} = formValuesToPack
 	const owner = {id: ownerId, version: 2^31}
 	const bizOrder = {id: bizOrderId, version: 2^31}
-	const data = {occureTime, number, amount, owner, bizOrder}
+	const data = {occureTime:moment(occureTime).valueOf(), number, amount, owner, bizOrder}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {occureTime, number, amount, owner, bizOrder} = objectToUnpack
 	const ownerId = owner ? owner.id : null
 	const bizOrderId = bizOrder ? bizOrder.id : null
-	const data = {occureTime, number, amount, ownerId, bizOrderId}
+	const data = {occureTime:moment(occureTime), number, amount, ownerId, bizOrderId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -119,8 +145,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const RetailStoreMemberGiftCardConsumeRecordBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const RetailStoreMemberGiftCardConsumeRecordBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreMemberGiftCardConsumeRecordBase
-
-
 

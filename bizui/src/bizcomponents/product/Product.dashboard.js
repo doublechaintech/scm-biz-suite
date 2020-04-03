@@ -166,10 +166,10 @@ class ProductDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"产品",cardsFor: "product",
+    const cardsData = {cardsName:window.trans('product'),cardsFor: "product",
     	cardsSource: this.props.product,returnURL,displayName,
   		subItems: [
-{name: 'skuList', displayName:'SKU',viewGroup:'__no_group', type:'sku',count:skuCount,addFunction: true, role: 'sku', metaInfo: skuListMetaInfo, renderItem: GlobalComponents.SkuBase.renderItemOfList},
+{name: 'skuList', displayName: window.mtrans('sku','product.sku_list',false) ,viewGroup:'__no_group', type:'sku',count:skuCount,addFunction: true, role: 'sku', metaInfo: skuListMetaInfo, renderItem: GlobalComponents.SkuBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -199,8 +199,9 @@ class ProductDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

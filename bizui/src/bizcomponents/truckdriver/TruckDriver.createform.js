@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '运货卡车司机',
-  driverLicenseNumber: '32929803179',
+  driverLicenseNumber: '5109 9887 733',
   contactNumber: '18777778888',
   belongsToId: 'TF000001',
 }
@@ -54,7 +54,7 @@ class TruckDriverCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class TruckDriverCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class TruckDriverCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<TruckDriverCreateFormBody	 {...this.props} />
+   		<TruckDriverCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

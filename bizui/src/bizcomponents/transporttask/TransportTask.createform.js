@@ -20,9 +20,9 @@ const testValues = {};
 const testValues = {
   name: '货运记录',
   start: '双链二号仓',
-  beginTime: '2017-06-09',
-  latitude: '41.15519553936389',
-  longitude: '131.49059213508414',
+  beginTime: '2019-10-18',
+  latitude: '42.053990245955056',
+  longitude: '131.69008880514332',
   endId: 'RS000001',
   driverId: 'TD000001',
   truckId: 'TT000001',
@@ -59,7 +59,7 @@ class TransportTaskCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -67,9 +67,9 @@ class TransportTaskCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -219,7 +219,7 @@ class TransportTaskCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<TransportTaskCreateFormBody	 {...this.props} />
+   		<TransportTaskCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

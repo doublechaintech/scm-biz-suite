@@ -156,10 +156,10 @@ class SkillTypeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"技能类型",cardsFor: "skillType",
+    const cardsData = {cardsName:window.trans('skill_type'),cardsFor: "skillType",
     	cardsSource: this.props.skillType,returnURL,displayName,
   		subItems: [
-{name: 'employeeSkillList', displayName:'员工技能',viewGroup:'__no_group', type:'employeeSkill',count:employeeSkillCount,addFunction: true, role: 'employeeSkill', metaInfo: employeeSkillListMetaInfo, renderItem: GlobalComponents.EmployeeSkillBase.renderItemOfList},
+{name: 'employeeSkillList', displayName: window.mtrans('employee_skill','skill_type.employee_skill_list',false) ,viewGroup:'__no_group', type:'employeeSkill',count:employeeSkillCount,addFunction: true, role: 'employeeSkill', metaInfo: employeeSkillListMetaInfo, renderItem: GlobalComponents.EmployeeSkillBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -189,8 +189,9 @@ class SkillTypeDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

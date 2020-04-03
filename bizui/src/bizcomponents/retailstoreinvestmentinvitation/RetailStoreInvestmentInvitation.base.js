@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './RetailStoreInvestmentInvitation.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -63,21 +63,47 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(retailStoreInvestmentInvitation,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(retailStoreInvestmentInvitation, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={retailStoreInvestmentInvitation.id}>
+    <Card key={retailStoreInvestmentInvitation.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(retailStoreInvestmentInvitation.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={retailStoreInvestmentInvitation.id} size="small" col="2" >
+      <DescriptionList  key={retailStoreInvestmentInvitation.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreInvestmentInvitation.id}</Description> 
         <Description term={fieldLabels.comment} style={{wordBreak: 'break-all'}}>{retailStoreInvestmentInvitation.comment}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -104,8 +130,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const RetailStoreInvestmentInvitationBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const RetailStoreInvestmentInvitationBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreInvestmentInvitationBase
-
-
 

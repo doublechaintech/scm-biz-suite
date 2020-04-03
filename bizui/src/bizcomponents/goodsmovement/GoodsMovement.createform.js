@@ -18,13 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-11-30 22:00:26',
+  moveTime: '2020-03-17 12:30:30',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '42.537005838985195',
-  longitude: '130.48673518016815',
+  latitude: '40.52375234779882',
+  longitude: '130.70284016102164',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -59,7 +59,7 @@ class GoodsMovementCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -67,9 +67,9 @@ class GoodsMovementCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -219,7 +219,7 @@ class GoodsMovementCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<GoodsMovementCreateFormBody	 {...this.props} />
+   		<GoodsMovementCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -164,7 +164,7 @@ class EmployeeWorkExperienceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工工作经验",cardsFor: "employeeWorkExperience",
+    const cardsData = {cardsName:window.trans('employee_work_experience'),cardsFor: "employeeWorkExperience",
     	cardsSource: this.props.employeeWorkExperience,returnURL,displayName,
   		subItems: [
     
@@ -196,8 +196,9 @@ class EmployeeWorkExperienceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

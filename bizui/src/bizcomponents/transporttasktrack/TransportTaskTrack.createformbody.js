@@ -17,9 +17,9 @@ const {fieldLabels} = TransportTaskTrackBase
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2019-04-15',
-  latitude: '31.47216520020141',
-  longitude: '104.64398522886944',
+  trackTime: '2018-03-07',
+  latitude: '32.657382950429096',
+  longitude: '103.33015833465227',
   movementId: 'TT000001',
 }
 */
@@ -52,18 +52,22 @@ class TransportTaskTrackCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

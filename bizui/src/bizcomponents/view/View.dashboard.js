@@ -157,7 +157,7 @@ class ViewDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"观",cardsFor: "view",
+    const cardsData = {cardsName:window.trans('view'),cardsFor: "view",
     	cardsSource: this.props.view,returnURL,displayName,
   		subItems: [
     
@@ -189,8 +189,9 @@ class ViewDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

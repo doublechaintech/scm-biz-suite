@@ -52,7 +52,7 @@ class MemberWishlistCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -60,9 +60,9 @@ class MemberWishlistCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -212,7 +212,7 @@ class MemberWishlistCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<MemberWishlistCreateFormBody	 {...this.props} />
+   		<MemberWishlistCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

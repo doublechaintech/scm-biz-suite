@@ -163,7 +163,7 @@ class RetailStoreMemberAddressDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"零售店会员地址",cardsFor: "retailStoreMemberAddress",
+    const cardsData = {cardsName:window.trans('retail_store_member_address'),cardsFor: "retailStoreMemberAddress",
     	cardsSource: this.props.retailStoreMemberAddress,returnURL,displayName,
   		subItems: [
     
@@ -195,8 +195,9 @@ class RetailStoreMemberAddressDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

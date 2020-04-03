@@ -22,9 +22,6 @@ const testValues = {
   receivedBy: '本公司',
   voucherType: '原始凭证',
   belongsToId: 'AD000001',
-  creationId: 'OVC000001',
-  confirmationId: 'OVC000001',
-  auditingId: 'OVA000001',
 }
 */
 
@@ -57,18 +54,22 @@ class OriginalVoucherCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -195,63 +196,6 @@ class OriginalVoucherCreateFormBody extends Component {
 
            
 
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.creation} {...formItemLayout}>
-                  {getFieldDecorator('creationId', {
-                  	initialValue: tryinit('creation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={OriginalVoucherService.requestCandidateCreation}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
-                  {getFieldDecorator('confirmationId', {
-                  	initialValue: tryinit('confirmation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={OriginalVoucherService.requestCandidateConfirmation}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.auditing} {...formItemLayout}>
-                  {getFieldDecorator('auditingId', {
-                  	initialValue: tryinit('auditing'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('auditing')}
-                    targetType={"auditing"} 
-                    requestFunction={OriginalVoucherService.requestCandidateAuditing}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
 
 
 			 </Row>
@@ -272,7 +216,7 @@ class OriginalVoucherCreateFormBody extends Component {
                 <ImageComponent
                   buttonTitle={fieldLabels.voucherImage}
                   handlePreview={this.handlePreview}
-                  handleChange={event => this.handleChange(event, 'voucherImage')}
+                  handleChange={event => this.handleImageChange(event, 'voucherImage')}
                   fileList={convertedImagesValues.voucherImage}
                 />
               </Col>

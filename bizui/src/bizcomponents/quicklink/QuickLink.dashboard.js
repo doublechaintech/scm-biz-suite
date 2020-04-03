@@ -165,7 +165,7 @@ class QuickLinkDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"快速链接",cardsFor: "quickLink",
+    const cardsData = {cardsName:window.trans('quick_link'),cardsFor: "quickLink",
     	cardsSource: this.props.quickLink,returnURL,displayName,
   		subItems: [
     
@@ -197,8 +197,9 @@ class QuickLinkDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

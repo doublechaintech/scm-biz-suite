@@ -91,6 +91,7 @@ class LoginHistoryTable extends PureComponent {
           
           { hasReadPermission(metaInfo)&&<Link to={`/loginHistory/${record.id}/dashboard`}>{appLocaleName(userContext,"View")}</Link>}
 
+
           {
             record.actionList&&record.actionList.map((item)=>(<a key={item.actionId} onClick={()=>this.executeAction(item,text, record)}><span className={styles.splitLine} />{item.actionName}</a>))
 
@@ -99,9 +100,12 @@ class LoginHistoryTable extends PureComponent {
       ),
     }
    
-    enhancedColumns.push(
-      operationColumn
-    )
+    if( hasReadPermission(metaInfo) || hasUpdatePermission(metaInfo)){
+        enhancedColumns.push(
+      		operationColumn
+    	)
+    }
+
     
     return enhancedColumns
 

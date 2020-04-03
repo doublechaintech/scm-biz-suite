@@ -18,8 +18,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  start: '2019-07-12',
-  end: '2018-08-30',
+  start: '2018-02-23',
+  end: '2019-05-23',
   company: '丝芙兰化妆品公司',
   description: '在此期间取得非常好的绩效，赢得了客户的信赖',
   employeeId: 'E000001',
@@ -55,7 +55,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -63,9 +63,9 @@ class EmployeeWorkExperienceCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -215,7 +215,7 @@ class EmployeeWorkExperienceCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<EmployeeWorkExperienceCreateFormBody	 {...this.props} />
+   		<EmployeeWorkExperienceCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

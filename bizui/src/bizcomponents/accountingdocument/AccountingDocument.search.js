@@ -65,10 +65,6 @@ const showAssociateDialog = (targetComponent) => {
   
   const { AccountingPeriodAssociateForm } = GlobalComponents
   const { AccountingDocumentTypeAssociateForm } = GlobalComponents
-  const { AccountingDocumentCreationAssociateForm } = GlobalComponents
-  const { AccountingDocumentConfirmationAssociateForm } = GlobalComponents
-  const { AccountingDocumentAuditingAssociateForm } = GlobalComponents
-  const { AccountingDocumentPostingAssociateForm } = GlobalComponents
 
 
   return (
@@ -84,23 +80,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='documentType'} 
 	data={{accountingDocumentList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'documentType')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'documentType')}/> <AccountingDocumentCreationAssociateForm 
-	visible={currentAssociateModal==='creation'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'creation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'creation')}/> <AccountingDocumentConfirmationAssociateForm 
-	visible={currentAssociateModal==='confirmation'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'confirmation')}/> <AccountingDocumentAuditingAssociateForm 
-	visible={currentAssociateModal==='auditing'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'auditing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'auditing')}/> <AccountingDocumentPostingAssociateForm 
-	visible={currentAssociateModal==='posting'} 
-	data={{accountingDocumentList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'posting')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'posting')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'documentType')}/> 
  
 
 

@@ -162,7 +162,7 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超订单付款组",cardsFor: "retailStoreOrderPaymentGroup",
+    const cardsData = {cardsName:window.trans('retail_store_order_payment_group'),cardsFor: "retailStoreOrderPaymentGroup",
     	cardsSource: this.props.retailStoreOrderPaymentGroup,returnURL,displayName,
   		subItems: [
     
@@ -194,8 +194,9 @@ class RetailStoreOrderPaymentGroupDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

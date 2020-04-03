@@ -33,81 +33,6 @@ const transferToAnotherConsumer = (id, parameters) => {
 
 
 
-const requestCandidateConfirmation = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}consumerOrderManager/requestCandidateConfirmation/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherConfirmation = (id, parameters) => {
-  const url = `${PREFIX}consumerOrderManager/transferToAnotherConfirmation/id/anotherConfirmationId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateApproval = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}consumerOrderManager/requestCandidateApproval/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherApproval = (id, parameters) => {
-  const url = `${PREFIX}consumerOrderManager/transferToAnotherApproval/id/anotherApprovalId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateProcessing = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}consumerOrderManager/requestCandidateProcessing/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherProcessing = (id, parameters) => {
-  const url = `${PREFIX}consumerOrderManager/transferToAnotherProcessing/id/anotherProcessingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateShipment = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}consumerOrderManager/requestCandidateShipment/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherShipment = (id, parameters) => {
-  const url = `${PREFIX}consumerOrderManager/transferToAnotherShipment/id/anotherShipmentId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateDelivery = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}consumerOrderManager/requestCandidateDelivery/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherDelivery = (id, parameters) => {
-  const url = `${PREFIX}consumerOrderManager/transferToAnotherDelivery/id/anotherDeliveryId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 const requestCandidateStore = (ownerClass, id, filterKey, pageNo) => {
  
   const url = `${PREFIX}consumerOrderManager/requestCandidateStore/ownerClass/id/filterKey/pageNo/`
@@ -281,18 +206,8 @@ const ConsumerOrderService = { view,
   removeConsumerOrderPriceAdjustmentList,
   removeRetailStoreMemberGiftCardConsumeRecordList,
   requestCandidateConsumer,
-  requestCandidateConfirmation,
-  requestCandidateApproval,
-  requestCandidateProcessing,
-  requestCandidateShipment,
-  requestCandidateDelivery,
   requestCandidateStore,
   transferToAnotherConsumer,
-  transferToAnotherConfirmation,
-  transferToAnotherApproval,
-  transferToAnotherProcessing,
-  transferToAnotherShipment,
-  transferToAnotherDelivery,
   transferToAnotherStore, listFunctions, saveRequest, processRequest}
 export default ConsumerOrderService
 

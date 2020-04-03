@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EmployeeWorkExperience.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -70,17 +70,43 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(employeeWorkExperience,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(employeeWorkExperience, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={employeeWorkExperience.id}>
+    <Card key={employeeWorkExperience.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(employeeWorkExperience.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={employeeWorkExperience.id} size="small" col="2" >
+      <DescriptionList  key={employeeWorkExperience.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeWorkExperience.id}</Description> 
-        <Description term={fieldLabels.employee}><div>{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeWorkExperience.employee.displayName}(${employeeWorkExperience.employee.id})`}
-        </div></Description>
+        <Description term={fieldLabels.employee}><Tag color='blue' title={`${employeeWorkExperience.employee.id}-${employeeWorkExperience.employee.displayName}`}>{employeeWorkExperience.employee==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeWorkExperience.employee.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.start}><div>{ moment(employeeWorkExperience.start).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.end}><div>{ moment(employeeWorkExperience.end).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.company} style={{wordBreak: 'break-all'}}>{employeeWorkExperience.company}</Description> 
@@ -88,8 +114,8 @@ const renderItemOfList=(employeeWorkExperience,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -97,13 +123,13 @@ const renderItemOfList=(employeeWorkExperience,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {start, end, company, description, employeeId} = formValuesToPack
 	const employee = {id: employeeId, version: 2^31}
-	const data = {start, end, company, description, employee}
+	const data = {start:moment(start).valueOf(), end:moment(end).valueOf(), company, description, employee}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {start, end, company, description, employee} = objectToUnpack
 	const employeeId = employee ? employee.id : null
-	const data = {start, end, company, description, employeeId}
+	const data = {start:moment(start), end:moment(end), company, description, employeeId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -116,8 +142,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EmployeeWorkExperienceBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EmployeeWorkExperienceBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeWorkExperienceBase
-
-
 

@@ -18,7 +18,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链先锋号车队',
-  contactNumber: '319587632',
+  contactNumber: '028 87654321',
   ownerId: 'RSCC000001',
 }
 */
@@ -51,18 +51,22 @@ class TransportFleetCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

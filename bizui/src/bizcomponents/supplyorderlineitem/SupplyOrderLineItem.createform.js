@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  amount: '5.21',
-  quantity: '8946',
+  amount: '4.87',
+  quantity: '7061',
   unitOfMeasurement: '件',
   bizOrderId: 'SO000001',
 }
@@ -56,7 +56,7 @@ class SupplyOrderLineItemCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class SupplyOrderLineItemCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class SupplyOrderLineItemCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<SupplyOrderLineItemCreateFormBody	 {...this.props} />
+   		<SupplyOrderLineItemCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

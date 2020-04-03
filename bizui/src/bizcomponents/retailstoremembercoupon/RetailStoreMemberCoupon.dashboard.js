@@ -163,7 +163,7 @@ class RetailStoreMemberCouponDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超会员优惠券",cardsFor: "retailStoreMemberCoupon",
+    const cardsData = {cardsName:window.trans('retail_store_member_coupon'),cardsFor: "retailStoreMemberCoupon",
     	cardsSource: this.props.retailStoreMemberCoupon,returnURL,displayName,
   		subItems: [
     
@@ -195,8 +195,9 @@ class RetailStoreMemberCouponDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

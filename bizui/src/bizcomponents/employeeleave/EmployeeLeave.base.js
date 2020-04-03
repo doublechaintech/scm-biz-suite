@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EmployeeLeave.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -61,33 +61,59 @@ const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'employeeLeave') , sorter: true },
   { title: fieldLabels.who, dataIndex: 'who', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.type, dataIndex: 'type', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.leaveDurationHour, debugtype: 'int', dataIndex: 'leaveDurationHour', width: '5',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.leaveDurationHour, dataIndex: 'leaveDurationHour', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
   { title: fieldLabels.remark, debugtype: 'string', dataIndex: 'remark', width: '15',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(employeeLeave,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(employeeLeave, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={employeeLeave.id}>
+    <Card key={employeeLeave.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(employeeLeave.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={employeeLeave.id} size="small" col="2" >
+      <DescriptionList  key={employeeLeave.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeLeave.id}</Description> 
-        <Description term={fieldLabels.who}><div>{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.who.displayName}(${employeeLeave.who.id})`}
-        </div></Description>
-        <Description term={fieldLabels.type}><div>{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${employeeLeave.type.displayName}(${employeeLeave.type.id})`}
-        </div></Description>
+        <Description term={fieldLabels.who}><Tag color='blue' title={`${employeeLeave.who.id}-${employeeLeave.who.displayName}`}>{employeeLeave.who==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeLeave.who.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.type}><Tag color='blue' title={`${employeeLeave.type.id}-${employeeLeave.type.displayName}`}>{employeeLeave.type==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeLeave.type.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.leaveDurationHour}><div style={{"color":"red"}}>{employeeLeave.leaveDurationHour}</div></Description> 
         <Description term={fieldLabels.remark} style={{wordBreak: 'break-all'}}>{employeeLeave.remark}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -116,8 +142,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EmployeeLeaveBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EmployeeLeaveBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeLeaveBase
-
-
 

@@ -167,7 +167,7 @@ class ListAccessDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"访问列表",cardsFor: "listAccess",
+    const cardsData = {cardsName:window.trans('list_access'),cardsFor: "listAccess",
     	cardsSource: this.props.listAccess,returnURL,displayName,
   		subItems: [
     
@@ -199,8 +199,9 @@ class ListAccessDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

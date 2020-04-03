@@ -18,8 +18,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-  founded: '2019-10-20',
-  managerName: '刘强',
+  founded: '2019-07-24',
+  manager: '刘强',
   provinceCenterId: 'RSPC000001',
 }
 */
@@ -52,18 +52,22 @@ class ProvinceCenterDepartmentCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -149,11 +153,11 @@ class ProvinceCenterDepartmentCreateFormBody extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
-                  {getFieldDecorator('managerName', {
+                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
+                  {getFieldDecorator('manager', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.managerName} />
+                    <Input size="large"  placeHolder={fieldLabels.manager} />
                   )}
                 </Form.Item>
               </Col>

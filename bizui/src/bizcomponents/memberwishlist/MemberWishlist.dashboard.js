@@ -161,10 +161,10 @@ class MemberWishlistDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员收藏",cardsFor: "memberWishlist",
+    const cardsData = {cardsName:window.trans('member_wishlist'),cardsFor: "memberWishlist",
     	cardsSource: this.props.memberWishlist,returnURL,displayName,
   		subItems: [
-{name: 'memberWishlistProductList', displayName:'会员收藏产品',viewGroup:'__no_group', type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
+{name: 'memberWishlistProductList', displayName: window.mtrans('member_wishlist_product','member_wishlist.member_wishlist_product_list',false) ,viewGroup:'__no_group', type:'memberWishlistProduct',count:memberWishlistProductCount,addFunction: true, role: 'memberWishlistProduct', metaInfo: memberWishlistProductListMetaInfo, renderItem: GlobalComponents.MemberWishlistProductBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -194,8 +194,9 @@ class MemberWishlistDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

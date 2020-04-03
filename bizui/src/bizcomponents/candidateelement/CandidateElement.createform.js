@@ -54,7 +54,7 @@ class CandidateElementCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class CandidateElementCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class CandidateElementCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<CandidateElementCreateFormBody	 {...this.props} />
+   		<CandidateElementCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

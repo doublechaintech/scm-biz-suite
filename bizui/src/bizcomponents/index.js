@@ -390,81 +390,6 @@ import ConsumerOrderProfile from './consumerorder/ConsumerOrder.profile';
 import ConsumerOrderCreateFormBody from './consumerorder/ConsumerOrder.createformbody';
 import ConsumerOrderService from './consumerorder/ConsumerOrder.service';
 import ConsumerOrderUpdateForm from './consumerorder/ConsumerOrder.updateform';
-import ConsumerOrderConfirmationBase from './consumerorderconfirmation/ConsumerOrderConfirmation.base';
-import ConsumerOrderConfirmationBizApp from './consumerorderconfirmation/ConsumerOrderConfirmation.app';
-import ConsumerOrderConfirmationModel from './consumerorderconfirmation/ConsumerOrderConfirmation.model';
-import ConsumerOrderConfirmationDashboard from './consumerorderconfirmation/ConsumerOrderConfirmation.dashboard';
-import ConsumerOrderConfirmationModalTable from './consumerorderconfirmation/ConsumerOrderConfirmation.modaltable';
-import ConsumerOrderConfirmationSearch from './consumerorderconfirmation/ConsumerOrderConfirmation.search';
-import ConsumerOrderConfirmationSearchForm from './consumerorderconfirmation/ConsumerOrderConfirmation.searchform';
-import ConsumerOrderConfirmationCreateForm from './consumerorderconfirmation/ConsumerOrderConfirmation.createform';
-import ConsumerOrderConfirmationAssociateForm from './consumerorderconfirmation/ConsumerOrderConfirmation.associateform';
-import ConsumerOrderConfirmationTable from './consumerorderconfirmation/ConsumerOrderConfirmation.table';
-import ConsumerOrderConfirmationPermission from './consumerorderconfirmation/ConsumerOrderConfirmation.permission';
-import ConsumerOrderConfirmationProfile from './consumerorderconfirmation/ConsumerOrderConfirmation.profile';
-import ConsumerOrderConfirmationCreateFormBody from './consumerorderconfirmation/ConsumerOrderConfirmation.createformbody';
-import ConsumerOrderConfirmationService from './consumerorderconfirmation/ConsumerOrderConfirmation.service';
-import ConsumerOrderConfirmationUpdateForm from './consumerorderconfirmation/ConsumerOrderConfirmation.updateform';
-import ConsumerOrderApprovalBase from './consumerorderapproval/ConsumerOrderApproval.base';
-import ConsumerOrderApprovalBizApp from './consumerorderapproval/ConsumerOrderApproval.app';
-import ConsumerOrderApprovalModel from './consumerorderapproval/ConsumerOrderApproval.model';
-import ConsumerOrderApprovalDashboard from './consumerorderapproval/ConsumerOrderApproval.dashboard';
-import ConsumerOrderApprovalModalTable from './consumerorderapproval/ConsumerOrderApproval.modaltable';
-import ConsumerOrderApprovalSearch from './consumerorderapproval/ConsumerOrderApproval.search';
-import ConsumerOrderApprovalSearchForm from './consumerorderapproval/ConsumerOrderApproval.searchform';
-import ConsumerOrderApprovalCreateForm from './consumerorderapproval/ConsumerOrderApproval.createform';
-import ConsumerOrderApprovalAssociateForm from './consumerorderapproval/ConsumerOrderApproval.associateform';
-import ConsumerOrderApprovalTable from './consumerorderapproval/ConsumerOrderApproval.table';
-import ConsumerOrderApprovalPermission from './consumerorderapproval/ConsumerOrderApproval.permission';
-import ConsumerOrderApprovalProfile from './consumerorderapproval/ConsumerOrderApproval.profile';
-import ConsumerOrderApprovalCreateFormBody from './consumerorderapproval/ConsumerOrderApproval.createformbody';
-import ConsumerOrderApprovalService from './consumerorderapproval/ConsumerOrderApproval.service';
-import ConsumerOrderApprovalUpdateForm from './consumerorderapproval/ConsumerOrderApproval.updateform';
-import ConsumerOrderProcessingBase from './consumerorderprocessing/ConsumerOrderProcessing.base';
-import ConsumerOrderProcessingBizApp from './consumerorderprocessing/ConsumerOrderProcessing.app';
-import ConsumerOrderProcessingModel from './consumerorderprocessing/ConsumerOrderProcessing.model';
-import ConsumerOrderProcessingDashboard from './consumerorderprocessing/ConsumerOrderProcessing.dashboard';
-import ConsumerOrderProcessingModalTable from './consumerorderprocessing/ConsumerOrderProcessing.modaltable';
-import ConsumerOrderProcessingSearch from './consumerorderprocessing/ConsumerOrderProcessing.search';
-import ConsumerOrderProcessingSearchForm from './consumerorderprocessing/ConsumerOrderProcessing.searchform';
-import ConsumerOrderProcessingCreateForm from './consumerorderprocessing/ConsumerOrderProcessing.createform';
-import ConsumerOrderProcessingAssociateForm from './consumerorderprocessing/ConsumerOrderProcessing.associateform';
-import ConsumerOrderProcessingTable from './consumerorderprocessing/ConsumerOrderProcessing.table';
-import ConsumerOrderProcessingPermission from './consumerorderprocessing/ConsumerOrderProcessing.permission';
-import ConsumerOrderProcessingProfile from './consumerorderprocessing/ConsumerOrderProcessing.profile';
-import ConsumerOrderProcessingCreateFormBody from './consumerorderprocessing/ConsumerOrderProcessing.createformbody';
-import ConsumerOrderProcessingService from './consumerorderprocessing/ConsumerOrderProcessing.service';
-import ConsumerOrderProcessingUpdateForm from './consumerorderprocessing/ConsumerOrderProcessing.updateform';
-import ConsumerOrderShipmentBase from './consumerordershipment/ConsumerOrderShipment.base';
-import ConsumerOrderShipmentBizApp from './consumerordershipment/ConsumerOrderShipment.app';
-import ConsumerOrderShipmentModel from './consumerordershipment/ConsumerOrderShipment.model';
-import ConsumerOrderShipmentDashboard from './consumerordershipment/ConsumerOrderShipment.dashboard';
-import ConsumerOrderShipmentModalTable from './consumerordershipment/ConsumerOrderShipment.modaltable';
-import ConsumerOrderShipmentSearch from './consumerordershipment/ConsumerOrderShipment.search';
-import ConsumerOrderShipmentSearchForm from './consumerordershipment/ConsumerOrderShipment.searchform';
-import ConsumerOrderShipmentCreateForm from './consumerordershipment/ConsumerOrderShipment.createform';
-import ConsumerOrderShipmentAssociateForm from './consumerordershipment/ConsumerOrderShipment.associateform';
-import ConsumerOrderShipmentTable from './consumerordershipment/ConsumerOrderShipment.table';
-import ConsumerOrderShipmentPermission from './consumerordershipment/ConsumerOrderShipment.permission';
-import ConsumerOrderShipmentProfile from './consumerordershipment/ConsumerOrderShipment.profile';
-import ConsumerOrderShipmentCreateFormBody from './consumerordershipment/ConsumerOrderShipment.createformbody';
-import ConsumerOrderShipmentService from './consumerordershipment/ConsumerOrderShipment.service';
-import ConsumerOrderShipmentUpdateForm from './consumerordershipment/ConsumerOrderShipment.updateform';
-import ConsumerOrderDeliveryBase from './consumerorderdelivery/ConsumerOrderDelivery.base';
-import ConsumerOrderDeliveryBizApp from './consumerorderdelivery/ConsumerOrderDelivery.app';
-import ConsumerOrderDeliveryModel from './consumerorderdelivery/ConsumerOrderDelivery.model';
-import ConsumerOrderDeliveryDashboard from './consumerorderdelivery/ConsumerOrderDelivery.dashboard';
-import ConsumerOrderDeliveryModalTable from './consumerorderdelivery/ConsumerOrderDelivery.modaltable';
-import ConsumerOrderDeliverySearch from './consumerorderdelivery/ConsumerOrderDelivery.search';
-import ConsumerOrderDeliverySearchForm from './consumerorderdelivery/ConsumerOrderDelivery.searchform';
-import ConsumerOrderDeliveryCreateForm from './consumerorderdelivery/ConsumerOrderDelivery.createform';
-import ConsumerOrderDeliveryAssociateForm from './consumerorderdelivery/ConsumerOrderDelivery.associateform';
-import ConsumerOrderDeliveryTable from './consumerorderdelivery/ConsumerOrderDelivery.table';
-import ConsumerOrderDeliveryPermission from './consumerorderdelivery/ConsumerOrderDelivery.permission';
-import ConsumerOrderDeliveryProfile from './consumerorderdelivery/ConsumerOrderDelivery.profile';
-import ConsumerOrderDeliveryCreateFormBody from './consumerorderdelivery/ConsumerOrderDelivery.createformbody';
-import ConsumerOrderDeliveryService from './consumerorderdelivery/ConsumerOrderDelivery.service';
-import ConsumerOrderDeliveryUpdateForm from './consumerorderdelivery/ConsumerOrderDelivery.updateform';
 import ConsumerOrderLineItemBase from './consumerorderlineitem/ConsumerOrderLineItem.base';
 import ConsumerOrderLineItemBizApp from './consumerorderlineitem/ConsumerOrderLineItem.app';
 import ConsumerOrderLineItemModel from './consumerorderlineitem/ConsumerOrderLineItem.model';
@@ -705,96 +630,6 @@ import SupplyOrderProfile from './supplyorder/SupplyOrder.profile';
 import SupplyOrderCreateFormBody from './supplyorder/SupplyOrder.createformbody';
 import SupplyOrderService from './supplyorder/SupplyOrder.service';
 import SupplyOrderUpdateForm from './supplyorder/SupplyOrder.updateform';
-import SupplyOrderConfirmationBase from './supplyorderconfirmation/SupplyOrderConfirmation.base';
-import SupplyOrderConfirmationBizApp from './supplyorderconfirmation/SupplyOrderConfirmation.app';
-import SupplyOrderConfirmationModel from './supplyorderconfirmation/SupplyOrderConfirmation.model';
-import SupplyOrderConfirmationDashboard from './supplyorderconfirmation/SupplyOrderConfirmation.dashboard';
-import SupplyOrderConfirmationModalTable from './supplyorderconfirmation/SupplyOrderConfirmation.modaltable';
-import SupplyOrderConfirmationSearch from './supplyorderconfirmation/SupplyOrderConfirmation.search';
-import SupplyOrderConfirmationSearchForm from './supplyorderconfirmation/SupplyOrderConfirmation.searchform';
-import SupplyOrderConfirmationCreateForm from './supplyorderconfirmation/SupplyOrderConfirmation.createform';
-import SupplyOrderConfirmationAssociateForm from './supplyorderconfirmation/SupplyOrderConfirmation.associateform';
-import SupplyOrderConfirmationTable from './supplyorderconfirmation/SupplyOrderConfirmation.table';
-import SupplyOrderConfirmationPermission from './supplyorderconfirmation/SupplyOrderConfirmation.permission';
-import SupplyOrderConfirmationProfile from './supplyorderconfirmation/SupplyOrderConfirmation.profile';
-import SupplyOrderConfirmationCreateFormBody from './supplyorderconfirmation/SupplyOrderConfirmation.createformbody';
-import SupplyOrderConfirmationService from './supplyorderconfirmation/SupplyOrderConfirmation.service';
-import SupplyOrderConfirmationUpdateForm from './supplyorderconfirmation/SupplyOrderConfirmation.updateform';
-import SupplyOrderApprovalBase from './supplyorderapproval/SupplyOrderApproval.base';
-import SupplyOrderApprovalBizApp from './supplyorderapproval/SupplyOrderApproval.app';
-import SupplyOrderApprovalModel from './supplyorderapproval/SupplyOrderApproval.model';
-import SupplyOrderApprovalDashboard from './supplyorderapproval/SupplyOrderApproval.dashboard';
-import SupplyOrderApprovalModalTable from './supplyorderapproval/SupplyOrderApproval.modaltable';
-import SupplyOrderApprovalSearch from './supplyorderapproval/SupplyOrderApproval.search';
-import SupplyOrderApprovalSearchForm from './supplyorderapproval/SupplyOrderApproval.searchform';
-import SupplyOrderApprovalCreateForm from './supplyorderapproval/SupplyOrderApproval.createform';
-import SupplyOrderApprovalAssociateForm from './supplyorderapproval/SupplyOrderApproval.associateform';
-import SupplyOrderApprovalTable from './supplyorderapproval/SupplyOrderApproval.table';
-import SupplyOrderApprovalPermission from './supplyorderapproval/SupplyOrderApproval.permission';
-import SupplyOrderApprovalProfile from './supplyorderapproval/SupplyOrderApproval.profile';
-import SupplyOrderApprovalCreateFormBody from './supplyorderapproval/SupplyOrderApproval.createformbody';
-import SupplyOrderApprovalService from './supplyorderapproval/SupplyOrderApproval.service';
-import SupplyOrderApprovalUpdateForm from './supplyorderapproval/SupplyOrderApproval.updateform';
-import SupplyOrderProcessingBase from './supplyorderprocessing/SupplyOrderProcessing.base';
-import SupplyOrderProcessingBizApp from './supplyorderprocessing/SupplyOrderProcessing.app';
-import SupplyOrderProcessingModel from './supplyorderprocessing/SupplyOrderProcessing.model';
-import SupplyOrderProcessingDashboard from './supplyorderprocessing/SupplyOrderProcessing.dashboard';
-import SupplyOrderProcessingModalTable from './supplyorderprocessing/SupplyOrderProcessing.modaltable';
-import SupplyOrderProcessingSearch from './supplyorderprocessing/SupplyOrderProcessing.search';
-import SupplyOrderProcessingSearchForm from './supplyorderprocessing/SupplyOrderProcessing.searchform';
-import SupplyOrderProcessingCreateForm from './supplyorderprocessing/SupplyOrderProcessing.createform';
-import SupplyOrderProcessingAssociateForm from './supplyorderprocessing/SupplyOrderProcessing.associateform';
-import SupplyOrderProcessingTable from './supplyorderprocessing/SupplyOrderProcessing.table';
-import SupplyOrderProcessingPermission from './supplyorderprocessing/SupplyOrderProcessing.permission';
-import SupplyOrderProcessingProfile from './supplyorderprocessing/SupplyOrderProcessing.profile';
-import SupplyOrderProcessingCreateFormBody from './supplyorderprocessing/SupplyOrderProcessing.createformbody';
-import SupplyOrderProcessingService from './supplyorderprocessing/SupplyOrderProcessing.service';
-import SupplyOrderProcessingUpdateForm from './supplyorderprocessing/SupplyOrderProcessing.updateform';
-import SupplyOrderPickingBase from './supplyorderpicking/SupplyOrderPicking.base';
-import SupplyOrderPickingBizApp from './supplyorderpicking/SupplyOrderPicking.app';
-import SupplyOrderPickingModel from './supplyorderpicking/SupplyOrderPicking.model';
-import SupplyOrderPickingDashboard from './supplyorderpicking/SupplyOrderPicking.dashboard';
-import SupplyOrderPickingModalTable from './supplyorderpicking/SupplyOrderPicking.modaltable';
-import SupplyOrderPickingSearch from './supplyorderpicking/SupplyOrderPicking.search';
-import SupplyOrderPickingSearchForm from './supplyorderpicking/SupplyOrderPicking.searchform';
-import SupplyOrderPickingCreateForm from './supplyorderpicking/SupplyOrderPicking.createform';
-import SupplyOrderPickingAssociateForm from './supplyorderpicking/SupplyOrderPicking.associateform';
-import SupplyOrderPickingTable from './supplyorderpicking/SupplyOrderPicking.table';
-import SupplyOrderPickingPermission from './supplyorderpicking/SupplyOrderPicking.permission';
-import SupplyOrderPickingProfile from './supplyorderpicking/SupplyOrderPicking.profile';
-import SupplyOrderPickingCreateFormBody from './supplyorderpicking/SupplyOrderPicking.createformbody';
-import SupplyOrderPickingService from './supplyorderpicking/SupplyOrderPicking.service';
-import SupplyOrderPickingUpdateForm from './supplyorderpicking/SupplyOrderPicking.updateform';
-import SupplyOrderShipmentBase from './supplyordershipment/SupplyOrderShipment.base';
-import SupplyOrderShipmentBizApp from './supplyordershipment/SupplyOrderShipment.app';
-import SupplyOrderShipmentModel from './supplyordershipment/SupplyOrderShipment.model';
-import SupplyOrderShipmentDashboard from './supplyordershipment/SupplyOrderShipment.dashboard';
-import SupplyOrderShipmentModalTable from './supplyordershipment/SupplyOrderShipment.modaltable';
-import SupplyOrderShipmentSearch from './supplyordershipment/SupplyOrderShipment.search';
-import SupplyOrderShipmentSearchForm from './supplyordershipment/SupplyOrderShipment.searchform';
-import SupplyOrderShipmentCreateForm from './supplyordershipment/SupplyOrderShipment.createform';
-import SupplyOrderShipmentAssociateForm from './supplyordershipment/SupplyOrderShipment.associateform';
-import SupplyOrderShipmentTable from './supplyordershipment/SupplyOrderShipment.table';
-import SupplyOrderShipmentPermission from './supplyordershipment/SupplyOrderShipment.permission';
-import SupplyOrderShipmentProfile from './supplyordershipment/SupplyOrderShipment.profile';
-import SupplyOrderShipmentCreateFormBody from './supplyordershipment/SupplyOrderShipment.createformbody';
-import SupplyOrderShipmentService from './supplyordershipment/SupplyOrderShipment.service';
-import SupplyOrderShipmentUpdateForm from './supplyordershipment/SupplyOrderShipment.updateform';
-import SupplyOrderDeliveryBase from './supplyorderdelivery/SupplyOrderDelivery.base';
-import SupplyOrderDeliveryBizApp from './supplyorderdelivery/SupplyOrderDelivery.app';
-import SupplyOrderDeliveryModel from './supplyorderdelivery/SupplyOrderDelivery.model';
-import SupplyOrderDeliveryDashboard from './supplyorderdelivery/SupplyOrderDelivery.dashboard';
-import SupplyOrderDeliveryModalTable from './supplyorderdelivery/SupplyOrderDelivery.modaltable';
-import SupplyOrderDeliverySearch from './supplyorderdelivery/SupplyOrderDelivery.search';
-import SupplyOrderDeliverySearchForm from './supplyorderdelivery/SupplyOrderDelivery.searchform';
-import SupplyOrderDeliveryCreateForm from './supplyorderdelivery/SupplyOrderDelivery.createform';
-import SupplyOrderDeliveryAssociateForm from './supplyorderdelivery/SupplyOrderDelivery.associateform';
-import SupplyOrderDeliveryTable from './supplyorderdelivery/SupplyOrderDelivery.table';
-import SupplyOrderDeliveryPermission from './supplyorderdelivery/SupplyOrderDelivery.permission';
-import SupplyOrderDeliveryProfile from './supplyorderdelivery/SupplyOrderDelivery.profile';
-import SupplyOrderDeliveryCreateFormBody from './supplyorderdelivery/SupplyOrderDelivery.createformbody';
-import SupplyOrderDeliveryService from './supplyorderdelivery/SupplyOrderDelivery.service';
-import SupplyOrderDeliveryUpdateForm from './supplyorderdelivery/SupplyOrderDelivery.updateform';
 import SupplyOrderLineItemBase from './supplyorderlineitem/SupplyOrderLineItem.base';
 import SupplyOrderLineItemBizApp from './supplyorderlineitem/SupplyOrderLineItem.app';
 import SupplyOrderLineItemModel from './supplyorderlineitem/SupplyOrderLineItem.model';
@@ -855,96 +690,6 @@ import RetailStoreOrderProfile from './retailstoreorder/RetailStoreOrder.profile
 import RetailStoreOrderCreateFormBody from './retailstoreorder/RetailStoreOrder.createformbody';
 import RetailStoreOrderService from './retailstoreorder/RetailStoreOrder.service';
 import RetailStoreOrderUpdateForm from './retailstoreorder/RetailStoreOrder.updateform';
-import RetailStoreOrderConfirmationBase from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.base';
-import RetailStoreOrderConfirmationBizApp from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.app';
-import RetailStoreOrderConfirmationModel from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.model';
-import RetailStoreOrderConfirmationDashboard from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.dashboard';
-import RetailStoreOrderConfirmationModalTable from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.modaltable';
-import RetailStoreOrderConfirmationSearch from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.search';
-import RetailStoreOrderConfirmationSearchForm from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.searchform';
-import RetailStoreOrderConfirmationCreateForm from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.createform';
-import RetailStoreOrderConfirmationAssociateForm from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.associateform';
-import RetailStoreOrderConfirmationTable from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.table';
-import RetailStoreOrderConfirmationPermission from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.permission';
-import RetailStoreOrderConfirmationProfile from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.profile';
-import RetailStoreOrderConfirmationCreateFormBody from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.createformbody';
-import RetailStoreOrderConfirmationService from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.service';
-import RetailStoreOrderConfirmationUpdateForm from './retailstoreorderconfirmation/RetailStoreOrderConfirmation.updateform';
-import RetailStoreOrderApprovalBase from './retailstoreorderapproval/RetailStoreOrderApproval.base';
-import RetailStoreOrderApprovalBizApp from './retailstoreorderapproval/RetailStoreOrderApproval.app';
-import RetailStoreOrderApprovalModel from './retailstoreorderapproval/RetailStoreOrderApproval.model';
-import RetailStoreOrderApprovalDashboard from './retailstoreorderapproval/RetailStoreOrderApproval.dashboard';
-import RetailStoreOrderApprovalModalTable from './retailstoreorderapproval/RetailStoreOrderApproval.modaltable';
-import RetailStoreOrderApprovalSearch from './retailstoreorderapproval/RetailStoreOrderApproval.search';
-import RetailStoreOrderApprovalSearchForm from './retailstoreorderapproval/RetailStoreOrderApproval.searchform';
-import RetailStoreOrderApprovalCreateForm from './retailstoreorderapproval/RetailStoreOrderApproval.createform';
-import RetailStoreOrderApprovalAssociateForm from './retailstoreorderapproval/RetailStoreOrderApproval.associateform';
-import RetailStoreOrderApprovalTable from './retailstoreorderapproval/RetailStoreOrderApproval.table';
-import RetailStoreOrderApprovalPermission from './retailstoreorderapproval/RetailStoreOrderApproval.permission';
-import RetailStoreOrderApprovalProfile from './retailstoreorderapproval/RetailStoreOrderApproval.profile';
-import RetailStoreOrderApprovalCreateFormBody from './retailstoreorderapproval/RetailStoreOrderApproval.createformbody';
-import RetailStoreOrderApprovalService from './retailstoreorderapproval/RetailStoreOrderApproval.service';
-import RetailStoreOrderApprovalUpdateForm from './retailstoreorderapproval/RetailStoreOrderApproval.updateform';
-import RetailStoreOrderProcessingBase from './retailstoreorderprocessing/RetailStoreOrderProcessing.base';
-import RetailStoreOrderProcessingBizApp from './retailstoreorderprocessing/RetailStoreOrderProcessing.app';
-import RetailStoreOrderProcessingModel from './retailstoreorderprocessing/RetailStoreOrderProcessing.model';
-import RetailStoreOrderProcessingDashboard from './retailstoreorderprocessing/RetailStoreOrderProcessing.dashboard';
-import RetailStoreOrderProcessingModalTable from './retailstoreorderprocessing/RetailStoreOrderProcessing.modaltable';
-import RetailStoreOrderProcessingSearch from './retailstoreorderprocessing/RetailStoreOrderProcessing.search';
-import RetailStoreOrderProcessingSearchForm from './retailstoreorderprocessing/RetailStoreOrderProcessing.searchform';
-import RetailStoreOrderProcessingCreateForm from './retailstoreorderprocessing/RetailStoreOrderProcessing.createform';
-import RetailStoreOrderProcessingAssociateForm from './retailstoreorderprocessing/RetailStoreOrderProcessing.associateform';
-import RetailStoreOrderProcessingTable from './retailstoreorderprocessing/RetailStoreOrderProcessing.table';
-import RetailStoreOrderProcessingPermission from './retailstoreorderprocessing/RetailStoreOrderProcessing.permission';
-import RetailStoreOrderProcessingProfile from './retailstoreorderprocessing/RetailStoreOrderProcessing.profile';
-import RetailStoreOrderProcessingCreateFormBody from './retailstoreorderprocessing/RetailStoreOrderProcessing.createformbody';
-import RetailStoreOrderProcessingService from './retailstoreorderprocessing/RetailStoreOrderProcessing.service';
-import RetailStoreOrderProcessingUpdateForm from './retailstoreorderprocessing/RetailStoreOrderProcessing.updateform';
-import RetailStoreOrderPickingBase from './retailstoreorderpicking/RetailStoreOrderPicking.base';
-import RetailStoreOrderPickingBizApp from './retailstoreorderpicking/RetailStoreOrderPicking.app';
-import RetailStoreOrderPickingModel from './retailstoreorderpicking/RetailStoreOrderPicking.model';
-import RetailStoreOrderPickingDashboard from './retailstoreorderpicking/RetailStoreOrderPicking.dashboard';
-import RetailStoreOrderPickingModalTable from './retailstoreorderpicking/RetailStoreOrderPicking.modaltable';
-import RetailStoreOrderPickingSearch from './retailstoreorderpicking/RetailStoreOrderPicking.search';
-import RetailStoreOrderPickingSearchForm from './retailstoreorderpicking/RetailStoreOrderPicking.searchform';
-import RetailStoreOrderPickingCreateForm from './retailstoreorderpicking/RetailStoreOrderPicking.createform';
-import RetailStoreOrderPickingAssociateForm from './retailstoreorderpicking/RetailStoreOrderPicking.associateform';
-import RetailStoreOrderPickingTable from './retailstoreorderpicking/RetailStoreOrderPicking.table';
-import RetailStoreOrderPickingPermission from './retailstoreorderpicking/RetailStoreOrderPicking.permission';
-import RetailStoreOrderPickingProfile from './retailstoreorderpicking/RetailStoreOrderPicking.profile';
-import RetailStoreOrderPickingCreateFormBody from './retailstoreorderpicking/RetailStoreOrderPicking.createformbody';
-import RetailStoreOrderPickingService from './retailstoreorderpicking/RetailStoreOrderPicking.service';
-import RetailStoreOrderPickingUpdateForm from './retailstoreorderpicking/RetailStoreOrderPicking.updateform';
-import RetailStoreOrderShipmentBase from './retailstoreordershipment/RetailStoreOrderShipment.base';
-import RetailStoreOrderShipmentBizApp from './retailstoreordershipment/RetailStoreOrderShipment.app';
-import RetailStoreOrderShipmentModel from './retailstoreordershipment/RetailStoreOrderShipment.model';
-import RetailStoreOrderShipmentDashboard from './retailstoreordershipment/RetailStoreOrderShipment.dashboard';
-import RetailStoreOrderShipmentModalTable from './retailstoreordershipment/RetailStoreOrderShipment.modaltable';
-import RetailStoreOrderShipmentSearch from './retailstoreordershipment/RetailStoreOrderShipment.search';
-import RetailStoreOrderShipmentSearchForm from './retailstoreordershipment/RetailStoreOrderShipment.searchform';
-import RetailStoreOrderShipmentCreateForm from './retailstoreordershipment/RetailStoreOrderShipment.createform';
-import RetailStoreOrderShipmentAssociateForm from './retailstoreordershipment/RetailStoreOrderShipment.associateform';
-import RetailStoreOrderShipmentTable from './retailstoreordershipment/RetailStoreOrderShipment.table';
-import RetailStoreOrderShipmentPermission from './retailstoreordershipment/RetailStoreOrderShipment.permission';
-import RetailStoreOrderShipmentProfile from './retailstoreordershipment/RetailStoreOrderShipment.profile';
-import RetailStoreOrderShipmentCreateFormBody from './retailstoreordershipment/RetailStoreOrderShipment.createformbody';
-import RetailStoreOrderShipmentService from './retailstoreordershipment/RetailStoreOrderShipment.service';
-import RetailStoreOrderShipmentUpdateForm from './retailstoreordershipment/RetailStoreOrderShipment.updateform';
-import RetailStoreOrderDeliveryBase from './retailstoreorderdelivery/RetailStoreOrderDelivery.base';
-import RetailStoreOrderDeliveryBizApp from './retailstoreorderdelivery/RetailStoreOrderDelivery.app';
-import RetailStoreOrderDeliveryModel from './retailstoreorderdelivery/RetailStoreOrderDelivery.model';
-import RetailStoreOrderDeliveryDashboard from './retailstoreorderdelivery/RetailStoreOrderDelivery.dashboard';
-import RetailStoreOrderDeliveryModalTable from './retailstoreorderdelivery/RetailStoreOrderDelivery.modaltable';
-import RetailStoreOrderDeliverySearch from './retailstoreorderdelivery/RetailStoreOrderDelivery.search';
-import RetailStoreOrderDeliverySearchForm from './retailstoreorderdelivery/RetailStoreOrderDelivery.searchform';
-import RetailStoreOrderDeliveryCreateForm from './retailstoreorderdelivery/RetailStoreOrderDelivery.createform';
-import RetailStoreOrderDeliveryAssociateForm from './retailstoreorderdelivery/RetailStoreOrderDelivery.associateform';
-import RetailStoreOrderDeliveryTable from './retailstoreorderdelivery/RetailStoreOrderDelivery.table';
-import RetailStoreOrderDeliveryPermission from './retailstoreorderdelivery/RetailStoreOrderDelivery.permission';
-import RetailStoreOrderDeliveryProfile from './retailstoreorderdelivery/RetailStoreOrderDelivery.profile';
-import RetailStoreOrderDeliveryCreateFormBody from './retailstoreorderdelivery/RetailStoreOrderDelivery.createformbody';
-import RetailStoreOrderDeliveryService from './retailstoreorderdelivery/RetailStoreOrderDelivery.service';
-import RetailStoreOrderDeliveryUpdateForm from './retailstoreorderdelivery/RetailStoreOrderDelivery.updateform';
 import RetailStoreOrderLineItemBase from './retailstoreorderlineitem/RetailStoreOrderLineItem.base';
 import RetailStoreOrderLineItemBizApp from './retailstoreorderlineitem/RetailStoreOrderLineItem.app';
 import RetailStoreOrderLineItemModel from './retailstoreorderlineitem/RetailStoreOrderLineItem.model';
@@ -1110,21 +855,6 @@ import GoodsProfile from './goods/Goods.profile';
 import GoodsCreateFormBody from './goods/Goods.createformbody';
 import GoodsService from './goods/Goods.service';
 import GoodsUpdateForm from './goods/Goods.updateform';
-import GoodsPackagingBase from './goodspackaging/GoodsPackaging.base';
-import GoodsPackagingBizApp from './goodspackaging/GoodsPackaging.app';
-import GoodsPackagingModel from './goodspackaging/GoodsPackaging.model';
-import GoodsPackagingDashboard from './goodspackaging/GoodsPackaging.dashboard';
-import GoodsPackagingModalTable from './goodspackaging/GoodsPackaging.modaltable';
-import GoodsPackagingSearch from './goodspackaging/GoodsPackaging.search';
-import GoodsPackagingSearchForm from './goodspackaging/GoodsPackaging.searchform';
-import GoodsPackagingCreateForm from './goodspackaging/GoodsPackaging.createform';
-import GoodsPackagingAssociateForm from './goodspackaging/GoodsPackaging.associateform';
-import GoodsPackagingTable from './goodspackaging/GoodsPackaging.table';
-import GoodsPackagingPermission from './goodspackaging/GoodsPackaging.permission';
-import GoodsPackagingProfile from './goodspackaging/GoodsPackaging.profile';
-import GoodsPackagingCreateFormBody from './goodspackaging/GoodsPackaging.createformbody';
-import GoodsPackagingService from './goodspackaging/GoodsPackaging.service';
-import GoodsPackagingUpdateForm from './goodspackaging/GoodsPackaging.updateform';
 import GoodsMovementBase from './goodsmovement/GoodsMovement.base';
 import GoodsMovementBizApp from './goodsmovement/GoodsMovement.app';
 import GoodsMovementModel from './goodsmovement/GoodsMovement.model';
@@ -1365,66 +1095,6 @@ import AccountingDocumentProfile from './accountingdocument/AccountingDocument.p
 import AccountingDocumentCreateFormBody from './accountingdocument/AccountingDocument.createformbody';
 import AccountingDocumentService from './accountingdocument/AccountingDocument.service';
 import AccountingDocumentUpdateForm from './accountingdocument/AccountingDocument.updateform';
-import AccountingDocumentCreationBase from './accountingdocumentcreation/AccountingDocumentCreation.base';
-import AccountingDocumentCreationBizApp from './accountingdocumentcreation/AccountingDocumentCreation.app';
-import AccountingDocumentCreationModel from './accountingdocumentcreation/AccountingDocumentCreation.model';
-import AccountingDocumentCreationDashboard from './accountingdocumentcreation/AccountingDocumentCreation.dashboard';
-import AccountingDocumentCreationModalTable from './accountingdocumentcreation/AccountingDocumentCreation.modaltable';
-import AccountingDocumentCreationSearch from './accountingdocumentcreation/AccountingDocumentCreation.search';
-import AccountingDocumentCreationSearchForm from './accountingdocumentcreation/AccountingDocumentCreation.searchform';
-import AccountingDocumentCreationCreateForm from './accountingdocumentcreation/AccountingDocumentCreation.createform';
-import AccountingDocumentCreationAssociateForm from './accountingdocumentcreation/AccountingDocumentCreation.associateform';
-import AccountingDocumentCreationTable from './accountingdocumentcreation/AccountingDocumentCreation.table';
-import AccountingDocumentCreationPermission from './accountingdocumentcreation/AccountingDocumentCreation.permission';
-import AccountingDocumentCreationProfile from './accountingdocumentcreation/AccountingDocumentCreation.profile';
-import AccountingDocumentCreationCreateFormBody from './accountingdocumentcreation/AccountingDocumentCreation.createformbody';
-import AccountingDocumentCreationService from './accountingdocumentcreation/AccountingDocumentCreation.service';
-import AccountingDocumentCreationUpdateForm from './accountingdocumentcreation/AccountingDocumentCreation.updateform';
-import AccountingDocumentConfirmationBase from './accountingdocumentconfirmation/AccountingDocumentConfirmation.base';
-import AccountingDocumentConfirmationBizApp from './accountingdocumentconfirmation/AccountingDocumentConfirmation.app';
-import AccountingDocumentConfirmationModel from './accountingdocumentconfirmation/AccountingDocumentConfirmation.model';
-import AccountingDocumentConfirmationDashboard from './accountingdocumentconfirmation/AccountingDocumentConfirmation.dashboard';
-import AccountingDocumentConfirmationModalTable from './accountingdocumentconfirmation/AccountingDocumentConfirmation.modaltable';
-import AccountingDocumentConfirmationSearch from './accountingdocumentconfirmation/AccountingDocumentConfirmation.search';
-import AccountingDocumentConfirmationSearchForm from './accountingdocumentconfirmation/AccountingDocumentConfirmation.searchform';
-import AccountingDocumentConfirmationCreateForm from './accountingdocumentconfirmation/AccountingDocumentConfirmation.createform';
-import AccountingDocumentConfirmationAssociateForm from './accountingdocumentconfirmation/AccountingDocumentConfirmation.associateform';
-import AccountingDocumentConfirmationTable from './accountingdocumentconfirmation/AccountingDocumentConfirmation.table';
-import AccountingDocumentConfirmationPermission from './accountingdocumentconfirmation/AccountingDocumentConfirmation.permission';
-import AccountingDocumentConfirmationProfile from './accountingdocumentconfirmation/AccountingDocumentConfirmation.profile';
-import AccountingDocumentConfirmationCreateFormBody from './accountingdocumentconfirmation/AccountingDocumentConfirmation.createformbody';
-import AccountingDocumentConfirmationService from './accountingdocumentconfirmation/AccountingDocumentConfirmation.service';
-import AccountingDocumentConfirmationUpdateForm from './accountingdocumentconfirmation/AccountingDocumentConfirmation.updateform';
-import AccountingDocumentAuditingBase from './accountingdocumentauditing/AccountingDocumentAuditing.base';
-import AccountingDocumentAuditingBizApp from './accountingdocumentauditing/AccountingDocumentAuditing.app';
-import AccountingDocumentAuditingModel from './accountingdocumentauditing/AccountingDocumentAuditing.model';
-import AccountingDocumentAuditingDashboard from './accountingdocumentauditing/AccountingDocumentAuditing.dashboard';
-import AccountingDocumentAuditingModalTable from './accountingdocumentauditing/AccountingDocumentAuditing.modaltable';
-import AccountingDocumentAuditingSearch from './accountingdocumentauditing/AccountingDocumentAuditing.search';
-import AccountingDocumentAuditingSearchForm from './accountingdocumentauditing/AccountingDocumentAuditing.searchform';
-import AccountingDocumentAuditingCreateForm from './accountingdocumentauditing/AccountingDocumentAuditing.createform';
-import AccountingDocumentAuditingAssociateForm from './accountingdocumentauditing/AccountingDocumentAuditing.associateform';
-import AccountingDocumentAuditingTable from './accountingdocumentauditing/AccountingDocumentAuditing.table';
-import AccountingDocumentAuditingPermission from './accountingdocumentauditing/AccountingDocumentAuditing.permission';
-import AccountingDocumentAuditingProfile from './accountingdocumentauditing/AccountingDocumentAuditing.profile';
-import AccountingDocumentAuditingCreateFormBody from './accountingdocumentauditing/AccountingDocumentAuditing.createformbody';
-import AccountingDocumentAuditingService from './accountingdocumentauditing/AccountingDocumentAuditing.service';
-import AccountingDocumentAuditingUpdateForm from './accountingdocumentauditing/AccountingDocumentAuditing.updateform';
-import AccountingDocumentPostingBase from './accountingdocumentposting/AccountingDocumentPosting.base';
-import AccountingDocumentPostingBizApp from './accountingdocumentposting/AccountingDocumentPosting.app';
-import AccountingDocumentPostingModel from './accountingdocumentposting/AccountingDocumentPosting.model';
-import AccountingDocumentPostingDashboard from './accountingdocumentposting/AccountingDocumentPosting.dashboard';
-import AccountingDocumentPostingModalTable from './accountingdocumentposting/AccountingDocumentPosting.modaltable';
-import AccountingDocumentPostingSearch from './accountingdocumentposting/AccountingDocumentPosting.search';
-import AccountingDocumentPostingSearchForm from './accountingdocumentposting/AccountingDocumentPosting.searchform';
-import AccountingDocumentPostingCreateForm from './accountingdocumentposting/AccountingDocumentPosting.createform';
-import AccountingDocumentPostingAssociateForm from './accountingdocumentposting/AccountingDocumentPosting.associateform';
-import AccountingDocumentPostingTable from './accountingdocumentposting/AccountingDocumentPosting.table';
-import AccountingDocumentPostingPermission from './accountingdocumentposting/AccountingDocumentPosting.permission';
-import AccountingDocumentPostingProfile from './accountingdocumentposting/AccountingDocumentPosting.profile';
-import AccountingDocumentPostingCreateFormBody from './accountingdocumentposting/AccountingDocumentPosting.createformbody';
-import AccountingDocumentPostingService from './accountingdocumentposting/AccountingDocumentPosting.service';
-import AccountingDocumentPostingUpdateForm from './accountingdocumentposting/AccountingDocumentPosting.updateform';
 import OriginalVoucherBase from './originalvoucher/OriginalVoucher.base';
 import OriginalVoucherBizApp from './originalvoucher/OriginalVoucher.app';
 import OriginalVoucherModel from './originalvoucher/OriginalVoucher.model';
@@ -1440,51 +1110,6 @@ import OriginalVoucherProfile from './originalvoucher/OriginalVoucher.profile';
 import OriginalVoucherCreateFormBody from './originalvoucher/OriginalVoucher.createformbody';
 import OriginalVoucherService from './originalvoucher/OriginalVoucher.service';
 import OriginalVoucherUpdateForm from './originalvoucher/OriginalVoucher.updateform';
-import OriginalVoucherCreationBase from './originalvouchercreation/OriginalVoucherCreation.base';
-import OriginalVoucherCreationBizApp from './originalvouchercreation/OriginalVoucherCreation.app';
-import OriginalVoucherCreationModel from './originalvouchercreation/OriginalVoucherCreation.model';
-import OriginalVoucherCreationDashboard from './originalvouchercreation/OriginalVoucherCreation.dashboard';
-import OriginalVoucherCreationModalTable from './originalvouchercreation/OriginalVoucherCreation.modaltable';
-import OriginalVoucherCreationSearch from './originalvouchercreation/OriginalVoucherCreation.search';
-import OriginalVoucherCreationSearchForm from './originalvouchercreation/OriginalVoucherCreation.searchform';
-import OriginalVoucherCreationCreateForm from './originalvouchercreation/OriginalVoucherCreation.createform';
-import OriginalVoucherCreationAssociateForm from './originalvouchercreation/OriginalVoucherCreation.associateform';
-import OriginalVoucherCreationTable from './originalvouchercreation/OriginalVoucherCreation.table';
-import OriginalVoucherCreationPermission from './originalvouchercreation/OriginalVoucherCreation.permission';
-import OriginalVoucherCreationProfile from './originalvouchercreation/OriginalVoucherCreation.profile';
-import OriginalVoucherCreationCreateFormBody from './originalvouchercreation/OriginalVoucherCreation.createformbody';
-import OriginalVoucherCreationService from './originalvouchercreation/OriginalVoucherCreation.service';
-import OriginalVoucherCreationUpdateForm from './originalvouchercreation/OriginalVoucherCreation.updateform';
-import OriginalVoucherConfirmationBase from './originalvoucherconfirmation/OriginalVoucherConfirmation.base';
-import OriginalVoucherConfirmationBizApp from './originalvoucherconfirmation/OriginalVoucherConfirmation.app';
-import OriginalVoucherConfirmationModel from './originalvoucherconfirmation/OriginalVoucherConfirmation.model';
-import OriginalVoucherConfirmationDashboard from './originalvoucherconfirmation/OriginalVoucherConfirmation.dashboard';
-import OriginalVoucherConfirmationModalTable from './originalvoucherconfirmation/OriginalVoucherConfirmation.modaltable';
-import OriginalVoucherConfirmationSearch from './originalvoucherconfirmation/OriginalVoucherConfirmation.search';
-import OriginalVoucherConfirmationSearchForm from './originalvoucherconfirmation/OriginalVoucherConfirmation.searchform';
-import OriginalVoucherConfirmationCreateForm from './originalvoucherconfirmation/OriginalVoucherConfirmation.createform';
-import OriginalVoucherConfirmationAssociateForm from './originalvoucherconfirmation/OriginalVoucherConfirmation.associateform';
-import OriginalVoucherConfirmationTable from './originalvoucherconfirmation/OriginalVoucherConfirmation.table';
-import OriginalVoucherConfirmationPermission from './originalvoucherconfirmation/OriginalVoucherConfirmation.permission';
-import OriginalVoucherConfirmationProfile from './originalvoucherconfirmation/OriginalVoucherConfirmation.profile';
-import OriginalVoucherConfirmationCreateFormBody from './originalvoucherconfirmation/OriginalVoucherConfirmation.createformbody';
-import OriginalVoucherConfirmationService from './originalvoucherconfirmation/OriginalVoucherConfirmation.service';
-import OriginalVoucherConfirmationUpdateForm from './originalvoucherconfirmation/OriginalVoucherConfirmation.updateform';
-import OriginalVoucherAuditingBase from './originalvoucherauditing/OriginalVoucherAuditing.base';
-import OriginalVoucherAuditingBizApp from './originalvoucherauditing/OriginalVoucherAuditing.app';
-import OriginalVoucherAuditingModel from './originalvoucherauditing/OriginalVoucherAuditing.model';
-import OriginalVoucherAuditingDashboard from './originalvoucherauditing/OriginalVoucherAuditing.dashboard';
-import OriginalVoucherAuditingModalTable from './originalvoucherauditing/OriginalVoucherAuditing.modaltable';
-import OriginalVoucherAuditingSearch from './originalvoucherauditing/OriginalVoucherAuditing.search';
-import OriginalVoucherAuditingSearchForm from './originalvoucherauditing/OriginalVoucherAuditing.searchform';
-import OriginalVoucherAuditingCreateForm from './originalvoucherauditing/OriginalVoucherAuditing.createform';
-import OriginalVoucherAuditingAssociateForm from './originalvoucherauditing/OriginalVoucherAuditing.associateform';
-import OriginalVoucherAuditingTable from './originalvoucherauditing/OriginalVoucherAuditing.table';
-import OriginalVoucherAuditingPermission from './originalvoucherauditing/OriginalVoucherAuditing.permission';
-import OriginalVoucherAuditingProfile from './originalvoucherauditing/OriginalVoucherAuditing.profile';
-import OriginalVoucherAuditingCreateFormBody from './originalvoucherauditing/OriginalVoucherAuditing.createformbody';
-import OriginalVoucherAuditingService from './originalvoucherauditing/OriginalVoucherAuditing.service';
-import OriginalVoucherAuditingUpdateForm from './originalvoucherauditing/OriginalVoucherAuditing.updateform';
 import AccountingDocumentLineBase from './accountingdocumentline/AccountingDocumentLine.base';
 import AccountingDocumentLineBizApp from './accountingdocumentline/AccountingDocumentLine.app';
 import AccountingDocumentLineModel from './accountingdocumentline/AccountingDocumentLine.model';
@@ -1740,96 +1365,6 @@ import EmployeeProfile from './employee/Employee.profile';
 import EmployeeCreateFormBody from './employee/Employee.createformbody';
 import EmployeeService from './employee/Employee.service';
 import EmployeeUpdateForm from './employee/Employee.updateform';
-import JobApplicationBase from './jobapplication/JobApplication.base';
-import JobApplicationBizApp from './jobapplication/JobApplication.app';
-import JobApplicationModel from './jobapplication/JobApplication.model';
-import JobApplicationDashboard from './jobapplication/JobApplication.dashboard';
-import JobApplicationModalTable from './jobapplication/JobApplication.modaltable';
-import JobApplicationSearch from './jobapplication/JobApplication.search';
-import JobApplicationSearchForm from './jobapplication/JobApplication.searchform';
-import JobApplicationCreateForm from './jobapplication/JobApplication.createform';
-import JobApplicationAssociateForm from './jobapplication/JobApplication.associateform';
-import JobApplicationTable from './jobapplication/JobApplication.table';
-import JobApplicationPermission from './jobapplication/JobApplication.permission';
-import JobApplicationProfile from './jobapplication/JobApplication.profile';
-import JobApplicationCreateFormBody from './jobapplication/JobApplication.createformbody';
-import JobApplicationService from './jobapplication/JobApplication.service';
-import JobApplicationUpdateForm from './jobapplication/JobApplication.updateform';
-import ProfessionInterviewBase from './professioninterview/ProfessionInterview.base';
-import ProfessionInterviewBizApp from './professioninterview/ProfessionInterview.app';
-import ProfessionInterviewModel from './professioninterview/ProfessionInterview.model';
-import ProfessionInterviewDashboard from './professioninterview/ProfessionInterview.dashboard';
-import ProfessionInterviewModalTable from './professioninterview/ProfessionInterview.modaltable';
-import ProfessionInterviewSearch from './professioninterview/ProfessionInterview.search';
-import ProfessionInterviewSearchForm from './professioninterview/ProfessionInterview.searchform';
-import ProfessionInterviewCreateForm from './professioninterview/ProfessionInterview.createform';
-import ProfessionInterviewAssociateForm from './professioninterview/ProfessionInterview.associateform';
-import ProfessionInterviewTable from './professioninterview/ProfessionInterview.table';
-import ProfessionInterviewPermission from './professioninterview/ProfessionInterview.permission';
-import ProfessionInterviewProfile from './professioninterview/ProfessionInterview.profile';
-import ProfessionInterviewCreateFormBody from './professioninterview/ProfessionInterview.createformbody';
-import ProfessionInterviewService from './professioninterview/ProfessionInterview.service';
-import ProfessionInterviewUpdateForm from './professioninterview/ProfessionInterview.updateform';
-import HrInterviewBase from './hrinterview/HrInterview.base';
-import HrInterviewBizApp from './hrinterview/HrInterview.app';
-import HrInterviewModel from './hrinterview/HrInterview.model';
-import HrInterviewDashboard from './hrinterview/HrInterview.dashboard';
-import HrInterviewModalTable from './hrinterview/HrInterview.modaltable';
-import HrInterviewSearch from './hrinterview/HrInterview.search';
-import HrInterviewSearchForm from './hrinterview/HrInterview.searchform';
-import HrInterviewCreateForm from './hrinterview/HrInterview.createform';
-import HrInterviewAssociateForm from './hrinterview/HrInterview.associateform';
-import HrInterviewTable from './hrinterview/HrInterview.table';
-import HrInterviewPermission from './hrinterview/HrInterview.permission';
-import HrInterviewProfile from './hrinterview/HrInterview.profile';
-import HrInterviewCreateFormBody from './hrinterview/HrInterview.createformbody';
-import HrInterviewService from './hrinterview/HrInterview.service';
-import HrInterviewUpdateForm from './hrinterview/HrInterview.updateform';
-import OfferApprovalBase from './offerapproval/OfferApproval.base';
-import OfferApprovalBizApp from './offerapproval/OfferApproval.app';
-import OfferApprovalModel from './offerapproval/OfferApproval.model';
-import OfferApprovalDashboard from './offerapproval/OfferApproval.dashboard';
-import OfferApprovalModalTable from './offerapproval/OfferApproval.modaltable';
-import OfferApprovalSearch from './offerapproval/OfferApproval.search';
-import OfferApprovalSearchForm from './offerapproval/OfferApproval.searchform';
-import OfferApprovalCreateForm from './offerapproval/OfferApproval.createform';
-import OfferApprovalAssociateForm from './offerapproval/OfferApproval.associateform';
-import OfferApprovalTable from './offerapproval/OfferApproval.table';
-import OfferApprovalPermission from './offerapproval/OfferApproval.permission';
-import OfferApprovalProfile from './offerapproval/OfferApproval.profile';
-import OfferApprovalCreateFormBody from './offerapproval/OfferApproval.createformbody';
-import OfferApprovalService from './offerapproval/OfferApproval.service';
-import OfferApprovalUpdateForm from './offerapproval/OfferApproval.updateform';
-import OfferAcceptanceBase from './offeracceptance/OfferAcceptance.base';
-import OfferAcceptanceBizApp from './offeracceptance/OfferAcceptance.app';
-import OfferAcceptanceModel from './offeracceptance/OfferAcceptance.model';
-import OfferAcceptanceDashboard from './offeracceptance/OfferAcceptance.dashboard';
-import OfferAcceptanceModalTable from './offeracceptance/OfferAcceptance.modaltable';
-import OfferAcceptanceSearch from './offeracceptance/OfferAcceptance.search';
-import OfferAcceptanceSearchForm from './offeracceptance/OfferAcceptance.searchform';
-import OfferAcceptanceCreateForm from './offeracceptance/OfferAcceptance.createform';
-import OfferAcceptanceAssociateForm from './offeracceptance/OfferAcceptance.associateform';
-import OfferAcceptanceTable from './offeracceptance/OfferAcceptance.table';
-import OfferAcceptancePermission from './offeracceptance/OfferAcceptance.permission';
-import OfferAcceptanceProfile from './offeracceptance/OfferAcceptance.profile';
-import OfferAcceptanceCreateFormBody from './offeracceptance/OfferAcceptance.createformbody';
-import OfferAcceptanceService from './offeracceptance/OfferAcceptance.service';
-import OfferAcceptanceUpdateForm from './offeracceptance/OfferAcceptance.updateform';
-import EmployeeBoardingBase from './employeeboarding/EmployeeBoarding.base';
-import EmployeeBoardingBizApp from './employeeboarding/EmployeeBoarding.app';
-import EmployeeBoardingModel from './employeeboarding/EmployeeBoarding.model';
-import EmployeeBoardingDashboard from './employeeboarding/EmployeeBoarding.dashboard';
-import EmployeeBoardingModalTable from './employeeboarding/EmployeeBoarding.modaltable';
-import EmployeeBoardingSearch from './employeeboarding/EmployeeBoarding.search';
-import EmployeeBoardingSearchForm from './employeeboarding/EmployeeBoarding.searchform';
-import EmployeeBoardingCreateForm from './employeeboarding/EmployeeBoarding.createform';
-import EmployeeBoardingAssociateForm from './employeeboarding/EmployeeBoarding.associateform';
-import EmployeeBoardingTable from './employeeboarding/EmployeeBoarding.table';
-import EmployeeBoardingPermission from './employeeboarding/EmployeeBoarding.permission';
-import EmployeeBoardingProfile from './employeeboarding/EmployeeBoarding.profile';
-import EmployeeBoardingCreateFormBody from './employeeboarding/EmployeeBoarding.createformbody';
-import EmployeeBoardingService from './employeeboarding/EmployeeBoarding.service';
-import EmployeeBoardingUpdateForm from './employeeboarding/EmployeeBoarding.updateform';
 import InstructorBase from './instructor/Instructor.base';
 import InstructorBizApp from './instructor/Instructor.app';
 import InstructorModel from './instructor/Instructor.model';
@@ -2100,21 +1635,6 @@ import SecUserProfile from './secuser/SecUser.profile';
 import SecUserCreateFormBody from './secuser/SecUser.createformbody';
 import SecUserService from './secuser/SecUser.service';
 import SecUserUpdateForm from './secuser/SecUser.updateform';
-import SecUserBlockingBase from './secuserblocking/SecUserBlocking.base';
-import SecUserBlockingBizApp from './secuserblocking/SecUserBlocking.app';
-import SecUserBlockingModel from './secuserblocking/SecUserBlocking.model';
-import SecUserBlockingDashboard from './secuserblocking/SecUserBlocking.dashboard';
-import SecUserBlockingModalTable from './secuserblocking/SecUserBlocking.modaltable';
-import SecUserBlockingSearch from './secuserblocking/SecUserBlocking.search';
-import SecUserBlockingSearchForm from './secuserblocking/SecUserBlocking.searchform';
-import SecUserBlockingCreateForm from './secuserblocking/SecUserBlocking.createform';
-import SecUserBlockingAssociateForm from './secuserblocking/SecUserBlocking.associateform';
-import SecUserBlockingTable from './secuserblocking/SecUserBlocking.table';
-import SecUserBlockingPermission from './secuserblocking/SecUserBlocking.permission';
-import SecUserBlockingProfile from './secuserblocking/SecUserBlocking.profile';
-import SecUserBlockingCreateFormBody from './secuserblocking/SecUserBlocking.createformbody';
-import SecUserBlockingService from './secuserblocking/SecUserBlocking.service';
-import SecUserBlockingUpdateForm from './secuserblocking/SecUserBlocking.updateform';
 import UserAppBase from './userapp/UserApp.base';
 import UserAppBizApp from './userapp/UserApp.app';
 import UserAppModel from './userapp/UserApp.model';
@@ -2295,6 +1815,51 @@ import CandidateElementProfile from './candidateelement/CandidateElement.profile
 import CandidateElementCreateFormBody from './candidateelement/CandidateElement.createformbody';
 import CandidateElementService from './candidateelement/CandidateElement.service';
 import CandidateElementUpdateForm from './candidateelement/CandidateElement.updateform';
+import WechatWorkappIdentifyBase from './wechatworkappidentify/WechatWorkappIdentify.base';
+import WechatWorkappIdentifyBizApp from './wechatworkappidentify/WechatWorkappIdentify.app';
+import WechatWorkappIdentifyModel from './wechatworkappidentify/WechatWorkappIdentify.model';
+import WechatWorkappIdentifyDashboard from './wechatworkappidentify/WechatWorkappIdentify.dashboard';
+import WechatWorkappIdentifyModalTable from './wechatworkappidentify/WechatWorkappIdentify.modaltable';
+import WechatWorkappIdentifySearch from './wechatworkappidentify/WechatWorkappIdentify.search';
+import WechatWorkappIdentifySearchForm from './wechatworkappidentify/WechatWorkappIdentify.searchform';
+import WechatWorkappIdentifyCreateForm from './wechatworkappidentify/WechatWorkappIdentify.createform';
+import WechatWorkappIdentifyAssociateForm from './wechatworkappidentify/WechatWorkappIdentify.associateform';
+import WechatWorkappIdentifyTable from './wechatworkappidentify/WechatWorkappIdentify.table';
+import WechatWorkappIdentifyPermission from './wechatworkappidentify/WechatWorkappIdentify.permission';
+import WechatWorkappIdentifyProfile from './wechatworkappidentify/WechatWorkappIdentify.profile';
+import WechatWorkappIdentifyCreateFormBody from './wechatworkappidentify/WechatWorkappIdentify.createformbody';
+import WechatWorkappIdentifyService from './wechatworkappidentify/WechatWorkappIdentify.service';
+import WechatWorkappIdentifyUpdateForm from './wechatworkappidentify/WechatWorkappIdentify.updateform';
+import WechatMiniappIdentifyBase from './wechatminiappidentify/WechatMiniappIdentify.base';
+import WechatMiniappIdentifyBizApp from './wechatminiappidentify/WechatMiniappIdentify.app';
+import WechatMiniappIdentifyModel from './wechatminiappidentify/WechatMiniappIdentify.model';
+import WechatMiniappIdentifyDashboard from './wechatminiappidentify/WechatMiniappIdentify.dashboard';
+import WechatMiniappIdentifyModalTable from './wechatminiappidentify/WechatMiniappIdentify.modaltable';
+import WechatMiniappIdentifySearch from './wechatminiappidentify/WechatMiniappIdentify.search';
+import WechatMiniappIdentifySearchForm from './wechatminiappidentify/WechatMiniappIdentify.searchform';
+import WechatMiniappIdentifyCreateForm from './wechatminiappidentify/WechatMiniappIdentify.createform';
+import WechatMiniappIdentifyAssociateForm from './wechatminiappidentify/WechatMiniappIdentify.associateform';
+import WechatMiniappIdentifyTable from './wechatminiappidentify/WechatMiniappIdentify.table';
+import WechatMiniappIdentifyPermission from './wechatminiappidentify/WechatMiniappIdentify.permission';
+import WechatMiniappIdentifyProfile from './wechatminiappidentify/WechatMiniappIdentify.profile';
+import WechatMiniappIdentifyCreateFormBody from './wechatminiappidentify/WechatMiniappIdentify.createformbody';
+import WechatMiniappIdentifyService from './wechatminiappidentify/WechatMiniappIdentify.service';
+import WechatMiniappIdentifyUpdateForm from './wechatminiappidentify/WechatMiniappIdentify.updateform';
+import TreeNodeBase from './treenode/TreeNode.base';
+import TreeNodeBizApp from './treenode/TreeNode.app';
+import TreeNodeModel from './treenode/TreeNode.model';
+import TreeNodeDashboard from './treenode/TreeNode.dashboard';
+import TreeNodeModalTable from './treenode/TreeNode.modaltable';
+import TreeNodeSearch from './treenode/TreeNode.search';
+import TreeNodeSearchForm from './treenode/TreeNode.searchform';
+import TreeNodeCreateForm from './treenode/TreeNode.createform';
+import TreeNodeAssociateForm from './treenode/TreeNode.associateform';
+import TreeNodeTable from './treenode/TreeNode.table';
+import TreeNodePermission from './treenode/TreeNode.permission';
+import TreeNodeProfile from './treenode/TreeNode.profile';
+import TreeNodeCreateFormBody from './treenode/TreeNode.createformbody';
+import TreeNodeService from './treenode/TreeNode.service';
+import TreeNodeUpdateForm from './treenode/TreeNode.updateform';
 
 
 const BizModels = [
@@ -2324,11 +1889,6 @@ const BizModels = [
 	RetailStoreClosingModel,
 	RetailStoreMemberModel,
 	ConsumerOrderModel,
-	ConsumerOrderConfirmationModel,
-	ConsumerOrderApprovalModel,
-	ConsumerOrderProcessingModel,
-	ConsumerOrderShipmentModel,
-	ConsumerOrderDeliveryModel,
 	ConsumerOrderLineItemModel,
 	ConsumerOrderShippingGroupModel,
 	ConsumerOrderPaymentGroupModel,
@@ -2345,22 +1905,10 @@ const BizModels = [
 	SupplierProductModel,
 	ProductSupplyDurationModel,
 	SupplyOrderModel,
-	SupplyOrderConfirmationModel,
-	SupplyOrderApprovalModel,
-	SupplyOrderProcessingModel,
-	SupplyOrderPickingModel,
-	SupplyOrderShipmentModel,
-	SupplyOrderDeliveryModel,
 	SupplyOrderLineItemModel,
 	SupplyOrderShippingGroupModel,
 	SupplyOrderPaymentGroupModel,
 	RetailStoreOrderModel,
-	RetailStoreOrderConfirmationModel,
-	RetailStoreOrderApprovalModel,
-	RetailStoreOrderProcessingModel,
-	RetailStoreOrderPickingModel,
-	RetailStoreOrderShipmentModel,
-	RetailStoreOrderDeliveryModel,
 	RetailStoreOrderLineItemModel,
 	RetailStoreOrderShippingGroupModel,
 	RetailStoreOrderPaymentGroupModel,
@@ -2372,7 +1920,6 @@ const BizModels = [
 	StockCountIssueTrackModel,
 	GoodsAllocationModel,
 	GoodsModel,
-	GoodsPackagingModel,
 	GoodsMovementModel,
 	SupplierSpaceModel,
 	ReceivingSpaceModel,
@@ -2389,14 +1936,7 @@ const BizModels = [
 	AccountingPeriodModel,
 	AccountingDocumentTypeModel,
 	AccountingDocumentModel,
-	AccountingDocumentCreationModel,
-	AccountingDocumentConfirmationModel,
-	AccountingDocumentAuditingModel,
-	AccountingDocumentPostingModel,
 	OriginalVoucherModel,
-	OriginalVoucherCreationModel,
-	OriginalVoucherConfirmationModel,
-	OriginalVoucherAuditingModel,
 	AccountingDocumentLineModel,
 	LevelOneDepartmentModel,
 	LevelTwoDepartmentModel,
@@ -2414,12 +1954,6 @@ const BizModels = [
 	TerminationModel,
 	ViewModel,
 	EmployeeModel,
-	JobApplicationModel,
-	ProfessionInterviewModel,
-	HrInterviewModel,
-	OfferApprovalModel,
-	OfferAcceptanceModel,
-	EmployeeBoardingModel,
 	InstructorModel,
 	CompanyTrainingModel,
 	ScoringModel,
@@ -2438,7 +1972,6 @@ const BizModels = [
 	UserDomainModel,
 	UserWhiteListModel,
 	SecUserModel,
-	SecUserBlockingModel,
 	UserAppModel,
 	QuickLinkModel,
 	ListAccessModel,
@@ -2451,6 +1984,9 @@ const BizModels = [
 	FormActionModel,
 	CandidateContainerModel,
 	CandidateElementModel,
+	WechatWorkappIdentifyModel,
+	WechatMiniappIdentifyModel,
+	TreeNodeModel,
 
 ]
 
@@ -2494,11 +2030,6 @@ menuLibrary.retailStoreOpening = RetailStoreOpeningBase.menuData
 menuLibrary.retailStoreClosing = RetailStoreClosingBase.menuData
 menuLibrary.retailStoreMember = RetailStoreMemberBase.menuData
 menuLibrary.consumerOrder = ConsumerOrderBase.menuData
-menuLibrary.consumerOrderConfirmation = ConsumerOrderConfirmationBase.menuData
-menuLibrary.consumerOrderApproval = ConsumerOrderApprovalBase.menuData
-menuLibrary.consumerOrderProcessing = ConsumerOrderProcessingBase.menuData
-menuLibrary.consumerOrderShipment = ConsumerOrderShipmentBase.menuData
-menuLibrary.consumerOrderDelivery = ConsumerOrderDeliveryBase.menuData
 menuLibrary.consumerOrderLineItem = ConsumerOrderLineItemBase.menuData
 menuLibrary.consumerOrderShippingGroup = ConsumerOrderShippingGroupBase.menuData
 menuLibrary.consumerOrderPaymentGroup = ConsumerOrderPaymentGroupBase.menuData
@@ -2515,22 +2046,10 @@ menuLibrary.goodsSupplier = GoodsSupplierBase.menuData
 menuLibrary.supplierProduct = SupplierProductBase.menuData
 menuLibrary.productSupplyDuration = ProductSupplyDurationBase.menuData
 menuLibrary.supplyOrder = SupplyOrderBase.menuData
-menuLibrary.supplyOrderConfirmation = SupplyOrderConfirmationBase.menuData
-menuLibrary.supplyOrderApproval = SupplyOrderApprovalBase.menuData
-menuLibrary.supplyOrderProcessing = SupplyOrderProcessingBase.menuData
-menuLibrary.supplyOrderPicking = SupplyOrderPickingBase.menuData
-menuLibrary.supplyOrderShipment = SupplyOrderShipmentBase.menuData
-menuLibrary.supplyOrderDelivery = SupplyOrderDeliveryBase.menuData
 menuLibrary.supplyOrderLineItem = SupplyOrderLineItemBase.menuData
 menuLibrary.supplyOrderShippingGroup = SupplyOrderShippingGroupBase.menuData
 menuLibrary.supplyOrderPaymentGroup = SupplyOrderPaymentGroupBase.menuData
 menuLibrary.retailStoreOrder = RetailStoreOrderBase.menuData
-menuLibrary.retailStoreOrderConfirmation = RetailStoreOrderConfirmationBase.menuData
-menuLibrary.retailStoreOrderApproval = RetailStoreOrderApprovalBase.menuData
-menuLibrary.retailStoreOrderProcessing = RetailStoreOrderProcessingBase.menuData
-menuLibrary.retailStoreOrderPicking = RetailStoreOrderPickingBase.menuData
-menuLibrary.retailStoreOrderShipment = RetailStoreOrderShipmentBase.menuData
-menuLibrary.retailStoreOrderDelivery = RetailStoreOrderDeliveryBase.menuData
 menuLibrary.retailStoreOrderLineItem = RetailStoreOrderLineItemBase.menuData
 menuLibrary.retailStoreOrderShippingGroup = RetailStoreOrderShippingGroupBase.menuData
 menuLibrary.retailStoreOrderPaymentGroup = RetailStoreOrderPaymentGroupBase.menuData
@@ -2542,7 +2061,6 @@ menuLibrary.goodsShelfStockCount = GoodsShelfStockCountBase.menuData
 menuLibrary.stockCountIssueTrack = StockCountIssueTrackBase.menuData
 menuLibrary.goodsAllocation = GoodsAllocationBase.menuData
 menuLibrary.goods = GoodsBase.menuData
-menuLibrary.goodsPackaging = GoodsPackagingBase.menuData
 menuLibrary.goodsMovement = GoodsMovementBase.menuData
 menuLibrary.supplierSpace = SupplierSpaceBase.menuData
 menuLibrary.receivingSpace = ReceivingSpaceBase.menuData
@@ -2559,14 +2077,7 @@ menuLibrary.accountingSubject = AccountingSubjectBase.menuData
 menuLibrary.accountingPeriod = AccountingPeriodBase.menuData
 menuLibrary.accountingDocumentType = AccountingDocumentTypeBase.menuData
 menuLibrary.accountingDocument = AccountingDocumentBase.menuData
-menuLibrary.accountingDocumentCreation = AccountingDocumentCreationBase.menuData
-menuLibrary.accountingDocumentConfirmation = AccountingDocumentConfirmationBase.menuData
-menuLibrary.accountingDocumentAuditing = AccountingDocumentAuditingBase.menuData
-menuLibrary.accountingDocumentPosting = AccountingDocumentPostingBase.menuData
 menuLibrary.originalVoucher = OriginalVoucherBase.menuData
-menuLibrary.originalVoucherCreation = OriginalVoucherCreationBase.menuData
-menuLibrary.originalVoucherConfirmation = OriginalVoucherConfirmationBase.menuData
-menuLibrary.originalVoucherAuditing = OriginalVoucherAuditingBase.menuData
 menuLibrary.accountingDocumentLine = AccountingDocumentLineBase.menuData
 menuLibrary.levelOneDepartment = LevelOneDepartmentBase.menuData
 menuLibrary.levelTwoDepartment = LevelTwoDepartmentBase.menuData
@@ -2584,12 +2095,6 @@ menuLibrary.publicHoliday = PublicHolidayBase.menuData
 menuLibrary.termination = TerminationBase.menuData
 menuLibrary.view = ViewBase.menuData
 menuLibrary.employee = EmployeeBase.menuData
-menuLibrary.jobApplication = JobApplicationBase.menuData
-menuLibrary.professionInterview = ProfessionInterviewBase.menuData
-menuLibrary.hrInterview = HrInterviewBase.menuData
-menuLibrary.offerApproval = OfferApprovalBase.menuData
-menuLibrary.offerAcceptance = OfferAcceptanceBase.menuData
-menuLibrary.employeeBoarding = EmployeeBoardingBase.menuData
 menuLibrary.instructor = InstructorBase.menuData
 menuLibrary.companyTraining = CompanyTrainingBase.menuData
 menuLibrary.scoring = ScoringBase.menuData
@@ -2608,7 +2113,6 @@ menuLibrary.payingOff = PayingOffBase.menuData
 menuLibrary.userDomain = UserDomainBase.menuData
 menuLibrary.userWhiteList = UserWhiteListBase.menuData
 menuLibrary.secUser = SecUserBase.menuData
-menuLibrary.secUserBlocking = SecUserBlockingBase.menuData
 menuLibrary.userApp = UserAppBase.menuData
 menuLibrary.quickLink = QuickLinkBase.menuData
 menuLibrary.listAccess = ListAccessBase.menuData
@@ -2621,6 +2125,9 @@ menuLibrary.formField = FormFieldBase.menuData
 menuLibrary.formAction = FormActionBase.menuData
 menuLibrary.candidateContainer = CandidateContainerBase.menuData
 menuLibrary.candidateElement = CandidateElementBase.menuData
+menuLibrary.wechatWorkappIdentify = WechatWorkappIdentifyBase.menuData
+menuLibrary.wechatMiniappIdentify = WechatMiniappIdentifyBase.menuData
+menuLibrary.treeNode = TreeNodeBase.menuData
 
 
 const menuDataOf=(type)=>{
@@ -2667,11 +2174,6 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.retailstoreclosing.RetailStoreClosing': {name:'retailStoreClosing'},
   'com.doublechaintech.retailscm.retailstoremember.RetailStoreMember': {name:'retailStoreMember'},
   'com.doublechaintech.retailscm.consumerorder.ConsumerOrder': {name:'consumerOrder'},
-  'com.doublechaintech.retailscm.consumerorderconfirmation.ConsumerOrderConfirmation': {name:'consumerOrderConfirmation'},
-  'com.doublechaintech.retailscm.consumerorderapproval.ConsumerOrderApproval': {name:'consumerOrderApproval'},
-  'com.doublechaintech.retailscm.consumerorderprocessing.ConsumerOrderProcessing': {name:'consumerOrderProcessing'},
-  'com.doublechaintech.retailscm.consumerordershipment.ConsumerOrderShipment': {name:'consumerOrderShipment'},
-  'com.doublechaintech.retailscm.consumerorderdelivery.ConsumerOrderDelivery': {name:'consumerOrderDelivery'},
   'com.doublechaintech.retailscm.consumerorderlineitem.ConsumerOrderLineItem': {name:'consumerOrderLineItem'},
   'com.doublechaintech.retailscm.consumerordershippinggroup.ConsumerOrderShippingGroup': {name:'consumerOrderShippingGroup'},
   'com.doublechaintech.retailscm.consumerorderpaymentgroup.ConsumerOrderPaymentGroup': {name:'consumerOrderPaymentGroup'},
@@ -2688,22 +2190,10 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.supplierproduct.SupplierProduct': {name:'supplierProduct'},
   'com.doublechaintech.retailscm.productsupplyduration.ProductSupplyDuration': {name:'productSupplyDuration'},
   'com.doublechaintech.retailscm.supplyorder.SupplyOrder': {name:'supplyOrder'},
-  'com.doublechaintech.retailscm.supplyorderconfirmation.SupplyOrderConfirmation': {name:'supplyOrderConfirmation'},
-  'com.doublechaintech.retailscm.supplyorderapproval.SupplyOrderApproval': {name:'supplyOrderApproval'},
-  'com.doublechaintech.retailscm.supplyorderprocessing.SupplyOrderProcessing': {name:'supplyOrderProcessing'},
-  'com.doublechaintech.retailscm.supplyorderpicking.SupplyOrderPicking': {name:'supplyOrderPicking'},
-  'com.doublechaintech.retailscm.supplyordershipment.SupplyOrderShipment': {name:'supplyOrderShipment'},
-  'com.doublechaintech.retailscm.supplyorderdelivery.SupplyOrderDelivery': {name:'supplyOrderDelivery'},
   'com.doublechaintech.retailscm.supplyorderlineitem.SupplyOrderLineItem': {name:'supplyOrderLineItem'},
   'com.doublechaintech.retailscm.supplyordershippinggroup.SupplyOrderShippingGroup': {name:'supplyOrderShippingGroup'},
   'com.doublechaintech.retailscm.supplyorderpaymentgroup.SupplyOrderPaymentGroup': {name:'supplyOrderPaymentGroup'},
   'com.doublechaintech.retailscm.retailstoreorder.RetailStoreOrder': {name:'retailStoreOrder'},
-  'com.doublechaintech.retailscm.retailstoreorderconfirmation.RetailStoreOrderConfirmation': {name:'retailStoreOrderConfirmation'},
-  'com.doublechaintech.retailscm.retailstoreorderapproval.RetailStoreOrderApproval': {name:'retailStoreOrderApproval'},
-  'com.doublechaintech.retailscm.retailstoreorderprocessing.RetailStoreOrderProcessing': {name:'retailStoreOrderProcessing'},
-  'com.doublechaintech.retailscm.retailstoreorderpicking.RetailStoreOrderPicking': {name:'retailStoreOrderPicking'},
-  'com.doublechaintech.retailscm.retailstoreordershipment.RetailStoreOrderShipment': {name:'retailStoreOrderShipment'},
-  'com.doublechaintech.retailscm.retailstoreorderdelivery.RetailStoreOrderDelivery': {name:'retailStoreOrderDelivery'},
   'com.doublechaintech.retailscm.retailstoreorderlineitem.RetailStoreOrderLineItem': {name:'retailStoreOrderLineItem'},
   'com.doublechaintech.retailscm.retailstoreordershippinggroup.RetailStoreOrderShippingGroup': {name:'retailStoreOrderShippingGroup'},
   'com.doublechaintech.retailscm.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroup': {name:'retailStoreOrderPaymentGroup'},
@@ -2715,7 +2205,6 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.stockcountissuetrack.StockCountIssueTrack': {name:'stockCountIssueTrack'},
   'com.doublechaintech.retailscm.goodsallocation.GoodsAllocation': {name:'goodsAllocation'},
   'com.doublechaintech.retailscm.goods.Goods': {name:'goods'},
-  'com.doublechaintech.retailscm.goodspackaging.GoodsPackaging': {name:'goodsPackaging'},
   'com.doublechaintech.retailscm.goodsmovement.GoodsMovement': {name:'goodsMovement'},
   'com.doublechaintech.retailscm.supplierspace.SupplierSpace': {name:'supplierSpace'},
   'com.doublechaintech.retailscm.receivingspace.ReceivingSpace': {name:'receivingSpace'},
@@ -2732,14 +2221,7 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.accountingperiod.AccountingPeriod': {name:'accountingPeriod'},
   'com.doublechaintech.retailscm.accountingdocumenttype.AccountingDocumentType': {name:'accountingDocumentType'},
   'com.doublechaintech.retailscm.accountingdocument.AccountingDocument': {name:'accountingDocument'},
-  'com.doublechaintech.retailscm.accountingdocumentcreation.AccountingDocumentCreation': {name:'accountingDocumentCreation'},
-  'com.doublechaintech.retailscm.accountingdocumentconfirmation.AccountingDocumentConfirmation': {name:'accountingDocumentConfirmation'},
-  'com.doublechaintech.retailscm.accountingdocumentauditing.AccountingDocumentAuditing': {name:'accountingDocumentAuditing'},
-  'com.doublechaintech.retailscm.accountingdocumentposting.AccountingDocumentPosting': {name:'accountingDocumentPosting'},
   'com.doublechaintech.retailscm.originalvoucher.OriginalVoucher': {name:'originalVoucher'},
-  'com.doublechaintech.retailscm.originalvouchercreation.OriginalVoucherCreation': {name:'originalVoucherCreation'},
-  'com.doublechaintech.retailscm.originalvoucherconfirmation.OriginalVoucherConfirmation': {name:'originalVoucherConfirmation'},
-  'com.doublechaintech.retailscm.originalvoucherauditing.OriginalVoucherAuditing': {name:'originalVoucherAuditing'},
   'com.doublechaintech.retailscm.accountingdocumentline.AccountingDocumentLine': {name:'accountingDocumentLine'},
   'com.doublechaintech.retailscm.levelonedepartment.LevelOneDepartment': {name:'levelOneDepartment'},
   'com.doublechaintech.retailscm.leveltwodepartment.LevelTwoDepartment': {name:'levelTwoDepartment'},
@@ -2757,12 +2239,6 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.termination.Termination': {name:'termination'},
   'com.doublechaintech.retailscm.view.View': {name:'view'},
   'com.doublechaintech.retailscm.employee.Employee': {name:'employee'},
-  'com.doublechaintech.retailscm.jobapplication.JobApplication': {name:'jobApplication'},
-  'com.doublechaintech.retailscm.professioninterview.ProfessionInterview': {name:'professionInterview'},
-  'com.doublechaintech.retailscm.hrinterview.HrInterview': {name:'hrInterview'},
-  'com.doublechaintech.retailscm.offerapproval.OfferApproval': {name:'offerApproval'},
-  'com.doublechaintech.retailscm.offeracceptance.OfferAcceptance': {name:'offerAcceptance'},
-  'com.doublechaintech.retailscm.employeeboarding.EmployeeBoarding': {name:'employeeBoarding'},
   'com.doublechaintech.retailscm.instructor.Instructor': {name:'instructor'},
   'com.doublechaintech.retailscm.companytraining.CompanyTraining': {name:'companyTraining'},
   'com.doublechaintech.retailscm.scoring.Scoring': {name:'scoring'},
@@ -2781,7 +2257,6 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.userdomain.UserDomain': {name:'userDomain'},
   'com.doublechaintech.retailscm.userwhitelist.UserWhiteList': {name:'userWhiteList'},
   'com.doublechaintech.retailscm.secuser.SecUser': {name:'secUser'},
-  'com.doublechaintech.retailscm.secuserblocking.SecUserBlocking': {name:'secUserBlocking'},
   'com.doublechaintech.retailscm.userapp.UserApp': {name:'userApp'},
   'com.doublechaintech.retailscm.quicklink.QuickLink': {name:'quickLink'},
   'com.doublechaintech.retailscm.listaccess.ListAccess': {name:'listAccess'},
@@ -2794,6 +2269,9 @@ const ViewMapping = {
   'com.doublechaintech.retailscm.formaction.FormAction': {name:'formAction'},
   'com.doublechaintech.retailscm.candidatecontainer.CandidateContainer': {name:'candidateContainer'},
   'com.doublechaintech.retailscm.candidateelement.CandidateElement': {name:'candidateElement'},
+  'com.doublechaintech.retailscm.wechatworkappidentify.WechatWorkappIdentify': {name:'wechatWorkappIdentify'},
+  'com.doublechaintech.retailscm.wechatminiappidentify.WechatMiniappIdentify': {name:'wechatMiniappIdentify'},
+  'com.doublechaintech.retailscm.treenode.TreeNode': {name:'treeNode'},
 
 }
 
@@ -3229,81 +2707,6 @@ const OOTBComponents={
     ConsumerOrderCreateFormBody,
     ConsumerOrderService,
     ConsumerOrderUpdateForm,
-    ConsumerOrderConfirmationBase,
-    ConsumerOrderConfirmationBizApp,
-    ConsumerOrderConfirmationModel,
-    ConsumerOrderConfirmationDashboard,
-    ConsumerOrderConfirmationModalTable,
-    ConsumerOrderConfirmationSearch,
-    ConsumerOrderConfirmationSearchForm,
-    ConsumerOrderConfirmationCreateForm,
-    ConsumerOrderConfirmationAssociateForm,
-    ConsumerOrderConfirmationTable,
-    ConsumerOrderConfirmationPermission,
-    ConsumerOrderConfirmationProfile,
-    ConsumerOrderConfirmationCreateFormBody,
-    ConsumerOrderConfirmationService,
-    ConsumerOrderConfirmationUpdateForm,
-    ConsumerOrderApprovalBase,
-    ConsumerOrderApprovalBizApp,
-    ConsumerOrderApprovalModel,
-    ConsumerOrderApprovalDashboard,
-    ConsumerOrderApprovalModalTable,
-    ConsumerOrderApprovalSearch,
-    ConsumerOrderApprovalSearchForm,
-    ConsumerOrderApprovalCreateForm,
-    ConsumerOrderApprovalAssociateForm,
-    ConsumerOrderApprovalTable,
-    ConsumerOrderApprovalPermission,
-    ConsumerOrderApprovalProfile,
-    ConsumerOrderApprovalCreateFormBody,
-    ConsumerOrderApprovalService,
-    ConsumerOrderApprovalUpdateForm,
-    ConsumerOrderProcessingBase,
-    ConsumerOrderProcessingBizApp,
-    ConsumerOrderProcessingModel,
-    ConsumerOrderProcessingDashboard,
-    ConsumerOrderProcessingModalTable,
-    ConsumerOrderProcessingSearch,
-    ConsumerOrderProcessingSearchForm,
-    ConsumerOrderProcessingCreateForm,
-    ConsumerOrderProcessingAssociateForm,
-    ConsumerOrderProcessingTable,
-    ConsumerOrderProcessingPermission,
-    ConsumerOrderProcessingProfile,
-    ConsumerOrderProcessingCreateFormBody,
-    ConsumerOrderProcessingService,
-    ConsumerOrderProcessingUpdateForm,
-    ConsumerOrderShipmentBase,
-    ConsumerOrderShipmentBizApp,
-    ConsumerOrderShipmentModel,
-    ConsumerOrderShipmentDashboard,
-    ConsumerOrderShipmentModalTable,
-    ConsumerOrderShipmentSearch,
-    ConsumerOrderShipmentSearchForm,
-    ConsumerOrderShipmentCreateForm,
-    ConsumerOrderShipmentAssociateForm,
-    ConsumerOrderShipmentTable,
-    ConsumerOrderShipmentPermission,
-    ConsumerOrderShipmentProfile,
-    ConsumerOrderShipmentCreateFormBody,
-    ConsumerOrderShipmentService,
-    ConsumerOrderShipmentUpdateForm,
-    ConsumerOrderDeliveryBase,
-    ConsumerOrderDeliveryBizApp,
-    ConsumerOrderDeliveryModel,
-    ConsumerOrderDeliveryDashboard,
-    ConsumerOrderDeliveryModalTable,
-    ConsumerOrderDeliverySearch,
-    ConsumerOrderDeliverySearchForm,
-    ConsumerOrderDeliveryCreateForm,
-    ConsumerOrderDeliveryAssociateForm,
-    ConsumerOrderDeliveryTable,
-    ConsumerOrderDeliveryPermission,
-    ConsumerOrderDeliveryProfile,
-    ConsumerOrderDeliveryCreateFormBody,
-    ConsumerOrderDeliveryService,
-    ConsumerOrderDeliveryUpdateForm,
     ConsumerOrderLineItemBase,
     ConsumerOrderLineItemBizApp,
     ConsumerOrderLineItemModel,
@@ -3544,96 +2947,6 @@ const OOTBComponents={
     SupplyOrderCreateFormBody,
     SupplyOrderService,
     SupplyOrderUpdateForm,
-    SupplyOrderConfirmationBase,
-    SupplyOrderConfirmationBizApp,
-    SupplyOrderConfirmationModel,
-    SupplyOrderConfirmationDashboard,
-    SupplyOrderConfirmationModalTable,
-    SupplyOrderConfirmationSearch,
-    SupplyOrderConfirmationSearchForm,
-    SupplyOrderConfirmationCreateForm,
-    SupplyOrderConfirmationAssociateForm,
-    SupplyOrderConfirmationTable,
-    SupplyOrderConfirmationPermission,
-    SupplyOrderConfirmationProfile,
-    SupplyOrderConfirmationCreateFormBody,
-    SupplyOrderConfirmationService,
-    SupplyOrderConfirmationUpdateForm,
-    SupplyOrderApprovalBase,
-    SupplyOrderApprovalBizApp,
-    SupplyOrderApprovalModel,
-    SupplyOrderApprovalDashboard,
-    SupplyOrderApprovalModalTable,
-    SupplyOrderApprovalSearch,
-    SupplyOrderApprovalSearchForm,
-    SupplyOrderApprovalCreateForm,
-    SupplyOrderApprovalAssociateForm,
-    SupplyOrderApprovalTable,
-    SupplyOrderApprovalPermission,
-    SupplyOrderApprovalProfile,
-    SupplyOrderApprovalCreateFormBody,
-    SupplyOrderApprovalService,
-    SupplyOrderApprovalUpdateForm,
-    SupplyOrderProcessingBase,
-    SupplyOrderProcessingBizApp,
-    SupplyOrderProcessingModel,
-    SupplyOrderProcessingDashboard,
-    SupplyOrderProcessingModalTable,
-    SupplyOrderProcessingSearch,
-    SupplyOrderProcessingSearchForm,
-    SupplyOrderProcessingCreateForm,
-    SupplyOrderProcessingAssociateForm,
-    SupplyOrderProcessingTable,
-    SupplyOrderProcessingPermission,
-    SupplyOrderProcessingProfile,
-    SupplyOrderProcessingCreateFormBody,
-    SupplyOrderProcessingService,
-    SupplyOrderProcessingUpdateForm,
-    SupplyOrderPickingBase,
-    SupplyOrderPickingBizApp,
-    SupplyOrderPickingModel,
-    SupplyOrderPickingDashboard,
-    SupplyOrderPickingModalTable,
-    SupplyOrderPickingSearch,
-    SupplyOrderPickingSearchForm,
-    SupplyOrderPickingCreateForm,
-    SupplyOrderPickingAssociateForm,
-    SupplyOrderPickingTable,
-    SupplyOrderPickingPermission,
-    SupplyOrderPickingProfile,
-    SupplyOrderPickingCreateFormBody,
-    SupplyOrderPickingService,
-    SupplyOrderPickingUpdateForm,
-    SupplyOrderShipmentBase,
-    SupplyOrderShipmentBizApp,
-    SupplyOrderShipmentModel,
-    SupplyOrderShipmentDashboard,
-    SupplyOrderShipmentModalTable,
-    SupplyOrderShipmentSearch,
-    SupplyOrderShipmentSearchForm,
-    SupplyOrderShipmentCreateForm,
-    SupplyOrderShipmentAssociateForm,
-    SupplyOrderShipmentTable,
-    SupplyOrderShipmentPermission,
-    SupplyOrderShipmentProfile,
-    SupplyOrderShipmentCreateFormBody,
-    SupplyOrderShipmentService,
-    SupplyOrderShipmentUpdateForm,
-    SupplyOrderDeliveryBase,
-    SupplyOrderDeliveryBizApp,
-    SupplyOrderDeliveryModel,
-    SupplyOrderDeliveryDashboard,
-    SupplyOrderDeliveryModalTable,
-    SupplyOrderDeliverySearch,
-    SupplyOrderDeliverySearchForm,
-    SupplyOrderDeliveryCreateForm,
-    SupplyOrderDeliveryAssociateForm,
-    SupplyOrderDeliveryTable,
-    SupplyOrderDeliveryPermission,
-    SupplyOrderDeliveryProfile,
-    SupplyOrderDeliveryCreateFormBody,
-    SupplyOrderDeliveryService,
-    SupplyOrderDeliveryUpdateForm,
     SupplyOrderLineItemBase,
     SupplyOrderLineItemBizApp,
     SupplyOrderLineItemModel,
@@ -3694,96 +3007,6 @@ const OOTBComponents={
     RetailStoreOrderCreateFormBody,
     RetailStoreOrderService,
     RetailStoreOrderUpdateForm,
-    RetailStoreOrderConfirmationBase,
-    RetailStoreOrderConfirmationBizApp,
-    RetailStoreOrderConfirmationModel,
-    RetailStoreOrderConfirmationDashboard,
-    RetailStoreOrderConfirmationModalTable,
-    RetailStoreOrderConfirmationSearch,
-    RetailStoreOrderConfirmationSearchForm,
-    RetailStoreOrderConfirmationCreateForm,
-    RetailStoreOrderConfirmationAssociateForm,
-    RetailStoreOrderConfirmationTable,
-    RetailStoreOrderConfirmationPermission,
-    RetailStoreOrderConfirmationProfile,
-    RetailStoreOrderConfirmationCreateFormBody,
-    RetailStoreOrderConfirmationService,
-    RetailStoreOrderConfirmationUpdateForm,
-    RetailStoreOrderApprovalBase,
-    RetailStoreOrderApprovalBizApp,
-    RetailStoreOrderApprovalModel,
-    RetailStoreOrderApprovalDashboard,
-    RetailStoreOrderApprovalModalTable,
-    RetailStoreOrderApprovalSearch,
-    RetailStoreOrderApprovalSearchForm,
-    RetailStoreOrderApprovalCreateForm,
-    RetailStoreOrderApprovalAssociateForm,
-    RetailStoreOrderApprovalTable,
-    RetailStoreOrderApprovalPermission,
-    RetailStoreOrderApprovalProfile,
-    RetailStoreOrderApprovalCreateFormBody,
-    RetailStoreOrderApprovalService,
-    RetailStoreOrderApprovalUpdateForm,
-    RetailStoreOrderProcessingBase,
-    RetailStoreOrderProcessingBizApp,
-    RetailStoreOrderProcessingModel,
-    RetailStoreOrderProcessingDashboard,
-    RetailStoreOrderProcessingModalTable,
-    RetailStoreOrderProcessingSearch,
-    RetailStoreOrderProcessingSearchForm,
-    RetailStoreOrderProcessingCreateForm,
-    RetailStoreOrderProcessingAssociateForm,
-    RetailStoreOrderProcessingTable,
-    RetailStoreOrderProcessingPermission,
-    RetailStoreOrderProcessingProfile,
-    RetailStoreOrderProcessingCreateFormBody,
-    RetailStoreOrderProcessingService,
-    RetailStoreOrderProcessingUpdateForm,
-    RetailStoreOrderPickingBase,
-    RetailStoreOrderPickingBizApp,
-    RetailStoreOrderPickingModel,
-    RetailStoreOrderPickingDashboard,
-    RetailStoreOrderPickingModalTable,
-    RetailStoreOrderPickingSearch,
-    RetailStoreOrderPickingSearchForm,
-    RetailStoreOrderPickingCreateForm,
-    RetailStoreOrderPickingAssociateForm,
-    RetailStoreOrderPickingTable,
-    RetailStoreOrderPickingPermission,
-    RetailStoreOrderPickingProfile,
-    RetailStoreOrderPickingCreateFormBody,
-    RetailStoreOrderPickingService,
-    RetailStoreOrderPickingUpdateForm,
-    RetailStoreOrderShipmentBase,
-    RetailStoreOrderShipmentBizApp,
-    RetailStoreOrderShipmentModel,
-    RetailStoreOrderShipmentDashboard,
-    RetailStoreOrderShipmentModalTable,
-    RetailStoreOrderShipmentSearch,
-    RetailStoreOrderShipmentSearchForm,
-    RetailStoreOrderShipmentCreateForm,
-    RetailStoreOrderShipmentAssociateForm,
-    RetailStoreOrderShipmentTable,
-    RetailStoreOrderShipmentPermission,
-    RetailStoreOrderShipmentProfile,
-    RetailStoreOrderShipmentCreateFormBody,
-    RetailStoreOrderShipmentService,
-    RetailStoreOrderShipmentUpdateForm,
-    RetailStoreOrderDeliveryBase,
-    RetailStoreOrderDeliveryBizApp,
-    RetailStoreOrderDeliveryModel,
-    RetailStoreOrderDeliveryDashboard,
-    RetailStoreOrderDeliveryModalTable,
-    RetailStoreOrderDeliverySearch,
-    RetailStoreOrderDeliverySearchForm,
-    RetailStoreOrderDeliveryCreateForm,
-    RetailStoreOrderDeliveryAssociateForm,
-    RetailStoreOrderDeliveryTable,
-    RetailStoreOrderDeliveryPermission,
-    RetailStoreOrderDeliveryProfile,
-    RetailStoreOrderDeliveryCreateFormBody,
-    RetailStoreOrderDeliveryService,
-    RetailStoreOrderDeliveryUpdateForm,
     RetailStoreOrderLineItemBase,
     RetailStoreOrderLineItemBizApp,
     RetailStoreOrderLineItemModel,
@@ -3949,21 +3172,6 @@ const OOTBComponents={
     GoodsCreateFormBody,
     GoodsService,
     GoodsUpdateForm,
-    GoodsPackagingBase,
-    GoodsPackagingBizApp,
-    GoodsPackagingModel,
-    GoodsPackagingDashboard,
-    GoodsPackagingModalTable,
-    GoodsPackagingSearch,
-    GoodsPackagingSearchForm,
-    GoodsPackagingCreateForm,
-    GoodsPackagingAssociateForm,
-    GoodsPackagingTable,
-    GoodsPackagingPermission,
-    GoodsPackagingProfile,
-    GoodsPackagingCreateFormBody,
-    GoodsPackagingService,
-    GoodsPackagingUpdateForm,
     GoodsMovementBase,
     GoodsMovementBizApp,
     GoodsMovementModel,
@@ -4204,66 +3412,6 @@ const OOTBComponents={
     AccountingDocumentCreateFormBody,
     AccountingDocumentService,
     AccountingDocumentUpdateForm,
-    AccountingDocumentCreationBase,
-    AccountingDocumentCreationBizApp,
-    AccountingDocumentCreationModel,
-    AccountingDocumentCreationDashboard,
-    AccountingDocumentCreationModalTable,
-    AccountingDocumentCreationSearch,
-    AccountingDocumentCreationSearchForm,
-    AccountingDocumentCreationCreateForm,
-    AccountingDocumentCreationAssociateForm,
-    AccountingDocumentCreationTable,
-    AccountingDocumentCreationPermission,
-    AccountingDocumentCreationProfile,
-    AccountingDocumentCreationCreateFormBody,
-    AccountingDocumentCreationService,
-    AccountingDocumentCreationUpdateForm,
-    AccountingDocumentConfirmationBase,
-    AccountingDocumentConfirmationBizApp,
-    AccountingDocumentConfirmationModel,
-    AccountingDocumentConfirmationDashboard,
-    AccountingDocumentConfirmationModalTable,
-    AccountingDocumentConfirmationSearch,
-    AccountingDocumentConfirmationSearchForm,
-    AccountingDocumentConfirmationCreateForm,
-    AccountingDocumentConfirmationAssociateForm,
-    AccountingDocumentConfirmationTable,
-    AccountingDocumentConfirmationPermission,
-    AccountingDocumentConfirmationProfile,
-    AccountingDocumentConfirmationCreateFormBody,
-    AccountingDocumentConfirmationService,
-    AccountingDocumentConfirmationUpdateForm,
-    AccountingDocumentAuditingBase,
-    AccountingDocumentAuditingBizApp,
-    AccountingDocumentAuditingModel,
-    AccountingDocumentAuditingDashboard,
-    AccountingDocumentAuditingModalTable,
-    AccountingDocumentAuditingSearch,
-    AccountingDocumentAuditingSearchForm,
-    AccountingDocumentAuditingCreateForm,
-    AccountingDocumentAuditingAssociateForm,
-    AccountingDocumentAuditingTable,
-    AccountingDocumentAuditingPermission,
-    AccountingDocumentAuditingProfile,
-    AccountingDocumentAuditingCreateFormBody,
-    AccountingDocumentAuditingService,
-    AccountingDocumentAuditingUpdateForm,
-    AccountingDocumentPostingBase,
-    AccountingDocumentPostingBizApp,
-    AccountingDocumentPostingModel,
-    AccountingDocumentPostingDashboard,
-    AccountingDocumentPostingModalTable,
-    AccountingDocumentPostingSearch,
-    AccountingDocumentPostingSearchForm,
-    AccountingDocumentPostingCreateForm,
-    AccountingDocumentPostingAssociateForm,
-    AccountingDocumentPostingTable,
-    AccountingDocumentPostingPermission,
-    AccountingDocumentPostingProfile,
-    AccountingDocumentPostingCreateFormBody,
-    AccountingDocumentPostingService,
-    AccountingDocumentPostingUpdateForm,
     OriginalVoucherBase,
     OriginalVoucherBizApp,
     OriginalVoucherModel,
@@ -4279,51 +3427,6 @@ const OOTBComponents={
     OriginalVoucherCreateFormBody,
     OriginalVoucherService,
     OriginalVoucherUpdateForm,
-    OriginalVoucherCreationBase,
-    OriginalVoucherCreationBizApp,
-    OriginalVoucherCreationModel,
-    OriginalVoucherCreationDashboard,
-    OriginalVoucherCreationModalTable,
-    OriginalVoucherCreationSearch,
-    OriginalVoucherCreationSearchForm,
-    OriginalVoucherCreationCreateForm,
-    OriginalVoucherCreationAssociateForm,
-    OriginalVoucherCreationTable,
-    OriginalVoucherCreationPermission,
-    OriginalVoucherCreationProfile,
-    OriginalVoucherCreationCreateFormBody,
-    OriginalVoucherCreationService,
-    OriginalVoucherCreationUpdateForm,
-    OriginalVoucherConfirmationBase,
-    OriginalVoucherConfirmationBizApp,
-    OriginalVoucherConfirmationModel,
-    OriginalVoucherConfirmationDashboard,
-    OriginalVoucherConfirmationModalTable,
-    OriginalVoucherConfirmationSearch,
-    OriginalVoucherConfirmationSearchForm,
-    OriginalVoucherConfirmationCreateForm,
-    OriginalVoucherConfirmationAssociateForm,
-    OriginalVoucherConfirmationTable,
-    OriginalVoucherConfirmationPermission,
-    OriginalVoucherConfirmationProfile,
-    OriginalVoucherConfirmationCreateFormBody,
-    OriginalVoucherConfirmationService,
-    OriginalVoucherConfirmationUpdateForm,
-    OriginalVoucherAuditingBase,
-    OriginalVoucherAuditingBizApp,
-    OriginalVoucherAuditingModel,
-    OriginalVoucherAuditingDashboard,
-    OriginalVoucherAuditingModalTable,
-    OriginalVoucherAuditingSearch,
-    OriginalVoucherAuditingSearchForm,
-    OriginalVoucherAuditingCreateForm,
-    OriginalVoucherAuditingAssociateForm,
-    OriginalVoucherAuditingTable,
-    OriginalVoucherAuditingPermission,
-    OriginalVoucherAuditingProfile,
-    OriginalVoucherAuditingCreateFormBody,
-    OriginalVoucherAuditingService,
-    OriginalVoucherAuditingUpdateForm,
     AccountingDocumentLineBase,
     AccountingDocumentLineBizApp,
     AccountingDocumentLineModel,
@@ -4579,96 +3682,6 @@ const OOTBComponents={
     EmployeeCreateFormBody,
     EmployeeService,
     EmployeeUpdateForm,
-    JobApplicationBase,
-    JobApplicationBizApp,
-    JobApplicationModel,
-    JobApplicationDashboard,
-    JobApplicationModalTable,
-    JobApplicationSearch,
-    JobApplicationSearchForm,
-    JobApplicationCreateForm,
-    JobApplicationAssociateForm,
-    JobApplicationTable,
-    JobApplicationPermission,
-    JobApplicationProfile,
-    JobApplicationCreateFormBody,
-    JobApplicationService,
-    JobApplicationUpdateForm,
-    ProfessionInterviewBase,
-    ProfessionInterviewBizApp,
-    ProfessionInterviewModel,
-    ProfessionInterviewDashboard,
-    ProfessionInterviewModalTable,
-    ProfessionInterviewSearch,
-    ProfessionInterviewSearchForm,
-    ProfessionInterviewCreateForm,
-    ProfessionInterviewAssociateForm,
-    ProfessionInterviewTable,
-    ProfessionInterviewPermission,
-    ProfessionInterviewProfile,
-    ProfessionInterviewCreateFormBody,
-    ProfessionInterviewService,
-    ProfessionInterviewUpdateForm,
-    HrInterviewBase,
-    HrInterviewBizApp,
-    HrInterviewModel,
-    HrInterviewDashboard,
-    HrInterviewModalTable,
-    HrInterviewSearch,
-    HrInterviewSearchForm,
-    HrInterviewCreateForm,
-    HrInterviewAssociateForm,
-    HrInterviewTable,
-    HrInterviewPermission,
-    HrInterviewProfile,
-    HrInterviewCreateFormBody,
-    HrInterviewService,
-    HrInterviewUpdateForm,
-    OfferApprovalBase,
-    OfferApprovalBizApp,
-    OfferApprovalModel,
-    OfferApprovalDashboard,
-    OfferApprovalModalTable,
-    OfferApprovalSearch,
-    OfferApprovalSearchForm,
-    OfferApprovalCreateForm,
-    OfferApprovalAssociateForm,
-    OfferApprovalTable,
-    OfferApprovalPermission,
-    OfferApprovalProfile,
-    OfferApprovalCreateFormBody,
-    OfferApprovalService,
-    OfferApprovalUpdateForm,
-    OfferAcceptanceBase,
-    OfferAcceptanceBizApp,
-    OfferAcceptanceModel,
-    OfferAcceptanceDashboard,
-    OfferAcceptanceModalTable,
-    OfferAcceptanceSearch,
-    OfferAcceptanceSearchForm,
-    OfferAcceptanceCreateForm,
-    OfferAcceptanceAssociateForm,
-    OfferAcceptanceTable,
-    OfferAcceptancePermission,
-    OfferAcceptanceProfile,
-    OfferAcceptanceCreateFormBody,
-    OfferAcceptanceService,
-    OfferAcceptanceUpdateForm,
-    EmployeeBoardingBase,
-    EmployeeBoardingBizApp,
-    EmployeeBoardingModel,
-    EmployeeBoardingDashboard,
-    EmployeeBoardingModalTable,
-    EmployeeBoardingSearch,
-    EmployeeBoardingSearchForm,
-    EmployeeBoardingCreateForm,
-    EmployeeBoardingAssociateForm,
-    EmployeeBoardingTable,
-    EmployeeBoardingPermission,
-    EmployeeBoardingProfile,
-    EmployeeBoardingCreateFormBody,
-    EmployeeBoardingService,
-    EmployeeBoardingUpdateForm,
     InstructorBase,
     InstructorBizApp,
     InstructorModel,
@@ -4939,21 +3952,6 @@ const OOTBComponents={
     SecUserCreateFormBody,
     SecUserService,
     SecUserUpdateForm,
-    SecUserBlockingBase,
-    SecUserBlockingBizApp,
-    SecUserBlockingModel,
-    SecUserBlockingDashboard,
-    SecUserBlockingModalTable,
-    SecUserBlockingSearch,
-    SecUserBlockingSearchForm,
-    SecUserBlockingCreateForm,
-    SecUserBlockingAssociateForm,
-    SecUserBlockingTable,
-    SecUserBlockingPermission,
-    SecUserBlockingProfile,
-    SecUserBlockingCreateFormBody,
-    SecUserBlockingService,
-    SecUserBlockingUpdateForm,
     UserAppBase,
     UserAppBizApp,
     UserAppModel,
@@ -5134,6 +4132,51 @@ const OOTBComponents={
     CandidateElementCreateFormBody,
     CandidateElementService,
     CandidateElementUpdateForm,
+    WechatWorkappIdentifyBase,
+    WechatWorkappIdentifyBizApp,
+    WechatWorkappIdentifyModel,
+    WechatWorkappIdentifyDashboard,
+    WechatWorkappIdentifyModalTable,
+    WechatWorkappIdentifySearch,
+    WechatWorkappIdentifySearchForm,
+    WechatWorkappIdentifyCreateForm,
+    WechatWorkappIdentifyAssociateForm,
+    WechatWorkappIdentifyTable,
+    WechatWorkappIdentifyPermission,
+    WechatWorkappIdentifyProfile,
+    WechatWorkappIdentifyCreateFormBody,
+    WechatWorkappIdentifyService,
+    WechatWorkappIdentifyUpdateForm,
+    WechatMiniappIdentifyBase,
+    WechatMiniappIdentifyBizApp,
+    WechatMiniappIdentifyModel,
+    WechatMiniappIdentifyDashboard,
+    WechatMiniappIdentifyModalTable,
+    WechatMiniappIdentifySearch,
+    WechatMiniappIdentifySearchForm,
+    WechatMiniappIdentifyCreateForm,
+    WechatMiniappIdentifyAssociateForm,
+    WechatMiniappIdentifyTable,
+    WechatMiniappIdentifyPermission,
+    WechatMiniappIdentifyProfile,
+    WechatMiniappIdentifyCreateFormBody,
+    WechatMiniappIdentifyService,
+    WechatMiniappIdentifyUpdateForm,
+    TreeNodeBase,
+    TreeNodeBizApp,
+    TreeNodeModel,
+    TreeNodeDashboard,
+    TreeNodeModalTable,
+    TreeNodeSearch,
+    TreeNodeSearchForm,
+    TreeNodeCreateForm,
+    TreeNodeAssociateForm,
+    TreeNodeTable,
+    TreeNodePermission,
+    TreeNodeProfile,
+    TreeNodeCreateFormBody,
+    TreeNodeService,
+    TreeNodeUpdateForm,
 
 
     menuDataOf,bindBizModels,unbindBizModels,calcLocationPath,calcMenuData,

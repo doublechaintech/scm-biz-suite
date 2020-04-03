@@ -156,7 +156,7 @@ class UserWhiteListDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"用户白名单",cardsFor: "userWhiteList",
+    const cardsData = {cardsName:window.trans('user_white_list'),cardsFor: "userWhiteList",
     	cardsSource: this.props.userWhiteList,returnURL,displayName,
   		subItems: [
     
@@ -188,8 +188,9 @@ class UserWhiteListDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

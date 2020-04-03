@@ -49,8 +49,6 @@ const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
 const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
 const renderMenuItem=defaultRenderMenuItem
 
-
-
 const userBarResponsiveStyle = {
   xs: 8,
   sm: 8,
@@ -143,11 +141,13 @@ constructor(props) {
     return keys
   }
   
-  getNavMenuItems = (targetObject) => {
+ getNavMenuItems = (targetObject, style, customTheme) => {
   
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
+    const mode =style || "inline"
+    const theme = customTheme || "light" 
 	const {objectId}=targetApp;
   	const userContext = null
     return (
@@ -157,7 +157,7 @@ constructor(props) {
         
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        style={{ width: '456px' }}
+        
        >
            
 
@@ -189,7 +189,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单行项目",
+      name: window.mtrans('supply_order_line_item','supply_order.supply_order_line_item_list',false),
       role: "supplyOrderLineItem",
       data: state._supplyOrder.supplyOrderLineItemList,
       metaInfo: state._supplyOrder.supplyOrderLineItemListMetaInfo,
@@ -207,6 +207,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplyOrderLineItemSearch)
   }
+  
   getSupplyOrderLineItemCreateForm = () => {
    	const {SupplyOrderLineItemCreateForm} = GlobalComponents;
    	const userContext = null
@@ -240,7 +241,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单送货分组",
+      name: window.mtrans('supply_order_shipping_group','supply_order.supply_order_shipping_group_list',false),
       role: "supplyOrderShippingGroup",
       data: state._supplyOrder.supplyOrderShippingGroupList,
       metaInfo: state._supplyOrder.supplyOrderShippingGroupListMetaInfo,
@@ -258,6 +259,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplyOrderShippingGroupSearch)
   }
+  
   getSupplyOrderShippingGroupCreateForm = () => {
    	const {SupplyOrderShippingGroupCreateForm} = GlobalComponents;
    	const userContext = null
@@ -291,7 +293,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单付款组",
+      name: window.mtrans('supply_order_payment_group','supply_order.supply_order_payment_group_list',false),
       role: "supplyOrderPaymentGroup",
       data: state._supplyOrder.supplyOrderPaymentGroupList,
       metaInfo: state._supplyOrder.supplyOrderPaymentGroupListMetaInfo,
@@ -309,6 +311,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplyOrderPaymentGroupSearch)
   }
+  
   getSupplyOrderPaymentGroupCreateForm = () => {
    	const {SupplyOrderPaymentGroupCreateForm} = GlobalComponents;
    	const userContext = null
@@ -342,7 +345,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "货物",
+      name: window.mtrans('goods','supply_order.goods_list',false),
       role: "goods",
       data: state._supplyOrder.goodsList,
       metaInfo: state._supplyOrder.goodsListMetaInfo,
@@ -360,6 +363,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(GoodsSearch)
   }
+  
   getGoodsCreateForm = () => {
    	const {GoodsCreateForm} = GlobalComponents;
    	const userContext = null
@@ -457,6 +461,16 @@ constructor(props) {
        payload: !collapsed,
      })
    }
+   
+   toggleSwitchText=()=>{
+    const { collapsed } = this.props
+    if(collapsed){
+      return "打开菜单"
+    }
+    return "关闭菜单"
+
+   }
+   
     logout = () => {
    
     console.log("log out called")
@@ -503,6 +517,44 @@ constructor(props) {
   
 
      }
+     const breadcrumbBar=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <div mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
+      </div>)
+  
+
+     }
+
+
+	const jumpToBreadcrumbLink=(breadcrumbMenuItem)=>{
+      const { dispatch} = this.props
+      const {name,link} = breadcrumbMenuItem
+      dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
+	
+     }  
+
+	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
+      const { dispatch} = this.props
+      const {link} = breadcrumbMenuItem
+      dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
+	
+     }
+
+     const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
+
+      return (
+     <Tag 
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+      	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
+        <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
+        	{renderBreadcrumbText(breadcrumbMenuItem.name)}
+        </span>
+      </Tag>)
+
+     }
+     
+     
      
      const { Search } = Input;
      const showSearchResult=()=>{
@@ -533,16 +585,11 @@ constructor(props) {
         <Row type="flex" justify="start" align="bottom">
         
         <Col {...naviBarResponsiveStyle} >
-            <Dropdown overlay= {this.getNavMenuItems(this.props.supplyOrder)}>
-              <a  className={styles.menuLink}>
-                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
-              </a>
-            </Dropdown>            
-            <Dropdown overlay={breadcrumbMenu()}>
-              <a  className={styles.menuLink}>
-                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
-              </a>
-            </Dropdown>
+             <a  className={styles.menuLink} onClick={()=>this.toggle()}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 
+                {this.toggleSwitchText()}
+              </a>          
+            
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
@@ -565,25 +612,41 @@ constructor(props) {
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
+        
        
+       <Layout>
+      
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.supplyOrder,this.state.searchKeyword)}</div>
 
       )}
-       
+       </Layout>
         
          
          <Layout>
+       <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="md"
+          onCollapse={() => this.onCollapse(collapsed)}
+          collapsedWidth={40}
+          className={styles.sider}
+        >
          
-            
+         {this.getNavMenuItems(this.props.supplyOrder,"inline","dark")}
+       
+        </Sider>
+        
+         <Layout>
+         <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
+        
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}
- 
-             
-             
            </Content>
+          </Layout>
           </Layout>
         </Layout>
       </Layout>

@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库损坏货物堆放区',
-  contactNumber: '483416811',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-  latitude: '40.99286706174704',
-  longitude: '130.27899192390228',
+  latitude: '40.679202520099814',
+  longitude: '130.9479252934276',
   warehouseId: 'W000001',
 }
 */
@@ -56,7 +56,7 @@ class DamageSpaceCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class DamageSpaceCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class DamageSpaceCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<DamageSpaceCreateFormBody	 {...this.props} />
+   		<DamageSpaceCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

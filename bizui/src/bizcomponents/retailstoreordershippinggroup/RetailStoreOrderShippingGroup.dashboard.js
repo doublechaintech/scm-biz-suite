@@ -162,7 +162,7 @@ class RetailStoreOrderShippingGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超订单送货分组",cardsFor: "retailStoreOrderShippingGroup",
+    const cardsData = {cardsName:window.trans('retail_store_order_shipping_group'),cardsFor: "retailStoreOrderShippingGroup",
     	cardsSource: this.props.retailStoreOrderShippingGroup,returnURL,displayName,
   		subItems: [
     
@@ -194,8 +194,9 @@ class RetailStoreOrderShippingGroupDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

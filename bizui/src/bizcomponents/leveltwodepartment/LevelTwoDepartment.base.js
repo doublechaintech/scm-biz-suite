@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './LevelTwoDepartment.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -69,25 +69,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(levelTwoDepartment,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(levelTwoDepartment, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={levelTwoDepartment.id}>
+    <Card key={levelTwoDepartment.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(levelTwoDepartment.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={levelTwoDepartment.id} size="small" col="2" >
+      <DescriptionList  key={levelTwoDepartment.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{levelTwoDepartment.id}</Description> 
-        <Description term={fieldLabels.belongsTo}><div>{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelTwoDepartment.belongsTo.displayName}(${levelTwoDepartment.belongsTo.id})`}
-        </div></Description>
+        <Description term={fieldLabels.belongsTo}><Tag color='blue' title={`${levelTwoDepartment.belongsTo.id}-${levelTwoDepartment.belongsTo.displayName}`}>{levelTwoDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(levelTwoDepartment.belongsTo.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{levelTwoDepartment.name}</Description> 
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{levelTwoDepartment.description}</Description> 
         <Description term={fieldLabels.founded}><div>{ moment(levelTwoDepartment.founded).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -95,13 +121,13 @@ const renderItemOfList=(levelTwoDepartment,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, description, founded, belongsToId} = formValuesToPack
 	const belongsTo = {id: belongsToId, version: 2^31}
-	const data = {name, description, founded, belongsTo}
+	const data = {name, description, founded:moment(founded).valueOf(), belongsTo}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, description, founded, belongsTo} = objectToUnpack
 	const belongsToId = belongsTo ? belongsTo.id : null
-	const data = {name, description, founded, belongsToId}
+	const data = {name, description, founded:moment(founded), belongsToId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const LevelTwoDepartmentBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const LevelTwoDepartmentBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default LevelTwoDepartmentBase
-
-
 

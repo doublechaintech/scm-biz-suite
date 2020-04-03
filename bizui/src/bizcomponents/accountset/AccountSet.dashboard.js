@@ -175,12 +175,12 @@ class AccountSetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"账套",cardsFor: "accountSet",
+    const cardsData = {cardsName:window.trans('account_set'),cardsFor: "accountSet",
     	cardsSource: this.props.accountSet,returnURL,displayName,
   		subItems: [
-{name: 'accountingSubjectList', displayName:'会计科目',viewGroup:'__no_group', type:'accountingSubject',count:accountingSubjectCount,addFunction: true, role: 'accountingSubject', metaInfo: accountingSubjectListMetaInfo, renderItem: GlobalComponents.AccountingSubjectBase.renderItemOfList},
-{name: 'accountingPeriodList', displayName:'会计期间',viewGroup:'__no_group', type:'accountingPeriod',count:accountingPeriodCount,addFunction: true, role: 'accountingPeriod', metaInfo: accountingPeriodListMetaInfo, renderItem: GlobalComponents.AccountingPeriodBase.renderItemOfList},
-{name: 'accountingDocumentTypeList', displayName:'会计凭证类型',viewGroup:'__no_group', type:'accountingDocumentType',count:accountingDocumentTypeCount,addFunction: true, role: 'accountingDocumentType', metaInfo: accountingDocumentTypeListMetaInfo, renderItem: GlobalComponents.AccountingDocumentTypeBase.renderItemOfList},
+{name: 'accountingSubjectList', displayName: window.mtrans('accounting_subject','account_set.accounting_subject_list',false) ,viewGroup:'__no_group', type:'accountingSubject',count:accountingSubjectCount,addFunction: true, role: 'accountingSubject', metaInfo: accountingSubjectListMetaInfo, renderItem: GlobalComponents.AccountingSubjectBase.renderItemOfList},
+{name: 'accountingPeriodList', displayName: window.mtrans('accounting_period','account_set.accounting_period_list',false) ,viewGroup:'__no_group', type:'accountingPeriod',count:accountingPeriodCount,addFunction: true, role: 'accountingPeriod', metaInfo: accountingPeriodListMetaInfo, renderItem: GlobalComponents.AccountingPeriodBase.renderItemOfList},
+{name: 'accountingDocumentTypeList', displayName: window.mtrans('accounting_document_type','account_set.accounting_document_type_list',false) ,viewGroup:'__no_group', type:'accountingDocumentType',count:accountingDocumentTypeCount,addFunction: true, role: 'accountingDocumentType', metaInfo: accountingDocumentTypeListMetaInfo, renderItem: GlobalComponents.AccountingDocumentTypeBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -210,8 +210,9 @@ class AccountSetDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

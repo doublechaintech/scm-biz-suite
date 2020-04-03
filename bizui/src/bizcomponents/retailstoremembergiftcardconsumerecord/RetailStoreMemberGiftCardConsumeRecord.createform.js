@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2017-04-25',
+  occureTime: '2017-05-02',
   number: 'GF00001',
-  amount: '18.00',
+  amount: '16.76',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -55,7 +55,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -63,9 +63,9 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -215,7 +215,7 @@ class RetailStoreMemberGiftCardConsumeRecordCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<RetailStoreMemberGiftCardConsumeRecordCreateFormBody	 {...this.props} />
+   		<RetailStoreMemberGiftCardConsumeRecordCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -51,7 +51,7 @@ class RetailStoreDecorationCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -59,9 +59,9 @@ class RetailStoreDecorationCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -211,7 +211,7 @@ class RetailStoreDecorationCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<RetailStoreDecorationCreateFormBody	 {...this.props} />
+   		<RetailStoreDecorationCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

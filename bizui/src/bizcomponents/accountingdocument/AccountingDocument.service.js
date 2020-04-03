@@ -48,72 +48,12 @@ const transferToAnotherDocumentType = (id, parameters) => {
 
 
 
-const requestCandidateCreation = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}accountingDocumentManager/requestCandidateCreation/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherCreation = (id, parameters) => {
-  const url = `${PREFIX}accountingDocumentManager/transferToAnotherCreation/id/anotherCreationId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateConfirmation = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}accountingDocumentManager/requestCandidateConfirmation/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherConfirmation = (id, parameters) => {
-  const url = `${PREFIX}accountingDocumentManager/transferToAnotherConfirmation/id/anotherConfirmationId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateAuditing = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}accountingDocumentManager/requestCandidateAuditing/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherAuditing = (id, parameters) => {
-  const url = `${PREFIX}accountingDocumentManager/transferToAnotherAuditing/id/anotherAuditingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidatePosting = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}accountingDocumentManager/requestCandidatePosting/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherPosting = (id, parameters) => {
-  const url = `${PREFIX}accountingDocumentManager/transferToAnotherPosting/id/anotherPostingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 
 
 
 
 const addOriginalVoucher = (targetObjectId, parameters) => {
-  const url = `${PREFIX}accountingDocumentManager/addOriginalVoucher/accountingDocumentId/title/madeBy/receivedBy/voucherType/voucherImage/creationId/confirmationId/auditingId/tokensExpr/`
+  const url = `${PREFIX}accountingDocumentManager/addOriginalVoucher/accountingDocumentId/title/madeBy/receivedBy/voucherType/voucherImage/tokensExpr/`
   const accountingDocumentId = targetObjectId
   const requestParameters = { ...parameters, accountingDocumentId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -192,15 +132,7 @@ const AccountingDocumentService = { view,
   removeAccountingDocumentLineList,
   requestCandidateAccountingPeriod,
   requestCandidateDocumentType,
-  requestCandidateCreation,
-  requestCandidateConfirmation,
-  requestCandidateAuditing,
-  requestCandidatePosting,
   transferToAnotherAccountingPeriod,
-  transferToAnotherDocumentType,
-  transferToAnotherCreation,
-  transferToAnotherConfirmation,
-  transferToAnotherAuditing,
-  transferToAnotherPosting, listFunctions, saveRequest, processRequest}
+  transferToAnotherDocumentType, listFunctions, saveRequest, processRequest}
 export default AccountingDocumentService
 

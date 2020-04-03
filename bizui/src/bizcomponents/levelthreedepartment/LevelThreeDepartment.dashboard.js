@@ -163,10 +163,10 @@ class LevelThreeDepartmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"三级部门",cardsFor: "levelThreeDepartment",
+    const cardsData = {cardsName:window.trans('level_three_department'),cardsFor: "levelThreeDepartment",
     	cardsSource: this.props.levelThreeDepartment,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'employeeList', displayName: window.mtrans('employee','level_three_department.employee_list',false) ,viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -196,8 +196,9 @@ class LevelThreeDepartmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

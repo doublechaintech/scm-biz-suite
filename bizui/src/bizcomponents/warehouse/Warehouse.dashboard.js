@@ -160,16 +160,16 @@ class WarehouseDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"仓库",cardsFor: "warehouse",
+    const cardsData = {cardsName:window.trans('warehouse'),cardsFor: "warehouse",
     	cardsSource: this.props.warehouse,returnURL,displayName,
   		subItems: [
-{name: 'storageSpaceList', displayName:'存货区',viewGroup:'__no_group', type:'storageSpace',count:storageSpaceCount,addFunction: true, role: 'storageSpace', metaInfo: storageSpaceListMetaInfo, renderItem: GlobalComponents.StorageSpaceBase.renderItemOfList},
-{name: 'smartPalletList', displayName:'智能托盘',viewGroup:'__no_group', type:'smartPallet',count:smartPalletCount,addFunction: true, role: 'smartPallet', metaInfo: smartPalletListMetaInfo, renderItem: GlobalComponents.SmartPalletBase.renderItemOfList},
-{name: 'supplierSpaceList', displayName:'供应商的空间',viewGroup:'__no_group', type:'supplierSpace',count:supplierSpaceCount,addFunction: true, role: 'supplierSpace', metaInfo: supplierSpaceListMetaInfo, renderItem: GlobalComponents.SupplierSpaceBase.renderItemOfList},
-{name: 'receivingSpaceList', displayName:'收货区',viewGroup:'__no_group', type:'receivingSpace',count:receivingSpaceCount,addFunction: true, role: 'receivingSpace', metaInfo: receivingSpaceListMetaInfo, renderItem: GlobalComponents.ReceivingSpaceBase.renderItemOfList},
-{name: 'shippingSpaceList', displayName:'发货区',viewGroup:'__no_group', type:'shippingSpace',count:shippingSpaceCount,addFunction: true, role: 'shippingSpace', metaInfo: shippingSpaceListMetaInfo, renderItem: GlobalComponents.ShippingSpaceBase.renderItemOfList},
-{name: 'damageSpaceList', displayName:'残次货物存放区',viewGroup:'__no_group', type:'damageSpace',count:damageSpaceCount,addFunction: true, role: 'damageSpace', metaInfo: damageSpaceListMetaInfo, renderItem: GlobalComponents.DamageSpaceBase.renderItemOfList},
-{name: 'warehouseAssetList', displayName:'仓库资产',viewGroup:'__no_group', type:'warehouseAsset',count:warehouseAssetCount,addFunction: true, role: 'warehouseAsset', metaInfo: warehouseAssetListMetaInfo, renderItem: GlobalComponents.WarehouseAssetBase.renderItemOfList},
+{name: 'storageSpaceList', displayName: window.mtrans('storage_space','warehouse.storage_space_list',false) ,viewGroup:'__no_group', type:'storageSpace',count:storageSpaceCount,addFunction: true, role: 'storageSpace', metaInfo: storageSpaceListMetaInfo, renderItem: GlobalComponents.StorageSpaceBase.renderItemOfList},
+{name: 'smartPalletList', displayName: window.mtrans('smart_pallet','warehouse.smart_pallet_list',false) ,viewGroup:'__no_group', type:'smartPallet',count:smartPalletCount,addFunction: true, role: 'smartPallet', metaInfo: smartPalletListMetaInfo, renderItem: GlobalComponents.SmartPalletBase.renderItemOfList},
+{name: 'supplierSpaceList', displayName: window.mtrans('supplier_space','warehouse.supplier_space_list',false) ,viewGroup:'__no_group', type:'supplierSpace',count:supplierSpaceCount,addFunction: true, role: 'supplierSpace', metaInfo: supplierSpaceListMetaInfo, renderItem: GlobalComponents.SupplierSpaceBase.renderItemOfList},
+{name: 'receivingSpaceList', displayName: window.mtrans('receiving_space','warehouse.receiving_space_list',false) ,viewGroup:'__no_group', type:'receivingSpace',count:receivingSpaceCount,addFunction: true, role: 'receivingSpace', metaInfo: receivingSpaceListMetaInfo, renderItem: GlobalComponents.ReceivingSpaceBase.renderItemOfList},
+{name: 'shippingSpaceList', displayName: window.mtrans('shipping_space','warehouse.shipping_space_list',false) ,viewGroup:'__no_group', type:'shippingSpace',count:shippingSpaceCount,addFunction: true, role: 'shippingSpace', metaInfo: shippingSpaceListMetaInfo, renderItem: GlobalComponents.ShippingSpaceBase.renderItemOfList},
+{name: 'damageSpaceList', displayName: window.mtrans('damage_space','warehouse.damage_space_list',false) ,viewGroup:'__no_group', type:'damageSpace',count:damageSpaceCount,addFunction: true, role: 'damageSpace', metaInfo: damageSpaceListMetaInfo, renderItem: GlobalComponents.DamageSpaceBase.renderItemOfList},
+{name: 'warehouseAssetList', displayName: window.mtrans('warehouse_asset','warehouse.warehouse_asset_list',false) ,viewGroup:'__no_group', type:'warehouseAsset',count:warehouseAssetCount,addFunction: true, role: 'warehouseAsset', metaInfo: warehouseAssetListMetaInfo, renderItem: GlobalComponents.WarehouseAssetBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -199,8 +199,9 @@ class WarehouseDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

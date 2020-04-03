@@ -161,16 +161,15 @@ class TerminationDashboard extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, employeeListMetaInfo, employeeCount } = this.props.termination
+    const { id,displayName,  } = this.props.termination
     if(!this.props.termination.class){
       return null
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",
+    const cardsData = {cardsName:window.trans('termination'),cardsFor: "termination",
     	cardsSource: this.props.termination,returnURL,displayName,
   		subItems: [
-{name: 'employeeList', displayName:'员工',viewGroup:'__no_group', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -200,8 +199,9 @@ class TerminationDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

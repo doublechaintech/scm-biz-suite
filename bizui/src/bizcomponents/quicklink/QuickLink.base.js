@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './QuickLink.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -72,26 +72,52 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(quickLink,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(quickLink, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={quickLink.id}>
+    <Card key={quickLink.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(quickLink.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={quickLink.id} size="small" col="2" >
+      <DescriptionList  key={quickLink.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{quickLink.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{quickLink.name}</Description> 
         <Description term={fieldLabels.icon} style={{wordBreak: 'break-all'}}>{quickLink.icon}</Description> 
         <Description term={fieldLabels.linkTarget} style={{wordBreak: 'break-all'}}>{quickLink.linkTarget}</Description> 
         <Description term={fieldLabels.createTime}><div>{ moment(quickLink.createTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
-        <Description term={fieldLabels.app}><div>{quickLink.app==null?appLocaleName(userContext,"NotAssigned"):`${quickLink.app.displayName}(${quickLink.app.id})`}
-        </div></Description>
+        <Description term={fieldLabels.app}><Tag color='blue' title={`${quickLink.app.id}-${quickLink.app.displayName}`}>{quickLink.app==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(quickLink.app.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -118,8 +144,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const QuickLinkBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const QuickLinkBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default QuickLinkBase
-
-
 

@@ -57,7 +57,7 @@ class TerminationPermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  termination = this.props.termination
-    const { id,displayName, employeeCount } = termination
+    const { id,displayName,  } = termination
     const  returnURL = `/termination/${id}/dashboard`
     const cardsData = {cardsName:"雇佣终止",cardsFor: "termination",cardsSource: termination,displayName,returnURL,
   		subItems: [

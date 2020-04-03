@@ -38,7 +38,7 @@ const transferToAnotherOwner = (id, parameters) => {
 
 
 const addConsumerOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreMemberManager/addConsumerOrder/retailStoreMemberId/title/confirmationId/approvalId/processingId/shipmentId/deliveryId/storeId/tokensExpr/`
+  const url = `${PREFIX}retailStoreMemberManager/addConsumerOrder/retailStoreMemberId/title/storeId/tokensExpr/`
   const retailStoreMemberId = targetObjectId
   const requestParameters = { ...parameters, retailStoreMemberId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

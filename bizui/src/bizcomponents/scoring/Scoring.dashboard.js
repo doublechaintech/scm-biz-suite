@@ -157,10 +157,10 @@ class ScoringDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"评分",cardsFor: "scoring",
+    const cardsData = {cardsName:window.trans('scoring'),cardsFor: "scoring",
     	cardsSource: this.props.scoring,returnURL,displayName,
   		subItems: [
-{name: 'employeeCompanyTrainingList', displayName:'员工参与的公司培训',viewGroup:'__no_group', type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
+{name: 'employeeCompanyTrainingList', displayName: window.mtrans('employee_company_training','scoring.employee_company_training_list',false) ,viewGroup:'__no_group', type:'employeeCompanyTraining',count:employeeCompanyTrainingCount,addFunction: true, role: 'employeeCompanyTraining', metaInfo: employeeCompanyTrainingListMetaInfo, renderItem: GlobalComponents.EmployeeCompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -190,8 +190,9 @@ class ScoringDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

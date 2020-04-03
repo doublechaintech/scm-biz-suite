@@ -38,7 +38,7 @@ class AccountingDocumentModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1110 }}
+          scroll={{ x: 800 }}
         />
       </div>
     )

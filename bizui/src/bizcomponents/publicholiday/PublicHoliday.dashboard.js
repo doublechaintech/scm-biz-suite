@@ -157,7 +157,7 @@ class PublicHolidayDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"公共假日",cardsFor: "publicHoliday",
+    const cardsData = {cardsName:window.trans('public_holiday'),cardsFor: "publicHoliday",
     	cardsSource: this.props.publicHoliday,returnURL,displayName,
   		subItems: [
     
@@ -189,8 +189,9 @@ class PublicHolidayDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

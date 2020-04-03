@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './AccountingDocument.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -56,10 +56,6 @@ const fieldLabels = {
   accountingDocumentDate: window.trans('accounting_document.accounting_document_date'),
   accountingPeriod: window.trans('accounting_document.accounting_period'),
   documentType: window.trans('accounting_document.document_type'),
-  creation: window.trans('accounting_document.creation'),
-  confirmation: window.trans('accounting_document.confirmation'),
-  auditing: window.trans('accounting_document.auditing'),
-  posting: window.trans('accounting_document.posting'),
 
 }
 
@@ -69,59 +65,73 @@ const displayColumns = [
   { title: fieldLabels.accountingDocumentDate, dataIndex: 'accountingDocumentDate', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.accountingPeriod, dataIndex: 'accountingPeriod', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.documentType, dataIndex: 'documentType', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.creation, dataIndex: 'creation', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.confirmation, dataIndex: 'confirmation', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.auditing, dataIndex: 'auditing', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.posting, dataIndex: 'posting', render: (text, record) => renderReferenceCell(text, record), sorter:true},
 
 ]
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(accountingDocument,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(accountingDocument, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={accountingDocument.id}>
+    <Card key={accountingDocument.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(accountingDocument.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={accountingDocument.id} size="small" col="2" >
+      <DescriptionList  key={accountingDocument.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{accountingDocument.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{accountingDocument.name}</Description> 
         <Description term={fieldLabels.accountingDocumentDate}><div>{ moment(accountingDocument.accountingDocumentDate).format('YYYY-MM-DD')}</div></Description> 
-        <Description term={fieldLabels.accountingPeriod}><div>{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.accountingPeriod.displayName}(${accountingDocument.accountingPeriod.id})`}
-        </div></Description>
-        <Description term={fieldLabels.documentType}><div>{accountingDocument.documentType==null?appLocaleName(userContext,"NotAssigned"):`${accountingDocument.documentType.displayName}(${accountingDocument.documentType.id})`}
-        </div></Description>
+        <Description term={fieldLabels.accountingPeriod}><Tag color='blue' title={`${accountingDocument.accountingPeriod.id}-${accountingDocument.accountingPeriod.displayName}`}>{accountingDocument.accountingPeriod==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountingDocument.accountingPeriod.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.documentType}><Tag color='blue' title={`${accountingDocument.documentType.id}-${accountingDocument.documentType.displayName}`}>{accountingDocument.documentType==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountingDocument.documentType.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
 	
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, accountingDocumentDate, accountingPeriodId, documentTypeId, creationId, confirmationId, auditingId, postingId} = formValuesToPack
+	const {name, accountingDocumentDate, accountingPeriodId, documentTypeId} = formValuesToPack
 	const accountingPeriod = {id: accountingPeriodId, version: 2^31}
 	const documentType = {id: documentTypeId, version: 2^31}
-	const creation = {id: creationId, version: 2^31}
-	const confirmation = {id: confirmationId, version: 2^31}
-	const auditing = {id: auditingId, version: 2^31}
-	const posting = {id: postingId, version: 2^31}
-	const data = {name, accountingDocumentDate, accountingPeriod, documentType, creation, confirmation, auditing, posting}
+	const data = {name, accountingDocumentDate:moment(accountingDocumentDate).valueOf(), accountingPeriod, documentType}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {name, accountingDocumentDate, accountingPeriod, documentType, creation, confirmation, auditing, posting} = objectToUnpack
+	const {name, accountingDocumentDate, accountingPeriod, documentType} = objectToUnpack
 	const accountingPeriodId = accountingPeriod ? accountingPeriod.id : null
 	const documentTypeId = documentType ? documentType.id : null
-	const creationId = creation ? creation.id : null
-	const confirmationId = confirmation ? confirmation.id : null
-	const auditingId = auditing ? auditing.id : null
-	const postingId = posting ? posting.id : null
-	const data = {name, accountingDocumentDate, accountingPeriodId, documentTypeId, creationId, confirmationId, auditingId, postingId}
+	const data = {name, accountingDocumentDate:moment(accountingDocumentDate), accountingPeriodId, documentTypeId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -134,8 +144,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const AccountingDocumentBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const AccountingDocumentBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default AccountingDocumentBase
-
-
 

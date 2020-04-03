@@ -57,7 +57,7 @@ class InstructorCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -65,9 +65,9 @@ class InstructorCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -217,7 +217,7 @@ class InstructorCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<InstructorCreateFormBody	 {...this.props} />
+   		<InstructorCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

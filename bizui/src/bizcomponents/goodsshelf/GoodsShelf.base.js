@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './GoodsShelf.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -72,28 +72,54 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(goodsShelf,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(goodsShelf, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={goodsShelf.id}>
+    <Card key={goodsShelf.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(goodsShelf.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={goodsShelf.id} size="small" col="2" >
+      <DescriptionList  key={goodsShelf.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{goodsShelf.id}</Description> 
         <Description term={fieldLabels.location} style={{wordBreak: 'break-all'}}>{goodsShelf.location}</Description> 
-        <Description term={fieldLabels.storageSpace}><div>{goodsShelf.storageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.storageSpace.displayName}(${goodsShelf.storageSpace.id})`}
-        </div></Description>
-        <Description term={fieldLabels.supplierSpace}><div>{goodsShelf.supplierSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.supplierSpace.displayName}(${goodsShelf.supplierSpace.id})`}
-        </div></Description>
-        <Description term={fieldLabels.damageSpace}><div>{goodsShelf.damageSpace==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelf.damageSpace.displayName}(${goodsShelf.damageSpace.id})`}
-        </div></Description>
+        <Description term={fieldLabels.storageSpace}><Tag color='blue' title={`${goodsShelf.storageSpace.id}-${goodsShelf.storageSpace.displayName}`}>{goodsShelf.storageSpace==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goodsShelf.storageSpace.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.supplierSpace}><Tag color='blue' title={`${goodsShelf.supplierSpace.id}-${goodsShelf.supplierSpace.displayName}`}>{goodsShelf.supplierSpace==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goodsShelf.supplierSpace.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.damageSpace}><Tag color='blue' title={`${goodsShelf.damageSpace.id}-${goodsShelf.damageSpace.displayName}`}>{goodsShelf.damageSpace==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goodsShelf.damageSpace.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(goodsShelf.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -124,8 +150,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const GoodsShelfBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const GoodsShelfBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default GoodsShelfBase
-
-
 

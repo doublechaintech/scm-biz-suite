@@ -169,7 +169,7 @@ class FormFieldDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"表单字段",cardsFor: "formField",
+    const cardsData = {cardsName:window.trans('form_field'),cardsFor: "formField",
     	cardsSource: this.props.formField,returnURL,displayName,
   		subItems: [
     
@@ -201,8 +201,9 @@ class FormFieldDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

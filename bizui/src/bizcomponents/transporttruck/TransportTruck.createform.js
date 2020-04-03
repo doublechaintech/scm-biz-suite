@@ -20,10 +20,10 @@ const testValues = {};
 const testValues = {
   name: '运货卡车',
   plateNumber: '川AK5',
-  contactNumber: '1131937928',
+  contactNumber: '028 87654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2017-12-30',
+  makeDate: '2019-04-19',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -59,7 +59,7 @@ class TransportTruckCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -67,9 +67,9 @@ class TransportTruckCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -219,7 +219,7 @@ class TransportTruckCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<TransportTruckCreateFormBody	 {...this.props} />
+   		<TransportTruckCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

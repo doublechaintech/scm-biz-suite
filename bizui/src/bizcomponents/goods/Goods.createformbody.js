@@ -20,8 +20,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '9',
-  expireTime: '2018-08-29',
+  maxPackage: '8',
+  expireTime: '2018-02-28',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -31,7 +31,6 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
-  packagingId: 'GP000001',
 }
 */
 
@@ -63,18 +62,22 @@ class GoodsCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -355,25 +358,6 @@ class GoodsCreateFormBody extends Component {
                     disabled={!availableForEdit('retailStoreOrder')}
                     targetType={"retailStoreOrder"} 
                     requestFunction={GoodsService.requestCandidateRetailStoreOrder}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.packaging} {...formItemLayout}>
-                  {getFieldDecorator('packagingId', {
-                  	initialValue: tryinit('packaging'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('packaging')}
-                    targetType={"packaging"} 
-                    requestFunction={GoodsService.requestCandidatePackaging}/>
                   
                  
                   )}

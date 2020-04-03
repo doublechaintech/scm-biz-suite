@@ -6,6 +6,11 @@ const login = (username, password) => {
   return postForm({ url,requestParameters})
 };
 
+const home = () => {
+  const url = `${PREFIX }secUserManager/home/`
+  return get({ url})
+};
+
 const ChangePassword = ({ currentPassword, newPassword }) => {
  
 
@@ -34,5 +39,5 @@ const gotoApp = appId => {
   });
 };
 
-const LauncherService = { login, gotoApp, logout, checkOtherLogin, ChangePassword };
+const LauncherService = { login, home,gotoApp, logout, checkOtherLogin, ChangePassword };
 export default LauncherService;

@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号',
-  contactNumber: '911768046',
+  contactNumber: '028 87654321',
   totalArea: '187672平方米',
-  latitude: '41.64206750297946',
-  longitude: '131.10678438405847',
+  latitude: '41.55579978817946',
+  longitude: '129.4707417313541',
   ownerId: 'RSCC000001',
 }
 */
@@ -56,7 +56,7 @@ class WarehouseCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class WarehouseCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class WarehouseCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<WarehouseCreateFormBody	 {...this.props} />
+   		<WarehouseCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

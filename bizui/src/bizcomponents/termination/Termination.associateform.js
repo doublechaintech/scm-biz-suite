@@ -74,7 +74,6 @@ class TerminationAssociateForm extends Component {
     const {TerminationService} = GlobalComponents
     const userContext = null
     
- const {EmployeeModalTable} = GlobalComponents;
 
 
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form
@@ -203,7 +202,6 @@ class TerminationAssociateForm extends Component {
 			
         </Card>
         
-	<EmployeeModalTable data={data.employeeList} owner={owner} />
         
         
         

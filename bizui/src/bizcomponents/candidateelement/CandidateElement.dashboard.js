@@ -157,7 +157,7 @@ class CandidateElementDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"候选人元素",cardsFor: "candidateElement",
+    const cardsData = {cardsName:window.trans('candidate_element'),cardsFor: "candidateElement",
     	cardsSource: this.props.candidateElement,returnURL,displayName,
   		subItems: [
     
@@ -189,8 +189,9 @@ class CandidateElementDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

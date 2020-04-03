@@ -155,10 +155,10 @@ class UserDomainDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"用户域",cardsFor: "userDomain",
+    const cardsData = {cardsName:window.trans('user_domain'),cardsFor: "userDomain",
     	cardsSource: this.props.userDomain,returnURL,displayName,
   		subItems: [
-{name: 'secUserList', displayName:'SEC的用户',viewGroup:'__no_group', type:'secUser',count:secUserCount,addFunction: true, role: 'secUser', metaInfo: secUserListMetaInfo, renderItem: GlobalComponents.SecUserBase.renderItemOfList},
+{name: 'secUserList', displayName: window.mtrans('sec_user','user_domain.sec_user_list',false) ,viewGroup:'__no_group', type:'secUser',count:secUserCount,addFunction: true, role: 'secUser', metaInfo: secUserListMetaInfo, renderItem: GlobalComponents.SecUserBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -189,8 +189,9 @@ class UserDomainDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

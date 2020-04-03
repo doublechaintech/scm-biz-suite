@@ -23,9 +23,6 @@ const testValues = {
   receivedBy: '本公司',
   voucherType: '原始凭证',
   belongsToId: 'AD000001',
-  creationId: 'OVC000001',
-  confirmationId: 'OVC000001',
-  auditingId: 'OVA000001',
 }
 */
 
@@ -59,7 +56,7 @@ class OriginalVoucherCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -67,9 +64,9 @@ class OriginalVoucherCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -219,7 +216,7 @@ class OriginalVoucherCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<OriginalVoucherCreateFormBody	 {...this.props} />
+   		<OriginalVoucherCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

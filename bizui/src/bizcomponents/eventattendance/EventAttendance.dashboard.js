@@ -168,7 +168,7 @@ class EventAttendanceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"活动的参与情况",cardsFor: "eventAttendance",
+    const cardsData = {cardsName:window.trans('event_attendance'),cardsFor: "eventAttendance",
     	cardsSource: this.props.eventAttendance,returnURL,displayName,
   		subItems: [
     
@@ -200,8 +200,9 @@ class EventAttendanceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

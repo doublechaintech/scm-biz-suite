@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   scoredBy: '王志文',
-  score: '95',
+  score: '85',
   comment: '这个题做的真不错啊',
 }
 */
@@ -53,7 +53,7 @@ class ScoringCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -61,9 +61,9 @@ class ScoringCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -213,7 +213,7 @@ class ScoringCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<ScoringCreateFormBody	 {...this.props} />
+   		<ScoringCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

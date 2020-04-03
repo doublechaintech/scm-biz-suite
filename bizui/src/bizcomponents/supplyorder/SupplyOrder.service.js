@@ -48,96 +48,6 @@ const transferToAnotherSeller = (id, parameters) => {
 
 
 
-const requestCandidateConfirmation = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}supplyOrderManager/requestCandidateConfirmation/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherConfirmation = (id, parameters) => {
-  const url = `${PREFIX}supplyOrderManager/transferToAnotherConfirmation/id/anotherConfirmationId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateApproval = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}supplyOrderManager/requestCandidateApproval/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherApproval = (id, parameters) => {
-  const url = `${PREFIX}supplyOrderManager/transferToAnotherApproval/id/anotherApprovalId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateProcessing = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}supplyOrderManager/requestCandidateProcessing/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherProcessing = (id, parameters) => {
-  const url = `${PREFIX}supplyOrderManager/transferToAnotherProcessing/id/anotherProcessingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidatePicking = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}supplyOrderManager/requestCandidatePicking/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherPicking = (id, parameters) => {
-  const url = `${PREFIX}supplyOrderManager/transferToAnotherPicking/id/anotherPickingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateShipment = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}supplyOrderManager/requestCandidateShipment/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherShipment = (id, parameters) => {
-  const url = `${PREFIX}supplyOrderManager/transferToAnotherShipment/id/anotherShipmentId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateDelivery = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}supplyOrderManager/requestCandidateDelivery/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherDelivery = (id, parameters) => {
-  const url = `${PREFIX}supplyOrderManager/transferToAnotherDelivery/id/anotherDeliveryId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 
 
 
@@ -209,7 +119,7 @@ const removeSupplyOrderPaymentGroupList = (targetObjectId, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}supplyOrderManager/addGoods/supplyOrderId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/retailStoreOrderId/packagingId/tokensExpr/`
+  const url = `${PREFIX}supplyOrderManager/addGoods/supplyOrderId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/retailStoreOrderId/tokensExpr/`
   const supplyOrderId = targetObjectId
   const requestParameters = { ...parameters, supplyOrderId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -272,19 +182,7 @@ const SupplyOrderService = { view,
   removeGoodsList,
   requestCandidateBuyer,
   requestCandidateSeller,
-  requestCandidateConfirmation,
-  requestCandidateApproval,
-  requestCandidateProcessing,
-  requestCandidatePicking,
-  requestCandidateShipment,
-  requestCandidateDelivery,
   transferToAnotherBuyer,
-  transferToAnotherSeller,
-  transferToAnotherConfirmation,
-  transferToAnotherApproval,
-  transferToAnotherProcessing,
-  transferToAnotherPicking,
-  transferToAnotherShipment,
-  transferToAnotherDelivery, listFunctions, saveRequest, processRequest}
+  transferToAnotherSeller, listFunctions, saveRequest, processRequest}
 export default SupplyOrderService
 

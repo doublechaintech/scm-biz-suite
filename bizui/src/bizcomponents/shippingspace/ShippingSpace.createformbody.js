@@ -18,10 +18,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号装货区',
-  contactNumber: '346325732',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-  latitude: '41.00396608935503',
-  longitude: '129.86168267728587',
+  latitude: '41.93666562619734',
+  longitude: '132.0077320096559',
   description: '每个收货区可以供一辆车装货',
   warehouseId: 'W000001',
 }
@@ -55,18 +55,22 @@ class ShippingSpaceCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

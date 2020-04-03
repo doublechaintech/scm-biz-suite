@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   who: '出纳',
-  paidTime: '2017-02-16',
-  amount: '4005.85',
+  paidTime: '2020-02-15',
+  amount: '3717.28',
   paidForId: 'E000001',
 }
 */
@@ -54,7 +54,7 @@ class PayingOffCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class PayingOffCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class PayingOffCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<PayingOffCreateFormBody	 {...this.props} />
+   		<PayingOffCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

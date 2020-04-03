@@ -19,11 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号仓库卸货区',
-  contactNumber: '1676150150',
+  contactNumber: '028 87654321',
   description: '每个收货区可以供一辆车卸货',
   totalArea: '1876平方米',
-  latitude: '41.921100213596105',
-  longitude: '131.99117039223472',
+  latitude: '42.121543622767604',
+  longitude: '131.5865943256445',
   warehouseId: 'W000001',
 }
 */

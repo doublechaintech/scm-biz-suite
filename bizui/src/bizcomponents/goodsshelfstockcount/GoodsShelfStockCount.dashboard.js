@@ -163,10 +163,10 @@ class GoodsShelfStockCountDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货架库存盘点",cardsFor: "goodsShelfStockCount",
+    const cardsData = {cardsName:window.trans('goods_shelf_stock_count'),cardsFor: "goodsShelfStockCount",
     	cardsSource: this.props.goodsShelfStockCount,returnURL,displayName,
   		subItems: [
-{name: 'stockCountIssueTrackList', displayName:'库存计数问题跟踪',viewGroup:'__no_group', type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
+{name: 'stockCountIssueTrackList', displayName: window.mtrans('stock_count_issue_track','goods_shelf_stock_count.stock_count_issue_track_list',false) ,viewGroup:'__no_group', type:'stockCountIssueTrack',count:stockCountIssueTrackCount,addFunction: true, role: 'stockCountIssueTrack', metaInfo: stockCountIssueTrackListMetaInfo, renderItem: GlobalComponents.StockCountIssueTrackBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -196,8 +196,9 @@ class GoodsShelfStockCountDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

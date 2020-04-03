@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EmployeeSkill.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -66,25 +66,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(employeeSkill,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(employeeSkill, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={employeeSkill.id}>
+    <Card key={employeeSkill.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(employeeSkill.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={employeeSkill.id} size="small" col="2" >
+      <DescriptionList  key={employeeSkill.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeSkill.id}</Description> 
-        <Description term={fieldLabels.employee}><div>{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.employee.displayName}(${employeeSkill.employee.id})`}
-        </div></Description>
-        <Description term={fieldLabels.skillType}><div>{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${employeeSkill.skillType.displayName}(${employeeSkill.skillType.id})`}
-        </div></Description>
+        <Description term={fieldLabels.employee}><Tag color='blue' title={`${employeeSkill.employee.id}-${employeeSkill.employee.displayName}`}>{employeeSkill.employee==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeSkill.employee.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.skillType}><Tag color='blue' title={`${employeeSkill.skillType.id}-${employeeSkill.skillType.displayName}`}>{employeeSkill.skillType==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeSkill.skillType.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{employeeSkill.description}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -113,8 +139,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EmployeeSkillBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EmployeeSkillBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeSkillBase
-
-
 

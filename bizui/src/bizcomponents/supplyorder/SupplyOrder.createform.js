@@ -19,15 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   title: '双链给供货商下的订单',
-  totalAmount: '2412417024.00',
+  totalAmount: '2192242432.00',
   buyerId: 'RSCC000001',
   sellerId: 'GS000001',
-  confirmationId: 'SOC000001',
-  approvalId: 'SOA000001',
-  processingId: 'SOP000001',
-  pickingId: 'SOP000001',
-  shipmentId: 'SOS000001',
-  deliveryId: 'SOD000001',
 }
 */
 
@@ -60,7 +54,7 @@ class SupplyOrderCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -68,9 +62,9 @@ class SupplyOrderCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -220,7 +214,7 @@ class SupplyOrderCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<SupplyOrderCreateFormBody	 {...this.props} />
+   		<SupplyOrderCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

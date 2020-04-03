@@ -20,11 +20,6 @@ const testValues = {};
 const testValues = {
   title: '消费订单',
   consumerId: 'RSM000001',
-  confirmationId: 'SOC000001',
-  approvalId: 'SOA000001',
-  processingId: 'SOP000001',
-  shipmentId: 'SOS000001',
-  deliveryId: 'SOD000001',
   storeId: 'RS000001',
 }
 */
@@ -58,7 +53,7 @@ class ConsumerOrderCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -66,9 +61,9 @@ class ConsumerOrderCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -218,7 +213,7 @@ class ConsumerOrderCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<ConsumerOrderCreateFormBody	 {...this.props} />
+   		<ConsumerOrderCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

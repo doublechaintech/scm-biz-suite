@@ -170,7 +170,7 @@ class AccountingDocumentLineDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会计凭证行",cardsFor: "accountingDocumentLine",
+    const cardsData = {cardsName:window.trans('accounting_document_line'),cardsFor: "accountingDocumentLine",
     	cardsSource: this.props.accountingDocumentLine,returnURL,displayName,
   		subItems: [
     
@@ -202,8 +202,9 @@ class AccountingDocumentLineDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

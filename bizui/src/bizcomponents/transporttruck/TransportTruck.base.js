@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './TransportTruck.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -67,7 +67,7 @@ const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'transportTruck') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.plateNumber, debugtype: 'string', dataIndex: 'plateNumber', width: '8',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.contactNumber, debugtype: 'long', dataIndex: 'contactNumber', width: '15',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.contactNumber, debugtype: 'string', dataIndex: 'contactNumber', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.vehicleLicenseNumber, debugtype: 'string', dataIndex: 'vehicleLicenseNumber', width: '10',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.engineNumber, debugtype: 'string', dataIndex: 'engineNumber', width: '11',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.makeDate, dataIndex: 'makeDate', render: (text, record) =>renderDateCell(text,record), sorter: true },
@@ -79,30 +79,56 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(transportTruck,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(transportTruck, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={transportTruck.id}>
+    <Card key={transportTruck.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(transportTruck.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={transportTruck.id} size="small" col="2" >
+      <DescriptionList  key={transportTruck.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{transportTruck.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{transportTruck.name}</Description> 
         <Description term={fieldLabels.plateNumber} style={{wordBreak: 'break-all'}}>{transportTruck.plateNumber}</Description> 
-        <Description term={fieldLabels.contactNumber}><div style={{"color":"red"}}>{transportTruck.contactNumber}</div></Description> 
+        <Description term={fieldLabels.contactNumber} style={{wordBreak: 'break-all'}}>{transportTruck.contactNumber}</Description> 
         <Description term={fieldLabels.vehicleLicenseNumber} style={{wordBreak: 'break-all'}}>{transportTruck.vehicleLicenseNumber}</Description> 
         <Description term={fieldLabels.engineNumber} style={{wordBreak: 'break-all'}}>{transportTruck.engineNumber}</Description> 
         <Description term={fieldLabels.makeDate}><div>{ moment(transportTruck.makeDate).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.mileage} style={{wordBreak: 'break-all'}}>{transportTruck.mileage}</Description> 
         <Description term={fieldLabels.bodyColor} style={{wordBreak: 'break-all'}}>{transportTruck.bodyColor}</Description> 
-        <Description term={fieldLabels.owner}><div>{transportTruck.owner==null?appLocaleName(userContext,"NotAssigned"):`${transportTruck.owner.displayName}(${transportTruck.owner.id})`}
-        </div></Description>
+        <Description term={fieldLabels.owner}><Tag color='blue' title={`${transportTruck.owner.id}-${transportTruck.owner.displayName}`}>{transportTruck.owner==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(transportTruck.owner.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -110,13 +136,13 @@ const renderItemOfList=(transportTruck,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, plateNumber, contactNumber, vehicleLicenseNumber, engineNumber, makeDate, mileage, bodyColor, ownerId} = formValuesToPack
 	const owner = {id: ownerId, version: 2^31}
-	const data = {name, plateNumber, contactNumber, vehicleLicenseNumber, engineNumber, makeDate, mileage, bodyColor, owner}
+	const data = {name, plateNumber, contactNumber, vehicleLicenseNumber, engineNumber, makeDate:moment(makeDate).valueOf(), mileage, bodyColor, owner}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, plateNumber, contactNumber, vehicleLicenseNumber, engineNumber, makeDate, mileage, bodyColor, owner} = objectToUnpack
 	const ownerId = owner ? owner.id : null
-	const data = {name, plateNumber, contactNumber, vehicleLicenseNumber, engineNumber, makeDate, mileage, bodyColor, ownerId}
+	const data = {name, plateNumber, contactNumber, vehicleLicenseNumber, engineNumber, makeDate:moment(makeDate), mileage, bodyColor, ownerId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -129,8 +155,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const TransportTruckBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const TransportTruckBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default TransportTruckBase
-
-
 

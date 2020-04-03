@@ -125,7 +125,7 @@ const internalSummaryOf = (provinceCenterDepartment,targetComponent) =>{
 	      ProvinceCenterDepartmentService.transferToAnotherProvinceCenter,"anotherProvinceCenterId",provinceCenterDepartment.provinceCenter?provinceCenterDepartment.provinceCenter.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="经理的名字" style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.managerName}</Description> 
+<Description term="经理" style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.manager}</Description> 
 	
         {buildTransferModal(provinceCenterDepartment,targetComponent)}
       </DescriptionList>
@@ -163,10 +163,10 @@ class ProvinceCenterDepartmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"省中心",cardsFor: "provinceCenterDepartment",
+    const cardsData = {cardsName:window.trans('province_center_department'),cardsFor: "provinceCenterDepartment",
     	cardsSource: this.props.provinceCenterDepartment,returnURL,displayName,
   		subItems: [
-{name: 'provinceCenterEmployeeList', displayName:'省中心员工',viewGroup:'__no_group', type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
+{name: 'provinceCenterEmployeeList', displayName: window.mtrans('province_center_employee','province_center_department.province_center_employee_list',false) ,viewGroup:'__no_group', type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -196,8 +196,9 @@ class ProvinceCenterDepartmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

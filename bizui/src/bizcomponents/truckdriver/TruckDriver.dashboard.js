@@ -163,10 +163,10 @@ class TruckDriverDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"卡车司机",cardsFor: "truckDriver",
+    const cardsData = {cardsName:window.trans('truck_driver'),cardsFor: "truckDriver",
     	cardsSource: this.props.truckDriver,returnURL,displayName,
   		subItems: [
-{name: 'transportTaskList', displayName:'运输任务',viewGroup:'__no_group', type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+{name: 'transportTaskList', displayName: window.mtrans('transport_task','truck_driver.transport_task_list',false) ,viewGroup:'__no_group', type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -196,8 +196,9 @@ class TruckDriverDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

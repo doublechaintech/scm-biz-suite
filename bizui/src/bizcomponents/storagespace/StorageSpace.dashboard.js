@@ -166,10 +166,10 @@ class StorageSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"存货区",cardsFor: "storageSpace",
+    const cardsData = {cardsName:window.trans('storage_space'),cardsFor: "storageSpace",
     	cardsSource: this.props.storageSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'货架',viewGroup:'__no_group', type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName: window.mtrans('goods_shelf','storage_space.goods_shelf_list',false) ,viewGroup:'__no_group', type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -199,8 +199,9 @@ class StorageSpaceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

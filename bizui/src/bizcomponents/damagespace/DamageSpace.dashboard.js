@@ -166,10 +166,10 @@ class DamageSpaceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"残次货物存放区",cardsFor: "damageSpace",
+    const cardsData = {cardsName:window.trans('damage_space'),cardsFor: "damageSpace",
     	cardsSource: this.props.damageSpace,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfList', displayName:'货架',viewGroup:'__no_group', type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
+{name: 'goodsShelfList', displayName: window.mtrans('goods_shelf','damage_space.goods_shelf_list',false) ,viewGroup:'__no_group', type:'goodsShelf',count:goodsShelfCount,addFunction: true, role: 'goodsShelf', metaInfo: goodsShelfListMetaInfo, renderItem: GlobalComponents.GoodsShelfBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -199,8 +199,9 @@ class DamageSpaceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

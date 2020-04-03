@@ -157,10 +157,10 @@ class InterviewTypeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"面试类型",cardsFor: "interviewType",
+    const cardsData = {cardsName:window.trans('interview_type'),cardsFor: "interviewType",
     	cardsSource: this.props.interviewType,returnURL,displayName,
   		subItems: [
-{name: 'employeeInterviewList', displayName:'员工面试',viewGroup:'__no_group', type:'employeeInterview',count:employeeInterviewCount,addFunction: true, role: 'employeeInterview', metaInfo: employeeInterviewListMetaInfo, renderItem: GlobalComponents.EmployeeInterviewBase.renderItemOfList},
+{name: 'employeeInterviewList', displayName: window.mtrans('employee_interview','interview_type.employee_interview_list',false) ,viewGroup:'__no_group', type:'employeeInterview',count:employeeInterviewCount,addFunction: true, role: 'employeeInterview', metaInfo: employeeInterviewListMetaInfo, renderItem: GlobalComponents.EmployeeInterviewBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -190,8 +190,9 @@ class InterviewTypeDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

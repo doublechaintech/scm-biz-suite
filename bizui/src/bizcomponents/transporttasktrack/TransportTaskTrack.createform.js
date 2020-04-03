@@ -18,9 +18,9 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  trackTime: '2019-10-10',
-  latitude: '30.30849900792298',
-  longitude: '104.58163431179867',
+  trackTime: '2018-06-03',
+  latitude: '31.183674191068572',
+  longitude: '105.37897407010782',
   movementId: 'TT000001',
 }
 */
@@ -54,7 +54,7 @@ class TransportTaskTrackCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class TransportTaskTrackCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class TransportTaskTrackCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<TransportTaskTrackCreateFormBody	 {...this.props} />
+   		<TransportTaskTrackCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

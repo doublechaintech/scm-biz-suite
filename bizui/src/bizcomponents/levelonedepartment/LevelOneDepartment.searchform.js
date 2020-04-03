@@ -135,7 +135,7 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'belongsTo'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'name'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'description'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'managerName'))
+		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'manager'))
 
      
       console.log("the final parameter", paramList)
@@ -289,8 +289,8 @@ componentDidMount() {
           </Col>
 
           <Col md={8} sm={24}>
-            <FormItem label={fieldLabels.managerName}>
-              {getFieldDecorator('managerName')(
+            <FormItem label={fieldLabels.manager}>
+              {getFieldDecorator('manager')(
                 <Input placeholder={appLocaleName(userContext,"PleaseInput")} />
               )}
             </FormItem>

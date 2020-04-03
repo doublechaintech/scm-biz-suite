@@ -38,7 +38,7 @@ const transferToAnotherAccountSet = (id, parameters) => {
 
 
 const addAccountingDocument = (targetObjectId, parameters) => {
-  const url = `${PREFIX}accountingPeriodManager/addAccountingDocument/accountingPeriodId/name/accountingDocumentDate/documentTypeId/creationId/confirmationId/auditingId/postingId/tokensExpr/`
+  const url = `${PREFIX}accountingPeriodManager/addAccountingDocument/accountingPeriodId/name/accountingDocumentDate/documentTypeId/tokensExpr/`
   const accountingPeriodId = targetObjectId
   const requestParameters = { ...parameters, accountingPeriodId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

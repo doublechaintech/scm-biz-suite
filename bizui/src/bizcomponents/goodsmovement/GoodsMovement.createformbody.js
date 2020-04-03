@@ -17,13 +17,13 @@ const {fieldLabels} = GoodsMovementBase
 const testValues = {};
 /*
 const testValues = {
-  moveTime: '2019-11-18 22:34:59',
+  moveTime: '2020-03-15 10:12:41',
   facility: '仓库货位',
   facilityId: '仓库货位',
   fromIp: '192.168.20.1',
   sessionId: 'FTYUIOLJYT^*(PLKJYT)',
-  latitude: '42.43163364629545',
-  longitude: '130.77098998860734',
+  latitude: '42.54423684214253',
+  longitude: '131.43921619951513',
   goodsId: 'G000001',
   userAgent: 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405',
 }
@@ -57,18 +57,22 @@ class GoodsMovementCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -241,7 +245,7 @@ class GoodsMovementCreateFormBody extends Component {
                   {getFieldDecorator('userAgent', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <TextArea rows={4} placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <TextArea rows={16} placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './RetailStoreCountryCenter.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -58,16 +58,16 @@ const menuData = {menuName: window.trans('retail_store_country_center'), menuFor
 
 const settingMenuData = {menuName: window.trans('retail_store_country_center'), menuFor: "retailStoreCountryCenter",
   		subItems: [
-  {name: 'skillTypeList', displayName: window.mtrans('skill_type','retail_store_country_center.skill_type_list',false),type:'skillType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'responsibilityTypeList', displayName: window.mtrans('responsibility_type','retail_store_country_center.responsibility_type_list',false),type:'responsibilityType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'terminationReasonList', displayName: window.mtrans('termination_reason','retail_store_country_center.termination_reason_list',false),type:'terminationReason', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'terminationTypeList', displayName: window.mtrans('termination_type','retail_store_country_center.termination_type_list',false),type:'terminationType', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'occupationTypeList', displayName: window.mtrans('occupation_type','retail_store_country_center.occupation_type_list',false),type:'occupationType', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'leaveTypeList', displayName: window.mtrans('leave_type','retail_store_country_center.leave_type_list',false),type:'leaveType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'salaryGradeList', displayName: window.mtrans('salary_grade','retail_store_country_center.salary_grade_list',false),type:'salaryGrade', icon:'ad',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'interviewTypeList', displayName: window.mtrans('interview_type','retail_store_country_center.interview_type_list',false),type:'interviewType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'trainingCourseTypeList', displayName: window.mtrans('training_course_type','retail_store_country_center.training_course_type_list',false),type:'trainingCourseType', icon:'discourse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
-  {name: 'publicHolidayList', displayName: window.mtrans('public_holiday','retail_store_country_center.public_holiday_list',false),type:'publicHoliday', icon:'galactic-republic',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'skillTypeList', displayName: window.mtrans('skill_type','retail_store_country_center.skill_type_list',false), type:'skillType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'responsibilityTypeList', displayName: window.mtrans('responsibility_type','retail_store_country_center.responsibility_type_list',false), type:'responsibilityType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'terminationReasonList', displayName: window.mtrans('termination_reason','retail_store_country_center.termination_reason_list',false), type:'terminationReason', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'terminationTypeList', displayName: window.mtrans('termination_type','retail_store_country_center.termination_type_list',false), type:'terminationType', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'occupationTypeList', displayName: window.mtrans('occupation_type','retail_store_country_center.occupation_type_list',false), type:'occupationType', icon:'at',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'leaveTypeList', displayName: window.mtrans('leave_type','retail_store_country_center.leave_type_list',false), type:'leaveType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'salaryGradeList', displayName: window.mtrans('salary_grade','retail_store_country_center.salary_grade_list',false), type:'salaryGrade', icon:'ad',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'interviewTypeList', displayName: window.mtrans('interview_type','retail_store_country_center.interview_type_list',false), type:'interviewType', icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'trainingCourseTypeList', displayName: window.mtrans('training_course_type','retail_store_country_center.training_course_type_list',false), type:'trainingCourseType', icon:'discourse',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
+  {name: 'publicHolidayList', displayName: window.mtrans('public_holiday','retail_store_country_center.public_holiday_list',false), type:'publicHoliday', icon:'galactic-republic',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '人力资源'},
   
   		],
 }
@@ -100,14 +100,40 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(retailStoreCountryCenter,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(retailStoreCountryCenter, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={retailStoreCountryCenter.id}>
+    <Card key={retailStoreCountryCenter.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(retailStoreCountryCenter.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={retailStoreCountryCenter.id} size="small" col="2" >
+      <DescriptionList  key={retailStoreCountryCenter.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.name}</Description> 
         <Description term={fieldLabels.serviceNumber} style={{wordBreak: 'break-all'}}>{retailStoreCountryCenter.serviceNumber}</Description> 
@@ -120,8 +146,8 @@ const renderItemOfList=(retailStoreCountryCenter,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -129,13 +155,13 @@ const renderItemOfList=(retailStoreCountryCenter,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, serviceNumber, founded, webSite, address, operatedBy, legalRepresentative, description} = formValuesToPack
 
-	const data = {name, serviceNumber, founded, webSite, address, operatedBy, legalRepresentative, description}
+	const data = {name, serviceNumber, founded:moment(founded).valueOf(), webSite, address, operatedBy, legalRepresentative, description}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, serviceNumber, founded, webSite, address, operatedBy, legalRepresentative, description} = objectToUnpack
 
-	const data = {name, serviceNumber, founded, webSite, address, operatedBy, legalRepresentative, description}
+	const data = {name, serviceNumber, founded:moment(founded), webSite, address, operatedBy, legalRepresentative, description}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -148,8 +174,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const RetailStoreCountryCenterBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const RetailStoreCountryCenterBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreCountryCenterBase
-
-
 

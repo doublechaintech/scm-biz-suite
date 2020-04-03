@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './CityEvent.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -71,26 +71,52 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(cityEvent,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(cityEvent, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={cityEvent.id}>
+    <Card key={cityEvent.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(cityEvent.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={cityEvent.id} size="small" col="2" >
+      <DescriptionList  key={cityEvent.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{cityEvent.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{cityEvent.name}</Description> 
         <Description term={fieldLabels.mobile} style={{wordBreak: 'break-all'}}>{cityEvent.mobile}</Description> 
-        <Description term={fieldLabels.cityServiceCenter}><div>{cityEvent.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityEvent.cityServiceCenter.displayName}(${cityEvent.cityServiceCenter.id})`}
-        </div></Description>
+        <Description term={fieldLabels.cityServiceCenter}><Tag color='blue' title={`${cityEvent.cityServiceCenter.id}-${cityEvent.cityServiceCenter.displayName}`}>{cityEvent.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(cityEvent.cityServiceCenter.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{cityEvent.description}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(cityEvent.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -117,8 +143,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const CityEventBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const CityEventBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default CityEventBase
-
-
 

@@ -93,111 +93,6 @@ const transferToAnotherCurrentSalaryGrade = (id, parameters) => {
 
 
 
-const requestCandidateJobApplication = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}employeeManager/requestCandidateJobApplication/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherJobApplication = (id, parameters) => {
-  const url = `${PREFIX}employeeManager/transferToAnotherJobApplication/id/anotherJobApplicationId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateProfessionInterview = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}employeeManager/requestCandidateProfessionInterview/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherProfessionInterview = (id, parameters) => {
-  const url = `${PREFIX}employeeManager/transferToAnotherProfessionInterview/id/anotherProfessionInterviewId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateHrInterview = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}employeeManager/requestCandidateHrInterview/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherHrInterview = (id, parameters) => {
-  const url = `${PREFIX}employeeManager/transferToAnotherHrInterview/id/anotherHrInterviewId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateOfferApproval = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}employeeManager/requestCandidateOfferApproval/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherOfferApproval = (id, parameters) => {
-  const url = `${PREFIX}employeeManager/transferToAnotherOfferApproval/id/anotherOfferApprovalId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateOfferAcceptance = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}employeeManager/requestCandidateOfferAcceptance/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherOfferAcceptance = (id, parameters) => {
-  const url = `${PREFIX}employeeManager/transferToAnotherOfferAcceptance/id/anotherOfferAcceptanceId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateEmployeeBoarding = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}employeeManager/requestCandidateEmployeeBoarding/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherEmployeeBoarding = (id, parameters) => {
-  const url = `${PREFIX}employeeManager/transferToAnotherEmployeeBoarding/id/anotherEmployeeBoardingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
-const requestCandidateTermination = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}employeeManager/requestCandidateTermination/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherTermination = (id, parameters) => {
-  const url = `${PREFIX}employeeManager/transferToAnotherTermination/id/anotherTerminationId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 
 
 
@@ -535,24 +430,10 @@ const EmployeeService = { view,
   requestCandidateOccupation,
   requestCandidateResponsibleFor,
   requestCandidateCurrentSalaryGrade,
-  requestCandidateJobApplication,
-  requestCandidateProfessionInterview,
-  requestCandidateHrInterview,
-  requestCandidateOfferApproval,
-  requestCandidateOfferAcceptance,
-  requestCandidateEmployeeBoarding,
-  requestCandidateTermination,
   transferToAnotherCompany,
   transferToAnotherDepartment,
   transferToAnotherOccupation,
   transferToAnotherResponsibleFor,
-  transferToAnotherCurrentSalaryGrade,
-  transferToAnotherJobApplication,
-  transferToAnotherProfessionInterview,
-  transferToAnotherHrInterview,
-  transferToAnotherOfferApproval,
-  transferToAnotherOfferAcceptance,
-  transferToAnotherEmployeeBoarding,
-  transferToAnotherTermination, listFunctions, saveRequest, processRequest}
+  transferToAnotherCurrentSalaryGrade, listFunctions, saveRequest, processRequest}
 export default EmployeeService
 

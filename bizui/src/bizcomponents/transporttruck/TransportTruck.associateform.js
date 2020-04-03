@@ -20,10 +20,10 @@ const testValues = {};
 const testValues = {
   name: '运货卡车',
   plateNumber: '川AK5',
-  contactNumber: '1704011321',
+  contactNumber: '028 87654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2018-01-15',
+  makeDate: '2020-03-21',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',

@@ -157,11 +157,11 @@ class RetailStoreProvinceCenterDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"双链小超省中心",cardsFor: "retailStoreProvinceCenter",
+    const cardsData = {cardsName:window.trans('retail_store_province_center'),cardsFor: "retailStoreProvinceCenter",
     	cardsSource: this.props.retailStoreProvinceCenter,returnURL,displayName,
   		subItems: [
-{name: 'provinceCenterEmployeeList', displayName:'省中心员工',viewGroup:'__no_group', type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
-{name: 'retailStoreCityServiceCenterList', displayName:'双链小超城市服务中心',viewGroup:'__no_group', type:'retailStoreCityServiceCenter',count:retailStoreCityServiceCenterCount,addFunction: true, role: 'retailStoreCityServiceCenter', metaInfo: retailStoreCityServiceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreCityServiceCenterBase.renderItemOfList},
+{name: 'provinceCenterEmployeeList', displayName: window.mtrans('province_center_employee','retail_store_province_center.province_center_employee_list',false) ,viewGroup:'__no_group', type:'provinceCenterEmployee',count:provinceCenterEmployeeCount,addFunction: true, role: 'provinceCenterEmployee', metaInfo: provinceCenterEmployeeListMetaInfo, renderItem: GlobalComponents.ProvinceCenterEmployeeBase.renderItemOfList},
+{name: 'retailStoreCityServiceCenterList', displayName: window.mtrans('retail_store_city_service_center','retail_store_province_center.retail_store_city_service_center_list',false) ,viewGroup:'__no_group', type:'retailStoreCityServiceCenter',count:retailStoreCityServiceCenterCount,addFunction: true, role: 'retailStoreCityServiceCenter', metaInfo: retailStoreCityServiceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreCityServiceCenterBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -192,8 +192,9 @@ class RetailStoreProvinceCenterDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

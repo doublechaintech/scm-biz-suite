@@ -165,7 +165,7 @@ class OriginalVoucherDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"原始凭证",cardsFor: "originalVoucher",
+    const cardsData = {cardsName:window.trans('original_voucher'),cardsFor: "originalVoucher",
     	cardsSource: this.props.originalVoucher,returnURL,displayName,
   		subItems: [
     
@@ -197,8 +197,9 @@ class OriginalVoucherDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

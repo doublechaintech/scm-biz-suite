@@ -167,12 +167,12 @@ class UserAppDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"用户应用程序",cardsFor: "userApp",
+    const cardsData = {cardsName:window.trans('user_app'),cardsFor: "userApp",
     	cardsSource: this.props.userApp,returnURL,displayName,
   		subItems: [
-{name: 'quickLinkList', displayName:'快速链接',viewGroup:'__no_group', type:'quickLink',count:quickLinkCount,addFunction: true, role: 'quickLink', metaInfo: quickLinkListMetaInfo, renderItem: GlobalComponents.QuickLinkBase.renderItemOfList},
-{name: 'listAccessList', displayName:'访问列表',viewGroup:'__no_group', type:'listAccess',count:listAccessCount,addFunction: true, role: 'listAccess', metaInfo: listAccessListMetaInfo, renderItem: GlobalComponents.ListAccessBase.renderItemOfList},
-{name: 'objectAccessList', displayName:'对象访问',viewGroup:'__no_group', type:'objectAccess',count:objectAccessCount,addFunction: true, role: 'objectAccess', metaInfo: objectAccessListMetaInfo, renderItem: GlobalComponents.ObjectAccessBase.renderItemOfList},
+{name: 'quickLinkList', displayName: window.mtrans('quick_link','user_app.quick_link_list',false) ,viewGroup:'__no_group', type:'quickLink',count:quickLinkCount,addFunction: true, role: 'quickLink', metaInfo: quickLinkListMetaInfo, renderItem: GlobalComponents.QuickLinkBase.renderItemOfList},
+{name: 'listAccessList', displayName: window.mtrans('list_access','user_app.list_access_list',false) ,viewGroup:'__no_group', type:'listAccess',count:listAccessCount,addFunction: true, role: 'listAccess', metaInfo: listAccessListMetaInfo, renderItem: GlobalComponents.ListAccessBase.renderItemOfList},
+{name: 'objectAccessList', displayName: window.mtrans('object_access','user_app.object_access_list',false) ,viewGroup:'__no_group', type:'objectAccess',count:objectAccessCount,addFunction: true, role: 'objectAccess', metaInfo: objectAccessListMetaInfo, renderItem: GlobalComponents.ObjectAccessBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -202,8 +202,9 @@ class UserAppDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

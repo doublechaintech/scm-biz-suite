@@ -51,7 +51,7 @@ class RetailStoreClosingCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -59,9 +59,9 @@ class RetailStoreClosingCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -211,7 +211,7 @@ class RetailStoreClosingCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<RetailStoreClosingCreateFormBody	 {...this.props} />
+   		<RetailStoreClosingCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '礼品卡',
   number: 'CP00001',
-  remain: '193.28',
+  remain: '163.76',
   ownerId: 'RSM000001',
 }
 */
@@ -54,7 +54,7 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class RetailStoreMemberGiftCardCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<RetailStoreMemberGiftCardCreateFormBody	 {...this.props} />
+   		<RetailStoreMemberGiftCardCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

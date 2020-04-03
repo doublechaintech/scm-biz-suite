@@ -162,23 +162,23 @@ class RetailStoreCountryCenterDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"双链小超全国运营中心",cardsFor: "retailStoreCountryCenter",
+    const cardsData = {cardsName:window.trans('retail_store_country_center'),cardsFor: "retailStoreCountryCenter",
     	cardsSource: this.props.retailStoreCountryCenter,returnURL,displayName,
   		subItems: [
-{name: 'catalogList', displayName:'目录',viewGroup:'产品管理', type:'catalog',count:catalogCount,addFunction: true, role: 'catalog', metaInfo: catalogListMetaInfo, renderItem: GlobalComponents.CatalogBase.renderItemOfList},
-{name: 'retailStoreProvinceCenterList', displayName:'双链小超省中心',viewGroup:'组织机构', type:'retailStoreProvinceCenter',count:retailStoreProvinceCenterCount,addFunction: true, role: 'retailStoreProvinceCenter', metaInfo: retailStoreProvinceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreProvinceCenterBase.renderItemOfList},
-{name: 'retailStoreList', displayName:'双链小超',viewGroup:'加盟管理', type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
-{name: 'retailStoreMemberList', displayName:'生超会员',viewGroup:'会员管理', type:'retailStoreMember',count:retailStoreMemberCount,addFunction: true, role: 'retailStoreMember', metaInfo: retailStoreMemberListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberBase.renderItemOfList},
-{name: 'goodsSupplierList', displayName:'产品供应商',viewGroup:'供应管理', type:'goodsSupplier',count:goodsSupplierCount,addFunction: true, role: 'goodsSupplier', metaInfo: goodsSupplierListMetaInfo, renderItem: GlobalComponents.GoodsSupplierBase.renderItemOfList},
-{name: 'supplyOrderList', displayName:'供应订单',viewGroup:'供应管理', type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
-{name: 'retailStoreOrderList', displayName:'生超的订单',viewGroup:'销售管理', type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
-{name: 'warehouseList', displayName:'仓库',viewGroup:'仓配运一体化', type:'warehouse',count:warehouseCount,addFunction: true, role: 'warehouse', metaInfo: warehouseListMetaInfo, renderItem: GlobalComponents.WarehouseBase.renderItemOfList},
-{name: 'transportFleetList', displayName:'运输车队',viewGroup:'仓配运一体化', type:'transportFleet',count:transportFleetCount,addFunction: true, role: 'transportFleet', metaInfo: transportFleetListMetaInfo, renderItem: GlobalComponents.TransportFleetBase.renderItemOfList},
-{name: 'accountSetList', displayName:'账套',viewGroup:'财务管理', type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
-{name: 'levelOneDepartmentList', displayName:'一级部门',viewGroup:'组织机构', type:'levelOneDepartment',count:levelOneDepartmentCount,addFunction: true, role: 'levelOneDepartment', metaInfo: levelOneDepartmentListMetaInfo, renderItem: GlobalComponents.LevelOneDepartmentBase.renderItemOfList},
-{name: 'employeeList', displayName:'员工',viewGroup:'人力资源', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
-{name: 'instructorList', displayName:'讲师',viewGroup:'人力资源', type:'instructor',count:instructorCount,addFunction: true, role: 'instructor', metaInfo: instructorListMetaInfo, renderItem: GlobalComponents.InstructorBase.renderItemOfList},
-{name: 'companyTrainingList', displayName:'公司培训',viewGroup:'人力资源', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'catalogList', displayName: window.mtrans('catalog','retail_store_country_center.catalog_list',false) ,viewGroup:'产品管理', type:'catalog',count:catalogCount,addFunction: true, role: 'catalog', metaInfo: catalogListMetaInfo, renderItem: GlobalComponents.CatalogBase.renderItemOfList},
+{name: 'retailStoreProvinceCenterList', displayName: window.mtrans('retail_store_province_center','retail_store_country_center.retail_store_province_center_list',false) ,viewGroup:'组织机构', type:'retailStoreProvinceCenter',count:retailStoreProvinceCenterCount,addFunction: true, role: 'retailStoreProvinceCenter', metaInfo: retailStoreProvinceCenterListMetaInfo, renderItem: GlobalComponents.RetailStoreProvinceCenterBase.renderItemOfList},
+{name: 'retailStoreList', displayName: window.mtrans('retail_store','retail_store_country_center.retail_store_list',false) ,viewGroup:'加盟管理', type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
+{name: 'retailStoreMemberList', displayName: window.mtrans('retail_store_member','retail_store_country_center.retail_store_member_list',false) ,viewGroup:'会员管理', type:'retailStoreMember',count:retailStoreMemberCount,addFunction: true, role: 'retailStoreMember', metaInfo: retailStoreMemberListMetaInfo, renderItem: GlobalComponents.RetailStoreMemberBase.renderItemOfList},
+{name: 'goodsSupplierList', displayName: window.mtrans('goods_supplier','retail_store_country_center.goods_supplier_list',false) ,viewGroup:'供应管理', type:'goodsSupplier',count:goodsSupplierCount,addFunction: true, role: 'goodsSupplier', metaInfo: goodsSupplierListMetaInfo, renderItem: GlobalComponents.GoodsSupplierBase.renderItemOfList},
+{name: 'supplyOrderList', displayName: window.mtrans('supply_order','retail_store_country_center.supply_order_list',false) ,viewGroup:'供应管理', type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+{name: 'retailStoreOrderList', displayName: window.mtrans('retail_store_order','retail_store_country_center.retail_store_order_list',false) ,viewGroup:'销售管理', type:'retailStoreOrder',count:retailStoreOrderCount,addFunction: true, role: 'retailStoreOrder', metaInfo: retailStoreOrderListMetaInfo, renderItem: GlobalComponents.RetailStoreOrderBase.renderItemOfList},
+{name: 'warehouseList', displayName: window.mtrans('warehouse','retail_store_country_center.warehouse_list',false) ,viewGroup:'仓配运一体化', type:'warehouse',count:warehouseCount,addFunction: true, role: 'warehouse', metaInfo: warehouseListMetaInfo, renderItem: GlobalComponents.WarehouseBase.renderItemOfList},
+{name: 'transportFleetList', displayName: window.mtrans('transport_fleet','retail_store_country_center.transport_fleet_list',false) ,viewGroup:'仓配运一体化', type:'transportFleet',count:transportFleetCount,addFunction: true, role: 'transportFleet', metaInfo: transportFleetListMetaInfo, renderItem: GlobalComponents.TransportFleetBase.renderItemOfList},
+{name: 'accountSetList', displayName: window.mtrans('account_set','retail_store_country_center.account_set_list',false) ,viewGroup:'财务管理', type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
+{name: 'levelOneDepartmentList', displayName: window.mtrans('level_one_department','retail_store_country_center.level_one_department_list',false) ,viewGroup:'组织机构', type:'levelOneDepartment',count:levelOneDepartmentCount,addFunction: true, role: 'levelOneDepartment', metaInfo: levelOneDepartmentListMetaInfo, renderItem: GlobalComponents.LevelOneDepartmentBase.renderItemOfList},
+{name: 'employeeList', displayName: window.mtrans('employee','retail_store_country_center.employee_list',false) ,viewGroup:'人力资源', type:'employee',count:employeeCount,addFunction: true, role: 'employee', metaInfo: employeeListMetaInfo, renderItem: GlobalComponents.EmployeeBase.renderItemOfList},
+{name: 'instructorList', displayName: window.mtrans('instructor','retail_store_country_center.instructor_list',false) ,viewGroup:'人力资源', type:'instructor',count:instructorCount,addFunction: true, role: 'instructor', metaInfo: instructorListMetaInfo, renderItem: GlobalComponents.InstructorBase.renderItemOfList},
+{name: 'companyTrainingList', displayName: window.mtrans('company_training','retail_store_country_center.company_training_list',false) ,viewGroup:'人力资源', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -218,8 +218,9 @@ class RetailStoreCountryCenterDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

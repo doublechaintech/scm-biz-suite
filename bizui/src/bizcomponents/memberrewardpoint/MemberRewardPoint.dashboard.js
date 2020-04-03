@@ -162,7 +162,7 @@ class MemberRewardPointDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员奖励点",cardsFor: "memberRewardPoint",
+    const cardsData = {cardsName:window.trans('member_reward_point'),cardsFor: "memberRewardPoint",
     	cardsSource: this.props.memberRewardPoint,returnURL,displayName,
   		subItems: [
     
@@ -194,8 +194,9 @@ class MemberRewardPointDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

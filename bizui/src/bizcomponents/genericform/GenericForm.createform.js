@@ -52,7 +52,7 @@ class GenericFormCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -60,9 +60,9 @@ class GenericFormCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -212,7 +212,7 @@ class GenericFormCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<GenericFormCreateFormBody	 {...this.props} />
+   		<GenericFormCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

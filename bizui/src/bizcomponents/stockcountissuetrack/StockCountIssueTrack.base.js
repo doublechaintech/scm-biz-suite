@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './StockCountIssueTrack.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -68,25 +68,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(stockCountIssueTrack,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(stockCountIssueTrack, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={stockCountIssueTrack.id}>
+    <Card key={stockCountIssueTrack.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(stockCountIssueTrack.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={stockCountIssueTrack.id} size="small" col="2" >
+      <DescriptionList  key={stockCountIssueTrack.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.id}</Description> 
         <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.title}</Description> 
         <Description term={fieldLabels.countTime}><div>{ moment(stockCountIssueTrack.countTime).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.summary} style={{wordBreak: 'break-all'}}>{stockCountIssueTrack.summary}</Description> 
-        <Description term={fieldLabels.stockCount}><div>{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${stockCountIssueTrack.stockCount.displayName}(${stockCountIssueTrack.stockCount.id})`}
-        </div></Description>
+        <Description term={fieldLabels.stockCount}><Tag color='blue' title={`${stockCountIssueTrack.stockCount.id}-${stockCountIssueTrack.stockCount.displayName}`}>{stockCountIssueTrack.stockCount==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(stockCountIssueTrack.stockCount.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -94,13 +120,13 @@ const renderItemOfList=(stockCountIssueTrack,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {title, countTime, summary, stockCountId} = formValuesToPack
 	const stockCount = {id: stockCountId, version: 2^31}
-	const data = {title, countTime, summary, stockCount}
+	const data = {title, countTime:moment(countTime).valueOf(), summary, stockCount}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {title, countTime, summary, stockCount} = objectToUnpack
 	const stockCountId = stockCount ? stockCount.id : null
-	const data = {title, countTime, summary, stockCountId}
+	const data = {title, countTime:moment(countTime), summary, stockCountId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -113,8 +139,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const StockCountIssueTrackBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const StockCountIssueTrackBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default StockCountIssueTrackBase
-
-
 

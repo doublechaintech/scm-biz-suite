@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '供应链部',
-  founded: '2019-10-16',
-  managerName: '刘强',
+  founded: '2017-07-10',
+  manager: '刘强',
   provinceCenterId: 'RSPC000001',
 }
 */
@@ -157,11 +157,11 @@ class ProvinceCenterDepartmentAssociateForm extends Component {
               </Col>
 
               <Col lg={12} md={12} sm={12}>
-                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
-                  {getFieldDecorator('managerName', {
+                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
+                  {getFieldDecorator('manager', {
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.managerName} />
+                    <Input size="large"  placeHolder={fieldLabels.manager} />
                   )}
                 </Form.Item>
               </Col>

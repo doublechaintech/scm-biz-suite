@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '入职培训',
-  timeStart: '2019-08-30',
+  timeStart: '2018-07-22',
   durationHours: '3',
   companyId: 'RSCC000001',
   instructorId: 'I000001',
@@ -56,7 +56,7 @@ class CompanyTrainingCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class CompanyTrainingCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class CompanyTrainingCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<CompanyTrainingCreateFormBody	 {...this.props} />
+   		<CompanyTrainingCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

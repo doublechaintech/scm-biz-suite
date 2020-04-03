@@ -164,10 +164,10 @@ class CityEventDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"城市活动",cardsFor: "cityEvent",
+    const cardsData = {cardsName:window.trans('city_event'),cardsFor: "cityEvent",
     	cardsSource: this.props.cityEvent,returnURL,displayName,
   		subItems: [
-{name: 'eventAttendanceList', displayName:'活动的参与情况',viewGroup:'__no_group', type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
+{name: 'eventAttendanceList', displayName: window.mtrans('event_attendance','city_event.event_attendance_list',false) ,viewGroup:'__no_group', type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -197,8 +197,9 @@ class CityEventDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

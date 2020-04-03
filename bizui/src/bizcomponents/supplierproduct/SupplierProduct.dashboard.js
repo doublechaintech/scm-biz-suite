@@ -163,10 +163,10 @@ class SupplierProductDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应商的产品",cardsFor: "supplierProduct",
+    const cardsData = {cardsName:window.trans('supplier_product'),cardsFor: "supplierProduct",
     	cardsSource: this.props.supplierProduct,returnURL,displayName,
   		subItems: [
-{name: 'productSupplyDurationList', displayName:'产品供应时间',viewGroup:'__no_group', type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo, renderItem: GlobalComponents.ProductSupplyDurationBase.renderItemOfList},
+{name: 'productSupplyDurationList', displayName: window.mtrans('product_supply_duration','supplier_product.product_supply_duration_list',false) ,viewGroup:'__no_group', type:'productSupplyDuration',count:productSupplyDurationCount,addFunction: true, role: 'productSupplyDuration', metaInfo: productSupplyDurationListMetaInfo, renderItem: GlobalComponents.ProductSupplyDurationBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -196,8 +196,9 @@ class SupplierProductDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

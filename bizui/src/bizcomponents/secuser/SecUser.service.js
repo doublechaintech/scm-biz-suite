@@ -33,21 +33,6 @@ const transferToAnotherDomain = (id, parameters) => {
 
 
 
-const requestCandidateBlocking = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}secUserManager/requestCandidateBlocking/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherBlocking = (id, parameters) => {
-  const url = `${PREFIX}secUserManager/transferToAnotherBlocking/id/anotherBlockingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 
 
 
@@ -96,6 +81,50 @@ const removeLoginHistoryList = (targetObjectId, parameters) => {
 
 
 
+const addWechatWorkappIdentify = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/addWechatWorkappIdentify/secUserId/corpId/userId/lastLoginTime/tokensExpr/`
+  const secUserId = targetObjectId
+  const requestParameters = { ...parameters, secUserId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const updateWechatWorkappIdentify = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/updateWechatWorkappIdentifyProperties/secUserId/id/corpId/userId/lastLoginTime/tokensExpr/`
+  const secUserId = targetObjectId
+  const requestParameters = { ...parameters, secUserId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const removeWechatWorkappIdentifyList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/removeWechatWorkappIdentifyList/secUserId/wechatWorkappIdentifyIds/tokensExpr/`
+  const requestParameters = { ...parameters, secUserId: targetObjectId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+
+
+const addWechatMiniappIdentify = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/addWechatMiniappIdentify/secUserId/openId/appId/lastLoginTime/tokensExpr/`
+  const secUserId = targetObjectId
+  const requestParameters = { ...parameters, secUserId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const updateWechatMiniappIdentify = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/updateWechatMiniappIdentifyProperties/secUserId/id/openId/appId/lastLoginTime/tokensExpr/`
+  const secUserId = targetObjectId
+  const requestParameters = { ...parameters, secUserId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+const removeWechatMiniappIdentifyList = (targetObjectId, parameters) => {
+  const url = `${PREFIX}secUserManager/removeWechatMiniappIdentifyList/secUserId/wechatMiniappIdentifyIds/tokensExpr/`
+  const requestParameters = { ...parameters, secUserId: targetObjectId, tokensExpr: 'none' }
+  return postForm({ url,requestParameters})
+}
+
+
+
 // Filter this out when no functions
 
 const  listFunctions = () => {
@@ -126,13 +155,17 @@ const SecUserService = { view,
   load,
   addUserApp,
   addLoginHistory,
+  addWechatWorkappIdentify,
+  addWechatMiniappIdentify,
   updateUserApp,
   updateLoginHistory,
+  updateWechatWorkappIdentify,
+  updateWechatMiniappIdentify,
   removeUserAppList,
   removeLoginHistoryList,
+  removeWechatWorkappIdentifyList,
+  removeWechatMiniappIdentifyList,
   requestCandidateDomain,
-  requestCandidateBlocking,
-  transferToAnotherDomain,
-  transferToAnotherBlocking, listFunctions, saveRequest, processRequest}
+  transferToAnotherDomain, listFunctions, saveRequest, processRequest}
 export default SecUserService
 

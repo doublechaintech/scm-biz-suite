@@ -18,10 +18,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号',
-  contactNumber: '1687742904',
+  contactNumber: '028 87654321',
   totalArea: '187672平方米',
-  latitude: '41.981761595931346',
-  longitude: '129.46325846903468',
+  latitude: '42.54018860996063',
+  longitude: '131.6220854778767',
   ownerId: 'RSCC000001',
 }
 */
@@ -54,18 +54,22 @@ class WarehouseCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

@@ -88,7 +88,7 @@ export default class ImagePreview extends React.Component {
    
   };
 
-
+  
 
 
   componentDidMount() {
@@ -125,7 +125,7 @@ export default class ImagePreview extends React.Component {
     if(notImageFile(imageLocation)){
       return  <div className="clearfix" style={{textAlign:"center"}} >
         <a href={imageLocation} target="_blank">
-        <Icon type={coverIconFromFileName(imageLocation)} style={{fontSize:30}}/>
+        <Icon type={coverIconFromFileName(imageLocation)} style={{fontSize:100}}/>
         </a>
         </div>
     }

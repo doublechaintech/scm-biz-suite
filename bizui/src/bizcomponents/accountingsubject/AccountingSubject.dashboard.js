@@ -164,10 +164,10 @@ class AccountingSubjectDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会计科目",cardsFor: "accountingSubject",
+    const cardsData = {cardsName:window.trans('accounting_subject'),cardsFor: "accountingSubject",
     	cardsSource: this.props.accountingSubject,returnURL,displayName,
   		subItems: [
-{name: 'accountingDocumentLineList', displayName:'会计凭证行',viewGroup:'__no_group', type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
+{name: 'accountingDocumentLineList', displayName: window.mtrans('accounting_document_line','accounting_subject.accounting_document_line_list',false) ,viewGroup:'__no_group', type:'accountingDocumentLine',count:accountingDocumentLineCount,addFunction: true, role: 'accountingDocumentLine', metaInfo: accountingDocumentLineListMetaInfo, renderItem: GlobalComponents.AccountingDocumentLineBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -197,8 +197,9 @@ class AccountingSubjectDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

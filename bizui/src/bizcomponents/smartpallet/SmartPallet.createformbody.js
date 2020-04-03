@@ -18,10 +18,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
-  contactNumber: '1024934546',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-  latitude: '40.31022039321664',
-  longitude: '130.0117453065888',
+  latitude: '39.87502924779799',
+  longitude: '129.35851662249806',
   warehouseId: 'W000001',
 }
 */
@@ -54,18 +54,22 @@ class SmartPalletCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

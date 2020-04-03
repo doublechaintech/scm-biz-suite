@@ -161,10 +161,10 @@ class LevelThreeCategoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"三级分类",cardsFor: "levelThreeCategory",
+    const cardsData = {cardsName:window.trans('level_three_category'),cardsFor: "levelThreeCategory",
     	cardsSource: this.props.levelThreeCategory,returnURL,displayName,
   		subItems: [
-{name: 'productList', displayName:'产品',viewGroup:'__no_group', type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
+{name: 'productList', displayName: window.mtrans('product','level_three_category.product_list',false) ,viewGroup:'__no_group', type:'product',count:productCount,addFunction: true, role: 'product', metaInfo: productListMetaInfo, renderItem: GlobalComponents.ProductBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -194,8 +194,9 @@ class LevelThreeCategoryDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

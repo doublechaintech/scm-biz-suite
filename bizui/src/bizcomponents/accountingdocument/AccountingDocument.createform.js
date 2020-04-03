@@ -19,13 +19,9 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2018-11-25',
+  accountingDocumentDate: '2019-03-13',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
-  creationId: 'ADC000001',
-  confirmationId: 'ADC000001',
-  auditingId: 'ADA000001',
-  postingId: 'ADP000001',
 }
 */
 
@@ -58,7 +54,7 @@ class AccountingDocumentCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -66,9 +62,9 @@ class AccountingDocumentCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -218,7 +214,7 @@ class AccountingDocumentCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<AccountingDocumentCreateFormBody	 {...this.props} />
+   		<AccountingDocumentCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

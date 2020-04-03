@@ -119,7 +119,7 @@ const internalSummaryOf = (levelOneDepartment,targetComponent) =>{
 <Description term="序号" style={{wordBreak: 'break-all'}}>{levelOneDepartment.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{levelOneDepartment.name}</Description> 
 <Description term="描述" style={{wordBreak: 'break-all'}}>{levelOneDepartment.description}</Description> 
-<Description term="经理的名字" style={{wordBreak: 'break-all'}}>{levelOneDepartment.managerName}</Description> 
+<Description term="经理" style={{wordBreak: 'break-all'}}>{levelOneDepartment.manager}</Description> 
 <Description term="成立">{ moment(levelOneDepartment.founded).format('YYYY-MM-DD')}</Description> 
 	
         {buildTransferModal(levelOneDepartment,targetComponent)}
@@ -158,10 +158,10 @@ class LevelOneDepartmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"一级部门",cardsFor: "levelOneDepartment",
+    const cardsData = {cardsName:window.trans('level_one_department'),cardsFor: "levelOneDepartment",
     	cardsSource: this.props.levelOneDepartment,returnURL,displayName,
   		subItems: [
-{name: 'levelTwoDepartmentList', displayName:'二级部门',viewGroup:'__no_group', type:'levelTwoDepartment',count:levelTwoDepartmentCount,addFunction: true, role: 'levelTwoDepartment', metaInfo: levelTwoDepartmentListMetaInfo, renderItem: GlobalComponents.LevelTwoDepartmentBase.renderItemOfList},
+{name: 'levelTwoDepartmentList', displayName: window.mtrans('level_two_department','level_one_department.level_two_department_list',false) ,viewGroup:'__no_group', type:'levelTwoDepartment',count:levelTwoDepartmentCount,addFunction: true, role: 'levelTwoDepartment', metaInfo: levelTwoDepartmentListMetaInfo, renderItem: GlobalComponents.LevelTwoDepartmentBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -191,8 +191,9 @@ class LevelOneDepartmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

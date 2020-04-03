@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './RetailStoreProvinceCenter.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -46,7 +46,7 @@ const menuData = {menuName: window.trans('retail_store_province_center'), menuFo
 
 const settingMenuData = {menuName: window.trans('retail_store_province_center'), menuFor: "retailStoreProvinceCenter",
   		subItems: [
-  {name: 'provinceCenterDepartmentList', displayName: window.mtrans('province_center_department','retail_store_province_center.province_center_department_list',false),type:'provinceCenterDepartment', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
+  {name: 'provinceCenterDepartmentList', displayName: window.mtrans('province_center_department','retail_store_province_center.province_center_department_list',false), type:'provinceCenterDepartment', icon:'align-center',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
@@ -71,14 +71,40 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(retailStoreProvinceCenter,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(retailStoreProvinceCenter, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={retailStoreProvinceCenter.id}>
+    <Card key={retailStoreProvinceCenter.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(retailStoreProvinceCenter.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={retailStoreProvinceCenter.id} size="small" col="2" >
+      <DescriptionList  key={retailStoreProvinceCenter.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreProvinceCenter.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{retailStoreProvinceCenter.name}</Description> 
         <Description term={fieldLabels.founded}><div>{ moment(retailStoreProvinceCenter.founded).format('YYYY-MM-DD')}</div></Description> 
@@ -86,8 +112,8 @@ const renderItemOfList=(retailStoreProvinceCenter,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -95,13 +121,13 @@ const renderItemOfList=(retailStoreProvinceCenter,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, founded, countryId} = formValuesToPack
 	const country = {id: countryId, version: 2^31}
-	const data = {name, founded, country}
+	const data = {name, founded:moment(founded).valueOf(), country}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, founded, country} = objectToUnpack
 	const countryId = country ? country.id : null
-	const data = {name, founded, countryId}
+	const data = {name, founded:moment(founded), countryId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const RetailStoreProvinceCenterBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const RetailStoreProvinceCenterBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreProvinceCenterBase
-
-
 

@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   name: '供应链部',
   description: '主要执行集团信息系统建设，维护，规划',
-  managerName: '刘强',
-  founded: '2019-10-07',
+  manager: '刘强',
+  founded: '2018-06-20',
   belongsToId: 'RSCC000001',
 }
 */
@@ -55,7 +55,7 @@ class LevelOneDepartmentCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -63,9 +63,9 @@ class LevelOneDepartmentCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -215,7 +215,7 @@ class LevelOneDepartmentCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<LevelOneDepartmentCreateFormBody	 {...this.props} />
+   		<LevelOneDepartmentCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

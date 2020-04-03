@@ -170,12 +170,12 @@ class PotentialCustomerDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"潜在的客户",cardsFor: "potentialCustomer",
+    const cardsData = {cardsName:window.trans('potential_customer'),cardsFor: "potentialCustomer",
     	cardsSource: this.props.potentialCustomer,returnURL,displayName,
   		subItems: [
-{name: 'potentialCustomerContactPersonList', displayName:'潜在客户联络人',viewGroup:'__no_group', type:'potentialCustomerContactPerson',count:potentialCustomerContactPersonCount,addFunction: true, role: 'potentialCustomerContactPerson', metaInfo: potentialCustomerContactPersonListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactPersonBase.renderItemOfList},
-{name: 'potentialCustomerContactList', displayName:'潜在客户联系',viewGroup:'__no_group', type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
-{name: 'eventAttendanceList', displayName:'活动的参与情况',viewGroup:'__no_group', type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
+{name: 'potentialCustomerContactPersonList', displayName: window.mtrans('potential_customer_contact_person','potential_customer.potential_customer_contact_person_list',false) ,viewGroup:'__no_group', type:'potentialCustomerContactPerson',count:potentialCustomerContactPersonCount,addFunction: true, role: 'potentialCustomerContactPerson', metaInfo: potentialCustomerContactPersonListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactPersonBase.renderItemOfList},
+{name: 'potentialCustomerContactList', displayName: window.mtrans('potential_customer_contact','potential_customer.potential_customer_contact_list',false) ,viewGroup:'__no_group', type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+{name: 'eventAttendanceList', displayName: window.mtrans('event_attendance','potential_customer.event_attendance_list',false) ,viewGroup:'__no_group', type:'eventAttendance',count:eventAttendanceCount,addFunction: true, role: 'eventAttendance', metaInfo: eventAttendanceListMetaInfo, renderItem: GlobalComponents.EventAttendanceBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -205,8 +205,9 @@ class PotentialCustomerDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

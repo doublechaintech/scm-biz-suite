@@ -163,7 +163,7 @@ class ProductSupplyDurationDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"产品供应时间",cardsFor: "productSupplyDuration",
+    const cardsData = {cardsName:window.trans('product_supply_duration'),cardsFor: "productSupplyDuration",
     	cardsSource: this.props.productSupplyDuration,returnURL,displayName,
   		subItems: [
     
@@ -195,8 +195,9 @@ class ProductSupplyDurationDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

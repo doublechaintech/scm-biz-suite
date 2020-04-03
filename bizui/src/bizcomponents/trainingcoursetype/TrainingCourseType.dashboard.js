@@ -157,10 +157,10 @@ class TrainingCourseTypeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"培训课程类型",cardsFor: "trainingCourseType",
+    const cardsData = {cardsName:window.trans('training_course_type'),cardsFor: "trainingCourseType",
     	cardsSource: this.props.trainingCourseType,returnURL,displayName,
   		subItems: [
-{name: 'companyTrainingList', displayName:'公司培训',viewGroup:'__no_group', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'companyTrainingList', displayName: window.mtrans('company_training','training_course_type.company_training_list',false) ,viewGroup:'__no_group', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -190,8 +190,9 @@ class TrainingCourseTypeDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

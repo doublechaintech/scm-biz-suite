@@ -137,9 +137,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'receivedBy'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'voucherType'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'belongsTo'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'creation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'auditing'))
 
      
       console.log("the final parameter", paramList)
@@ -299,42 +296,6 @@ componentDidMount() {
                     disabled={!availableForEdit('belongsTo')}
                     targetType={"belongsTo"} 
                     requestFunction={OriginalVoucherService.requestCandidateBelongsTo} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.creation}>
-                  {getFieldDecorator('creation', {initialValue: tryinit('creation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={OriginalVoucherService.requestCandidateCreation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.confirmation}>
-                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={OriginalVoucherService.requestCandidateConfirmation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.auditing}>
-                  {getFieldDecorator('auditing', {initialValue: tryinit('auditing')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('auditing')}
-                    targetType={"auditing"} 
-                    requestFunction={OriginalVoucherService.requestCandidateAuditing} useForSearch />
                   	
                  
                   )}

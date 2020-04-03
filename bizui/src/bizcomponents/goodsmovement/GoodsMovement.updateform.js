@@ -380,7 +380,7 @@ class GoodsMovementUpdateForm extends Component {
                   	initialValue: selectedRow.userAgent,
                     rules: [{  required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <TextArea rows={4} placeholder={appLocaleName(userContext,"PleaseInput")} />
+                    <TextArea rows={16} placeholder={appLocaleName(userContext,"PleaseInput")} />
                   )}
                 </Form.Item>
               </Col>

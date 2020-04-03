@@ -49,8 +49,6 @@ const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
 const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
 const renderMenuItem=defaultRenderMenuItem
 
-
-
 const userBarResponsiveStyle = {
   xs: 8,
   sm: 8,
@@ -143,11 +141,13 @@ constructor(props) {
     return keys
   }
   
-  getNavMenuItems = (targetObject) => {
+ getNavMenuItems = (targetObject, style, customTheme) => {
   
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
+    const mode =style || "inline"
+    const theme = customTheme || "light" 
 	const {objectId}=targetApp;
   	const userContext = null
     return (
@@ -157,7 +157,7 @@ constructor(props) {
         
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        style={{ width: '456px' }}
+        
        >
            
 
@@ -189,7 +189,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "目录",
+      name: window.mtrans('catalog','retail_store_country_center.catalog_list',false),
       role: "catalog",
       data: state._retailStoreCountryCenter.catalogList,
       metaInfo: state._retailStoreCountryCenter.catalogListMetaInfo,
@@ -207,6 +207,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CatalogSearch)
   }
+  
   getCatalogCreateForm = () => {
    	const {CatalogCreateForm} = GlobalComponents;
    	const userContext = null
@@ -240,7 +241,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "双链小超省中心",
+      name: window.mtrans('retail_store_province_center','retail_store_country_center.retail_store_province_center_list',false),
       role: "retailStoreProvinceCenter",
       data: state._retailStoreCountryCenter.retailStoreProvinceCenterList,
       metaInfo: state._retailStoreCountryCenter.retailStoreProvinceCenterListMetaInfo,
@@ -258,6 +259,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreProvinceCenterSearch)
   }
+  
   getRetailStoreProvinceCenterCreateForm = () => {
    	const {RetailStoreProvinceCenterCreateForm} = GlobalComponents;
    	const userContext = null
@@ -291,7 +293,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "双链小超",
+      name: window.mtrans('retail_store','retail_store_country_center.retail_store_list',false),
       role: "retailStore",
       data: state._retailStoreCountryCenter.retailStoreList,
       metaInfo: state._retailStoreCountryCenter.retailStoreListMetaInfo,
@@ -309,6 +311,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreSearch)
   }
+  
   getRetailStoreCreateForm = () => {
    	const {RetailStoreCreateForm} = GlobalComponents;
    	const userContext = null
@@ -342,7 +345,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "生超会员",
+      name: window.mtrans('retail_store_member','retail_store_country_center.retail_store_member_list',false),
       role: "retailStoreMember",
       data: state._retailStoreCountryCenter.retailStoreMemberList,
       metaInfo: state._retailStoreCountryCenter.retailStoreMemberListMetaInfo,
@@ -360,6 +363,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreMemberSearch)
   }
+  
   getRetailStoreMemberCreateForm = () => {
    	const {RetailStoreMemberCreateForm} = GlobalComponents;
    	const userContext = null
@@ -393,7 +397,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "产品供应商",
+      name: window.mtrans('goods_supplier','retail_store_country_center.goods_supplier_list',false),
       role: "goodsSupplier",
       data: state._retailStoreCountryCenter.goodsSupplierList,
       metaInfo: state._retailStoreCountryCenter.goodsSupplierListMetaInfo,
@@ -411,6 +415,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(GoodsSupplierSearch)
   }
+  
   getGoodsSupplierCreateForm = () => {
    	const {GoodsSupplierCreateForm} = GlobalComponents;
    	const userContext = null
@@ -444,7 +449,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "供应订单",
+      name: window.mtrans('supply_order','retail_store_country_center.supply_order_list',false),
       role: "supplyOrder",
       data: state._retailStoreCountryCenter.supplyOrderList,
       metaInfo: state._retailStoreCountryCenter.supplyOrderListMetaInfo,
@@ -462,6 +467,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SupplyOrderSearch)
   }
+  
   getSupplyOrderCreateForm = () => {
    	const {SupplyOrderCreateForm} = GlobalComponents;
    	const userContext = null
@@ -495,7 +501,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "生超的订单",
+      name: window.mtrans('retail_store_order','retail_store_country_center.retail_store_order_list',false),
       role: "retailStoreOrder",
       data: state._retailStoreCountryCenter.retailStoreOrderList,
       metaInfo: state._retailStoreCountryCenter.retailStoreOrderListMetaInfo,
@@ -513,6 +519,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(RetailStoreOrderSearch)
   }
+  
   getRetailStoreOrderCreateForm = () => {
    	const {RetailStoreOrderCreateForm} = GlobalComponents;
    	const userContext = null
@@ -546,7 +553,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "仓库",
+      name: window.mtrans('warehouse','retail_store_country_center.warehouse_list',false),
       role: "warehouse",
       data: state._retailStoreCountryCenter.warehouseList,
       metaInfo: state._retailStoreCountryCenter.warehouseListMetaInfo,
@@ -564,6 +571,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(WarehouseSearch)
   }
+  
   getWarehouseCreateForm = () => {
    	const {WarehouseCreateForm} = GlobalComponents;
    	const userContext = null
@@ -597,7 +605,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "运输车队",
+      name: window.mtrans('transport_fleet','retail_store_country_center.transport_fleet_list',false),
       role: "transportFleet",
       data: state._retailStoreCountryCenter.transportFleetList,
       metaInfo: state._retailStoreCountryCenter.transportFleetListMetaInfo,
@@ -615,6 +623,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TransportFleetSearch)
   }
+  
   getTransportFleetCreateForm = () => {
    	const {TransportFleetCreateForm} = GlobalComponents;
    	const userContext = null
@@ -648,7 +657,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "账套",
+      name: window.mtrans('account_set','retail_store_country_center.account_set_list',false),
       role: "accountSet",
       data: state._retailStoreCountryCenter.accountSetList,
       metaInfo: state._retailStoreCountryCenter.accountSetListMetaInfo,
@@ -666,6 +675,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(AccountSetSearch)
   }
+  
   getAccountSetCreateForm = () => {
    	const {AccountSetCreateForm} = GlobalComponents;
    	const userContext = null
@@ -699,7 +709,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "一级部门",
+      name: window.mtrans('level_one_department','retail_store_country_center.level_one_department_list',false),
       role: "levelOneDepartment",
       data: state._retailStoreCountryCenter.levelOneDepartmentList,
       metaInfo: state._retailStoreCountryCenter.levelOneDepartmentListMetaInfo,
@@ -717,6 +727,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(LevelOneDepartmentSearch)
   }
+  
   getLevelOneDepartmentCreateForm = () => {
    	const {LevelOneDepartmentCreateForm} = GlobalComponents;
    	const userContext = null
@@ -750,7 +761,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "技能类型",
+      name: window.mtrans('skill_type','retail_store_country_center.skill_type_list',false),
       role: "skillType",
       data: state._retailStoreCountryCenter.skillTypeList,
       metaInfo: state._retailStoreCountryCenter.skillTypeListMetaInfo,
@@ -768,6 +779,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SkillTypeSearch)
   }
+  
   getSkillTypeCreateForm = () => {
    	const {SkillTypeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -801,7 +813,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "责任类型",
+      name: window.mtrans('responsibility_type','retail_store_country_center.responsibility_type_list',false),
       role: "responsibilityType",
       data: state._retailStoreCountryCenter.responsibilityTypeList,
       metaInfo: state._retailStoreCountryCenter.responsibilityTypeListMetaInfo,
@@ -819,6 +831,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(ResponsibilityTypeSearch)
   }
+  
   getResponsibilityTypeCreateForm = () => {
    	const {ResponsibilityTypeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -852,7 +865,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "雇佣终止的原因",
+      name: window.mtrans('termination_reason','retail_store_country_center.termination_reason_list',false),
       role: "terminationReason",
       data: state._retailStoreCountryCenter.terminationReasonList,
       metaInfo: state._retailStoreCountryCenter.terminationReasonListMetaInfo,
@@ -870,6 +883,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TerminationReasonSearch)
   }
+  
   getTerminationReasonCreateForm = () => {
    	const {TerminationReasonCreateForm} = GlobalComponents;
    	const userContext = null
@@ -903,7 +917,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "雇佣终止类型",
+      name: window.mtrans('termination_type','retail_store_country_center.termination_type_list',false),
       role: "terminationType",
       data: state._retailStoreCountryCenter.terminationTypeList,
       metaInfo: state._retailStoreCountryCenter.terminationTypeListMetaInfo,
@@ -921,6 +935,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TerminationTypeSearch)
   }
+  
   getTerminationTypeCreateForm = () => {
    	const {TerminationTypeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -954,7 +969,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "职位类型",
+      name: window.mtrans('occupation_type','retail_store_country_center.occupation_type_list',false),
       role: "occupationType",
       data: state._retailStoreCountryCenter.occupationTypeList,
       metaInfo: state._retailStoreCountryCenter.occupationTypeListMetaInfo,
@@ -972,6 +987,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(OccupationTypeSearch)
   }
+  
   getOccupationTypeCreateForm = () => {
    	const {OccupationTypeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1005,7 +1021,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "请假类型",
+      name: window.mtrans('leave_type','retail_store_country_center.leave_type_list',false),
       role: "leaveType",
       data: state._retailStoreCountryCenter.leaveTypeList,
       metaInfo: state._retailStoreCountryCenter.leaveTypeListMetaInfo,
@@ -1023,6 +1039,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(LeaveTypeSearch)
   }
+  
   getLeaveTypeCreateForm = () => {
    	const {LeaveTypeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1056,7 +1073,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "工资等级",
+      name: window.mtrans('salary_grade','retail_store_country_center.salary_grade_list',false),
       role: "salaryGrade",
       data: state._retailStoreCountryCenter.salaryGradeList,
       metaInfo: state._retailStoreCountryCenter.salaryGradeListMetaInfo,
@@ -1074,6 +1091,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(SalaryGradeSearch)
   }
+  
   getSalaryGradeCreateForm = () => {
    	const {SalaryGradeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1107,7 +1125,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "面试类型",
+      name: window.mtrans('interview_type','retail_store_country_center.interview_type_list',false),
       role: "interviewType",
       data: state._retailStoreCountryCenter.interviewTypeList,
       metaInfo: state._retailStoreCountryCenter.interviewTypeListMetaInfo,
@@ -1125,6 +1143,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(InterviewTypeSearch)
   }
+  
   getInterviewTypeCreateForm = () => {
    	const {InterviewTypeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1158,7 +1177,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "培训课程类型",
+      name: window.mtrans('training_course_type','retail_store_country_center.training_course_type_list',false),
       role: "trainingCourseType",
       data: state._retailStoreCountryCenter.trainingCourseTypeList,
       metaInfo: state._retailStoreCountryCenter.trainingCourseTypeListMetaInfo,
@@ -1176,6 +1195,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(TrainingCourseTypeSearch)
   }
+  
   getTrainingCourseTypeCreateForm = () => {
    	const {TrainingCourseTypeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1209,7 +1229,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "公共假日",
+      name: window.mtrans('public_holiday','retail_store_country_center.public_holiday_list',false),
       role: "publicHoliday",
       data: state._retailStoreCountryCenter.publicHolidayList,
       metaInfo: state._retailStoreCountryCenter.publicHolidayListMetaInfo,
@@ -1227,6 +1247,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PublicHolidaySearch)
   }
+  
   getPublicHolidayCreateForm = () => {
    	const {PublicHolidayCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1260,7 +1281,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工",
+      name: window.mtrans('employee','retail_store_country_center.employee_list',false),
       role: "employee",
       data: state._retailStoreCountryCenter.employeeList,
       metaInfo: state._retailStoreCountryCenter.employeeListMetaInfo,
@@ -1278,6 +1299,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSearch)
   }
+  
   getEmployeeCreateForm = () => {
    	const {EmployeeCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1311,7 +1333,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "讲师",
+      name: window.mtrans('instructor','retail_store_country_center.instructor_list',false),
       role: "instructor",
       data: state._retailStoreCountryCenter.instructorList,
       metaInfo: state._retailStoreCountryCenter.instructorListMetaInfo,
@@ -1329,6 +1351,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(InstructorSearch)
   }
+  
   getInstructorCreateForm = () => {
    	const {InstructorCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1362,7 +1385,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "公司培训",
+      name: window.mtrans('company_training','retail_store_country_center.company_training_list',false),
       role: "companyTraining",
       data: state._retailStoreCountryCenter.companyTrainingList,
       metaInfo: state._retailStoreCountryCenter.companyTrainingListMetaInfo,
@@ -1380,6 +1403,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(CompanyTrainingSearch)
   }
+  
   getCompanyTrainingCreateForm = () => {
    	const {CompanyTrainingCreateForm} = GlobalComponents;
    	const userContext = null
@@ -1557,6 +1581,16 @@ constructor(props) {
        payload: !collapsed,
      })
    }
+   
+   toggleSwitchText=()=>{
+    const { collapsed } = this.props
+    if(collapsed){
+      return "打开菜单"
+    }
+    return "关闭菜单"
+
+   }
+   
     logout = () => {
    
     console.log("log out called")
@@ -1603,6 +1637,44 @@ constructor(props) {
   
 
      }
+     const breadcrumbBar=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <div mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
+      </div>)
+  
+
+     }
+
+
+	const jumpToBreadcrumbLink=(breadcrumbMenuItem)=>{
+      const { dispatch} = this.props
+      const {name,link} = breadcrumbMenuItem
+      dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
+	
+     }  
+
+	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
+      const { dispatch} = this.props
+      const {link} = breadcrumbMenuItem
+      dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
+	
+     }
+
+     const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
+
+      return (
+     <Tag 
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+      	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
+        <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
+        	{renderBreadcrumbText(breadcrumbMenuItem.name)}
+        </span>
+      </Tag>)
+
+     }
+     
+     
      
      const { Search } = Input;
      const showSearchResult=()=>{
@@ -1633,16 +1705,11 @@ constructor(props) {
         <Row type="flex" justify="start" align="bottom">
         
         <Col {...naviBarResponsiveStyle} >
-            <Dropdown overlay= {this.getNavMenuItems(this.props.retailStoreCountryCenter)}>
-              <a  className={styles.menuLink}>
-                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
-              </a>
-            </Dropdown>            
-            <Dropdown overlay={breadcrumbMenu()}>
-              <a  className={styles.menuLink}>
-                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
-              </a>
-            </Dropdown>
+             <a  className={styles.menuLink} onClick={()=>this.toggle()}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 
+                {this.toggleSwitchText()}
+              </a>          
+            
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
@@ -1665,25 +1732,41 @@ constructor(props) {
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
+        
        
+       <Layout>
+      
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.retailStoreCountryCenter,this.state.searchKeyword)}</div>
 
       )}
-       
+       </Layout>
         
          
          <Layout>
+       <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="md"
+          onCollapse={() => this.onCollapse(collapsed)}
+          collapsedWidth={40}
+          className={styles.sider}
+        >
          
-            
+         {this.getNavMenuItems(this.props.retailStoreCountryCenter,"inline","dark")}
+       
+        </Sider>
+        
+         <Layout>
+         <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
+        
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}
- 
-             
-             
            </Content>
+          </Layout>
           </Layout>
         </Layout>
       </Layout>

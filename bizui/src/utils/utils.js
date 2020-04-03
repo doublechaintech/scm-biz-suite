@@ -166,10 +166,12 @@ export function sessionObject(key, value){
     console.error("sessionObject(key, value): key should be a string")
     return null;
   }
+  const prefix=window.systemName || window.location.pathname
+  const internalKey=`${prefix}:${key}`
   if(!value){
-    return JSON.parse(sessionStorage.getItem(key))
+    return JSON.parse(sessionStorage.getItem(internalKey))
   }
-  const isValueObject = (typeof(key)==="object")
-  sessionStorage.setItem(key,JSON.stringify(value))
+  // const isValueObject = (typeof(prefix)==="object")
+  sessionStorage.setItem(internalKey,JSON.stringify(value))
   return value
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './SupplierProduct.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -69,25 +69,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(supplierProduct,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(supplierProduct, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={supplierProduct.id}>
+    <Card key={supplierProduct.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(supplierProduct.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={supplierProduct.id} size="small" col="2" >
+      <DescriptionList  key={supplierProduct.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{supplierProduct.id}</Description> 
         <Description term={fieldLabels.productName} style={{wordBreak: 'break-all'}}>{supplierProduct.productName}</Description> 
         <Description term={fieldLabels.productDescription} style={{wordBreak: 'break-all'}}>{supplierProduct.productDescription}</Description> 
         <Description term={fieldLabels.productUnit} style={{wordBreak: 'break-all'}}>{supplierProduct.productUnit}</Description> 
-        <Description term={fieldLabels.supplier}><div>{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${supplierProduct.supplier.displayName}(${supplierProduct.supplier.id})`}
-        </div></Description>
+        <Description term={fieldLabels.supplier}><Tag color='blue' title={`${supplierProduct.supplier.id}-${supplierProduct.supplier.displayName}`}>{supplierProduct.supplier==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(supplierProduct.supplier.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const SupplierProductBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const SupplierProductBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default SupplierProductBase
-
-
 

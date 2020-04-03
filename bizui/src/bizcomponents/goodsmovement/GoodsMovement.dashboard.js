@@ -170,7 +170,7 @@ class GoodsMovementDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货物移动",cardsFor: "goodsMovement",
+    const cardsData = {cardsName:window.trans('goods_movement'),cardsFor: "goodsMovement",
     	cardsSource: this.props.goodsMovement,returnURL,displayName,
   		subItems: [
     
@@ -202,8 +202,9 @@ class GoodsMovementDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

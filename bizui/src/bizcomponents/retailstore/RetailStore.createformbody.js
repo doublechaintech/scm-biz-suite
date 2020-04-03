@@ -18,11 +18,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '中和社区小超',
-  telephone: '1447788306',
+  telephone: '028 87654321',
   owner: '吕刚',
-  founded: '2017-07-19',
-  latitude: '41.75368646742169',
-  longitude: '129.94507872795353',
+  founded: '2020-02-26',
+  latitude: '40.231197644139975',
+  longitude: '130.51334288196963',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
@@ -63,18 +63,22 @@ class RetailStoreCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

@@ -166,7 +166,7 @@ class ConsumerOrderLineItemDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"消费者订单行项目",cardsFor: "consumerOrderLineItem",
+    const cardsData = {cardsName:window.trans('consumer_order_line_item'),cardsFor: "consumerOrderLineItem",
     	cardsSource: this.props.consumerOrderLineItem,returnURL,displayName,
   		subItems: [
     
@@ -198,8 +198,9 @@ class ConsumerOrderLineItemDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

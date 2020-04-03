@@ -213,10 +213,10 @@ class GoodsDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货物",cardsFor: "goods",
+    const cardsData = {cardsName:window.trans('goods'),cardsFor: "goods",
     	cardsSource: this.props.goods,returnURL,displayName,
   		subItems: [
-{name: 'goodsMovementList', displayName:'货物移动',viewGroup:'__no_group', type:'goodsMovement',count:goodsMovementCount,addFunction: true, role: 'goodsMovement', metaInfo: goodsMovementListMetaInfo, renderItem: GlobalComponents.GoodsMovementBase.renderItemOfList},
+{name: 'goodsMovementList', displayName: window.mtrans('goods_movement','goods.goods_movement_list',false) ,viewGroup:'__no_group', type:'goodsMovement',count:goodsMovementCount,addFunction: true, role: 'goodsMovement', metaInfo: goodsMovementListMetaInfo, renderItem: GlobalComponents.GoodsMovementBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -246,8 +246,9 @@ class GoodsDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

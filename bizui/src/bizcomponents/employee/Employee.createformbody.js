@@ -30,13 +30,6 @@ const testValues = {
   occupationId: 'OT000001',
   responsibleForId: 'RT000001',
   currentSalaryGradeId: 'SG000001',
-  jobApplicationId: 'JA000001',
-  professionInterviewId: 'PI000001',
-  hrInterviewId: 'HI000001',
-  offerApprovalId: 'OA000001',
-  offerAcceptanceId: 'OA000001',
-  employeeBoardingId: 'EB000001',
-  terminationId: 'T000001',
 }
 */
 
@@ -68,18 +61,22 @@ class EmployeeCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -314,139 +311,6 @@ class EmployeeCreateFormBody extends Component {
                     disabled={!availableForEdit('currentSalaryGrade')}
                     targetType={"currentSalaryGrade"} 
                     requestFunction={EmployeeService.requestCandidateCurrentSalaryGrade}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.jobApplication} {...formItemLayout}>
-                  {getFieldDecorator('jobApplicationId', {
-                  	initialValue: tryinit('jobApplication'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('jobApplication')}
-                    targetType={"jobApplication"} 
-                    requestFunction={EmployeeService.requestCandidateJobApplication}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.professionInterview} {...formItemLayout}>
-                  {getFieldDecorator('professionInterviewId', {
-                  	initialValue: tryinit('professionInterview'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('professionInterview')}
-                    targetType={"professionInterview"} 
-                    requestFunction={EmployeeService.requestCandidateProfessionInterview}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.hrInterview} {...formItemLayout}>
-                  {getFieldDecorator('hrInterviewId', {
-                  	initialValue: tryinit('hrInterview'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('hrInterview')}
-                    targetType={"hrInterview"} 
-                    requestFunction={EmployeeService.requestCandidateHrInterview}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.offerApproval} {...formItemLayout}>
-                  {getFieldDecorator('offerApprovalId', {
-                  	initialValue: tryinit('offerApproval'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('offerApproval')}
-                    targetType={"offerApproval"} 
-                    requestFunction={EmployeeService.requestCandidateOfferApproval}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.offerAcceptance} {...formItemLayout}>
-                  {getFieldDecorator('offerAcceptanceId', {
-                  	initialValue: tryinit('offerAcceptance'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('offerAcceptance')}
-                    targetType={"offerAcceptance"} 
-                    requestFunction={EmployeeService.requestCandidateOfferAcceptance}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.employeeBoarding} {...formItemLayout}>
-                  {getFieldDecorator('employeeBoardingId', {
-                  	initialValue: tryinit('employeeBoarding'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('employeeBoarding')}
-                    targetType={"employeeBoarding"} 
-                    requestFunction={EmployeeService.requestCandidateEmployeeBoarding}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.termination} {...formItemLayout}>
-                  {getFieldDecorator('terminationId', {
-                  	initialValue: tryinit('termination'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('termination')}
-                    targetType={"termination"} 
-                    requestFunction={EmployeeService.requestCandidateTermination}/>
                   
                  
                   )}

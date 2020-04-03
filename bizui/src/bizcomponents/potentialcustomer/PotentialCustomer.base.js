@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './PotentialCustomer.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -75,28 +75,54 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(potentialCustomer,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(potentialCustomer, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={potentialCustomer.id}>
+    <Card key={potentialCustomer.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(potentialCustomer.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={potentialCustomer.id} size="small" col="2" >
+      <DescriptionList  key={potentialCustomer.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{potentialCustomer.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{potentialCustomer.name}</Description> 
         <Description term={fieldLabels.mobile} style={{wordBreak: 'break-all'}}>{potentialCustomer.mobile}</Description> 
-        <Description term={fieldLabels.cityServiceCenter}><div>{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityServiceCenter.displayName}(${potentialCustomer.cityServiceCenter.id})`}
-        </div></Description>
-        <Description term={fieldLabels.cityPartner}><div>{potentialCustomer.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${potentialCustomer.cityPartner.displayName}(${potentialCustomer.cityPartner.id})`}
-        </div></Description>
+        <Description term={fieldLabels.cityServiceCenter}><Tag color='blue' title={`${potentialCustomer.cityServiceCenter.id}-${potentialCustomer.cityServiceCenter.displayName}`}>{potentialCustomer.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(potentialCustomer.cityServiceCenter.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.cityPartner}><Tag color='blue' title={`${potentialCustomer.cityPartner.id}-${potentialCustomer.cityPartner.displayName}`}>{potentialCustomer.cityPartner==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(potentialCustomer.cityPartner.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{potentialCustomer.description}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(potentialCustomer.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -125,8 +151,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const PotentialCustomerBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const PotentialCustomerBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default PotentialCustomerBase
-
-
 

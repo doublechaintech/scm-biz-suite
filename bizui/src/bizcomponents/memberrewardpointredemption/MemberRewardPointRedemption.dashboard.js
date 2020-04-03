@@ -162,7 +162,7 @@ class MemberRewardPointRedemptionDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"会员奖励点赎回",cardsFor: "memberRewardPointRedemption",
+    const cardsData = {cardsName:window.trans('member_reward_point_redemption'),cardsFor: "memberRewardPointRedemption",
     	cardsSource: this.props.memberRewardPointRedemption,returnURL,displayName,
   		subItems: [
     
@@ -194,8 +194,9 @@ class MemberRewardPointRedemptionDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

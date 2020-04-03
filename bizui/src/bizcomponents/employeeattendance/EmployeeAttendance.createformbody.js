@@ -17,9 +17,9 @@ const {fieldLabels} = EmployeeAttendanceBase
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2017-07-08',
-  leaveTime: '2019-08-29',
-  durationHours: '7',
+  enterTime: '2019-09-05',
+  leaveTime: '2017-12-05',
+  durationHours: '8',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
 }
@@ -53,18 +53,22 @@ class EmployeeAttendanceCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

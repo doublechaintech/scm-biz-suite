@@ -17,7 +17,7 @@ const {fieldLabels} = EmployeeQualifierBase
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2017-01-24',
+  qualifiedTime: '2017-11-11',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -53,18 +53,22 @@ class EmployeeQualifierCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

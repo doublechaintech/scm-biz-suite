@@ -17,9 +17,9 @@ const {fieldLabels} = RetailStoreMemberGiftCardConsumeRecordBase
 const testValues = {};
 /*
 const testValues = {
-  occureTime: '2017-03-08',
+  occureTime: '2019-11-25',
   number: 'GF00001',
-  amount: '19.68',
+  amount: '19.00',
   ownerId: 'RSMGC000001',
   bizOrderId: 'CO000001',
 }
@@ -53,18 +53,22 @@ class RetailStoreMemberGiftCardConsumeRecordCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

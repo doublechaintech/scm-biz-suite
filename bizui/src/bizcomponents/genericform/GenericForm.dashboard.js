@@ -156,13 +156,13 @@ class GenericFormDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"通用的形式",cardsFor: "genericForm",
+    const cardsData = {cardsName:window.trans('generic_form'),cardsFor: "genericForm",
     	cardsSource: this.props.genericForm,returnURL,displayName,
   		subItems: [
-{name: 'formMessageList', displayName:'表单信息',viewGroup:'__no_group', type:'formMessage',count:formMessageCount,addFunction: true, role: 'formMessage', metaInfo: formMessageListMetaInfo, renderItem: GlobalComponents.FormMessageBase.renderItemOfList},
-{name: 'formFieldMessageList', displayName:'表单字段的信息',viewGroup:'__no_group', type:'formFieldMessage',count:formFieldMessageCount,addFunction: true, role: 'formFieldMessage', metaInfo: formFieldMessageListMetaInfo, renderItem: GlobalComponents.FormFieldMessageBase.renderItemOfList},
-{name: 'formFieldList', displayName:'表单字段',viewGroup:'__no_group', type:'formField',count:formFieldCount,addFunction: true, role: 'formField', metaInfo: formFieldListMetaInfo, renderItem: GlobalComponents.FormFieldBase.renderItemOfList},
-{name: 'formActionList', displayName:'表单动作',viewGroup:'__no_group', type:'formAction',count:formActionCount,addFunction: true, role: 'formAction', metaInfo: formActionListMetaInfo, renderItem: GlobalComponents.FormActionBase.renderItemOfList},
+{name: 'formMessageList', displayName: window.mtrans('form_message','generic_form.form_message_list',false) ,viewGroup:'__no_group', type:'formMessage',count:formMessageCount,addFunction: true, role: 'formMessage', metaInfo: formMessageListMetaInfo, renderItem: GlobalComponents.FormMessageBase.renderItemOfList},
+{name: 'formFieldMessageList', displayName: window.mtrans('form_field_message','generic_form.form_field_message_list',false) ,viewGroup:'__no_group', type:'formFieldMessage',count:formFieldMessageCount,addFunction: true, role: 'formFieldMessage', metaInfo: formFieldMessageListMetaInfo, renderItem: GlobalComponents.FormFieldMessageBase.renderItemOfList},
+{name: 'formFieldList', displayName: window.mtrans('form_field','generic_form.form_field_list',false) ,viewGroup:'__no_group', type:'formField',count:formFieldCount,addFunction: true, role: 'formField', metaInfo: formFieldListMetaInfo, renderItem: GlobalComponents.FormFieldBase.renderItemOfList},
+{name: 'formActionList', displayName: window.mtrans('form_action','generic_form.form_action_list',false) ,viewGroup:'__no_group', type:'formAction',count:formActionCount,addFunction: true, role: 'formAction', metaInfo: formActionListMetaInfo, renderItem: GlobalComponents.FormActionBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -192,8 +192,9 @@ class GenericFormDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

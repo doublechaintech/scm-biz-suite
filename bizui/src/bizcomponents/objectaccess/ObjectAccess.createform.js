@@ -62,7 +62,7 @@ class ObjectAccessCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -70,9 +70,9 @@ class ObjectAccessCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -222,7 +222,7 @@ class ObjectAccessCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<ObjectAccessCreateFormBody	 {...this.props} />
+   		<ObjectAccessCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

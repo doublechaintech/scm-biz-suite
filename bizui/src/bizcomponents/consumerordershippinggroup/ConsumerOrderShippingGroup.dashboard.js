@@ -162,7 +162,7 @@ class ConsumerOrderShippingGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"消费订单送货分组",cardsFor: "consumerOrderShippingGroup",
+    const cardsData = {cardsName:window.trans('consumer_order_shipping_group'),cardsFor: "consumerOrderShippingGroup",
     	cardsSource: this.props.consumerOrderShippingGroup,returnURL,displayName,
   		subItems: [
     
@@ -194,8 +194,9 @@ class ConsumerOrderShippingGroupDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

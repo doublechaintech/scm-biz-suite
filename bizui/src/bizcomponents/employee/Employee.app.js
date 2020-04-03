@@ -49,8 +49,6 @@ const filteredNoGroupMenuItems = defaultFilteredNoGroupMenuItems
 const filteredMenuItemsGroup = defaultFilteredMenuItemsGroup
 const renderMenuItem=defaultRenderMenuItem
 
-
-
 const userBarResponsiveStyle = {
   xs: 8,
   sm: 8,
@@ -143,11 +141,13 @@ constructor(props) {
     return keys
   }
   
-  getNavMenuItems = (targetObject) => {
+ getNavMenuItems = (targetObject, style, customTheme) => {
   
 
     const menuData = sessionObject('menuData')
     const targetApp = sessionObject('targetApp')
+    const mode =style || "inline"
+    const theme = customTheme || "light" 
 	const {objectId}=targetApp;
   	const userContext = null
     return (
@@ -157,7 +157,7 @@ constructor(props) {
         
         onOpenChange={this.handleOpenChange}
         defaultOpenKeys={['firstOne']}
-        style={{ width: '456px' }}
+        
        >
            
 
@@ -189,7 +189,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工参与的公司培训",
+      name: window.mtrans('employee_company_training','employee.employee_company_training_list',false),
       role: "employeeCompanyTraining",
       data: state._employee.employeeCompanyTrainingList,
       metaInfo: state._employee.employeeCompanyTrainingListMetaInfo,
@@ -207,6 +207,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeCompanyTrainingSearch)
   }
+  
   getEmployeeCompanyTrainingCreateForm = () => {
    	const {EmployeeCompanyTrainingCreateForm} = GlobalComponents;
    	const userContext = null
@@ -240,7 +241,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工技能",
+      name: window.mtrans('employee_skill','employee.employee_skill_list',false),
       role: "employeeSkill",
       data: state._employee.employeeSkillList,
       metaInfo: state._employee.employeeSkillListMetaInfo,
@@ -258,6 +259,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSkillSearch)
   }
+  
   getEmployeeSkillCreateForm = () => {
    	const {EmployeeSkillCreateForm} = GlobalComponents;
    	const userContext = null
@@ -291,7 +293,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工绩效",
+      name: window.mtrans('employee_performance','employee.employee_performance_list',false),
       role: "employeePerformance",
       data: state._employee.employeePerformanceList,
       metaInfo: state._employee.employeePerformanceListMetaInfo,
@@ -309,6 +311,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeePerformanceSearch)
   }
+  
   getEmployeePerformanceCreateForm = () => {
    	const {EmployeePerformanceCreateForm} = GlobalComponents;
    	const userContext = null
@@ -342,7 +345,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工工作经验",
+      name: window.mtrans('employee_work_experience','employee.employee_work_experience_list',false),
       role: "employeeWorkExperience",
       data: state._employee.employeeWorkExperienceList,
       metaInfo: state._employee.employeeWorkExperienceListMetaInfo,
@@ -360,6 +363,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeWorkExperienceSearch)
   }
+  
   getEmployeeWorkExperienceCreateForm = () => {
    	const {EmployeeWorkExperienceCreateForm} = GlobalComponents;
    	const userContext = null
@@ -393,7 +397,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "请假记录",
+      name: window.mtrans('employee_leave','employee.employee_leave_list',false),
       role: "employeeLeave",
       data: state._employee.employeeLeaveList,
       metaInfo: state._employee.employeeLeaveListMetaInfo,
@@ -411,6 +415,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeLeaveSearch)
   }
+  
   getEmployeeLeaveCreateForm = () => {
    	const {EmployeeLeaveCreateForm} = GlobalComponents;
    	const userContext = null
@@ -444,7 +449,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工面试",
+      name: window.mtrans('employee_interview','employee.employee_interview_list',false),
       role: "employeeInterview",
       data: state._employee.employeeInterviewList,
       metaInfo: state._employee.employeeInterviewListMetaInfo,
@@ -462,6 +467,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeInterviewSearch)
   }
+  
   getEmployeeInterviewCreateForm = () => {
    	const {EmployeeInterviewCreateForm} = GlobalComponents;
    	const userContext = null
@@ -495,7 +501,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工考勤",
+      name: window.mtrans('employee_attendance','employee.employee_attendance_list',false),
       role: "employeeAttendance",
       data: state._employee.employeeAttendanceList,
       metaInfo: state._employee.employeeAttendanceListMetaInfo,
@@ -513,6 +519,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeAttendanceSearch)
   }
+  
   getEmployeeAttendanceCreateForm = () => {
    	const {EmployeeAttendanceCreateForm} = GlobalComponents;
    	const userContext = null
@@ -546,7 +553,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工资质",
+      name: window.mtrans('employee_qualifier','employee.employee_qualifier_list',false),
       role: "employeeQualifier",
       data: state._employee.employeeQualifierList,
       metaInfo: state._employee.employeeQualifierListMetaInfo,
@@ -564,6 +571,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeQualifierSearch)
   }
+  
   getEmployeeQualifierCreateForm = () => {
    	const {EmployeeQualifierCreateForm} = GlobalComponents;
    	const userContext = null
@@ -597,7 +605,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工教育",
+      name: window.mtrans('employee_education','employee.employee_education_list',false),
       role: "employeeEducation",
       data: state._employee.employeeEducationList,
       metaInfo: state._employee.employeeEducationListMetaInfo,
@@ -615,6 +623,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeEducationSearch)
   }
+  
   getEmployeeEducationCreateForm = () => {
    	const {EmployeeEducationCreateForm} = GlobalComponents;
    	const userContext = null
@@ -648,7 +657,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "员工嘉奖",
+      name: window.mtrans('employee_award','employee.employee_award_list',false),
       role: "employeeAward",
       data: state._employee.employeeAwardList,
       metaInfo: state._employee.employeeAwardListMetaInfo,
@@ -666,6 +675,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeAwardSearch)
   }
+  
   getEmployeeAwardCreateForm = () => {
    	const {EmployeeAwardCreateForm} = GlobalComponents;
    	const userContext = null
@@ -699,7 +709,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "工资单",
+      name: window.mtrans('employee_salary_sheet','employee.employee_salary_sheet_list',false),
       role: "employeeSalarySheet",
       data: state._employee.employeeSalarySheetList,
       metaInfo: state._employee.employeeSalarySheetListMetaInfo,
@@ -717,6 +727,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(EmployeeSalarySheetSearch)
   }
+  
   getEmployeeSalarySheetCreateForm = () => {
    	const {EmployeeSalarySheetCreateForm} = GlobalComponents;
    	const userContext = null
@@ -750,7 +761,7 @@ constructor(props) {
     const userContext = null
     return connect(state => ({
       rule: state.rule,
-      name: "工资支付",
+      name: window.mtrans('paying_off','employee.paying_off_list',false),
       role: "payingOff",
       data: state._employee.payingOffList,
       metaInfo: state._employee.payingOffListMetaInfo,
@@ -768,6 +779,7 @@ constructor(props) {
       listDisplayName: appLocaleName(userContext,"List") }, // this is for model namespace and
     }))(PayingOffSearch)
   }
+  
   getPayingOffCreateForm = () => {
    	const {PayingOffCreateForm} = GlobalComponents;
    	const userContext = null
@@ -897,6 +909,16 @@ constructor(props) {
        payload: !collapsed,
      })
    }
+   
+   toggleSwitchText=()=>{
+    const { collapsed } = this.props
+    if(collapsed){
+      return "打开菜单"
+    }
+    return "关闭菜单"
+
+   }
+   
     logout = () => {
    
     console.log("log out called")
@@ -943,6 +965,44 @@ constructor(props) {
   
 
      }
+     const breadcrumbBar=()=>{
+      const currentBreadcrumb =targetApp?sessionObject(targetApp.id):[];
+      return ( <div mode="vertical"> 
+      {currentBreadcrumb.map(item => renderBreadcrumbBarItem(item))}
+      </div>)
+  
+
+     }
+
+
+	const jumpToBreadcrumbLink=(breadcrumbMenuItem)=>{
+      const { dispatch} = this.props
+      const {name,link} = breadcrumbMenuItem
+      dispatch({ type: 'breadcrumb/jumpToLink', payload: {name, link }} )
+	
+     }  
+
+	 const removeBreadcrumbLink=(breadcrumbMenuItem)=>{
+      const { dispatch} = this.props
+      const {link} = breadcrumbMenuItem
+      dispatch({ type: 'breadcrumb/removeLink', payload: { link }} )
+	
+     }
+
+     const renderBreadcrumbBarItem=(breadcrumbMenuItem)=>{
+
+      return (
+     <Tag 
+      	key={breadcrumbMenuItem.link} color={breadcrumbMenuItem.selected?"#108ee9":"grey"} 
+      	style={{marginRight:"1px",marginBottom:"1px"}} closable onClose={()=>removeBreadcrumbLink(breadcrumbMenuItem)} >
+        <span onClick={()=>jumpToBreadcrumbLink(breadcrumbMenuItem)}>
+        	{renderBreadcrumbText(breadcrumbMenuItem.name)}
+        </span>
+      </Tag>)
+
+     }
+     
+     
      
      const { Search } = Input;
      const showSearchResult=()=>{
@@ -973,16 +1033,11 @@ constructor(props) {
         <Row type="flex" justify="start" align="bottom">
         
         <Col {...naviBarResponsiveStyle} >
-            <Dropdown overlay= {this.getNavMenuItems(this.props.employee)}>
-              <a  className={styles.menuLink}>
-                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 菜单
-              </a>
-            </Dropdown>            
-            <Dropdown overlay={breadcrumbMenu()}>
-              <a  className={styles.menuLink}>
-                <Icon type="down" style={{fontSize:"20px", marginRight:"10px"}}/> 快速转到
-              </a>
-            </Dropdown>
+             <a  className={styles.menuLink} onClick={()=>this.toggle()}>
+                <Icon type="unordered-list" style={{fontSize:"20px", marginRight:"10px"}}/> 
+                {this.toggleSwitchText()}
+              </a>          
+            
         </Col>
         <Col  className={styles.searchBox} {...searchBarResponsiveStyle}  > 
           
@@ -1005,25 +1060,41 @@ constructor(props) {
          </Row>
         </Header>
        <Layout style={{  marginTop: 44 }}>
+        
        
+       <Layout>
+      
       {this.state.showSearch&&(
 
         <div style={{backgroundColor:'black'}}  onClick={()=>hideSearchResult()}  >{searchLocalData(this.props.employee,this.state.searchKeyword)}</div>
 
       )}
-       
+       </Layout>
         
          
          <Layout>
+       <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="md"
+          onCollapse={() => this.onCollapse(collapsed)}
+          collapsedWidth={40}
+          className={styles.sider}
+        >
          
-            
+         {this.getNavMenuItems(this.props.employee,"inline","dark")}
+       
+        </Sider>
+        
+         <Layout>
+         <Layout><Row type="flex" justify="start" align="bottom">{breadcrumbBar()} </Row></Layout>
+        
            <Content style={{ margin: '24px 24px 0', height: '100%' }}>
            
            {this.buildRouters()}
- 
-             
-             
            </Content>
+          </Layout>
           </Layout>
         </Layout>
       </Layout>

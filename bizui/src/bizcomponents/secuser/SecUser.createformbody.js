@@ -25,10 +25,9 @@ const testValues = {
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-12-03 19:12:47',
-  lastLoginTime: '2019-12-02 12:51:27',
+  verificationCodeExpire: '2020-03-11 17:40:40',
+  lastLoginTime: '2020-03-11 10:58:58',
   domainId: 'UD000001',
-  blockingId: 'SUB000001',
 }
 */
 
@@ -60,18 +59,22 @@ class SecUserCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -229,7 +232,7 @@ class SecUserCreateFormBody extends Component {
               <Col lg={24} md={24} sm={24}>
                 <Form.Item label={fieldLabels.lastLoginTime} {...formItemLayout}>
                   {getFieldDecorator('lastLoginTime', {
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
+                    rules: [{ required: false, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
                     <DatePicker size="large" showTime format="YYYY-MM-DD HH:mm" minuteStep={5}  placeHolder={fieldLabels.lastLoginTime} />
                   )}
@@ -250,25 +253,6 @@ class SecUserCreateFormBody extends Component {
                     disabled={!availableForEdit('domain')}
                     targetType={"domain"} 
                     requestFunction={SecUserService.requestCandidateDomain}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.blocking} {...formItemLayout}>
-                  {getFieldDecorator('blockingId', {
-                  	initialValue: tryinit('blocking'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('blocking')}
-                    targetType={"blocking"} 
-                    requestFunction={SecUserService.requestCandidateBlocking}/>
                   
                  
                   )}

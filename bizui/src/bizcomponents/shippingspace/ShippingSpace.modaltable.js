@@ -38,7 +38,7 @@ class ShippingSpaceModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1215 }}
+          scroll={{ x: 1230 }}
         />
       </div>
     )

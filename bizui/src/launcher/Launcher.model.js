@@ -76,6 +76,31 @@ export default {
         description: data,
       });
     },
+    *home({ payload }, { call, put }) {
+      const { calcLocationPath, calcMenuData } = GlobalComponents;
+      const data = yield call(LauncherService.home);
+      console.log('data.........................', data);
+      if (!data) {
+        showLoginError();
+        return;
+      }
+      if (!data.class) {
+        showLoginError();
+        return;
+      }
+      if (data.class.indexOf('LoginForm') > 0) {
+        yield put({ type: 'showlogin', payload: { data } });
+        // showLoginError();
+        return;
+      }
+      if (data.class.indexOf('SecUser') > 0) {
+        yield put({ type: 'showhome', payload: { data } });
+        return;
+      }
+      const locationPath = calcLocationPath(data.class, data.id, 'dashboard');
+      const location = { pathname: `/${locationPath}`, state: data };
+      yield put(routerRedux.push(location));
+    },
     *login({ payload }, { call, put }) {
       const { calcLocationPath, calcMenuData } = GlobalComponents;
       const data = yield call(LauncherService.login, payload.username, payload.password);

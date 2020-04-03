@@ -20,8 +20,8 @@ const testValues = {};
 const testValues = {
   skuId: 'SKU',
   skuName: '大瓶可乐',
-  amount: '3.09',
-  quantity: '8969',
+  amount: '3.13',
+  quantity: '9707',
   unitOfMeasurement: '件',
   bizOrderId: 'RSO000001',
 }
@@ -56,7 +56,7 @@ class RetailStoreOrderLineItemCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class RetailStoreOrderLineItemCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class RetailStoreOrderLineItemCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<RetailStoreOrderLineItemCreateFormBody	 {...this.props} />
+   		<RetailStoreOrderLineItemCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

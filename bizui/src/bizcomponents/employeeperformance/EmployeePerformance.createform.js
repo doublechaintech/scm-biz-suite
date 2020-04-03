@@ -52,7 +52,7 @@ class EmployeePerformanceCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -60,9 +60,9 @@ class EmployeePerformanceCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -212,7 +212,7 @@ class EmployeePerformanceCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<EmployeePerformanceCreateFormBody	 {...this.props} />
+   		<EmployeePerformanceCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

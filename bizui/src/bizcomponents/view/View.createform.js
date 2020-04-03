@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   who: '面试官',
   assessment: '小伙子不错，值得培养',
-  interviewTime: '2017-10-28',
+  interviewTime: '2019-10-29',
 }
 */
 
@@ -53,7 +53,7 @@ class ViewCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -61,9 +61,9 @@ class ViewCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -213,7 +213,7 @@ class ViewCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<ViewCreateFormBody	 {...this.props} />
+   		<ViewCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

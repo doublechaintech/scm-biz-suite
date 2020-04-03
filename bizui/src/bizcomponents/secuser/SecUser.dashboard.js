@@ -158,17 +158,19 @@ class SecUserDashboard extends Component {
 
   render() {
     // eslint-disable-next-line max-len
-    const { id,displayName, userAppListMetaInfo, loginHistoryListMetaInfo, userAppCount, loginHistoryCount } = this.props.secUser
+    const { id,displayName, userAppListMetaInfo, loginHistoryListMetaInfo, wechatWorkappIdentifyListMetaInfo, wechatMiniappIdentifyListMetaInfo, userAppCount, loginHistoryCount, wechatWorkappIdentifyCount, wechatMiniappIdentifyCount } = this.props.secUser
     if(!this.props.secUser.class){
       return null
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",
+    const cardsData = {cardsName:window.trans('sec_user'),cardsFor: "secUser",
     	cardsSource: this.props.secUser,returnURL,displayName,
   		subItems: [
-{name: 'userAppList', displayName:'用户应用程序',viewGroup:'__no_group', type:'userApp',count:userAppCount,addFunction: true, role: 'userApp', metaInfo: userAppListMetaInfo, renderItem: GlobalComponents.UserAppBase.renderItemOfList},
-{name: 'loginHistoryList', displayName:'登录历史',viewGroup:'__no_group', type:'loginHistory',count:loginHistoryCount,addFunction: false, role: 'loginHistory', metaInfo: loginHistoryListMetaInfo, renderItem: GlobalComponents.LoginHistoryBase.renderItemOfList},
+{name: 'userAppList', displayName: window.mtrans('user_app','sec_user.user_app_list',false) ,viewGroup:'__no_group', type:'userApp',count:userAppCount,addFunction: true, role: 'userApp', metaInfo: userAppListMetaInfo, renderItem: GlobalComponents.UserAppBase.renderItemOfList},
+{name: 'loginHistoryList', displayName: window.mtrans('login_history','sec_user.login_history_list',false) ,viewGroup:'__no_group', type:'loginHistory',count:loginHistoryCount,addFunction: false, role: 'loginHistory', metaInfo: loginHistoryListMetaInfo, renderItem: GlobalComponents.LoginHistoryBase.renderItemOfList},
+{name: 'wechatWorkappIdentifyList', displayName: window.mtrans('wechat_workapp_identify','sec_user.wechat_workapp_identify_list',false) ,viewGroup:'__no_group', type:'wechatWorkappIdentify',count:wechatWorkappIdentifyCount,addFunction: true, role: 'wechatWorkappIdentify', metaInfo: wechatWorkappIdentifyListMetaInfo, renderItem: GlobalComponents.WechatWorkappIdentifyBase.renderItemOfList},
+{name: 'wechatMiniappIdentifyList', displayName: window.mtrans('wechat_miniapp_identify','sec_user.wechat_miniapp_identify_list',false) ,viewGroup:'__no_group', type:'wechatMiniappIdentify',count:wechatMiniappIdentifyCount,addFunction: true, role: 'wechatMiniappIdentify', metaInfo: wechatMiniappIdentifyListMetaInfo, renderItem: GlobalComponents.WechatMiniappIdentifyBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -198,8 +200,9 @@ class SecUserDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

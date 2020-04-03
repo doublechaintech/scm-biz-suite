@@ -7,6 +7,7 @@ import Result from '../components/Result'
 import { Row, Col, Card, Form, Input, Select, Icon, Button, Dropdown, Menu, InputNumber, DatePicker, Modal, message,Alert } from 'antd';
 
 import GlobalComponents from '../custcomponents'
+import { string } from 'prop-types';
 
 
 const toggle=(src, dest)=>{
@@ -181,7 +182,17 @@ const handleDeletionModalVisible = (event,targetComponent) => {
       listParameters[`${listName}.descOrAsc.0`]="desc";
      
     }
-    const newSearchParameters = {...searchParameters,...listParameters,...sortProperties}
+    const selectedSearchParameters = {}
+    Object.entries(searchParameters).forEach(([key,value])=>{
+      if(!key.startsWith(listName)){
+        return
+      }
+      selectedSearchParameters[key] = value
+    })
+    // filter out the search parameters
+    
+
+    const newSearchParameters = {...selectedSearchParameters,...listParameters,...sortProperties}
     const params = {
       ...searchParameters,
       ...listParameters,

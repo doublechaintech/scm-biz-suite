@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EventAttendance.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -68,26 +68,52 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(eventAttendance,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(eventAttendance, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={eventAttendance.id}>
+    <Card key={eventAttendance.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(eventAttendance.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={eventAttendance.id} size="small" col="2" >
+      <DescriptionList  key={eventAttendance.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{eventAttendance.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{eventAttendance.name}</Description> 
-        <Description term={fieldLabels.potentialCustomer}><div>{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.potentialCustomer.displayName}(${eventAttendance.potentialCustomer.id})`}
-        </div></Description>
-        <Description term={fieldLabels.cityEvent}><div>{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${eventAttendance.cityEvent.displayName}(${eventAttendance.cityEvent.id})`}
-        </div></Description>
+        <Description term={fieldLabels.potentialCustomer}><Tag color='blue' title={`${eventAttendance.potentialCustomer.id}-${eventAttendance.potentialCustomer.displayName}`}>{eventAttendance.potentialCustomer==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(eventAttendance.potentialCustomer.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.cityEvent}><Tag color='blue' title={`${eventAttendance.cityEvent.id}-${eventAttendance.cityEvent.displayName}`}>{eventAttendance.cityEvent==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(eventAttendance.cityEvent.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{eventAttendance.description}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -116,8 +142,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EventAttendanceBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EventAttendanceBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EventAttendanceBase
-
-
 

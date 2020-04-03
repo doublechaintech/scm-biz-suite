@@ -21,8 +21,8 @@ const testValues = {
   name: '可口可乐',
   rfid: 'RF99192',
   uom: '件',
-  maxPackage: '9',
-  expireTime: '2017-10-09',
+  maxPackage: '10',
+  expireTime: '2017-05-25',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',
@@ -32,7 +32,6 @@ const testValues = {
   retailStoreId: 'RS000001',
   bizOrderId: 'SO000001',
   retailStoreOrderId: 'RSO000001',
-  packagingId: 'GP000001',
 }
 */
 
@@ -65,7 +64,7 @@ class GoodsCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -73,9 +72,9 @@ class GoodsCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -225,7 +224,7 @@ class GoodsCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<GoodsCreateFormBody	 {...this.props} />
+   		<GoodsCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

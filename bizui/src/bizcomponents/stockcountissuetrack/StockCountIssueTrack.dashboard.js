@@ -163,7 +163,7 @@ class StockCountIssueTrackDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"库存计数问题跟踪",cardsFor: "stockCountIssueTrack",
+    const cardsData = {cardsName:window.trans('stock_count_issue_track'),cardsFor: "stockCountIssueTrack",
     	cardsSource: this.props.stockCountIssueTrack,returnURL,displayName,
   		subItems: [
     
@@ -195,8 +195,9 @@ class StockCountIssueTrackDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

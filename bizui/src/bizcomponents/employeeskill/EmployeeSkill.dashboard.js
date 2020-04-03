@@ -167,7 +167,7 @@ class EmployeeSkillDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工技能",cardsFor: "employeeSkill",
+    const cardsData = {cardsName:window.trans('employee_skill'),cardsFor: "employeeSkill",
     	cardsSource: this.props.employeeSkill,returnURL,displayName,
   		subItems: [
     
@@ -199,8 +199,9 @@ class EmployeeSkillDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

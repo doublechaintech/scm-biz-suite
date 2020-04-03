@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './GoodsShelfStockCount.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -69,25 +69,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(goodsShelfStockCount,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(goodsShelfStockCount, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={goodsShelfStockCount.id}>
+    <Card key={goodsShelfStockCount.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(goodsShelfStockCount.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={goodsShelfStockCount.id} size="small" col="2" >
+      <DescriptionList  key={goodsShelfStockCount.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{goodsShelfStockCount.id}</Description> 
         <Description term={fieldLabels.title} style={{wordBreak: 'break-all'}}>{goodsShelfStockCount.title}</Description> 
         <Description term={fieldLabels.countTime}><div>{ moment(goodsShelfStockCount.countTime).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.summary} style={{wordBreak: 'break-all'}}>{goodsShelfStockCount.summary}</Description> 
-        <Description term={fieldLabels.shelf}><div>{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${goodsShelfStockCount.shelf.displayName}(${goodsShelfStockCount.shelf.id})`}
-        </div></Description>
+        <Description term={fieldLabels.shelf}><Tag color='blue' title={`${goodsShelfStockCount.shelf.id}-${goodsShelfStockCount.shelf.displayName}`}>{goodsShelfStockCount.shelf==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(goodsShelfStockCount.shelf.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -95,13 +121,13 @@ const renderItemOfList=(goodsShelfStockCount,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {title, countTime, summary, shelfId} = formValuesToPack
 	const shelf = {id: shelfId, version: 2^31}
-	const data = {title, countTime, summary, shelf}
+	const data = {title, countTime:moment(countTime).valueOf(), summary, shelf}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {title, countTime, summary, shelf} = objectToUnpack
 	const shelfId = shelf ? shelf.id : null
-	const data = {title, countTime, summary, shelfId}
+	const data = {title, countTime:moment(countTime), summary, shelfId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const GoodsShelfStockCountBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const GoodsShelfStockCountBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default GoodsShelfStockCountBase
-
-
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './RetailStoreOrderShippingGroup.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -66,24 +66,50 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(retailStoreOrderShippingGroup,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(retailStoreOrderShippingGroup, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={retailStoreOrderShippingGroup.id}>
+    <Card key={retailStoreOrderShippingGroup.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(retailStoreOrderShippingGroup.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={retailStoreOrderShippingGroup.id} size="small" col="2" >
+      <DescriptionList  key={retailStoreOrderShippingGroup.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStoreOrderShippingGroup.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{retailStoreOrderShippingGroup.name}</Description> 
-        <Description term={fieldLabels.bizOrder}><div>{retailStoreOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${retailStoreOrderShippingGroup.bizOrder.displayName}(${retailStoreOrderShippingGroup.bizOrder.id})`}
-        </div></Description>
+        <Description term={fieldLabels.bizOrder}><Tag color='blue' title={`${retailStoreOrderShippingGroup.bizOrder.id}-${retailStoreOrderShippingGroup.bizOrder.displayName}`}>{retailStoreOrderShippingGroup.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(retailStoreOrderShippingGroup.bizOrder.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.amount}><div style={{"color":"red"}}>{retailStoreOrderShippingGroup.amount}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -110,8 +136,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const RetailStoreOrderShippingGroupBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const RetailStoreOrderShippingGroupBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreOrderShippingGroupBase
-
-
 

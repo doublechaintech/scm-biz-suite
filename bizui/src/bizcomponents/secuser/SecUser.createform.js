@@ -26,10 +26,9 @@ const testValues = {
   weixinAppid: 'wxapp12098410239840',
   accessToken: 'jwt_token_12345678',
   verificationCode: '0',
-  verificationCodeExpire: '2019-11-21 04:58:32',
-  lastLoginTime: '2019-12-05 20:09:18',
+  verificationCodeExpire: '2020-03-15 17:00:12',
+  lastLoginTime: '2020-03-15 03:51:27',
   domainId: 'UD000001',
-  blockingId: 'SUB000001',
 }
 */
 
@@ -62,7 +61,7 @@ class SecUserCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -70,9 +69,9 @@ class SecUserCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -222,7 +221,7 @@ class SecUserCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<SecUserCreateFormBody	 {...this.props} />
+   		<SecUserCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

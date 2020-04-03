@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   quantity: '100',
   duration: '现货',
-  price: '7291.70',
+  price: '8645.86',
   productId: 'SP000001',
 }
 */
@@ -54,7 +54,7 @@ class ProductSupplyDurationCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class ProductSupplyDurationCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class ProductSupplyDurationCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<ProductSupplyDurationCreateFormBody	 {...this.props} />
+   		<ProductSupplyDurationCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

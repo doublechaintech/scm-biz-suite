@@ -161,10 +161,10 @@ class InstructorDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"讲师",cardsFor: "instructor",
+    const cardsData = {cardsName:window.trans('instructor'),cardsFor: "instructor",
     	cardsSource: this.props.instructor,returnURL,displayName,
   		subItems: [
-{name: 'companyTrainingList', displayName:'公司培训',viewGroup:'__no_group', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
+{name: 'companyTrainingList', displayName: window.mtrans('company_training','instructor.company_training_list',false) ,viewGroup:'__no_group', type:'companyTraining',count:companyTrainingCount,addFunction: true, role: 'companyTraining', metaInfo: companyTrainingListMetaInfo, renderItem: GlobalComponents.CompanyTrainingBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -194,8 +194,9 @@ class InstructorDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

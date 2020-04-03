@@ -168,7 +168,7 @@ class EmployeeLeaveDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"请假记录",cardsFor: "employeeLeave",
+    const cardsData = {cardsName:window.trans('employee_leave'),cardsFor: "employeeLeave",
     	cardsSource: this.props.employeeLeave,returnURL,displayName,
   		subItems: [
     
@@ -200,8 +200,9 @@ class EmployeeLeaveDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

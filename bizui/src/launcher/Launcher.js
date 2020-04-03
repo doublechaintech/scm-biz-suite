@@ -19,7 +19,15 @@ const { Content, Footer } = Layout;
 
 class Launcher extends React.Component {
 
-    
+    componentDidMount(){
+
+        const { dispatch} = this.props;
+        
+
+        dispatch({ type: 'launcher/home'});
+        
+
+    }
     
 
     render() {

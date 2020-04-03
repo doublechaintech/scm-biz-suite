@@ -53,7 +53,7 @@ class LoginHistoryCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -61,9 +61,9 @@ class LoginHistoryCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -213,7 +213,7 @@ class LoginHistoryCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<LoginHistoryCreateFormBody	 {...this.props} />
+   		<LoginHistoryCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -91,7 +91,8 @@ class TransportTaskTrackTable extends PureComponent {
           
           { hasReadPermission(metaInfo)&&<Link to={`/transportTaskTrack/${record.id}/dashboard`}>{appLocaleName(userContext,"View")}</Link>}
 
-          {  hasUpdatePermission(metaInfo)&&<span className={styles.splitLine} /> } {hasUpdatePermission(metaInfo)&&<a key="__2" onClick={()=>this.gotoEdit(text, record)}>{appLocaleName(userContext,"Edit")}</a>}
+
+          {  hasUpdatePermission(metaInfo) &&<span className={styles.splitLine} /> } {hasUpdatePermission(metaInfo)&&<a key="__2" onClick={()=>this.gotoEdit(text, record)}>{appLocaleName(userContext,"Edit")}</a>}
 
           {
             record.actionList&&record.actionList.map((item)=>(<a key={item.actionId} onClick={()=>this.executeAction(item,text, record)}><span className={styles.splitLine} />{item.actionName}</a>))
@@ -101,9 +102,12 @@ class TransportTaskTrackTable extends PureComponent {
       ),
     }
    
-    enhancedColumns.push(
-      operationColumn
-    )
+    if( hasReadPermission(metaInfo) || hasUpdatePermission(metaInfo)){
+        enhancedColumns.push(
+      		operationColumn
+    	)
+    }
+
     
     return enhancedColumns
 

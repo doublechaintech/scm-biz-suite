@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './AccountingPeriod.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -69,25 +69,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(accountingPeriod,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(accountingPeriod, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={accountingPeriod.id}>
+    <Card key={accountingPeriod.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(accountingPeriod.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={accountingPeriod.id} size="small" col="2" >
+      <DescriptionList  key={accountingPeriod.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{accountingPeriod.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{accountingPeriod.name}</Description> 
         <Description term={fieldLabels.startDate}><div>{ moment(accountingPeriod.startDate).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.endDate}><div>{ moment(accountingPeriod.endDate).format('YYYY-MM-DD')}</div></Description> 
-        <Description term={fieldLabels.accountSet}><div>{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${accountingPeriod.accountSet.displayName}(${accountingPeriod.accountSet.id})`}
-        </div></Description>
+        <Description term={fieldLabels.accountSet}><Tag color='blue' title={`${accountingPeriod.accountSet.id}-${accountingPeriod.accountSet.displayName}`}>{accountingPeriod.accountSet==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountingPeriod.accountSet.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -95,13 +121,13 @@ const renderItemOfList=(accountingPeriod,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, startDate, endDate, accountSetId} = formValuesToPack
 	const accountSet = {id: accountSetId, version: 2^31}
-	const data = {name, startDate, endDate, accountSet}
+	const data = {name, startDate:moment(startDate).valueOf(), endDate:moment(endDate).valueOf(), accountSet}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, startDate, endDate, accountSet} = objectToUnpack
 	const accountSetId = accountSet ? accountSet.id : null
-	const data = {name, startDate, endDate, accountSetId}
+	const data = {name, startDate:moment(startDate), endDate:moment(endDate), accountSetId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const AccountingPeriodBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const AccountingPeriodBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default AccountingPeriodBase
-
-
 

@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号存货区货架20号货位',
-  latitude: '40.72944462736691',
-  longitude: '130.44502295240943',
+  latitude: '42.387783699787455',
+  longitude: '131.58106090552906',
   goodsShelfId: 'GS000001',
 }
 */
@@ -54,7 +54,7 @@ class GoodsAllocationCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class GoodsAllocationCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class GoodsAllocationCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<GoodsAllocationCreateFormBody	 {...this.props} />
+   		<GoodsAllocationCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

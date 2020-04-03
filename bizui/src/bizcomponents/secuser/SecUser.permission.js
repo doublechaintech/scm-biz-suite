@@ -66,7 +66,7 @@ class SecUserPermission extends Component {
   render() {
     // eslint-disable-next-line max-len
     const  secUser = this.props.secUser
-    const { id,displayName, userAppCount, loginHistoryCount } = secUser
+    const { id,displayName, userAppCount, loginHistoryCount, wechatWorkappIdentifyCount, wechatMiniappIdentifyCount } = secUser
     const  returnURL = `/secUser/${id}/dashboard`
     const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
   		subItems: [

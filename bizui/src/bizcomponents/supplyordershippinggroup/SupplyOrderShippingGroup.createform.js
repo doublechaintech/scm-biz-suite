@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '送货到双链成都2号仓',
-  amount: '4.73',
+  amount: '4.94',
   bizOrderId: 'SO000001',
 }
 */
@@ -53,7 +53,7 @@ class SupplyOrderShippingGroupCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -61,9 +61,9 @@ class SupplyOrderShippingGroupCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -213,7 +213,7 @@ class SupplyOrderShippingGroupCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<SupplyOrderShippingGroupCreateFormBody	 {...this.props} />
+   		<SupplyOrderShippingGroupCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -163,10 +163,10 @@ class PayingOffDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"工资支付",cardsFor: "payingOff",
+    const cardsData = {cardsName:window.trans('paying_off'),cardsFor: "payingOff",
     	cardsSource: this.props.payingOff,returnURL,displayName,
   		subItems: [
-{name: 'employeeSalarySheetList', displayName:'工资单',viewGroup:'__no_group', type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
+{name: 'employeeSalarySheetList', displayName: window.mtrans('employee_salary_sheet','paying_off.employee_salary_sheet_list',false) ,viewGroup:'__no_group', type:'employeeSalarySheet',count:employeeSalarySheetCount,addFunction: true, role: 'employeeSalarySheet', metaInfo: employeeSalarySheetListMetaInfo, renderItem: GlobalComponents.EmployeeSalarySheetBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -196,8 +196,9 @@ class PayingOffDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

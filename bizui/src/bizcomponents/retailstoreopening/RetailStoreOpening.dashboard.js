@@ -155,10 +155,10 @@ class RetailStoreOpeningDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"生超开业",cardsFor: "retailStoreOpening",
+    const cardsData = {cardsName:window.trans('retail_store_opening'),cardsFor: "retailStoreOpening",
     	cardsSource: this.props.retailStoreOpening,returnURL,displayName,
   		subItems: [
-{name: 'retailStoreList', displayName:'双链小超',viewGroup:'__no_group', type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
+{name: 'retailStoreList', displayName: window.mtrans('retail_store','retail_store_opening.retail_store_list',false) ,viewGroup:'__no_group', type:'retailStore',count:retailStoreCount,addFunction: true, role: 'retailStore', metaInfo: retailStoreListMetaInfo, renderItem: GlobalComponents.RetailStoreBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -188,8 +188,9 @@ class RetailStoreOpeningDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

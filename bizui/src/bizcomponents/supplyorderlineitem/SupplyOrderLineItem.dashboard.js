@@ -165,7 +165,7 @@ class SupplyOrderLineItemDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应订单行项目",cardsFor: "supplyOrderLineItem",
+    const cardsData = {cardsName:window.trans('supply_order_line_item'),cardsFor: "supplyOrderLineItem",
     	cardsSource: this.props.supplyOrderLineItem,returnURL,displayName,
   		subItems: [
     
@@ -197,8 +197,9 @@ class SupplyOrderLineItemDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

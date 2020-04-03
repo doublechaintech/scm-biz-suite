@@ -18,13 +18,13 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2400.16',
-  bonus: '729.90',
-  reward: '713.91',
-  personalTax: '742.85',
-  socialSecurity: '830.35',
-  housingFound: '980.60',
-  jobInsurance: '8.67',
+  baseSalary: '2391.25',
+  bonus: '727.98',
+  reward: '808.57',
+  personalTax: '758.62',
+  socialSecurity: '1028.43',
+  housingFound: '1022.20',
+  jobInsurance: '7.19',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
   payingOffId: 'PO000001',
@@ -60,7 +60,7 @@ class EmployeeSalarySheetCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -68,9 +68,9 @@ class EmployeeSalarySheetCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -220,7 +220,7 @@ class EmployeeSalarySheetCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<EmployeeSalarySheetCreateFormBody	 {...this.props} />
+   		<EmployeeSalarySheetCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

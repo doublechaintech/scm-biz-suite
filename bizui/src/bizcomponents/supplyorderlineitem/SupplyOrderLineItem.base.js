@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './SupplyOrderLineItem.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -65,24 +65,50 @@ const displayColumns = [
   { title: fieldLabels.skuId, debugtype: 'string', dataIndex: 'skuId', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.skuName, debugtype: 'string', dataIndex: 'skuName', width: '8',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.amount, dataIndex: 'amount', className:'money', render: (text, record) => renderMoneyCell(text, record), sorter: true  },
-  { title: fieldLabels.quantity, debugtype: 'int', dataIndex: 'quantity', width: '9',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.quantity, dataIndex: 'quantity', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
   { title: fieldLabels.unitOfMeasurement, debugtype: 'string', dataIndex: 'unitOfMeasurement', width: '6',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(supplyOrderLineItem,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(supplyOrderLineItem, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={supplyOrderLineItem.id}>
+    <Card key={supplyOrderLineItem.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(supplyOrderLineItem.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={supplyOrderLineItem.id} size="small" col="2" >
+      <DescriptionList  key={supplyOrderLineItem.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.id}</Description> 
-        <Description term={fieldLabels.bizOrder}><div>{supplyOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${supplyOrderLineItem.bizOrder.displayName}(${supplyOrderLineItem.bizOrder.id})`}
-        </div></Description>
+        <Description term={fieldLabels.bizOrder}><Tag color='blue' title={`${supplyOrderLineItem.bizOrder.id}-${supplyOrderLineItem.bizOrder.displayName}`}>{supplyOrderLineItem.bizOrder==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(supplyOrderLineItem.bizOrder.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.skuId} style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.skuId}</Description> 
         <Description term={fieldLabels.skuName} style={{wordBreak: 'break-all'}}>{supplyOrderLineItem.skuName}</Description> 
         <Description term={fieldLabels.amount}><div style={{"color":"red"}}>{supplyOrderLineItem.amount}</div></Description> 
@@ -91,8 +117,8 @@ const renderItemOfList=(supplyOrderLineItem,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -119,8 +145,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const SupplyOrderLineItemBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const SupplyOrderLineItemBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default SupplyOrderLineItemBase
-
-
 

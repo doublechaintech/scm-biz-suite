@@ -157,12 +157,12 @@ class TransportFleetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"运输车队",cardsFor: "transportFleet",
+    const cardsData = {cardsName:window.trans('transport_fleet'),cardsFor: "transportFleet",
     	cardsSource: this.props.transportFleet,returnURL,displayName,
   		subItems: [
-{name: 'transportTruckList', displayName:'运输车',viewGroup:'__no_group', type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo, renderItem: GlobalComponents.TransportTruckBase.renderItemOfList},
-{name: 'truckDriverList', displayName:'卡车司机',viewGroup:'__no_group', type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo, renderItem: GlobalComponents.TruckDriverBase.renderItemOfList},
-{name: 'transportTaskList', displayName:'运输任务',viewGroup:'__no_group', type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
+{name: 'transportTruckList', displayName: window.mtrans('transport_truck','transport_fleet.transport_truck_list',false) ,viewGroup:'__no_group', type:'transportTruck',count:transportTruckCount,addFunction: true, role: 'transportTruck', metaInfo: transportTruckListMetaInfo, renderItem: GlobalComponents.TransportTruckBase.renderItemOfList},
+{name: 'truckDriverList', displayName: window.mtrans('truck_driver','transport_fleet.truck_driver_list',false) ,viewGroup:'__no_group', type:'truckDriver',count:truckDriverCount,addFunction: true, role: 'truckDriver', metaInfo: truckDriverListMetaInfo, renderItem: GlobalComponents.TruckDriverBase.renderItemOfList},
+{name: 'transportTaskList', displayName: window.mtrans('transport_task','transport_fleet.transport_task_list',false) ,viewGroup:'__no_group', type:'transportTask',count:transportTaskCount,addFunction: true, role: 'transportTask', metaInfo: transportTaskListMetaInfo, renderItem: GlobalComponents.TransportTaskBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -192,8 +192,9 @@ class TransportFleetDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

@@ -19,8 +19,8 @@ const testValues = {};
 /*
 const testValues = {
   name: '2017年1月',
-  startDate: '2017-02-23',
-  endDate: '2018-10-19',
+  startDate: '2018-07-07',
+  endDate: '2018-05-04',
   accountSetId: 'AS000001',
 }
 */
@@ -54,7 +54,7 @@ class AccountingPeriodCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class AccountingPeriodCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class AccountingPeriodCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<AccountingPeriodCreateFormBody	 {...this.props} />
+   		<AccountingPeriodCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

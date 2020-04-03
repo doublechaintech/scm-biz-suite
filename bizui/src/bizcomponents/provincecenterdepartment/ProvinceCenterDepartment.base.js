@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './ProvinceCenterDepartment.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -54,7 +54,7 @@ const fieldLabels = {
   name: window.trans('province_center_department.name'),
   founded: window.trans('province_center_department.founded'),
   provinceCenter: window.trans('province_center_department.province_center'),
-  managerName: window.trans('province_center_department.manager_name'),
+  manager: window.trans('province_center_department.manager'),
 
 }
 
@@ -63,45 +63,71 @@ const displayColumns = [
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '9',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.founded, dataIndex: 'founded', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.provinceCenter, dataIndex: 'provinceCenter', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.managerName, debugtype: 'string', dataIndex: 'managerName', width: '7',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.manager, debugtype: 'string', dataIndex: 'manager', width: '7',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(provinceCenterDepartment,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(provinceCenterDepartment, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={provinceCenterDepartment.id}>
+    <Card key={provinceCenterDepartment.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(provinceCenterDepartment.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={provinceCenterDepartment.id} size="small" col="2" >
+      <DescriptionList  key={provinceCenterDepartment.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.name}</Description> 
         <Description term={fieldLabels.founded}><div>{ moment(provinceCenterDepartment.founded).format('YYYY-MM-DD')}</div></Description> 
-        <Description term={fieldLabels.provinceCenter}><div>{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${provinceCenterDepartment.provinceCenter.displayName}(${provinceCenterDepartment.provinceCenter.id})`}
-        </div></Description>
-        <Description term={fieldLabels.managerName} style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.managerName}</Description> 
+        <Description term={fieldLabels.provinceCenter}><Tag color='blue' title={`${provinceCenterDepartment.provinceCenter.id}-${provinceCenterDepartment.provinceCenter.displayName}`}>{provinceCenterDepartment.provinceCenter==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(provinceCenterDepartment.provinceCenter.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.manager} style={{wordBreak: 'break-all'}}>{provinceCenterDepartment.manager}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
 	
 const packFormValuesToObject = ( formValuesToPack )=>{
-	const {name, founded, managerName, provinceCenterId} = formValuesToPack
+	const {name, founded, manager, provinceCenterId} = formValuesToPack
 	const provinceCenter = {id: provinceCenterId, version: 2^31}
-	const data = {name, founded, managerName, provinceCenter}
+	const data = {name, founded:moment(founded).valueOf(), manager, provinceCenter}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
-	const {name, founded, managerName, provinceCenter} = objectToUnpack
+	const {name, founded, manager, provinceCenter} = objectToUnpack
 	const provinceCenterId = provinceCenter ? provinceCenter.id : null
-	const data = {name, founded, managerName, provinceCenterId}
+	const data = {name, founded:moment(founded), manager, provinceCenterId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const ProvinceCenterDepartmentBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const ProvinceCenterDepartmentBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default ProvinceCenterDepartmentBase
-
-
 

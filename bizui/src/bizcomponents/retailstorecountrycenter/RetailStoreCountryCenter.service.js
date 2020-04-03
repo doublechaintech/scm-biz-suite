@@ -133,7 +133,7 @@ const removeGoodsSupplierList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addSupplyOrder/retailStoreCountryCenterId/sellerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addSupplyOrder/retailStoreCountryCenterId/sellerId/title/totalAmount/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -155,7 +155,7 @@ const removeSupplyOrderList = (targetObjectId, parameters) => {
 
 
 const addRetailStoreOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStoreOrder/retailStoreCountryCenterId/buyerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addRetailStoreOrder/retailStoreCountryCenterId/buyerId/title/totalAmount/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -243,14 +243,14 @@ const removeAccountSetList = (targetObjectId, parameters) => {
 
 
 const addLevelOneDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addLevelOneDepartment/retailStoreCountryCenterId/name/description/managerName/founded/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addLevelOneDepartment/retailStoreCountryCenterId/name/description/manager/founded/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
 }
 
 const updateLevelOneDepartment = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/updateLevelOneDepartmentProperties/retailStoreCountryCenterId/id/name/description/managerName/founded/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/updateLevelOneDepartmentProperties/retailStoreCountryCenterId/id/name/description/manager/founded/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})
@@ -485,7 +485,7 @@ const removePublicHolidayList = (targetObjectId, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}retailStoreCountryCenterManager/addEmployee/retailStoreCountryCenterId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/terminationId/tokensExpr/`
+  const url = `${PREFIX}retailStoreCountryCenterManager/addEmployee/retailStoreCountryCenterId/title/departmentId/familyName/givenName/email/city/address/cellPhone/occupationId/responsibleForId/currentSalaryGradeId/salaryAccount/tokensExpr/`
   const retailStoreCountryCenterId = targetObjectId
   const requestParameters = { ...parameters, retailStoreCountryCenterId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

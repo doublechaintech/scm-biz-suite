@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './TransportTask.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -73,40 +73,66 @@ const displayColumns = [
   { title: fieldLabels.driver, dataIndex: 'driver', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.truck, dataIndex: 'truck', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.belongsTo, dataIndex: 'belongsTo', render: (text, record) => renderReferenceCell(text, record), sorter:true},
-  { title: fieldLabels.latitude, debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.longitude, debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.latitude, dataIndex: 'latitude', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
+  { title: fieldLabels.longitude, dataIndex: 'longitude', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
 
 ]
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(transportTask,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(transportTask, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={transportTask.id}>
+    <Card key={transportTask.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(transportTask.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={transportTask.id} size="small" col="2" >
+      <DescriptionList  key={transportTask.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{transportTask.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{transportTask.name}</Description> 
         <Description term={fieldLabels.start} style={{wordBreak: 'break-all'}}>{transportTask.start}</Description> 
         <Description term={fieldLabels.beginTime}><div>{ moment(transportTask.beginTime).format('YYYY-MM-DD')}</div></Description> 
-        <Description term={fieldLabels.end}><div>{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.end.displayName}(${transportTask.end.id})`}
-        </div></Description>
-        <Description term={fieldLabels.driver}><div>{transportTask.driver==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.driver.displayName}(${transportTask.driver.id})`}
-        </div></Description>
-        <Description term={fieldLabels.truck}><div>{transportTask.truck==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.truck.displayName}(${transportTask.truck.id})`}
-        </div></Description>
-        <Description term={fieldLabels.belongsTo}><div>{transportTask.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${transportTask.belongsTo.displayName}(${transportTask.belongsTo.id})`}
-        </div></Description>
+        <Description term={fieldLabels.end}><Tag color='blue' title={`${transportTask.end.id}-${transportTask.end.displayName}`}>{transportTask.end==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(transportTask.end.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.driver}><Tag color='blue' title={`${transportTask.driver.id}-${transportTask.driver.displayName}`}>{transportTask.driver==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(transportTask.driver.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.truck}><Tag color='blue' title={`${transportTask.truck.id}-${transportTask.truck.displayName}`}>{transportTask.truck==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(transportTask.truck.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.belongsTo}><Tag color='blue' title={`${transportTask.belongsTo.id}-${transportTask.belongsTo.displayName}`}>{transportTask.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(transportTask.belongsTo.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.latitude}><div style={{"color":"red"}}>{transportTask.latitude}</div></Description> 
         <Description term={fieldLabels.longitude}><div style={{"color":"red"}}>{transportTask.longitude}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -117,7 +143,7 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const driver = {id: driverId, version: 2^31}
 	const truck = {id: truckId, version: 2^31}
 	const belongsTo = {id: belongsToId, version: 2^31}
-	const data = {name, start, beginTime, latitude, longitude, end, driver, truck, belongsTo}
+	const data = {name, start, beginTime:moment(beginTime).valueOf(), latitude, longitude, end, driver, truck, belongsTo}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
@@ -126,7 +152,7 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const driverId = driver ? driver.id : null
 	const truckId = truck ? truck.id : null
 	const belongsToId = belongsTo ? belongsTo.id : null
-	const data = {name, start, beginTime, latitude, longitude, endId, driverId, truckId, belongsToId}
+	const data = {name, start, beginTime:moment(beginTime), latitude, longitude, endId, driverId, truckId, belongsToId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -139,8 +165,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const TransportTaskBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const TransportTaskBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default TransportTaskBase
-
-
 

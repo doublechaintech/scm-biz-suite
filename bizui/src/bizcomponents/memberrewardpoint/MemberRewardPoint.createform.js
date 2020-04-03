@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '购买积分',
-  point: '20',
+  point: '16',
   ownerId: 'RSM000001',
 }
 */
@@ -53,7 +53,7 @@ class MemberRewardPointCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -61,9 +61,9 @@ class MemberRewardPointCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -213,7 +213,7 @@ class MemberRewardPointCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<MemberRewardPointCreateFormBody	 {...this.props} />
+   		<MemberRewardPointCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

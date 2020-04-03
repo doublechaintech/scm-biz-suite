@@ -1,4 +1,6 @@
 import { AutoComplete, Card, Button, Form, Icon, Col, Row, DatePicker, TimePicker, Input, Select, Popover,Switch } from 'antd'
+
+// import G6 from '@antv/g6';
 const { Option } = Select
 const valueOf = (value, candidateValues)=>{
   if(value&&value.length!=0){
@@ -12,7 +14,7 @@ const valueOf = (value, candidateValues)=>{
 }
 
 
-export default class SelectObject extends React.Component {
+export default class Graph extends React.Component {
   state = {
     candidateValues: [],
     
@@ -91,18 +93,25 @@ export default class SelectObject extends React.Component {
     
 
     const {candidateValues,placeholder} = this.state
-    const {value,disabled} = this.props
+    const {value,disabled,useForSearch} = this.props
     if(!candidateValues){
       return (<div>正在载入候选项......</div>)
     }
     
 
-    
+    const calcSize=()=>{
+
+      if(useForSearch){
+        return "default"
+      }
+      return "large"
+
+    }
 
     return (
       <AutoComplete
               value={valueOf(value,candidateValues)}
-                size="large"
+               size={calcSize()}
                     dataSource={candidateValues.map(item=>{
                       return (<Option key={item.id}>{`${item.id} - ${item.displayName}`}</Option>);
                     })}

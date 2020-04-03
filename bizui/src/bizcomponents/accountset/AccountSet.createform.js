@@ -20,12 +20,12 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2019-07-07',
+  effectiveDate: '2017-08-17',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',
   openingBank: '招商银行',
-  accountNumber: '25764708299199',
+  accountNumber: '3326 5805 0548 85',
   countryCenterId: 'RSCC000001',
   retailStoreId: 'RS000001',
   goodsSupplierId: 'GS000001',
@@ -61,7 +61,7 @@ class AccountSetCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -69,9 +69,9 @@ class AccountSetCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -221,7 +221,7 @@ class AccountSetCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<AccountSetCreateFormBody	 {...this.props} />
+   		<AccountSetCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

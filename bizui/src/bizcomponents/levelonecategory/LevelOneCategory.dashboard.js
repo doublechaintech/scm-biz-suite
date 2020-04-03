@@ -161,10 +161,10 @@ class LevelOneCategoryDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"一级分类",cardsFor: "levelOneCategory",
+    const cardsData = {cardsName:window.trans('level_one_category'),cardsFor: "levelOneCategory",
     	cardsSource: this.props.levelOneCategory,returnURL,displayName,
   		subItems: [
-{name: 'levelTwoCategoryList', displayName:'二级分类',viewGroup:'__no_group', type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
+{name: 'levelTwoCategoryList', displayName: window.mtrans('level_two_category','level_one_category.level_two_category_list',false) ,viewGroup:'__no_group', type:'levelTwoCategory',count:levelTwoCategoryCount,addFunction: true, role: 'levelTwoCategory', metaInfo: levelTwoCategoryListMetaInfo, renderItem: GlobalComponents.LevelTwoCategoryBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -194,8 +194,9 @@ class LevelOneCategoryDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

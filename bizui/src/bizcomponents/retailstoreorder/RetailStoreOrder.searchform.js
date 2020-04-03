@@ -135,12 +135,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'buyer'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'seller'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'title'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'approval'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'processing'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'picking'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'shipment'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'delivery'))
 
      
       console.log("the final parameter", paramList)
@@ -296,78 +290,6 @@ componentDidMount() {
               )}
             </FormItem>
           </Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.confirmation}>
-                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateConfirmation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.approval}>
-                  {getFieldDecorator('approval', {initialValue: tryinit('approval')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('approval')}
-                    targetType={"approval"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateApproval} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.processing}>
-                  {getFieldDecorator('processing', {initialValue: tryinit('processing')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('processing')}
-                    targetType={"processing"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateProcessing} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.picking}>
-                  {getFieldDecorator('picking', {initialValue: tryinit('picking')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('picking')}
-                    targetType={"picking"} 
-                    requestFunction={RetailStoreOrderService.requestCandidatePicking} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.shipment}>
-                  {getFieldDecorator('shipment', {initialValue: tryinit('shipment')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('shipment')}
-                    targetType={"shipment"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateShipment} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.delivery}>
-                  {getFieldDecorator('delivery', {initialValue: tryinit('delivery')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('delivery')}
-                    targetType={"delivery"} 
-                    requestFunction={RetailStoreOrderService.requestCandidateDelivery} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
 
         </Row>
         <div style={{ overflow: 'hidden' }}>

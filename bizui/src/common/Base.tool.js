@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link } from 'dva/router'
-import { Icon, Divider, Avatar, Card, Col} from 'antd'
+import { Icon, Divider, Avatar, Card, Col,Tag} from 'antd'
 
 
 import moment from 'moment'
@@ -55,6 +55,23 @@ const defaultFormatMoney=(amount)=>{
 	
 }
 
+const defaultFormatNumber=(amount)=>{
+
+	return amount
+	
+}
+
+const defaultRenderNumberCell=(value, record)=>{
+	const userContext = null
+	if(!value){
+		return appLocaleName(userContext,"Empty")
+	}
+	if(value == null){
+		return appLocaleName(userContext,"Empty")
+	}
+	return (`${defaultFormatNumber(value)}`)
+}
+
 const defaultRenderMoneyCell=(value, record)=>{
 	const userContext = null
 	if(!value){
@@ -75,7 +92,7 @@ const defaultRenderBooleanCell=(value, record)=>{
 
 const defaultRenderReferenceCell=(value, record)=>{
 	const userContext = null
-	return (value ? <span style={{fontWeight:"bold"}} title={`${value.id} - ${value.displayName}`} >{value.displayName}</span> : appLocaleName(userContext,"NotAssigned")) 
+	return (value ? <Tag color='green'><span style={{fontWeight:"bold"}} title={`${value.id} - ${value.displayName}`} >{value.displayName}</span></Tag> : appLocaleName(userContext,"NotAssigned")) 
 
 }
 
@@ -106,8 +123,6 @@ const buildFunctionList=(menuData,targetObject,searchTerm)=>{
 	return <Col span={20}>{result.map(item=>(
 
 		<Col span={4}><Link to={`/${menuData.menuFor}/${targetObject.id}/list/${item.name}/${item.displayName}`}>{item.displayName}</Link></Col>
-
-		
 	))}</Col>
 	
 }
@@ -122,7 +137,7 @@ const buildCategoryContent=(item)=>{
 
 	let maxLength = 0;
 	item.filteredData.forEach(fi => {
-		const length = fi.displayName.length;
+		const {length} = fi.displayName;
 		if(length> maxLength) {
 			maxLength = length;
 		}
@@ -148,6 +163,15 @@ const buildCategoryContent=(item)=>{
 
 const matchSearchTerm=(innerItem, searchTerm)=>{
 
+	if(!innerItem){
+		return false
+	}
+	if(!innerItem.displayName){
+		return false
+	}
+	if(!innerItem.id){
+		return false
+	}
 	if(innerItem.displayName.indexOf(searchTerm)>=0){
 		return true;
 	}
@@ -174,7 +198,7 @@ const defaultSearchLocalData=(menuData, targetObject, searchName)=>{
 		
 	})
 	const filteredResult = resultData.filter(item=>item.filteredData&&item.filteredData.length>0)
-
+	// precisely matched the record, just go to this page
 	if(searchName&&filteredResult&&filteredResult.length===1&&filteredResult[0].filteredData.length===1&&searchName.trim().length !== 0){
 		const item = filteredResult[0]
 		const fi = filteredResult[0].filteredData[0];
@@ -211,7 +235,7 @@ const defaultSearchLocalData=(menuData, targetObject, searchName)=>{
 const BaseTool = {
     defaultRenderReferenceCell,
     defaultRenderBooleanCell,
-    defaultRenderMoneyCell,
+	defaultRenderMoneyCell,
     defaultFormatMoney,
     defaultRenderDateTimeCell,
     defaultRenderImageCell,
@@ -220,6 +244,7 @@ const BaseTool = {
 	defaultRenderTextCell,
 	defaultRenderAvatarCell,
 	defaultSearchLocalData,
+	defaultRenderNumberCell,
    
   };
   

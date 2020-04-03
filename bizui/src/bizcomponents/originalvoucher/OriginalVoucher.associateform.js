@@ -23,9 +23,6 @@ const testValues = {
   receivedBy: '本公司',
   voucherType: '原始凭证',
   belongsToId: 'AD000001',
-  creationId: 'OVC000001',
-  confirmationId: 'OVC000001',
-  auditingId: 'OVA000001',
 }
 */
 
@@ -222,51 +219,6 @@ class OriginalVoucherAssociateForm extends Component {
                     disabled={!availableForEdit('belongsTo')}
                     targetType={"belongsTo"} 
                     requestFunction={OriginalVoucherService.requestCandidateBelongsTo}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.creation} {...formItemLayout}>
-                  {getFieldDecorator('creationId', {
-                  	initialValue: tryinit('creation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={OriginalVoucherService.requestCandidateCreation}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
-                  {getFieldDecorator('confirmationId', {
-                  	initialValue: tryinit('confirmation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={OriginalVoucherService.requestCandidateConfirmation}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.auditing} {...formItemLayout}>
-                  {getFieldDecorator('auditingId', {
-                  	initialValue: tryinit('auditing'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('auditing')}
-                    targetType={"auditing"} 
-                    requestFunction={OriginalVoucherService.requestCandidateAuditing}/>
   
                   )}
                 </Form.Item>

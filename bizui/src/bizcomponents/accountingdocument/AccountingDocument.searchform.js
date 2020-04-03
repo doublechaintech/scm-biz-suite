@@ -135,10 +135,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'name'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'accountingPeriod'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'documentType'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'creation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'auditing'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'posting'))
 
      
       console.log("the final parameter", paramList)
@@ -286,54 +282,6 @@ componentDidMount() {
                     disabled={!availableForEdit('documentType')}
                     targetType={"documentType"} 
                     requestFunction={AccountingDocumentService.requestCandidateDocumentType} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.creation}>
-                  {getFieldDecorator('creation', {initialValue: tryinit('creation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={AccountingDocumentService.requestCandidateCreation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.confirmation}>
-                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={AccountingDocumentService.requestCandidateConfirmation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.auditing}>
-                  {getFieldDecorator('auditing', {initialValue: tryinit('auditing')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('auditing')}
-                    targetType={"auditing"} 
-                    requestFunction={AccountingDocumentService.requestCandidateAuditing} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.posting}>
-                  {getFieldDecorator('posting', {initialValue: tryinit('posting')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('posting')}
-                    targetType={"posting"} 
-                    requestFunction={AccountingDocumentService.requestCandidatePosting} useForSearch />
                   	
                  
                   )}

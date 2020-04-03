@@ -17,13 +17,13 @@ const {fieldLabels} = EmployeeSalarySheetBase
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2987.06',
-  bonus: '953.36',
-  reward: '962.73',
-  personalTax: '712.43',
-  socialSecurity: '996.49',
-  housingFound: '1186.07',
-  jobInsurance: '6.86',
+  baseSalary: '2199.27',
+  bonus: '781.21',
+  reward: '743.85',
+  personalTax: '626.60',
+  socialSecurity: '1041.57',
+  housingFound: '1118.38',
+  jobInsurance: '8.43',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
   payingOffId: 'PO000001',
@@ -58,18 +58,22 @@ class EmployeeSalarySheetCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

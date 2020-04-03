@@ -38,7 +38,7 @@ const transferToAnotherCompany = (id, parameters) => {
 
 
 const addEmployee = (targetObjectId, parameters) => {
-  const url = `${PREFIX}occupationTypeManager/addEmployee/occupationTypeId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/responsibleForId/currentSalaryGradeId/salaryAccount/jobApplicationId/professionInterviewId/hrInterviewId/offerApprovalId/offerAcceptanceId/employeeBoardingId/terminationId/tokensExpr/`
+  const url = `${PREFIX}occupationTypeManager/addEmployee/occupationTypeId/companyId/title/departmentId/familyName/givenName/email/city/address/cellPhone/responsibleForId/currentSalaryGradeId/salaryAccount/tokensExpr/`
   const occupationTypeId = targetObjectId
   const requestParameters = { ...parameters, occupationTypeId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

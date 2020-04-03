@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './Termination.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -37,7 +37,6 @@ const renderReferenceCell=defaultRenderReferenceCell
 
 const menuData = {menuName: window.trans('termination'), menuFor: "termination",
   		subItems: [
-  {name: 'employeeList', displayName: window.mtrans('employee','termination.employee_list',false), type:'employee',icon:'500px',readPermission: false,createPermission: false,deletePermission: false,updatePermission: false,executionPermission: false, viewGroup: '__no_group'},
   
   		],
 }
@@ -67,25 +66,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(termination,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(termination, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={termination.id}>
+    <Card key={termination.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(termination.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={termination.id} size="small" col="2" >
+      <DescriptionList  key={termination.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{termination.id}</Description> 
-        <Description term={fieldLabels.reason}><div>{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${termination.reason.displayName}(${termination.reason.id})`}
-        </div></Description>
-        <Description term={fieldLabels.type}><div>{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${termination.type.displayName}(${termination.type.id})`}
-        </div></Description>
+        <Description term={fieldLabels.reason}><Tag color='blue' title={`${termination.reason.id}-${termination.reason.displayName}`}>{termination.reason==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(termination.reason.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.type}><Tag color='blue' title={`${termination.type.id}-${termination.type.displayName}`}>{termination.type==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(termination.type.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.comment} style={{wordBreak: 'break-all'}}>{termination.comment}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -114,8 +139,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const TerminationBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const TerminationBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default TerminationBase
-
-
 

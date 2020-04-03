@@ -159,7 +159,7 @@ class FormActionDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"表单动作",cardsFor: "formAction",
+    const cardsData = {cardsName:window.trans('form_action'),cardsFor: "formAction",
     	cardsSource: this.props.formAction,returnURL,displayName,
   		subItems: [
     
@@ -191,8 +191,9 @@ class FormActionDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

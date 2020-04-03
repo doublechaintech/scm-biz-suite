@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EmployeeAward.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -68,25 +68,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(employeeAward,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(employeeAward, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={employeeAward.id}>
+    <Card key={employeeAward.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(employeeAward.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={employeeAward.id} size="small" col="2" >
+      <DescriptionList  key={employeeAward.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeAward.id}</Description> 
-        <Description term={fieldLabels.employee}><div>{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAward.employee.displayName}(${employeeAward.employee.id})`}
-        </div></Description>
+        <Description term={fieldLabels.employee}><Tag color='blue' title={`${employeeAward.employee.id}-${employeeAward.employee.displayName}`}>{employeeAward.employee==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeAward.employee.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.completeTime}><div>{ moment(employeeAward.completeTime).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.type} style={{wordBreak: 'break-all'}}>{employeeAward.type}</Description> 
         <Description term={fieldLabels.remark} style={{wordBreak: 'break-all'}}>{employeeAward.remark}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -94,13 +120,13 @@ const renderItemOfList=(employeeAward,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {completeTime, type, remark, employeeId} = formValuesToPack
 	const employee = {id: employeeId, version: 2^31}
-	const data = {completeTime, type, remark, employee}
+	const data = {completeTime:moment(completeTime).valueOf(), type, remark, employee}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {completeTime, type, remark, employee} = objectToUnpack
 	const employeeId = employee ? employee.id : null
-	const data = {completeTime, type, remark, employeeId}
+	const data = {completeTime:moment(completeTime), type, remark, employeeId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -113,8 +139,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EmployeeAwardBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EmployeeAwardBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeAwardBase
-
-
 

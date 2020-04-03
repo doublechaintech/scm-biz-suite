@@ -38,7 +38,7 @@ const transferToAnotherGoodsShelf = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}goodsAllocationManager/addGoods/goodsAllocationId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
+  const url = `${PREFIX}goodsAllocationManager/addGoods/goodsAllocationId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
   const goodsAllocationId = targetObjectId
   const requestParameters = { ...parameters, goodsAllocationId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

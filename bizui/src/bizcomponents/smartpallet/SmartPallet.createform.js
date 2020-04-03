@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等',
-  contactNumber: '251173109',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-  latitude: '42.54311514096193',
-  longitude: '130.3583585770129',
+  latitude: '40.62841400718894',
+  longitude: '129.81162580199936',
   warehouseId: 'W000001',
 }
 */
@@ -56,7 +56,7 @@ class SmartPalletCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class SmartPalletCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class SmartPalletCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<SmartPalletCreateFormBody	 {...this.props} />
+   		<SmartPalletCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

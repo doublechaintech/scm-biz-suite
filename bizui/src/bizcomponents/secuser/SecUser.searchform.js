@@ -140,7 +140,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'weixinAppid'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'accessToken'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'domain'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'blocking'))
 
      
       console.log("the final parameter", paramList)
@@ -324,18 +323,6 @@ componentDidMount() {
                     disabled={!availableForEdit('domain')}
                     targetType={"domain"} 
                     requestFunction={SecUserService.requestCandidateDomain} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.blocking}>
-                  {getFieldDecorator('blocking', {initialValue: tryinit('blocking')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('blocking')}
-                    targetType={"blocking"} 
-                    requestFunction={SecUserService.requestCandidateBlocking} useForSearch />
                   	
                  
                   )}

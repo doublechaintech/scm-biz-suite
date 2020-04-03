@@ -174,11 +174,11 @@ class GoodsShelfDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"货架",cardsFor: "goodsShelf",
+    const cardsData = {cardsName:window.trans('goods_shelf'),cardsFor: "goodsShelf",
     	cardsSource: this.props.goodsShelf,returnURL,displayName,
   		subItems: [
-{name: 'goodsShelfStockCountList', displayName:'货架库存盘点',viewGroup:'__no_group', type:'goodsShelfStockCount',count:goodsShelfStockCountCount,addFunction: true, role: 'goodsShelfStockCount', metaInfo: goodsShelfStockCountListMetaInfo, renderItem: GlobalComponents.GoodsShelfStockCountBase.renderItemOfList},
-{name: 'goodsAllocationList', displayName:'货位',viewGroup:'__no_group', type:'goodsAllocation',count:goodsAllocationCount,addFunction: true, role: 'goodsAllocation', metaInfo: goodsAllocationListMetaInfo, renderItem: GlobalComponents.GoodsAllocationBase.renderItemOfList},
+{name: 'goodsShelfStockCountList', displayName: window.mtrans('goods_shelf_stock_count','goods_shelf.goods_shelf_stock_count_list',false) ,viewGroup:'__no_group', type:'goodsShelfStockCount',count:goodsShelfStockCountCount,addFunction: true, role: 'goodsShelfStockCount', metaInfo: goodsShelfStockCountListMetaInfo, renderItem: GlobalComponents.GoodsShelfStockCountBase.renderItemOfList},
+{name: 'goodsAllocationList', displayName: window.mtrans('goods_allocation','goods_shelf.goods_allocation_list',false) ,viewGroup:'__no_group', type:'goodsAllocation',count:goodsAllocationCount,addFunction: true, role: 'goodsAllocation', metaInfo: goodsAllocationListMetaInfo, renderItem: GlobalComponents.GoodsAllocationBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -208,8 +208,9 @@ class GoodsShelfDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

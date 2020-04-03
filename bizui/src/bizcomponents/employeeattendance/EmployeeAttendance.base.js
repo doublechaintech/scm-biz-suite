@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EmployeeAttendance.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -63,24 +63,50 @@ const displayColumns = [
   { title: fieldLabels.employee, dataIndex: 'employee', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.enterTime, dataIndex: 'enterTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
   { title: fieldLabels.leaveTime, dataIndex: 'leaveTime', render: (text, record) =>renderDateCell(text,record), sorter: true },
-  { title: fieldLabels.durationHours, debugtype: 'int', dataIndex: 'durationHours', width: '5',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.durationHours, dataIndex: 'durationHours', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
   { title: fieldLabels.remark, debugtype: 'string', dataIndex: 'remark', width: '11',render: (text, record)=>renderTextCell(text,record)},
 
 ]
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(employeeAttendance,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(employeeAttendance, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={employeeAttendance.id}>
+    <Card key={employeeAttendance.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(employeeAttendance.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={employeeAttendance.id} size="small" col="2" >
+      <DescriptionList  key={employeeAttendance.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeAttendance.id}</Description> 
-        <Description term={fieldLabels.employee}><div>{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeAttendance.employee.displayName}(${employeeAttendance.employee.id})`}
-        </div></Description>
+        <Description term={fieldLabels.employee}><Tag color='blue' title={`${employeeAttendance.employee.id}-${employeeAttendance.employee.displayName}`}>{employeeAttendance.employee==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeAttendance.employee.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.enterTime}><div>{ moment(employeeAttendance.enterTime).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.leaveTime}><div>{ moment(employeeAttendance.leaveTime).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.durationHours}><div style={{"color":"red"}}>{employeeAttendance.durationHours}</div></Description> 
@@ -88,8 +114,8 @@ const renderItemOfList=(employeeAttendance,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -97,13 +123,13 @@ const renderItemOfList=(employeeAttendance,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {enterTime, leaveTime, durationHours, remark, employeeId} = formValuesToPack
 	const employee = {id: employeeId, version: 2^31}
-	const data = {enterTime, leaveTime, durationHours, remark, employee}
+	const data = {enterTime:moment(enterTime).valueOf(), leaveTime:moment(leaveTime).valueOf(), durationHours, remark, employee}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {enterTime, leaveTime, durationHours, remark, employee} = objectToUnpack
 	const employeeId = employee ? employee.id : null
-	const data = {enterTime, leaveTime, durationHours, remark, employeeId}
+	const data = {enterTime:moment(enterTime), leaveTime:moment(leaveTime), durationHours, remark, employeeId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -116,8 +142,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EmployeeAttendanceBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EmployeeAttendanceBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeAttendanceBase
-
-
 

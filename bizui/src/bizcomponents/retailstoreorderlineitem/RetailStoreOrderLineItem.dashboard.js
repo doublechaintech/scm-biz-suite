@@ -165,7 +165,7 @@ class RetailStoreOrderLineItemDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"双链小超订单行项目",cardsFor: "retailStoreOrderLineItem",
+    const cardsData = {cardsName:window.trans('retail_store_order_line_item'),cardsFor: "retailStoreOrderLineItem",
     	cardsSource: this.props.retailStoreOrderLineItem,returnURL,displayName,
   		subItems: [
     
@@ -197,8 +197,9 @@ class RetailStoreOrderLineItemDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

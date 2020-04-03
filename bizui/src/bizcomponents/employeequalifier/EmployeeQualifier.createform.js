@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2019-09-03',
+  qualifiedTime: '2018-08-01',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
@@ -55,7 +55,7 @@ class EmployeeQualifierCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -63,9 +63,9 @@ class EmployeeQualifierCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -215,7 +215,7 @@ class EmployeeQualifierCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<EmployeeQualifierCreateFormBody	 {...this.props} />
+   		<EmployeeQualifierCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

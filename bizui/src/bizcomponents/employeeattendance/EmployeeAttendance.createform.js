@@ -18,8 +18,8 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2018-02-22',
-  leaveTime: '2019-10-07',
+  enterTime: '2020-02-03',
+  leaveTime: '2019-07-25',
   durationHours: '7',
   remark: '今天状态不错啊',
   employeeId: 'E000001',
@@ -55,7 +55,7 @@ class EmployeeAttendanceCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -63,9 +63,9 @@ class EmployeeAttendanceCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -215,7 +215,7 @@ class EmployeeAttendanceCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<EmployeeAttendanceCreateFormBody	 {...this.props} />
+   		<EmployeeAttendanceCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

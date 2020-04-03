@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '和连载客户的联系记录',
-  contactDate: '2019-03-17',
+  contactDate: '2017-10-01',
   contactMethod: '电话',
   description: '转化希望很大',
   potentialCustomerId: 'PC000001',
@@ -57,7 +57,7 @@ class PotentialCustomerContactCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -65,9 +65,9 @@ class PotentialCustomerContactCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -217,7 +217,7 @@ class PotentialCustomerContactCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<PotentialCustomerContactCreateFormBody	 {...this.props} />
+   		<PotentialCustomerContactCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -76,14 +76,16 @@ export const get = ({ url, msg = '接口异常', headers }) =>
       message.warn(msg);
     });
 
+
+
 export const getURLPrefix = () => {
   const url = new URL(window.location);
   if (url.hostname === 'clariones.doublechaintech.com') {
     //return `http://${url.hostname}:8080/naf/`
     return `http://clariones.doublechaintech.com/naf/`;
   }
-  if (url.hostname === '192.168.0.219') {
-    return `https://demo.doublechaintech.com/retailscm/`;
+  if (url.hostname === '30.30.126.37') {
+    return `http://${url.hostname}:8080/naf/`;
   }
   if (url.hostname === 'localhost') {
     return `http://${url.hostname}:8080/${SYSTEM_SHORT_NAME}/`
@@ -181,6 +183,27 @@ export const postForm = ({ url, requestParameters, msg = '接口异常'})=>{
     headers,
   })
 }
+
+
+
+export const put = ({ url,data, msg = '接口异常', headers }) =>
+    axios
+      .put(url, data, headers)
+      .then(function(res) {
+        console.log('http headers', res.headers);
+        const clazz = res.headers['x-class'];
+        if (clazz) {
+          if (clazz.indexOf('CommonError') > 0 || clazz.indexOf('Exception') > 0) {
+            message.error('后台系统出错，请检查错误消息' + res.data);
+          }
+        }
+        return res.data;
+      })
+      .catch(err => {
+        console.log(err);
+        message.warn(msg);
+      });
+
 
 
 

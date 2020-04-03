@@ -153,21 +153,6 @@ const transferToAnotherRetailStoreOrder = (id, parameters) => {
 
 
 
-const requestCandidatePackaging = (ownerClass, id, filterKey, pageNo) => {
- 
-  const url = `${PREFIX}goodsManager/requestCandidatePackaging/ownerClass/id/filterKey/pageNo/`
-  const requestParameters = {id, ownerClass,filterKey, pageNo}
-  return postForm({url,requestParameters})
-}	
-
-const transferToAnotherPackaging = (id, parameters) => {
-  const url = `${PREFIX}goodsManager/transferToAnotherPackaging/id/anotherPackagingId/`
-  const requestParameters = {id, ...parameters}
-  return postForm({url,requestParameters})
-}
-
-
-
 
 
 
@@ -234,7 +219,6 @@ const GoodsService = { view,
   requestCandidateRetailStore,
   requestCandidateBizOrder,
   requestCandidateRetailStoreOrder,
-  requestCandidatePackaging,
   transferToAnotherSku,
   transferToAnotherReceivingSpace,
   transferToAnotherGoodsAllocation,
@@ -243,7 +227,6 @@ const GoodsService = { view,
   transferToAnotherTransportTask,
   transferToAnotherRetailStore,
   transferToAnotherBizOrder,
-  transferToAnotherRetailStoreOrder,
-  transferToAnotherPackaging, listFunctions, saveRequest, processRequest}
+  transferToAnotherRetailStoreOrder, listFunctions, saveRequest, processRequest}
 export default GoodsService
 

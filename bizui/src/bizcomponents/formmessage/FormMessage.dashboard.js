@@ -156,7 +156,7 @@ class FormMessageDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"表单信息",cardsFor: "formMessage",
+    const cardsData = {cardsName:window.trans('form_message'),cardsFor: "formMessage",
     	cardsSource: this.props.formMessage,returnURL,displayName,
   		subItems: [
     
@@ -188,8 +188,9 @@ class FormMessageDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

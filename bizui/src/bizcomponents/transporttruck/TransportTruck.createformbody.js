@@ -19,10 +19,10 @@ const testValues = {};
 const testValues = {
   name: '运货卡车',
   plateNumber: '川AK5',
-  contactNumber: '2797418730',
+  contactNumber: '028 87654321',
   vehicleLicenseNumber: 'VL9198',
   engineNumber: 'EN00102',
-  makeDate: '2018-08-06',
+  makeDate: '2019-04-29',
   mileage: '100万公里',
   bodyColor: '红色',
   ownerId: 'TF000001',
@@ -57,18 +57,22 @@ class TransportTruckCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {

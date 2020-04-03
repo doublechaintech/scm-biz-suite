@@ -159,12 +159,12 @@ class GoodsSupplierDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"产品供应商",cardsFor: "goodsSupplier",
+    const cardsData = {cardsName:window.trans('goods_supplier'),cardsFor: "goodsSupplier",
     	cardsSource: this.props.goodsSupplier,returnURL,displayName,
   		subItems: [
-{name: 'supplierProductList', displayName:'供应商的产品',viewGroup:'__no_group', type:'supplierProduct',count:supplierProductCount,addFunction: true, role: 'supplierProduct', metaInfo: supplierProductListMetaInfo, renderItem: GlobalComponents.SupplierProductBase.renderItemOfList},
-{name: 'supplyOrderList', displayName:'供应订单',viewGroup:'__no_group', type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
-{name: 'accountSetList', displayName:'账套',viewGroup:'__no_group', type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
+{name: 'supplierProductList', displayName: window.mtrans('supplier_product','goods_supplier.supplier_product_list',false) ,viewGroup:'__no_group', type:'supplierProduct',count:supplierProductCount,addFunction: true, role: 'supplierProduct', metaInfo: supplierProductListMetaInfo, renderItem: GlobalComponents.SupplierProductBase.renderItemOfList},
+{name: 'supplyOrderList', displayName: window.mtrans('supply_order','goods_supplier.supply_order_list',false) ,viewGroup:'__no_group', type:'supplyOrder',count:supplyOrderCount,addFunction: true, role: 'supplyOrder', metaInfo: supplyOrderListMetaInfo, renderItem: GlobalComponents.SupplyOrderBase.renderItemOfList},
+{name: 'accountSetList', displayName: window.mtrans('account_set','goods_supplier.account_set_list',false) ,viewGroup:'__no_group', type:'accountSet',count:accountSetCount,addFunction: true, role: 'accountSet', metaInfo: accountSetListMetaInfo, renderItem: GlobalComponents.AccountSetBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -194,8 +194,9 @@ class GoodsSupplierDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

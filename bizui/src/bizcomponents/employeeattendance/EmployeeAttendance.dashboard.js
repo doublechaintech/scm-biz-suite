@@ -164,7 +164,7 @@ class EmployeeAttendanceDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工考勤",cardsFor: "employeeAttendance",
+    const cardsData = {cardsName:window.trans('employee_attendance'),cardsFor: "employeeAttendance",
     	cardsSource: this.props.employeeAttendance,returnURL,displayName,
   		subItems: [
     
@@ -196,8 +196,9 @@ class EmployeeAttendanceDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

@@ -83,7 +83,7 @@ const transferToAnotherBelongsTo = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}transportTaskManager/addGoods/transportTaskId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
+  const url = `${PREFIX}transportTaskManager/addGoods/transportTaskId/name/rfid/uom/maxPackage/expireTime/skuId/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
   const transportTaskId = targetObjectId
   const requestParameters = { ...parameters, transportTaskId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

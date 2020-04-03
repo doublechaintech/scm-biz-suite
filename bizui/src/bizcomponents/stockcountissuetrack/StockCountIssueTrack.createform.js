@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '盘点差错',
-  countTime: '2019-02-28',
+  countTime: '2017-12-27',
   summary: '发现错误已经修正完成',
   stockCountId: 'GSSC000001',
 }
@@ -54,7 +54,7 @@ class StockCountIssueTrackCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class StockCountIssueTrackCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class StockCountIssueTrackCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<StockCountIssueTrackCreateFormBody	 {...this.props} />
+   		<StockCountIssueTrackCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -162,7 +162,7 @@ class SupplyOrderShippingGroupDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"供应订单送货分组",cardsFor: "supplyOrderShippingGroup",
+    const cardsData = {cardsName:window.trans('supply_order_shipping_group'),cardsFor: "supplyOrderShippingGroup",
     	cardsSource: this.props.supplyOrderShippingGroup,returnURL,displayName,
   		subItems: [
     
@@ -194,8 +194,9 @@ class SupplyOrderShippingGroupDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

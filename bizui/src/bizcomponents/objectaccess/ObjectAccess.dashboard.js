@@ -171,7 +171,7 @@ class ObjectAccessDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"对象访问",cardsFor: "objectAccess",
+    const cardsData = {cardsName:window.trans('object_access'),cardsFor: "objectAccess",
     	cardsSource: this.props.objectAccess,returnURL,displayName,
   		subItems: [
     
@@ -203,8 +203,9 @@ class ObjectAccessDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

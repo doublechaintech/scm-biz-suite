@@ -52,13 +52,30 @@ const topColResponsiveProps = {
   style: { marginBottom: 24, marginTop: 24 },
 };
 
+const calcLayoutForChartCard=(count)=>{
+
+  if(count===1){
+    return {...topColResponsiveProps, xs: 24,sm: 24,md: 24,lg: 24,xl:24 }
+  }
+  if(count===2){
+    return {...topColResponsiveProps, xs: 12,sm: 12,md: 12,lg: 12,xl:12 }
+  }
+  if(count===3){
+    return {...topColResponsiveProps, xs: 8,sm: 8,md: 8,lg: 8,xl:8 }
+  }
+  
+  return topColResponsiveProps
+  
+
+}
+
 const wholeLineColProps = {
   xs: 24,
   sm: 24,
-  md: 12,
-  lg: 12,
-  xl: 12,
-  style: {  marginBottom: 24, marginTop: 24},
+  md: 24,
+  lg: 24,
+  xl: 24,
+  style: {  marginBottom: 24},
 };
 
 
@@ -82,7 +99,7 @@ const renderForNumbers = aggregatedData => {
   if (!data.dataArray) {
     return null;
   }
-  if (data.dataArray.length == 0) {
+  if (data.dataArray.length === 0) {
     return null;
   }
   // <MiniArea color="#975FE4" data={visitData} />
@@ -118,7 +135,7 @@ const renderForNumbers = aggregatedData => {
         const visitData = [];
         let itemTotal = 0;
         const weekData = { lastWeek: 0, thisWeek: 0, lastWeekCount: 7, change: 0 };
-
+        const chartCardLayout = topColResponsiveProps
         data.dataArray
           .filter(dateItem => dateItem.date !== '未分配')
           .filter(dateItem => dateItem[item] > 0)
@@ -175,7 +192,7 @@ const renderForNumbers = aggregatedData => {
 
 
         return (
-          <Col key={item} {...topColResponsiveProps}>
+          <Col key={item} {...chartCardLayout}>
             <ChartCard
               bordered={false}
               title={item}
@@ -682,7 +699,7 @@ const defaultRenderSubjectList2 = cardsData => {
 };
 
 
-const defaultRenderSubjectList3 = cardsData => {
+const defaultRenderSubjectList = cardsData => {
   
   // listItem.renderItem(item)
   const targetObject = cardsData.cardsSource
@@ -700,14 +717,13 @@ const defaultRenderSubjectList3 = cardsData => {
           <TabPane tab={listItem.displayName} key={listItem.displayName}>
           <Col key={listItem.displayName} span={24} {...wholeLineColProps}>
             
-             <Card title={listItem.displayName} style={{ marginBottom: 24 }} >
-
+             
             {
              
-              targetObject[listItem.name].map(item=>(listItem.renderItem(item)))
+              targetObject[listItem.name].map(item=>(listItem.renderItem(item,null,6)))
             }
            
-             </Card>
+    
           </Col>
           </TabPane>
         ))}
@@ -718,7 +734,7 @@ const defaultRenderSubjectList3 = cardsData => {
 };
 
 
-const defaultRenderSubjectList = cardsData => {
+const defaultRenderSubjectList4 = cardsData => {
   
   // listItem.renderItem(item)
   const targetObject = cardsData.cardsSource
@@ -840,7 +856,7 @@ const defaultQuickFunctions2 = cardsData => {
 
          <Tooltip title={`进入${item.displayName}列表`} placement="bottom">  
          <Link  to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}>
-         {item.displayName} </Link><span style={{fontSize:"10px"}}> 共{item.count}条</span>
+         {item.displayName} 111</Link><span style={{fontSize:"10px"}}> 共{item.count}条</span>
          </Tooltip>
          
          </Col>
@@ -896,7 +912,7 @@ const showNumber=(item)=>{
 const functionItem=(cardsData,item)=>{
   const { id } = cardsData.cardsSource;
 
-  
+  console.log("item.displayName",item.displayName);
 
   return (<Col key={item.displayName} span={4} className={styles.functionItem}>
   
@@ -904,7 +920,7 @@ const functionItem=(cardsData,item)=>{
 
       <Tooltip title={`进入${item.displayName}列表${showNumber(item)}`} placement="bottom">  
       <Link  to={`/${cardsData.cardsFor}/${id}/list/${item.name}/${item.displayName}列表`}>
-      {keepShort(item.displayName,9)} </Link>
+      {keepShort(item.displayName,9)}</Link>
       </Tooltip>
       
 
@@ -940,7 +956,7 @@ const CustomFunction=(cardsData)=>{
   if(!actionList || actionList.length ===0 || actionList.filter(item => item.actionGroup==="custom").length === 0){
     return null
   }
-  return (<Row gutter={16} className={styles.functionRow} >
+  return (<Row key="__custom" gutter={16} className={styles.functionRow} >
     <Card span={6} style={{fontSize:"14px"}}>
         <Col span={3} className={styles.functionItem}>
         
@@ -982,7 +998,7 @@ const defaultQuickFunctions = cardsData => {
     {
       groupMenuOf(cardsData).map(groupItem=>(
 
-        <Row gutter={16} className={styles.functionRow} >
+        <Row key={groupItem.viewGroup} gutter={16} className={styles.functionRow} >
 
           <Card span={6} style={{fontSize:"14px"}}>
 

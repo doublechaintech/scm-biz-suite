@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './LevelThreeDepartment.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -69,25 +69,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(levelThreeDepartment,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(levelThreeDepartment, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={levelThreeDepartment.id}>
+    <Card key={levelThreeDepartment.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(levelThreeDepartment.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={levelThreeDepartment.id} size="small" col="2" >
+      <DescriptionList  key={levelThreeDepartment.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{levelThreeDepartment.id}</Description> 
-        <Description term={fieldLabels.belongsTo}><div>{levelThreeDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${levelThreeDepartment.belongsTo.displayName}(${levelThreeDepartment.belongsTo.id})`}
-        </div></Description>
+        <Description term={fieldLabels.belongsTo}><Tag color='blue' title={`${levelThreeDepartment.belongsTo.id}-${levelThreeDepartment.belongsTo.displayName}`}>{levelThreeDepartment.belongsTo==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(levelThreeDepartment.belongsTo.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{levelThreeDepartment.name}</Description> 
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{levelThreeDepartment.description}</Description> 
         <Description term={fieldLabels.founded}><div>{ moment(levelThreeDepartment.founded).format('YYYY-MM-DD')}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -95,13 +121,13 @@ const renderItemOfList=(levelThreeDepartment,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {name, description, founded, belongsToId} = formValuesToPack
 	const belongsTo = {id: belongsToId, version: 2^31}
-	const data = {name, description, founded, belongsTo}
+	const data = {name, description, founded:moment(founded).valueOf(), belongsTo}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {name, description, founded, belongsTo} = objectToUnpack
 	const belongsToId = belongsTo ? belongsTo.id : null
-	const data = {name, description, founded, belongsToId}
+	const data = {name, description, founded:moment(founded), belongsToId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -114,8 +140,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const LevelThreeDepartmentBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const LevelThreeDepartmentBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default LevelThreeDepartmentBase
-
-
 

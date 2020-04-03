@@ -69,12 +69,3 @@ const CandidateElementService = { view,
   transferToAnotherContainer, listFunctions, saveRequest, processRequest}
 export default CandidateElementService
 
-
-
-
-
-
-
-
-
-

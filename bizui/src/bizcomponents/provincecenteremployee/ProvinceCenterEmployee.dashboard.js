@@ -170,7 +170,7 @@ class ProvinceCenterEmployeeDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"省中心员工",cardsFor: "provinceCenterEmployee",
+    const cardsData = {cardsName:window.trans('province_center_employee'),cardsFor: "provinceCenterEmployee",
     	cardsSource: this.props.provinceCenterEmployee,returnURL,displayName,
   		subItems: [
     
@@ -202,8 +202,9 @@ class ProvinceCenterEmployeeDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

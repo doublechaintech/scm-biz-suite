@@ -298,12 +298,12 @@ class LevelOneDepartmentUpdateForm extends Component {
               </Col>
 
               <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.managerName} {...formItemLayout}>
-                  {getFieldDecorator('managerName', {
-                    initialValue: selectedRow.managerName,
+                <Form.Item label={fieldLabels.manager} {...formItemLayout}>
+                  {getFieldDecorator('manager', {
+                    initialValue: selectedRow.manager,
                     rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
                   })(
-                    <Input size="large"  placeHolder={fieldLabels.managerName} />
+                    <Input size="large"  placeHolder={fieldLabels.manager} />
                     
                   )}
                 </Form.Item>

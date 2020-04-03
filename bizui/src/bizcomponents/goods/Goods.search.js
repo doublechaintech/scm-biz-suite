@@ -72,7 +72,6 @@ const showAssociateDialog = (targetComponent) => {
   const { RetailStoreAssociateForm } = GlobalComponents
   const { SupplyOrderAssociateForm } = GlobalComponents
   const { RetailStoreOrderAssociateForm } = GlobalComponents
-  const { GoodsPackagingAssociateForm } = GlobalComponents
 
 
   return (
@@ -116,11 +115,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='retailStoreOrder'} 
 	data={{goodsList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'retailStoreOrder')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'retailStoreOrder')}/> <GoodsPackagingAssociateForm 
-	visible={currentAssociateModal==='packaging'} 
-	data={{goodsList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'packaging')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'packaging')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'retailStoreOrder')}/> 
  
 
 

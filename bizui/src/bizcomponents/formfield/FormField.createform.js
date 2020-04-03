@@ -63,7 +63,7 @@ class FormFieldCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -71,9 +71,9 @@ class FormFieldCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -223,7 +223,7 @@ class FormFieldCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<FormFieldCreateFormBody	 {...this.props} />
+   		<FormFieldCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

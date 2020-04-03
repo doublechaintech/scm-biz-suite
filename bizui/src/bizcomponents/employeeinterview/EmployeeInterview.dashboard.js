@@ -167,7 +167,7 @@ class EmployeeInterviewDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"员工面试",cardsFor: "employeeInterview",
+    const cardsData = {cardsName:window.trans('employee_interview'),cardsFor: "employeeInterview",
     	cardsSource: this.props.employeeInterview,returnURL,displayName,
   		subItems: [
     
@@ -199,8 +199,9 @@ class EmployeeInterviewDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

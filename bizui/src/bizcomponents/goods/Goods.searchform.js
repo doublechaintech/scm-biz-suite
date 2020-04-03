@@ -144,7 +144,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'retailStore'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'bizOrder'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'retailStoreOrder'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'packaging'))
 
      
       console.log("the final parameter", paramList)
@@ -392,18 +391,6 @@ componentDidMount() {
                     disabled={!availableForEdit('retailStoreOrder')}
                     targetType={"retailStoreOrder"} 
                     requestFunction={GoodsService.requestCandidateRetailStoreOrder} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.packaging}>
-                  {getFieldDecorator('packaging', {initialValue: tryinit('packaging')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('packaging')}
-                    targetType={"packaging"} 
-                    requestFunction={GoodsService.requestCandidatePackaging} useForSearch />
                   	
                  
                   )}

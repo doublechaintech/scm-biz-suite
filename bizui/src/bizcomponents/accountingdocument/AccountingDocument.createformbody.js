@@ -18,13 +18,9 @@ const testValues = {};
 /*
 const testValues = {
   name: '记账凭证',
-  accountingDocumentDate: '2019-11-11',
+  accountingDocumentDate: '2017-09-09',
   accountingPeriodId: 'AP000001',
   documentTypeId: 'ADT000001',
-  creationId: 'ADC000001',
-  confirmationId: 'ADC000001',
-  auditingId: 'ADA000001',
-  postingId: 'ADP000001',
 }
 */
 
@@ -56,18 +52,22 @@ class AccountingDocumentCreateFormBody extends Component {
  
 
 
+  handleImageChange = (event, source) => {
 
-  handleChange = (event, source) => {
-    console.log('get file list from change in update change:', source)
+    const {handleImageChange} = this.props
+    if(!handleImageChange){
+      console.log('FAILED GET PROCESS FUNCTION TO HANDLE IMAGE VALUE CHANGE', source)
+      return 
+    }
 
-    const { fileList } = event
     const { convertedImagesValues } = this.state
-
+    const { fileList } = event
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
-  }
+    handleImageChange(event, source)
 	
+ 
+  }
   
 
   render() {
@@ -185,82 +185,6 @@ class AccountingDocumentCreateFormBody extends Component {
                     disabled={!availableForEdit('documentType')}
                     targetType={"documentType"} 
                     requestFunction={AccountingDocumentService.requestCandidateDocumentType}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.creation} {...formItemLayout}>
-                  {getFieldDecorator('creationId', {
-                  	initialValue: tryinit('creation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('creation')}
-                    targetType={"creation"} 
-                    requestFunction={AccountingDocumentService.requestCandidateCreation}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
-                  {getFieldDecorator('confirmationId', {
-                  	initialValue: tryinit('confirmation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={AccountingDocumentService.requestCandidateConfirmation}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.auditing} {...formItemLayout}>
-                  {getFieldDecorator('auditingId', {
-                  	initialValue: tryinit('auditing'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('auditing')}
-                    targetType={"auditing"} 
-                    requestFunction={AccountingDocumentService.requestCandidateAuditing}/>
-                  
-                 
-                  )}
-                </Form.Item>
-              </Col>
-
-           
-
-              <Col lg={24} md={24} sm={24}>
-                <Form.Item label={fieldLabels.posting} {...formItemLayout}>
-                  {getFieldDecorator('postingId', {
-                  	initialValue: tryinit('posting'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('posting')}
-                    targetType={"posting"} 
-                    requestFunction={AccountingDocumentService.requestCandidatePosting}/>
                   
                  
                   )}

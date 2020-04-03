@@ -19,10 +19,10 @@ const testValues = {};
 /*
 const testValues = {
   location: '成都龙泉驿飞鹤路20号供货商独立管理区',
-  contactNumber: '21613682',
+  contactNumber: '028 87654321',
   totalArea: '1876平方米',
-  latitude: '41.08061533758971',
-  longitude: '131.603528331129',
+  latitude: '40.05506037627094',
+  longitude: '129.69575475457037',
   warehouseId: 'W000001',
 }
 */
@@ -56,7 +56,7 @@ class SupplierSpaceCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class SupplierSpaceCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class SupplierSpaceCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<SupplierSpaceCreateFormBody	 {...this.props} />
+   		<SupplierSpaceCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

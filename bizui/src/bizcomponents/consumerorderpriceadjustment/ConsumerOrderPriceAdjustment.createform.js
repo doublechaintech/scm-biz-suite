@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '端午促销',
-  amount: '536.73',
+  amount: '574.41',
   provider: '供货商',
   bizOrderId: 'CO000001',
 }
@@ -54,7 +54,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -62,9 +62,9 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -214,7 +214,7 @@ class ConsumerOrderPriceAdjustmentCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<ConsumerOrderPriceAdjustmentCreateFormBody	 {...this.props} />
+   		<ConsumerOrderPriceAdjustmentCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -177,7 +177,7 @@ class PotentialCustomerContactDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"潜在客户联系",cardsFor: "potentialCustomerContact",
+    const cardsData = {cardsName:window.trans('potential_customer_contact'),cardsFor: "potentialCustomerContact",
     	cardsSource: this.props.potentialCustomerContact,returnURL,displayName,
   		subItems: [
     
@@ -209,8 +209,9 @@ class PotentialCustomerContactDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

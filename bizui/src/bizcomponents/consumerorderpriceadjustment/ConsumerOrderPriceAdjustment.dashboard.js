@@ -163,7 +163,7 @@ class ConsumerOrderPriceAdjustmentDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"消费品价格调整",cardsFor: "consumerOrderPriceAdjustment",
+    const cardsData = {cardsName:window.trans('consumer_order_price_adjustment'),cardsFor: "consumerOrderPriceAdjustment",
     	cardsSource: this.props.consumerOrderPriceAdjustment,returnURL,displayName,
   		subItems: [
     
@@ -195,8 +195,9 @@ class ConsumerOrderPriceAdjustmentDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

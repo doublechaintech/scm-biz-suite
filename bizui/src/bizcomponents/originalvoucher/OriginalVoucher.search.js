@@ -64,9 +64,6 @@ const showAssociateDialog = (targetComponent) => {
   const {selectedRows} = targetComponent.state
   
   const { AccountingDocumentAssociateForm } = GlobalComponents
-  const { OriginalVoucherCreationAssociateForm } = GlobalComponents
-  const { OriginalVoucherConfirmationAssociateForm } = GlobalComponents
-  const { OriginalVoucherAuditingAssociateForm } = GlobalComponents
 
 
   return (
@@ -78,19 +75,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='belongsTo'} 
 	data={{originalVoucherList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> <OriginalVoucherCreationAssociateForm 
-	visible={currentAssociateModal==='creation'} 
-	data={{originalVoucherList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'creation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'creation')}/> <OriginalVoucherConfirmationAssociateForm 
-	visible={currentAssociateModal==='confirmation'} 
-	data={{originalVoucherList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'confirmation')}/> <OriginalVoucherAuditingAssociateForm 
-	visible={currentAssociateModal==='auditing'} 
-	data={{originalVoucherList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'auditing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'auditing')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'belongsTo')}/> 
  
 
 

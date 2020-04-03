@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './AccountSet.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -77,7 +77,7 @@ const displayColumns = [
   { title: fieldLabels.domesticCurrencyCode, debugtype: 'string', dataIndex: 'domesticCurrencyCode', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.domesticCurrencyName, debugtype: 'string', dataIndex: 'domesticCurrencyName', width: '7',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.openingBank, debugtype: 'string', dataIndex: 'openingBank', width: '8',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.accountNumber, debugtype: 'long', dataIndex: 'accountNumber', width: '18',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.accountNumber, debugtype: 'string', dataIndex: 'accountNumber', width: '21',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.countryCenter, dataIndex: 'countryCenter', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.retailStore, dataIndex: 'retailStore', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.goodsSupplier, dataIndex: 'goodsSupplier', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -87,14 +87,40 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(accountSet,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(accountSet, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={accountSet.id}>
+    <Card key={accountSet.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(accountSet.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={accountSet.id} size="small" col="2" >
+      <DescriptionList  key={accountSet.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{accountSet.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{accountSet.name}</Description> 
         <Description term={fieldLabels.yearSet} style={{wordBreak: 'break-all'}}>{accountSet.yearSet}</Description> 
@@ -103,17 +129,17 @@ const renderItemOfList=(accountSet,targetComponent)=>{
         <Description term={fieldLabels.domesticCurrencyCode} style={{wordBreak: 'break-all'}}>{accountSet.domesticCurrencyCode}</Description> 
         <Description term={fieldLabels.domesticCurrencyName} style={{wordBreak: 'break-all'}}>{accountSet.domesticCurrencyName}</Description> 
         <Description term={fieldLabels.openingBank} style={{wordBreak: 'break-all'}}>{accountSet.openingBank}</Description> 
-        <Description term={fieldLabels.accountNumber}><div style={{"color":"red"}}>{accountSet.accountNumber}</div></Description> 
-        <Description term={fieldLabels.retailStore}><div>{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.retailStore.displayName}(${accountSet.retailStore.id})`}
-        </div></Description>
-        <Description term={fieldLabels.goodsSupplier}><div>{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${accountSet.goodsSupplier.displayName}(${accountSet.goodsSupplier.id})`}
-        </div></Description>
+        <Description term={fieldLabels.accountNumber} style={{wordBreak: 'break-all'}}>{accountSet.accountNumber}</Description> 
+        <Description term={fieldLabels.retailStore}><Tag color='blue' title={`${accountSet.retailStore.id}-${accountSet.retailStore.displayName}`}>{accountSet.retailStore==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountSet.retailStore.displayName,15)}`}
+        </Tag></Description>
+        <Description term={fieldLabels.goodsSupplier}><Tag color='blue' title={`${accountSet.goodsSupplier.id}-${accountSet.goodsSupplier.displayName}`}>{accountSet.goodsSupplier==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(accountSet.goodsSupplier.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(accountSet.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -123,7 +149,7 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const countryCenter = {id: countryCenterId, version: 2^31}
 	const retailStore = {id: retailStoreId, version: 2^31}
 	const goodsSupplier = {id: goodsSupplierId, version: 2^31}
-	const data = {name, yearSet, effectiveDate, accountingSystem, domesticCurrencyCode, domesticCurrencyName, openingBank, accountNumber, countryCenter, retailStore, goodsSupplier}
+	const data = {name, yearSet, effectiveDate:moment(effectiveDate).valueOf(), accountingSystem, domesticCurrencyCode, domesticCurrencyName, openingBank, accountNumber, countryCenter, retailStore, goodsSupplier}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
@@ -131,7 +157,7 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const countryCenterId = countryCenter ? countryCenter.id : null
 	const retailStoreId = retailStore ? retailStore.id : null
 	const goodsSupplierId = goodsSupplier ? goodsSupplier.id : null
-	const data = {name, yearSet, effectiveDate, accountingSystem, domesticCurrencyCode, domesticCurrencyName, openingBank, accountNumber, countryCenterId, retailStoreId, goodsSupplierId}
+	const data = {name, yearSet, effectiveDate:moment(effectiveDate), accountingSystem, domesticCurrencyCode, domesticCurrencyName, openingBank, accountNumber, countryCenterId, retailStoreId, goodsSupplierId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -144,8 +170,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const AccountSetBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const AccountSetBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default AccountSetBase
-
-
 

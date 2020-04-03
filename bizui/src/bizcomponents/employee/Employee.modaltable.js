@@ -38,7 +38,7 @@ class EmployeeModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 2625 }}
+          scroll={{ x: 1680 }}
         />
       </div>
     )

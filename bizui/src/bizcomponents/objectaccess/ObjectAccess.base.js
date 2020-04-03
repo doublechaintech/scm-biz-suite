@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './ObjectAccess.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -84,14 +84,40 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(objectAccess,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(objectAccess, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={objectAccess.id}>
+    <Card key={objectAccess.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(objectAccess.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={objectAccess.id} size="small" col="2" >
+      <DescriptionList  key={objectAccess.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{objectAccess.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{objectAccess.name}</Description> 
         <Description term={fieldLabels.objectType} style={{wordBreak: 'break-all'}}>{objectAccess.objectType}</Description> 
@@ -104,13 +130,13 @@ const renderItemOfList=(objectAccess,targetComponent)=>{
         <Description term={fieldLabels.list7} style={{wordBreak: 'break-all'}}>{objectAccess.list7}</Description> 
         <Description term={fieldLabels.list8} style={{wordBreak: 'break-all'}}>{objectAccess.list8}</Description> 
         <Description term={fieldLabels.list9} style={{wordBreak: 'break-all'}}>{objectAccess.list9}</Description> 
-        <Description term={fieldLabels.app}><div>{objectAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${objectAccess.app.displayName}(${objectAccess.app.id})`}
-        </div></Description>
+        <Description term={fieldLabels.app}><Tag color='blue' title={`${objectAccess.app.id}-${objectAccess.app.displayName}`}>{objectAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(objectAccess.app.displayName,15)}`}
+        </Tag></Description>
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -137,8 +163,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const ObjectAccessBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const ObjectAccessBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default ObjectAccessBase
-
-
 

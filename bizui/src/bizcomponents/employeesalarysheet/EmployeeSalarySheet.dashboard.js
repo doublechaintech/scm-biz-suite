@@ -179,7 +179,7 @@ class EmployeeSalarySheetDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"工资单",cardsFor: "employeeSalarySheet",
+    const cardsData = {cardsName:window.trans('employee_salary_sheet'),cardsFor: "employeeSalarySheet",
     	cardsSource: this.props.employeeSalarySheet,returnURL,displayName,
   		subItems: [
     
@@ -211,8 +211,9 @@ class EmployeeSalarySheetDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

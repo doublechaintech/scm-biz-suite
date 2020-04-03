@@ -60,7 +60,7 @@ const removeSupplierProductList = (targetObjectId, parameters) => {
 
 
 const addSupplyOrder = (targetObjectId, parameters) => {
-  const url = `${PREFIX}goodsSupplierManager/addSupplyOrder/goodsSupplierId/buyerId/title/totalAmount/confirmationId/approvalId/processingId/pickingId/shipmentId/deliveryId/tokensExpr/`
+  const url = `${PREFIX}goodsSupplierManager/addSupplyOrder/goodsSupplierId/buyerId/title/totalAmount/tokensExpr/`
   const goodsSupplierId = targetObjectId
   const requestParameters = { ...parameters, goodsSupplierId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

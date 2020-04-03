@@ -134,11 +134,6 @@ componentDidMount() {
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'id'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'contains', 'title'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'consumer'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'confirmation'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'approval'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'processing'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'shipment'))
-		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'delivery'))
 		pushIfNotNull(paramList,this.buildStringSearchParameters(listName, fieldsValue,'eq', 'store'))
 
      
@@ -275,66 +270,6 @@ componentDidMount() {
                     disabled={!availableForEdit('consumer')}
                     targetType={"consumer"} 
                     requestFunction={ConsumerOrderService.requestCandidateConsumer} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.confirmation}>
-                  {getFieldDecorator('confirmation', {initialValue: tryinit('confirmation')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={ConsumerOrderService.requestCandidateConfirmation} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.approval}>
-                  {getFieldDecorator('approval', {initialValue: tryinit('approval')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('approval')}
-                    targetType={"approval"} 
-                    requestFunction={ConsumerOrderService.requestCandidateApproval} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.processing}>
-                  {getFieldDecorator('processing', {initialValue: tryinit('processing')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('processing')}
-                    targetType={"processing"} 
-                    requestFunction={ConsumerOrderService.requestCandidateProcessing} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.shipment}>
-                  {getFieldDecorator('shipment', {initialValue: tryinit('shipment')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('shipment')}
-                    targetType={"shipment"} 
-                    requestFunction={ConsumerOrderService.requestCandidateShipment} useForSearch />
-                  	
-                 
-                  )}
-                </Form.Item></Col>
- <Col md={8} sm={24}>
-                    <Form.Item label={fieldLabels.delivery}>
-                  {getFieldDecorator('delivery', {initialValue: tryinit('delivery')})(
-                  
-                  <SelectObject 
-                    disabled={!availableForEdit('delivery')}
-                    targetType={"delivery"} 
-                    requestFunction={ConsumerOrderService.requestCandidateDelivery} useForSearch />
                   	
                  
                   )}

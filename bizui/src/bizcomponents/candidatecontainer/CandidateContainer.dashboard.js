@@ -155,10 +155,10 @@ class CandidateContainerDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"候选人容器",cardsFor: "candidateContainer",
+    const cardsData = {cardsName:window.trans('candidate_container'),cardsFor: "candidateContainer",
     	cardsSource: this.props.candidateContainer,returnURL,displayName,
   		subItems: [
-{name: 'candidateElementList', displayName:'候选人元素',viewGroup:'__no_group', type:'candidateElement',count:candidateElementCount,addFunction: true, role: 'candidateElement', metaInfo: candidateElementListMetaInfo, renderItem: GlobalComponents.CandidateElementBase.renderItemOfList},
+{name: 'candidateElementList', displayName: window.mtrans('candidate_element','candidate_container.candidate_element_list',false) ,viewGroup:'__no_group', type:'candidateElement',count:candidateElementCount,addFunction: true, role: 'candidateElement', metaInfo: candidateElementListMetaInfo, renderItem: GlobalComponents.CandidateElementBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -188,8 +188,9 @@ class CandidateContainerDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

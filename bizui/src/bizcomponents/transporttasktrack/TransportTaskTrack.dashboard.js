@@ -163,7 +163,7 @@ class TransportTaskTrackDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"运输任务跟踪",cardsFor: "transportTaskTrack",
+    const cardsData = {cardsName:window.trans('transport_task_track'),cardsFor: "transportTaskTrack",
     	cardsSource: this.props.transportTaskTrack,returnURL,displayName,
   		subItems: [
     
@@ -195,8 +195,9 @@ class TransportTaskTrackDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       

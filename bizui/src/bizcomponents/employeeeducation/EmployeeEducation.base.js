@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './EmployeeEducation.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -68,25 +68,51 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(employeeEducation,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(employeeEducation, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={employeeEducation.id}>
+    <Card key={employeeEducation.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(employeeEducation.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={employeeEducation.id} size="small" col="2" >
+      <DescriptionList  key={employeeEducation.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{employeeEducation.id}</Description> 
-        <Description term={fieldLabels.employee}><div>{employeeEducation.employee==null?appLocaleName(userContext,"NotAssigned"):`${employeeEducation.employee.displayName}(${employeeEducation.employee.id})`}
-        </div></Description>
+        <Description term={fieldLabels.employee}><Tag color='blue' title={`${employeeEducation.employee.id}-${employeeEducation.employee.displayName}`}>{employeeEducation.employee==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(employeeEducation.employee.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.completeTime}><div>{ moment(employeeEducation.completeTime).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.type} style={{wordBreak: 'break-all'}}>{employeeEducation.type}</Description> 
         <Description term={fieldLabels.remark} style={{wordBreak: 'break-all'}}>{employeeEducation.remark}</Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -94,13 +120,13 @@ const renderItemOfList=(employeeEducation,targetComponent)=>{
 const packFormValuesToObject = ( formValuesToPack )=>{
 	const {completeTime, type, remark, employeeId} = formValuesToPack
 	const employee = {id: employeeId, version: 2^31}
-	const data = {completeTime, type, remark, employee}
+	const data = {completeTime:moment(completeTime).valueOf(), type, remark, employee}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const {completeTime, type, remark, employee} = objectToUnpack
 	const employeeId = employee ? employee.id : null
-	const data = {completeTime, type, remark, employeeId}
+	const data = {completeTime:moment(completeTime), type, remark, employeeId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -113,8 +139,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const EmployeeEducationBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const EmployeeEducationBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default EmployeeEducationBase
-
-
 

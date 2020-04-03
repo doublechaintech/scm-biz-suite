@@ -38,7 +38,7 @@ class OriginalVoucherModalTable extends PureComponent {
           dataSource={data}
           columns={displayColumns}
           size="small"
-          scroll={{ x: 1035 }}
+          scroll={{ x: 800 }}
         />
       </div>
     )

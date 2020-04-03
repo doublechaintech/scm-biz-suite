@@ -19,11 +19,11 @@ const testValues = {};
 /*
 const testValues = {
   name: '中和社区小超',
-  telephone: '1232626516',
+  telephone: '028 87654321',
   owner: '吕刚',
-  founded: '2017-09-01',
-  latitude: '42.40994728923161',
-  longitude: '131.2421787258618',
+  founded: '2020-02-11',
+  latitude: '41.84721076383853',
+  longitude: '130.47159715543103',
   description: '啤酒饮料矿泉水，香肠瓜子方便面, 请让一让',
   retailStoreCountryCenterId: 'RSCC000001',
   cityServiceCenterId: 'RSCSC000001',
@@ -65,7 +65,7 @@ class RetailStoreCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -73,9 +73,9 @@ class RetailStoreCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -225,7 +225,7 @@ class RetailStoreCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<RetailStoreCreateFormBody	 {...this.props} />
+   		<RetailStoreCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

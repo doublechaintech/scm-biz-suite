@@ -21,7 +21,7 @@ const testValues = {
   name: '刘强',
   mobile: '13999998888',
   email: 'wangdehong@yatang.cn',
-  founded: '2018-04-01',
+  founded: '2018-11-19',
   departmentId: 'PCD000001',
   provinceCenterId: 'RSPC000001',
 }
@@ -56,7 +56,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -64,9 +64,9 @@ class ProvinceCenterEmployeeCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -216,7 +216,7 @@ class ProvinceCenterEmployeeCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<ProvinceCenterEmployeeCreateFormBody	 {...this.props} />
+   		<ProvinceCenterEmployeeCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './RetailStore.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -77,7 +77,7 @@ const fieldLabels = {
 const displayColumns = [
   { title: fieldLabels.id, debugtype: 'string', dataIndex: 'id', width: '8', render: (text, record)=>renderTextCell(text,record,'retailStore') , sorter: true },
   { title: fieldLabels.name, debugtype: 'string', dataIndex: 'name', width: '10',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.telephone, debugtype: 'long', dataIndex: 'telephone', width: '15',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.telephone, debugtype: 'string', dataIndex: 'telephone', width: '16',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.owner, debugtype: 'string', dataIndex: 'owner', width: '6',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.retailStoreCountryCenter, dataIndex: 'retailStoreCountryCenter', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.cityServiceCenter, dataIndex: 'cityServiceCenter', render: (text, record) => renderReferenceCell(text, record), sorter:true},
@@ -88,8 +88,8 @@ const displayColumns = [
   { title: fieldLabels.opening, dataIndex: 'opening', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.closing, dataIndex: 'closing', render: (text, record) => renderReferenceCell(text, record), sorter:true},
   { title: fieldLabels.founded, dataIndex: 'founded', render: (text, record) =>renderDateCell(text,record), sorter: true },
-  { title: fieldLabels.latitude, debugtype: 'double', dataIndex: 'latitude', width: '13',render: (text, record)=>renderTextCell(text,record)},
-  { title: fieldLabels.longitude, debugtype: 'double', dataIndex: 'longitude', width: '14',render: (text, record)=>renderTextCell(text,record)},
+  { title: fieldLabels.latitude, dataIndex: 'latitude', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
+  { title: fieldLabels.longitude, dataIndex: 'longitude', className:'money', render: (text, record) => renderTextCell(text, record), sorter: true  },
   { title: fieldLabels.description, debugtype: 'string', dataIndex: 'description', width: '25',render: (text, record)=>renderTextCell(text,record)},
   { title: fieldLabels.lastUpdateTime, dataIndex: 'lastUpdateTime', render: (text, record) =>renderDateTimeCell(text,record), sorter: true},
 
@@ -97,20 +97,46 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(retailStore,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(retailStore, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={retailStore.id}>
+    <Card key={retailStore.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(retailStore.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={retailStore.id} size="small" col="2" >
+      <DescriptionList  key={retailStore.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{retailStore.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{retailStore.name}</Description> 
-        <Description term={fieldLabels.telephone}><div style={{"color":"red"}}>{retailStore.telephone}</div></Description> 
+        <Description term={fieldLabels.telephone} style={{wordBreak: 'break-all'}}>{retailStore.telephone}</Description> 
         <Description term={fieldLabels.owner} style={{wordBreak: 'break-all'}}>{retailStore.owner}</Description> 
-        <Description term={fieldLabels.cityServiceCenter}><div>{retailStore.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${retailStore.cityServiceCenter.displayName}(${retailStore.cityServiceCenter.id})`}
-        </div></Description>
+        <Description term={fieldLabels.cityServiceCenter}><Tag color='blue' title={`${retailStore.cityServiceCenter.id}-${retailStore.cityServiceCenter.displayName}`}>{retailStore.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(retailStore.cityServiceCenter.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.founded}><div>{ moment(retailStore.founded).format('YYYY-MM-DD')}</div></Description> 
         <Description term={fieldLabels.latitude}><div style={{"color":"red"}}>{retailStore.latitude}</div></Description> 
         <Description term={fieldLabels.longitude}><div style={{"color":"red"}}>{retailStore.longitude}</div></Description> 
@@ -119,8 +145,8 @@ const renderItemOfList=(retailStore,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -135,7 +161,7 @@ const packFormValuesToObject = ( formValuesToPack )=>{
 	const decoration = {id: decorationId, version: 2^31}
 	const opening = {id: openingId, version: 2^31}
 	const closing = {id: closingId, version: 2^31}
-	const data = {name, telephone, owner, founded, latitude, longitude, description, retailStoreCountryCenter, cityServiceCenter, creation, investmentInvitation, franchising, decoration, opening, closing}
+	const data = {name, telephone, owner, founded:moment(founded).valueOf(), latitude, longitude, description, retailStoreCountryCenter, cityServiceCenter, creation, investmentInvitation, franchising, decoration, opening, closing}
 	return data
 }
 const unpackObjectToFormValues = ( objectToUnpack )=>{
@@ -148,7 +174,7 @@ const unpackObjectToFormValues = ( objectToUnpack )=>{
 	const decorationId = decoration ? decoration.id : null
 	const openingId = opening ? opening.id : null
 	const closingId = closing ? closing.id : null
-	const data = {name, telephone, owner, founded, latitude, longitude, description, retailStoreCountryCenterId, cityServiceCenterId, creationId, investmentInvitationId, franchisingId, decorationId, openingId, closingId}
+	const data = {name, telephone, owner, founded:moment(founded), latitude, longitude, description, retailStoreCountryCenterId, cityServiceCenterId, creationId, investmentInvitationId, franchisingId, decorationId, openingId, closingId}
 	return data
 }
 const stepOf=(targetComponent, title, content, position, index)=>{
@@ -161,8 +187,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const RetailStoreBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const RetailStoreBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default RetailStoreBase
-
-
 

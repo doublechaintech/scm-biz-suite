@@ -20,11 +20,6 @@ const testValues = {};
 const testValues = {
   title: '消费订单',
   consumerId: 'RSM000001',
-  confirmationId: 'SOC000001',
-  approvalId: 'SOA000001',
-  processingId: 'SOP000001',
-  shipmentId: 'SOS000001',
-  deliveryId: 'SOD000001',
   storeId: 'RS000001',
 }
 */
@@ -181,81 +176,6 @@ class ConsumerOrderAssociateForm extends Component {
                     disabled={!availableForEdit('consumer')}
                     targetType={"consumer"} 
                     requestFunction={ConsumerOrderService.requestCandidateConsumer}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.confirmation} {...formItemLayout}>
-                  {getFieldDecorator('confirmationId', {
-                  	initialValue: tryinit('confirmation'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('confirmation')}
-                    targetType={"confirmation"} 
-                    requestFunction={ConsumerOrderService.requestCandidateConfirmation}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.approval} {...formItemLayout}>
-                  {getFieldDecorator('approvalId', {
-                  	initialValue: tryinit('approval'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('approval')}
-                    targetType={"approval"} 
-                    requestFunction={ConsumerOrderService.requestCandidateApproval}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.processing} {...formItemLayout}>
-                  {getFieldDecorator('processingId', {
-                  	initialValue: tryinit('processing'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('processing')}
-                    targetType={"processing"} 
-                    requestFunction={ConsumerOrderService.requestCandidateProcessing}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.shipment} {...formItemLayout}>
-                  {getFieldDecorator('shipmentId', {
-                  	initialValue: tryinit('shipment'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('shipment')}
-                    targetType={"shipment"} 
-                    requestFunction={ConsumerOrderService.requestCandidateShipment}/>
-  
-                  )}
-                </Form.Item>
-              </Col>
-
-              <Col lg={12} md={12} sm={24}>
-                <Form.Item label={fieldLabels.delivery} {...formItemLayout}>
-                  {getFieldDecorator('deliveryId', {
-                  	initialValue: tryinit('delivery'),
-                    rules: [{ required: true, message: appLocaleName(userContext,"PleaseInput") }],
-                  })(
-                <SelectObject 
-                    disabled={!availableForEdit('delivery')}
-                    targetType={"delivery"} 
-                    requestFunction={ConsumerOrderService.requestCandidateDelivery}/>
   
                   )}
                 </Form.Item>

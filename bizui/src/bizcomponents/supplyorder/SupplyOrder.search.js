@@ -65,12 +65,6 @@ const showAssociateDialog = (targetComponent) => {
   
   const { RetailStoreCountryCenterAssociateForm } = GlobalComponents
   const { GoodsSupplierAssociateForm } = GlobalComponents
-  const { SupplyOrderConfirmationAssociateForm } = GlobalComponents
-  const { SupplyOrderApprovalAssociateForm } = GlobalComponents
-  const { SupplyOrderProcessingAssociateForm } = GlobalComponents
-  const { SupplyOrderPickingAssociateForm } = GlobalComponents
-  const { SupplyOrderShipmentAssociateForm } = GlobalComponents
-  const { SupplyOrderDeliveryAssociateForm } = GlobalComponents
 
 
   return (
@@ -86,31 +80,7 @@ const showAssociateDialog = (targetComponent) => {
 	visible={currentAssociateModal==='seller'} 
 	data={{supplyOrderList:selectedRows}} owner={owner}  
 	onCancel={()=>toggleAssociateModalVisible(targetComponent,'seller')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> <SupplyOrderConfirmationAssociateForm 
-	visible={currentAssociateModal==='confirmation'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'confirmation')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'confirmation')}/> <SupplyOrderApprovalAssociateForm 
-	visible={currentAssociateModal==='approval'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'approval')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'approval')}/> <SupplyOrderProcessingAssociateForm 
-	visible={currentAssociateModal==='processing'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'processing')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'processing')}/> <SupplyOrderPickingAssociateForm 
-	visible={currentAssociateModal==='picking'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'picking')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'picking')}/> <SupplyOrderShipmentAssociateForm 
-	visible={currentAssociateModal==='shipment'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'shipment')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'shipment')}/> <SupplyOrderDeliveryAssociateForm 
-	visible={currentAssociateModal==='delivery'} 
-	data={{supplyOrderList:selectedRows}} owner={owner}  
-	onCancel={()=>toggleAssociateModalVisible(targetComponent,'delivery')} 
-	onCreate={()=>toggleAssociateModalVisible(targetComponent,'delivery')}/> 
+	onCreate={()=>toggleAssociateModalVisible(targetComponent,'seller')}/> 
  
 
 

@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   name: '双链小超四川省运营中心',
-  founded: '2019-03-06',
+  founded: '2017-05-04',
   countryId: 'RSCC000001',
 }
 */
@@ -53,7 +53,7 @@ class RetailStoreProvinceCenterCreateForm extends Component {
 
 
 
-  handleChange = (event, source) => {
+  handleImageChange = (event, source) => {
     console.log('get file list from change in update change:', source)
 
     const { fileList } = event
@@ -61,9 +61,9 @@ class RetailStoreProvinceCenterCreateForm extends Component {
 
     convertedImagesValues[source] = fileList
     this.setState({ convertedImagesValues })
-    console.log('/get file list from change in update change:', source)
+    console.log('/get file list from change in update change:', source, "file list" ,fileList)
   }
-	
+  
   
 
   render() {
@@ -213,7 +213,7 @@ class RetailStoreProvinceCenterCreateForm extends Component {
         wrapperClassName={styles.advancedForm}
       >
    			
-   		<RetailStoreProvinceCenterCreateFormBody	 {...this.props} />
+   		<RetailStoreProvinceCenterCreateFormBody	 {...this.props} handleImageChange={this.handleImageChange}/>
 
 
         <FooterToolbar>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './CityPartner.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -72,26 +72,52 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(cityPartner,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(cityPartner, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={cityPartner.id}>
+    <Card key={cityPartner.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(cityPartner.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={cityPartner.id} size="small" col="2" >
+      <DescriptionList  key={cityPartner.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{cityPartner.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{cityPartner.name}</Description> 
         <Description term={fieldLabels.mobile} style={{wordBreak: 'break-all'}}>{cityPartner.mobile}</Description> 
-        <Description term={fieldLabels.cityServiceCenter}><div>{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${cityPartner.cityServiceCenter.displayName}(${cityPartner.cityServiceCenter.id})`}
-        </div></Description>
+        <Description term={fieldLabels.cityServiceCenter}><Tag color='blue' title={`${cityPartner.cityServiceCenter.id}-${cityPartner.cityServiceCenter.displayName}`}>{cityPartner.cityServiceCenter==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(cityPartner.cityServiceCenter.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.description} style={{wordBreak: 'break-all'}}>{cityPartner.description}</Description> 
         <Description term={fieldLabels.lastUpdateTime}><div>{ moment(cityPartner.lastUpdateTime).format('YYYY-MM-DD HH:mm')}</div></Description> 
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -118,8 +144,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const CityPartnerBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const CityPartnerBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default CityPartnerBase
-
-
 

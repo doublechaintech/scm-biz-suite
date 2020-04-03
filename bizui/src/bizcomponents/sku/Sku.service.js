@@ -38,7 +38,7 @@ const transferToAnotherProduct = (id, parameters) => {
 
 
 const addGoods = (targetObjectId, parameters) => {
-  const url = `${PREFIX}skuManager/addGoods/skuId/name/rfid/uom/maxPackage/expireTime/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/packagingId/tokensExpr/`
+  const url = `${PREFIX}skuManager/addGoods/skuId/name/rfid/uom/maxPackage/expireTime/receivingSpaceId/goodsAllocationId/smartPalletId/shippingSpaceId/transportTaskId/retailStoreId/bizOrderId/retailStoreOrderId/tokensExpr/`
   const skuId = targetObjectId
   const requestParameters = { ...parameters, skuId, tokensExpr: 'none' }
   return postForm({ url,requestParameters})

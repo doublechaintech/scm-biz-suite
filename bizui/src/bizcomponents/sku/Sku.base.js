@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon,Divider, Avata, Card, Col} from 'antd'
+import { Icon,Divider, Avatar, Card, Col, Tag} from 'antd'
 
 import { Link } from 'dva/router'
 import moment from 'moment'
@@ -9,7 +9,7 @@ import BaseTool from '../../common/Base.tool'
 import GlobalComponents from '../../custcomponents'
 import DescriptionList from '../../components/DescriptionList'
 const { Description } = DescriptionList
-
+import styles from './Sku.base.less'
 const {
 	defaultRenderReferenceCell,
 	defaultRenderBooleanCell,
@@ -77,19 +77,45 @@ const displayColumns = [
 
 
 const searchLocalData =(targetObject,searchTerm)=> defaultSearchLocalData(menuData,targetObject,searchTerm)
-
-const renderItemOfList=(sku,targetComponent)=>{
-
+const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+let counter = 0;
+const genColor=()=>{
+	counter++;
+	return colorList[counter%colorList.length];
+}
+const followColor=()=>{
+	return 'green';
+	// return colorList[counter%colorList.length];
+}
+const leftChars=(value, left)=>{
+	const chars = left || 4
+	if(!value){
+		return "N/A"
+	}
+	return value.substring(0,chars);
+}
+const renderItemOfList=(sku, targetComponent, columCount)=>{
+  const displayColumnsCount = columCount || 4
   const userContext = null
   return (
-    <div key={sku.id}>
+    <Card key={sku.id} style={{marginTop:"10px"}}>
+		
+	<Col span={4}>
+		<Avatar size={90} style={{ backgroundColor: genColor(), verticalAlign: 'middle' }}>
+			{leftChars(sku.displayName)}
+		</Avatar>
+	</Col>
+	<Col span={20}>
+	  
+	  
+	 
 	
-      <DescriptionList  key={sku.id} size="small" col="2" >
+      <DescriptionList  key={sku.id} size="small" col={displayColumnsCount} >
         <Description term={fieldLabels.id} style={{wordBreak: 'break-all'}}>{sku.id}</Description> 
         <Description term={fieldLabels.name} style={{wordBreak: 'break-all'}}>{sku.name}</Description> 
         <Description term={fieldLabels.size} style={{wordBreak: 'break-all'}}>{sku.size}</Description> 
-        <Description term={fieldLabels.product}><div>{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${sku.product.displayName}(${sku.product.id})`}
-        </div></Description>
+        <Description term={fieldLabels.product}><Tag color='blue' title={`${sku.product.id}-${sku.product.displayName}`}>{sku.product==null?appLocaleName(userContext,"NotAssigned"):`${leftChars(sku.product.displayName,15)}`}
+        </Tag></Description>
         <Description term={fieldLabels.barcode} style={{wordBreak: 'break-all'}}>{sku.barcode}</Description> 
         <Description term={fieldLabels.packageType} style={{wordBreak: 'break-all'}}>{sku.packageType}</Description> 
         <Description term={fieldLabels.netContent} style={{wordBreak: 'break-all'}}>{sku.netContent}</Description> 
@@ -97,8 +123,8 @@ const renderItemOfList=(sku,targetComponent)=>{
 	
         
       </DescriptionList>
-      <Divider style={{ height: '2px' }} />
-    </div>
+     </Col>
+    </Card>
 	)
 
 }
@@ -125,8 +151,6 @@ const stepOf=(targetComponent, title, content, position, index)=>{
 		index,
       }
 }
-const SkuBase={menuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
+const SkuBase={menuData,settingMenuData,displayColumns,fieldLabels,renderItemOfList, stepOf, searchLocalData}
 export default SkuBase
-
-
 

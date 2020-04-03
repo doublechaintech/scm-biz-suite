@@ -164,11 +164,11 @@ class CityPartnerDashboard extends Component {
     }
     const returnURL = this.props.returnURL
     
-    const cardsData = {cardsName:"城市合伙人",cardsFor: "cityPartner",
+    const cardsData = {cardsName:window.trans('city_partner'),cardsFor: "cityPartner",
     	cardsSource: this.props.cityPartner,returnURL,displayName,
   		subItems: [
-{name: 'potentialCustomerList', displayName:'潜在的客户',viewGroup:'__no_group', type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
-{name: 'potentialCustomerContactList', displayName:'潜在客户联系',viewGroup:'__no_group', type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
+{name: 'potentialCustomerList', displayName: window.mtrans('potential_customer','city_partner.potential_customer_list',false) ,viewGroup:'__no_group', type:'potentialCustomer',count:potentialCustomerCount,addFunction: true, role: 'potentialCustomer', metaInfo: potentialCustomerListMetaInfo, renderItem: GlobalComponents.PotentialCustomerBase.renderItemOfList},
+{name: 'potentialCustomerContactList', displayName: window.mtrans('potential_customer_contact','city_partner.potential_customer_contact_list',false) ,viewGroup:'__no_group', type:'potentialCustomerContact',count:potentialCustomerContactCount,addFunction: true, role: 'potentialCustomerContact', metaInfo: potentialCustomerContactListMetaInfo, renderItem: GlobalComponents.PotentialCustomerContactBase.renderItemOfList},
     
       	],
    		subSettingItems: [
@@ -198,8 +198,9 @@ class CityPartnerDashboard extends Component {
       >
        
         {renderExtraHeader(cardsData.cardsSource)}
-        {imageListOf(cardsData.cardsSource)}  
+        
         {quickFunctions(cardsData)} 
+        {imageListOf(cardsData.cardsSource)}  
         {renderAnalytics(cardsData.cardsSource)}
         {settingListOf(cardsData.cardsSource)}
         {renderSubjectList(cardsData)}       
