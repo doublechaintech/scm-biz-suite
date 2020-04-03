@@ -212,7 +212,7 @@ gradle编译过程大约持续10秒到20秒这样得到编译后的classes，生
 
 通过执行如下命令，把项目工程连接到Resin下，这样就可以以retailscm名字来启动webapp
 ```
-ln -s  $PWD/bizcore  ~/resin-3.1.16/webapps/retailscm
+ln -s  ~/retailscm-biz-suite/bizcore  ~/resin-3.1.16/webapps/retailscm
 ```
 ### 启动Resin
 准备后了就可以启动后端
