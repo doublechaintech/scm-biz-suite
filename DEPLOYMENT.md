@@ -9,20 +9,20 @@
 
 * [复制代码到本地](#复制代码到本地)
 * [编译部署前端](#编译部署前端 )
-* [安装nodejs](#安装nodejs)
-* [安装yarn](#安装yarn)
-* [编译前端](#编译前端)
+** [安装nodejs](#安装nodejs)
+** [安装yarn](#安装yarn)
+** [编译前端](#编译前端)
 * [编译和部署后端](#编译和部署后端)
-* [安装基础环境](#安装基础环境)
-* [下载并且解压Resin](#下载并且解压Resin)
-* [安装docker](#安装docker)
-* [安装和运行MYSQL和Redis](#安装和运行MYSQL和Redis)
-* [编译后端](#编译后端)
-* [启动Resin](#启动Resin)
-* [访问后台](#访问后台)
-* [测试前端](#测试前端)
-* [配置nginx](#配置nginx（ 非生产环境的话，不是必要步骤）)
-* [配置nginx](#SpringBoot开发指南)
+** [安装基础环境](#安装基础环境)
+** [下载并且解压Resin](#下载并且解压Resin)
+** [安装docker](#安装docker)
+** [安装和运行MYSQL和Redis](#安装和运行MYSQL和Redis)
+** [编译后端](#编译后端)
+** [启动Resin](#启动Resin)
+** [访问后台](#访问后台)
+** [测试前端](#测试前端)
+** [配置nginx](#配置nginx)
+** [SpringBoot开发指南](#SpringBoot开发指南)
 
 
 
@@ -283,7 +283,9 @@ cd  retailscm-biz-suite/bizui && cp -R dist/* ~/resin-3.1.16/webapps/ROOT/admin
 
 
 
-### 配置nginx（ 非生产环境的话，不是必要步骤）
+### 配置nginx
+
+非生产环境的话，不是必要步骤
 
 这一步非常简单，拷贝下面内容文件到 ubuntu上 /etc/nginx/sites-enabled/demo, 然后 service ngnix restart
 请注意替换服务器名字
