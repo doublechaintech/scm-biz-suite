@@ -11,7 +11,7 @@ git clone https://github.com/doublechaintech/retailscm-biz-suite.git
 
 ## 前端 
 
-！前端编译涉及到没有移植版本的x64/x86代码无法在在鲲鹏服务器上完成
+
 
 ### 安装nodejs
 ```
@@ -20,6 +20,8 @@ sudo apt-get install -y nodejs
 ```
 
 ## 安装yarn 
+
+注意：前端编译涉及到没有移植版本的x64/x86代码无法在在鲲鹏服务器上完成
 
 ```
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
