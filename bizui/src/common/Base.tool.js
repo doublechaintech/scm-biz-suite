@@ -1,15 +1,13 @@
 
 import React from 'react'
 import { Link } from 'dva/router'
-<<<<<<< HEAD
 import { Icon, Divider, Avatar, Card, Col,Tag} from 'antd'
 
 
-=======
->>>>>>> b1266426b024c6919f91c6b5be4635d10d614fe9
 import moment from 'moment'
 import ImagePreview from '../components/ImagePreview'
 import appLocaleName from './Locale.tool'
+
 
 const defaultRenderTextCell=(value, record)=>{
 	const userContext = null
@@ -233,6 +231,81 @@ const defaultSearchLocalData=(menuData, targetObject, searchName)=>{
 
 
 
+const subList=(listData,searchValue)=>{
+
+	if(!searchValue){
+		return listData
+	}
+    return listData.filter(item=>item.name.indexOf(searchValue)>=0)
+  }
+const allTreeLeafKeys=(listData)=>{
+    return listData.map(item=>item.id)
+}
+
+const hasTreeNodes=(listData)=>{
+    return listData.filter(item=>item.valuesOfGroupBy&&item.valuesOfGroupBy.length>0).length>0
+}
+
+// 兼容TreeSelect/Tree/Cascader
+
+const genTree=(listData, searchValue)=>{
+    
+    const parentNodes = [];
+    const rootTree = {children:[]}
+    subList(listData,searchValue)
+      .map(item=>{
+
+        const {valuesOfGroupBy} = item
+        const child = {title:item.name,key:item.id,value:item.id,label:item.name}
+        const {length} = valuesOfGroupBy
+        if(valuesOfGroupBy && length === 0){
+          // no parent node, the child it self is the root 
+          rootTree.children.push(child)
+          return
+        }
+        const itemParentNodes = []
+        itemParentNodes.push(rootTree)
+        // enrich all ancestors
+        valuesOfGroupBy.forEach((groupItem,index)=>
+          {
+            const key = `${groupItem}-${index}`
+            const itemParentNode = parentNodes[key]
+            if(!itemParentNode){
+              // if there are no node registered, then add it
+              const newRootItem={title:groupItem,key,value:key,label:groupItem,level:index,children:[]}
+              parentNodes[key] = newRootItem
+              itemParentNodes.push(newRootItem)
+              return
+            }
+            // found! then push to parent nodes
+            itemParentNodes.push(itemParentNode)
+
+          }
+        )
+        itemParentNodes.push(child)
+
+       
+        // connect to all the ancestors
+        itemParentNodes.forEach((node,index)=>{
+
+          if(index>0){
+            const prev = itemParentNodes[index-1]
+            const current = itemParentNodes[index]
+            if(prev.children.filter(childItem=>childItem.key===current.key).length===0){
+              prev.children.push(current)
+            }
+          }
+        })
+        return {...item, itemParentNodes}
+        // ensure parent nodes
+        
+           
+    })
+    
+    return rootTree.children
+    
+    
+  }
 
 const BaseTool = {
     defaultRenderReferenceCell,
@@ -247,6 +320,7 @@ const BaseTool = {
 	defaultRenderAvatarCell,
 	defaultSearchLocalData,
 	defaultRenderNumberCell,
+	allTreeLeafKeys,genTree,hasTreeNodes,
    
   };
   

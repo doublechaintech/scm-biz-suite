@@ -30,6 +30,9 @@ class NormalLoginForm extends Component {
     });
   };
   render() {
+    console.log("React.version: "+React.version)
+    
+
     const { getFieldDecorator } = this.props.form;
 
     if (!this.props.launcher) {

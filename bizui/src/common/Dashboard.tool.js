@@ -22,6 +22,7 @@ import { Link, Route, Redirect } from 'dva/router';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
 import appLocaleName from './Locale.tool';
+
 import {
   ChartCard,
   MiniArea,
@@ -44,7 +45,7 @@ const { Option } = Select;
 
 const topColResponsiveProps = {
   xs: 8,
-  sm: 6,
+  sm: 8,
   md: 6,
   lg: 6,
   xl: 6,
@@ -154,14 +155,14 @@ const renderForNumbers = aggregatedData => {
             // console.log("week of the year for ", dateItem.date, " week number",weeknumber)
             itemTotal += dateItem[item];
           });
-
-        if (itemTotal < 5) {
+        
+        if (itemTotal < 2) {
           return null;
         }
-
+        /*
         if (visitData.length < 10) {
           return null;
-        }
+        }*/
         let ChartComp = MiniArea;
 
         if (visitData.length < 10) {
@@ -625,7 +626,7 @@ const renderFunctions = (mainObject) => {
 
 const defaultRenderExtraHeader = mainObject => {
   
-  return (<div>{renderFunctions(mainObject)}  <br/>  </div>)
+  return (<div>{renderFunctions(mainObject)}  </div>)
 
 
 };
@@ -719,7 +720,7 @@ const defaultRenderSubjectList = cardsData => {
              
             {
              
-              targetObject[listItem.name].map(item=>(listItem.renderItem(item,null,6)))
+              targetObject[listItem.name].map(item=>(listItem.renderItem(item,null,6,listItem.name)))
             }
            
     
@@ -990,11 +991,9 @@ const CustomFunction=(cardsData)=>{
 
 const defaultQuickFunctions = cardsData => {
   
-  // listItem.renderItem(item)
-  const targetObject = cardsData.cardsSource
   
   return (
-    <div style={{marginBottom:'24px',marginLeft: '8px',marginRight:'8px'}}>
+    <div style={{marginLeft: '8px',marginRight:'8px'}}>
     {CustomFunction(cardsData)}
     {
       groupMenuOf(cardsData).map(groupItem=>(
