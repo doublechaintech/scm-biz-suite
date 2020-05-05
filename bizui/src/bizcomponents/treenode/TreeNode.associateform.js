@@ -21,7 +21,7 @@ const testValues = {
   nodeId: 'node000001',
   nodeType: 'nodetype',
   leftValue: '1',
-  rightValue: '9',
+  rightValue: '8',
 }
 */
 

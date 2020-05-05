@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '账套2017',
   yearSet: '2017年',
-  effectiveDate: '2017-12-14',
+  effectiveDate: '2019-03-04',
   accountingSystem: '企业会计制度',
   domesticCurrencyCode: 'RMB',
   domesticCurrencyName: '人民币',

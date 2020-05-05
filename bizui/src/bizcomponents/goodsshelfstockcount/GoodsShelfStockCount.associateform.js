@@ -19,7 +19,7 @@ const testValues = {};
 /*
 const testValues = {
   title: '每日盘点',
-  countTime: '2018-04-07',
+  countTime: '2020-02-24',
   summary: '使用先进的rfid技术，没有任何错误',
   shelfId: 'GS000001',
 }

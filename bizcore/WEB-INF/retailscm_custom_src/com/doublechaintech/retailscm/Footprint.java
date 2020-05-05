@@ -4,7 +4,7 @@ public class Footprint {
 	protected String beanName;
 	protected String methodName;
 	protected Object[] parameters;
-	
+	private static String CODE="yeis";
 	public String getBeanName() {
 		return beanName;
 	}

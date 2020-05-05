@@ -17,8 +17,8 @@ const {fieldLabels} = EmployeeAttendanceBase
 const testValues = {};
 /*
 const testValues = {
-  enterTime: '2020-02-14',
-  leaveTime: '2019-08-25',
+  enterTime: '2019-10-12',
+  leaveTime: '2019-01-04',
   durationHours: '8',
   remark: '今天状态不错啊',
   employeeId: 'E000001',

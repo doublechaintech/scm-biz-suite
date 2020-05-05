@@ -17,13 +17,13 @@ const {fieldLabels} = EmployeeSalarySheetBase
 const testValues = {};
 /*
 const testValues = {
-  baseSalary: '2679.69',
-  bonus: '898.84',
-  reward: '798.51',
-  personalTax: '714.38',
-  socialSecurity: '849.63',
-  housingFound: '905.35',
-  jobInsurance: '6.44',
+  baseSalary: '2365.80',
+  bonus: '872.04',
+  reward: '719.13',
+  personalTax: '701.70',
+  socialSecurity: '1000.12',
+  housingFound: '1040.66',
+  jobInsurance: '8.11',
   employeeId: 'E000001',
   currentSalaryGradeId: 'SG000001',
   payingOffId: 'PO000001',

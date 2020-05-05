@@ -17,7 +17,7 @@ const {fieldLabels} = EmployeeAwardBase
 const testValues = {};
 /*
 const testValues = {
-  completeTime: '2018-09-30',
+  completeTime: '2019-08-06',
   type: '明星员工',
   remark: '考试成绩当年第一名',
   employeeId: 'E000001',

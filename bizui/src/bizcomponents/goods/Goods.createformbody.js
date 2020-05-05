@@ -21,7 +21,7 @@ const testValues = {
   rfid: 'RF99192',
   uom: '件',
   maxPackage: '9',
-  expireTime: '2018-07-23',
+  expireTime: '2019-01-19',
   skuId: 'S000001',
   receivingSpaceId: 'RS000001',
   goodsAllocationId: 'GA000001',

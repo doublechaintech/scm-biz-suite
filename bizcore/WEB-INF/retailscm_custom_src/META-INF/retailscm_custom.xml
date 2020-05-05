@@ -50,6 +50,33 @@
 
 	</bean>
 
+	<!-- 手机号+验证码 认证 -->
+	<bean id="mobileVCodeIdentifier" class="com.doublechaintech.retailscm.iamservice.MobileVCodeHandler"/>
+	<!-- 账号(ID|手机号|账号|email)+密码 认证 -->
+	<bean id="accountPasswordIdentifier" class="com.doublechaintech.retailscm.iamservice.LoginIdAndPasswordHandler"/>
+	<!-- 微信小程序 认证
+	<bean id="wechatMiniProgramIdentifier" class="com.doublechaintech.retailscm.iamservice.WechatMiniprogramHandler">
+		<property name="wxService" ref="wxMaService"/>
+	</bean>
+	-->
+	<!-- 企业微信小程序 认证
+	<bean id="wechatWorkMiniProgramIdentifier" class="com.doublechaintech.retailscm.iamservice.WechatWorkAppHandler">
+		<property name="wxService" ref="wxCpService"/>
+	</bean>
+	 -->
+	<!-- 登录服务配置 -->
+	<bean id="iamService" class="com.doublechaintech.retailscm.services.IamService">
+		<property name="idHandlers">
+			<map>
+				<entry key="MOBILE://.*" value-ref="mobileVCodeIdentifier"/>
+				<entry key="PASSWORD://.*" value-ref="accountPasswordIdentifier"/>
+				<!--
+				<entry key="WECHAT_MINIPROGRAM://.*" value-ref="wechatMiniProgramIdentifier"/>
+				<entry key="WECHAT_WORK_MINIPROGRAM://.*" value-ref="wechatWorkMiniProgramIdentifier"/>
+				-->
+			</map>
+		</property>
+	</bean>
 
 
 

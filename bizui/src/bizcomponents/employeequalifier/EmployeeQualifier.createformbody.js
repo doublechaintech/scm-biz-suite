@@ -17,7 +17,7 @@ const {fieldLabels} = EmployeeQualifierBase
 const testValues = {};
 /*
 const testValues = {
-  qualifiedTime: '2018-04-19',
+  qualifiedTime: '2018-11-20',
   type: '认证药剂师',
   level: '高级',
   remark: '考试成绩当年第一名',
